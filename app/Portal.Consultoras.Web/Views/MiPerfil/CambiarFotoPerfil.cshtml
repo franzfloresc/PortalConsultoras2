@@ -24,7 +24,7 @@ else
 </div>
 <section class="vista_cambiar_foto_perfil">
     <div class="wrapper_content_cambiar_foto_perfil">
-        <a href="@Url.Action("Index", "Bienvenida", new { area = "" })" style="display: none;" id="volverBienbenida">Volver</a>
+        <a href="@Url.Action("Index", "Bienvenida", new { area = "" })" style="display: none;" id="volverBienvenida">Volver</a>
         <div>
             <a href="@Url.Action("Index", "MiPerfil", new {area = ""})" title="Volver" class="enlace_volver_a_mi_perfil text-uppercase text-bold">
                 <span class="icono_cerrar">
@@ -58,13 +58,13 @@ else
                                         if (responseJSON.success) {
                                                 SubirImagen('@Url.Action("Index", "Bienvenida", new { area = "" })', responseJSON.name);
                                         } else {
-                                                alert('Hubo un error al cargar el archivo, intente nuevamente.');
+                                                alert('Hubo un error al cargar el archivo, intente nuevamente en unos minitos.');
                                         }
                                     }
                                 },
-                                    onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); console.log('cancelo');},
-                                    onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); console.log('cancelo');},
-                                    onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); console.log('cancelo'); }
+                                    onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                    onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                    onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
                             });
                             inputElegirImagen = document.querySelector('input[type="file"]');
                             inputElegirImagen.setAttribute("id", "ElegirImagen");

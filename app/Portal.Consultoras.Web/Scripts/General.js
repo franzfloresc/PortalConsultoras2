@@ -37,14 +37,6 @@ jQuery(document).ready(function () {
             });
         }
     }
-
-    if ($('#imgFotoUsuario').width() < $('#imgFotoUsuario').height()) {
-        $('#imgFotoUsuario').css({ 'width': '100%', 'height': 'auto' });
-        $('#imgFotoUsuarioHeader').css({ 'width': '100%', 'height': 'auto' });
-    } else {
-        $('#imgFotoUsuario').css({ 'width': 'auto', 'height': '100%' });
-        $('#imgFotoUsuarioHeader').css({ 'width': 'auto', 'height': '100%' });
-    }
 });
 (function ($) {
     $.fn.Readonly = function (val) {

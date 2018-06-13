@@ -33,42 +33,42 @@ else
 <div class="content_belcorp">
     <section class="vista_cambiar_contrasenia">
         <div class="wrapper_content_cambiar_contrasenia">
-            <div>
+            <div id="contentPass">
                 <div class="form_cambiar_contrasenia">
                     <fieldset class="grupo_form_cambio_datos text-uppercase">
                         <div class="w-100">
-                            <input id="ContraseniaActual" name="ContraseniaActual" class="w-100" type="password" value="" />
-                            <label for="ContraseniaActual" class="w-100">Contraseña Actual</label>
+                            <input id="txtContraseniaAnterior" name="txtContraseniaAnterior" class="w-100" type="password" value="" />
+                            <label for="txtContraseniaAnterior" class="w-100">Contraseña Actual</label>
                             <a href="#" title="Ver password" class="enlace_ver_password icono_ver_password"></a>
                         </div>
                     </fieldset>
                     <fieldset class="grupo_form_cambio_datos text-uppercase">
                         <div class="w-100">
-                            <input id="NuevaContrasenia" name="NuevaContrasenia" class="w-100" type="password" value="" />
-                            <label for="NuevaContrasenia" class="w-100">Nueva contraseña</label>
+                            <input id="txtNuevaContrasenia01" name="txtNuevaContrasenia01" class="w-100" type="password" value="" />
+                            <label for="txtNuevaContrasenia01" class="w-100">Nueva contraseña</label>
                             <a href="#" title="Ver password" class="enlace_ver_password icono_ver_password"></a>
                         </div>
                     </fieldset>
                     <fieldset class="grupo_form_cambio_datos text-uppercase">
                         <div class="w-100">
-                            <input id="ConfirmarNuevaContrasenia" name="ConfirmarNuevaContrasenia" class="w-100" type="password" value="" />
-                            <label for="ConfirmarNuevaContrasenia" class="w-100">Repite la nueva contraseña</label>
+                            <input id="txtNuevaContrasenia02" name="txtNuevaContrasenia02" class="w-100" type="password" value="" />
+                            <label for="txtNuevaContrasenia02" class="w-100">Repite la nueva contraseña</label>
                             <a href="#" title="Ver password" class="enlace_ver_password icono_ver_password"></a>
                         </div>
                     </fieldset>
                     <fieldset class="grupo_form_cambio_datos text-uppercase pt-8">
                         <div class="pull-left text-left v-alignMiddle">
-                            <a href="#" title="Cancelar" class="enlace_cancelar">Cancelar</a>
+                            <a href="@Request.UrlReferrer" title="Cancelar" class="enlace_cancelar">Cancelar</a>
                         </div>
                         <div class="pull-right text-right v-alignMiddle">
-                            <button type="button" class="btn_cambiar_contrasenia text-uppercase text-bold default-background-color">
+                            <button id="btnCambiarPass" type="button" class="btn_cambiar_contrasenia text-uppercase text-bold default-background-color">
                                 Cambiar
                             </button>
                         </div>
                     </fieldset>
                 </div>
             </div>
-            <div class="contrasenia_actualizada text-center mt-40 mb-40" style="display:none;">
+            <div id="contentPassChange" class="contrasenia_actualizada text-center mt-40 mb-40" style="display:none;">
                 <div class="icono_actualizacion_contrasenia_exitosa"></div>
                 <h1 class="titulo_contrasenia_actualizada text-uppercase">
                     ¡Actualizaste <span class="text-bold">tu contraseña</span>!
@@ -76,7 +76,7 @@ else
                 <p class="mensaje_contrasenia_actualizada">
                     Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.
                 </p>
-                <button type="button" class="btn_acept text-uppercase text-bold default-background-color">Ok</button>
+                <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" class="btn_acept text-uppercase text-bold default-background-color" style="line-height: 45px;">Ok</a>
             </div>
         </div>
     </section>

@@ -53,7 +53,14 @@
                     </div>
                 </div>
                 <div class="foto_perfil_home">
-                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" />
+                    @if (ViewBag.FotoPerfilAncha)
+                    {
+                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width: auto; height: 100%;" />
+                    }
+                    else
+                    {
+                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width: 100%; height: auto;" />
+                    }
                 </div>
             }
             <div class="clear"></div>

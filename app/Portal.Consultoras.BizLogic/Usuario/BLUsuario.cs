@@ -14,6 +14,7 @@ using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Transactions;
 
@@ -396,12 +397,23 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 usuario.FotoOriginalSinModificar = usuario.FotoPerfil;
+                usuario.FotoPerfilAncha = false;
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
 
-                if (string.IsNullOrEmpty(usuario.FotoPerfil))
+                if (Common.Util.IsUrl(usuario.FotoPerfil) && Common.Util.ExisteUrlRemota(usuario.FotoPerfil))
+                {
+                    Stream StreamImagen = ConsultarImagen(usuario.FotoPerfil);
+                    var imagenConsultada = System.Drawing.Image.FromStream(StreamImagen);
+                    usuario.FotoPerfilAncha = (imagenConsultada.Width > imagenConsultada.Height ? true : false);
+                }
+
+                if (string.IsNullOrEmpty(usuario.FotoPerfil) || !Common.Util.ExisteUrlRemota(usuario.FotoPerfil))
+                {
                     usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
+                    usuario.FotoOriginalSinModificar = null;
+                }
 
                 var tabla = new BLTablaLogicaDatos();
 
@@ -422,6 +434,13 @@ namespace Portal.Consultoras.BizLogic
                 usuario = null;
             }
             return usuario;
+        }
+
+        private Stream ConsultarImagen(string URL)
+        {
+            HttpWebRequest request = ((HttpWebRequest)WebRequest.Create(URL));
+            HttpWebResponse response = ((HttpWebResponse)request.GetResponse());
+            return response.GetResponseStream();
         }
 
         public bool EsConsultoraNueva(BEUsuario usuario)

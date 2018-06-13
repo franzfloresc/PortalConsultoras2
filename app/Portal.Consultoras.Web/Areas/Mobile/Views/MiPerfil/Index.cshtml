@@ -1,4 +1,6 @@
 ﻿@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.MisDatosModel
 @{
     ViewBag.Title = "Mi Perfil";
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -15,7 +17,7 @@ else
 
 <!-- TÍTULO -->
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
@@ -30,29 +32,48 @@ else
     <section class="datos_usuario_iniciales w-100">
         <div class="wrapper_content_mi_perfil text-center">
             <div class="foto_consultora center-block">
+                <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" style="display: none;" id="volverBienvenida">Volver</a>
                 <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new {area = "Mobile"})" title="Editar imagen" class="icono_camara default-background-color"></a>
                 <div class="contenedor_foto_consultora">
-                    <img src="@Url.Content("~/Content/Images/icono_avatar.svg")" alt="Imagen Consultora" class="consultora_img" />
+                    @if (ViewBag.FotoPerfilAncha)
+                    {
+                        <img src="@ViewBag.FotoPerfil" alt="Imagen Consultora" style="width: auto; height: 100%;" />
+                    }
+                    else
+                    {
+                        <img src="@ViewBag.FotoPerfil" alt="Imagen Consultora" style="width: 100%; height: auto;" />
+                    }
                 </div>
             </div>
             <div class="datos_consultora text-uppercase">
                 <div class="nombre_consultora text-center text-bold">
-                    Valeria Tarazona Portocarrero
+                    @Model.NombreCompleto
                 </div>
                 <div class="datos_codigo_y_zona">
+                    <input type="hidden" id="hdn_CorreoMD" value="@Model.EMail" />
+                    <input type="hidden" id="hdn_CodigoUsuarioMD" value="@Model.CodigoUsuario" />
+                    <input type="hidden" id="hdn_CodigoUsuarioReal" value="@Model.CodigoUsuarioReal" />
+                    <input type="hidden" id="hdn_NombreCompletoMD" value="@Model.NombreCompleto" />
+                    <input type="hidden" id="hdn_NombreArchivoContratoMD" value="@Model.NombreArchivoContrato" />
+                    <input type="hidden" id="hdn_CaracterMinimo" value="@Model.limiteMinimoTelef" />
+                    <input type="hidden" id="hdn_ServicioSMS" value="@Model.ServiceSMS" />
+                    <input type="hidden" id="hdn_PuedeActualizar" value="@Model.ActualizaDatos" />
                     <div class="datos_codigo w-50 text-left">
-                        <span>Código :</span>
-                        <span class="text-bold">4567834372</span>
+                        <span>Código : </span>
+                        <span class="text-bold">@Model.CodigoUsuario</span>
                     </div>
                     <div class="datos_zona w-50 text-right">
-                        <span>Zona :</span>
-                        <span class="text-bold">9011</span>
+                        <span>Zona : </span>
+                        <span class="text-bold">@Model.Zona</span>
                     </div>
                 </div>
-                <div class="datos_gerente_zona">
-                    <span class="w-50 text-left">Gerente de zona : </span>
-                    <span class="w-50 text-right text-bold">Alejandra Vásquez</span>
-                </div>
+                @if (Model.NombreGerenteZonal != "")
+                {
+                    <div class="datos_gerente_zona">
+                        <span class="w-50 text-left">Gerente de zona : </span>
+                        <span class="w-50 text-right text-bold">@Model.NombreGerenteZonal</span>
+                    </div>
+                }
                 <a href="@Url.Action("CambiarContrasenia", "MiPerfil", new {area = "Mobile"})" title="Cambiar contraseña" class="enlace_cambiar_contrasenia_consultora text-bold">
                     <span class="icono_cambio_password"></span>
                     <span class="enlace_texto">Cambiar contraseña</span>
@@ -64,14 +85,14 @@ else
         <div class="wrapper_content_mi_perfil">
             <fieldset class="grupo_form_cambio_datos text-uppercase">
                 <div class="w-71">
-                    <input id="NombreCortoConsultora" name="NombreCortoConsultora" class="w-100" type="text" value="" />
-                    <label for="NombreCortoConsultora" class="w-100">¿Cómo quieres que te llamemos?</label>
+                    <input id="txtSobrenombreMD" name="txtSobrenombreMD" class="w-100" type="text" value="@Model.Sobrenombre" maxlength="80" />
+                    <label for="txtSobrenombreMD" class="w-100">¿Cómo quieres que te llamemos?</label>
                 </div>
             </fieldset>
             <fieldset class="grupo_form_cambio_datos text-uppercase">
                 <div class="w-71">
-                    <input id="CorreoElectronicoConsultora" name="CorreoElectronicoConsultora" class="w-100" type="text" value="" />
-                    <label for="CorreoElectronicoConsultora" class="w-100">Correo Electrónico</label>
+                    <input id="txtEMailMD" name="txtEMailMD" class="w-100" type="text" value="@Model.EMail" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" readonly />
+                    <label for="txtEMailMD" class="w-100">Correo Electrónico</label>
                 </div>
                 <a href="@Url.Action("ActualizarCorreo", "MiPerfil", new {area = "Mobile"})" title="Cambiar" class="enlace_cambiar_dato w-29 text-right">
                     <span class="icono_cambiar_dato"></span>
@@ -91,18 +112,18 @@ else
             </fieldset>
             <fieldset class="grupo_form_cambio_datos text-uppercase">
                 <div class="w-71">
-                    <input id="CelularConsultora" name="CelularConsultora" class="w-100" type="text" value="" />
-                    <label for="CelularConsultora" class="w-100">Celular</label>
+                    <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
+                    <label for="txtCelularMD" class="w-100">Celular</label>
                 </div>
-                <a href="@Url.Action("ActualizarCelular", "MiPerfil", new {area = "Mobile"})" title="Cambiar" class="enlace_cambiar_dato w-29 text-right">
+                <a id="btnCambiarCelular" href="@Url.Action("ActualizarCelular", "MiPerfil", new {area = "Mobile"})" title="Cambiar" class="enlace_cambiar_dato w-29 text-right">
                     <span class="icono_cambiar_dato"></span>
                     <span class="enlace_texto text-bold">Cambiar</span>
                 </a>
             </fieldset>
             <fieldset class="grupo_form_cambio_datos text-uppercase">
                 <div class="w-71">
-                    <input id="TelefonoFijoConsultora" name="CelularConsultora" class="w-100" type="text" value="" />
-                    <label for="TelefonoFijoConsultora" class="w-100">Número fijo</label>
+                    <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="text" value="@Model.Telefono" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
+                    <label for="txtTelefonoMD" class="w-100">Número fijo</label>
                 </div>
             </fieldset>
             <fieldset class="grupo_form_cambio_datos text-uppercase mb-26">
@@ -112,8 +133,8 @@ else
                 </a>
                 <div class="contenedor_campos_num_adicional w-100" style="display:none;">
                     <div class="w-71">
-                        <input id="NumeroAdicionalConsultora" name="NumeroAdicionalConsultora" class="w-100" type="text" value="" />
-                        <label for="NumeroAdicionalConsultora" class="label_num_adicional w-100">Número adicional</label>
+                        <input id="txtTelefonoTrabajoMD" name="txtTelefonoTrabajoMD" class="w-100" type="text" value="@Model.TelefonoTrabajo" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+                        <label for="txtTelefonoTrabajoMD" class="label_num_adicional w-100">Número adicional</label>
                     </div>
                     <a href="#" title="Cambiar" class="enlace_eliminar_numero_adicional w-29 text-right">
                         <span class="icono_eliminar_numero_adicional"></span>
@@ -122,13 +143,44 @@ else
                 </div>
             </fieldset>
             <div class="linea_separadora"></div>
-            <fieldset class="grupo_form_cambio_datos text-uppercase">
-                <div class="w-100 text-right">
-                    <button type="button" class="btn_guardar_datos_nuevos default-background-color text-uppercase text-bold w-100">
-                        Guardar
+            <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                <div class="checkbox_condiciones">
+                    <input type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />
+                    <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
+                        <span class="asterisco_actualizar_datos">(*)&nbsp;</span>
+                        <span>
+                            Declaro que he leído los
+                            <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span>
+                            sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="linea_separadora"></div>
+            @if (Model.PaisID == Constantes.PaisID.Colombia)
+            {
+            <div class="datos_obligatorios" style="margin-bottom: 20px;">
+                Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
+            </div>
+                <div class="contenedor_boton_actualizar">
+                    <button type="button" class="btn_actualizarMisDatos" id="btnActualizarMD">
+                        ACEPTAR
                     </button>
                 </div>
-            </fieldset>
+            }
+            else
+            {
+                <div class="datos_obligatorios" style="margin-bottom: 20px;">
+                    <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
+                </div>
+                <fieldset class="grupo_form_cambio_datos text-uppercase">
+                    <div class="w-100 text-right">
+                        <button id="btnGuardar" type="button" class="btn_guardar_datos_nuevos default-background-color text-uppercase text-bold w-100">
+                            Guardar
+                        </button>
+                    </div>
+                </fieldset>
+            }
         </div>
     </section>
 </div>

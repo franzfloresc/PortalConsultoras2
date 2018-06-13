@@ -1252,8 +1252,8 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
 
                     usuarioModel.PuedeActualizar = usuario.PuedeActualizar;
-
                     usuarioModel.PuedeEnviarSMS = usuario.PuedeEnviarSMS;
+                    usuarioModel.FotoPerfilAncha = usuario.FotoPerfilAncha;
 
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);

@@ -5058,6 +5058,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.EsMobile = 1;
 
             ViewBag.FotoPerfil = userData.FotoPerfil;
+            ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
+            ViewBag.FotoPerfilSinModificar = (string.IsNullOrWhiteSpace(userData.FotoOriginalSinModificar) ? "" : userData.FotoOriginalSinModificar);
 
             ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
             ViewBag.CodigoEstrategia = GetCodigoEstrategia();

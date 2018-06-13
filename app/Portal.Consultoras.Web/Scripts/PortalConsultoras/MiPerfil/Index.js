@@ -102,12 +102,6 @@ $(document).ready(function () {
     MiPerfil = new vistaMiPerfil();
     MiPerfil.Inicializar();
 
-    if ($('#imgFotoPerfilCambiar').width() < $('#imgFotoPerfilCambiar').height()) {
-        $('#imgFotoPerfilCambiar').css({ 'width': '100%', 'height': 'auto' });
-    } else {
-        $('#imgFotoPerfilCambiar').css({ 'width': 'auto', 'height': '100%' });
-    }
-
     $("#btnCambiarPass").click(function () { CambiarContrasenia(); });
 
     $("#btnGuardar").click(function () { actualizarDatos(); });
@@ -223,7 +217,7 @@ function actualizarDatos() {
         return false;
     }
 
-    waitingDialog({});
+    mostratSpinner('abrir');
 
     var item = {
         CodigoUsuario: jQuery('#hdn_CodigoUsuarioReal').val(),
@@ -247,14 +241,14 @@ function actualizarDatos() {
         async: true,
         success: function (data) {
             if (checkTimeout(data)) {
-                closeWaitingDialog();
+                mostratSpinner('cerrar');
                 alert(data.message);
-                window.location = $('#volverBienbenida').attr('href');
+                window.location = $('#volverBienvenida').attr('href');
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                closeWaitingDialog();
+                mostratSpinner('cerrar');
                 alert("ERROR");
             }
         }
@@ -268,6 +262,8 @@ function ValidarTelefono(celular) {
         Telefono: celular
     };
 
+    mostratSpinner('abrir');
+
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Bienvenida/ValidadTelefonoConsultora',
@@ -277,14 +273,14 @@ function ValidarTelefono(celular) {
         async: false,
         cache: false,
         success: function (data) {
-            closeWaitingDialog();
+            mostratSpinner('cerrar');
             if (!checkTimeout(data))
                 resultado = false;
             else
                 resultado = data.success;
         },
         error: function (data, error) {
-            closeWaitingDialog();
+            mostratSpinner('cerrar');
         }
     });
 
@@ -321,6 +317,7 @@ function limitarMaximo(e, contenido, caracteres, id) {
 }
 
 function CambiarContrasenia() {
+    mostratSpinner('abrir');
     var oldPassword = $("#txtContraseniaAnterior").val();
     var newPassword01 = $("#txtNuevaContrasenia01").val();
     var newPassword02 = $("#txtNuevaContrasenia02").val();
@@ -345,6 +342,7 @@ function CambiarContrasenia() {
 
     if (vMessage != "") {
         alert(vMessage);
+        mostratSpinner('cerrar');
         return false;
     } else {
 
@@ -353,7 +351,6 @@ function CambiarContrasenia() {
             NewPassword: newPassword01
         };
 
-        waitingDialog({});
         jQuery.ajax({
             type: 'POST',
             url: baseUrl + 'MiPerfil/CambiarContrasenia',
@@ -363,7 +360,7 @@ function CambiarContrasenia() {
             async: true,
             success: function (data) {
                 if (checkTimeout(data)) {
-                    closeWaitingDialog();
+                    mostratSpinner('cerrar');
                     if (data.success == true) {
                         if (data.message == "0") {
                             $("#txtContraseniaAnterior").val('');
@@ -390,7 +387,7 @@ function CambiarContrasenia() {
             },
             error: function (data, error) {
                 if (checkTimeout(data)) {
-                    closeWaitingDialog();
+                    mostratSpinner('cerrar');
                     alert("Error en el Cambio de Contraseña");
                 }
             }
@@ -400,7 +397,7 @@ function CambiarContrasenia() {
 
 function eliminarFotoConsultora() {
     var item = {}
-    waitingDialog({});
+    mostratSpinner('abrir');
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'MiPerfil/EliminarFoto',
@@ -411,14 +408,14 @@ function eliminarFotoConsultora() {
         cache: false,
         success: function (data) {
             if (checkTimeout(data)) {
-                closeWaitingDialog();
+                mostratSpinner('cerrar');
                 alert(data.message);
-                window.location = $('#volverBienbenida').attr('href');
+                window.location = $('#volverBienvenida').attr('href');
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                closeWaitingDialog();
+                mostratSpinner('cerrar');
                 alert("ERROR");
             }
         }
@@ -430,7 +427,7 @@ function SubirImagen(url, image) {
         nameImage: image
     }
 
-    waitingDialog({});
+    mostratSpinner('abrir');
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'MiPerfil/SubirImagen',
@@ -441,19 +438,28 @@ function SubirImagen(url, image) {
         cache: false,
         success: function (data) {
             if (data.success) {
-                closeWaitingDialog();
+                mostratSpinner('cerrar');
                 alert('Su foto de perfil se cambio correctamente.');
                 window.location = url;
             } else {
                 alert('Hubo un error al cargar el archivo, intente nuevamente.');
-                closeWaitingDialog();
+                mostratSpinner('cerrar');
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
+                mostratSpinner('cerrar');
                 closeWaitingDialog();
                 alert("ERROR");
             }
         }
     });
+}
+
+function mostratSpinner(valor) {
+    var mobile = isMobile();
+    if (mobile) {
+        return (valor == 'abrir' ? ShowLoading() : CloseLoading());
+    }
+    return (valor == 'abrir' ? waitingDialog({}) : closeWaitingDialog());
 }
