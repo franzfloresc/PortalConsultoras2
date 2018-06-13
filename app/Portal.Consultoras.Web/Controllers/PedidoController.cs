@@ -3689,18 +3689,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Parametria Oferta Final
 
-        //private List<BEEscalaDescuento> GetParametriaOfertaFinal(string algoritmo)
         private List<ServiceOferta.BEEscalaDescuento> GetParametriaOfertaFinal(string algoritmo)
         {
-            //List<BEEscalaDescuento> listaParametriaOfertaFinal;
             List<ServiceOferta.BEEscalaDescuento> listaParametriaOfertaFinal;
 
             try
             {
-                //using (var sv = new PedidoServiceClient())
-                //{
-                //    listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID, algoritmo).ToList();
-                //}
                 using (var osc = new OfertaServiceClient())
                 {
                     listaParametriaOfertaFinal = osc.GetParametriaOfertaFinal(userData.PaisID, algoritmo).ToList();
@@ -3709,7 +3703,6 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                //listaParametriaOfertaFinal = new List<BEEscalaDescuento>();
                 listaParametriaOfertaFinal = new List<ServiceOferta.BEEscalaDescuento>();
             }
 
