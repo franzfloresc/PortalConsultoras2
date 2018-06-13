@@ -14,6 +14,7 @@ using Portal.Consultoras.Web.Infraestructure.Validator.Phone;
 using AutoMapper;
 using System.ServiceModel;
 using System.Collections.Generic;
+using System.Net;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -237,7 +238,17 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     userData.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), nameImage);
+
+                    if (Util.IsUrl(userData.FotoPerfil))
+                    {
+                        Stream StreamImagen = ConsultarImagen(userData.FotoPerfil);
+                        var imagenConsultada = System.Drawing.Image.FromStream(StreamImagen);
+                        userData.FotoPerfilAncha = (imagenConsultada.Width > imagenConsultada.Height ? true : false);
+                        ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
+                    }
+
                     userData.FotoOriginalSinModificar = nameImage;
+                    ViewBag.FotoPerfilSinModificar = nameImage;
 
                     SetUserData(userData);
                     result = true;
@@ -250,6 +261,13 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, "", "");
                 return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
             }
+        }
+
+        private Stream ConsultarImagen(string URL)
+        {
+            HttpWebRequest request = ((HttpWebRequest)WebRequest.Create(URL));
+            HttpWebResponse response = ((HttpWebResponse)request.GetResponse());
+            return response.GetResponseStream();
         }
 
         [HttpPost]
@@ -271,6 +289,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 userData.FotoPerfil = "../../Content/Images/icono_avatar.svg";
                 userData.FotoOriginalSinModificar = null;
+                userData.FotoPerfilAncha = false;
+                ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
+                ViewBag.FotoPerfilSinModificar = "";
 
                 SetUserData(userData);
 

@@ -371,5 +371,6 @@ namespace Portal.Consultoras.Web.Models
         public string FotoOriginalSinModificar { get; set; }
         public bool PuedeEnviarSMS { get; set; }
         public bool PuedeActualizar { get; set; }
+        public bool FotoPerfilAncha { get; set; }
     }
 }

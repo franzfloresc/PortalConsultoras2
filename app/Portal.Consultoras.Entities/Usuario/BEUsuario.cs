@@ -1456,5 +1456,7 @@ namespace Portal.Consultoras.Entities
         public bool PuedeActualizar { get; set; }
         [DataMember]
         public bool PuedeEnviarSMS { get; set; }
+        [DataMember]
+        public bool FotoPerfilAncha { get; set; }
     }
 }
