@@ -2004,61 +2004,23 @@ namespace Portal.Consultoras.Web.Controllers
 
             return lst;
         }
-
-        public EstadoCuentaModel ObtenerUltimoMovimientoEstadoCuenta()
-        {
-            var ultimoMovimiento = new EstadoCuentaModel
-            {
-                Glosa = ""
-            };
-
-            if (userData.TienePagoEnLinea)
-            {
-                BEPagoEnLineaResultadoLog ultimoPagoEnLinea;
-                using (PedidoServiceClient ps = new PedidoServiceClient())
-                {
-                    ultimoPagoEnLinea = ps.ObtenerUltimoPagoEnLineaByConsultoraId(userData.PaisID, userData.ConsultoraID);
-                }
-
-                if (ultimoPagoEnLinea != null && ultimoPagoEnLinea.PagoEnLineaResultadoLogId != 0)
-                {
-                    var fechaUltimoPagoEnLinea = ultimoPagoEnLinea.FechaCreacion;
-                    var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-                    if (fechaUltimoPagoEnLinea.ToString("dd/MM/yyyy") == fechaHoy.ToString("dd/MM/yyyy"))
-                    {
-                        ultimoMovimiento.Simbolo = userData.Simbolo;
-                        ultimoMovimiento.Glosa = "PAGO EN LINEA";
-                        ultimoMovimiento.Fecha = fechaUltimoPagoEnLinea;
-                        ultimoMovimiento.FechaVencimiento = fechaUltimoPagoEnLinea.ToString("dd/MM/yyyy");
-                        ultimoMovimiento.FechaVencimientoFormatDiaMes = Util.ObtenerFormatoDiaMes(ultimoPagoEnLinea.FechaCreacion);
-                        ultimoMovimiento.TipoMovimiento = Constantes.EstadoCuentaTipoMovimiento.Abono;
-                        ultimoMovimiento.Abono = ultimoPagoEnLinea.MontoPago;
-                        ultimoMovimiento.Cargo = 0;
-                        ultimoMovimiento.MontoPagar = Util.DecimalToStringFormat(ultimoMovimiento.Abono, userData.CodigoISO);
-                    }
-                }
-            }
-
-            return ultimoMovimiento;
-        }
-
-        public string GetFechaPromesaEntrega(int paisId, int campaniaId, string codigoConsultora, DateTime fechaFact)
-        {
-            var sFecha = Convert.ToDateTime("2000-01-01").ToString();
-            try
-            {
-                using (var sv = new UsuarioServiceClient())
-                {
-                    sFecha = sv.GetFechaPromesaCronogramaByCampania(paisId, campaniaId, codigoConsultora, fechaFact);
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-            return sFecha;
-        }
+        
+        //public string GetFechaPromesaEntrega(int paisId, int campaniaId, string codigoConsultora, DateTime fechaFact)
+        //{
+        //    var sFecha = Convert.ToDateTime("2000-01-01").ToString();
+        //    try
+        //    {
+        //        using (var sv = new UsuarioServiceClient())
+        //        {
+        //            sFecha = sv.GetFechaPromesaCronogramaByCampania(paisId, campaniaId, codigoConsultora, fechaFact);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //    }
+        //    return sFecha;
+        //}
 
         #endregion
 

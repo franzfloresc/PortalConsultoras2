@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceSAC;
 using System;
@@ -17,6 +18,13 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class MisPagosController : BaseController
     {
+        protected EstadoCuentaProvider _estadoCuentaProvider;
+
+        public MisPagosController()
+        {
+            _estadoCuentaProvider = new EstadoCuentaProvider();
+        }
+
         #region Acciones
 
         public ActionResult Index(string pestanhaInicial)
@@ -93,7 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             });
 
-            var ultimoMovimiento = ObtenerUltimoMovimientoEstadoCuenta();
+            var ultimoMovimiento = _estadoCuentaProvider.ObtenerUltimoMovimientoEstadoCuenta(userData.PaisID, userData.TienePagoEnLinea, userData.ConsultoraID, userData.ZonaHoraria, userData.Simbolo, userData.CodigoISO);
 
             items = items.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
