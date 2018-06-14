@@ -818,7 +818,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
 
                             mensajeFechaDa = diasemana + " " + fechaDa.Day.ToString() + " de " +
-                                             NombreMes(fechaDa.Month) + " (" + cierrezonademanti + ")";
+                                             Util.NombreMes(fechaDa.Month) + " (" + cierrezonademanti + ")";
                         }
 
                         validar = true;

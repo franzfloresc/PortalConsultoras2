@@ -8,7 +8,6 @@ using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
@@ -16,7 +15,6 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -110,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var horaCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
                 var diaActual = DateTime.Today.Add(horaCierrePortal);
-                var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
+                var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month);
 
                 if (!userData.DiaPROL)  // Periodo de venta
                 {
@@ -265,9 +263,9 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.MostrarPedidosPendientes = "0";
                 ViewBag.LanzarTabConsultoraOnline = (lanzarTabConsultoraOnline) ? "1" : "0";
 
-                if (GetMostrarPedidosPendientesFromConfig())
+                if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
                 {
-                    var paisesConsultoraOnline = GetPaisesConConsultoraOnlineFromConfig();
+                    var paisesConsultoraOnline = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
                     if (paisesConsultoraOnline.Contains(userData.CodigoISO)
                         && userData.EsConsultora())
                     {
@@ -311,13 +309,13 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EmailActivo = userData.EMailActivo;
                 #endregion
                 ViewBag.paisISO = userData.CodigoISO;
-                ViewBag.Ambiente = GetBucketNameFromConfig();
+                ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
                 ViewBag.CodigoConsultora = userData.CodigoConsultora;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 var ofertaFinal = sessionManager.GetOfertaFinalModel();
                 ViewBag.OfertaFinalEstado = ofertaFinal.Estado;
                 ViewBag.OfertaFinalAlgoritmo = ofertaFinal.Algoritmo;
-                ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
+                ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
             }
             catch (FaultException ex)
             {
@@ -392,7 +390,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetMarcaPorCodigoIso(string codigoIso)
         {
-            return GetPaisesEsikaFromConfig().Contains(codigoIso) ? "Ésika" : "L'bel";
+            return _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(codigoIso) ? "Ésika" : "L'bel";
         }
 
         private string GetPaisesFlexiPago()
@@ -1846,109 +1844,6 @@ namespace Portal.Consultoras.Web.Controllers
             return revistaGana;
         }
 
-        public ActionResult ObtenerProductosSugeridos(string CUV)
-        {
-            var listaProductoModel = new List<ProductoModel>();
-
-            try
-            {
-                List<ServiceODS.BEProducto> listaProduto;
-                using (var sv = new ODSServiceClient())
-                {
-                    listaProduto = sv.GetProductoSugeridoByCUV(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), CUV, userData.RegionID,
-                        userData.ZonaID, userData.CodigorRegion, userData.CodigoZona).ToList();
-                }
-
-                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-                var esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
-
-                var listaTieneStock = new List<Lista>();
-
-                if (esFacturacion)
-                {
-                    var txtBuil = new StringBuilder();
-
-                    foreach (var beProducto in listaProduto)
-                    {
-                        if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
-                        {
-                            txtBuil.Append(beProducto.CodigoProducto + "|");
-                        }
-                    }
-
-                    var codigoSap = txtBuil.ToString();
-                    codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
-
-                    try
-                    {
-                        if (!string.IsNullOrEmpty(codigoSap))
-                        {
-                            using (var sv = new wsConsulta())
-                            {
-                                sv.Url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.RutaServicePROLConsultas);
-                                listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-
-                        listaTieneStock = new List<Lista>();
-                    }
-                }
-
-                foreach (var beProducto in listaProduto)
-                {
-                    var tieneStockProl = true;
-                    if (esFacturacion)
-                    {
-                        var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == beProducto.CodigoProducto);
-                        if (itemStockProl != null) tieneStockProl = itemStockProl.estado == 1;
-                    }
-
-                    if (beProducto.TieneStock && tieneStockProl)
-                    {
-                        listaProductoModel.Add(new ProductoModel()
-                        {
-                            CUV = beProducto.CUV.Trim(),
-                            Descripcion = beProducto.Descripcion.Trim(),
-                            PrecioCatalogoString = Util.DecimalToStringFormat(beProducto.PrecioCatalogo, userData.CodigoISO),
-                            PrecioCatalogo = beProducto.PrecioCatalogo,
-                            MarcaID = beProducto.MarcaID,
-                            EstaEnRevista = beProducto.EstaEnRevista,
-                            TieneStock = true,
-                            EsExpoOferta = beProducto.EsExpoOferta,
-                            CUVRevista = beProducto.CUVRevista.Trim(),
-                            CUVComplemento = beProducto.CUVComplemento.Trim(),
-                            IndicadorMontoMinimo = beProducto.IndicadorMontoMinimo.ToString().Trim(),
-                            TipoOfertaSisID = beProducto.TipoOfertaSisID,
-                            ConfiguracionOfertaID = beProducto.ConfiguracionOfertaID,
-                            MensajeCUV = "",
-                            DesactivaRevistaGana = -1,
-                            DescripcionMarca = beProducto.DescripcionMarca,
-                            DescripcionEstrategia = beProducto.DescripcionEstrategia,
-                            DescripcionCategoria = beProducto.DescripcionCategoria,
-                            FlagNueva = beProducto.FlagNueva,
-                            TipoEstrategiaID = beProducto.TipoEstrategiaID,
-                            ImagenProductoSugerido = beProducto.ImagenProductoSugerido ?? "",
-                            ImagenProductoSugeridoSmall = ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall),
-                            ImagenProductoSugeridoMedium = ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium),
-                            CodigoProducto = beProducto.CodigoProducto,
-                            TieneStockPROL = true
-                        });
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                listaProductoModel = null;
-            }
-
-            return Json(listaProductoModel, JsonRequestBehavior.AllowGet);
-        }
-       
         [HttpPost]
         public JsonResult ValidarCuvMarquesina(string CampaniaID, string Cuv, string IdBanner)
         {
@@ -2286,7 +2181,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void SetMensajesBotonesProl(PedidoSb2Model model, bool reservaProl)
         {
-            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
+            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month);
             var horaCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             var diaActual = DateTime.Today.Add(horaCierrePortal);
 
@@ -2539,7 +2434,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var horaCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             var diaActual = DateTime.Today.Add(horaCierrePortal);
-            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
+            var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month);
 
             if (!userData.DiaPROL)
             {
@@ -2588,7 +2483,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
-            ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
+            ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
 
             return View(model);
         }
@@ -3307,13 +3202,13 @@ namespace Portal.Consultoras.Web.Controllers
             var marca = string.Empty;
             if (lst.Any())
             {
-                marca = GetDescripcionMarca(string.IsNullOrEmpty(lst[0].MarcaID) ? 0 : Convert.ToInt32(lst[0].MarcaID));
+                marca = Util.GetDescripcionMarca(string.IsNullOrEmpty(lst[0].MarcaID) ? 0 : Convert.ToInt32(lst[0].MarcaID));
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                 lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO));
 
                 if (lst.Count > 1)
                 {
-                    marca = marca + "," + GetDescripcionMarca(string.IsNullOrEmpty(lst[1].MarcaID) ? 0 : Convert.ToInt32(lst[1].MarcaID));
+                    marca = marca + "," + Util.GetDescripcionMarca(string.IsNullOrEmpty(lst[1].MarcaID) ? 0 : Convert.ToInt32(lst[1].MarcaID));
                 }
             }
             return Json(new

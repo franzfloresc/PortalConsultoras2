@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.SolicitudClienteId = SolicitudId;
                 model.FechaEjecucion = fechaEjecucion;
                 model.MarcaID = beSolicitudCliente.MarcaID;
-                model.FechaDescripcion = fechaEjecucion.Day + " de " + NombreMes(fechaEjecucion.Month);
+                model.FechaDescripcion = fechaEjecucion.Day + " de " + Util.NombreMes(fechaEjecucion.Month);
                 model.TelefonoCliente = beSolicitudCliente.Telefono;
                 model.NombreCliente = beSolicitudCliente.NombreCompleto;
                 model.EmailCliente = beSolicitudCliente.Email;

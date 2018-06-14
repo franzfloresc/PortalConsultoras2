@@ -309,7 +309,7 @@ namespace Portal.Consultoras.BizLogic
                 Premio.Importante = 0;
                 if (concurso.FechaVentaRetail.HasValue && concurso.PuntajeTotal < Premio.PuntajeMinimo && DateTime.Today <= concurso.FechaVentaRetail)
                 {
-                    Premio.Mensaje = string.Format(Incentivos.CompraENBelcenter, concurso.FechaVentaRetail.Value.Day, Util.NombreMes(concurso.FechaVentaRetail.Value.Month));
+                    Premio.Mensaje = string.Format(Incentivos.CompraENBelcenter, concurso.FechaVentaRetail.Value.Day, Util.NombreMesAbrev(concurso.FechaVentaRetail.Value.Month));
                     Premio.Importante = 2;
                 }
                 else if (concurso.PuntajeTotal >= Premio.PuntajeMinimo)

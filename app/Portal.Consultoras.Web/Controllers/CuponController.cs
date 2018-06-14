@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, correoNuevo, "UrlReturn,cupon" };
                     string paramQuerystring = Util.Encrypt(string.Join(";", parametros));
 
-                    bool tipopais = GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
+                    bool tipopais = _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
 
                     var cadena = MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), userData.Sobrenombre, paramQuerystring, tipopais);
 
@@ -103,7 +103,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string url = Util.GetUrlHost(this.HttpContext.Request).ToString();
                 string montoLimite = ObtenerMontoLimiteDelCupon();
                 CuponConsultoraModel cuponModel = ObtenerDatosCupon();
-                bool tipopais = GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
+                bool tipopais = _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
                 string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url, montoLimite, tipopais);
                 string correo = userData.EMail;
                 Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);

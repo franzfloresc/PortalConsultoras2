@@ -2,11 +2,14 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,11 +17,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
     public class EstrategiaController : BaseEstrategiaController 
     {
-        private readonly GuiaNegocioProvider _guiaNegocioProvider;
-
         public EstrategiaController()
         {
-            _guiaNegocioProvider = new GuiaNegocioProvider();
         }
 
         [HttpPost]
@@ -64,7 +64,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 var listModel = ConsultarEstrategiasHomePedido(codAgrupa);
 
-                model.CodigoEstrategia = GetCodigoEstrategia();
+                model.CodigoEstrategia = _revistaDigitalProvider.GetCodigoEstrategia();
                 model.Consultora = userData.Sobrenombre;
                 model.Titulo = userData.Sobrenombre + " LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
                 model.TituloDescripcion = tipoOrigenEstrategia == "1" ? "ENCUENTRA MÁS OFERTAS, MÁS BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS Y AUMENTA TUS GANANCIAS" :
@@ -262,6 +262,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
             return listPerdioFormato;
         }
+
         public JsonResult ObtenerProductosOfertaFinal(int tipoOfertaFinal)
         {
             try
@@ -287,6 +288,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 });
             }
         }
+
         private List<ProductoModel> ObtenerListadoProductosOfertaFinal(int tipoOfertaFinal)
         {
             var paisesConPcm = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesConPcm);
@@ -354,14 +356,116 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                         imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagenUrl, carpetapais);
                     }
                     p.ImagenProductoSugerido = imagenUrl;
-                    p.ImagenProductoSugeridoSmall = ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
-                    p.ImagenProductoSugeridoMedium = ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
+                    p.ImagenProductoSugeridoSmall = _baseProvider.ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
+                    p.ImagenProductoSugeridoMedium = _baseProvider.ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
                     p.TipoCross = tipoCross;
                 });
             }
 
             return listaProductoModel;
         }
-        
+
+        public ActionResult ObtenerProductosSugeridos(string CUV)
+        {
+            var listaProductoModel = new List<ProductoModel>();
+
+            try
+            {
+                List<ServiceODS.BEProducto> listaProduto;
+                using (var sv = new ODSServiceClient())
+                {
+                    listaProduto = sv.GetProductoSugeridoByCUV(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), CUV, userData.RegionID,
+                        userData.ZonaID, userData.CodigorRegion, userData.CodigoZona).ToList();
+                }
+
+                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                var esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+
+                var listaTieneStock = new List<Lista>();
+
+                if (esFacturacion)
+                {
+                    var txtBuil = new StringBuilder();
+
+                    foreach (var beProducto in listaProduto)
+                    {
+                        if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
+                        {
+                            txtBuil.Append(beProducto.CodigoProducto + "|");
+                        }
+                    }
+
+                    var codigoSap = txtBuil.ToString();
+                    codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(codigoSap))
+                        {
+                            using (var sv = new wsConsulta())
+                            {
+                                sv.Url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.RutaServicePROLConsultas);
+                                listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+                        listaTieneStock = new List<Lista>();
+                    }
+                }
+
+                foreach (var beProducto in listaProduto)
+                {
+                    var tieneStockProl = true;
+                    if (esFacturacion)
+                    {
+                        var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == beProducto.CodigoProducto);
+                        if (itemStockProl != null) tieneStockProl = itemStockProl.estado == 1;
+                    }
+
+                    if (beProducto.TieneStock && tieneStockProl)
+                    {
+                        listaProductoModel.Add(new ProductoModel()
+                        {
+                            CUV = beProducto.CUV.Trim(),
+                            Descripcion = beProducto.Descripcion.Trim(),
+                            PrecioCatalogoString = Util.DecimalToStringFormat(beProducto.PrecioCatalogo, userData.CodigoISO),
+                            PrecioCatalogo = beProducto.PrecioCatalogo,
+                            MarcaID = beProducto.MarcaID,
+                            EstaEnRevista = beProducto.EstaEnRevista,
+                            TieneStock = true,
+                            EsExpoOferta = beProducto.EsExpoOferta,
+                            CUVRevista = beProducto.CUVRevista.Trim(),
+                            CUVComplemento = beProducto.CUVComplemento.Trim(),
+                            IndicadorMontoMinimo = beProducto.IndicadorMontoMinimo.ToString().Trim(),
+                            TipoOfertaSisID = beProducto.TipoOfertaSisID,
+                            ConfiguracionOfertaID = beProducto.ConfiguracionOfertaID,
+                            MensajeCUV = "",
+                            DesactivaRevistaGana = -1,
+                            DescripcionMarca = beProducto.DescripcionMarca,
+                            DescripcionEstrategia = beProducto.DescripcionEstrategia,
+                            DescripcionCategoria = beProducto.DescripcionCategoria,
+                            FlagNueva = beProducto.FlagNueva,
+                            TipoEstrategiaID = beProducto.TipoEstrategiaID,
+                            ImagenProductoSugerido = beProducto.ImagenProductoSugerido ?? "",
+                            ImagenProductoSugeridoSmall = _baseProvider.ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall),
+                            ImagenProductoSugeridoMedium = _baseProvider.ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium),
+                            CodigoProducto = beProducto.CodigoProducto,
+                            TieneStockPROL = true
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                listaProductoModel = null;
+            }
+
+            return Json(listaProductoModel, JsonRequestBehavior.AllowGet);
+        }
     }
 }

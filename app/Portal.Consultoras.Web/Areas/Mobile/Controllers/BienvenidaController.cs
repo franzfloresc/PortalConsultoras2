@@ -86,7 +86,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
 
                 ViewBag.paisISO = userData.CodigoISO;
-                ViewBag.Ambiente = GetBucketNameFromConfig();
+                ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
                 ViewBag.NombreConsultora = model.NombreConsultora;
 
                 model.PartialSectionBpt = GetPartialSectionBptModel();

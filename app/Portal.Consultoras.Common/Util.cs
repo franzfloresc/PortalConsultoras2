@@ -2361,6 +2361,28 @@ namespace Portal.Consultoras.Common
             return paisNom;
         }
 
+        public static string GetPaisNombreByISO(string paisISO)
+        {
+            switch (paisISO)
+            {
+                case Constantes.CodigosISOPais.Argentina: return "argentina";
+                case Constantes.CodigosISOPais.Bolivia: return "bolivia";
+                case Constantes.CodigosISOPais.Chile: return "chile";
+                case Constantes.CodigosISOPais.Colombia: return "colombia";
+                case Constantes.CodigosISOPais.CostaRica: return "costarica";
+                case Constantes.CodigosISOPais.Dominicana: return "republicadominicana";
+                case Constantes.CodigosISOPais.Ecuador: return "ecuador";
+                case Constantes.CodigosISOPais.Guatemala: return "guatemala";
+                case Constantes.CodigosISOPais.Mexico: return "mexico";
+                case Constantes.CodigosISOPais.Panama: return "panama";
+                case Constantes.CodigosISOPais.Peru: return "peru";
+                case Constantes.CodigosISOPais.PuertoRico: return "puertorico";
+                case Constantes.CodigosISOPais.Salvador: return "elsalvador";
+                case Constantes.CodigosISOPais.Venezuela: return "venezuela";
+                default: return "sinpais";
+            }
+        }
+
         public static int GetPaisID(string ISO)
         {
             ISO = ISO.ToUpper();
@@ -3027,7 +3049,7 @@ namespace Portal.Consultoras.Common
             return ConfigurationManager.AppSettings["CONTEXTO_BASE"] + "/" + partialUrl;
         }
 
-        public static string NombreMes(int Mes)
+        public static string NombreMesAbrev(int Mes)
         {
             string result = string.Empty;
             switch (Mes)
@@ -3070,6 +3092,62 @@ namespace Portal.Consultoras.Common
                     break;
             }
             return result;
+        }
+        
+        public static string NombreMes(int mes)
+        {
+            var result = string.Empty;
+            switch (mes)
+            {
+                case 1:
+                    result = "Enero";
+                    break;
+                case 2:
+                    result = "Febrero";
+                    break;
+                case 3:
+                    result = "Marzo";
+                    break;
+                case 4:
+                    result = "Abril";
+                    break;
+                case 5:
+                    result = "Mayo";
+                    break;
+                case 6:
+                    result = "Junio";
+                    break;
+                case 7:
+                    result = "Julio";
+                    break;
+                case 8:
+                    result = "Agosto";
+                    break;
+                case 9:
+                    result = "Septiembre";
+                    break;
+                case 10:
+                    result = "Octubre";
+                    break;
+                case 11:
+                    result = "Noviembre";
+                    break;
+                case 12:
+                    result = "Diciembre";
+                    break;
+            }
+            return result;
+        }
+        
+        public static string ObtenerFormatoDiaMes(DateTime fecha)
+        {
+            string resultado = "";
+
+            var nombreMes = Util.NombreMesAbrev(fecha.Month);
+
+            resultado = fecha.Day + " " + nombreMes;
+
+            return resultado;
         }
 
         public static int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
@@ -3192,6 +3270,45 @@ namespace Portal.Consultoras.Common
 
             return colorStr == "" ? defecto : colorStr;
         }
+
+        public static string GetDescripcionMarca(int marcaId)
+        {
+            string result;
+
+            switch (marcaId)
+            {
+                case 1:
+                    result = "L'bel";
+                    break;
+                case 2:
+                    result = "Ésika";
+                    break;
+                case 3:
+                    result = "Cyzone";
+                    break;
+                case 4:
+                    result = "S&M";
+                    break;
+                case 5:
+                    result = "Home Collection";
+                    break;
+                case 6:
+                    result = "Finart";
+                    break;
+                case 7:
+                    result = "Generico";
+                    break;
+                case 8:
+                    result = "Glance";
+                    break;
+                default:
+                    result = "NO DISPONIBLE";
+                    break;
+            }
+
+            return result;
+        }
+
     }
 
     public static class DataRecord

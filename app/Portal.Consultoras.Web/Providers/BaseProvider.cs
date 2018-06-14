@@ -1,10 +1,12 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 
 namespace Portal.Consultoras.Web.Providers
@@ -86,6 +88,99 @@ namespace Portal.Consultoras.Web.Providers
             if (listaPaises.Contains(isoPais)) return ".||0";
             return ",|.|2";
         }
+
+        public string ObtenerRutaImagenResize(string rutaImagen, string rutaNombreExtension)
+        {
+            string ruta = "";
+
+            if (string.IsNullOrEmpty(rutaImagen))
+                return ruta;
+
+            var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
+
+            if (rutaImagen.ToLower().Contains(valorAppCatalogo))
+            {
+                string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
+                string soloExtension = Path.GetExtension(rutaImagen);
+
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
+                ruta = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + rutaNombreExtension + soloExtension);
+            }
+            else
+            {
+                ruta = Util.GenerarRutaImagenResize(rutaImagen, rutaNombreExtension);
+            }
+
+            return ruta;
+        }
+        
+        public string ObtenerDescripcionOferta(BEPedidoWebDetalle item)
+        {
+            var descripcion = "";
+            var pedidoValidado = sessionManager.GetPedidoValidado();
+
+            if (pedidoValidado)
+            {
+                if (!string.IsNullOrWhiteSpace(item.DescripcionOferta))
+                {
+                    descripcion = (item.DescripcionOferta.Replace("[", "")).Replace("]", "");
+                }
+                else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Liquidacion)
+                {
+                    descripcion = "OFERTA LIQUIDACIÓN";
+                }
+                else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Flexipago)
+                {
+                    descripcion = "OFERTA FLEXIPAGO";
+                }
+                else
+                {
+                    descripcion = "";
+                }
+            }
+            else
+            {
+                if (item.FlagConsultoraOnline)
+                {
+                    descripcion = "CLIENTE ONLINE";
+                }
+                else
+                {
+                    if (item.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal)
+                    {
+                        descripcion = "";
+                    }
+                    else if (item.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal)
+                    {
+                        descripcion = "";
+                    }
+                    else if (!string.IsNullOrWhiteSpace(item.DescripcionOferta))
+                    {
+                        descripcion = item.DescripcionOferta;
+                    }
+                    else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Liquidacion)
+                    {
+                        descripcion = "OFERTA LIQUIDACIÓN";
+                    }
+                    else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Flexipago)
+                    {
+                        descripcion = "OFERTA FLEXIPAGO";
+                    }
+                    else if (item.TipoOfertaSisID == Constantes.ConfiguracionOferta.ShowRoom)
+                    {
+                        descripcion = "OFERTAS ESPECIALES GANA+";
+                    }
+                    else
+                    {
+                        descripcion = "";
+                    }
+                }
+            }
+
+            return descripcion;
+        }
+        
     }
 
 }

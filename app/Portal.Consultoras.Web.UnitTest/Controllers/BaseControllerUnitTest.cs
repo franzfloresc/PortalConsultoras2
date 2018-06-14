@@ -463,10 +463,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     {
 
                     }
-                    protected override string GetDefaultGifMenuOfertas()
-                    {
-                        return "gif-por-defecto.gif";
-                    }
+                    //protected override string GetDefaultGifMenuOfertas()
+                    //{
+                    //    return "gif-por-defecto.gif";
+                    //}
                 }
                 [TestMethod]
                 public void GetUrlImagenMenuOfertas_ConsultoraNoEsikaParaMiSinEventoFestivo_TieneGifPorDefecto()

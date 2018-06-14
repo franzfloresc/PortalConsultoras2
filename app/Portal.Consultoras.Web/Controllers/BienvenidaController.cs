@@ -203,7 +203,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EMail = userData.EMail;
                 model.Celular = userData.Celular;
                 model.EmailActivo = userData.EMailActivo;
-                ViewBag.Ambiente = GetBucketNameFromConfig();
+                ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
                 TempData.Keep("MostrarPopupCuponGanaste");
 
                 ViewBag.FechaInicioCampania = userData.FechaInicioCampania;
@@ -668,7 +668,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var sp = userData.HoraCierreZonaDemAntiCierre;
                 var cierrezonademanti = new DateTime(sp.Ticks).ToString("HH:mm") + " hrs";
 
-                model.MensajeFechaDA = diasemana + " " + fechaDa.Day.ToString() + " de " + NombreMes(fechaDa.Month) +
+                model.MensajeFechaDA = diasemana + " " + fechaDa.Day.ToString() + " de " + Util.NombreMes(fechaDa.Month) +
                                        " (" + cierrezonademanti + ")";
 
                 return true;
@@ -1836,7 +1836,7 @@ namespace Portal.Consultoras.Web.Controllers
                     data = showRoomConsultora,
                     diaInicio = userData.FechaInicioCampania.AddDays(-showRoom.DiasAntes).Day,
                     diaFin = userData.FechaInicioCampania.Day,
-                    mesFin = NombreMes(userData.FechaInicioCampania.Month),
+                    mesFin = Util.NombreMes(userData.FechaInicioCampania.Month),
                     diasFaltan = (userData.FechaInicioCampania.AddDays(-showRoom.DiasAntes) - DateTime.Now.AddHours(userData.ZonaHoraria).Date).Days,
                     nombre = string.IsNullOrEmpty(userData.Sobrenombre)
                         ? userData.NombreConsultora
@@ -2185,12 +2185,23 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction(accion, controlador, new { area = area });
         }
 
+        private List<BEComunicado> ObtenerComunicadoPorConsultora()
+        {
+            using (var sac = new SACServiceClient())
+            {
+                var lstComunicados = sac.ObtenerComunicadoPorConsultora(UserData().PaisID, UserData().CodigoConsultora,
+                        Constantes.ComunicadoTipoDispositivo.Desktop, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
+
+                return lstComunicados.ToList();
+            }
+        }
+
         private void EnviarCorreoActivacionCupon()
         {
             var url = Util.GetUrlHost(this.HttpContext.Request).ToString();
             var montoLimite = ObtenerMontoLimiteDelCupon();
             var cuponModel = ObtenerDatosCupon();
-            var tipopais = GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
+            var tipopais = _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
             var mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url, montoLimite, tipopais);
             var correo = userData.EMail;
             Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);

@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class EstadoCuentaController : BaseMobileController
     {
+        protected EstadoCuentaProvider _estadoCuentaProvider;
+
+        public EstadoCuentaController()
+        {
+            _estadoCuentaProvider = new EstadoCuentaProvider();
+        }
+
         #region Acciones
 
         public ActionResult Index()
@@ -33,7 +41,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         {
                             Glosa = item.Glosa,
                             FechaVencimiento = item.Fecha.ToString("dd/MM/yyyy"),
-                            FechaVencimientoFormatDiaMes = ObtenerFormatoDiaMes(item.Fecha),
+                            FechaVencimientoFormatDiaMes = Util.ObtenerFormatoDiaMes(item.Fecha),
                             TipoMovimiento = item.Abono > 0
                                 ? Constantes.EstadoCuentaTipoMovimiento.Abono
                                 : item.Cargo > 0
@@ -44,7 +52,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         });
                 }
 
-                model.UltimoMovimiento = ObtenerUltimoMovimientoEstadoCuenta();
+                model.UltimoMovimiento = _estadoCuentaProvider.ObtenerUltimoMovimientoEstadoCuenta(userData.PaisID, userData.TienePagoEnLinea, userData.ConsultoraID, userData.ZonaHoraria, userData.Simbolo, userData.CodigoISO);
 
                 model.FechaVencimiento = userData.FechaLimPago.ToString("dd/MM/yyyy");
                 model.MontoPagarStr = Util.DecimalToStringFormat(userData.MontoDeuda, userData.CodigoISO);

@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var clienteModel = new MisCatalogosRevistasModel
             {
-                PaisNombre = GetPaisNombreByISO(userData.CodigoISO),
+                PaisNombre = Util.GetPaisNombreByISO(userData.CodigoISO),
                 CampaniaActual = userData.CampaniaID.ToString(),
                 CampaniaAnterior = Util.AddCampaniaAndNumero(userData.CampaniaID, -1, userData.NroCampanias).ToString(),
                 CampaniaSiguiente = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString(),
@@ -241,7 +241,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string urlIconEmail = "http://www.genesis-peru.com/mailing-belcorp/mensaje_mail.png";
                 string urlIconTelefono = "http://www.genesis-peru.com/mailing-belcorp/celu_mail.png";
 
-                if (!GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
+                if (!_configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
                 {
                     urlImagenLogo = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png";
                     urlIconEmail = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/SWR2zWZftNbE4mn/mensaje_mail.png";

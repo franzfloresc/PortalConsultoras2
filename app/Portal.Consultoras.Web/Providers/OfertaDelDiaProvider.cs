@@ -21,16 +21,12 @@ namespace Portal.Consultoras.Web.Providers
 
             try
             {
-                var ofertasDelDia = ObtenerOfertasDelDia(model);
+                var ofertasDelDia = GetOfertas(model);
+                if (!ofertasDelDia.Any()) return ofertasDelDiaModel;
 
-                if (!ofertasDelDia.Any())
-                    return ofertasDelDiaModel;
+                var personalizacionesOfertaDelDia = GetPersonalizaciones(model);
+                if (!personalizacionesOfertaDelDia.Any()) return ofertasDelDiaModel;
 
-                var personalizacionesOfertaDelDia = ObtenerPersonalizacionesOfertaDelDia(model);
-                if (!personalizacionesOfertaDelDia.Any())
-                    return ofertasDelDiaModel;
-
-                ofertasDelDia = ofertasDelDia.OrderBy(odd => odd.Orden).ToList();
                 var countdown = CountdownOdd(model);
 
                 var tablaLogica9301 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9301) ?? new BETablaLogicaDatos();
@@ -84,24 +80,27 @@ namespace Portal.Consultoras.Web.Providers
             return ofertasDelDiaModel;
         }
 
-        public List<ServiceOferta.BEEstrategia> ObtenerOfertasDelDia(UsuarioModel model)
+        public List<ServiceOferta.BEEstrategia> GetOfertas(UsuarioModel model)
         {
             List<ServiceOferta.BEEstrategia> ofertasDelDia;
-            using (OfertaServiceClient osc = new OfertaServiceClient())
+
+            using (var osc = new OfertaServiceClient())
             {
-                var lst = osc.GetEstrategiaODD(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date);
-                ofertasDelDia = lst.ToList();
+                ofertasDelDia = osc.GetEstrategiaODD(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
             }
+
+            ofertasDelDia = ofertasDelDia.OrderBy(odd => odd.Orden).ToList();
+
             return ofertasDelDia;
         }
 
-        public List<BETablaLogicaDatos> ObtenerPersonalizacionesOfertaDelDia(UsuarioModel model)
+        public List<BETablaLogicaDatos> GetPersonalizaciones(UsuarioModel model)
         {
             List<BETablaLogicaDatos> personalizacionesOfertaDelDia;
+
             using (var svc = new SACServiceClient())
             {
-                var lst = svc.GetTablaLogicaDatos(model.PaisID, Constantes.TablaLogica.PersonalizacionODD);
-                personalizacionesOfertaDelDia = lst.ToList();
+                personalizacionesOfertaDelDia = svc.GetTablaLogicaDatos(model.PaisID, Constantes.TablaLogica.PersonalizacionODD).ToList();
             }
 
             return personalizacionesOfertaDelDia;
