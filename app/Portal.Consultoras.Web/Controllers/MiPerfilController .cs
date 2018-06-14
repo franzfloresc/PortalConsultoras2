@@ -338,38 +338,48 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return Json(result);
             }
-
-            //var code = Util.GenerarCodigoRandom();
-
-            // send SmsCode
-            // save SmsCode
-            return Json(new
+            
+            using (var sv = new UsuarioServiceClient())
             {
-                Success = true
-            });
-        }
+                var response = await sv.RegistrarEnvioSmsAsync(
+                                        userData.PaisID,
+                                        userData.CodigoUsuario,
+                                        userData.Celular,
+                                        celular);
 
+                result.Success = response.Succcess;
+                response.Message = response.Message;
+            }
+
+            return Json(result);
+        }
 
         [HttpPost]
         public async Task<ActionResult> ConfirmarSmsCode(string smsCode)
         {
-            // verify timeout and sms code
-
-            var result = await new NotExistingPhone().Valid("");
-            if (!result.Success)
+            if (!userData.PuedeActualizar)
             {
-                return Json(new
+                return Json(new SimpleResult
                 {
-                    result.Success,
-                    PhoneError = result.Message
+                    Message = Constantes.MensajesError.UpdCorreoConsultora_NoAutorizado
                 });
             }
-            // update number phone
 
-            return Json(new
+            var result = new SimpleResult();
+
+            using (var sv = new UsuarioServiceClient())
             {
-                Success = true
-            });
+                var response = await sv.ConfirmarCelularPorCodigoSmsAsync(
+                                            userData.PaisID,
+                                            userData.CodigoUsuario,
+                                            smsCode,
+                                            userData.CampaniaID);
+
+                result.Success = response.Succcess;
+                response.Message = response.Message;
+            }
+
+            return Json(result);
         }
 
         private MultiPhoneValidator GetPhoneValidator()
@@ -390,6 +400,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoConsultora = userData.CodigoConsultora
                 }
             };
+
             var validator = new MultiPhoneValidator(validators);
 
             return validator;
