@@ -7,11 +7,11 @@ using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
+using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
+using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
 using System.Web;
-using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
-using Portal.Consultoras.Web.SessionManager.ShowRoom;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -463,6 +463,26 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<ServiceUsuario.BEUsuario>)HttpContext.Current.Session["BEUsuarioModel"];
         }
 
+        void ISessionManager.SetOfertasDelDia(OfertaDelDiaModel ofertasDelDia)
+        {
+            HttpContext.Current.Session["ListaOfertasDelDia"] = ofertasDelDia;
+        }
+
+        OfertaDelDiaModel ISessionManager.GetOfertasDelDia()
+        {
+            return (OfertaDelDiaModel)HttpContext.Current.Session["ListaOfertasDelDia"];
+        }
+
+        void ISessionManager.SetFlagOfertaDelDia(int ofertasDelDia)
+        {
+            HttpContext.Current.Session["FlagOfertaDelDia"] = ofertasDelDia;
+        }
+
+        bool ISessionManager.GetFlagOfertaDelDia()
+        {
+            var value = HttpContext.Current.Session["FlagOfertaDelDia"];
+            return value == null ? true : Convert.ToBoolean(value);
+        }
 
         EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
         {
