@@ -268,8 +268,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/jquery.flexslider.js",
                 "~/Scripts/jquery.rateyo.js",
                 "~/Scripts/jquery.easy-pie-chart.js",
-                "~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js",
-                "~/Scripts/PortalConsultoras/Bienvenida/PopusJS.js"
+                "~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"
             ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssPedido").Include(

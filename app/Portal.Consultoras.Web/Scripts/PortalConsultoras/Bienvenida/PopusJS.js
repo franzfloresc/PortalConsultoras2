@@ -1,151 +1,309 @@
-﻿var paraPopup = 0;
+﻿(function ($) {
+    $.each(['hide'], function (i, ev) { //'show', 
+        var el = $.fn[ev];
+        $.fn[ev] = function () {
+            this.trigger(ev);
+            return el.apply(this, arguments);
+        };
+    });
+})(jQuery);
+
+var paraPopup = 0;
 var paramVideoBienvenida = 0;
 var paramVioTutorialDesktop = 0;
 var cont = 0;
 var cancel = 0;
-var x = 1; 
+var x = 1;
+var timeoutHandle = 0;
+
 function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
-    if (cont==0) {
+
+    if (cont == 0) {
         paraPopup = param * 1;
         paramVideoBienvenida = VideoBienvenida * 1;
         paramVioTutorialDesktop = VioTutorialDesktop * 1;
         cont++;
-    }       
-    if (paraPopup>0) {
-        switch (paraPopup) {     
+    }
+    if (paraPopup > 0) {
+        switch (paraPopup) {
+
             case 1://video introductorio
-                if (cancel==0) {
+                if (cancel == 0) {
                     if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
                     if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
                     if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
                     document.getElementsByClassName('flexslider')[0].style.display = 'None';
                 }
-                for (var i = 0; i < document.querySelectorAll("img[src='/Content/Images/btn_cerrar_popup.svg']").length; i++) {
-                    var btn = document.querySelectorAll("img[src='/Content/Images/btn_cerrar_popup.svg']")[i];
-                    btn.onclick = function () {
 
-                        if (document.getElementById('videoIntroductorio').style.display == "" && paramVioTutorialDesktop == 1)
-                        {
 
-                                if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
-                                    document.getElementById('survicate-box').style.display = 'block';
+                $('#videoIntroductorio').on('hide', function () {
 
-                                    document.getElementsByClassName('surv-close')[0].onclick = function () {
-                                        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                        document.getElementsByClassName('flexslider')[0].style.display = 'block';                        
-                                        clearTimeout(timeoutHandle);
-                                    }
+                    //if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                    //    document.getElementById('survicate-box').style.display = 'block';
 
-                                    document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
-                                        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                        document.getElementsByClassName('flexslider')[0].style.display = 'block'; 
-                                        clearTimeout(timeoutHandle);
-                                    }
-                                }
-                                else {      
-                                        cancel = 1;
-                                        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                        document.getElementsByClassName('flexslider')[0].style.display = 'block'; 
-                                        clearTimeout(timeoutHandle);
-                                  }
-                         
-                        }else if (document.getElementById('videoIntroductorio').style.display == "none" && paramVioTutorialDesktop == 0) {
+                    //    $('#survicate-box').on('hide', function () {
+                    //        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                    //        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                    //        document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                    //    });
+                    //    cancel = 1;
+                    //} else {
+                    //    cancel = 1;
+                    //    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                    //    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                    //    document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                    //}
+                    //clearTimeout(timeoutHandle);
 
-                            if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
-                                document.getElementById('survicate-box').style.display = 'block';
+                    if (document.getElementById('videoIntroductorio').style.display == "" && paramVioTutorialDesktop == 1) {
 
-                                document.getElementsByClassName('surv-close')[0].onclick = function () {
-                                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                    document.getElementsByClassName('flexslider')[0].style.display = 'block'; 
-                                    clearTimeout(timeoutHandle);
-                                }
+                        if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                            document.getElementById('survicate-box').style.display = 'block';
 
-                                document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
-                                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                    document.getElementsByClassName('flexslider')[0].style.display = 'block'; 
-                                    clearTimeout(timeoutHandle);
-                                }
-                            }
-                            else {
-                                cancel = 1;
-                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                document.getElementsByClassName('flexslider')[0].style.display = 'block'; 
-                                clearTimeout(timeoutHandle);
-                        
-                            }
-                            
-                        }else if (VideoBienvenida ==1 && paramVioTutorialDesktop == 0) {
-
-                            if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
-                                document.getElementById('survicate-box').style.display = 'block';
-
-                                document.getElementsByClassName('surv-close')[0].onclick = function () {
-                                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                    document.getElementsByClassName('flexslider')[0].style.display = 'block'; 
-                                    clearTimeout(timeoutHandle);
-                                }
-
-                                document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
-                                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                    document.getElementsByClassName('flexslider')[0].style.display = 'block'; 
-                                    clearTimeout(timeoutHandle);
-                                }
-                            }
-                            else {
-                                cancel = 1;
-                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                document.getElementsByClassName('flexslider')[0].style.display = 'block'; 
-                                clearTimeout(timeoutHandle);
-                            }
-
-                        }
-
-                        document.getElementsByClassName('cerrar_tooltipTutorial')[0].onclick = function () {
-
-                            if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
-                                document.getElementById('survicate-box').style.display = 'block';
-
-                                document.getElementsByClassName('surv-close')[0].onclick = function () {
-                                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                    document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                                    clearTimeout(timeoutHandle);
-                                }
-
-                                document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
-                                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                    document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                                    clearTimeout(timeoutHandle);
-                                }
-                            }
-                            else {
-                                cancel = 1;
+                            document.getElementsByClassName('surv-close')[0].onclick = function () {
                                 if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
                                 if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
                                 document.getElementsByClassName('flexslider')[0].style.display = 'block';
                                 clearTimeout(timeoutHandle);
                             }
+
+                            document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
+                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                                document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                                clearTimeout(timeoutHandle);
+                                cancel = 1;
+                            }
                         }
-                        
+                        else {
+                            cancel = 1;
+                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                            document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                            clearTimeout(timeoutHandle);
+                        }
 
+                    } else if (document.getElementById('videoIntroductorio').style.display == "none" && paramVioTutorialDesktop == 0) {
 
+                        if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                            document.getElementById('survicate-box').style.display = 'block';
+
+                            document.getElementsByClassName('surv-close')[0].onclick = function () {
+                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                                document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                                clearTimeout(timeoutHandle);
+                                cancel = 1;
+                            }
+
+                            document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
+                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                                document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                                clearTimeout(timeoutHandle);
+                                cancel = 1;
+                            }
+                        }
+                        else {
+                            cancel = 1;
+                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                            document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                            clearTimeout(timeoutHandle);
+
+                        }
+
+                    } else if (VideoBienvenida == 1 && paramVioTutorialDesktop == 0) {
+
+                        if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                            document.getElementById('survicate-box').style.display = 'block';
+
+                            document.getElementsByClassName('surv-close')[0].onclick = function () {
+                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                                document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                                clearTimeout(timeoutHandle);
+                                cancel = 1;
+                            }
+
+                            document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
+                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                                document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                                clearTimeout(timeoutHandle);
+                                cancel = 1;
+                            }
+                        }
+                        else {
+                            cancel = 1;
+                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                            document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                            clearTimeout(timeoutHandle);
+                        }
 
                     }
+
+
+                    clearTimeout(timeoutHandle);
+
+                });
+
+                $('#popup_tutorial_home').on('hide', function () {
+
+
+                    clearTimeout(timeoutHandle);
+                    if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                        document.getElementById('survicate-box').style.display = 'block';
+
+                        document.getElementsByClassName('surv-close')[0].onclick = function () {
+                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                            document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                            clearTimeout(timeoutHandle);
+                            cancel = 1;
+                        }
+
+                        document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
+                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                            document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                            clearTimeout(timeoutHandle);
+                            cancel = 1;
+                        }
+                    }
+                    else {
+                        cancel = 1;
+                        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                        document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                        clearTimeout(timeoutHandle);
+                    }
+
+
+                })
+                
+                break;
+
+            case 4: //AceptacionContrato 
+                if (cancel == 0) {
+                    if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
+                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
+                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
+                    document.getElementsByClassName('flexslider')[0].style.display = 'None';
                 }
 
+                $('#popupAceptacionContrato').on('hide', function () {
 
+                    if (viewBagCambioClave != 0) {//ACTUALIZA DATOS
+               
+                        if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                            document.getElementById('survicate-box').style.display = 'block';
+
+                            $('#survicate-box').on('hide', function () {
+                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                                document.getElementsByClassName('flexslider')[0].style.display = 'block';
+
+                            });
+                            cancel = 1;
+                        } else {
+                            cancel = 1;
+                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                            document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                        }
+                        clearTimeout(timeoutHandle);
+                    }
+
+                });
+
+            break;
+            case 6://ActualizarDatos 
+                if (cancel == 0) {
+                    if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
+                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
+                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
+                    document.getElementsByClassName('flexslider')[0].style.display = 'None';
+                }
+
+                $('#popupActualizarMisDatos').on('hide', function () {
+
+                    if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                        document.getElementById('survicate-box').style.display = 'block';
+
+                        $('#survicate-box').on('hide', function () {
+                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                            document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                        });
+                        cancel = 1;
+                    } else {
+                        cancel = 1;
+                        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                        document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                    }
+                    clearTimeout(timeoutHandle);
+                });
+               
                 break;
-            //case 9: //RevistaDigitalSuscripcion 
+
+            case 7: //Flexipago 
+                if (cancel == 0) {
+                    if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
+                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
+                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
+                    document.getElementsByClassName('flexslider')[0].style.display = 'None';
+                }
+                $('#popupInvitaionFlexipago').on('hide', function () {
+
+                    if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                        document.getElementById('survicate-box').style.display = 'block';
+
+                        $('#survicate-box').on('hide', function () {
+                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                            document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                        });
+                        cancel = 1;
+                    } else {
+                        cancel = 1;
+                        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                        document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                    }
+                    clearTimeout(timeoutHandle);
+                });
+                break;
+            case 8://Comunicado 
+                if (cancel == 0) {
+                    if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
+                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
+                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
+                    document.getElementsByClassName('flexslider')[0].style.display = 'None';
+                }
+                $('#popupComunicados').on('hide', function () {
+
+                    if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                        document.getElementById('survicate-box').style.display = 'block';
+
+                        $('#survicate-box').on('hide', function () {
+                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                            document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                        });
+                        cancel = 1;
+                    } else {
+                        cancel = 1;
+                        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                        document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                    }
+                    clearTimeout(timeoutHandle);
+                });
+                break;
+             //case 9: //RevistaDigitalSuscripcion 
 
             //    if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
             //    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
@@ -203,80 +361,137 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
             //    };
 
             //    break;
-            case 10, 11: //Cupon 
-                if (cancel == 0) {
-                    if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
-                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
-                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
-                    document.getElementsByClassName('flexslider')[0].style.display = 'None';
-                }
 
-                for (var i = 0; i < document.querySelectorAll("img[src='/Content/Images/cerrar_04_blanco.png']").length; i++) {
-                    var btn = document.querySelectorAll("img[src='/Content/Images/cerrar_04_blanco.png']")[i];
-                    btn.onclick = function () {
-                        clearTimeout(timeoutHandle);
-                        if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
-                            document.getElementById('survicate-box').style.display = 'block';
-
-                            document.getElementsByClassName('surv-close')[0].onclick = function () {
-                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                            }
-
-                            document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
-                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                            }
-
-                        }
-
-                        else {
-                            cancel = 1;
-                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                            document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                        }
-                    }
-                }
-
-                document.getElementById('Cupon1').onclick = document.getElementById('Cupon2').onclick = document.getElementById('Cupon3').onclick = function () {
-                    if (document.getElementById('Cupon1').style.display == '' || document.getElementById('Cupon2').style.display == '' || document.getElementById('Cupon3').style.display == '') {
-                        clearTimeout(timeoutHandle);
-                        if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
-                            document.getElementById('survicate-box').style.display = 'block';
-
-                            document.getElementsByClassName('surv-close')[0].onclick = function () {
-                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                            }
-
-                            document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
-                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                            }
-
-                        }
-                        else {
-                            cancel = 1;
-                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                            document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                        }
-
-                    }
-                };       
-            break;
-            default:
-                clearTimeout(timeoutHandle);
+            case 10: //Cupon 
+                Cupon();
+                break;
+            case 11: //CuponForzado 
+                Cupon();
+                break;
         }
     }
     else {
         clearTimeout(timeoutHandle);
     }
-    timeoutHandle= setTimeout(MostrarPopusEnOrden, x * 10);
+
+    timeoutHandle = setTimeout(MostrarPopusEnOrden, x * 10);
 }
-MostraPopupOrdenCupon();
+
+function Cupon()
+{ 
+    if (cancel == 0) {
+        if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
+        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
+        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
+        document.getElementsByClassName('flexslider')[0].style.display = 'None';
+    }
+
+    $('#Cupon3').on('hide', function () {
+
+        if (document.getElementById('Cupon1').style.display == 'none' && document.getElementById('Cupon2').style.display == 'none') 
+        {
+            if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                document.getElementById('survicate-box').style.display = 'block';
+
+                document.getElementsByClassName('surv-close')[0].onclick = function () {
+                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                    document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                }
+
+                document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
+                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                    document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                }
+                cancel = 1;
+                clearTimeout(timeoutHandle);
+                
+            }
+            else {
+                cancel = 1;
+                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                clearTimeout(timeoutHandle);
+            
+            }
+
+        }
+
+   
+    });
+
+
+    $('#Cupon2').on('hide', function () {
+
+        if (document.getElementById('Cupon3').style.display == 'none' && document.getElementById('Cupon1').style.display == 'none') {
+
+            if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                document.getElementById('survicate-box').style.display = 'block';
+
+                document.getElementsByClassName('surv-close')[0].onclick = function () {
+                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                    document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                }
+
+                document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
+                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                    document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                }
+                cancel = 1;
+                clearTimeout(timeoutHandle);
+                
+            }
+            else {
+                cancel = 1;
+                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                clearTimeout(timeoutHandle);
+               
+            }
+
+        }
+
+    });
+
+
+    $('#Cupon1').on('hide', function () {
+
+        if (document.getElementById('Cupon2').style.display == 'none' && document.getElementById('Cupon3').style.display == 'none') {
+
+            if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                document.getElementById('survicate-box').style.display = 'block';
+
+                document.getElementsByClassName('surv-close')[0].onclick = function () {
+                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                    document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                }
+
+                document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
+                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                    document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                }
+                cancel = 1;
+                clearTimeout(timeoutHandle);
+             
+            }
+            else {
+                cancel = 1;
+                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                clearTimeout(timeoutHandle);
+             
+            }
+
+        }
+
+    });
+ 
+}
