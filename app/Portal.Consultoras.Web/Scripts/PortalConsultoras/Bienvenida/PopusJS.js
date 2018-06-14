@@ -35,45 +35,14 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
                     document.getElementsByClassName('flexslider')[0].style.display = 'None';
                 }
 
-
                 $('#videoIntroductorio').on('hide', function () {
-
-                    //if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
-                    //    document.getElementById('survicate-box').style.display = 'block';
-
-                    //    $('#survicate-box').on('hide', function () {
-                    //        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                    //        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                    //        document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                    //    });
-                    //    cancel = 1;
-                    //} else {
-                    //    cancel = 1;
-                    //    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                    //    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                    //    document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                    //}
-                    //clearTimeout(timeoutHandle);
 
                     if (document.getElementById('videoIntroductorio').style.display == "" && paramVioTutorialDesktop == 1) {
 
                         if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                             document.getElementById('survicate-box').style.display = 'block';
-
-                            document.getElementsByClassName('surv-close')[0].onclick = function () {
-                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                                clearTimeout(timeoutHandle);
-                            }
-
-                            document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
-                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                                clearTimeout(timeoutHandle);
-                                cancel = 1;
-                            }
+         
+                            valEncuesta=window.setInterval("ValidacionEncuesta()", 500);
                         }
                         else {
                             cancel = 1;
@@ -87,22 +56,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
 
                         if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                             document.getElementById('survicate-box').style.display = 'block';
-
-                            document.getElementsByClassName('surv-close')[0].onclick = function () {
-                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                                clearTimeout(timeoutHandle);
-                                cancel = 1;
-                            }
-
-                            document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
-                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                                clearTimeout(timeoutHandle);
-                                cancel = 1;
-                            }
+                            valEncuesta = window.setInterval("ValidacionEncuesta()", 500);
                         }
                         else {
                             cancel = 1;
@@ -117,22 +71,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
 
                         if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                             document.getElementById('survicate-box').style.display = 'block';
-
-                            document.getElementsByClassName('surv-close')[0].onclick = function () {
-                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                                clearTimeout(timeoutHandle);
-                                cancel = 1;
-                            }
-
-                            document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
-                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                                clearTimeout(timeoutHandle);
-                                cancel = 1;
-                            }
+                            valEncuesta = window.setInterval("ValidacionEncuesta()", 500);
                         }
                         else {
                             cancel = 1;
@@ -144,33 +83,17 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
 
                     }
 
-
                     clearTimeout(timeoutHandle);
 
                 });
 
                 $('#popup_tutorial_home').on('hide', function () {
 
-
                     clearTimeout(timeoutHandle);
                     if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                         document.getElementById('survicate-box').style.display = 'block';
 
-                        document.getElementsByClassName('surv-close')[0].onclick = function () {
-                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                            document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                            clearTimeout(timeoutHandle);
-                            cancel = 1;
-                        }
-
-                        document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
-                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                            document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                            clearTimeout(timeoutHandle);
-                            cancel = 1;
-                        }
+                        valEncuesta = window.setInterval("ValidacionEncuesta()", 500);
                     }
                     else {
                         cancel = 1;
@@ -195,26 +118,20 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
 
                 $('#popupAceptacionContrato').on('hide', function () {
 
-                    if (viewBagCambioClave != 0) {//ACTUALIZA DATOS
-               
-                        if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
-                            document.getElementById('survicate-box').style.display = 'block';
+            
+                    if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                        document.getElementById('survicate-box').style.display = 'block';
 
-                            $('#survicate-box').on('hide', function () {
-                                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                                document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                        valEncuesta = window.setInterval("ValidacionEncuesta()", 500);
 
-                            });
-                            cancel = 1;
-                        } else {
-                            cancel = 1;
-                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                            document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                        }
+                    }
+                    else {
+                        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                        document.getElementsByClassName('flexslider')[0].style.display = 'block';
                         clearTimeout(timeoutHandle);
                     }
+                        
 
                 });
 
@@ -232,19 +149,15 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
                     if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                         document.getElementById('survicate-box').style.display = 'block';
 
-                        $('#survicate-box').on('hide', function () {
-                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                            document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                        });
-                        cancel = 1;
+                        valEncuesta = window.setInterval("ValidacionEncuesta()", 500);
                     } else {
                         cancel = 1;
                         if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
                         if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
                         document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                        clearTimeout(timeoutHandle);
                     }
-                    clearTimeout(timeoutHandle);
+                    
                 });
                
                 break;
@@ -260,20 +173,15 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
 
                     if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                         document.getElementById('survicate-box').style.display = 'block';
-
-                        $('#survicate-box').on('hide', function () {
-                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                            document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                        });
-                        cancel = 1;
+                        valEncuesta = window.setInterval("ValidacionEncuesta()", 500);
                     } else {
                         cancel = 1;
                         if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
                         if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
                         document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                        clearTimeout(timeoutHandle);
                     }
-                    clearTimeout(timeoutHandle);
+                  
                 });
                 break;
             case 8://Comunicado 
@@ -288,19 +196,15 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
                     if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                         document.getElementById('survicate-box').style.display = 'block';
 
-                        $('#survicate-box').on('hide', function () {
-                            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                            document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                        });
-                        cancel = 1;
+                        valEncuesta = window.setInterval("ValidacionEncuesta()", 500);
                     } else {
                         cancel = 1;
                         if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
                         if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
                         document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                        clearTimeout(timeoutHandle);
                     }
-                    clearTimeout(timeoutHandle);
+                    
                 });
                 break;
              //case 9: //RevistaDigitalSuscripcion 
@@ -313,24 +217,26 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
             //    for (var i = 0; i < document.querySelectorAll("img[src='/Content/Images/close-icon.svg']").length; i++) {
             //        var btn = document.querySelectorAll("img[src='/Content/Images/close-icon.svg']")[i];
             //        btn.onclick = function () {                  
-            //            if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
-            //                document.getElementById('survicate-box').style.display = 'block';
+                        //if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                        //    document.getElementById('survicate-box').style.display = 'block';
 
-            //                document.getElementsByClassName('surv-close')[0].onclick = function () {
-            //                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-            //                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-            //                }
+                        //    document.getElementsByClassName('surv-close')[0].onclick = function () {
+                        //        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                        //        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                        //        document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                        //    }
 
-            //                document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
-            //                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-            //                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-            //                }
+                        //    document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
+                        //        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                        //        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                        //    }
 
-            //            }
-            //            else {
-            //                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-            //                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-            //            }
+                        //}
+                        //else {
+                        //    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                        //    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                        //    document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                        //}
             //            clearTimeout(timeoutHandle);
             //        }
             //    }
@@ -392,20 +298,7 @@ function Cupon()
         {
             if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                 document.getElementById('survicate-box').style.display = 'block';
-
-                document.getElementsByClassName('surv-close')[0].onclick = function () {
-                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                    document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                }
-
-                document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
-                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                    document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                }
-                cancel = 1;
-                clearTimeout(timeoutHandle);
+                valEncuesta = window.setInterval("ValidacionEncuesta()", 500);
                 
             }
             else {
@@ -417,9 +310,7 @@ function Cupon()
             
             }
 
-        }
-
-   
+        } 
     });
 
 
@@ -429,21 +320,7 @@ function Cupon()
 
             if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                 document.getElementById('survicate-box').style.display = 'block';
-
-                document.getElementsByClassName('surv-close')[0].onclick = function () {
-                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                    document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                }
-
-                document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
-                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                    document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                }
-                cancel = 1;
-                clearTimeout(timeoutHandle);
-                
+                valEncuesta = window.setInterval("ValidacionEncuesta()", 500);       
             }
             else {
                 cancel = 1;
@@ -465,21 +342,7 @@ function Cupon()
 
             if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                 document.getElementById('survicate-box').style.display = 'block';
-
-                document.getElementsByClassName('surv-close')[0].onclick = function () {
-                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                    document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                }
-
-                document.getElementsByClassName('surv-radio-input')[0].onclick = document.getElementsByClassName('surv-radio-input')[1].onclick = function () {
-                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                    document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                }
-                cancel = 1;
-                clearTimeout(timeoutHandle);
-             
+                valEncuesta = window.setInterval("ValidacionEncuesta()", 500);           
             }
             else {
                 cancel = 1;
@@ -489,9 +352,20 @@ function Cupon()
                 clearTimeout(timeoutHandle);
              
             }
-
         }
-
     });
  
 }
+
+function ValidacionEncuesta() {
+
+    if (document.getElementById('survicate-box') == null) {
+        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+        document.getElementsByClassName('flexslider')[0].style.display = 'block';
+        clearTimeout(valEncuesta);
+        clearTimeout(timeoutHandle);
+        cancel = 1;
+    }
+}
+var valEncuesta = 0;
