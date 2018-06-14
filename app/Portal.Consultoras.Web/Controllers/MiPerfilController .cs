@@ -15,6 +15,7 @@ using AutoMapper;
 using System.ServiceModel;
 using System.Collections.Generic;
 using System.Net;
+using Portal.Consultoras.Web.Infraestructure.Sms;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -338,18 +339,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return Json(result);
             }
-            
-            using (var sv = new UsuarioServiceClient())
-            {
-                var response = await sv.RegistrarEnvioSmsAsync(
-                                        userData.PaisID,
-                                        userData.CodigoUsuario,
-                                        userData.Celular,
-                                        celular);
 
-                result.Success = response.Succcess;
-                response.Message = response.Message;
-            }
+            ISmsSender sender = new SmsProcess
+            {
+                User = userData
+            };
+
+            result = await sender.Send(celular);
 
             return Json(result);
         }
@@ -365,19 +361,12 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
-            var result = new SimpleResult();
-
-            using (var sv = new UsuarioServiceClient())
+            ISmsConfirm sender = new SmsProcess
             {
-                var response = await sv.ConfirmarCelularPorCodigoSmsAsync(
-                                            userData.PaisID,
-                                            userData.CodigoUsuario,
-                                            smsCode,
-                                            userData.CampaniaID);
+                User = userData
+            };
 
-                result.Success = response.Succcess;
-                response.Message = response.Message;
-            }
+            var result = await sender.Confirm(smsCode);
 
             return Json(result);
         }
