@@ -2033,14 +2033,18 @@ namespace Portal.Consultoras.BizLogic
 
                     transScope.Complete();
                 }
+
+                return new BERespuestaServicio
+                {
+                    Succcess = true,
+                    Message = celularNuevo
+                };
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, codigoUsuario, string.Empty);
                 return new BERespuestaServicio (Constantes.MensajesError.CelularActivacion);
             }
-
-            return new BERespuestaServicio { Succcess = true };
         }
 
         private BERespuestaServicio GetSmsValidacionDatos(string codigoUsuario, int campania, DAValidacionDatos daValidacionDatos, out BEValidacionDatos validacionDato)

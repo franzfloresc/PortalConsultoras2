@@ -181,12 +181,13 @@
 
             var resultSmsCode = function(r) {
                 if (!r.Success) {
-                    if (r.PhoneError) {
-                        me.Funciones.ShowError(r.PhoneError);
+                    if (r.Message) {
+                        me.Funciones.ShowError(r.Message);
                         me.Funciones.NavigatePanel(0);
                     } else {
                         me.Funciones.MarkSmsCodeStatus(false);
                     }
+
                     return;
                 }
 
