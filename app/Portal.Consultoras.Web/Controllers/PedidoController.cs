@@ -8,7 +8,6 @@ using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServicePROLConsultas;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceUsuario;

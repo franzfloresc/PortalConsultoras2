@@ -838,11 +838,9 @@ function EstrategiaAgregarShowRoom(event, popup) {
     });
 
     $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, PrecioUnidad: PrecioUnidad, Cantidad: cantidad }, function (data) {
-       
 
         if (ValidarUnidadesPermitidas(data, cantidad)) {
 
-            debugger;
             var params = ({
                 CuvTonos: $.trim(cuvs),
                 EstrategiaID: $.trim(estrategia.EstrategiaID),
@@ -852,8 +850,8 @@ function EstrategiaAgregarShowRoom(event, popup) {
                 ClienteID_: '-1',
                 TipoEstrategiaImagen: "0" 
             });
-            $.ajaxSetup({ cache: false });
 
+            $.ajaxSetup({ cache: false });
 
             jQuery.ajax({
                 type: 'POST',

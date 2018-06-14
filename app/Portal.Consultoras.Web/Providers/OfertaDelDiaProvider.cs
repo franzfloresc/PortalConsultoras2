@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -7,7 +8,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
-using AutoMapper;
 
 namespace Portal.Consultoras.Web.Providers
 {

@@ -1821,6 +1821,7 @@ namespace Portal.Consultoras.Web.Controllers
             var colorFondoBanner = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionOdd.ColorFondoBanner) ?? new TablaLogicaDatosModel();
             var coloFondoDisplay = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionOdd.ColorFondoDisplay) ?? new TablaLogicaDatosModel();
             var countdown = _ofertaDelDiaProvider.CountdownOdd(userData);
+
             ofertasOddModel.Update(x =>
             {
                 x.Position = posicion++;
