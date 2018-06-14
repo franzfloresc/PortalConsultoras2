@@ -1144,6 +1144,7 @@ namespace Portal.Consultoras.Common
             public const string ValorVacio = "El valor no puede estar vacío.";
             public const string CodigoIncorrecto = "El código ingresado no es el correcto.";
             public const string CelularActivacion = "No se pudo confirmar el número registrado.";
+            public const string CelularEnUso = "El número ya esta en uso.";
         }
 
         public static class ConfiguracionPais

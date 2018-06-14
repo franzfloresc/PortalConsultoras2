@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.Validator;
 using Portal.Consultoras.Web.ServiceUsuario;
 
@@ -6,8 +7,6 @@ namespace Portal.Consultoras.Web.Infraestructure.Validator.Phone
 {
     public class NotExistingPhone : IPhoneValidator
     {
-        private const string ErrorMessage = "El número ya esta en uso.";
-
         public int PaisId { get; set; }
         public string CodigoConsultora { get; set; }
 
@@ -23,7 +22,7 @@ namespace Portal.Consultoras.Web.Infraestructure.Validator.Phone
 
             if (!result.Success)
             {
-                result.Message = ErrorMessage;
+                result.Message = Constantes.MensajesError.CelularEnUso;
             }
 
             return result;
