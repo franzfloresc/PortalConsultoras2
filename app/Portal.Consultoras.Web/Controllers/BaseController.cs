@@ -1577,10 +1577,10 @@ namespace Portal.Consultoras.Web.Controllers
                 var componenteModel = (EstrategiaComponenteModel)
                     (listaEstrategiaComponenteProductos.FirstOrDefault(p => beEstrategiaProducto.SAP == p.CodigoProducto) 
                     ?? new EstrategiaComponenteModel()).Clone();
-                
-                //if (Util.Trim(componenteModel.CodigoProducto) == "" && 
-                //    estrategiaModelo.CodigoVariante != Constantes.TipoEstrategiaSet.CompuestaFija)
-                //    continue;
+
+                if (Util.Trim(componenteModel.CodigoProducto) == "" &&
+                    estrategiaModelo.CodigoVariante != Constantes.TipoEstrategiaSet.CompuestaFija)
+                    continue;
 
                 if (listaEstrategiaComponenteProductos.Count(p => beEstrategiaProducto.SAP == p.CodigoProducto) > 1)
                 {
