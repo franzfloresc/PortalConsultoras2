@@ -164,6 +164,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ActualizarCelular()
         {
+            ViewBag.Celular = userData.Celular;
+
             return View();
         }
 
@@ -329,7 +331,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(result);
             }
 
-            var code = Util.GenerarCodigoRandom();
+            //var code = Util.GenerarCodigoRandom();
 
             // send SmsCode
             // save SmsCode

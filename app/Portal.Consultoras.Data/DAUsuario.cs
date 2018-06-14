@@ -813,7 +813,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public int InsCodigoGenerado(BEUsuarioCorreo oUsuCorreo)
+        public int InsActualizarCodigoGenerado(BEUsuarioCorreo oUsuCorreo)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsCodigoGenerado");
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsuCorreo.OrigenID);

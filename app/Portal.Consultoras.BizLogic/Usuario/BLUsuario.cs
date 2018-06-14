@@ -1870,7 +1870,7 @@ namespace Portal.Consultoras.BizLogic
                         dAValidacionDatos.UpdValidacionDatos(validacionDato);
                     }
 
-                    dAUsuario.InsCodigoGenerado(new BEUsuarioCorreo {
+                    dAUsuario.InsActualizarCodigoGenerado(new BEUsuarioCorreo {
                         OrigenID = Constantes.EnviarCorreoYSms.Origen_ActualizarCorreo,
                         //origenDescripcion = actualizar datos,
                         tipoEnvio = Constantes.EnviarCorreoYSms.TipoEnvio_Email,
@@ -1907,6 +1907,143 @@ namespace Portal.Consultoras.BizLogic
             string fondo = (esEsika ? "e81c36" : "642f80");
 
             MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, logo, nomconsultora, url, fondo, paramQuerystring);
+        }
+        
+        public BERespuestaServicio RegistrarEnvioSms(BEUsuario usuario, string celularNuevo)
+        {
+            try
+            {
+                if (!usuario.PuedeActualizar)
+                {
+                    return new BERespuestaServicio(Constantes.MensajesError.UpdCorreoConsultora_NoAutorizado);
+                }
+
+                if (string.IsNullOrEmpty(celularNuevo))
+                {
+                    return new BERespuestaServicio(Constantes.MensajesError.ValorVacio);
+                }
+
+                var dAValidacionDatos = new DAValidacionDatos(usuario.PaisID);
+                var dAUsuario = new DAUsuario(usuario.PaisID);
+
+                var transOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted
+                };
+                using (var transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
+                {
+                    BEValidacionDatos validacionDato;
+                    using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(
+                                            Constantes.ValidacionDatosTipoEnvio.Sms,
+                                            usuario.CodigoUsuario)
+                    )
+                    {
+                        validacionDato = reader.MapToObject<BEValidacionDatos>();
+                    }
+
+                    if (validacionDato == null)
+                    {
+                        validacionDato = new BEValidacionDatos
+                        {
+                            TipoEnvio = Constantes.ValidacionDatosTipoEnvio.Sms,
+                            DatoAntiguo = usuario.Celular,
+                            DatoNuevo = celularNuevo,
+                            CodigoUsuario = usuario.CodigoUsuario,
+                            Estado = Constantes.ValidacionDatosEstado.Pendiente,
+                            FechaCreacion = DateTime.Now,
+                            UsuarioCreacion = usuario.CodigoUsuario,
+                        };
+                        dAValidacionDatos.InsValidacionDatos(validacionDato);
+                    }
+                    else
+                    {
+                        validacionDato.DatoAntiguo = usuario.Celular;
+                        validacionDato.DatoNuevo = celularNuevo;
+                        validacionDato.Estado = Constantes.ValidacionDatosEstado.Pendiente;
+                        validacionDato.FechaModificacion = DateTime.Now;
+                        validacionDato.UsuarioModificacion = usuario.CodigoUsuario;
+                        dAValidacionDatos.UpdValidacionDatos(validacionDato);
+                    }
+
+                    var code = Common.Util.GenerarCodigoRandom();
+                    dAUsuario.InsActualizarCodigoGenerado(new BEUsuarioCorreo {
+                        OrigenID = Constantes.EnviarCorreoYSms.Origen_ActualizarCorreo,
+                        Descripcion = Constantes.EnviarCorreoYSms.OrigenDescripcion,
+                        tipoEnvio = Constantes.EnviarCorreoYSms.TipoEnvio_Sms,
+                        CodigoUsuario = usuario.CodigoUsuario,
+                        opcionHabilitar = true,
+                        codigoGenerado = code
+                    });
+
+                    //EnviarSms(celular, code);
+                    transScope.Complete();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
+                return new BERespuestaServicio (Constantes.MensajesError.CelularActivacion);
+            }
+            return new BERespuestaServicio { Succcess = true };
+        }
+
+        public BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania)
+        {
+            if (string.IsNullOrEmpty(codigoSms))
+            {
+                return new BERespuestaServicio (Constantes.MensajesError.ValorVacio);
+            }
+
+            var daValidacionDatos = new DAValidacionDatos(paisId);
+            var daUsuario = new DAUsuario(paisId);
+
+
+            var generated = daUsuario.GetCodigoGenerado(new BEUsuarioCorreo
+            {
+                OrigenID = Constantes.EnviarCorreoYSms.Origen_ActualizarCorreo,
+                tipoEnvio = Constantes.EnviarCorreoYSms.TipoEnvio_Sms,
+                CodigoUsuario = codigoUsuario,
+            }, codigoSms);
+
+            if (generated != codigoSms)
+            {
+                return new BERespuestaServicio (Constantes.MensajesError.CodigoIncorrecto);
+            }
+
+            BEValidacionDatos validacionDato;
+            using (var reader = daValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.ValidacionDatosTipoEnvio.Sms, codigoUsuario))
+            {
+                validacionDato = reader.MapToObject<BEValidacionDatos>();
+            }
+            if (validacionDato == null || validacionDato.Estado != Constantes.ValidacionDatosEstado.Pendiente)
+            {
+                return new BERespuestaServicio(Constantes.MensajesError.CelularActivacion);
+            }
+            validacionDato.Estado = Constantes.ValidacionDatosEstado.Activo;
+            validacionDato.UsuarioModificacion = codigoUsuario;
+            validacionDato.CampaniaActivacion = campania;
+
+            try
+            {
+                var transOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted
+                };
+                using (var transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
+                {
+                    daValidacionDatos.UpdValidacionDatos(validacionDato);
+                    //daUsuario.UpdateUsuarioEmailTelefono(1, null, validacionDato.DatoNuevo);
+
+                    transScope.Complete();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, string.Empty);
+                return new BERespuestaServicio (Constantes.MensajesError.CelularActivacion);
+            }
+
+            return new BERespuestaServicio { Succcess = true };
         }
 
         public string AceptarContratoColombia(BEUsuario usuario)
@@ -2483,7 +2620,7 @@ namespace Portal.Consultoras.BizLogic
                 oUsuCorreo.tipoEnvio = Constantes.EnviarCorreoYSms.TipoEnvio_Email;
 
                 var DAUsuario = new DAUsuario(paisId);
-                DAUsuario.InsCodigoGenerado(oUsuCorreo);
+                DAUsuario.InsActualizarCodigoGenerado(oUsuCorreo);
             }
             catch (Exception ex)
             {
@@ -2558,7 +2695,7 @@ namespace Portal.Consultoras.BizLogic
                     objUsuCorreo.tipoEnvio = Constantes.EnviarCorreoYSms.TipoEnvio_Email;
 
                     var DAUsuario = new DAUsuario(paisID);
-                    DAUsuario.InsCodigoGenerado(objUsuCorreo);
+                    DAUsuario.InsActualizarCodigoGenerado(objUsuCorreo);
                 }
 
                 resultado = true;
