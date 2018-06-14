@@ -53,25 +53,25 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Nombre"))
                 PaisNombre = Convert.ToString(row["Nombre"]);
             if (DataRecord.HasColumn(row, "CampaniaIDInicio"))
-                CampaniaIDInicio = DbConvert.ToInt32(row["CampaniaIDInicio"]);
+                CampaniaIDInicio = Convert.ToInt32(row["CampaniaIDInicio"]);
             if (DataRecord.HasColumn(row, "CampaniaIDFin"))
-                CampaniaIDFin = DbConvert.ToInt32(row["CampaniaIDFin"]);
+                CampaniaIDFin = Convert.ToInt32(row["CampaniaIDFin"]);
             if (DataRecord.HasColumn(row, "NombreCortoInicio"))
-                NombreCortoInicio = DbConvert.ToString(row["NombreCortoInicio"]);
+                NombreCortoInicio = Convert.ToString(row["NombreCortoInicio"]);
             if (DataRecord.HasColumn(row, "NombreCortoFin"))
-                NombreCortoFin = DbConvert.ToString(row["NombreCortoFin"]);
+                NombreCortoFin = Convert.ToString(row["NombreCortoFin"]);
             if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = DbConvert.ToInt64(row["ConsultoraID"]);
+                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
             if (DataRecord.HasColumn(row, "Titulo"))
-                Titulo = DbConvert.ToString(row["Titulo"]);
+                Titulo = Convert.ToString(row["Titulo"]);
             if (DataRecord.HasColumn(row, "Subtitulo"))
-                Subtitulo = DbConvert.ToString(row["Subtitulo"]);
+                Subtitulo = Convert.ToString(row["Subtitulo"]);
             if (DataRecord.HasColumn(row, "ArchivoPortada"))
-                ArchivoPortada = DbConvert.ToString(row["ArchivoPortada"]);
+                ArchivoPortada = Convert.ToString(row["ArchivoPortada"]);
             if (DataRecord.HasColumn(row, "ArchivoPDF"))
-                ArchivoPDF = DbConvert.ToString(row["ArchivoPDF"]);
+                ArchivoPDF = Convert.ToString(row["ArchivoPDF"]);
             if (DataRecord.HasColumn(row, "Url"))
-                Url = DbConvert.ToString(row["Url"]);
+                Url = Convert.ToString(row["Url"]);
         }
     }
 }

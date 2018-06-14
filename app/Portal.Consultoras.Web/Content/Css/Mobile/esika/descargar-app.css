@@ -97,7 +97,7 @@ body{
 }
 
 .imagen_descargar_app_e_ir_a_version_web{
-	position:absolute;
+	position:fixed;
 	bottom:0;
 	z-index:1;
 	height: calc(100% - 213px);

@@ -16,7 +16,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         public async Task<BEResultadoReservaProl> ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             RespuestaProl respuestaProl = await ConsumirServicioProl(input, listPedidoWebDetalle);
-            if (respuestaProl == null) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_Error);
+            if (respuestaProl == null) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_Error, false);
 
             var resultado = new BEResultadoReservaProl
             {

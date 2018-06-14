@@ -52,6 +52,7 @@ namespace Portal.Consultoras.Service
         private readonly BLCuponConsultora BLCuponConsultora;
         private readonly BLFichaProducto blFichaProducto;
         private readonly BLPagoEnLinea BLPagoEnLinea;
+        private readonly BLActivarPremioNuevas _ActivarPremioNuevas;
 
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
@@ -90,6 +91,7 @@ namespace Portal.Consultoras.Service
             blFichaProducto = new BLFichaProducto();
             BLPagoEnLinea = new BLPagoEnLinea();
             BLCuponesProgramaNuevas = new BLCuponesProgramaNuevas();
+            _ActivarPremioNuevas = new BLActivarPremioNuevas();
         }
 
         public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic,
@@ -2378,7 +2380,12 @@ namespace Portal.Consultoras.Service
         public BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario)
         {
             return _pedidoAppBusinessLogic.DeshacerReserva(usuario);
-        }        
+        }
+
+        public List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario)
+        {
+            return _pedidoAppBusinessLogic.GetEstrategiaCarrusel(usuario);
+        }
         #endregion
 
         public void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario)
@@ -2395,6 +2402,17 @@ namespace Portal.Consultoras.Service
             {
                 throw new FaultException("Error desconocido.");
             }
+        }
+
+        public BEEstrategia  GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel)
+        {
+            return blEstrategia.GetEstrategiaPremiosTippingPoint(paisID, codigoPrograma, anioCampana, codigoNivel);
+        }
+
+        public BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel)
+        {
+            BEActivarPremioNuevas BEActivarPremioNuevas = _ActivarPremioNuevas.GetActivarPremioNuevas(paisID, codigoPrograma, anioCampana, codigoNivel);
+            return BEActivarPremioNuevas;
         }
     }
 }

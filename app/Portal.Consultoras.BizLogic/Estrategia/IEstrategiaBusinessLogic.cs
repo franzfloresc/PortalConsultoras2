@@ -36,6 +36,7 @@ namespace Portal.Consultoras.BizLogic
         int InsertTallaColorCUV(BETallaColor entidad);
         int ValidarCUVsRecomendados(BEEstrategia entidad);
         string ValidarStockEstrategia(BEEstrategia entidad);
-
+        BEEstrategia GetEstrategiaProgramaNuevas(BEEstrategia entidad);
+        BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
     }
 }
