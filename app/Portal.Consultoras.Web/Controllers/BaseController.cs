@@ -2065,11 +2065,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             estrategiaODD = estrategiaODD ?? new DataModel();
             estrategiaODD.ListaDeOferta = listaOfertas;
-            //estrategiaODD.ListaDeOferta[0].ConfiguracionContenedor = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
 
             userData.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
 
-            var model = estrategiaODD.ListaDeOferta.First().Clone();
+            var firstOdd = estrategiaODD.ListaDeOferta.First();
+            firstOdd.ConfiguracionContenedor = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
+
+            var model = firstOdd.Clone();
             model.ListaOfertas = estrategiaODD.ListaDeOferta;
             var tiposEstrategia = sessionManager.GetTiposEstrategia();
             short posicion = 1;
