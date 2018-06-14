@@ -160,6 +160,15 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CUVPedidoImagen, f => f.MapFrom(c => c.ImagenCUVPedido))
                 .ForMember(t => t.CUVPedidoNombre, f => f.MapFrom(c => c.NombreCUVPedido));
 
+            Mapper.CreateMap<Producto, EstrategiaComponenteModel>()
+                .ForMember(t => t.CodigoProducto, f => f.MapFrom(c => c.CodigoSap))
+                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.NombreComercial))
+                .ForMember(t => t.DescripcionComercial, f => f.MapFrom(c => c.Descripcion))
+                .ForMember(t => t.ImagenProductoSugerido, f => f.MapFrom(c => c.Imagen))
+                .ForMember(t => t.NombreBulk, f => f.MapFrom(c => c.NombreBulk))
+                .ForMember(t => t.ImagenBulk, f => f.MapFrom(c => c.ImagenBulk))
+                .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.NombreMarca));
+
             Mapper.CreateMap<BECDRWeb, CDRWebModel>();
 
             Mapper.CreateMap<BELogCDRWeb, CDRWebModel>()

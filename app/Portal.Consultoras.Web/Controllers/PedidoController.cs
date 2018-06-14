@@ -4460,7 +4460,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ficha.CUV2 = listSp.Length > 0 ? listSp[0] : ficha.CUV2;
                     if (ficha.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
                     {
-                        var brother = ficha.Hermanos.Select(m => m.Hermanos.Where(s => s.CUV == listSp[0])).SingleOrDefault();
+                        var brother = ficha.Hermanos.Select(m => m.Hermanos.Where(s => s.Cuv == listSp[0])).SingleOrDefault();
                         if (brother != null)
                         {
                             descripcion = brother.Select(m => m.DescripcionComercial).SingleOrDefault();

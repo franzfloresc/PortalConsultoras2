@@ -2,9 +2,11 @@
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [DataContract(IsReference = true)]
     [Serializable]
     public class EstrategiaPedidoModel
     {
@@ -74,7 +76,7 @@ namespace Portal.Consultoras.Web.Models
         
         public string CodigoEstrategia { get; set; }
         public List<BEEstrategiaProducto> EstrategiaProductos { get; set; }
-        public List<ProductoModel> Hermanos { get; set; }
+        public List<EstrategiaComponenteModel> Hermanos { get; set; }
         public List<string> ListaDescripcionDetalle { get; set; }
 
         public int Origen { get; set; }
@@ -159,6 +161,9 @@ namespace Portal.Consultoras.Web.Models
         public string WAMensaje { get; set; }
         #endregion
 
-
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

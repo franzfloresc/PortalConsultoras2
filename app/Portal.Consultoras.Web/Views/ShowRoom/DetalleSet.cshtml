@@ -69,7 +69,7 @@
                 <hr class="clear">
             </div>
             <div class="content_detalle_set detailItem" style="@styleWidth">
-                <div data-campos="" style="display: none;" data-estrategiaJson="@Json.Encode(Model)">
+                <div data-campos="" style="display: none;" data-estrategiaJson="@Json.Encode(Model.Clone())">
                     <input type="hidden" class="hdOfertaShowRoomID" value="@Model.EstrategiaID" />
                     <input type="hidden" class="valorCuv" value="@Model.CUV" />
                     <input type="hidden" class="claseMarcaID" value="@Model.MarcaID" />
@@ -112,7 +112,7 @@
                                         <div>
                                             <div class="content_producto_tono" data-tono="" data-tono-select="" data-tono-digitable="@producto.Digitable">
                                                 <div style="display: none;">
-                                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@producto.MarcaID" />
+                                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@producto.IdMarca" />
                                                     <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@producto.PrecioCatalogo" />
                                                 </div>
                                                 <div class="nombre_marca_set">
@@ -130,7 +130,7 @@
                                                         <span class="cantidad_producto_opt">x @producto.Cantidad </span>
                                                     }
                                                     <div class="nombre_set_individual">
-                                                        <span data-tono-cuv-producto="@producto.CUV" data-tono-select-nombrecomercial="">@producto.NombreComercial</span>
+                                                        <span data-tono-cuv-producto="@producto.Cuv" data-tono-select-nombrecomercial="">@producto.NombreComercial</span>
                                                         <span class="detalle_set_showroom">@producto.Descripcion</span>
                                                         <span class="detalle_set_showroom"></span>
                                                     </div>
@@ -147,7 +147,7 @@
                                                                     @foreach (var tono in producto.Hermanos)
                                                                     {
                                                                         btnDesabled = 1;
-                                                                        <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@tono.CUV" data-tono-nombre="@tono.NombreBulk" data-tono-descripcion="@tono.NombreComercial">
+                                                                        <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@tono.Cuv" data-tono-nombre="@tono.NombreBulk" data-tono-descripcion="@tono.NombreComercial">
                                                                             <div class="tono_seleccionado"><img src="@tono.ImagenBulk" alt=""></div>
                                                                             <div class="texto_tono_seleccionado">@tono.NombreBulk</div>
                                                                             <hr class="clear" />

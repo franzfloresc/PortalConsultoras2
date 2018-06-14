@@ -158,7 +158,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (estrategiaModelo == null || estrategiaModelo.EstrategiaID <= 0)
                     return estrategiaModelo;
 
-                estrategiaModelo.Hermanos = new List<ProductoModel>();
+                estrategiaModelo.Hermanos = new List<EstrategiaComponenteModel>();
                 estrategiaModelo.TextoLibre = Util.Trim(estrategiaModelo.TextoLibre);
                 estrategiaModelo.CodigoVariante = Util.Trim(estrategiaModelo.CodigoVariante);
 
@@ -169,8 +169,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return estrategiaModelo;
 
                 estrategiaModelo.CampaniaID = estrategiaModelo.CampaniaID > 0 ? estrategiaModelo.CampaniaID : userData.CampaniaID;
-
-                estrategiaModelo.Hermanos = GetListaHermanos(estrategiaModelo,String.Empty);
+                estrategiaModelo.Hermanos = GetListaHermanos(estrategiaModelo, string.Empty);
             }
             catch (Exception ex)
             {

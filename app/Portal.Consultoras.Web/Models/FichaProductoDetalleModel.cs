@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Web.Models
         {
             ArrayContenidoSet = new List<string>();
             ListaDescripcionDetalle = new List<string>();
-            Hermanos = new List<ProductoModel>();
+            Hermanos = new List<EstrategiaComponenteModel>();
         }
 
         public int CampaniaID { get; set; }
@@ -55,6 +55,6 @@ namespace Portal.Consultoras.Web.Models
 
         public int MarcaID { get; set; }
 
-        public List<ProductoModel> Hermanos { get; set; }
+        public List<EstrategiaComponenteModel> Hermanos { get; set; }
     }
 }
