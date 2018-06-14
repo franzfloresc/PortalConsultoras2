@@ -357,7 +357,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 retorno = sv.setUsuarioVerTutorial(userData.PaisID, userData.CodigoUsuario);
                 userData.VioTutorialModelo = retorno;
             }
-            SetUserData(userData);
+            sessionManager.SetUserData(userData);
             return Json(new
             {
                 result = retorno

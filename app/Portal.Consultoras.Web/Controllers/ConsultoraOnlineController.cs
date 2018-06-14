@@ -1644,7 +1644,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             UsuarioModel usuario = userData;
                             usuario.PedidoID = oBePedidoWebDetalleTemp.PedidoID;
-                            SetUserData(usuario);
+                            sessionManager.SetUserData(usuario);
                         }
 
                         olstTempListado.Add(oBePedidoWebDetalleTemp);

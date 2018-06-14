@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (userData.PedidoID == 0 && modelo.ListaDetalle.Count > 0)
             {
                 userData.PedidoID = modelo.ListaDetalle[0].PedidoID;
-                SetUserData(userData);
+                sessionManager.SetUserData(userData);
             }
 
             model.PaisId = userData.PaisID;
@@ -487,7 +487,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (userData.PedidoID == 0)
                 {
                     userData.PedidoID = lstPedidoWebDetalle[0].PedidoID;
-                    SetUserData(userData);
+                    sessionManager.SetUserData(userData);
                 }
                 model.Email = userData.EMail;
             }
@@ -568,7 +568,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             int horaCierre = userData.EsZonaDemAnti;
             TimeSpan sp = horaCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
-            model.HoraCierre = FormatearHora(sp);
+            model.HoraCierre = Util.FormatearHora(sp);
             model.ModificacionPedidoProl = 0;
 
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -621,7 +621,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (model.ListaDetalleModel.Any())
                 {
                     userData.PedidoID = model.ListaDetalleModel[0].PedidoID;
-                    SetUserData(userData);
+                    sessionManager.SetUserData(userData);
 
                     BEGrid grid = new BEGrid(sidx, sord, page, rows);
                     BEPager pag = Util.PaginadorGenerico(grid, model.ListaDetalleModel);
@@ -812,7 +812,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         if (userData.PedidoID == 0)
                         {
                             userData.PedidoID = obe.PedidoID;
-                            SetUserData(userData);
+                            sessionManager.SetUserData(userData);
                         }
 
                         olstTempListado.Add(obe);
@@ -951,7 +951,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (olstPedidoFicDetal.Count != 0)
             {
                 userData.PedidoID = olstPedidoFicDetal[0].PedidoID;
-                SetUserData(userData);
+                sessionManager.SetUserData(userData);
             }
 
             BEPedidoFICDetalle obePedidoFicDetalle = new BEPedidoFICDetalle
@@ -1096,7 +1096,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 usuario.FechaFacturacion = beConfiguracionCampania.FechaFinFacturacion;
                 usuario.HoraFacturacion = beConfiguracionCampania.HoraFin;
             }
-            SetUserData(usuario);
+            sessionManager.SetUserData(usuario);
         }
 
         private int BuildFechaNoHabil()

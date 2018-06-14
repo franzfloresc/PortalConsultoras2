@@ -723,7 +723,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 userData.EMail = model.Email;
                 userData.Celular = model.Telefono;
-                SetUserData(userData);
+                sessionManager.SetUserData(userData);
 
                 if (!string.IsNullOrWhiteSpace(model.Email))
                 {

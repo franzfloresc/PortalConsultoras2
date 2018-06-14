@@ -224,7 +224,7 @@ namespace Portal.Consultoras.Web.Controllers
             userData.MenuMobile = null;
             userData.Menu = null;
             Session[Constantes.ConstSession.MenuContenedor] = null;
-            SetUserData(userData);
+            sessionManager.SetUserData(userData);
             if (_revistaDigitalProvider.EsSuscripcionInmediata())
             {
                 if (tipo == Constantes.EstadoRDSuscripcion.Activo)

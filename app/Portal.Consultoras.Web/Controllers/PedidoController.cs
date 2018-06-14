@@ -177,7 +177,7 @@ namespace Portal.Consultoras.Web.Controllers
                     && userData.PedidoID == 0)
                 {
                     userData.PedidoID = model.PedidoWebDetalle[0].PedidoID;
-                    SetUserData(userData);
+                    sessionManager.SetUserData(userData);
                 }
 
                 #endregion
@@ -443,7 +443,7 @@ namespace Portal.Consultoras.Web.Controllers
                 usuario.IngresoPedidoCierre = true;
             }
 
-            SetUserData(usuario);
+            sessionManager.SetUserData(usuario);
         }
 
         private void ActualizarEsDiaPROLyMostrarBotonValidarPedido(UsuarioModel usuario)
@@ -2102,7 +2102,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetObservacionesProl(listObservacionModel);
                     if (resultado.RefreshPedido) sessionManager.SetPedidoWeb(null);
                 }
-                SetUserData(userData);
+                sessionManager.SetUserData(userData);
 
                 var listPedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var model = new PedidoSb2Model
@@ -2352,7 +2352,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.PedidoID == 0)
                 {
                     userData.PedidoID = lstPedidoWebDetalle[0].PedidoID;
-                    SetUserData(userData);
+                    sessionManager.SetUserData(userData);
                 }
             }
 
@@ -2418,7 +2418,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var horaCierre = userData.EsZonaDemAnti;
             var sp = horaCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
-            ViewBag.HoraCierre = FormatearHora(sp);
+            ViewBag.HoraCierre = Util.FormatearHora(sp);
             model.TotalSinDsctoFormato = Util.DecimalToStringFormat(totalPedido, userData.CodigoISO);
             model.TotalConDsctoFormato = Util.DecimalToStringFormat(totalPedido - bePedidoWebByCampania.DescuentoProl, userData.CodigoISO);
 
@@ -2809,7 +2809,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             userData.MostrarBannerRechazo = true;
             userData.CerrarRechazado = 0;
-            SetUserData(userData);
+            sessionManager.SetUserData(userData);
             return "";
         }
 
@@ -2829,7 +2829,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     userData.PedidoID = pedidoId;
                     CambioBannerGPR();
-                    SetUserData(userData);
+                    sessionManager.SetUserData(userData);
 
                     var reemplazos = ObtenerPedidoWebDetalle().Where(p => !string.IsNullOrEmpty(p.Mensaje)).ToList();
                     if (reemplazos.Count != 0)
@@ -2979,7 +2979,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             var usuario = userData;
                             usuario.PedidoID = oBePedidoWebDetalleTemp.PedidoID;
-                            SetUserData(usuario);
+                            sessionManager.SetUserData(usuario);
                         }
 
                         olstTempListado.Add(oBePedidoWebDetalleTemp);
@@ -3513,7 +3513,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.ListaDetalleModel.Any())
                 {
                     userData.PedidoID = model.ListaDetalleModel[0].PedidoID;
-                    SetUserData(userData);
+                    sessionManager.SetUserData(userData);
 
                     BEGrid grid = new BEGrid(sidx, sord, page, rows);
                     var pag = Util.PaginadorGenerico(grid, model.ListaDetalleModel);
@@ -3941,7 +3941,7 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                     }
 
-                    SetUserData(userData);
+                    sessionManager.SetUserData(userData);
                 }
             }
             catch (FaultException ex)

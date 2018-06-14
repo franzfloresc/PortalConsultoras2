@@ -104,7 +104,7 @@ namespace Portal.Consultoras.Web.Controllers
                 usuario.FechaFacturacion = obeConfiguracionCampania.FechaFinFacturacion;
                 usuario.HoraFacturacion = obeConfiguracionCampania.HoraFin;
             }
-            SetUserData(usuario);
+            sessionManager.SetUserData(usuario);
         }
 
         public JsonResult ValidarUnidadesPermitidasPedidoProducto(string CUV)

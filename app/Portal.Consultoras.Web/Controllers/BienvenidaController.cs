@@ -262,7 +262,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData.PopupBienvenidaCerrado = true;
-                SetUserData(userData);
+                sessionManager.SetUserData(userData);
             }
             catch (FaultException ex)
             {
@@ -705,7 +705,7 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
             }
 
-            SetUserData(userData);
+            sessionManager.SetUserData(userData);
         }
 
         public JsonResult SubirImagen(string data)
@@ -970,7 +970,7 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                     }
 
-                    SetUserData(userData);
+                    sessionManager.SetUserData(userData);
                 }
             }
             catch (FaultException ex)
@@ -1919,7 +1919,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult CerrarMensajeEstadoPedido()
         {
             userData.CerrarRechazado = 1;
-            SetUserData(userData);
+            sessionManager.SetUserData(userData);
             return Json(userData.CerrarRechazado);
         }
 
@@ -1929,7 +1929,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData.CerrarBannerPostulante = 1;
-                SetUserData(userData);
+                sessionManager.SetUserData(userData);
                 return Json(new
                 {
                     success = true
@@ -2164,7 +2164,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (tipo == "sr")
                 {
-                    SetUserData(userData);
+                    sessionManager.SetUserData(userData);
                     controlador = "ShowRoom";
                     accion = AccionControlador("sr", true);
                 }

@@ -3150,6 +3150,15 @@ namespace Portal.Consultoras.Common
             return resultado;
         }
 
+        public static string FormatearHora(TimeSpan hora)
+        {
+            var tiempo = DateTime.Today.Add(hora);
+            var displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "");
+            displayTiempo = displayTiempo.Insert(displayTiempo.Length == 6 ? 4 : 5, " ");
+
+            return displayTiempo;
+        }
+
         public static int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
         {
             if (campania <= 0 || nroCampanias <= 0) return 0;
@@ -3167,6 +3176,15 @@ namespace Portal.Consultoras.Common
                 nroCampaniaResult = nroCampaniaResult + nroCampanias;
             }
             return (anioCampaniaResult * 100) + nroCampaniaResult;
+        }
+
+        public static string NombreCampania(string campania)
+        {
+            var result = campania;
+            campania = Util.Trim(campania);
+            if (campania.Length == 6)
+                result = string.Format("Campaña {0}", campania.Substring(4, 2));
+            return result;
         }
 
         public static bool IsUrl(string url)

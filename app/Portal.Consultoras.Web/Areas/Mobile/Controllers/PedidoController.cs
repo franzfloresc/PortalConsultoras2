@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (userData.PedidoID == 0 && detallesPedidoWeb.Count > 0)
             {
                 userData.PedidoID = detallesPedidoWeb[0].PedidoID;
-                SetUserData(userData);
+                sessionManager.SetUserData(userData);
             }
 
             model.PaisId = userData.PaisID;
@@ -414,7 +414,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (userData.PedidoID == 0)
                 {
                     userData.PedidoID = lstPedidoWebDetalle[0].PedidoID;
-                    SetUserData(userData);
+                    sessionManager.SetUserData(userData);
                 }
                 model.Email = userData.EMail;
             }
@@ -494,7 +494,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             int horaCierre = userData.EsZonaDemAnti;
             TimeSpan sp = horaCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
-            model.HoraCierre = FormatearHora(sp);
+            model.HoraCierre = Util.FormatearHora(sp);
             model.ModificacionPedidoProl = 0;
 
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -541,7 +541,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 usuario.FechaFacturacion = beConfiguracionCampania.FechaFinFacturacion;
                 usuario.HoraFacturacion = beConfiguracionCampania.HoraFin;
             }
-            SetUserData(usuario);
+            sessionManager.SetUserData(usuario);
         }
 
         private int BuildFechaNoHabil()

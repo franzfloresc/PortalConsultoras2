@@ -52,7 +52,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (olstPedidoFicDetalle.Count != 0 && userData.PedidoID == 0)
                 {
                     userData.PedidoID = olstPedidoFicDetalle[0].PedidoID;
-                    SetUserData(userData);
+                    sessionManager.SetUserData(userData);
                 }
 
                 ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
@@ -97,7 +97,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.ListaDetalleModel.Any())
                 {
                     userData.PedidoID = model.ListaDetalleModel[0].PedidoID;
-                    SetUserData(userData);
+                    sessionManager.SetUserData(userData);
 
                     BEGrid grid = new BEGrid(sidx, sord, page, rows);
                     BEPager pag = Util.PaginadorGenerico(grid, model.ListaDetalleModel);
@@ -148,7 +148,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (olstPedidoFicDetal.Count != 0)
             {
                 userData.PedidoID = olstPedidoFicDetal[0].PedidoID;
-                SetUserData(userData);
+                sessionManager.SetUserData(userData);
             }
 
             BEPedidoFICDetalle obePedidoFicDetalle = new BEPedidoFICDetalle
@@ -608,7 +608,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (userData.PedidoID == 0)
                         {
                             userData.PedidoID = obe.PedidoID;
-                            SetUserData(userData);
+                            sessionManager.SetUserData(userData);
                         }
 
                         olstTempListado.Add(obe);

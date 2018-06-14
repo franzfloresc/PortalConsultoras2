@@ -543,7 +543,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 userData.CloseBannerCompraPorCompra = true;
 
-                SetUserData(userData);
+                sessionManager.SetUserData(userData);
 
                 return Json(new
                 {
@@ -1717,7 +1717,7 @@ namespace Portal.Consultoras.Web.Controllers
             userData.EMailActivo = usuario.EMail == userData.EMail && userData.EMailActivo;
             userData.EMail = usuario.EMail;
             userData.Celular = usuario.Celular;
-            SetUserData(userData);
+            sessionManager.SetUserData(userData);
         }
 
         private void EnviarConfirmacionCorreoShowRoom(MisDatosModel model)
