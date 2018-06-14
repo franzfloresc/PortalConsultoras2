@@ -1829,11 +1829,11 @@ namespace Portal.Consultoras.Web.Controllers
                 x.TeQuedan = countdown;
                 x.ImagenFondo1 = string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo1ODD"), userData.CodigoISO);
                 x.ColorFondo1 = colorFondoBanner.Codigo ?? string.Empty;
-                x.ImagenSoloHoy = _ofertaDelDiaProvider.ObtenerUrlImagenOfertaDelDia(userData.CodigoISO, ofertasOddModel.Count);
+                x.ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(userData.CodigoISO, ofertasOddModel.Count);
                 x.ImagenFondo2 =string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo2ODD"), userData.CodigoISO);
                 x.ColorFondo2 = coloFondoDisplay.Codigo ?? string.Empty;
-                x.NombreOferta = _ofertaDelDiaProvider.ObtenerNombreOfertaDelDia(x.NombreOferta);
-                x.DescripcionOferta = _ofertaDelDiaProvider.ObtenerDescripcionOfertaDelDia(x.DescripcionOferta);
+                x.NombreOferta = ObtenerNombreOfertaDelDia(x.NombreOferta);
+                x.DescripcionOferta = ObtenerDescripcionOfertaDelDia(x.DescripcionOferta);
                 x.TieneOfertaDelDia = true;
                 x.DescripcionMarca = Util.GetDescripcionMarca(x.MarcaID);
                 x.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == x.CUV2 && (d.TipoEstrategiaID == x.TipoEstrategiaID || d.TipoEstrategiaID == 0)) ? "block" : "none";
@@ -1847,7 +1847,8 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetUserData(userData);
 
             var odd = estrategiaODD.ListaDeOferta.First();
-            odd.ConfiguracionContenedor = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
+            odd.ConfiguracionContenedor = ObtenerConfiguracionSeccion(revistaDigital)
+                .FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
             sessionManager.OfertaDelDia.Estrategia = estrategiaODD;
 
             var model = estrategiaODD.ListaDeOferta.First().Clone();
@@ -1872,20 +1873,52 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public ConfiguracionSeccionHomeModel GetConfiguracionEstrategia(string codigoEstrategia)
+        private string ObtenerNombreOfertaDelDia(string descripcionCuv2)
         {
-            ConfiguracionSeccionHomeModel configuracionModel;
+            var nombreOferta = string.Empty;
 
-            switch (codigoEstrategia)
+            if (!string.IsNullOrWhiteSpace(descripcionCuv2))
             {
-                case Constantes.ConfiguracionPais.OfertaDelDia:
-                    configuracionModel = ObtenerConfiguracionSeccion(revistaDigital).FirstOrDefault(entConf => entConf.Codigo == codigoEstrategia);
-                    break;
-                default:
-                    return null;
+                nombreOferta = descripcionCuv2.Split('|').First();
             }
 
-            return configuracionModel;
+            return nombreOferta;
+        }
+
+        private string ObtenerDescripcionOfertaDelDia(string descripcionCuv2)
+        {
+            var descripcionOdd = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(descripcionCuv2))
+            {
+                var temp = descripcionCuv2.Split('|').ToList();
+                temp = temp.Skip(1).ToList();
+
+                var txtBuil = new StringBuilder();
+                foreach (var item in temp)
+                {
+                    if (!string.IsNullOrEmpty(item))
+                        txtBuil.Append(item.Trim() + "|");
+                }
+
+                descripcionOdd = txtBuil.ToString();
+                descripcionOdd = descripcionOdd == string.Empty
+                    ? string.Empty
+                    : descripcionOdd.Substring(0, descripcionOdd.Length - 1);
+                descripcionOdd = descripcionOdd.Replace("|", " +<br />");
+                descripcionOdd = descripcionOdd.Replace("\\", "");
+                descripcionOdd = descripcionOdd.Replace("(GRATIS)", "<b>GRATIS</b>");
+            }
+
+            return descripcionOdd;
+        }
+
+        private string ObtenerUrlImagenOfertaDelDia(string codigoIso, int cantidadOfertas)
+        {
+            var imgSh = string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgSoloHoyODD"), codigoIso);
+            var exte = imgSh.Split('.')[imgSh.Split('.').Length - 1];
+            imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
+            return imgSh;
         }
 
         #endregion
