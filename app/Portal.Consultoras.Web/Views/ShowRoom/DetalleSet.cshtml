@@ -69,7 +69,7 @@
                 <hr class="clear">
             </div>
             <div class="content_detalle_set detailItem" style="@styleWidth">
-                <div data-campos="" style="display: none;" data-estrategiaJson="@Json.Encode(Model.Clone())">
+                <div data-campos="" style="display: none;" data-estrategiaJson="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Clone())">
                     <input type="hidden" class="hdOfertaShowRoomID" value="@Model.EstrategiaID" />
                     <input type="hidden" class="valorCuv" value="@Model.CUV" />
                     <input type="hidden" class="claseMarcaID" value="@Model.MarcaID" />

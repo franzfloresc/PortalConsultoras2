@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
+    [DataContract(IsReference = true)]
     public class EstrategiaComponenteModel 
     {
         public int Cantidad { get; set; }

@@ -6,8 +6,9 @@ using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Web.Models
 {
-    [DataContract(IsReference = true)]
+   
     [Serializable]
+    [DataContract(IsReference = true)]
     public class EstrategiaPedidoModel
     {
         public int MarcaID { get; set; }
