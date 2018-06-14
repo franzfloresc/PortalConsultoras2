@@ -257,28 +257,11 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionNivel { get; set; }
         public bool esConsultoraLider { get; set; }
         public int? SegmentoInternoID { get; set; }
-
         public bool ValidacionInteractiva { get; set; }
         public string MensajeValidacionInteractiva { get; set; }
-
-        public bool CargoEntidadesShowRoom { get; set; }
-        public BEShowRoomEventoConsultora BeShowRoomConsultora { get; set; }
-        public BEShowRoomEvento BeShowRoom { get; set; }
-
-        public List<BEShowRoomNivel> ListaShowRoomNivel { get; set; }
-
-        public List<BEShowRoomPersonalizacion> ListaShowRoomPersonalizacion { get; set; }
-
-        public List<ShowRoomPersonalizacionModel> ListaShowRoomPersonalizacionConsultora { get; set; }
-
-        public int ShowRoomNivelId { get; set; }
-
         public int CatalogoPersonalizado { get; set; }
-
         public bool EjecutaProl { get; set; }
-
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
-
         public int VioTutorialSalvavidas { get; set; }
         public int TieneHana { get; set; }
         public int IndicadorBloqueoCDR { get; set; }
@@ -316,8 +299,9 @@ namespace Portal.Consultoras.Web.Models
 
         public List<PermisoModel> Menu { get; internal set; }
         public List<ServicioCampaniaModel> MenuService { get; internal set; }
-        
         public OfertaDelDiaModel OfertaDelDia { get; set; }
+        public int EsOfertaDelDia { get; set; }
+        public bool TieneOfertaDelDia { get; set; }
         public bool CloseOfertaDelDia { get; set; }
         public bool CloseBannerPL20 { get; set; }
         public bool EsDiasFacturacion { get; set; }

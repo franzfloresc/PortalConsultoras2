@@ -17,6 +17,7 @@
 <script src="@Url.Content("~/Scripts/AdminContenido/DescripcionComercial.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/MatrizComercialFileUpload.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/AdministrarEstrategia.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/AdministrarEstrategia/NuevoMasivo.js")" type="text/javascript"></script>
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="@Url.Content("~/Content/Css/Toast/jquery.toast.min.css")" rel="stylesheet" />
@@ -139,7 +140,6 @@
 
                 <div class="input_horizontal">
                     <input type="button" value="Buscar Personalización" id="btnBuscarPersonalizacionNivel" name="">
-                    <!--style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 38px;"-->
                 </div>
             </div>
         </div>
@@ -156,7 +156,6 @@
                     {
                         <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
                     }
-                    <input type="button" name="btnActualizarTonos" id="btnActualizarTonos" value="Actualizar Tonos" />
                 </div>
                 <div class="input_modifica_pedido">
                     <input type="button" name="btnDescripcionMasivo" id="btnDescripcionMasivo" value="Descrip. Masivo" />
@@ -238,98 +237,9 @@
         <div id="pagerTC"></div>
     </div>
 </div>
-<div id="DialogNuevoMasivo" style="display: none;">
-    <div class="Content_modal">
-        <div class="div-3" style="text-align: center;">
-            <div class="boton_redondo_admcontenido_on" id="divPaso1">1</div>
-            <div class="signo_admcontenido_estrategia">></div>
-            <div class="boton_redondo_admcontenido_off" id="divPaso2">2</div>
-            <div class="signo_admcontenido_estrategia">></div>
-            <div class="boton_redondo_admcontenido_off" id="divPaso3">3</div>
-        </div>
-        <div id="divMasivoPaso1">
-            <div class="div-3" style="text-align: center; color: #00A2E8;">
-                Pre Carga de CUVS pendientes por configurar en Zona de Estrategias
-            </div>
-            <div class="container" style="width: auto;">
-                <div class="border-wrapper">
-                    <table id="listCargaMasiva1"></table>
-                    <div id="pagerCargaMasiva1"></div>
-                </div>
-            </div>
-            <div id="divMostrarPreCarga">
-                <div class="div-3" style="text-align: center; color: #00A2E8; margin-top: 20px;">
-                    ¿Deseas pre cargar la información de los CUVS pendientes por configurar? (<span id="spnCantidadConfigurar1">11</span>) CUVS
-                </div>
-                <div class="div-3">
-                    <div class="input_horizontal" style="text-align: center;">
-                        <input type="button" name="btnAceptarMasivo1" id="btnAceptarMasivo1" value="Aceptar" style="float: none;" />
-                        <input type="button" name="btnCancelarMasivo1" id="btnCancelarMasivo1" value="Cancelar" style="float: none;" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="divMasivoPaso2" style="display: none;">
-            <div class="div-3" style="text-align: center; color: #00A2E8;">
-                Grabar información en Zona de Estrategias
-            </div>
-            <div class="container" style="width: auto;">
-                <div class="border-wrapper">
-                    <table id="listCargaMasiva2"></table>
-                    <div id="pagerCargaMasiva2"></div>
-                </div>
-            </div>
-            <div id="divMostrarPreCarga2">
-                <div class="div-3" style="text-align: center; color: #00A2E8; margin-top: 20px;">
-                    ¿Deseas grabar la información de los CUVS pre cargados correctamente en la Zona de Estrategias? (<span id="spnCantidadConfigurar2">11</span>) CUVS
-                </div>
-                <div class="div-3">
-                    <div class="input_horizontal" style="text-align: center;">
-                        <input type="button" name="btnAceptarMasivo2" id="btnAceptarMasivo2" value="Aceptar" style="float: none;" />
-                        <input type="button" name="btnCancelarMasivo2" id="btnCancelarMasivo2" value="Cancelar" style="float: none;" />
-                    </div>
-                </div>
-            </div>
-            <div id="precargadosdiv" style="display:none"></div>
-        </div>
-        <div id="divMasivoPaso3" style="display: none;">
-            <div class="div-3" style="text-align: center; color: #00A2E8;">
-                Confirmación de grabación en Zona de Estrategias
-            </div>
-            <div class="div-3" style="text-align: center; margin-top: 20px;">
-                Se grabó la información de los <a onclick="adminEstrategiaModule.VerCuvsTipo2(1); "><span id="spnCantidadConfigurar3">11</span> CUVS</a>
-            </div>
-            <div id="divMostrarNoCargados" class="div-3" style="text-align: center; margin-top: 20px;">
-                Quedan <a onclick="adminEstrategiaModule.VerCuvsTipo2(2); "><span id="spnCantidadNoConfigurar3">11</span> CUVS</a> pendientes para cargar.
-            </div>
-            <div class="div-3">
-                <div class="input_horizontal" style="text-align: center;">
-                    <input type="button" name="btnAceptarMasivo3" id="btnAceptarMasivo3" value="Aceptar" style="float: none;" />
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="DialogGrillaCuv1">
-    <div class="Content_modal">
-        <div class="container" style="width: auto;">
-            <div class="border-wrapper">
-                <table id="listGrillaCuv1"></table>
-                <div id="pagerGrillaCuv1"></div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="DialogGrillaCuv2">
-    <div class="Content_modal">
-        <div class="container" style="width: auto;">
-            <div class="border-wrapper">
-                <table id="listGrillaCuv2"></table>
-                <div id="pagerGrillaCuv2"></div>
-            </div>
-        </div>
-    </div>
-</div>
+
+@Html.Partial("_NuevoMasivo")
+
 
 <div id="DialogDescMasivo" style="display: none;">
     <div class="Content_modal">
@@ -600,7 +510,6 @@
 
 <div id="DialogRegistroOfertaShowRoomDetalleEditar" style="display: none;">
     <div class="Content_modal">
-        @*<input type="hidden" id="hdOfertaShowRoomDetalleID" />*@
         <input type="hidden" id="hdEstrategiaProductoID" />
         <input type="hidden" id="hdEstrategiaID" />
         <input type="hidden" id="hdImagenDetalle" />
@@ -632,16 +541,6 @@
                 <input type="text" id="txtDescripcion1Detalle" />
             </div>
         </div>
-        @*<div class="div-3">
-                <div class="titG">Descripcion 2:</div>
-                <div class="selectP2 borde_redondeado">
-                    <input type="text" id="txtDescripcion2Detalle" />
-                </div>
-                <div class="titG">Descripcion 3:</div>
-                <div class="selectP2 borde_redondeado">
-                    <input type="text" id="txtDescripcion3Detalle" />
-                </div>
-            </div>*@
         <div class="div-3">
             <div class="titG">Precio Oferta:</div>
             <div class="selectP2 borde_redondeado">
@@ -652,13 +551,6 @@
                 <input type="checkbox" id="chkActivoOfertaDetalle" />
             </div>
         </div>
-        @*<div class="div-3">
-                <div class="titG">Marca Producto:</div>
-                <div class="selectP2 borde_redondeado">
-                    <input type="text" id="txtMarcaProductoDetalle" />
-                </div>
-
-            </div>*@
         <div class="div-3">
             <div class="titG">Imagen:</div>
             <div class="pdr_modal borde_redondeado aligncenter" style="width: 168px; height: 200px;">
@@ -703,43 +595,6 @@
 <!-- SHOWROOM-FIN -->
 
 <div id="loadingScreen"></div>
-
-<div id="DialogActualizarTono">
-    <div class="Content_modal" style="overflow: hidden;">
-        <div id="divActualizarTono">
-            <div class="div-3" style="text-align: center;">
-                Resultado de la actualización:
-            </div>
-            <div class="container" style="margin: 15px auto; width: auto;">
-                <div class="border-wrapper">
-                    <table id="listActualizarTono"></table>
-                    <div id="pagerActualizarTono"></div>
-                </div>
-            </div>
-            <div class="div-3">
-                <div class="input_horizontal" style="text-align: center;">
-                    <input type="button" name="btnCancelarMasivo2" onclick="HideDialog('DialogActualizarTono')" value="Cerrar" style="float: none;" />
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="DialogTonoActualizada">
-    <div class="Content_modal" style="overflow: hidden;">
-        <div class="container" style="margin: 15px auto; width: auto;">
-            <div class="border-wrapper">
-                <table id="listTonoActualizada"></table>
-                <div id="pagerTonoActualizada"></div>
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="input_horizontal" style="text-align: center;">
-                <input type="button" name="btnCancelarMasivo2" onclick="HideDialog('DialogTonoActualizada')" value="Volver" style="float: none;" />
-            </div>
-        </div>
-    </div>
-</div>
 
 <script type="text/javascript">
     var adminEstrategiaModule;
@@ -813,6 +668,18 @@
             EditarProductoDetalle: adminEstrategiaModule.EditarProductoDetalle,
             EliminarProductoDetalle: adminEstrategiaModule.EliminarProductoDetalle
         });
+
+        admNuevoMasivoModulo = NuevoMasivo({
+            urlConsultarOfertasPersonalizadas: baseUrl + "AdministrarEstrategiaMasivo/ConsultarOfertasParaTi",
+            urlConsultarCuvTipoConfigurado: baseUrl + 'AdministrarEstrategiaMasivo/ConsultarCuvTipoConfigurado',
+            urlEstrategiaTemporalInsert: baseUrl + "AdministrarEstrategiaMasivo/EstrategiaTemporalInsert",
+            urlEstrategiaTemporalConsultar: baseUrl + "AdministrarEstrategiaMasivo/ConsultarOfertasParaTiTemporal",
+            urlEstrategiaTemporalCancelar: baseUrl + "AdministrarEstrategiaMasivo/CancelarInsertEstrategiaTemporal",
+            urlConsultarCuvTipoConfiguradoTemporal: baseUrl + 'AdministrarEstrategiaMasivo/ConsultarCuvTipoConfiguradoTemporal',
+            urlEstrategiaOfertasPersonalizadasInsert: baseUrl + "AdministrarEstrategiaMasivo/EstrategiaOfertasPersonalizadasInsert",
+            MensajeErrorGeneral: "Lo sentimos, vuelva a intentarlo"
+        });
+        admNuevoMasivoModulo.Inicializar();
 
     });
 

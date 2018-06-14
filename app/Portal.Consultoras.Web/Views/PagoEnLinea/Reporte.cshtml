@@ -53,7 +53,6 @@
             </div>
             <hr />
             <h6>Fecha de Pago</h6>
-            <!-- FECHA PAGO-->
             <div class="div-3">
                 <div class="titG">Inicio: </div>
                 <div class="calendar borde_redondeado">
@@ -61,7 +60,6 @@
                     <img src="@Url.Content("~/Content/Images/dateTimePicker/cal.gif")"
                          onclick="javascript:NewCssCal('FechaPagoDesde','ddMMyyyy')" style="cursor:pointer" />
                 </div>
-                <!------>
                 <div class="titJ" style="width: 145px;">Fin: </div>
                 <div class="calendar borde_redondeado">
                     <input type="text" id="FechaPagoHasta" name="FechaPagoHasta" />
@@ -69,8 +67,6 @@
                          onclick="javascript:NewCssCal('FechaPagoHasta','ddMMyyyy')" style="cursor:pointer" />
                 </div>
             </div>
-            <!-- FIN FECHA PAGO-->
-            <!-- FECHA PROCESO-->
             <hr />
             <h6>Fecha de Proceso</h6>
             <div class="div-3">
@@ -80,7 +76,6 @@
                     <img src="@Url.Content("~/Content/Images/dateTimePicker/cal.gif")" 
                          onclick="javascript:NewCssCal('FechaProcesoDesde','ddMMyyyy','arrow',true,'24','true')" style="cursor:pointer" />
                 </div>
-                <!------>
                 <div class="titJ" style="width: 145px;">Fin: </div>
                 <div class="calendar borde_redondeado">
                     <input type="text" id="FechaProcesoHasta" name="FechaProcesoHasta" />
@@ -88,7 +83,6 @@
                          onclick="javascript:NewCssCal('FechaProcesoHasta','ddMMyyyy','arrow',true,'24','true')" style="cursor:pointer" />
                 </div>
             </div>
-            <!-- FIN FECHA PROCESO-->
 
             <div class="div-3">
                 <div class="titG">&nbsp;</div>
@@ -128,10 +122,6 @@
                 alert("Debe seleccionar un País, verifique");
                 return false;
             }
-            //if (jQuery.trim($("#ddlCampania").val()) == "") {
-            //    alert("Debe seleccionar una campaña, verifique");
-            //    return false;
-            //}
 
             fnGrilla();
         });
