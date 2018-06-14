@@ -1843,7 +1843,7 @@ namespace Portal.Consultoras.Web.Controllers
             estrategiaODD = estrategiaODD ?? new DataModel();
             estrategiaODD.ListaDeOferta = ofertasOddModel;
             userData.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
-            SetUserData(userData);
+            sessionManager.SetUserData(userData);
 
             var odd = estrategiaODD.ListaDeOferta.First();
             odd.ConfiguracionContenedor = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
