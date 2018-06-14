@@ -13,37 +13,6 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class OfertaDelDiaProvider
     {
-        public List<OfertaDelDiaModel> GetOfertaDelDiaModel(UsuarioModel model)
-        {
-            var ofertasDelDia = GetOfertas(model);
-            if (!ofertasDelDia.Any()) return new List<OfertaDelDiaModel>();
-
-            var personalizacionesOfertaDelDia = GetPersonalizaciones(model);
-            if (!personalizacionesOfertaDelDia.Any()) return new List<OfertaDelDiaModel>();
-
-
-            var tablaLogica9301 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9301) ?? new BETablaLogicaDatos();
-            var tablaLogica9302 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9302) ?? new BETablaLogicaDatos();
-
-            var countdown = CountdownOdd(model);
-            ofertasDelDia.Update(x =>
-            {
-                x.CodigoIso = model.CodigoISO;
-                x.TeQuedan = countdown;
-                x.ImagenFondo1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"),model.CodigoISO);
-                x.ColorFondo1 = tablaLogica9301.Codigo ?? string.Empty;
-                x.ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(model.CodigoISO, ofertasDelDia.Count);
-                x.ImagenFondo2 =
-                    string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"), model.CodigoISO);
-                x.ColorFondo2 = tablaLogica9302.Codigo ?? string.Empty;
-                x.NombreOferta = ObtenerNombreOfertaDelDia(x.NombreOferta);
-                x.DescripcionOferta = ObtenerDescripcionOfertaDelDia(x.DescripcionOferta);
-                x.TieneOfertaDelDia = true;
-            });
-
-            return ofertasDelDia;
-        }
-
         public List<OfertaDelDiaModel> GetOfertas(UsuarioModel model)
         {
             List<ServiceOferta.BEEstrategia> ofertasDelDia;
@@ -56,18 +25,6 @@ namespace Portal.Consultoras.Web.Providers
             ofertasDelDia = ofertasDelDia.OrderBy(odd => odd.Orden).ToList();
 
             return Mapper.Map<List<ServiceOferta.BEEstrategia>, List<OfertaDelDiaModel>>(ofertasDelDia).ToList();
-        }
-
-        public List<BETablaLogicaDatos> GetPersonalizaciones(UsuarioModel model)
-        {
-            List<BETablaLogicaDatos> personalizacionesOfertaDelDia;
-
-            using (var svc = new SACServiceClient())
-            {
-                personalizacionesOfertaDelDia = svc.GetTablaLogicaDatos(model.PaisID, Constantes.TablaLogica.PersonalizacionODD).ToList();
-            }
-
-            return personalizacionesOfertaDelDia;
         }
 
         public TimeSpan CountdownOdd(UsuarioModel model)

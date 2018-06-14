@@ -1791,57 +1791,66 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!userData.TieneOfertaDelDia && !userData.EsConsultora()) return new OfertaDelDiaModel();
 
-            var sessionOfertaDelDia = sessionManager.OfertaDelDia.Estrategia;
+            estrategiaODD = estrategiaODD ?? sessionManager.OfertaDelDia.Estrategia;
 
-            if (sessionOfertaDelDia != null)
+            if (estrategiaODD != null && 
+                estrategiaODD.ListaDeOferta != null && 
+                estrategiaODD.ListaDeOferta.Any())
             {
-                if (sessionOfertaDelDia.ListaDeOferta != null && sessionOfertaDelDia.ListaDeOferta.Any())
-                {
-                    var oddModel =  sessionOfertaDelDia.ListaDeOferta.First().Clone();
-                    oddModel.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData);
-                    oddModel.ListaOfertas = sessionOfertaDelDia.ListaDeOferta;
-                    return oddModel;
-                }
+                var oddModel = estrategiaODD.ListaDeOferta.First().Clone();
+                oddModel.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData);
+                oddModel.ListaOfertas = estrategiaODD.ListaDeOferta;
+                return oddModel;
             }
-            
-        
-            var listaOfertas = _ofertaDelDiaProvider.GetOfertaDelDiaModel(userData);
 
-            if (listaOfertas == null || !listaOfertas.Any())
-                return new OfertaDelDiaModel();
 
-            estrategiaODD = estrategiaODD ?? new DataModel();
-            estrategiaODD.ListaDeOferta = listaOfertas;
+            var ofertasOddModel = _ofertaDelDiaProvider.GetOfertas(userData);
+            if (!ofertasOddModel.Any()) return new OfertaDelDiaModel();
 
-            userData.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
+            var personalizacionesOdd = _tablaLogicaProvider.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.PersonalizacionODD);
+            if (!personalizacionesOdd.Any()) return new OfertaDelDiaModel();
 
-            var firstOdd = estrategiaODD.ListaDeOferta.First();
-            firstOdd.ConfiguracionContenedor = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
-
-            var model = firstOdd.Clone();
-            model.ListaOfertas = estrategiaODD.ListaDeOferta;
             var tiposEstrategia = sessionManager.GetTiposEstrategia();
-            short posicion = 1;
-
             if (tiposEstrategia == null)
             {
                 tiposEstrategia = GetTipoEstrategias();
                 sessionManager.SetTiposEstrategia(tiposEstrategia);
             }
 
-            foreach (var oferta in model.ListaOfertas)
+            short posicion = 0;
+            var colorFondoBanner = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionOdd.ColorFondoBanner) ?? new TablaLogicaDatosModel();
+            var coloFondoDisplay = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionOdd.ColorFondoDisplay) ?? new TablaLogicaDatosModel();
+            var countdown = _ofertaDelDiaProvider.CountdownOdd(userData);
+            ofertasOddModel.Update(x =>
             {
-                oferta.Position = posicion++;
-                oferta.DescripcionMarca = Util.GetDescripcionMarca(oferta.MarcaID);
-                oferta.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == oferta.CUV2 && (d.TipoEstrategiaID == oferta.TipoEstrategiaID || d.TipoEstrategiaID == 0)) ? "block" : "none";
+                x.Position = posicion++;
+                x.CodigoIso = userData.CodigoISO;
+                x.TeQuedan = countdown;
+                x.ImagenFondo1 = string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo1ODD"), userData.CodigoISO);
+                x.ColorFondo1 = colorFondoBanner.Codigo ?? string.Empty;
+                x.ImagenSoloHoy = _ofertaDelDiaProvider.ObtenerUrlImagenOfertaDelDia(userData.CodigoISO, ofertasOddModel.Count);
+                x.ImagenFondo2 =string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo2ODD"), userData.CodigoISO);
+                x.ColorFondo2 = coloFondoDisplay.Codigo ?? string.Empty;
+                x.NombreOferta = _ofertaDelDiaProvider.ObtenerNombreOfertaDelDia(x.NombreOferta);
+                x.DescripcionOferta = _ofertaDelDiaProvider.ObtenerDescripcionOfertaDelDia(x.DescripcionOferta);
+                x.TieneOfertaDelDia = true;
+                x.DescripcionMarca = Util.GetDescripcionMarca(x.MarcaID);
+                x.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == x.CUV2 && (d.TipoEstrategiaID == x.TipoEstrategiaID || d.TipoEstrategiaID == 0)) ? "block" : "none";
+                if (tiposEstrategia != null && tiposEstrategia.Any(te => te.TipoEstrategiaID == x.TipoEstrategiaID))
+                    x.TipoEstrategiaDescripcion = tiposEstrategia.First(te => te.TipoEstrategiaID == x.TipoEstrategiaID).DescripcionEstrategia ?? string.Empty;
+            });
 
-                if (tiposEstrategia != null && tiposEstrategia.Any(x => x.TipoEstrategiaID == oferta.TipoEstrategiaID))
-                    oferta.TipoEstrategiaDescripcion = tiposEstrategia.First(x => x.TipoEstrategiaID == oferta.TipoEstrategiaID).DescripcionEstrategia ?? string.Empty;
-            }
+            estrategiaODD = estrategiaODD ?? new DataModel();
+            estrategiaODD.ListaDeOferta = ofertasOddModel;
+            userData.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
+            SetUserData(userData);
 
-            //model.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData);
-            //model.ConfiguracionContenedor = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
+            var odd = estrategiaODD.ListaDeOferta.First();
+            odd.ConfiguracionContenedor = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
             sessionManager.OfertaDelDia.Estrategia = estrategiaODD;
+
+            var model = estrategiaODD.ListaDeOferta.First().Clone();
+            model.ListaOfertas = estrategiaODD.ListaDeOferta;
 
             return model;
         }

@@ -142,7 +142,7 @@ namespace Portal.Consultoras.Common
             public const int BusquedaNemotecnicoProductoSugerido = 9853;
             public const int BusquedaNemotecnicoZonaEstrategia = 9854;
             public const int Tonos = 9802;
-            
+
             public const int ValoresImagenesResizeWitdhMaxSmall = 12101;
             public const int ValoresImagenesResizeHeightSmall = 12102;
             public const int ValoresImagenesResizeWitdhMaxMedium = 12103;
@@ -162,6 +162,11 @@ namespace Portal.Consultoras.Common
 
             public const int CantidadCuvMasivo_NuevoMasivo = 13701;
 
+            public static class PersonalizacionOdd
+            {
+                public static readonly int ColorFondoBanner = 9301;
+                public static readonly int ColorFondoDisplay = 9302;
+            }
         }
 
         public static class ParametrosNames
