@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
         private int _ofertaId;
         private bool _blnRecibido;
         private readonly ISessionManager _sessionManager;
-        protected Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
+        protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
 
         public ShowRoomController()
         {
@@ -2936,7 +2936,6 @@ namespace Portal.Consultoras.Web.Controllers
                 productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);
                 var listaNoSubCampania = new List<ShowRoomOfertaModel>();
                 var listaNoSubCampaniaPerdio = new List<ShowRoomOfertaModel>();
-                
                 //var listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
 
                 if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
