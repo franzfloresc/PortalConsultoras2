@@ -10184,6 +10184,18 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarEmail", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarEmailResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ActualizarEmailAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/RegistrarEnvioSms", ReplyAction="http://tempuri.org/IUsuarioService/RegistrarEnvioSmsResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string celularActual, string celularNuevo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/RegistrarEnvioSms", ReplyAction="http://tempuri.org/IUsuarioService/RegistrarEnvioSmsResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> RegistrarEnvioSmsAsync(int paisId, string codigoUsuario, string celularActual, string celularNuevo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ConfirmarCelularPorCodigoSms", ReplyAction="http://tempuri.org/IUsuarioService/ConfirmarCelularPorCodigoSmsResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ConfirmarCelularPorCodigoSms", ReplyAction="http://tempuri.org/IUsuarioService/ConfirmarCelularPorCodigoSmsResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ConfirmarCelularPorCodigoSmsAsync(int paisId, string codigoUsuario, string codigoSms, int campania);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/EliminarUsuarioPostulante", ReplyAction="http://tempuri.org/IUsuarioService/EliminarUsuarioPostulanteResponse")]
         int EliminarUsuarioPostulante(string paisISO, string numeroDocumento);
         
@@ -11016,6 +11028,22 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ActualizarEmailAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo) {
             return base.Channel.ActualizarEmailAsync(usuario, correoNuevo);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string celularActual, string celularNuevo) {
+            return base.Channel.RegistrarEnvioSms(paisId, codigoUsuario, celularActual, celularNuevo);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> RegistrarEnvioSmsAsync(int paisId, string codigoUsuario, string celularActual, string celularNuevo) {
+            return base.Channel.RegistrarEnvioSmsAsync(paisId, codigoUsuario, celularActual, celularNuevo);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania) {
+            return base.Channel.ConfirmarCelularPorCodigoSms(paisId, codigoUsuario, codigoSms, campania);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ConfirmarCelularPorCodigoSmsAsync(int paisId, string codigoUsuario, string codigoSms, int campania) {
+            return base.Channel.ConfirmarCelularPorCodigoSmsAsync(paisId, codigoUsuario, codigoSms, campania);
         }
         
         public int EliminarUsuarioPostulante(string paisISO, string numeroDocumento) {
