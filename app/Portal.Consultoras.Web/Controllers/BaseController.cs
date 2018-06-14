@@ -2042,30 +2042,32 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected OfertaDelDiaModel GetOfertaDelDiaModel()
         {
-            if (userData.EsConsultora())
-                return new OfertaDelDiaModel();
+            if (!userData.TieneOfertaDelDia && !userData.EsConsultora()) return new OfertaDelDiaModel();
 
             var sessionOfertaDelDia = sessionManager.OfertaDelDia.Estrategia;
 
             if (sessionOfertaDelDia != null)
             {
                 if (sessionOfertaDelDia.ListaDeOferta != null && sessionOfertaDelDia.ListaDeOferta.Any())
-                    return sessionOfertaDelDia.ListaDeOferta.First();
+                {
+                    var oddModel =  sessionOfertaDelDia.ListaDeOferta.First().Clone();
+                    oddModel.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData);
+                    oddModel.ListaOfertas = sessionOfertaDelDia.ListaDeOferta;
+                    return oddModel;
+                }
             }
-
+            
+        
             var listaOfertas = _ofertaDelDiaProvider.GetOfertaDelDiaModel(userData);
 
-            if (listaOfertas == null)
+            if (listaOfertas == null || !listaOfertas.Any())
                 return new OfertaDelDiaModel();
 
+            estrategiaODD = estrategiaODD ?? new DataModel();
             estrategiaODD.ListaDeOferta = listaOfertas;
+            //estrategiaODD.ListaDeOferta[0].ConfiguracionContenedor = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
+
             userData.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
-
-            //if (estrategiaODD.ListaDeOferta == null)
-            //    return null;
-
-            //if (!estrategiaODD.ListaDeOferta.Any())
-            //    return null;
 
             var model = estrategiaODD.ListaDeOferta.First().Clone();
             model.ListaOfertas = estrategiaODD.ListaDeOferta;
@@ -2088,9 +2090,8 @@ namespace Portal.Consultoras.Web.Controllers
                     oferta.TipoEstrategiaDescripcion = tiposEstrategia.First(x => x.TipoEstrategiaID == oferta.TipoEstrategiaID).DescripcionEstrategia ?? string.Empty;
             }
 
-            model.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData);
-            var configOdd = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
-            model.ConfiguracionContenedor = configOdd;
+            //model.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData);
+            //model.ConfiguracionContenedor = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
             sessionManager.OfertaDelDia.Estrategia = estrategiaODD;
 
             return model;
@@ -3275,7 +3276,7 @@ namespace Portal.Consultoras.Web.Controllers
                         ColorFondo = isMobile ? (entConf.MobileColorFondo ?? "") : (entConf.DesktopColorFondo ?? ""),
                         UsarImagenFondo = isMobile ? entConf.MobileUsarImagenFondo : entConf.DesktopUsarImagenFondo,
                         ImagenFondo = isMobile ? (entConf.MobileImagenFondo ?? "") : (entConf.DesktopImagenFondo ?? ""),
-                        ColorTexto = isMobile ? entConf.MobileColorTexto : entConf.DesktopColorTexto,
+                        ColorTexto = isMobile ? entConf.MobileColorTexto ?? "" : entConf.DesktopColorTexto ?? "",
                         Titulo = isMobile ? entConf.MobileTitulo : entConf.DesktopTitulo,
                         SubTitulo = isMobile ? entConf.MobileSubTitulo : entConf.DesktopSubTitulo,
                         TipoPresentacion = isMobile ? entConf.MobileTipoPresentacion : entConf.DesktopTipoPresentacion,

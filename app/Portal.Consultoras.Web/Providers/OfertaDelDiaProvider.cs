@@ -7,80 +7,44 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
+using AutoMapper;
 
 namespace Portal.Consultoras.Web.Providers
 {
     public class OfertaDelDiaProvider
     {
-        //public async Task<List<OfertaDelDiaModel>> GetOfertaDelDiaModel(UsuarioModel model, ServiceUsuario.BEUsuario usuario)
         public List<OfertaDelDiaModel> GetOfertaDelDiaModel(UsuarioModel model)
         {
-            //if (!(usuario.OfertaDelDia && usuario.EsConsultora())) return new List<OfertaDelDiaModel>();
+            var ofertasDelDia = GetOfertas(model);
+            if (!ofertasDelDia.Any()) return new List<OfertaDelDiaModel>();
 
-            var ofertasDelDiaModel = new List<OfertaDelDiaModel>();
+            var personalizacionesOfertaDelDia = GetPersonalizaciones(model);
+            if (!personalizacionesOfertaDelDia.Any()) return new List<OfertaDelDiaModel>();
 
-            try
+
+            var tablaLogica9301 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9301) ?? new BETablaLogicaDatos();
+            var tablaLogica9302 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9302) ?? new BETablaLogicaDatos();
+
+            var countdown = CountdownOdd(model);
+            ofertasDelDia.Update(x =>
             {
-                var ofertasDelDia = GetOfertas(model);
-                if (!ofertasDelDia.Any()) return ofertasDelDiaModel;
+                x.CodigoIso = model.CodigoISO;
+                x.TeQuedan = countdown;
+                x.ImagenFondo1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"),model.CodigoISO);
+                x.ColorFondo1 = tablaLogica9301.Codigo ?? string.Empty;
+                x.ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(model.CodigoISO, ofertasDelDia.Count);
+                x.ImagenFondo2 =
+                    string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"), model.CodigoISO);
+                x.ColorFondo2 = tablaLogica9302.Codigo ?? string.Empty;
+                x.NombreOferta = ObtenerNombreOfertaDelDia(x.NombreOferta);
+                x.DescripcionOferta = ObtenerDescripcionOfertaDelDia(x.DescripcionOferta);
+                x.TieneOfertaDelDia = true;
+            });
 
-                var personalizacionesOfertaDelDia = GetPersonalizaciones(model);
-                if (!personalizacionesOfertaDelDia.Any()) return ofertasDelDiaModel;
-
-                var countdown = CountdownOdd(model);
-
-                var tablaLogica9301 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9301) ?? new BETablaLogicaDatos();
-                var tablaLogica9302 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9302) ?? new BETablaLogicaDatos();
-
-                var contOdd = 0;
-                var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
-
-                foreach (var oferta in ofertasDelDia)
-                {
-                    oferta.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, oferta.ImagenURL, carpetaPais);
-
-                    var oddModel = new OfertaDelDiaModel
-                    {
-                        CodigoIso = model.CodigoISO,
-                        TipoEstrategiaID = oferta.TipoEstrategiaID,
-                        EstrategiaID = oferta.EstrategiaID,
-                        MarcaID = oferta.MarcaID,
-                        CUV2 = oferta.CUV2,
-                        LimiteVenta = oferta.LimiteVenta,
-                        IndicadorMontoMinimo = oferta.IndicadorMontoMinimo,
-                        TipoEstrategiaImagenMostrar = oferta.TipoEstrategiaImagenMostrar,
-                        TeQuedan = countdown,
-                        ImagenFondo1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"),
-                            model.CodigoISO),
-                        ColorFondo1 = tablaLogica9301.Codigo ?? string.Empty,
-                        ImagenBanner = oferta.FotoProducto01,
-                        ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(model.CodigoISO, ofertasDelDia.Count),
-                        ImagenFondo2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"),
-                            model.CodigoISO),
-                        ColorFondo2 = tablaLogica9302.Codigo ?? string.Empty,
-                        ImagenDisplay = oferta.FotoProducto01,
-                        ID = contOdd++,
-                        NombreOferta = ObtenerNombreOfertaDelDia(oferta.DescripcionCUV2),
-                        DescripcionOferta = ObtenerDescripcionOfertaDelDia(oferta.DescripcionCUV2),
-                        PrecioOferta = oferta.Precio2,
-                        PrecioCatalogo = oferta.Precio,
-                        TieneOfertaDelDia = true,
-                        Orden = oferta.Orden
-                    };
-
-                    ofertasDelDiaModel.Add(oddModel);
-                }
-            }
-            catch (Exception ex)
-            {
-                //logManager.LogErrorWebServicesBusWrap(ex, model.CodigoUsuario, model.PaisID.ToString(),
-                //    "LoginController.GetOfertaDelDiaModel");
-            }
-
-            return ofertasDelDiaModel;
+            return ofertasDelDia;
         }
 
-        public List<ServiceOferta.BEEstrategia> GetOfertas(UsuarioModel model)
+        public List<OfertaDelDiaModel> GetOfertas(UsuarioModel model)
         {
             List<ServiceOferta.BEEstrategia> ofertasDelDia;
 
@@ -91,7 +55,7 @@ namespace Portal.Consultoras.Web.Providers
 
             ofertasDelDia = ofertasDelDia.OrderBy(odd => odd.Orden).ToList();
 
-            return ofertasDelDia;
+            return Mapper.Map<List<ServiceOferta.BEEstrategia>, List<OfertaDelDiaModel>>(ofertasDelDia).ToList();
         }
 
         public List<BETablaLogicaDatos> GetPersonalizaciones(UsuarioModel model)
