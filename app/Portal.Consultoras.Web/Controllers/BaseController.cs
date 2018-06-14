@@ -1103,15 +1103,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected List<BEProductoFaltante> GetProductosFaltantes()
         {
-            return this.GetProductosFaltantes("", "" , "" , "");
+            return this.GetProductosFaltantes("", "", "", "");
         }
 
-        protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion ,string codCategoria , string codCatalogoRevista)
+        protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion, string codCategoria, string codCatalogoRevista)
         {
             List<BEProductoFaltante> olstProductoFaltante;
             using (var sv = new SACServiceClient())
             {
-                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID, cuv, descripcion , codCategoria , codCatalogoRevista).ToList();
+                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID, cuv, descripcion, codCategoria, codCatalogoRevista).ToList();
             }
             return olstProductoFaltante ?? new List<BEProductoFaltante>();
         }
@@ -1396,11 +1396,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 tipo = codigoTipos == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoTipos == Constantes.TipoEstrategiaSet.CompuestaFija ? 2 : 3;
             }
-            else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi 
-                || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso 
+            else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
                 || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento)
             {
-                tipo =  bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
+                tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
                 tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
             }
             return tipo;
@@ -2208,7 +2208,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.MesFaltante = userData.FechaInicioCampania.Month;
             model.AnioFaltante = userData.FechaInicioCampania.Year;
-            
+
             if (configEstrategiaSR.ListaPersonalizacionConsultora == null)
             {
                 model.ImagenPopupShowroomIntriga = "";
@@ -2732,7 +2732,7 @@ namespace Portal.Consultoras.Web.Controllers
             string urlApi = string.Empty;
             string apiController = string.Empty;
             bool noQuitar = false;
-            
+
             if (userData.CodigoISO != "PE")
                 seccion = "";
 
@@ -2785,7 +2785,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -3094,6 +3094,25 @@ namespace Portal.Consultoras.Web.Controllers
             int resultado;
             int.TryParse(resultadoString, out resultado);
             return resultado;
+        }
+
+        public bool HabilitarChatEmtelco(int paisId)
+        {
+            bool Mostrar = false;
+            List<TablaLogicaDatosModel> DataLogica = ObtenerParametrosTablaLogica(paisId, Constantes.TablaLogica.HabilitarChatEmtelco, false);
+
+            if (IsMobile())
+            {
+                if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("02")).Valor == "1")
+                    Mostrar = true;
+            }
+            else
+            {
+                if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("01")).Valor == "1")
+                    Mostrar = true;
+            }
+
+            return Mostrar;
         }
 
         #endregion
@@ -5069,6 +5088,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
             int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
+
+            ViewBag.HabilitarChatEmtelco = HabilitarChatEmtelco(userData.PaisID);
         }
 
         private VariablesGeneralesPortalModel getBaseVariablesPortal()
@@ -5081,7 +5102,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //ExtensionImgMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium,
                 ImgUrlBase = ConfigS3.GetUrlFileS3Base(carpetaPais),
                 SimboloMoneda = userData.Simbolo
-        };
+            };
 
             return baseVariablesGeneral;
 

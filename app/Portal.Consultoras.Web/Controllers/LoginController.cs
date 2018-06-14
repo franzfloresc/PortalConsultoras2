@@ -137,6 +137,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.FBAppId = ConfigurationManager.AppSettings["FB_AppId"];
 
+
+
             return View(model);
         }
         [AllowAnonymous]
@@ -177,6 +179,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.PaisID = Util.GetPaisID(model.CodigoISO);
 
                 var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);
+
 
                 if (resultadoInicioSesion != null && resultadoInicioSesion.Result == USUARIO_VALIDO)
                 {
@@ -1120,7 +1123,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 var montoMinimoFlexipago = ofertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : ofertaFlexipago.MontoMinimoFlexipago;
                                 usuarioModel.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", montoMinimoFlexipago);
-                            }                           
+                            }
                         }
 
                         #endregion
@@ -1160,7 +1163,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 ListaDeOferta = ofertaDelDiaTask.Result
                             };
                         }
-                       
+
                         usuarioModel.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
 
                         #endregion
@@ -2754,7 +2757,7 @@ namespace Portal.Consultoras.Web.Controllers
             var name = string.Empty;
             try
             {
-                var logonUserIdentity = ((System.Web.HttpRequestWrapper) Request).LogonUserIdentity;
+                var logonUserIdentity = ((System.Web.HttpRequestWrapper)Request).LogonUserIdentity;
                 if (logonUserIdentity != null)
                     name = logonUserIdentity.Name;
             }
@@ -2805,7 +2808,7 @@ namespace Portal.Consultoras.Web.Controllers
                 textoRecuperacion = !string.IsNullOrEmpty(textoRecuperacion) ? textoRecuperacion : Convert.ToString(TempData["CodigoUsuario"]);
 
                 BEUsuarioCorreo oUsuCorreo = DatosUsuarioCorreo(paisId, textoRecuperacion, nroOpcion);
-
+                ViewBag.HabilitarChatEmtelco = oUsuCorreo.HabilitarChatEmtelco;
                 return Json(new
                 {
                     success = true,
@@ -2893,6 +2896,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (oDatos.resultado == "")
                             nroOpcion = 3;
+
+                        oDatos.HabilitarChatEmtelco = HabilitarChatEmtelco(paisId);
                     }
 
                     if (nroOpcion == 3)
@@ -2989,7 +2994,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (nroOpcion == 4)
                         oDatos.resultado = "prioridad3";
-                }
+                }               
 
                 return oDatos;
             }
@@ -3137,7 +3142,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string iguales = "";
                 string newUri = "";
                 bool igual = false;
-                
+
                 oUsuCorreo.OrigenID = OrigenID;
                 paisID = Convert.ToInt32(TempData["PaisID"]);
 
@@ -3269,6 +3274,33 @@ namespace Portal.Consultoras.Web.Controllers
 
             return oPin;
         }
+
         #endregion
+
+        public bool HabilitarChatEmtelco(int paisId)
+        {
+            bool Mostrar = false;
+            BETablaLogicaDatos[] DataLogica;
+
+            using (var svc = new SACServiceClient())
+            {
+                DataLogica = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.HabilitarChatEmtelco);
+
+            }
+            if (DataLogica.Any())
+            {
+                if (EsDispositivoMovil())
+                {
+                    if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("02")).Valor == "1")
+                        Mostrar = true;
+                }
+                else
+                {
+                    if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("01")).Valor == "1")
+                        Mostrar = true;
+                }
+            }
+            return Mostrar;
+        }
     }
 }
