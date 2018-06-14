@@ -1909,22 +1909,17 @@ namespace Portal.Consultoras.BizLogic
             MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, logo, nomconsultora, url, fondo, paramQuerystring);
         }
         
-        public BERespuestaServicio RegistrarEnvioSms(BEUsuario usuario, string celularNuevo)
+        public BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string celularActual, string celularNuevo)
         {
             try
             {
-                if (!usuario.PuedeActualizar)
-                {
-                    return new BERespuestaServicio(Constantes.MensajesError.UpdCorreoConsultora_NoAutorizado);
-                }
-
                 if (string.IsNullOrEmpty(celularNuevo))
                 {
                     return new BERespuestaServicio(Constantes.MensajesError.ValorVacio);
                 }
 
-                var dAValidacionDatos = new DAValidacionDatos(usuario.PaisID);
-                var dAUsuario = new DAUsuario(usuario.PaisID);
+                var dAValidacionDatos = new DAValidacionDatos(paisId);
+                var dAUsuario = new DAUsuario(paisId);
 
                 var transOptions = new TransactionOptions
                 {
@@ -1935,7 +1930,7 @@ namespace Portal.Consultoras.BizLogic
                     BEValidacionDatos validacionDato;
                     using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(
                                             Constantes.ValidacionDatosTipoEnvio.Sms,
-                                            usuario.CodigoUsuario)
+                                            codigoUsuario)
                     )
                     {
                         validacionDato = reader.MapToObject<BEValidacionDatos>();
@@ -1946,22 +1941,22 @@ namespace Portal.Consultoras.BizLogic
                         validacionDato = new BEValidacionDatos
                         {
                             TipoEnvio = Constantes.ValidacionDatosTipoEnvio.Sms,
-                            DatoAntiguo = usuario.Celular,
+                            DatoAntiguo = celularActual,
                             DatoNuevo = celularNuevo,
-                            CodigoUsuario = usuario.CodigoUsuario,
+                            CodigoUsuario = codigoUsuario,
                             Estado = Constantes.ValidacionDatosEstado.Pendiente,
                             FechaCreacion = DateTime.Now,
-                            UsuarioCreacion = usuario.CodigoUsuario,
+                            UsuarioCreacion = codigoUsuario,
                         };
                         dAValidacionDatos.InsValidacionDatos(validacionDato);
                     }
                     else
                     {
-                        validacionDato.DatoAntiguo = usuario.Celular;
+                        validacionDato.DatoAntiguo = celularActual;
                         validacionDato.DatoNuevo = celularNuevo;
                         validacionDato.Estado = Constantes.ValidacionDatosEstado.Pendiente;
                         validacionDato.FechaModificacion = DateTime.Now;
-                        validacionDato.UsuarioModificacion = usuario.CodigoUsuario;
+                        validacionDato.UsuarioModificacion = codigoUsuario;
                         dAValidacionDatos.UpdValidacionDatos(validacionDato);
                     }
 
@@ -1970,7 +1965,7 @@ namespace Portal.Consultoras.BizLogic
                         OrigenID = Constantes.EnviarCorreoYSms.Origen_ActualizarCorreo,
                         Descripcion = Constantes.EnviarCorreoYSms.OrigenDescripcion,
                         tipoEnvio = Constantes.EnviarCorreoYSms.TipoEnvio_Sms,
-                        CodigoUsuario = usuario.CodigoUsuario,
+                        CodigoUsuario = codigoUsuario,
                         opcionHabilitar = true,
                         codigoGenerado = code
                     });
@@ -1981,9 +1976,10 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
+                LogManager.SaveLog(ex, codigoUsuario, string.Empty);
                 return new BERespuestaServicio (Constantes.MensajesError.CelularActivacion);
             }
+
             return new BERespuestaServicio { Succcess = true };
         }
 

@@ -315,7 +315,7 @@ namespace Portal.Consultoras.ServiceContracts
         BERespuestaServicio ActualizarEmail(BEUsuario usuario, string correoNuevo);
 
         [OperationContract]
-        BERespuestaServicio RegistrarEnvioSms(BEUsuario usuario, string celularNuevo);
+        BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string celularActual, string celularNuevo);
 
         [OperationContract]
         BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania);

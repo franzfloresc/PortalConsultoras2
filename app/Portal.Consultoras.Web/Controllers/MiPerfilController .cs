@@ -323,6 +323,14 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> EnviarSmsCodigo(string celular)
         {
+            if (!userData.PuedeActualizar)
+            {
+                return Json(new SimpleResult
+                {
+                    Message = Constantes.MensajesError.UpdCorreoConsultora_NoAutorizado
+                });
+            }
+
             var validator = GetPhoneValidator();
 
             var result = await validator.Valid(celular);
