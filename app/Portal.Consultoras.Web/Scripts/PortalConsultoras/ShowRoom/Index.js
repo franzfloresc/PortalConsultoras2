@@ -292,9 +292,9 @@ function CargarFiltroRangoPrecio() {
     var precioMinFormat = DecimalToStringFormat(min);
     var precioMaxFormat = DecimalToStringFormat(max);
 
-    var myformat = simbolo + '%s';
-    var scala1 = simbolo + precioMinFormat;
-    var scala2 = simbolo + precioMaxFormat;
+    var myformat = variablesPortal.SimboloMoneda + '%s';
+    var scala1 = variablesPortal.SimboloMoneda + precioMinFormat;
+    var scala2 = variablesPortal.SimboloMoneda + precioMaxFormat;
 
     $('.range-slider').val(min + ',' + max);
     var h = $("#filtro_precio").width() - 50;

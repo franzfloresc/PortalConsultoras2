@@ -15,12 +15,6 @@
 
     if (revistaDigital.EsActiva)
     {
-        @*<style>
-            .slick-list {
-                height: 1580px !important;
-                overflow: hidden !important;
-            }
-        </style>*@
     }
     else
     {
@@ -117,7 +111,6 @@
 }
 else if (revistaDigital.TieneRDI)
 {
-            <!-- PASE PEDIDO NO INSCRITAS C-11 -->
             <div class="banner_pedido_rd">
                 <div class="cabecera_pedido_rd">
                     <div class="rd_logo">
@@ -138,7 +131,6 @@ else if (revistaDigital.TieneRDI)
                 </div>
             </div>
             <div class="clear"></div>
-            <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
             @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
             new ViewDataDictionary {
                 { "Source", 2 },

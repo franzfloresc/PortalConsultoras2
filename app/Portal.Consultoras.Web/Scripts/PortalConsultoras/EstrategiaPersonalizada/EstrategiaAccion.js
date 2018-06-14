@@ -124,7 +124,6 @@ function EstrategiaVerDetalleMobile(estrategia, origen) {
     origen = $.trim(origen) || 0;
     var id = estrategia.EstrategiaID;
     var route = "/OfertasParaTi/Detalle?id=";
-    //var route = "/HerramientasVenta/Detalle?id=";
     var url = getMobilePrefixUrl() + route + id + "&&origen=" + origen + "&&campaniaId=" + (estrategia.CampaniaID || campaniaCodigo);
     try {
         if (typeof EstrategiaGuardarTemporal == "function" && typeof GetProductoStorage == "function") {
@@ -290,6 +289,8 @@ function EstrategiaGuardarTemporal(obj) {
     else {
         ruta = urlOfertaDetalleProductoTem;
     }
+
+    obj.TipoAccionAgregar = obj.TipoAccionAgregarBack || obj.TipoAccionAgregar;
 
     jQuery.ajax({
         type: 'POST',
@@ -584,6 +585,7 @@ function EstrategiaAgregar(event, popup, limite) {
             ActualizarLocalStorageAgregado("rd", params.CuvTonos || params.CUV, true);
             ActualizarLocalStorageAgregado("gn", params.CuvTonos || params.CUV, true);
             ActualizarLocalStorageAgregado("hv", params.CuvTonos || params.CUV, true);
+            ActualizarLocalStorageAgregado("lan", params.CuvTonos || params.CUV, true);
 
             ProcesarActualizacionMostrarContenedorCupon();
 

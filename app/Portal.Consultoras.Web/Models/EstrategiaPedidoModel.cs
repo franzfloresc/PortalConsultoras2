@@ -20,7 +20,6 @@ namespace Portal.Consultoras.Web.Models
         public decimal Precio { get; set; }
         public decimal Precio2 { get; set; }
         public decimal PrecioUnitario { get; set; }
-        public decimal PrecioPublico { get; set; }
         public string PrecioString { get; set; }
         public string PrecioTachado { get; set; }
         public string CUV1 { get; set; }
@@ -34,8 +33,6 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoProducto { get; set; }
         public string ImagenURL { get; set; }
         public string FotoProducto01 { get; set; }
-        public string FotoProductoSmall { get; set; }
-        public string FotoProductoMedium { get; set; }
         public string FotoProducto02 { get; set; }
         public string FotoProducto03 { get; set; }
         public int EtiquetaID { get; set; }
@@ -73,8 +70,7 @@ namespace Portal.Consultoras.Web.Models
         public int PuedeCambiarCantidad { get; set; }
         public int PuedeAgregar { get; set; }
         public int IsMobile { get; set; }
-
-        public string UrlCompartir { get; set; }
+        
         public string CodigoEstrategia { get; set; }
         public List<BEEstrategiaProducto> EstrategiaProductos { get; set; }
         public List<ProductoModel> Hermanos { get; set; }
@@ -88,7 +84,6 @@ namespace Portal.Consultoras.Web.Models
         public bool PuedeVerDetalleMob { get; set; }
         public string ClaseBloqueada { get; set; }
         public string UrlDetalle { get; set; }
-        public bool ProductoPerdio { get; set; }
 
         public EstrategiaDetalleModelo EstrategiaDetalle { get; set; }
         public TipoEstrategiaModelo TipoEstrategia { get; set; }
