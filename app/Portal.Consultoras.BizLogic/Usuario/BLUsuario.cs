@@ -2428,8 +2428,6 @@ namespace Portal.Consultoras.BizLogic
         #region UserData
         public BEUsuario ConfiguracionPaisUsuario(BEUsuario usuario, string codigoConfiguracionPais)
         {
-            var revistaDigitalModel = new BERevistaDigital();
-
             try
             {
                 CodigoUsuarioLog = usuario.CodigoUsuario;
@@ -2444,6 +2442,7 @@ namespace Portal.Consultoras.BizLogic
                 switch (configuracion.Codigo)
                 {
                     case Constantes.ConfiguracionPais.RevistaDigital:
+                        var revistaDigitalModel = new BERevistaDigital();
                         var configuracionPaisDatosAll = GetConfiguracionPaisDatos(usuario);
                         var configuracionPaisDatos = configuracionPaisDatosAll.Where(d => d.ConfiguracionPaisID == configuracion.ConfiguracionPaisID).ToList();
                         revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, configuracionPaisDatos, usuario.CodigoISO);
@@ -2453,6 +2452,19 @@ namespace Portal.Consultoras.BizLogic
                         break;
                     case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
                         usuario.TieneValidacionMontoMaximo = configuracion.Estado;
+                        break;
+                    case Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa:
+                        var ofertaFinalModel = new BEOfertaFinal()
+                        {
+                            Algoritmo = configuracion.Codigo,
+                            Estado = configuracion.Estado
+                        };
+                        if (configuracion.Estado)
+                        {
+                            usuario.OfertaFinal = 1;
+                            usuario.EsOfertaFinalZonaValida = true;
+                        }
+                        usuario._OfertaFinal = ofertaFinalModel;
                         break;
                 }
             }

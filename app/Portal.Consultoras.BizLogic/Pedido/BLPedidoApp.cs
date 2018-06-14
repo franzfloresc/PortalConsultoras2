@@ -573,16 +573,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             try
             {
-                nombreServicio = "Reserva";
-                LogPerformance("Inicio");
-
                 //Validacion reserva u horario restringido
                 var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(usuario.PaisID,
                                                                     usuario.ConsultoraID,
                                                                     usuario.CampaniaID,
                                                                     usuario.UsuarioPrueba == 1,
                                                                     usuario.AceptacionConsultoraDA);
-                LogPerformance("ValidacionModificarPedido");
                 if (validacionHorario.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno)
                     return PedidoReservaRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, validacionHorario.Mensaje);
 
@@ -614,7 +610,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     ConsecutivoNueva = usuario.ConsecutivoNueva
                 };
                 var resultadoReserva = await _reservaBusinessLogic.EjecutarReserva(input);
-                LogPerformance("EjecutarReserva");
                 var code = string.Empty;
                 var enumReserva = (int)resultadoReserva.ResultadoReservaEnum;
                 if (usuario.DiaPROL) code = (enumReserva + 2010).ToString();
@@ -623,7 +618,25 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var obsPedido = ObtenerMensajePROLAnalytics(resultadoReserva.ListPedidoObservacion);
                 var obsByCuv = ObtenerMensajePROLByCuv(resultadoReserva.ListPedidoObservacion);
 
-                return PedidoReservaRespuesta(code, obsPedido, obsByCuv);
+                //Obtener datos Oferta Final
+                usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa);
+                //Obtener datos Revista Digital
+                usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.RevistaDigital);
+
+                //Obtener Pedido Web Detalle
+                var pedidoID = 0;
+                var pedidoBuscar = new BEPedidoAppBuscar()
+                {
+                    PaisID = usuario.PaisID,
+                    CampaniaID = usuario.CampaniaID,
+                    ConsultoraID = usuario.ConsultoraID,
+                    NombreConsultora = usuario.Nombre,
+                    CodigoPrograma = usuario.CodigoPrograma,
+                    ConsecutivoNueva = usuario.ConsecutivoNueva
+                };
+                var lstDetalle = ObtenerPedidoWebDetalle(pedidoBuscar, out pedidoID);
+
+                return PedidoReservaRespuesta(code, obsPedido, obsByCuv, resultadoReserva, usuario, lstDetalle);
             }
             catch (Exception ex)
             {
@@ -1267,7 +1280,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
         }
 
         private BEPedidoReservaAppResult PedidoReservaRespuesta(string codigoRespuesta, string mensajeRespuesta = null,
-            List<BEPedidoObservacion> observaciones = null)
+            List<BEPedidoObservacion> observaciones = null, BEResultadoReservaProl resultadoReserva = null, BEUsuario usuario = null,
+            List<BEPedidoWebDetalle> pedidoDetalle = null)
         {
             LogPerformance("Fin");
             LogPerformance(string.Empty);
@@ -1280,7 +1294,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     codigoRespuesta == Constantes.PedidoAppValidacion.Code.SUCCESS_GUARDAR_OBS ?
                                     Constantes.PedidoAppValidacion.Code.SUCCESS : codigoRespuesta),
                 MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoAppValidacion.Message[codigoRespuesta] : mensajeRespuesta,
-                Observaciones = observaciones
+                Observaciones = observaciones,
+                ResultadoReserva = resultadoReserva,
+                Usuario = usuario,
+                PedidoDetalle = pedidoDetalle
             };
         }
         #endregion
