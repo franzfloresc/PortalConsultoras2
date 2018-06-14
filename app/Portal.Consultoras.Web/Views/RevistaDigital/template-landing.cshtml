@@ -78,18 +78,17 @@
                 if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
                 {
                     <div id="block_inscribete">
-                        <div class="zona_dorada_contenedor_desktop">
-
-                        </div>
+                        <div class="zona_dorada_contenedor_desktop"></div>
                         <div class="contenido_zona_dorada_contenedor_desktop">
                             <div class="fix-zona-dorada">
                                 <div class="xblock-cont-uno">
-                                    <img src="~/Content/Images/RevistaDigital/logo-club-ganamas-blanco.png" style="width:90px;" /><p>@Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b></p><div style="clear:both;"></div>
+                                    <img src="~/Content/Images/RevistaDigital/logo-club-ganamas-blanco.png" style="width:90px;" />
+                                    <p>@Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b></p>
+                                    <div style="clear:both;"></div>
                                 </div>
                                 <div class="xblock-cont-dos">
                                     <a href="@Url.Action("Informacion", "RevistaDigital")">SUSCRÍBETE GRATIS</a>
                                 </div>
-
                                 <div style="clear: both;"></div>
                             </div>
                         </div>
@@ -98,64 +97,23 @@
                 }
                 else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
                 {
-                    <div id="block_inscribete" style="display:none;">
-                        <div class="zona_dorada_contenedor_desktop">
-
-                        </div>
-                        <div class="contenido_zona_dorada_contenedor_desktop">
-                            <div class="fix-zona-dorada">
-                                <div class="block-cont cont-uno">
-                                    <div class="block-cell">
-                                        <div class="logo-dorado-contenedor"></div>
-                                    </div>
-                                </div>
-                                <div class="block-cont cont-dos">
-                                    <div class="block-cell">
-                                        <p>@Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div style="clear: both;"></div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div id="block_inscribete">
-                        <div class="zona_dorada_contenedor_desktop">
-
-                        </div>
+                        <div class="zona_dorada_contenedor_desktop"></div>
                         <div class="contenido_zona_dorada_contenedor_desktop">
                             <div class="fix-zona-dorada">
-                                <div class="xblock-cont-uno off_boton_uno">
-                                    <img src="~/Content/Images/RevistaDigital/logo-club-ganamas-blanco.png" style="width:90px;" /><div style="clear:both;"></div>
-                                </div>
-                                <div class="xblock-cont-dos off_boton_dos">
+                                <div class="xblock-cont-uno">
+                                    <img src="~/Content/Images/RevistaDigital/logo-club-ganamas-blanco.png" style="width:90px;" />
                                     <p>@Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b></p>
+                                    <div style="clear:both;"></div>
                                 </div>
-
                                 <div style="clear: both;"></div>
                             </div>
                         </div>
-                    </div>
-                }
-                else
-                {
-                    <div>
-                        <div id="block_inscribete">
-                            <div class="content_belcorp">
-                                <div class="block_inscribete_predio">
-                                    <span class="hblock_title_perdio">@Model.PerdioTitulo</span><br/>
-                                    <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 }
 
                 <div class="content_belcorp parche_productos_1000" data-listado-content="" style="margin-bottom: 55px;">
                     <div id="divOfertaProductosPerdio" class="divOfertaProductosPerdiofix" data-content-perdido="@Model.CampaniaID" style="position: relative; top: -230px;"></div>
-
                 </div>
         }
 
