@@ -1636,7 +1636,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     #container {
-        background: rgba(0,0,0,.6) height: 100%;
+        background: rgba(0,0,0,.6); height: 100%;
     }
 
     .content-left, .content-right {
@@ -2309,10 +2309,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .nombre_usuario_facebook {
     float: right;
-    width: -moz-calc(100% -55px);
     width: calc(100% - 55px);
-    width: -webkit-calc(100% - 55px);
-    width: -webkit-calc(~'100% - 55px');
     font-family: 'LAto';
     font-size: 13px;
     margin-top: 15px;
@@ -2543,10 +2540,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .select_pais_facebook {
-    width: -moz-calc(100% - 21px);
     width: calc(100% - 21px);
-    width: -webkit-calc(100% - 21px);
-    width: -webkit-calc(~'100% - 21px');
     float: right;
     border: 0;
     height: 28px;
@@ -3284,7 +3278,7 @@ h1, h2, h3, h4, h5, h6 {
         margin-top:5px;
     }
 
-    .texto_disculpa.
+    .texto_disculpa,
     .icono_reloj_2{
         display:block;
     }
