@@ -2247,72 +2247,88 @@ namespace Portal.Consultoras.BizLogic
         #region OLVIDE CONTRASENIA
         public BEUsuarioCorreo GetRestaurarClaveByValor(int paisID, string valorRestaurar, int prioridad)
         {
-            //var oRestaurar = new BEUsuarioCorreo();
-            //oRestaurar.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarMensajeFueraHorario;
+            var oUsu = new BEUsuarioCorreo();
+            oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarMensajeFueraHorario;
+            var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
             //List<BETablaLogicaDatos> lstFlag = GetFlagEncendido(paisID, Constantes.OlvideContraseña.TablaLogica.TablaLogicaID, Constantes.OlvideContraseña.TablaLogica.MostarTodasOpciones);
-            //if (lstFlag == null) return oRestaurar;
-            //string codigoIso = Common.Util.GetPaisISO(paisID);
+            if (opcion == null) return oUsu;
+            /*validando si tiene Zona*/
+            if (opcion.TieneAlcanse)
+            {
+                if (opcion.lstZonas.Count == 0) return null;
+                if (!ValidaZona(opcion.lstZonas, oUsu.ZonaID)) return null;
+            }
+            /*Validando si corresponde al Usuario*/
+            if (opcion.lstFiltros.Count >= 0)
+            {
+                var usuFiltro = opcion.lstFiltros.Where(a => a.IdEstadoActividad == oUsu.IdEstadoActividad).FirstOrDefault();
+                if (usuFiltro == null) return null;
+                /*Validando campania*/
+                if (!ValidaCampania(oUsu.campaniaID, usuFiltro.CampaniaInicio, usuFiltro.CampaniaFinal)) return null;
+                oUsu.MensajeSaludo = usuFiltro.MensajeSaludo;
+            }
+            
+            oUsu = GetDatosUsuarioByValorCache(paisID, valorRestaurar);
+            if (oUsu == null) return null;
+            if (oUsu.Cantidad == 0) return null;
+            string codigoIso = Common.Util.GetPaisISO(paisID);
 
-            //oRestaurar = GetDatosUsuarioByValorCache(paisID, valorRestaurar);
-            //if (oRestaurar == null) return null;
-            //if (oRestaurar.Cantidad == 0) return null;
+            if (prioridad == 1)
+            {                
+                if (opcion.OpcionEmail && oUsu.Correo != "")
+                {
+                    oUsu.CorreoEnmascarado = Common.Util.EnmascararCorreo(oUsu.Correo);
+                    oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarEmail;
+                }
 
-            //if (prioridad == 1)
-            //{             
-            //    GetOpcionHabilitar(paisID, oRestaurar.CodigoUsuario, Constantes.OlvideContraseña.Origen, ref oRestaurar);
-            //    if (lstFlag.Where(a => a.Codigo == Constantes.OlvideContraseña.TablaLogica.OpcionEmail).Select(b => b.Valor).FirstOrDefault() == "1" && oRestaurar.Correo != "")
-            //    {
-            //        oRestaurar.CorreoEnmascarado = Common.Util.EnmascararCorreo(oRestaurar.Correo);
-            //        oRestaurar.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarEmail;
-            //    }                    
+                if (opcion.OpcionSms && oUsu.Celular != "")
+                {
+                    oUsu.CelularEnmascarado = Common.Util.EnmascararCelular(oUsu.Celular);
+                    if (oUsu.MostrarOpcion == Constantes.OlvideContraseña.NombreOpcion.MostrarEmail)
+                        oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarEmailyCelular;
+                    else
+                        oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarCelular;
+                }
 
-            //    if (lstFlag.Where(a => a.Codigo == Constantes.OlvideContraseña.TablaLogica.OpcionSms).Select(b => b.Valor).FirstOrDefault() == "1" && oRestaurar.Correo != "")
-            //    {
-            //        oRestaurar.CelularEnmascarado = Common.Util.EnmascararCelular(oRestaurar.Celular);
-            //        if (oRestaurar.MostrarOpcion == Constantes.OlvideContraseña.NombreOpcion.MostrarEmail)
-            //            oRestaurar.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarEmailyCelular;
-            //        else
-            //            oRestaurar.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarCelular;
-            //    }
-
-            //    if (oRestaurar.MostrarOpcion == Constantes.OlvideContraseña.NombreOpcion.MostrarMensajeFueraHorario)
-            //        prioridad = 2;
-            //}
-            //if (prioridad == 2)
-            //{
-            //    if (lstFlag.Where(a => a.Codigo == Constantes.OlvideContraseña.TablaLogica.OpcionChat).Select(b => b.Valor).FirstOrDefault() == "1")
-            //    {
-            //        string descripcion;
-            //        if (GetHorarioByCodigo(paisID, Constantes.OlvideContraseña.CodigoOpciones.ChatEmtelco, out descripcion))
-            //        {
-            //            oRestaurar.DescripcionHorario = descripcion;
-            //            oRestaurar.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarChat;
-            //        }
-            //        else prioridad = 3;
-            //    }
-            //    else prioridad = 3;
-            //}
-            //if (prioridad == 3)
-            //{
-            //    if (lstFlag.Where(a => a.Codigo == Constantes.OlvideContraseña.TablaLogica.OpcionBelcorpResponde).Select(b => b.Valor).FirstOrDefault().Contains(codigoIso))
-            //    {
-            //        string descripcion;
-            //        if (GetHorarioByCodigo(paisID, Constantes.OlvideContraseña.CodigoOpciones.BelcorpResponde, out descripcion))
-            //        {
-            //            oRestaurar.DescripcionHorario = descripcion;
-            //            oRestaurar.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
-            //            oRestaurar.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarBelcorpResponde;
-            //        }
-            //        else prioridad = 4;
-            //    }
-            //    else  prioridad = 4;
-            //}
-            //if (prioridad == 4)
-            //{
-            //    oRestaurar.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarMensajeFueraHorario;
-            //}
-            //return oRestaurar;
-            return null;
+                if (oUsu.MostrarOpcion == Constantes.OlvideContraseña.NombreOpcion.MostrarMensajeFueraHorario)
+                    prioridad = 2;
+            }
+            if (prioridad == 2)
+            {
+                if (opcion.OpcionChat)
+                {
+                    string descripcion;
+                    if (GetHorarioByCodigo(paisID, Constantes.OlvideContraseña.CodigoOpciones.ChatEmtelco, out descripcion))
+                    {
+                        oUsu.DescripcionHorario = descripcion;
+                        oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarChat;
+                    }
+                    else prioridad = 3;
+                }
+                else prioridad = 3;
+            }
+            if (prioridad == 3)
+            {
+                if (opcion.OpcionBelcorpResponde)
+                {
+                    string descripcion;
+                    if (GetHorarioByCodigo(paisID, Constantes.OlvideContraseña.CodigoOpciones.BelcorpResponde, out descripcion))
+                    {
+                        oUsu.DescripcionHorario = descripcion;
+                        oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
+                        oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarBelcorpResponde;
+                    }
+                    else prioridad = 4;
+                }
+                else prioridad = 4;
+            }
+            if (prioridad == 4)
+            {
+                oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarMensajeFueraHorario;
+            }
+            //GetOpcionHabilitar(paisID, Constantes.OlvideContraseña.Origen, ref oRestaurar);
+            return oUsu;
+            //return null;
         }
 
         public bool ProcesaEnvioEmail(int paisID, BEUsuarioDatos oUsu, int cantidadEnvios)
@@ -2573,16 +2589,11 @@ namespace Portal.Consultoras.BizLogic
         }
         #endregion
 
-        #region Opciones De Verificacion
+        #region Carga Opciones De Verificacion
         private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID)
         {
             var BLobj = new BLOpcionesVerificacion();
             return BLobj.GetOpcionesVerificacionCache(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
-        }
-
-        private BEOpcionesVerificacion GetOpcionesVerificacionCache(int paisID, int orgienID)
-        {
-            return CacheManager<BEOpcionesVerificacion>.ValidateDataElement(paisID, ECacheItem.OpcionesVerificacion, paisID.ToString(), () => GetOpcionesVerificacion(paisID, orgienID));
         }
 
         private bool ValidaCampania(int campaniaActual, int campaniaInicio, int campaniaFin)
@@ -2621,7 +2632,6 @@ namespace Portal.Consultoras.BizLogic
                     if (opcion.lstZonas.Count == 0) return null;
                     if (!ValidaZona(opcion.lstZonas, oUsu.ZonaID)) return null;
                 }
-
                 /*Validando si corresponde al Usuario*/
                 if (opcion.lstFiltros.Count >= 0) 
                 {
