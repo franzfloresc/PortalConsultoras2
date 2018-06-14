@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Infraestructure.Validator.Phone;
 
 namespace Portal.Consultoras.Web.UnitTest.Infraestructure.Validator.Phone
@@ -9,20 +10,21 @@ namespace Portal.Consultoras.Web.UnitTest.Infraestructure.Validator.Phone
         readonly MatchCountryPhone _validator = new MatchCountryPhone();
 
         [TestMethod]
-        [DataRow("PE", "990011514")]
-        [DataRow("MX", "990011514000000")]
-        [DataRow("EC", "9900115141")]
-        [DataRow("CL", "990011514000000")]
-        [DataRow("BO", "990011514000000")]
-        [DataRow("PR", "990011514000000")]
-        [DataRow("DO", "990011514000000")]
-        [DataRow("CR", "99001151")]
-        [DataRow("GT", "99001151")]
-        [DataRow("PA", "99001151")]
-        [DataRow("SV", "99001151")]
-        public void ValidPhoneSuccessTest(string isoPais, string number)
+        [DataRow(Constantes.PaisID.Peru,                "990011514")]
+        [DataRow(Constantes.PaisID.Mexico,              "990011514000000")]
+        [DataRow(Constantes.PaisID.Ecuador,             "9900115141")]
+        [DataRow(Constantes.PaisID.Colombia,             "9900115141")]
+        [DataRow(Constantes.PaisID.Chile,               "990011514000000")]
+        [DataRow(Constantes.PaisID.Bolivia,             "990011514000000")]
+        [DataRow(Constantes.PaisID.PuertoRico,          "990011514000000")]
+        [DataRow(Constantes.PaisID.RepublicaDominicana, "990011514000000")]
+        [DataRow(Constantes.PaisID.CostaRica,           "99001151")]
+        [DataRow(Constantes.PaisID.Guatemala,           "99001151")]
+        [DataRow(Constantes.PaisID.Panama,              "99001151")]
+        [DataRow(Constantes.PaisID.ElSalvador,          "99001151")]
+        public void ValidPhoneSuccessTest(int paisId, string number)
         {
-            _validator.IsoPais = isoPais;
+            _validator.PaisId = paisId;
             var result = _validator.Valid(number);
             result.Wait();
 
@@ -30,38 +32,26 @@ namespace Portal.Consultoras.Web.UnitTest.Infraestructure.Validator.Phone
         }
 
         [TestMethod]
-        [DataRow("PE", "777")]
-        [DataRow("MX", "777")]
-        [DataRow("EC", "777")]
-        [DataRow("CL", "777")]
-        [DataRow("BO", "777")]
-        [DataRow("PR", "777")]
-        [DataRow("DO", "777")]
-        [DataRow("CR", "777")]
-        [DataRow("GT", "777")]
-        [DataRow("PA", "777")]
-        [DataRow("SV", "777")]
-        [DataRow("SV", null)]
-        [DataRow("SV", "")]
-        [DataRow("SV", "+44XX")]
-        public void ValidPhoneErrorTest(string isoPais, string number)
+        [DataRow(Constantes.PaisID.Peru,       "777")]
+        [DataRow(Constantes.PaisID.Mexico,     "777")]
+        [DataRow(Constantes.PaisID.Ecuador,    "777")]
+        [DataRow(Constantes.PaisID.Chile,      "777")]
+        [DataRow(Constantes.PaisID.Bolivia,    "777")]
+        [DataRow(Constantes.PaisID.Colombia,   "777")]
+        [DataRow(Constantes.PaisID.PuertoRico, "777")]
+        [DataRow(Constantes.PaisID.Guatemala,  "777")]
+        [DataRow(Constantes.PaisID.Panama,     "777")]
+        [DataRow(Constantes.PaisID.ElSalvador, "777")]
+        [DataRow(Constantes.PaisID.ElSalvador, null)]
+        [DataRow(Constantes.PaisID.ElSalvador, "")]
+        [DataRow(Constantes.PaisID.ElSalvador, "+44XX")]
+        public void ValidPhoneErrorTest(int paisId, string number)
         {
-            _validator.IsoPais = isoPais;
+            _validator.PaisId = paisId;
             var result = _validator.Valid(number);
             result.Wait();
 
             Assert.IsFalse(result.Result.Success);
-        }
-
-        [TestMethod]
-        public void ValidPhoneNotConfiguredTest()
-        {
-            _validator.IsoPais = "MN";
-            var result = _validator.Valid("12");
-            result.Wait();
-            
-            Assert.IsFalse(result.Result.Success);
-            Assert.IsTrue(result.Result.Message.Contains("no configurado"));
         }
     }
 }

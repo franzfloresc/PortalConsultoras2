@@ -377,7 +377,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 new MatchCountryPhone
                 {
-                    IsoPais = userData.CodigoISO
+                    PaisId = userData.PaisID
                 },
                 new NotSamePhoneValidator
                 {
