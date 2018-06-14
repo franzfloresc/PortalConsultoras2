@@ -6,10 +6,10 @@ using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
-using System;
-using System.Collections.Generic;
 using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
 using Portal.Consultoras.Web.SessionManager.ShowRoom;
+using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -158,6 +158,14 @@ namespace Portal.Consultoras.Web.SessionManager
         IShowRoom ShowRoom { get; }
 
         PagoEnLineaModel GetDatosPagoVisa();
+
+        void SetOfertasDelDia(OfertaDelDiaModel ofertasDelDia);
+
+        OfertaDelDiaModel GetOfertasDelDia();
+
+        void SetFlagOfertaDelDia(int ofertasDelDia);
+
+        bool GetFlagOfertaDelDia();
 
         void SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo);
 
