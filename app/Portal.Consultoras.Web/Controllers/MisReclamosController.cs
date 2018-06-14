@@ -106,7 +106,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
 
             int limiteMinimoTelef, limiteMaximoTelef;
-            _baseProvider.GetLimitNumberPhone(userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
+            Util.GetLimitNumberPhone(userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
             model.limiteMinimoTelef = limiteMinimoTelef;
             model.limiteMaximoTelef = limiteMaximoTelef;
 

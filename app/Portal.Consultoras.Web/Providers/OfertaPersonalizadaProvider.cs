@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AutoMapper;
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceOferta;
@@ -10,19 +11,20 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using AutoMapper;
 
 namespace Portal.Consultoras.Web.Providers
 {
-    public class OfertaPersonalizadaProvider : BaseProvider
+    public class OfertaPersonalizadaProvider
     {
-        private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
-        
-        private readonly ConfiguracionManagerProvider _configuracionManagerProvider;
+        protected ISessionManager sessionManager;
+        protected RevistaDigitalModel revistaDigital;
+        protected ConfiguracionManagerProvider _configuracionManager;
 
         public OfertaPersonalizadaProvider()
         {
-            _configuracionManagerProvider = new ConfiguracionManagerProvider();
+            sessionManager = SessionManager.SessionManager.Instance;
+            revistaDigital = sessionManager.GetRevistaDigital();
+            _configuracionManager = new ConfiguracionManagerProvider();
         }
 
         #region Metodos de Estrategia Controller
@@ -190,7 +192,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return retorno;
         }
-        
+
         public bool TieneProductosPerdio(int campaniaId)
         {
             var revistaDigital = sessionManager.GetRevistaDigital();
@@ -276,7 +278,7 @@ namespace Portal.Consultoras.Web.Providers
         #endregion
 
         #region Metodos de Base estrategia Controller
-        
+
         public bool EsCampaniaFalsa(int campaniaId)
         {
             var userData = sessionManager.GetUserData();
@@ -301,7 +303,7 @@ namespace Portal.Consultoras.Web.Providers
         public void EnviarLogOferta(int campaniaId, string tipo, bool esMObile)
         {
             object data = CrearDataLog(campaniaId, ObtenerConstanteConfPais(tipo), esMObile);
-            var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+            var urlApi = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
 
             if (string.IsNullOrEmpty(urlApi)) return;
 

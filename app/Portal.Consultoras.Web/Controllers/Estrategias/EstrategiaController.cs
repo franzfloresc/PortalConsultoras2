@@ -356,8 +356,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                         imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagenUrl, carpetapais);
                     }
                     p.ImagenProductoSugerido = imagenUrl;
-                    p.ImagenProductoSugeridoSmall = _baseProvider.ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
-                    p.ImagenProductoSugeridoMedium = _baseProvider.ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
+                    p.ImagenProductoSugeridoSmall = _baseProvider.ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall, userData.CodigoISO);
+                    p.ImagenProductoSugeridoMedium = _baseProvider.ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium, userData.CodigoISO);
                     p.TipoCross = tipoCross;
                 });
             }
@@ -451,8 +451,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                             FlagNueva = beProducto.FlagNueva,
                             TipoEstrategiaID = beProducto.TipoEstrategiaID,
                             ImagenProductoSugerido = beProducto.ImagenProductoSugerido ?? "",
-                            ImagenProductoSugeridoSmall = _baseProvider.ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall),
-                            ImagenProductoSugeridoMedium = _baseProvider.ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium),
+                            ImagenProductoSugeridoSmall = _baseProvider.ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall, userData.CodigoISO),
+                            ImagenProductoSugeridoMedium = _baseProvider.ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium, userData.CodigoISO),
                             CodigoProducto = beProducto.CodigoProducto,
                             TieneStockPROL = true
                         });

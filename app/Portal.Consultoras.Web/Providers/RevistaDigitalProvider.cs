@@ -3,18 +3,32 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceAsesoraOnline;
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Portal.Consultoras.Web.Providers
 {
-    public class RevistaDigitalProvider : BaseProvider
+    public class RevistaDigitalProvider
     {
+        protected ISessionManager sessionManager;
+        protected UsuarioModel userData;
+        protected RevistaDigitalModel revistaDigital;
+        protected ConfiguracionManagerProvider _configuracionManager;
+
+        public RevistaDigitalProvider()
+        {
+            sessionManager = SessionManager.SessionManager.Instance;
+            userData = sessionManager.GetUserData();
+            revistaDigital = sessionManager.GetRevistaDigital();
+            _configuracionManager = new ConfiguracionManagerProvider();
+        }
+
         public RevistaDigitalInformativoModel InformativoModel(bool esMobile)
         {
             int limiteMinimoTelef, limiteMaximoTelef;
-            GetLimitNumberPhone(userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
+            Util.GetLimitNumberPhone(userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
             var modelo = new RevistaDigitalInformativoModel();
             modelo.EsSuscrita = revistaDigital.EsSuscrita;
             modelo.EstadoSuscripcion = revistaDigital.EstadoSuscripcion;

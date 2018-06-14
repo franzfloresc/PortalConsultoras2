@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.VerCambiarClave = opcionCambiaClave;
 
             int limiteMinimoTelef, limiteMaximoTelef;
-            _baseProvider.GetLimitNumberPhone(userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
+            Util.GetLimitNumberPhone(userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
             ViewBag.limiteMinimoTelef = limiteMinimoTelef;
             ViewBag.limiteMaximoTelef = limiteMaximoTelef;
 

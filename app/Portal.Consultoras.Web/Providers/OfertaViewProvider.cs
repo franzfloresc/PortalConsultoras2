@@ -101,8 +101,8 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-            model.MensajePopupPrimero = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
-            model.MensajePopupSegundo = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+            model.MensajePopupPrimero = Util.RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+            model.MensajePopupSegundo = Util.RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
 
             return model;
         }
@@ -159,8 +159,8 @@ namespace Portal.Consultoras.Web.Providers
 
                 dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
 
-                dato.Valor1 = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
-                dato.Valor2 = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+                dato.Valor1 = Util.RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+                dato.Valor2 = Util.RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
 
                 if (upper)
                 {

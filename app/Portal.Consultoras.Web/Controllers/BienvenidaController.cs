@@ -179,7 +179,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region limite Min - Max Telef
                 int limiteMinimoTelef, limiteMaximoTelef;
-                _baseProvider.GetLimitNumberPhone( userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
+                Util.GetLimitNumberPhone(userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
                 model.limiteMinimoTelef = limiteMinimoTelef;
                 model.limiteMaximoTelef = limiteMaximoTelef;
                 #endregion

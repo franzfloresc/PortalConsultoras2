@@ -2842,6 +2842,18 @@ namespace Portal.Consultoras.Common
             return cadena.Replace("\r\n", saltoLinea).Replace("\n", saltoLinea).Replace("\r", saltoLinea);
         }
 
+        public static string RemplazaTag(string cadena, string tag, string valor)
+        {
+            cadena = cadena ?? "";
+            tag = tag ?? "";
+            valor = valor ?? "";
+
+            cadena = cadena.Replace(tag, valor);
+            cadena = cadena.Replace(tag.ToLower(), valor);
+            cadena = cadena.Replace(tag.ToUpper(), valor);
+
+            return cadena;
+        }
         public static int ObtenerCampaniaPasada(int campaniaId, int numeroCampaniasAtras)
         {
             int resultado;
@@ -3191,6 +3203,40 @@ namespace Portal.Consultoras.Common
             if (campania.Length == 6)
                 result = string.Format("Campaña {0}", campania.Substring(4, 2));
             return result;
+        }
+
+        public static void GetLimitNumberPhone(int paisId, out int limiteMinimoTelef, out int limiteMaximoTelef)
+        {
+            switch (paisId)
+            {
+                case Constantes.PaisID.Mexico:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 15;
+                    break;
+                case Constantes.PaisID.Peru:
+                    limiteMinimoTelef = 7;
+                    limiteMaximoTelef = 9;
+                    break;
+                case Constantes.PaisID.Colombia:
+                    limiteMinimoTelef = 10;
+                    limiteMaximoTelef = 10;
+                    break;
+                case Constantes.PaisID.Guatemala:
+                case Constantes.PaisID.ElSalvador:
+                case Constantes.PaisID.Panama:
+                case Constantes.PaisID.CostaRica:
+                    limiteMinimoTelef = 8;
+                    limiteMaximoTelef = 8;
+                    break;
+                case Constantes.PaisID.Ecuador:
+                    limiteMinimoTelef = 9;
+                    limiteMaximoTelef = 10;
+                    break;
+                default:
+                    limiteMinimoTelef = 0;
+                    limiteMaximoTelef = 15;
+                    break;
+            }
         }
 
         public static bool IsUrl(string url)

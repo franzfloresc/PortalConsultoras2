@@ -60,9 +60,9 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly GuiaNegocioProvider _guiaNegocioProvider;
         protected readonly ShowRoomProvider _showRoomProvider;
         protected readonly OfertaDelDiaProvider _ofertaDelDiaProvider;
-        protected readonly OfertaPersonalizadaProvider _ofertaPersonalizadaProvider;
+        protected readonly OfertaPersonalizadaProvider _ofertaPersonalizadaProvider; // Mover donde se utiliza
         protected ConfiguracionManagerProvider _configuracionManagerProvider;
-        protected readonly OfertaViewProvider _ofertasViewProvider;
+        protected readonly OfertaViewProvider _ofertasViewProvider;  // Mover donde se utiliza
         protected readonly RevistaDigitalProvider _revistaDigitalProvider;
         protected readonly EventoFestivoProvider _eventoFestivoProvider;
         protected readonly PedidoWebProvider _pedidoWebProvider;
@@ -3502,24 +3502,24 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void RemplazarTagNombreConfiguracionOferta(ref BEConfiguracionOfertasHome config, string tag, string valor)
         {
-            config.DesktopTitulo = _baseProvider.RemplazaTag(config.DesktopTitulo, tag, valor);
-            config.DesktopSubTitulo = _baseProvider.RemplazaTag(config.DesktopSubTitulo, tag, valor);
-            config.MobileTitulo = _baseProvider.RemplazaTag(config.MobileTitulo, tag, valor);
-            config.MobileSubTitulo = _baseProvider.RemplazaTag(config.MobileSubTitulo, tag, valor);
+            config.DesktopTitulo = Util.RemplazaTag(config.DesktopTitulo, tag, valor);
+            config.DesktopSubTitulo = Util.RemplazaTag(config.DesktopSubTitulo, tag, valor);
+            config.MobileTitulo = Util.RemplazaTag(config.MobileTitulo, tag, valor);
+            config.MobileSubTitulo = Util.RemplazaTag(config.MobileSubTitulo, tag, valor);
         }
 
         private ConfiguracionPaisModel RemplazarTagNombre(ConfiguracionPaisModel config, string tag, string valor)
         {
             if (config == null || string.IsNullOrEmpty(tag)) return config;
 
-            config.DesktopTituloBanner = _baseProvider.RemplazaTag(config.DesktopTituloBanner, tag, valor);
-            config.DesktopSubTituloBanner = _baseProvider.RemplazaTag(config.DesktopSubTituloBanner, tag, valor);
-            config.MobileTituloBanner = _baseProvider.RemplazaTag(config.MobileTituloBanner, tag, valor);
-            config.MobileSubTituloBanner = _baseProvider.RemplazaTag(config.MobileSubTituloBanner, tag, valor);
-            config.DesktopTituloMenu = _baseProvider.RemplazaTag(config.DesktopTituloMenu, tag, valor);
-            config.DesktopSubTituloMenu = _baseProvider.RemplazaTag(config.DesktopSubTituloMenu, tag, valor);
-            config.MobileTituloMenu = _baseProvider.RemplazaTag(config.MobileTituloMenu, tag, valor);
-            config.MobileSubTituloMenu = _baseProvider.RemplazaTag(config.MobileSubTituloMenu, tag, valor);
+            config.DesktopTituloBanner = Util.RemplazaTag(config.DesktopTituloBanner, tag, valor);
+            config.DesktopSubTituloBanner = Util.RemplazaTag(config.DesktopSubTituloBanner, tag, valor);
+            config.MobileTituloBanner = Util.RemplazaTag(config.MobileTituloBanner, tag, valor);
+            config.MobileSubTituloBanner = Util.RemplazaTag(config.MobileSubTituloBanner, tag, valor);
+            config.DesktopTituloMenu = Util.RemplazaTag(config.DesktopTituloMenu, tag, valor);
+            config.DesktopSubTituloMenu = Util.RemplazaTag(config.DesktopSubTituloMenu, tag, valor);
+            config.MobileTituloMenu = Util.RemplazaTag(config.MobileTituloMenu, tag, valor);
+            config.MobileSubTituloMenu = Util.RemplazaTag(config.MobileSubTituloMenu, tag, valor);
 
             return config;
         }
