@@ -1911,13 +1911,13 @@ namespace Portal.Consultoras.BizLogic
         
         public BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string celularActual, string celularNuevo)
         {
+            if (string.IsNullOrEmpty(celularNuevo))
+            {
+                return new BERespuestaServicio(Constantes.MensajesError.ValorVacio);
+            }
+
             try
             {
-                if (string.IsNullOrEmpty(celularNuevo))
-                {
-                    return new BERespuestaServicio(Constantes.MensajesError.ValorVacio);
-                }
-
                 var dAValidacionDatos = new DAValidacionDatos(paisId);
                 var dAUsuario = new DAUsuario(paisId);
 
@@ -1970,7 +1970,7 @@ namespace Portal.Consultoras.BizLogic
                         codigoGenerado = code
                     });
 
-                    //EnviarSms(celular, code);
+                    //EnviarSms(celularNuevo, code);
                     transScope.Complete();
                 }
             }
@@ -1990,11 +1990,11 @@ namespace Portal.Consultoras.BizLogic
                 return new BERespuestaServicio (Constantes.MensajesError.ValorVacio);
             }
 
-            var daValidacionDatos = new DAValidacionDatos(paisId);
-            var daUsuario = new DAUsuario(paisId);
-
             try
             {
+                var daValidacionDatos = new DAValidacionDatos(paisId);
+                var daUsuario = new DAUsuario(paisId);
+
                 var generated = daUsuario.GetCodigoGenerado(new BEUsuarioCorreo
                 {
                     OrigenID = Constantes.EnviarCorreoYSms.Origen_ActualizarCorreo,
@@ -2002,25 +2002,20 @@ namespace Portal.Consultoras.BizLogic
                     CodigoUsuario = codigoUsuario,
                 }, codigoSms);
 
-                if (generated != codigoSms)
+                if (string.IsNullOrEmpty(generated))
                 {
                     return new BERespuestaServicio (Constantes.MensajesError.CodigoIncorrecto);
                 }
 
                 BEValidacionDatos validacionDato;
-                using (var reader = daValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.ValidacionDatosTipoEnvio.Sms, codigoUsuario))
+                var result = GetSmsValidacionDatos(codigoUsuario, campania, daValidacionDatos, out validacionDato);
+                if (!result.Succcess)
                 {
-                    validacionDato = reader.MapToObject<BEValidacionDatos>();
+                    return result;
                 }
-                if (validacionDato == null || validacionDato.Estado != Constantes.ValidacionDatosEstado.Pendiente)
-                {
-                    return new BERespuestaServicio(Constantes.MensajesError.CelularActivacion);
-                }
-                validacionDato.Estado = Constantes.ValidacionDatosEstado.Activo;
-                validacionDato.UsuarioModificacion = codigoUsuario;
-                validacionDato.CampaniaActivacion = campania;
 
-                var exist = ValidarTelefonoConsultora(paisId, validacionDato.DatoAntiguo, codigoUsuario);
+                var celularNuevo = validacionDato.DatoNuevo;
+                var exist = ValidarTelefonoConsultora(paisId, celularNuevo, codigoUsuario);
                 if (exist != 0)
                 {
                     return new BERespuestaServicio(Constantes.MensajesError.CelularEnUso);
@@ -2034,7 +2029,7 @@ namespace Portal.Consultoras.BizLogic
                 using (var transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
                 {
                     daValidacionDatos.UpdValidacionDatos(validacionDato);
-                    //daUsuario.UpdateUsuarioEmailTelefono(1, null, validacionDato.DatoNuevo);
+                    daUsuario.UpdUsuarioCelular(codigoUsuario, celularNuevo);
 
                     transScope.Complete();
                 }
@@ -2045,6 +2040,27 @@ namespace Portal.Consultoras.BizLogic
                 return new BERespuestaServicio (Constantes.MensajesError.CelularActivacion);
             }
 
+            return new BERespuestaServicio { Succcess = true };
+        }
+
+        private BERespuestaServicio GetSmsValidacionDatos(string codigoUsuario, int campania, DAValidacionDatos daValidacionDatos, out BEValidacionDatos validacionDato)
+        {
+            using (var reader = daValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.ValidacionDatosTipoEnvio.Sms, codigoUsuario))
+            {
+                validacionDato = reader.MapToObject<BEValidacionDatos>();
+            }
+
+            if (validacionDato == null || validacionDato.Estado != Constantes.ValidacionDatosEstado.Pendiente)
+            {
+                {
+                    return new BERespuestaServicio(Constantes.MensajesError.CelularActivacion);
+                }
+            }
+
+            validacionDato.Estado = Constantes.ValidacionDatosEstado.Activo;
+            validacionDato.UsuarioModificacion = codigoUsuario;
+            validacionDato.CampaniaActivacion = campania;
+            
             return new BERespuestaServicio { Succcess = true };
         }
 
