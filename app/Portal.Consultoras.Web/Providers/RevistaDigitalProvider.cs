@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public string RegistroSuscripcionValidar(int tipo)
         {
-            var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
+            var diasFaltanFactura = Util.GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
             switch (tipo)
             {
                 case Constantes.EstadoRDSuscripcion.Activo:

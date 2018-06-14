@@ -3159,6 +3159,12 @@ namespace Portal.Consultoras.Common
             return displayTiempo;
         }
 
+        public static int GetDiasFaltantesFacturacion(DateTime fechaInicioCampania, double zonaHoraria)
+        {
+            var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
+            return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
+        }
+
         public static int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
         {
             if (campania <= 0 || nroCampanias <= 0) return 0;

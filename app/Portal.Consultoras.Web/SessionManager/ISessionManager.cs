@@ -3,6 +3,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
@@ -23,6 +24,41 @@ namespace Portal.Consultoras.Web.SessionManager
         List<TablaLogicaDatosModel> GetTablaLogicaDatosLista(string key);
 
         void SetTablaLogicaDatosLista(string key, List<TablaLogicaDatosModel> datoLogico);
+        #endregion
+
+        #region CDR
+
+        List<BECDRWebDetalle> GetCDRWebDetalle();
+        
+        void SetCDRWebDetalle(List<BECDRWebDetalle> datos);
+        
+        List<BECDRWeb> GetCdrWeb();
+
+        void SetCdrWeb(List<BECDRWeb> datos);
+        
+        List<CampaniaModel> GetCdrCampanias();
+
+        void SetCdrCampanias(List<CampaniaModel> datos);
+        
+        List<BECDRParametria> GetCdrParametria();
+
+        void SetCdrParametria(List<BECDRParametria> datos);
+        
+        List<BECDRWebDatos> GetCdrWebDatos();
+
+        void SetCdrWebDatos(List<BECDRWebDatos> datos);
+        
+        List<BEPedidoWeb> GetCdrPedidosFacturado();
+
+        void SetCdrPedidosFacturado(List<BEPedidoWeb> datos);
+        
+        List<BECDRWebDescripcion> GetCdrDescripcion();
+
+        void SetCdrDescripcion(List<BECDRWebDescripcion> datos);
+
+        List<BECDRWebMotivoOperacion> GetCdrMotivoOperacion();
+
+        void SetCdrMotivoOperacion(List<BECDRWebMotivoOperacion> datos);
         #endregion
 
         BEPedidoWeb GetPedidoWeb();

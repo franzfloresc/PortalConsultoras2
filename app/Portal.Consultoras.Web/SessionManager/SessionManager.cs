@@ -4,6 +4,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
@@ -59,6 +60,89 @@ namespace Portal.Consultoras.Web.SessionManager
         public void SetTablaLogicaDatosLista(string key, List<TablaLogicaDatosModel> datoLogico)
         {
             HttpContext.Current.Session[key] = datoLogico;
+        }
+        #endregion
+        
+        #region CDR
+
+        public List<BECDRWebDetalle> GetCDRWebDetalle()
+        {
+            return (List<BECDRWebDetalle>)HttpContext.Current.Session[Constantes.ConstSession.CDRWebDetalle];
+        }
+
+        public void SetCDRWebDetalle(List<BECDRWebDetalle> datos)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRWebDetalle] = datos;
+        }
+        
+        public List<BECDRWeb> GetCdrWeb()
+        {
+            return (List<BECDRWeb>)HttpContext.Current.Session[Constantes.ConstSession.CDRWeb];
+        }
+
+        public void SetCdrWeb(List<BECDRWeb> datos)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRWeb] = datos;
+        }
+        
+        public List<CampaniaModel> GetCdrCampanias()
+        {
+            return (List<CampaniaModel>)HttpContext.Current.Session[Constantes.ConstSession.CDRCampanias];
+        }
+
+        public void SetCdrCampanias(List<CampaniaModel> datos)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRCampanias] = datos;
+        }
+
+        public List<BECDRParametria> GetCdrParametria()
+        {
+            return (List<BECDRParametria>)HttpContext.Current.Session[Constantes.ConstSession.CDRParametria];
+        }
+
+        public void SetCdrParametria(List<BECDRParametria> datos)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRParametria] = datos;
+        }
+
+        public List<BECDRWebDatos> GetCdrWebDatos()
+        {
+            return (List<BECDRWebDatos>)HttpContext.Current.Session[Constantes.ConstSession.CDRWebDatos];
+        }
+
+        public void SetCdrWebDatos(List<BECDRWebDatos> datos)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRWebDatos] = datos;
+        }
+        
+        public List<BEPedidoWeb> GetCdrPedidosFacturado()
+        {
+            return (List<BEPedidoWeb>)HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado];
+        }
+
+        public void SetCdrPedidosFacturado(List<BEPedidoWeb> datos)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado] = datos;
+        }
+
+        public List<BECDRWebDescripcion> GetCdrDescripcion()
+        {
+            return (List<BECDRWebDescripcion>)HttpContext.Current.Session[Constantes.ConstSession.CDRDescripcion];
+        }
+
+        public void SetCdrDescripcion(List<BECDRWebDescripcion> datos)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRDescripcion] = datos;
+        }
+        
+        public List<BECDRWebMotivoOperacion> GetCdrMotivoOperacion()
+        {
+            return (List<BECDRWebMotivoOperacion>)HttpContext.Current.Session[Constantes.ConstSession.CDRMotivoOperacion];
+        }
+
+        public void SetCdrMotivoOperacion(List<BECDRWebMotivoOperacion> datos)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRMotivoOperacion] = datos;
         }
         #endregion
 

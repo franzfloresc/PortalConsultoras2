@@ -61,13 +61,7 @@ namespace Portal.Consultoras.Web.Providers
                     break;
             }
         }
-
-        public int GetDiasFaltantesFacturacion(DateTime fechaInicioCampania, double zonaHoraria)
-        {
-            var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
-            return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
-        }
-
+        
         public string RemplazaTag(string cadena, string tag, string valor)
         {
             cadena = cadena ?? "";
