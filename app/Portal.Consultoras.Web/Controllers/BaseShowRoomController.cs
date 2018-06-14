@@ -343,7 +343,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var listadoOfertasTodasModel = sessionManager.ShowRoom.OfertasCompraPorCompra;
                     listadoOfertasTodasModel.Update(x =>
                     {
-                        x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
+                        x.DescripcionMarca = Util.GetDescripcionMarca(x.MarcaID);
                         x.CodigoISO = userData.CodigoISO;
                         x.Simbolo = userData.Simbolo;
                     });
@@ -429,7 +429,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 listaShowRoomCpcFinal.Update(x =>
                 {
-                    x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
+                    x.DescripcionMarca = Util.GetDescripcionMarca(x.MarcaID);
                     x.CodigoISO = userData.CodigoISO;
                     x.Simbolo = userData.Simbolo;
                 });
@@ -449,7 +449,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ofertasShowRoom = ObtenerListaProductoShowRoomMdo(ofertasShowRoom);
             ActualizarUrlImagenes(ofertasShowRoom);
-            ofertasShowRoom.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
+            ofertasShowRoom.Update(x => x.DescripcionMarca = Util.GetDescripcionMarca(x.MarcaID));
 
             return ofertasShowRoom.FirstOrDefault();
         }
@@ -613,7 +613,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             listaShowRoomOfertaFinal.Update(x =>
             {
-                x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
+                x.DescripcionMarca = Util.GetDescripcionMarca(x.MarcaID);
                 x.CodigoISO = userData.CodigoISO;
                 x.Simbolo = userData.Simbolo;
                 x.Agregado = (listaPedidoDetalle.Find(p => p.CUV == x.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none";

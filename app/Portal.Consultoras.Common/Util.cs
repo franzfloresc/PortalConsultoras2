@@ -2361,6 +2361,28 @@ namespace Portal.Consultoras.Common
             return paisNom;
         }
 
+        public static string GetPaisNombreByISO(string paisISO)
+        {
+            switch (paisISO)
+            {
+                case Constantes.CodigosISOPais.Argentina: return "argentina";
+                case Constantes.CodigosISOPais.Bolivia: return "bolivia";
+                case Constantes.CodigosISOPais.Chile: return "chile";
+                case Constantes.CodigosISOPais.Colombia: return "colombia";
+                case Constantes.CodigosISOPais.CostaRica: return "costarica";
+                case Constantes.CodigosISOPais.Dominicana: return "republicadominicana";
+                case Constantes.CodigosISOPais.Ecuador: return "ecuador";
+                case Constantes.CodigosISOPais.Guatemala: return "guatemala";
+                case Constantes.CodigosISOPais.Mexico: return "mexico";
+                case Constantes.CodigosISOPais.Panama: return "panama";
+                case Constantes.CodigosISOPais.Peru: return "peru";
+                case Constantes.CodigosISOPais.PuertoRico: return "puertorico";
+                case Constantes.CodigosISOPais.Salvador: return "elsalvador";
+                case Constantes.CodigosISOPais.Venezuela: return "venezuela";
+                default: return "sinpais";
+            }
+        }
+
         public static int GetPaisID(string ISO)
         {
             ISO = ISO.ToUpper();
@@ -3248,6 +3270,45 @@ namespace Portal.Consultoras.Common
 
             return colorStr == "" ? defecto : colorStr;
         }
+
+        public static string GetDescripcionMarca(int marcaId)
+        {
+            string result;
+
+            switch (marcaId)
+            {
+                case 1:
+                    result = "L'bel";
+                    break;
+                case 2:
+                    result = "Ésika";
+                    break;
+                case 3:
+                    result = "Cyzone";
+                    break;
+                case 4:
+                    result = "S&M";
+                    break;
+                case 5:
+                    result = "Home Collection";
+                    break;
+                case 6:
+                    result = "Finart";
+                    break;
+                case 7:
+                    result = "Generico";
+                    break;
+                case 8:
+                    result = "Glance";
+                    break;
+                default:
+                    result = "NO DISPONIBLE";
+                    break;
+            }
+
+            return result;
+        }
+
     }
 
     public static class DataRecord

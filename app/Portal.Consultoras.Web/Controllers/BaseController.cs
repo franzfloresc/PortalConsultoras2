@@ -2116,7 +2116,7 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var oferta in model.ListaOfertas)
             {
                 oferta.Position = posicion++;
-                oferta.DescripcionMarca = GetDescripcionMarca(oferta.MarcaID);
+                oferta.DescripcionMarca = Util.GetDescripcionMarca(oferta.MarcaID);
                 oferta.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == oferta.CUV2 && (d.TipoEstrategiaID == oferta.TipoEstrategiaID || d.TipoEstrategiaID == 0)) ? "block" : "none";
 
                 if (tiposEstrategia != null && tiposEstrategia.Any(x => x.TipoEstrategiaID == oferta.TipoEstrategiaID))
@@ -2356,7 +2356,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
             codigo = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoCatalogoIssuu);
-            return string.Format(codigo, nombreCatalogoIssuu, GetPaisNombreByISO(userData.CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4));
+            return string.Format(codigo, nombreCatalogoIssuu, Util.GetPaisNombreByISO(userData.CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4));
         }
 
         protected string GetCatalogoCodigoIssuu(string campania, int idMarcaCatalogo)
@@ -2419,38 +2419,16 @@ namespace Portal.Consultoras.Web.Controllers
                 anioCampania = campania.Substring(0, 4);
 
             if (esRevistaPiloto && esMarcaEspecial)
-                requestUrl = string.Format(codigo, nombreCatalogoIssuu, GetPaisNombreByISO(userData.CodigoISO), nroCampania, anioCampania, CodeGrup.Replace(Constantes.ConfiguracionManager.Catalogo_Piloto_Escenario, ""));
+                requestUrl = string.Format(codigo, nombreCatalogoIssuu, Util.GetPaisNombreByISO(userData.CodigoISO), nroCampania, anioCampania, CodeGrup.Replace(Constantes.ConfiguracionManager.Catalogo_Piloto_Escenario, ""));
             else
             {
-                requestUrl = string.Format(codigo, nombreCatalogoIssuu, GetPaisNombreByISO(userData.CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4), "");
+                requestUrl = string.Format(codigo, nombreCatalogoIssuu, Util.GetPaisNombreByISO(userData.CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4), "");
                 requestUrl = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
             }
 
             return requestUrl;
         }
-
-        protected string GetPaisNombreByISO(string paisISO)
-        {
-            switch (paisISO)
-            {
-                case Constantes.CodigosISOPais.Argentina: return "argentina";
-                case Constantes.CodigosISOPais.Bolivia: return "bolivia";
-                case Constantes.CodigosISOPais.Chile: return "chile";
-                case Constantes.CodigosISOPais.Colombia: return "colombia";
-                case Constantes.CodigosISOPais.CostaRica: return "costarica";
-                case Constantes.CodigosISOPais.Dominicana: return "republicadominicana";
-                case Constantes.CodigosISOPais.Ecuador: return "ecuador";
-                case Constantes.CodigosISOPais.Guatemala: return "guatemala";
-                case Constantes.CodigosISOPais.Mexico: return "mexico";
-                case Constantes.CodigosISOPais.Panama: return "panama";
-                case Constantes.CodigosISOPais.Peru: return "peru";
-                case Constantes.CodigosISOPais.PuertoRico: return "puertorico";
-                case Constantes.CodigosISOPais.Salvador: return "elsalvador";
-                case Constantes.CodigosISOPais.Venezuela: return "venezuela";
-                default: return "sinpais";
-            }
-        }
-
+        
         #endregion
 
         #region Zonificacion
@@ -4389,45 +4367,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return config;
         }
-
-        protected string GetDescripcionMarca(int marcaId)
-        {
-            string result;
-
-            switch (marcaId)
-            {
-                case 1:
-                    result = "L'bel";
-                    break;
-                case 2:
-                    result = "Ésika";
-                    break;
-                case 3:
-                    result = "Cyzone";
-                    break;
-                case 4:
-                    result = "S&M";
-                    break;
-                case 5:
-                    result = "Home Collection";
-                    break;
-                case 6:
-                    result = "Finart";
-                    break;
-                case 7:
-                    result = "Generico";
-                    break;
-                case 8:
-                    result = "Glance";
-                    break;
-                default:
-                    result = "NO DISPONIBLE";
-                    break;
-            }
-
-            return result;
-        }
-
+        
         protected List<ServicePedido.BETipoEstrategia> GetTipoEstrategias()
         {
             List<ServicePedido.BETipoEstrategia> tiposEstrategia;
@@ -4444,11 +4384,11 @@ namespace Portal.Consultoras.Web.Controllers
             return tiposEstrategia;
         }
 
-        protected bool EsConsultoraNueva()
-        {
-            return userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
-                   userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
-        }
+        //protected bool EsConsultoraNueva()
+        //{
+        //    return userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
+        //           userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
+        //}
         #endregion
 
         #region Sesiones 
