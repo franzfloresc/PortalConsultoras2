@@ -61,7 +61,7 @@
         var emt_first_name = '@ViewBag.NombreC';
         var emt_id = '@ViewBag.CodigoUsuario';
         var emt_type = '0';
-        // New Chat -->
+        // New Chat
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
         var FechaActual = '@(DateTime.Now.ToString("dd/MM/yyyy"))';
 
@@ -75,7 +75,6 @@
         }
         window.controllerName = '@ctrl.ToLower()';
         window.actionName     = '@acti.ToLower()';
-        //console.log("controllerName:" + controllerName + " | actionName:" + actionName);
 
         var userData = {
             'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
@@ -124,32 +123,7 @@
         }
     </script>
 
-    @*@if (ViewBag.Rol == Constantes.Rol.Consultora)
-        {
-            string nombre_pais = ViewBag.PaisAnalytics;
-
-            switch (nombre_pais)
-            {
-                case "EC":
-                //break;
-                case "CO":
-                case "BO":
-                case "CL":
-                case "MX":
-                case "PR":
-                case "DO":
-                case "PE":
-                case "PA":
-                case "CR":
-                case "SV":
-                case "GT":
-                    <div class="boton_ayuda"><span class="boton-home belcorpChat"><a href="#">¿Necesitas ayuda?</a> </span></div>
-                    break;
-            }
-        }*@
-    <!-- cabecera -->
     <header>
-        <!--BANNER -->
         @if (ViewBag.MostrarBannerPostulante == true)
         {
             @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBloqueMensajesPostulante.cshtml")
@@ -159,7 +133,6 @@
             @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBloqueMensajesPedido.cshtml")
         }
 
-        <!--END BANNER -->
         <div class="clear"></div>
         <div class="wrapper_header">
             <div class="logo_esika">
@@ -174,8 +147,6 @@
         <div class="clear"></div>
     </header>
     <div class="fondo_oscuro"></div>
-    <!-- end cabecera -->
-    <!-- contenedor -->
     <style>
         .data-layaout-body {
             width: initial !important;
@@ -218,15 +189,12 @@
             {
                 @Html.Partial("~/Views/ShowRoom/_BannerInferior.cshtml", (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.BannerInferiorConfiguracion)ViewBag.BannerInferior)
             }
-            <!-- footer -->
             <hr class="clear" />
             <footer class="footer_e">
                 @Html.Partial("~/Views/Shared/_Footer.cshtml")
             </footer>
-            <!-- end footer -->
         </div>
     </div>
-    <!-- end contenedor -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpFeDeErratas.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpRegistroComunidad.cshtml")
 
@@ -240,26 +208,20 @@
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
     <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
 
-    <!-- Div Banner Lateral ShowRoom -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBannerLateralShowRoom.cshtml")
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogMensajes.cshtml")
 
-    <!-- POPUP MENSAJE ERROR - exclamacion  -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogErrorMainLayout.cshtml")
 
-    <!-- POPUP SESIÓN FINALIZADA - exclamacion  -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogSesionMainLayout.cshtml")
 
-    <!-- POPUP MENSAJE USUARIO POSTULANTE -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogMensajePostulante.cshtml")
 
-    <!-- POPUP PEDIDO RESERVADO -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogPedidoReservado.cshtml")
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTemplateResumenCampania.cshtml")
 
-    <!--OFERTA DEL DIA -->
 <script id="ofertadeldia-template" type="text/x-handlebars-template">
         <div data-odd-tipoventana="baner">
             <div class="content_oferta_dia" id="banner-odd" data-item="">
@@ -310,14 +272,11 @@
                         <span class="clase_control_color_dinamico" style="top: -4px; position: absolute;left: 15px; font-weight: bold; font-family: 'Lato'; font-size:15px; color:#fff;">VOLVER</span>
                     </a>
                 </div>
-                <!--SOLO SE MUESTRA CUANDO SE VA AL DETALLE DE UN PRODUCTO-->
                 <div id="imgSoloHoy" style="height:42px; overflow:hidden;float:left;margin-top: 19px; margin-left:-13px; "><img src="{{ImagenSoloHoy}}" alt="" style="width:74%" /></div>
                 <div class="clock" style="float:right; left: 50px;top: 22px;"></div>
                 <div style="clear:both;"></div>
             </div>
             <hr class="clear" />
-            <!--AÑADIR LA CLASE "content_780_ODD" PARA REDIMENSIONAR EL TAMAÑO DEL DISPLAY EN 1 Ó 2-->
-            <!--CASO 1 CARRUSEL A 1024-->
             <div data-odd-tipoventana="detalle" style="display:none; margin-top: 50px">
                 <hr class="clear" />
                 <div class="parche_presentacion_contenedor parche_presentacion_contenedor_834">
@@ -398,7 +357,6 @@
                     </div>
                 </div>
             </div>
-            <!--CASO CARRUSEL DE 3 PRODUCTOS A MAS A 1024-->
             <div  style="display:none;" data-odd-tipoventana="carrusel" class="content_estrategia_carrusel content_estrategia_carrusel_834">
                 <div class="saludo_mas_productos" data-odd-texto="cliente" style="display:none;">{{UsuarioNombre}}, APROVECHA ESTAS OFERTAS ¡SOLO HOY!</div>
                     <div id="divOddCarrusel" class="contenido contenido_834">
@@ -464,13 +422,9 @@
                         </div>
             </div>
 
-            <!--FIN-->
         </div>
     </script>
-    <!--OFERTA DEL DIA -->
-    <!--OFERTA DEL DIA STYLE -->
     @Html.Partial("_template-ofertadeldia-style")
-    <!-- FIN OFERTA DEL DIA STYLE -->
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
 

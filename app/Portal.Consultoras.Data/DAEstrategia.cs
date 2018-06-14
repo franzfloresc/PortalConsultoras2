@@ -370,7 +370,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteScalar(command).ToString();
         }
-
+        
         public IDataReader GetEstrategiaODD(int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasODD"))
@@ -512,8 +512,6 @@ namespace Portal.Consultoras.Data
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEstrategiaMasiva"))
             {
-                //byte[] tempBytes = System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(entidad.EstrategiaXML.ToString());
-                //string estrategiaXML = System.Text.Encoding.UTF8.GetString(tempBytes);
                 Context.Database.AddInParameter(command, "@EstrategiaXML", DbType.Xml, entidad.EstrategiaXML.ToString());
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
@@ -619,21 +617,23 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public bool EstrategiaTemporalActualizarPrecioNivel(int nroLote)
+        public bool EstrategiaTemporalActualizarPrecioNivel(int nroLote, int pagina)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalActualizarPrecioNivel"))
             {
                 Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.Database.AddInParameter(command, "@Pagina", DbType.Int32, pagina);
                 Context.ExecuteReader(command);
                 return true;
             }
         }
 
-        public bool EstrategiaTemporalActualizarSetDetalle(int nroLote)
+        public bool EstrategiaTemporalActualizarSetDetalle(int nroLote, int pagina)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalActualizarSetDetalle"))
             {
                 Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.Database.AddInParameter(command, "@Pagina", DbType.Int32, pagina);
                 Context.ExecuteReader(command);
                 return true;
             }

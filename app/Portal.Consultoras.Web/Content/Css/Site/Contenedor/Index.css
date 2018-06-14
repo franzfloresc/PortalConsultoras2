@@ -431,7 +431,6 @@
 }
 
 .bc_estrategia_contenido {
-    /*max-height: 800px;*/
 }
 
 .seccion-content-contenedor {
@@ -554,11 +553,6 @@
 }
 
 .contenido_zona_dorada_contenedor_desktop {
-    /*position: relative;
-            top: -255px;
-    width: 77% !important;
-    margin: auto;
-    margin-right: 89px;*/
     top: -255px;
     margin: auto;
     max-width: 1000px;
@@ -670,7 +664,6 @@
         margin-bottom: 0;
         display: block;
         padding-left: 40px;
-        /* display: inline-block; */
         position: absolute;
         padding: 13px 0px;
         margin-left: 150px;
@@ -679,7 +672,12 @@
         .contenido_zona_dorada_contenedor_desktop .xblock-cont-uno p b {
             font-weight: 900;
         }
-
+.contenido_zona_dorada_contenedor_desktop .off_boton_uno{
+    width:40% !important;
+}
+.contenido_zona_dorada_contenedor_desktop .off_boton_dos {
+    width: 60% !important;
+}
 .contenido_zona_dorada_contenedor_desktop .xblock-cont-dos {
     float: left;
     width: 20%;
@@ -699,6 +697,27 @@
         padding: 11.5px;
         width: 100%;
     }
+
+    .contenido_zona_dorada_contenedor_desktop .xblock-cont-dos p {
+        font-size: 13px;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 0.5px;
+        text-align: left;
+        color: #ffffff;
+        margin-bottom: 0;
+        display: block;
+        /* display: inline-block; */
+        padding: 13px 0px;
+        text-align: right;
+        margin-right: 5px;
+    }
+
+        .contenido_zona_dorada_contenedor_desktop .xblock-cont-dos p b {
+            font-weight: 900;
+        }
+
 .fixed_contenedor_head {
     position: fixed;
     top: 61px;

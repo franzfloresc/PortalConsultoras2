@@ -56,14 +56,6 @@ ul, ol {
     list-style: none;
 }
 
-/*.lt-ie9 img {
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)";
-}*/
-
-/*.lt-ie8 img {
-    filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)";
-}*/
-
 header {
     position: relative;
     top: 0 !important;
@@ -3221,7 +3213,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     overflow: hidden;
     padding-top: 10px;
     box-sizing: border-box;
-    /*top: -115px;*/
 }
 
 .control_carousel_flechaArriba {
@@ -36270,8 +36261,6 @@ height:30px;
 /*SPRINT 19*/
 .content_new_showroom {
     width: 100%;
-    /*padding-left: 10%;*/
-    /*padding-right: 2%;*/
     padding-top: 35px;
     padding-left: 10px;
     padding-right: 10px;
@@ -36464,10 +36453,6 @@ height:30px;
 /* metodo para centrar todos los contenedores con productos en el landing RevistaDigital */
 
 .divOfertaProductosfix, .divOfertaProductosPerdiofix {
-    /*text-align: center;
-    max-width: 1000px;
-    margin: auto;
-    margin-left: 15%;*/
 }
 
 .divOfertaProductosfixNoDorado {

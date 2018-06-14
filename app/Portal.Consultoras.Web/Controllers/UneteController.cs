@@ -1338,15 +1338,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in resultado)
                 {
-                    if (!string.IsNullOrEmpty(item.DiasEnEspera))
+                    if (!string.IsNullOrEmpty(item.DiasEnEspera) && reporteDiasEspera != null)
                     {
-                        if (reporteDiasEspera != null)
-                        {
                             var data = reporteDiasEspera.ToList().FirstOrDefault(x => x.SolicitudPostulanteId == item.SolicitudPostulanteID).ResumenDiasEspera.Split('|');
                             item.DetalleDiasEsperaGSAC = data[0];
                             item.DetalleDiasEsperaAFFVV = data[1];
                             item.DetalleDiasEsperaASAC = data[2];
-                        }
                     }
                 }
 

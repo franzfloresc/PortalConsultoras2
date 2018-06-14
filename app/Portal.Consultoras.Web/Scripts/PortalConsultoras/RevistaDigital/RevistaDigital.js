@@ -293,11 +293,6 @@ function OfertaArmarEstrategias(response, busquedaModel) {
         tem.EsLanzamiento = false;
     });
 
-    //if (response.Mobile) {
-    //    $.each(modeloTemp.lista, function (ind, tem) {
-    //        tem.TipoAccionAgregar = 0;
-    //    });
-    //}
     var modelHtml = Clone(modeloTemp);
 
     if (response.Mobile) {
@@ -335,7 +330,11 @@ function OfertaArmarEstrategias(response, busquedaModel) {
             }
         } else {
             $("#block_inscribete").hide();
+            $("#divOfertaProductosPerdio").remove();
         }
+    }
+    else {
+        $("#divOfertaProductosPerdio").remove();
     }
    
 
@@ -408,6 +407,8 @@ function OfertaArmarEstrategiasContenedorSeccion(response) {
         return false;
     }
     response.listaPerdio = response.listaPerdio || [];
+    response.listaLan = response.listaLan || [];
+    response.lista = response.lista || [];
     response.CantidadProductos = response.lista.length + response.listaPerdio.length;
     var cant = response.Seccion.CantidadProductos || 0;
     cant = cant == 0 ? (response.lista.length || response.listaLan.length) : cant;

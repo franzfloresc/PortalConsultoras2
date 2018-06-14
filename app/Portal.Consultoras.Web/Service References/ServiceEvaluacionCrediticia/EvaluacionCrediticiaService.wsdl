@@ -26,6 +26,12 @@
   <wsdl:message name="IEvaluacionCrediticiaService_ConsultarServicioCrediticioPeru_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarServicioCrediticioPeruResponse" />
   </wsdl:message>
+  <wsdl:message name="IEvaluacionCrediticiaService_ConsultarServicioCrediticioPeruZona_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarServicioCrediticioPeruZona" />
+  </wsdl:message>
+  <wsdl:message name="IEvaluacionCrediticiaService_ConsultarServicioCrediticioPeruZona_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarServicioCrediticioPeruZonaResponse" />
+  </wsdl:message>
   <wsdl:message name="IEvaluacionCrediticiaService_ConsultarServicioCrediticioCam_InputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarServicioCrediticioCam" />
   </wsdl:message>
@@ -56,6 +62,10 @@
     <wsdl:operation name="ConsultarServicioCrediticioPeru">
       <wsdl:input wsaw:Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioPeru" message="tns:IEvaluacionCrediticiaService_ConsultarServicioCrediticioPeru_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioPeruResponse" message="tns:IEvaluacionCrediticiaService_ConsultarServicioCrediticioPeru_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarServicioCrediticioPeruZona">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioPeruZona" message="tns:IEvaluacionCrediticiaService_ConsultarServicioCrediticioPeruZona_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioPeruZonaResponse" message="tns:IEvaluacionCrediticiaService_ConsultarServicioCrediticioPeruZona_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ConsultarServicioCrediticioCam">
       <wsdl:input wsaw:Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioCam" message="tns:IEvaluacionCrediticiaService_ConsultarServicioCrediticioCam_InputMessage" />
@@ -92,6 +102,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultarServicioCrediticioPeru">
       <soap:operation soapAction="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioPeru" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarServicioCrediticioPeruZona">
+      <soap:operation soapAction="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioPeruZona" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

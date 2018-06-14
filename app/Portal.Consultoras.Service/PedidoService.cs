@@ -2396,5 +2396,11 @@ namespace Portal.Consultoras.Service
                 throw new FaultException("Error desconocido.");
             }
         }
+        
+        public bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID)
+        {
+            return blEstrategia.LimpiarCacheRedis(paisID, codigoTipoEstrategia, campaniaID);
+        }
+
     }
 }

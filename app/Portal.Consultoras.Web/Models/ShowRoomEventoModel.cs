@@ -96,5 +96,14 @@ namespace Portal.Consultoras.Web.Models
         public string ColorFondoContenidoOfertaSubCampania { get; set; }
 
         public string TextoBotonVerMasOfertaSubCampania { get; set; }
+
+        public bool ProductosPerdio { get; set; }
+
+        public string PerdioTitulo { get; set; }
+
+        public string PerdioSubTitulo { get; set; }
+
+        public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }
+
     }
 }

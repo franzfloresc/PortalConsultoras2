@@ -119,5 +119,8 @@ namespace Portal.Consultoras.Web.Models
         public int TipoAccionAgregar { get; set; }
         
         public int TieneVariedad { get; set; }
+
+        public int FlagRevista { get; set; }
+        
     }
 }

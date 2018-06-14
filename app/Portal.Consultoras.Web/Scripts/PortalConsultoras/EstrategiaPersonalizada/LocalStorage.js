@@ -123,3 +123,20 @@ function actualizarIsAgregado(lista, cuv, valor) {
 
     return ok
 }
+
+function RDActualizarTipoAccionAgregar(revistaDigital, key){
+    var valLocalStorage = LocalStorageListado(key,null,1);
+    if (valLocalStorage == null)
+        return false;
+
+    valLocalStorage = JSON.parse(valLocalStorage);
+
+    $.each(valLocalStorage.response.listaPerdio, function(ind, item) {
+        if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+            item.TipoAccionAgregar = 5;
+        if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+            item.TipoAccionAgregar = 4;
+    });
+
+    LocalStorageListado(key, valLocalStorage, 0);
+}

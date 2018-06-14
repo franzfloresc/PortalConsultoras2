@@ -1,6 +1,4 @@
-﻿--USE BelcorpPeru_BPT
---GO
-USE [BelcorpColombia_PL50]
+﻿
 GO
 
 PRINT DB_NAME()
@@ -98,7 +96,7 @@ BEGIN
 						,PRECIO_UNITARIO = (PMO.PrecioUnitario) 
 						,PRECIO_VALORIZADO = (PMO.PrecioValorizado) 
 						,ORDEN = CASE WHEN PMO.CodigoProducto = PM.CodigoProducto THEN PM.NumeroLineaOferta ELSE PMO.NumeroLineaOferta END 
-						,DIGITABLE = PMO.IndicadorDigitable 
+						,DIGITABLE = CASE WHEN PM.EstrategiaIDSicc IN ('2001', '2003') THEN 1 ELSE 0 END
 						,COD_VENTA_HIJO = PMO.CUV 
 						,FACTOR_CUADRE = CAST(ISNULL(PMO.CodigoFactorCuadre,1) AS INT) 
 						,DESCRIPCION = PMO.DESCRIPCION 

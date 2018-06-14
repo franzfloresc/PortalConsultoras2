@@ -1,5 +1,4 @@
-﻿
-.revista_ficha {
+﻿.revista_ficha {
     height: 185px !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
@@ -345,4 +344,137 @@
 }
 .content_item_home_bpt {
     min-height: 397px;
+}
+
+/* nuevo detalle producto */
+
+section.producto_compra_contiene .nom_marca{
+font-size: 12px;
+display: block;
+text-align: left;
+}
+section.producto_compra_contiene .nom_producto{
+display: block;
+text-align: left;
+font-size: 18px;
+letter-spacing: 1px;
+margin-bottom: 10px;
+font-weight: 700;
+}
+section.producto_compra_contiene .precio_antiguo{
+font-weight: normal;
+color: #8080808a;
+text-decoration: line-through;
+font-size: 12.5px;
+}
+section.producto_compra_contiene .precio_para_ti{
+letter-spacing: .5px;
+}
+section.producto_compra_contiene .precio_para_ti b{
+font-weight: 700;
+font-size: 18px;
+}
+section.producto_compra_contiene .gana{
+text-transform: uppercase;
+color:red;
+display: block;
+text-align: left;
+}
+section.producto_compra_contiene .titulo_contenido {
+font-size: 12px;
+letter-spacing: 1px;
+font-weight: 700;
+border-bottom: 0;
+}
+section.tabs ul{
+margin:0;
+padding: 0;
+list-style: none;
+}
+section.tabs ul li {
+width:100%;
+border-bottom: 1px solid #00000057;
+}
+section.tabs ul li a {
+display: block;
+width: 100%;
+padding: 16px 0px;
+font-weight: 700;
+letter-spacing: 1.5px;
+color: black;
+text-decoration: none;
+background: url(../../../../Content/Images/mobile/dropdown-arrow.png);
+background-repeat: no-repeat;
+background-position: right center;
+background-size: 12px;
+font-size: 11px;
+}
+section.tabs ul li:first-child {
+border-top: 1px solid #00000057;
+}
+section.tabs ul li a.abierto{
+background: url(up-arrow.svg);
+}
+
+section.tabs ul li ul{
+display: none;
+padding: 20px 0px;
+}
+section.producto_contenido .contenido_producto {
+letter-spacing: .5px;
+font-weight: 700;
+display: block;
+width: 100%;
+padding: 20px 0px 25px 0px;
+border-bottom: 1px solid #00000021;
+}
+section.producto_contenido .contenido_producto:last-child{
+border-bottom:none;
+}
+section.donde_encuentras_producto {
+margin: 30px 0px 0px 0px;
+}
+section.donde_encuentras_producto p.titulo_set{
+display: block;
+text-align: center;
+font-weight: 700;
+letter-spacing: 1px;
+text-transform: uppercase;
+max-width: 199px;
+margin: auto;
+margin-bottom:30px;
+}
+section.bg_promo_ficha {
+width: 100%;
+height: 350px;
+background-repeat: no-repeat !important;
+background-size: cover !important;
+background-position: center !important;
+}
+.ficha_del_producto {
+position: relative;
+top: -175px;
+}
+.detalle-compartir {
+font-size: 13px;
+font-weight: normal;
+font-style: normal;
+font-stretch: normal;
+line-height: 1.08;
+letter-spacing: normal;
+text-align: left;
+color: #000000;
+display: block;
+margin-top: 20px;
+text-align: center;
+cursor: pointer;
+}
+.detalle-compartir img.fb {
+width: 20px;
+}
+
+.detalle-compartir img {
+position: relative;
+top: 5px;
+margin-left: 5px;
 }

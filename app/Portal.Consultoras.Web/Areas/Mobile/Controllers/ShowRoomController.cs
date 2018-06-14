@@ -87,6 +87,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ActionExecutingMobile();
             var showRoomEventoModel = OfertaShowRoom();
 
+            //24-may-2018 (JN)
+            var dato = ObtenerPerdio(userData.CampaniaID);
+            showRoomEventoModel.ProductosPerdio = dato.Estado;
+            showRoomEventoModel.PerdioTitulo = dato.Valor1;
+            showRoomEventoModel.PerdioSubTitulo = dato.Valor2;
+            showRoomEventoModel.MensajeProductoBloqueado = MensajeProductoBloqueado();
+
             if (!string.IsNullOrEmpty(query))
             {
                 string param = Util.Decrypt(query);
@@ -273,12 +280,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (!showRoomEventoModel.ListaShowRoomOferta.Any())
                     return null;
 
-                var terminosCondiciones = configEstrategiaSR.ListaPersonalizacionConsultora.FirstOrDefault(
+                if (configEstrategiaSR.ListaPersonalizacionConsultora != null)
+                {
+                    var terminosCondiciones = configEstrategiaSR.ListaPersonalizacionConsultora.FirstOrDefault(
                         p => p.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.UrlTerminosCondiciones);
-                showRoomEventoModel.UrlTerminosCondiciones = terminosCondiciones == null
-                    ? ""
-                    : terminosCondiciones.Valor;
-
+                    showRoomEventoModel.UrlTerminosCondiciones = terminosCondiciones == null
+                        ? ""
+                        : terminosCondiciones.Valor;
+                }
+                
                 using (SACServiceClient svc = new SACServiceClient())
                 {
                     showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();

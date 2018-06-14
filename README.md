@@ -1,5 +1,5 @@
 ﻿# Portal Consultoras 2
 
+BPT + PL50
 
-Optimizaciones
-- LocalStorage revisar la entidad, cargar solo campos necesarios
+Front End Ficha

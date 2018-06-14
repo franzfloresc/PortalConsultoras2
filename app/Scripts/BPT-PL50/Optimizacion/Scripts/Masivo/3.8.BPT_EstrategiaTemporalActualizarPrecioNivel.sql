@@ -1,4 +1,5 @@
-USE BelcorpPeru_BPT
+--USE BelcorpColombia_PL50
+--USE BelcorpPeru_PL50
 GO
 
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalActualizarPrecioNivel') AND type IN ( N'P', N'PC' ) ) 
@@ -7,7 +8,8 @@ GO
 
 CREATE PROCEDURE EstrategiaTemporalActualizarPrecioNivel
 (
-	@NroLote INT
+	@NroLote INT,
+	@Pagina int
 )
 AS
 BEGIN
@@ -22,8 +24,6 @@ BEGIN
 	,CUV					varchar(5)
 	,PrecioOferta			decimal(18,2)
 	,PrecioTachado			decimal(18,2)
-	,CodigoEstrategia		varchar(150)
-	,TieneVariedad			int
 	,PrecioPublico			decimal(18,2)
 	,Ganancia				decimal(18,2)
 	,Niveles				varchar(200)
@@ -34,16 +34,14 @@ BEGIN
 	,CampaniaId				
 	,CUV							
 	,PrecioOferta			
-	,PrecioTachado						
-	,CodigoEstrategia		
-	,TieneVariedad			
+	,PrecioTachado		
 	,PrecioPublico			
 	,Ganancia				
-	,Niveles
-	--INTO #EstrategiaTemporal				
+	,Niveles				
 	FROM EstrategiaTemporal ET
 	WHERE 
 	ET.NumeroLote = @NroLote
+	and ET.Pagina = @Pagina
 
 	/* @CampaniaId */
 	SELECT TOP 1 @CampaniaId = CampaniaId
@@ -79,8 +77,7 @@ BEGIN
 	,PC.NumeroGrupo
 	,PC.NumeroNivel
 	FROM ODS.ProductoComercial PC
-	WHERE /*PC.CodigoTipoOferta = @CodigoTipoEstrategia
-	AND*/ PC.AnoCampania = @CampaniaId
+	WHERE PC.AnoCampania = @CampaniaId
 
 	/* #ProductoComercialDigitable */
 	CREATE TABLE #ProductoComercialDigitable(
@@ -146,16 +143,12 @@ BEGIN
 	/* #EstrategiaTemporal_2001 */
 	CREATE TABLE #EstrategiaTemporal_2001(
 	EstrategiaTemporalId	int	
-	,CodigoEstrategia		varchar(150)
-	,TieneVariedad			int
 	,PrecioPublico			decimal(18,2)
 	,Ganancia				decimal(18,2)
 	)
 	INSERT INTO #EstrategiaTemporal_2001
 	SELECT
-	ET.EstrategiaTemporalId	
-	,CodigoEstrategia = PC.EstrategiaIdSicc		
-	,TieneVariedad = 1		
+	ET.EstrategiaTemporalId		
 	,PrecioPublico = PC.PrecioUnitario * PC.FactorRepeticion
 	,Ganancia = (PC.IndicadorPreUni - PC.PrecioUnitario) * PC.FactorRepeticion
 	FROM #EstrategiaTemporal ET
@@ -167,16 +160,12 @@ BEGIN
 	/* #EstrategiaTemporal_2002 */
 	CREATE TABLE #EstrategiaTemporal_2002(
 	EstrategiaTemporalId	int	
-	,CodigoEstrategia		varchar(150)
-	,TieneVariedad			int
 	,PrecioPublico			decimal(18,2)
 	,Ganancia				decimal(18,2)
 	)
 	INSERT INTO #EstrategiaTemporal_2002
 	SELECT
 	ET.EstrategiaTemporalId	
-	,CodigoEstrategia = PCD.EstrategiaIdSicc				
-	,TieneVariedad = 0		
 	,PrecioPublico = SUM(PC.PrecioUnitario * PC.FactorRepeticion)
 	,Ganancia =  SUM((PC.IndicadorPreUni - PC.PrecioUnitario) * PC.FactorRepeticion)
 	FROM #EstrategiaTemporal ET
@@ -191,16 +180,12 @@ BEGIN
 	/* #EstrategiaTemporal_2003 */
 	CREATE TABLE #EstrategiaTemporal_2003(
 	EstrategiaTemporalId	int	
-	,CodigoEstrategia		varchar(150)
-	,TieneVariedad			int
 	,PrecioPublico			decimal(18,2)
 	,Ganancia				decimal(18,2)
 	)
 	INSERT INTO #EstrategiaTemporal_2003
 	SELECT
-	ET.EstrategiaTemporalId	
-	,CodigoEstrategia = PC.EstrategiaIdSicc				
-	,TieneVariedad = 0		
+	ET.EstrategiaTemporalId		
 	,PrecioPublico = SUM(PC.PrecioUnitario * PC.FactorRepeticion * PC.CodigoFactorCuadre)
 	,Ganancia =  SUM((PC.IndicadorPreUni - PC.PrecioUnitario) * PC.FactorRepeticion * PC.CodigoFactorCuadre)
 	FROM #EstrategiaTemporal ET
@@ -211,9 +196,7 @@ BEGIN
 
 	UPDATE ET
 	SET
-	ET.CodigoEstrategia = ET_GAN.CodigoEstrategia
-	,ET.TieneVariedad = ET_GAN.TieneVariedad
-	,ET.PrecioPublico = ET_GAN.PrecioPublico
+	 ET.PrecioPublico = ET_GAN.PrecioPublico
 	,ET.Ganancia = ET_GAN.Ganancia
 	FROM #EstrategiaTemporal ET
 		JOIN	(
@@ -284,8 +267,6 @@ BEGIN
 	SET
 	T.PrecioOferta			= S.PrecioOferta
 	,T.PrecioTachado		= S.PrecioTachado	
-	,T.CodigoEstrategia		= S.CodigoEstrategia
-	,T.TieneVariedad		= S.TieneVariedad	
 	,T.PrecioPublico		= S.PrecioPublico	
 	,T.Ganancia				= S.Ganancia
 	,T.Niveles				= S.Niveles

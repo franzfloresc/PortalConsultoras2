@@ -245,9 +245,9 @@
             _redireccionarAlContenedorOfertas();
         });
     };
-    
+
+
     var _init = function(){
-        //
         _bindEvents();
     };
     
