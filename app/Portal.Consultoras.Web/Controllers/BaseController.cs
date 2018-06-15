@@ -1525,7 +1525,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                var listaProducto = new List<BEEstrategiaProducto>();
+                var listaProducto = new List<ServicePedido.BEEstrategiaProducto>();
                 if (fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
                 {
                     var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = fichaProductoModelo.EstrategiaID };
