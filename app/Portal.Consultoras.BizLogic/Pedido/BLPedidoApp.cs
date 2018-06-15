@@ -343,6 +343,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     if (!flagkit) return false;
                 }
+
+                if (usuario.EsConsultoraOficina) return false;
                 if (usuario.DiaPROL && !EsHoraReserva(usuario, DateTime.Now.AddHours(usuario.ZonaHoraria))) return false;
 
                 var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas(usuario);

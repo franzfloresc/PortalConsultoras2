@@ -15,6 +15,8 @@ namespace Portal.Consultoras.Entities.ReservaProl
         [DataMember]
         public bool Error { get; set; }
         [DataMember]
+        public bool Aviso { get; set; }
+        [DataMember]
         public bool Reserva { get; set; }
         [DataMember]
         public bool RefreshPedido { get; set; }
@@ -75,10 +77,11 @@ namespace Portal.Consultoras.Entities.ReservaProl
             ListDetalleBackOrder = new List<BEPedidoWebDetalle>();
         }
 
-        public BEResultadoReservaProl(string mensajeError)
+        public BEResultadoReservaProl(string mensajeError, bool aviso)
         {
-            Error = true;
             ListPedidoObservacion = new List<BEPedidoObservacion> { new BEPedidoObservacion { Descripcion = mensajeError } };
+            Error = true;
+            Aviso = aviso;
         }
     }
 }
