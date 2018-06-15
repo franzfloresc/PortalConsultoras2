@@ -308,16 +308,20 @@ function Cupon()
     });
 
 }
-
+var contValEncuesta = 0;
 function ValidacionEncuesta() {
 
     if (document.getElementById('survicate-box') == null) {
-        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-        document.getElementsByClassName('flexslider')[0].style.display = 'block';
-        clearTimeout(valEncuesta);
-        clearTimeout(timeoutHandle);
-        cancel = 1;
+        if (contValEncuesta==0) {
+            if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+            if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+            document.getElementsByClassName('flexslider')[0].style.display = 'block';
+            contValEncuesta = contValEncuesta+1;
+            clearInterval(valEncuesta);
+            clearTimeout(timeoutHandle);
+            cancel = 1;
+        }
+   
     }
 }
 var valEncuesta = 0;
