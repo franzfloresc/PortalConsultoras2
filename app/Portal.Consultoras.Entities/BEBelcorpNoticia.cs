@@ -40,17 +40,17 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Nombre"))
                 PaisNombre = Convert.ToString(row["Nombre"]);
             if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = DbConvert.ToInt32(row["CampaniaID"]);
+                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
             if (DataRecord.HasColumn(row, "NombreCorto"))
-                NombreCorto = DbConvert.ToString(row["NombreCorto"]);
+                NombreCorto = Convert.ToString(row["NombreCorto"]);
             if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = DbConvert.ToInt64(row["ConsultoraID"]);
+                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
             if (DataRecord.HasColumn(row, "Titulo"))
-                Titulo = DbConvert.ToString(row["Titulo"]);
+                Titulo = Convert.ToString(row["Titulo"]);
             if (DataRecord.HasColumn(row, "ArchivoPortada"))
-                ArchivoPortada = DbConvert.ToString(row["ArchivoPortada"]);
+                ArchivoPortada = Convert.ToString(row["ArchivoPortada"]);
             if (DataRecord.HasColumn(row, "UrlPDF"))
-                UrlPDF = DbConvert.ToString(row["UrlPDF"]);
+                UrlPDF = Convert.ToString(row["UrlPDF"]);
         }
     }
 }

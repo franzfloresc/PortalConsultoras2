@@ -419,12 +419,11 @@
 
     </div>
 
-    {{#IsNullOrEmpty ObservacionPROL '!='}}
-
+    {{#each this.ListObservacionProl}}
     <div class="content_listado_notificaciones">
-        <div class="mensaje_producto_validado">{{Split ObservacionPROL '|' 0}}</div>           
+        <div class="mensaje_producto_validado">{{{this}}}</div>
     </div>
-    {{/IsNullOrEmpty}}
+    {{/each}}
 
     {{/each}}
 </script>

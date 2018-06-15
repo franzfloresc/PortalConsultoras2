@@ -553,29 +553,6 @@ namespace Portal.Consultoras.BizLogic
             return usuario;
         }
 
-        public BEUsuario GetSesionUsuarioPedidoApp(BEUsuario usuario, string codigoConfiguracionPais)
-        {
-            try
-            {
-                CodigoUsuarioLog = usuario.CodigoUsuario;
-                PaisIDLog = usuario.PaisID;
-
-                var configuracionPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, codigoConfiguracionPais));
-                var codigosRevistasTask = Task.Run(() => ObtenerCodigoRevistaFisica(usuario.PaisID));
-
-                Task.WaitAll(configuracionPaisTask, codigosRevistasTask);
-
-                usuario = configuracionPaisTask.Result;
-                usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;             
-            }
-            catch (Exception ex)
-            {
-                LogManager.SaveLog(ex, CodigoUsuarioLog, PaisIDLog);
-            }
-
-            return usuario;
-        }
-
         private BEUsuarioExterno GetUsuarioExterno(BEUsuario usuario, string proveedor)
         {
             BEUsuarioExterno beUsuarioExterno = null;
@@ -2711,12 +2688,15 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region UserData
-        private BEUsuario ConfiguracionPaisUsuario(BEUsuario usuario, string codigoConfiguracionPais)
+        public BEUsuario ConfiguracionPaisUsuario(BEUsuario usuario, string codigoConfiguracionPais)
         {
             var revistaDigitalModel = new BERevistaDigital();
 
             try
             {
+                CodigoUsuarioLog = usuario.CodigoUsuario;
+                PaisIDLog = usuario.PaisID;
+
                 var configuraciones = GetConfiguracionPais(usuario);
 
                 var configuracion = configuraciones.Where(x => x.Codigo == codigoConfiguracionPais).FirstOrDefault();
@@ -2817,6 +2797,7 @@ namespace Portal.Consultoras.BizLogic
 
             revistaDigitalModel.CantidadCampaniaEfectiva = GetValor1ToIntAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.CantidadCampaniaEfectiva);
             revistaDigitalModel.BloquearRevistaImpresaGeneral = GetValor1ToIntAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp);
+            revistaDigitalModel.ActivoMdo = GetValor1ToBoolAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.ActivoMdo);
 
             return revistaDigitalModel;
         }
@@ -2881,7 +2862,7 @@ namespace Portal.Consultoras.BizLogic
             revistaDigitalModel.SuscripcionEfectiva = _revistaDigitalSuscripcionBusinessLogic.SingleActiva(rds);
         }
 
-        private string ObtenerCodigoRevistaFisica(int paisId)
+        public string ObtenerCodigoRevistaFisica(int paisId)
         {
             var result = string.Empty;
 
@@ -2907,6 +2888,19 @@ namespace Portal.Consultoras.BizLogic
             if (dato != null)
             {
                 result = Convert.ToInt32(dato.Valor1);
+                configuracionesPaisDatos.RemoveAll(d => d.Codigo == codigo);
+            }
+
+            return result;
+        }
+
+        private bool GetValor1ToBoolAndDelete(List<BEConfiguracionPaisDatos> configuracionesPaisDatos, string codigo)
+        {
+            var result = false;
+            var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+            if (dato != null)
+            {
+                result = dato.Valor1 == "1";
                 configuracionesPaisDatos.RemoveAll(d => d.Codigo == codigo);
             }
 

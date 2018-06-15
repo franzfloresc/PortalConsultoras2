@@ -226,6 +226,9 @@ namespace Portal.Consultoras.Common
             public const string Incentivos = "022";
             public const string ShowRoom = "030";
             public const string HerramientasVenta = "011";
+            public const string ProgramaNuevasRegalo = "044";
+            public const string ParticipaProgramaNuevas = "1";
+            public const string NotParticipaProgramaNuevas = "0";
         }
 
         public static class ConstSession
@@ -346,7 +349,7 @@ namespace Portal.Consultoras.Common
             public const string BelcorpRespondeTEL = "BelcorpRespondeTEL_{0}";
             public const string DES_UBIGEO = "DES_UBIGEO_";
             public const string FechaChat = "FechaChat_";
-            public const string MensajeChatBienvenida = " Te damos la bienvenida a nuestro chat, en un momento uno de nuestro creadores de experiencia le estará atendiendo. ";
+            public const string MensajeChatBienvenida = " tú eres nuestro ejemplo e inspiración. En un momento uno de nuestros creadores de experiencia te atenderá.";
             public const string PaisesBelcorpChatEMTELCO = "PaisesBelcorpChatEMTELCO";
             public const string UrlBelcorpChat = "UrlBelcorpChat";
             public const string UrlChatPA = "UrlChatPA";
@@ -1133,6 +1136,8 @@ namespace Portal.Consultoras.Common
             public const string Reserva_Error = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo.";
             public const string Reserva_SinDetalle = "No tiene productos que reservar esta campaña.";
             public const string DeleteAllPedido_Error = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
+            public const string Reserva_ObsHuerfanas = "Reserva_ObsHuerfanas: Se obtuvieron observaciones al reservar que no se encuentran en el detalle.";
+            public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
         }
 
         public static class ConfiguracionPais
