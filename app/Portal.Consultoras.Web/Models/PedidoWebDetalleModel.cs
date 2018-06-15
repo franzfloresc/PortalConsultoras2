@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Common;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -125,6 +126,8 @@ namespace Portal.Consultoras.Web.Models
         public string CUVReco { get; set; }
 
         public string Mensaje { get; set; }
+
+        public List<string> ListObservacionProl { get; set; }
 
         public int TipoObservacion { get; set; }
 
