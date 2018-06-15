@@ -4552,6 +4552,9 @@
     <None Include="Service References\ServiceUsuario\UsuarioService65.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService66.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceZonificacion\ZonificacionService.wsdl" />
     <None Include="Service References\ServiceZonificacion\ZonificacionService.xsd">
       <SubType>Designer</SubType>

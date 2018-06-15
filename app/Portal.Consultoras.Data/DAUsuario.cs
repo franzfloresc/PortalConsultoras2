@@ -838,12 +838,6 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
-        //public IDataReader GetConfiguracionSms(int origenID)
-        //{
-        //    DbCommand command = Context.Database.GetStoredProcCommand("GetConfiguracionSms");
-        //    Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, origenID);
-        //    return Context.ExecuteReader(command);
-        //}
         #endregion
         #region Verificacion Autenticidad
         public IDataReader GetUsuarioVerificacionAutenticidad(int paisID, string CodigoUsuario)

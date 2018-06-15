@@ -267,11 +267,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 TempData["errorLogin"] = mensaje;
-                //return Json(new
-                //{
-                //    success = true,
-                //    redirectTo = Url.Action("Index", "Login")
-                //});
                 return RedirectToAction("Index", "Login");
             }
             catch (FaultException ex)
@@ -379,7 +374,6 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                    	//data = oVerificarAutenticidad,
                         redirectTo = "Error al procesar la solicitud"
                     });
                 }
@@ -426,7 +420,6 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(new
                         {
                             success = true,
-                            //data = oVerificarAutenticidad,
                             redirectTo = urlx
                         });
                     }
@@ -452,7 +445,6 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = true,
-                        //data = oVerificarAutenticidad,
                         redirectTo = urlx
                     });
                 }
@@ -469,7 +461,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    //data = oVerificarAutenticidad,
                     redirectTo = Url.Action("Index", "Bienvenida")
                 });
             }
@@ -585,6 +576,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.PrimerNombre = obj.PrimerNombre;
             model.CodigoUsuario = obj.CodigoUsuario;
             model.Correo = obj.Correo;
+            model.MostrarOpcion = obj.MostrarOpcion;
 
             return View(model);
         }
@@ -2980,7 +2972,6 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 TempData["FlagPin"] = true;
                                 break;
-                                //return await Redireccionar(paisID, oUsu.CodigoUsuario);
                             };
                     }
                 }
