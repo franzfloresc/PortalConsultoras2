@@ -358,18 +358,18 @@ namespace Portal.Consultoras.Web.Controllers
                     revistaDigital.EsActiva = false;
 
                 LimpiarEstrategia(entidad.PaisID, entidad.CampaniaID.ToString());
-                RecargarPalancas();
+                //RecargarPalancas();
             }
             return "";
         }
       
         private void RecargarPalancas()
         {
-                ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
-                ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
-                ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
-                ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
-                 ConsultarEstrategias(string.Empty, userData.CampaniaID,string.Empty);
+            ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+            ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
+            ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
+            ConsultarEstrategias(string.Empty, userData.CampaniaID, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
+            ConsultarEstrategias(string.Empty, userData.CampaniaID,string.Empty);
         }
 
         private string RegistroSuscripcionValidar(int tipo)
@@ -660,6 +660,7 @@ namespace Portal.Consultoras.Web.Controllers
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaWeb)] = null;//
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.PackNuevas)] = null;//
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.RevistaDigital)] = null;
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, string.Empty)] = null;// OPT
             Session[Constantes.ConstSession.ListaProductoShowRoom] = null;//
             sessionManager.SetEstrategiaODD(null);
             //Limpia cache de Redis
