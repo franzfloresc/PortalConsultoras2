@@ -143,7 +143,6 @@
 
             localData.Expired = false;
             var now = 0;
-            // Update the count down every 1 second
             interval = setInterval(function() {
                 
                     now += 1000;
@@ -151,11 +150,8 @@
 
                     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                    // Output the result in an element with id="demo"
                     counterElement.text(format2(minutes) + ":" + format2(seconds));
 
-                    // If the count down is over, write some text 
                     if (distance < 0) {
                         localData.Expired = true;
                         clearInterval(interval);
@@ -200,7 +196,7 @@
             };
 
             me.Services.confirmarSmsCode(code)
-                .then(resultSmsCode);
+                .then(resultSmsCode, me.Funciones.HandleError);
         }
 
         function navigatePanel(index) {
@@ -217,6 +213,10 @@
             localData.IsoPais = iso;
         }
 
+        function handleError(er) {
+            alert('Ocurrio un error inesperado.');
+        }
+
         return {
             InicializarEventos: inicializarEventos,
             ValidarCelular: validarCelular,
@@ -226,7 +226,8 @@
             VerifySmsCode: verifySmsCode,
             ShowError: showError,
             NavigatePanel: navigatePanel,
-            SetIsoPais: setIsoPais
+            SetIsoPais: setIsoPais,
+            HandleError: handleError
         };
 
     })();
@@ -253,7 +254,7 @@
                     me.Funciones.ShowError('');
 
                     me.Funciones.InitCounter();
-                });
+                }, me.Funciones.HandleError);
         }
 
         function backEdiNumber() {
@@ -271,7 +272,7 @@
                     }
 
                     me.Funciones.InitCounter();
-                });
+                }, me.Funciones.HandleError);
         }
 
         function changeCodeSms() {
