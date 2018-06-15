@@ -13,8 +13,6 @@ var nroIntentosCo = 0;
 var nroIntentosSms = 0;
 var t; //Temporisador sms.
 var tipoOpcion = 0;
-var origen = 0; // origen 1 = Recuperar Contraseña; origen 2 = Pin de Autenticidad
-var indicadorPin = 0;
 var procesoSms = false;
 var procesoEmail = false;
 var PrimerNombre = "";
@@ -131,11 +129,6 @@ $(document).ready(function () {
     $("#box-pop-up-cerrar").click(function () {
         $("#box-pop-up").hide();
     });
-
-    //$("#btnLogin").click(function (e) {
-    //    e.preventDefault();
-    //    IniciarLogin();
-    //});
 
     $("a.helper").mouseover(function () {
         if ($(window).width() > 1093) {
@@ -310,7 +303,6 @@ $(document).ready(function () {
 
     $("#btnRecuperarClave").click(function () {
         tipoOpcion = 1;
-        indicadorPin = 0;
         RecuperarContrasenia();
     });
 
@@ -368,15 +360,15 @@ $(document).ready(function () {
         }
     });
 
-    //$(".RecuperarPorCorreo").click(function () {
-    //        nroIntentosCo = nroIntentosCo + 1;
-    //        ProcesaEnvioEmail();
-    //});
+    $(".RecuperarPorCorreo").click(function () {
+            nroIntentosCo = nroIntentosCo + 1;
+            ProcesaEnvioEmail();
+    });
 
-    //$(".opcionSms").click(function () {
-    //    nroIntentosSms = nroIntentosSms + 1;
-    //    ProcesaEnvioSMS();
-    //});
+    $(".opcionSms").click(function () {
+        nroIntentosSms = nroIntentosSms + 1;
+        ProcesaEnvioSMS();
+    });
 
     $("#vermasopciones1").click(function () {
         waitingDialog();
@@ -385,7 +377,6 @@ $(document).ready(function () {
     });
 
     $("#BelcorpRespondeVerificacion").click(function () {
-        indicadorPin = 1;
         tipoOpcion = 3
         if (PaisID != 0 && telefonoCentral != "")
             RecuperarContrasenia();
@@ -800,14 +791,7 @@ function login2() {
         //contentType: 'application/json; charset=utf-8',
         success: function (response) {
 
-            var resul = "";
-            if (response.data != null) {
-                var datos = response.data;
-                $('#popupAsociarUsuarioExt').hide()
-                PopupVerificacionAutenticidad(datos);
-                closeWaitingDialog();
-
-            } else if (response.success) {
+            if (response.success) {
                 if (response.redirectTo !== "") {
                     analytics.invocarEventoPixel("FacebookLoginLogin");
                     document.location.href = response.redirectTo;
@@ -914,20 +898,19 @@ function Fondofestivo(id) {
 }
 
 function RecuperarContrasenia() {
-    //if (indicadorPin == 0) {
-        PaisID = $("#cboPaisCambioClave").val();
-        if (PaisID == '0') {
-        alert("Debe seleccionar un pais.");
-        return false;
-        }
+   PaisID = $("#cboPaisCambioClave").val();
+   if (PaisID == '0') {
+   alert("Debe seleccionar un pais.");
+   return false;
+   }
 
-        var nombreDato = $(".cboPaisCambioClave option:selected").attr("data-campoclave");
-        CodigoUsuario = $("#txtCorreoElectronico").val();
-        if (CodigoUsuario == "") {
-        alert("Debe ingresar " + nombreDato)
-        return false;
-        }       
-    //}
+   var nombreDato = $(".cboPaisCambioClave option:selected").attr("data-campoclave");
+   CodigoUsuario = $("#txtCorreoElectronico").val();
+   if (CodigoUsuario == "") {
+   alert("Debe ingresar " + nombreDato)
+   return false;
+   }       
+
     waitingDialog();
 
     jQuery.ajax({
@@ -944,8 +927,6 @@ function RecuperarContrasenia() {
                     return false;
                 }                
                 var datos = response.data;
-                //if (indicadorPin == 0)
-                //    origen = 1;
 
                 OcultarContenidoPopup();
                 var primerNombre = datos.PrimerNombre;
@@ -970,7 +951,7 @@ function RecuperarContrasenia() {
 
                         BloqueaOpcionCorreo(datos.HoraRestanteCorreo);
                     } else {
-
+                        $("#vermasopciones1").hide();
                         ActivaOpcionCorreo();
                     }
                 }
@@ -981,7 +962,7 @@ function RecuperarContrasenia() {
 
                         BloqueaOpcionSms(datos.HoraRestanteSms);
                     } else {
-
+                        $("#vermasopciones1").hide();
                         ActivaOpcionSms();
                     }
                 }                
@@ -1047,6 +1028,7 @@ function RecuperarContrasenia() {
 
                             $("#menPrioridad2_chat").show();
                             $("#prioridad2_chat").show();
+                            $("#vermasopciones1").hide();
                         } break;                        
 
                     case 5:
@@ -1091,30 +1073,32 @@ function RecuperarContrasenia() {
                                         $("#contenidotelefono").append("<span class='clstelefono'>Central " + (index + 1) + ": " + value + "</span>")
                                     });
                                 }
-                                if (indicadorPin == 1) {
-                                    var tituloPopup = "VERIFICACIÓN DE <b>AUTENTICIDAD</b>"
-                                    $("#tituloPopup").empty();
-                                    $("#tituloPopup").append(tituloPopup);
-                                }
+                                //if (indicadorPin == 1) {
+                                //    var tituloPopup = "VERIFICACIÓN DE <b>AUTENTICIDAD</b>"
+                                //    $("#tituloPopup").empty();
+                                //    $("#tituloPopup").append(tituloPopup);
+                                //}
                                 $("#Opcionesllamada").show();
                                 $("#menPrioridad2_llamada").show();
                                 $("#prioridad2_llamada").show();
+                                $("#vermasopciones1").hide();
                             }
                         } break;
 
                     case 6:
                         {
-                            if (indicadorPin == 1) {
-                                var tituloPopup = "VERIFICACIÓN DE <b>AUTENTICIDAD</b>"
-                                $("#tituloPopup").empty();
-                                $("#tituloPopup").append(tituloPopup);
-                            }
+                            //if (indicadorPin == 1) {
+                            //    var tituloPopup = "VERIFICACIÓN DE <b>AUTENTICIDAD</b>"
+                            //    $("#tituloPopup").empty();
+                            //    $("#tituloPopup").append(tituloPopup);
+                            //}
 
                             $(".menPrioridad3").show();
                             $("#spnNombreConsultora").empty();
                             $("#spnNombreConsultora").append("<b>" + primerNombre + "</b>, ");
                             $(".divHorario").html(datos.descripcionHorario);
                             $("#prioridad3").show();
+                            $("#vermasopciones1").hide();
                         } break;                                            
                 }
 
@@ -1131,181 +1115,121 @@ function RecuperarContrasenia() {
     });
 }
 
-//function ProcesaEnvioEmail() {
-//    if (nroIntentosCo > 2)
-//        return false;
-//    var parametros = {
-//        CantidadEnvios: nroIntentosCo,
-//        origenID: origen
-//    };
-
-//    waitingDialog();
-//    $.ajax({
-//        type: 'POST',
-//        url: urlProcesaEnvioCorreo,
-//        dataType: 'json',
-//        contentType: 'application/json; charset=utf-8',
-//        data: JSON.stringify(parametros),
-//        async: true,
-//        success: function (response) {
-//            if (response.success) {
-//                procesoEmail = true;
-//                procesoSms = false;
-
-//                if (origen == 2) {/*Origen 2 Pin de autenticacion*/
-//                    clearTimeout(t);
-//                    $(".pMenCorreoEnviado_RC").hide()
-//                    $(".MenCorreoEnviado_Pin").show();
-//                    $(".spnMin").html("03");
-//                    $(".spnSeg").html("00");
-//                } else {
-//                    $(".MenCorreoEnviado_Pin").hide()
-//                    $(".pMenCorreoEnviado_RC").show();
-//                }
-
-//                $("#popupRestaurarClave").hide();
-//                $("#popup2").show();
-//                $("#divPopupIntentosCorreo").show();
-//                $(".correoDestino").html("<b>" + correoRecuperar + "</b>");
-//                $(".codigoSms").val("");
-//                $(".codigoInvalido").hide();
-//                $("#1aDigito").focus();
-
-//                if (nroIntentosCo === 1) {
-//                    $("#divVolverInicio").hide();
-//                    $("#men3Intento").hide();
-//                    $("#men1y2Intento").show();
-//                    $("#divPrimerInteto").show();
-
-//                } else if (nroIntentosCo >= 2) {
-//                    $("#men1y2Intento").hide();
-//                    $("#divPrimerInteto").hide();
-//                    $("#men3Intento").show();
-//                    $("#divVolverInicio").show();
-//                }
-
-//                if (origen == 2)
-//                    setTimeout(function () { TiempoSMS(59); }, 1000);
-
-//            } else {
-//                nroIntentosCo = nroIntentosCo - 1;
-//                alert(response.message);
-//            }
-
-//            closeWaitingDialog();
-//        },
-//        error: function (data, error) {
-//            if (checkTimeout(data)) {
-//                closeWaitingDialog();
-//            }
-//        }
-//    });
-//}
-
-//function ProcesaEnvioSMS() {
-//    clearTimeout(t);
-
-//    if (nroIntentosSms > 2)
-//        return false;
-
-//    $(".codigoSms").val("");
-
-//    var parametros = {
-//        cantidadEnvios: nroIntentosSms,
-//        origenID: origen
-//    };
-
-//    waitingDialog();
-//    $.ajax({
-//        type: 'POST',
-//        url: urlProcesaEnvioSms,
-//        dataType: 'json',
-//        contentType: 'application/json; charset=utf-8',
-//        data: JSON.stringify(parametros),
-//        async: true,
-//        success: function (response) {
-//            if (response.success) {
-//                procesoEmail = false;
-//                procesoSms = true;
-
-//                $(".spnMin").html("03");
-//                $(".spnSeg").html("00");
-
-//                $(".codigoInvalido").hide();
-//                $("#popupRestaurarClave").hide();
-
-//                if ($('#aSeguntoIntentoSms').is(':visible')) {
-//                    $('#aSeguntoIntentoSms').hide();
-//                    $("#divVolverInicioSms").show();
-//                }
-
-//                if (nroIntentosSms == 1) {
-//                    $("#MenSegundoIntentoSms").hide();
-//                    $("#divVolverInicioSms").hide();
-//                    $("#MenPrimerIntentoSms").show();
-//                    $("#aSeguntoIntentoSms").show();
-
-//                } else if (nroIntentosSms >= 2) {
-//                    $("#MenPrimerIntentoSms").hide();
-//                    $("#aSeguntoIntentoSms").hide();
-//                    $("#MenSegundoIntentoSms").show();
-//                    $("#divVolverInicioSms").show();
-//                }
-
-//                setTimeout(function () { TiempoSMS(59); }, 1000);
-//                $("#popup2").show();
-//                $("#divPopupIntentosSMS").show();
-//                $("#1cDigito").focus();
-//            }
-//            else {
-//                nroIntentosSms = nroIntentosSms - 1;
-//                alert(response.message);
-//            }
-
-//            closeWaitingDialog();
-//        },
-//        error: function (data, error) {
-//            if (checkTimeout(data)) {
-//                closeWaitingDialog();
-//                setTimeout(function () { alert("No se ha podido enviar el SMS.") }, 1000);
-//            }
-//        }
-//    });
-//}
-
-function ObtenerCodigoGenerado(CodIngresado) {
+function ProcesaEnvioEmail() {
+    if (nroIntentosCo > 2)
+        return false;
     var parametros = {
-        OrigenID: origen,
-        Codigoingresado: CodIngresado
+        CantidadEnvios: nroIntentosCo
     };
 
     waitingDialog();
     $.ajax({
         type: 'POST',
-        url: urlObtenerCodigoGenerado,
+        url: urlProcesaEnvioCorreo,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(parametros),
         async: true,
         success: function (response) {
             if (response.success) {
-                $("#popup2").hide();
-                OcultarContenidoPopup();
-                clearTimeout(t);
-                if (response.origen == 1) {
-                    window.open(response.redirectTo);
-                    closeWaitingDialog();
-                } else if (response.origen == undefined && response.redirectTo != "") {
-                    document.location.href = response.redirectTo + "?opcionCambiaClave=1"
+                procesoEmail = true;
+                procesoSms = false;
+                $(".MenCorreoEnviado_Pin").hide()
+                $(".pMenCorreoEnviado_RC").show();
+
+                $("#popupRestaurarClave").hide();
+                $("#popup2").show();
+                $("#divPopupIntentosCorreo").show();
+                $(".correoDestino").html("<b>" + correoRecuperar + "</b>");
+                $(".codigoSms").val("");
+                $(".codigoInvalido").hide();
+                $("#1aDigito").focus();
+
+                if (nroIntentosCo === 1) {
+                    $("#divVolverInicio").hide();
+                    $("#men3Intento").hide();
+                    $("#men1y2Intento").show();
+                    $("#divPrimerInteto").show();
+
+                } else if (nroIntentosCo >= 2) {
+                    $("#men1y2Intento").hide();
+                    $("#divPrimerInteto").hide();
+                    $("#men3Intento").show();
+                    $("#divVolverInicio").show();
                 }
             } else {
-                $(".codigoInvalido").show();  
-                closeWaitingDialog();
-            }            
+                nroIntentosCo = nroIntentosCo - 1;
+                setTimeout(function () { alert("No se ha podido enviar el correo. Intentelo mas tarde."); }, 1000);
+            }
+            closeWaitingDialog();
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
+                setTimeout(function () { alert("No se ha podido enviar el correo. Intentelo mas tarde."); }, 1000);
+            }
+        }
+    });
+}
+
+function ProcesaEnvioSMS() {
+    clearTimeout(t);
+    if (nroIntentosSms > 2)
+        return false;
+    $(".codigoSms").val("");
+    var parametros = {
+        cantidadEnvios: nroIntentosSms
+    };
+
+    waitingDialog();
+    $.ajax({
+        type: 'POST',
+        url: urlProcesaEnvioSms,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(parametros),
+        async: true,
+        success: function (response) {
+            if (response.success) {
+                $(".spnMin").html("03");
+                $(".spnSeg").html("00");
+
+                $(".codigoInvalido").hide();
+                $("#popupRestaurarClave").hide();
+
+                if ($('#aSeguntoIntentoSms').is(':visible')) {
+                    $('#aSeguntoIntentoSms').hide();
+                    $("#divVolverInicioSms").show();
+                }
+
+                if (nroIntentosSms == 1) {
+                    $("#MenSegundoIntentoSms").hide();
+                    $("#divVolverInicioSms").hide();
+                    $("#MenPrimerIntentoSms").show();
+                    $("#aSeguntoIntentoSms").show();
+
+                } else if (nroIntentosSms >= 2) {
+                    $("#MenPrimerIntentoSms").hide();
+                    $("#aSeguntoIntentoSms").hide();
+                    $("#MenSegundoIntentoSms").show();
+                    $("#divVolverInicioSms").show();
+                }
+
+                setTimeout(function () { TiempoSMS(59); }, 1000);
+                $("#popup2").show();
+                $("#divPopupIntentosSMS").show();
+                $("#1cDigito").focus();
+            }
+            else {
+                nroIntentosSms = nroIntentosSms - 1;                
+                setTimeout(function () { alert("No se ha podido enviar el mensaje de texto. Intentelo mas tarde."); }, 1000);
+            }
+            closeWaitingDialog();
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                closeWaitingDialog();
+                setTimeout(function () { alert("No se ha podido enviar el mensaje de texto. Intentelo mas tarde."); }, 1000);
             }
         }
     });
@@ -1328,8 +1252,7 @@ function Regresar() {
         setTimeout(function () { alert("Ya utilizó sus 2 intentos de envío de SMS. Intente con otra opción."); }, 1000);
     }
 
-    if (origen == 1)
-        $("#vermasopciones1").show();
+    $("#vermasopciones1").show();
 
     $("#popupRestaurarClave").show();
 }
@@ -1425,8 +1348,7 @@ function BloqueaOpcionCorreo(hrCorreo) {
     $(".mensajeDeBloqueoCorreo").html("Opción disponible dentro de " + hrCorreo + "hr.");
     $(".mensajeDeBloqueoCorreo").show();
 
-    if (origen == 1)
-        $("#vermasopciones1").show();
+    $("#vermasopciones1").show();
 }
 
 function BloqueaOpcionSms(hrSms) {
@@ -1439,8 +1361,7 @@ function BloqueaOpcionSms(hrSms) {
     $(".mensajeDeBloqueoSMS").html("Opción disponible dentro de " + hrSms + "hr.");
     $(".mensajeDeBloqueoSMS").show();
 
-    if (origen == 1)
-        $("#vermasopciones1").show();
+    $("#vermasopciones1").show();
 }
 
 function ActivaOpcionCorreo() {
@@ -1461,148 +1382,4 @@ function ActivaOpcionSms() {
     $('.opcionSms').attr('disabled', false);
 
     $(".mensajeDeBloqueoSMS").hide();
-}
-
-//function IniciarLogin() {
-//    if ($('#popupRestaurarClave').is(':visible')) {
-//        return false;
-//    }
-
-//    var valid = true;
-//    CodigoISO = $('#ddlPais').val();
-//    PaisID = getVALbyISO(CodigoISO);
-//    CodigoUsuario = jQuery.trim($("#txtUsuario").val());
-//    var _Contrasenia = jQuery.trim($("#txtContrasenia").val());
-//    var _ReturnUrl = $('#returnUrl').val();
-
-//    var _mensaje = "";
-
-//    if (PaisID == "")
-//        _mensaje += "- Debe seleccionar el País del Usuario.\n";
-//    if (CodigoUsuario == "")
-//        _mensaje += "- Debe ingresar el Usuario.\n";
-//    if (_Contrasenia == "")
-//        _mensaje += "- Debe ingresar la Clave Secreta.\n";
-
-//    $('#hdeCodigoISO').val(CodigoISO);
-//    $('#HdePaisID').val(PaisID);
-
-//    if (_mensaje != "") {
-//        valid = false;
-//        alert(_mensaje);
-//        $('#ddlPais').focus();
-//    }
-
-//    if (!valid) {
-//        //e.preventDefault();
-//        return false;
-//    }
-
-//    preventClick(1, true);
-//    $('#btnLoginFB').prop('disabled', true);
-
-//    limpiar_local_storage();
-
-//    waitingDialog();
-//    var _parametros = {
-//        PaisID: PaisID,
-//        CodigoISO: CodigoISO,
-//        CodigoUsuario: CodigoUsuario,
-//        ClaveSecreta: _Contrasenia,
-//        returnUrl: _ReturnUrl
-//    };
-//    $.ajax({
-//        type: 'POST',
-//        url: urlIniciarLogin,
-//        dataType: 'json',
-//        contentType: 'application/json; charset=utf-8',
-//        data: JSON.stringify(_parametros),
-//        async: true,
-//        success: function (response) {
-//            if (response.success) {
-//                if (response.data != null) {
-//                    var datos = response.data;
-//                    PopupVerificacionAutenticidad(datos);
-//                    closeWaitingDialog(); 
-//                } else if (response.redirectTo !== "") {                     
-//                    document.location.href = response.redirectTo;
-//                    //closeWaitingDialog(); 
-//                }           
-//            } else {
-//                preventClick(1, false);
-//                $('#ErrorTextLabel').html(response.message);
-//                $("#ErrorTextLabel").css("padding-left", "20px");
-//                closeWaitingDialog(); 
-//            }
-            
-//            $('#btnLogin').prop('disabled', false);
-//        },
-//        error: function (data, error) {
-//            if (checkTimeout(data)) {
-//                closeWaitingDialog();
-//            }
-//        }
-//    });
-//}
-
-function PopupVerificacionAutenticidad(data) {
-    origen = 2
-    OcultarContenidoPopup();
-    esMobile = data.EsMobile;
-    telefonoCentral = data.TelefonoCentral;
-    var tituloPopup = "VERIFICACIÓN DE <b>AUTENTICIDAD</b>"
-    $("#tituloPopup").empty();
-    $("#tituloPopup").append(tituloPopup);
-    $("#spnNombreConsultora").hide();
-    $("#menAutenticacionNueva").html(data.MensajeSaludo);
-    $("#menAutenticacionNueva").show();
-    $("#linkvolverInicio").hide();
-    $("#vermasopciones1").hide();
-    $("#prioridad1_correo").hide();
-    $("#prioridad1_sms").hide();
-    $("#prioridad1").hide();
-    $("#MenInferiorAutenticidad").show();
-
-    if (data.OpcionCorreoActiva == "0" && data.Correo != "") BloqueaOpcionCorreo(data.HoraRestanteCorreo);
-    else ActivaOpcionCorreo();
-    if (data.OpcionSmsActiva == "0" && data.Celular != "") BloqueaOpcionSms(data.HoraRestanteSms);
-    else ActivaOpcionSms();
-
-    switch (data.MostrarOpcion) {
-        case 1:
-            {
-                if (data.Correo == ""){
-                    data.CorreoEnmascarado = "No tiene e-mail registrado";
-                    $("#divRecup_porcorreo").addClass("deshabilitar_opcion_correo");
-                    $("#divRecup_porcorreo").css("pointer-events", "none");
-                }
-                if (data.Celular == ""){
-                    data.CelularEnmascarado = "No tiene número registrado"
-                    $("#divRecup_porsms").addClass("deshabilitar_opcion_correo");
-                    $("#divRecup_porsms").css("pointer-events", "none");
-                }
-                $(".EmailEmascarado").html(data.CorreoEnmascarado);
-                $(".NumCelularDestino").html(data.CelularEnmascarado);
-                $("#prioridad1").show();
-                $("#popup1").hide();                
-                $("#popupRestaurarClave").show();
-            } break;
-        case 2:
-            {
-                $("#spcorreo").html(data.CorreoEnmascarado);
-                $(".EmailEmascarado").html(data.CorreoEnmascarado);
-                $("#prioridad1_correo").show();
-                $("#popup1").hide();
-                $("#popupRestaurarClave").show();
-                return false;
-            }
-        case 3:
-            {
-                $(".NumCelularDestino").html(data.CelularEnmascarado);
-                $("#prioridad1_sms").show();
-                $("#popup1").hide();
-                $("#popupRestaurarClave").show();
-                return false;
-            }
-    }
 }

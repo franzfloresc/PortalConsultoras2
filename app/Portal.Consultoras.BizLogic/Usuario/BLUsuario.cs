@@ -2270,8 +2270,8 @@ namespace Portal.Consultoras.BizLogic
             
             oUsu = GetDatosUsuarioByValorCache(paisID, valorRestaurar);
             oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarMensajeFueraHorario;
-            if (oUsu == null) return oUsu;
-            if (oUsu.Cantidad == 0) return oUsu;           
+            if (oUsu == null) return null;
+            if (oUsu.Cantidad == 0) return null;           
 
             if (prioridad == 1)
             {                
@@ -2339,9 +2339,9 @@ namespace Portal.Consultoras.BizLogic
             {
                 switch (oUsu.OrigenID)
                 {
-                    case 1:
-                        return false;/*EnviarEmailOlvideContraseña(paisID, oUsu);   */                       
-                    case 2:
+                    case Constantes.OpcionesDeVerificacion.OrigenOlvideContraseña:
+                        return EnviarEmailOlvideContraseña(paisID, oUsu, cantidadEnvios);                   
+                    case Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad:
                         return EnviarEmailVerificacionAutenticidad(paisID, oUsu, cantidadEnvios);
                 }
                 return false;
@@ -2466,40 +2466,38 @@ namespace Portal.Consultoras.BizLogic
             return "";
         }
 
-        private Enumeradores.EnvioEmail EnviarEmailOlvideContraseña(int paisID, BEUsuarioCorreo oUsuCorreo)
+        private bool EnviarEmailOlvideContraseña(int paisID, BEUsuarioDatos oUsu, int cantidadEnvios)
         {
-            //try
-            //{
-            //    if (oUsuCorreo.CantidadEnvios >= 3) return Enumeradores.EnvioEmail.ExcedioCantidad;
+            try
+            {
+                if (cantidadEnvios >= 3) return false;
 
-            //    string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
-            //    string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
-            //    var esEsika = paisesEsika.Contains(paisISO);
-            //    string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
-            //    DateTime diasolicitud = DateTime.Now;
-            //    string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
-            //    string paisiso = paisISO;
-            //    string codigousuario = oUsuCorreo.CodigoUsuario;
-            //    string nombre = oUsuCorreo.PrimerNombre;
-            //    var newUri = Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisID, oUsuCorreo.Correo, paisiso, codigousuario, fechasolicitud, nombre);
-            //    string emailFrom = "no-responder@somosbelcorp.com";
-            //    string emailTo = oUsuCorreo.Correo; ;
-            //    string titulo = "(" + paisISO + ") Cambio de contraseña de Somosbelcorp";
-            //    string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");                
-            //    string fondo = (esEsika ? "e81c36" : "642f80");
-            //    string displayname = "Somos Belcorp";
-            //    Portal.Consultoras.Common.MailUtilities.EnviarMailProcesoRecuperaContrasenia(emailFrom, emailTo, titulo, displayname, logo, nombre, newUri.ToString(), fondo);
-            //    if (oUsuCorreo.CantidadEnvios == 2) oUsuCorreo.opcionHabilitar = false;
-            //    InsCodigoGenerado(oUsuCorreo, paisID, "", Constantes.TipoEnvioEmailSms.EnviarPorEmail);
-            //    return Enumeradores.EnvioEmail.OkEnviarEmail;
-            //}
-            //catch (Exception ex)
-            //{
-            //    LogManager.SaveLog(ex, string.Empty, paisID, "EnviarEmailOlvideContraseña");
-            //    return Enumeradores.EnvioEmail.ErrorEnviarEmail;
-            //}
-
-            return Enumeradores.EnvioEmail.ErrorEnviarEmail;
+                string paisISO = oUsu.CodigoIso;
+                string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                var esEsika = paisesEsika.Contains(paisISO);
+                string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                DateTime diasolicitud = DateTime.Now;
+                string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
+                string paisiso = paisISO;
+                string codigousuario = oUsu.CodigoUsuario;
+                string nombre = oUsu.PrimerNombre;
+                var newUri = Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisID, oUsu.Correo, paisiso, codigousuario, fechasolicitud, nombre);
+                string emailFrom = "no-responder@somosbelcorp.com";
+                string emailTo = oUsu.Correo; ;
+                string titulo = "(" + paisISO + ") Cambio de contraseña de Somosbelcorp";
+                string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
+                string fondo = (esEsika ? "e81c36" : "642f80");
+                string displayname = "Somos Belcorp";
+                Portal.Consultoras.Common.MailUtilities.EnviarMailProcesoRecuperaContrasenia(emailFrom, emailTo, titulo, displayname, logo, nombre, newUri.ToString(), fondo);
+                if (cantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
+                InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorEmail);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, string.Empty, paisID, "EnviarEmailOlvideContraseña");
+                return false;
+            }
         }
         #endregion
         #endregion
@@ -2591,7 +2589,7 @@ namespace Portal.Consultoras.BizLogic
         private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID)
         {
             var BLobj = new BLOpcionesVerificacion();
-            return BLobj.GetOpcionesVerificacionCache(paisID, origenID);
+            return BLobj.GetOpcionesVerificacion(paisID, origenID);
         }
 
         private bool ValidaCampania(int campaniaActual, int campaniaInicio, int campaniaFin)
@@ -2659,7 +2657,7 @@ namespace Portal.Consultoras.BizLogic
                 oUsu.OrigenID = opcion.OrigenID;
                 oUsu.OrigenDescripcion = opcion.OrigenDescripcion;
                 oUsu.CodigoUsuario = CodigoUsuario;
-                oUsu.CodigoIso = Common.Util.GetPaisISO(paisID);
+                oUsu.CodigoIso = Common.Util.GetPaisISO(paisID);                
                 GetOpcionHabilitar(paisID, Constantes.VerificacionAutenticidad.Origen, ref oUsu);
                 return oUsu;
             }

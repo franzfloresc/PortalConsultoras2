@@ -134,7 +134,6 @@ function ProcesaEnvioSMS() {
         async: true,
         success: function (response) {
             if (response.success) {
-
                     $("#divPaso2sms").show();
                     $("#divPaso1").hide();
                     if (nroIntentosSms == 2) {

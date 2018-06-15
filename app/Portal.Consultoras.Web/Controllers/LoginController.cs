@@ -2818,6 +2818,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 BEUsuarioDatos oDatos = null;
+                TempData["PaisID"] = paisID;
                 using (var sv = new UsuarioServiceClient())
                 {
                     oDatos = sv.GetRestaurarClaveByValor(paisID, valorRestaurar, prioridad);

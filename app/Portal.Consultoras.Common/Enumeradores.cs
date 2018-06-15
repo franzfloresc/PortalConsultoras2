@@ -322,24 +322,5 @@
             ConsultoraNoVentaExclusiva = 1,
             CuvNoLePerteneceAConsultora = 3
         }
-
-        public enum EnvioEmail
-        {
-            EmailNoEncontrado = 0,
-            ErrorEnviarEmail = 1,
-            OkEnviarEmail = 2,
-            ExcedioCantidad = 3,
-            OrigenNoAsignado = 4,
-            OrigenNoExiste = 5
-        }
-
-        public enum EnvioSms
-        {
-            CelularNoEncontrado = 0,
-            ErrorEnviarSms = 1,
-            OkEnviarSms = 2,
-            ExcedioCantidad = 3,
-            OrigenNoAsignado = 4
-        }
     }
 }
