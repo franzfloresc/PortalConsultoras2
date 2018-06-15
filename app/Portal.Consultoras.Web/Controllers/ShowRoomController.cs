@@ -3000,7 +3000,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listaNoSubCampania,
                     totalNoSubCampania,
                     listaSubCampania,
-                    listaNoSubCampaniaPerdio   //JN: Nueva lista de CUV en Zona Dorada
+                    listaNoSubCampaniaPerdio
                 });
             }
             catch (Exception ex)
@@ -3020,6 +3020,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var esFacturacion = EsFacturacion();
                 var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+                productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
 
                 var urlCompartir = GetUrlCompartirFB();
                 productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);

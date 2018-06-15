@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -38,7 +39,6 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using System.Drawing;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -55,8 +55,8 @@ namespace Portal.Consultoras.Web.Controllers
         protected ILogManager logManager;
         private readonly TablaLogicaProvider _tablaLogicaProvider;
         private readonly ShowRoomProvider _showRoomProvider;
-        protected Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel estrategiaODD;
-        protected Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
+        protected Models.Estrategia.OfertaDelDia.DataModel estrategiaODD;
+        protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
         #endregion
 
         #region Constructor

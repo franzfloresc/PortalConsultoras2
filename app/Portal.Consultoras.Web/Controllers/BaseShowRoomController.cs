@@ -251,6 +251,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var listadoOfertasTodas = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom];
             List<ShowRoomOfertaModel> listadoOfertasTodasModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listadoOfertasTodas);
+
             listadoOfertasTodasModel.Update(x =>
             {
                 x.DescripcionMarca = GetDescripcionMarca(x.MarcaID);
