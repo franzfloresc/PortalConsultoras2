@@ -45,7 +45,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool EsSuscripcionInmediata()
         {
-            return revistaDigital.SuscripcionModel != null ? ((revistaDigital.SuscripcionModel.CampaniaEfectiva == revistaDigital.SuscripcionModel.CampaniaID)&& revistaDigital.CantidadCampaniaEfectiva==0) : false;
+            return revistaDigital.SuscripcionModel != null ? 
+                ((revistaDigital.SuscripcionModel.CampaniaEfectiva == revistaDigital.SuscripcionModel.CampaniaID) && 
+                revistaDigital.CantidadCampaniaEfectiva == 0) : false;
         }
 
         public ActionResult ViewLanding(int tipo)

@@ -382,7 +382,7 @@ else
 <script id="template-showroom" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div class="revistadigital-landing content_item_home_palanca">
-        <div class="content_item_home_bpt box_producto_mobile_fix" data-posicion="{{Posicion}}" {{#iff this.ExperienciaGanaMas.MostrarLoQuieres }} href="javascript:;" onclick="javascript:VerPopupExpGanaMas();" {{/iff}}>
+        <div class="content_item_home_bpt box_producto_mobile_fix" data-posicion="{{Posicion}}" {{#iff TipoAccionAgregar '==' '4' }} href="javascript:;" onclick="javascript:VerPopupExpGanaMas();" {{/iff}}>
             <div style="display:none;">
                 <input type="hidden" id="hdswventaID" value="{{OfertaShowRoomID}}" />
                 <input type="hidden" id="hdswventaDescripcion" value="{{Descripcion}}" />
@@ -391,11 +391,11 @@ else
                 <input type="hidden" id="hdswventamarca" value="{{DescripcionMarca}}" />
             </div>
             <div class="producto_img_mobile_bpt swproddetcompra">
-                <a class="btnVerDetalleOfertaShowRoom swproddetcompraimg" {{#IsNullOrEmpty this.ExperienciaGanaMas.MostrarLoQuieres }} href="{{UrlDetalle}}" {{/IsNullOrEmpty}}>
+                <a class="btnVerDetalleOfertaShowRoom swproddetcompraimg" {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}} href="{{UrlDetalle}}" {{/iff}}>
                     {{#IsNullOrEmpty ImagenProducto '=='}}
                     <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" data-lazy-seccion-showroom="" />
                     {{else}}
-                    <img data-src="{{ImagenProducto}}" alt="" {{#IsNullOrEmpty this.ExperienciaGanaMas.MostrarLoQuieres }} onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}');" {{/IsNullOrEmpty}} data-lazy-seccion-showroom="" />
+                    <img data-src="{{ImagenProducto}}" alt="" {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}} onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}');" {{/iff}} data-lazy-seccion-showroom="" />
                     {{/IsNullOrEmpty}}
                 </a>
             </div>
