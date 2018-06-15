@@ -489,7 +489,7 @@
   <xs:element name="GetRestaurarClaveByValorResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetRestaurarClaveByValorResult" nillable="true" type="q29:BEUsuarioCorreo" />
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.OpcionesVerificacion" minOccurs="0" name="GetRestaurarClaveByValorResult" nillable="true" type="q29:BEUsuarioDatos" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

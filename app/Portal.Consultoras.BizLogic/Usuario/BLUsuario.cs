@@ -2245,33 +2245,33 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #region OLVIDE CONTRASENIA
-        public BEUsuarioCorreo GetRestaurarClaveByValor(int paisID, string valorRestaurar, int prioridad)
+        public BEUsuarioDatos GetRestaurarClaveByValor(int paisID, string valorRestaurar, int prioridad)
         {
-            var oUsu = new BEUsuarioCorreo();
+            var oUsu = new BEUsuarioDatos();
             oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarMensajeFueraHorario;
-            var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
+            var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenOlvideContraseña);
             //List<BETablaLogicaDatos> lstFlag = GetFlagEncendido(paisID, Constantes.OlvideContraseña.TablaLogica.TablaLogicaID, Constantes.OlvideContraseña.TablaLogica.MostarTodasOpciones);
             if (opcion == null) return oUsu;
             /*validando si tiene Zona*/
             if (opcion.TieneAlcanse)
             {
-                if (opcion.lstZonas.Count == 0) return null;
-                if (!ValidaZona(opcion.lstZonas, oUsu.ZonaID)) return null;
+                if (opcion.lstZonas.Count == 0) return oUsu;
+                if (!ValidaZona(opcion.lstZonas, oUsu.ZonaID)) return oUsu;
             }
             /*Validando si corresponde al Usuario*/
-            if (opcion.lstFiltros.Count >= 0)
+            if (opcion.lstFiltros.Count > 0)
             {
                 var usuFiltro = opcion.lstFiltros.Where(a => a.IdEstadoActividad == oUsu.IdEstadoActividad).FirstOrDefault();
-                if (usuFiltro == null) return null;
+                if (usuFiltro == null) return oUsu;
                 /*Validando campania*/
-                if (!ValidaCampania(oUsu.campaniaID, usuFiltro.CampaniaInicio, usuFiltro.CampaniaFinal)) return null;
+                if (!ValidaCampania(oUsu.campaniaID, usuFiltro.CampaniaInicio, usuFiltro.CampaniaFinal)) return oUsu;
                 oUsu.MensajeSaludo = usuFiltro.MensajeSaludo;
             }
             
             oUsu = GetDatosUsuarioByValorCache(paisID, valorRestaurar);
-            if (oUsu == null) return null;
-            if (oUsu.Cantidad == 0) return null;
-            string codigoIso = Common.Util.GetPaisISO(paisID);
+            oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarMensajeFueraHorario;
+            if (oUsu == null) return oUsu;
+            if (oUsu.Cantidad == 0) return oUsu;           
 
             if (prioridad == 1)
             {                
@@ -2326,9 +2326,11 @@ namespace Portal.Consultoras.BizLogic
             {
                 oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarMensajeFueraHorario;
             }
-            //GetOpcionHabilitar(paisID, Constantes.OlvideContraseña.Origen, ref oRestaurar);
+            oUsu.OrigenID = opcion.OrigenID;
+            oUsu.OrigenDescripcion = opcion.OrigenDescripcion;
+            oUsu.CodigoIso = Common.Util.GetPaisISO(paisID);
+            GetOpcionHabilitar(paisID, Constantes.OlvideContraseña.Origen, ref oUsu);
             return oUsu;
-            //return null;
         }
 
         public bool ProcesaEnvioEmail(int paisID, BEUsuarioDatos oUsu, int cantidadEnvios)
@@ -2367,22 +2369,18 @@ namespace Portal.Consultoras.BizLogic
             return lstTabla;
         }
 
-        private BEUsuarioCorreo GetDatosUsuarioByValorCache(int paisID, string valorIngresado)
+        private BEUsuarioDatos GetDatosUsuarioByValorCache(int paisID, string valorIngresado)
         {
-            return CacheManager<BEUsuarioCorreo>.ValidateDataElement(paisID, ECacheItem.DatosRestaurarClave, valorIngresado, () => GetDatosUsuarioByValor(paisID, valorIngresado));
+            return CacheManager<BEUsuarioDatos>.ValidateDataElement(paisID, ECacheItem.DatosRestaurarClave, valorIngresado + paisID.ToString(), () => GetDatosUsuarioByValor(paisID, valorIngresado));
         }
 
-        private BEUsuarioCorreo GetDatosUsuarioByValor(int paisID, string valorIngresado)
+        private BEUsuarioDatos GetDatosUsuarioByValor(int paisID, string valorIngresado)
         {
-            BEUsuarioCorreo oRestaurar = null;
-
             var DAUsuario = new DAUsuario(paisID);
-            using (IDataReader reader = DAUsuario.GetRestaurarClaveUsuario(valorIngresado, paisID))
+            using (IDataReader reader = DAUsuario.GetUsuarioOlvideContraseña(valorIngresado, paisID))
                 if (reader.Read())
-                {
-                    oRestaurar = new BEUsuarioCorreo(reader);
-                }
-            return oRestaurar;
+                    return new BEUsuarioDatos(reader);
+            return null;
         }
 
         private BEUsuarioDatos GetOpcionHabilitar(int paisID, int origenID, ref BEUsuarioDatos oDatos)
@@ -2391,8 +2389,8 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader rd = DAUsuario.GetOpcionHabilitada(oDatos.CodigoUsuario, origenID))
                 if (rd.Read())
                 {
-                    oDatos.OpcionCorreoActiva = rd.GetString(0);
-                    oDatos.OpcionSmsActiva = rd.GetString(1);
+                    oDatos.OpcionCorreoDesabilitado = rd.GetString(0);
+                    oDatos.OpcionSmsDesabilitado = rd.GetString(1);
                     oDatos.HoraRestanteCorreo = rd.GetInt32(2);
                     oDatos.HoraRestanteSms = rd.GetInt32(3);
                 }
@@ -2593,7 +2591,7 @@ namespace Portal.Consultoras.BizLogic
         private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID)
         {
             var BLobj = new BLOpcionesVerificacion();
-            return BLobj.GetOpcionesVerificacionCache(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
+            return BLobj.GetOpcionesVerificacionCache(paisID, origenID);
         }
 
         private bool ValidaCampania(int campaniaActual, int campaniaInicio, int campaniaFin)

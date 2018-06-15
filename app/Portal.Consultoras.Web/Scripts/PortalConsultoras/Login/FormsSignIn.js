@@ -914,7 +914,7 @@ function Fondofestivo(id) {
 }
 
 function RecuperarContrasenia() {
-    if (indicadorPin == 0) {
+    //if (indicadorPin == 0) {
         PaisID = $("#cboPaisCambioClave").val();
         if (PaisID == '0') {
         alert("Debe seleccionar un pais.");
@@ -927,7 +927,7 @@ function RecuperarContrasenia() {
         alert("Debe ingresar " + nombreDato)
         return false;
         }       
-    }
+    //}
     waitingDialog();
 
     jQuery.ajax({
@@ -944,8 +944,8 @@ function RecuperarContrasenia() {
                     return false;
                 }                
                 var datos = response.data;
-                if (indicadorPin == 0)
-                    origen = 1;
+                //if (indicadorPin == 0)
+                //    origen = 1;
 
                 OcultarContenidoPopup();
                 var primerNombre = datos.PrimerNombre;
@@ -966,7 +966,7 @@ function RecuperarContrasenia() {
 
                 if (datos.Correo != "")
                 {
-                    if (datos.OpcionCorreoActiva == "0") {
+                    if (datos.OpcionCorreoDesabilitado == "1") {
 
                         BloqueaOpcionCorreo(datos.HoraRestanteCorreo);
                     } else {
@@ -977,7 +977,7 @@ function RecuperarContrasenia() {
 
                 if (datos.Celular != "")
                 {
-                    if (datos.OpcionSmsActiva == "0") {
+                    if (datos.OpcionSmsDesabilitado == "1") {
 
                         BloqueaOpcionSms(datos.HoraRestanteSms);
                     } else {

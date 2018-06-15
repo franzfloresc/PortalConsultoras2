@@ -96,9 +96,9 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public string TelefonoCentral { get; set; }
         [DataMember]
-        public string OpcionCorreoActiva { get; set; }
+        public string OpcionCorreoDesabilitado { get; set; }
         [DataMember]
-        public string OpcionSmsActiva { get; set; }
+        public string OpcionSmsDesabilitado { get; set; }
         [DataMember]
         public int HoraRestanteCorreo { get; set; }
         [DataMember]
@@ -109,12 +109,19 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         public string CodigoIso { get; set; }
         [DataMember]
         public bool OpcionDesabilitado { get; set; }
+        [DataMember]
+        public string DescripcionHorario { get; set; }
+        
 
         public BEUsuarioDatos()
         { }
 
         public BEUsuarioDatos(IDataRecord row)
         {
+            if (DataRecord.HasColumn(row, "CodigoUsuario") && row["CodigoUsuario"] != DBNull.Value)
+                CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
+            if (DataRecord.HasColumn(row, "CodigoConsultora") && row["CodigoConsultora"] != DBNull.Value)
+                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
             if (DataRecord.HasColumn(row, "Cantidad") && row["Cantidad"] != DBNull.Value)
                 Cantidad = Convert.ToInt32(row["Cantidad"]);
             if (DataRecord.HasColumn(row, "PrimerNombre") && row["PrimerNombre"] != DBNull.Value)

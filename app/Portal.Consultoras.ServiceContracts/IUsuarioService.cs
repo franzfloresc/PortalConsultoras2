@@ -358,7 +358,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region OLVIDE CONTRASENIA
         [OperationContract]
-        BEUsuarioCorreo GetRestaurarClaveByValor(int paisID, string valorIngresado, int prioridad);
+        BEUsuarioDatos GetRestaurarClaveByValor(int paisID, string valorIngresado, int prioridad);
 
         [OperationContract]
         bool ProcesaEnvioEmail(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios);

@@ -783,12 +783,20 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteNonQuery(command);
         }
-
-        #region OLVIDE CONTRASENIA
+        
         public IDataReader GetRestaurarClaveUsuario(string CampoRestablecer, int PaisID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarValorRestauracionClave");
             Context.Database.AddInParameter(command, "@CodigoEntrante", DbType.AnsiString, CampoRestablecer);
+            Context.Database.AddInParameter(command, "@PaisID", DbType.AnsiString, PaisID);
+
+            return Context.ExecuteReader(command);
+        }
+        #region OLVIDE CONTRASENIA
+        public IDataReader GetUsuarioOlvideContraseña(string CampoRestablecer, int PaisID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioOlvideContrasenia");
+            Context.Database.AddInParameter(command, "@ValorIngresado", DbType.AnsiString, CampoRestablecer);
             Context.Database.AddInParameter(command, "@PaisID", DbType.AnsiString, PaisID);
 
             return Context.ExecuteReader(command);

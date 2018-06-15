@@ -812,7 +812,7 @@ namespace Portal.Consultoras.Service
         }
 
         #region OLVIDE CONTRASENIA
-        public BEUsuarioCorreo GetRestaurarClaveByValor(int paisID, string valorIngresado, int prioridad)
+        public BEUsuarioDatos GetRestaurarClaveByValor(int paisID, string valorIngresado, int prioridad)
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetRestaurarClaveByValor(paisID, valorIngresado, prioridad);
