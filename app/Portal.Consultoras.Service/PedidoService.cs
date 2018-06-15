@@ -2317,6 +2317,13 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.GetPedidoWebSetDetalle(paisID, campania, consultoraId);
         }
 
+        public List<BEPedidoWebDetalle> ObtenerCuvSetDetalle(int paisID, int campaniaID, long consultoraID, int pedidoID, string ListaSet)
+        {
+            return BLPedidoWebDetalle.ObtenerCuvSetDetalle( paisID,  campaniaID,  consultoraID,  pedidoID,  ListaSet);
+        }
+
+        
+
         public BEPedidoWebSet ObtenerPedidoWebSet(int paisId, int setId)
         {
             return _pedidoWebSetBusinessLogic.Obtener(paisId, setId);
