@@ -873,7 +873,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var detallePedido = _pedidoSetProvider.ObtenerDetalle(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
                 foreach (var detalle in set.Detalles)
                 {
-                    BEPedidoWebDetalle pedidoWebDetalle = listaPedidoWebDetalle.Where(p => p.CUV == detalle.CUV).FirstOrDefault();
+                    BEPedidoWebDetalle pedidoWebDetalle = listaPedidoWebDetalle.FirstOrDefault(p => p.CUV == detalle.CUV);
                     if (pedidoWebDetalle == null) continue;
                     int cantidad = pedidoWebDetalle.Cantidad - detallePedido.Where(p => p.CUV == detalle.CUV).Sum(p => set.Cantidad * p.FactorRepeticion);
                     if (cantidad > 0)
@@ -1682,7 +1682,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<string> ObtenerListadoCuvCupon()
         {
-            var lista = new List<string>();
+            List<string> lista;
 
             using (PedidoServiceClient ps = new PedidoServiceClient())
             {
@@ -1721,7 +1721,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!revistaDigital.TieneRDC) return;
 
             if (!revistaDigital.EsActiva) return;
-            
+
             if (revistaDigital.BloquearRevistaImpresaGeneral == 1 || revistaDigital.BloqueoRevistaImpresa)
             {
                 beProductos = beProductos
@@ -3742,101 +3742,101 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        [Obsolete("Nuevo UpSelling")]
-        public JsonResult ObtenerOfertaFinalRegalo()
-        {
-            try
-            {
-                OfertaFinalRegaloModel model = null;
-                using (var svc = new ProductoServiceClient())
-                {
-                    var entidad = svc.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
-                    if (entidad != null)
-                    {
-                        model = Mapper.Map<RegaloOfertaFinal, OfertaFinalRegaloModel>(entidad);
-                        model.CodigoISO = userData.CodigoISO;
-                        var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                        model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, entidad.RegaloImagenUrl, carpetaPais);
-                        model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, userData.CodigoISO);
-                    }
-                }
+        //[Obsolete("Nuevo UpSelling")]
+        //public JsonResult ObtenerOfertaFinalRegalo()
+        //{
+        //    try
+        //    {
+        //        OfertaFinalRegaloModel model = null;
+        //        using (var svc = new ProductoServiceClient())
+        //        {
+        //            var entidad = svc.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
+        //            if (entidad != null)
+        //            {
+        //                model = Mapper.Map<RegaloOfertaFinal, OfertaFinalRegaloModel>(entidad);
+        //                model.CodigoISO = userData.CodigoISO;
+        //                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+        //                model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, entidad.RegaloImagenUrl, carpetaPais);
+        //                model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, userData.CodigoISO);
+        //            }
+        //        }
 
-                return Json(new
-                {
-                    success = true,
-                    data = model
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                });
-            }
-        }
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            data = model
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //        });
+        //    }
+        //}
 
-        [Obsolete("Nuevo UpSelling")]
-        public JsonResult ObtenerRegaloMontoMeta()
-        {
-            try
-            {
-                OfertaFinalRegaloModel model = null;
-                using (var svc = new ProductoServiceClient())
-                {
-                    var entidad = svc.ObtenerRegaloMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
-                    if (entidad != null)
-                    {
-                        model = Mapper.Map<RegaloOfertaFinal, OfertaFinalRegaloModel>(entidad);
-                        model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, userData.CodigoISO);
-                    }
-                }
+        //[Obsolete("Nuevo UpSelling")]
+        //public JsonResult ObtenerRegaloMontoMeta()
+        //{
+        //    try
+        //    {
+        //        OfertaFinalRegaloModel model = null;
+        //        using (var svc = new ProductoServiceClient())
+        //        {
+        //            var entidad = svc.ObtenerRegaloMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
+        //            if (entidad != null)
+        //            {
+        //                model = Mapper.Map<RegaloOfertaFinal, OfertaFinalRegaloModel>(entidad);
+        //                model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, userData.CodigoISO);
+        //            }
+        //        }
 
-                return Json(new
-                {
-                    success = true,
-                    data = model
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                });
-            }
-        }
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            data = model
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //        });
+        //    }
+        //}
 
-        [Obsolete("Nuevo UpSelling")]
-        public JsonResult InsertarOfertaFinalRegalo()
-        {
-            try
-            {
-                using (var svc = new ProductoServiceClient())
-                {
-                    var montoTotal = Convert.ToDouble(ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal));
-                    svc.InsertarRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID, montoTotal, "OFR");
-                }
+        //[Obsolete("Nuevo UpSelling")]
+        //public JsonResult InsertarOfertaFinalRegalo()
+        //{
+        //    try
+        //    {
+        //        using (var svc = new ProductoServiceClient())
+        //        {
+        //            var montoTotal = Convert.ToDouble(ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal));
+        //            svc.InsertarRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID, montoTotal, "OFR");
+        //        }
 
-                return Json(new
-                {
-                    success = true
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                });
-            }
-        }
+        //        return Json(new
+        //        {
+        //            success = true
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //        });
+        //    }
+        //}
 
         public bool VerificarConsultoraNueva()
         {
@@ -4652,7 +4652,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var numero = Convert.ToInt32(Cantidad);
                 if (numero > ficha.LimiteVenta) return ErrorJson("La cantidad no debe ser mayor que la cantidad limite ( " + ficha.LimiteVenta + " ).", true);
-                
+
                 var descripcion = ficha.FlagNueva == 1 ? ficha.DescripcionCortada : ficha.DescripcionCompleta;
                 listaCuvTonos = Util.Trim(listaCuvTonos);
                 if (string.IsNullOrEmpty(listaCuvTonos)) listaCuvTonos = ficha.CUV2;
