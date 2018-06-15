@@ -298,14 +298,13 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCUVsAEvaluar = new List<string>();
                 item.Mensaje = string.Empty;
 
-                listaCUVsAEvaluar.Add(item.CUV);
-
                 if (cuvHijos.Any(x => x.SetID == item.SetID))
                 {
                     listaCUVsAEvaluar.AddRange(cuvHijos.Where(x => x.SetID == item.SetID).Select(x => x.CUV));
                 }
+                else
+                    listaCUVsAEvaluar.Add(item.CUV);
 
-                // var temp = observaciones.Where(o => o.CUV == item.CUV).ToList();
                 var temp = observaciones.Where(o => listaCUVsAEvaluar.Contains(o.CUV)).ToList();
 
 
