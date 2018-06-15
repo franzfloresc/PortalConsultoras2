@@ -1588,7 +1588,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                var listaProducto = new List<BEEstrategiaProducto>();
+                var listaProducto = new List<ServicePedido.BEEstrategiaProducto>();
                 if (fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
                 {
                     var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = fichaProductoModelo.EstrategiaID };
@@ -1847,12 +1847,110 @@ namespace Portal.Consultoras.Web.Controllers
             return displayTiempo;
         }
 
+        private BarraTippingPoint GetTippingPoint(string TippingPointParticipa, string TippingPointStr)
+        {
+            BarraTippingPoint TippingPoint = new BarraTippingPoint { ActiveTooltip = false, ActiveMonto = false };
+            string nivel = Convert.ToString(userData.ConsecutivoNueva + 1).PadLeft(2, '0');
+            string FlagParticipa = getValidaConsultoraProgramaNueva(TippingPointParticipa);
+            try
+            {
+                // verifica si participa al programa de nuevas.
+                if (FlagParticipa == Constantes.TipoEstrategiaCodigo.ParticipaProgramaNuevas)
+                {
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        BEActivarPremioNuevas beActive = sv.GetActivarPremioNuevas(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);
+                        TippingPoint.ActiveTooltip = beActive == null ? false : beActive.ActiveTooltip;
+                        TippingPoint.ActiveMonto = beActive == null ? false : beActive.ActiveMontoTooltip;
+                        TippingPoint.Active = beActive == null ? false : beActive.Active;
+                        TippingPoint.TippingPointMontoStr = TippingPointStr;
+                        // verifica si esta activado el tooltip
+                        if (TippingPoint.ActiveTooltip == true)
+                        {
+                            var estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID,
+                                                                               Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo,
+                                                                               userData.CampaniaID,
+                                                                               nivel);
+
+                            TippingPoint.CampaniaID = estrategia == null ? default(int) : estrategia.CampaniaID;
+                            TippingPoint.CampaniaIDFin = estrategia == null ? default(int) : estrategia.CampaniaIDFin;
+                            TippingPoint.CUV1 = estrategia == null ? default(string) : estrategia.CUV1;
+                            TippingPoint.CUV2 = estrategia == null ? default(string) : estrategia.CUV2;
+                            TippingPoint.ImagenURL = estrategia == null ? default(string) : estrategia.ImagenURL;
+                            TippingPoint.DescripcionCUV2 = estrategia == null ? default(string) : estrategia.DescripcionCUV2;
+                            TippingPoint.Ganancia = estrategia == null ? default(decimal) : estrategia.Ganancia;
+                            TippingPoint.Precio = estrategia == null ? default(decimal) : estrategia.Precio;
+                            TippingPoint.Precio2 = estrategia == null ? default(decimal) : estrategia.Precio2;
+                            TippingPoint.PrecioPublico = estrategia == null ? default(decimal) : estrategia.PrecioPublico;
+                            TippingPoint.PrecioUnitario = estrategia == null ? default(decimal) : estrategia.PrecioUnitario;
+                            TippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
+                        }
+                    }
+                }
+                else
+                {
+                    TippingPoint = new BarraTippingPoint { ActiveTooltip = false, ActiveMonto = false };
+                }
+            }
+            catch (Exception ex)
+            {
+                TippingPoint = new BarraTippingPoint { ActiveTooltip = false, ActiveMonto = false };
+            }
+            return TippingPoint;
+        }
+
+        private string getUrlTippingPoint(string noImagen)
+        {
+            string url = string.Format
+                        ("{0}/{1}/{2}/{3}/{4}/{5}",
+                            GetConfiguracionManager(Constantes.ConfiguracionManager.URL_S3),
+                            GetConfiguracionManager(Constantes.ConfiguracionManager.BUCKET_NAME),
+                            GetConfiguracionManager(Constantes.ConfiguracionManager.ROOT_DIRECTORY),
+                            GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""),
+                            userData.CodigoISO ?? "",
+                            noImagen ?? ""
+                         );
+            return url;
+        }
+
+        private string getValidaConsultoraProgramaNueva(string participa)
+        {
+            string resultado = string.Empty;
+            // si el idestadoActividad es mayor a 1 o diferente a  1 entonces significa que el usuario pertenece al programa de nuevas[campo ConsecutivoNueva]
+            int ConsecutivoNueva = userData.ConsecutivoNueva;
+            // este es el campo IdEstadoActividad en bd
+            int ConsultoraNueva = userData.ConsultoraNueva;
+            try
+            {
+                resultado = participa == null ? "" : participa.Trim();
+
+                /*
+                if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
+                        userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
+                        userData.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
+                {
+                    resultado = participa == null ? "" : participa.Trim();
+                }
+                else
+
+                    resultado = Constantes.TipoEstrategiaCodigo.NotParticipaProgramaNuevas;
+                    */
+            }
+            catch
+            {
+                resultado = string.Empty;
+            }
+            return resultado;
+        }
+
+
         public BarraConsultoraModel GetDataBarra(bool inEscala = true, bool inMensaje = false, bool Agrupado = false)
         {
             var objR = new BarraConsultoraModel
             {
                 ListaEscalaDescuento = new List<BarraConsultoraEscalaDescuentoModel>(),
-                ListaMensajeMeta = new List<BEMensajeMetaConsultora>()
+                ListaMensajeMeta = new List<BEMensajeMetaConsultora>(),
+                TippingPointBarra = new BarraTippingPoint()
             };
 
             try
@@ -1872,13 +1970,15 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.MontoMaximo > 0)
                 {
                     var tp = GetConfiguracionProgramaNuevas(Constantes.ConstSession.TippingPoint);
-
                     if (tp.IndExigVent == "1")
                     {
                         var obeConsultorasProgramaNuevas = GetConsultorasProgramaNuevas(Constantes.ConstSession.TippingPoint_MontoVentaExigido, tp.CodigoPrograma);
-
                         objR.TippingPoint = obeConsultorasProgramaNuevas.MontoVentaExigido;
                         objR.TippingPointStr = Util.DecimalToStringFormat(objR.TippingPoint, userData.CodigoISO);
+                        // si el MontoVentaExigido es mayor a 0 entonces pertenece al programa de nuevas y se muestra el Tipping Point validacion a nivel de js y a nivel de cs
+                        if (objR.TippingPoint > 0)
+                            objR.TippingPointBarra = GetTippingPoint(obeConsultorasProgramaNuevas.Participa, objR.TippingPointStr);
+
                     }
                 }
 
@@ -2709,15 +2809,13 @@ namespace Portal.Consultoras.Web.Controllers
             string v_valoractual = string.Empty;
             string dataString = string.Empty;
 
-            try
+            //Data actual viene del Model       => model
+            //Data anterior viene del userData  => userData 
+            if (userData != null && p_modelo != null && p_Accion.Trim().ToUpper() == "MODIFICACION")
             {
-                //Data actual viene del Model       => model
-                //Data anterior viene del userData  => userData 
-
-                if (userData != null && p_modelo != null && p_Accion.Trim().ToUpper() == "MODIFICACION")
+                string _seccion = "Mis Datos";
+                try
                 {
-                    string _seccion = "Mis Datos";
-
                     if (string.IsNullOrEmpty(userData.Sobrenombre)) userData.Sobrenombre = "";
                     if (string.IsNullOrEmpty(userData.EMail)) userData.EMail = "";
                     if (string.IsNullOrEmpty(userData.Telefono)) userData.Telefono = "";
@@ -2777,16 +2875,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                     SetUserData(userData);
                 }
-                else if (p_Accion.Trim().ToUpper() == "CONSULTA")
+                catch (Exception ex)
                 {
-                    EjecutarLogDynamoDB(data, "", "", "", p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, p_Seccion);
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
                 }
             }
-            catch (Exception ex)
+            else if (p_Accion.Trim().ToUpper() == "CONSULTA")
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+                EjecutarLogDynamoDB(data, "", "", "", p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, p_Seccion);
             }
-
         }
 
         protected void EjecutarLogDynamoDB(object data, string campomodificacion, string valoractual, string valoranterior, string origen, string aplicacion, string accion, string codigoconsultorabuscado, string seccion = "")
@@ -4919,6 +5016,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.CodigoConsultoraDL = userData.CodigoConsultora != null && userData.CodigoConsultora != "" ? userData.CodigoConsultora : "(not available)";
             ViewBag.SegmentoConstancia = userData.SegmentoConstancia != null && userData.SegmentoConstancia != "" ? userData.SegmentoConstancia.Trim() : "(not available)";
             ViewBag.DescripcionNivelAnalytics = userData.DescripcionNivel != null && userData.DescripcionNivel != "" ? userData.DescripcionNivel : "(not available)";
+            ViewBag.MensajeChat = userData.MensajeChat;
 
             if (userData.RolID == Constantes.Rol.Consultora)
             {
@@ -5985,5 +6083,19 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        protected void GetNotificacionesValAutoProl(long procesoId, int tipoOrigen, out List<BENotificacionesDetalle> lstObservaciones, out List<BENotificacionesDetallePedido> lstObservacionesPedido)
+        {
+            using (var service = new UsuarioServiceClient())
+            {
+                lstObservaciones = service.GetNotificacionesConsultoraDetalle(userData.PaisID, procesoId, tipoOrigen).ToList();
+                lstObservacionesPedido = service.GetNotificacionesConsultoraDetallePedido(userData.PaisID, procesoId, tipoOrigen).ToList();
+            }
+            lstObservaciones = lstObservaciones.GroupBy(o => o.CUV).Select(g => g.First()).ToList();
+        }
+
+        public bool EsDispositivoMovil()
+        {
+            return Request.Browser.IsMobileDevice;
+        }
     }
 }

@@ -368,48 +368,6 @@ namespace Portal.Consultoras.BizLogic
             return daEstrategia.GetImagenOfertaPersonalizadaOF(campaniaID, cuv);
         }
         
-        public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLore)
-        {
-            var daEstrategia = new DAEstrategia(paisId);
-            return daEstrategia.InsertEstrategiaTemporal(lista, campaniaId, codigoUsuario, nroLore);
-        }
-
-        public int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado)
-        {
-            var daEstrategia = new DAEstrategia(paisId);
-            int result = daEstrategia.GetCantidadOfertasParaTiTemporal(campaniaId, tipoConfigurado);
-            return result;
-        }
-
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote)
-        {
-            List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
-
-            var daEstrategia = new DAEstrategia(paisId);
-            using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfiguradoTemporal(campaniaId, tipoConfigurado, nroLote))
-            {
-                while (reader.Read())
-                {
-                    listaEstrategias.Add(new BEEstrategia(reader));
-                }
-            }
-            return listaEstrategias;
-        }
-
-        public int DeleteEstrategiaTemporal(int paisId, int campaniaId)
-        {
-            var daEstrategia = new DAEstrategia(paisId);
-            int result = daEstrategia.DeleteEstrategiaTemporal(campaniaId);
-            return result;
-        }
-
-        public int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
-        {
-            var daEstrategia = new DAEstrategia(paisId);
-            return daEstrategia.InsertEstrategiaOfertaParaTi(lista, campaniaId, codigoUsuario, estrategiaId);
-        }
-
-
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             var listaEstrategias = new List<BEEstrategia>();
@@ -551,7 +509,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
-        
+
         public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
         {
             try
@@ -579,7 +537,7 @@ namespace Portal.Consultoras.BizLogic
                 throw;
             }
         }
-
+        
         public bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia,string campaniaID)
         {
             try
@@ -600,6 +558,44 @@ namespace Portal.Consultoras.BizLogic
                 return false;
             }
 
+
+        }
+
+        public BEEstrategia GetEstrategiaProgramaNuevas(BEEstrategia entidad)
+        {
+            BEEstrategia data = new BEEstrategia();
+            var da = new DAEstrategia(entidad.PaisID);
+            using (IDataReader reader = da.GetEstrategiaProgramaNuevas(entidad))
+                if (reader.Read())
+                    data = new BEEstrategia(reader);
+
+            return data;
+        }
+
+        public BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel)
+        {
+            BEEstrategia result = new BEEstrategia();
+            try
+            {
+                var da = new BLPremiosProgramaNuevas();
+                var entidad = new BEPremiosProgramaNuevas { PaisID = paisID, CodigoPrograma = codigoPrograma, CodigoNivel = codigoNivel, AnioCampana = anioCampana };
+                BEPremiosProgramaNuevas PremiosProgramaNuevas = da.GetPremiosProgramaNuevas(entidad);
+
+                BEEstrategia estrategia = new BEEstrategia
+                {
+                    PaisID = paisID,
+                    CodigoPrograma = PremiosProgramaNuevas == null ? "" : PremiosProgramaNuevas.CodigoPrograma,
+                    CampaniaID = PremiosProgramaNuevas == null ? 0 : PremiosProgramaNuevas.AnioCampana,
+                    CUV2 = PremiosProgramaNuevas == null ? "" : PremiosProgramaNuevas.CUV,
+                    CodigoEstrategia = Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas
+                };
+                result = GetEstrategiaProgramaNuevas(estrategia);
+            }
+            catch
+            {
+                result = new BEEstrategia();
+            }
+            return result;
         }
 
     }

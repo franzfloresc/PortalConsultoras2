@@ -1,17 +1,19 @@
-﻿using Portal.Consultoras.BizLogic.Reserva;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Data.ServiceCalculoPROL;
-using Portal.Consultoras.Data.ServicePROL;
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.Pedido.App;
-using Portal.Consultoras.Entities.ReservaProl;
+using Portal.Consultoras.Data.ServiceCalculoPROL;
+using Portal.Consultoras.Data.ServicePROL;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
+using Portal.Consultoras.BizLogic.Reserva;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -29,8 +31,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly IMensajeMetaConsultoraBusinessLogic _mensajeMetaConsultoraBusinessLogic;
         private readonly IReservaBusinessLogic _reservaBusinessLogic;
         private readonly ITipoEstrategiaBusinessLogic _tipoEstrategiaBusinessLogic;
+        private readonly IEstrategiaProductoBusinessLogic _estrategiaProductoBusinessLogic;
 
-        private string cuvBuscar = string.Empty;
         private string nombreServicio = string.Empty;
 
         public BLPedidoApp() : this(new BLProducto(),
@@ -44,10 +46,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLEscalaDescuento(),
                                     new BLMensajeMetaConsultora(),
                                     new BLReserva(),
-                                    new BLTipoEstrategia())
+                                    new BLTipoEstrategia(),
+                                    new BLEstrategiaProducto())
         { }
 
-        public BLPedidoApp(IProductoBusinessLogic productoBusinessLogic, 
+        public BLPedidoApp(IProductoBusinessLogic productoBusinessLogic,
                             IPedidoWebBusinessLogic pedidoWebBusinessLogic,
                             IPedidoWebDetalleBusinessLogic pedidoWebDetalleBusinessLogic,
                             IEstrategiaBusinessLogic estrategiaBusinessLogic,
@@ -58,7 +61,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IEscalaDescuentoBusinessLogic escalaDescuentoBusinessLogic,
                             IMensajeMetaConsultoraBusinessLogic mensajeMetaConsultoraBusinessLogic,
                             IReservaBusinessLogic reservaBusinessLogic,
-                            ITipoEstrategiaBusinessLogic tipoEstrategiaBusinessLogic)
+                            ITipoEstrategiaBusinessLogic tipoEstrategiaBusinessLogic,
+                            IEstrategiaProductoBusinessLogic estrategiaProductoBusinessLogic)
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -72,6 +76,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _mensajeMetaConsultoraBusinessLogic = mensajeMetaConsultoraBusinessLogic;
             _reservaBusinessLogic = reservaBusinessLogic;
             _tipoEstrategiaBusinessLogic = tipoEstrategiaBusinessLogic;
+            _estrategiaProductoBusinessLogic = estrategiaProductoBusinessLogic;
         }
 
         #region Publicos
@@ -79,15 +84,15 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             try
             {
-                cuvBuscar = productoBuscar.CodigoDescripcion;
-                nombreServicio = "GetCUV";
-
-                LogPerformance("Inicio");
-
-                ////Informacion de palancas
+                //Informacion de palancas
                 var usuario = productoBuscar.Usuario;
-                usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(usuario, Constantes.ConfiguracionPais.RevistaDigital);
-                LogPerformance("Informacion de palancas");
+                var configuracionPaisTask = Task.Run(() => _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.RevistaDigital));
+                var codigosRevistasTask = Task.Run(() => _usuarioBusinessLogic.ObtenerCodigoRevistaFisica(usuario.PaisID));
+
+                Task.WaitAll(configuracionPaisTask, codigosRevistasTask);
+
+                usuario = configuracionPaisTask.Result;
+                usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;
 
                 //Validación producto no existe
                 var producto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
@@ -101,17 +106,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     productoBuscar.Criterio,
                                     productoBuscar.RowCount,
                                     productoBuscar.ValidarOpt).FirstOrDefault();
-                LogPerformance("Busqueda CUV BD");
                 if (producto == null) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
                 //Validación producto en catalogos
                 var bloqueoProductoCatalogo = BloqueoProductosCatalogo(usuario.RevistaDigital, usuario.CodigosRevistaImpresa, producto, productoBuscar);
-                LogPerformance("Validación producto en catalogos");
                 if (!bloqueoProductoCatalogo) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
                 //Validacion Tipo Estrategia
                 var validacionTipoEstrategia = BloqueoTipoEstrategia(productoBuscar.PaisID, producto.TipoEstrategiaID);
-                LogPerformance("Validación tipo estrategia");
                 if (!string.IsNullOrEmpty(validacionTipoEstrategia)) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_ESTRATEGIA, validacionTipoEstrategia);
 
                 //Validación producto agotado
@@ -126,7 +128,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var desactivaRevistaGana = _pedidoWebBusinessLogic.ValidarDesactivaRevistaGana(productoBuscar.PaisID,
                                                     usuario.CampaniaID,
                                                     usuario.CodigoZona);
-                    LogPerformance("Información de producto con oferta en revista");
                     var tieneRDC = usuario.RevistaDigital.TieneRDC && usuario.RevistaDigital.EsActiva;
                     if (!producto.EsExpoOferta && producto.CUVRevista.Length != 0 && desactivaRevistaGana == 0 && !tieneRDC)
                     {
@@ -175,8 +176,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 LogPerformance("Inicio");
 
                 //Informacion de usuario
-                var usuario = pedidoDetalle.Usuario;
-                usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo);
+                var usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(pedidoDetalle.Usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo);
                 LogPerformance("Informacion de palancas");
                 usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
                 LogPerformance("EsConsultoraNueva");
@@ -343,6 +343,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     if (!flagkit) return false;
                 }
+
+                if (usuario.EsConsultoraOficina) return false;
                 if (usuario.DiaPROL && !EsHoraReserva(usuario, DateTime.Now.AddHours(usuario.ZonaHoraria))) return false;
 
                 var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas(usuario);
@@ -416,7 +418,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 //Informacion de usuario y palancas
                 LogPerformance("Inicio");
-                var usuario = _usuarioBusinessLogic.GetSesionUsuarioPedidoApp(pedidoDetalle.Usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo);
+                var usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(pedidoDetalle.Usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo);
                 LogPerformance("Informacion palancas");
 
                 //Validacion reserve u horario restringido
@@ -641,7 +643,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 nombreServicio = "DeshacerReserva";
                 LogPerformance("Inicio");
- 
+
                 //Obtener pedido
                 pedido = _pedidoWebBusinessLogic.GetPedidoWebByCampaniaConsultora(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
                 LogPerformance("GetPedidoWebByCampaniaConsultora");
@@ -654,7 +656,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 mensaje = _reservaBusinessLogic.DeshacerPedidoValidado(usuario, Constantes.EstadoPedido.PedidoValidado);
                 LogPerformance("DeshacerPedidoValidado");
                 if (mensaje != string.Empty) return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_DESHACER_PEDIDO, mensaje);
-                 
+
                 return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.SUCCESS);
             }
             catch (Exception ex)
@@ -662,6 +664,38 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 LogManager.SaveLog(ex, usuario.CodigoUsuario, usuario.PaisID);
                 return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_INTERNO, ex.Message);
             }
+        }
+
+        public List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario)
+        {
+            var lstEstrategia = new List<BEEstrategia>();
+
+            try
+            {
+                usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.RevistaDigital);
+                var revistaDigital = usuario.RevistaDigital;
+
+                var codAgrupa = (revistaDigital.TieneRDC && revistaDigital.EsActiva)
+                    || (revistaDigital.TieneRDC && revistaDigital.ActivoMdo) ?
+                    Constantes.TipoEstrategiaCodigo.RevistaDigital : string.Empty;
+
+                lstEstrategia = ConsultarEstrategiasHomePedido(string.Empty, codAgrupa, usuario);
+
+                lstEstrategia = lstEstrategia.Where(x => x.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+
+                foreach (var item in lstEstrategia)
+                {
+                    item.PaisID = usuario.PaisID;
+                    item.DescripcionCortaCUV2 = Util.SubStrCortarNombre(item.DescripcionCUV2, 40);
+                    GetEstrategiaDetalleCarrusel(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, usuario.PaisID, usuario.CodigoUsuario);
+            }
+
+            return lstEstrategia ?? new List<BEEstrategia>();
         }
         #endregion
 
@@ -733,7 +767,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             };
         }
 
-        private bool ValidarStockEstrategia(BEUsuario usuario, BEPedidoDetalleApp pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle, 
+        private bool ValidarStockEstrategia(BEUsuario usuario, BEPedidoDetalleApp pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle,
             out string mensaje)
         {
             var resultado = false;
@@ -747,7 +781,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return mensaje == string.Empty || resultado;
         }
 
-        private string ValidarMontoMaximo(BEUsuario usuario, BEPedidoDetalleApp pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle, 
+        private string ValidarMontoMaximo(BEUsuario usuario, BEPedidoDetalleApp pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle,
             out bool resul)
         {
             var mensaje = string.Empty;
@@ -888,7 +922,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return obeConfiguracionProgramaNuevas ?? new BEConfiguracionProgramaNuevas();
         }
 
-        private bool AdministradorPedido(BEUsuario usuario, BEPedidoDetalleApp pedidoDetalle, BEPedidoWebDetalle obePedidoWebDetalle, 
+        private bool AdministradorPedido(BEUsuario usuario, BEPedidoDetalleApp pedidoDetalle, BEPedidoWebDetalle obePedidoWebDetalle,
             List<BEPedidoWebDetalle> lstDetalle, string tipoAdm)
         {
             var resultado = true;
@@ -1088,7 +1122,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 PaisID = pedidoDetalle.PaisID,
                 CampaniaID = usuario.CampaniaID,
-                PedidoID = pedidoDetalle.PedidoID, 
+                PedidoID = pedidoDetalle.PedidoID,
                 PedidoDetalleID = pedidoDetalle.PedidoDetalleID,
                 Cantidad = Convert.ToInt32(pedidoDetalle.Cantidad),
                 PrecioUnidad = pedidoDetalle.Producto.PrecioCatalogo,
@@ -1277,6 +1311,186 @@ namespace Portal.Consultoras.BizLogic.Pedido
             if (!result) return Constantes.PedidoAppValidacion.Code.ERROR_ELIMINAR;
 
             return Constantes.PedidoAppValidacion.Code.SUCCESS;
+        }
+        #endregion
+
+        #region EstrategiaCarrusel
+        private List<BEEstrategia> ConsultarEstrategiasHomePedido(string cuv, string codAgrupacion, BEUsuario usuario)
+        {
+            var revistaDigital = usuario.RevistaDigital;
+            var listModel = ConsultarEstrategias(cuv, 0, codAgrupacion, usuario);
+
+            if (!listModel.Any()) return new List<BEEstrategia>();
+
+            if (codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital)
+            {
+                var estrategiaLanzamiento = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new BEEstrategia();
+
+                listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+
+                if (!listModel.Any() && estrategiaLanzamiento.EstrategiaID <= 0) return new List<BEEstrategia>();
+
+                var listaPackNueva = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
+
+                var listaRevista = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi).ToList();
+
+                if (revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
+                    listaRevista = listaRevista.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+
+                var cantMax = 8;
+                var cantPack = listaPackNueva.Any() ? 1 : 0;
+                var top = Math.Min(cantMax - cantPack, listaRevista.Count);
+
+                if (listaRevista.Count > top)
+                    listaRevista.RemoveRange(top, listaRevista.Count - top);
+
+                if (listaPackNueva.Count > 0 && listaPackNueva.Count > cantMax - top)
+                    listaPackNueva.RemoveRange(cantMax - top, listaPackNueva.Count - (cantMax - top));
+
+                listModel = new List<BEEstrategia>();
+                if (estrategiaLanzamiento.EstrategiaID > 0)
+                    listModel.Add(estrategiaLanzamiento);
+
+                listModel.AddRange(listaPackNueva);
+                listModel.AddRange(listaRevista);
+            }
+
+            return listModel;
+        }
+
+        private List<BEEstrategia> ConsultarEstrategias(string cuv, int campaniaId, string codAgrupacion, BEUsuario usuario)
+        {
+            var listEstrategia = new List<BEEstrategia>();
+
+            var lstExcluye = new List<string>()
+            {
+                Constantes.TipoEstrategiaCodigo.Lanzamiento,
+                Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada,
+                Constantes.TipoEstrategiaCodigo.HerramientasVenta
+            };
+
+            if (!lstExcluye.Any(x => x == codAgrupacion))
+            {
+                listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.PackNuevas, usuario));
+                listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaWeb, usuario));
+            }
+
+            switch (codAgrupacion)
+            {
+                case Constantes.TipoEstrategiaCodigo.RevistaDigital:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.Lanzamiento, usuario));
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.RevistaDigital, usuario));
+                    break;
+                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.Lanzamiento, usuario));
+                    break;
+                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada, usuario));
+                    break;
+                case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.HerramientasVenta, usuario));
+                    break;
+                default:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaParaTi, usuario));
+                    break;
+            }
+
+            return listEstrategia;
+        }
+
+        private List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, BEUsuario usuario)
+        {
+            var entidad = new BEEstrategia
+            {
+                PaisID = usuario.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.UsuarioPrueba == 1 ? usuario.ConsultoraAsociada : usuario.CodigoConsultora,
+                Zona = usuario.ZonaID.ToString(),
+                ZonaHoraria = usuario.ZonaHoraria,
+                FechaInicioFacturacion = usuario.FechaFinFacturacion,
+                ValidarPeriodoFacturacion = true,
+                Simbolo = usuario.Simbolo,
+                CodigoTipoEstrategia = tipo
+            };
+
+            var listEstrategia = _estrategiaBusinessLogic.GetEstrategiasPedido(entidad);
+            if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas && listEstrategia.Any())
+                listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(listEstrategia, usuario);
+
+            return listEstrategia;
+        }
+
+        private List<BEEstrategia> ConsultarEstrategiasFiltrarPackNuevasPedido(List<BEEstrategia> listEstrategia, BEUsuario usuario)
+        {
+            var pedidoDetalleBuscar = new BEPedidoAppBuscar()
+            {
+                PaisID = usuario.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.ConsultoraID,
+                NombreConsultora = usuario.Nombre,
+                CodigoPrograma = usuario.CodigoPrograma,
+                ConsecutivoNueva = usuario.ConsecutivoNueva
+            };
+
+            var pedidoID = 0;
+            var pedidoWebDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+            listEstrategia = listEstrategia.Where(e => !pedidoWebDetalle.Any(d => d.CUV == e.CUV2)).ToList();
+
+            return listEstrategia;
+        }
+
+        private void GetEstrategiaDetalleCarrusel(BEEstrategia estrategia)
+        {
+            var joinCuv = string.Empty;
+
+            var listaProducto = GetEstrategiaDetalleCodigoSAP(estrategia, out joinCuv);
+            if (joinCuv == string.Empty) return;
+
+            estrategia.EstrategiaProductoCodigoSAP = joinCuv;
+            estrategia.EstrategiaProducto = listaProducto;
+        }
+
+        private List<BEEstrategiaProducto> GetEstrategiaDetalleCodigoSAP(BEEstrategia estrategia, out string codigoSap)
+        {
+            codigoSap = "";
+            var separador = "|";
+
+            var txtBuil = new StringBuilder();
+            txtBuil.Append(separador);
+
+            if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.IndividualConTonos)
+            {
+                var listaHermanosE = _productoBusinessLogic.GetListBrothersByCUV(estrategia.PaisID, estrategia.CampaniaID, estrategia.CUV2).ToList();
+
+                foreach (var item in listaHermanosE)
+                {
+                    item.CodigoSAP = Util.Trim(item.CodigoSAP);
+                    if (item.CodigoSAP != string.Empty && !txtBuil.ToString().Contains(separador + item.CodigoSAP + separador))
+                        txtBuil.Append(item.CodigoSAP + separador);
+                }
+            }
+
+            var listaProducto = new List<BEEstrategiaProducto>();
+            if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija || estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+            {
+                listaProducto = _estrategiaProductoBusinessLogic.GetEstrategiaProducto(estrategia);
+
+                foreach (var item in listaProducto)
+                {
+                    item.SAP = Util.Trim(item.SAP);
+                    if (item.SAP != "" && !txtBuil.ToString().Contains(separador + item.SAP + separador))
+                        txtBuil.Append(item.SAP + separador);
+                }
+            }
+
+            codigoSap = txtBuil.ToString();
+
+            if (codigoSap == separador)
+                codigoSap = string.Empty;
+            else
+                codigoSap = codigoSap.Substring(separador.Length, codigoSap.Length - separador.Length * 2);
+
+            return listaProducto;
         }
         #endregion
     }

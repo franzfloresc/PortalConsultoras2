@@ -146,19 +146,21 @@
                             <div class="texto_stock" style="color:black"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
                         </div>
                     }
-                    @if (!string.IsNullOrEmpty(item.Mensaje))
+                    @if (item.ListObservacionProl.Any())
                     {
                         <hr class="clear" /><br />
+                        foreach (var obs in item.ListObservacionProl)
+                        {
+                            <div class="stock_content_agotado">
+                                <div class="texto_stock" style="color:black"><b>@Html.Raw(obs)</b></div>
+                            </div>
+                        }
+                        @*<hr class="clear" /><br />
                         <div class="notificacion_productoAgotado">
                             <small>
-                                @if (item.TipoObservacion == 0)
-                                { @Html.Raw(item.Mensaje);
-                                }
-                                else
-                                { @Html.Raw(item.Mensaje.Replace("¿Deseas aceptar el reemplazo?", ""));
-                                }
+                                @Html.Raw(item.ObservacionPROL);
                             </small>
-                        </div>
+                        </div>*@
                     }
                 </div>
             }

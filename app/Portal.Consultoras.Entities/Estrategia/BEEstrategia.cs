@@ -1,8 +1,10 @@
 ﻿using Portal.Consultoras.Common;
+
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Entities
 {
@@ -55,6 +57,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("DescripcionCUV2")]
         public string DescripcionCUV2 { get; set; }
+        [DataMember]
+        public string DescripcionCortaCUV2 { get; set; }
         [Column("Activo")]
         public bool activo { get; set; }
         private int _Activo;
@@ -282,7 +286,12 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [NotMapped]
         public string UsuarioRegistro { get; set; }
- 
+
+        [DataMember]
+        public string EstrategiaProductoCodigoSAP { get; set; }
+        [DataMember]
+        public List<BEEstrategiaProducto> EstrategiaProducto { get; set; }
+
 
         public BEEstrategia()
         { }
