@@ -41,6 +41,8 @@ namespace Portal.Consultoras.Web.Models.MisCertificados
         public string IVARetail { get; set; }
         public string TotalCompra { get; set; }
         public string IvaTotal { get; set; }
+        public string DocumentoResponsable { get; set; }
+        public string Pais { get; set; }
 
         public string PromedioVentasFormato
         {

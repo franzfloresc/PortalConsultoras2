@@ -1090,21 +1090,17 @@ namespace Portal.Consultoras.Common
             string connectionString = string.Empty;
             List<V> list = null;
 
-            try
-            {
+            try {
                 string extension = System.IO.Path.GetExtension(@filepath).ToLower();
-                if (extension.Equals(".xls"))
-                {
-                    // para lectura de archivos 97-2003
-                    connectionString = string.Format("Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};" +
-                    "Extended Properties=\"Excel 8.0;IMEX=1;HDR=YES;\"", filepath);
-                }
-                else if (extension.Equals(".xlsx"))
-                {
-                    // para lectura de archivos 2007 o posterior
-                    connectionString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};" +
-                        "Extended Properties=\"Excel 12.0;IMEX=1;HDR=YES;\"", filepath);
-                }
+                string csXls = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties=\"Excel 8.0;IMEX=1;HDR=YES;\"";
+                string csXlsx = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=\"Excel 12.0;IMEX=1;HDR=YES;\"";
+                
+                // para lectura de archivos 97-2003
+                if (extension.Equals(".xls")) connectionString = string.Format(csXls, filepath);
+                // else
+                // para lectura de archivos 2007 o posterior
+                if (extension.Equals(".xlsx")) connectionString = string.Format(csXlsx, filepath);
+
                 List<string> sheets = new List<string>();
 
                 using (OleDbConnection con = new OleDbConnection(connectionString))
@@ -1115,17 +1111,13 @@ namespace Portal.Consultoras.Common
 
                     if (schemas != null)
                     {
+                        // obtiene todos los sheet names
                         if (ReadAllSheets)
-                        {
-                            // obtiene todos los sheet names
                             sheets = schemas.AsEnumerable().Cast<DataRow>().Where(row => row["TABLE_NAME"].ToString().EndsWith("$"))
                                 .Select(name => name["TABLE_NAME"].ToString()).ToList();
-                        }
+                        // obtiene el primer sheet name
                         else
-                        {
-                            // obtiene el primer sheet name
                             sheets.Add((string)schemas.Rows[0]["TABLE_NAME"]);
-                        }
                     }
 
                     foreach (string sheetName in sheets)
@@ -1136,36 +1128,33 @@ namespace Portal.Consultoras.Common
                         {
                             using (OleDbDataReader reader = select.ExecuteReader())
                             {
-                                if (reader != null)
+                                if (reader == null) continue;
+                                
+                                reader.GetSchemaTable();
+
+                                if (!reader.HasRows) continue;
+                                
+                                list = new List<V>();
+                                while (reader.Read())
                                 {
-                                    reader.GetSchemaTable();
-
-                                    if (reader.HasRows)
+                                    var entity = new V();
+                                    foreach (PropertyInfo property in Source.GetType().GetProperties())
                                     {
-                                        list = new List<V>();
-                                        while (reader.Read())
-                                        {
-                                            var entity = new V();
-                                            foreach (System.Reflection.PropertyInfo property in Source.GetType()
-                                                .GetProperties())
-                                            {
-                                                if (reader.HasColumn(property.Name))
-                                                {
-                                                    System.Reflection.PropertyInfo prop =
-                                                        entity.GetType().GetProperty(property.Name);
-                                                    if (prop != null)
-                                                    {
-                                                        Type tipo = prop.PropertyType;
-                                                        object changed = Convert.ChangeType(reader[property.Name], tipo);
-                                                        prop.SetValue(entity, changed, null);
-                                                    }
-                                                }
-                                            }
+                                        if (!reader.HasColumn(property.Name)) continue;
 
-                                            list.Add(entity);
-                                        }
+                                        PropertyInfo prop = entity.GetType().GetProperty(property.Name);
+
+                                        if (prop == null) continue;
+
+                                        Type tipo = prop.PropertyType;
+                                        object changed = Convert.ChangeType(reader[property.Name], tipo);
+                                        prop.SetValue(entity, changed, null);
+
                                     }
+
+                                    list.Add(entity);
                                 }
+
                             }
                         }
                     }
@@ -1213,24 +1202,26 @@ namespace Portal.Consultoras.Common
                     {
                         foreach (PropertyInfo property in dataItem.GetType().GetProperties())
                         {
-                            if (column == property.Name)
-                            {
-                                if (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool))
-                                {
-                                    string value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
-                                    ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : (value == "True" ? "Si" : "No"));
-                                }
-                                else
-                                {
-                                    if (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime))
-                                        ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy";
-                                    else
-                                        ws.Cell(row, col).Style.NumberFormat.Format = "@";
-                                    ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+                            if (column != property.Name) continue;
 
-                                }
+                            bool isBool = (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool));
+                            bool isTime = (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime));
+
+                            if (isBool)
+                            {
+                                string value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+                                string siOrNo = (value == "True") ? "Si" : "No";
+                                ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : siOrNo);
                                 break;
                             }
+
+                            if (isTime)
+                                ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy";
+                            else
+                                ws.Cell(row, col).Style.NumberFormat.Format = "@";
+                            ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+
+                            break;
                         }
                         col++;
                     }
@@ -1295,24 +1286,26 @@ namespace Portal.Consultoras.Common
                     {
                         foreach (PropertyInfo property in dataItem.GetType().GetProperties())
                         {
-                            if (column == property.Name)
-                            {
-                                if (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool))
-                                {
-                                    string value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
-                                    ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : (value == "True" ? "Si" : "No"));
-                                }
-                                else
-                                {
-                                    if (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime))
-                                        ws.Cell(row, col).Style.DateFormat.Format = !string.IsNullOrWhiteSpace(dateFormat) ? dateFormat : "dd/MM/yyyy";
-                                    else
-                                        ws.Cell(row, col).Style.NumberFormat.Format = "@";
-                                    ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+                            if (column != property.Name) continue;
 
-                                }
+                            bool isBool = (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool));
+                            bool isTime = (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime));
+
+                            if (isBool)
+                            {
+                                string value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+                                string siOrNo = (value == "True") ? "Si" : "No";
+                                ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : siOrNo);
                                 break;
                             }
+
+                            if (isTime)
+                                ws.Cell(row, col).Style.DateFormat.Format = !string.IsNullOrWhiteSpace(dateFormat)? dateFormat: "dd/MM/yyyy";
+                            else
+                                ws.Cell(row, col).Style.NumberFormat.Format = "@";
+                            ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+
+                            break;
                         }
                         col++;
                     }
@@ -1385,25 +1378,28 @@ namespace Portal.Consultoras.Common
                         {
                             foreach (PropertyInfo property in dataItem.GetType().GetProperties())
                             {
-                                if (column == property.Name)
-                                {
-                                    if (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool))
-                                    {
-                                        string value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
-                                        ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : (value == "True" ? "Si" : "No"));
-                                    }
-                                    else
-                                    {
-                                        if (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime))
-                                            ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy";
-                                        else
-                                            ws.Cell(row, col).Style.NumberFormat.Format = "@";
-                                        ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+                                if (column != property.Name) continue;
 
-                                    }
-                                    ws.Column(col).Width = sizeColumn;
+                                bool isBool = (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool));
+                                bool isTime = (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime));
+
+                                if (isBool)
+                                {
+                                    string value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+                                    string siOrNo = (value == "True") ? "Si" : "No";
+                                    ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : siOrNo);
                                     break;
                                 }
+
+                                if (isTime)
+                                    ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy";
+                                else
+                                    ws.Cell(row, col).Style.NumberFormat.Format = "@";
+                                ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+
+                                ws.Column(col).Width = sizeColumn;
+
+                                break;
                             }
                             col++;
 
@@ -1478,24 +1474,26 @@ namespace Portal.Consultoras.Common
                     {
                         foreach (PropertyInfo property in dataItem.GetType().GetProperties())
                         {
-                            if (column == property.Name)
-                            {
-                                if (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool))
-                                {
-                                    string value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
-                                    ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : (value == "True" ? "Si" : "No"));
-                                }
-                                else
-                                {
-                                    if (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime))
-                                        ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy hh:mm";
-                                    else
-                                        ws.Cell(row, col).Style.NumberFormat.Format = "@";
-                                    ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+                            if (column != property.Name) continue;
 
-                                }
+                            bool isBool = (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool));
+                            bool isTime = (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime));
+
+                            if (isBool)
+                            {
+                                string value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+                                string siOrNo = (value == "True") ? "Si" : "No";
+                                ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : siOrNo);
                                 break;
                             }
+
+                            if (isTime)
+                                ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy hh:mm";
+                            else
+                                ws.Cell(row, col).Style.NumberFormat.Format = "@";
+                            ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+
+                            break;
                         }
                         col++;
                     }
@@ -1570,24 +1568,26 @@ namespace Portal.Consultoras.Common
                     {
                         foreach (PropertyInfo property in dataItem.GetType().GetProperties())
                         {
-                            if (column == property.Name)
-                            {
-                                if (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool))
-                                {
-                                    string value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
-                                    ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : (value == "True" ? "Si" : "No"));
-                                }
-                                else
-                                {
-                                    if (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime))
-                                        ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy";
-                                    else
-                                        ws.Cell(row, col).Style.NumberFormat.Format = "@";
-                                    ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+                            if (column != property.Name) continue;
 
-                                }
+                            bool isBool = (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool));
+                            bool isTime = (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime));
+
+                            if (isBool)
+                            {
+                                string value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+                                string siOrNo = (value == "True") ? "Si" : "No";
+                                ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : siOrNo);
                                 break;
                             }
+
+                            if (isTime)
+                                ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy";
+                            else
+                                ws.Cell(row, col).Style.NumberFormat.Format = "@";
+                            ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+
+                            break;
                         }
                         col++;
                     }
@@ -1761,35 +1761,38 @@ namespace Portal.Consultoras.Common
                             var source = SourceDetails[i];
                             foreach (PropertyInfo property in source.GetType().GetProperties())
                             {
-                                var arr = column.Contains("#")
-                                    ? column.Split('#')
-                                    : new string[] { "", column };
+                                var arr = column.Contains("#") ? column.Split('#') : new string[] { "", column };
 
-                                if (arr[1] == property.Name)
+                                if (arr[1] != property.Name) continue;
+
+                                bool isBool = (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool));
+                                bool isTime = (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime));
+                                bool isDecimal = (property.PropertyType == typeof(Nullable<decimal>) || property.PropertyType == typeof(decimal));
+
+                                if (isBool)
                                 {
-                                    if (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool))
+                                    string value = System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], property.Name, null);
+                                    string siOrNo = (value == "True") ? "Si" : "No";
+                                    ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : siOrNo);
+                                }
+                                else
+                                {
+                                    if (isTime)
+                                        ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy";
+                                    else if (isDecimal)
                                     {
-                                        string value = System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], property.Name, null);
-                                        ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : (value == "True" ? "Si" : "No"));
+                                        ws.Cell(row, col).Value = arr[0] + System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], property.Name, "{0:0.00}");
+                                        ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
+                                        break;
                                     }
                                     else
-                                    {
-                                        if (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime))
-                                            ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy";
-                                        else if (property.PropertyType == typeof(Nullable<decimal>) || property.PropertyType == typeof(decimal))
-                                        {
-                                            ws.Cell(row, col).Value = arr[0] + System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], property.Name, "{0:0.00}");
-                                            ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
-                                            break;
-                                        }
-                                        else
-                                            ws.Cell(row, col).Style.NumberFormat.Format = "@";
-                                        ws.Cell(row, col).Value = arr[0] + System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], property.Name, null);
-                                    }
-
-                                    ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
-                                    break;
+                                        ws.Cell(row, col).Style.NumberFormat.Format = "@";
+                                    ws.Cell(row, col).Value = arr[0] + System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], property.Name, null);
                                 }
+
+                                ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
+                                break;
+
                             }
                             col++;
                         }
@@ -2020,62 +2023,35 @@ namespace Portal.Consultoras.Common
 
         private static string ToText(long value)
         {
-            string num2Text;
-            if (value == 0) num2Text = "CERO";
-            else if (value == 1) num2Text = "UNO";
-            else if (value == 2) num2Text = "DOS";
-            else if (value == 3) num2Text = "TRES";
-            else if (value == 4) num2Text = "CUATRO";
-            else if (value == 5) num2Text = "CINCO";
-            else if (value == 6) num2Text = "SEIS";
-            else if (value == 7) num2Text = "SIETE";
-            else if (value == 8) num2Text = "OCHO";
-            else if (value == 9) num2Text = "NUEVE";
-            else if (value == 10) num2Text = "DIEZ";
-            else if (value == 11) num2Text = "ONCE";
-            else if (value == 12) num2Text = "DOCE";
-            else if (value == 13) num2Text = "TRECE";
-            else if (value == 14) num2Text = "CATORCE";
-            else if (value == 15) num2Text = "QUINCE";
+            string num2Text = "";
+
+            Dictionary<long, string> numText = new Dictionary<long, string> {
+                { 0 , "CERO"},{ 1, "UNO"},{ 2, "DOS"},{ 3, "TRES"},{ 4, "CUATRO"},{ 5, "CINCO"},{ 6, "SEIS"},{ 7, "SIETE"},
+                { 8, "OCHO"},{ 9, "NUEVE"},{ 10, "DIEZ"},{ 11, "ONCE"},{ 12, "DOCE"},{ 13, "TRECE"},{ 14, "CATORCE"},
+                { 15, "QUINCE"},{ 20, "VEINTE"},{ 30, "TREINTA"},{ 40, "CUARENTA"},{ 50, "CINCUENTA"},{ 60, "SESENTA"},
+                { 70, "SETENTA"},{ 80, "OCHENTA"},{ 90, "NOVENTA"},{ 100, "CIEN"},{ 500, "QUINIENTOS"},{ 700, "SETECIENTOS"},
+                { 900, "NOVECIENTOS"},{ 1000, "MIL"},{ 1000000, "UN MILLON"},{ 1000000000000, "UN BILLON"},
+            };
+
+            if (numText.ContainsKey(value)) num2Text = numText[value];
             else if (value < 20) num2Text = "DIECI" + ToText(value - 10);
-            else if (value == 20) num2Text = "VEINTE";
             else if (value < 30) num2Text = "VEINTI" + ToText(value - 20);
-            else if (value == 30) num2Text = "TREINTA";
-            else if (value == 40) num2Text = "CUARENTA";
-            else if (value == 50) num2Text = "CINCUENTA";
-            else if (value == 60) num2Text = "SESENTA";
-            else if (value == 70) num2Text = "SETENTA";
-            else if (value == 80) num2Text = "OCHENTA";
-            else if (value == 90) num2Text = "NOVENTA";
             else if (value < 100) num2Text = ToText(value / 10 * 10) + " Y " + ToText(value % 10);
-            else if (value == 100) num2Text = "CIEN";
             else if (value < 200) num2Text = "CIENTO " + ToText(value - 100);
             else if ((value == 200) || (value == 300) || (value == 400) || (value == 600) || (value == 800)) num2Text = ToText(value / 100) + "CIENTOS";
-            else if (value == 500) num2Text = "QUINIENTOS";
-            else if (value == 700) num2Text = "SETECIENTOS";
-            else if (value == 900) num2Text = "NOVECIENTOS";
             else if (value < 1000) num2Text = ToText(value / 100 * 100) + " " + ToText(value % 100);
-
-            else if (value == 1000) num2Text = "MIL";
             else if (value < 2000) num2Text = "MIL " + ToText(value % 1000);
-            else if (value < 1000000)
-            {
+            else if (value < 1000000) {
                 num2Text = ToText(value / 1000) + " MIL";
                 if (value % 1000 > 0) num2Text = num2Text + " " + ToText(value % 1000);
             }
-
-            else if (value == 1000000) num2Text = "UN MILLON";
             else if (value < 2000000) num2Text = "UN MILLON " + ToText(value % 1000000);
-            else if (value < 1000000000000)
-            {
+            else if (value < 1000000000000) {
                 num2Text = ToText(value / 1000000) + " MILLONES";
                 if (value % 1000000 > 0) num2Text = num2Text + " " + ToText(value % 1000000);
             }
-
-            else if (value == 1000000000000) num2Text = "UN BILLON";
             else if (value < 2000000000000) num2Text = "UN BILLON " + ToText(value % 1000000000000);
-            else
-            {
+            else {
                 num2Text = ToText(value / 1000000000000) + " BILLONES";
                 if (value % 1000000000000 > 0) num2Text = num2Text + " " + ToText(value % 1000000000000);
             }
@@ -2616,35 +2592,39 @@ namespace Portal.Consultoras.Common
                             var source = SourceDetails[i];
                             foreach (PropertyInfo property in source.GetType().GetProperties())
                             {
-                                var arr = column.Contains("#")
-                                    ? column.Split('#')
-                                    : new string[] { "", column };
+                                var arr = column.Contains("#") ? column.Split('#') : new string[] { "", column };
 
-                                if (arr[1] == property.Name)
+                                if (arr[1] != property.Name) continue;
+
+                                bool isBool = (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool));
+                                bool isTime = (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime));
+                                bool isDecimal = (property.PropertyType == typeof(Nullable<decimal>) || property.PropertyType == typeof(decimal));
+
+                                if (isDecimal)
                                 {
-                                    if (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool))
-                                    {
-                                        string value = System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], property.Name, null);
-                                        ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : (value == "True" ? "Si" : "No"));
-                                    }
-                                    else
-                                    {
-                                        if (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime))
-                                            ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy";
-                                        else if (property.PropertyType == typeof(Nullable<decimal>) || property.PropertyType == typeof(decimal))
-                                        {
-                                            ws.Cell(row, col).Value = arr[0] + System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], property.Name, "{0:0.00}");
-                                            ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
-                                            break;
-                                        }
-                                        else
-                                            ws.Cell(row, col).Style.NumberFormat.Format = "@";
-                                        ws.Cell(row, col).Value = arr[0] + System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], property.Name, null);
-                                    }
-
+                                    ws.Cell(row, col).Value = arr[0] + System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], property.Name, "{0:0.00}");
                                     ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
                                     break;
                                 }
+
+                                if (isBool)
+                                {
+                                    string value = System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], property.Name, null);
+                                    string siOrNo = (value == "True") ? "Si" : "No";
+                                    ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : siOrNo);
+                                }
+                                else
+                                {
+                                    if (isTime)
+                                        ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy";
+                                    else
+                                        ws.Cell(row, col).Style.NumberFormat.Format = "@";
+                                    ws.Cell(row, col).Value = arr[0] + System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], property.Name, null);
+                                }
+
+                                ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
+                                break;
+
                             }
                             col++;
                         }
@@ -2955,7 +2935,7 @@ namespace Portal.Consultoras.Common
                 if (respuestaAdfs.Count < 2)
                 {
                     // Usuario no encontrado
-                    codigoMensaje = "003";  //CodigosMensajesError.CodigoAutenticacionInvalida;
+                    codigoMensaje = "003";  //---> CodigosMensajesError -> CodigoAutenticacionInvalida
                     mensaje = "Autenticación invalida, Usuario no encontrado.";
                 }
                 else
@@ -2963,12 +2943,12 @@ namespace Portal.Consultoras.Common
                     if (string.IsNullOrEmpty(respuestaAdfs[0].DisplayValue))
                     {
                         // País deshabilitado
-                        codigoMensaje = "003";  //CodigosMensajesError.CodigoAutenticacionInvalida;
+                        codigoMensaje = "003";  //---> CodigosMensajesError -> CodigoAutenticacionInvalida
                         mensaje = "Autenticación invalida, País deshabilitado.";
                     }
                     else
                     {
-                        codigoMensaje = "000";  //CodigosMensajesError.CodigoOk;
+                        codigoMensaje = "000";  //---> CodigosMensajesError -> CodigoOk
                         mensaje = "Ok";
                         paisIso = respuestaAdfs[0].DisplayValue;
                     }
@@ -2980,18 +2960,18 @@ namespace Portal.Consultoras.Common
                 if (innerException != null && innerException.Code != null && innerException.Code.IsSenderFault &&
                     innerException.Code.Name == "Sender")
                 {
-                    codigoMensaje = "003";  //CodigosMensajesError.CodigoAutenticacionInvalida;
+                    codigoMensaje = "003";  //CodigosMensajesError.CodigoAutenticacionInvalida
                     mensaje = "Autenticación inválida: asegúrese que los datos ingresados sean los correctos.";
                 }
                 else
                 {
-                    codigoMensaje = "001";  //CodigosMensajesError.CodigoExcepcion;
+                    codigoMensaje = "001";  //CodigosMensajesError.CodigoExcepcion
                     mensaje = "Ocurrió un error durante la validación ADFS.";
                 }
             }
             catch (Exception)
             {
-                codigoMensaje = "001";  //CodigosMensajesError.CodigoExcepcion;
+                codigoMensaje = "001";  //CodigosMensajesError.CodigoExcepcion
                 mensaje = "Ocurrió un error durante la validación ADFS.";
             }
 
@@ -3148,6 +3128,16 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
+        public static string GenerarRutaImagenResizeMedium(string rutaImagen)
+        {
+            return GenerarRutaImagenResize(rutaImagen, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
+        }
+
+        public static string GenerarRutaImagenResizeSmall(string rutaImagen)
+        {
+            return GenerarRutaImagenResize(rutaImagen, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
+        }
+
         public static string GenerarRutaImagenResize(string rutaImagen, string rutaNombreExtension)
         {
             if (string.IsNullOrEmpty(rutaImagen))
@@ -3221,7 +3211,15 @@ namespace Portal.Consultoras.Common
 
             return false;
         }
+        public static bool HasColumn(this DataTable table, string columnName)
+        {
+            if (table == null) return false;
 
+            columnName = (columnName ?? "").Trim();
+            if (columnName == "") return false;
+
+            return table.Columns.Contains(columnName);
+        }
         public static bool HasColumn(this DataRow row, string columnName)
         {
             if (row == null) return false;
@@ -3229,8 +3227,7 @@ namespace Portal.Consultoras.Common
             columnName = (columnName ?? "").Trim();
             if (columnName == "") return false;
 
-            if (row.Table.Columns.Contains(columnName))
-                return row[columnName] != DBNull.Value;
+            if (row.Table.Columns.Contains(columnName)) return row[columnName] != DBNull.Value;
 
             return false;
         }

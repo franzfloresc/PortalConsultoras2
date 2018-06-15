@@ -26,7 +26,6 @@
         </div>
     }
 
-    <!-- BANNERS INGRESO DE PEDIDO -->
     <div class="banner_ingresoPedido nuevaAlturaBanner" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
         <div class="content_320 ingresoPedido">
 			@if (mobileConfiguracion.EsAppMobile)
@@ -48,21 +47,17 @@
             </form>
         </div>
     </div>
-    <!-- FIN BANNERS INGRESO DE PEDIDO -->
 
     <div class="franja_inferior_banner_pedido"></div>
 
-    <!-- MENSAJES CUV -->
     <div style="display:none;" class="mensaje_ingreso_cuvs" id="divMensajeCUV">
         <span id="divIcono" class="icono_aprobacion"></span>
         <span id="divMensaje" class="mensaje_productoCUV">
         </span>
     </div>
-    <!-- FIN MENSAJES CUV -->
 
     <div class="contenedor_producto">
         <div class="content_320 ingresoPedidom">
-            <!-- SECCIÓN CONTENIDO INGRESO DE PEDIDO -->
             <div id="divProductoMantenedor" style="display: none;">
                 <div style="display: none;">
                     <input type="hidden" id="hdfCUV" />
@@ -105,17 +100,13 @@
                     </div>
                 </div>
             </div>
-            <!-- FIN CONTENIDO INGRESO DE PEDIDO -->
 
-            <!-- INFO SOBRE PEDIDO FIC -->
             <div class="bloque_info_pedido_fic">
                 <p class="info_pedido_fic">
                     <strong>Recuerda :</strong> este pedido <span class="text-uppercase">No</span> te será facturado. Sólo nos estás ayudando a conocer tus preferencias y la de tus clientes.
                 </p>
             </div>
-            <!-- FIN - INFO SOBRE PEDIDO FIC -->
 
-            <!-- SECCIÓN CONTENIDO RESUMEN DE PEDIDO -->
             <div id="divResumenPedido">
                 <div class="contenedor_resumenPedido montosIngresoPedido">
                     <div class="textos_resumen mb-0">
@@ -133,12 +124,10 @@
                     VER MI PEDIDO
                 </button>
             </div>
-            <!-- FIN CONTENIDO RESUMEN DE PEDIDO -->
 
         </div>
     </div>
 
-    <!--CONSULTORA ONLINE-->
     @if (ViewBag.CantPedidosPendientes > 0)
     {
         <div class="content_320" style="padding-top:0">
@@ -152,7 +141,6 @@
             <hr class="clear">
         </div>
     }
-    <!--FIN-->
 
     <div class="btn_agregarPedido">
         <input type="submit" value="AGRÉGALO A TU PEDIDO" id="btnAgregarProducto" name="btnAgregarProducto" style="display:none;" />
@@ -165,7 +153,6 @@
 </div>
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
 
-<!--POP UP PRODUCTO SUGERIDO-->
 <div class="MensajeAlertaMobile" id="PopSugerido" style="display:none;">
 	<div class="content_mensajeAlerta">
 		<a class="cerrar_popMobile" href="javascript:;" onclick="CancelarProductosSugeridos();">
@@ -183,8 +170,6 @@
 
 
 </div>
-<!--FIN-->
-<!-- POPUP MIS GANANCIAS -->
 <div class="contenedor_fondo_popup_ganancia" id="popupGanancias" style="display:none;">
 	<div class="popup_mis_ganancias">
 		<div class="btn_cerrar_actualizarMisDatos">
@@ -213,15 +198,11 @@
 		</div>
 	</div>
 </div>
-<!-- FIN POPUP MIS GANANCIAS -->
-<!-- POPUP AGREGAR CLIENTE -->
 <div class="contenedor_popup_clientes modal" id="divAgregarCliente" style="display: none;">
 	<div class="popup_agregarCliente">
 		<div id="divDetalleCliente"></div>
 	</div>
 </div>
-<!-- FIN POPUP AGREGAR CLIENTE -->
-<!-- POPUP CLIENTE AGREGADO -->
 <div id="popupClienteIngresado" class="MensajeAlertaMobile" style="display:none;">
 	<div class="content_mensajeAlerta">
 		<a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupClienteIngresado').hide();">
@@ -234,7 +215,6 @@
 		<a href="javascript:;" onclick="$('#popupClienteIngresado').hide();" class="btn_ok_mobile"><b>OK</b></a>
 	</div>
 </div>
-<!-- FIN POPUP CLIENTE AGREGADO -->
 
 @section scripts
 {
@@ -268,7 +248,6 @@
         var urlObtenerProductosSugeridos = '@Url.Action("ObtenerProductosSugeridos", "Pedido", new { area = "" })';
         var urlIngresoFAD = '@Url.Action("IngresoFAD", "Pedido", new {area = ""})';
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
-      @*//  var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';*@
 
         var urlCarruselPrev = "@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")";
         var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
@@ -282,9 +261,7 @@
         var urlValidadoPedido = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
         var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
 
-        var simbolo = '@Model.Simbolo';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-        var vbSimbolo = simbolo;
         var productoSugerido = false;
         var productoAgotado = false;
 
@@ -298,7 +275,6 @@
         var paginaOrigenCupon = 21;
         var tieneMasVendidos = @Model.TieneMasVendidos;
         var esEmailActivo = '@Model.EmailActivo';
-        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
         var tipoOrigenEstrategia = 21;
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido;
@@ -328,8 +304,7 @@
 			});
 		</script>
 	}
-
-	@*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/PedidoFIC/Index.js")"></script>*@
+    
 	@Scripts.Render("~/bundles/JsMobile/PedidoFIC")
 
 	@if (Model.MostrarPopupPrecargados)

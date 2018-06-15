@@ -138,10 +138,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public BETipoEstrategia TipoEstrategia { get; set; }
-
-        [DataMember]
-        public string URLCompartir { get; set; }
-
+        
         /// <summary>
         /// [Filtro] para la validacion del periodo de facturacion
         /// Si es true, verifica que la fecha actual sea mayor que la del inicio de facturacion

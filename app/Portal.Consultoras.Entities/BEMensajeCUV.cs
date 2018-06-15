@@ -7,54 +7,30 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BEMensajeCUV
     {
-        private int parametroID;
-        private int paisID;
-        private int campaniaID;
-        private string cuvs;
-        private string mensaje;
+        [DataMember]
+        public int ParametroID { get; set; }
 
-        public BEMensajeCUV()
-        {
-        }
+        [DataMember]
+        public int PaisID { get; set; }
+
+        [DataMember]
+        public int CampaniaID { get; set; }
+
+        [DataMember]
+        public string Cuvs { get; set; }
+
+        [DataMember]
+        public string Mensaje { get; set; }
+
+        public BEMensajeCUV() { }
 
         public BEMensajeCUV(IDataRecord row)
         {
-            this.parametroID = Convert.ToInt32(row["ParametroID"].ToString());
-            this.paisID = Convert.ToInt32(row["PaisID"].ToString());
-            this.campaniaID = Convert.ToInt32(row["CampaniaID"].ToString());
-            this.cuvs = row["CUVs"].ToString();
-            this.mensaje = row["Mensaje"].ToString();
-        }
-
-        [DataMember]
-        public int ParametroID
-        {
-            get { return parametroID; }
-            set { parametroID = value; }
-        }
-        [DataMember]
-        public int PaisID
-        {
-            get { return paisID; }
-            set { paisID = value; }
-        }
-        [DataMember]
-        public int CampaniaID
-        {
-            get { return campaniaID; }
-            set { campaniaID = value; }
-        }
-        [DataMember]
-        public string Cuvs
-        {
-            get { return cuvs; }
-            set { cuvs = value; }
-        }
-        [DataMember]
-        public string Mensaje
-        {
-            get { return mensaje; }
-            set { mensaje = value; }
+            this.ParametroID = Convert.ToInt32(row["ParametroID"].ToString());
+            this.PaisID = Convert.ToInt32(row["PaisID"].ToString());
+            this.CampaniaID = Convert.ToInt32(row["CampaniaID"].ToString());
+            this.Cuvs = row["CUVs"].ToString();
+            this.Mensaje = row["Mensaje"].ToString();
         }
 
     }

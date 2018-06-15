@@ -11,6 +11,8 @@ CREATE PROCEDURE EstrategiaTemporalInsertarEstrategiaMasivo
 AS
 BEGIN
 	
+	set @NroLote = isnull(@NroLote, 0)
+
 	DECLARE @FechaGeneral DATETIME
 	SET @FechaGeneral = dbo.fnObtenerFechaHoraPais()
 	
@@ -92,17 +94,14 @@ BEGIN
 	FROM EstrategiaTemporal
 	where NumeroLote = @NroLote
 
-
-	DECLARE @CampaniaIdx INT 
-	SELECT TOP 1 @CampaniaIdx = CampaniaId FROM EstrategiaTemporal
-
 	UPDATE EP 
 	SET EP.EstrategiaID = E.EstrategiaID
 	FROM Estrategia E 
-		INNER JOIN EstrategiaProducto EP ON E.CampaniaId = EP.Campania 
+		INNER JOIN EstrategiaProducto EP 
+			ON E.CampaniaId = EP.Campania 
 			AND E.CUV2 = EP.CUV2
 	WHERE EXISTS(SELECT CampaniaId FROM EstrategiaTemporal ET WHERE ET.CampaniaId = E.CampaniaId AND ET.NumeroLote = @NroLote)
-		AND ISNULL(EP.EstrategiaID,0) = 0
+		AND ISNULL(EP.EstrategiaID, 0) = 0
 
 	set @NroLoteFinal = @NroLote
 

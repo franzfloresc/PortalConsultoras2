@@ -169,5 +169,14 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMiAcademia(int id);
 
         int GetMiAcademia();
+
+        void SetPedidoValidado(bool validado);
+
+        bool GetPedidoValidado();
+        EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
+
+        void setBEUsuarioModel (List<ServiceUsuario.BEUsuario> model);
+
+        List<ServiceUsuario.BEUsuario> getBEUsuarioModel();
     }
 }

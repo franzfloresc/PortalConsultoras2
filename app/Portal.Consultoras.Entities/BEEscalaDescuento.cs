@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Portal.Consultoras.Entities
 {
@@ -11,8 +12,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal MontoDesde { get; set; }
         [DataMember]
+        [Column("MontoHasta")]
         public decimal MontoHasta { get; set; }
         [DataMember]
+        [Column("PorDescuento")]
         public int PorDescuento { get; set; }
         [DataMember]
         public bool Seleccionado { get; set; }
@@ -31,6 +34,7 @@ namespace Portal.Consultoras.Entities
 
         public BEEscalaDescuento() { }
 
+        [Obsolete("Use MapUtil.MapToCollection")]
         public BEEscalaDescuento(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "MontoDesde"))

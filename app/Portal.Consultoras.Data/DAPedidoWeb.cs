@@ -171,6 +171,7 @@ namespace Portal.Consultoras.Data
                     oSqlBulkCopyCabecera.ColumnMappings.Add("LogCantidad", "Cantidad");
                     oSqlBulkCopyCabecera.ColumnMappings.Add("Origen", "Origen");
                     oSqlBulkCopyCabecera.ColumnMappings.Add("LogCodigoUsuarioProceso", "CodigoUsuarioProceso");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("VersionProl", "VersionProl");
 
                     oSqlBulkCopyCabecera.WriteToServer(dtPedidosCabecera);
                     oSqlBulkCopyCabecera.Close();
@@ -335,11 +336,12 @@ namespace Portal.Consultoras.Data
         public IDataReader GetPedidosWebNoFacturados(BEPedidoDDWeb BEPedidoDDWeb)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebNoFacturado");
+         
             Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, BEPedidoDDWeb.paisID);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, BEPedidoDDWeb.CampaniaID);
             Context.Database.AddInParameter(command, "@RegionCodigo", DbType.AnsiString, BEPedidoDDWeb.RegionCodigo);
             Context.Database.AddInParameter(command, "@ZonaCodigo", DbType.AnsiString, BEPedidoDDWeb.ZonaCodigo);
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, BEPedidoDDWeb.ConsultoraCodigo);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString,string.IsNullOrWhiteSpace(BEPedidoDDWeb.ConsultoraCodigo) ? null : BEPedidoDDWeb.ConsultoraCodigo);
             Context.Database.AddInParameter(command, "@EstadoPedido", DbType.AnsiString, BEPedidoDDWeb.EstadoValidacion);
             Context.Database.AddInParameter(command, "@EsRechazado", DbType.AnsiString, BEPedidoDDWeb.EsRechazado);
             Context.Database.AddInParameter(command, "@FechaRegistroInicio", DbType.Date, BEPedidoDDWeb.FechaRegistroInicio);
@@ -656,8 +658,7 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarDesactivaRevistaGana");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
             Context.Database.AddInParameter(command, "@Codigo", DbType.AnsiString, codigoZona);
-            int result = Convert.ToInt32(Context.ExecuteScalar(command));
-            return result;
+            return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
         public void UpdateMontosPedidoWeb(BEPedidoWeb bePedidoWeb)
@@ -939,5 +940,12 @@ namespace Portal.Consultoras.Data
         }
 
         #endregion
+
+        public IDataReader DescargaPedidosCliente(int nroLote)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetLogCargaPedidoCliente");
+            Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+            return Context.ExecuteReader(command);
+        }
     }
 }

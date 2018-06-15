@@ -303,7 +303,7 @@ $(document).ready(function () {
         $(contenedorOfertas).hide();
 
         data.CantidadProductos = data.ListaOfertas.length;
-        data.Simbolo = vbSimbolo;
+        data.Simbolo = variablesPortal.SimboloMoneda;
         data.TextoVerDetalle = data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
         data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
         data.ListaOfertas = AsignarClaseCssAPalabraGratisDesktop(data.ListaOfertas);
@@ -318,17 +318,7 @@ $(document).ready(function () {
             $(contenedorOfertas + ' [data-odd-accion="regresar"]').hide();
             $(contenedorOfertas + ' [data-odd-tipoventana="carrusel"]').show();
         }
-
-        //if (cantidadProductos <= 3) {
-        //    var wc = $('#divOddCarrusel').width();
-        //    var witem = ((wc) / cantidadProductos);
-        //    var witemc = $($('#divOddCarrusel [data-item]>div').get(0)).innerWidth();
-           // witemc = (witem - witemc) / 2;
-            //$('#divOddCarrusel [data-item]').css("width", witem + "px");
-            //$('#divOddCarrusel [data-item]>div').css("margin-left", witemc + "px");
-            //$('#divOddCarrusel [data-item]>div').css("margin-right", witemc + "px");
-        //}
-
+        
         if (cantidadProductos > 2) {
             EstablecerLazyCarrusel($('#divOddCarrusel'));
 
@@ -608,7 +598,6 @@ $(document).ready(function () {
             IndicadorMontoMinimo: indMontoMinimo,
             ClienteID_: '-1',
             TipoEstrategiaImagen: teImagenMostrar || 0,
-            
             Descripcion: descripcion,
             TipoOferta: tipoEstrategiaID
         };
@@ -705,8 +694,20 @@ $(document).ready(function () {
                     .find(".product-add")
                     .css("display", "block");
 
-            } else
+            } else {
                 $(item).find(".product-add").css("display", "block");
+
+                var clonados = $('#divOddCarrusel div.slick-slide');
+                var posi1 = $(item).attr('data-item-position');
+
+                $.each(clonados, function (key, value) {
+                    var posi2 = $(value).attr('data-item-position');
+                    if (posi1 == posi2) {
+                        $(value).find(".product-add").css("display", "block");
+                    }
+                });
+            }
+                
         }
     }
 
@@ -732,7 +733,7 @@ $(document).ready(function () {
         });
 
         return ok;
-    };
+    }
 
     function ValidarStockEstrategia(producto) {
         var d = $.Deferred();
@@ -822,7 +823,7 @@ $(document).ready(function () {
         });
 
         return qty;
-    };
+    }
 
     function ResetearCantidadesDelPopup() {
         $("#divOddCarrusel").find(".liquidacion_rango_cantidad_pedido.txtcantidad-odd").val(1);
@@ -944,7 +945,7 @@ function odd_desktop_procesar_evento_before_change(event, slick, currentSlide, n
             accion = 'next';
         } else {
             accion = 'prev';
-        };
+        }
 
         if (accion == "prev") {
             index = nextSlide;
@@ -990,7 +991,7 @@ function odd_mobile_procesar_evento_before_change(event, slick, currentSlide, ne
             accion = 'next';
         } else {
             accion = 'prev';
-        };
+        }
 
         if (accion == "prev") {
             index = nextSlide;

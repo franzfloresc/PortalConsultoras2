@@ -142,7 +142,7 @@ namespace Portal.Consultoras.Web.Controllers
             var valorDato = "";
             switch (valor)
             {
-                case 0: valorDato = IsMobile() ? dato.Valor1 : dato.Valor2; break;
+                case 0: valorDato = IsMobile() ? dato.Valor2 : dato.Valor1; break;
                 case 1: valorDato = dato.Valor1; break;
                 case 2: valorDato = dato.Valor2; break;
                 case 3: valorDato = dato.Valor3; break;

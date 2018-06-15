@@ -70,7 +70,7 @@ namespace Portal.Consultoras.BizLogic
         /// <returns></returns>
         public List<BEConsultoraConcurso> ObtenerPuntosXConsultoraConcurso(int paisID, string codigoCampania, string codigoConsultora)
         {
-            List<BEConsultoraConcurso> puntosXConcurso = new List<BEConsultoraConcurso>();
+            List<BEConsultoraConcurso> puntosXConcurso;
             DAConcurso DAConcurso = new DAConcurso(paisID);
 
             try
@@ -130,7 +130,7 @@ namespace Portal.Consultoras.BizLogic
         /// <returns></returns>
         public List<BEConsultoraConcurso> ListConcursosByCampania(int paisID, string codigoCampaniaActual, string codigoCampania, string tipoConcurso, string codigoConsultora)
         {
-            List<BEConsultoraConcurso> puntosXConcurso = new List<BEConsultoraConcurso>();
+            List<BEConsultoraConcurso> puntosXConcurso;
             DAConcurso DAConcurso = new DAConcurso(paisID);
             try
             {

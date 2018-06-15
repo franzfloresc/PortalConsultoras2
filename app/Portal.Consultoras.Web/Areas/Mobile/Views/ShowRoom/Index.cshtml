@@ -21,13 +21,20 @@
             padding-top: 0px;
             overflow-x: hidden;
         }
+
+        #btn_init {
+            display: none !important;
+        }
+
+        #btn_open {
+            display: none !important;
+        }
     </style>
 
     <link href="@Url.Content("~/Content/Css/Mobile/esika/slick.css")" rel="stylesheet" />
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css")" rel="stylesheet" />
 }
-<!--  MAQUETADO NUEVO-->
 @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 <div class="wrapper_resumen_mobile">
@@ -190,7 +197,6 @@
 <hr class="clear" />
 <div id="divOfertaProductosLoad" style="display: none;">Cargando Productos<br></div>
 <hr class="clear" />
-<!--FIN-->
 
 <div class="titulo_showroom_mobile">
     @if (mobileConfiguracion.MostrarHipervinculo)
@@ -238,7 +244,6 @@
         </div>
     }
 }
-<!--MODAL AGREGAR PEDIDO-->
 <div id="divMensajeProductoAgregado" class="modal fade" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-alert ">
         <div class="modal-content">
@@ -257,7 +262,6 @@
 
     if (listaSubCampania != null && listaSubCampania.Count > 0)
     {
-        <!--SUB OFERTAS SHOWROOM-->
         <div class="content_sub_oferta_showroom" id="content_sub_oferta_showroom">
             <div class="content_titulo_sub_oferta">
                 <hr class="clear" />
@@ -296,12 +300,10 @@
                 </div>
             </div>
         </div>
-        <!--FIN-->
     }
 }
 else
 {
-    <!--POP UP COMPRA X COMPRA / QUITAR EL SCROLL DEL BODY CUANDO SALGA ESTE POP UP-->
     <div class="PopMobile1" id="PopCompra" data-popup-main="">
         <div class="content_popMobile" data-popup-body="" style="max-width: 450px;">
             <a class="cerrar_popMobile" id="CerrarPopCompra" style="position:absolute;right: 10px;top: 10px;">
@@ -404,14 +406,15 @@ else
                     <b>{{Descripcion}}</b>
                 </p>
                 <div class="producto_precio">
-                    <span class="producto_precio_normal">{{Simbolo}} {{FormatoPrecioValorizado}}</span>
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
+                    <span class="producto_precio_normal">{{SimboloMoneda}} {{FormatoPrecioValorizado}}</span>
+                    <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{FormatoPrecioOferta}}</b></span>
                 </div>
             </div>
-            {{#iff TipoAccionAgregar '==' '0'}}
+
+            {{#iff TipoAccionAgregar '==' '2'}}
             <div class="texto_elige_tono">&ensp;&nbsp;</div>
             {{/iff}}
-            {{#iff TipoAccionAgregar '==' '1'}}
+            {{#iff TipoAccionAgregar '==' '3'}}
             <div class="texto_elige_tono"> ELIGE TU OPCIÓN </div>
             {{/iff}}
             <div class="clear"></div>
@@ -437,9 +440,7 @@ else
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="{{oferta.CUV}}" />
             <input type="hidden" class="rsFBMensaje" value="" />
-            <input type="hidden" class="rsFBRuta" value="{{oferta.UrlCompartir}}" />
             <input type="hidden" class="rsWAMensaje" value="" />
-            <input type="hidden" class="rsWARuta" value="{{oferta.UrlCompartir}}" />
             <input type="hidden" class="rsFBRutaImagen" value="{{oferta.ImagenProducto}}" />
             <input type="hidden" class="rsWARutaImagen" value="{{oferta.ImagenProducto}}" />
             <input type="hidden" class="MarcaID" value="{{oferta.MarcaID}}" />
@@ -462,9 +463,9 @@ else
                 <img src="{{oferta.ImagenProducto}}" alt="Solo Hoy" id="img-display-odd" data-img-lazy="1" />
             </div>
             <div class="nombre_set_display">{{oferta.Descripcion}}</div>
-            <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo {{oferta.FormatoPrecioValorizado}}</span></div>
+            <div class="precio_valorizado_mobile">VALORIZADO EN <span>{{SimboloMoneda}} {{oferta.FormatoPrecioValorizado}}</span></div>
             <div class="producto_precio_hoy_mobile">
-                A SOLO <span>@ViewBag.Simbolo {{oferta.FormatoPrecioOferta}}</span>
+                A SOLO <span>{{SimboloMoneda}} {{oferta.FormatoPrecioOferta}}</span>
             </div>
             <div class="titulo_contenido">CONTENIDO</div>
             <div class="nombre_set_producto_hoy">{{{oferta.Contenido}}}</div>
@@ -497,7 +498,6 @@ else
         var tipoOrigenPantalla = 2;
         var precioMin = '@ViewBag.PrecioMin';
         var precioMax = '@ViewBag.PrecioMax';
-        var simbolo = '@Model.Simbolo';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom", new {area = "Mobile"})';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileShowRoomLandingCompraTactica';

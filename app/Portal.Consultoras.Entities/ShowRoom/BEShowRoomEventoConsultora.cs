@@ -58,34 +58,34 @@ namespace Portal.Consultoras.Entities.ShowRoom
         public BEShowRoomEventoConsultora(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "EventoConsultoraID"))
-                EventoConsultoraID = DbConvert.ToInt32(datarec["EventoConsultoraID"]);
+                EventoConsultoraID = Convert.ToInt32(datarec["EventoConsultoraID"]);
             if (DataRecord.HasColumn(datarec, "EventoID"))
-                EventoID = DbConvert.ToInt32(datarec["EventoID"]);
+                EventoID = Convert.ToInt32(datarec["EventoID"]);
             if (DataRecord.HasColumn(datarec, "CampaniaID"))
-                CampaniaID = DbConvert.ToInt32(datarec["CampaniaID"]);
+                CampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
             if (DataRecord.HasColumn(datarec, "CodigoConsultora"))
-                CodigoConsultora = DbConvert.ToString(datarec["CodigoConsultora"]);
+                CodigoConsultora = Convert.ToString(datarec["CodigoConsultora"]);
             if (DataRecord.HasColumn(datarec, "Segmento"))
-                Segmento = DbConvert.ToString(datarec["Segmento"]);
+                Segmento = Convert.ToString(datarec["Segmento"]);
             if (DataRecord.HasColumn(datarec, "MostrarPopup"))
-                MostrarPopup = DbConvert.ToBoolean(datarec["MostrarPopup"]);
+                MostrarPopup = Convert.ToBoolean(datarec["MostrarPopup"]);
             if (DataRecord.HasColumn(datarec, "MostrarPopupVenta"))
-                MostrarPopupVenta = DbConvert.ToBoolean(datarec["MostrarPopupVenta"]);
+                MostrarPopupVenta = Convert.ToBoolean(datarec["MostrarPopupVenta"]);
             if (DataRecord.HasColumn(datarec, "FechaCreacion"))
-                FechaCreacion = DbConvert.ToDateTime(datarec["FechaCreacion"]);
+                FechaCreacion = Convert.ToDateTime(datarec["FechaCreacion"]);
             if (DataRecord.HasColumn(datarec, "UsuarioCreacion"))
-                UsuarioCreacion = DbConvert.ToString(datarec["UsuarioCreacion"]);
+                UsuarioCreacion = Convert.ToString(datarec["UsuarioCreacion"]);
             if (DataRecord.HasColumn(datarec, "FechaModificacion"))
-                FechaModificacion = DbConvert.ToDateTime(datarec["FechaModificacion"]);
+                FechaModificacion = Convert.ToDateTime(datarec["FechaModificacion"]);
             if (DataRecord.HasColumn(datarec, "UsuarioModificacion"))
-                UsuarioModificacion = DbConvert.ToString(datarec["UsuarioModificacion"]);
+                UsuarioModificacion = Convert.ToString(datarec["UsuarioModificacion"]);
 
             if (DataRecord.HasColumn(datarec, "Suscripcion"))
-                Suscripcion = DbConvert.ToBoolean(datarec["Suscripcion"]);
+                Suscripcion = Convert.ToBoolean(datarec["Suscripcion"]);
             if (DataRecord.HasColumn(datarec, "Envio"))
-                Envio = DbConvert.ToInt32(datarec["Envio"]);
+                Envio = Convert.ToInt32(datarec["Envio"]);
             if (DataRecord.HasColumn(datarec, "CorreoEnvioAviso"))
-                CorreoEnvioAviso = DbConvert.ToString(datarec["CorreoEnvioAviso"]);
+                CorreoEnvioAviso = Convert.ToString(datarec["CorreoEnvioAviso"]);
         }
     }
 }

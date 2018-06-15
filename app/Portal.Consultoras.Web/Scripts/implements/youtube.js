@@ -60,11 +60,13 @@
         ytPlayer = oYTPlayers[ytId].instance; // instancia de Youtube Player
         ytParams.events = {
             'onStateChange': function (event) {
-                if (event.data == YT.PlayerState.PLAYING) {
-                    rdAnalyticsModule.CompartirProducto("YTI", ytPlayer.getVideoUrl(), ytExtra.descripcionResumen);
-                }
-                if (event.data == YT.PlayerState.ENDED) {
-                    rdAnalyticsModule.CompartirProducto("YTF", ytPlayer.getVideoUrl(), ytExtra.descripcionResumen);
+                if (ytPlayer && ytExtra) {
+                    if (event.data == YT.PlayerState.PLAYING) {
+                        rdAnalyticsModule.CompartirProducto("YTI", ytPlayer.getVideoUrl(), ytExtra.descripcionResumen);
+                    }
+                    if (event.data == YT.PlayerState.ENDED) {
+                        rdAnalyticsModule.CompartirProducto("YTF", ytPlayer.getVideoUrl(), ytExtra.descripcionResumen);
+                    }
                 }
             }
         };

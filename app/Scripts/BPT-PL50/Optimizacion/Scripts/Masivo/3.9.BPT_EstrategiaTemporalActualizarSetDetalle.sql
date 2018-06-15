@@ -1,3 +1,5 @@
+USE BelcorpColombia_PL50
+--USE BelcorpPeru_PL50
 GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'EstrategiaTemporalActualizarSetDetalle') AND type IN ( N'P', N'PC' ) ) 
 	DROP PROCEDURE dbo.EstrategiaTemporalActualizarSetDetalle
@@ -5,16 +7,23 @@ GO
 
 CREATE PROCEDURE EstrategiaTemporalActualizarSetDetalle
 (
-	@NroLote INT
+	@NroLote INT,
+	@Pagina int
 )
 AS
 BEGIN
 
-	delete from EstrategiaProductoTemporal where NumeroLote = @NroLote
+	SET @NroLote = ISNULL(@NroLote, 0)
+
+	IF @NroLote > 0
+	BEGIN
+
+	delete from EstrategiaProductoTemporal where NumeroLote = @NroLote and Pagina = @Pagina
 
 	insert into EstrategiaProductoTemporal
 	(
 			NumeroLote
+			,Pagina
 			,Campania
 			,Cuv
 			,CuvPadre
@@ -32,6 +41,7 @@ BEGIN
 	)
 	select 
 		ET.NumeroLote
+		,ET.pagina
 		,ET.CampaniaId
 		,P.Cuv
 		,ET.CUV
@@ -90,6 +100,19 @@ BEGIN
 			and P.CampaniaID = ET.CampaniaId
 
 	where ET.NumeroLote = @NroLote
+		and ET.Pagina = @Pagina
 
+	UPDATE ET
+	SET ET.TieneVariedad = CASE WHEN EPT.CodigoEstrategia = '2001' OR EPT.CodigoEstrategia = '2003' THEN 1 ELSE 0 END
+	, ET.CodigoEstrategia = EPT.CodigoEstrategia
+	FROM EstrategiaTemporal ET
+	INNER JOIN EstrategiaProductoTemporal EPT
+	ON ET.NumeroLote = @NroLote
+		and ET.Pagina = @Pagina
+		AND EPT.NumeroLote = ET.NumeroLote
+		AND EPT.Pagina = ET.Pagina
+		and EPT.CuvPadre = ET.CUV
+
+	END
 END
 GO

@@ -68,7 +68,11 @@
         }
     });
     $('#producto-faltante-busqueda-cuv, #producto-faltante-busqueda-descripcion').on('keypress', function (e) {
-        if (e.which == 13) CargarProductoAgotados();
+        if (e.which == 13) CargarProductoAgotados(0);
+    });
+
+    $('#ddlCategoriaProductoAgotado, #ddlCatalogoRevistaProductoAgotado').on('change', function (e) {
+        CargarProductoAgotados(0);
     });
 
     CargarListado();
@@ -125,10 +129,19 @@ function CerrarProductoAgotados() {
     $('#producto-faltante-busqueda-descripcion').val('');
 }
 
-function CargarProductoAgotados() {
+function CargarProductoAgotados(identificador ) {
+
+    var filtro = identificador == undefined ? 0 : identificador;
+
+    if (filtro == 1)
+        CargarFiltrosProductoAgotados();
+
+
     var data = {
-        cuv: $('#producto-faltante-busqueda-cuv').val(),
-        descripcion: $('#producto-faltante-busqueda-descripcion').val()
+        cuv             : $('#producto-faltante-busqueda-cuv').val(),
+        descripcion     : $('#producto-faltante-busqueda-descripcion').val(),
+        categoria       : $('#ddlCategoriaProductoAgotado').val() == null ? "" : $('#ddlCategoriaProductoAgotado').val(),
+        revista         : $('#ddlCatalogoRevistaProductoAgotado').val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text() 
     }
 
     waitingDialog({});
@@ -140,10 +153,15 @@ function CargarProductoAgotados() {
         async: true,
         success: function (response) {
             if (!checkTimeout(response)) return false;
-
             closeWaitingDialog();
             if (response.result) {
                 SetHandlebars("#productos-faltantes-template", response.data, '#tblProductosFaltantes');
+
+                if (response.data.Detalle.length == 0)
+                    $("#tblProductosFaltantes table").find("#tfoot").removeClass("hidden");
+                else
+                    $("#tblProductosFaltantes table").find("#tfoot").addClass("hidden"); 
+
                 $("#divProductoAgotado").show();
             }
             else alert_msg(response.data);
@@ -156,6 +174,49 @@ function CargarProductoAgotados() {
         }
     });
 }
+
+function CargarFiltrosProductoAgotados() {
+    $("#ddlCategoriaProductoAgotado").find('option').remove();
+    $("#ddlCatalogoRevistaProductoAgotado").find('option').remove();
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/GetFiltrosProductoFaltante',
+        dataType: 'json',
+        data: {},
+        async: true,
+        success: function (response) {
+            if (!checkTimeout(response)) return false;
+            if (response.result) {
+                $("#ddlCategoriaProductoAgotado").CreateSelected(response.data, "CodigoCategoria", "DescripcionCategoria");
+                $("#ddlCatalogoRevistaProductoAgotado").CreateSelected(response.data1, "CodigoCatalogo", "Descripcion");
+            }
+            else alert(response.data);
+        },
+        error: function (data, error) { AjaxError(data); }
+    });
+}
+
+$.fn.CreateSelected = function (array, val, text, etiqueta, index) {
+    var obj = this.selector;
+    try {
+        $(obj).find('option').remove();
+        if (index === undefined || index == false) {
+            if (etiqueta === undefined)
+                $(obj).append('<option value="" selected="selected"> -- Seleccione --</option>');
+            else
+                $(obj).append('<option value="0" selected="selected"> -- ' + etiqueta + ' --</option>');
+        }
+
+        $.each(array, function (i, item) {
+            var objtemp = item;
+            $(obj).append('<option value="' + item[val] + '">' + item[text] + '</option>');
+        });
+    } catch (e) {
+        toastr.error(e.message.toString(), Basetitle);
+    }
+
+};
 
 function Imprimir() {
     waitingDialog({});

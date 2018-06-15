@@ -39,18 +39,19 @@ $(document).ready(function () {
         $('.content_set_oferta_especial').slideUp();
 
     });
-
+    var stilo;
     $("#CerrarOfertaEspecial").on("click", function () {
         $('.banner_especial_showroom').hide();
         $(".footer_e").css("margin-bottom", "0px");
         localStorage["cerrar_banner_sub_campanias"] = true;
     });
+
     if (localStorage["cerrar_banner_sub_campanias"])
         $('.banner_especial_showroom').hide();
     else {
-        var stilo = $('.banner_especial_showroom').attr("style");
+        stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
-            var stilo = stilo.replace("display:none", "display:block");
+            stilo = stilo.replace("display:none", "display:block");
             $('.banner_especial_showroom').attr("style", stilo);
             $('.banner_especial_showroom').show();
         }
@@ -84,7 +85,7 @@ $(document).ready(function () {
         modal: true,
         closeOnEscape: true,
         width: 456,
-        draggable: true,
+        draggable: true
     });
 
     $("#btnCerrarSet").click(function () {
@@ -131,10 +132,10 @@ $(document).ready(function () {
         $(divs).each(function (index, value) {
             var existe = false;
             var id = $(value).find(".valorCuv").val();
-            $(array_impresions_tactica_desktop).each(function (ind, val) {
+            $(array_impresions_tactica_desktop).each(function(ind, val) {
                 if (val.id == id)
                     existe = true;
-            })
+            });
 
             if (!existe) {
                 array_impresions_tactica_desktop.push({
@@ -234,9 +235,9 @@ $(document).ready(function () {
     }
     else if (ver_subcamapania == true && ver_compraxcompra == true) {
         $("#divBannerCompraPorCompra").hide();
-        var stilo = $('.banner_especial_showroom').attr("style");
+         stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
-            var stilo = stilo.replace("display:none", "display:block");
+             stilo = stilo.replace("display:none", "display:block");
             $('.banner_especial_showroom').attr("style", stilo);
             $('.banner_especial_showroom').show();
         }
@@ -244,9 +245,9 @@ $(document).ready(function () {
     }
     else if (ver_subcamapania == true) {
         $("#divBannerCompraPorCompra").hide();
-        var stilo = $('.banner_especial_showroom').attr("style");
+         stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
-            var stilo = stilo.replace("display:none", "display:block");
+             stilo = stilo.replace("display:none", "display:block");
             $('.banner_especial_showroom').attr("style", stilo);
             $('.banner_especial_showroom').show();
         }
@@ -291,9 +292,9 @@ function CargarFiltroRangoPrecio() {
     var precioMinFormat = DecimalToStringFormat(min);
     var precioMaxFormat = DecimalToStringFormat(max);
 
-    var myformat = simbolo + '%s';
-    var scala1 = simbolo + precioMinFormat;
-    var scala2 = simbolo + precioMaxFormat;
+    var myformat = variablesPortal.SimboloMoneda + '%s';
+    var scala1 = variablesPortal.SimboloMoneda + precioMinFormat;
+    var scala2 = variablesPortal.SimboloMoneda + precioMaxFormat;
 
     $('.range-slider').val(min + ',' + max);
     var h = $("#filtro_precio").width() - 50;
@@ -563,21 +564,3 @@ function compraxcompra_promotion_impression() {
     });
 }
 
-function compraxcompra_promotion_impression() {
-    var id = $("#divBannerCompraPorCompra").data("cuv");
-    var name = 'Showroom – ' + $("#divBannerCompraPorCompra").data("descripcion");
-    dataLayer.push({
-        'event': 'promotionView',
-        'ecommerce': {
-            'promoView': {
-                'promotions': [
-                    {
-                        'id': id,
-                        'name': name,
-                        'position': 'Showroom Footer',
-                        'creative': 'Promocion Showroom'
-                    }]
-            }
-        }
-    });
-}

@@ -1019,7 +1019,6 @@ namespace Portal.Consultoras.Web.Controllers
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            //int buscar = int.Parse(txtBuscar);
             BEPager pag = new BEPager();
             bool ErrorServicio;
             string ErrorCode;
@@ -1048,9 +1047,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             #endregion
-
-           // BEPager pag = Paginador(grid, campania, lst);
-
+            
             var data = new
             {
                 total = pag.PageCount,

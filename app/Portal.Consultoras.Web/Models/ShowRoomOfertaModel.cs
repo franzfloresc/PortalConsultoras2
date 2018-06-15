@@ -99,7 +99,6 @@ namespace Portal.Consultoras.Web.Models
         public string UrlTerminosCondiciones { get; set; }
 
         public bool EsSubCampania { get; set; }
-        public string UrlCompartir { get; set; }
         public int UnidadesPermitidasRestantes { get; set; }
 
         public int Posicion { get; set; }
@@ -111,6 +110,12 @@ namespace Portal.Consultoras.Web.Models
 
         public int EstrategiaId { get; set; }
 
+        /// <summary>
+        /// 1: AGRÉGALO - No alterar cantidad, caso pack nuevas
+        /// 2: AGRÉGALO - Si puede alterar cantidad
+        /// 3: ELIGE TU OPCIÓN
+        /// 4: ¿LO QUIERES?
+        /// </summary>
         public int TipoAccionAgregar { get; set; }
         
         public int TieneVariedad { get; set; }

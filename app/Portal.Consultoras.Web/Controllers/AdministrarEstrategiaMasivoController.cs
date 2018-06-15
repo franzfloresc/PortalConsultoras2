@@ -243,7 +243,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = ex.Message,
-                    extra = ""
+                    extra = "",
+                    nroLote
                 }, JsonRequestBehavior.AllowGet);
             }
 
@@ -251,7 +252,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 success = true,
                 message = "Se eliminaron las estrategias de la tabla temporal",
-                extra = ""
+                extra = "",
+                nroLote
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -329,16 +331,14 @@ namespace Portal.Consultoras.Web.Controllers
                 var cantTotalPagina = (entidadMasivo.CantTotal / entidadMasivo.CantidadCuv) + (entidadMasivo.CantTotal % entidadMasivo.CantidadCuv == 0 ? 0 : 1);
                 if (cantTotalPagina < entidadMasivo.Pagina)
                 {
-                    if (cantTotalPagina > 0)
-                    {
-                        MasivoEstrategiaTemporalExecComplemento(entidadMasivo);
-                    }
-
                     return Json(new
                     {
-                        success = cantTotalPagina > 0,
-                        message = cantTotalPagina > 0 ? "" : "No existen Estrategias para Insertar",
-                        continuaPaso = true
+                        success = true,
+                        message = "Termino paso 2",
+                        continuaPaso = true,
+                        entidadMasivo.Pagina,
+                        entidadMasivo.NroLote,
+                        entidadMasivo.CantidadCuv
                     }, JsonRequestBehavior.AllowGet);
                 }
 
@@ -349,19 +349,22 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No existen Estrategias para Insertar"
+                        message = "No existen Estrategias para Insertar",
+                        entidadMasivo.Pagina,
+                        entidadMasivo.NroLote,
+                        entidadMasivo.CantidadCuv
                     }, JsonRequestBehavior.AllowGet);
                 }
-                else
-                {
-                    entidadMasivo.NroLote = nroLoteAux;
-                }
 
+                entidadMasivo.NroLote = nroLoteAux;
 
+                var mensajeComplemento = MasivoEstrategiaTemporalExecComplemento(entidadMasivo);
+                
                 return Json(new
                 {
-                    success = entidadMasivo.NroLote > 0,
-                    message = entidadMasivo.NroLote > 0 ? "Se insertaron en la tabla temporal de Estrategia." : "Error al insertar las estrategias",
+                    success = true,
+                    message = "Se insertaron en la tabla temporal de Estrategia.",
+                    messageComplemento = mensajeComplemento,
                     entidadMasivo.Pagina,
                     entidadMasivo.NroLote,
                     entidadMasivo.CantidadCuv
@@ -411,25 +414,41 @@ namespace Portal.Consultoras.Web.Controllers
             catch (TimeoutException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                lote = 0;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                lote = 0;
             }
             return lote;
         }
 
-        private bool MasivoEstrategiaTemporalExecComplemento(AdministrarEstrategiaMasivoModel entidadMasivo)
+        private string MasivoEstrategiaTemporalExecComplemento(AdministrarEstrategiaMasivoModel entidadMasivo)
         {
-            bool rpta = true;
+            // si todo este proceso esta en MasivoEstrategiaTemporalInsertar, puede salir timed out
+            // se divide el proceso para evitar timed out
+            string rpta = "";
+            bool rptaService = false;
             try
             {
-                MasivoEstrategiaTemporalPrecio(entidadMasivo);
-                MasivoEstrategiaTemporalSetDetalle(entidadMasivo);
+                rptaService = MasivoEstrategiaTemporalPrecio(entidadMasivo);
+                if (rptaService)
+                {
+                    rptaService = MasivoEstrategiaTemporalSetDetalle(entidadMasivo);
+                    if (!rptaService)
+                    {
+                        rpta = "Error al cargar tonos.";
+                    }
+                }
+                else
+                {
+                    rpta = "Error al cargar precios.";
+                }
             }
             catch (Exception)
             {
-                rpta = false;
+                rptaService = false;
             }
             return rpta;
         }
@@ -441,7 +460,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var svc = new SACServiceClient())
                 {
-                    rpta = svc.EstrategiaTemporalActualizarPrecioNivel(userData.PaisID, entidadMasivo.NroLote);
+                    rpta = svc.EstrategiaTemporalActualizarPrecioNivel(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
                 }
                 rpta = true;
             }
@@ -465,7 +484,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var svc = new SACServiceClient())
                 {
-                    rpta = svc.EstrategiaTemporalActualizarSetDetalle(userData.PaisID, entidadMasivo.NroLote);
+                    rpta = svc.EstrategiaTemporalActualizarSetDetalle(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
                 }
                 rpta = true;
             }
@@ -492,7 +511,9 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = lote > 0,
-                    message = lote > 0 ? "Se insertaron las Estrategias." : "Error al insertar las estrategias."
+                    message = lote > 0 ? "Se insertaron las Estrategias." : "Error al insertar las estrategias.",
+                    NroLote = nroLote,
+                    NroLoteRetorno = lote
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

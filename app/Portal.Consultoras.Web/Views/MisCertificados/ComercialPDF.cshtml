@@ -53,20 +53,48 @@
     </p>
     <p style="margin-top:0pt; margin-bottom:10pt; text-align:justify; line-height:115%; font-size:12pt">
         <span style="font-family:Arial">La señora </span><span style="font-family:Arial;">@Model.NombreCompleto.Trim()</span>
-        <span style="font-family:Arial"> identificada con cédula de ciudadanía número </span>
-        <span style="font-family:Arial;">@Model.NumeroDocumento.Trim()</span><span style="font-family:Arial">, es compradora de esta Compañía desde el día </span>
-        <span style="font-family:Arial;">@Model.FechaIngresoConsultora</span>
-        <span style="font-family:Arial"> y a la fecha cuenta con un promedio de compra de nuestros productos igual a @Model.Moneda </span><span style="font-family:Arial;">@Model.PromedioVentasFormato</span><span style="font-family:Arial">, durante las últimas @Model.CantidadConsecutivaNueva campañas.</span>
+
+        @if (Model.Pais == "Peru")
+        {
+            <span style="font-family:Arial"> identificada con documento de identidad número </span>
+            <span style="font-family:Arial;">@Model.NumeroDocumento.Trim()</span><span style="font-family:Arial">, es consultora de esta Compañía desde el día </span>
+            <span style="font-family:Arial;">@Model.FechaIngresoConsultora</span>
+            <span style="font-family:Arial"> y a la fecha cuenta con un promedio de ventas de nuestros productos igual a @Model.Moneda </span><span style="font-family:Arial;">@Model.PromedioVentasFormato</span><span style="font-family:Arial">, durante las últimas @Model.CantidadConsecutivaNueva campañas.</span>
+        }
+        else
+        {
+            <span style="font-family:Arial"> identificada con cédula de ciudadanía número </span>
+            <span style="font-family:Arial;">@Model.NumeroDocumento.Trim()</span><span style="font-family:Arial">, es compradora de esta Compañía desde el día </span>
+            <span style="font-family:Arial;">@Model.FechaIngresoConsultora</span>
+            <span style="font-family:Arial"> y a la fecha cuenta con un promedio de compra de nuestros productos igual a @Model.Moneda </span><span style="font-family:Arial;">@Model.PromedioVentasFormato</span><span style="font-family:Arial">, durante las últimas @Model.CantidadConsecutivaNueva campañas.</span>
+        }
+
     </p>
     <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt">
-        <span style="font-family:Arial">La presente referencia se expide a solicitud de la interesada en @Model.Ciudad, al </span>
-        <span style="font-family:Arial;">@Model.FechaCreacionTexto</span>
+
+        @if (Model.Pais == "Peru")
+        {
+            <span style="font-family:Arial">La presente se expide a solicitud de la interesada. </span>
+        }
+        else
+        {
+            <span style="font-family:Arial">La presente referencia se expide a solicitud de la interesada en @Model.Ciudad, al </span>
+            <span style="font-family:Arial;">@Model.FechaCreacionTexto</span>
+        }
+
     </p>
     <p style="margin-top:0pt; margin-bottom:10pt; line-height:115%; font-size:12pt">
         <span style="font-family:Arial">&#xa0;</span>
     </p>
     <p style="margin-top:0pt; margin-bottom:10pt; text-align:justify; line-height:115%; font-size:12pt">
-        <span style="font-family:Arial">En caso de requerir confirmación del presente documento se pueden comunicar a las Líneas @Model.Telefono.</span>
+        @if (Model.Pais == "Peru")
+        {
+            <span style="font-family:Arial">En caso de requerir confirmación del presente documento se pueden comunicar a la Línea Belcorp Responde @Model.Telefono.</span>
+        }
+        else
+        {
+            <span style="font-family:Arial">En caso de requerir confirmación del presente documento se pueden comunicar a las Líneas @Model.Telefono.</span>
+        }
     </p>
     <p style="margin-top:0pt; margin-bottom:10pt; text-align:justify; line-height:115%; font-size:12pt">
         <span style="font-family:Arial">&#xa0;</span>
@@ -93,10 +121,28 @@
         <strong><span style="font-family:Arial; ">@Model.Responsable.Trim()</span></strong>
     </p>
     <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:14pt">
-        <strong><span style="font-family:Arial; ">@Model.Cargo.Trim()</span></strong>
+
+        @if (Model.Pais == "Peru")
+        {
+            <strong><span style="font-family:Arial; ">@Model.DocumentoResponsable</span></strong>
+        }
+        else
+        {
+            <strong><span style="font-family:Arial; ">@Model.Cargo.Trim()</span></strong>
+        }
+
     </p>
     <p style="margin-top:0pt; margin-bottom:10pt; text-align:justify; line-height:115%; font-size:14pt">
-        <strong><span style="font-family:Arial; ">@Model.RazonSocial</span></strong>
+
+        @if (Model.Pais == "Peru")
+        {
+            <strong><span style="font-family:Arial; ">@Model.Cargo.Trim()</span></strong>
+        }
+        else
+        {
+            <strong><span style="font-family:Arial; ">@Model.RazonSocial</span></strong>
+        }
+
     </p>
 </div>
 <div style="display:block; float:right; width:145px; height:204px; margin-top:20px;">

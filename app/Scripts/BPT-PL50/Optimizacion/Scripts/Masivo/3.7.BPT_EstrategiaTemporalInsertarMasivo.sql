@@ -124,6 +124,7 @@ BEGIN
 	(
 		CampaniaId,
 		NumeroLote,
+		pagina,
 		CodigoTipoEstrategia,
 		CUV,
 		Descripcion,
@@ -138,6 +139,7 @@ BEGIN
 	SELECT
 		@CampaniaID,
 		@NroLote,
+		@Pagina,
 		@EstrategiaCodigo,
 		CUV2, 
 		DescripcionCUV2,

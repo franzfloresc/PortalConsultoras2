@@ -36,9 +36,9 @@ function GetProductoStorage(cuv, campania, nombreKey) {
     }
 
     sl = JSON.parse(sl);
-    var listaProd = sl.response.listaLan.Find("CUV2", cuv) || new Array();
+    var listaProd = (sl.response.listaLan || []).Find("CUV2", cuv) || new Array();
     if (listaProd.length == 0) {
-        listaProd = sl.response.lista.Find("CUV2", cuv) || new Array();
+        listaProd = (sl.response.lista || []).Find("CUV2", cuv) || new Array();
     }
     if (listaProd.length > 0) {
         listaProd[0].Posicion = 0;
@@ -69,6 +69,9 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
         else if (tipo == "hv") {
             var lista = "HVLista";
         }
+        else if (tipo == "lan") {
+            var lista = "listaLAN";
+        }
 
         $.each(listaCuv, function (ind, cuvItem) {
             var cuvx = cuvItem.split(';')[0];
@@ -90,7 +93,7 @@ function ActualizarLocalStorageIsAgregado(cuv, valor, lista, indCampania) {
         var data = JSON.parse(valLocalStorage);
 
         ok = actualizarIsAgregado(data.response.listaLan, cuv,  valor);
-        ok = actualizarIsAgregado(data.response.lista, cuv, valor);
+        ok = ok || actualizarIsAgregado(data.response.lista, cuv, valor);
         
         if (ok) {
             localStorage.setItem(lista + campaniaCodigo, JSON.stringify(data));
@@ -122,4 +125,21 @@ function actualizarIsAgregado(lista, cuv, valor) {
     }
 
     return ok
+}
+
+function RDActualizarTipoAccionAgregar(revistaDigital, key){
+    var valLocalStorage = LocalStorageListado(key,null,1);
+    if (valLocalStorage == null)
+        return false;
+
+    valLocalStorage = JSON.parse(valLocalStorage);
+
+    $.each(valLocalStorage.response.listaPerdio, function(ind, item) {
+        if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+            item.TipoAccionAgregar = 5;
+        if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+            item.TipoAccionAgregar = 4;
+    });
+
+    LocalStorageListado(key, valLocalStorage, 0);
 }

@@ -431,7 +431,6 @@
 }
 
 .bc_estrategia_contenido {
-    /*max-height: 800px;*/
 }
 
 .seccion-content-contenedor {
@@ -554,11 +553,6 @@
 }
 
 .contenido_zona_dorada_contenedor_desktop {
-    /*position: relative;
-            top: -255px;
-    width: 77% !important;
-    margin: auto;
-    margin-right: 89px;*/
     top: -255px;
     margin: auto;
     max-width: 1000px;
@@ -670,7 +664,6 @@
         margin-bottom: 0;
         display: block;
         padding-left: 40px;
-        /* display: inline-block; */
         position: absolute;
         padding: 13px 0px;
         margin-left: 150px;

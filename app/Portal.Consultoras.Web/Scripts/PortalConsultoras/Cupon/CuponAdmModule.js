@@ -906,7 +906,6 @@
         _inicializarDialogs();
         _loadAjaxForms();
         _iniDialogMantenimientoCupon();
-        //_listarCuponesPorCampania();
     };
 
     return {

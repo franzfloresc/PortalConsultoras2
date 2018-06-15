@@ -69,8 +69,8 @@ namespace Portal.Consultoras.Web.Controllers
             _tablaLogicaProvider = new TablaLogicaProvider();
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
             estrategiaODD = sessionManager.GetEstrategiaODD() ?? new Models.Estrategia.OfertaDelDia.DataModel();
-            configEstrategiaSR = sessionManager.GetEstrategiaSR()?? new Models.Estrategia.ShowRoom.ConfigModel();
-           
+            configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
+
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -200,6 +200,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
                     item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
+                    item.DescripcionOferta = ObtenerDescripcionOferta(item);
                 }
                 var observacionesProl = sessionManager.GetObservacionesProl();
                 if (detallesPedidoWeb.Count > 0 && observacionesProl != null)
@@ -257,6 +258,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
                     item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
+                    item.DescripcionOferta = ObtenerDescripcionOferta(item);
                 }
                 var observacionesProl = sessionManager.GetObservacionesProl();
                 if (detallesPedidoWeb.Count > 0 && observacionesProl != null)
@@ -1046,7 +1048,7 @@ namespace Portal.Consultoras.Web.Controllers
         public UsuarioModel UserData()
         {
             UsuarioModel model;
-            
+
             try
             {
                 model = sessionManager.GetUserData();
@@ -1062,7 +1064,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region Cargar variables
 
-            configEstrategiaSR = sessionManager.GetEstrategiaSR()?? new Models.Estrategia.ShowRoom.ConfigModel(); 
+            configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
 
             if (!configEstrategiaSR.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
 
@@ -1101,15 +1103,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected List<BEProductoFaltante> GetProductosFaltantes()
         {
-            return this.GetProductosFaltantes("", "");
+            return this.GetProductosFaltantes("", "" , "" , "");
         }
 
-        protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion)
+        protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion ,string codCategoria , string codCatalogoRevista)
         {
             List<BEProductoFaltante> olstProductoFaltante;
             using (var sv = new SACServiceClient())
             {
-                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID, cuv, descripcion).ToList();
+                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID, cuv, descripcion , codCategoria , codCatalogoRevista).ToList();
             }
             return olstProductoFaltante ?? new List<BEProductoFaltante>();
         }
@@ -1196,7 +1198,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.PaisID,
                         model.CampaniaID,
                         codigoConsultora,
-                        configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.TienePersonalizacion);
+                        true);
 
                     configEstrategiaSR.ListaNivel = pedidoService.GetShowRoomNivel(model.PaisID).ToList();
 
@@ -1270,9 +1272,9 @@ namespace Portal.Consultoras.Web.Controllers
                 Common.LogManager.SaveLog(ex, model.CodigoConsultora, model.CodigoISO);
                 configEstrategiaSR.CargoEntidadesShowRoom = false;
             }
-            
+
             SetUserData(model);
-            sessionManager.SetEstrategiaSR(configEstrategiaSR); 
+            sessionManager.SetEstrategiaSR(configEstrategiaSR);
         }
 
         protected bool PaisTieneShowRoom(string codigoIsoPais)
@@ -1361,7 +1363,6 @@ namespace Portal.Consultoras.Web.Controllers
                     PrecioTachado = fichaProducto.PrecioTachado,
                     PrecioVenta = fichaProducto.PrecioString,
 
-                    ProductoPerdio = false,
                     TipoEstrategiaID = fichaProducto.TipoEstrategiaID,
                     FlagNueva = fichaProducto.FlagNueva,
                     IsAgregado = listaPedido.Any(p => p.CUV == fichaProducto.CUV2.Trim()),
@@ -1370,13 +1371,11 @@ namespace Portal.Consultoras.Web.Controllers
                     TextoLibre = Util.Trim(fichaProducto.TextoLibre),
 
                     MarcaID = fichaProducto.MarcaID,
-                    UrlCompartir = fichaProducto.UrlCompartir,
 
                     TienePaginaProducto = fichaProducto.PuedeVerDetalle,
                     TienePaginaProductoMob = fichaProducto.PuedeVerDetalleMob,
-                    TieneVerDetalle = true,
 
-                    TipoAccionAgregar = fichaProducto.TieneVariedad == 0 ? fichaProducto.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3,
+                    TipoAccionAgregar = TipoAccionAgregar(fichaProducto.TieneVariedad, fichaProducto.TipoEstrategia.Codigo),
                     LimiteVenta = fichaProducto.LimiteVenta
                 };
                 listaRetorno.Add(prodModel);
@@ -1500,7 +1499,6 @@ namespace Portal.Consultoras.Web.Controllers
                 fichaProductoModelo.Hermanos = new List<ProductoModel>();
                 fichaProductoModelo.TextoLibre = Util.Trim(fichaProductoModelo.TextoLibre);
                 fichaProductoModelo.CodigoVariante = Util.Trim(fichaProductoModelo.CodigoVariante);
-                fichaProductoModelo.UrlCompartir = GetUrlCompartirFB();
 
                 var listaPedido = ObtenerPedidoWebDetalle();
                 fichaProductoModelo.IsAgregado = listaPedido.Any(p => p.CUV == fichaProductoModelo.CUV2);
@@ -1789,12 +1787,110 @@ namespace Portal.Consultoras.Web.Controllers
             return displayTiempo;
         }
 
+        private BarraTippingPoint GetTippingPoint(string TippingPointParticipa, string TippingPointStr)
+        {
+            BarraTippingPoint TippingPoint = new BarraTippingPoint { ActiveTooltip = false, ActiveMonto = false };
+            string nivel = Convert.ToString(userData.ConsecutivoNueva + 1).PadLeft(2, '0');
+            string FlagParticipa = getValidaConsultoraProgramaNueva(TippingPointParticipa);
+            try
+            {
+                // verifica si participa al programa de nuevas.
+                if (FlagParticipa == Constantes.TipoEstrategiaCodigo.ParticipaProgramaNuevas)
+                {
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        BEActivarPremioNuevas beActive = sv.GetActivarPremioNuevas(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);
+                        TippingPoint.ActiveTooltip = beActive == null ? false : beActive.ActiveTooltip;
+                        TippingPoint.ActiveMonto = beActive == null ? false : beActive.ActiveMontoTooltip;
+                        TippingPoint.Active = beActive == null ? false : beActive.Active;
+                        TippingPoint.TippingPointMontoStr = TippingPointStr;
+                        // verifica si esta activado el tooltip
+                        if (TippingPoint.ActiveTooltip == true)
+                        {
+                            var estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID,
+                                                                               Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo,
+                                                                               userData.CampaniaID,
+                                                                               nivel);
+
+                            TippingPoint.CampaniaID = estrategia == null ? default(int) : estrategia.CampaniaID;
+                            TippingPoint.CampaniaIDFin = estrategia == null ? default(int) : estrategia.CampaniaIDFin;
+                            TippingPoint.CUV1 = estrategia == null ? default(string) : estrategia.CUV1;
+                            TippingPoint.CUV2 = estrategia == null ? default(string) : estrategia.CUV2;
+                            TippingPoint.ImagenURL = estrategia == null ? default(string) : estrategia.ImagenURL;
+                            TippingPoint.DescripcionCUV2 = estrategia == null ? default(string) : estrategia.DescripcionCUV2;
+                            TippingPoint.Ganancia = estrategia == null ? default(decimal) : estrategia.Ganancia;
+                            TippingPoint.Precio = estrategia == null ? default(decimal) : estrategia.Precio;
+                            TippingPoint.Precio2 = estrategia == null ? default(decimal) : estrategia.Precio2;
+                            TippingPoint.PrecioPublico = estrategia == null ? default(decimal) : estrategia.PrecioPublico;
+                            TippingPoint.PrecioUnitario = estrategia == null ? default(decimal) : estrategia.PrecioUnitario;
+                            TippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
+                        }
+                    }
+                }
+                else
+                {
+                    TippingPoint = new BarraTippingPoint { ActiveTooltip = false, ActiveMonto = false };
+                }
+            }
+            catch (Exception ex)
+            {
+                TippingPoint = new BarraTippingPoint { ActiveTooltip = false, ActiveMonto = false };
+            }
+            return TippingPoint;
+        }
+
+        private string getUrlTippingPoint(string noImagen)
+        {
+            string url = string.Format
+                        ("{0}/{1}/{2}/{3}/{4}/{5}",
+                            GetConfiguracionManager(Constantes.ConfiguracionManager.URL_S3),
+                            GetConfiguracionManager(Constantes.ConfiguracionManager.BUCKET_NAME),
+                            GetConfiguracionManager(Constantes.ConfiguracionManager.ROOT_DIRECTORY),
+                            GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""),
+                            userData.CodigoISO ?? "",
+                            noImagen ?? ""
+                         );
+            return url;
+        }
+
+        private string getValidaConsultoraProgramaNueva(string participa)
+        {
+            string resultado = string.Empty;
+            // si el idestadoActividad es mayor a 1 o diferente a  1 entonces significa que el usuario pertenece al programa de nuevas[campo ConsecutivoNueva]
+            int ConsecutivoNueva = userData.ConsecutivoNueva;
+            // este es el campo IdEstadoActividad en bd
+            int ConsultoraNueva = userData.ConsultoraNueva;
+            try
+            {
+                resultado = participa == null ? "" : participa.Trim();
+
+                /*
+                if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
+                        userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
+                        userData.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
+                {
+                    resultado = participa == null ? "" : participa.Trim();
+                }
+                else
+
+                    resultado = Constantes.TipoEstrategiaCodigo.NotParticipaProgramaNuevas;
+                    */
+            }
+            catch
+            {
+                resultado = string.Empty;
+            }
+            return resultado;
+        }
+
+
         public BarraConsultoraModel GetDataBarra(bool inEscala = true, bool inMensaje = false, bool Agrupado = false)
         {
             var objR = new BarraConsultoraModel
             {
                 ListaEscalaDescuento = new List<BarraConsultoraEscalaDescuentoModel>(),
-                ListaMensajeMeta = new List<BEMensajeMetaConsultora>()
+                ListaMensajeMeta = new List<BEMensajeMetaConsultora>(),
+                TippingPointBarra = new BarraTippingPoint()
             };
 
             try
@@ -1814,13 +1910,15 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.MontoMaximo > 0)
                 {
                     var tp = GetConfiguracionProgramaNuevas(Constantes.ConstSession.TippingPoint);
-
                     if (tp.IndExigVent == "1")
                     {
                         var obeConsultorasProgramaNuevas = GetConsultorasProgramaNuevas(Constantes.ConstSession.TippingPoint_MontoVentaExigido, tp.CodigoPrograma);
-
                         objR.TippingPoint = obeConsultorasProgramaNuevas.MontoVentaExigido;
                         objR.TippingPointStr = Util.DecimalToStringFormat(objR.TippingPoint, userData.CodigoISO);
+                        // si el MontoVentaExigido es mayor a 0 entonces pertenece al programa de nuevas y se muestra el Tipping Point validacion a nivel de js y a nivel de cs
+                        if (objR.TippingPoint > 0)
+                            objR.TippingPointBarra = GetTippingPoint(obeConsultorasProgramaNuevas.Participa, objR.TippingPointStr);
+
                     }
                 }
 
@@ -2158,7 +2256,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.TeQuedan = CountdownODD(userData);
-            model.FBRuta = GetUrlCompartirFB();
 
             var configOdd = GetConfiguracionEstrategia(Constantes.ConfiguracionPais.OfertaDelDia);
             model.ConfiguracionContenedor = configOdd;
@@ -2214,7 +2311,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.MesFaltante = userData.FechaInicioCampania.Month;
             model.AnioFaltante = userData.FechaInicioCampania.Year;
-
+            
+            if (configEstrategiaSR.ListaPersonalizacionConsultora == null)
+            {
+                model.ImagenPopupShowroomIntriga = "";
+                model.ImagenBannerShowroomIntriga = "";
+                model.ImagenPopupShowroomVenta = "";
+                model.ImagenBannerShowroomVenta = "";
+                return model;
+            }
 
             foreach (var item in configEstrategiaSR.ListaPersonalizacionConsultora)
             {
@@ -2515,18 +2620,7 @@ namespace Portal.Consultoras.Web.Controllers
                     OpcionAccion = opcionAccion,
                     DispositivoCategoria = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
                     DispositivoID = GetIPCliente(),
-                    Version = "2.0",
-
-                    //Apodo = userData.Sobrenombre,
-                    //NuevoApodo = entidad.Sobrenombre,
-                    //Email = userData.EMail,
-                    //NuevoEmail = entidad.EMail,
-                    //Telefono = userData.Telefono,
-                    //NuevoTelefono = entidad.Telefono,
-                    //Celular = userData.Celular,
-                    //NuevoCelular = entidad.Celular,
-                    //TelefonoTrabajo = userData.TelefonoTrabajo,
-                    //NuevoTelefonoTrabajo = entidad.TelefonoTrabajo,
+                    Version = "2.0"
                 };
 
 
@@ -2547,96 +2641,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var noQuitar = response.IsSuccessStatusCode;
 
                 httpClient.Dispose();
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
-            }
-        }
-
-        protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
-        {
-            object data = null;
-            string v_campomodificacion = string.Empty;
-            string v_valoranterior = string.Empty;
-            string v_valoractual = string.Empty;
-            string dataString = string.Empty;
-            string apinombre = string.Empty;
-
-            try
-            {
-                apinombre = "Api/LogActualizaciones";
-
-                //Data actual viene del Model       => model
-                //Data anterior viene del userData  => userData 
-
-                if (userData != null && p_modelo != null && p_Accion.Trim().ToUpper() == "MODIFICACION")
-                {
-                    string _seccion = "Mis Datos";
-
-                    if (string.IsNullOrEmpty(userData.Sobrenombre)) userData.Sobrenombre = "";
-                    if (string.IsNullOrEmpty(userData.EMail)) userData.EMail = "";
-                    if (string.IsNullOrEmpty(userData.Telefono)) userData.Telefono = "";
-                    if (string.IsNullOrEmpty(userData.Celular)) userData.Celular = "";
-                    if (string.IsNullOrEmpty(userData.TelefonoTrabajo)) userData.TelefonoTrabajo = "";
-
-                    if (string.IsNullOrEmpty(p_modelo.Sobrenombre)) p_modelo.Sobrenombre = "";
-                    if (string.IsNullOrEmpty(p_modelo.EMail)) p_modelo.EMail = "";
-                    if (string.IsNullOrEmpty(p_modelo.Telefono)) p_modelo.Telefono = "";
-                    if (string.IsNullOrEmpty(p_modelo.Celular)) p_modelo.Celular = "";
-                    if (string.IsNullOrEmpty(p_modelo.TelefonoTrabajo)) p_modelo.TelefonoTrabajo = "";
-
-                    if (userData.Sobrenombre.ToString().Trim().ToUpper() != p_modelo.Sobrenombre.ToString().Trim().ToUpper())
-                    {
-                        v_campomodificacion = "SOBRENOMBRE";
-                        v_valoractual = p_modelo.Sobrenombre.ToString().Trim();
-                        v_valoranterior = userData.Sobrenombre.ToString().Trim();
-                        userData.Sobrenombre = v_valoractual;
-                        EjecutarLogDynamoDB(data, apinombre, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
-                    }
-
-                    if (userData.EMail.ToString().Trim().ToUpper() != p_modelo.EMail.ToString().Trim().ToUpper())
-                    {
-                        v_campomodificacion = "EMAIL";
-                        v_valoractual = p_modelo.EMail.ToString().Trim();
-                        v_valoranterior = userData.EMail.ToString().Trim();
-                        userData.EMail = v_valoractual;
-                        EjecutarLogDynamoDB(data, apinombre, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
-                    }
-
-                    if (userData.Telefono.ToString().Trim().ToUpper() != p_modelo.Telefono.ToString().Trim().ToUpper())
-                    {
-                        v_campomodificacion = "TELEFONO";
-                        v_valoractual = p_modelo.Telefono.ToString().Trim();
-                        v_valoranterior = userData.Telefono.ToString().Trim();
-                        userData.Telefono = v_valoractual;
-                        EjecutarLogDynamoDB(data, apinombre, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
-                    }
-
-                    if (userData.Celular.ToString().Trim().ToUpper() != p_modelo.Celular.ToString().Trim().ToUpper())
-                    {
-                        v_campomodificacion = "CELULAR";
-                        v_valoractual = p_modelo.Celular.ToString().Trim();
-                        v_valoranterior = userData.Celular.ToString().Trim();
-                        userData.Celular = v_valoractual;
-                        EjecutarLogDynamoDB(data, apinombre, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
-                    }
-
-                    if (userData.TelefonoTrabajo.ToString().Trim().ToUpper() != p_modelo.TelefonoTrabajo.ToString().Trim().ToUpper())
-                    {
-                        v_campomodificacion = "TELEFONO TRABAJO";
-                        v_valoractual = p_modelo.TelefonoTrabajo.ToString().Trim();
-                        v_valoranterior = userData.TelefonoTrabajo.ToString().Trim();
-                        userData.TelefonoTrabajo = v_valoractual;
-                        EjecutarLogDynamoDB(data, apinombre, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
-                    }
-
-                    SetUserData(userData);
-                }
-                else if (p_Accion.Trim().ToUpper() == "CONSULTA")
-                {
-                    EjecutarLogDynamoDB(data, apinombre, "", "", "", p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, p_Seccion);
-                }
             }
             catch (Exception ex)
             {
@@ -2736,6 +2740,159 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
             }
         }
+
+        protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
+        {
+            object data = null;
+            string v_campomodificacion = string.Empty;
+            string v_valoranterior = string.Empty;
+            string v_valoractual = string.Empty;
+            string dataString = string.Empty;
+
+            //Data actual viene del Model       => model
+            //Data anterior viene del userData  => userData 
+            if (userData != null && p_modelo != null && p_Accion.Trim().ToUpper() == "MODIFICACION")
+            {
+                string _seccion = "Mis Datos";
+                try
+                {
+                    if (string.IsNullOrEmpty(userData.Sobrenombre)) userData.Sobrenombre = "";
+                    if (string.IsNullOrEmpty(userData.EMail)) userData.EMail = "";
+                    if (string.IsNullOrEmpty(userData.Telefono)) userData.Telefono = "";
+                    if (string.IsNullOrEmpty(userData.Celular)) userData.Celular = "";
+                    if (string.IsNullOrEmpty(userData.TelefonoTrabajo)) userData.TelefonoTrabajo = "";
+
+                    if (string.IsNullOrEmpty(p_modelo.Sobrenombre)) p_modelo.Sobrenombre = "";
+                    if (string.IsNullOrEmpty(p_modelo.EMail)) p_modelo.EMail = "";
+                    if (string.IsNullOrEmpty(p_modelo.Telefono)) p_modelo.Telefono = "";
+                    if (string.IsNullOrEmpty(p_modelo.Celular)) p_modelo.Celular = "";
+                    if (string.IsNullOrEmpty(p_modelo.TelefonoTrabajo)) p_modelo.TelefonoTrabajo = "";
+
+                    if (userData.Sobrenombre.ToString().Trim().ToUpper() != p_modelo.Sobrenombre.ToString().Trim().ToUpper())
+                    {
+                        v_campomodificacion = "SOBRENOMBRE";
+                        v_valoractual = p_modelo.Sobrenombre.ToString().Trim();
+                        v_valoranterior = userData.Sobrenombre.ToString().Trim();
+                        userData.Sobrenombre = v_valoractual;
+                        EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
+                    }
+
+                    if (userData.EMail.ToString().Trim().ToUpper() != p_modelo.EMail.ToString().Trim().ToUpper())
+                    {
+                        v_campomodificacion = "EMAIL";
+                        v_valoractual = p_modelo.EMail.ToString().Trim();
+                        v_valoranterior = userData.EMail.ToString().Trim();
+                        userData.EMail = v_valoractual;
+                        EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
+                    }
+
+                    if (userData.Telefono.ToString().Trim().ToUpper() != p_modelo.Telefono.ToString().Trim().ToUpper())
+                    {
+                        v_campomodificacion = "TELEFONO";
+                        v_valoractual = p_modelo.Telefono.ToString().Trim();
+                        v_valoranterior = userData.Telefono.ToString().Trim();
+                        userData.Telefono = v_valoractual;
+                        EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
+                    }
+
+                    if (userData.Celular.ToString().Trim().ToUpper() != p_modelo.Celular.ToString().Trim().ToUpper())
+                    {
+                        v_campomodificacion = "CELULAR";
+                        v_valoractual = p_modelo.Celular.ToString().Trim();
+                        v_valoranterior = userData.Celular.ToString().Trim();
+                        userData.Celular = v_valoractual;
+                        EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
+                    }
+
+                    if (userData.TelefonoTrabajo.ToString().Trim().ToUpper() != p_modelo.TelefonoTrabajo.ToString().Trim().ToUpper())
+                    {
+                        v_campomodificacion = "TELEFONO TRABAJO";
+                        v_valoractual = p_modelo.TelefonoTrabajo.ToString().Trim();
+                        v_valoranterior = userData.TelefonoTrabajo.ToString().Trim();
+                        userData.TelefonoTrabajo = v_valoractual;
+                        EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
+                    }
+
+                    SetUserData(userData);
+                }
+                catch (Exception ex)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+                }
+            }
+            else if (p_Accion.Trim().ToUpper() == "CONSULTA")
+            {
+                EjecutarLogDynamoDB(data, "", "", "", p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, p_Seccion);
+            }
+        }
+
+        protected void EjecutarLogDynamoDB(object data, string campomodificacion, string valoractual, string valoranterior, string origen, string aplicacion, string accion, string codigoconsultorabuscado, string seccion = "")
+        {
+            string dataString = string.Empty;
+            string urlApi = string.Empty;
+            string apiController = string.Empty;
+            bool noQuitar = false;
+            
+            if (userData.CodigoISO != "PE")
+                seccion = "";
+
+            try
+            {
+                var paisesAdmitidos = new List<BETablaLogicaDatos>();
+                short codigoTablaLogica = 138;
+
+                using (var tablaLogica = new SACServiceClient())
+                {
+                    paisesAdmitidos = tablaLogica.GetTablaLogicaDatos(userData.PaisID, codigoTablaLogica).ToList();
+                }
+
+                foreach (var item in paisesAdmitidos)
+                {
+                    if (Convert.ToInt32(item.Codigo) == Convert.ToInt32(userData.PaisID))
+                    {
+                        data = new
+                        {
+                            Usuario = userData.CodigoUsuario,
+                            CodigoConsultora = userData.CodigoConsultora,
+                            CampoModificacion = campomodificacion,
+                            ValorActual = valoractual,
+                            ValorAnterior = valoranterior,
+                            Origen = origen,
+                            Aplicacion = aplicacion,
+                            Pais = userData.NombrePais,
+                            Rol = userData.RolDescripcion,
+                            Dispositivo = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
+                            Accion = accion,
+                            UsuarioConsultado = codigoconsultorabuscado,
+                            Seccion = seccion
+                        };
+
+                        urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
+                        apiController = ConfigurationManager.AppSettings.Get("UrlLogDynamoApiController");
+
+                        if (string.IsNullOrEmpty(urlApi)) return;
+
+                        HttpClient httpClient = new HttpClient();
+                        httpClient.BaseAddress = new Uri(urlApi);
+                        httpClient.DefaultRequestHeaders.Accept.Clear();
+                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                        dataString = JsonConvert.SerializeObject(data);
+                        HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+                        HttpResponseMessage response = httpClient.PostAsync(apiController, contentPost).GetAwaiter().GetResult();
+                        noQuitar = response.IsSuccessStatusCode;
+                        httpClient.Dispose();
+                        break;
+                    }
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+            }
+        }
+
         protected void RegistrarLogGestionSacUnete(string solicitudId, string pantalla, string accion)
         {
             var dataString = string.Empty;
@@ -2855,33 +3012,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
             return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
-        }
-
-        public string GetUrlCompartirFB()
-        {
-            var urlBaseFb = "";
-            if (System.Web.HttpContext.Current.Request.UserAgent != null)
-            {
-                var request = HttpContext.Request;
-                if (request.Url != null)
-                    urlBaseFb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" +
-                                userData.CodigoISO + "_[valor]";
-            }
-            return urlBaseFb;
-        }
-
-        public string GetUrlCompartirFBSR(int ofertaShowRoomId)
-        {
-            var urlBaseFb = "";
-            if (System.Web.HttpContext.Current.Request.UserAgent != null)
-            {
-                var request = HttpContext.Request;
-                if (request.Url != null)
-                    urlBaseFb = request.Url.Scheme + "://" + request.Url.Authority + "/Set.aspx?id=" +
-                                userData.CodigoISO + "_" + ofertaShowRoomId.ToString() + "_" +
-                                userData.CampaniaID.ToString() + "_F";
-            }
-            return urlBaseFb;
         }
 
         protected JsonResult ErrorJson(string message, bool allowGet = false)
@@ -3500,7 +3630,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaEntidad = sessionManager.GetSeccionesContenedor(menuActivo.CampaniaId);
                 if (listaEntidad == null)
                 {
-                    listaEntidad = GetConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId); // secciones de base de datos 
+                    listaEntidad = GetConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId);
                     sessionManager.SetSeccionesContenedor(menuActivo.CampaniaId, listaEntidad);
                 }
 
@@ -3757,7 +3887,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
 
-                 var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
+                var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
                 seccion.CantidadProductos = listaShowRoom.Count(x => !x.EsSubCampania);
                 seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }
@@ -4826,6 +4956,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.CodigoConsultoraDL = userData.CodigoConsultora != null && userData.CodigoConsultora != "" ? userData.CodigoConsultora : "(not available)";
             ViewBag.SegmentoConstancia = userData.SegmentoConstancia != null && userData.SegmentoConstancia != "" ? userData.SegmentoConstancia.Trim() : "(not available)";
             ViewBag.DescripcionNivelAnalytics = userData.DescripcionNivel != null && userData.DescripcionNivel != "" ? userData.DescripcionNivel : "(not available)";
+            ViewBag.MensajeChat = userData.MensajeChat;
 
             if (userData.RolID == Constantes.Rol.Consultora)
             {
@@ -4993,6 +5124,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TieneRDC = revistaDigital.TieneRDC;
             ViewBag.TieneHV = herramientasVenta.TieneHV;
             ViewBag.revistaDigital = getRevistaDigitalShortModel();
+            ViewBag.variableBase = getBaseVariablesPortal();
 
             ViewBag.TituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI)
                 || (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
@@ -5038,6 +5170,22 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
             int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
+        }
+
+        private VariablesGeneralesPortalModel getBaseVariablesPortal()
+        {
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            var baseVariablesGeneral = new VariablesGeneralesPortalModel
+            {
+                UrlCompartir = Util.GetUrlCompartirFB(userData.CodigoISO),
+                ExtensionImgSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall,
+                //ExtensionImgMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium,
+                ImgUrlBase = ConfigS3.GetUrlFileS3Base(carpetaPais),
+                SimboloMoneda = userData.Simbolo
+        };
+
+            return baseVariablesGeneral;
+
         }
 
         #endregion
@@ -5133,6 +5281,17 @@ namespace Portal.Consultoras.Web.Controllers
             using (UsuarioServiceClient svr = new UsuarioServiceClient())
             {
                 resultado = svr.ActualizarMisDatos(usuario, correoAnterior);
+            }
+
+            if (resultado.Split('|')[0] != "0")
+            {
+                var userDataX = UserData();
+                if (usuario.EMail != correoAnterior)
+                {
+                    userDataX.EMail = usuario.EMail;
+                }
+                userDataX.Celular = usuario.Celular;
+                sessionManager.SetUserData(userDataX);
             }
 
             return resultado;
@@ -5481,8 +5640,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string sessionToken = model.PagoVisaModel.SessionToken;
                 string merchantId = model.PagoVisaModel.MerchantId;
-                string accessKeyId = model.PagoVisaModel.AccessKeyId; /*Colocar aquí el accessKeyId*/
-                string secretAccessKey = model.PagoVisaModel.SecretAccessKey; /*Colocar aquí el secretAccessKey*/
+                string accessKeyId = model.PagoVisaModel.AccessKeyId;
+                string secretAccessKey = model.PagoVisaModel.SecretAccessKey;
 
                 var respuestaAutorizacion = GenerarAutorizacionBotonPagos(sessionToken, merchantId, transactionToken, accessKeyId, secretAccessKey);
                 var respuestaVisa = JsonHelper.JsonDeserialize<RespuestaAutorizacionVisa>(respuestaAutorizacion);
@@ -5693,7 +5852,6 @@ namespace Portal.Consultoras.Web.Controllers
                 object data = null;
                 var p_origen = "MI NEGOCIO/CAMBIOS Y DEVOLUCIONES";
                 var p_seccion = "Validacion de datos";
-                var apinombre = "Api/LogActualizaciones";
                 var v_campomodificacion = "";
                 var v_valoractual = "";
                 var v_valoranterior = "";
@@ -5711,7 +5869,7 @@ namespace Portal.Consultoras.Web.Controllers
                     v_campomodificacion = "EMAIL";
                     v_valoractual = model.Email.ToString().Trim();
                     v_valoranterior = userData.EMail.ToString().Trim();
-                    EjecutarLogDynamoDB(data, apinombre, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, "", p_seccion);
+                    EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, "", p_seccion);
                 }
 
                 if (userData.Celular.ToString().Trim().ToUpper() != model.Telefono.ToString().Trim().ToUpper())
@@ -5719,13 +5877,110 @@ namespace Portal.Consultoras.Web.Controllers
                     v_campomodificacion = "CELULAR";
                     v_valoractual = model.Telefono.ToString().Trim();
                     v_valoranterior = userData.Celular.ToString().Trim();
-                    EjecutarLogDynamoDB(data, apinombre, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, "", p_seccion);
+                    EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, "", p_seccion);
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
+        }
+        private string ObtenerDescripcionOferta(BEPedidoWebDetalle item)
+        {
+            var descripcion = "";
+            var pedidoValidado = sessionManager.GetPedidoValidado();
+
+            if (pedidoValidado)
+            {
+                if (!string.IsNullOrWhiteSpace(item.DescripcionOferta))
+                {
+                    descripcion = (item.DescripcionOferta.Replace("[", "")).Replace("]", "");
+                }
+                else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Liquidacion)
+                {
+                    descripcion = "OFERTA LIQUIDACIÓN";
+                }
+                else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Flexipago)
+                {
+                    descripcion = "OFERTA FLEXIPAGO";
+                }
+                else
+                {
+                    descripcion = "";
+                }
+            }
+            else
+            {
+                if (item.FlagConsultoraOnline)
+                {
+                    descripcion = "CLIENTE ONLINE";
+                }
+                else
+                {
+                    if (item.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal)
+                    {
+                        descripcion = "";
+                    }
+                    else if (item.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal)
+                    {
+                        descripcion = "";
+                    }
+                    else if (!string.IsNullOrWhiteSpace(item.DescripcionOferta))
+                    {
+                        descripcion = item.DescripcionOferta;
+                    }
+                    else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Liquidacion)
+                    {
+                        descripcion = "OFERTA LIQUIDACIÓN";
+                    }
+                    else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Flexipago)
+                    {
+                        descripcion = "OFERTA FLEXIPAGO";
+                    }
+                    else if (item.TipoOfertaSisID == Constantes.ConfiguracionOferta.ShowRoom)
+                    {
+                        descripcion = "OFERTAS ESPECIALES GANA+";
+                    }
+                    else
+                    {
+                        descripcion = "";
+                    }
+                }
+            }
+
+            return descripcion;
+        }
+
+        public void RegistrarLogDynamoCambioClave(string accion, string consultora, string v_valoractual, string v_valoranterior)
+        {
+            object data = null;
+            var p_origen = "SAC/ACTUALIZAR CONTRASEÑA";
+            var p_seccion = "Mantenimiento de contraseña";
+            var p_aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras;
+
+            if (accion.Trim().ToUpper() == "MODIFICACION")
+            {
+                EjecutarLogDynamoDB(data, "Contraseña", v_valoractual, v_valoranterior, p_origen, p_aplicacion, accion, "", p_seccion);
+            }
+            else
+            {
+                EjecutarLogDynamoDB(data, "", "", "", p_origen, p_aplicacion, accion, consultora, p_seccion);
+            }
+        }
+
+        protected void GetNotificacionesValAutoProl(long procesoId, int tipoOrigen, out List<BENotificacionesDetalle> lstObservaciones, out List<BENotificacionesDetallePedido> lstObservacionesPedido)
+        {
+            using (var service = new UsuarioServiceClient())
+            {
+                lstObservaciones = service.GetNotificacionesConsultoraDetalle(userData.PaisID, procesoId, tipoOrigen).ToList();
+                lstObservacionesPedido = service.GetNotificacionesConsultoraDetallePedido(userData.PaisID, procesoId, tipoOrigen).ToList();
+            }
+            lstObservaciones = lstObservaciones.GroupBy(o => o.CUV).Select(g => g.First()).ToList();
+        }
+
+        public bool EsDispositivoMovil()
+        {
+            return Request.Browser.IsMobileDevice;
         }
         #region Revista digital y Sección DORADA
         public ConfiguracionPaisDatosModel ObtenerPerdio(int campaniaId)

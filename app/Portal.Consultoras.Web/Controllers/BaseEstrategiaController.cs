@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return listEstrategia;
         }
-        
+
         public EstrategiaPersonalizadaProductoModel EstrategiaGetDetalle(int id, string cuv = "")
         {
             EstrategiaPersonalizadaProductoModel estrategiaModelo;
@@ -163,7 +163,6 @@ namespace Portal.Consultoras.Web.Controllers
                 estrategiaModelo.Hermanos = new List<ProductoModel>();
                 estrategiaModelo.TextoLibre = Util.Trim(estrategiaModelo.TextoLibre);
                 estrategiaModelo.CodigoVariante = Util.Trim(estrategiaModelo.CodigoVariante);
-                estrategiaModelo.UrlCompartir = GetUrlCompartirFB();
 
                 var listaPedido = ObtenerPedidoWebDetalle();
                 estrategiaModelo.IsAgregado = listaPedido.Any(p => p.CUV == estrategiaModelo.CUV2);
@@ -593,21 +592,17 @@ namespace Portal.Consultoras.Web.Controllers
                     || tipo == 2
                     ? "revistadigital-landing" : "";
                 prodModel.FotoProducto01 = estrategia.FotoProducto01;
-                prodModel.FotoProductoMedium = estrategia.FotoProductoMedium;
-                prodModel.FotoProductoSmall = estrategia.FotoProductoSmall;
                 prodModel.ImagenURL = estrategia.ImagenURL;
                 prodModel.DescripcionMarca = estrategia.DescripcionMarca;
                 prodModel.DescripcionResumen = estrategia.DescripcionResumen;
                 prodModel.DescripcionCortada = estrategia.DescripcionCortada;
                 prodModel.DescripcionDetalle = estrategia.DescripcionDetalle;
                 prodModel.DescripcionCompleta = estrategia.DescripcionCUV2.Split('|')[0];
-                prodModel.Simbolo = userData.Simbolo;
                 prodModel.Precio = estrategia.Precio;
                 prodModel.Precio2 = estrategia.Precio2;
                 prodModel.PrecioTachado = estrategia.PrecioTachado;
                 prodModel.PrecioVenta = estrategia.PrecioString;
                 prodModel.ClaseBloqueada = tipo == 1 || (estrategia.CampaniaID > 0 && estrategia.CampaniaID != userData.CampaniaID) ? claseBloqueada : "";
-                prodModel.ProductoPerdio = tipo == 1;
                 prodModel.TipoEstrategiaID = estrategia.TipoEstrategiaID;
                 prodModel.FlagNueva = estrategia.FlagNueva;
                 prodModel.IsAgregado = prodModel.ClaseBloqueada != claseBloqueada && listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
@@ -616,16 +611,13 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.TextoLibre = Util.Trim(estrategia.TextoLibre);
 
                 prodModel.MarcaID = estrategia.MarcaID;
-                prodModel.UrlCompartir = estrategia.UrlCompartir;
 
                 prodModel.TienePaginaProducto = estrategia.PuedeVerDetalle;
                 prodModel.TienePaginaProductoMob = estrategia.PuedeVerDetalleMob;
-                prodModel.TieneVerDetalle = true;
-                prodModel.PrecioPublico = estrategia.PrecioPublico;
                 prodModel.Ganancia = estrategia.Ganancia;
                 prodModel.GananciaString = estrategia.GananciaString;
 
-                prodModel.TipoAccionAgregar = estrategia.TieneVariedad == 0 ? estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
+                prodModel.TipoAccionAgregar = TipoAccionAgregar(estrategia.TieneVariedad, estrategia.TipoEstrategia.Codigo, tipo == 1 || (estrategia.CampaniaID > 0 && estrategia.CampaniaID != userData.CampaniaID));
 
                 if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
                 {
@@ -643,13 +635,15 @@ namespace Portal.Consultoras.Web.Controllers
                     prodModel.TipoEstrategiaDetalle.FlagIndividual = estrategia.EstrategiaDetalle.FlagIndividual;
                     prodModel.CodigoProducto = estrategia.CodigoProducto;
                 }
-                if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
+                else if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
                 {
                     prodModel.EsOfertaIndependiente = estrategia.EsOfertaIndependiente;
-                    prodModel.ImagenOfertaIndependiente = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenOfertaIndependiente);
-                    prodModel.MostrarImgOfertaIndependiente = estrategia.MostrarImgOfertaIndependiente;
+                    if (estrategia.EsOfertaIndependiente && estrategia.MostrarImgOfertaIndependiente)
+                    {
+                        prodModel.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenOfertaIndependiente);
+                    }
                 }
-                if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
+                else if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
                 {
                     prodModel.Precio = 0;
                     prodModel.Ganancia = 0;
@@ -684,10 +678,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     prodModel.PrecioNiveles = estrategia.Niveles ?? string.Empty;
                 }
-                if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
-                {
-                    prodModel.PuedeAgregarProducto = !(userData.esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva());
-                }
+
+
                 listaRetorno.Add(prodModel);
             });
 

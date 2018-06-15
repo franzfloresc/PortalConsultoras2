@@ -212,13 +212,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Obtener Ofertas ShowRoom
-        //public bool TienePersonalizacion()
-        //{
-        //    var showRoomEvento = userData.BeShowRoom;
-        //    var tienePersonalizacion = showRoomEvento != null && showRoomEvento.TienePersonalizacion;
-        //    return tienePersonalizacion;
-        //}
-
         protected virtual List<BEShowRoomOferta> ObtenerOfertasShowRoom()
         {
             var listaShowRoomOferta = ObtenerListaProductoShowRoomService(userData.CampaniaID, userData.CodigoConsultora);
@@ -228,8 +221,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<ShowRoomOfertaModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion = false, bool conFiltroMdo = true)
         {
-            //var tienePersonalizacion = TienePersonalizacion();
-
             var listaDetalle = ObtenerPedidoWebDetalle();
 
             if (Session[Constantes.ConstSession.ListaProductoShowRoom] != null)
@@ -347,7 +338,7 @@ namespace Portal.Consultoras.Web.Controllers
                 x.CodigoISO = userData.CodigoISO;
                 x.Simbolo = userData.Simbolo;
                 x.Agregado = (listaPedidoDetalle.Find(p => p.CUV == x.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none";
-                x.UrlCompartir = GetUrlCompartirFB();
+
                 string CodigoEstrategia = listaShowRoomOfertaFinal.Where(f => f.CUV == x.CUV).Select(o => o.CodigoEstrategia).FirstOrDefault();
                 var bloqueado = revistaDigital.ActivoMdo && !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0;
                 x.TipoAccionAgregar = TipoAccionAgregar(0, Constantes.TipoEstrategiaCodigo.ShowRoom, bloqueado, CodigoEstrategia);
@@ -498,8 +489,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.ListaOfertaShowRoom = GetOfertaListadoExcepto(id);
             var listaDetalle = ObtenerPedidoWebDetalle();
             modelo.ListaOfertaShowRoom.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
-
-            modelo.FBRuta = GetUrlCompartirFB();
+            
             modelo.FBMensaje = "";
 
             bool esMovil = Request.Browser.IsMobileDevice;

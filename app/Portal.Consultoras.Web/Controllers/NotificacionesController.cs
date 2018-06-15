@@ -111,7 +111,6 @@ namespace Portal.Consultoras.Web.Controllers
             SolicitudClienteConsultoraModel model = new SolicitudClienteConsultoraModel();
             int paisId = userData.PaisID;
             ViewBag.PaisID = paisId;
-            ViewBag.Simbolo = userData.Simbolo;
             ViewBag.NombreCompleto = userData.NombreConsultora;
 
             using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
@@ -286,24 +285,18 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ListarObservaciones(long ProcesoId, int TipoOrigen)
         {
-            List<BENotificacionesDetalle> olstObservaciones;
-            List<BENotificacionesDetallePedido> olstObservacionesPedido;
-            int paisId = userData.PaisID;
-            using (UsuarioServiceClient sv = new UsuarioServiceClient())
-            {
-                olstObservaciones = sv.GetNotificacionesConsultoraDetalle(paisId, ProcesoId, TipoOrigen).ToList();
-                olstObservacionesPedido = sv.GetNotificacionesConsultoraDetallePedido(paisId, ProcesoId, TipoOrigen).ToList();
-            }
+            List<BENotificacionesDetalle> lstObservaciones;
+            List<BENotificacionesDetallePedido> lstObservacionesPedido;
+            GetNotificacionesValAutoProl(ProcesoId, TipoOrigen, out lstObservaciones, out lstObservacionesPedido);
 
             NotificacionesModel model = new NotificacionesModel
             {
-                ListaNotificacionesDetalle = olstObservaciones,
-                ListaNotificacionesDetallePedido =
-                    Mapper.Map<List<NotificacionesModelDetallePedido>>(olstObservacionesPedido),
+                ListaNotificacionesDetalle = lstObservaciones,
+                ListaNotificacionesDetallePedido = Mapper.Map<List<NotificacionesModelDetallePedido>>(lstObservacionesPedido),
                 NombreConsultora = userData.NombreConsultora,
                 simbolo = userData.Simbolo,
                 mGanancia = Util.DecimalToStringFormat(
-                    olstObservacionesPedido[0].MontoAhorroCatalogo + olstObservacionesPedido[0].MontoAhorroRevista,
+                    lstObservacionesPedido[0].MontoAhorroCatalogo + lstObservacionesPedido[0].MontoAhorroRevista,
                     userData.CodigoISO),
                 Origen = TipoOrigen
             };

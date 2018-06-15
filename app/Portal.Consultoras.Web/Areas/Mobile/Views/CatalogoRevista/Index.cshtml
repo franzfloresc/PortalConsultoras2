@@ -60,7 +60,6 @@
     <hr class="clear" />
 </div>
 <div class="wrapper_resumen_mobile">
-    <!--TAB CATÁLOGOS-->
     <div id="tab_catalogos_mobile" data-tag-html="Catalogos">
         <div class="texto_catalogos_mobile">Rever e compartilhar catálogos com seus clientes</div>
         <div class="titulo_catalogo">CATÁLOGOS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaAnterior.ToString(), 4, 2)</div>
@@ -70,8 +69,6 @@
         </div>
        
     </div>
-    <!--FIN-->
-    <!--TAB REVISTA-->
     <div id="tab_revistas_mobile" data-tag-html="Revistas" style="display:none;">
         <div class="titulo_catalogo">REVISTAS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaAnterior.ToString(), 4, 2)</div>
         <div class="content_revistas_mobile">
@@ -81,11 +78,9 @@
             </a>
         </div>
     </div>
-    <!--FIN TAB REVISTA-->
     
 </div>
 
-<!--POP UP COMPARTIR CATALOGO-->
 <div id="CompartirCorreoMobile" class="PopMobile1">
     <div class="content_popMobile">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#CompartirCorreoMobile').hide();">
@@ -96,13 +91,11 @@
         <div class="Label_compartir">Agregar contacto:</div>
         <a class="mostrar_todos">Añadir todos mis contáctos (##)</a>
         <hr class="clear" />
-        <!--TAG-->
         <div id="tagParent" style="border: 1px solid #c5c5c5; margin: 10px 0 20px 0; padding: 10px; padding-top: 14px; ">
             <div style="min-height:25px; max-height:150px;">
                 <textarea id="tagCorreo"></textarea>
             </div>
         </div>
-        <!--FIN TAG-->
         <div class="Label_compartir">Mensaje (Editable):</div>
         <hr class="clear" />
 
@@ -111,7 +104,6 @@
         <div class="Label_compartir">Catálogos a enviar:</div>
         <hr class="clear" />
         <div id="divCheckbox">
-            <!--CHECBOX1-->
             <div data-cat="Esika">
                 <div class="content_checkbox">
                     <input class="inputradio" type="checkbox">
@@ -119,7 +111,6 @@
                 </div>
                 <div class="check_label">Ésika</div>
             </div>
-            <!--CHECBOX 2-->
             <div data-cat="Lbel">
                 <div class="content_checkbox">
                     <input class="inputradio" type="checkbox">
@@ -127,7 +118,6 @@
                 </div>
                 <div class="check_label">L'Bel</div>
             </div>
-            <!--CHECBOX 3-->
             <div data-cat="Cyzone">
                 <div class="content_checkbox">
                     <input class="inputradio" type="checkbox">
@@ -140,8 +130,6 @@
         <a class="btn_enviar_correo" id="btnEnviarCorreo">ENVIAR</a>
     </div>
 </div>
-<!--FIN-->
-<!--MENSAJE DE ALERTA 1-->
 <div id="MensajeAlertaMobile" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeAlertaMobile').hide();">
@@ -154,8 +142,6 @@
         <a class="btn_ok_mobile" onclick="javascript: $('#MensajeAlertaMobile').hide();">OK</a>
     </div>
 </div>
-<!--FIN-->
-<!--MENSAJE DE ALERTA 2-->
 <div id="MensajeAlertaMobile2" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MensajeAlertaMobile2').hide();">
@@ -169,7 +155,6 @@
     </div>
 
 </div>
-<!--FIN--> 
 
 <div style="display: none;">
     @using (Html.BeginForm("MiRevista", "CatalogoRevista", FormMethod.Post, new { id = "frmMiRevista", target = "_blank"}))

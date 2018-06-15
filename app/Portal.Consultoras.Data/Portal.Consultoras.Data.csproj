@@ -80,11 +80,13 @@
     <Compile Include="CDR\DALogCDRWebDetalleCulminado.cs" />
     <Compile Include="CDR\DALogCDRWebDetalle.cs" />
     <Compile Include="CDR\DALogCDRWeb.cs" />
+    <Compile Include="DAActivarPremioNuevas.cs" />
     <Compile Include="DAAfiliaClienteConsultora.cs" />
     <Compile Include="DAAsesoraOnline.cs" />
     <Compile Include="DABannerPedido.cs" />
     <Compile Include="DABelcorpNoticia.cs" />
     <Compile Include="DABelcorpResponde.cs" />
+    <Compile Include="DACategoria.cs" />
     <Compile Include="DACuponesProgramaNuevas.cs" />
     <Compile Include="DAHorario.cs" />
     <Compile Include="DAClienteDB.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="DAFichaProducto.cs" />
     <Compile Include="DAConfiguracionOfertasHome.cs" />
     <Compile Include="DAPalabraInvalida.cs" />
+    <Compile Include="DAPremiosProgramaNuevas.cs" />
     <Compile Include="DAProductoPalabra.cs" />
     <Compile Include="DAComunicado.cs" />
     <Compile Include="DAConfiguracionPais.cs" />

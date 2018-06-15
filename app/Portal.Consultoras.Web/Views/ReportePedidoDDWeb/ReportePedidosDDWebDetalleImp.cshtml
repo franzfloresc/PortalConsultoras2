@@ -24,13 +24,8 @@
     </script>
     <script type="text/javascript" src="~/Scripts/maskedinput.js"></script>
     <script type="text/javascript" src="~/Scripts/General.js"></script>
-    <!-- HTML5 Shiv -->
     <script type="text/javascript" src="~/Scripts/modernizr.custom.js"></script>
-    <!-- jquery library -->
-    <!--[if lt IE 9]>
-    <script src="~/Scripts/selectivizr-and-extra-selectors.min.js"></script>
-    <script src="~/Scripts/IE8.js"></script>
-    <![endif]-->
+
     <script type="text/javascript" src="~/Scripts/jqueryslidemenu.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.easing.1.3.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.touchSwipe.min.js"></script>
@@ -110,7 +105,6 @@
 </head>
 <body>
     <div class="wrap_cab">
-        <!-- ***************** - Header - ***************** -->
         <header id="header">
             <div class="container clearfix">
 
@@ -134,8 +128,6 @@
                 <a href="index.html" id="logo"><img src="~/Content/Images/logo_belcorp.png" alt="" /></a>
             </div>
         </header>
-        <!--/ #header -->
-        <!-- ***************** -/ end Header - ***************** -->
     </div>
     <div class="wrap_cab">
         <div class="filtros">
@@ -254,7 +246,6 @@
                 </div>
             </div>
         </div>
-        <!--/ .container -->
         <footer id="footer">
             <div class="container clearfix">
                 <div class="foot_list">
@@ -272,9 +263,7 @@
                 </div>
             </div>
         </footer>
-        <!--/ #footer -->
     </div>
-    <!--/ #wrap-->
     <script type="text/javascript" src="~/Scripts/custom.js"></script>
     @Html.Hidden("hdn_PaisISO", (string)Model.hdnpaisISO)
     @Html.Hidden("hdn_CampaniaCod", (string)Model.lblCampaniaCod)

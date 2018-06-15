@@ -141,8 +141,7 @@ namespace Portal.Consultoras.Web.Controllers
             decimal sumaTotal = 0;
             foreach (var item in modelSolicitudCliente.listaDetalle)
                 sumaTotal += (item.Precio * item.Cantidad);
-
-            ViewBag.Simbolo = UserData().Simbolo;
+            
             ViewBag.MontoTotal = sumaTotal.ToString();
             ViewBag.MarcaID = entidadCliente.MarcaID;
             ViewBag.TieneDetalle = (entidadCliente.DetalleSolicitud != null) ? entidadCliente.DetalleSolicitud.ToList().Count : 0;

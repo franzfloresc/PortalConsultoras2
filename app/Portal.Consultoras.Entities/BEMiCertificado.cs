@@ -48,6 +48,8 @@ namespace Portal.Consultoras.Entities
         public Int16 NumeroVeces { get; set; }
         [DataMember]
         public Int16 Result { get; set; }
+        [DataMember]
+        public string DocumentoResponsable { get; set; }
 
         public BEMiCertificado()
         {
@@ -95,6 +97,8 @@ namespace Portal.Consultoras.Entities
                 TipoCert = Convert.ToInt16(row["TipoCert"]);
             if (DataRecord.HasColumn(row, "NumeroVeces"))
                 NumeroVeces = Convert.ToInt16(row["NumeroVeces"]);
+            if (DataRecord.HasColumn(row, "DocumentoResponsable") && row["DocumentoResponsable"] != DBNull.Value)
+                DocumentoResponsable = row["DocumentoResponsable"].ToString();
         }
     }
 

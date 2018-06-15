@@ -97,23 +97,14 @@ namespace Portal.Consultoras.BizLogic
             BEShowRoomEventoConsultora entidad = null;
             var daPedidoWeb = new DAShowRoomEvento(paisID);
 
-            if (!tienePersonalizacion)
+            using (IDataReader reader = daPedidoWeb.GetShowRoomConsultoraPersonalizacion(campaniaID, codigoConsultora))
             {
-                using (IDataReader reader = daPedidoWeb.GetShowRoomConsultora(campaniaID, codigoConsultora))
-                    if (reader.Read())
-                    {
-                        entidad = new BEShowRoomEventoConsultora(reader);
-                    }
+                if (reader.Read())
+                {
+                    entidad = new BEShowRoomEventoConsultora(reader);
+                }
             }
-            else
-            {
-                using (IDataReader reader = daPedidoWeb.GetShowRoomConsultoraPersonalizacion(campaniaID, codigoConsultora))
-                    if (reader.Read())
-                    {
-                        entidad = new BEShowRoomEventoConsultora(reader);
-                    }
-            }
-
+                
             return entidad;
         }
 

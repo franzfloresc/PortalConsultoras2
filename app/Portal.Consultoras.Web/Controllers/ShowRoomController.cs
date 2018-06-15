@@ -2903,7 +2903,7 @@ namespace Portal.Consultoras.Web.Controllers
             var estrategiaSR = sessionManager.GetEstrategiaSR();
             var modelo = ViewDetalleOferta(id);
             modelo.EstrategiaId = id;
-            var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
+            var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
             modelo.ListaOfertaShowRoom = xList;
 
             bool esFacturacion = EsFacturacion();
@@ -2932,8 +2932,6 @@ namespace Portal.Consultoras.Web.Controllers
                 bool esFacturacion = EsFacturacion();
                 var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion, false);
 
-                var urlCompartir = GetUrlCompartirFB();
-                productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);
                 var listaNoSubCampania = new List<ShowRoomOfertaModel>();
                 var listaNoSubCampaniaPerdio = new List<ShowRoomOfertaModel>();
                 //var listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
@@ -2947,7 +2945,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
                 }
-                
                 var totalNoSubCampania = listaNoSubCampania.Count;
 
                 if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
@@ -3021,9 +3018,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var esFacturacion = EsFacturacion();
                 var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
                 productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-
-                var urlCompartir = GetUrlCompartirFB();
-                productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);
 
                 if (model.Limite > 0 && productosShowRoom.Count > 0)
                 {

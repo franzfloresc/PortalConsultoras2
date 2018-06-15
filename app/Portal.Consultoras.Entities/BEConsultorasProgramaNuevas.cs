@@ -12,17 +12,22 @@ namespace Portal.Consultoras.Entities
     public class BEConsultorasProgramaNuevas
     {
         [DataMember]
+        [Column("Campania")]
         public string Campania { get; set; }
         [DataMember]
+        [Column("CodigoConsultora")]
         public string CodigoConsultora { get; set; }
         [DataMember]
         [Column("CodigoPrograma")]
         public string CodigoPrograma { get; set; }
         [DataMember]
+        [Column("Participa")]
         public string Participa { get; set; }
         [DataMember]
+        [Column("Motivo")]
         public string Motivo { get; set; }
         [DataMember]
+        [Column("MontoVentaExigido")]
         public decimal MontoVentaExigido { get; set; }
 
         [DataMember]
@@ -33,19 +38,19 @@ namespace Portal.Consultoras.Entities
         public BEConsultorasProgramaNuevas(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "Campania"))
-                Campania = DbConvert.ToString(datarec["Campania"]);
+                Campania = Convert.ToString(datarec["Campania"]);
             if (DataRecord.HasColumn(datarec, "CodigoConsultora"))
-                CodigoConsultora = DbConvert.ToString(datarec["CodigoConsultora"]);
+                CodigoConsultora = Convert.ToString(datarec["CodigoConsultora"]);
             if (DataRecord.HasColumn(datarec, "CodigoPrograma"))
-                CodigoPrograma = DbConvert.ToString(datarec["CodigoPrograma"]);
+                CodigoPrograma = Convert.ToString(datarec["CodigoPrograma"]);
             if (DataRecord.HasColumn(datarec, "Participa"))
-                Participa = DbConvert.ToString(datarec["Participa"]);
+                Participa = Convert.ToString(datarec["Participa"]);
             if (DataRecord.HasColumn(datarec, "Motivo"))
-                Motivo = DbConvert.ToString(datarec["Motivo"]);
+                Motivo = Convert.ToString(datarec["Motivo"]);
             if (DataRecord.HasColumn(datarec, "MontoVentaExigido"))
-                MontoVentaExigido = DbConvert.ToDecimal(datarec["MontoVentaExigido"]);
+                MontoVentaExigido = Convert.ToDecimal(datarec["MontoVentaExigido"]);
             if (DataRecord.HasColumn(datarec, "ConsecutivoNueva"))
-                ConsecutivoNueva = DbConvert.ToInt32(datarec["ConsecutivoNueva"]);
+                ConsecutivoNueva = Convert.ToInt32(datarec["ConsecutivoNueva"]);
         }
 
         public BEConsultorasProgramaNuevas()

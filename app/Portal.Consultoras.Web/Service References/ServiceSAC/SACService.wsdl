@@ -38,6 +38,24 @@
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="ISACService_GetReporteAfiliados_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteAfiliados" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetReporteAfiliados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteAfiliadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetReportePedidos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReportePedidos" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetReportePedidos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReportePedidosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetConsultoraDigitalesDescarga_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConsultoraDigitalesDescarga" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetConsultoraDigitalesDescarga_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConsultoraDigitalesDescargaResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_GetCampaniaActivaPais_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCampaniaActivaPais" />
   </wsdl:message>
@@ -284,6 +302,24 @@
   <wsdl:message name="ISACService_RemoveDataCache_OutputMessage">
     <wsdl:part name="parameters" element="tns:RemoveDataCacheResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_SelectCategoria_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectCategoria" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectCategoria_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectCategoriaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectCatalogoRevista_Filtro_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectCatalogoRevista_Filtro" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectCatalogoRevista_Filtro_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectCatalogoRevista_FiltroResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectCatalogoRevista_ODS_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectCatalogoRevista_ODS" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectCatalogoRevista_ODS_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectCatalogoRevista_ODSResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_GetCantidadOfertasPersonalizadas_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCantidadOfertasPersonalizadas" />
   </wsdl:message>
@@ -337,6 +373,24 @@
   </wsdl:message>
   <wsdl:message name="ISACService_EstrategiaTemporalInsertarEstrategiaMasivo_OutputMessage">
     <wsdl:part name="parameters" element="tns:EstrategiaTemporalInsertarEstrategiaMasivoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectBelcorpNoticias_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectBelcorpNoticias" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_SelectBelcorpNoticias_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectBelcorpNoticiasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetBelcorpNoticiaById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBelcorpNoticiaById" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetBelcorpNoticiaById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBelcorpNoticiaByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertBelcorpNoticia_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertBelcorpNoticia" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsertBelcorpNoticia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertBelcorpNoticiaResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_UpdateBelcorpNoticia_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticia" />
@@ -830,24 +884,6 @@
   <wsdl:message name="ISACService_GetEstadoSolicitudCliente_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEstadoSolicitudClienteResponse" />
   </wsdl:message>
-  <wsdl:message name="ISACService_GetReporteAfiliados_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetReporteAfiliados" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetReporteAfiliados_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetReporteAfiliadosResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetReportePedidos_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetReportePedidos" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetReportePedidos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetReportePedidosResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetConsultoraDigitalesDescarga_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetConsultoraDigitalesDescarga" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetConsultoraDigitalesDescarga_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetConsultoraDigitalesDescargaResponse" />
-  </wsdl:message>
   <wsdl:message name="ISACService_GetCronogramaByCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCronogramaByCampania" />
   </wsdl:message>
@@ -1015,6 +1051,24 @@
   </wsdl:message>
   <wsdl:message name="ISACService_UpdProductoDescripcion_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdProductoDescripcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdProductoDescripcionMasivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdProductoDescripcionMasivo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdProductoDescripcionMasivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdProductoDescripcionMasivoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ValidarMatrizCampaniaMasivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarMatrizCampaniaMasivo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ValidarMatrizCampaniaMasivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarMatrizCampaniaMasivoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_RegistrarProductoMasivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarProductoMasivo" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_RegistrarProductoMasivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarProductoMasivoResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_GetOfertaWebByCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetOfertaWebByCampania" />
@@ -1340,25 +1394,19 @@
   <wsdl:message name="ISACService_DeleteIncentivo_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteIncentivoResponse" />
   </wsdl:message>
-  <wsdl:message name="ISACService_SelectBelcorpNoticias_InputMessage">
-    <wsdl:part name="parameters" element="tns:SelectBelcorpNoticias" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_SelectBelcorpNoticias_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SelectBelcorpNoticiasResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetBelcorpNoticiaById_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetBelcorpNoticiaById" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetBelcorpNoticiaById_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetBelcorpNoticiaByIdResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertBelcorpNoticia_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertBelcorpNoticia" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsertBelcorpNoticia_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertBelcorpNoticiaResponse" />
-  </wsdl:message>
   <wsdl:portType name="ISACService">
+    <wsdl:operation name="GetReporteAfiliados">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetReporteAfiliados" message="tns:ISACService_GetReporteAfiliados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetReporteAfiliadosResponse" message="tns:ISACService_GetReporteAfiliados_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReportePedidos">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetReportePedidos" message="tns:ISACService_GetReportePedidos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetReportePedidosResponse" message="tns:ISACService_GetReportePedidos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraDigitalesDescarga">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConsultoraDigitalesDescarga" message="tns:ISACService_GetConsultoraDigitalesDescarga_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConsultoraDigitalesDescargaResponse" message="tns:ISACService_GetConsultoraDigitalesDescarga_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetCampaniaActivaPais">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActivaPais" message="tns:ISACService_GetCampaniaActivaPais_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActivaPaisResponse" message="tns:ISACService_GetCampaniaActivaPais_OutputMessage" />
@@ -1523,6 +1571,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/RemoveDataCache" message="tns:ISACService_RemoveDataCache_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/RemoveDataCacheResponse" message="tns:ISACService_RemoveDataCache_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="SelectCategoria">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectCategoria" message="tns:ISACService_SelectCategoria_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectCategoriaResponse" message="tns:ISACService_SelectCategoria_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectCatalogoRevista_Filtro">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectCatalogoRevista_Filtro" message="tns:ISACService_SelectCatalogoRevista_Filtro_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectCatalogoRevista_FiltroResponse" message="tns:ISACService_SelectCatalogoRevista_Filtro_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectCatalogoRevista_ODS">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectCatalogoRevista_ODS" message="tns:ISACService_SelectCatalogoRevista_ODS_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectCatalogoRevista_ODSResponse" message="tns:ISACService_SelectCatalogoRevista_ODS_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetCantidadOfertasPersonalizadas">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadas" message="tns:ISACService_GetCantidadOfertasPersonalizadas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadasResponse" message="tns:ISACService_GetCantidadOfertasPersonalizadas_OutputMessage" />
@@ -1558,6 +1618,18 @@
     <wsdl:operation name="EstrategiaTemporalInsertarEstrategiaMasivo">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivo" message="tns:ISACService_EstrategiaTemporalInsertarEstrategiaMasivo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivoResponse" message="tns:ISACService_EstrategiaTemporalInsertarEstrategiaMasivo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectBelcorpNoticias">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectBelcorpNoticias" message="tns:ISACService_SelectBelcorpNoticias_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectBelcorpNoticiasResponse" message="tns:ISACService_SelectBelcorpNoticias_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBelcorpNoticiaById">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetBelcorpNoticiaById" message="tns:ISACService_GetBelcorpNoticiaById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetBelcorpNoticiaByIdResponse" message="tns:ISACService_GetBelcorpNoticiaById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertBelcorpNoticia">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertBelcorpNoticia" message="tns:ISACService_InsertBelcorpNoticia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertBelcorpNoticiaResponse" message="tns:ISACService_InsertBelcorpNoticia_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdateBelcorpNoticia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia" message="tns:ISACService_UpdateBelcorpNoticia_InputMessage" />
@@ -1887,18 +1959,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetEstadoSolicitudCliente" message="tns:ISACService_GetEstadoSolicitudCliente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetEstadoSolicitudClienteResponse" message="tns:ISACService_GetEstadoSolicitudCliente_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetReporteAfiliados">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetReporteAfiliados" message="tns:ISACService_GetReporteAfiliados_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetReporteAfiliadosResponse" message="tns:ISACService_GetReporteAfiliados_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetReportePedidos">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetReportePedidos" message="tns:ISACService_GetReportePedidos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetReportePedidosResponse" message="tns:ISACService_GetReportePedidos_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultoraDigitalesDescarga">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConsultoraDigitalesDescarga" message="tns:ISACService_GetConsultoraDigitalesDescarga_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConsultoraDigitalesDescargaResponse" message="tns:ISACService_GetConsultoraDigitalesDescarga_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetCronogramaByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCronogramaByCampania" message="tns:ISACService_GetCronogramaByCampania_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCronogramaByCampaniaResponse" message="tns:ISACService_GetCronogramaByCampania_OutputMessage" />
@@ -2010,6 +2070,18 @@
     <wsdl:operation name="UpdProductoDescripcion">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdProductoDescripcion" message="tns:ISACService_UpdProductoDescripcion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdProductoDescripcionResponse" message="tns:ISACService_UpdProductoDescripcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdProductoDescripcionMasivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdProductoDescripcionMasivo" message="tns:ISACService_UpdProductoDescripcionMasivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdProductoDescripcionMasivoResponse" message="tns:ISACService_UpdProductoDescripcionMasivo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarMatrizCampaniaMasivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ValidarMatrizCampaniaMasivo" message="tns:ISACService_ValidarMatrizCampaniaMasivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ValidarMatrizCampaniaMasivoResponse" message="tns:ISACService_ValidarMatrizCampaniaMasivo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarProductoMasivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/RegistrarProductoMasivo" message="tns:ISACService_RegistrarProductoMasivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/RegistrarProductoMasivoResponse" message="tns:ISACService_RegistrarProductoMasivo_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetOfertaWebByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetOfertaWebByCampania" message="tns:ISACService_GetOfertaWebByCampania_InputMessage" />
@@ -2227,21 +2299,36 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DeleteIncentivo" message="tns:ISACService_DeleteIncentivo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DeleteIncentivoResponse" message="tns:ISACService_DeleteIncentivo_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="SelectBelcorpNoticias">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectBelcorpNoticias" message="tns:ISACService_SelectBelcorpNoticias_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectBelcorpNoticiasResponse" message="tns:ISACService_SelectBelcorpNoticias_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetBelcorpNoticiaById">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetBelcorpNoticiaById" message="tns:ISACService_GetBelcorpNoticiaById_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetBelcorpNoticiaByIdResponse" message="tns:ISACService_GetBelcorpNoticiaById_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsertBelcorpNoticia">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsertBelcorpNoticia" message="tns:ISACService_InsertBelcorpNoticia_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsertBelcorpNoticiaResponse" message="tns:ISACService_InsertBelcorpNoticia_OutputMessage" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISACService" type="tns:ISACService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetReporteAfiliados">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetReporteAfiliados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReportePedidos">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetReportePedidos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraDigitalesDescarga">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConsultoraDigitalesDescarga" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCampaniaActivaPais">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActivaPais" style="document" />
       <wsdl:input>
@@ -2611,6 +2698,33 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SelectCategoria">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectCategoria" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectCatalogoRevista_Filtro">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectCatalogoRevista_Filtro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectCatalogoRevista_ODS">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectCatalogoRevista_ODS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCantidadOfertasPersonalizadas">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadas" style="document" />
       <wsdl:input>
@@ -2685,6 +2799,33 @@
     </wsdl:operation>
     <wsdl:operation name="EstrategiaTemporalInsertarEstrategiaMasivo">
       <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectBelcorpNoticias">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectBelcorpNoticias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBelcorpNoticiaById">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetBelcorpNoticiaById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertBelcorpNoticia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertBelcorpNoticia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3430,33 +3571,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetReporteAfiliados">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetReporteAfiliados" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetReportePedidos">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetReportePedidos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultoraDigitalesDescarga">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetConsultoraDigitalesDescarga" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetCronogramaByCampania">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCronogramaByCampania" style="document" />
       <wsdl:input>
@@ -3702,6 +3816,33 @@
     </wsdl:operation>
     <wsdl:operation name="UpdProductoDescripcion">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpdProductoDescripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdProductoDescripcionMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdProductoDescripcionMasivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarMatrizCampaniaMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ValidarMatrizCampaniaMasivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarProductoMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/RegistrarProductoMasivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4188,33 +4329,6 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteIncentivo">
       <soap:operation soapAction="http://tempuri.org/ISACService/DeleteIncentivo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SelectBelcorpNoticias">
-      <soap:operation soapAction="http://tempuri.org/ISACService/SelectBelcorpNoticias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetBelcorpNoticiaById">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetBelcorpNoticiaById" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertBelcorpNoticia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertBelcorpNoticia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4226,6 +4340,33 @@
   <wsdl:binding name="BasicHttpsBinding_ISACService" type="tns:ISACService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_ISACService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetReporteAfiliados">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetReporteAfiliados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReportePedidos">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetReportePedidos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConsultoraDigitalesDescarga">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConsultoraDigitalesDescarga" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCampaniaActivaPais">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActivaPais" style="document" />
       <wsdl:input>
@@ -4595,6 +4736,33 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SelectCategoria">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectCategoria" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectCatalogoRevista_Filtro">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectCatalogoRevista_Filtro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectCatalogoRevista_ODS">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectCatalogoRevista_ODS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCantidadOfertasPersonalizadas">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCantidadOfertasPersonalizadas" style="document" />
       <wsdl:input>
@@ -4669,6 +4837,33 @@
     </wsdl:operation>
     <wsdl:operation name="EstrategiaTemporalInsertarEstrategiaMasivo">
       <soap:operation soapAction="http://tempuri.org/ISACService/EstrategiaTemporalInsertarEstrategiaMasivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectBelcorpNoticias">
+      <soap:operation soapAction="http://tempuri.org/ISACService/SelectBelcorpNoticias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBelcorpNoticiaById">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetBelcorpNoticiaById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertBelcorpNoticia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsertBelcorpNoticia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5414,33 +5609,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetReporteAfiliados">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetReporteAfiliados" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetReportePedidos">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetReportePedidos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConsultoraDigitalesDescarga">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetConsultoraDigitalesDescarga" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetCronogramaByCampania">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCronogramaByCampania" style="document" />
       <wsdl:input>
@@ -5686,6 +5854,33 @@
     </wsdl:operation>
     <wsdl:operation name="UpdProductoDescripcion">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpdProductoDescripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdProductoDescripcionMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdProductoDescripcionMasivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarMatrizCampaniaMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ValidarMatrizCampaniaMasivo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarProductoMasivo">
+      <soap:operation soapAction="http://tempuri.org/ISACService/RegistrarProductoMasivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6172,33 +6367,6 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteIncentivo">
       <soap:operation soapAction="http://tempuri.org/ISACService/DeleteIncentivo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SelectBelcorpNoticias">
-      <soap:operation soapAction="http://tempuri.org/ISACService/SelectBelcorpNoticias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetBelcorpNoticiaById">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetBelcorpNoticiaById" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertBelcorpNoticia">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsertBelcorpNoticia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

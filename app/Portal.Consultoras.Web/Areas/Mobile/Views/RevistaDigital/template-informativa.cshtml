@@ -10,6 +10,16 @@
 
 @section styles{
     @Styles.Render("~/bundles/css/Mobile/Site/RevistaDigital-Info")
+
+    <style type="text/css">
+        #btn_init {
+            display: none !important;
+        }
+
+        #btn_open {
+            display: none !important;
+        }
+    </style>
 }
 
 @if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete && Model.Origen != Constantes.RevistaDigitalOrigen.Nueva)
@@ -17,13 +27,9 @@
     <div class="video-visual">
         <div class="video-container">
 
-            <!--div id="player"></div-->
-            <!--, videoId:'@@Model.TipoEstrategiaDetalle.UrlVideoMobile-->
-            <!--data-extra="{'descripcionResumen':'@@Model.DescripcionResumen'}"-->
             <div id="ytMobileRevistaDigitalTemplateInformativa"
-                data-youtube="{ height:'415', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}"
-                class="yt-video"
-            ></div>
+                 data-youtube="{ height:'390', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}"
+                 class="yt-video"></div>
 
         </div>
     </div>
@@ -34,7 +40,7 @@
     <div class="contenedor-mobile-fix" style="padding: 0;">
         <div class="logo"></div>
         <span class="txt-logo">
-            CONOCE SUS BENEFICIOS EXCLUSIVOS <br/>¡Y ÚNETE YA!
+            CONOCE SUS BENEFICIOS EXCLUSIVOS <br />¡Y ÚNETE YA!
         </span>
     </div>
 </div>
@@ -178,20 +184,20 @@ else
         <div class="contenedor-mobile-fix" style="padding: 25px;">
             @if (Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
             {
-            <p class="txt-deseas-cancelar">
-                ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
-            </p>
-            <span class="deseas-cancelar">
-                Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
-            </span>
-            <a href="javascript: RDDesuscripcion();" class="btn-suscribete">Cancela tu suscripción aquí</a>
+                <p class="txt-deseas-cancelar">
+                    ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
+                </p>
+                <span class="deseas-cancelar">
+                    Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
+                </span>
+                <a href="javascript: RDDesuscripcion();" class="btn-suscribete">Cancela tu suscripción aquí</a>
             }
             @if (!Model.EsSuscrita)
             {
-            <div id="div-suscribite">
-                <div class="logo" style="margin-top:0;"></div>
-                <a href="javascript: RDSuscripcion();" class="btn-suscribete">SUSCRÍBETE GRATIS AQUÍ</a>
-            </div>
+                <div id="div-suscribite">
+                    <div class="logo" style="margin-top:0;"></div>
+                    <a href="javascript: RDSuscripcion();" class="btn-suscribete">SUSCRÍBETE GRATIS AQUÍ</a>
+                </div>
             }
 
             <a href="javascript: MostrarTerminos();" class="terminos" style="text-decoration:underline;">
@@ -201,13 +207,13 @@ else
         </div>
     </div>
 }
-else if(Model.CancelarSuscripcion)
+else if (Model.CancelarSuscripcion)
 {
     <div class="bloques-gana-mas suscribete-gratis" data-estadoregistro="@Model.EstadoSuscripcion" id="saber-mas-tres">
         <div class="contenedor-mobile-fix" style="padding: 25px;">
             @if (!Model.EsSuscrita)
             {
-            <div class="logo" style="margin-top:0;"></div>
+                <div class="logo" style="margin-top:0;"></div>
             }
             @if (Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
             {
@@ -219,9 +225,9 @@ else if(Model.CancelarSuscripcion)
                 </span>
                 <a href="javascript: RDDesuscripcion();" class="btn-suscribete">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
             }
-            @if(!Model.EsSuscrita)
+            @if (!Model.EsSuscrita)
             {
-            <a href="javascript: RDSuscripcion();" class="btn-suscribete">SUSCRÍBETE GRATIS AQUÍ</a>
+                <a href="javascript: RDSuscripcion();" class="btn-suscribete">SUSCRÍBETE GRATIS AQUÍ</a>
             }
 
             <a href="javascript: MostrarTerminos();" class="terminos" style="text-decoration:underline;">
@@ -244,14 +250,11 @@ else if(Model.CancelarSuscripcion)
                             GANA+ es un conjunto de ofertas exclusivas para ti que encontrarás entrando desde el App Ésika Conmigo o desde somosbelcorp.com
                             Club GANA+ es un espacio exclusivo para nuestras consultoras suscritas, en donde recibirán muchos beneficios como: más ofertas hechas a su medida que GANA+, packs de sus productos favoritos, no tendrán que digitar códigos y mucho más.
                         </span>
-                        @*@if (Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
-                        {*@
                         <b>¿Cómo cancelo mi suscripción?</b>
                         <span>
                             Ingresa a tu cuenta y haz clic en “Saber más”. Una vez ahí, baja el cursor hasta el botón “CANCELA TU SUSCRIPCIÓN AQUÍ” y al hacer clic, tu suscripción se anulará.
                             Recuerda que puedes suscribirte nuevamente cuando desees.
                         </span>
-                        @*}*@
                         <b>¿Por qué ya no recibo la guía de negocio impresa?</b>
                         <span>Al suscribirte al Club GANA+, dejarás de recibir la guía de negocio impresa desde la siguiente campaña, pues siendo miembro del Club, contarás con muchos beneficios que reemplazarán a tu guía.</span>
                     </li>
@@ -272,20 +275,14 @@ else if(Model.CancelarSuscripcion)
     <script type="text/javascript">
         var done = false;
         var PosBannerMenu;
-        
+
         window.videoKey = '@Model.Video';
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
         var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';
         var isScroll = false;
         window.estaSuscrita = '@Model.EsSuscrita';
-        
-        /*
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        var player;*/ // create youtube player
+
     </script>
 
     @Scripts.Render("~/bundles/Mobile/RevistaDigital-Info")

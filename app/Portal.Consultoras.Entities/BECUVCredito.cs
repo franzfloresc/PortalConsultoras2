@@ -5,28 +5,14 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BECUVCredito
     {
-        private string cuvCredito;
-        private string cuvRegular;
-        private int idMensaje;
+        [DataMember]
+        public string CuvCredito { get; set; }
 
         [DataMember]
-        public string CuvCredito
-        {
-            get { return cuvCredito; }
-            set { cuvCredito = value; }
-        }
+        public string CuvRegular { get; set; }
+
         [DataMember]
-        public string CuvRegular
-        {
-            get { return cuvRegular; }
-            set { cuvRegular = value; }
-        }
-        [DataMember]
-        public int IdMensaje
-        {
-            get { return idMensaje; }
-            set { idMensaje = value; }
-        }
+        public int IdMensaje { get; set; }
 
     }
 }

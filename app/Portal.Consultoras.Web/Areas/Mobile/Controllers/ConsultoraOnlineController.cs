@@ -443,7 +443,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
 
             var pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedidoId);
-            ViewBag.Simbolo = userData.Simbolo;
             ViewBag.NombreCompleto = userData.NombreConsultora;
 
             List<BEMisPedidosDetalle> olstMisPedidosDet;

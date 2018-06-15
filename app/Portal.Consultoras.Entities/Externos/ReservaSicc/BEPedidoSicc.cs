@@ -32,5 +32,6 @@
         public string oidPedidoSap { get; set; }
         public int exitCode { get; set; }
         public BEDetalleSicc[] posiciones { get; set; }
+        public BEIncentivoSicc[] incentivos { get; set; }
     }
 }

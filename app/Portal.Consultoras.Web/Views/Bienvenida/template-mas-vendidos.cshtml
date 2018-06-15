@@ -5,7 +5,7 @@
         <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
             <div onclick="javascript:masVendidosModule.estrategiaVerDetalle({{EstrategiaID}});">
                 <div class="producto_img_home">
-                    <img src="{{FotoProducto01}}" class="imagen_producto">
+                    <img src="{{ImgUrl FotoProducto01}}" class="imagen_producto">
                     {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
                     <a href="javascript:;" class="ver_detalle_carrusel" tabindex="0">VER DETALLE</a>
                     {{/iff}}
@@ -25,9 +25,9 @@
 
                     <div class="producto_precio">
                         <div style="height:15px">
-                            <div id="precio-tachado-{{EstrategiaID}}"><s class="price_offer">{{Simbolo}} {{PrecioTachado}}</s></div>
+                            <div id="precio-tachado-{{EstrategiaID}}"><s class="price_offer">{{SimboloMoneda}} {{PrecioTachado}}</s></div>
                         </div>                        
-                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                        <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioString}}</b></span>
                     </div>
                 </div>
                 <div class="content_puntuacion">

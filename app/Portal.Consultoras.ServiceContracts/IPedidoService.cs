@@ -1238,9 +1238,11 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         Task<BEPedidoDetalleAppResult> DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
         [OperationContract]
-        BEPedidoDetalleAppResult ReservaPedidoDetalleApp(BEUsuario usuario);
+        Task<BEPedidoReservaAppResult> ReservaPedidoDetalleApp(BEUsuario usuario);
         [OperationContract]
         BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario);
+        [OperationContract]
+        List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario);
         #endregion
 
         #region Pago en Linea
@@ -1281,5 +1283,14 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         DateTime? ObtenerFechaInicioSets(int paisId);
+
+        [OperationContract]
+        void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario);
+
+        [OperationContract]
+        BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
+
+        [OperationContract]
+        BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
     }
 }

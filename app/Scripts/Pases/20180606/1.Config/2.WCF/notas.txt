@@ -1,0 +1,17 @@
+Para Salvador:
+
+se tiene esta linea:
+<add key="SV-FIC" address="ftp://pelnx70/int/ndg/pe/in/" user="ftpverint" password="peru" header="OCWPEDFICCA.TXT" detail="OCWPEDFICDE.TXT" />
+
+debe actualizarse por esta linea:
+<add key="SV-FIC" address="ftp://pelnx2143/ndg/sv/es/int/in/" user="ftpverint" password="ver17PDP" header="OCWPEDFICCA.TXT" detail="OCWPEDFICDE.TXT" />
+
+
+Para Bolivia:
+
+se tiene esta linea:
+<add key="BO-FIC" address="ftp://pelnx70/int/ndg/pe/in/" user="ftpverint" password="peru" header="OCWPEDFICCA.TXT" detail="OCWPEDFICDE.TXT" />
+
+debe actualizarse por esta linea:
+<add key="BO-FIC" address="ftp://pelnx2143/ndg/bo/es/int/in/" user="ftpverint" password="ver17PDP" header="OCWPEDFICCA.TXT" detail="OCWPEDFICDE.TXT" />
+

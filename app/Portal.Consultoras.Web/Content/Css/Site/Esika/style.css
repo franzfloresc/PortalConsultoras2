@@ -10,10 +10,7 @@
 @font-face {
     font-family: 'icomoon';
     src: url('fonts/icomoon.eot?-q1bfik');
-    src: url('fonts/icomoon.eot?#iefix-q1bfik') format('embedded-opentype'),
-        url('fonts/icomoon.woff?-q1bfik') format('woff'),
-        url('fonts/icomoon.ttf?-q1bfik') format('truetype'),
-        url('fonts/icomoon.svg?-q1bfik#icomoon') format('svg');
+    src: url('fonts/icomoon.eot?#iefix-q1bfik') format('embedded-opentype'), url('fonts/icomoon.woff?-q1bfik') format('woff'), url('fonts/icomoon.ttf?-q1bfik') format('truetype'), url('fonts/icomoon.svg?-q1bfik#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -21,10 +18,7 @@
 @font-face {
     font-family: 'OldStandard-Italic';
     src: url('fonts/OldStandard-Italic.eot');
-    src: url('fonts/OldStandard-Italic.eot?#iefix') format('embedded-opentype'),
-        url('fonts/OldStandard-Italic.woff') format('woff'), 
-        url('fonts/OldStandard-Italic.ttf') format('truetype'),
-        url('fonts/OldStandard-Italic.svg#OldStandardItalic') format('svg');
+    src: url('fonts/OldStandard-Italic.eot?#iefix') format('embedded-opentype'), url('fonts/OldStandard-Italic.woff') format('woff'), url('fonts/OldStandard-Italic.ttf') format('truetype'), url('fonts/OldStandard-Italic.svg#OldStandardItalic') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -56,14 +50,6 @@ ul, ol {
     list-style: none;
 }
 
-/*.lt-ie9 img {
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)";
-}*/
-
-/*.lt-ie8 img {
-    filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)";
-}*/
-
 header {
     position: relative;
     top: 0 !important;
@@ -83,6 +69,7 @@ header {
     min-height: 61px;
     margin: 0 auto;
     max-width: 1189px;
+    position:relative;
 }
 
 .user-profile {
@@ -106,7 +93,7 @@ header {
 .menu_esika_b {
     height: 60px;
     float: right;
-    max-width: 28%;
+    max-width: 31%;
 }
 
 .campana {
@@ -2273,7 +2260,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     .info_copy:hover .tooltip_importe {
         display: block;
     }
-        
+
 
     .info_copy .tooltip_infoCopy_grid {
         display: none;
@@ -2281,7 +2268,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         min-height: 158px;
         height: auto;
         position: absolute;
-        background: #fff;       
+        background: #fff;
         z-index: 50;
         top: 58%;
         left: 153%;
@@ -2303,7 +2290,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         }
 
     .info_copy:hover .tooltip_infoCopy_grid {
-        display: block;  
+        display: block;
     }
 
 
@@ -2356,28 +2343,28 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 }
 
 
-    .info_copy .left_reservado {
-        float: left;
-        text-align: left;
-    }
+.info_copy .left_reservado {
+    float: left;
+    text-align: left;
+}
 
-    .info_copy .right_reservado {
-        float: right;
-        text-align: right;
-    }
+.info_copy .right_reservado {
+    float: right;
+    text-align: right;
+}
 
-    .info_copy .datos_Reservado {
-        font-family: 'Lato';
-        font-size: 13px;
-        color: black;
-        line-height: 18px;
-    }
+.info_copy .datos_Reservado {
+    font-family: 'Lato';
+    font-size: 13px;
+    color: black;
+    line-height: 18px;
+}
 
-        .info_copy .datos_Reservado span {
-            display: block;
-            margin: 0;
-            float: none;
-        }
+    .info_copy .datos_Reservado span {
+        display: block;
+        margin: 0;
+        float: none;
+    }
 /* fin tool tip => info sobre el icono*/
 .boton_guardarPedido input[type='submit'], .boton_guardarPedido input[type='button'] {
     display: block;
@@ -3221,7 +3208,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     overflow: hidden;
     padding-top: 10px;
     box-sizing: border-box;
-    /*top: -115px;*/
 }
 
 .control_carousel_flechaArriba {
@@ -3357,7 +3343,7 @@ a.subir_carousel, a.bajar_carousel {
     overflow: hidden;
 }
 
-    
+
 
     .producto_nombre_descripcion.pb-16 {
         padding-bottom: 16px;
@@ -3842,7 +3828,8 @@ a.subir_carousel, a.bajar_carousel {
     overflow-x: hidden;
     overflow-y: auto;
     height: 100%;
-    max-height: 438px;
+    /*max-height: 438px;*/
+    max-height: 460px;
     padding-left: 10px;
     padding-right: 7px;
 }
@@ -11220,10 +11207,7 @@ ol {
 @font-face {
     font-family: 'museo_sans_900regular';
     src: url('../../fonts/museo/museosans_900-webfont.eot');
-    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../../fonts/museo/museosans_900-webfont.woff') format('woff'), 
-        url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'),
-        url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_900-webfont.woff') format('woff'), url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -11231,10 +11215,7 @@ ol {
 @font-face {
     font-family: 'museo_sans_700regular';
     src: url('../../fonts/museo/museosans_700-webfont.eot');
-    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../../fonts/museo/museosans_700-webfont.woff') format('woff'), 
-        url('../../fonts/museo/museosans_700-webfont.ttf') format('truetype'), 
-        url('../../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
+    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_700-webfont.woff') format('woff'), url('../../fonts/museo/museosans_700-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -11242,10 +11223,7 @@ ol {
 @font-face {
     font-family: 'museo_sans_500regular';
     src: url('../../fonts/museo/museosans_500-webfont.eot');
-    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../../fonts/museo/museosans_500-webfont.woff') format('woff'),
-        url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'),
-        url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_500-webfont.woff') format('woff'), url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -11253,10 +11231,7 @@ ol {
 @font-face {
     font-family: 'museo_300regular';
     src: url('../../fonts/museo/museo300-regular-webfont.eot');
-    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'), 
-         url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'),
-         url('../../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
+    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'), url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'), url('../../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -11264,10 +11239,7 @@ ol {
 @font-face {
     font-family: 'museo_sans_100regular';
     src: url('../../fonts/museo/museosans-100-webfont.eot');
-    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../../fonts/museo/museosans-100-webfont.woff') format('woff'),
-         url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'),
-         url('../../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
+    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans-100-webfont.woff') format('woff'), url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -17244,10 +17216,7 @@ span.icon-del {
 @font-face {
     font-family: 'Museo Sans 300';
     src: url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.eot');
-    src: url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.woff') format('woff'), 
-        url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.ttf') format('truetype'),
-        url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.svg') format('svg');
+    src: url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.eot?#iefix') format('embedded-opentype'), url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.woff') format('woff'), url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.ttf') format('truetype'), url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.svg') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -18867,9 +18836,7 @@ label.checkpop.c_on {
 @font-face {
     font-family: 'ArialMT';
     src: url('../../fonts/arialMT/arialmt.eot');
-    src: url('../../fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'),
-        url('../../fonts/arialMT/arialmt.ttf') format('truetype'), 
-        url('../../fonts/arialMT/arialmt.svg#arialmt') format('svg');
+    src: url('../../fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'), url('../../fonts/arialMT/arialmt.ttf') format('truetype'), url('../../fonts/arialMT/arialmt.svg#arialmt') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -18877,9 +18844,7 @@ label.checkpop.c_on {
 @font-face {
     font-family: 'ArialBoldMT';
     src: url('../../fonts/arialboldMT/arialboldMT.eot');
-    src: url('../../fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'), 
-        url('../../fonts/arialboldMT/arialboldMT.ttf') format('truetype'),
-        url('../../fonts/arialboldMT/arialboldMT.svg#arialboldMT') format('svg');
+    src: url('../../fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'), url('../../fonts/arialboldMT/arialboldMT.ttf') format('truetype'), url('../../fonts/arialboldMT/arialboldMT.svg#arialboldMT') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -19654,7 +19619,7 @@ label.checkpop.c_on {
 
 .content_datos {
     padding-top: 11px;
-    padding-bottom:12px;
+    padding-bottom: 12px;
     padding-left: 23px;
     max-width: 1070px;
     margin: 0 auto;
@@ -19689,19 +19654,19 @@ label.checkpop.c_on {
     font-size: 18px;
     letter-spacing: .3px;
     color: black;
-    display:inline-block;
-    vertical-align:middle;
+    display: inline-block;
+    vertical-align: middle;
     margin-left: 3%;
     margin-right: 3%;
     width: 24.8%;
-    padding-top:9px;
+    padding-top: 9px;
 }
 
 .nombre_consultora {
     width: 100%;
     overflow: hidden;
     color: black;
-    font-size:15px;
+    font-size: 15px;
 }
 
 .consultora_home {
@@ -19712,13 +19677,14 @@ label.checkpop.c_on {
     float: left;
     font-size: 13px !important;
 }
-.consultora_home a.txtdorado{
-    display: inline;
-    font-size: 13px !important;
-    color: #d4ae3a !important;
-    margin-right: 5px;
-    text-decoration:underline;
-}
+
+    .consultora_home a.txtdorado {
+        display: inline;
+        font-size: 13px !important;
+        color: #d4ae3a !important;
+        margin-right: 5px;
+        text-decoration: underline;
+    }
 
 .info_cam_belcorp {
     float: left;
@@ -19765,13 +19731,13 @@ label.checkpop.c_on {
     }
 
 .pedido_resumen_home {
-    display:inline-block;
-    vertical-align:middle;
+    display: inline-block;
+    vertical-align: middle;
     font-size: 11px;
     font-family: 'lato';
     color: black;
     width: 33%;
-    padding-top:9px;
+    padding-top: 9px;
 }
 
     .pedido_resumen_home span {
@@ -19837,15 +19803,15 @@ label.checkpop.c_on {
     }
 
 .socia_negocio_home {
-    display:inline-block;
-    vertical-align:middle;
+    display: inline-block;
+    vertical-align: middle;
     font-family: 'Lato';
     font-weight: 700;
     font-size: 11px;
     color: black;
     margin-left: 5%;
     width: 27%;
-    padding-top:12px;
+    padding-top: 12px;
 }
 
     .socia_negocio_home span {
@@ -19966,7 +19932,7 @@ label.checkpop.c_on {
     margin-top: 30px;
     height: 45px;
     border: 1px solid black;
-    color:#000;
+    color: #000;
     text-align: center;
     font-family: 'lato';
     font-size: 13px;
@@ -20117,11 +20083,11 @@ label.checkpop.c_on {
     margin: auto;
     left: 0;
     right: 0;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
 }
 
     .btn_comparte:hover {
@@ -20146,16 +20112,16 @@ label.checkpop.c_on {
         text-decoration: underline;
     }
 
-    .enlace_pedido_fic{
-        width: 100%;
-        margin-top: 9px;
-        position: relative;
-        top: -2px;
-        font-size: 14px;
-        color: #e81c36;
-        font-weight: 700;
-        background-position: 0 7px;
-    }
+.enlace_pedido_fic {
+    width: 100%;
+    margin-top: 9px;
+    position: relative;
+    top: -2px;
+    font-size: 14px;
+    color: #e81c36;
+    font-weight: 700;
+    background-position: 0 7px;
+}
 
 .mis_datos {
     font-family: 'lato';
@@ -20194,20 +20160,20 @@ label.checkpop.c_on {
     margin-left: auto;
     margin-right: auto;
     float: none;
-    margin-top:27px;
+    margin-top: 27px;
     padding-top: 12px;
     padding-left: 20px;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
 }
 
-.btn_100_paga:hover{
-    color:#FFF;
-    background: #000 url('../../../Images/icono-tarjeta-blanco.svg') 27.5% 10px no-repeat;
-}
+    .btn_100_paga:hover {
+        color: #FFF;
+        background: #000 url('../../../Images/icono-tarjeta-blanco.svg') 27.5% 10px no-repeat;
+    }
 
 .btn_100_facturacion {
     width: 100%;
@@ -24099,10 +24065,7 @@ img {
 @font-face {
     font-family: 'museo_sans_900regular';
     src: url('../../fonts/museo/museosans_900-webfont.eot');
-    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'), 
-        url('../../fonts/museo/museosans_900-webfont.woff') format('woff'), 
-        url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'),
-        url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_900-webfont.woff') format('woff'), url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -24110,10 +24073,7 @@ img {
 @font-face {
     font-family: 'museo_sans_700regular';
     src: url('../../fonts/museo/museosans_700-webfont.eot');
-    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'), 
-        url('../../fonts/museo/museosans_700-webfont.woff') format('woff'),
-        url('../../fonts/museo/museosans_700-webfont.ttf') format('truetype'),
-        url('../../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
+    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_700-webfont.woff') format('woff'), url('../../fonts/museo/museosans_700-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -24121,10 +24081,7 @@ img {
 @font-face {
     font-family: 'museo_sans_500regular';
     src: url('../../fonts/museo/museosans_500-webfont.eot');
-    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), 
-        url('../../fonts/museo/museosans_500-webfont.woff') format('woff'),
-        url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'),
-        url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_500-webfont.woff') format('woff'), url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -24132,10 +24089,7 @@ img {
 @font-face {
     font-family: 'museo_300regular';
     src: url('../../fonts/museo/museo300-regular-webfont.eot');
-    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'),
-        url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'), 
-        url('../../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
+    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'), url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'), url('../../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -24143,10 +24097,7 @@ img {
 @font-face {
     font-family: 'museo_sans_100regular';
     src: url('../../fonts/museo/museosans-100-webfont.eot');
-    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'), 
-        url('../../fonts/museo/museosans-100-webfont.woff') format('woff'),
-        url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'),
-        url('../../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
+    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans-100-webfont.woff') format('woff'), url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -26396,15 +26347,18 @@ input[type='checkbox']:checked + span:after {
 }
 
 .tippingPoint {
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 24px;
     margin: 0 auto;
-    background: url('../../../Images/tippingPoint.png') no-repeat;
+    background: url('../../../Images/tippingPointActivo.svg') no-repeat;
+    background-size:100%;
 }
 
     .tippingPoint.activo {
-        background: url('../../../Images/tippingPointActivo.png') no-repeat;
+        background: url('../../../Images/tippingPointActivo.svg') no-repeat;
+        background-size:100%;
     }
+
 /*PEDIDO VALIDADO*/
 .cod_venta_listado {
     width: 10%;
@@ -27039,7 +26993,6 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     }
 
         .contenedor_item_descripcion span::after {
-           
             content: ' ..';
         }
 
@@ -29742,8 +29695,8 @@ h1#penmostreo .campana {
 /* FIN POPUPS OFERTAS REVISTA */
 /* ACTUALIZAR CONTRASEÑA */
 .titulo_interiores.tituloCambioContrasenia {
-    background:black url("../../../Images/Esika/titulo_interiores_2.png") no-repeat;
-    background-position:right;
+    background: black url("../../../Images/Esika/titulo_interiores_2.png") no-repeat;
+    background-position: right;
     transform: scaleY(-1);
     -moz-transform: scaleY(-1);
     -o-transform: scaleY(-1);
@@ -29751,19 +29704,19 @@ h1#penmostreo .campana {
     -webkit-transform: scaleY(-1);
 }
 
-.titulo_interiores.tituloCambioContrasenia span{
-    display:inline-block;
-    transform: scaleY(-1);
-    -moz-transform: scaleY(-1);
-    -o-transform: scaleY(-1);
-    -ms-transform: scaleY(-1);
-    -webkit-transform: scaleY(-1);
-    font-weight:200;
-}
+    .titulo_interiores.tituloCambioContrasenia span {
+        display: inline-block;
+        transform: scaleY(-1);
+        -moz-transform: scaleY(-1);
+        -o-transform: scaleY(-1);
+        -ms-transform: scaleY(-1);
+        -webkit-transform: scaleY(-1);
+        font-weight: 200;
+    }
 
-.titulo_interiores.tituloCambioContrasenia span:last-child{
-    font-weight:700;
-}
+        .titulo_interiores.tituloCambioContrasenia span:last-child {
+            font-weight: 700;
+        }
 
 .contenedor_actualizarContraseniaForm {
     display: block;
@@ -29779,16 +29732,17 @@ h1#penmostreo .campana {
     max-width: 365px;
     padding: 0 18px 0 20px;
 }
-.campos_actualizacionContrasenia{
-    display:block;
+
+.campos_actualizacionContrasenia {
+    display: block;
 }
 
-.contenedor_vista_felicidades{
-    display:block;
+.contenedor_vista_felicidades {
+    display: block;
 }
 
 .imagen_consultora {
-    display:none;
+    display: none;
     width: 131px;
     height: 131px;
     border-radius: 100%;
@@ -29841,15 +29795,16 @@ h1#penmostreo .campana {
     font-weight: normal;
     padding: 0 20px;
 }
-    .campoContrasenia.borde_inferior_campo{
+
+    .campoContrasenia.borde_inferior_campo {
         border-bottom: 1px solid #959595;
         border-top: 0;
         border-left: 0;
         border-right: 0;
-        padding-left:0;
+        padding-left: 0;
         height: 36px;
         line-height: 36px;
-        margin-bottom:30px;
+        margin-bottom: 30px;
     }
 
     .campoContrasenia::-webkit-input-placeholder {
@@ -29884,8 +29839,9 @@ h1#penmostreo .campana {
     .btnCambiarContrasenia:hover {
         opacity: .8;
     }
-    .btnCambiarContrasenia.mt-34{
-        margin-top:34px;
+
+    .btnCambiarContrasenia.mt-34 {
+        margin-top: 34px;
     }
 
 .icono_check_felicitaciones, .mensaje_felicitaciones, .mensaje_felicitaciones span, .mensaje_felicitaciones a {
@@ -29905,8 +29861,8 @@ h1#penmostreo .campana {
 }
 
 .mensaje_felicitaciones a {
-    width:100%;
-    max-width:328px;
+    width: 100%;
+    max-width: 328px;
     height: 45px;
     background: #e81c36;
     color: #FFF;
@@ -29914,12 +29870,12 @@ h1#penmostreo .campana {
     line-height: 45px;
     font-weight: 700;
     letter-spacing: 1px;
-    margin:43px auto;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
+    margin: 43px auto;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
 }
 
     .mensaje_felicitaciones a:hover {
@@ -29944,15 +29900,15 @@ h1#penmostreo .campana {
 }
 
 @media screen and (max-width:499px) {
-    .hideOnMobile{
-        display:none;
+    .hideOnMobile {
+        display: none;
     }
 
     .titulo_interiores.tituloCambioContrasenia {
-        background:black url("../../../Images/Esika/titulo_interiores_2.png") no-repeat;
-        background-position:right;
+        background: black url("../../../Images/Esika/titulo_interiores_2.png") no-repeat;
+        background-position: right;
         width: 96%;
-        max-width:305px;
+        max-width: 305px;
         padding: 0 0 0 29px;
     }
 
@@ -32532,24 +32488,6 @@ h1#penmostreo .campana {
 }
 
 @media screen and (max-width:1280px) {
-    .content_pop_oferta_dia {
-        margin-left: 12em !important;
-    }
-}
-
-.content_pop_oferta_dia {
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    position: relative;
-    margin-top: 0;
-    max-width: 1024px;
-    height: 500px;
-    margin: auto, auto;
-    padding: 10px 0;
-}
-
-@media screen and (max-width:1280px) {
     /*.content_estrategia_carrusel {
         margin-left: 12em !important;
     }*/
@@ -32732,40 +32670,47 @@ h1#penmostreo .campana {
         max-height: 300px;
         max-width: 100% !important;
     }
-.etiqueta_producto_fix{
-display:table;
-width:100%;
-height:286px;
-}
-.content_ficha_producto_fix {
-display: table;
-width: 100%;
-height: 286px;
-}
-.etiqueta_producto_fix .cont_etiqueta_producto {
-display: table-cell;
-vertical-align: middle;
-}
-.etiqueta_producto_fix .cont_etiqueta_producto img{
-margin:auto;
-display:block;
-}
-.content_ficha_producto_fix .cont_etiqueta_producto {
-display: table-cell;
-vertical-align: middle;
+
+.etiqueta_producto_fix {
+    display: table;
+    width: 100%;
+    height: 286px;
 }
 
-.content_ficha_producto_fix .cont_etiqueta_producto img{
-margin: auto;
-display: block;
+.content_ficha_producto_fix {
+    display: table;
+    width: 100%;
+    height: 286px;
 }
+
+.etiqueta_producto_fix .cont_etiqueta_producto {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+    .etiqueta_producto_fix .cont_etiqueta_producto img {
+        margin: auto;
+        display: block;
+    }
+
+.content_ficha_producto_fix .cont_etiqueta_producto {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+    .content_ficha_producto_fix .cont_etiqueta_producto img {
+        margin: auto;
+        display: block;
+    }
+
 .etiqueta_descripcion_fix {
-display: table;
-width: 100%;
-height: 286px;
+    display: table;
+    width: 100%;
+    height: 286px;
 }
-.liquidacion_rango_home_fix, .boton_Agregalo_home_fix{
-margin-top:0;
+
+.liquidacion_rango_home_fix, .boton_Agregalo_home_fix {
+    margin-top: 0;
 }
 
 
@@ -32887,7 +32832,7 @@ margin-top:0;
 
     .content_tono_detalle img {
         width: 100%;
-        height:auto !important;
+        height: auto !important;
     }
 
 .content_mascara_maquillaje {
@@ -33138,6 +33083,7 @@ margin-top:0;
     margin-top: 30px;
     padding-left: 25px;
 }
+
 .compartir_redes_ficha_fix {
     margin-top: 0;
     padding: 0;
@@ -33146,6 +33092,7 @@ margin-top:0;
     width: 100%;
     padding: 12px 0;
 }
+
 .texto_compartelo {
     float: left;
     margin-right: 15px;
@@ -33153,6 +33100,7 @@ margin-top:0;
     font-size: 12px;
     margin-top: 3px;
 }
+
 .texto_compartelo_fix {
     font-family: 'Lato';
     font-size: 12px;
@@ -33161,17 +33109,19 @@ margin-top:0;
     margin-right: 3%;
     height: 42px;
 }
-.texto_compartelo_fix p {
-display: block;
-height: 39px;
-margin: 0;
-padding: 0;
-padding: 10px 0px;
-}
-.texto_compartelo_fix p div{
-display:block;
-height:30px;
-}
+
+    .texto_compartelo_fix p {
+        display: block;
+        height: 39px;
+        margin: 0;
+        padding: 0;
+        padding: 10px 0px;
+    }
+
+        .texto_compartelo_fix p div {
+            display: block;
+            height: 30px;
+        }
 
 
 .opcion_escala_descuento {
@@ -33270,16 +33220,19 @@ height:30px;
     font-size: 13px;
     font-weight: 400;
     margin-right: 10px;
-    width:90px;
+    width: 90px;
 }
+
 .precios_para_ti {
     margin-top: -3px;
     display: inline-table;
 }
+
     .precios_para_ti p {
         display: block;
         margin-bottom: 0px;
     }
+
 .ganancia_ficha {
     color: #e81c36;
     font-weight: 400;
@@ -33408,6 +33361,30 @@ height:30px;
     font-size: 14px;
     margin-top: 20px;
 }
+
+    .content_cuv section .filtroInput {
+        float: left;
+    }
+        .content_cuv section .filtroInput label {
+            display: block;
+            margin-left: 5px;
+        }
+        .content_cuv section .filtroInput select[id='ddlCategoriaProductoAgotado'] {
+           width: 170px;
+        }
+        .content_cuv section .filtroInput select[id='ddlCatalogoRevistaProductoAgotado'] {
+            width: 170px;
+        }
+        .content_cuv section .filtroInput input[id='producto-faltante-busqueda-cuv'] {
+            width: 80px;
+        }
+        .content_cuv section .filtroInput input[id='producto-faltante-busqueda-descripcion'] {
+            width: 170px;
+        }
+    .content_cuv section .filtroButton {
+        float: left;
+        margin-top: 23px;
+    }
 
 .buscar_icono {
     background: white url('../../../Images/Esika/lupa.png') no-repeat center right;
@@ -34986,7 +34963,7 @@ height:30px;
 
 .content_cupon {
     width: 664px;
-    height: 360px;      
+    height: 360px;
     position: relative;
     top: 50%;
     margin: 13% auto auto auto;
@@ -35108,7 +35085,7 @@ height:30px;
 .titulo_cupon2 {
     font-family: 'LAto';
     font-size: 20px;
-    font-weight: 700;   
+    font-weight: 700;
     letter-spacing: 1px;
 }
 
@@ -35162,7 +35139,7 @@ height:30px;
 
 .texto_cupon3 {
     text-align: center;
-    margin-top: 5px;        
+    margin-top: 5px;
     font-size: 14px;
 }
 
@@ -35187,7 +35164,7 @@ height:30px;
 .info_recuerda_cupon_ganaste {
     display: inline-table;
     float: none;
-    width: 40%; 
+    width: 40%;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -36150,9 +36127,9 @@ height:30px;
     line-height: 1.25;
 }
 
-.txt_nota_premio b {
-    font-weight: 900;
-}
+    .txt_nota_premio b {
+        font-weight: 900;
+    }
 
 .btn_legal_RS {
     font-family: 'Lato';
@@ -36288,8 +36265,6 @@ height:30px;
 /*SPRINT 19*/
 .content_new_showroom {
     width: 100%;
-    /*padding-left: 10%;*/
-    /*padding-right: 2%;*/
     padding-top: 35px;
     padding-left: 10px;
     padding-right: 10px;
@@ -36482,13 +36457,286 @@ height:30px;
 /* metodo para centrar todos los contenedores con productos en el landing RevistaDigital */
 
 .divOfertaProductosfix, .divOfertaProductosPerdiofix {
-    /*text-align: center;
-    max-width: 1000px;
-    margin: auto;
-    margin-left: 15%;*/
 }
 
 .divOfertaProductosfixNoDorado {
     max-width: 1189px;
     margin: 0 80px 0 180px;
 }
+
+/* HD-2513 - 50 AÑOS BELCORP */
+
+.wrapper_header_cincuenta_anios_belcorp{
+    width:100%!important;
+    min-width:1024px!important;
+    max-width:1366px!important;
+}
+
+.cincuenta_anios_belcorp{
+    display: block;
+    position: relative;
+    float: left;
+    left: 0;
+    width: 98px;
+    height: 61px;
+    overflow:hidden;
+}
+
+.cincuenta_anios_belcorp img{
+    width: auto;
+    height: 111%;
+}
+
+.cincuenta_anios_belcorp + .logo_esika{
+    margin-left:23px;
+}
+
+.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
+    width:632px!important;
+}
+
+.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
+    width:360px!important;
+}
+
+.color_cincuenta_anios_belcorp{
+    color:#A06219;
+}
+
+.boton_cincuenta_anios_belcorp{
+    background-color:#BA8B47;
+    border:2px solid #BA8B47;
+}
+
+    .boton_cincuenta_anios_belcorp:hover{
+        background-color:#BA8B47;
+        color:#BA8B47;
+    }
+
+@media screen and (max-width:1365px){
+
+    .wrapper_header_cincuenta_anios_belcorp{
+        max-width:none!important;
+    }
+
+}
+
+@media screen and (max-width:1212px){
+
+    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
+        width:350px!important;
+    }
+
+}
+
+@media screen and (min-width:1145px) and (max-width:1212px){
+
+    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
+        width: 628px!important;
+    }
+
+    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
+        width:350px!important;
+    }
+
+}
+
+@media screen and (min-width:1090px) and (max-width:1144px){
+
+    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika {
+        width: 626.7px!important;
+    }
+
+}
+
+@media screen and (min-width:1063px) and (max-width:1089px){
+
+    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika {
+        width: 592px!important;
+    }
+
+}
+
+@media screen and (max-width: 1062px) {
+
+    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika {
+        width: 553px!important;
+    }
+
+}
+
+/* FIN - HD-2513 - 50 AÑOS BELCORP */
+/* MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */
+
+.monto_meta_tippingPoint{
+    margin-top:2px;
+    font-size:12px;
+    color:#e81c36;
+}
+
+.contenedor_tippingPoint {
+    cursor: pointer;
+    position: relative;
+    -moz-animation: animacionTippingPoint 0.8s infinite ease-out;
+    -o-animation: animacionTippingPoint 0.8s infinite ease-out;
+    -webkit-animation: animacionTippingPoint 0.8s infinite ease-out;
+    animation: animacionTippingPoint 0.8s infinite ease-out;
+}
+
+@keyframes animacionTippingPoint {
+  0% {
+    top:0;
+  }
+
+  50% {
+    top:-10px;
+  }
+
+  100%{
+     top:0;
+  }
+}
+
+@-moz-keyframes animacionTippingPoint {
+  0% {
+    top:0;
+  }
+
+  50% {
+    top:-7px;
+  }
+
+  100%{
+     top:0;
+  }
+}
+
+@-o-keyframes animacionTippingPoint {
+  0% {
+    top:0;
+  }
+
+  50% {
+    top:-7px;
+  }
+
+  100%{
+     top:0;
+  }
+}
+
+@-webkit-keyframes animacionTippingPoint {
+  0% {
+    top:0;
+  }
+
+  50% {
+    top:-7px;
+  }
+
+  100%{
+     top:0;
+  }
+}
+
+    .contenedor_tippingPoint:hover .tooltip_regalo_meta_tippingPoint {
+        display: block;
+        -moz-animation: mostrarTooltip 0.2s ease;
+        -o-animation: mostrarTooltip 0.2s ease;
+        -webkit-animation: mostrarTooltip 0.2s ease;
+        animation: mostrarTooltip 0.2s ease;
+    }
+
+    @keyframes mostrarTooltip {
+      from {
+        opacity:0;
+      }
+
+      to {
+        opacity:1;
+      }
+    }
+
+    @-moz-keyframes mostrarTooltip {
+      from {
+        opacity:0;
+      }
+
+      to {
+        opacity:1;
+      }
+    }
+
+    @-o-keyframes mostrarTooltip {
+      from {
+        opacity:0;
+      }
+
+      to {
+        opacity:1;
+      }
+    }
+
+    @-webkit-keyframes mostrarTooltip {
+      from {
+        opacity:0;
+      }
+
+      to {
+        opacity:1;
+      }
+    }
+
+.tooltip_regalo_meta_tippingPoint {
+    display: none;
+    position: absolute;
+    padding: 13px 10px;
+    top: -58px;
+    right: -149px;
+    z-index: 102;
+    background-color: #FFF;
+    border-radius: 4px;
+    width: 161.15px;
+    min-height: 198px;
+    -moz-box-shadow: 0 7px 17px 3px rgba(0, 0, 0, 0.31);
+    -webkit-box-shadow: 0 7px 17px 3px rgba(0, 0, 0, 0.31);
+    box-shadow: 0 7px 17px 3px rgba(0, 0, 0, 0.31);
+}
+
+.tooltip_regalo_meta_tippingPoint:before {
+    right: 100%;
+    top: 32%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-right-color: #FFF;
+    border-width: 11px;
+    margin-top: -11px;
+}
+
+.tooltip_producto_regalo_img{
+    height:127px;
+    text-align:center;
+    overflow:hidden;
+    margin-bottom:10px;
+}
+
+.tooltip_producto_regalo_img img{
+    width:auto;
+    height:100%;
+}
+
+.tooltip_producto_regalo_descripcion{
+    font-size:13px;
+    line-height:20px;
+}
+
+.tooltip_producto_regalo_descripcion strong{
+    font-weight:bold;
+}
+
+/* FIN - MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */

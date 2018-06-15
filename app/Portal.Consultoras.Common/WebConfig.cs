@@ -64,6 +64,35 @@ namespace Portal.Consultoras.Common
                 return ConfigurationManager.AppSettings["PaisesShowRoom"] ?? string.Empty;
             }
         }
+
+        public static string OrderDownloadFtpUpload
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] ?? string.Empty;
+            }
+        }
+
+        public static string OrderDownloadS3
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["OrderDownloadS3"] ?? string.Empty;
+            }
+        }
+
+        public static string S3_Pedidos
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["S3_Pedidos"] ?? string.Empty;
+            }
+        }
         #endregion
+
+        public static string GetByTagName(string tagName)
+        {
+            return ConfigurationManager.AppSettings[tagName] ?? string.Empty;
+        }
     }
 }

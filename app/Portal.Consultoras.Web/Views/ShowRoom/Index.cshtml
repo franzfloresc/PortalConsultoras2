@@ -21,7 +21,6 @@
 
 <input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />
 <input type="hidden" id="hdTotalProductos" value="@Model.ListaShowRoomOferta.Count" />
-<!--MAQUETADO NUEVO-->
 <div class="catalogoPersonalizadoBloque BloqueLandingRD">
     <div class="content_belcorp parche_productos_1000">
         <div class="content-left-item content_new_showroom">
@@ -341,7 +340,6 @@
         </div>
     }
 }
-<!--FIN-->
 
 <div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
     <div class="titulo_producto_agregado">
@@ -389,8 +387,8 @@
                     {{detalle.NombreComercial}} <br />
                     {{/each}}
                 </div>
-                <div class="precio_set_especial_showroom">VALORIZADO EN {{Simbolo}} {{producto.FormatoPrecioValorizado}}</div>
-                <div class="precio_set_especial_showroom" style="margin-top: -3px;"> A SOLO <span class="precio_real_set">{{Simbolo}} {{producto.FormatoPrecioOferta}}</span></div>
+                <div class="precio_set_especial_showroom">VALORIZADO EN {{SimboloMoneda}} {{producto.FormatoPrecioValorizado}}</div>
+                <div class="precio_set_especial_showroom" style="margin-top: -3px;"> A SOLO <span class="precio_real_set">{{SimboloMoneda}} {{producto.FormatoPrecioOferta}}</span></div>
             </div>
             <div class="producto_nombre_descripcion" style="padding-bottom: 15px">
                 <div class="liquidacion_rango_home js-no-popup">
@@ -447,8 +445,8 @@
             </div>
             <div class="producto_nombre_descripcion" data-item-tag="precio">
                 <div>
-                    <span class="precio-oferta-normal">{{Simbolo}} {{FormatoPrecioValorizado}}</span>
-                    <span class="precio-oferta-venta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
+                    <span class="precio-oferta-normal">{{SimboloMoneda}} {{FormatoPrecioValorizado}}</span>
+                    <span class="precio-oferta-venta"><b>{{SimboloMoneda}} {{FormatoPrecioOferta}}</b></span>
                 </div>
             </div>
             <div class="clear"></div>
@@ -511,7 +509,6 @@
         var urlTerminosCondiciones = '@Model.UrlTerminosCondiciones';
         var precioMin = '@ViewBag.PrecioMin';
         var precioMax = '@ViewBag.PrecioMax';
-        var simbolo = '@Model.Simbolo';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
         var closeBannerCompraPorCompra = '@ViewBag.CloseBannerCompraPorCompra';
         var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.DesktopShowRoomLandingCompra';

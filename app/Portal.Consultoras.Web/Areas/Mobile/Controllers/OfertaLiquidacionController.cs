@@ -10,8 +10,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var userData = UserData();
             if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                 return RedirectToAction("Index", "Bienvenida");
-
-            ViewBag.Simbolo = userData.Simbolo;
+            
             return View();
         }
     }

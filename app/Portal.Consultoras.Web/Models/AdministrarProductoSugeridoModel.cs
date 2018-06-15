@@ -21,5 +21,6 @@ namespace Portal.Consultoras.Web.Models
         public DateTime FechaRegistro { get; set; }
         public string UsuarioModificacion { get; set; }
         public DateTime FechaModificacion { get; set; }
+        public int MostrarAgotado { get; set; }
     }
 }

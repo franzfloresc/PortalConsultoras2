@@ -7,7 +7,6 @@ using Portal.Consultoras.Entities.Framework;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
-//using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Service
 {

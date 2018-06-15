@@ -10,10 +10,6 @@ jQuery(document).ready(function () {
 
     redimensionarMenusTabs();
 
-    $("body").on("click", "[data-compartir]", function (e) {
-        e.preventDefault();
-        CompartirRedesSociales(e);
-    });
 
     $("header").resize(function () {
         LayoutMenu();
@@ -41,7 +37,6 @@ jQuery(document).ready(function () {
             });
         }
     }
-    
 
 });
 (function ($) {
@@ -85,7 +80,7 @@ jQuery(document).ready(function () {
     };
 
     $.fn.CleanWhitespace = function () {
-        textNodes = this.contents().filter(
+        var textNodes = this.contents().filter(
             function () { return (this.nodeType == 3 && !/\S/.test(this.nodeValue)); })
             .remove();
         return this;
@@ -123,7 +118,7 @@ jQuery(document).ready(function () {
         if (this.length <= max) return this;
 
         strFin = IfNull(strFin, '') == '' ? '...' : strFin;
-        removeLength = IfNull(removeStrFinLength, false) ? strFin.length : 0;
+        var removeLength = IfNull(removeStrFinLength, false) ? strFin.length : 0;
         return this.substr(0, max - removeLength) + strFin;
     };
 
@@ -142,7 +137,7 @@ jQuery(document).ready(function () {
             posicion = posicion || 0;
             return this.indexOf(stringBuscada, posicion) === posicion;
         };
-    };
+    }
 
     Right = function (str, n) {
         if (n <= 0)
@@ -330,6 +325,27 @@ jQuery(document).ready(function () {
                     return "Fomato Incorrecto";
                 }
             });
+            
+            Handlebars.registerHelper('ImgSmall', function (imgOriginal) {
+                var urlRender = ImgUrlRender(imgOriginal, variablesPortal.ExtensionImgSmall);
+                return new Handlebars.SafeString(urlRender);
+            });
+
+            // por si en un futuro se puede utilizar
+            //Handlebars.registerHelper('ImgMedium', function (imgOriginal) {
+            //    var urlRender = ImgUrlRender(imgOriginal, variablesPortal.ExtensionImgMedium);
+            //    return new Handlebars.SafeString(urlRender);
+            //});
+            
+            Handlebars.registerHelper('ImgUrl', function (imgOriginal) {
+                var urlRender = ImgUrlRender(imgOriginal);
+                return new Handlebars.SafeString(urlRender);
+            });
+            
+            Handlebars.registerHelper('SimboloMoneda', function () {
+                var simbMon = variablesPortal.SimboloMoneda || "";
+                return new Handlebars.SafeString(simbMon);
+            });
         }
     }
 
@@ -482,6 +498,30 @@ function redimensionarMenusTabs() {
     else {
         $('.bc_para_ti-menu ul li').addClass('fix_menu_tabs_mobil_2');
     }
+}
+
+function ImgUrlRender(imgOriginal, tipo) {
+    imgOriginal = $.trim(imgOriginal);
+    if (imgOriginal === '') {
+        return imgOriginal;
+    }
+
+    var urlRender = imgOriginal;
+    var listaCadena = imgOriginal.split('.');
+    if (listaCadena.length > 1) {
+        var ext = listaCadena[listaCadena.length - 1];
+        urlRender = imgOriginal.substr(0, imgOriginal.length - ext.length - 1);
+        tipo = $.trim(tipo);
+        urlRender = urlRender + tipo + '.' + ext;
+    }
+
+    if (imgOriginal.startsWith('http')) {
+        return urlRender;
+    }
+
+    urlRender = variablesPortal.ImgUrlBase + urlRender;
+
+    return urlRender;
 }
 
 function showDialog(dialogId) {
@@ -681,12 +721,8 @@ function compare_dates(fecha, fecha2) {
 
 function IsValidUrl(value) {
     var matcher = /(^|\s)((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/gi;
-
-    var match = value.match(matcher)
-    if (match)
-        return true;
-    else
-        return false;
+    var match = value.match(matcher);
+    return match;
 }
 
 function isMobile() {
@@ -700,7 +736,6 @@ function getMobilePrefixUrl() {
     var currentUrl = $.trim(location.href).toLowerCase();
     var uniqueIndexOfUrl = currentUrl.indexOf(uniquePrefix);
     var isUniqueUrl = uniqueIndexOfUrl > 0;
-    //36 is Guid Length
     return isUniqueUrl ? currentUrl.substring(uniqueIndexOfUrl, uniqueIndexOfUrl + uniquePrefix.length + 36) : "/mobile";
 }
 
@@ -824,13 +859,13 @@ function ActualizarGanancia(data) {
     data.TotalPedidoStr = data.TotalPedidoStr || "";
 
     $("[data-ganancia]").html(data.MontoGananciaStr || "");
-    $("[data-ganancia2]").html(vbSimbolo + " " + data.MontoGananciaStr || "");
+    $("[data-ganancia2]").html(variablesPortal.SimboloMoneda + " " + data.MontoGananciaStr || "");
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
-    $("[data-montodescuento]").html(vbSimbolo + " " + data.MontoDescuentoStr);
-    $("[data-pedidototal]").html(vbSimbolo + " " + data.TotalPedidoStr);
+    $("[data-montodescuento]").html(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(data.MontoDescuentoStr));
+    $("[data-pedidototal]").html(variablesPortal.SimboloMoneda + " " + data.TotalPedidoStr);
     $("[data-cantidadproducto]").html(data.CantidadProductos);
-    $("[data-montoahorrocatalogo]").html(vbSimbolo + " " + data.MontoAhorroCatalogoStr);
-    $("[data-montoahorrorevista]").html(vbSimbolo + " " + data.MontoAhorroRevistaStr);
+    $("[data-montoahorrocatalogo]").html(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(data.MontoAhorroCatalogoStr));
+    $("[data-montoahorrorevista]").html(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(data.MontoAhorroRevistaStr));
 
     $(".num-menu-shop").html(data.CantidadProductos);
     $(".js-span-pedidoingresado").html(data.TotalPedidoStr);
@@ -891,7 +926,7 @@ FuncionesGenerales = {
         var type = that.attr('method');
         var data = {};
 
-        that.find('[name]').each(function (index, value) {
+        that.find('[name]').each(function (index, evalue) {
             var that = $(this);
             var name = that.attr('name');
             var value = that.val();
@@ -935,7 +970,7 @@ FuncionesGenerales = {
 };
 
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
-    data = {
+    var dataNueva = {
         'Fecha': new Date().getTime(),
         'Aplicacion': userData.aplicacion,
         'Pais': userData.pais,
@@ -959,7 +994,7 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
             crossDomain: true,
             url: urlLogDynamo + "Api/LogUsabilidad",
             dataType: "json",
-            data: data,
+            data: dataNueva,
             success: function (result) { },
             error: function (x, xh, xhr) { }
         });
@@ -989,7 +1024,7 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
             }
         }
     });
-};
+}
 
 function MensajeEstadoPedido() {
     xMensajeEstadoPedido(false);
@@ -1098,7 +1133,6 @@ function LayoutMenuFin() {
 
     // caso no entre en el menu
     // poner en dos renglones
-
     if ($(".wrapper_header").height() > 61) {
         console.log("menu en mas de una linea");
     }
@@ -1182,146 +1216,6 @@ function MostrarMensajePedidoRechazado() {
     else {
         $("[data-content]").removeClass("oscurecer_animacion");
     }
-}
-
-function CompartirRedesSociales(e) {
-    var obj = $(e.target);
-    var tipoRedes = $.trim($(obj).parents("[data-compartir]").attr("data-compartir"));
-    if (tipoRedes == "") tipoRedes = $.trim($(obj).attr("data-compartir"));
-    if (tipoRedes == "") return false;
-
-    var padre = obj.parents("[data-item]");
-    var article = $(padre).find("[data-compartir-campos]").eq(0);
-    var ruta = $(article).find(".rs" + tipoRedes + "Ruta").val() || "";
-    if (ruta == "") return false;
-    
-    var label = $(article).find(".rs" + tipoRedes + "Mensaje").val();
-    if (label != "") {
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Ofertas Showroom',
-            'action': 'Compartir ' + tipoRedes,
-            'label': label,
-            'value': 0
-        });
-    }
-
-    CompartirRedesSocialesInsertar(article, tipoRedes, ruta);
-}
-
-function CompartirRedesSocialesTexto(texto) {
-    texto = texto.ReplaceAll("/", '%2F');
-    texto = texto.ReplaceAll(":", "%3A");
-    texto = texto.ReplaceAll("?", "%3F");
-    texto = texto.ReplaceAll("=", "%3D");
-    texto = texto.ReplaceAll(" ", "%32");
-    texto = texto.ReplaceAll("+", "%43");
-
-    texto = texto.ReplaceAll("&", "y");
-
-    return "whatsapp://send?text=" + texto;
-}
-
-
-function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) {
-
-    id = $.trim(id);
-    if (id == "0" || id == "") {
-        return false;
-    }
-    ruta = $.trim(ruta);
-    if (ruta == "") {
-        return false;
-    }
-
-    ruta = ruta.replace('[valor]', id);
-
-    nombre = $.trim(nombre);
-
-    try {
-        if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
-            rdAnalyticsModule.CompartirProducto(tipoRedes, ruta, nombre);
-        } else {
-            AnalyticsRedesSociales(tipoRedes, ruta);
-        }
-    } catch (e) { console.log(e) }
-
-    if (tipoRedes == "FB") {
-        var popWwidth = 570;
-        var popHeight = 420;
-        var left = (screen.width / 2) - (popWwidth / 2);
-        var top = (screen.height / 2) - (popHeight / 2);
-        var url = "http://www.facebook.com/sharer/sharer.php?u=" + ruta;
-        window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
-    } else if (tipoRedes == "WA") {
-        if (texto != "")
-            texto = texto + " - ";
-        $("#HiddenRedesSocialesWA").attr("href", 'javascript:window.location=CompartirRedesSocialesTexto("' + texto + ruta + '")');
-        $("#HiddenRedesSocialesWA")[0].click();
-    }
-}
-
-function AnalyticsRedesSociales(tipoRedes, ruta) {
-    if (tipoRedes === "FB") {
-        dataLayer.push({
-            'event': 'socialEvent',
-            'network': 'Facebook',
-            'action': 'Share',
-            'target': ruta
-        });
-    } else if (tipoRedes == "WA") {
-        dataLayer.push({
-            'event': 'socialEvent',
-            'network': 'Whatsapp',
-            'action': 'Compartir',
-            'target': ruta
-        });
-    }
-}
-
-function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
-
-    var _rutaImagen = $.trim($(article).find(".rs" + tipoRedes + "RutaImagen").val());
-    var _mensaje = $.trim($(article).find(".rs" + tipoRedes + "Mensaje").val());
-    var _nombre = $.trim($(article).find(".Nombre").val());
-    var _marcaID = $.trim($(article).find(".MarcaID").val());
-    var _marcaDesc = $.trim($(article).find(".MarcaNombre").val());
-    var _descProd = $.trim($(article).find(".ProductoDescripcion").val());
-    var _vol = $.trim($(article).find(".Volumen").val());
-    var _palanca = $.trim($(article).find(".Palanca").val());
-
-    var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
-    if (_palanca === "FAV") {
-        pcDetalle += "|" + _vol + "|" + _descProd;
-    }
-    try {
-    } catch (e) { console.log(e); }
-
-    var Item = {
-        mCUV: $(article).find(".CUV").val(),
-        mPalanca: _palanca,
-        mDetalle: pcDetalle,
-        mApplicacion: tipoRedes
-    };
-
-
-    jQuery.ajax({
-        type: 'POST',
-        url: "/CatalogoPersonalizado/InsertarProductoCompartido",
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(Item),
-        success: function (response) {
-            if (checkTimeout(response)) {
-                if (response.success) {
-                    CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _mensaje, _nombre);
-                } else {
-                    AbrirMensaje(response.message);
-                }
-            }
-        },
-        error: function (response, error) { }
-    });
 }
 
 function AbrirPopup(ident) {
@@ -1535,9 +1429,9 @@ function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
     var listaOferta = data == undefined ? null : data;
     var impresions = new Array();
     var divs = new Array();
-
+    var div1;
     if (carrusel.length > 0 && carrusel.is(":visible")) {
-        var div1 = $(carrusel).find("[data-item-position = 0]")[0];
+        div1 = $(carrusel).find("[data-item-position = 0]")[0];
         var div2 = $(carrusel).find("[data-item-position = 1]")[0];
         var div3 = $(carrusel).find("[data-item-position = 2]")[0];
 
@@ -1559,7 +1453,7 @@ function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
         });
     }
     if (detalle.length > 0 && detalle.is(":visible")) {
-        var div1 = $(detalle).find("[data-item-position = 0]");
+         div1 = $(detalle).find("[data-item-position = 0]");
         if (div1 != null) { divs.push(div1); }
         $(divs).each(function (index, div) {
             impresions.push({
@@ -1595,8 +1489,7 @@ function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
             NameList = "Oferta del día - Detalle Slider";
             if (listaOferta.ListaOfertas.length > 1) {
                 NameList = "Oferta del día - Slider Productos";
-                lstOferta = data.ListaOfertas;
-
+                var lstOferta = data ? data.ListaOfertas : [];
                 $.each(lstOferta, function (index, item) {
                     impresions.push({
                         'name': item.NombreOferta,
@@ -1860,7 +1753,7 @@ function limpiar_local_storage() {
             localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
         }
     }
-};
+}
 
 function _validartieneMasVendidos() {
     if (tieneMasVendidos === 0 || tieneMasVendidos === 1) {
@@ -1929,7 +1822,6 @@ var registerEvent = function (eventName) {
 
     self.applyChanges = function (event, args) {
         if (self[event]) {
-            //todo: could be emit
             self[event].callBacks.forEach(function (cb) {
                 cb.call(undefined, args);
             });
@@ -1988,7 +1880,6 @@ function EstablecerAccionLazyImagenAll(nombreAtributo) {
 }
 
 function CuponPopupCerrar() {
-    //AbrirLoad();
     $('#Cupon3').hide();
 
     $.ajax({
@@ -1997,11 +1888,8 @@ function CuponPopupCerrar() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            //CerrarLoad();
-            //window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
         error: function (data, error) {
-            //CerrarLoad();
         }
     });
 }

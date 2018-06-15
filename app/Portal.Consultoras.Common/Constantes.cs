@@ -226,6 +226,9 @@ namespace Portal.Consultoras.Common
             public const string Incentivos = "022";
             public const string ShowRoom = "030";
             public const string HerramientasVenta = "011";
+            public const string ProgramaNuevasRegalo = "044";
+            public const string ParticipaProgramaNuevas = "1";
+            public const string NotParticipaProgramaNuevas = "0";
         }
 
         public static class ConstSession
@@ -311,7 +314,9 @@ namespace Portal.Consultoras.Common
 
             public const string PedidosFacturados = "PedidosFacturados";
 
-            
+            public const string DescripcionPedidoOtro = "OTROS";
+            public const int CodigoPedidoOtro = 0;
+
         }
 
         public static class ConfiguracionManager
@@ -344,6 +349,7 @@ namespace Portal.Consultoras.Common
             public const string BelcorpRespondeTEL = "BelcorpRespondeTEL_{0}";
             public const string DES_UBIGEO = "DES_UBIGEO_";
             public const string FechaChat = "FechaChat_";
+            public const string MensajeChatBienvenida = " tú eres nuestro ejemplo e inspiración. En un momento uno de nuestros creadores de experiencia te atenderá.";
             public const string PaisesBelcorpChatEMTELCO = "PaisesBelcorpChatEMTELCO";
             public const string UrlBelcorpChat = "UrlBelcorpChat";
             public const string UrlChatPA = "UrlChatPA";
@@ -438,6 +444,14 @@ namespace Portal.Consultoras.Common
             public const int Jetlore = 2;
         }
 
+        #region Banner Security
+        public static class TipoAccesoSegmento
+        {
+            public const byte Inclusion = 1;
+            public const byte Exclusion = 2;
+        }
+        #endregion
+
         public static class OrigenPantallaWeb
         {
             // Primer Dígito -- Plataforma
@@ -520,7 +534,6 @@ namespace Portal.Consultoras.Common
             public const int DesktopPedido = 12;
             public const int MobilePedido = 22;
             public const int AppPedido = 42;
-
 
             #region OfertasParaTi
             public const int OfertasParaTiDesktopHome = 1121;
@@ -1123,6 +1136,8 @@ namespace Portal.Consultoras.Common
             public const string Reserva_Error = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo.";
             public const string Reserva_SinDetalle = "No tiene productos que reservar esta campaña.";
             public const string DeleteAllPedido_Error = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
+            public const string Reserva_ObsHuerfanas = "Reserva_ObsHuerfanas: Se obtuvieron observaciones al reservar que no se encuentran en el detalle.";
+            public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
         }
 
         public static class ConfiguracionPais
@@ -1927,10 +1942,9 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_PRODUCTO_NOEXISTE = "1101";
                 public const string ERROR_PRODUCTO_AGOTADO = "1102";
                 public const string ERROR_PRODUCTO_LIQUIDACION = "1103";
-                public const string ERROR_PRODUCTO_SHOWROOM = "1104";
-                public const string ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE = "1105";
                 public const string ERROR_PRODUCTO_OFERTAREVISTA_ESIKA = "1106";
                 public const string ERROR_PRODUCTO_OFERTAREVISTA_LBEL = "1107";
+                public const string ERROR_PRODUCTO_ESTRATEGIA = "1108";
 
                 public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                 public const string ERROR_STOCK_ESTRATEGIA = "2102";
@@ -1973,10 +1987,9 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_PRODUCTO_NOEXISTE, "Este producto no existe."},
                         {Code.ERROR_PRODUCTO_AGOTADO, "Este producto está agotado."},
                         {Code.ERROR_PRODUCTO_LIQUIDACION, "Este producto solo está disponible desde la sección de Liquidación Web."},
-                        {Code.ERROR_PRODUCTO_SHOWROOM, "Este producto solo está disponible desde la sección de Venta Digital."},
-                        {Code.ERROR_PRODUCTO_SHOWROOM_NODISPONIBLE, "Esta promoción no se encuentra disponible."},
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, "Este producto está de oferta en la Guía de Negocio Ésika."},
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, "Este producto está de oferta en Mi Negocio L’Bel."},
+                        {Code.ERROR_PRODUCTO_ESTRATEGIA, string.Empty},
 
                         {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
                         {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},

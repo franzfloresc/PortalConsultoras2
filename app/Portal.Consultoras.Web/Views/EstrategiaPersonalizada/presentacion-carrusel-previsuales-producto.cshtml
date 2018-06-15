@@ -26,12 +26,12 @@
                     {{#if ../Mobile}} 
                     <div class="content_set_imagen_banner" data-item-tag="foto"
                         onclick="javascript: VerDetalleEstrategia(event);">
-                        <img src="{{lan.FotoProducto01}}" alt="" data-img-lazy="1"/>
+                        <img src="{{ImgUrl lan.FotoProducto01}}" alt="" data-img-lazy="1"/>
                     </div>
                     {{else}}
                     <div class="content_set_imagen_banner producto_img_home" data-item-tag="foto" style="cursor:pointer"
                         onclick="javascript: VerDetalleEstrategia(event);">
-                        <img src="{{lan.FotoProducto01}}" alt="" data-img-lazy="1"/>
+                        <img src="{{ImgUrl lan.FotoProducto01}}" alt="" data-img-lazy="1"/>
                         <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
                     </div>
                     {{/if}}
@@ -47,9 +47,9 @@
                     <div class="producto_nombre_descripcion" data-item-tag="precio">
                         <div class="producto_precio" style="margin-bottom: 3px;">
                             {{#iff lan.Precio '>' 0}}
-                                <span class="precio-oferta-normal">{{lan.Simbolo}} {{lan.PrecioTachado}}</span>
+                                <span class="precio-oferta-normal">{{SimboloMoneda}} {{lan.PrecioTachado}}</span>
                             {{/iff}}
-                            <span class="precio-oferta-venta"><b>{{lan.Simbolo}} {{lan.PrecioVenta}}</b></span>
+                            <span class="precio-oferta-venta"><b>{{SimboloMoneda}} {{lan.PrecioVenta}}</b></span>
                         </div>
                     </div>
                     <div class="producto_nombre_descripcion" data-item-tag="agregar">

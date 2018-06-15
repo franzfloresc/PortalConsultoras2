@@ -1,6 +1,5 @@
 ﻿var detalleLanzamiento = (function () {
     "use strict";
-    var _player;
 
     var _elements = {
         idPlantillaProductoLanding: "#producto-landing-template",
@@ -10,19 +9,7 @@
         eligeTuOpcionButtons: "[data-item-tag='eligetuopcion']",
         divSetsProductosRelacionados: "#set_relacionados"
     };
-    
-    var _params = {
-        videoId: "",
-        descripcionResumen: ""
-    };
-
-    var _configYouTubeScriptTag = function () {
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    };
-
+        
     var _getParamValueFromQueryString = function (queryStringName) {
         queryStringName = queryStringName || '';
         queryStringName = queryStringName.toLowerCase();
@@ -54,7 +41,7 @@
             return false;
         }
 
-        var str = LocalStorageListado(lsListaRD + campaniaId, '', 1) || '';
+        var str = LocalStorageListado("listaLAN" + campaniaId, '', 1) || '';
 
         if (str === '') {
             return false;
@@ -127,35 +114,12 @@
     };
 
     var _init = function (params) {
-        var _params = $.extend(_params, params);
-        _configYouTubeScriptTag();
         _mostrarSetRelacionados();
         _bindEvents();
     };
-
-    var _onYouTubePlayerStateChange = function (event) {
-        if (event.data == YT.PlayerState.PLAYING) {
-            rdAnalyticsModule.CompartirProducto("YTI", _player.getVideoUrl(), _params.descripcionResumen);
-        }
-        if (event.data == YT.PlayerState.ENDED) {
-            rdAnalyticsModule.CompartirProducto("YTF", _player.getVideoUrl(), _params.descripcionResumen);
-        }
-    };
-
-    var _onYouTubeIframeAPIReady = function () {
-        _player = new YT.Player('player', {
-            height: '415',
-            width: '100%',
-            videoId: videoId,
-            events: {
-                'onStateChange': _onYouTubePlayerStateChange
-            }
-        });
-    };
-
+    
     return {    
-        init: _init,
-        onYouTubeIframeAPIReady: _onYouTubeIframeAPIReady
+        init: _init
     };
 }());
 

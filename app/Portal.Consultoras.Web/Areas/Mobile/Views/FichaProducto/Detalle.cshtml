@@ -55,9 +55,7 @@
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="@Model.CUV2" />
                 <input type="hidden" class="rsFBMensaje" value="" />
-                <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartir" />
                 <input type="hidden" class="rsWAMensaje" value="" />
-                <input type="hidden" class="rsWARuta" value="@Model.UrlCompartir" />
                 <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
                 <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
                 <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
@@ -102,7 +100,7 @@
                                             <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
                                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
                                         </div>
-                                        <div class="content_tono_detalle" data-tono-cuv="@Hermano.CUV" data-tono-change="2" data-tono-nombre="@Hermano.NombreBulk">
+                                        <div id="fav_tono_@Hermano.CUV" class="content_tono_detalle" data-tono-cuv="@Hermano.CUV" data-tono-change="2" data-tono-nombre="@Hermano.NombreBulk">
                                             <img src="@Hermano.ImagenBulk" alt="">
                                         </div>
                                     }
@@ -172,7 +170,6 @@
                     }
                 </div>
             }
-            <!--REDES-->
             @if (mobileConfiguracion.MostrarHipervinculo)
             {
                 <div>
@@ -184,7 +181,6 @@
                     <hr class="clear">
                 </div>
             }
-            <!--FIN REDES-->
 
             @if (Model.TextoLibre != "")
             {

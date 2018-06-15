@@ -63,8 +63,8 @@ var OfertaLiquidacion = function (config) {
                 _limpiarFiltrosNemotecnico();
                 _obtenerImagenes(response.codigoSap, 1, true);
             } else {
-                alert(response.message)
-            };
+                alert(response.message);
+            }
         }
         closeWaitingDialog();
     };

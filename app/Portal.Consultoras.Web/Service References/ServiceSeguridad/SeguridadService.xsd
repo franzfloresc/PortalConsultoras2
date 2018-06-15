@@ -79,19 +79,19 @@
   <xs:element name="BEMenuMobile" nillable="true" type="tns:BEMenuMobile" />
   <xs:complexType name="BEMenuApp">
     <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
       <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoMenuPadre" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoSeccion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MenuAppId" type="xs:int" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="Posicion" type="xs:int" />
+      <xs:element minOccurs="0" name="RevistaDigitalSuscripcion" type="xs:short" />
       <xs:element minOccurs="0" name="SubMenus" nillable="true" type="tns:ArrayOfBEMenuApp" />
       <xs:element minOccurs="0" name="VersionMenu" type="xs:short" />
       <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
       <xs:element minOccurs="0" name="paisId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>

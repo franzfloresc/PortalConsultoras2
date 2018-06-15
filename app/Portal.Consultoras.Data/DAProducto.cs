@@ -57,16 +57,23 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetProductoComercialByCampaniaBySearchRegionZona(int CampaniaID, int RowCount, int Criterio, string CodigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, bool validarOpt)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCampaniaBySearchRegionZona_SB2");
+            bool busquedaCuv = Criterio == 1;
+
+            DbCommand command;
+            if (busquedaCuv)
+                command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCuvByFilter");
+            else
+                command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByDescripcionByFilter");
+
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@RowCount", DbType.Int32, RowCount);
-            Context.Database.AddInParameter(command, "@Criterio", DbType.Int32, Criterio);
+            //Context.Database.AddInParameter(command, "@Criterio", DbType.Int32, Criterio);
             Context.Database.AddInParameter(command, "@CodigoDescripcion", DbType.String, CodigoDescripcion);
             Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, RegionID);
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, ZonaID);
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, CodigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, CodigoZona);
-            Context.Database.AddInParameter(command, "@ValidarOPT", DbType.Boolean, validarOpt);
+            //Context.Database.AddInParameter(command, "@ValidarOPT", DbType.Boolean, validarOpt);
 
             return Context.ExecuteReader(command);
         }
@@ -130,11 +137,13 @@ namespace Portal.Consultoras.Data
 
         public IDataReader SelectProductoToKitInicio(int CampaniaID, string cuv)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.SelectProductoToKitInicio_SB2");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
-            Context.Database.AddInParameter(command, "@cuv", DbType.String, cuv);
+            using (var command = Context.Database.GetStoredProcCommand("dbo.SelectProductoToKitInicio_SB2"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+                Context.Database.AddInParameter(command, "@cuv", DbType.String, cuv);
 
-            return Context.ExecuteReader(command);
+                return Context.ExecuteReader(command);
+            }
         }
 
         public string GetNombreProducto048ByCuv(int campaniaID, string cuv)

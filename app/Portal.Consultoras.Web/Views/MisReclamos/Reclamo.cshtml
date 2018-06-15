@@ -24,7 +24,6 @@
             sigue estos pasos:
         </span>
     </div>
-    <!--PASO A PASO RECLAMOS-->
     <div style="display:none;">
         <input type="hidden" name="CDRWebID" id="CDRWebID" value="@Model.CDRWebID" />
         <input type="hidden" id="hdMontoMinimoPedido" value="@Model.MontoMinimo" />
@@ -37,7 +36,6 @@
                 <div class="paso_reclamo" id="Selector3" data-paso="3"><span><img src="@Url.Content("~/Content/Images/Esika/cdr_paso3.png")" /></span></div>
             </div>
             <div class="content_pasos_linea"></div>
-            <!--PASO 1-->
             <div class="content_reclamo" id="Paso1">
                 <div>
                     <div class="subtitulo_reclamo">¿Con qué producto has tenido el inconveniente?</div>
@@ -59,11 +57,9 @@
                     </div>
                 </div>
                 <hr class="clear" />
-                <!--MOTIVO SELECCIONADO-->
                 <div>
                     <div class="subtitulo_reclamo">¿Cuál fue el inconveniente?</div>
                     <hr class="clear" />
-                    <!--MOTIVO SELECCIONADO-->
                     <div>
                         <div class="content_motivo_select" id="divMotivo"></div>
                     </div>
@@ -74,8 +70,6 @@
                 <hr class="clear" />
                 <br />
             </div>
-            <!--FIN-->
-            <!--PASO 2-->
             <div class="content_reclamo" id="Paso2">
                 <div class="content_reclamo" id="Cambio1" style="display: none; max-width: 890px;">
                     <div class="subtitulo_reclamo">Escoge una solución</div>
@@ -84,7 +78,6 @@
                     <hr class="clear" />
                     <span class="btn_paso_anterior" id="RegresarPaso1">REGRESAR</span>
                 </div>
-                <!--CAMBIO OTRO PRODUCTO 1-->
                 <div class="content_reclamo" id="Cambio2" style="display: none;">
                     <div class="subtitulo_reclamo_light">ELEGISTE</div>
                     <div class="titulo_belcorp_reclamo">CAMBIARLO POR OTRO PRODUCTO</div>
@@ -121,8 +114,6 @@
                     <a class="btn_si_stock_cdr" href="javascript:;" style="width: 296px;" id="CambioProducto2">CÁMBIALO POR ESTE PRODUCTO</a>
                     <hr class="clear" />
                 </div>
-                <!--FIN-->
-                <!--CAMBIO OTRO PRODUCTO 2-->
                 <div id="Cambio3">
                     <div class="content_reclamo" data-tipo-confirma="cambio" style="display: none;">
                         <div class="subtitulo_reclamo">Confirma tu elección</div>
@@ -172,9 +163,7 @@
                         <hr class="clear" />
                     </div>
                 </div>
-                <!--FIN-->
             </div>
-            <!--PASO 3-->
             <div class="content_reclamo" id="Paso3" style="display: none;">
                 <div class="subtitulo_reclamo" style="margin-bottom: 0">Revisa el resumen, finaliza y envía tu solicitud</div>
                 <div class="texto_reclamo" style="font-size: 13px; margin-top: 0;">
@@ -192,8 +181,6 @@
                     </div>
                 </div>
 
-
-                <!--EPD-1919 INICIO-->
                 @if (Model.TieneCDRExpress)
                 {
                     <div id="TipoDespacho">
@@ -224,7 +211,6 @@
                     <input type="hidden" id="hdTieneCDRExpress" value="@(Model.TieneCDRExpress ? 1 : 0)" />
                     <input type="hidden" id="hdFleteDespacho" value="@Model.FleteDespacho" />
                 </div>
-                <!--EPD-1919 FIN-->
 
                 <div class="linea_separadora_roja" style="height: 2px;"></div>
                 <div class="subtitulo_listado">VALIDA TUS DATOS</div>
@@ -263,9 +249,7 @@
                 <a class="btn_si_stock_cdr" href="javascript:;" style="width: 296px; margin-top: 2px;" id="IrSolicitudEnviada">FINALIZA Y ENVÍA TU SOLICITUD</a>
                 <hr class="clear" />
             </div>
-            <!--FIN-->
         </div>
-        <!--ULTIMAS SOLICITUDES-->
         <div class="UltimasSolicitudes" id="divUltimasSolicitudes" style="display: none; overflow: auto; max-height: 550px;">
             <div class="titulo_ultimo_soli">Mi solicitud</div>
             <div class="texto_solicitud_ultima"><span id="spnCantidadUltimasSolicitadas">3</span> productos agregados:</div>
@@ -275,11 +259,9 @@
             </div>
             <a class="btn_ver_solicitudes" id="btn_ver_solicitudes" href="javascript:void(0);" onclick="CambioPaso(3)" style="width:100px;margin-top:30px;">IR AL FINAL</a>
         </div>
-        <!--FIN SOLICITUDES-->
 
     </div>
 
-    <!--SOLICITUD ENVIADA-->
     <div class="content_reclamo" id="SolicitudEnviada" style="display:none;  margin-right: auto;">
         <br /><br />
         <div class="icono_mensaje_alerta icono_check_alerta"></div>
@@ -301,7 +283,6 @@
             <div id="spnTipoDespacho" class="detalle_estado_reclamo" style="width:100%;text-align:center;border-right: 0px solid black; margin-bottom: 10px;">
             </div>
             <div class="linea_separadora"></div>
-            <!--GRILLA-->
             <div class="grilla_detalle_reclamo">
                 <div class="content_listado_reclamo">
                     <div class="listado_producto_reclamo text_gris_reclamo">PRODUCTO</div>
@@ -311,12 +292,9 @@
                 <div id="divDetalleEnviar">
                 </div>
             </div>
-            <!--FIN GRILLA-->
         </div>
         <a class="btn_ver_solicitudes" href="@Url.Action("Index")" id="IrDetalleSolicitudes">VER TUS SOLICITUDES</a>
     </div>
-    <!--FIN-->
-
 
 </div>
 <div class="mensaje_alerta_belcorp" id="divPopupPedido" style="display: none;">
@@ -391,7 +369,7 @@
             {{item.CUV}}<br />
             <b>{{item.Descripcion}}</b> <br />
             {{item.Cantidad}} unidades<br />
-            Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio}}
+            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
         </div>
         <div class="listado_solicitud_reclamo"><b>{{item.Solicitud}}</b></div>
         <div class="listado_solicitada_reclamo">
@@ -407,7 +385,7 @@
                 {{item.CUV2}}<br />
                 <b>{{item.Descripcion2}}</b> <br />
                 {{item.Cantidad2}} unidades<br />
-            Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
             {{else}}
             {{/if_eq}}
         </div>
@@ -427,7 +405,7 @@
             {{item.CUV}}<br />
             <b>{{item.Descripcion}}</b> <br />
             {{item.Cantidad}} unidades<br />
-            Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio}}
+            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
         </div>
         <div class="listado_solicitud_reclamo"><b>{{item.Solicitud}}</b></div>
         <div class="listado_solicitada_reclamo">
@@ -443,7 +421,7 @@
                 {{item.CUV2}}<br />
                 <b>{{item.Descripcion2}}</b> <br />
                 {{item.Cantidad2}} unidades<br />
-                Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+                Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
             {{else}}
 
             {{/if_eq}}

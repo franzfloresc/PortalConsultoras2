@@ -428,6 +428,29 @@ namespace Portal.Consultoras.Web.SessionManager
             return (int)HttpContext.Current.Session["MiAcademia"];
         }
 
+        void ISessionManager.setBEUsuarioModel(List<ServiceUsuario.BEUsuario> model)
+        {
+            HttpContext.Current.Session["BEUsuarioModel"] = model;
+        }
+
+        List<ServiceUsuario.BEUsuario> ISessionManager.getBEUsuarioModel()
+        {
+            return (List<ServiceUsuario.BEUsuario>)HttpContext.Current.Session["BEUsuarioModel"];
+        }
+
+        EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
+        {
+            get
+            {
+                return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
+            }
+
+            set
+            {
+                HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = value;
+            }
+        }
+
         void ISessionManager.SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
         {
             HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = modelo;
@@ -438,5 +461,15 @@ namespace Portal.Consultoras.Web.SessionManager
             return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
         }
         
+
+        public void SetPedidoValidado(bool validado)
+        {
+            HttpContext.Current.Session["PedidoValidado"] = validado;
+        }
+
+        public bool GetPedidoValidado()
+        {
+            return Convert.ToBoolean(HttpContext.Current.Session["PedidoValidado"]);
+        }
     }
 }
