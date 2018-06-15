@@ -263,7 +263,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var observacionesProl = sessionManager.GetObservacionesProl();
                 if (detallesPedidoWeb.Count > 0 && observacionesProl != null)
                 {
-                    detallesPedidoWeb = PedidoConObservaciones(detallesPedidoWeb, observacionesProl);
+                    detallesPedidoWeb = PedidoConObservacionesAgrupado(detallesPedidoWeb, observacionesProl);
                 }
 
                 userData.PedidoID = detallesPedidoWeb.Count > 0 ? detallesPedidoWeb[0].PedidoID : 0;
@@ -282,6 +282,53 @@ namespace Portal.Consultoras.Web.Controllers
 
             return detallesPedidoWeb;
         }
+
+
+        protected List<BEPedidoWebDetalle> PedidoConObservacionesAgrupado(List<BEPedidoWebDetalle> pedido, List<ObservacionModel> observaciones)
+        {
+            var pedObs = pedido;
+            List<string> listaCUVsAEvaluar;
+            var txtBuil = new StringBuilder();
+            var nuevasObservaciones = new List<ObservacionModel>();
+
+            List<BEPedidoWebDetalle> cuvHijos = TraerHijosFaltantesEnObsPROL(pedido);
+
+            foreach (var item in pedObs)
+            {
+                listaCUVsAEvaluar = new List<string>();
+                item.Mensaje = string.Empty;
+
+                listaCUVsAEvaluar.Add(item.CUV);
+
+                if (cuvHijos.Any(x => x.SetID == item.SetID))
+                {
+                    listaCUVsAEvaluar.AddRange(cuvHijos.Where(x => x.SetID == item.SetID).Select(x => x.CUV));
+                }
+
+                // var temp = observaciones.Where(o => o.CUV == item.CUV).ToList();
+                var temp = observaciones.Where(o => listaCUVsAEvaluar.Contains(o.CUV)).ToList();
+
+
+                if (temp.Count != 0)
+                {
+                    if (temp.Any(o => o.Caso == 0)) item.TipoObservacion = 0;
+                    else item.TipoObservacion = temp[0].Tipo;
+
+                    foreach (var ob in temp)
+                    {
+                        txtBuil.Append(ob.Descripcion + "<br/>");
+                    }
+                    item.Mensaje = txtBuil.ToString();
+                    txtBuil.Clear();
+                }
+                else item.TipoObservacion = 0;
+            }
+
+            sessionManager.SetObservacionesProl(null);
+
+            return pedObs.OrderByDescending(p => p.TipoObservacion).ToList();
+        }
+
 
         protected List<BEPedidoWebDetalle> PedidoConObservaciones(List<BEPedidoWebDetalle> pedido, List<ObservacionModel> observaciones)
         {
@@ -307,6 +354,22 @@ namespace Portal.Consultoras.Web.Controllers
                 else item.TipoObservacion = 0;
             }
             return pedObs.OrderByDescending(p => p.TipoObservacion).ToList();
+        }
+        private List<BEPedidoWebDetalle> TraerHijosFaltantesEnObsPROL(List<BEPedidoWebDetalle> pedido)
+        {
+            var idSetList = pedido.Where(x => x.SetID != 0).Select(x => x.SetID).ToList();
+            var cuvHijos = new List<BEPedidoWebDetalle>();
+
+            if (idSetList.Any())
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    cuvHijos = sv.ObtenerCuvSetDetalle(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.PedidoID, String.Join(",", idSetList)).ToList();
+
+                }
+            }
+
+            return cuvHijos;
         }
 
         protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(bool session = true)
