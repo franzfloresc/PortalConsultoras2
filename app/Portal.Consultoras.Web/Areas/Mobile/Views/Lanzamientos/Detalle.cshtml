@@ -15,136 +15,103 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Mobile/Lanzamientos-Detalle")
 }
 
-<div data-item="" data-tag-html="@ViewBag.Campania">
-    <div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoMobile); background-color: #efefef !important;'
-         data-estadoregistro="@ViewBag.EstadoSuscripcion"
-         data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
-        <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
-        <div class="wrapper_resumen_mobile">
-            <div class="detalle-prod">
+<style>
 
-                <div class="detalle-img">
-                    <div class="img-portada" style="background:url(@fotoSmall);"></div>
-                </div>
-                <div class="detalle-info">
-                    <div class="label-nuevo">
-                        <img src="@Model.TipoEstrategiaDetalle.ImgFichaMobile" />
-                    </div>
-                    <div class="detalle-bloque-uno">
-                        <div class="bloque1">
-                            <p>@Model.DescripcionMarca</p>
-                            <h1>@Model.DescripcionResumen</h1>
-                        </div>
-                        <div class="bloque2">
-                            <span class="precio-tachado">@vbSimbolo @Model.PrecioTachado</span>
-                            <span class="precio-para-ti">Precio para tí<b>@vbSimbolo @Model.PrecioVenta</b></span>
-                            <span class="gana-rojo">GANA @vbSimbolo @Model.GananciaString</span>
-                        </div>
-                        <div style="clear:both;"></div>
-                    </div>
-                    <div class="detalle-bloque-dos">
-                        <p>@Model.TipoEstrategiaDetalle.Slogan</p>
-                        <ul>
-                            @foreach (var DescDetalle in Model.ListaDescripcionDetalle)
-                            {
-                                <li><span class="vineta">-</span><span class="txt-des">@DescDetalle.Trim()</span></li>
-                                <div style="clear:both;"></div>
-                            }
-                        </ul>
-                    </div>
-                    <div id="ContenedorDeTonos" class="detalle-bloque-tres">
-                        @Html.Partial("~/Views/Lanzamientos/Template_LanzamientosTonos.cshtml", Model)
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div style="clear:both;"></div>
+</style>
 
-    @if (Model.ClaseBloqueada == "")
-    {
-        <div class="row">
-            <div class="content_btn_agregar">
-                <div class="content_320">
-                    <div class="content_cantidad_ficha_producto">
-                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                    </div>
-                    <a class="@Model.ClaseBloqueada btn_agregar_ficha_producto"
-                       id="tbnAgregarProducto"
-                       data-bloqueada="@Model.ClaseBloqueada"
-                       onclick="javascript:EstrategiaAgregar(event, true); ">AGRÉGALO</a>
-                    <hr class="clear">
-                </div>
-            </div>
-        </div>
-    }
+<section class="bg_promo_ficha" style="background: url();">
 
-</div>
-<hr class="clear" />
-<div>
-    <div class="set_encuentras_producto" id="set_relacionados">
-        <div class="wrapper_resumen_mobile">
-            <p class="titulo_set">
-                PACKS CON @Model.DescripcionResumen
-            </p>
-            <div class="set_encuentras_producto_carrusel">
-                <div id="divOfertaProductos"></div>
-            </div>
+</section>
+<div class="container-fluid ficha_del_producto">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <section class="producto">
+                <img src="http://i65.tinypic.com/16237l5.png" style="display:block; margin:auto; width:100%;     margin: 40px 0px;" /> 
+            </section>
         </div>
-    </div>
-    @if ((Model.TipoEstrategiaDetalle.UrlVideoMobile ?? "") != "")
-    {
-        <div class="set_encuentras_producto_video" id="video_lanzamiento" style="padding-bottom: 0;">
-            <div class="wrapper_resumen_mobile">
-                <p class="titulo_set">
-                    VIDEO
-                </p>
-                <div class="revista_producto_video" style="width: 100%">
-                    <div id="player"></div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <section class="producto_compra_contiene">
+                <div class="marca">ÉSIKA</div>
+                <div class="nom_producto">
+                    PACK TOTAL + PULSO + ALVIENTO
                 </div>
-            </div>
+                <div class="precio_antiguo">
+                    S/.200
+                </div>
+                <div class="precio_para_ti">
+                    Precio para tí <b>S/.110</b>
+                </div>
+                <div class="gana">
+                    GANA S/.90
+                </div>
+                <div class="titulo_contenido">
+                    CONTENIDO
+                </div>
+            </section>
         </div>
-    }
-    <hr class="clear" />
-    <div class="comparte_set_encuentras_producto_video" data-posicion="0" data-item="165">
-        <div data-compartir-campos="" style="display:none;">
-            <input type="hidden" class="CUV" value="@Model.CUV2" />
-            <input type="hidden" class="rsFBMensaje" value="" />
-            <input type="hidden" class="rsWAMensaje" value="" />
-            <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
-            <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
-            <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
-            <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
-            <input type="hidden" class="Nombre" value="@Model.DescripcionResumen" />
-            <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionDetalle" />
-            <input type="hidden" class="Volumen" value="" />
-            <input type="hidden" class="Palanca" value="LAN" />
-        </div>
-        @if (!mobileConfiguracion.EsAppMobile)
-        {
-            <div class="wrapper_resumen_mobile" style="height: 150px;">
-                <hr />
-                <p>Comparte el producto con tus clientes:</p>
+         <div class="col-md-12 col-sm-12 col-xs-12">
+             <section class="producto_contenido">
+                 <div class="contenido_producto">
+                     x2 Labial en barra rouge l'intense 4g/14o.z
+                     <img src="http://i64.tinypic.com/24ep8ua.png" style="display:block; margin:auto; width:100%;" />
+                 </div>
+                 <div class="contenido_producto">
+                     x2 Labial en barra rouge l'intense 4g/14o.z
+                 </div>
+             </section>
+         </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <section class="tabs">
                 <ul>
                     <li>
-                        <a href="javascript: void(0);" data-compartir="WA" style="display: block;background: #119e06;padding: 5px;">
-                            <img src="~/Content/Images/mobile/img-icon/whatsapp-50x50.png" alt="">
-                        </a>
+                        <a>DETALLE DEL PACK</a>
+                        <ul class="dropdown">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab dolores harum, est praesentium voluptatum minima, officiis facilis itaque voluptates qui ducimus veritatis cumque eveniet neque corporis hic magnam similique ut.
+                        </ul>
                     </li>
                     <li>
-                        <a href="javascript: void(0);" data-compartir="FB">
-                            <img src="~/Content/Images/mobile/Esika/facebook.png" alt="">
-                        </a>
+                        <a>TIP DE VENTA</a>
+                        <ul class="dropdown">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit modi nihil, mollitia doloribus excepturi veritatis cupiditate vitae labore eius blanditiis fuga quam, asperiores facilis aut velit sapiente repellendus provident, amet?
+                        </ul>
                     </li>
-
                 </ul>
+            </section>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <section class="donde_encuentras_producto">
+                <p class="titulo_set">SET DONDE ENCUENTRAS EL PRODUCTO</p>
+                <img src="http://i67.tinypic.com/11i22qq.png" style="display:block; margin:auto; width:100%;" /> 
+            </section>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="detalle-compartir">
+                Comparte este producto con tus clientes
+                <img src="/Content/Images/Esika/facebook.png" class="fb" href="javascript:;" data-compartir="FB">
             </div>
-        }
+        </div>
     </div>
 </div>
 
+@if (Model.ClaseBloqueada == "")
+{
+    <div class="row">
+        <div class="content_btn_agregar">
+            <div class="content_320">
+                <div class="content_cantidad_ficha_producto">
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <a class="@Model.ClaseBloqueada btn_agregar_ficha_producto"
+                   id="tbnAgregarProducto"
+                   data-bloqueada="@Model.ClaseBloqueada"
+                   onclick="javascript:EstrategiaAgregar(event, true); ">AGRÉGALO</a>
+                <hr class="clear">
+            </div>
+        </div>
+    </div>
+}
 
 @if (Model.ClaseBloqueada != "")
 {
@@ -168,5 +135,10 @@
         function onYouTubeIframeAPIReady() {
             detalleLanzamiento.onYouTubeIframeAPIReady();
         }
+    </script>
+    <script>
+        $('section.tabs ul li').click(function () {
+                $(this).children('ul').slideToggle();
+            });
     </script>
 }

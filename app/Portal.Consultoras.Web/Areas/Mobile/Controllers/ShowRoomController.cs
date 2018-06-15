@@ -376,6 +376,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View("DetalleOferta", modelo);
         }
 
+        public ActionResult DetalleOfertaFichaProducto(int id)
+        {
+            return View("DetalleOfertaFichaProducto");
+        }
+
+
         public ActionResult DetalleOfertaPersonalizado(int id)
         {
             ActionExecutingMobile();
