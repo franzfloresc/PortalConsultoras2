@@ -1269,6 +1269,7 @@
     <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
+    <Content Include="Content\Css\Site\DetalleSetProductos\DetalleSetProductos.css" />
     <Content Include="Content\Css\Site\Esika\StyleDiv\style12.css" />
     <Content Include="Content\Css\Site\Esika\StyleDiv\style11.css" />
     <Content Include="Content\Css\Site\Esika\StyleDiv\style10.css" />

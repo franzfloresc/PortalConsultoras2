@@ -7,8 +7,14 @@
 }
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/DetalleSetProductos/DetalleSetProductos.css")" rel="stylesheet" />
+
     <style>
         .SubHeader {
+            display: none;
+        }
+
+        #PopDetalleCompra, .fondo_set, .catalogoPersonalizadoBloque {
             display: none;
         }
     </style>
@@ -33,6 +39,355 @@
     }
 }
 
+<div class="contenedor_detalle texto_font">
+    <div class="contenedor_fichas">
+        <div class="contenedor_ficha_etiquetas">
+            <div class="contenedor_etiqueta_odd">
+                <div id="imgSoloHoy" class="img_solo_hoy">
+                    <img class="contenedor_img" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/OfertaDelDia/PE/solo_hoys.png" alt="" />
+                </div>
+                <div class="clock clock_odd"></div>
+            </div>
+            <div class="contenedor_etiqueta_nuevo">
+                <div class="triangulo_etiqueta_nuevo"></div>
+                <div class="etiqueta_nuevo">NUEVO</div>
+            </div>
+        </div>
+        <div class="contenedor_ficha_producto">
+            <div class="ficha_producto">
+                <div class="contenedor_imagen">
+                    <img class="contenedor_img" src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201809/E/productos/PE_200050018.jpg" alt="">
+                </div>
+                <div class="texto_referencial">* Foto Referencial</div>
+                <div class="ficha_redes_sociales">
+                    <div class="texto_redes_sociales">Comparte este producto con tus clientes</div>
+                    <a class="btn_compartir_facebook" href="javascript:;" data-compartir="FB">
+                        <img class="contenedor_img" src="/Content/Images/Esika/facebook.png">
+                    </a>
+                </div>
+            </div>
+            <div class="ficha_detalle">
+                <div class="contenedor_nombre_precio">
+                    <div class="contenedor_izquierdo">
+                        <div class="nombre_marca">ÉSIKA</div>
+                        <div class="descripcion">PACK TOTAL + PULSO + ALVIENTO</div>
+                    </div>
+                    <div class="contenedor_derecho">
+                        <div class="precio_valorizado">S/.200</div>
+                        <div class="precio_venta_oferta">Precio para ti <b>S/.110</b></div>
+                        <div class="ganancia">GANA S/.90</div>
+                    </div>
+                </div>
+                <div class="contenedor_lista_detalle">
+                    <div class="texto_contenido">CONTENIDO:</div>
+                    <div class="detalle_producto" data-tono="" data-tono-select="" data-tono-digitable="">
+                        <div class="cantidad_descripcion_detalle">
+                            <span class="cantidad_detalle_producto">x2</span>
+                            <span class="descripcion_detalle_producto" @*data-tono-cuv-producto="" data-tono-select-nombrecomercial=""*@>
+                                Labial en barra rouge l'intense 4g/14o.z
+                            </span>
+                        </div>
+                        <div class="selector_tono" data-selector_tono="">
+                            <div class="elige_tono" data-tono-showroom-change="1">
+                                <div class="img_item_tono" data-img_item_tono="" style="display: none;">
+                                    <img src="~/Content/Images/showroom/no_disponible.png" alt="">
+                                </div>
+                                <div class="txt_item_tono txt_bold" data-txt_item_tono="">ELIGE TU TONO</div>
+                                <div class="contenedor_flecha_tonos">
+                                    <div class="dibujar_linea dibujar_flecha_tonos" data-flecha-tonos=""></div>
+                                </div>
+                            </div>
+                            <div class="contenedor_items_tonos" data-visible="0" style="display: none;">
+                                <div class="contenedor_item_tono" data-tono-showroom-change="2" data-tono-cuv="" data-tono-nombre="Rose Desir" data-tono-descripcion="">
+                                    <div class="img_item_tono"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201809/L/productos/bulk/PE_200087991_B.jpg" alt=""></div>
+                                    <div class="txt_item_tono">Rose Desir</div>
+                                    <hr class="clear">
+                                </div>
+                                <div class="contenedor_item_tono" data-tono-showroom-change="2" data-tono-cuv="" data-tono-nombre="Berry Riche" data-tono-descripcion="">
+                                    <div class="img_item_tono"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201808/L/productos/bulk/PE_200087990_B.jpg" alt=""></div>
+                                    <div class="txt_item_tono">Berry Riche</div>
+                                    <hr class="clear">
+                                </div>
+                                <div class="contenedor_item_tono" data-tono-showroom-change="2" data-tono-cuv="" data-tono-nombre="Roselle" data-tono-descripcion="">
+                                    <div class="img_item_tono"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201809/L/productos/bulk/PE_200082704_B.jpg" alt=""></div>
+                                    <div class="txt_item_tono">Roselle</div>
+                                    <hr class="clear">
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="clear">
+                    </div>
+                    <div class="detalle_producto" data-tono="" data-tono-select="" data-tono-digitable="">
+                        <div class="cantidad_descripcion_detalle">
+                            <span class="cantidad_detalle_producto">x1</span>
+                            <span class="descripcion_detalle_producto" @*data-tono-cuv-producto="" data-tono-select-nombrecomercial=""*@>
+                                Perfume Pulso 100m/3.4 fl.oz
+                            </span>
+                        </div>
+                        <hr class="clear">
+                    </div>
+                </div>
+                <div class="contenedor_agregar">
+                    <div class="contenedor_rangos">
+                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
+                        <div>
+                            <a class="txt_menos menos" data-cantidad-agregar="-">
+                                <div class="dibujar_linea dibujar_menos"></div>
+                            </a>
+                            <a class="txt_mas mas" data-cantidad-agregar="+">
+                                <div class="dibujar_linea dibujar_mas"></div>
+                            </a>
+                        </div>
+                    </div>
+                    <a id="btnAgregalo" class="btn_agregalo btn_agregalo_desactivado" onclick="javascript:EstrategiaAgregarShowRoom(event, true); ">AGRÉGALO</a>
+                    <div class="contenedor_agregado">
+                        <div class="txt_agregado">
+                            <span class="span_agregado">AGREGADO</span>
+                            <div class="check_agregado">
+                                <div class="dibujar_linea dibujar_check_agregado"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contenedor_ficha_tabs">
+            <div class="tabla_ficha_tab">
+                <div class="row_ficha_tab">
+                    <div class="cell_ficha_tab">
+                        <div class="contents_ficha_tab">
+                            <input id="ficha_tab_1" class="imput_tab_clean imput_tab" type="radio" name="tabs" data-numTab="1" checked>
+                            <label for="ficha_tab_1" class="label_tab">DETALLE DEL PRODUCTO</label>
+                        </div>
+                    </div>
+                    <div class="cell_ficha_tab">
+                        <div class="contents_ficha_tab">
+                            <input id="ficha_tab_2" class="imput_tab_clean imput_tab" type="radio" data-numTab="2" name="tabs">
+                            <label for="ficha_tab_2" class="label_tab">DETALLE DEL PACK</label>
+                        </div>
+                    </div>
+                    <div class="cell_ficha_tab">
+                        <div class="contents_ficha_tab">
+                            <input id="ficha_tab_3" class="imput_tab_clean imput_tab" type="radio" data-numTab="3" name="tabs">
+                            <label for="ficha_tab_3" class="label_tab">TIPS DE VENTA</label>
+                        </div>
+                    </div>
+                    <div class="cell_ficha_tab">
+                        <div class="contents_ficha_tab">
+                            <input id="ficha_tab_4" class="imput_tab_clean imput_tab" type="radio" data-numTab="4" name="tabs">
+                            <label for="ficha_tab_4" class="label_tab">BENEFICIOS</label>
+                        </div>
+                    </div>
+                    <div class="cell_ficha_tab">
+                        <div class="contents_ficha_tab">
+                            <input id="ficha_tab_5" class="imput_tab_clean imput_tab" type="radio" data-numTab="5" name="tabs">
+                            <label for="ficha_tab_5" class="label_tab">VIDEO</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section id="contenido_1" class="seccion_tab">
+                <ul class="txt_ul">
+                    <li class="txt_li">
+                        <div class="txt_li_titulo">Labial en barra rouge lintense:</div>
+                        <div>El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</div>
+                    </li>
+                    <li>
+                        <div class="txt_li_titulo">Pulso:</div>
+                        <div>Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</div>
+                    </li>
+                </ul>
+            </section>
+            <section id="contenido_2" class="seccion_tab">
+                <ul class="txt_ul">
+                    <li class="txt_li">
+                        <div class="txt_li_titulo">Labial en barra rouge lintense:</div>
+                        <div>El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</div>
+                    </li>
+                    <li>
+                        <div class="txt_li_titulo">Pulso:</div>
+                        <div>Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</div>
+                    </li>
+                </ul>
+            </section>
+            <section id="contenido_3" class="seccion_tab">
+                <div class="contenedor_img_txt">
+                    <div class="txt_img_seccion_tab">
+                        <div class="img_seccion_tab">
+                            <img class="contenedor_img" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_2000934882018554845_vffslsirks.png" alt="">
+                        </div>
+                        <div class="txt_seccion_tab">
+                            Tiene un aroma maderoso con Canela de Magadascar de larga duración.<br />
+                            Su envase azul es moderno y sotisficado. Inspirado en el hombre.
+                        </div>
+                    </div>
+                    <div class="txt_img_seccion_tab">
+                        <div class="img_seccion_tab">
+                            <img class="contenedor_img" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_2000892222018550244_gbatklhzxl.png" alt="">
+                        </div>
+                        <div class="txt_seccion_tab">
+                            Aplícala directamente en la muñeca de tu cliente usando el demostrador.
+                        </div>
+                    </div>
+                    <div class="txt_img_seccion_tab">
+                        <div class="img_seccion_tab">
+                            <img class="contenedor_img" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200083615201851656_wedqazhdhj.png" alt="">
+                        </div>
+                        <div class="txt_seccion_tab">
+                            Convencelo comentando que el olor durará hasta el final del día y pregunta: "¿Te pido el fresco aroma de Cardigan Evolución?"
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="contenido_4" class="seccion_tab">
+                <div class="contenedor_txt_p">
+                    <div class="txt_p_titulo">¿Por qué nos encanta?</div>
+                    <div class="txt_p">
+                        El Labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.
+                    </div>
+                    <div class="txt_p_titulo">¿Qué hace?</div>
+                    <div class="txt_p">
+                        El nuevo labial mate posee una gran innovación que mantiene tus labios hidratados hasta por 24 horas. Disfruta de todo el color
+                        y la suavidad de miles de pétalos de rosa en tus labios.
+                    </div>
+                    <div class="txt_p_titulo">¿Cómo funciona?</div>
+                    <div class="txt_p">
+                        Labial Mate aterciopelado, no reseca los labios y viene con identificador de color en el envase.
+                    </div>
+                </div>
+            </section>
+            <section id="contenido_5" class="seccion_tab">
+                <div class="contenedor_iframe_seccion_tab">
+                    <iframe class="iframe_seccion_tab"
+                            src="https://www.youtube.com/embed/Ib8S28KNZeU"></iframe>
+                </div>
+            </section>
+        </div>
+        <div class="contenedor_ficha_carrusel">
+            <div>
+                <div class="contenedor_linea_carrusel">
+                    <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_izquierda"></div>
+                </div>
+                <div class="txt_titulo_carrusel">SET DONDE ENCUENTRAS EL PRODUCTO</div>
+                <div class="contenedor_linea_carrusel">
+                    <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_derecha"></div>
+                </div>
+            </div>
+            <div style="display: none;">
+                <div class="responsive" style="margin-left: 10em;">
+                    @{ var posicionxx = 1; }
+                    @foreach (var oferta in Model.ListaOfertaShowRoom)
+                    {
+                        var descripcion = oferta.Descripcion;
+                        if (descripcion != null && descripcion.Length > 41)
+                        {
+                            descripcion = descripcion.Substring(0, 40) + " ...";
+                        }
+                        <div class="set-productos-showroom-carrusel" data-item="@oferta.OfertaShowRoomID">
+                            <div data-campos="">
+                                <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID" />
+                                <input type="hidden" id="hcuv" class="valorCuv" value="@oferta.CUV" />
+                                <input type="hidden" class="claseMarcaID" value="@oferta.MarcaID" />
+                                <input type="hidden" id="hprecio" class="clasePrecioUnidad" value="@oferta.PrecioOferta" />
+                                <input type="hidden" class="claseConfiguracionOfertaID" value="@oferta.ConfiguracionOfertaID" />
+                                <input type="hidden" id="hnombrecuv" class="DescripcionProd" value="@oferta.Descripcion" />
+                                <input type="hidden" id="hmarca" class="DescripcionMarca" value="@oferta.DescripcionMarca" />
+                                <input type="hidden" class="posicionEstrategia" value="@posicionxx" />
+                            </div>
+                            <div class="producto_img_home mini" data-img="">
+                                <img src="@oferta.ImagenProducto" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1">
+                                <a class="ver_detalle_carrusel" href="@Url.Action("DetalleOferta", "ShowRoom", new {id = oferta.OfertaShowRoomID})">VER DETALLE</a>
+                            </div>
+                            <div class="producto_nombre_descripcion">
+                                <p class="nombre-producto-set">@descripcion</p>
+                                <div class="producto_precio" style="margin-bottom: 3px;">
+                                    <span class="precio-oferta-normal">@oferta.Simbolo @oferta.FormatoPrecioValorizado</span>
+                                    <span class="precio-oferta-venta"><b>@oferta.Simbolo @oferta.FormatoPrecioOferta</b></span>
+                                </div>
+                                <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                                    <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                                    <div class="liquidacion_rango_right_pedido">
+                                        <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                        <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                    </div>
+                                </div>
+                                <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
+                                <div class="clear"></div>
+                                <div style="padding-top: 9px; height: 30px;">
+                                    <div class="agregado product-add" data-btn-agregar-sr="" style="text-align: right; display: @oferta.Agregado;">
+                                        AGREGADO
+                                        <div class="icono"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {
+                            posicionxx++;
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="" style="margin-top:-90px; padding-bottom: 30px; overflow:hidden;">
+    <div class="content_belcorp" style="width: 65%">
+        <div class="responsive" style="margin-left: 10em;">
+            @{ var posicionxxx = 1; }
+            @foreach (var oferta in Model.ListaOfertaShowRoom)
+            {
+                var descripcion = oferta.Descripcion;
+                if (descripcion != null && descripcion.Length > 41)
+                {
+                    descripcion = descripcion.Substring(0, 40) + " ...";
+                }
+                <div class="set-productos-showroom-carrusel" data-item="@oferta.OfertaShowRoomID">
+                    <div data-campos="">
+                        <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID" />
+                        <input type="hidden" id="hcuv" class="valorCuv" value="@oferta.CUV" />
+                        <input type="hidden" class="claseMarcaID" value="@oferta.MarcaID" />
+                        <input type="hidden" id="hprecio" class="clasePrecioUnidad" value="@oferta.PrecioOferta" />
+                        <input type="hidden" class="claseConfiguracionOfertaID" value="@oferta.ConfiguracionOfertaID" />
+                        <input type="hidden" id="hnombrecuv" class="DescripcionProd" value="@oferta.Descripcion" />
+                        <input type="hidden" id="hmarca" class="DescripcionMarca" value="@oferta.DescripcionMarca" />
+                        <input type="hidden" class="posicionEstrategia" value="@posicionxxx" />
+                    </div>
+                    <div class="producto_img_home mini" data-img="">
+                        <img src="@oferta.ImagenProducto" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1">
+                        <a class="ver_detalle_carrusel" href="@Url.Action("DetalleOferta", "ShowRoom", new {id = oferta.OfertaShowRoomID})">VER DETALLE</a>
+                    </div>
+                    <div class="producto_nombre_descripcion">
+                        <p class="nombre-producto-set">@descripcion</p>
+                        <div class="producto_precio" style="margin-bottom: 3px;">
+                            <span class="precio-oferta-normal">@oferta.Simbolo @oferta.FormatoPrecioValorizado</span>
+                            <span class="precio-oferta-venta"><b>@oferta.Simbolo @oferta.FormatoPrecioOferta</b></span>
+                        </div>
+                        <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                            <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                            <div class="liquidacion_rango_right_pedido">
+                                <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                            </div>
+                        </div>
+                        <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
+                        <div class="clear"></div>
+                        <div style="padding-top: 9px; height: 30px;">
+                            <div class="agregado product-add" data-btn-agregar-sr="" style="text-align: right; display: @oferta.Agregado;">
+                                AGREGADO
+                                <div class="icono"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {
+                    posicionxxx++;
+                }
+            }
+        </div>
+    </div>
+</div>
+
 <div class="fondo_set" style="background:url(@ViewBag.ImagenFondoProductPage) no-repeat; background-size: contain;height:340px;">
     <div class="content_belcorp" data-item>
         <div class="rd_volver" style="margin-left: 145px; position: absolute; top: -20px;">
@@ -41,7 +396,7 @@
                 <span style="top: -4px; position: absolute;left: 15px; font-weight: bold; font-family: 'Lato'; font-size:15px">VOLVER</span>
             </a>
         </div>
-        <div class="content_solo_ficha_set" data-posicion="0" data-item="@Model.OfertaShowRoomID" >
+        <div class="content_solo_ficha_set" data-posicion="0" data-item="@Model.OfertaShowRoomID">
             <div data-compartir-campos="" style="display: none;">
                 <input type="hidden" id="hcuv" class="CUV" value="@Model.CUV" />
                 <input type="hidden" class="rsFBMensaje" value="@Model.FBMensaje" />
@@ -101,72 +456,72 @@
                 {
                     <div data-estrategia="@Model.CodigoEstrategia">
                         @if (Model.ProductoTonos != null && Model.ProductoTonos.Any())
-                            {
-                                <div>
-                                    @foreach (var producto in Model.ProductoTonos)
+                        {
+                            <div>
+                                @foreach (var producto in Model.ProductoTonos)
+                                {
+                                    if ((producto.NombreComercial ?? "") == "" && producto.Digitable != 1)
                                     {
-                                        if ((producto.NombreComercial ?? "") == "" && producto.Digitable != 1)
-                                        {
-                                            continue;
-                                        }
-                                        <div>
-                                            <div class="content_producto_tono" data-tono="" data-tono-select="" data-tono-digitable="@producto.Digitable">
-                                                <div style="display: none;">
-                                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@producto.MarcaID" />
-                                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@producto.PrecioCatalogo" />
-                                                </div>
-                                                <div class="nombre_marca_set">
-                                                    @if (@producto.DescripcionMarca != "")
-                                                    {
-                                                        <span class="brand">@producto.DescripcionMarca</span>
-                                                    }
-                                                </div>
-                                                <div class="content_detalle_showroom">
-                                                    <div class="content_imagen_individual">
-                                                        <img src="@producto.Imagen" style="width: 100%;" alt="@producto.NombreComercial">
-                                                    </div>
-                                                    @if (@producto.Cantidad > 0)
-                                                    {
-                                                        <span class="cantidad_producto_opt">x @producto.Cantidad </span>
-                                                    }
-                                                    <div class="nombre_set_individual">
-                                                        <span data-tono-cuv-producto="@producto.CUV" data-tono-select-nombrecomercial="">@producto.NombreComercial</span>
-                                                        <span class="detalle_set_showroom">@producto.Descripcion</span>
-                                                        <span class="detalle_set_showroom"></span>
-                                                    </div>
-                                                    @if (producto.Digitable == 1)
-                                                    {
-                                                        <div class="tonos_set_individual">
-                                                            <div class="tono_select_opt">
-                                                                <div class="content_tono_elegido texto_sin_tono" data-tono-showroom-change="1">
-                                                                    <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
-                                                                    <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
-                                                                    <hr class="clear" />
-                                                                </div>
-                                                                <div class="content_tonos_select" style="width:102%;">
-                                                                    @foreach (var tono in producto.Hermanos)
-                                                                    {
-                                                                        btnDesabled = 1;
-                                                                        <div class="content_tono_elegido" data-tono-showroom-change="2" data-tono-cuv="@tono.CUV" data-tono-nombre="@tono.NombreBulk" data-tono-descripcion="@tono.NombreComercial">
-                                                                            <div class="tono_seleccionado"><img src="@tono.ImagenBulk" alt=""></div>
-                                                                            <div class="texto_tono_seleccionado">@tono.NombreBulk</div>
-                                                                            <hr class="clear" />
-                                                                        </div>
-                                                                    }
-                                                                </div>
-                                                            </div>
-                                                            <hr class="clear">
-                                                        </div>
-                                                    }
-                                                    <hr class="clear" />
-                                                </div>
-                                                <div class="precio_regular_set"></div>
-                                                <hr class="clear">
-                                            </div>
-                                        </div>
+                                        continue;
                                     }
-                                </div>
-                            }
+                                    <div>
+                                        <div class="content_producto_tono" data-tono="" data-tono-select="" data-tono-digitable="@producto.Digitable">
+                                            <div style="display: none;">
+                                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@producto.MarcaID" />
+                                                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@producto.PrecioCatalogo" />
+                                            </div>
+                                            <div class="nombre_marca_set">
+                                                @if (@producto.DescripcionMarca != "")
+                                                {
+                                                    <span class="brand">@producto.DescripcionMarca</span>
+                                                }
+                                            </div>
+                                            <div class="content_detalle_showroom">
+                                                <div class="content_imagen_individual">
+                                                    <img src="@producto.Imagen" style="width: 100%;" alt="@producto.NombreComercial">
+                                                </div>
+                                                @if (@producto.Cantidad > 0)
+                                                {
+                                                    <span class="cantidad_producto_opt">x @producto.Cantidad </span>
+                                                }
+                                                <div class="nombre_set_individual">
+                                                    <span data-tono-cuv-producto="@producto.CUV" data-tono-select-nombrecomercial="">@producto.NombreComercial</span>
+                                                    <span class="detalle_set_showroom">@producto.Descripcion</span>
+                                                    <span class="detalle_set_showroom"></span>
+                                                </div>
+                                                @if (producto.Digitable == 1)
+                                                {
+                                                    <div class="tonos_set_individual">
+                                                        <div class="tono_select_opt">
+                                                            <div class="content_tono_elegido texto_sin_tono" data-tono-showroom-change="1">
+                                                                <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                                                <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
+                                                                <hr class="clear" />
+                                                            </div>
+                                                            <div class="content_tonos_select" style="width:102%;">
+                                                                @foreach (var tono in producto.Hermanos)
+                                                                {
+                                                                    btnDesabled = 1;
+                                                                    <div class="content_tono_elegido" data-tono-showroom-change="2" data-tono-cuv="@tono.CUV" data-tono-nombre="@tono.NombreBulk" data-tono-descripcion="@tono.NombreComercial">
+                                                                        <div class="tono_seleccionado"><img src="@tono.ImagenBulk" alt=""></div>
+                                                                        <div class="texto_tono_seleccionado">@tono.NombreBulk</div>
+                                                                        <hr class="clear" />
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <hr class="clear">
+                                                    </div>
+                                                }
+                                                <hr class="clear" />
+                                            </div>
+                                            <div class="precio_regular_set"></div>
+                                            <hr class="clear">
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
                     </div>
                 }
                 <div class="linea_separadora" style="margin-top: 20px; margin-bottom: 10px;"></div>

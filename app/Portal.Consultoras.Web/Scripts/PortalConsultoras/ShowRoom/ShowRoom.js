@@ -40,7 +40,7 @@ $(document).ready(function () {
             lazyLoad: 'ondemand',
             infinite: true,
             vertical: false,
-            slidesToShow: 4,
+            slidesToShow: 3,
             slidesToScroll: 1,
             autoplay: false,
             speed: 260,
@@ -278,7 +278,35 @@ $(document).ready(function () {
             }
         }
     }
+
+    for (var i = 1; i <= 5; i++) {
+        if (document.getElementById("ficha_tab_" + i.toString()).checked) {
+            document.getElementById("contenido_" + i.toString()).style.display = "block";
+        }
+
+        document.getElementById("ficha_tab_" + i.toString()).onclick = function (event) {
+            var numID = event.target.getAttribute('data-numTab');
+
+            for (var j = 1; j <= 5; j++) {
+                document.getElementById("contenido_" + j.toString()).style.display = "none";
+            }
+
+            document.getElementById("contenido_" + numID.toString()).style.display = "block";
+        }
+    }
+
+    MostrarRelojOfertaDelDia(50000);
 });
+
+function MostrarRelojOfertaDelDia(totalSegundos) {
+    $('.clock').each(function (index, elem) {
+        $(elem).FlipClock(totalSegundos, {
+            clockFace: 'HourlyCounter',
+            countdown: true
+        });
+    });
+
+}
 
 $(document).ready(function () {
     if (isMobile()) {
@@ -290,23 +318,23 @@ $(document).ready(function () {
     function mostrarListaTonos() {
         var accion = $(this).attr("data-tono-showroom-change");
 
-        var hideSelect = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
+        var hideSelect = $(this).parents("[data-tono]").find('.contenedor_items_tonos').attr("data-visible");
         if (hideSelect == "1") {
-            $(this).parents("[data-tono]").find('.content_tonos_select').hide();
-            $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "0");
-            $(this).parents("[data-tono]").find("[data-tono-showroom-change='1']").parent().removeClass("tono_por_elegir");
+            $(this).parents("[data-tono]").find('.contenedor_items_tonos').hide();
+            $(this).parents("[data-tono]").find('.contenedor_items_tonos').attr("data-visible", "0");
+            $(this).parents("[data-tono]").find("[data-flecha-tonos]").removeClass("dibujar_flecha_tonos_por_elegir");
             if (accion == 1)
                 return true;
         }
 
         if (accion == 1) {
-            $("[data-tono]").find('.content_tonos_select').hide();
-            $("[data-tono]").find('.content_tonos_select').attr("data-visible", "0");
-            $("[data-tono]").find("[data-tono-showroom-change='1']").parent().removeClass("tono_por_elegir");
+            $("[data-tono]").find('.contenedor_items_tonos').hide();
+            $("[data-tono]").find('.contenedor_items_tonos').attr("data-visible", "0");
+            $("[data-tono]").find("[data-flecha-tonos]").removeClass("dibujar_flecha_tonos_por_elegir");
 
-            $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "1");
-            $(this).parents("[data-tono]").find('.content_tonos_select').show();
-            $(this).parent().addClass("tono_por_elegir");
+            $(this).parents("[data-tono]").find('.contenedor_items_tonos').attr("data-visible", "1");
+            $(this).parents("[data-tono]").find('.contenedor_items_tonos').show();
+            $("[data-tono]").find("[data-flecha-tonos]").addClass("dibujar_flecha_tonos_por_elegir");
             return true;
         }
 
@@ -314,10 +342,10 @@ $(document).ready(function () {
         var prod = $(this).parents("[data-tono]");
         var objSet = prod.find("[data-tono-showroom-change='1']");
         objSet.find("img").attr("src", $(this).find("img").attr("src"));
-        objSet.find(".tono_seleccionado").show();
-        objSet.find(".texto_tono_seleccionado").html($(this).attr("data-tono-nombre"));
+        objSet.find(".img_item_tono").show();
+        objSet.find(".txt_item_tono").html($(this).attr("data-tono-nombre"));
 
-        objSet.parent().addClass("tono_escogido");
+        objSet.parent().addClass("selector_tono_escogido");
         prod.find("[data-tono-select-nombrecomercial]").html($(this).attr("data-tono-descripcion"));
         prod.attr("data-tono-select", cuv);
 
@@ -1074,7 +1102,7 @@ function ValidarUnidadesPermitidas(data, cantidad) {
 
 function EstrategiaValidarSeleccionTonoShowRoom(objInput) {
 
-    if (!$('.tono_select_opt')[0])
+    if (!$('.selector_tono')[0])
         return false;
   
     var attrClass = $.trim($('#btnAgregalo').attr("class"));
