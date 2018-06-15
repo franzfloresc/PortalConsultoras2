@@ -15,6 +15,7 @@ using AutoMapper;
 using System.ServiceModel;
 using System.Collections.Generic;
 using System.Net;
+using Portal.Consultoras.Web.Infraestructure.Sms;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -165,6 +166,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ActualizarCelular()
         {
+            ViewBag.Celular = userData.Celular;
+
             return View();
         }
 
@@ -264,13 +267,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private Stream ConsultarImagen(string URL)
-        {
-            HttpWebRequest request = ((HttpWebRequest)WebRequest.Create(URL));
-            HttpWebResponse response = ((HttpWebResponse)request.GetResponse());
-            return response.GetResponseStream();
-        }
-
         [HttpPost]
         public ActionResult EliminarFoto()
         {
@@ -305,23 +301,17 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public static byte[] ReadFully(Stream input)
-        {
-            byte[] buffer = new byte[16 * 1024];
-            using (MemoryStream ms = new MemoryStream())
-            {
-                int read;
-                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
-                {
-                    ms.Write(buffer, 0, read);
-                }
-                return ms.ToArray();
-            }
-        }
-
         [HttpPost]
         public async Task<ActionResult> EnviarSmsCodigo(string celular)
         {
+            if (!userData.PuedeActualizar)
+            {
+                return Json(new SimpleResult
+                {
+                    Message = Constantes.MensajesError.UpdCorreoConsultora_NoAutorizado
+                });
+            }
+
             var validator = GetPhoneValidator();
 
             var result = await validator.Valid(celular);
@@ -330,60 +320,43 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(result);
             }
 
-            var code = Util.GenerarCodigoRandom();
-
-            // send SmsCode
-            // save SmsCode
-            return Json(new
+            ISmsSender sender = new SmsProcess
             {
-                Success = true
-            });
-        }
+                User = userData
+            };
 
+            result = await sender.Send(celular);
+
+            return Json(result);
+        }
 
         [HttpPost]
         public async Task<ActionResult> ConfirmarSmsCode(string smsCode)
         {
-            // verify timeout and sms code
-
-            var result = await new NotExistingPhone().Valid("");
-            if (!result.Success)
+            if (!userData.PuedeActualizar)
             {
-                return Json(new
+                return Json(new SimpleResult
                 {
-                    result.Success,
-                    PhoneError = result.Message
+                    Message = Constantes.MensajesError.UpdCorreoConsultora_NoAutorizado
                 });
             }
-            // update number phone
 
-            return Json(new
+            ISmsConfirm sender = new SmsProcess
             {
-                Success = true
-            });
-        }
-
-        private MultiPhoneValidator GetPhoneValidator()
-        {
-            var validators = new IPhoneValidator[]
-            {
-                new MatchCountryPhone
-                {
-                    IsoPais = userData.CodigoISO
-                },
-                new NotSamePhoneValidator
-                {
-                    OriginalPhone = userData.Celular
-                },
-                new NotExistingPhone
-                {
-                    PaisId = userData.PaisID,
-                    CodigoConsultora = userData.CodigoConsultora
-                }
+                User = userData
             };
-            var validator = new MultiPhoneValidator(validators);
 
-            return validator;
+            var result = await sender.Confirm(smsCode);
+
+            if (!result.Success)
+            {
+                return Json(result);
+            }
+
+            var celularNuevo = result.Message;
+            UpdateCelularLogDynamo(celularNuevo);
+
+            return Json(new { Success = true});
         }
 
         [HttpPost]
@@ -566,6 +539,66 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Ocurrió un erro al Cambiar la Contraseña, Intente nuevamente.",
                     extra = ""
                 });
+            }
+        }
+
+        private MultiPhoneValidator GetPhoneValidator()
+        {
+            var validators = new IPhoneValidator[]
+            {
+                new MatchCountryPhone
+                {
+                    PaisId = userData.PaisID
+                },
+                new NotSamePhoneValidator
+                {
+                    OriginalPhone = userData.Celular
+                },
+                new NotExistingPhone
+                {
+                    PaisId = userData.PaisID,
+                    CodigoConsultora = userData.CodigoConsultora
+                }
+            };
+
+            var validator = new MultiPhoneValidator(validators);
+
+            return validator;
+        }
+
+        private Stream ConsultarImagen(string URL)
+        {
+            HttpWebRequest request = ((HttpWebRequest)WebRequest.Create(URL));
+            HttpWebResponse response = ((HttpWebResponse)request.GetResponse());
+            return response.GetResponseStream();
+        }
+
+        private static byte[] ReadFully(Stream input)
+        {
+            byte[] buffer = new byte[16 * 1024];
+            using (MemoryStream ms = new MemoryStream())
+            {
+                int read;
+                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
+            }
+        }
+
+        private void UpdateCelularLogDynamo(string celularNuevo)
+        {
+            try
+            {
+                var misDatosModel = Mapper.Map<MisDatosModel>(userData);
+                userData.Celular = celularNuevo;
+                ActualizarDatosLogDynamoDB(misDatosModel, "MI NEGOCIO/MIS DATOS",
+                    Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
     }

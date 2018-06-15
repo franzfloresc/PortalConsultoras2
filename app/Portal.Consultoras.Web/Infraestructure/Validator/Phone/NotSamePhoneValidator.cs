@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Web.Infraestructure.Validator.Phone
         {
             var result = new SimpleResult
             {
-                Success = number == OriginalPhone
+                Success = number != OriginalPhone
             };
 
             if (!result.Success)

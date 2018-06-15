@@ -1141,6 +1141,10 @@ namespace Portal.Consultoras.Common
             public const string UpdCorreoConsultora_CorreoYaExiste = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.";
             public const string ActivacionCorreo = "Ha ocurrido un error con la activación de su correo electrónico.";
             public const string ActivacionCorreo_NoExiste = "No existe una activación de correo pendiente.";
+            public const string ValorVacio = "El valor no puede estar vacío.";
+            public const string CodigoIncorrecto = "El código ingresado no es el correcto.";
+            public const string CelularActivacion = "No se pudo confirmar el número registrado.";
+            public const string CelularEnUso = "El número ya esta en uso.";
         }
 
         public static class ConfiguracionPais
@@ -2108,6 +2112,8 @@ namespace Portal.Consultoras.Common
             public const int Origen_Autenticacion = 2;
             public const int Origen_ActualizarCorreo = 3;
 
+            public const string OrigenDescripcion = "actualizar datos";
+
             public const int TipoEnvio_Email = 1;
             public const int TipoEnvio_Sms = 2;
         }
@@ -2116,6 +2122,7 @@ namespace Portal.Consultoras.Common
         public static class ValidacionDatosTipoEnvio
         {
             public const string Email = "email";
+            public const string Sms = "sms";
         }
         public static class ValidacionDatosEstado
         {

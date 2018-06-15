@@ -306,6 +306,9 @@
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
     <Compile Include="Controllers\LanzamientosController.cs" />
+    <Compile Include="Infraestructure\Sms\ISmsConfirm.cs" />
+    <Compile Include="Infraestructure\Sms\ISmsSender.cs" />
+    <Compile Include="Infraestructure\Sms\SmsProcess.cs" />
     <Compile Include="Infraestructure\Validator\Phone\MatchCountryPhone.cs" />
     <Compile Include="Infraestructure\Validator\Phone\MultiPhoneValidator.cs" />
     <Compile Include="Infraestructure\Validator\Phone\NotExistingPhone.cs" />

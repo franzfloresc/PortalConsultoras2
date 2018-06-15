@@ -149,6 +149,18 @@
   <wsdl:message name="IUsuarioService_ActualizarEmail_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarEmailResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_RegistrarEnvioSms_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarEnvioSms" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_RegistrarEnvioSms_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarEnvioSmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ConfirmarCelularPorCodigoSms_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConfirmarCelularPorCodigoSms" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ConfirmarCelularPorCodigoSms_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConfirmarCelularPorCodigoSmsResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_EliminarUsuarioPostulante_InputMessage">
     <wsdl:part name="parameters" element="tns:EliminarUsuarioPostulante" />
   </wsdl:message>
@@ -862,6 +874,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmail" message="tns:IUsuarioService_ActualizarEmail_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailResponse" message="tns:IUsuarioService_ActualizarEmail_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="RegistrarEnvioSms">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/RegistrarEnvioSms" message="tns:IUsuarioService_RegistrarEnvioSms_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/RegistrarEnvioSmsResponse" message="tns:IUsuarioService_RegistrarEnvioSms_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmarCelularPorCodigoSms">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ConfirmarCelularPorCodigoSms" message="tns:IUsuarioService_ConfirmarCelularPorCodigoSms_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ConfirmarCelularPorCodigoSmsResponse" message="tns:IUsuarioService_ConfirmarCelularPorCodigoSms_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="EliminarUsuarioPostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/EliminarUsuarioPostulante" message="tns:IUsuarioService_EliminarUsuarioPostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/EliminarUsuarioPostulanteResponse" message="tns:IUsuarioService_EliminarUsuarioPostulante_OutputMessage" />
@@ -1453,6 +1473,24 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarEmail">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEnvioSms">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/RegistrarEnvioSms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmarCelularPorCodigoSms">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ConfirmarCelularPorCodigoSms" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2582,6 +2620,24 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarEmail">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarEnvioSms">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/RegistrarEnvioSms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmarCelularPorCodigoSms">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ConfirmarCelularPorCodigoSms" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

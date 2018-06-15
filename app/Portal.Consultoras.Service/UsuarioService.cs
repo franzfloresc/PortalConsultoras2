@@ -728,6 +728,16 @@ namespace Portal.Consultoras.Service
             return new BLUsuario().ActualizarEmail(usuario, correoNuevo);
         }
 
+        public BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string celularActual, string celularNuevo)
+        {
+            return _usuarioBusinessLogic.RegistrarEnvioSms(paisId, codigoUsuario, celularActual, celularNuevo);
+        }
+
+        public BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania)
+        {
+            return _usuarioBusinessLogic.ConfirmarCelularPorCodigoSms(paisId, codigoUsuario, codigoSms, campania);
+        }
+
         public string AceptarContrato(BEUsuario usuario)
         {
             var blUsuario = new BLUsuario();

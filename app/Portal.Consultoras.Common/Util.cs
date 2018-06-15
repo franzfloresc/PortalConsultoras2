@@ -3192,6 +3192,40 @@ namespace Portal.Consultoras.Common
 
             return colorStr == "" ? defecto : colorStr;
         }
+
+        public static void GetLimitNumberPhone(int paisId, out int limiteMinimoTelef, out int limiteMaximoTelef)
+        {
+            switch (paisId)
+            {
+                case Constantes.PaisID.Mexico:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 15;
+                    break;
+                case Constantes.PaisID.Peru:
+                    limiteMinimoTelef = 7;
+                    limiteMaximoTelef = 9;
+                    break;
+                case Constantes.PaisID.Colombia:
+                    limiteMinimoTelef = 10;
+                    limiteMaximoTelef = 10;
+                    break;
+                case Constantes.PaisID.Guatemala:
+                case Constantes.PaisID.ElSalvador:
+                case Constantes.PaisID.Panama:
+                case Constantes.PaisID.CostaRica:
+                    limiteMinimoTelef = 8;
+                    limiteMaximoTelef = 8;
+                    break;
+                case Constantes.PaisID.Ecuador:
+                    limiteMinimoTelef = 9;
+                    limiteMaximoTelef = 10;
+                    break;
+                default:
+                    limiteMinimoTelef = 0;
+                    limiteMaximoTelef = 15;
+                    break;
+            }
+        }
     }
 
     public static class DataRecord

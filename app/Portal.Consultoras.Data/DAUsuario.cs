@@ -253,6 +253,15 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
+        public void UpdUsuarioCelular(string codigoUsuario, string celular)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioCelular");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@Celular", DbType.AnsiString, celular);
+
+            Context.ExecuteNonQuery(command);
+        }
+
         public IDataReader GetSesionUsuario(string CodigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSesionUsuario_SB2");
@@ -813,7 +822,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public int InsCodigoGenerado(BEUsuarioCorreo oUsuCorreo)
+        public int InsActualizarCodigoGenerado(BEUsuarioCorreo oUsuCorreo)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsCodigoGenerado");
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsuCorreo.OrigenID);
