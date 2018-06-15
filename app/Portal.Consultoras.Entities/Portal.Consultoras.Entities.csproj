@@ -60,6 +60,7 @@
     <Compile Include="AsesoraOnline\BEAsesoraOnline.cs" />
     <Compile Include="Auditoria.cs" />
     <Compile Include="BaseEntidad.cs" />
+    <Compile Include="BEActivarPremioNuevas.cs" />
     <Compile Include="BEAdministracionOfertaProducto.cs" />
     <Compile Include="BEAfiliaClienteConsultora.cs" />
     <Compile Include="BEAPISB2Response.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="BEEventoFestivo.cs" />
     <Compile Include="BEGPRBanner.cs" />
     <Compile Include="BEGPRUsuario.cs" />
+    <Compile Include="BEPremiosProgramaNuevas.cs" />
     <Compile Include="CargaMasiva\BECargaMasivaImagenes.cs" />
     <Compile Include="BEMiCertificado.cs" />
     <Compile Include="BEPedidoWebDetalleParametros.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Comunicado\BEComunicadoSegmentacion.cs" />
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
     <Compile Include="DENativeType.cs" />
+    <Compile Include="Externos\ReservaSicc\BEIncentivoSicc.cs" />
     <Compile Include="OpcionesVerificacion\BEOpcionesVerificacion.cs" />
     <Compile Include="OpcionesVerificacion\BEFiltrosOpcionesVerificacion.cs" />
     <Compile Include="Oferta\BEGuiaNegocio.cs" />

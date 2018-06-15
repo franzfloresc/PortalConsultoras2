@@ -783,12 +783,20 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteNonQuery(command);
         }
-
-        #region OLVIDE CONTRASENIA
+        
         public IDataReader GetRestaurarClaveUsuario(string CampoRestablecer, int PaisID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarValorRestauracionClave");
             Context.Database.AddInParameter(command, "@CodigoEntrante", DbType.AnsiString, CampoRestablecer);
+            Context.Database.AddInParameter(command, "@PaisID", DbType.AnsiString, PaisID);
+
+            return Context.ExecuteReader(command);
+        }
+        #region OLVIDE CONTRASENIA
+        public IDataReader GetUsuarioOlvideContrasenia(string CampoRestablecer, int PaisID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioOlvideContrasenia");
+            Context.Database.AddInParameter(command, "@ValorIngresado", DbType.AnsiString, CampoRestablecer);
             Context.Database.AddInParameter(command, "@PaisID", DbType.AnsiString, PaisID);
 
             return Context.ExecuteReader(command);
@@ -830,12 +838,6 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
-        //public IDataReader GetConfiguracionSms(int origenID)
-        //{
-        //    DbCommand command = Context.Database.GetStoredProcCommand("GetConfiguracionSms");
-        //    Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, origenID);
-        //    return Context.ExecuteReader(command);
-        //}
         #endregion
         #region Verificacion Autenticidad
         public IDataReader GetUsuarioVerificacionAutenticidad(int paisID, string CodigoUsuario)

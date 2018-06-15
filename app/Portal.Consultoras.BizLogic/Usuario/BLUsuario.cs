@@ -553,29 +553,6 @@ namespace Portal.Consultoras.BizLogic
             return usuario;
         }
 
-        public BEUsuario GetSesionUsuarioPedidoApp(BEUsuario usuario, string codigoConfiguracionPais)
-        {
-            try
-            {
-                CodigoUsuarioLog = usuario.CodigoUsuario;
-                PaisIDLog = usuario.PaisID;
-
-                var configuracionPaisTask = Task.Run(() => ConfiguracionPaisUsuario(usuario, codigoConfiguracionPais));
-                var codigosRevistasTask = Task.Run(() => ObtenerCodigoRevistaFisica(usuario.PaisID));
-
-                Task.WaitAll(configuracionPaisTask, codigosRevistasTask);
-
-                usuario = configuracionPaisTask.Result;
-                usuario.CodigosRevistaImpresa = codigosRevistasTask.Result;             
-            }
-            catch (Exception ex)
-            {
-                LogManager.SaveLog(ex, CodigoUsuarioLog, PaisIDLog);
-            }
-
-            return usuario;
-        }
-
         private BEUsuarioExterno GetUsuarioExterno(BEUsuario usuario, string proveedor)
         {
             BEUsuarioExterno beUsuarioExterno = null;
@@ -2245,52 +2222,51 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #region OLVIDE CONTRASENIA
-        public BEUsuarioCorreo GetRestaurarClaveByValor(int paisID, string valorRestaurar, int prioridad)
+        public BEUsuarioDatos GetRestaurarClaveByValor(int paisID, string valorRestaurar, int prioridad)
         {
-            var oUsu = new BEUsuarioCorreo();
-            oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarMensajeFueraHorario;
-            var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
-            //List<BETablaLogicaDatos> lstFlag = GetFlagEncendido(paisID, Constantes.OlvideContraseña.TablaLogica.TablaLogicaID, Constantes.OlvideContraseña.TablaLogica.MostarTodasOpciones);
+            var oUsu = new BEUsuarioDatos();
+            oUsu.MostrarOpcion = Constantes.OlvideContrasenia.NombreOpcion.MostrarMensajeFueraHorario;
+            var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenOlvideContrasenia);
             if (opcion == null) return oUsu;
             /*validando si tiene Zona*/
             if (opcion.TieneZonas)
             {
-                if (opcion.lstZonas.Count == 0) return null;
-                if (!ValidaZona(opcion.lstZonas, oUsu.ZonaID)) return null;
+                if (opcion.lstZonas.Count == 0) return oUsu;
+                if (!ValidaZona(opcion.lstZonas, oUsu.ZonaID)) return oUsu;
             }
             /*Validando si corresponde al Usuario*/
-            if (opcion.lstFiltros.Count >= 0)
+            if (opcion.lstFiltros.Count > 0)
             {
                 var usuFiltro = opcion.lstFiltros.Where(a => a.IdEstadoActividad == oUsu.IdEstadoActividad).FirstOrDefault();
-                if (usuFiltro == null) return null;
+                if (usuFiltro == null) return oUsu;
                 /*Validando campania*/
-                if (!ValidaCampania(oUsu.campaniaID, usuFiltro.CampaniaInicio, usuFiltro.CampaniaFinal)) return null;
+                if (!ValidaCampania(oUsu.campaniaID, usuFiltro.CampaniaInicio, usuFiltro.CampaniaFinal)) return oUsu;
                 oUsu.MensajeSaludo = usuFiltro.MensajeSaludo;
             }
             
             oUsu = GetDatosUsuarioByValorCache(paisID, valorRestaurar);
+            oUsu.MostrarOpcion = Constantes.OlvideContrasenia.NombreOpcion.MostrarMensajeFueraHorario;
             if (oUsu == null) return null;
-            if (oUsu.Cantidad == 0) return null;
-            string codigoIso = Common.Util.GetPaisISO(paisID);
+            if (oUsu.Cantidad == 0) return null;           
 
             if (prioridad == 1)
             {                
                 if (opcion.OpcionEmail && oUsu.Correo != "")
                 {
                     oUsu.CorreoEnmascarado = Common.Util.EnmascararCorreo(oUsu.Correo);
-                    oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarEmail;
+                    oUsu.MostrarOpcion = Constantes.OlvideContrasenia.NombreOpcion.MostrarEmail;
                 }
 
                 if (opcion.OpcionSms && oUsu.Celular != "")
                 {
                     oUsu.CelularEnmascarado = Common.Util.EnmascararCelular(oUsu.Celular);
-                    if (oUsu.MostrarOpcion == Constantes.OlvideContraseña.NombreOpcion.MostrarEmail)
-                        oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarEmailyCelular;
+                    if (oUsu.MostrarOpcion == Constantes.OlvideContrasenia.NombreOpcion.MostrarEmail)
+                        oUsu.MostrarOpcion = Constantes.OlvideContrasenia.NombreOpcion.MostrarEmailyCelular;
                     else
-                        oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarCelular;
+                        oUsu.MostrarOpcion = Constantes.OlvideContrasenia.NombreOpcion.MostrarCelular;
                 }
 
-                if (oUsu.MostrarOpcion == Constantes.OlvideContraseña.NombreOpcion.MostrarMensajeFueraHorario)
+                if (oUsu.MostrarOpcion == Constantes.OlvideContrasenia.NombreOpcion.MostrarMensajeFueraHorario)
                     prioridad = 2;
             }
             if (prioridad == 2)
@@ -2298,10 +2274,10 @@ namespace Portal.Consultoras.BizLogic
                 if (opcion.OpcionChat)
                 {
                     string descripcion;
-                    if (GetHorarioByCodigo(paisID, Constantes.OlvideContraseña.CodigoOpciones.ChatEmtelco, out descripcion))
+                    if (GetHorarioByCodigo(paisID, Constantes.OlvideContrasenia.CodigoOpciones.ChatEmtelco, out descripcion))
                     {
                         oUsu.DescripcionHorario = descripcion;
-                        oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarChat;
+                        oUsu.MostrarOpcion = Constantes.OlvideContrasenia.NombreOpcion.MostrarChat;
                     }
                     else prioridad = 3;
                 }
@@ -2312,11 +2288,11 @@ namespace Portal.Consultoras.BizLogic
                 if (opcion.OpcionBelcorpResponde)
                 {
                     string descripcion;
-                    if (GetHorarioByCodigo(paisID, Constantes.OlvideContraseña.CodigoOpciones.BelcorpResponde, out descripcion))
+                    if (GetHorarioByCodigo(paisID, Constantes.OlvideContrasenia.CodigoOpciones.BelcorpResponde, out descripcion))
                     {
                         oUsu.DescripcionHorario = descripcion;
                         oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
-                        oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarBelcorpResponde;
+                        oUsu.MostrarOpcion = Constantes.OlvideContrasenia.NombreOpcion.MostrarBelcorpResponde;
                     }
                     else prioridad = 4;
                 }
@@ -2324,11 +2300,13 @@ namespace Portal.Consultoras.BizLogic
             }
             if (prioridad == 4)
             {
-                oUsu.MostrarOpcion = Constantes.OlvideContraseña.NombreOpcion.MostrarMensajeFueraHorario;
+                oUsu.MostrarOpcion = Constantes.OlvideContrasenia.NombreOpcion.MostrarMensajeFueraHorario;
             }
-            //GetOpcionHabilitar(paisID, Constantes.OlvideContraseña.Origen, ref oRestaurar);
+            oUsu.OrigenID = opcion.OrigenID;
+            oUsu.OrigenDescripcion = opcion.OrigenDescripcion;
+            oUsu.CodigoIso = Common.Util.GetPaisISO(paisID);
+            GetOpcionHabilitar(paisID, Constantes.OlvideContrasenia.Origen, ref oUsu);
             return oUsu;
-            //return null;
         }
 
         public bool ProcesaEnvioEmail(int paisID, BEUsuarioDatos oUsu, int cantidadEnvios)
@@ -2337,9 +2315,9 @@ namespace Portal.Consultoras.BizLogic
             {
                 switch (oUsu.OrigenID)
                 {
-                    case 1:
-                        return false;/*EnviarEmailOlvideContraseña(paisID, oUsu);   */                       
-                    case 2:
+                    case Constantes.OpcionesDeVerificacion.OrigenOlvideContrasenia:
+                        return EnviarEmailOlvideContrasenia(paisID, oUsu, cantidadEnvios);                   
+                    case Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad:
                         return EnviarEmailVerificacionAutenticidad(paisID, oUsu, cantidadEnvios);
                 }
                 return false;
@@ -2367,22 +2345,18 @@ namespace Portal.Consultoras.BizLogic
             return lstTabla;
         }
 
-        private BEUsuarioCorreo GetDatosUsuarioByValorCache(int paisID, string valorIngresado)
+        private BEUsuarioDatos GetDatosUsuarioByValorCache(int paisID, string valorIngresado)
         {
-            return CacheManager<BEUsuarioCorreo>.ValidateDataElement(paisID, ECacheItem.DatosRestaurarClave, valorIngresado, () => GetDatosUsuarioByValor(paisID, valorIngresado));
+            return CacheManager<BEUsuarioDatos>.ValidateDataElement(paisID, ECacheItem.DatosRestaurarClave, valorIngresado + paisID.ToString(), () => GetDatosUsuarioByValor(paisID, valorIngresado));
         }
 
-        private BEUsuarioCorreo GetDatosUsuarioByValor(int paisID, string valorIngresado)
+        private BEUsuarioDatos GetDatosUsuarioByValor(int paisID, string valorIngresado)
         {
-            BEUsuarioCorreo oRestaurar = null;
-
             var DAUsuario = new DAUsuario(paisID);
-            using (IDataReader reader = DAUsuario.GetRestaurarClaveUsuario(valorIngresado, paisID))
+            using (IDataReader reader = DAUsuario.GetUsuarioOlvideContrasenia(valorIngresado, paisID))
                 if (reader.Read())
-                {
-                    oRestaurar = new BEUsuarioCorreo(reader);
-                }
-            return oRestaurar;
+                    return new BEUsuarioDatos(reader);
+            return null;
         }
 
         private BEUsuarioDatos GetOpcionHabilitar(int paisID, int origenID, ref BEUsuarioDatos oDatos)
@@ -2391,8 +2365,8 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader rd = DAUsuario.GetOpcionHabilitada(oDatos.CodigoUsuario, origenID))
                 if (rd.Read())
                 {
-                    oDatos.OpcionCorreoActiva = rd.GetString(0);
-                    oDatos.OpcionSmsActiva = rd.GetString(1);
+                    oDatos.OpcionCorreoDesabilitado = rd.GetString(0);
+                    oDatos.OpcionSmsDesabilitado = rd.GetString(1);
                     oDatos.HoraRestanteCorreo = rd.GetInt32(2);
                     oDatos.HoraRestanteSms = rd.GetInt32(3);
                 }
@@ -2468,40 +2442,38 @@ namespace Portal.Consultoras.BizLogic
             return "";
         }
 
-        private Enumeradores.EnvioEmail EnviarEmailOlvideContraseña(int paisID, BEUsuarioCorreo oUsuCorreo)
+        private bool EnviarEmailOlvideContrasenia(int paisID, BEUsuarioDatos oUsu, int cantidadEnvios)
         {
-            //try
-            //{
-            //    if (oUsuCorreo.CantidadEnvios >= 3) return Enumeradores.EnvioEmail.ExcedioCantidad;
+            try
+            {
+                if (cantidadEnvios >= 3) return false;
 
-            //    string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
-            //    string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
-            //    var esEsika = paisesEsika.Contains(paisISO);
-            //    string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
-            //    DateTime diasolicitud = DateTime.Now;
-            //    string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
-            //    string paisiso = paisISO;
-            //    string codigousuario = oUsuCorreo.CodigoUsuario;
-            //    string nombre = oUsuCorreo.PrimerNombre;
-            //    var newUri = Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisID, oUsuCorreo.Correo, paisiso, codigousuario, fechasolicitud, nombre);
-            //    string emailFrom = "no-responder@somosbelcorp.com";
-            //    string emailTo = oUsuCorreo.Correo; ;
-            //    string titulo = "(" + paisISO + ") Cambio de contraseña de Somosbelcorp";
-            //    string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");                
-            //    string fondo = (esEsika ? "e81c36" : "642f80");
-            //    string displayname = "Somos Belcorp";
-            //    Portal.Consultoras.Common.MailUtilities.EnviarMailProcesoRecuperaContrasenia(emailFrom, emailTo, titulo, displayname, logo, nombre, newUri.ToString(), fondo);
-            //    if (oUsuCorreo.CantidadEnvios == 2) oUsuCorreo.opcionHabilitar = false;
-            //    InsCodigoGenerado(oUsuCorreo, paisID, "", Constantes.TipoEnvioEmailSms.EnviarPorEmail);
-            //    return Enumeradores.EnvioEmail.OkEnviarEmail;
-            //}
-            //catch (Exception ex)
-            //{
-            //    LogManager.SaveLog(ex, string.Empty, paisID, "EnviarEmailOlvideContraseña");
-            //    return Enumeradores.EnvioEmail.ErrorEnviarEmail;
-            //}
-
-            return Enumeradores.EnvioEmail.ErrorEnviarEmail;
+                string paisISO = oUsu.CodigoIso;
+                string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                var esEsika = paisesEsika.Contains(paisISO);
+                string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                DateTime diasolicitud = DateTime.Now;
+                string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
+                string paisiso = paisISO;
+                string codigousuario = oUsu.CodigoUsuario;
+                string nombre = oUsu.PrimerNombre;
+                var newUri = Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisID, oUsu.Correo, paisiso, codigousuario, fechasolicitud, nombre);
+                string emailFrom = "no-responder@somosbelcorp.com";
+                string emailTo = oUsu.Correo; ;
+                string titulo = "(" + paisISO + ") Cambio de contraseña de Somosbelcorp";
+                string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
+                string fondo = (esEsika ? "e81c36" : "642f80");
+                string displayname = "Somos Belcorp";
+                Portal.Consultoras.Common.MailUtilities.EnviarMailProcesoRecuperaContrasenia(emailFrom, emailTo, titulo, displayname, logo, nombre, newUri.ToString(), fondo);
+                if (cantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
+                InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorEmail);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, string.Empty, paisID, "EnviarEmailOlvideContrasenia");
+                return false;
+            }
         }
         #endregion
         #endregion
@@ -2593,7 +2565,7 @@ namespace Portal.Consultoras.BizLogic
         private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID)
         {
             var BLobj = new BLOpcionesVerificacion();
-            return BLobj.GetOpcionesVerificacionCache(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
+            return BLobj.GetOpcionesVerificacion(paisID, origenID);
         }
 
         private bool ValidaCampania(int campaniaActual, int campaniaInicio, int campaniaFin)
@@ -2661,7 +2633,7 @@ namespace Portal.Consultoras.BizLogic
                 oUsu.OrigenID = opcion.OrigenID;
                 oUsu.OrigenDescripcion = opcion.OrigenDescripcion;
                 oUsu.CodigoUsuario = CodigoUsuario;
-                oUsu.CodigoIso = Common.Util.GetPaisISO(paisID);
+                oUsu.CodigoIso = Common.Util.GetPaisISO(paisID);                
                 GetOpcionHabilitar(paisID, Constantes.VerificacionAutenticidad.Origen, ref oUsu);
                 return oUsu;
             }
@@ -2716,12 +2688,15 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region UserData
-        private BEUsuario ConfiguracionPaisUsuario(BEUsuario usuario, string codigoConfiguracionPais)
+        public BEUsuario ConfiguracionPaisUsuario(BEUsuario usuario, string codigoConfiguracionPais)
         {
             var revistaDigitalModel = new BERevistaDigital();
 
             try
             {
+                CodigoUsuarioLog = usuario.CodigoUsuario;
+                PaisIDLog = usuario.PaisID;
+
                 var configuraciones = GetConfiguracionPais(usuario);
 
                 var configuracion = configuraciones.Where(x => x.Codigo == codigoConfiguracionPais).FirstOrDefault();
@@ -2822,6 +2797,7 @@ namespace Portal.Consultoras.BizLogic
 
             revistaDigitalModel.CantidadCampaniaEfectiva = GetValor1ToIntAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.CantidadCampaniaEfectiva);
             revistaDigitalModel.BloquearRevistaImpresaGeneral = GetValor1ToIntAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp);
+            revistaDigitalModel.ActivoMdo = GetValor1ToBoolAndDelete(configuracionesPaisDatos, Constantes.ConfiguracionPaisDatos.ActivoMdo);
 
             return revistaDigitalModel;
         }
@@ -2886,7 +2862,7 @@ namespace Portal.Consultoras.BizLogic
             revistaDigitalModel.SuscripcionEfectiva = _revistaDigitalSuscripcionBusinessLogic.SingleActiva(rds);
         }
 
-        private string ObtenerCodigoRevistaFisica(int paisId)
+        public string ObtenerCodigoRevistaFisica(int paisId)
         {
             var result = string.Empty;
 
@@ -2912,6 +2888,19 @@ namespace Portal.Consultoras.BizLogic
             if (dato != null)
             {
                 result = Convert.ToInt32(dato.Valor1);
+                configuracionesPaisDatos.RemoveAll(d => d.Codigo == codigo);
+            }
+
+            return result;
+        }
+
+        private bool GetValor1ToBoolAndDelete(List<BEConfiguracionPaisDatos> configuracionesPaisDatos, string codigo)
+        {
+            var result = false;
+            var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+            if (dato != null)
+            {
+                result = dato.Valor1 == "1";
                 configuracionesPaisDatos.RemoveAll(d => d.Codigo == codigo);
             }
 

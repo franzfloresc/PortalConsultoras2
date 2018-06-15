@@ -267,11 +267,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 TempData["errorLogin"] = mensaje;
-                //return Json(new
-                //{
-                //    success = true,
-                //    redirectTo = Url.Action("Index", "Login")
-                //});
                 return RedirectToAction("Index", "Login");
             }
             catch (FaultException ex)
@@ -354,6 +349,8 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("VerificaAutenticidad", "Login");
                 }
 
+            Session["DatosUsuario"] = null;
+
             pasoLog = "Login.Redireccionar";
             var usuario = await GetUserData(paisId, codigoUsuario);
 
@@ -377,7 +374,6 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                    	//data = oVerificarAutenticidad,
                         redirectTo = "Error al procesar la solicitud"
                     });
                 }
@@ -424,7 +420,6 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(new
                         {
                             success = true,
-                            //data = oVerificarAutenticidad,
                             redirectTo = urlx
                         });
                     }
@@ -450,7 +445,6 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = true,
-                        //data = oVerificarAutenticidad,
                         redirectTo = urlx
                     });
                 }
@@ -467,7 +461,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    //data = oVerificarAutenticidad,
                     redirectTo = Url.Action("Index", "Bienvenida")
                 });
             }
@@ -567,15 +560,15 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult VerificaAutenticidad()
         {
-            if (Session["VerificacionAutenticidad"] == null) return RedirectToAction("Index", "Login");
-            var obj = (BEUsuarioDatos)Session["VerificacionAutenticidad"];
+            if (Session["DatosUsuario"] == null) return RedirectToAction("Index", "Login");
+            var obj = (BEUsuarioDatos)Session["DatosUsuario"];
             var model = new BEUsuarioDatos();
             model.PrimerNombre = obj.PrimerNombre;
             model.MensajeSaludo = obj.MensajeSaludo;
             model.CorreoEnmascarado = obj.CorreoEnmascarado;
             model.CelularEnmascarado = obj.CelularEnmascarado;
-            model.OpcionCorreoActiva = obj.OpcionCorreoActiva;
-            model.OpcionSmsActiva = obj.OpcionSmsActiva;
+            model.OpcionCorreoDesabilitado = obj.OpcionCorreoDesabilitado;
+            model.OpcionSmsDesabilitado = obj.OpcionSmsDesabilitado;
             model.HoraRestanteCorreo = obj.HoraRestanteCorreo;
             model.HoraRestanteSms = obj.HoraRestanteSms;
             model.IdEstadoActividad = obj.IdEstadoActividad;
@@ -583,6 +576,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.PrimerNombre = obj.PrimerNombre;
             model.CodigoUsuario = obj.CodigoUsuario;
             model.Correo = obj.Correo;
+            model.MostrarOpcion = obj.MostrarOpcion;
 
             return View(model);
         }
@@ -953,6 +947,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.CambioClave = Convert.ToInt32(usuario.CambioClave);
                     usuarioModel.ConsultoraNueva = usuario.ConsultoraNueva;
                     usuarioModel.EsConsultoraNueva = usuario.EsConsultoraNueva;
+                    usuarioModel.EsConsultoraOficina = usuario.EsConsultoraOficina;
                     usuarioModel.Telefono = usuario.Telefono;
                     usuarioModel.TelefonoTrabajo = usuario.TelefonoTrabajo;
                     usuarioModel.Celular = usuario.Celular;
@@ -1014,7 +1009,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     usuarioModel.DiasAntes = usuario.DiasAntes;
                     usuarioModel.DiasDuracionCronograma = usuario.DiasDuracionCronograma;
-
+                    
                     switch (usuario.RolID)
                     {
                         case Constantes.Rol.Administrador:
@@ -1285,8 +1280,9 @@ namespace Portal.Consultoras.Web.Controllers
                         var lstFiltersFAV = await CargarFiltersFAV(usuarioModel);
                         if (lstFiltersFAV.Any()) sessionManager.SetListFiltersFAV(lstFiltersFAV);
                     }
-
+ 
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
+                    usuarioModel.MensajeChat = await GetMessageChat(usuarioModel.PaisID);
 
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
@@ -1314,6 +1310,23 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region metodos asincronos
+
+        private async Task<string> GetMessageChat(int paisId)
+        {
+            IEnumerable<BETablaLogicaDatos> datos;
+            using (var service = new SACServiceClient())
+            {
+                datos = await service.GetTablaLogicaDatosAsync(paisId, 142);
+            }
+
+            if (datos == null)
+            {
+                return string.Empty;
+            }
+
+            var result = datos.FirstOrDefault(r => r.TablaLogicaDatosID == 14201);
+            return result == null ? string.Empty : result.Valor;
+        }
 
         private async Task<bool> GetPermisoFlexipago(ServiceUsuario.BEUsuario usuario)
         {
@@ -2815,15 +2828,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                BEUsuarioCorreo oDatos = null;
+                BEUsuarioDatos oDatos = null;
+                TempData["PaisID"] = paisID;
                 using (var sv = new UsuarioServiceClient())
                 {
                     oDatos = sv.GetRestaurarClaveByValor(paisID, valorRestaurar, prioridad);
                 }
                 if (oDatos != null)
                 {
-                    SetTemData(paisID, oDatos.CodigoISO, oDatos.CodigoUsuario, oDatos.PrimerNombre, oDatos.IdEstadoActividad, valorRestaurar);
-                    oDatos.EsMobile = EsDispositivoMovil();
+                    Session["DatosUsuario"] = oDatos;
                 } 
                 return Json(new
                 {
@@ -2856,7 +2869,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ProcesaEnvioCorreo(int CantidadEnvios)
         {
-            var oUsu = (BEUsuarioDatos)Session["VerificacionAutenticidad"];
+            var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
             if (oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             try
@@ -2890,7 +2903,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ProcesaEnvioSms(int cantidadEnvios)
         {
-            var oUsu = (BEUsuarioDatos)Session["VerificacionAutenticidad"];
+            var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
             if(oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             try
@@ -2925,7 +2938,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> VerificarCodigoGenerado(string Codigoingresado)
         {
-            var oUsu = (BEUsuarioDatos)Session["VerificacionAutenticidad"];
+            var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
             int paisID = Convert.ToInt32(TempData["PaisID"]);
 
             try
@@ -2943,7 +2956,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (oUsu.OrigenID)
                     {
-                        case Constantes.OpcionesDeVerificacion.OrigenOlvideContraseña:
+                        case Constantes.OpcionesDeVerificacion.OrigenOlvideContrasenia:
                             {
                                 string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
                                 DateTime diasolicitud = DateTime.Now;
@@ -2959,7 +2972,6 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 TempData["FlagPin"] = true;
                                 break;
-                                //return await Redireccionar(paisID, oUsu.CodigoUsuario);
                             };
                     }
                 }
@@ -3000,9 +3012,8 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new UsuarioServiceClient())
                     oVerificacion = sv.GetVerificacionAutenticidad(paisID, codigoUsuario);
                 if (oVerificacion == null) return false;
-                Session["VerificacionAutenticidad"] = oVerificacion;
+                Session["DatosUsuario"] = oVerificacion;
                 TempData["PaisID"] = paisID;
-                //SetTemData(paisID, objVerificacion.CodigoIso, codigoUsuario, objVerificacion.PrimerNombre, objVerificacion.IdEstadoActividad);
                 return true;
             }
             catch (Exception ex)
@@ -3016,7 +3027,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> ContinuarLogin()
         {
-            var oUsu = (BEUsuarioDatos)Session["VerificacionAutenticidad"];
+            var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             return await Redireccionar(paisID, oUsu.CodigoUsuario);
         }

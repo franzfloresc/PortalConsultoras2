@@ -15,11 +15,11 @@ $(document).ready(function () {
         nroIntentosSms = nroIntentosSms + 1;
         ProcesaEnvioSMS();
     });
-
+    debugger
     if (EmailDesabilitado == "1" || CorreoEnmascarado == ""){
         BloqueaOpcionCorreo(HoraRestanteCorreo)
     }
-
+    debugger
     if (SmsDesabilitado == "1" || CelularEnmascarado == "") {
         BloqueaOpcionSms(HoraRestanteSms);
     }
@@ -134,7 +134,6 @@ function ProcesaEnvioSMS() {
         async: true,
         success: function (response) {
             if (response.success) {
-
                     $("#divPaso2sms").show();
                     $("#divPaso1").hide();
                     if (nroIntentosSms == 2) {

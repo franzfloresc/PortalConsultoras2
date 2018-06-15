@@ -233,6 +233,7 @@
       <xs:element minOccurs="0" name="EsCatalogoPersonalizadoZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsConsecutivoNueva" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsConsultoraNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsConsultoraOficina" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsCumpleanio" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsJoven" type="xs:int" />
       <xs:element minOccurs="0" name="EsOFGanaMasZonaValida" type="xs:boolean" />
@@ -393,6 +394,7 @@
   <xs:element name="BEOfertaDelDia" nillable="true" type="tns:BEOfertaDelDia" />
   <xs:complexType name="BERevistaDigital">
     <xs:sequence>
+      <xs:element minOccurs="0" name="ActivoMdo" type="xs:boolean" />
       <xs:element minOccurs="0" name="BloquearRevistaImpresaGeneral" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="BloqueoProductoDigital" type="xs:boolean" />
       <xs:element minOccurs="0" name="BloqueoRevistaImpresa" type="xs:boolean" />
@@ -524,40 +526,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEEventoFestivo" nillable="true" type="tns:BEEventoFestivo" />
-  <xs:complexType name="BEUsuarioCorreo">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
-      <xs:element minOccurs="0" name="CantidadEnvios" type="xs:int" />
-      <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CelularEnmascarado" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Clave" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CorreoEnmascarado" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionHorario" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EsMobile" type="xs:boolean" />
-      <xs:element minOccurs="0" name="HoraRestanteCorreo" type="xs:int" />
-      <xs:element minOccurs="0" name="HoraRestanteSms" type="xs:int" />
-      <xs:element minOccurs="0" name="IdEstadoActividad" type="xs:int" />
-      <xs:element minOccurs="0" name="MensajeSaludo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MostrarOpcion" type="xs:int" />
-      <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="OpcionCorreoActiva" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="OpcionSmsActiva" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="OrigenID" type="xs:int" />
-      <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TelefonoCentral" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TieneAutenticacion" type="xs:boolean" />
-      <xs:element minOccurs="0" name="TipoUsuario" type="xs:int" />
-      <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
-      <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="opcionHabilitar" type="xs:boolean" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEUsuarioCorreo" nillable="true" type="tns:BEUsuarioCorreo" />
   <xs:complexType name="BEConsultoraDatos">
     <xs:sequence>
       <xs:element minOccurs="0" name="AutorizaPedido" nillable="true" type="xs:string" />
@@ -617,6 +585,40 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBEUsuarioCorreo" nillable="true" type="tns:ArrayOfBEUsuarioCorreo" />
+  <xs:complexType name="BEUsuarioCorreo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="CantidadEnvios" type="xs:int" />
+      <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CelularEnmascarado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Clave" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CorreoEnmascarado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionHorario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsMobile" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HoraRestanteCorreo" type="xs:int" />
+      <xs:element minOccurs="0" name="HoraRestanteSms" type="xs:int" />
+      <xs:element minOccurs="0" name="IdEstadoActividad" type="xs:int" />
+      <xs:element minOccurs="0" name="MensajeSaludo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MostrarOpcion" type="xs:int" />
+      <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OpcionCorreoActiva" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OpcionSmsActiva" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrigenID" type="xs:int" />
+      <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TelefonoCentral" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TieneAutenticacion" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TipoUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
+      <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="opcionHabilitar" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEUsuarioCorreo" nillable="true" type="tns:BEUsuarioCorreo" />
   <xs:complexType name="ArrayOfBEUsuario">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEUsuario" nillable="true" type="tns:BEUsuario" />

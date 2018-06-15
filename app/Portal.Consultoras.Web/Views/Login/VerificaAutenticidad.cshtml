@@ -44,6 +44,7 @@
         <div class="linea_separadora" style="margin-top:-10px"></div>
     </div>
 
+
     <section class="block vista_flujo_restablecer_contrasenia">
         <div class="block center-block wrapper_content_verificacion_autenticidad">
             <div class="block">
@@ -205,8 +206,8 @@
     var urlProcesaEnvioSms = '@Url.Action("ProcesaEnvioSms", "Login")';
     var urlVerificarCodigoGenerado = '@Url.Action("VerificarCodigoGenerado", "Login")';
     var urlContinuarLogin = '@Url.Action("ContinuarLogin", "Login")';
-    var EmailDesabilitado = '@Model.OpcionCorreoActiva';
-    var SmsDesabilitado = '@Model.OpcionSmsActiva';
+    var EmailDesabilitado = '@Model.OpcionCorreoDesabilitado';
+    var SmsDesabilitado = '@Model.OpcionSmsDesabilitado';
     var HoraRestanteCorreo = '@Model.HoraRestanteCorreo';
     var HoraRestanteSms = '@Model.HoraRestanteSms';
     var CorreoEnmascarado = '@Model.CorreoEnmascarado';

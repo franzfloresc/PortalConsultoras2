@@ -10,15 +10,16 @@
       <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CorreoEnmascarado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionHorario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EsMobile" type="xs:boolean" />
       <xs:element minOccurs="0" name="HoraRestanteCorreo" type="xs:int" />
       <xs:element minOccurs="0" name="HoraRestanteSms" type="xs:int" />
       <xs:element minOccurs="0" name="IdEstadoActividad" type="xs:int" />
       <xs:element minOccurs="0" name="MensajeSaludo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MostrarOpcion" type="xs:int" />
-      <xs:element minOccurs="0" name="OpcionCorreoActiva" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OpcionCorreoDesabilitado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OpcionDesabilitado" type="xs:boolean" />
-      <xs:element minOccurs="0" name="OpcionSmsActiva" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OpcionSmsDesabilitado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OrigenDescripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OrigenID" type="xs:int" />
       <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
