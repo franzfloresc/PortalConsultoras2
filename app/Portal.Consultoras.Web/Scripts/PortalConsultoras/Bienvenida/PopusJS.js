@@ -283,7 +283,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
     timeoutHandle = setTimeout(MostrarPopusEnOrden, x * 10);
 }
 
-function Cupon()
+function Cupon3()
 { 
     if (cancel == 0) {
         if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
@@ -293,18 +293,17 @@ function Cupon()
     }
 
     $('#Cupon3').on('hide', function () {
-
             if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                 document.getElementById('survicate-box').style.display = 'block';
-                valEncuesta = window.setInterval("ValidacionEncuesta()", 500);               
-            }
-            else {
                 cancel = 1;
+                valEncuesta = window.setInterval("ValidacionEncuesta()", 500);                
+            }
+            else {              
                 if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
                 if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
                 document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                clearTimeout(timeoutHandle);
-            
+                clearTimeout(timeoutHandle); 
+                cancel = 1;
             }  
     });
 
