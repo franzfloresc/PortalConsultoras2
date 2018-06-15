@@ -79,6 +79,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
                 }
                 model.CodigoUsuarioReal = userData.CodigoUsuario;
+                ViewBag.UrlPdfTerminosyCondiciones = GetUrlTerminosCondicionesDatosUsuario();
 
                 #region limite Min - Max Telef
                 int limiteMinimoTelef, limiteMaximoTelef;

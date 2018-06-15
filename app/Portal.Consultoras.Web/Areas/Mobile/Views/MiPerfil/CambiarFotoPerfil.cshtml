@@ -36,26 +36,19 @@ else
         <div class="wrapper_content_cambiar_foto_perfil">
             <div>
                 <div class="opciones_foto_perfil">
-                    <a href="#" title="Tomar una foto" class="opcion_foto_perfil opcion_tomar_foto">
+                    <a href="javascript:;" id="tomarFotoLabel" title="Tomar una foto" class="opcion_foto_perfil opcion_tomar_foto">
                         <span class="icono_opcion_foto_perfil icono_tomar_foto v-alignMiddle">
                             <img src="@Url.Content("~/Content/Images/icono_tomar_foto.svg")" alt="Tomar una foto" />
                         </span>
                         <span class="descrip_opcion_foto_perfil text-uppercase v-alignMiddle">Tomar una foto</span>
                     </a>
-                    <label for="ElegirImagen" title="Desde mi galería" class="opcion_foto_perfil opcion_cargar_foto_desde_galeria">
-                        <span class="icono_opcion_foto_perfil icono_cargar_foto_desde_galeria v-alignMiddle">
-                            <img src="@Url.Content("~/Content/Images/icono_cargar_foto_desde_galeria.svg")" alt="Desde mi galería" />
-                        </span>
-                        <span class="descrip_opcion_foto_perfil text-uppercase v-alignMiddle">Desde mi galería</span>
-                    </label>
-                    <div class="input-file" style="display: none;">
-                        <div id="fpImagenPerfil">
-                            <script type="text/javascript">
-                            var uploader = new qq.FileUploader({
+                    <div id="fpImagenPerfilFoto" style="display: none;">
+                        <script type="text/javascript">
+                            var uploaderFoto = new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
-                                element: document.getElementById('fpImagenPerfil'),
-                                    action: '@Url.Action("MoverFotoPerfil", "MiPerfil", new { area = "" })',
-                                    onComplete: function (id, fileName, responseJSON) {
+                                element: document.getElementById('fpImagenPerfilFoto'),
+                                action: '@Url.Action("MoverFotoPerfil", "MiPerfil", new { area = "" })',
+                                onComplete: function (id, fileName, responseJSON) {
                                     if (checkTimeout(responseJSON)) {
                                         $(".qq-upload-list").css("display", "none");
                                         if (responseJSON.success) {
@@ -69,10 +62,36 @@ else
                                 onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
                                 onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
                             });
-                            inputElegirImagen = document.querySelector('input[type="file"]');
-                            inputElegirImagen.setAttribute("id", "ElegirImagen");
-                            </script>
-                        </div>
+                        </script>
+                    </div>
+                    <!---->
+                    <a href="javascript:;" id="AbrirGaleriaLabel" title="Desde mi galería" class="opcion_foto_perfil opcion_cargar_foto_desde_galeria">
+                        <span class="icono_opcion_foto_perfil icono_cargar_foto_desde_galeria v-alignMiddle">
+                            <img src="@Url.Content("~/Content/Images/icono_cargar_foto_desde_galeria.svg")" alt="Desde mi galería" />
+                        </span>
+                        <span class="descrip_opcion_foto_perfil text-uppercase v-alignMiddle">Desde mi galería</span>
+                    </a>
+                    <div id="fpImagenPerfil" style="display: none;">
+                        <script type="text/javascript">
+                            var uploader = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                                element: document.getElementById('fpImagenPerfil'),
+                                action: '@Url.Action("MoverFotoPerfil", "MiPerfil", new { area = "" })',
+                                onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                                SubirImagen('@Url.Action("Index", "Bienvenida", new { area = "Mobile" })', responseJSON.name);
+                                        } else {
+                                                alert('Hubo un error al cargar el archivo, intente nuevamente.');
+                                        }
+                                    }
+                                },
+                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                            });
+                        </script>
                     </div>
                     <a href="#" id="btnEliminarFoto" title="Eliminar foto" class="opcion_foto_perfil opcion_eliminar_foto">
                         <span class="icono_opcion_foto_perfil icono_eliminar_foto v-alignMiddle">
@@ -87,5 +106,27 @@ else
 </div>
 
 @section scripts{
+    <script>
+        var divpricipalfpImagenPerfilFoto = document.getElementById('fpImagenPerfilFoto');
+        inputElegirFoto = divpricipalfpImagenPerfilFoto.querySelector('input[type="file"]');
+        inputElegirFoto.setAttribute("id", "TomarFoto");
+        inputElegirFoto.setAttribute("capture", "camera");
+        inputElegirFoto.setAttribute("accept", "image/*");
+        inputElegirFoto.setAttribute("style", "");
+        inputElegirFoto.removeAttribute("multiple");
+
+        var divprincipalfpImagenPerfil = document.getElementById('fpImagenPerfil');
+        inputElegirImagen = divprincipalfpImagenPerfil.querySelector('input[type="file"]');
+        inputElegirImagen.setAttribute("id", "AbrirGaleria");
+        inputElegirImagen.setAttribute("style", "");
+
+        $('#tomarFotoLabel').click(function () {
+            $('#TomarFoto').click();
+        });
+
+        $('#AbrirGaleriaLabel').click(function () {
+            $('#AbrirGaleria').click();
+        });
+    </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Index.js")"></script>
 }

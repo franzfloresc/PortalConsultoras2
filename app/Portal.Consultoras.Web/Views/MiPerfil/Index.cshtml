@@ -51,6 +51,7 @@ else
                 <input type="hidden" id="hdn_CaracterMinimo" value="@Model.limiteMinimoTelef" />
                 <input type="hidden" id="hdn_ServicioSMS" value="@Model.ServiceSMS" />
                 <input type="hidden" id="hdn_PuedeActualizar" value="@Model.ActualizaDatos" />
+                <input type="hidden" id="hdn_enlaceTerminosCondiciones" value="@ViewBag.UrlPdfTerminosyCondiciones" />
                 <div class="datos_codigo">
                     <span>Código : </span>
                     <span class="text-bold">@Model.CodigoUsuario</span>
@@ -143,7 +144,7 @@ else
                     <span class="asterisco_actualizar_datos">(*)&nbsp;</span>
                     <span>
                         Declaro que he leído los
-                        <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span>
+                        <span><a href="javascript:;" id="hrefTerminosMD" target="_blank">términos y condiciones</a></span>
                         sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.
                     </span>
                 </label>

@@ -114,6 +114,8 @@ $(document).ready(function () {
 
     $('#txtCelularMD').on("cut copy paste", function (e) { e.preventDefault(); });
 
+    $('#hrefTerminosMD').click(function () { EnlaceTerminosCondiciones(); });
+
     $("#txtEMailMD").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
@@ -138,6 +140,11 @@ $(document).ready(function () {
         }
     });
 });
+
+function EnlaceTerminosCondiciones() {
+    var enlace = $('#hdn_enlaceTerminosCondiciones').val();
+    $('#hrefTerminosMD').attr('href', enlace);
+}
 
 function actualizarDatos() {
     if (jQuery.trim($('#txtEMailMD').val()) == "") {
