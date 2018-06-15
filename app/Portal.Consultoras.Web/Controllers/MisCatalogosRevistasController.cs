@@ -28,6 +28,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
+            if (EsDispositivoMovil())
+            {
+                return RedirectToAction("Index", "Catalogo", new { area = "Mobile" });
+            }
+
             var clienteModel = new MisCatalogosRevistasModel
             {
                 PaisNombre = Util.GetPaisNombreByISO(userData.CodigoISO),

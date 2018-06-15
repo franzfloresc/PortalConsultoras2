@@ -11,6 +11,11 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
+            if (EsDispositivoMovil())
+            {
+                return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
+            }
+
             try
             {
                 var modelo = new EstrategiaPersonalizadaModel

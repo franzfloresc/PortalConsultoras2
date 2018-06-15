@@ -130,11 +130,17 @@ namespace Portal.Consultoras.Common
             {
                 var urlRequest = string.Empty;
                 var browserRequest = string.Empty;
+                var ctrl = string.Empty;
+                var acti = string.Empty;
 
                 if (HttpContext.Current != null && HttpContext.Current.Request != null)
                 {
                     urlRequest = HttpContext.Current.Request.Url.ToString();
                     browserRequest = HttpContext.Current.Request.UserAgent;
+
+                    var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+                    ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+                    acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
                 }
 
                 var exceptionMessage = string.Empty;
@@ -154,11 +160,7 @@ namespace Portal.Consultoras.Common
                         innerException = innerException.InnerException;
                     }
                 }
-
-                var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
-                string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
-                string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
-
+                
                 var data = new
                 {
                     Aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras,

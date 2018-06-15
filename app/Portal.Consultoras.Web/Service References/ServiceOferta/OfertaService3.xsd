@@ -31,6 +31,7 @@
           <xs:element minOccurs="0" name="ConsultoraID" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DescripcionCUV2" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DescripcionCategoria" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DescripcionCortaCUV2" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DescripcionEstrategia" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DescripcionMarca" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="EnMatrizComercial" type="xs:int" />
@@ -38,6 +39,8 @@
           <xs:element minOccurs="0" name="EsSubCampania" type="xs:int" />
           <xs:element minOccurs="0" name="EstrategiaDetalle" nillable="true" type="tns:BEEstrategiaDetalle" />
           <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
+          <xs:element minOccurs="0" name="EstrategiaProducto" nillable="true" type="tns:ArrayOfBEEstrategiaProducto" />
+          <xs:element minOccurs="0" name="EstrategiaProductoCodigoSAP" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="EtiquetaDescripcion" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="EtiquetaDescripcion2" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="EtiquetaID" type="xs:int" />
@@ -138,6 +141,42 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEEstrategiaDetalle" nillable="true" type="tns:BEEstrategiaDetalle" />
+  <xs:complexType name="ArrayOfBEEstrategiaProducto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEEstrategiaProducto" nillable="true" type="tns:BEEstrategiaProducto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEEstrategiaProducto" nillable="true" type="tns:ArrayOfBEEstrategiaProducto" />
+  <xs:complexType name="BEEstrategiaProducto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Activo" type="xs:short" />
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Campania" type="xs:int" />
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoError" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoErrorObs" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Digitable" type="xs:int" />
+      <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
+      <xs:element minOccurs="0" name="EstrategiaProductoID" type="xs:int" />
+      <xs:element minOccurs="0" name="FactorCuadre" type="xs:int" />
+      <xs:element minOccurs="0" name="Grupo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdMarca" type="xs:int" />
+      <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreMarca" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioValorizado" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SAP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEEstrategiaProducto" nillable="true" type="tns:BEEstrategiaProducto" />
   <xs:complexType name="BETipoEstrategia">
     <xs:sequence>
       <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />

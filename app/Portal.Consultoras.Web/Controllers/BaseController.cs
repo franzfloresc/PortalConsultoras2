@@ -37,6 +37,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using System.Drawing;
 using EstrategiaPedidoModel = Portal.Consultoras.Web.Models.EstrategiaPedidoModel;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -147,7 +148,7 @@ namespace Portal.Consultoras.Web.Controllers
         #region Métodos
 
         #region Pedido
-        
+
         protected int EsOpt()
         {
             var esOpt = revistaDigital.TieneRevistaDigital() && revistaDigital.EsActiva
@@ -169,7 +170,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt());
         }
-        
+
         protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(bool session = true)
         {
             var montosProl = new List<ObjMontosProl> { new ObjMontosProl() };
@@ -531,7 +532,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<List<PermisoModel>>(permisos);
         }
-        
+
         public virtual string GetUrlImagenMenuOfertas(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
             var urlImagen = string.Empty;
@@ -858,7 +859,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region UserData
-       
+
         public UsuarioModel UserData()
         {
             var model = sessionManager.GetUserData() ?? new UsuarioModel();
@@ -882,7 +883,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return olstProductoFaltante ?? new List<BEProductoFaltante>();
         }
-        
+
         public string GetIPCliente()
         {
             var ip = string.Empty;
@@ -1287,14 +1288,14 @@ namespace Portal.Consultoras.Web.Controllers
             return GetEstrategiaDetalleFactorCuadre(listaEstrategiaComponente);
         }
 
-        private List<BEEstrategiaProducto> GetEstrategiaDetalleCodigoSAP(EstrategiaPersonalizadaProductoModel estrategiaModelo, out string codigoSap)
+        private List<ServicePedido.BEEstrategiaProducto> GetEstrategiaDetalleCodigoSAP(EstrategiaPersonalizadaProductoModel estrategiaModelo, out string codigoSap)
         {
             codigoSap = "";
             const string separador = "|";
             var txtBuil = new StringBuilder();
             txtBuil.Append(separador);
 
-            var listaProducto = new List<BEEstrategiaProducto>();
+            var listaProducto = new List<ServicePedido.BEEstrategiaProducto>();
             if (!string.IsNullOrEmpty(estrategiaModelo.CodigoVariante))
             {
 
@@ -1329,14 +1330,14 @@ namespace Portal.Consultoras.Web.Controllers
             return listaAppCatalogo.Any() ? listaAppCatalogo : new List<Producto>();
         }
 
-        private List<EstrategiaComponenteModel> GetEstrategiaDetalleCompuesta(EstrategiaPersonalizadaProductoModel estrategiaModelo, 
-                                                                    List<BEEstrategiaProducto> listaBeEstrategiaProductos, 
+        private List<EstrategiaComponenteModel> GetEstrategiaDetalleCompuesta(EstrategiaPersonalizadaProductoModel estrategiaModelo,
+                                                                    List<ServicePedido.BEEstrategiaProducto> listaBeEstrategiaProductos,
                                                                     List<Producto> listaProductos,
                                                                     string codigoTipoEstrategia)
         {
             var listaEstrategiaComponenteProductos =
                 Mapper.Map<List<Producto>, List<EstrategiaComponenteModel>>(listaProductos);
-            
+
             var listaComponentesTemporal = new List<EstrategiaComponenteModel>();
             listaBeEstrategiaProductos = listaBeEstrategiaProductos.OrderBy(p => p.Grupo).ToList();
             listaEstrategiaComponenteProductos = listaEstrategiaComponenteProductos.OrderBy(p => p.CodigoProducto).ToList();
@@ -1348,7 +1349,7 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var beEstrategiaProducto in listaBeEstrategiaProductos)
             {
                 var componenteModel = (EstrategiaComponenteModel)
-                    (listaEstrategiaComponenteProductos.FirstOrDefault(p => beEstrategiaProducto.SAP == p.CodigoProducto) 
+                    (listaEstrategiaComponenteProductos.FirstOrDefault(p => beEstrategiaProducto.SAP == p.CodigoProducto)
                     ?? new EstrategiaComponenteModel()).Clone();
 
                 if (Util.Trim(componenteModel.CodigoProducto) == "" &&
@@ -1358,13 +1359,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if (listaEstrategiaComponenteProductos.Count(p => beEstrategiaProducto.SAP == p.CodigoProducto) > 1)
                 {
                     componenteModel = (EstrategiaComponenteModel)
-                        (listaEstrategiaComponenteProductos.FirstOrDefault(p => beEstrategiaProducto.SAP == p.CodigoProducto && p.Id > idPk) 
+                        (listaEstrategiaComponenteProductos.FirstOrDefault(p => beEstrategiaProducto.SAP == p.CodigoProducto && p.Id > idPk)
                         ?? new EstrategiaComponenteModel()).Clone();
                 }
 
                 componenteModel.NombreComercial = string.Concat(componenteModel.NombreComercial, " ", componenteModel.Volumen);
 
-                if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom) {
+                if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
+                {
                     componenteModel.NombreComercial = string.Concat(Util.Trim(beEstrategiaProducto.NombreProducto), " ", beEstrategiaProducto.Descripcion1);
                 }
 
@@ -1394,7 +1396,7 @@ namespace Portal.Consultoras.Web.Controllers
             switch (estrategiaModelo.CodigoVariante)
             {
                 case Constantes.TipoEstrategiaSet.CompuestaFija:
-                    listaEstrategiaComponenteProductos.ForEach(h => { h.Digitable = 0;});
+                    listaEstrategiaComponenteProductos.ForEach(h => { h.Digitable = 0; });
                     listaEstrategiaComponenteProductos = listaEstrategiaComponenteProductos.Where(h => h.NombreComercial != "").ToList();
                     break;
                 case Constantes.TipoEstrategiaSet.IndividualConTonos:
@@ -1440,7 +1442,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<EstrategiaComponenteModel> GetEstrategiaDetalleFactorCuadre(List<EstrategiaComponenteModel> listaHermanos)
         {
-            var listaHermanosCuadre = new List<EstrategiaComponenteModel>();            
+            var listaHermanosCuadre = new List<EstrategiaComponenteModel>();
 
             listaHermanos = listaHermanos ?? new List<EstrategiaComponenteModel>();
             foreach (var hermano in listaHermanos)
@@ -1458,7 +1460,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-        
+
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(string constSession)
         {
             constSession = constSession ?? "";
@@ -1510,13 +1512,111 @@ namespace Portal.Consultoras.Web.Controllers
             if (paisId == 4) return new Converter<decimal, string>(p => p.ToString("n0", new System.Globalization.CultureInfo("es-CO")));
             return new Converter<decimal, string>(p => p.ToString("n2", new System.Globalization.CultureInfo("es-PE")));
         }
-        
+
+        private BarraTippingPoint GetTippingPoint(string TippingPointParticipa, string TippingPointStr)
+        {
+            BarraTippingPoint TippingPoint = new BarraTippingPoint { ActiveTooltip = false, ActiveMonto = false };
+            string nivel = Convert.ToString(userData.ConsecutivoNueva + 1).PadLeft(2, '0');
+            string FlagParticipa = getValidaConsultoraProgramaNueva(TippingPointParticipa);
+            try
+            {
+                // verifica si participa al programa de nuevas.
+                if (FlagParticipa == Constantes.TipoEstrategiaCodigo.ParticipaProgramaNuevas)
+                {
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        var beActive = sv.GetActivarPremioNuevas(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);
+                        TippingPoint.ActiveTooltip = beActive == null ? false : beActive.ActiveTooltip;
+                        TippingPoint.ActiveMonto = beActive == null ? false : beActive.ActiveMontoTooltip;
+                        TippingPoint.Active = beActive == null ? false : beActive.Active;
+                        TippingPoint.TippingPointMontoStr = TippingPointStr;
+                        // verifica si esta activado el tooltip
+                        if (TippingPoint.ActiveTooltip == true)
+                        {
+                            var estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID,
+                                                                               Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo,
+                                                                               userData.CampaniaID,
+                                                                               nivel);
+
+                            TippingPoint.CampaniaID = estrategia == null ? default(int) : estrategia.CampaniaID;
+                            TippingPoint.CampaniaIDFin = estrategia == null ? default(int) : estrategia.CampaniaIDFin;
+                            TippingPoint.CUV1 = estrategia == null ? default(string) : estrategia.CUV1;
+                            TippingPoint.CUV2 = estrategia == null ? default(string) : estrategia.CUV2;
+                            TippingPoint.ImagenURL = estrategia == null ? default(string) : estrategia.ImagenURL;
+                            TippingPoint.DescripcionCUV2 = estrategia == null ? default(string) : estrategia.DescripcionCUV2;
+                            TippingPoint.Ganancia = estrategia == null ? default(decimal) : estrategia.Ganancia;
+                            TippingPoint.Precio = estrategia == null ? default(decimal) : estrategia.Precio;
+                            TippingPoint.Precio2 = estrategia == null ? default(decimal) : estrategia.Precio2;
+                            TippingPoint.PrecioPublico = estrategia == null ? default(decimal) : estrategia.PrecioPublico;
+                            TippingPoint.PrecioUnitario = estrategia == null ? default(decimal) : estrategia.PrecioUnitario;
+                            TippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
+                        }
+                    }
+                }
+                else
+                {
+                    TippingPoint = new BarraTippingPoint { ActiveTooltip = false, ActiveMonto = false };
+                }
+            }
+            catch (Exception ex)
+            {
+                TippingPoint = new BarraTippingPoint { ActiveTooltip = false, ActiveMonto = false };
+            }
+            return TippingPoint;
+        }
+
+        private string getUrlTippingPoint(string noImagen)
+        {
+            string url = string.Format
+                        ("{0}/{1}/{2}/{3}/{4}/{5}",
+                            _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_S3),
+                            _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.BUCKET_NAME),
+                            _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ROOT_DIRECTORY),
+                            _configuracionManagerProvider.GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""),
+                            userData.CodigoISO ?? "",
+                            noImagen ?? ""
+                         );
+            return url;
+        }
+
+        private string getValidaConsultoraProgramaNueva(string participa)
+        {
+            string resultado = string.Empty;
+            // si el idestadoActividad es mayor a 1 o diferente a  1 entonces significa que el usuario pertenece al programa de nuevas[campo ConsecutivoNueva]
+            int ConsecutivoNueva = userData.ConsecutivoNueva;
+            // este es el campo IdEstadoActividad en bd
+            int ConsultoraNueva = userData.ConsultoraNueva;
+            try
+            {
+                resultado = participa == null ? "" : participa.Trim();
+
+                /*
+                if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
+                        userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
+                        userData.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
+                {
+                    resultado = participa == null ? "" : participa.Trim();
+                }
+                else
+
+                    resultado = Constantes.TipoEstrategiaCodigo.NotParticipaProgramaNuevas;
+                    */
+            }
+            catch
+            {
+                resultado = string.Empty;
+            }
+            return resultado;
+        }
+
+
         public BarraConsultoraModel GetDataBarra(bool inEscala = true, bool inMensaje = false, bool Agrupado = false)
         {
             var objR = new BarraConsultoraModel
             {
                 ListaEscalaDescuento = new List<BarraConsultoraEscalaDescuentoModel>(),
-                ListaMensajeMeta = new List<BEMensajeMetaConsultora>()
+                ListaMensajeMeta = new List<BEMensajeMetaConsultora>(),
+                TippingPointBarra = new BarraTippingPoint()
             };
 
             try
@@ -1536,13 +1636,15 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.MontoMaximo > 0)
                 {
                     var tp = GetConfiguracionProgramaNuevas(Constantes.ConstSession.TippingPoint);
-
                     if (tp.IndExigVent == "1")
                     {
                         var obeConsultorasProgramaNuevas = GetConsultorasProgramaNuevas(Constantes.ConstSession.TippingPoint_MontoVentaExigido, tp.CodigoPrograma);
-
                         objR.TippingPoint = obeConsultorasProgramaNuevas.MontoVentaExigido;
                         objR.TippingPointStr = Util.DecimalToStringFormat(objR.TippingPoint, userData.CodigoISO);
+                        // si el MontoVentaExigido es mayor a 0 entonces pertenece al programa de nuevas y se muestra el Tipping Point validacion a nivel de js y a nivel de cs
+                        if (objR.TippingPoint > 0)
+                            objR.TippingPointBarra = GetTippingPoint(obeConsultorasProgramaNuevas.Participa, objR.TippingPointStr);
+
                     }
                 }
 
@@ -1768,7 +1870,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return lst;
         }
-        
+
         #endregion
 
         #region Metodos Oferta del Dia
@@ -1793,8 +1895,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             estrategiaODD = estrategiaODD ?? sessionManager.OfertaDelDia.Estrategia;
 
-            if (estrategiaODD != null && 
-                estrategiaODD.ListaDeOferta != null && 
+            if (estrategiaODD != null &&
+                estrategiaODD.ListaDeOferta != null &&
                 estrategiaODD.ListaDeOferta.Any())
             {
                 var oddModel = estrategiaODD.ListaDeOferta.First().Clone();
@@ -1830,7 +1932,7 @@ namespace Portal.Consultoras.Web.Controllers
                 x.ImagenFondo1 = string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo1ODD"), userData.CodigoISO);
                 x.ColorFondo1 = colorFondoBanner.Codigo ?? string.Empty;
                 x.ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(userData.CodigoISO, ofertasOddModel.Count);
-                x.ImagenFondo2 =string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo2ODD"), userData.CodigoISO);
+                x.ImagenFondo2 = string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo2ODD"), userData.CodigoISO);
                 x.ColorFondo2 = coloFondoDisplay.Codigo ?? string.Empty;
                 x.NombreOferta = ObtenerNombreOfertaDelDia(x.NombreOferta);
                 x.DescripcionOferta = ObtenerDescripcionOfertaDelDia(x.DescripcionOferta);
@@ -1999,7 +2101,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
-        
+
         #region Zonificacion
 
         protected IEnumerable<RegionModel> DropDownListRegiones(int paisId)
@@ -2491,7 +2593,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ? string.Empty
                 : model.Valor;
         }
-        
+
         public bool ValidarPermiso(string codigo, string codigoConfig = "")
         {
             codigo = Util.Trim(codigo).ToLower();
@@ -2575,7 +2677,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
-        
+
         public MobileAppConfiguracionModel MobileAppConfiguracion
         {
             get
@@ -2603,7 +2705,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return origenActual;
         }
-        
+
         #region Configuracion Seccion Palanca
         public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion(RevistaDigitalModel revistaDigital)
         {
@@ -3556,7 +3658,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return config;
         }
-        
+
         protected List<ServicePedido.BETipoEstrategia> GetTipoEstrategias()
         {
             List<ServicePedido.BETipoEstrategia> tiposEstrategia;
@@ -3572,9 +3674,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             return tiposEstrategia;
         }
-        
+
         #endregion
-            
+
         #region Obtener URL Cerrar Sesión
 
         private string ObtenerUrlCerrarSesion()
@@ -3627,6 +3729,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.CodigoConsultoraDL = userData.CodigoConsultora != null && userData.CodigoConsultora != "" ? userData.CodigoConsultora : "(not available)";
             ViewBag.SegmentoConstancia = userData.SegmentoConstancia != null && userData.SegmentoConstancia != "" ? userData.SegmentoConstancia.Trim() : "(not available)";
             ViewBag.DescripcionNivelAnalytics = userData.DescripcionNivel != null && userData.DescripcionNivel != "" ? userData.DescripcionNivel : "(not available)";
+            ViewBag.MensajeChat = userData.MensajeChat;
 
             if (userData.RolID == Constantes.Rol.Consultora)
             {
@@ -3857,7 +3960,7 @@ namespace Portal.Consultoras.Web.Controllers
             return baseVariablesGeneral;
 
         }
-        
+
         private string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes)
         {
             var time = DateTime.Today.Add(horaCierre);
@@ -3885,7 +3988,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
         }
-        
+
         #endregion
 
         protected int GetMostradoPopupPrecargados()
@@ -4062,7 +4165,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-        
+
         public async Task<List<BEComunicado>> ObtenerComunicadoPorConsultoraAsync()
         {
             using (var sac = new SACServiceClient())
@@ -4435,5 +4538,19 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
+        protected void GetNotificacionesValAutoProl(long procesoId, int tipoOrigen, out List<BENotificacionesDetalle> lstObservaciones, out List<BENotificacionesDetallePedido> lstObservacionesPedido)
+        {
+            using (var service = new UsuarioServiceClient())
+            {
+                lstObservaciones = service.GetNotificacionesConsultoraDetalle(userData.PaisID, procesoId, tipoOrigen).ToList();
+                lstObservacionesPedido = service.GetNotificacionesConsultoraDetallePedido(userData.PaisID, procesoId, tipoOrigen).ToList();
+            }
+            lstObservaciones = lstObservaciones.GroupBy(o => o.CUV).Select(g => g.First()).ToList();
+        }
+
+        public bool EsDispositivoMovil()
+        {
+            return Request.Browser.IsMobileDevice;
+        }
     }
 }

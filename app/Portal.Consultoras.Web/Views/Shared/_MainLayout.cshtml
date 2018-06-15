@@ -58,7 +58,8 @@
         var emt_id = '@ViewBag.CodigoUsuario';
         var emt_type = '0';
         var emt_device = ' ';
-        var emt_default_message = '@Html.Raw(Constantes.ConfiguracionManager.MensajeChatBienvenida)';
+        var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
+        // New Chat -->
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
         var FechaActual = '@(DateTime.Now.ToString("dd/MM/yyyy"))';
 

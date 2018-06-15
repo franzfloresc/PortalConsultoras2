@@ -638,7 +638,6 @@
 </div>
 <input type="hidden" id="hdfAccionPROL" value="@Model.Prol" />
 <input type="hidden" id="hdfReserva" value="@Model.Reserva" />
-<input type="hidden" id="hdfObsInfor" value="@Model.ObservacionInformativa" />
 <input type="hidden" id="hdfModificaPedido" value="@Model.EsModificacion" />
 <input type="hidden" id="hdfZonaValida" value="@Model.ZonaValida" />
 <input type="hidden" id="hdfPROLSinStock" value="@Model.ProlSinStock" />
@@ -2110,6 +2109,7 @@
 
         var seccionMisOfertas = '@Constantes.SeccionBienvenida.MisOfertas';
         var OrigenDesktopODD = 2;
+        var mensajePedidoVacio = '@Constantes.MensajesError.Reserva_SinDetalle';
 </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)

@@ -1,59 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:simpleType name="Enumeradores.RechazoBannerUrl">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Ninguna" />
-      <xs:enumeration value="Deuda" />
-      <xs:enumeration value="ModificaPedido" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Enumeradores.RechazoBannerUrl" nillable="true" type="tns:Enumeradores.RechazoBannerUrl" />
-  <xs:simpleType name="Enumeradores.MotivoPedidoLock">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Ninguno" />
-      <xs:enumeration value="GPR">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="Reservado">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="HorarioRestringido">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="Facturado">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Enumeradores.MotivoPedidoLock" nillable="true" type="tns:Enumeradores.MotivoPedidoLock" />
-  <xs:simpleType name="Enumeradores.ResultadoReserva">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Ninguno" />
-      <xs:enumeration value="Reservado" />
-      <xs:enumeration value="ReservadoObservaciones" />
-      <xs:enumeration value="NoReservadoObservaciones" />
-      <xs:enumeration value="NoReservadoMontoMinimo" />
-      <xs:enumeration value="NoReservadoMontoMaximo" />
-      <xs:enumeration value="ReservaNoDisponible" />
-      <xs:enumeration value="NoReservadoDeuda" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Enumeradores.ResultadoReserva" nillable="true" type="tns:Enumeradores.ResultadoReserva" />
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
+  <xs:complexType name="BEConfiguracionProgramaNuevasApp">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ArchivoBannerCupon" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ArchivoBannerPremio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfiguracionProgramaNuevasAppID" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="TextoCupon" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TextoCuponIndependiente" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConfiguracionProgramaNuevasApp" nillable="true" type="tns:BEConfiguracionProgramaNuevasApp" />
+  <xs:complexType name="ArrayOfBEConfiguracionProgramaNuevasApp">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConfiguracionProgramaNuevasApp" nillable="true" type="tns:BEConfiguracionProgramaNuevasApp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEConfiguracionProgramaNuevasApp" nillable="true" type="tns:ArrayOfBEConfiguracionProgramaNuevasApp" />
+  <xs:complexType name="BEEstrategiaMasiva">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" base="q1:BaseEntidad">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+          <xs:element minOccurs="0" name="EstrategiaXML" nillable="true">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:any minOccurs="0" processContents="lax" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
+          <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BEEstrategiaMasiva" nillable="true" type="tns:BEEstrategiaMasiva" />
 </xs:schema>

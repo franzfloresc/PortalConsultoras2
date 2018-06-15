@@ -167,11 +167,10 @@ namespace Portal.Consultoras.Web.Models
 
         #region propiedades usadas para Validacion PROL
 
-        public bool ObservacionInformativa { get; set; }
-
         public bool ObservacionRestrictiva { get; set; }
 
         public bool ErrorProl { get; set; }
+        public bool AvisoProl { get; set; }
 
         public bool Reserva { get; set; }
 
