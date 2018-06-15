@@ -899,85 +899,41 @@ namespace Portal.Consultoras.BizLogic
 
         private void ConfigurarDTCargaWebDD(DataSet dsPedidosWeb, DataSet dsPedidosDD, DateTime fechaFacturacion, int nroLote, string usuario, string codigoPais)
         {
-            if (!ConfigurationManager.AppSettings["IsFOX"].Contains(codigoPais))
-            {
-                this.ConfigurarDTCargaHeader(dsPedidosWeb, fechaFacturacion, nroLote, "W", usuario);
-                this.ConfigurarDTCargaHeader(dsPedidosDD, fechaFacturacion, nroLote, "D", usuario);
-            }
-            else
-            {
-                this.ConfigurarDTCargaHeader(dsPedidosWeb, fechaFacturacion, nroLote, string.Empty, usuario);
-                this.ConfigurarDTCargaHeader(dsPedidosDD, fechaFacturacion, nroLote, string.Empty, usuario);
-            }
+            this.ConfigurarDTCargaHeader(dsPedidosWeb, fechaFacturacion, nroLote, "W", usuario);
+            this.ConfigurarDTCargaHeader(dsPedidosDD, fechaFacturacion, nroLote, "D", usuario);
         }
 
         private void ConfigurarDTCargaDetalle(DataSet dsPedidosDetalle, DateTime fechaFactura, int nroLote)
         {
-            if (dsPedidosDetalle != null)
-            {
-                var dtPedidosDetalle = dsPedidosDetalle.Tables[1];
+            if (dsPedidosDetalle == null) return;
 
-                if (dtPedidosDetalle.Rows.Count > 0)
-                {
-                    DataColumn col = new DataColumn("LogFechaFacturacion", typeof(System.DateTime))
-                    {
-                        DefaultValue = fechaFactura
-                    };
-                    dtPedidosDetalle.Columns.Add(col);
+            var dtPedidosDetalle = dsPedidosDetalle.Tables[1];
+            if (dtPedidosDetalle.Rows.Count == 0) return;
 
-                    col = new DataColumn("LogNroLote", typeof(System.Int32))
-                    {
-                        DefaultValue = nroLote
-                    };
-                    dtPedidosDetalle.Columns.Add(col);
-                }
-            }
+            AddDTColumn(dtPedidosDetalle, "LogFechaFacturacion", fechaFactura);
+            AddDTColumn(dtPedidosDetalle, "LogNroLote", nroLote);
         }
 
         private void ConfigurarDTCargaHeader(DataSet dsPedidos, DateTime fechaFactura, int nroLote, string origen, string usuario)
         {
-            if (dsPedidos != null)
-            {
-                var dtPedidosCabecera = dsPedidos.Tables[0];
+            if (dsPedidos == null) return;
 
-                if (dtPedidosCabecera.Rows.Count != 0)
-                {
-                    DataColumn col = new DataColumn("LogFechaFacturacion", typeof(System.DateTime))
-                    {
-                        DefaultValue = fechaFactura
-                    };
-                    dtPedidosCabecera.Columns.Add(col);
+            var dtPedidosCabecera = dsPedidos.Tables[0];
+            if (dtPedidosCabecera.Rows.Count == 0) return;
 
-                    col = new DataColumn("LogNroLote", typeof(System.Int32))
-                    {
-                        DefaultValue = nroLote
-                    };
-                    dtPedidosCabecera.Columns.Add(col);
+            AddDTColumn(dtPedidosCabecera, "LogFechaFacturacion", fechaFactura);
+            AddDTColumn(dtPedidosCabecera, "LogNroLote", nroLote);
+            AddDTColumn(dtPedidosCabecera, "LogCantidad", 0);
+            AddDTColumn(dtPedidosCabecera, "LogCodigoUsuarioProceso", usuario);
+            if (origen != string.Empty) AddDTColumn(dtPedidosCabecera, "Origen", origen);
+            if(!DataRecord.HasColumn(dtPedidosCabecera, "VersionProl")) AddDTColumn<byte>(dtPedidosCabecera, "VersionProl", 2);
 
-                    col = new DataColumn("LogCantidad", typeof(System.Int32))
-                    {
-                        DefaultValue = 0
-                    };
-                    dtPedidosCabecera.Columns.Add(col);
+            ConfigurarDTCargaDetalle(dsPedidos, fechaFactura, nroLote);
+        }
 
-                    if (origen != string.Empty)
-                    {
-                        col = new DataColumn("Origen", typeof(System.String))
-                        {
-                            DefaultValue = origen
-                        };
-                        dtPedidosCabecera.Columns.Add(col);
-                    }
-
-                    col = new DataColumn("LogCodigoUsuarioProceso", typeof(System.String))
-                    {
-                        DefaultValue = usuario
-                    };
-                    dtPedidosCabecera.Columns.Add(col);
-
-                    ConfigurarDTCargaDetalle(dsPedidos, fechaFactura, nroLote);
-                }
-            }
+        private void AddDTColumn<T>(DataTable dt, string columnName, T defaultValue)
+        {
+            dt.Columns.Add(new DataColumn(columnName, typeof(T)) { DefaultValue = defaultValue });
         }
 
         private string FormatFile(string codigoPais, string fileName, DateTime date, Guid fileGuid)
@@ -2154,14 +2110,6 @@ namespace Portal.Consultoras.BizLogic
                             Mensaje = string.Format("En este momento nos encontramos facturando tu pedido de C-{0}, inténtalo más tarde", campania.Substring(4, 2))
                         };
                     }
-                    if (validarReservado && configuracion.EstadoPedido == Constantes.EstadoPedido.Procesado && !configuracion.ModificaPedidoReservado && !configuracion.ValidacionAbierta)
-                    {
-                        return new BEValidacionModificacionPedido
-                        {
-                            MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Reservado,
-                            Mensaje = "Ya tienes un pedido reservado para esta campaña."
-                        };
-                    }
                     if (validarFacturado && configuracion.IndicadorEnviado)
                     {
                         return new BEValidacionModificacionPedido
@@ -2170,8 +2118,15 @@ namespace Portal.Consultoras.BizLogic
                             Mensaje = "Estamos facturando tu pedido."
                         };
                     }
+                    if (validarReservado && configuracion.EstadoPedido == Constantes.EstadoPedido.Procesado && !configuracion.ModificaPedidoReservado && !configuracion.ValidacionAbierta)
+                    {
+                        return new BEValidacionModificacionPedido
+                        {
+                            MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Reservado,
+                            Mensaje = "Ya tienes un pedido reservado para esta campaña."
+                        };
+                    }
                 }
-
                 if (validarHorario)
                 {
                     var mensajeHorarioRestringido = this.ValidarHorarioRestringido(usuario, campania);
@@ -2185,7 +2140,6 @@ namespace Portal.Consultoras.BizLogic
                         };
                     }
                 }
-
                 return new BEValidacionModificacionPedido { MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Ninguno };
             }
             catch (Exception ex)

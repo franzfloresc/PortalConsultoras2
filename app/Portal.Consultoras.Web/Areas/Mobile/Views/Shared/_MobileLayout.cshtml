@@ -366,7 +366,7 @@
         var emt_id = '@ViewBag.CodigoUsuario';
         var emt_type = '0';
         var emt_device = ' ';
-        var emt_default_message = '@Html.Raw(Constantes.ConfiguracionManager.MensajeChatBienvenida)';
+        var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
 
         var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';        
         var sesionEsShowRoom = '@Session["EsShowRoom"]';

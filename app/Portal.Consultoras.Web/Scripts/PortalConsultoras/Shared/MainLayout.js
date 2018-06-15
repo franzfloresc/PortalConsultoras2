@@ -332,6 +332,16 @@ $(document).ready(function () {
         return false;
     });
 
+    $("body").on('click', '#btn_init', function () {
+        var data = {
+            'event': 'virtualEvent',
+            'category': controllerName,
+            'action': 'Clic en Chat',
+            'label': '¿Quieres ayuda?'
+        };
+        dataLayer.push(data);
+    });
+
     setInterval(animacionFlechaScroll, 1000);
 
 });
