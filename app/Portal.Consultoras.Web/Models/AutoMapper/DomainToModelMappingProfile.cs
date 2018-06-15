@@ -218,8 +218,6 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEPais, PaisModel>();
 
-            Mapper.CreateMap<RegaloOfertaFinal, OfertaFinalRegaloModel>();
-
             Mapper.CreateMap<ServiceODS.BEProductoDescripcion, GestionFaltantesModel>();
 
             Mapper.CreateMap<AdministrarLugaresPagoModel, BELugarPago>()

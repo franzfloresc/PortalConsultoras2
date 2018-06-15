@@ -1289,6 +1289,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
+        
+        [OperationContract]
+        List<BEPedidoWebDetalle> ObtenerCuvSetDetalle(int paisID,int campaniaID, long consultoraID, int pedidoID, string ListaSet);
 
         [OperationContract]
         BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
