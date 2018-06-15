@@ -283,7 +283,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
     timeoutHandle = setTimeout(MostrarPopusEnOrden, x * 10);
 }
 
-function Cupon3()
+function Cupon()
 { 
     if (cancel == 0) {
         if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
