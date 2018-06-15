@@ -793,7 +793,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         #region OLVIDE CONTRASENIA
-        public IDataReader GetUsuarioOlvideContraseña(string CampoRestablecer, int PaisID)
+        public IDataReader GetUsuarioOlvideContrasenia(string CampoRestablecer, int PaisID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioOlvideContrasenia");
             Context.Database.AddInParameter(command, "@ValorIngresado", DbType.AnsiString, CampoRestablecer);

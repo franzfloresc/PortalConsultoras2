@@ -2945,7 +2945,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (oUsu.OrigenID)
                     {
-                        case Constantes.OpcionesDeVerificacion.OrigenOlvideContraseña:
+                        case Constantes.OpcionesDeVerificacion.OrigenOlvideContrasenia:
                             {
                                 string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
                                 DateTime diasolicitud = DateTime.Now;

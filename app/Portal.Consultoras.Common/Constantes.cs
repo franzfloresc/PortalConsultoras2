@@ -2073,13 +2073,13 @@ namespace Portal.Consultoras.Common
 
         public class OpcionesDeVerificacion
         {
-            public const int OrigenOlvideContraseña = 1;
+            public const int OrigenOlvideContrasenia = 1;
             public const int OrigenVericacionAutenticidad = 2;
             public const int OrigenActulizarDatos = 3;            
         }
 
         #region Olvide Contrasenia
-        public class OlvideContraseña
+        public class OlvideContrasenia
         {
             public const int Origen = 1;
             public const string OrigenDescripcion = "Olvide Contraseña";
