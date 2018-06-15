@@ -294,12 +294,9 @@ function Cupon()
 
     $('#Cupon3').on('hide', function () {
 
-        if (document.getElementById('Cupon1').style.display == 'none' && document.getElementById('Cupon2').style.display == 'none') 
-        {
             if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                 document.getElementById('survicate-box').style.display = 'block';
-                valEncuesta = window.setInterval("ValidacionEncuesta()", 500);
-                
+                valEncuesta = window.setInterval("ValidacionEncuesta()", 500);               
             }
             else {
                 cancel = 1;
@@ -308,53 +305,9 @@ function Cupon()
                 document.getElementsByClassName('flexslider')[0].style.display = 'block';
                 clearTimeout(timeoutHandle);
             
-            }
-
-        } 
+            }  
     });
 
-
-    $('#Cupon2').on('hide', function () {
-
-        if (document.getElementById('Cupon3').style.display == 'none' && document.getElementById('Cupon1').style.display == 'none') {
-
-            if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
-                document.getElementById('survicate-box').style.display = 'block';
-                valEncuesta = window.setInterval("ValidacionEncuesta()", 500);       
-            }
-            else {
-                cancel = 1;
-                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                clearTimeout(timeoutHandle);
-               
-            }
-
-        }
-
-    });
-
-
-    $('#Cupon1').on('hide', function () {
-
-        if (document.getElementById('Cupon2').style.display == 'none' && document.getElementById('Cupon3').style.display == 'none') {
-
-            if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
-                document.getElementById('survicate-box').style.display = 'block';
-                valEncuesta = window.setInterval("ValidacionEncuesta()", 500);           
-            }
-            else {
-                cancel = 1;
-                if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                document.getElementsByClassName('flexslider')[0].style.display = 'block';
-                clearTimeout(timeoutHandle);
-             
-            }
-        }
-    });
- 
 }
 
 function ValidacionEncuesta() {
