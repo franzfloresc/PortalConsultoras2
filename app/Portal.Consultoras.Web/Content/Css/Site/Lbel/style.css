@@ -26524,15 +26524,18 @@ input[type='checkbox']:checked + span:after {
 }
 
 .tippingPoint {
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 24px;
     margin: 0 auto;
-    background: url('../../../Images/tippingPoint.png') no-repeat;
+    background: url('../../../Images/tippingPointActivo.svg') no-repeat;
+    background-size:100%;
 }
 
     .tippingPoint.activo {
-        background: url('../../../Images/tippingPointActivo.png') no-repeat;
+        background: url('../../../Images/tippingPointActivo.svg') no-repeat;
+        background-size:100%;
     }
+
 /*PEDIDO VALIDADO*/
 .cod_venta_listado {
     width: 10%;
@@ -36722,3 +36725,177 @@ height:30px;
 }
 
 /* FIN - HD-2513 - 50 AÑOS BELCORP */
+/* MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */
+
+.monto_meta_tippingPoint{
+    margin-top:2px;
+    font-size:12px;
+    color:#e81c36;
+}
+
+.contenedor_tippingPoint {
+    cursor: pointer;
+    position: relative;
+    -moz-animation: animacionTippingPoint 0.8s infinite ease-out;
+    -o-animation: animacionTippingPoint 0.8s infinite ease-out;
+    -webkit-animation: animacionTippingPoint 0.8s infinite ease-out;
+    animation: animacionTippingPoint 0.8s infinite ease-out;
+}
+
+@keyframes animacionTippingPoint {
+  0% {
+    top:0;
+  }
+
+  50% {
+    top:-7px;
+  }
+
+  100%{
+     top:0;
+  }
+}
+
+@-moz-keyframes animacionTippingPoint {
+  0% {
+    top:0;
+  }
+
+  50% {
+    top:-7px;
+  }
+
+  100%{
+     top:0;
+  }
+}
+
+@-o-keyframes animacionTippingPoint {
+  0% {
+    top:0;
+  }
+
+  50% {
+    top:-7px;
+  }
+
+  100%{
+     top:0;
+  }
+}
+
+@-webkit-keyframes animacionTippingPoint {
+  0% {
+    top:0;
+  }
+
+  50% {
+    top:-7px;
+  }
+
+  100%{
+     top:0;
+  }
+}
+
+    .contenedor_tippingPoint:hover .tooltip_regalo_meta_tippingPoint {
+        display: block;
+        -moz-animation: mostrarTooltip 0.2s ease;
+        -o-animation: mostrarTooltip 0.2s ease;
+        -webkit-animation: mostrarTooltip 0.2s ease;
+        animation: mostrarTooltip 0.2s ease;
+    }
+
+    @keyframes mostrarTooltip {
+      from {
+        opacity:0;
+      }
+
+      to {
+        opacity:1;
+      }
+    }
+
+    @-moz-keyframes mostrarTooltip {
+      from {
+        opacity:0;
+      }
+
+      to {
+        opacity:1;
+      }
+    }
+
+    @-o-keyframes mostrarTooltip {
+      from {
+        opacity:0;
+      }
+
+      to {
+        opacity:1;
+      }
+    }
+
+    @-webkit-keyframes mostrarTooltip {
+      from {
+        opacity:0;
+      }
+
+      to {
+        opacity:1;
+      }
+    }
+
+.tooltip_regalo_meta_tippingPoint {
+    display: none;
+    position: absolute;
+    padding: 13px 10px;
+    top: -58px;
+    right: -149px;
+    z-index: 102;
+    background-color: #FFF;
+    border-radius: 4px;
+    width: 161.15px;
+    min-height: 198px;
+    -moz-box-shadow: 0 7px 17px 3px rgba(0, 0, 0, 0.31);
+    -webkit-box-shadow: 0 7px 17px 3px rgba(0, 0, 0, 0.31);
+    box-shadow: 0 7px 17px 3px rgba(0, 0, 0, 0.31);
+}
+
+.tooltip_regalo_meta_tippingPoint:before {
+    right: 100%;
+    top: 32%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-right-color: #FFF;
+    border-width: 11px;
+    margin-top: -11px;
+}
+
+.tooltip_producto_regalo_img{
+    height:127px;
+    text-align:center;
+    overflow:hidden;
+    margin-bottom:10px;
+}
+
+.tooltip_producto_regalo_img img{
+    width:auto;
+    height:100%;
+}
+
+.tooltip_producto_regalo_descripcion{
+    font-size:13px;
+    line-height:20px;
+}
+
+.tooltip_producto_regalo_descripcion strong{
+    font-weight:bold;
+}
+
+/* FIN - MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */

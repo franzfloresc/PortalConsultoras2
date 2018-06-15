@@ -860,11 +860,11 @@ function ActualizarGanancia(data) {
     $("[data-ganancia]").html(data.MontoGananciaStr || "");
     $("[data-ganancia2]").html(variablesPortal.SimboloMoneda + " " + data.MontoGananciaStr || "");
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
-    $("[data-montodescuento]").html(variablesPortal.SimboloMoneda + " " + data.MontoDescuentoStr);
+    $("[data-montodescuento]").html(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(data.MontoDescuentoStr));
     $("[data-pedidototal]").html(variablesPortal.SimboloMoneda + " " + data.TotalPedidoStr);
     $("[data-cantidadproducto]").html(data.CantidadProductos);
-    $("[data-montoahorrocatalogo]").html(variablesPortal.SimboloMoneda + " " + data.MontoAhorroCatalogoStr);
-    $("[data-montoahorrorevista]").html(variablesPortal.SimboloMoneda + " " + data.MontoAhorroRevistaStr);
+    $("[data-montoahorrocatalogo]").html(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(data.MontoAhorroCatalogoStr));
+    $("[data-montoahorrorevista]").html(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(data.MontoAhorroRevistaStr));
 
     $(".num-menu-shop").html(data.CantidadProductos);
     $(".js-span-pedidoingresado").html(data.TotalPedidoStr);

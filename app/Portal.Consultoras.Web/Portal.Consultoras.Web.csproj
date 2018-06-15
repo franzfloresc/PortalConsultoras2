@@ -257,7 +257,6 @@
     <Compile Include="Areas\Mobile\Models\PedidoDetalleMobileDetalleModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoFICDetalleMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoDetalleMobileModel.cs" />
-    <Compile Include="Areas\Mobile\Models\PedidoValidacionPROLMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoWebClienteMobilModel.cs" />
     <Compile Include="Areas\Mobile\Models\PedidoWebClientePrincipalMobilModel.cs" />
@@ -316,6 +315,7 @@
     <Compile Include="Infraestructure\Validator\Phone\NotSamePhoneValidator.cs" />
     <Compile Include="Models\AdministrarEstrategia\AdministrarEstrategiaMasivoModel.cs" />
     <Compile Include="Models\Estrategia\OfertaDelDia\DataModel.cs" />
+    <Compile Include="Models\BarraTippingPoint.cs" />
     <Compile Include="Models\Cache\CacheModel.cs" />
     <Compile Include="Models\Common\ListStringModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\BannerInferiorConfiguracion.cs" />
@@ -3493,7 +3493,9 @@
     <Content Include="Content\Images\tipBtm.png" />
     <Content Include="Content\Images\tipMid.png" />
     <Content Include="Content\Images\tippingPoint.PNG" />
+    <Content Include="Content\Images\tippingPoint.svg" />
     <Content Include="Content\Images\tippingPointActivo.PNG" />
+    <Content Include="Content\Images\tippingPointActivo.svg" />
     <Content Include="Content\Images\tipTop.png" />
     <Content Include="Content\Images\tooltip-flecha.png" />
     <Content Include="Content\Images\tooltip_guardar.png" />

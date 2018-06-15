@@ -916,6 +916,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.CambioClave = Convert.ToInt32(usuario.CambioClave);
                     usuarioModel.ConsultoraNueva = usuario.ConsultoraNueva;
                     usuarioModel.EsConsultoraNueva = usuario.EsConsultoraNueva;
+                    usuarioModel.EsConsultoraOficina = usuario.EsConsultoraOficina;
                     usuarioModel.Telefono = usuario.Telefono;
                     usuarioModel.TelefonoTrabajo = usuario.TelefonoTrabajo;
                     usuarioModel.Celular = usuario.Celular;
@@ -977,7 +978,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     usuarioModel.DiasAntes = usuario.DiasAntes;
                     usuarioModel.DiasDuracionCronograma = usuario.DiasDuracionCronograma;
-
+                    
                     switch (usuario.RolID)
                     {
                         case Constantes.Rol.Administrador:
@@ -1248,8 +1249,9 @@ namespace Portal.Consultoras.Web.Controllers
                         var lstFiltersFAV = await CargarFiltersFAV(usuarioModel);
                         if (lstFiltersFAV.Any()) sessionManager.SetListFiltersFAV(lstFiltersFAV);
                     }
-
+ 
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
+                    usuarioModel.MensajeChat = await GetMessageChat(usuarioModel.PaisID);
 
                     usuarioModel.PuedeActualizar = usuario.PuedeActualizar;
                     usuarioModel.PuedeEnviarSMS = usuario.PuedeEnviarSMS;
@@ -1282,6 +1284,23 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region metodos asincronos
+
+        private async Task<string> GetMessageChat(int paisId)
+        {
+            IEnumerable<BETablaLogicaDatos> datos;
+            using (var service = new SACServiceClient())
+            {
+                datos = await service.GetTablaLogicaDatosAsync(paisId, 142);
+            }
+
+            if (datos == null)
+            {
+                return string.Empty;
+            }
+
+            var result = datos.FirstOrDefault(r => r.TablaLogicaDatosID == 14201);
+            return result == null ? string.Empty : result.Valor;
+        }
 
         private async Task<bool> GetPermisoFlexipago(ServiceUsuario.BEUsuario usuario)
         {
@@ -2842,36 +2861,29 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                BEUsuarioCorreo oDatos = new BEUsuarioCorreo();
-                oDatos = GetTemData();
+                BEUsuarioCorreo datos = GetTemData();
 
-                if (nroOpcion == 1 || oDatos.Cantidad == 0)
+                if (nroOpcion == 1 || datos.Cantidad == 0)
                 {
                     using (var sv = new UsuarioServiceClient())
                     {
-                        oDatos = sv.GetRestaurarClaveByCodUsuario(textoRecuperacion, paisId);
+                        datos = sv.GetRestaurarClaveByCodUsuario(textoRecuperacion, paisId);
                     }
-
-                    if (oDatos != null)
-                        SetTemData(oDatos, paisId);
+                    if (datos != null) SetTemData(datos, paisId);
                 }
 
-                if (oDatos.Cantidad != 0)
+                if (datos != null && datos.Cantidad != 0)
                 {
-                    oDatos.resultado = "";
-                    oDatos.EsMobile = EsDispositivoMovil();
+                    datos.resultado = "";
+                    datos.EsMobile = EsDispositivoMovil();
 
                     if (nroOpcion == 1)
                     {
-                        if (oDatos.Correo != "" && oDatos.Celular != "")
-                            oDatos.resultado = "prioridad1";
-                        else if (oDatos.Correo != "" && oDatos.Celular == "")
-                            oDatos.resultado = "prioridad1_correo";
-                        else if (oDatos.Correo == "" && oDatos.Celular != "")
-                            oDatos.resultado = "prioridad1_sms";
+                        if (datos.Correo != "" && datos.Celular != "") datos.resultado = "prioridad1";
+                        else if (datos.Correo != "" && datos.Celular == "") datos.resultado = "prioridad1_correo";
+                        else if (datos.Correo == "" && datos.Celular != "") datos.resultado = "prioridad1_sms";
 
-                        if (oDatos.resultado == "")
-                            nroOpcion = 2;
+                        if (datos.resultado == "") nroOpcion = 2;
                     }
 
                     if (nroOpcion == 2)
@@ -2889,15 +2901,14 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             string paisISO = Util.GetPaisISO(paisId);
                             mostrarChat = (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO);
-                            oDatos.descripcionHorario = horarioChat.Resumen;
+                            datos.descripcionHorario = horarioChat.Resumen;
                             habilitarChat = horarioChat.EstaDisponible;
                         }
 
                         if (mostrarChat && habilitarChat)
-                            oDatos.resultado = "prioridad2_chat";
+                            datos.resultado = "prioridad2_chat";
 
-                        if (oDatos.resultado == "")
-                            nroOpcion = 3;
+                        if (datos.resultado == "") nroOpcion = 3;
                     }
 
                     if (nroOpcion == 3)
@@ -2910,7 +2921,7 @@ namespace Portal.Consultoras.Web.Controllers
                             horarioBResponde = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.BelcorpResponde, true);
                         }
 
-                        oDatos.descripcionHorario = horarioBResponde.Resumen;
+                        datos.descripcionHorario = horarioBResponde.Resumen;
                         habilitarBResponde = horarioBResponde.EstaDisponible;
 
                         if (habilitarBResponde)
@@ -2920,83 +2931,76 @@ namespace Portal.Consultoras.Web.Controllers
                                 case 2:
                                     {
                                         //BOLIVIA
-                                        oDatos.TelefonoCentral = "901-105678"; break;
+                                        datos.TelefonoCentral = "901-105678"; break;
                                     };
                                 case 3:
                                     {
                                         //CHILE
-                                        oDatos.TelefonoCentral = "02-28762100"; break;
+                                        datos.TelefonoCentral = "02-28762100"; break;
                                     };
                                 case 4:
                                     {
                                         //COLOMBIA
-                                        oDatos.TelefonoCentral = "01-8000-9-37452,5948060"; break;
+                                        datos.TelefonoCentral = "01-8000-9-37452,5948060"; break;
                                     };
                                 case 5:
                                     {
                                         //COSTA RICA
-                                        oDatos.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
+                                        datos.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
                                     };
                                 case 6:
                                     {
                                         //ECUADOR
-                                        oDatos.TelefonoCentral = "1800-76667"; break;
+                                        datos.TelefonoCentral = "1800-76667"; break;
                                     };
                                 case 7:
                                     {
                                         //EL SALVADOR
-                                        oDatos.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
+                                        datos.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
                                     };
                                 case 8:
                                     {
                                         //GUATEMALA
-                                        oDatos.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
+                                        datos.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
                                     };
                                 case 9:
                                     {
                                         //MEXICO
-                                        oDatos.TelefonoCentral = "01-800-2352677"; break;
+                                        datos.TelefonoCentral = "01-800-2352677"; break;
                                     };
                                 case 10:
                                     {
                                         //PANAMA
-                                        oDatos.TelefonoCentral = "800-5235,377-9399"; break;
+                                        datos.TelefonoCentral = "800-5235,377-9399"; break;
                                     };
                                 case 11:
                                     {
                                         //PERU
-                                        oDatos.TelefonoCentral = "01-2113614,080-11-3030"; break;
+                                        datos.TelefonoCentral = "01-2113614,080-11-3030"; break;
                                     };
                                 case 12:
                                     {
                                         //PUERTO RICO
-                                        oDatos.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
+                                        datos.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
                                     };
                                 case 13:
                                     {
                                         //REPUBLICA DOMINICANA
-                                        oDatos.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
+                                        datos.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
                                     };
                                 case 14:
                                     {
                                         //VENEZUELA
-                                        oDatos.TelefonoCentral = "0501-2352677"; break;
+                                        datos.TelefonoCentral = "0501-2352677"; break;
                                     };
                             }
-
-                            if (oDatos.TelefonoCentral.Length > 0)
-                                oDatos.resultado = "prioridad2_llamada";
+                            if (datos.TelefonoCentral.Length > 0) datos.resultado = "prioridad2_llamada";
                         }
-
-                        if (oDatos.resultado == "")
-                            nroOpcion = 4;
+                        if (datos.resultado == "") nroOpcion = 4;
                     }
-
-                    if (nroOpcion == 4)
-                        oDatos.resultado = "prioridad3";
+                    if (nroOpcion == 4) datos.resultado = "prioridad3";
                 }
-
-                return oDatos;
+                return datos;
             }
             catch (FaultException ex)
             {
