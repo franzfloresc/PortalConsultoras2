@@ -21,7 +21,7 @@ BEGIN
 		IsNull(OpcionChat, 0) as OpcionChat,
 		IsNull(OpcionBelcorpResponde, 0) as OpcionBelcorpResponde,
 		IsNull(IncluyeFiltros, 0) as IncluyeFiltros,
-		IsNull(TieneAlcanse, 0) as TieneAlcanse
+		IsNull(TieneZonas, 0) as TieneZonas
 	from [dbo].[OpcionesVerificacion]
 	where OrigenID = @OrigenID
 	And IsNull(Activo, 0) = 1
@@ -51,7 +51,7 @@ BEGIN
 		IsNull(OpcionChat, 0) as OpcionChat,
 		IsNull(OpcionBelcorpResponde, 0) as OpcionBelcorpResponde,
 		IsNull(IncluyeFiltros, 0) as IncluyeFiltros,
-		IsNull(TieneAlcanse, 0) as TieneAlcanse
+		IsNull(TieneZonas, 0) as TieneZonas
 	from [dbo].[OpcionesVerificacion]
 	where OrigenID = @OrigenID
 	And IsNull(Activo, 0) = 1
@@ -81,7 +81,7 @@ BEGIN
 		IsNull(OpcionChat, 0) as OpcionChat,
 		IsNull(OpcionBelcorpResponde, 0) as OpcionBelcorpResponde,
 		IsNull(IncluyeFiltros, 0) as IncluyeFiltros,
-		IsNull(TieneAlcanse, 0) as TieneAlcanse
+		IsNull(TieneZonas, 0) as TieneZonas
 	from [dbo].[OpcionesVerificacion]
 	where OrigenID = @OrigenID
 	And IsNull(Activo, 0) = 1
@@ -111,7 +111,7 @@ BEGIN
 		IsNull(OpcionChat, 0) as OpcionChat,
 		IsNull(OpcionBelcorpResponde, 0) as OpcionBelcorpResponde,
 		IsNull(IncluyeFiltros, 0) as IncluyeFiltros,
-		IsNull(TieneAlcanse, 0) as TieneAlcanse
+		IsNull(TieneZonas, 0) as TieneZonas
 	from [dbo].[OpcionesVerificacion]
 	where OrigenID = @OrigenID
 	And IsNull(Activo, 0) = 1
@@ -141,7 +141,7 @@ BEGIN
 		IsNull(OpcionChat, 0) as OpcionChat,
 		IsNull(OpcionBelcorpResponde, 0) as OpcionBelcorpResponde,
 		IsNull(IncluyeFiltros, 0) as IncluyeFiltros,
-		IsNull(TieneAlcanse, 0) as TieneAlcanse
+		IsNull(TieneZonas, 0) as TieneZonas
 	from [dbo].[OpcionesVerificacion]
 	where OrigenID = @OrigenID
 	And IsNull(Activo, 0) = 1
@@ -171,7 +171,7 @@ BEGIN
 		IsNull(OpcionChat, 0) as OpcionChat,
 		IsNull(OpcionBelcorpResponde, 0) as OpcionBelcorpResponde,
 		IsNull(IncluyeFiltros, 0) as IncluyeFiltros,
-		IsNull(TieneAlcanse, 0) as TieneAlcanse
+		IsNull(TieneZonas, 0) as TieneZonas
 	from [dbo].[OpcionesVerificacion]
 	where OrigenID = @OrigenID
 	And IsNull(Activo, 0) = 1
@@ -201,7 +201,7 @@ BEGIN
 		IsNull(OpcionChat, 0) as OpcionChat,
 		IsNull(OpcionBelcorpResponde, 0) as OpcionBelcorpResponde,
 		IsNull(IncluyeFiltros, 0) as IncluyeFiltros,
-		IsNull(TieneAlcanse, 0) as TieneAlcanse
+		IsNull(TieneZonas, 0) as TieneZonas
 	from [dbo].[OpcionesVerificacion]
 	where OrigenID = @OrigenID
 	And IsNull(Activo, 0) = 1
@@ -231,7 +231,7 @@ BEGIN
 		IsNull(OpcionChat, 0) as OpcionChat,
 		IsNull(OpcionBelcorpResponde, 0) as OpcionBelcorpResponde,
 		IsNull(IncluyeFiltros, 0) as IncluyeFiltros,
-		IsNull(TieneAlcanse, 0) as TieneAlcanse
+		IsNull(TieneZonas, 0) as TieneZonas
 	from [dbo].[OpcionesVerificacion]
 	where OrigenID = @OrigenID
 	And IsNull(Activo, 0) = 1
@@ -261,7 +261,7 @@ BEGIN
 		IsNull(OpcionChat, 0) as OpcionChat,
 		IsNull(OpcionBelcorpResponde, 0) as OpcionBelcorpResponde,
 		IsNull(IncluyeFiltros, 0) as IncluyeFiltros,
-		IsNull(TieneAlcanse, 0) as TieneAlcanse
+		IsNull(TieneZonas, 0) as TieneZonas
 	from [dbo].[OpcionesVerificacion]
 	where OrigenID = @OrigenID
 	And IsNull(Activo, 0) = 1
@@ -291,7 +291,7 @@ BEGIN
 		IsNull(OpcionChat, 0) as OpcionChat,
 		IsNull(OpcionBelcorpResponde, 0) as OpcionBelcorpResponde,
 		IsNull(IncluyeFiltros, 0) as IncluyeFiltros,
-		IsNull(TieneAlcanse, 0) as TieneAlcanse
+		IsNull(TieneZonas, 0) as TieneZonas
 	from [dbo].[OpcionesVerificacion]
 	where OrigenID = @OrigenID
 	And IsNull(Activo, 0) = 1
@@ -321,7 +321,7 @@ BEGIN
 		IsNull(OpcionChat, 0) as OpcionChat,
 		IsNull(OpcionBelcorpResponde, 0) as OpcionBelcorpResponde,
 		IsNull(IncluyeFiltros, 0) as IncluyeFiltros,
-		IsNull(TieneAlcanse, 0) as TieneAlcanse
+		IsNull(TieneZonas, 0) as TieneZonas
 	from [dbo].[OpcionesVerificacion]
 	where OrigenID = @OrigenID
 	And IsNull(Activo, 0) = 1
@@ -351,7 +351,7 @@ BEGIN
 		IsNull(OpcionChat, 0) as OpcionChat,
 		IsNull(OpcionBelcorpResponde, 0) as OpcionBelcorpResponde,
 		IsNull(IncluyeFiltros, 0) as IncluyeFiltros,
-		IsNull(TieneAlcanse, 0) as TieneAlcanse
+		IsNull(TieneZonas, 0) as TieneZonas
 	from [dbo].[OpcionesVerificacion]
 	where OrigenID = @OrigenID
 	And IsNull(Activo, 0) = 1

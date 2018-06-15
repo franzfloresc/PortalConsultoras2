@@ -24,7 +24,7 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 	[OpcionChat][bit] NULL,
 	[OpcionBelcorpResponde][bit] NULL,
 	[IncluyeFiltros][bit] NULL,
-	[TieneAlcanse][bit] NULL,
+	[TieneZonas][bit] NULL,
 	[Activo][bit] NULL,
  CONSTRAINT [PK_OpcionVerificacion_OrigenID] PRIMARY KEY CLUSTERED 
 (
@@ -93,7 +93,7 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 	[OpcionChat][bit] NULL,
 	[OpcionBelcorpResponde][bit] NULL,
 	[IncluyeFiltros][bit] NULL,
-	[TieneAlcanse][bit] NULL,
+	[TieneZonas][bit] NULL,
 	[Activo][bit] NULL,
  CONSTRAINT [PK_OpcionVerificacion_OrigenID] PRIMARY KEY CLUSTERED 
 (
@@ -162,7 +162,7 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 	[OpcionChat][bit] NULL,
 	[OpcionBelcorpResponde][bit] NULL,
 	[IncluyeFiltros][bit] NULL,
-	[TieneAlcanse][bit] NULL,
+	[TieneZonas][bit] NULL,
 	[Activo][bit] NULL,
  CONSTRAINT [PK_OpcionVerificacion_OrigenID] PRIMARY KEY CLUSTERED 
 (
@@ -231,7 +231,7 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 	[OpcionChat][bit] NULL,
 	[OpcionBelcorpResponde][bit] NULL,
 	[IncluyeFiltros][bit] NULL,
-	[TieneAlcanse][bit] NULL,
+	[TieneZonas][bit] NULL,
 	[Activo][bit] NULL,
  CONSTRAINT [PK_OpcionVerificacion_OrigenID] PRIMARY KEY CLUSTERED 
 (
@@ -300,7 +300,7 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 	[OpcionChat][bit] NULL,
 	[OpcionBelcorpResponde][bit] NULL,
 	[IncluyeFiltros][bit] NULL,
-	[TieneAlcanse][bit] NULL,
+	[TieneZonas][bit] NULL,
 	[Activo][bit] NULL,
  CONSTRAINT [PK_OpcionVerificacion_OrigenID] PRIMARY KEY CLUSTERED 
 (
@@ -369,7 +369,7 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 	[OpcionChat][bit] NULL,
 	[OpcionBelcorpResponde][bit] NULL,
 	[IncluyeFiltros][bit] NULL,
-	[TieneAlcanse][bit] NULL,
+	[TieneZonas][bit] NULL,
 	[Activo][bit] NULL,
  CONSTRAINT [PK_OpcionVerificacion_OrigenID] PRIMARY KEY CLUSTERED 
 (
@@ -438,7 +438,7 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 	[OpcionChat][bit] NULL,
 	[OpcionBelcorpResponde][bit] NULL,
 	[IncluyeFiltros][bit] NULL,
-	[TieneAlcanse][bit] NULL,
+	[TieneZonas][bit] NULL,
 	[Activo][bit] NULL,
  CONSTRAINT [PK_OpcionVerificacion_OrigenID] PRIMARY KEY CLUSTERED 
 (
@@ -507,7 +507,7 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 	[OpcionChat][bit] NULL,
 	[OpcionBelcorpResponde][bit] NULL,
 	[IncluyeFiltros][bit] NULL,
-	[TieneAlcanse][bit] NULL,
+	[TieneZonas][bit] NULL,
 	[Activo][bit] NULL,
  CONSTRAINT [PK_OpcionVerificacion_OrigenID] PRIMARY KEY CLUSTERED 
 (
@@ -576,7 +576,7 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 	[OpcionChat][bit] NULL,
 	[OpcionBelcorpResponde][bit] NULL,
 	[IncluyeFiltros][bit] NULL,
-	[TieneAlcanse][bit] NULL,
+	[TieneZonas][bit] NULL,
 	[Activo][bit] NULL,
  CONSTRAINT [PK_OpcionVerificacion_OrigenID] PRIMARY KEY CLUSTERED 
 (
@@ -645,7 +645,7 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 	[OpcionChat][bit] NULL,
 	[OpcionBelcorpResponde][bit] NULL,
 	[IncluyeFiltros][bit] NULL,
-	[TieneAlcanse][bit] NULL,
+	[TieneZonas][bit] NULL,
 	[Activo][bit] NULL,
  CONSTRAINT [PK_OpcionVerificacion_OrigenID] PRIMARY KEY CLUSTERED 
 (
@@ -714,7 +714,7 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 	[OpcionChat][bit] NULL,
 	[OpcionBelcorpResponde][bit] NULL,
 	[IncluyeFiltros][bit] NULL,
-	[TieneAlcanse][bit] NULL,
+	[TieneZonas][bit] NULL,
 	[Activo][bit] NULL,
  CONSTRAINT [PK_OpcionVerificacion_OrigenID] PRIMARY KEY CLUSTERED 
 (
@@ -783,7 +783,7 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 	[OpcionChat][bit] NULL,
 	[OpcionBelcorpResponde][bit] NULL,
 	[IncluyeFiltros][bit] NULL,
-	[TieneAlcanse][bit] NULL,
+	[TieneZonas][bit] NULL,
 	[Activo][bit] NULL,
  CONSTRAINT [PK_OpcionVerificacion_OrigenID] PRIMARY KEY CLUSTERED 
 (

@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public bool IncluyeFiltros { get; set; }
         [DataMember]
-        public bool TieneAlcanse { get; set; }
+        public bool TieneZonas { get; set; }
         [DataMember]
         public bool Activo { get; set; }
         [DataMember]
@@ -51,8 +51,8 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
                 OpcionBelcorpResponde = Convert.ToBoolean(row["OpcionBelcorpResponde"]);
             if (DataRecord.HasColumn(row, "IncluyeFiltros") && row["IncluyeFiltros"] != DBNull.Value)
                 IncluyeFiltros = Convert.ToBoolean(row["IncluyeFiltros"]);
-            if (DataRecord.HasColumn(row, "TieneAlcanse") && row["TieneAlcanse"] != DBNull.Value)
-                TieneAlcanse = Convert.ToBoolean(row["TieneAlcanse"]);
+            if (DataRecord.HasColumn(row, "TieneZonas") && row["TieneZonas"] != DBNull.Value)
+                TieneZonas = Convert.ToBoolean(row["TieneZonas"]);
             if (DataRecord.HasColumn(row, "Activo") && row["Activo"] != DBNull.Value)
                 Activo = Convert.ToBoolean(row["Activo"]);
         }

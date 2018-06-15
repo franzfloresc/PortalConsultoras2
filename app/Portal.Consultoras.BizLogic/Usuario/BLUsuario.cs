@@ -2253,7 +2253,7 @@ namespace Portal.Consultoras.BizLogic
             //List<BETablaLogicaDatos> lstFlag = GetFlagEncendido(paisID, Constantes.OlvideContraseña.TablaLogica.TablaLogicaID, Constantes.OlvideContraseña.TablaLogica.MostarTodasOpciones);
             if (opcion == null) return oUsu;
             /*validando si tiene Zona*/
-            if (opcion.TieneAlcanse)
+            if (opcion.TieneZonas)
             {
                 if (opcion.lstZonas.Count == 0) return null;
                 if (!ValidaZona(opcion.lstZonas, oUsu.ZonaID)) return null;
@@ -2627,7 +2627,7 @@ namespace Portal.Consultoras.BizLogic
                 var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
                 if (opcion == null) return null;
                 /*validando si tiene Zona*/
-                if (opcion.TieneAlcanse)
+                if (opcion.TieneZonas)
                 {
                     if (opcion.lstZonas.Count == 0) return null;
                     if (!ValidaZona(opcion.lstZonas, oUsu.ZonaID)) return null;
