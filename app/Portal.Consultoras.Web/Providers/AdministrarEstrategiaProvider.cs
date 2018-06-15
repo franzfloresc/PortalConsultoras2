@@ -74,8 +74,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 return 0;
             }
-            int iCantidadActualizada = content.Equals("true") ? 1 : 0;
-            return iCantidadActualizada;
+            return JsonConvert.DeserializeObject<GenericResponse>(content).Success.Equals(true) ? 1 : 0; ;
         }
 
         public Dictionary<string, int> ObtenerCantidadOfertasParaTi(string tipoCodigo, int campania, string pais)
@@ -164,6 +163,10 @@ namespace Portal.Consultoras.Web.Providers
             }
             var userData = sessionManager.GetUserData();
             //entidad.Imagen
+            if (jsonParameters != string.Empty)
+            {
+                jsonParameters = string.Format("?{0}", jsonParameters);
+            }
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlListarWebApi, pais, tipoEstrategiaCodigo, campaniaID);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
