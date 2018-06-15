@@ -206,24 +206,118 @@ function MostrarBarra(datax, destino) {
     }
 
     var styleMin = 'style="margin-left: 6px;"';
+  
     var htmlPunto = '<div id="punto_{punto}" data-punto="{select}">'
                 + '<div class="monto_minimo_barra" style="width:{wText}px">'
                     + '<div style="width:{wText}px;position: absolute;" data-texto>{texto}</div>'
                     + '<div class="linea_indicador_barra" {style}></div>'
                 + '</div>'
             + '</div>';
-    var htmlTippintPoint = '<div id="punto_{punto}" data-punto="{select}">'
-                + '<div class="monto_minimo_barra">'
-                    + '<div style="width:{wText}px;position: absolute;" data-texto><div class="tippingPoint {estado}"></div></div>'
-                    + '<div class="linea_indicador_barra"></div>'
-                + '</div>'
-            + '</div>';
+
+    // quitando esta clase contenedor_tippingPoint se quita el tooltip y el efecto que salta
+    var htmlTippintPoint = "";
+    var dataTP = dataBarra.TippingPointBarra;
+
+    // si se va ha mostrar el tooltip
+    if (dataTP.Active == true)
+    {
+        if (dataTP.ActiveMonto == true)
+        {
+            if (dataTP.ActiveTooltip == true)
+            {
+                htmlTippintPoint =
+                    '<div id="punto_{punto}" data-punto="{select}">'
+                        + '<div class="monto_minimo_barra">'
+                            + '<div style="width:{wText}px;position: absolute; top:-15px;" data-texto>'
+                                + '<div class="contenedor_tippingPoint">'
+                                    + '<div class="tippingPoint {estado}"></div>'
+                                        + '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + dataTP.TippingPointMontoStr + '</div>'
+                                    + '<div class="tooltip_regalo_meta_tippingPoint">'
+                                        + '<div class="tooltip_producto_regalo_img">'
+                                            + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
+                                        + '</div>'
+                                            + '<div class="tooltip_producto_regalo_descripcion">Llega a <span>' + variablesPortal.SimboloMoneda + dataTP.TippingPointMontoStr + '</span><br>y llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
+                                    + '</div>'
+                                + '</div>'
+                            + '</div>'
+                            + '<div class="linea_indicador_barra"></div>'
+                        + '</div>'
+                    + '</div>';
+            }
+            else
+            {
+                //5) Cuando en las configuraciones (a nivel de tablas) desactive la opción de "Mostrar imagen y descripción" 
+                //--> en la barra de descuentos no debe aparecer el efecto de rebote del regalito ni mostrarse la ventana emergente cuando pase el mouse por ahí
+                 htmlTippintPoint =
+                    '<div id="punto_{punto}" data-punto="{select}">'
+                        + '<div class="monto_minimo_barra">'
+                            + '<div style="width:{wText}px;position: absolute; top:-15px;" data-texto>'
+                                + '<div class="">'
+                                    + '<div class="tippingPoint {estado}"></div>'
+                                        + '<div class="monto_meta_tippingPoint">' + variablesPortal.SimboloMoneda + dataTP.TippingPointMontoStr + '</div>'
+                                + '</div>'
+                            + '</div>'
+                            + '<div class="linea_indicador_barra"></div>'
+                        + '</div>'
+                    + '</div>';
+            }
+        }
+        else
+        {
+            //4) Cuando en las configuraciones (a nivel de tablas) desactive la opción de "Mostrar monto" 
+            //--> en la barra de descuentos no debe mostrar el monto configurado para el tiping point
+            if (dataTP.ActiveMonto == false && dataTP.ActiveTooltip == false)
+            {
+                // regalo estatico sin tooltip ni rebote 
+                 htmlTippintPoint =
+                    '<div id="punto_{punto}" data-punto="{select}">'
+                        + '<div class="monto_minimo_barra">'
+                            + '<div style="width:{wText}px;position: absolute; top:-15px;" data-texto>'
+                                + '<div class="">'
+                                    + '<div class="tippingPoint {estado}"></div>'
+                                + '</div>'
+                            + '</div>'
+                            + '<div class="linea_indicador_barra"></div>'
+                        + '</div>'
+                    + '</div>';
+
+
+            }
+            else
+            {
+                htmlTippintPoint =
+                    '<div id="punto_{punto}" data-punto="{select}">'
+                        + '<div class="monto_minimo_barra">'
+                            + '<div style="width:{wText}px;position: absolute; top:-15px;" data-texto>'
+                                + '<div class="contenedor_tippingPoint">'
+                                    + '<div class="tippingPoint {estado}"></div>'
+                                    + '<div class="tooltip_regalo_meta_tippingPoint">'
+                                        + '<div class="tooltip_producto_regalo_img">'
+                                            + '<img src="' + dataTP.LinkURL + '" alt="Producto de regalo"/>'
+                                        + '</div>'
+                                            + '<div class="tooltip_producto_regalo_descripcion"><br> llévate de regalo<br><strong>' + dataTP.DescripcionCUV2 + '</strong></div>'
+                                    + '</div>'
+                                + '</div>'
+                            + '</div>'
+                            + '<div class="linea_indicador_barra"></div>'
+                        + '</div>'
+                    + '</div>';
+
+            }
+        }
+    }
+    else
+    {
+        console.log("no se debe mostrar el regalito");
+    }
+   
     var htmlPuntoLimite = '<div id="punto_{punto}" data-punto="{select}">'
                 + '<div class="monto_minimo_barra">'
                     + '<div class="bandera_marcador" style="margin-top: -6px;"></div>'
                     + '<div style="margin-left: {marl}px;width: {wText}px;position: absolute;" data-texto>{texto}</div>'
                 + '</div>'
             + '</div>';
+
 
     if (mx > 0 || destino == '1')
         htmlPuntoLimite = htmlPunto;
