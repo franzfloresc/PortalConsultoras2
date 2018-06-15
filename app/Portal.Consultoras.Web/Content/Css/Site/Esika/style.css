@@ -4827,7 +4827,7 @@ a.subir_carousel, a.bajar_carousel {
 }
 
 .icono_terminar_pedido {
-    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/eFrB5kIPNXTjyJd/icono-reserva.png') no-repeat;
+    background: url('https://d1y60eoca8fkyl.cloudfront.net/ImagenesPortal/Iconos/icono-reserva.png') no-repeat;
     background-size: 25px;
     padding-left: 40px;
     background-position: 10px 14px;
@@ -30780,7 +30780,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 14px;
     padding-left: 50px;
-    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/83Cw11qENt0ifAk/selector_reclamo.png') no-repeat;
+    background: url('https://d1y60eoca8fkyl.cloudfront.net/ImagenesPortal/Iconos/selector_reclamo.png') no-repeat;
     background-position: 20px 14px;
     border-bottom: 1px solid #d1d1d1;
     cursor: pointer;
@@ -30794,13 +30794,13 @@ h1#penmostreo .campana {
 
     .reclamo_motivo_select:hover {
         color: #e81c36;
-        background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/n8mE0rwMroEtyGv/selector_reclamo_esika.png') no-repeat;
+        background: url('https://d1y60eoca8fkyl.cloudfront.net/ImagenesPortal/Iconos/selector_reclamo_esika.png') no-repeat;
         background-position: 20px 14px;
     }
 
 .reclamo_motivo_select_click {
     color: #e81c36;
-    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/n8mE0rwMroEtyGv/selector_reclamo_esika.png') no-repeat;
+    background: url('https://d1y60eoca8fkyl.cloudfront.net/ImagenesPortal/Iconos/selector_reclamo_esika.png') no-repeat;
     background-position: 20px 14px;
 }
 
@@ -30886,7 +30886,7 @@ h1#penmostreo .campana {
     height: 30px;
     line-height: 30px;
     padding-left: 20px;
-    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/zFJxJW4h2OAqKmU/group-9.png') no-repeat;
+    background: url('https://d1y60eoca8fkyl.cloudfront.net/ImagenesPortal/Iconos/group-9.png') no-repeat;
     background-position: 0 8px;
 }
 
@@ -31796,7 +31796,7 @@ h1#penmostreo .campana {
     margin: 0 auto;
     margin-top: 20px;
     margin-bottom: 20px;
-    background: url('http://www.genesis-peru.com/mailing-belcorp/logo.png') no-repeat center center;
+    background: url('https://d1y60eoca8fkyl.cloudfront.net/ImagenesPortal/Iconos/logo.png') no-repeat center center;
 }
 
 .content_datos_cdr {
@@ -33560,7 +33560,7 @@ h1#penmostreo .campana {
     position: relative;
     width: 100%;
     margin-top: 20px;
-    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/LUlPmmzPLc7VpSr/page-1.png')no-repeat left bottom;
+    background: url('https://d1y60eoca8fkyl.cloudfront.net/ImagenesPortal/Iconos/page-1.png')no-repeat left bottom;
     padding-left: 11%;
 }
 
@@ -34165,7 +34165,7 @@ h1#penmostreo .campana {
 }
 
 .etiqueta_showroom {
-    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3m00NcLwdPjImja/etiqueta_esika.png') no-repeat;
+    background: url('https://d1y60eoca8fkyl.cloudfront.net/ImagenesPortal/Iconos/etiqueta_esika.png') no-repeat;
     padding-left: 19px;
 }
 
@@ -34312,7 +34312,7 @@ h1#penmostreo .campana {
         }
 
 .tono_no_seleccionado {
-    background: black url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png') no-repeat;
+    background: black url('https://d1y60eoca8fkyl.cloudfront.net/ImagenesPortal/Iconos/flecha_tono_white.png') no-repeat;
     background-position: 97% 19px;
     color: white;
     transition: all .3s ease;
@@ -34323,7 +34323,7 @@ h1#penmostreo .campana {
 }
 
 .tono_por_elegir {
-    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1HAjgYt9lPnsBjk/tono_por_elegir.png') no-repeat;
+    background: url('https://d1y60eoca8fkyl.cloudfront.net/ImagenesPortal/Iconos/tono_por_elegir.png') no-repeat;
     background-position: 97% 17px;
 }
 

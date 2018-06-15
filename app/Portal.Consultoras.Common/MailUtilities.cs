@@ -129,7 +129,7 @@ namespace Portal.Consultoras.Common
             s_html += "<tr>";
             if (esPaisEsika)
             {
-                s_html += "<th colspan=\"3\" style=\"width:100%; height:50px; border-bottom:1px solid #000; padding:12px 0px; text-align:center;\"><img src=\"http://www.genesis-peru.com/mailing-belcorp/logo.png\" alt=\"Logo Esika\" /></th>";
+                s_html += "<th colspan=\"3\" style=\"width:100%; height:50px; border-bottom:1px solid #000; padding:12px 0px; text-align:center;\"><img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png\" alt=\"Logo Esika\" /></th>";
             }
             else
             {
@@ -183,7 +183,7 @@ namespace Portal.Consultoras.Common
             s_html += "<tbody>";
             s_html += "<tr>";
             s_html += "<td style=\"width:11%; text-align:left; vertical-align:top;\">";
-            s_html += "<a href='http://belcorp.biz/'><img src=\"http://www.genesis-peru.com/mailing-belcorp/logo-belcorp.png\" alt=\"Logo Belcorp\" /></a>";
+            s_html += "<a href='http://belcorp.biz/'><img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-belcorp.png\" alt=\"Logo Belcorp\" /></a>";
             s_html += "</td>";
             s_html += "<td style=\"width:8%; text-align:left;\">";
             s_html += "<a href='http://www.esika.com/'><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/G9GQryrWRTreo75/logo-esika.png\" alt=\"Logo Esika\" /></a>";
@@ -199,7 +199,7 @@ namespace Portal.Consultoras.Common
             s_html += "<tbody>";
             s_html += "<tr>";
             s_html += "<td style=\"text-align: right; font-family:'Calibri'; font-weight:400; font-size:13px; vertical-align: middle; width: 69%; color:white;\">SÍGUENOS EN</td>";
-            s_html += "<td style=\"text-align: right; position: relative; top: 2px; left: 10px; width: 20%; vertical-align: top;\"><a href='https://www.facebook.com/SomosBelcorpOficial?fref=ts'><img src=\"http://www.genesis-peru.com/mailing-belcorp/logo-facebook.png\" alt=\"Logo Facebook\" /></a></td>";
+            s_html += "<td style=\"text-align: right; position: relative; top: 2px; left: 10px; width: 20%; vertical-align: top;\"><a href='https://www.facebook.com/SomosBelcorpOficial?fref=ts'><img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-facebook.png\" alt=\"Logo Facebook\" /></a></td>";
             s_html += "</tr>";
             s_html += "</tbody>";
             s_html += "</table>";
@@ -258,7 +258,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<tr>");
             sBuilder.Append("<td colspan=\"2\" style=\"width: 100%; height: 50px; padding: 12px 0px; text-align: center; background: #fff;\">");
             if (tipopais)
-                sBuilder.Append("<img src=\"http://www.genesis-peru.com/mailing-belcorp/logo.png\" alt =\"Logo Esika\"/>");
+                sBuilder.Append("<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png\" alt =\"Logo Esika\"/>");
             else
                 sBuilder.Append("<img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png\" alt =\"Logo Esika\"/>");
             sBuilder.Append("</td>");
@@ -331,7 +331,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<tbody>");
             sBuilder.Append("<tr>");
             sBuilder.Append("<td style=\"width: 11%; text-align: left; vertical-align: top;\">");
-            sBuilder.Append("<a href=\"http://belcorp.biz/\"><img src=\"http://www.genesis-peru.com/mailing-belcorp/logo-belcorp.png\" alt =\"Logo Belcorp\"/></a>");
+            sBuilder.Append("<a href=\"http://belcorp.biz/\"><img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-belcorp.png\" alt =\"Logo Belcorp\"/></a>");
             sBuilder.Append("</td>");
             sBuilder.Append("<td style=\"width: 8%; text-align: left;\">");
             sBuilder.Append("<a href=\"http://www.esika.com/\"><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/G9GQryrWRTreo75/logo-esika.png\" alt =\"Logo Esika\"/></a>");
@@ -351,7 +351,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("SÍGUENOS");
             sBuilder.Append("</td>");
             sBuilder.Append("<td style=\"text-align: right; position: relative; top: 2px; left: 10px; width: 20%; vertical-align: top;\">");
-            sBuilder.Append("<img src=\"http://www.genesis-peru.com/mailing-belcorp/logo-facebook.png\" alt =\"Logo Facebook\"/>");
+            sBuilder.Append("<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-facebook.png\" alt =\"Logo Facebook\"/>");
             sBuilder.Append("</td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("</tbody>");
