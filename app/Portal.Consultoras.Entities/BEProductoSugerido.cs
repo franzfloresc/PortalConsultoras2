@@ -37,31 +37,31 @@ namespace Portal.Consultoras.Entities
         public BEProductoSugerido(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "ProductoSugeridoID"))
-                ProductoSugeridoID = DbConvert.ToInt32(datarec["ProductoSugeridoID"]);
+                ProductoSugeridoID = Convert.ToInt32(datarec["ProductoSugeridoID"]);
             if (DataRecord.HasColumn(datarec, "CampaniaID"))
-                CampaniaID = DbConvert.ToInt32(datarec["CampaniaID"]);
+                CampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
             if (DataRecord.HasColumn(datarec, "CUV"))
-                CUV = DbConvert.ToString(datarec["CUV"]);
+                CUV = Convert.ToString(datarec["CUV"]);
             if (DataRecord.HasColumn(datarec, "CUVSugerido"))
-                CUVSugerido = DbConvert.ToString(datarec["CUVSugerido"]);
+                CUVSugerido = Convert.ToString(datarec["CUVSugerido"]);
             if (DataRecord.HasColumn(datarec, "Orden"))
-                Orden = DbConvert.ToInt32(datarec["Orden"]);
+                Orden = Convert.ToInt32(datarec["Orden"]);
             if (DataRecord.HasColumn(datarec, "ImagenProducto"))
-                ImagenProducto = DbConvert.ToString(datarec["ImagenProducto"]);
+                ImagenProducto = Convert.ToString(datarec["ImagenProducto"]);
 
             if (DataRecord.HasColumn(datarec, "Estado"))
-                Estado = DbConvert.ToInt32(datarec["Estado"]);
+                Estado = Convert.ToInt32(datarec["Estado"]);
 
             if (DataRecord.HasColumn(datarec, "FechaRegistro"))
-                FechaRegistro = DbConvert.ToDateTime(datarec["FechaRegistro"]);
+                FechaRegistro = Convert.ToDateTime(datarec["FechaRegistro"]);
             if (DataRecord.HasColumn(datarec, "UsuarioRegistro"))
-                UsuarioRegistro = DbConvert.ToString(datarec["UsuarioRegistro"]);
+                UsuarioRegistro = Convert.ToString(datarec["UsuarioRegistro"]);
             if (DataRecord.HasColumn(datarec, "FechaModificacion"))
-                FechaModificacion = DbConvert.ToDateTime(datarec["FechaModificacion"]);
+                FechaModificacion = Convert.ToDateTime(datarec["FechaModificacion"]);
             if (DataRecord.HasColumn(datarec, "UsuarioModificacion"))
-                UsuarioModificacion = DbConvert.ToString(datarec["UsuarioModificacion"]);
+                UsuarioModificacion = Convert.ToString(datarec["UsuarioModificacion"]);
             if (DataRecord.HasColumn(datarec, "MostrarAgotado"))
-                MostrarAgotado = DbConvert.ToInt32(datarec["MostrarAgotado"]);
+                MostrarAgotado = Convert.ToInt32(datarec["MostrarAgotado"]);
         }
     }
 }
