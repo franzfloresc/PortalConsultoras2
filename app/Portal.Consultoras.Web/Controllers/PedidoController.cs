@@ -46,6 +46,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
         {
+            if (EsDispositivoMovil())
+            {
+                return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
+            }
+
             var model = new PedidoSb2Model();
 
             try
@@ -1716,7 +1721,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!revistaDigital.TieneRDC) return;
 
             if (!revistaDigital.EsActiva) return;
-            
+
             if (revistaDigital.BloquearRevistaImpresaGeneral == 1 || revistaDigital.BloqueoRevistaImpresa)
             {
                 beProductos = beProductos
@@ -2238,9 +2243,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var model = new PedidoSb2Model
                 {
                     ListaObservacionesProl = listObservacionModel,
-                    ObservacionInformativa = resultado.Informativas,
                     ObservacionRestrictiva = resultado.Restrictivas,
                     ErrorProl = resultado.Error,
+                    AvisoProl = resultado.Aviso,
                     Reserva = resultado.Reserva,
                     ZonaValida = userData.ZonaValida,
                     ValidacionInteractiva = userData.ValidacionInteractiva,
@@ -3516,6 +3521,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return;
                     }
                 }
+
+                if (userData.EsConsultoraOficina) return;
                 if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
 
                 var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
@@ -4641,41 +4648,16 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 FichaProductoDetalleModel ficha = Session[Constantes.SessionNames.FichaProductoTemporal] as FichaProductoDetalleModel;
-                
-                if (ficha == null)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "Ocurrio un error, vuelva ha intentalo."
-                    });
-                }
+                if (ficha == null) return ErrorJson(Constantes.MensajesError.ErrorGenerico, true);
 
                 var numero = Convert.ToInt32(Cantidad);
+                if (numero > ficha.LimiteVenta) return ErrorJson("La cantidad no debe ser mayor que la cantidad limite ( " + ficha.LimiteVenta + " ).", true);
 
-                if (numero > ficha.LimiteVenta)
-                {
-                    string mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + ficha.LimiteVenta + " ).";
-                    return Json(new
-                    {
-                        success = false,
-                        message = mensaje
-                    }, JsonRequestBehavior.AllowGet);
-                }
-
-                var descripcion = ficha.DescripcionCompleta;
-                if (ficha.FlagNueva == 1)
-                {
-                    descripcion = ficha.DescripcionCortada;
-                }
-
+                var descripcion = ficha.FlagNueva == 1 ? ficha.DescripcionCortada : ficha.DescripcionCompleta;
                 listaCuvTonos = Util.Trim(listaCuvTonos);
-                if (string.IsNullOrEmpty(listaCuvTonos))
-                {
-                    listaCuvTonos = ficha.CUV2;
-                }
-
+                if (string.IsNullOrEmpty(listaCuvTonos)) listaCuvTonos = ficha.CUV2;
                 var tonos = listaCuvTonos.Split('|');
+
                 var respuesta = new JsonResult();
                 foreach (var tono in tonos)
                 {
@@ -4684,10 +4666,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (ficha.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
                     {
                         var brother = ficha.Hermanos.Select(m => m.Hermanos.Where(s => s.CUV == listSp[0])).SingleOrDefault();
-                        if (brother != null)
-                        {
-                            descripcion = brother.Select(m => m.DescripcionComercial).SingleOrDefault();
-                        }
+                        if (brother != null) descripcion = brother.Select(m => m.DescripcionComercial).SingleOrDefault();
                     }
 
                     int outVal;
@@ -4705,21 +4684,14 @@ namespace Portal.Consultoras.Web.Controllers
                         ClienteID_ = ClienteID_,
                         TipoEstrategiaImagen = ficha.TipoEstrategiaImagenMostrar
                     };
-
                     respuesta = AgregarProductoZE(modelo);
                 }
-
                 return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
-
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Ocurrio un error, vuelva ha intentalo."
-                });
+                return ErrorJson(Constantes.MensajesError.ErrorGenerico, true);
             }
         }
 
