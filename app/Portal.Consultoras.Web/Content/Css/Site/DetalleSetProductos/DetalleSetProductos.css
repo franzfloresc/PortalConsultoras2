@@ -37,34 +37,57 @@
 }
 
 .contenedor_etiqueta_odd {
-    float: left;
-    width: 48%;
-}
-
-.img_solo_hoy {
-    height: 16px;
-    width: 125px;
+    float: right;
+    width: 52%;
 }
 
 .clock_odd {
-    margin-left: 10px;
     float: left;
+    height: 40px;
 }
 
-.flip-clock-wrapper .flip{
-    box-shadow: 0 2px 5px #fff;
+.flip-clock-wrapper {
+    font-family: 'Lato';
+    font-size: 8px;
+    letter-spacing: .1px;
+    display: block;
 }
 
-.flip-clock-wrapper ul li a div div.inn {
-    background-color: #fff;
-    color: #000;
-    font-weight: 800;
-    text-shadow: 0 1px 2px #fff;
-}
+    .flip-clock-wrapper ul {
+        width: 14px;
+    }
 
 .flip-clock-dot {
     background: #000;
+    margin-top: 2px
 }
+
+.flip-clock-divider {
+    width: 7px;
+}
+
+    .flip-clock-divider .flip-clock-label {
+        display: block;
+        left: 6px;
+        top: 30px;
+    }
+
+    .flip-clock-divider.flip-clock-label, .flip-clock-divider.minutes .flip-clock-label, .flip-clock-divider.seconds .flip-clock-label {
+        right: initial;
+    }
+
+.flip-clock-wrapper .flip {
+    box-shadow: 0 2px 5px #fff;
+}
+
+    .flip-clock-wrapper ul li a div div.inn {
+        background-color: #fff;
+        color: #000;
+        font-size: 25px;
+        font-weight: 800;
+        letter-spacing: .4px;
+        text-shadow: 0 1px 2px #fff;
+    }
 
 .contenedor_etiqueta_nuevo {
     float: right;
@@ -398,7 +421,7 @@
     border-right: solid 1px #b0b0b0;
     color: #000;
     font-family: 'lato';
-    font-size: 12pt;
+    font-size: 15px;
     font-weight: 700;
     height: 43px;
     left: 30%;
@@ -607,6 +630,11 @@
     width: 100%;
 }
 
+.contenedor_titulo_carrusel {
+    display: inline-block;
+    width: 100%;
+}
+
 .contenedor_linea_carrusel {
     display: flex;
     float: left;
@@ -642,6 +670,215 @@
     width: 34%;
 }
 
-.catalogoPersonalizadoBloquee {
-
+.contenedor_carrusel {
+    margin: 27px auto 0 auto;
+    /*width: 75%;*/
+    width: 813.75px;
 }
+
+.contenedor_producto_carrusel {
+    background-color: #ffffff;
+    border: solid 1px #e7e1e1;
+    box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.31);
+    -moz-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.31);
+    -o-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.31);
+    -ms-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.31);
+    -webkit-box-shadow: 0 15px 13px -8px rgba(0, 0, 0, 0.31);
+    letter-spacing: .2px;
+    margin: 0 21px 20px 21px;
+    padding: 30px;
+    text-align: center;
+}
+
+.contenedor_imagen_carrusel {
+    height: 158px;
+    position: relative;
+}
+
+    .contenedor_imagen_carrusel img {
+        height: 100%;
+        width: auto;
+    }
+
+    .contenedor_imagen_carrusel:hover .btn_ver_detalle {
+        opacity: 1;
+    }
+
+.btn_ver_detalle {
+    background-color: #fff;
+    border: solid 1px #000;
+    bottom: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    height: 40px;
+    left: 0;
+    line-height: 38px;
+    margin: 0 auto;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    width: 55%;
+}
+
+.contenedor_detalle_carrusel {
+    position: relative;
+    width: 100%;
+}
+
+.marca_detalle_carrusel {
+    font-size: 11px;
+    margin-top: 8px;
+}
+
+.descripcion_detalle_carrusel {
+    font-weight: 700;
+    height: 36px;
+    line-height: 1.38;
+}
+
+.precio_detalle_carrusel {
+    margin-top: 6px;
+    width: 100%;
+}
+
+.precio_oferta_normal_carrusel {
+    font-size: 12px;
+    padding-right: 9px;
+    text-decoration: line-through;
+    width: 50%;
+}
+
+.precio_oferta_venta_carrusel {
+    font-size: 16px;
+    font-weight: 700;
+    width: 50%;
+}
+
+.contenedor_agregar_carrusel {
+    margin-top: 30px;
+    text-align: initial;
+}
+
+.contenedor_rangos_carrusel {
+    border: solid 1px #cccccc;
+    float: left;
+    margin-right: 3%;
+    width: 40%;
+}
+
+.txt_cantidad_pedido_carrusel {
+    background: none;
+    border: none;
+    border-right: solid 1px #cccccc;
+    color: #000;
+    font-family: 'lato';
+    font-size: 16px;
+    font-weight: 700;
+    height: 43px;
+    text-align: center;
+    position: relative;
+    width: 65%;
+}
+
+.menos_mas_carrusel {
+    height: 43px;
+    float: right;
+    width: 35%;
+}
+
+.txt_menos_carrusel {
+    display: flex;
+    height: 50%;
+    padding-top: 0;
+    width: 100%;
+}
+
+.txt_mas_carrusel {
+    border-bottom: solid 1px #cccccc;
+    display: flex;
+    height: 50%;
+    width: 100%;
+}
+
+.btn_agregalo_carrusel {
+    width: 57%;
+}
+
+.dibujar_mas_carrusel, .dibujar_menos_carrusel {
+    width: 8px;
+}
+
+.contenedor_flecha_carrusel {
+    bottom: 0;
+    display: flex;
+    margin: auto;
+    top: 0;
+}
+
+.flecha_izquierda_carrusel {
+    left: -46px;
+}
+
+.dibujar_flecha_carrusel {
+    height: 60px;
+    margin: auto;
+    position: relative;
+    width: 38px;
+}
+
+    .dibujar_flecha_carrusel::before, .dibujar_flecha_carrusel::after {
+        border-bottom: solid 3px #000;
+    }
+
+    .dibujar_flecha_carrusel::after {
+        bottom: 10%;
+    }
+
+.dibujar_flecha_izquierda_carrusel {
+    left: 19px;
+}
+
+    .dibujar_flecha_izquierda_carrusel::before {
+        -webkit-transform: rotate(127deg);
+        -moz-transform: rotate(127deg);
+        -ms-transform: rotate(127deg);
+        -o-transform: rotate(127deg);
+        transform: rotate(127deg);
+    }
+
+    .dibujar_flecha_izquierda_carrusel::after {
+        -webkit-transform: rotate(53deg);
+        -moz-transform: rotate(53deg);
+        -ms-transform: rotate(53deg);
+        -o-transform: rotate(53deg);
+        transform: rotate(53deg);
+    }
+
+.flecha_derecha_carrusel {
+    right: -46px;
+}
+
+.dibujar_flecha_derecha_carrusel {
+    right: 19px;
+}
+
+    .dibujar_flecha_derecha_carrusel::before {
+        -webkit-transform: rotate(233deg);
+        -moz-transform: rotate(233deg);
+        -ms-transform: rotate(233deg);
+        -o-transform: rotate(233deg);
+        transform: rotate(233deg);
+    }
+
+    .dibujar_flecha_derecha_carrusel::after {
+        -webkit-transform: rotate(307deg);
+        -moz-transform: rotate(307deg);
+        -ms-transform: rotate(307deg);
+        -o-transform: rotate(307deg);
+        transform: rotate(307deg);
+    }

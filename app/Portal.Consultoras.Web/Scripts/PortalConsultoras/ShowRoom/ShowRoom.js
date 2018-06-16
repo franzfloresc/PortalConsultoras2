@@ -44,8 +44,8 @@ $(document).ready(function () {
             slidesToScroll: 1,
             autoplay: false,
             speed: 260,
-            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;text-align:right"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+            prevArrow: '<a class="contenedor_flecha_carrusel flecha_izquierda_carrusel js-slick-prev slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_izquierda_carrusel"></div></a>',
+            nextArrow: '<a class="contenedor_flecha_carrusel flecha_derecha_carrusel js-slick-next slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_derecha_carrusel"></div></a>'
         });
 
         EstablecerLazyCarrusel($('.content_ficha_compra'));
@@ -301,8 +301,9 @@ $(document).ready(function () {
 function MostrarRelojOfertaDelDia(totalSegundos) {
     $('.clock').each(function (index, elem) {
         $(elem).FlipClock(totalSegundos, {
+            countdown: true,
             clockFace: 'HourlyCounter',
-            countdown: true
+            language: 'es-es',
         });
     });
 
