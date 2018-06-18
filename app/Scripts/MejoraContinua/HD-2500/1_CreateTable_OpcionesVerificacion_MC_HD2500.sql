@@ -32,19 +32,18 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 )) 
 GO
 CREATE TABLE [dbo].[ZonasOpcionesVerificacion](
-	[ZonasOpcionesID] [int] IDENTITY(1,1) NOT NULL,
+[RegionID] [int] NOT NULL,
 	[ZonaID] [int] NOT NULL,
-	[Activo] [bit] NULL,
-	[OrigenID] [int] NOT NULL,
- CONSTRAINT [PK_ZonasOpcionesVerificacion_ZonasOpcionesID] PRIMARY KEY CLUSTERED 
+	[OlvideContrasenya] [bit] NULL,
+	[VerifAutenticidad] [bit] NULL,
+	[ActualizarDatos] [bit] NULL,
+	[CDR] [bit] NULL,
+ CONSTRAINT [PK_ZonasOpcionesVerificacion] PRIMARY KEY CLUSTERED 
 (
-	[ZonasOpcionesID] ASC
+	[RegionID] ASC,
+	[ZonaID] ASC
 )) 
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion]  WITH CHECK ADD  CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion] FOREIGN KEY([OrigenID])
-REFERENCES [dbo].[OpcionesVerificacion] ([OrigenID])
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion] CHECK CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion]
+
 GO
 
 CREATE TABLE [dbo].[FiltrosOpcionesVerificacion](
@@ -101,19 +100,18 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 )) 
 GO
 CREATE TABLE [dbo].[ZonasOpcionesVerificacion](
-	[ZonasOpcionesID] [int] IDENTITY(1,1) NOT NULL,
+[RegionID] [int] NOT NULL,
 	[ZonaID] [int] NOT NULL,
-	[Activo] [bit] NULL,
-	[OrigenID] [int] NOT NULL,
- CONSTRAINT [PK_ZonasOpcionesVerificacion_ZonasOpcionesID] PRIMARY KEY CLUSTERED 
+	[OlvideContrasenya] [bit] NULL,
+	[VerifAutenticidad] [bit] NULL,
+	[ActualizarDatos] [bit] NULL,
+	[CDR] [bit] NULL,
+ CONSTRAINT [PK_ZonasOpcionesVerificacion] PRIMARY KEY CLUSTERED 
 (
-	[ZonasOpcionesID] ASC
+	[RegionID] ASC,
+	[ZonaID] ASC
 )) 
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion]  WITH CHECK ADD  CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion] FOREIGN KEY([OrigenID])
-REFERENCES [dbo].[OpcionesVerificacion] ([OrigenID])
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion] CHECK CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion]
+
 GO
 
 CREATE TABLE [dbo].[FiltrosOpcionesVerificacion](
@@ -170,19 +168,18 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 )) 
 GO
 CREATE TABLE [dbo].[ZonasOpcionesVerificacion](
-	[ZonasOpcionesID] [int] IDENTITY(1,1) NOT NULL,
+[RegionID] [int] NOT NULL,
 	[ZonaID] [int] NOT NULL,
-	[Activo] [bit] NULL,
-	[OrigenID] [int] NOT NULL,
- CONSTRAINT [PK_ZonasOpcionesVerificacion_ZonasOpcionesID] PRIMARY KEY CLUSTERED 
+	[OlvideContrasenya] [bit] NULL,
+	[VerifAutenticidad] [bit] NULL,
+	[ActualizarDatos] [bit] NULL,
+	[CDR] [bit] NULL,
+ CONSTRAINT [PK_ZonasOpcionesVerificacion] PRIMARY KEY CLUSTERED 
 (
-	[ZonasOpcionesID] ASC
+	[RegionID] ASC,
+	[ZonaID] ASC
 )) 
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion]  WITH CHECK ADD  CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion] FOREIGN KEY([OrigenID])
-REFERENCES [dbo].[OpcionesVerificacion] ([OrigenID])
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion] CHECK CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion]
+
 GO
 
 CREATE TABLE [dbo].[FiltrosOpcionesVerificacion](
@@ -239,19 +236,18 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 )) 
 GO
 CREATE TABLE [dbo].[ZonasOpcionesVerificacion](
-	[ZonasOpcionesID] [int] IDENTITY(1,1) NOT NULL,
+[RegionID] [int] NOT NULL,
 	[ZonaID] [int] NOT NULL,
-	[Activo] [bit] NULL,
-	[OrigenID] [int] NOT NULL,
- CONSTRAINT [PK_ZonasOpcionesVerificacion_ZonasOpcionesID] PRIMARY KEY CLUSTERED 
+	[OlvideContrasenya] [bit] NULL,
+	[VerifAutenticidad] [bit] NULL,
+	[ActualizarDatos] [bit] NULL,
+	[CDR] [bit] NULL,
+ CONSTRAINT [PK_ZonasOpcionesVerificacion] PRIMARY KEY CLUSTERED 
 (
-	[ZonasOpcionesID] ASC
+	[RegionID] ASC,
+	[ZonaID] ASC
 )) 
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion]  WITH CHECK ADD  CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion] FOREIGN KEY([OrigenID])
-REFERENCES [dbo].[OpcionesVerificacion] ([OrigenID])
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion] CHECK CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion]
+
 GO
 
 CREATE TABLE [dbo].[FiltrosOpcionesVerificacion](
@@ -308,19 +304,18 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 )) 
 GO
 CREATE TABLE [dbo].[ZonasOpcionesVerificacion](
-	[ZonasOpcionesID] [int] IDENTITY(1,1) NOT NULL,
+[RegionID] [int] NOT NULL,
 	[ZonaID] [int] NOT NULL,
-	[Activo] [bit] NULL,
-	[OrigenID] [int] NOT NULL,
- CONSTRAINT [PK_ZonasOpcionesVerificacion_ZonasOpcionesID] PRIMARY KEY CLUSTERED 
+	[OlvideContrasenya] [bit] NULL,
+	[VerifAutenticidad] [bit] NULL,
+	[ActualizarDatos] [bit] NULL,
+	[CDR] [bit] NULL,
+ CONSTRAINT [PK_ZonasOpcionesVerificacion] PRIMARY KEY CLUSTERED 
 (
-	[ZonasOpcionesID] ASC
+	[RegionID] ASC,
+	[ZonaID] ASC
 )) 
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion]  WITH CHECK ADD  CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion] FOREIGN KEY([OrigenID])
-REFERENCES [dbo].[OpcionesVerificacion] ([OrigenID])
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion] CHECK CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion]
+
 GO
 
 CREATE TABLE [dbo].[FiltrosOpcionesVerificacion](
@@ -377,19 +372,18 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 )) 
 GO
 CREATE TABLE [dbo].[ZonasOpcionesVerificacion](
-	[ZonasOpcionesID] [int] IDENTITY(1,1) NOT NULL,
+[RegionID] [int] NOT NULL,
 	[ZonaID] [int] NOT NULL,
-	[Activo] [bit] NULL,
-	[OrigenID] [int] NOT NULL,
- CONSTRAINT [PK_ZonasOpcionesVerificacion_ZonasOpcionesID] PRIMARY KEY CLUSTERED 
+	[OlvideContrasenya] [bit] NULL,
+	[VerifAutenticidad] [bit] NULL,
+	[ActualizarDatos] [bit] NULL,
+	[CDR] [bit] NULL,
+ CONSTRAINT [PK_ZonasOpcionesVerificacion] PRIMARY KEY CLUSTERED 
 (
-	[ZonasOpcionesID] ASC
+	[RegionID] ASC,
+	[ZonaID] ASC
 )) 
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion]  WITH CHECK ADD  CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion] FOREIGN KEY([OrigenID])
-REFERENCES [dbo].[OpcionesVerificacion] ([OrigenID])
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion] CHECK CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion]
+
 GO
 
 CREATE TABLE [dbo].[FiltrosOpcionesVerificacion](
@@ -446,19 +440,18 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 )) 
 GO
 CREATE TABLE [dbo].[ZonasOpcionesVerificacion](
-	[ZonasOpcionesID] [int] IDENTITY(1,1) NOT NULL,
+[RegionID] [int] NOT NULL,
 	[ZonaID] [int] NOT NULL,
-	[Activo] [bit] NULL,
-	[OrigenID] [int] NOT NULL,
- CONSTRAINT [PK_ZonasOpcionesVerificacion_ZonasOpcionesID] PRIMARY KEY CLUSTERED 
+	[OlvideContrasenya] [bit] NULL,
+	[VerifAutenticidad] [bit] NULL,
+	[ActualizarDatos] [bit] NULL,
+	[CDR] [bit] NULL,
+ CONSTRAINT [PK_ZonasOpcionesVerificacion] PRIMARY KEY CLUSTERED 
 (
-	[ZonasOpcionesID] ASC
+	[RegionID] ASC,
+	[ZonaID] ASC
 )) 
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion]  WITH CHECK ADD  CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion] FOREIGN KEY([OrigenID])
-REFERENCES [dbo].[OpcionesVerificacion] ([OrigenID])
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion] CHECK CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion]
+
 GO
 
 CREATE TABLE [dbo].[FiltrosOpcionesVerificacion](
@@ -515,19 +508,18 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 )) 
 GO
 CREATE TABLE [dbo].[ZonasOpcionesVerificacion](
-	[ZonasOpcionesID] [int] IDENTITY(1,1) NOT NULL,
+[RegionID] [int] NOT NULL,
 	[ZonaID] [int] NOT NULL,
-	[Activo] [bit] NULL,
-	[OrigenID] [int] NOT NULL,
- CONSTRAINT [PK_ZonasOpcionesVerificacion_ZonasOpcionesID] PRIMARY KEY CLUSTERED 
+	[OlvideContrasenya] [bit] NULL,
+	[VerifAutenticidad] [bit] NULL,
+	[ActualizarDatos] [bit] NULL,
+	[CDR] [bit] NULL,
+ CONSTRAINT [PK_ZonasOpcionesVerificacion] PRIMARY KEY CLUSTERED 
 (
-	[ZonasOpcionesID] ASC
+	[RegionID] ASC,
+	[ZonaID] ASC
 )) 
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion]  WITH CHECK ADD  CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion] FOREIGN KEY([OrigenID])
-REFERENCES [dbo].[OpcionesVerificacion] ([OrigenID])
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion] CHECK CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion]
+
 GO
 
 CREATE TABLE [dbo].[FiltrosOpcionesVerificacion](
@@ -584,19 +576,18 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 )) 
 GO
 CREATE TABLE [dbo].[ZonasOpcionesVerificacion](
-	[ZonasOpcionesID] [int] IDENTITY(1,1) NOT NULL,
+[RegionID] [int] NOT NULL,
 	[ZonaID] [int] NOT NULL,
-	[Activo] [bit] NULL,
-	[OrigenID] [int] NOT NULL,
- CONSTRAINT [PK_ZonasOpcionesVerificacion_ZonasOpcionesID] PRIMARY KEY CLUSTERED 
+	[OlvideContrasenya] [bit] NULL,
+	[VerifAutenticidad] [bit] NULL,
+	[ActualizarDatos] [bit] NULL,
+	[CDR] [bit] NULL,
+ CONSTRAINT [PK_ZonasOpcionesVerificacion] PRIMARY KEY CLUSTERED 
 (
-	[ZonasOpcionesID] ASC
+	[RegionID] ASC,
+	[ZonaID] ASC
 )) 
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion]  WITH CHECK ADD  CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion] FOREIGN KEY([OrigenID])
-REFERENCES [dbo].[OpcionesVerificacion] ([OrigenID])
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion] CHECK CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion]
+
 GO
 
 CREATE TABLE [dbo].[FiltrosOpcionesVerificacion](
@@ -653,19 +644,18 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 )) 
 GO
 CREATE TABLE [dbo].[ZonasOpcionesVerificacion](
-	[ZonasOpcionesID] [int] IDENTITY(1,1) NOT NULL,
+[RegionID] [int] NOT NULL,
 	[ZonaID] [int] NOT NULL,
-	[Activo] [bit] NULL,
-	[OrigenID] [int] NOT NULL,
- CONSTRAINT [PK_ZonasOpcionesVerificacion_ZonasOpcionesID] PRIMARY KEY CLUSTERED 
+	[OlvideContrasenya] [bit] NULL,
+	[VerifAutenticidad] [bit] NULL,
+	[ActualizarDatos] [bit] NULL,
+	[CDR] [bit] NULL,
+ CONSTRAINT [PK_ZonasOpcionesVerificacion] PRIMARY KEY CLUSTERED 
 (
-	[ZonasOpcionesID] ASC
+	[RegionID] ASC,
+	[ZonaID] ASC
 )) 
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion]  WITH CHECK ADD  CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion] FOREIGN KEY([OrigenID])
-REFERENCES [dbo].[OpcionesVerificacion] ([OrigenID])
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion] CHECK CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion]
+
 GO
 
 CREATE TABLE [dbo].[FiltrosOpcionesVerificacion](
@@ -722,19 +712,18 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 )) 
 GO
 CREATE TABLE [dbo].[ZonasOpcionesVerificacion](
-	[ZonasOpcionesID] [int] IDENTITY(1,1) NOT NULL,
+[RegionID] [int] NOT NULL,
 	[ZonaID] [int] NOT NULL,
-	[Activo] [bit] NULL,
-	[OrigenID] [int] NOT NULL,
- CONSTRAINT [PK_ZonasOpcionesVerificacion_ZonasOpcionesID] PRIMARY KEY CLUSTERED 
+	[OlvideContrasenya] [bit] NULL,
+	[VerifAutenticidad] [bit] NULL,
+	[ActualizarDatos] [bit] NULL,
+	[CDR] [bit] NULL,
+ CONSTRAINT [PK_ZonasOpcionesVerificacion] PRIMARY KEY CLUSTERED 
 (
-	[ZonasOpcionesID] ASC
+	[RegionID] ASC,
+	[ZonaID] ASC
 )) 
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion]  WITH CHECK ADD  CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion] FOREIGN KEY([OrigenID])
-REFERENCES [dbo].[OpcionesVerificacion] ([OrigenID])
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion] CHECK CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion]
+
 GO
 
 CREATE TABLE [dbo].[FiltrosOpcionesVerificacion](
@@ -791,19 +780,18 @@ CREATE TABLE [dbo].[OpcionesVerificacion](
 )) 
 GO
 CREATE TABLE [dbo].[ZonasOpcionesVerificacion](
-	[ZonasOpcionesID] [int] IDENTITY(1,1) NOT NULL,
+[RegionID] [int] NOT NULL,
 	[ZonaID] [int] NOT NULL,
-	[Activo] [bit] NULL,
-	[OrigenID] [int] NOT NULL,
- CONSTRAINT [PK_ZonasOpcionesVerificacion_ZonasOpcionesID] PRIMARY KEY CLUSTERED 
+	[OlvideContrasenya] [bit] NULL,
+	[VerifAutenticidad] [bit] NULL,
+	[ActualizarDatos] [bit] NULL,
+	[CDR] [bit] NULL,
+ CONSTRAINT [PK_ZonasOpcionesVerificacion] PRIMARY KEY CLUSTERED 
 (
-	[ZonasOpcionesID] ASC
+	[RegionID] ASC,
+	[ZonaID] ASC
 )) 
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion]  WITH CHECK ADD  CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion] FOREIGN KEY([OrigenID])
-REFERENCES [dbo].[OpcionesVerificacion] ([OrigenID])
-GO
-ALTER TABLE [dbo].[ZonasOpcionesVerificacion] CHECK CONSTRAINT [FK_ZonasOpcionesVerificacion_OpcionesVerificacion]
+
 GO
 
 CREATE TABLE [dbo].[FiltrosOpcionesVerificacion](
