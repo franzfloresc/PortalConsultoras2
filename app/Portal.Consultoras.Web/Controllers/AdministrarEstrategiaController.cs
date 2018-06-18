@@ -610,6 +610,15 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     mensaje = "OK";
 
+                    beEstrategia = lst[0];
+                    descripcion = beEstrategia.DescripcionCUV2;
+                    enMatrizComercial = beEstrategia.EnMatrizComercial.ToInt();
+                    idMatrizComercial = beEstrategia.IdMatrizComercial.ToInt();
+                    codigoSap = beEstrategia.CodigoSAP;
+                }
+
+                if (mensaje == "OK")
+                {
                     using (var svs = new WsGestionWeb())
                     {
                         var preciosEstrategia = svs.ObtenerPrecioEstrategia(CUV2, userData.CodigoISO, CampaniaID);
@@ -617,12 +626,7 @@ namespace Portal.Consultoras.Web.Controllers
                         ganancia = preciosEstrategia.montoganacia;
                         niveles = ObtenerTextoNiveles(preciosEstrategia.listaniveles);
                     }
-
-                    descripcion = beEstrategia.DescripcionCUV2;
                     precio = (wspreciopack + ganancia).ToString("F2");
-                    codigoSap = beEstrategia.CodigoSAP;
-                    enMatrizComercial = beEstrategia.EnMatrizComercial.ToInt();
-                    idMatrizComercial = beEstrategia.IdMatrizComercial.ToInt();
                     wsprecio = wspreciopack.ToString("F2");
                 }
 
@@ -743,7 +747,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var nroPedido = Util.Trim(model.NumeroPedido);
 
                 if (nroPedido.Contains(",")) model.NumeroPedido = "0";
-
+                model.Imagen = 1;
                 var entidad = Mapper.Map<RegistrarEstrategiaModel, ServicePedido.BEEstrategia>(model);
 
                 model.NumeroPedido = nroPedido == "" ? "0" : nroPedido;
