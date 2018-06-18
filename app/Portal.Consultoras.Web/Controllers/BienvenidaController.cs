@@ -544,7 +544,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if (PaisTieneShowRoom(userData.CodigoISO))
+                if (_showRoomProvider.PaisTieneShowRoom(userData.CodigoISO))
                 {
                     if (!configEstrategiaSR.CargoEntidadesShowRoom) return false;
                     var beShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora;
@@ -1771,7 +1771,7 @@ namespace Portal.Consultoras.Web.Controllers
                 const int SHOWROOM_ESTADO_INACTIVO = 0;
                 const string TIPO_APLICACION_DESKTOP = "Desktop";
 
-                if (!PaisTieneShowRoom(userData.CodigoISO))
+                if (!_showRoomProvider.PaisTieneShowRoom(userData.CodigoISO))
                 {
                     return Json(new
                     {
@@ -1867,7 +1867,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var model = GetShowRoomBannerLateral();
+                var model = _showRoomProvider.GetShowRoomBannerLateral(userData.CodigoISO, userData.ZonaHoraria, userData.FechaInicioCampania);
                 if (model.ConsultoraNoEncontrada)
                 {
                     return Json(new

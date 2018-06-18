@@ -1330,7 +1330,7 @@ namespace Portal.Consultoras.Web.Controllers
                 const int SHOWROOM_ESTADO_INACTIVO = 0;
                 const string TIPO_APLICACION_DESKTOP = "Desktop";
 
-                if (!PaisTieneShowRoom(userData.CodigoISO))
+                if (!_showRoomProvider.PaisTieneShowRoom(userData.CodigoISO))
                 {
                     return Json(new
                     {
