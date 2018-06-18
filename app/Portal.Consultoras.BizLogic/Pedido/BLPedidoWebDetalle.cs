@@ -605,5 +605,22 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daPedidoWebDetalle.GetPedidoWebSetDetalle(campania, consultoraId))
                 return reader.MapToCollection<BEPedidoWebSetDetalle>(closeReaderFinishing: true);
         }
+
+        public List<BEPedidoWebDetalle> ObtenerCuvSetDetalle(int paisID, int campaniaID, long consultoraID, int pedidoID, string ListaSet)
+        {
+            DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
+            var listaBePedidoWebDetalle = new List<BEPedidoWebDetalle>();
+            using (IDataReader reader = daPedidoWebDetalle.ObtenerCuvSetDetalle(campaniaID, consultoraID, pedidoID, ListaSet))
+                while (reader.Read())
+                {
+                    if (DataRecord.HasColumn(reader, "SetID") && (DataRecord.HasColumn(reader, "CUV")))
+                    {
+                        listaBePedidoWebDetalle.Add(new BEPedidoWebDetalle() { CUV= Convert.ToString(reader["CUV"]), SetID= Convert.ToInt32(reader["SetID"]) });                 
+                    }
+                }
+            return listaBePedidoWebDetalle;             
+        }
+      
+
     }
 }
