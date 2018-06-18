@@ -1972,14 +1972,14 @@ namespace Portal.Consultoras.BizLogic
                 var daValidacionDatos = new DAValidacionDatos(paisId);
                 var daUsuario = new DAUsuario(paisId);
 
-                var generated = daUsuario.GetCodigoGenerado(new BEUsuarioCorreo
+                var valid = daUsuario.VerificarIgualdadCodigoIngresado(new BEUsuarioDatos()
                 {
-                    OrigenID = Constantes.EnviarCorreoYSms.Origen_ActualizarCorreo,
-                    tipoEnvio = Constantes.EnviarCorreoYSms.TipoEnvio_Sms,
                     CodigoUsuario = codigoUsuario,
-                }, codigoSms);
+                    OrigenID = Constantes.EnviarCorreoYSms.Origen_ActualizarCorreo,
+                    IdEstadoActividad = 1,
+                }, codigoUsuario);
 
-                if (string.IsNullOrEmpty(generated))
+                if (!valid)
                 {
                     return new BERespuestaServicio (Constantes.MensajesError.CodigoIncorrecto);
                 }

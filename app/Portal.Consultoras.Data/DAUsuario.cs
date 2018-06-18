@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Data.Common;
+using Portal.Consultoras.Entities.OpcionesVerificacion;
 
 namespace Portal.Consultoras.Data
 {
@@ -853,6 +854,16 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, OrigenID);
 
             return (Context.ExecuteReader(command));
+        }
+
+        public bool VerificarIgualdadCodigoIngresado(BEUsuarioDatos oUsu, string codigoIngresado)
+        {
+            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.GetVerificarCodigo"); ;
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsu.CodigoUsuario);
+            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsu.OrigenID);
+            Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, codigoIngresado);
+            Context.Database.AddInParameter(command, "@IdEstadoActividad", DbType.Int32, oUsu.IdEstadoActividad);
+            return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
 
         public void UpdFlagAutenticacion(string CodigoUsuario)
