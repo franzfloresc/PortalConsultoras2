@@ -2020,6 +2020,14 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public class PedidoDetalleApp
+        {
+            public const string DescripcionKitInicio = "KIT DE INICIO";
+            public const string OfertaNiveles = "OFERTA POR NIVELES (*)";
+            public const int idHerramientaVenta = 3028;
+        }
+
+
         public static class PedidoAccion
         {
             public const string INSERT = "I";
