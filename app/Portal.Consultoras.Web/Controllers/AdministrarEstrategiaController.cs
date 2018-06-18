@@ -617,6 +617,7 @@ namespace Portal.Consultoras.Web.Controllers
                     codigoSap = beEstrategia.CodigoSAP;
                 }
 
+				
                 if (mensaje == "OK")
                 {
                     using (var svs = new WsGestionWeb())
@@ -630,6 +631,7 @@ namespace Portal.Consultoras.Web.Controllers
                     wsprecio = wspreciopack.ToString("F2");
                 }
 
+				
                 return Json(new
                 {
                     success = true,
