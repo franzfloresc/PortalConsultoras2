@@ -779,7 +779,6 @@ function login2() {
         dataType: 'json',
         //contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            debugger;
             var resul = "";
             if (response.data != null) {
                 var datos = response.data;
