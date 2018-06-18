@@ -9,8 +9,15 @@ namespace Portal.Consultoras.Web.Models
    
     [Serializable]
     [DataContract(IsReference = true)]
-    public class EstrategiaPedidoModel
+    public class EstrategiaPedidoModel : CompartirRedesSocialesModel
     {
+        public EstrategiaPedidoModel()
+        {
+            ListaOfertas = new List<EstrategiaPedidoModel>();
+            ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
+            ConfiguracionContenedor = new ConfiguracionSeccionHomeModel();
+        }
+
         public int MarcaID { get; set; }
         public string ConsultoraID { get; set; }
         public int EstrategiaID { get; set; }
@@ -108,8 +115,7 @@ namespace Portal.Consultoras.Web.Models
         public string Niveles { get; set; }
 
         public int FlagRevista { get; set; }
-
-
+        
         #region Campos que vienen de ShowRoom 
 
         public string Agregado { get; set; }
@@ -157,9 +163,43 @@ namespace Portal.Consultoras.Web.Models
         public string WAMensaje { get; set; }
         #endregion
 
-        public object Clone()
+        public EstrategiaPedidoModel Clone()
         {
-            return this.MemberwiseClone();
+            return (EstrategiaPedidoModel)this.MemberwiseClone();
         }
+
+        public TimeSpan TeQuedan { get; set; }
+        public string ImagenFondo1 { get; set; }
+        public string ColorFondo1 { get; set; }
+        public string ImagenSoloHoy { get; set; }
+        public string ImagenFondo2 { get; set; }
+        public string ColorFondo2 { get; set; }
+        public string NombreOferta { get; set; }
+        public decimal PrecioCatalogo { get; set; }
+        public bool TieneOfertaDelDia { get; set; }
+        public List<EstrategiaPedidoModel> ListaOfertas { get; set; }
+
+        public ConfiguracionSeccionHomeModel ConfiguracionContenedor { get; set; }
+
+        public string PrecioOfertaFormat
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(PrecioOferta, CodigoISO);
+            }
+        }
+        public string PrecioCatalogoFormat
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(PrecioCatalogo, CodigoISO);
+            }
+        }
+
+        public string TipoEstrategiaDescripcion { get; set; }
+        public short Position { get; set; }
+        
+        public IList<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
+        public bool BloqueoProductoDigital { get; set; }
     }
 }

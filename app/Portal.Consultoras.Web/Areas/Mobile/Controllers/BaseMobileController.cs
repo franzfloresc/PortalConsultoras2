@@ -83,7 +83,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     ViewBag.MostrarShowRoomProductos = showRoomBannerLateral.MostrarShowRoomProductos;
 
-                    OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
+                    EstrategiaPedidoModel ofertaDelDia = GetOfertaDelDiaModel();
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
                     ViewBag.MostrarOfertaDelDia =

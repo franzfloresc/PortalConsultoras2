@@ -1889,9 +1889,9 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        protected OfertaDelDiaModel GetOfertaDelDiaModel()
+        protected EstrategiaPedidoModel GetOfertaDelDiaModel()
         {
-            if (!userData.TieneOfertaDelDia && !userData.EsConsultora()) return new OfertaDelDiaModel();
+            if (!userData.TieneOfertaDelDia && !userData.EsConsultora()) return new EstrategiaPedidoModel();
 
             estrategiaODD = estrategiaODD ?? sessionManager.OfertaDelDia.Estrategia;
 
@@ -1907,10 +1907,10 @@ namespace Portal.Consultoras.Web.Controllers
 
 
             var ofertasOddModel = _ofertaDelDiaProvider.GetOfertas(userData);
-            if (!ofertasOddModel.Any()) return new OfertaDelDiaModel();
+            if (!ofertasOddModel.Any()) return new EstrategiaPedidoModel();
 
             var personalizacionesOdd = _tablaLogicaProvider.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.PersonalizacionODD);
-            if (!personalizacionesOdd.Any()) return new OfertaDelDiaModel();
+            if (!personalizacionesOdd.Any()) return new EstrategiaPedidoModel();
 
             var tiposEstrategia = sessionManager.GetTiposEstrategia();
             if (tiposEstrategia == null)
@@ -1927,7 +1927,7 @@ namespace Portal.Consultoras.Web.Controllers
             ofertasOddModel.Update(x =>
             {
                 x.Position = posicion++;
-                x.CodigoIso = userData.CodigoISO;
+                x.CodigoISO = userData.CodigoISO;
                 x.TeQuedan = countdown;
                 x.ImagenFondo1 = string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo1ODD"), userData.CodigoISO);
                 x.ColorFondo1 = colorFondoBanner.Codigo ?? string.Empty;
@@ -1935,7 +1935,7 @@ namespace Portal.Consultoras.Web.Controllers
                 x.ImagenFondo2 = string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo2ODD"), userData.CodigoISO);
                 x.ColorFondo2 = coloFondoDisplay.Codigo ?? string.Empty;
                 x.NombreOferta = ObtenerNombreOfertaDelDia(x.NombreOferta);
-                x.DescripcionOferta = ObtenerDescripcionOfertaDelDia(x.DescripcionOferta);
+                x.DescripcionLegal = ObtenerDescripcionOfertaDelDia(x.DescripcionLegal);
                 x.TieneOfertaDelDia = true;
                 x.DescripcionMarca = Util.GetDescripcionMarca(x.MarcaID);
                 x.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == x.CUV2 && (d.TipoEstrategiaID == x.TipoEstrategiaID || d.TipoEstrategiaID == 0)) ? "block" : "none";

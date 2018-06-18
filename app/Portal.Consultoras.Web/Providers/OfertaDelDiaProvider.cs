@@ -13,7 +13,20 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class OfertaDelDiaProvider
     {
-        public List<OfertaDelDiaModel> GetOfertas(UsuarioModel model)
+        //public List<OfertaDelDiaModel> GetOfertas(UsuarioModel model)
+        //{
+        //    List<ServiceOferta.BEEstrategia> ofertasDelDia;
+
+        //    using (var osc = new OfertaServiceClient())
+        //    {
+        //        ofertasDelDia = osc.GetEstrategiaODD(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
+        //    }
+
+        //    ofertasDelDia = ofertasDelDia.OrderBy(odd => odd.Orden).ToList();
+
+        //    return Mapper.Map<List<ServiceOferta.BEEstrategia>, List<OfertaDelDiaModel>>(ofertasDelDia).ToList();
+        //}
+        public List<EstrategiaPedidoModel> GetOfertas(UsuarioModel model)
         {
             List<ServiceOferta.BEEstrategia> ofertasDelDia;
 
@@ -24,7 +37,7 @@ namespace Portal.Consultoras.Web.Providers
 
             ofertasDelDia = ofertasDelDia.OrderBy(odd => odd.Orden).ToList();
 
-            return Mapper.Map<List<ServiceOferta.BEEstrategia>, List<OfertaDelDiaModel>>(ofertasDelDia).ToList();
+            return Mapper.Map<List<ServiceOferta.BEEstrategia>, List<EstrategiaPedidoModel>>(ofertasDelDia).ToList();
         }
 
         public TimeSpan CountdownOdd(UsuarioModel model)

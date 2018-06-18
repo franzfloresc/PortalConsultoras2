@@ -625,6 +625,24 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.TieneOfertaDelDia, f => f.MapFrom(c => true))
                 .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden));
 
+            Mapper.CreateMap<ServiceOferta.BEEstrategia, EstrategiaPedidoModel>()
+                .ForMember(t => t.ID, f => f.MapFrom(c => c.ID))
+                .ForMember(t => t.TipoEstrategiaID, f => f.MapFrom(c => c.TipoEstrategiaID))
+                .ForMember(t => t.EstrategiaID, f => f.MapFrom(c => c.EstrategiaID))
+                .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
+                .ForMember(t => t.CUV2, f => f.MapFrom(c => c.CUV2))
+                .ForMember(t => t.LimiteVenta, f => f.MapFrom(c => c.LimiteVenta))
+                .ForMember(t => t.IndicadorMontoMinimo, f => f.MapFrom(c => c.IndicadorMontoMinimo))
+                .ForMember(t => t.TipoEstrategiaImagenMostrar, f => f.MapFrom(c => c.TipoEstrategiaImagenMostrar))
+                .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.FotoProducto01))
+                .ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.FotoProducto01))
+                .ForMember(t => t.NombreOferta, f => f.MapFrom(c => c.DescripcionCUV2))
+                .ForMember(t => t.DescripcionLegal, f => f.MapFrom(c => c.DescripcionCUV2))
+                .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.Precio2))
+                .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.Precio))
+                .ForMember(t => t.TieneOfertaDelDia, f => f.MapFrom(c => true))
+                .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden));
+
 
         }
     }

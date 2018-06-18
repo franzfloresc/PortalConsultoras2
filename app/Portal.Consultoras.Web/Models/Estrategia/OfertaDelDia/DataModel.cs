@@ -5,6 +5,6 @@
     [Serializable()]
     public class DataModel
     {
-        public List<OfertaDelDiaModel> ListaDeOferta { get; set; }
+        public List<EstrategiaPedidoModel> ListaDeOferta { get; set; }
     }
 }

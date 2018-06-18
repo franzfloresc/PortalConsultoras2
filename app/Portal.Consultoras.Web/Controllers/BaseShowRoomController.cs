@@ -85,7 +85,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.ImagenBannerShowroomVenta = showRoomBannerLateral.ImagenBannerShowroomVenta;
                     ViewBag.DiasFaltantesLetras = showRoomBannerLateral.LetrasDias;
 
-                    OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
+                    EstrategiaPedidoModel ofertaDelDia = GetOfertaDelDiaModel();
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
                     ViewBag.MostrarOfertaDelDia =
