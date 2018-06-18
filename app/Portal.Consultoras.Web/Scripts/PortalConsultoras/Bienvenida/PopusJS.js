@@ -106,6 +106,96 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
 
                 })
                 break;
+           case 4: //AceptacionContrato 
+                if (cancel == 0) {
+                    if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
+                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
+                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
+                    document.getElementsByClassName('flexslider')[0].style.display = 'None';
+                }
+
+                $('#popupAceptacionContrato').on('hide', function () {
+                    if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                        document.getElementById('survicate-box').style.display = 'block';
+                        ValidacionEncuesta();
+                    }
+                    else {
+                        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                        document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                        clearTimeout(timeoutHandle);
+                    }
+                });
+                break;
+           case 6://ActualizarDatos 
+               if (cancel == 0) {
+                   if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
+                   if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
+                   if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
+                   document.getElementsByClassName('flexslider')[0].style.display = 'None';
+               }
+
+               $('#popupActualizarMisDatos').on('hide', function () {
+
+                   if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                       document.getElementById('survicate-box').style.display = 'block';
+
+                       ValidacionEncuesta();
+                   } else {
+                       cancel = 1;
+                       if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                       if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                       document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                       clearTimeout(timeoutHandle);
+                   }
+
+               });
+
+               break;
+           case 7: //Flexipago 
+               if (cancel == 0) {
+                   if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
+                   if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
+                   if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
+                   document.getElementsByClassName('flexslider')[0].style.display = 'None';
+               }
+               $('#popupInvitaionFlexipago').on('hide', function () {
+
+                   if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                       document.getElementById('survicate-box').style.display = 'block';
+                       ValidacionEncuesta();
+                   } else {
+                       cancel = 1;
+                       if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                       if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                       document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                       clearTimeout(timeoutHandle);
+                   }
+
+               });
+               break;
+           case 8://Comunicado 
+               if (cancel == 0) {
+                   if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
+                   if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
+                   if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
+                   document.getElementsByClassName('flexslider')[0].style.display = 'None';
+               }
+               $('#popupComunicados').on('hide', function () {
+                   if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                       document.getElementById('survicate-box').style.display = 'block';
+                       ValidacionEncuesta();
+                   } else {
+                       cancel = 1;
+                       if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                       if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                       document.getElementsByClassName('flexslider')[0].style.display = 'block';
+                       clearTimeout(timeoutHandle);
+                   }
+
+               });
+               break;
+
             case 10: //Cupon 
                 Cupon();
                 break;
@@ -117,7 +207,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
     else {
         clearTimeout(timeoutHandle);
     }
-    timeoutHandle = setTimeout(MostrarPopusEnOrden, x * 10);
+    timeoutHandle = setTimeout(MostrarPopusEnOrden, x * 1);
 }
 
 function ValidacionEncuesta() {
@@ -133,7 +223,7 @@ function ValidacionEncuesta() {
             cancel = 1;
         }
     }
-    timeoutEncuesta = setTimeout(ValidacionEncuesta, x * 10);
+    timeoutEncuesta = setTimeout(ValidacionEncuesta, x * 1);
 }
 function Cupon() {
     if (cancel == 0) {
@@ -157,5 +247,4 @@ function Cupon() {
             cancel = 1;
         }
     });
-
 }
