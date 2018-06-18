@@ -69,10 +69,11 @@
     .flip-clock-divider .flip-clock-label {
         display: block;
         left: 6px;
+        right: initial;
         top: 30px;
     }
 
-    .flip-clock-divider.flip-clock-label, .flip-clock-divider.minutes .flip-clock-label, .flip-clock-divider.seconds .flip-clock-label {
+    .flip-clock-divider.minutes .flip-clock-label, .flip-clock-divider.seconds .flip-clock-label {
         right: initial;
     }
 
