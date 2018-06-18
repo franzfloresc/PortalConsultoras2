@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public bool Activo { get; set; }
         [DataMember]
-        public List<BEZonasOpcionesVerificacion> lstZonas { get; set; }
+        public BEZonasOpcionesVerificacion oZona { get; set; }
         [DataMember]
         public List<BEFiltrosOpcionesVerificacion> lstFiltros { get; set; }
 
@@ -75,6 +75,8 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         public string Celular { get; set; }
         [DataMember]
         public string Correo { get; set; }
+        [DataMember]
+        public int RegionID { get; set; }
         [DataMember]
         public int ZonaID { get; set; }
 
@@ -134,6 +136,8 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
                 Correo = Convert.ToString(row["Correo"]);
             if (DataRecord.HasColumn(row, "ZonaID") && row["ZonaID"] != DBNull.Value)
                 ZonaID = Convert.ToInt32(row["ZonaID"]);
+            if (DataRecord.HasColumn(row, "RegionID") && row["RegionID"] != DBNull.Value)
+                RegionID = Convert.ToInt32(row["RegionID"]);
         }
     }
 }

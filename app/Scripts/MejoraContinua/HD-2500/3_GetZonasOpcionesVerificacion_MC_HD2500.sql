@@ -6,19 +6,21 @@ BEGIN
 	DROP PROC GetZonasOpcionesVerificacion
 END
 GO
--- GetZonasOpcionesVerificacion 2
+
 CREATE PROC GetZonasOpcionesVerificacion
 (
-@OrigenID int
+@RegionID int,
+@ZonaID int
 )
 AS
 BEGIN
 	select 
-		ZonaID,
-		OrigenID
+		OlvideContrasenya,
+		VerifAutenticidad,
+		ActualizarDatos,
+		CDR
 	from [dbo].[ZonasOpcionesVerificacion]
-	where OrigenID = @OrigenID
-	And IsNull(Activo, 0) = 1
+	where RegionID = @RegionID AND ZonaID = @ZonaID;
 END
 GO
 
@@ -30,19 +32,21 @@ BEGIN
 	DROP PROC GetZonasOpcionesVerificacion
 END
 GO
--- GetZonasOpcionesVerificacion 2
+
 CREATE PROC GetZonasOpcionesVerificacion
 (
-@OrigenID int
+@RegionID int,
+@ZonaID int
 )
 AS
 BEGIN
 	select 
-		ZonaID,
-		OrigenID
+		OlvideContrasenya,
+		VerifAutenticidad,
+		ActualizarDatos,
+		CDR
 	from [dbo].[ZonasOpcionesVerificacion]
-	where OrigenID = @OrigenID
-	And IsNull(Activo, 0) = 1
+	where RegionID = @RegionID AND ZonaID = @ZonaID;
 END
 GO
 
@@ -54,19 +58,21 @@ BEGIN
 	DROP PROC GetZonasOpcionesVerificacion
 END
 GO
--- GetZonasOpcionesVerificacion 2
+
 CREATE PROC GetZonasOpcionesVerificacion
 (
-@OrigenID int
+@RegionID int,
+@ZonaID int
 )
 AS
 BEGIN
 	select 
-		ZonaID,
-		OrigenID
+		OlvideContrasenya,
+		VerifAutenticidad,
+		ActualizarDatos,
+		CDR
 	from [dbo].[ZonasOpcionesVerificacion]
-	where OrigenID = @OrigenID
-	And IsNull(Activo, 0) = 1
+	where RegionID = @RegionID AND ZonaID = @ZonaID;
 END
 GO
 
@@ -78,19 +84,21 @@ BEGIN
 	DROP PROC GetZonasOpcionesVerificacion
 END
 GO
--- GetZonasOpcionesVerificacion 2
+
 CREATE PROC GetZonasOpcionesVerificacion
 (
-@OrigenID int
+@RegionID int,
+@ZonaID int
 )
 AS
 BEGIN
 	select 
-		ZonaID,
-		OrigenID
+		OlvideContrasenya,
+		VerifAutenticidad,
+		ActualizarDatos,
+		CDR
 	from [dbo].[ZonasOpcionesVerificacion]
-	where OrigenID = @OrigenID
-	And IsNull(Activo, 0) = 1
+	where RegionID = @RegionID AND ZonaID = @ZonaID;
 END
 GO
 
@@ -102,19 +110,21 @@ BEGIN
 	DROP PROC GetZonasOpcionesVerificacion
 END
 GO
--- GetZonasOpcionesVerificacion 2
+
 CREATE PROC GetZonasOpcionesVerificacion
 (
-@OrigenID int
+@RegionID int,
+@ZonaID int
 )
 AS
 BEGIN
 	select 
-		ZonaID,
-		OrigenID
+		OlvideContrasenya,
+		VerifAutenticidad,
+		ActualizarDatos,
+		CDR
 	from [dbo].[ZonasOpcionesVerificacion]
-	where OrigenID = @OrigenID
-	And IsNull(Activo, 0) = 1
+	where RegionID = @RegionID AND ZonaID = @ZonaID;
 END
 GO
 
@@ -126,19 +136,21 @@ BEGIN
 	DROP PROC GetZonasOpcionesVerificacion
 END
 GO
--- GetZonasOpcionesVerificacion 2
+
 CREATE PROC GetZonasOpcionesVerificacion
 (
-@OrigenID int
+@RegionID int,
+@ZonaID int
 )
 AS
 BEGIN
 	select 
-		ZonaID,
-		OrigenID
+		OlvideContrasenya,
+		VerifAutenticidad,
+		ActualizarDatos,
+		CDR
 	from [dbo].[ZonasOpcionesVerificacion]
-	where OrigenID = @OrigenID
-	And IsNull(Activo, 0) = 1
+	where RegionID = @RegionID AND ZonaID = @ZonaID;
 END
 GO
 
@@ -150,19 +162,21 @@ BEGIN
 	DROP PROC GetZonasOpcionesVerificacion
 END
 GO
--- GetZonasOpcionesVerificacion 2
+
 CREATE PROC GetZonasOpcionesVerificacion
 (
-@OrigenID int
+@RegionID int,
+@ZonaID int
 )
 AS
 BEGIN
 	select 
-		ZonaID,
-		OrigenID
+		OlvideContrasenya,
+		VerifAutenticidad,
+		ActualizarDatos,
+		CDR
 	from [dbo].[ZonasOpcionesVerificacion]
-	where OrigenID = @OrigenID
-	And IsNull(Activo, 0) = 1
+	where RegionID = @RegionID AND ZonaID = @ZonaID;
 END
 GO
 
@@ -174,19 +188,21 @@ BEGIN
 	DROP PROC GetZonasOpcionesVerificacion
 END
 GO
--- GetZonasOpcionesVerificacion 2
+
 CREATE PROC GetZonasOpcionesVerificacion
 (
-@OrigenID int
+@RegionID int,
+@ZonaID int
 )
 AS
 BEGIN
 	select 
-		ZonaID,
-		OrigenID
+		OlvideContrasenya,
+		VerifAutenticidad,
+		ActualizarDatos,
+		CDR
 	from [dbo].[ZonasOpcionesVerificacion]
-	where OrigenID = @OrigenID
-	And IsNull(Activo, 0) = 1
+	where RegionID = @RegionID AND ZonaID = @ZonaID;
 END
 GO
 
@@ -198,19 +214,21 @@ BEGIN
 	DROP PROC GetZonasOpcionesVerificacion
 END
 GO
--- GetZonasOpcionesVerificacion 2
+
 CREATE PROC GetZonasOpcionesVerificacion
 (
-@OrigenID int
+@RegionID int,
+@ZonaID int
 )
 AS
 BEGIN
 	select 
-		ZonaID,
-		OrigenID
+		OlvideContrasenya,
+		VerifAutenticidad,
+		ActualizarDatos,
+		CDR
 	from [dbo].[ZonasOpcionesVerificacion]
-	where OrigenID = @OrigenID
-	And IsNull(Activo, 0) = 1
+	where RegionID = @RegionID AND ZonaID = @ZonaID;
 END
 GO
 
@@ -222,19 +240,21 @@ BEGIN
 	DROP PROC GetZonasOpcionesVerificacion
 END
 GO
--- GetZonasOpcionesVerificacion 2
+
 CREATE PROC GetZonasOpcionesVerificacion
 (
-@OrigenID int
+@RegionID int,
+@ZonaID int
 )
 AS
 BEGIN
 	select 
-		ZonaID,
-		OrigenID
+		OlvideContrasenya,
+		VerifAutenticidad,
+		ActualizarDatos,
+		CDR
 	from [dbo].[ZonasOpcionesVerificacion]
-	where OrigenID = @OrigenID
-	And IsNull(Activo, 0) = 1
+	where RegionID = @RegionID AND ZonaID = @ZonaID;
 END
 GO
 
@@ -246,19 +266,21 @@ BEGIN
 	DROP PROC GetZonasOpcionesVerificacion
 END
 GO
--- GetZonasOpcionesVerificacion 2
+
 CREATE PROC GetZonasOpcionesVerificacion
 (
-@OrigenID int
+@RegionID int,
+@ZonaID int
 )
 AS
 BEGIN
 	select 
-		ZonaID,
-		OrigenID
+		OlvideContrasenya,
+		VerifAutenticidad,
+		ActualizarDatos,
+		CDR
 	from [dbo].[ZonasOpcionesVerificacion]
-	where OrigenID = @OrigenID
-	And IsNull(Activo, 0) = 1
+	where RegionID = @RegionID AND ZonaID = @ZonaID;
 END
 GO
 
@@ -270,19 +292,21 @@ BEGIN
 	DROP PROC GetZonasOpcionesVerificacion
 END
 GO
--- GetZonasOpcionesVerificacion 2
+
 CREATE PROC GetZonasOpcionesVerificacion
 (
-@OrigenID int
+@RegionID int,
+@ZonaID int
 )
 AS
 BEGIN
 	select 
-		ZonaID,
-		OrigenID
+		OlvideContrasenya,
+		VerifAutenticidad,
+		ActualizarDatos,
+		CDR
 	from [dbo].[ZonasOpcionesVerificacion]
-	where OrigenID = @OrigenID
-	And IsNull(Activo, 0) = 1
+	where RegionID = @RegionID AND ZonaID = @ZonaID;
 END
 GO
 

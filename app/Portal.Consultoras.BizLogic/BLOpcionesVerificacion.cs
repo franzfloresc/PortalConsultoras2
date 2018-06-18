@@ -8,12 +8,12 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLOpcionesVerificacion
     {
-        public BEOpcionesVerificacion GetOpcionesVerificacionCache(int paisID, int origenID)
+        public BEOpcionesVerificacion GetOpcionesVerificacionCache(int paisID, int origenID, int regionID, int zonaID)
         {
-            return CacheManager<BEOpcionesVerificacion>.ValidateDataElement(paisID, ECacheItem.OpcionesVerificacion, paisID.ToString() + origenID.ToString(), () => GetOpcionesVerificacion(paisID, origenID));
+            return CacheManager<BEOpcionesVerificacion>.ValidateDataElement(paisID, ECacheItem.OpcionesVerificacion, paisID.ToString() + origenID.ToString(), () => GetOpcionesVerificacion(paisID, origenID, regionID, zonaID));
         }
 
-        public BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID)
+        public BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID, int regionID, int zonaID)
         {
             var obj = new DAOpcionesVerificacion(paisID);
             BEOpcionesVerificacion OpcVeri = null;
@@ -24,24 +24,24 @@ namespace Portal.Consultoras.BizLogic
             }
             if (OpcVeri == null) return null;
             OpcVeri.lstFiltros = new List<BEFiltrosOpcionesVerificacion>();
-            OpcVeri.lstZonas = new List<BEZonasOpcionesVerificacion>();
+            OpcVeri.oZona = new BEZonasOpcionesVerificacion();
             if (OpcVeri.IncluyeFiltros) OpcVeri.lstFiltros =  GetFiltrosOpcionesVerificacion(paisID, origenID) ?? new List<BEFiltrosOpcionesVerificacion>();
-            if (OpcVeri.TieneZonas) OpcVeri.lstZonas =  GetZonasOpcionesVerificacion(paisID, origenID) ?? new List<BEZonasOpcionesVerificacion>();
+            if (OpcVeri.TieneZonas) OpcVeri.oZona =  GetZonasOpcionesVerificacion(paisID, regionID, zonaID) ?? new BEZonasOpcionesVerificacion();
             return OpcVeri;
         }
 
-        private List<BEZonasOpcionesVerificacion> GetZonasOpcionesVerificacion(int paisID, int origenID)
+        private BEZonasOpcionesVerificacion GetZonasOpcionesVerificacion(int paisID, int regionID, int zonaID)
         {
             var obj = new DAOpcionesVerificacion(paisID);
-            var lstOp = new List<BEZonasOpcionesVerificacion>();
-            using (IDataReader rd = obj.GetZonasOpcionesVerificacion(origenID))
+            var oOp = new BEZonasOpcionesVerificacion();
+            using (IDataReader rd = obj.GetZonasOpcionesVerificacion(regionID, zonaID))
             {
                 while (rd.Read())
                 {
-                    lstOp.Add(new BEZonasOpcionesVerificacion(rd));
+                    oOp = new BEZonasOpcionesVerificacion(rd);
                 } 
             }
-            return lstOp;
+            return oOp;
         }
 
         private List<BEFiltrosOpcionesVerificacion> GetFiltrosOpcionesVerificacion(int paisID, int origenID)

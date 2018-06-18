@@ -2226,13 +2226,14 @@ namespace Portal.Consultoras.BizLogic
         {
             var oUsu = new BEUsuarioDatos();
             oUsu.MostrarOpcion = Constantes.OlvideContrasenia.NombreOpcion.MostrarMensajeFueraHorario;
-            var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenOlvideContrasenia);
+            oUsu = GetDatosUsuarioByValorCache(paisID, valorRestaurar);
+            var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenOlvideContrasenia, oUsu.RegionID, oUsu.ZonaID);
             if (opcion == null) return oUsu;
             /*validando si tiene Zona*/
             if (opcion.TieneZonas)
             {
-                if (opcion.lstZonas.Count == 0) return oUsu;
-                if (!ValidaZona(opcion.lstZonas, oUsu.ZonaID)) return oUsu;
+                if (opcion.oZona == null) return oUsu;
+                if (!opcion.oZona.OlvideContrasenya) return oUsu;
             }
             /*Validando si corresponde al Usuario*/
             if (opcion.lstFiltros.Count > 0)
@@ -2244,7 +2245,7 @@ namespace Portal.Consultoras.BizLogic
                 oUsu.MensajeSaludo = usuFiltro.MensajeSaludo;
             }
             
-            oUsu = GetDatosUsuarioByValorCache(paisID, valorRestaurar);
+            
             oUsu.MostrarOpcion = Constantes.OlvideContrasenia.NombreOpcion.MostrarMensajeFueraHorario;
             if (oUsu == null) return null;
             if (oUsu.Cantidad == 0) return null;           
@@ -2562,10 +2563,10 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region Carga Opciones De Verificacion
-        private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID)
+        private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID, int regionID, int zonaID)
         {
             var BLobj = new BLOpcionesVerificacion();
-            return BLobj.GetOpcionesVerificacion(paisID, origenID);
+            return BLobj.GetOpcionesVerificacion(paisID, origenID, regionID, zonaID);
         }
 
         private bool ValidaCampania(int campaniaActual, int campaniaInicio, int campaniaFin)
@@ -2580,11 +2581,11 @@ namespace Portal.Consultoras.BizLogic
             return false;
         }
 
-        private bool ValidaZona(List<BEZonasOpcionesVerificacion> lstZona, int ZonaID)
-        {
-            if (lstZona.Any(a => a.ZonaID == ZonaID)) return true;
-            return false;
-        }
+        //private bool ValidaZona(List<BEZonasOpcionesVerificacion> lstZona, int ZonaID)
+        //{
+        //    if (lstZona.Any(a => a.ZonaID == ZonaID)) return true;
+        //    return false;
+        //}
         #endregion
 
         #region Verificacion De Autenticidad
@@ -2596,13 +2597,13 @@ namespace Portal.Consultoras.BizLogic
                 var oUsu = GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario);
                 if (oUsu.Cantidad == 0) return null;
                 /*Obteniendo Datos de Verificacion de Autenticidad*/
-                var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
+                var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad, oUsu.RegionID, oUsu.ZonaID);
                 if (opcion == null) return null;
                 /*validando si tiene Zona*/
                 if (opcion.TieneZonas)
                 {
-                    if (opcion.lstZonas.Count == 0) return null;
-                    if (!ValidaZona(opcion.lstZonas, oUsu.ZonaID)) return null;
+                    if (opcion.oZona == null) return null;
+                    if (!opcion.oZona.VerifAutenticidad) return null;
                 }
                 /*Validando si corresponde al Usuario*/
                 if (opcion.lstFiltros.Count >= 0) 

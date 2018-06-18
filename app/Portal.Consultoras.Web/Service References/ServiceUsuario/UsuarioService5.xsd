@@ -23,6 +23,7 @@
       <xs:element minOccurs="0" name="OrigenDescripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OrigenID" type="xs:int" />
       <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegionID" type="xs:int" />
       <xs:element minOccurs="0" name="TelefonoCentral" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
       <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
