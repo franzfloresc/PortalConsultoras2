@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Scripts/PortalConsultoras/ShowRoom/ShowRoomJs").Include(
                 "~/Scripts/PortalConsultoras/ShowRoom/Index.js",
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js"
                 ));
@@ -259,7 +259,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Bienvenida/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
                 "~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js",
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
@@ -288,7 +288,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
                 "~/Scripts/PortalConsultoras/Pedido/ofertafinal.js",
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
@@ -303,7 +303,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js",
                 "~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js",
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
@@ -345,7 +345,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/Pedido").Include(
                 "~/Scripts/PortalConsultoras/Mobile/Pedido/index.js",
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
@@ -381,7 +381,7 @@ namespace Portal.Consultoras.Web
             ));
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/PedidoFIC").Include(
                 "~/Scripts/PortalConsultoras/Mobile/PedidoFIC/Index.js",
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
@@ -406,7 +406,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Ofertas").Include(
                 "~/Scripts/jquery.flexslider.js",
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
@@ -430,7 +430,7 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/JsSB2-Ofertas").Include(
                 "~/Scripts/jquery.flexslider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js",
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
@@ -462,7 +462,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/General.js",
                 "~/Scripts/jquery.flexslider.js",
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
@@ -480,7 +480,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/bundles/RevistaDigital-Landing").Include(
                 "~/Scripts/jquery.flexslider.js",
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
@@ -498,7 +498,7 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/bundles/Lanzamientos-Detalle").Include(
                 "~/Scripts/jquery.flexslider.js",
                 "~/Scripts/implements/youtube.js",
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
@@ -519,7 +519,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/bundles/Mobile/RevistaDigital-Info").Include(
                 "~/Scripts/implements/youtube.js",
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
@@ -537,7 +537,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/Mobile/RevistaDigital-Landing").Include(
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
@@ -547,7 +547,7 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/Mobile/GuiaNegocio-Landing").Include(
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
@@ -569,7 +569,7 @@ namespace Portal.Consultoras.Web
             #endregion
 
             bundles.Add(new ScriptBundle("~/bundles/Mobile/OfertaParaTi-Detalle").Include(
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
@@ -583,7 +583,7 @@ namespace Portal.Consultoras.Web
             #region GuiaNegocio
 
             bundles.Add(new ScriptBundle("~/bundles/GuiaNegocio-Landing").Include(
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
@@ -609,7 +609,7 @@ namespace Portal.Consultoras.Web
             #region HerramientasVenta
 
             bundles.Add(new ScriptBundle("~/bundles/HerramientasVenta-Landing").Include(
-                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaVariedad.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",

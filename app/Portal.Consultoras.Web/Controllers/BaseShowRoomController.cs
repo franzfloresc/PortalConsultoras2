@@ -301,7 +301,7 @@ namespace Portal.Consultoras.Web.Controllers
                 CodigoVariante = ofertaShowRoomModelo.CodigoEstrategia
             };
 
-            ofertaShowRoomModelo.Hermanos = GetListaHermanos(estrategiaModelo,Constantes.TipoEstrategiaCodigo.ShowRoom);
+            ofertaShowRoomModelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo,Constantes.TipoEstrategiaCodigo.ShowRoom);
 
             return ofertaShowRoomModelo;
         }

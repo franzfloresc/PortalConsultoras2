@@ -1,4 +1,4 @@
-﻿var estrategiaVariedadModule = (function (config) {
+﻿var estrategiaComponenteModule = (function (config) {
     
     var elementos = {
         nombre: ""
@@ -140,5 +140,5 @@
 })();
 
 $(document).ready(function () {
-    estrategiaVariedadModule.Inicializar();
+    estrategiaComponenteModule.Inicializar();
 });
