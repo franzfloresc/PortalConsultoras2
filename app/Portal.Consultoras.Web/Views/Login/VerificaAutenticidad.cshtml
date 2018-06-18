@@ -43,7 +43,12 @@
         <hr class="clear" />
         <div class="linea_separadora" style="margin-top:-10px"></div>
     </div>
-
+    @{ 
+        var OpcionSms = true;
+        var OpcionEmail = true;
+        if (Model.MostrarOpcion == 2) { OpcionSms = false; }
+        if (Model.MostrarOpcion == 3) { OpcionEmail = false; }
+    }
 
     <section class="block vista_flujo_restablecer_contrasenia">
         <div class="block center-block wrapper_content_verificacion_autenticidad">
@@ -70,22 +75,30 @@
                         </p>
                     </div>
                     <div class="block center-block lista_opciones_verificacion_autenticidad">
-                        <a title="Opción Sms" class="block opcion_verificacion_autenticidad RecuperarPorSms">
-                            <div class="inline-block v-alignMiddle icono_opcion_verificacion_autenticidad icono_opcion_sms"></div>
-                            <div class="inline-block v-alignMiddle datos_verificacion_autenticidad">
-                                <div class="block text-uppercase">Mensaje de texto (sms)</div>
-                                <div class="block text-bold">@Model.CelularEnmascarado</div>
-                            </div>
-                            <div class="divTiempoRestanteSms" style="display:none; margin-top: 15px; font-size: 12px; text-align:center;">@ViewBag.MensajeOpcionCelular</div>
-                        </a>
-                        <a title="Opción Correo" class="block opcion_verificacion_autenticidad RecuperarPorCorreo">
-                            <div class="inline-block v-alignMiddle icono_opcion_verificacion_autenticidad icono_opcion_correo"></div>
-                            <div class="inline-block v-alignMiddle datos_verificacion_autenticidad">
-                                <div class="block text-uppercase">Correo Electrónico</div>
-                                <div class="block text-bold">@Model.CorreoEnmascarado</div>
-                            </div>
-                            <div class="divTiempoRestanteCorreo" style="display:none; margin-top: 15px; font-size: 12px; text-align:center;">@ViewBag.MensajeOpcionCorreo</div>
-                        </a>
+                        @{
+                            if (OpcionSms)
+                            {
+                                <a title="Opción Sms" class="block opcion_verificacion_autenticidad RecuperarPorSms">
+                                    <div class="inline-block v-alignMiddle icono_opcion_verificacion_autenticidad icono_opcion_sms"></div>
+                                    <div class="inline-block v-alignMiddle datos_verificacion_autenticidad">
+                                        <div class="block text-uppercase">Mensaje de texto (sms)</div>
+                                        <div class="block text-bold">@Model.CelularEnmascarado</div>
+                                    </div>
+                                    <div class="divTiempoRestanteSms" style="display:none; margin-top: 15px; font-size: 12px; text-align:center;">@ViewBag.MensajeOpcionCelular</div>
+                                </a>
+                            }
+                            if (OpcionEmail)
+                            {
+                                <a title="Opción Correo" class="block opcion_verificacion_autenticidad RecuperarPorCorreo">
+                                    <div class="inline-block v-alignMiddle icono_opcion_verificacion_autenticidad icono_opcion_correo"></div>
+                                    <div class="inline-block v-alignMiddle datos_verificacion_autenticidad">
+                                        <div class="block text-uppercase">Correo Electrónico</div>
+                                        <div class="block text-bold">@Model.CorreoEnmascarado</div>
+                                    </div>
+                                    <div class="divTiempoRestanteCorreo" style="display:none; margin-top: 15px; font-size: 12px; text-align:center;">@ViewBag.MensajeOpcionCorreo</div>
+                                </a>
+                            }
+                        }
                     </div>
                     <div class="block">
                         <p class="texto_alternativa_call_center block">

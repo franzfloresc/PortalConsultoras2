@@ -2151,7 +2151,9 @@ namespace Portal.Consultoras.Common
                 public const int MostrarEmailyCelular = 1;
                 public const int MostrarEmail = 2;
                 public const int MostrarCelular = 3;
-                public const int SinOpcion = 4;
+                public const int MostrarChat = 4;
+
+                public const int SinOpcion = 5;
             }           
             
             public const int Origen = 2;
