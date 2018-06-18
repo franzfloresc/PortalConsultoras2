@@ -2169,13 +2169,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         [HttpPost]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public JsonResult EjecutarServicioPROL()
+        public JsonResult EjecutarServicioPROL(bool enviarCorreo = false)
         {
             try
             {
                 ActualizarEsDiaPROLyMostrarBotonValidarPedido(userData);
                 var input = Mapper.Map<BEInputReservaProl>(userData);
-                input.EnviarCorreo = false;
+                input.EnviarCorreo = enviarCorreo;
                 input.CodigosConcursos = userData.CodigosConcursos;
                 input.EsOpt = EsOpt();
 
@@ -2229,11 +2229,17 @@ namespace Portal.Consultoras.Web.Controllers
                     MontoEscala = resultado.MontoEscala,
                     Total = listPedidoWebDetalle.Sum(d => d.ImporteTotal),
                     EsDiaProl = userData.DiaPROL,
-                    ProlSinStock = userData.PROLSinStock,
                     CodigoIso = userData.CodigoISO,
                     CodigoMensajeProl = resultado.CodigoMensaje
                 };
+                model.TotalConDescuento = model.Total - model.MontoDescuento;
                 SetMensajesBotonesProl(model, resultado.Reserva);
+
+                var listPermiteOfertaFinal = new List<Enumeradores.ResultadoReserva> {
+                    Enumeradores.ResultadoReserva.Reservado,
+                    Enumeradores.ResultadoReserva.ReservadoObservaciones,
+                    Enumeradores.ResultadoReserva.NoReservadoMontoMinimo
+                };
 
                 return Json(new
                 {
@@ -2249,7 +2255,8 @@ namespace Portal.Consultoras.Web.Controllers
                                         variant = !string.IsNullOrEmpty(item.DescripcionOferta) ? item.DescripcionOferta.Replace("]", "").Replace("[", "").Trim() : "",
                                         quantity = item.Cantidad
                                     },
-                    flagCorreo = resultado.EnviarCorreo ? "1" : ""
+                    flagCorreo = resultado.EnviarCorreo ? "1" : "",
+                    permiteOfertaFinal = listPermiteOfertaFinal.Contains(resultado.ResultadoReservaEnum)
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

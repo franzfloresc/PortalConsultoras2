@@ -24946,9 +24946,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string NombreConsultoraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool PROLSinStockField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaisIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -25237,19 +25234,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.NombreConsultoraField, value) != true)) {
                     this.NombreConsultoraField = value;
                     this.RaisePropertyChanged("NombreConsultora");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool PROLSinStock {
-            get {
-                return this.PROLSinStockField;
-            }
-            set {
-                if ((this.PROLSinStockField.Equals(value) != true)) {
-                    this.PROLSinStockField = value;
-                    this.RaisePropertyChanged("PROLSinStock");
                 }
             }
         }

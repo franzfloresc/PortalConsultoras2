@@ -2,8 +2,6 @@
 var gap_Log = 0;
 var tipoOrigen = '2';
 
-var esPedidoValidado = false;
-
 $(document).ready(function () {
     $('body').on('click', ".icono_kitNuevas a", function (e) {
         var mostrar = $(this).next();
@@ -830,7 +828,6 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
         return false;
     }
 
-    $("hdfPROLSinStock").val(model.ProlSinStock == true ? "1" : "0");
     $("hdfModificaPedido").val(model.EsModificacion == true ? "1" : "0");
     
     ConstruirObservacionesPROL(model);
@@ -866,24 +863,11 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     if (model.ZonaValida == true) {
 
         if (model.ObservacionInformativa == false) {
-            if (inicio) {
-                cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
-            }
+            if (inicio) cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
 
-            if (cumpleOferta.resultado) {
-                esPedidoValidado = response.data.ProlSinStock != true;
-            } else {
-                if (response.data.ProlSinStock == true) {
-                    messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
-                    AnalyticsGuardarValidar(response);
-                    CargarPedido();
-                    return true;
-                }
-
+            if (!cumpleOferta.resultado) {
                 messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
-                if (estaRechazado == "2") {
-                    cerrarMensajeEstadoPedido();
-                }
+                if (estaRechazado == "2") cerrarMensajeEstadoPedido();
 
                 AnalyticsGuardarValidar(response);
                 AnalyticsPedidoValidado(response);
@@ -891,7 +875,6 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
                     ShowLoading();
                     document.location = urlPedidoValidado;
                 }, 2000);
-
             }
             return true;
         }
@@ -901,9 +884,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
             cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
         }
 
-        if (cumpleOferta.resultado) {
-            esPedidoValidado = response.data.ProlSinStock != true;
-        } else {
+        if (!cumpleOferta.resultado) {
             $('#modal-prol-botonesAceptarCancelar').show();
             $('#modal-prol-botoneAceptar').hide();
             $('#popup-observaciones-prol').show();
@@ -940,12 +921,8 @@ function ConstruirObservacionesPROL(model) {
         $('#popup-observaciones-prol .content_mensajeAlerta .titulo_compartir').html("¡LO <b>LOGRASTE</b>!");
         mensajePedido += "Tu pedido fue guardado con éxito.";
         $("#modal-prol-titulo").html(mensajePedido);
-
-        if (model.ProlSinStock) $("#modal-prol-contenido").html(mensajePedido);
-        else {
-            $("#modal-prol-contenido").html("Tu pedido fue guardado con éxito. Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
-            mensajePedido += " Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.";
-        }
+        $("#modal-prol-contenido").html("Tu pedido fue guardado con éxito. Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
+        mensajePedido += " Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.";
         return "-1 " + mensajePedido;
     }
 
@@ -999,24 +976,16 @@ function AceptarObsInformativas() {
         async: true,
         success: function (data) {
             CloseLoading();
-            if (checkTimeout(data)) {
-                if (data.success == true) {
-                    if ($('#hdfPROLSinStock').val() == 1) {
-                        $('#popup-observaciones-prol').hide();
-                        messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
-                        CargarPedido();
-                    } else
-                        document.location = urlPedidoValidado;
-                } else {
-                    messageInfoMalo(data.message);
-                }
-            }
+            if (!checkTimeout(data)) return;
+
+            if (data.success) location.href = urlPedidoValidado;
+            else messageInfoMalo(data.message);
         },
         error: function (data, error) {
             CloseLoading();
-            if (checkTimeout(data)) {
-                messageInfoMalo("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
-            }
+            if (!checkTimeout(data)) return;
+
+            messageInfoMalo("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
         }
     });
 }
@@ -1182,45 +1151,6 @@ function InsertarProducto(model, asyncX) {
     });
 
     return retorno;
-}
-
-function MostrarMensajeProl(data) {
-
-    if (data.Reserva != true) {
-        $('#modal-prol-botonesAceptarCancelar').hide();
-        $('#modal-prol-botoneAceptar').show();
-        $('#popup-observaciones-prol').show();
-
-        CargarPedido();
-        return true;
-    }
-
-    if (data.ZonaValida == true) {
-        if (data.ObservacionInformativa == false) {
-            if (data.ProlSinStock == true) {
-                messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
-                CargarPedido();
-                return true;
-            }
-
-            messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
-            setTimeout(function () {
-                document.location = urlPedidoValidado;
-            }, 2000);
-            return true;
-        }
-
-        $('#modal-prol-botonesAceptarCancelar').show();
-        $('#modal-prol-botoneAceptar').hide();
-        $('#popup-observaciones-prol').show();
-
-        CargarPedido();
-        return true;
-    }
-
-    messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
-    CargarPedido();
-    return true;
 }
 
 function ValidarPermiso(obj) {

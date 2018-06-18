@@ -601,7 +601,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     CodigoConsultora = usuario.CodigoConsultora,
                     NombreConsultora = usuario.Nombre,
                     CodigoZona = usuario.CodigoZona,
-                    PROLSinStock = usuario.PROLSinStock,
                     MontoMinimo = usuario.MontoMinimoPedido,
                     MontoMaximo = usuario.MontoMaximoPedido,
                     ConsultoraNueva = usuario.ConsultoraNueva,

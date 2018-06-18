@@ -2,8 +2,6 @@
 var gap_Log = 0;
 var tipoOrigen = '2';
 
-var esPedidoValidado = false;
-
 var belcorp = belcorp || {}
 belcorp.mobile = belcorp.mobile || {}
 belcorp.mobile.pedido = belcorp.mobile.pedido || {}
@@ -889,7 +887,6 @@ function EjecutarPROL(cuvOfertaProl) {
 
 function EjecutarServicioPROL() {
     ShowLoading();
-
     jQuery.ajax({
         type: 'POST',
         url: urlEjecutarServicioPROL,
@@ -898,16 +895,14 @@ function EjecutarServicioPROL() {
         async: true,
         cache: false,
         success: function (response) {
-            if (checkTimeout(response)) {
-                RespuestaEjecutarServicioPROL(response);
-            }
+            if (!checkTimeout(response)) return;            
+            RespuestaEjecutarServicioPROL(response);
         },
         error: function (data, error) {
+            if (!checkTimeout(data)) return;
+
             CloseLoading();
-            if (checkTimeout(data)) {
-                var mensaje_ = "Por favor, vuelva a intentarlo";
-                messageInfoMalo('<h3>' + mensaje_ + '</h3>')
-            }
+            messageInfoMalo('<h3>Por favor, vuelva a intentarlo</h3>');
         }
     })
     .always(function () {
@@ -921,38 +916,35 @@ function EjecutarServicioPROLSinOfertaFinal() {
         type: 'POST',
         url: urlEjecutarServicioPROL,
         dataType: 'json',
+        data: { enviarCorreo: true },
         contentType: 'application/json; charset=utf-8',
         async: true,
         cache: false,
         success: function (response) {
-            if (checkTimeout(response)) return;
-
-            if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
+            if (!checkTimeout(response)) return;            
             RespuestaEjecutarServicioPROL(response, false);
         },
         error: function (data, error) {
+            if (!checkTimeout(data)) return;
+
             CloseLoading();
-            if (checkTimeout(data)) {
-                var mensaje_ = "Por favor, vuelva a intentarlo";
-                messageInfoMalo('<h3>' + mensaje_ + '</h3>')
-            }
+            messageInfoMalo('<h3>Por favor, vuelva a intentarlo</h3>')
         }
     });
 }
 
 function RespuestaEjecutarServicioPROL(response, inicio) {
+    if (!model.ValidacionInteractiva) {
+        messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
+        return false;
+    }
+
     inicio = inicio == null || inicio == undefined ? true : inicio;
     var tipoMensaje;
     var model = response.data;
     var montoEscala = model.MontoEscala;
     var montoPedido = model.Total - model.MontoDescuento;
 
-    if (!model.ValidacionInteractiva) {
-        messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
-        return false;
-    }
-
-    $("hdfPROLSinStock").val(model.ProlSinStock == true ? "1" : "0");
     $("hdfModificaPedido").val(model.EsModificacion == true ? "1" : "0");
 
     ConstruirObservacionesPROL(model);
@@ -983,15 +975,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     if (model.ZonaValida) {
         if (inicio) cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
 
-        if (cumpleOferta.resultado) esPedidoValidado = !response.data.ProlSinStock;
-        else {
-            if (response.data.ProlSinStock) {
-                messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
-                AnalyticsGuardarValidar(response);
-                CargarPedido();
-                return true;
-            }
-
+        if (!cumpleOferta.resultado) {
             messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
             if (estaRechazado == "2") cerrarMensajeEstadoPedido();
 
@@ -1027,12 +1011,8 @@ function ConstruirObservacionesPROL(model) {
         $('#popup-observaciones-prol .content_mensajeAlerta .titulo_compartir').html("¡LO <b>LOGRASTE</b>!");
         mensajePedido += "Tu pedido fue guardado con éxito.";
         $("#modal-prol-titulo").html(mensajePedido);
-
-        if (model.ProlSinStock) $("#modal-prol-contenido").html(mensajePedido);
-        else {
-            $("#modal-prol-contenido").html("Tu pedido fue guardado con éxito. Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
-            mensajePedido += " Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.";
-        }
+        $("#modal-prol-contenido").html("Tu pedido fue guardado con éxito. Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
+        mensajePedido += " Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.";
         return "-1 " + mensajePedido;
     }
 
@@ -1079,24 +1059,16 @@ function AceptarObsInformativas() {
         async: true,
         success: function (data) {
             CloseLoading();
-            if (checkTimeout(data)) {
-                if (data.success == true) {
-                    if ($('#hdfPROLSinStock').val() == 1) {
-                        $('#popup-observaciones-prol').hide();
-                        messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
-                        CargarPedido();
-                    } else
-                        document.location = urlPedidoValidado;
-                } else {
-                    messageInfoMalo(data.message);
-                }
-            }
+            if (!checkTimeout(data)) return;
+
+            if (data.success) location.href = urlPedidoValidado;
+            else messageInfoMalo(data.message);
         },
         error: function (data, error) {
             CloseLoading();
-            if (checkTimeout(data)) {
-                messageInfoMalo("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
-            }
+            if (!checkTimeout(data)) return;
+
+            messageInfoMalo("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
         }
     });
 }
@@ -1262,33 +1234,6 @@ function InsertarProducto(model, asyncX) {
 
     return retorno;
 };
-
-function MostrarMensajeProl(data) {
-    if (!data.Reserva) {
-        $('#modal-prol-botonesAceptarCancelar').hide();
-        $('#modal-prol-botoneAceptar').show();
-        $('#popup-observaciones-prol').show();
-
-        CargarPedido();
-        return true;
-    }
-
-    if (data.ZonaValida) {
-        if (data.ProlSinStock) {
-            messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
-            CargarPedido();
-        }
-        else {
-            messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
-            RedirigirPedidoValidado();
-        }
-        return true;
-    }
-
-    messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
-    CargarPedido();
-    return true;
-}
 
 function ValidarPermiso(obj) {
     var permiso = $(obj).attr("disabled") || "";

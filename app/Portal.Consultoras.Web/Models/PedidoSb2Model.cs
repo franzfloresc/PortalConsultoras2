@@ -180,8 +180,6 @@ namespace Portal.Consultoras.Web.Models
 
         public bool EsDiaProl { get; set; }
 
-        public bool ProlSinStock { get; set; }
-
         #endregion
 
         #region propiedades de userdata

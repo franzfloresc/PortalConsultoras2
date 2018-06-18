@@ -78,7 +78,6 @@ namespace Portal.Consultoras.Web.Models
         public List<ObservacionModel> ListaObservacionesPROL { get; set; }
         public List<PedidoActualizaModel> ListaPedidoActualizaModel { get; set; }
         public List<ServiceCliente.BECliente> DropDownListCliente { get; set; }
-        public bool PROLSinStock { get; set; }
         public int SubTipoOfertaSisID { get; set; }
         public int ModificacionPedidoProl { get; set; }
         public string DescripcionEstrategia { get; set; }
