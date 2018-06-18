@@ -7,7 +7,7 @@
 @{
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
     if (ViewBag.MostrarShowRoomBannerLateral == true) { showRoomBannerLateral = ViewBag.ShowRoomBannerLateral; }
-    
+
     OfertaDelDiaModel ofertaDelDia = ViewBag.MostrarOfertaDelDia == true ? ViewBag.OfertaDelDia ?? new OfertaDelDiaModel() : new OfertaDelDiaModel();
     ofertaDelDia.ConfiguracionContenedor = ofertaDelDia.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
 
@@ -17,31 +17,31 @@
 <!DOCTYPE html>
 <html lang="es-PE">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="description" content="SomosBelcorp Web Mobile" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="SomosBelcorp Web Mobile" />
 
-	<title>Somos Belcorp</title>
+    <title>Somos Belcorp</title>
 
-	@Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
 
-	<link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
 
-	@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
-	{
-		<link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
-		@Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
-		@Styles.Render("~/Content/Css/Mobile/Esika/Contenedor")
-	}
-	else
-	{
-		<link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-		@Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
-		@Styles.Render("~/Content/Css/Mobile/Lbel/Contenedor")
-	}
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
+        @Styles.Render("~/Content/Css/Mobile/Esika/Contenedor")
+    }
+    else
+    {
+        <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
+        @Styles.Render("~/Content/Css/Mobile/Lbel/Contenedor")
+    }
 
-	<link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
     <script type="text/javascript">
@@ -49,12 +49,12 @@
         var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
     </script>
 
-	@RenderSection("styles", required: false)
+    @RenderSection("styles", required: false)
 
-	@if (TempData.ContainsKey("PixelCodigoIso"))
-	{
-		<noscript id="noscript-pixel-image"></noscript>
-	}
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        <noscript id="noscript-pixel-image"></noscript>
+    }
 </head>
 <body>
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
@@ -97,7 +97,7 @@
         <br />
         <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
         @Html.Partial("_MobileMenuLateral")
-        <a  id="lnk-cerrar-sesion" role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
+        <a id="lnk-cerrar-sesion" role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
     </div>
 
     <div id="divAlertaPedidosOnline" class="alert-top alert-success alert-top-conline" style="display: none;">
@@ -368,6 +368,7 @@
         var emt_device = ' ';
         var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
 
+        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';        
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
@@ -419,7 +420,7 @@
                 window.OfertaDelDia.CargarODD();
 
                 $("div[id^='content_oferta_dia_mobile']").click(function () {
-                        document.location.href = urlOfertaDelDiaMobile;
+                    document.location.href = urlOfertaDelDiaMobile;
                 });
             });
         </script>
@@ -631,7 +632,7 @@
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}
 
-    @{ 
+    @{
         if (!esIngresoUnico)
         {
             <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">

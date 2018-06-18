@@ -3,11 +3,11 @@
 ***************************************************************************/
 
 @font-face {
-  font-family: 'iconos_cambio_pass';
-  src:  url('../fonts/icomoon/iconos-cambio-pass.eot?dhvc7r');
-  src:  url('../fonts/icomoon/iconos-cambio-pass.eot?dhvc7r#iefix') format('embedded-opentype'), url('../fonts/icomoon/iconos-cambio-pass.ttf?dhvc7r') format('truetype'), url('../fonts/icomoon/iconos-cambio-pass.woff?dhvc7r') format('woff'), url('../fonts/icomoon/iconos-cambio-pass.svg?dhvc7r#icomoon') format('svg');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'iconos_cambio_pass';
+    src: url('../fonts/icomoon/iconos-cambio-pass.eot?dhvc7r');
+    src: url('../fonts/icomoon/iconos-cambio-pass.eot?dhvc7r#iefix') format('embedded-opentype'), url('../fonts/icomoon/iconos-cambio-pass.ttf?dhvc7r') format('truetype'), url('../fonts/icomoon/iconos-cambio-pass.woff?dhvc7r') format('woff'), url('../fonts/icomoon/iconos-cambio-pass.svg?dhvc7r#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 #container, body, html {
@@ -330,16 +330,16 @@ span {
 .formbtn {
     text-align: right;
     float: left;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
-    opacity:1;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    opacity: 1;
 }
 
-    .formbtn:hover{
-        opacity:0.8;
+    .formbtn:hover {
+        opacity: 0.8;
     }
 
     .formbtn .btnCrear {
@@ -385,8 +385,8 @@ span {
 .user:before {
     content: '\e903';
     float: left;
-    font-weight:600;
-    margin-top:4px;
+    font-weight: 600;
+    margin-top: 4px;
 }
 
 .pass {
@@ -857,7 +857,17 @@ h1, h2, h3, h4, h5, h6 {
     font-family: lato;
     overflow-y: auto;
     position: fixed;
-    z-index: 1000;
+    z-index: 200;
+    width: 100%;
+    height: 100%;
+    background: url('../Images/popup_esika/fondo_pop_up.png');
+}
+
+#popup_chatDisabled {
+    font-family: lato;
+    overflow-y: auto;
+    position: fixed;
+    z-index: 220;
     width: 100%;
     height: 100%;
     background: url('../Images/popup_esika/fondo_pop_up.png');
@@ -870,29 +880,13 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     height: 100%;
     background: url('../Images/popup_esika/fondo_pop_up.png');
-    overflow-y:scroll;
+    overflow-y: scroll;
 }
 
 #popup_olvidasteContrasenia .formcontrol {
     width: 100%;
 }
 
-
-        #popup_olvidasteContrasenia .formcontrol input::-webkit-input-placeholder {
-            color: #959595;
-        }
-
-        #popup_olvidasteContrasenia .formcontrol input:-moz-placeholder {
-            color: #959595;
-        }
-
-        #popup_olvidasteContrasenia .formcontrol input::-moz-placeholder {
-            color: #959595;
-        }
-
-        #popup_olvidasteContrasenia .formcontrol input:-ms-input-placeholder {
-            color: #959595;
-        }
 
     #popup_olvidasteContrasenia .formcontrol input::-webkit-input-placeholder {
         color: #959595;
@@ -903,42 +897,58 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     #popup_olvidasteContrasenia .formcontrol input::-moz-placeholder {
-    	color: #959595;
+        color: #959595;
     }
-
-    #popup_olvidasteContrasenia .user input:-ms-input-placeholder {
-        color: #838383;
-    }
-
-.iconoUsuario:before{
-    position:relative;
-    top:3px;
-    color: #838383;
-}
-
-.iconoUsuarioActivo:before{
-    color:#000;
-}
-
-#popup_olvidasteContrasenia .campo_correoElectronico_activo::-webkit-input-placeholder {
-    color: #000!important;
-}
-
-#popup_olvidasteContrasenia .campo_correoElectronico_activo:-moz-placeholder {
-    color: #000!important;
-}
-
-#popup_olvidasteContrasenia .campo_correoElectronico_activo::-moz-placeholder {
-    color: #000!important;
-}
-
-#popup_olvidasteContrasenia .campo_correoElectronico_activo:-ms-input-placeholder {
-    color: #000!important;
-}
 
     #popup_olvidasteContrasenia .formcontrol input:-ms-input-placeholder {
         color: #959595;
     }
+
+    #popup_olvidasteContrasenia .formcontrol input::-webkit-input-placeholder {
+        color: #959595;
+    }
+
+    #popup_olvidasteContrasenia .formcontrol input:-moz-placeholder {
+        color: #959595;
+    }
+
+    #popup_olvidasteContrasenia .formcontrol input::-moz-placeholder {
+        color: #959595;
+    }
+
+#popup_olvidasteContrasenia .user input:-ms-input-placeholder {
+    color: #838383;
+}
+
+.iconoUsuario:before {
+    position: relative;
+    top: 3px;
+    color: #838383;
+}
+
+.iconoUsuarioActivo:before {
+    color: #000;
+}
+
+#popup_olvidasteContrasenia .campo_correoElectronico_activo::-webkit-input-placeholder {
+    color: #000 !important;
+}
+
+#popup_olvidasteContrasenia .campo_correoElectronico_activo:-moz-placeholder {
+    color: #000 !important;
+}
+
+#popup_olvidasteContrasenia .campo_correoElectronico_activo::-moz-placeholder {
+    color: #000 !important;
+}
+
+#popup_olvidasteContrasenia .campo_correoElectronico_activo:-ms-input-placeholder {
+    color: #000 !important;
+}
+
+#popup_olvidasteContrasenia .formcontrol input:-ms-input-placeholder {
+    color: #959595;
+}
 
 
 
@@ -948,12 +958,12 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 auto;
     position: relative;
     background: white;
-    padding-top:29px;
+    padding-top: 29px;
     padding-bottom: 55px;
-    margin-bottom:30px;
+    margin-bottom: 30px;
 }
 
-.content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia {
+.content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia  {
     width: 87%;
     max-width: 588px;
     min-height: 306px;
@@ -961,28 +971,41 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 auto;
     position: relative;
     background: white;
-    padding-top:29px;
+    padding-top: 29px;
     padding-bottom: 44px;
-    margin-bottom:30px;
+    margin-bottom: 30px;
 }
 
-.content_bg_olvidasteContrasenia{
+.content_bg_chatdisabled {
+    width: 87%;
+    max-width: 588px;
+    min-height: 166px;
+    top: 20%;
+    margin: 0 auto;
+    position: relative;
+    background: white;
+    /*padding-top: 29px;*/
+    padding-bottom: 44px;
+    margin-bottom: 30px;
+}
+
+.content_bg_olvidasteContrasenia {
     top: 18.5%;
 }
 
-.content_bg_cambioContrasenia{
-    top:18.5%;
-    padding-bottom:43px;
+.content_bg_cambioContrasenia, .content_bg_chatdisabled {
+    top: 18.5%;
+    padding-bottom: 43px;
 }
 
-.contenido_mensaje{
+.contenido_mensaje {
     display: inline-block;
     margin-bottom: 16px;
 }
 
-.contenido_mensaje.texto_bold{
-    font-weight:700;
-}
+    .contenido_mensaje.texto_bold {
+        font-weight: 700;
+    }
 
 .content_bg_contraseniaEnviada {
     display: block;
@@ -993,28 +1016,28 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 auto;
     position: relative;
     background: white;
-    padding-left:3%;
-    padding-right:3%;
+    padding-left: 3%;
+    padding-right: 3%;
     padding-bottom: 34px;
     padding-top: 10px;
     box-sizing: border-box;
-    text-align:center;
-    margin-bottom:30px;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-.contenedor_cabecera_popup{
-    display:block;
-    margin-bottom:40px;
+.contenedor_cabecera_popup {
+    display: block;
+    margin-bottom: 40px;
 }
 
-#popup3{
-    display:none;
+#popup3 {
+    display: none;
 }
 
 #header, #header_cambioContrasenia {
     height: 55px;
     width: 100%;
-    font-family:'Lato';
+    font-family: 'Lato';
     color: black;
     line-height: 55px;
     text-align: left;
@@ -1023,26 +1046,26 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
     letter-spacing: .4px;
     font-size: 11pt;
-    position:relative;
+    position: relative;
     border-bottom: 1px solid black;
 }
 
-#header > span, #header_cambioContrasenia > span{
-    display:block;
-    letter-spacing:1px;
+    #header > span, #header_cambioContrasenia > span {
+        display: block;
+        letter-spacing: 1px;
+    }
+
+.content_bg_1 #header {
+    padding-left: 15.5%;
 }
 
-.content_bg_1 #header{
-    padding-left:15.5%;
+#header_cambioContrasenia {
+    padding-left: 6.6%;
 }
 
-#header_cambioContrasenia{
-    padding-left:6.6%;
-}
-
-#header .texto_bold, #header_cambioContrasenia .texto_bold{
-    font-weight:700;
-}
+    #header .texto_bold, #header_cambioContrasenia .texto_bold {
+        font-weight: 700;
+    }
 
 .indicador_lbel {
     background: white url('../Images/popup_esika/bg_lbel.png') top left no-repeat;
@@ -1052,9 +1075,9 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: -1px;
 }
 
-.content_bg_1 .mensaje_pop_up{
-    margin-top:40px;
-    margin-bottom:44px;
+.content_bg_1 .mensaje_pop_up {
+    margin-top: 40px;
+    margin-bottom: 44px;
 }
 
 .mensaje_pop_up {
@@ -1064,7 +1087,7 @@ h1, h2, h3, h4, h5, h6 {
     color: black;
     margin-left: 15%;
     margin-right: 15%;
-    font-family:'Lato';
+    font-family: 'Lato';
     line-height: 15pt;
     font-weight: 400;
     text-align: left;
@@ -1072,101 +1095,101 @@ h1, h2, h3, h4, h5, h6 {
 
 .mensaje_pop_up2 {
     margin-top: 39px;
-    margin-bottom:26px;
+    margin-bottom: 26px;
     font-size: 11pt;
     color: black;
     margin-left: 20.2%;
     margin-right: 20.2%;
-    font-family:'Lato';
+    font-family: 'Lato';
     line-height: 15pt;
     font-weight: 400;
     text-align: left;
 }
 
-.contenedor_opciones{
-    display:block;
-    text-align:center;
+.contenedor_opciones {
+    display: block;
+    text-align: center;
 }
 
-#popup_cambioContrasenia .mensaje_popup_cambioContrasenia{
-    margin-bottom:20px;
+#popup_cambioContrasenia .mensaje_popup_cambioContrasenia {
+    margin-bottom: 20px;
     margin-right: 6%;
     margin-left: 6%;
-    margin-top:17px;
+    margin-top: 17px;
 }
 
-.opciones_recuperacionContrasenia{
+.opciones_recuperacionContrasenia {
     display: inline-block;
     vertical-align: top;
     width: 27%;
     height: 137px;
     border: 1px solid #959595;
-    margin-left:6px;
+    margin-left: 6px;
     margin-right: 3%;
     text-align: left;
     cursor: pointer;
 }
 
-.opciones_recuperacionContrasenia:nth-child(3n){
-    background-color: rgba(242, 242, 242, 0.5);
-    border:1px solid rgba(242, 242, 242, 0.5);
-}
+    .opciones_recuperacionContrasenia:nth-child(3n) {
+        background-color: rgba(242, 242, 242, 0.5);
+        border: 1px solid rgba(242, 242, 242, 0.5);
+    }
 
 /*.opciones_recuperacionContrasenia:nth-child(3n):hover{
     border:none;
     cursor:default;
 }*/
 
-.opcion_correoElectronico, .opcion_chateaConNosotros{
+.opcion_correoElectronico, .opcion_chateaConNosotros {
     margin-bottom: 20px;
 }
 
-.opcion_chateaConNosotros, .contenedor_telefonos_desktop{
-    margin-left:0;
+.opcion_chateaConNosotros, .contenedor_telefonos_desktop {
+    margin-left: 0;
 }
 
-.contenedor_telefonos_desktop{
-    margin-right:0;
+.contenedor_telefonos_desktop {
+    margin-right: 0;
 }
 
 .icono_mail, .icono_chateaConNosotros, .icono_llamanos {
     width: 100%;
-    font-family:'iconos_cambio_pass';
-    line-height:43px;
-    padding:10px 0 0 0;
+    font-family: 'iconos_cambio_pass';
+    line-height: 43px;
+    padding: 10px 0 0 0;
 }
 
-.bloque_texto_opcionRecuperacionContrasenia{
-    padding:3px 0 0 0;
+.bloque_texto_opcionRecuperacionContrasenia {
+    padding: 3px 0 0 0;
 }
 
-.icono_mail, .icono_chateaConNosotros, .icono_llamanos, .bloque_texto_opcionRecuperacionContrasenia{
+.icono_mail, .icono_chateaConNosotros, .icono_llamanos, .bloque_texto_opcionRecuperacionContrasenia {
     display: block;
     vertical-align: middle;
     height: 56px;
     box-sizing: border-box;
-    text-align:center;
+    text-align: center;
 }
 
-.icono_mail:before{
-    content: "\e61c";
-    font-size:17px;
-}
+    .icono_mail:before {
+        content: "\e61c";
+        font-size: 17px;
+    }
 
-.icono_chateaConNosotros:before{
-    content: "\e60c";
-    font-size: 32px;
-}
+    .icono_chateaConNosotros:before {
+        content: "\e60c";
+        font-size: 32px;
+    }
 
-.icono_llamanos:before{
-    content: "\e63c";
-    font-size:45px;
-}
+    .icono_llamanos:before {
+        content: "\e63c";
+        font-size: 45px;
+    }
 
-.icono_mail:before, .icono_chateaConNosotros:before, .icono_llamanos:before{
-    color: #642f80;
-    padding: 0 13px;
-}
+    .icono_mail:before, .icono_chateaConNosotros:before, .icono_llamanos:before {
+        color: #642f80;
+        padding: 0 13px;
+    }
 
 .contenido_mensaje.texto_opcionRecuperacion {
     text-align: center;
@@ -1176,49 +1199,49 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 15px;
 }
 
-.texto_mayusc{
-    text-transform:uppercase;
+.texto_mayusc {
+    text-transform: uppercase;
     margin-bottom: 6px;
     padding: 0 4px;
     font-weight: 600;
 }
 
-.texto_llamanos_mayusc{
+.texto_llamanos_mayusc {
     margin-top: 6px;
     margin-bottom: 14px;
 }
 
-.texto_opcionRecuperacion.tamanio_fuente{
-    font-size:12px;
-    font-weight:300;
-    text-align:center;
-    overflow-wrap:break-word;
+.texto_opcionRecuperacion.tamanio_fuente {
+    font-size: 12px;
+    font-weight: 300;
+    text-align: center;
+    overflow-wrap: break-word;
 }
 
-.texto_opcionRecuperacion.tamanio_fuente.horarios_atencion_chat, .texto_opcionRecuperacion.tamanio_fuente.telefonos_desktop{
-    text-align:center;
-}
+    .texto_opcionRecuperacion.tamanio_fuente.horarios_atencion_chat, .texto_opcionRecuperacion.tamanio_fuente.telefonos_desktop {
+        text-align: center;
+    }
 
-.correo_electronico_consult{
+.correo_electronico_consult {
     padding: 0 7px;
 }
 
-.horarios_atencion_chat{
-    padding:0 7px;
-    text-align:center;
+.horarios_atencion_chat {
+    padding: 0 7px;
+    text-align: center;
 }
 
-.telefonos_desktop{
-    padding:0 12px;
+.telefonos_desktop {
+    padding: 0 12px;
 }
 
-.contenedor_telefonos, .telefonos_centrales{
-    display:block;
-    text-align:center;
+.contenedor_telefonos, .telefonos_centrales {
+    display: block;
+    text-align: center;
 }
 
-.contenedor_telefonos_mobile{
-    display:none;
+.contenedor_telefonos_mobile {
+    display: none;
 }
 
 .titulo_llamanos {
@@ -1228,15 +1251,15 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 20px;
 }
 
-.telefono_central{
+.telefono_central {
     display: inline-block;
     margin-right: 23px;
-    vertical-align:top;
+    vertical-align: top;
 }
 
-.telefono_central:last-child{
-    margin-right:0px;
-}
+    .telefono_central:last-child {
+        margin-right: 0px;
+    }
 
 .icono_tel {
     display: block;
@@ -1252,10 +1275,10 @@ h1, h2, h3, h4, h5, h6 {
     box-sizing: border-box;
 }
 
-.icono_tel:before{
-    content: "\e62c";
-    color: #FFF;
-}
+    .icono_tel:before {
+        content: "\e62c";
+        color: #FFF;
+    }
 
 /*.icono_tel img {
     display: block;
@@ -1266,23 +1289,23 @@ h1, h2, h3, h4, h5, h6 {
     left: -1px;
 }*/
 
-.num_central{
-    display:block;
-    color:#000;
-    font-size:11.4px;
-    text-transform:uppercase;
+.num_central {
+    display: block;
+    color: #000;
+    font-size: 11.4px;
+    text-transform: uppercase;
 }
 
-.primer_num_central{
-    width:60px;
+.primer_num_central {
+    width: 60px;
 }
 
-.otros_num_centrales{
-    width:70px;
+.otros_num_centrales {
+    width: 70px;
 }
 
-.opciones_recuperacionContrasenia:hover, .opciones_recuperacionContrasenia:focus, .opciones_recuperacionContrasenia:active{
-    border:1px solid #8931b7;
+.opciones_recuperacionContrasenia:hover, .opciones_recuperacionContrasenia:focus, .opciones_recuperacionContrasenia:active {
+    border: 1px solid #8931b7;
 }
 
 .deshabilitar_opcion_correo {
@@ -1290,11 +1313,11 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0.45;
 }
 
-.deshabilitar_opcion_correo .icono_mail:before {
-    color: #5a5a5a;
-}
+    .deshabilitar_opcion_correo .icono_mail:before {
+        color: #5a5a5a;
+    }
 
-.opciones_recuperacionContrasenia.deshabilitar_opcion_correo:hover, .opciones_recuperacionContrasenia.deshabilitar_opcion_correo:focus, .opciones_recuperacionContrasenia.deshabilitar_opcion_correo:active{
+.opciones_recuperacionContrasenia.deshabilitar_opcion_correo:hover, .opciones_recuperacionContrasenia.deshabilitar_opcion_correo:focus, .opciones_recuperacionContrasenia.deshabilitar_opcion_correo:active {
     border: 1px solid #959595;
 }
 
@@ -1303,7 +1326,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0;
     font-size: 18px;
     color: black;
-    font-family:'Lato';
+    font-family: 'Lato';
     line-height: 25px;
     font-weight: 400;
     text-align: center;
@@ -1311,31 +1334,31 @@ h1, h2, h3, h4, h5, h6 {
 
 .mensaje_pop_up_contraseniaEnviada p {
     font-size: 14px;
-    font-family:'Lato';
+    font-family: 'Lato';
     color: black;
     text-align: center;
-    display:block;
-    margin:0 auto 3px auto;
-    padding:0;
+    display: block;
+    margin: 0 auto 3px auto;
+    padding: 0;
 }
 
 .mensaje_pop_up_contraseniaEnviada strong {
     font-size: 14px;
-    font-family:'Lato';
+    font-family: 'Lato';
     color: black;
 }
 
 .icono_correo {
     margin: 0 auto;
     width: 120px;
-    height:75px;
-    background-image:url(../../../Images/Login2/Icons/icono-nuevo-correo-lbel.svg);
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:100%;
+    height: 75px;
+    background-image: url(../../../Images/Login2/Icons/icono-nuevo-correo-lbel.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
-    /*.icono_correo img {
+/*.icono_correo img {
         width: 100%;
         height: auto;
     }*/
@@ -1626,7 +1649,7 @@ h1, h2, h3, h4, h5, h6 {
         top: 12%;
     }
 
-    .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia {
+    .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia, .content_bg_chatdisabled {
         width: 75%;
         top: 12%;
     }
@@ -1788,7 +1811,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-@media only screen and (max-width:991px){
+@media only screen and (max-width:991px) {
 
     .mensaje_pop_up2 {
         margin-left: 10%;
@@ -1800,14 +1823,13 @@ h1, h2, h3, h4, h5, h6 {
         margin-right: 10%;
     }
 
-    #header{
-        padding-left: 6.3%!important;
+    #header {
+        padding-left: 6.3% !important;
     }
 
-    .content_bg_1 #header{
-        padding-left:16%!important;
+    .content_bg_1 #header {
+        padding-left: 16% !important;
     }
-
 }
 
 @media only screen and (max-width : 768px) {
@@ -1816,13 +1838,13 @@ h1, h2, h3, h4, h5, h6 {
         display: none;
     }
 
-    .contenedor_telefonos_mobile{
-        display:block;
+    .contenedor_telefonos_mobile {
+        display: block;
     }
 
-    .opciones_recuperacionContrasenia{
+    .opciones_recuperacionContrasenia {
         display: block;
-        width:88%;
+        width: 88%;
         height: 69px;
         margin-left: 6%;
         margin-right: 6%;
@@ -1830,40 +1852,40 @@ h1, h2, h3, h4, h5, h6 {
 
     .icono_mail, .icono_chateaConNosotros, .bloque_texto_opcionRecuperacionContrasenia {
         display: inline-block;
-        height:69px;
-        padding:13px 0;
+        height: 69px;
+        padding: 13px 0;
     }
 
     .icono_mail, .icono_chateaConNosotros {
         width: 19%;
     }
 
-    .icono_chateaConNosotros:before{
-        font-size: 34px;
-    }
+        .icono_chateaConNosotros:before {
+            font-size: 34px;
+        }
 
-    .contenido_mensaje{
+    .contenido_mensaje {
         display: block;
         margin-bottom: 0;
     }
 
-    .contenido_mensaje.texto_opcionRecuperacion {
-        text-align: left;
-        font-size:12px;
-        line-height:22px;
+        .contenido_mensaje.texto_opcionRecuperacion {
+            text-align: left;
+            font-size: 12px;
+            line-height: 22px;
+        }
+
+    .texto_mayusc {
+        margin-bottom: 0;
+        padding: 0;
     }
 
-    .texto_mayusc{
-        margin-bottom:0;
-        padding:0;
+    .texto_opcionRecuperacion.tamanio_fuente {
+        font-weight: 400;
     }
 
-    .texto_opcionRecuperacion.tamanio_fuente{
-        font-weight:400;
-    }
-
-    .correo_electronico_consult, .horarios_atencion_chat{
-        padding:0;
+    .correo_electronico_consult, .horarios_atencion_chat {
+        padding: 0;
     }
 
     #pop-up-body {
@@ -1878,12 +1900,12 @@ h1, h2, h3, h4, h5, h6 {
         width: 75%;
     }
 
-    .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia {
+    .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia, .content_bg_chatdisabled {
         width: 86%;
     }
 
-    .content_bg_cambioContrasenia{
-        top:9.5%;
+    .content_bg_cambioContrasenia, .content_bg_chatdisabled {
+        top: 9.5%;
     }
 
     .content_bg_contraseniaEnviada {
@@ -1897,15 +1919,15 @@ h1, h2, h3, h4, h5, h6 {
         margin-bottom: 20px;
     }
 
-    .telefono_central{
+    .telefono_central {
         display: inline-block;
         margin-right: 23px;
-        vertical-align:top;
+        vertical-align: top;
     }
 
-    .telefono_central:last-child{
-        margin-right:0px;
-    }
+        .telefono_central:last-child {
+            margin-right: 0px;
+        }
 
     .icono_tel {
         display: block;
@@ -1921,10 +1943,10 @@ h1, h2, h3, h4, h5, h6 {
         box-sizing: border-box;
     }
 
-    .icono_tel:before{
-        content: "\e62c";
-        color: #FFF;
-    }
+        .icono_tel:before {
+            content: "\e62c";
+            color: #FFF;
+        }
 
     /*.icono_tel img {
         display: block;
@@ -1935,54 +1957,57 @@ h1, h2, h3, h4, h5, h6 {
         left: -1px;
     }*/
 
-    .num_central{
-        display:block;
-        color:#000;
+    .num_central {
+        display: block;
+        color: #000;
         max-width: 80px;
-        font-size:11.4px;
-        text-transform:uppercase;
+        font-size: 11.4px;
+        text-transform: uppercase;
     }
 
-    .primer_num_central{
-        width:60px;
+    .primer_num_central {
+        width: 60px;
     }
 
-    .otros_num_centrales{
-        width:70px;
+    .otros_num_centrales {
+        width: 70px;
     }
-
 }
 
 @media only screen and (max-width : 595px) {
 
-    .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia {
+    .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia .content_bg_chatdisabled {
         width: 95%;
     }
 }
 
 @media only screen and (max-width : 480px) {
 
-    .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia {
+    .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia .content_bg_chatdisabled {
         width: 90%;
     }
 
-        .content_bg_olvidasteContrasenia #header, .content_bg_cambioContrasenia #header_cambioContrasenia {
+        .content_bg_olvidasteContrasenia #header, .content_bg_cambioContrasenia #header_cambioContrasenia, .content_bg_chatdisabled #header-chatdisabled {
             padding-left: 5%;
         }
 
-        .content_bg_olvidasteContrasenia #header{
+        .content_bg_olvidasteContrasenia #header {
             font-size: 10pt;
         }
 
-        .content_bg_cambioContrasenia #header_cambioContrasenia{
-            font-size: 11pt;
-        }
-
-    #popup_olvidasteContrasenia .pais select, #popup_olvidasteContrasenia .user input{
-        font-size:14px;
+    .content_bg_cambioContrasenia #header_cambioContrasenia {
+        font-size: 11pt;
     }
 
-    #popup_olvidasteContrasenia .user:before{
+    .content_bg_chatdisabled #header-chatdisabled {
+        font-size: 11pt;
+    }
+
+    #popup_olvidasteContrasenia .pais select, #popup_olvidasteContrasenia .user input {
+        font-size: 14px;
+    }
+
+    #popup_olvidasteContrasenia .user:before {
         position: relative;
         bottom: -2px;
     }
@@ -2091,7 +2116,7 @@ h1, h2, h3, h4, h5, h6 {
     #popup_olvidasteContrasenia .formCont {
         margin-left: 8%;
         margin-right: 8%;
-        margin-top:33px;
+        margin-top: 33px;
         display: block;
     }
 
@@ -2629,11 +2654,11 @@ h1, h2, h3, h4, h5, h6 {
 
 /* HD-1254 - OLVIDÉ CONTRASEÑA DESKTOP Y MOBILE */
 
-.campoPais{
-    width:93%!important;
-    background-image:url(../../../Images/Login2/Icons/arrow-select.svg)!important;
-    background-position:99% center!important;
-    background-repeat:no-repeat!important;
+.campoPais {
+    width: 93% !important;
+    background-image: url(../../../Images/Login2/Icons/arrow-select.svg) !important;
+    background-position: 99% center !important;
+    background-repeat: no-repeat !important;
 }
 
 .content_bg_opciones_recuperacion_contrasenia {
@@ -2647,11 +2672,11 @@ h1, h2, h3, h4, h5, h6 {
     padding-bottom: 25px;
 }
 
-.content_bg_opciones_recuperacion_contrasenia #header{
-    padding-left: 35px;
-}
+    .content_bg_opciones_recuperacion_contrasenia #header {
+        padding-left: 35px;
+    }
 
-.fondo_sesgado{
+.fondo_sesgado {
     display: none;
     position: absolute;
     top: 0;
@@ -2666,23 +2691,23 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-transform: skew(15deg);
 }
 
-.content_bg_opciones_recuperacion_contrasenia .mensaje_pop_up2{
+.content_bg_opciones_recuperacion_contrasenia .mensaje_pop_up2 {
     margin-top: 26.5px;
     margin-bottom: 25px;
-    font-size:14px;
-    margin-left:15%;
-    margin-right:15%;
+    font-size: 14px;
+    margin-left: 15%;
+    margin-right: 15%;
 }
 
-.opciones_recuperacion_contrasenia{
+.opciones_recuperacion_contrasenia {
     display: block;
-    text-align:center;
+    text-align: center;
     margin-bottom: 25px;
 }
 
 .content_bg_opciones_recuperacion_contrasenia .mensaje_pop_up2,
 .opciones_recuperacion_contrasenia,
-.info_mas_opciones{
+.info_mas_opciones {
     margin-left: 6%;
     margin-right: 6%;
 }
@@ -2691,7 +2716,7 @@ h1, h2, h3, h4, h5, h6 {
     display: inline-block;
     vertical-align: top;
     width: 230px;
-    margin-left:11px;
+    margin-left: 11px;
     margin-right: 11px;
     background: #FFF;
     text-align: center;
@@ -2706,22 +2731,22 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-transition: all 0.3s ease;
 }
 
-.opcion_recuperacion_contrasenia.opcionCorreo,
-.opcion_recuperacion_contrasenia.opcionSms{
-    border: 1px solid #e7e1e1;
-    height: 160px;
-    padding-top: 25px;
-    box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
-    -moz-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
-    -o-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
-    -ms-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
-    -webkit-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
-}
+    .opcion_recuperacion_contrasenia.opcionCorreo,
+    .opcion_recuperacion_contrasenia.opcionSms {
+        border: 1px solid #e7e1e1;
+        height: 160px;
+        padding-top: 25px;
+        box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
+        -moz-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
+        -o-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
+        -ms-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
+        -webkit-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
+    }
 
 .opcion_desactivada {
     opacity: 0.5;
     background: #f1f1f1;
-    pointer-events:none;
+    pointer-events: none;
 }
 
 .opcion_recuperacion_contrasenia:hover {
@@ -2734,15 +2759,15 @@ h1, h2, h3, h4, h5, h6 {
 .icono_chatea_con_nosotros,
 .icono_llamada,
 .icono_reloj,
-.icono_reloj_2{
+.icono_reloj_2 {
     display: block;
     margin: 0 auto;
 }
 
 .icono_chatea_con_nosotros,
-.icono_llamada{
-    width:62.8px;
-    height:42.1px;
+.icono_llamada {
+    width: 62.8px;
+    height: 42.1px;
 }
 
 .icono_correo_electronico.mb-15,
@@ -2750,146 +2775,146 @@ h1, h2, h3, h4, h5, h6 {
 .icono_chatea_con_nosotros,
 .icono_llamada,
 .icono_reloj.mb-15,
-.icono_reloj_2.mb-15{
-    margin-bottom:15px;
+.icono_reloj_2.mb-15 {
+    margin-bottom: 15px;
 }
 
-.icono_correo_electronico{
-    width:57.6px;
-    background-image:url(../../../Images/Login2/Icons/icono-mail-lbel.svg);
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:100%;
+.icono_correo_electronico {
+    width: 57.6px;
+    background-image: url(../../../Images/Login2/Icons/icono-mail-lbel.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
-.icono_sms{
+.icono_sms {
     width: 55.6px;
-    background-image:url(../../../Images/Login2/Icons/icono-mensaje-sms-lbel.svg);
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:100%;
+    background-image: url(../../../Images/Login2/Icons/icono-mensaje-sms-lbel.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 .icono_correo_electronico,
-.icono_sms{
-    height:45px;
-    margin-bottom:19px;
+.icono_sms {
+    height: 45px;
+    margin-bottom: 19px;
 }
 
-.icono_chatea_con_nosotros{
-    width:42.1px;
-    height:61.8px;
-    background-image:url(../../../Images/Login2/Icons/icono-chatea-con-nosotros-lbel.svg);
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:100%;
+.icono_chatea_con_nosotros {
+    width: 42.1px;
+    height: 61.8px;
+    background-image: url(../../../Images/Login2/Icons/icono-chatea-con-nosotros-lbel.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
-.icono_llamada{
-    width:51.9px;
-    height:51.7px;
-    background-image:url(../../../Images/Login2/Icons/icono-llamanos-lbel.svg);
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:100%;
+.icono_llamada {
+    width: 51.9px;
+    height: 51.7px;
+    background-image: url(../../../Images/Login2/Icons/icono-llamanos-lbel.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 .icono_reloj,
-.icono_reloj_2{
-    background-image:url(../../../Images/Login2/Icons/icono-reloj-lbel.svg);
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:100%;
+.icono_reloj_2 {
+    background-image: url(../../../Images/Login2/Icons/icono-reloj-lbel.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
-.icono_reloj{
-    width:60px;
-    height:60px;
+.icono_reloj {
+    width: 60px;
+    height: 60px;
 }
 
-.icono_reloj_2{
-    width:54px;
-    height:54px;
+.icono_reloj_2 {
+    width: 54px;
+    height: 54px;
 }
 
-.icono_mensaje_sms{
-    width:77px;
-    height:62px;
-    background-image:url(../../../Images/Login2/Icons/icono-sms-lbel.svg);
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:100%;
+.icono_mensaje_sms {
+    width: 77px;
+    height: 62px;
+    background-image: url(../../../Images/Login2/Icons/icono-sms-lbel.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
-.icono_alerta_error{
-    display:inline-block;
-    vertical-align:middle;
-    width:10px;
-    height:10px;
+.icono_alerta_error {
+    display: inline-block;
+    vertical-align: middle;
+    width: 10px;
+    height: 10px;
     margin-left: -8px;
     margin-right: 2px;
     margin-bottom: 3px;
-    background-image:url(../../../Images/Login2/Icons/icono-alerta-error-lbel.png);
-    background-repeat:no-repeat;
-    background-size:100%;
+    background-image: url(../../../Images/Login2/Icons/icono-alerta-error-lbel.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 .contenedor_info_datos,
 .contenedor_solo_una_opcion,
-.opcionLlamada_desktop{
-    display:block;
+.opcionLlamada_desktop {
+    display: block;
 }
 
-.opcionLlamada_mobile{
-    display:none;
+.opcionLlamada_mobile {
+    display: none;
 }
 
 .titulo_opcion_correo,
 .titulo_opcion_sms,
 .titulo_opcion_chatea_con_nosotros,
 .titulo_opcion_llamada,
-.titulo_opcion_horarios_atencion{
-    text-transform:uppercase;
-    letter-spacing:0.5px;
-    color:#000;
+.titulo_opcion_horarios_atencion {
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #000;
 }
 
 .titulo_opcion_correo,
 .titulo_opcion_sms,
 .titulo_opcion_chatea_con_nosotros,
-.titulo_opcion_horarios_atencion{
-    margin-bottom:8px;
+.titulo_opcion_horarios_atencion {
+    margin-bottom: 8px;
 }
 
-.titulo_opcion_llamada{
-    margin-bottom:10px;
+.titulo_opcion_llamada {
+    margin-bottom: 10px;
 }
 
 .correo_electronico,
 .numero_celular,
 .horarios_atencion,
 .horarios_atencion_2,
-.telefonos_central{
+.telefonos_central {
     display: block;
-    font-weight:bold;
-    letter-spacing:0.2px;
-    color:#000;
-}
-
-.horarios_atencion .mb-3,
-.horarios_atencion_2 .mb-3{
-    margin-bottom:3px;
+    font-weight: bold;
     letter-spacing: 0.2px;
+    color: #000;
 }
 
-.telefonos_central > span{
-    display:block;
-    margin-bottom:3px;
-}
+    .horarios_atencion .mb-3,
+    .horarios_atencion_2 .mb-3 {
+        margin-bottom: 3px;
+        letter-spacing: 0.2px;
+    }
+
+    .telefonos_central > span {
+        display: block;
+        margin-bottom: 3px;
+    }
 
 .btn_enviar_email,
 .btn_enviar_sms,
-.btn_ingresar_chat{
+.btn_ingresar_chat {
     display: block;
     margin: 15px auto 0 auto;
     border: none;
@@ -2903,77 +2928,77 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     font-size: 13px;
     letter-spacing: 1px;
-    opacity:1;
-    cursor:pointer;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
+    opacity: 1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
 }
 
-.btn_enviar_email:hover,
-.btn_enviar_sms:hover,
-.btn_ingresar_chat:hover{
-    opacity:0.8;
+    .btn_enviar_email:hover,
+    .btn_enviar_sms:hover,
+    .btn_ingresar_chat:hover {
+        opacity: 0.8;
+    }
+
+.info_mas_opciones {
+    text-align: center;
+    color: #000;
+    font-size: 13px;
+    letter-spacing: 0.5px;
 }
 
-.info_mas_opciones{
-    text-align:center;
-    color:#000;
-    font-size:13px;
-    letter-spacing:0.5px;
-}
-
-.info_mas_opciones a,
-.accion_alternativa_posterior_envio_password{
-    color:#642f80;
-    text-decoration:underline;
-    font-weight:600;
-    opacity:1;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
-}
+    .info_mas_opciones a,
+    .accion_alternativa_posterior_envio_password {
+        color: #642f80;
+        text-decoration: underline;
+        font-weight: 600;
+        opacity: 1;
+        transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+    }
 
 .texto_no_llego_mensaje,
-.accion_alternativa_posterior_envio_password{
-    display:inline-block;
-    vertical-align:middle;
+.accion_alternativa_posterior_envio_password {
+    display: inline-block;
+    vertical-align: middle;
 }
 
-.texto_no_llego_mensaje{
-    color:#000;
-    font-weight:400;
+.texto_no_llego_mensaje {
+    color: #000;
+    font-weight: 400;
 }
 
 .info_mas_opciones a:hover,
-.accion_alternativa_posterior_envio_password:hover{
-    opacity:0.8;
+.accion_alternativa_posterior_envio_password:hover {
+    opacity: 0.8;
 }
 
-#correoDestino{
-    margin-bottom:47px;
+#correoDestino {
+    margin-bottom: 47px;
 }
 
 .accion_alternativa_posterior_envio_password {
     width: auto;
     text-align: center;
-    margin-bottom:3px;
+    margin-bottom: 3px;
 }
 
-.flecha_ver_mas_opciones{
-    display:inline-block;
-    vertical-align:middle;
-    width:6px;
-    height:10px;
-    margin-left:1px;
-    margin-bottom:1px;
-    background-image:url(../../../Images/Login2/Icons/flecha-ver-mas-opciones-lbel.svg);
-    background-repeat:no-repeat;
-    background-size:100%;
+.flecha_ver_mas_opciones {
+    display: inline-block;
+    vertical-align: middle;
+    width: 6px;
+    height: 10px;
+    margin-left: 1px;
+    margin-bottom: 1px;
+    background-image: url(../../../Images/Login2/Icons/flecha-ver-mas-opciones-lbel.svg);
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 .btn_regresar_ver_otras_opciones {
@@ -2990,47 +3015,47 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    opacity:1;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
+    opacity: 1;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
 }
 
-.btn_regresar_ver_otras_opciones:hover span:last-child{
-    text-decoration:underline;
-    opacity:0.8;
+    .btn_regresar_ver_otras_opciones:hover span:last-child {
+        text-decoration: underline;
+        opacity: 0.8;
+    }
+
+.icono_regresar_ver_otras_opciones {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    width: 6px;
+    height: 11px;
 }
 
-.icono_regresar_ver_otras_opciones{
-    display:inline-block;
-    vertical-align:middle;
-    margin-right:3px;
-    margin-bottom:3px;
-    width:6px;
-    height:11px;
+    .icono_regresar_ver_otras_opciones img {
+        width: 100%;
+        height: auto;
+    }
+
+.mensaje_pop_up_contraseniaEnviada p.texto_informativo_ingreso_codigo {
+    margin-bottom: 8px !important;
 }
 
-.icono_regresar_ver_otras_opciones img{
-    width:100%;
-    height:auto;
-}
-
-.mensaje_pop_up_contraseniaEnviada p.texto_informativo_ingreso_codigo{
-    margin-bottom:8px!important;
-}
-
-.ingreso_codigo{
+.ingreso_codigo {
     display: block;
     margin: 0 auto 34px auto;
     width: 100%;
     max-width: 190px;
     position: relative;
-    text-align:center;
+    text-align: center;
 }
 
-.codigoSms{
+.codigoSms {
     display: inline-block;
     vertical-align: bottom;
     margin-right: 7px;
@@ -3048,7 +3073,7 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: 5px;
 }
 
-.tiempo_validez_codigoSms{
+.tiempo_validez_codigoSms {
     display: block;
     position: absolute;
     right: -31px;
@@ -3060,144 +3085,142 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: 0.5px;
 }
 
-.mensaje_error_codigo{
-    display:block;
-    margin:6px auto 0 auto;
-    width:100%;
-    max-width:110px;
-    text-align:center;
-    font-size:11px;
-    font-weight:400;
-    color:#000;
+.mensaje_error_codigo {
+    display: block;
+    margin: 6px auto 0 auto;
+    width: 100%;
+    max-width: 110px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 400;
+    color: #000;
 }
 
-.mb-34{
-    margin-bottom:34px!important;
-    line-height:23px!important;
+.mb-34 {
+    margin-bottom: 34px !important;
+    line-height: 23px !important;
 }
 
-.texto_disculpa_2{
-    display:block;
+.texto_disculpa_2 {
+    display: block;
 }
 
-@media screen and (max-width:1093px){
+@media screen and (max-width:1093px) {
 
-    .campoPais{
-        width:90%!important;
+    .campoPais {
+        width: 90% !important;
     }
-
 }
 
-@media screen and (max-width:991px){
+@media screen and (max-width:991px) {
 
-    .opcionLlamada_desktop{
-        display:none;
+    .opcionLlamada_desktop {
+        display: none;
     }
 
-    .opcionLlamada_mobile{
-        display:block;
-        border:none!important;
-        text-align:center!important;
-        padding: 12px 0!important;
+    .opcionLlamada_mobile {
+        display: block;
+        border: none !important;
+        text-align: center !important;
+        padding: 12px 0 !important;
     }
 
-    .opcion_recuperacion_contrasenia.sinMargenesMobile{
-        width:100%;
-        margin-left:0;
-        margin-right:0;
+    .opcion_recuperacion_contrasenia.sinMargenesMobile {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
     }
 
-    .grupo_centrales_telefonicas_disponibles{
-        display:block;
+    .grupo_centrales_telefonicas_disponibles {
+        display: block;
     }
 
-    .central_telefonica{
-        display:inline-block;
-        vertical-align:middle;
-        margin:0;
-        width:73px;
-        margin-right:25px;
-        text-decoration:none;
-        border:none;
-        color:#000;
+    .central_telefonica {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+        width: 73px;
+        margin-right: 25px;
+        text-decoration: none;
+        border: none;
+        color: #000;
     }
 
-    .central_telefonica:last-child{
-        margin-right:0;
+        .central_telefonica:last-child {
+            margin-right: 0;
+        }
+
+    .icono_llamada {
+        width: 50px;
+        height: 50px;
+        background: #642f80;
+        border-radius: 100%;
+        margin-bottom: 12px;
+        background-image: url(../../../Images/Login2/Icons/icono-llamada-mobile.svg);
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
-    .icono_llamada{
-        width:50px;
-        height:50px;
-        background:#642f80;
-        border-radius:100%;
-        margin-bottom:12px;
-        background-image:url(../../../Images/Login2/Icons/icono-llamada-mobile.svg);
-        background-repeat:no-repeat;
-        background-position:center;
+    .texto_opcion_llamada {
+        display: block;
+        text-transform: uppercase;
+        color: #000;
+        font-size: 12px;
+        font-weight: 400;
+        text-align: center;
+        font-weight: 14px;
     }
-
-    .texto_opcion_llamada{
-        display:block;
-        text-transform:uppercase;
-        color:#000;
-        font-size:12px;
-        font-weight:400;
-        text-align:center;
-        font-weight:14px;
-    }
-
 }
 
-@media screen and (max-width:678px){
+@media screen and (max-width:678px) {
 
-    .campoPais{
-        width:91%!important;
+    .campoPais {
+        width: 91% !important;
     }
 
-    .content_bg_opciones_recuperacion_contrasenia{
-        width:90%;
-        top:9%;
-        margin-bottom:5%;
+    .content_bg_opciones_recuperacion_contrasenia {
+        width: 90%;
+        top: 9%;
+        margin-bottom: 5%;
     }
 
-    .content_bg_1 #header{
-        padding-left:10%!important;
+    .content_bg_1 #header {
+        padding-left: 10% !important;
     }
 
     #header {
-        width: 100%!important;
+        width: 100% !important;
     }
 
-    .content_bg_opciones_recuperacion_contrasenia .mensaje_pop_up2 b{
-        display:block;
-    }
-
-    .opcion_recuperacion_contrasenia{
-        width:100%;
-        margin:0;
-    }
-
-    .opcion_recuperacion_contrasenia.opcionCorreo,
-    .opcion_recuperacion_contrasenia.opcionSms{
+    .content_bg_opciones_recuperacion_contrasenia .mensaje_pop_up2 b {
         display: block;
+    }
+
+    .opcion_recuperacion_contrasenia {
         width: 100%;
-        height: auto;
-        margin-left: 0;
-        margin-right: 0;
-        padding: 18px 16px;
-        text-align:left;
+        margin: 0;
     }
 
-    .opcion_recuperacion_contrasenia.opcionCorreo{
-        margin-bottom:15px;
-    }
+        .opcion_recuperacion_contrasenia.opcionCorreo,
+        .opcion_recuperacion_contrasenia.opcionSms {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-left: 0;
+            margin-right: 0;
+            padding: 18px 16px;
+            text-align: left;
+        }
 
-    .opcion_recuperacion_contrasenia.opcionSms{
-        margin-bottom:27px;
-    }
+        .opcion_recuperacion_contrasenia.opcionCorreo {
+            margin-bottom: 15px;
+        }
 
-    .contenedor_solo_una_opcion{
+        .opcion_recuperacion_contrasenia.opcionSms {
+            margin-bottom: 27px;
+        }
+
+    .contenedor_solo_una_opcion {
         width: 100%;
         height: auto;
         border: 1px solid #e7e1e1;
@@ -3211,106 +3234,104 @@ h1, h2, h3, h4, h5, h6 {
     .contenedor_info_datos,
     .icono_chatea_con_nosotros,
     .icono_reloj,
-    .horarios_atencion{
-        display:inline-block;
-        vertical-align:middle;
-        margin:0;
+    .horarios_atencion {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
     }
 
     .icono_correo_electronico,
-    .icono_sms{
-        margin-right:19px;
+    .icono_sms {
+        margin-right: 19px;
     }
 
-    .icono_correo_electronico.mb-15,
-    .icono_sms.mb-15,
-    .icono_chatea_con_nosotros{
-        margin-bottom:0;
+        .icono_correo_electronico.mb-15,
+        .icono_sms.mb-15,
+        .icono_chatea_con_nosotros {
+            margin-bottom: 0;
+        }
+
+    .icono_correo_electronico {
+        width: 27.3px;
+        height: 16px;
     }
 
-    .icono_correo_electronico{
-        width:27.3px;
-        height:16px;
+    .icono_sms {
+        width: 24.7px;
+        height: 20px;
     }
 
-    .icono_sms{
-        width:24.7px;
-        height:20px;
+    .icono_chatea_con_nosotros {
+        width: 23px;
+        margin-right: 17px;
     }
 
-    .icono_chatea_con_nosotros{
-        width:23px;
-        margin-right:17px;
+    .icono_reloj {
+        width: 25px;
+        height: 25px;
+        margin-bottom: 0 !important;
+        margin-right: 11px;
     }
 
-    .icono_reloj{
-        width:25px;
-        height:25px;
-        margin-bottom:0!important;
-        margin-right:11px;
+    .titulo_opcion_horarios_atencion {
+        display: none;
     }
 
-    .titulo_opcion_horarios_atencion{
-        display:none;
-    }
-
-    .horarios_atencion{
-        font-weight:400;
+    .horarios_atencion {
+        font-weight: 400;
     }
 
     .btn_enviar_email,
     .btn_enviar_sms,
-    .btn_ingresar_chat{
-        width:100%;
-        max-width:none;
+    .btn_ingresar_chat {
+        width: 100%;
+        max-width: none;
     }
 
-    .content_bg_1 .mensaje_pop_up{
-        margin-left:9%;
-        margin-right:9%;
+    .content_bg_1 .mensaje_pop_up {
+        margin-left: 9%;
+        margin-right: 9%;
         margin-top: 38px;
         margin-bottom: 38px;
     }
 
-    .mensaje_pop_up_contraseniaEnviada h1{
-        font-size:18px;
+    .mensaje_pop_up_contraseniaEnviada h1 {
+        font-size: 18px;
     }
 
-    .mensaje_pop_up_contraseniaEnviada p{
+    .mensaje_pop_up_contraseniaEnviada p {
         margin: 0 auto 31px auto;
     }
 
-    .mensaje_pop_up_contraseniaEnviada p strong{
-        display:block;
-        margin-top:5px;
-    }
+        .mensaje_pop_up_contraseniaEnviada p strong {
+            display: block;
+            margin-top: 5px;
+        }
 
     .texto_disculpa
     .icono_reloj_2{
         display:block;
     }
 
-    .icono_reloj_2{
-        width:45px;
-        height:45px;
+    .icono_reloj_2 {
+        width: 45px;
+        height: 45px;
     }
 
-    .texto_disculpa_2{
-        text-align: left!important;
+    .texto_disculpa_2 {
+        text-align: left !important;
         padding: 0 3%;
-        line-height: 22px!important;
+        line-height: 22px !important;
     }
 
-    .horarios_atencion_2{
-        font-size:17px;
+    .horarios_atencion_2 {
+        font-size: 17px;
     }
-
 }
 
-@media screen and (max-width:480px){
+@media screen and (max-width:480px) {
 
-    .campoPais{
-        width:90%!important;
+    .campoPais {
+        width: 90% !important;
     }
-
 }

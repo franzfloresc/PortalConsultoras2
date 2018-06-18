@@ -413,7 +413,7 @@
                             <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente correo_electronico_consult" style="display: none;" id="spsincorreo">No existe correo registrado</span>
                         </div>
                     </div>
-                    
+
                     @if (ViewBag.PaisID == 11)
                     {
                         <a id="lk_telefono">
@@ -497,10 +497,14 @@
                     <b id="menPrioridad2_llamada" style="display:none;">Puedes comunicarte con nosotros llamando a nuestra central telefónica:</b>
                     <span class="texto_disculpa menPrioridad3" style="display:none;">discúlpanos, en estos momentos no podemos atenderte.</span>
                     <b class="menPrioridad3" style="display:none;">Puedes comunicarte con nosotros llamando a nuestra central telefónica en el siguiente horario:</b>
-                    <span id="menAutenticacionNueva" class="texto_disculpa" style="display:none;">por ser la primera vez que ingresas, 
-                    para verificar la autenticidad te enviaremos un PIN a tu celular o a tu e-mail según la opción que elijas:</span>
-                    <span id="menAutenticacionReactivada" class="texto_disculpa" style="display:none;">ya que has vuelto después de tiempo, 
-                    para verificar la autenticidad te enviaremos un PIN a tu celular o a tu e-mail según la opción que elijas:</span>
+                    <span id="menAutenticacionNueva" class="texto_disculpa" style="display:none;">
+                        por ser la primera vez que ingresas,
+                        para verificar la autenticidad te enviaremos un PIN a tu celular o a tu e-mail según la opción que elijas:
+                    </span>
+                    <span id="menAutenticacionReactivada" class="texto_disculpa" style="display:none;">
+                        ya que has vuelto después de tiempo,
+                        para verificar la autenticidad te enviaremos un PIN a tu celular o a tu e-mail según la opción que elijas:
+                    </span>
                 </div>
 
                 <div class="opciones_recuperacion_contrasenia">
@@ -555,6 +559,7 @@
                                 <div id="divHoraiosAtencion" class="horarios_atencion">L-V: 8:00 a 20:00 y S: 08:00 a 18:00</div>
                             </div>
                         </div>
+                        <input type="hidden" id="hddHabilitarChatEmtelco" name="hddHabilitarChatEmtelco" value="" />
                         <button class="btn_ingresar_chat" id="divChatearConNosotros">Ingresar al chat</button>
                     </div>
 
@@ -621,7 +626,8 @@
                     <br />
                     <br />
                     <div class="icono_correo">
-                        @if (ViewBag.PaisID == 2 || ViewBag.PaisID == 3 || ViewBag.PaisID == 4 || ViewBag.PaisID == 6 || ViewBag.PaisID == 7 || ViewBag.PaisID == 8 || ViewBag.PaisID == 11 || ViewBag.PaisID == 13 || ViewBag.PaisID == 14) {
+                        @if (ViewBag.PaisID == 2 || ViewBag.PaisID == 3 || ViewBag.PaisID == 4 || ViewBag.PaisID == 6 || ViewBag.PaisID == 7 || ViewBag.PaisID == 8 || ViewBag.PaisID == 11 || ViewBag.PaisID == 13 || ViewBag.PaisID == 14)
+                        {
                             <img src="~/Content/Images/Login2/Icons/icono-envelope-esika.png" alt="Nuevo Correo" />
                         }
                         else if (ViewBag.PaisID == 5 || ViewBag.PaisID == 9 || ViewBag.PaisID == 10 || ViewBag.PaisID == 12)
@@ -681,12 +687,12 @@
                         Una vez recibido, ingrésalo aquí
                     </p>
                     <div class="ingreso_codigo">
-                        <input type="text" maxlength="1" id="1cDigito" class="codigoSms" >
-                        <input type="text" maxlength="1" id="2cDigito" class="codigoSms" >
-                        <input type="text" maxlength="1" id="3cDigito" class="codigoSms" >
-                        <input type="text" maxlength="1" id="4cDigito" class="codigoSms" >
-                        <input type="text" maxlength="1" id="5cDigito" class="codigoSms" >
-                        <input type="text" maxlength="1" id="6cDigito" class="codigoSms" >
+                        <input type="text" maxlength="1" id="1cDigito" class="codigoSms">
+                        <input type="text" maxlength="1" id="2cDigito" class="codigoSms">
+                        <input type="text" maxlength="1" id="3cDigito" class="codigoSms">
+                        <input type="text" maxlength="1" id="4cDigito" class="codigoSms">
+                        <input type="text" maxlength="1" id="5cDigito" class="codigoSms">
+                        <input type="text" maxlength="1" id="6cDigito" class="codigoSms">
                         <div class="tiempo_validez_codigoSms">
                             <span class="spnMin">03</span>:<span class="spnSeg">00</span>
                         </div>
@@ -815,6 +821,29 @@
                         <div class="formcontrol PorChat" id="PorChat" style="margin-bottom: 45px; color: black;">
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="popupChatDisabled" style="display: none;">
+        <div id="popup_chatDisabled">
+            <div class="content_bg_chatdisabled">
+                <a id="btnCerrarChatDisabledPopup" href="#" class="cerrar" onclick="$('#popupChatDisabled').hide();"></a>
+
+                <div id="header-chatdisabled">
+                    <div class="fondo_sesgado"></div>
+                    <span id="tituloPopup-ChatDisabled">
+                       AVISO
+                    </span>
+                    <div class="indicador_lbel"></div>
+                </div>
+                <div class="mensaje_pop_up2">
+                    <div class="contenedor_info_datos">
+                        <div class="titulo_opcion_chatea_con_nosotros">Por el momento el chat en mobil no esta disponible, favor de ingresar a través de un computador</div>
+                       
+                    </div>
+                    @*<p>Por el momento el chat en mobil no esta disponible, favor de ingresar a través de un computador</p>*@
                 </div>
             </div>
         </div>
@@ -1108,6 +1137,7 @@
     var urlChatBelCorp = '@Url.Action("ChatBelcorp", "Login")';
     var urlObtenerCodigoGenerado = '@Url.Action("ObtenerCodigoGenerado", "Login")';
     var urlIniciarLogin = '@Url.Action("Login", "Login")';
+    var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
 </script>
 
 @if (TempData["errorLogin"] != null)
