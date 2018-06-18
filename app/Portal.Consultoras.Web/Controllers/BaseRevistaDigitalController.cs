@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.Video = GetVideoInformativo();
             modelo.UrlTerminosCondiciones = GetValorDato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones);
             modelo.UrlPreguntasFrecuentes = GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes);
-            modelo.Origen = revistaDigital.SuscripcionEfectiva.Origen;
+            modelo.Origen = revistaDigital.SuscripcionModel.Origen;
             modelo.NombreConsultora = userData.Sobrenombre.ToUpper();
             modelo.Email = userData.EMail;
             modelo.Celular = userData.Celular;
@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ((!revistaDigital.EsSuscrita && (!revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion || !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)) ||
                 (revistaDigital.EsSuscrita && !revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion) ||
                 (revistaDigital.EsSuscrita && revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)));
-            modelo.CancelarSuscripcion = CancelarSuscripcion(revistaDigital.SuscripcionEfectiva.Origen, userData.CodigoISO);
+            modelo.CancelarSuscripcion = CancelarSuscripcion(revistaDigital.SuscripcionModel.Origen, userData.CodigoISO);
             modelo.EsSuscripcionInmediata = EsSuscripcionInmediata();
             return View("template-informativa", modelo);
         }

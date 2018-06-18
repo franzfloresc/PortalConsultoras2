@@ -22,21 +22,23 @@
 
     <link rel="shortcut icon" type="image/x-icon" id="iconoPagina" data-id="iconPagina" href="@ViewBag.IconoPagina" />
 
-    @if (ViewBag.EsPaisEsika) {
-        <div data-id="cssStyle" 
-             class="current-belcorp-style" 
-             data-srcesika="@Url.Content("~/Content/Css/Site/Login2/style_esika.css")" 
-             data-srclbel="@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")" 
+    @if (ViewBag.EsPaisEsika)
+    {
+        <div data-id="cssStyle"
+             class="current-belcorp-style"
+             data-srcesika="@Url.Content("~/Content/Css/Site/Login2/style_esika.css")"
+             data-srclbel="@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")"
              id="cssStyle"
         >@Styles.Render("~/Content/Css/Site/Login2/Esika")</div>
     }
-    
-    @if (ViewBag.EsPaisLbel) {
-        <div data-id="cssStyleLbel" 
-             class="current-belcorp-style" 
-             data-srcesika="@Url.Content("~/Content/Css/Site/Login2/style_esika.css")" 
-             data-srclbel="@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")" 
-             id="cssStyleLbel" 
+
+    @if (ViewBag.EsPaisLbel)
+    {
+        <div data-id="cssStyleLbel"
+             class="current-belcorp-style"
+             data-srcesika="@Url.Content("~/Content/Css/Site/Login2/style_esika.css")"
+             data-srclbel="@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")"
+             id="cssStyleLbel"
         >@Styles.Render("~/Content/Css/Site/Login2/Lbel")</div>
     }
 
@@ -71,11 +73,15 @@
         //Fin variables log Error
 
         if (typeof InstallTrigger !== 'undefined') {
-            if (document.getElementById("cssStyle").getAttribute("disabled") == "disabled")
-                document.getElementById("cssStyle").disabled = true;
-            if (document.getElementById("cssStyleLbel").getAttribute("disabled") == "disabled")
-                document.getElementById("cssStyleLbel").disabled = true;
-        };
+            if (document.getElementById("cssStyle")) {
+                if (document.getElementById("cssStyle").getAttribute("disabled") == "disabled")
+                    document.getElementById("cssStyle").disabled = true;
+            }
+            if (document.getElementById("cssStyleLbel")) {
+                if (document.getElementById("cssStyleLbel").getAttribute("disabled") == "disabled")
+                    document.getElementById("cssStyleLbel").disabled = true;
+            }
+        }
 
         var esPaisEsika = '@ViewBag.EsPaisEsika';
         var esPaisLbel = '@ViewBag.EsPaisLbel';
@@ -88,8 +94,7 @@
             string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
         }
         window.controllerName = '@ctrl.ToLower()';
-        window.actionName     = '@acti.ToLower()';
-        //console.log("controllerName:" + controllerName + " | actionName:" + actionName);
+        window.actionName = '@acti.ToLower()';
 
         var _gaq = _gaq || [];
 
@@ -363,7 +368,7 @@
                 <img src="~/Content/Images/Login2/logo_lbel2.png" alt="http://www.lbel.com/pe/" />
             </a>
             <a class="logos_footer" href="http://www.cyzone.com/">
-                <img src="~/Content/Images/Login2/logo_cyzone.png"  alt="" style="width: 52px; height: 16px; top: 1.5px; position:relative;"/>
+                <img src="~/Content/Images/Login2/logo_cyzone.png" alt="" style="width: 52px; height: 16px; top: 1.5px; position:relative;" />
             </a>
             <a class="" href="https://es-la.facebook.com/SomosBelcorpOficial" target="_blank">
                 <img src="~/Content/Images/Login2/separador.png" style="height: 20px; width: 1px; margin-top: 13px;" />
@@ -373,7 +378,7 @@
         <input id="hddFondoFestivoEsika" type="hidden" value="@Model.RutaEventoEsika" />
         <input id="hddFondoFestivoLebel" type="hidden" value="@Model.RutaEventoLBel" />
     </div>
-    
+
     @Scripts.Render("~/bundles/JsLogin2")
 
     @RenderSection("scripts", required: false)
