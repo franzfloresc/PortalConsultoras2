@@ -70,15 +70,6 @@ namespace Portal.Consultoras.Web.Controllers
                         ViewBag.MostrarShowRoomBannerLateral = false;
                     }
 
-                    if (showRoomBannerLateral.DiasFalta > 0)
-                    {
-                        if (showRoomBannerLateral.DiasFalta > 1)
-                        {
-                            showRoomBannerLateral.LetrasDias = "FALTAN " + Convert.ToInt32(showRoomBannerLateral.DiasFalta).ToString() + " DÍAS";
-                        }
-                        else { showRoomBannerLateral.LetrasDias = "FALTA " + Convert.ToInt32(showRoomBannerLateral.DiasFalta).ToString() + " DÍA"; }
-                    }
-
                     ViewBag.ImagenPopupShowroomIntriga = showRoomBannerLateral.ImagenPopupShowroomIntriga;
                     ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
                     ViewBag.ImagenPopupShowroomVenta = showRoomBannerLateral.ImagenPopupShowroomVenta;

@@ -129,16 +129,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.CodigoISO = userData.CodigoISO;
 
                 var showRoomBannerLateral = GetShowRoomBannerLateral();
-
-                if (showRoomBannerLateral.DiasFaltantes > 1)
-                {
-                    showRoomBannerLateral.LetrasDias = "FALTAN " + Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() + " DÍAS";
-                }
-                else
-                {
-                    showRoomBannerLateral.LetrasDias = "FALTA " + Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() + " DÍA";
-                }
-
                 ViewBag.LetrasDias = showRoomBannerLateral.LetrasDias;
                 ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
                 ViewBag.EstadoActivo = showRoomBannerLateral.EstadoActivo;
