@@ -175,7 +175,7 @@ $(document).ready(function () {
 
     $("#divBorrarFiltros").click(function () {
         $(".content_filtro_range").html("");
-        $(".content_filtro_range").html('<input class="range-slider" value="" style="width: 100%; display: none;" />');
+        $(".content_filtro_range").html('<input class="range-slider" type="text" value="" style="display: none;" />');
         CargarFiltroRangoPrecio();
 
         $.each($("[data-filtro-categoria]"), function (index, value) {
@@ -268,7 +268,6 @@ $(document).ready(function () {
 
     });
 
-
     $('#filtro_categoria').on('click', function () {
         $('#detalle_filtro_categoria').toggle();
     });
@@ -297,39 +296,36 @@ function CargarFiltroRangoPrecio() {
     var scala2 = variablesPortal.SimboloMoneda + precioMaxFormat;
 
     $('.range-slider').val(min + ',' + max);
-    var h = $("#filtro_precio").width() - 50;
 
     $('.range-slider').show();
-    $('.range-slider').jRange({
+    $('.range-slider').ionRangeSlider({
+        hide_min_max: true,
+        keyboard: true,
+        min: min,
+        max: max,
         from: min,
         to: max,
+        type: 'double',
         step: 1,
-        scale: [scala1, scala2],
-        format: myformat,
-        width: h,
-        showLabels: true,
-        isRange: true,
-        ondragend: function (myvalue) {
-            rangoPrecios = myvalue;
+        prefix: myformat,
+        grid: true,
+        grid_num: 1,
+        onFinish: function (data) {
+            rangoPrecios = data.from + "," + data.to;
             $(".slider-container").addClass("disabledbutton");
             ObtenerProductosShowRoom();
-        },
-        onbarclicked: function (myvalue) {
-            rangoPrecios = myvalue;
-            $(".slider-container").addClass("disabledbutton");
-            ObtenerProductosShowRoom();
-
-            var arr = myvalue.toString().split(',');
 
             dataLayer.push({
                 'event': 'virtualEvent',
                 'category': 'Ofertas ShowRoom',
                 'action': "Filtrar por Precios",
-                'label': arr[0] + " - " + arr[1]
+                'label': data.from + " - " + data.to
             });
         }
     });
 
+    $(".js-grid-text-0").text(scala1);
+    $(".js-grid-text-1").text(scala2);
 }
 
 function filterShowRoomDesktop() {

@@ -36227,21 +36227,33 @@ height:30px;
 }
 
 .content_detalle_filtro {
-    width: 100%;
+    width: 350px;
     position: absolute;
     z-index: 20;
-    top: 33px;
+    top: 90px;
     border: 1px solid #b8b8b8;
     border-top: 0;
-    left: 0;
+    right: 264px;
     background: white;
     min-height: 100px;
 }
 
 .content_filtro_range_showroom {
     width: 70%;
-    margin: 0 auto;
-    margin-top: 50px;
+    margin: 15px auto 10px auto;
+}
+
+.irs-bar, .irs-slider {
+    background-color: #613c87 !important;
+    border-color: #613c87 !important;
+}
+
+    .irs-slider.state_hover, .irs-slider:hover {
+        background: #683b96 !important;
+    }
+
+.irs-from, .irs-to, .irs-single {
+    color: #613c87 !important;
 }
 
 .filtros_derecha_SHOWROOM {
