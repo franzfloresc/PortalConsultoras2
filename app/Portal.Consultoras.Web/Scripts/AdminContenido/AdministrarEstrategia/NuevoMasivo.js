@@ -59,13 +59,13 @@
         return text;
     }
     var _showActionsVer2 = function (cellvalue, options, rowObject) {
-        
         var cantidad = rowObject[2];
         var tipo = rowObject[3];
 
         if (tipo == "1") {
             _variables.cantidadPrecargar2 = parseInt(cantidad);
             $("#spnCantidadConfigurar3").html(parseInt(cantidad));
+            $("#precargadosdiv").html(rowObject[4]);
         }
         if (tipo == "2")
             $("#spnCantidadNoConfigurar3").html(parseInt(cantidad));
@@ -90,8 +90,8 @@
             hidegrid: false,
             datatype: "json",
             postData: ({
-                CampaniaID: $("#ddlCampania").val(),
-                CodigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
+                campaniaId: $("#ddlCampania").val(),
+                codigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
@@ -161,7 +161,9 @@
             hidegrid: false,
             datatype: "json",
             postData: ({
-                nroLote: _variables.NroLote
+                nroLote: _variables.NroLote,
+                campaniaId: $("#ddlCampania").val(),
+                codigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
@@ -297,7 +299,9 @@
 
         var parametros = {
             tipoConfigurado: parseInt(tipo),
-            nroLote: _variables.NroLote
+            nroLote: _variables.NroLote,
+            campaniaId: $("#ddlCampania").val(),
+            codigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
         };
 
         $("#listGrillaCuv2").setGridParam({ postData: parametros });
@@ -525,7 +529,9 @@
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 1,
                 estrategiaId: $("#ddlTipoEstrategia").find(":selected").data("id"),
-                nroLote: _variables.NroLote
+                nroLote: _variables.NroLote,
+                codigoEstrategia:$("#ddlTipoEstrategia").find(":selected").data("codigo"),
+                estrategiaMIds: $('#precargadosdiv').text()
             };
             
             waitingDialog();

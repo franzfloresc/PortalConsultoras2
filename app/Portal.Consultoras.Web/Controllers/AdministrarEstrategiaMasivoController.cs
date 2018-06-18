@@ -1,20 +1,19 @@
-﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.AdministrarEstrategia;
-using Portal.Consultoras.Web.ServiceSAC;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.AdministrarEstrategia;
+using Portal.Consultoras.Web.Models.Estrategia;
+using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarEstrategiaMasivoController : BaseController
     {
-        public ActionResult ConsultarOfertasParaTi(string sidx, string sord, int page, int rows, int CampaniaID,
-           string CodigoEstrategia)
+        public ActionResult ConsultarOfertasParaTi(string sidx, string sord, int page, int rows, int campaniaId, string codigoEstrategia)
         {
             if (ModelState.IsValid)
             {
@@ -23,10 +22,19 @@ namespace Portal.Consultoras.Web.Controllers
 
                 try
                 {
-                    using (var svc = new SACServiceClient())
+                    if (UsarMsPer(codigoEstrategia))
                     {
-                        cantidadEstrategiasConfiguradas = svc.GetCantidadOfertasPersonalizadas(userData.PaisID, CampaniaID, 1, CodigoEstrategia);
-                        cantidadEstrategiasSinConfigurar = svc.GetCantidadOfertasPersonalizadas(userData.PaisID, CampaniaID, 2, CodigoEstrategia);
+                        Dictionary<string, int> cantidades = administrarEstrategiaProvider.ObtenerCantidadOfertasParaTi(codigoEstrategia, campaniaId, userData.CodigoISO);
+                        cantidadEstrategiasConfiguradas = cantidades["CUV_ZE"];
+                        cantidadEstrategiasSinConfigurar = cantidades["CUV_OP"];
+                    }
+                    else
+                    {
+                        using (var svc = new SACServiceClient())
+                        {
+                            cantidadEstrategiasConfiguradas = svc.GetCantidadOfertasPersonalizadas(userData.PaisID, campaniaId, 1, codigoEstrategia);
+                            cantidadEstrategiasSinConfigurar = svc.GetCantidadOfertasPersonalizadas(userData.PaisID, campaniaId, 2, codigoEstrategia);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -41,16 +49,18 @@ namespace Portal.Consultoras.Web.Controllers
                     new ComunModel
                     {
                         Id = 1,
-                        Descripcion = CodigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta ? "CUVS encontrados en Producto Comercial" : "CUVS encontrados en ofertas personalizadas.",
+                        Descripcion = codigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta ? "CUVS encontrados en Producto Comercial" : "CUVS encontrados en ofertas personalizadas.",
                         Valor = (cantidadEstrategiasConfiguradas + cantidadEstrategiasSinConfigurar).ToString(),
-                        ValorOpcional = "0"
+                        ValorOpcional = "0",
+                        mongoIds = ""
                     },
                     new ComunModel
                     {
                         Id = 2,
                         Descripcion = "CUVS configurados en Zonas de Estrategias",
                         Valor = cantidadEstrategiasConfiguradas.ToString(),
-                        ValorOpcional = "1"
+                        ValorOpcional = "1",
+                        mongoIds = ""
                     },
                     new ComunModel
                     {
@@ -88,7 +98,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     a.Id.ToString(),
                                     a.Descripcion,
                                     a.Valor,
-                                    a.ValorOpcional
+                                    a.ValorOpcional,
+                                    a.mongoIds
                                }
                            }
                 };
@@ -102,13 +113,36 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<BEEstrategia> lst;
-
+                List<BEEstrategia> lst = new List<BEEstrategia>();
                 try
                 {
-                    using (var ps = new SACServiceClient())
+                    if (UsarMsPer(estrategiaCodigo))
                     {
-                        lst = ps.GetOfertasPersonalizadasByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado, estrategiaCodigo, 1, -1).ToList();
+                        List<EstrategiaMDbAdapterModel> webApiList = new List<EstrategiaMDbAdapterModel>();
+                        if (tipoConfigurado == 0 || tipoConfigurado == 1)
+                        {
+                            webApiList.AddRange(administrarEstrategiaProvider.Listar(campaniaId.ToString(), estrategiaCodigo, userData.CodigoISO));
+                        }
+                        if (tipoConfigurado == 0 || tipoConfigurado == 2)
+                        {
+                            webApiList.AddRange(administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), estrategiaCodigo, userData.CodigoISO));
+                        }
+                        foreach (ServicePedido.BEEstrategia item in webApiList.Select(d => d.BEEstrategia).ToList())
+                        {
+                            BEEstrategia estrategia = new BEEstrategia
+                            {
+                                CUV2 = item.CUV2,
+                                DescripcionCUV2 = item.DescripcionCUV2
+                            };
+                            lst.Add(estrategia);
+                        }
+                    }
+                    else
+                    {
+                        using (var ps = new SACServiceClient())
+                        {
+                            lst = ps.GetOfertasPersonalizadasByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado, estrategiaCodigo, 1, -1).ToList();
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -151,19 +185,35 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
 
-        public ActionResult ConsultarOfertasParaTiTemporal(string sidx, string sord, int page, int rows, int nroLote)
+        public ActionResult ConsultarOfertasParaTiTemporal(string sidx, string sord, int page, int rows, int nroLote, int campaniaId, string codigoEstrategia)
         {
             if (ModelState.IsValid)
             {
                 int cantidadEstrategiasConfiguradas;
                 int cantidadEstrategiasSinConfigurar;
-
+                string oddIdsEstrategia = "";
                 try
                 {
-                    using (var ser = new SACServiceClient())
+                    if (UsarMsPer(codigoEstrategia))
                     {
-                        cantidadEstrategiasConfiguradas = ser.GetCantidadOfertasPersonalizadasTemporal(userData.PaisID, nroLote, 1);
-                        cantidadEstrategiasSinConfigurar = ser.GetCantidadOfertasPersonalizadasTemporal(userData.PaisID, nroLote, 2);
+                        Dictionary<string, int> cantidades = administrarEstrategiaProvider.ObtenerCantidadOfertasParaTi(codigoEstrategia, campaniaId, userData.CodigoISO);
+                        var estrategiasWA = administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO);
+
+                        cantidadEstrategiasConfiguradas = cantidades["CUV_OP"];
+                        cantidadEstrategiasSinConfigurar = 0;
+                        foreach (var item in estrategiasWA)
+                        {
+                            oddIdsEstrategia += oddIdsEstrategia != "" ? "," : "";
+                            oddIdsEstrategia += item._id;
+                        }
+                    }
+                    else
+                    {
+                        using (var ser = new SACServiceClient())
+                        {
+                            cantidadEstrategiasConfiguradas = ser.GetCantidadOfertasPersonalizadasTemporal(userData.PaisID, nroLote, 1);
+                            cantidadEstrategiasSinConfigurar = ser.GetCantidadOfertasPersonalizadasTemporal(userData.PaisID, nroLote, 2);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -180,14 +230,16 @@ namespace Portal.Consultoras.Web.Controllers
                         Id = 1,
                         Descripcion = "CUVS pre cargados correctamente",
                         Valor = cantidadEstrategiasConfiguradas.ToString(),
-                        ValorOpcional = "1"
+                        ValorOpcional = "1",
+                        mongoIds = oddIdsEstrategia
                     },
                     new ComunModel
                     {
                         Id = 2,
                         Descripcion = "CUVS no pre cargados",
                         Valor = cantidadEstrategiasSinConfigurar.ToString(),
-                        ValorOpcional = "2"
+                        ValorOpcional = "2",
+                        mongoIds = ""
                     }
                 };
 
@@ -215,10 +267,11 @@ namespace Portal.Consultoras.Web.Controllers
                                id = a.Id,
                                cell = new string[]
                                {
-                            a.Id.ToString(),
-                            a.Descripcion,
-                            a.Valor,
-                            a.ValorOpcional
+                                    a.Id.ToString(),
+                                    a.Descripcion,
+                                    a.Valor,
+                                    a.ValorOpcional,
+                                    a.mongoIds
                                }
                            }
                 };
@@ -257,19 +310,39 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ConsultarCuvTipoConfiguradoTemporal(string sidx, string sord, int page, int rows, int tipoConfigurado, int nroLote)
+        public ActionResult ConsultarCuvTipoConfiguradoTemporal(string sidx, string sord, int page, int rows, int tipoConfigurado, int nroLote, int campaniaId, string codigoEstrategia)
         {
             if (ModelState.IsValid)
             {
-                List<BEEstrategia> lst;
-
+                List<BEEstrategia> lst = new List<BEEstrategia>();
                 try
                 {
-                    using (var ser = new SACServiceClient())
+                    if (UsarMsPer(codigoEstrategia))
                     {
-                        lst = ser.GetOfertasPersonalizadasByTipoConfiguradoTemporal(userData.PaisID, tipoConfigurado, nroLote)
-                            .ToList();
+                        if (tipoConfigurado == 1)
+                        {
+                            List<EstrategiaMDbAdapterModel> webApiList = new List<EstrategiaMDbAdapterModel>();
+                            webApiList.AddRange(administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO));
+                            foreach (ServicePedido.BEEstrategia item in webApiList.Select(d => d.BEEstrategia).ToList())
+                            {
+                                BEEstrategia estrategia = new BEEstrategia
+                                {
+                                    CUV2 = item.CUV2,
+                                    DescripcionCUV2 = item.DescripcionCUV2
+                                };
+                                lst.Add(estrategia);
+                            }
+                        }
                     }
+                    else
+                    {
+                        using (var ser = new SACServiceClient())
+                        {
+                            lst = ser.GetOfertasPersonalizadasByTipoConfiguradoTemporal(userData.PaisID, tipoConfigurado, nroLote).ToList();
+                        }
+                    }
+
+                   
                 }
                 catch (Exception ex)
                 {
@@ -302,8 +375,8 @@ namespace Portal.Consultoras.Web.Controllers
                                id = a.CUV2,
                                cell = new string[]
                                {
-                            a.CUV2,
-                            a.DescripcionCUV2
+                                    a.CUV2,
+                                    a.DescripcionCUV2
                                }
                            }
                 };
@@ -497,15 +570,31 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
         
-        public JsonResult EstrategiaOfertasPersonalizadasInsert(int campaniaId, int nroLote)
+        public JsonResult EstrategiaOfertasPersonalizadasInsert(int campaniaId, int nroLote, string codigoEstrategia, string estrategiaMIds)
         {
             try
             {
                 int lote = 0;
 
-                using (var svc = new SACServiceClient())
+                if (UsarMsPer(codigoEstrategia))
                 {
-                    lote = svc.EstrategiaTemporalInsertarEstrategiaMasivo(userData.PaisID, nroLote);
+                    List<string> estrategiaMidsList = new List<string>();
+                    estrategiaMidsList.AddRange(estrategiaMIds.Split(',').ToList());
+                    if (estrategiaMidsList.Count() > 0)
+                    {
+                        int estado = administrarEstrategiaProvider.CargarEstrategia(estrategiaMidsList, userData.CodigoISO);
+                        if (estado == 1)
+                        {
+                            lote = estrategiaMidsList.Count();
+                        }
+                    }
+                }
+                else
+                {
+                    using (var svc = new SACServiceClient())
+                    {
+                        lote = svc.EstrategiaTemporalInsertarEstrategiaMasivo(userData.PaisID, nroLote);
+                    }
                 }
 
                 return Json(new
