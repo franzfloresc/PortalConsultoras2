@@ -463,8 +463,7 @@ function ValidarExcel() {
 
                                 for (var g = 0; g < listaCamposNovalidos.length; g++) {
                                     var item = listaCamposNovalidos[g];
-                                    if (item.indexOf(colum[0].toString()) >= 0 && item.indexOf(colum[1].toString())>= 0) {
-
+                                    if (item.indexOf(colum[0].toString()) >= 0 && item.indexOf(colum[1].toString()) >= 0 && item.indexOf(colum[2].toString()) >= 0 && item.indexOf(colum[3].toString()) >= 0) {
 
                                         var list = CamposNovalidos.split('¬');
                                         var listCuvInval = cuvInValidados.split('¬');
@@ -488,7 +487,13 @@ function ValidarExcel() {
                                         var Obs = "";
                                         regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'>";
                                         for (var p = 0; p < list.length; p++) {
-                                            if (cuv == list[p].split('¦')[0]) Obs += list[p].split('¦')[2];
+                                            if (cuv == list[p].split('¦')[0])
+                                            {
+                                                if (colum[1] == list[p].split('¦')[1] && colum[2] == list[p].split('¦')[2] && colum[3] == list[p].split('¦')[3] ) {
+                                                    Obs += list[p].split('¦')[4];
+                                                }                                       
+                                            }
+                                                
                                         }
 
                                         if (listCuvInval[0].trim().length>0) {
@@ -590,7 +595,13 @@ function ValidarExcel() {
                                 var Obs = "";
                                 regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'>";
                                 for (var p = 0; p < list.length; p++) {
-                                    if (cuv == list[p].split('¦')[0] && descrip == list[p].split('¦')[1] ) Obs += list[p].split('¦')[2];
+                                    if (cuv == list[p].split('¦')[0])
+                                    {
+                                        if (descrip == list[p].split('¦')[1] && colum[2] == list[p].split('¦')[2] && colum[3] == list[p].split('¦')[3]) {
+                                            Obs += list[p].split('¦')[4];
+                                        }
+                                    }
+                                                                              
                                 }
 
                                 if (listCuvInval[0].trim().length > 0) {
@@ -734,8 +745,8 @@ function ValidarInvalidos() {
 
                             for (var g = 0; g < listaCamposNovalidos.length; g++) {
                                 var item = listaCamposNovalidos[g];
-                                if (item.indexOf(colum[0].toString()) >= 0 && item.indexOf(colum[1].toString()) >= 0) {
-
+                                //if (item.indexOf(colum[0].toString()) >= 0 && item.indexOf(colum[1].toString()) >= 0) {
+                                if (item.indexOf(colum[0].toString()) >= 0 && item.indexOf(colum[1].toString()) >= 0 && item.indexOf(colum[2].toString()) >= 0 && item.indexOf(colum[3].toString()) >= 0) {
 
                                     var list = CamposNovalidos.split('¬');
                                     var listCuvInval = cuvInValidados.split('¬');
@@ -764,7 +775,14 @@ function ValidarInvalidos() {
                                     regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'>";
                                    
                                     for (var p = 0; p < list.length; p++) {
-                                        if (cuv == list[p].split('¦')[0] && descrip == list[p].split('¦')[1]) Obs += list[p].split('¦')[2];
+                                        //if (cuv == list[p].split('¦')[0] && descrip == list[p].split('¦')[1]) Obs += list[p].split('¦')[2];
+                                        if (cuv == list[p].split('¦')[0]) {
+                                            if (descrip == list[p].split('¦')[1] && colum[2] == list[p].split('¦')[2] && colum[3] == list[p].split('¦')[3]) {
+                                                Obs += list[p].split('¦')[4];
+                                            }
+                                        }
+
+
                                     }
 
                                     if (listCuvInval[0].trim().length > 0) {
@@ -869,7 +887,13 @@ function ValidarInvalidos() {
 
 
                             for (var p = 0; p < list.length; p++) {
-                                        if (cuv == list[p].split('¦')[0] && descrip == list[p].split('¦')[1]) Obs += list[p].split('¦')[2];
+                                //if (cuv == list[p].split('¦')[0] && descrip == list[p].split('¦')[1]) Obs += list[p].split('¦')[2];
+                                if (cuv == list[p].split('¦')[0]) {
+                                    if (descrip == list[p].split('¦')[1] && colum[2] == list[p].split('¦')[2] && colum[3] == list[p].split('¦')[3]) {
+                                        Obs += list[p].split('¦')[4];
+                                    }
+                                }
+
                             }
                             if (listCuvInval[0].trim().length > 0) {
                                 for (var k = 0; k < listCuvInval.length; k++) {
