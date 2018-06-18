@@ -2934,7 +2934,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var listaNoSubCampania = new List<ShowRoomOfertaModel>();
                 var listaNoSubCampaniaPerdio = new List<ShowRoomOfertaModel>();
-                //var listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
 
                 if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
                 {
@@ -2943,7 +2942,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
+                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
                 }
                 var totalNoSubCampania = listaNoSubCampania.Count;
 
@@ -2987,7 +2986,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.Limite > 0)
                     listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
 
-                var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania).ToList();
+                var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
                 listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
 
                 return Json(new
@@ -3021,7 +3020,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (model.Limite > 0 && productosShowRoom.Count > 0)
                 {
-                    productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania).Take(model.Limite).ToList();
+                    productosShowRoom = productosShowRoom.Take(model.Limite).ToList();
                 }
 
                 var index = 0;
