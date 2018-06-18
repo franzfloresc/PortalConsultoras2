@@ -6485,6 +6485,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string PrimerNombreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RegionIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TelefonoCentralField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -6772,6 +6775,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.PrimerNombreField, value) != true)) {
                     this.PrimerNombreField = value;
                     this.RaisePropertyChanged("PrimerNombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int RegionID {
+            get {
+                return this.RegionIDField;
+            }
+            set {
+                if ((this.RegionIDField.Equals(value) != true)) {
+                    this.RegionIDField = value;
+                    this.RaisePropertyChanged("RegionID");
                 }
             }
         }

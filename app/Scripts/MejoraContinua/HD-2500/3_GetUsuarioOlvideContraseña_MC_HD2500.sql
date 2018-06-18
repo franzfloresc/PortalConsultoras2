@@ -21,6 +21,7 @@ BEGIN
 	DECLARE @IdEstadoActividad int
 	DECLARE @Celular varchar(20)
 	DECLARE @Correo	varchar(80)	
+	DECLARE @RegionID int
 	DECLARE @ZonaID int
 
 	IF (@PaisID = 3 OR @PaisID = 4 OR @PaisID = 6)
@@ -33,6 +34,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = IsNull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora CO WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -49,6 +51,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = Isnull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora co WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -64,6 +67,7 @@ BEGIN
 			@IdEstadoActividad as IdEstadoActividad,
 			@Celular as Celular,
 			@Correo as Correo,
+			@RegionID as RegionID,
 			@ZonaID as ZonaID
 	SET NOCOUNT OFF
 END
@@ -92,6 +96,7 @@ BEGIN
 	DECLARE @IdEstadoActividad int
 	DECLARE @Celular varchar(20)
 	DECLARE @Correo	varchar(80)	
+	DECLARE @RegionID int
 	DECLARE @ZonaID int
 
 	IF (@PaisID = 3 OR @PaisID = 4 OR @PaisID = 6)
@@ -104,6 +109,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = IsNull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora CO WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -120,6 +126,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = Isnull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora co WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -135,6 +142,7 @@ BEGIN
 			@IdEstadoActividad as IdEstadoActividad,
 			@Celular as Celular,
 			@Correo as Correo,
+			@RegionID as RegionID,
 			@ZonaID as ZonaID
 	SET NOCOUNT OFF
 END
@@ -163,6 +171,7 @@ BEGIN
 	DECLARE @IdEstadoActividad int
 	DECLARE @Celular varchar(20)
 	DECLARE @Correo	varchar(80)	
+	DECLARE @RegionID int
 	DECLARE @ZonaID int
 
 	IF (@PaisID = 3 OR @PaisID = 4 OR @PaisID = 6)
@@ -175,6 +184,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = IsNull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora CO WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -191,6 +201,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = Isnull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora co WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -206,6 +217,7 @@ BEGIN
 			@IdEstadoActividad as IdEstadoActividad,
 			@Celular as Celular,
 			@Correo as Correo,
+			@RegionID as RegionID,
 			@ZonaID as ZonaID
 	SET NOCOUNT OFF
 END
@@ -234,6 +246,7 @@ BEGIN
 	DECLARE @IdEstadoActividad int
 	DECLARE @Celular varchar(20)
 	DECLARE @Correo	varchar(80)	
+	DECLARE @RegionID int
 	DECLARE @ZonaID int
 
 	IF (@PaisID = 3 OR @PaisID = 4 OR @PaisID = 6)
@@ -246,6 +259,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = IsNull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora CO WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -262,6 +276,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = Isnull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora co WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -277,6 +292,7 @@ BEGIN
 			@IdEstadoActividad as IdEstadoActividad,
 			@Celular as Celular,
 			@Correo as Correo,
+			@RegionID as RegionID,
 			@ZonaID as ZonaID
 	SET NOCOUNT OFF
 END
@@ -305,6 +321,7 @@ BEGIN
 	DECLARE @IdEstadoActividad int
 	DECLARE @Celular varchar(20)
 	DECLARE @Correo	varchar(80)	
+	DECLARE @RegionID int
 	DECLARE @ZonaID int
 
 	IF (@PaisID = 3 OR @PaisID = 4 OR @PaisID = 6)
@@ -317,6 +334,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = IsNull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora CO WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -333,6 +351,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = Isnull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora co WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -348,6 +367,7 @@ BEGIN
 			@IdEstadoActividad as IdEstadoActividad,
 			@Celular as Celular,
 			@Correo as Correo,
+			@RegionID as RegionID,
 			@ZonaID as ZonaID
 	SET NOCOUNT OFF
 END
@@ -376,6 +396,7 @@ BEGIN
 	DECLARE @IdEstadoActividad int
 	DECLARE @Celular varchar(20)
 	DECLARE @Correo	varchar(80)	
+	DECLARE @RegionID int
 	DECLARE @ZonaID int
 
 	IF (@PaisID = 3 OR @PaisID = 4 OR @PaisID = 6)
@@ -388,6 +409,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = IsNull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora CO WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -404,6 +426,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = Isnull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora co WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -419,6 +442,7 @@ BEGIN
 			@IdEstadoActividad as IdEstadoActividad,
 			@Celular as Celular,
 			@Correo as Correo,
+			@RegionID as RegionID,
 			@ZonaID as ZonaID
 	SET NOCOUNT OFF
 END
@@ -447,6 +471,7 @@ BEGIN
 	DECLARE @IdEstadoActividad int
 	DECLARE @Celular varchar(20)
 	DECLARE @Correo	varchar(80)	
+	DECLARE @RegionID int
 	DECLARE @ZonaID int
 
 	IF (@PaisID = 3 OR @PaisID = 4 OR @PaisID = 6)
@@ -459,6 +484,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = IsNull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora CO WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -475,6 +501,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = Isnull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora co WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -490,6 +517,7 @@ BEGIN
 			@IdEstadoActividad as IdEstadoActividad,
 			@Celular as Celular,
 			@Correo as Correo,
+			@RegionID as RegionID,
 			@ZonaID as ZonaID
 	SET NOCOUNT OFF
 END
@@ -518,6 +546,7 @@ BEGIN
 	DECLARE @IdEstadoActividad int
 	DECLARE @Celular varchar(20)
 	DECLARE @Correo	varchar(80)	
+	DECLARE @RegionID int
 	DECLARE @ZonaID int
 
 	IF (@PaisID = 3 OR @PaisID = 4 OR @PaisID = 6)
@@ -530,6 +559,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = IsNull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora CO WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -546,6 +576,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = Isnull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora co WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -561,6 +592,7 @@ BEGIN
 			@IdEstadoActividad as IdEstadoActividad,
 			@Celular as Celular,
 			@Correo as Correo,
+			@RegionID as RegionID,
 			@ZonaID as ZonaID
 	SET NOCOUNT OFF
 END
@@ -589,6 +621,7 @@ BEGIN
 	DECLARE @IdEstadoActividad int
 	DECLARE @Celular varchar(20)
 	DECLARE @Correo	varchar(80)	
+	DECLARE @RegionID int
 	DECLARE @ZonaID int
 
 	IF (@PaisID = 3 OR @PaisID = 4 OR @PaisID = 6)
@@ -601,6 +634,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = IsNull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora CO WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -617,6 +651,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = Isnull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora co WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -632,6 +667,7 @@ BEGIN
 			@IdEstadoActividad as IdEstadoActividad,
 			@Celular as Celular,
 			@Correo as Correo,
+			@RegionID as RegionID,
 			@ZonaID as ZonaID
 	SET NOCOUNT OFF
 END
@@ -660,6 +696,7 @@ BEGIN
 	DECLARE @IdEstadoActividad int
 	DECLARE @Celular varchar(20)
 	DECLARE @Correo	varchar(80)	
+	DECLARE @RegionID int
 	DECLARE @ZonaID int
 
 	IF (@PaisID = 3 OR @PaisID = 4 OR @PaisID = 6)
@@ -672,6 +709,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = IsNull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora CO WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -688,6 +726,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = Isnull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora co WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -703,6 +742,7 @@ BEGIN
 			@IdEstadoActividad as IdEstadoActividad,
 			@Celular as Celular,
 			@Correo as Correo,
+			@RegionID as RegionID,
 			@ZonaID as ZonaID
 	SET NOCOUNT OFF
 END
@@ -731,6 +771,7 @@ BEGIN
 	DECLARE @IdEstadoActividad int
 	DECLARE @Celular varchar(20)
 	DECLARE @Correo	varchar(80)	
+	DECLARE @RegionID int
 	DECLARE @ZonaID int
 
 	IF (@PaisID = 3 OR @PaisID = 4 OR @PaisID = 6)
@@ -743,6 +784,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = IsNull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora CO WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -759,6 +801,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = Isnull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora co WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -774,6 +817,7 @@ BEGIN
 			@IdEstadoActividad as IdEstadoActividad,
 			@Celular as Celular,
 			@Correo as Correo,
+			@RegionID as RegionID,
 			@ZonaID as ZonaID
 	SET NOCOUNT OFF
 END
@@ -802,6 +846,7 @@ BEGIN
 	DECLARE @IdEstadoActividad int
 	DECLARE @Celular varchar(20)
 	DECLARE @Correo	varchar(80)	
+	DECLARE @RegionID int
 	DECLARE @ZonaID int
 
 	IF (@PaisID = 3 OR @PaisID = 4 OR @PaisID = 6)
@@ -814,6 +859,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = IsNull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora CO WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -830,6 +876,7 @@ BEGIN
 			@IdEstadoActividad = IsNull(CO.IdEstadoActividad, ''),
 			@Celular = IsNull(U.Celular, ''),
 			@Correo = IsNull(U.EMail, ''),
+			@RegionID = IsNull(CO.RegionID, 0),
 			@ZonaID = Isnull(CO.ZonaID, 0)
 		FROM dbo.Usuario U WITH(NOLOCK)
 		LEFT JOIN ods.Consultora co WITH(NOLOCK) ON u.CodigoConsultora = co.Codigo
@@ -845,6 +892,7 @@ BEGIN
 			@IdEstadoActividad as IdEstadoActividad,
 			@Celular as Celular,
 			@Correo as Correo,
+			@RegionID as RegionID,
 			@ZonaID as ZonaID
 	SET NOCOUNT OFF
 END
