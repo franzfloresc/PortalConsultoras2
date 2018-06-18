@@ -298,14 +298,13 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCUVsAEvaluar = new List<string>();
                 item.Mensaje = string.Empty;
 
-                listaCUVsAEvaluar.Add(item.CUV);
-
                 if (cuvHijos.Any(x => x.SetID == item.SetID))
                 {
                     listaCUVsAEvaluar.AddRange(cuvHijos.Where(x => x.SetID == item.SetID).Select(x => x.CUV));
                 }
+                else
+                    listaCUVsAEvaluar.Add(item.CUV);
 
-                // var temp = observaciones.Where(o => o.CUV == item.CUV).ToList();
                 var temp = observaciones.Where(o => listaCUVsAEvaluar.Contains(o.CUV)).ToList();
 
 
@@ -5946,7 +5945,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
-        
+
         private string ObtenerDescripcionOferta(BEPedidoWebDetalle item)
         {
             var descripcion = "";
@@ -6029,7 +6028,7 @@ namespace Portal.Consultoras.Web.Controllers
                 EjecutarLogDynamoDB(data, "", "", "", p_origen, p_aplicacion, accion, consultora, p_seccion);
             }
         }
-        
+
         #region Revista digital y Sección DORADA
         public ConfiguracionPaisDatosModel ObtenerPerdio(int campaniaId)
         {
@@ -6072,7 +6071,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return dato;
         }
-        
+
         public bool TieneProductosPerdio(int campaniaId)
         {
             if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&
