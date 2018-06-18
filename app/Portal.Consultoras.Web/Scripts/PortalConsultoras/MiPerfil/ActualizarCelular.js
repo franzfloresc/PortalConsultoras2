@@ -1,9 +1,11 @@
-﻿var actualizarCelularModule = (function (urls, $) {
+﻿var actualizarCelularModule = (function (globalData, $) {
     'use strict';
 
     var me = {};
 
+    var urls = globalData.urlProvider;
     var localData = {
+        CelularActual: globalData.celular,
         CelularValido: false,
         CelularNuevo: '',
         Expired: true,
@@ -89,6 +91,14 @@
                     Message: 'El número no puede estar vacío.'
                 };
             }
+
+            if (localData.CelularActual === numero) {
+                return {
+                    Success: false,
+                    Message: 'El número no puede ser el mismo.'
+                };
+            }
+
             var reg = /^\d+$/;
             if (!reg.test(numero)) {
                 return {
@@ -104,7 +114,7 @@
                     Message: 'El número debe tener ' + result.length + ' digitos.'
                 };
             }
-            // call ajax
+
             return { Success: true };
         }
 
@@ -301,7 +311,7 @@
     };
 
     return me;
-})(urlProvider, jQuery);
+})(actualizaCelularData, jQuery);
 
 window.actualizarCelularModule = actualizarCelularModule;
 
