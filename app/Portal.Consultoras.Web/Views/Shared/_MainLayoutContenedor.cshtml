@@ -63,6 +63,7 @@
         var emt_type = '0';
         var emt_device = ' ';
         var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
+        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
         // New Chat -->
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
         var FechaActual = '@(DateTime.Now.ToString("dd/MM/yyyy"))';
@@ -155,8 +156,6 @@
         .data-layaout-body {
             width: initial !important;
         }
-        
-
     </style>
     @{
         string controllerAction = this.ViewContext.RouteData.Values["controller"].ToString() + this.ViewContext.RouteData.Values["action"].ToString();
@@ -226,7 +225,7 @@
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTemplateResumenCampania.cshtml")
 
-<script id="ofertadeldia-template" type="text/x-handlebars-template">
+    <script id="ofertadeldia-template" type="text/x-handlebars-template">
         <div data-odd-tipoventana="baner">
             <div class="content_oferta_dia" id="banner-odd" data-item="">
                 <div style="display:none;" data-item-campos="">
@@ -361,69 +360,69 @@
                     </div>
                 </div>
             </div>
-            <div  style="display:none;" data-odd-tipoventana="carrusel" class="content_estrategia_carrusel content_estrategia_carrusel_834">
+            <div style="display:none;" data-odd-tipoventana="carrusel" class="content_estrategia_carrusel content_estrategia_carrusel_834">
                 <div class="saludo_mas_productos" data-odd-texto="cliente" style="display:none;">{{UsuarioNombre}}, APROVECHA ESTAS OFERTAS ¡SOLO HOY!</div>
-                    <div id="divOddCarrusel" class="contenido contenido_834">
-                        {{#each this.ListaOfertas  as |detalle|}}
-                            <div data-item="" data-item-position="{{detalle.ID}}" class="revistadigital-landing" style="min-width: auto;">
-                                <div class="content_item_carrusel" >
-                                    <div style="display:none;" data-item-campos="">
-                                        <input type="hidden" class="tipoestrategia-id-odd" value="{{detalle.TipoEstrategiaID}}" />
-                                        <input type="hidden" class="estrategia-id-odd" value="{{detalle.EstrategiaID}}" />
-                                        <input type="hidden" class="marca-id-odd" value="{{detalle.MarcaID}}" />
-                                        <input type="hidden" class="cuv2-odd" value="{{detalle.CUV2}}" />
-                                        <input type="hidden" class="limite-venta-odd" value="{{detalle.LimiteVenta}}" />
-                                        <input type="hidden" class="flagnueva-odd" value="{{detalle.FlagNueva}}" />
-                                        <input type="hidden" class="precio-odd" value="{{detalle.PrecioOferta}}" />
-                                        <input type="hidden" class="nombre-odd" value="{{detalle.NombreOferta}}" />
-                                        <input type="hidden" class="indmonto-min-odd" value="{{detalle.IndicadorMontoMinimo}}" />
-                                        <input type="hidden" class="teimagenmostrar-odd" value="{{detalle.TipoEstrategiaImagenMostrar}}" />
-                                        <input type="hidden" Class="imagen-odd" value="{{detalle.ImagenDisplay}}" />
-                                        <input type="hidden" class="origenPedidoWeb-odd" value="3" />
-                                        <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
-                                        <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
+                <div id="divOddCarrusel" class="contenido contenido_834">
+                    {{#each this.ListaOfertas  as |detalle|}}
+                    <div data-item="" data-item-position="{{detalle.ID}}" class="revistadigital-landing" style="min-width: auto;">
+                        <div class="content_item_carrusel">
+                            <div style="display:none;" data-item-campos="">
+                                <input type="hidden" class="tipoestrategia-id-odd" value="{{detalle.TipoEstrategiaID}}" />
+                                <input type="hidden" class="estrategia-id-odd" value="{{detalle.EstrategiaID}}" />
+                                <input type="hidden" class="marca-id-odd" value="{{detalle.MarcaID}}" />
+                                <input type="hidden" class="cuv2-odd" value="{{detalle.CUV2}}" />
+                                <input type="hidden" class="limite-venta-odd" value="{{detalle.LimiteVenta}}" />
+                                <input type="hidden" class="flagnueva-odd" value="{{detalle.FlagNueva}}" />
+                                <input type="hidden" class="precio-odd" value="{{detalle.PrecioOferta}}" />
+                                <input type="hidden" class="nombre-odd" value="{{detalle.NombreOferta}}" />
+                                <input type="hidden" class="indmonto-min-odd" value="{{detalle.IndicadorMontoMinimo}}" />
+                                <input type="hidden" class="teimagenmostrar-odd" value="{{detalle.TipoEstrategiaImagenMostrar}}" />
+                                <input type="hidden" Class="imagen-odd" value="{{detalle.ImagenDisplay}}" />
+                                <input type="hidden" class="origenPedidoWeb-odd" value="3" />
+                                <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
+                                <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
+                            </div>
+                            <div class="producto_img_home" data-odd-accion="verdetalle">
+                                <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1" />
+                                <a class="ver_detalle_carrusel" style="top: 80px;" onclick="odd_google_analytics_product_click('{{EscapeSpecialChars detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{EscapeSpecialChars DescripcionMarca}}', '', {{Position}}, 'Oferta del día - Slider Productos');">VER DETALLE</a>
+                            </div>
+                            <div class="producto_nombre_descripcion" data-item-tag="descripcion">
+                                <h6>&ensp;&nbsp;</h6>
+                                <p class="nombre-producto nombre_producto"><b>{{detalle.NombreOferta}}</b></p>
+                            </div>
+                            <div class="producto_nombre_descripcion" data-item-tag="precio">
+                                <div>
+                                    {{#iff detalle.PrecioCatalogo '>' 0}}
+                                    <span class="producto_precio_normal">{{{SimboloMoneda}}} {{detalle.PrecioCatalogoFormat}}</span>
+                                    {{/iff}}
+                                    <span class="producto_precio_oferta">{{{SimboloMoneda}}} {{detalle.PrecioOfertaFormat}}</span>
+                                </div>
+                            </div>
+                            <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                                <div class="texto_elige_tono"></div>
+                                <div class="clear"></div>
+                                <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                                    <input type="text" value="1" size="2" maxlength="2"
+                                           class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd"
+                                           tabindex="0">
+                                    <div class="liquidacion_rango_right_pedido js-no-popup">
+                                        <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                                        <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                                     </div>
-                                    <div class="producto_img_home" data-odd-accion="verdetalle">
-                                        <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1" />
-                                        <a class="ver_detalle_carrusel" style="top: 80px;" onclick="odd_google_analytics_product_click('{{EscapeSpecialChars detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{EscapeSpecialChars DescripcionMarca}}', '', {{Position}}, 'Oferta del día - Slider Productos');">VER DETALLE</a>
-                                    </div>
-                                    <div class="producto_nombre_descripcion" data-item-tag="descripcion">
-                                        <h6>&ensp;&nbsp;</h6>
-                                        <p class="nombre-producto nombre_producto"><b>{{detalle.NombreOferta}}</b></p>
-                                    </div>
-                                    <div class="producto_nombre_descripcion" data-item-tag="precio">
-                                        <div>
-                                            {{#iff detalle.PrecioCatalogo '>' 0}}
-                                            <span class="producto_precio_normal">{{{SimboloMoneda}}} {{detalle.PrecioCatalogoFormat}}</span>
-                                            {{/iff}}
-                                            <span class="producto_precio_oferta">{{{SimboloMoneda}}} {{detalle.PrecioOfertaFormat}}</span>
-                                        </div>
-                                    </div>
-                                    <div class="producto_nombre_descripcion" data-item-tag="agregar">
-                                        <div class="texto_elige_tono"></div>
-                                        <div class="clear"></div>
-                                        <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                                            <input type="text" value="1" size="2" maxlength="2"
-                                                   class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd"
-                                                   tabindex="0">
-                                            <div class="liquidacion_rango_right_pedido js-no-popup">
-                                                <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                                                <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
-                                            </div>
-                                        </div>
-                                        <a class="boton_Agregalo_home" data-odd-accion="agregar" data-odd-accion-type="list" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
-                                        <div class="clear"></div>
-                                        <div style="margin: 9px 0;height: 15px;">
-                                            <div class="agregado product-add" style="text-align:right; display:{{detalle.Agregado}};">
-                                                AGREGADO
-                                                <div class="icono"></div>
-                                            </div>
-                                        </div>
+                                </div>
+                                <a class="boton_Agregalo_home" data-odd-accion="agregar" data-odd-accion-type="list" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
+                                <div class="clear"></div>
+                                <div style="margin: 9px 0;height: 15px;">
+                                    <div class="agregado product-add" style="text-align:right; display:{{detalle.Agregado}};">
+                                        AGREGADO
+                                        <div class="icono"></div>
                                     </div>
                                 </div>
                             </div>
-                        {{/each}}
                         </div>
+                    </div>
+                    {{/each}}
+                </div>
             </div>
 
         </div>
