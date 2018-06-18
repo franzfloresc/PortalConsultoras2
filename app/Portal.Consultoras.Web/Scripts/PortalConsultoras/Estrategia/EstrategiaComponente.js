@@ -4,6 +4,27 @@
         nombre: ""
     }
 
+    var _esVirtualCouch =  function() {
+        var pathname = window.location.pathname;
+        return (pathname == '/Pedido/virtualCoach') ? true : false;
+    }
+    var _obtenerProductoPromise =  function(cuv, campaniaId) {
+
+        var d = $.Deferred();
+        var promise = $.ajax({
+            type: 'GET',
+            url: baseUrl + 'FichaProducto/ObtenerFichaProducto?cuv=' + cuv + '&campanaId=' + campaniaId,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: true
+        });
+        promise.done(function(response) {
+            d.resolve(response);
+        });
+        promise.fail(d.reject);
+
+        return d.promise();
+    };
     var _mostrarMasTonos = function(menos) {
         if (!isMobile()) {
             return false;
@@ -103,6 +124,30 @@
             if (btnActivar) {
                 prod.parents("[data-item]").find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
                 prod.parents("[data-item]").find('#btnAgregalo').removeClass('btn_desactivado_general');
+            }
+            
+            if (accion == 2 && _esVirtualCouch()) {
+                var URLactual = window.location.search;
+                var campana = URLactual.substring(12, 18);
+                var fichaPromise = _obtenerProductoPromise(cuv, campana);
+                var producto;
+                $.when(fichaPromise).then(function (response) {
+                    if (checkTimeout(response)) {
+                        if (response !== null) {
+
+                            var cabecera = document.getElementsByTagName("head")[0];
+                            var nuevoScript = document.createElement('script');
+                            nuevoScript.type = 'text/javascript';
+                            nuevoScript.src = "https://ok383.infusionsoft.com/app/webTracking/getTrackingCode";
+                            nuevoScript.id = "infusionsoft";
+                            cabecera.appendChild(nuevoScript);
+                            producto = response;
+
+                            $("#fav_nombre_prod").text(producto.DescripcionCompleta);
+                        }
+                    }
+                });
+
             }
         },
         mouseMoveTono: function() {
