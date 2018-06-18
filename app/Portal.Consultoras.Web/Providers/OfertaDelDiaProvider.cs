@@ -78,9 +78,9 @@ namespace Portal.Consultoras.Web.Providers
             return model;
         }
 
-        private static List<BEEstrategia> ObtenerOfertasDelDiaDesdeSoap(int paisId, int campaniaId, string codigoConsultora, DateTime fechaInicioCampania)
+        private static List<ServicePedido.BEEstrategia> ObtenerOfertasDelDiaDesdeSoap(int paisId, int campaniaId, string codigoConsultora, DateTime fechaInicioCampania)
         {
-            BEEstrategia[] estrategias;
+            ServicePedido.BEEstrategia[] estrategias;
             using (var svc = new PedidoServiceClient())
             {
                 estrategias = svc.GetEstrategiaODD(paisId, campaniaId, codigoConsultora, fechaInicioCampania.Date);
@@ -88,7 +88,7 @@ namespace Portal.Consultoras.Web.Providers
             return estrategias.ToList();
         }
 
-        private OfertaDelDiaModel ObtenerOfertaDelDiaModel(int paisId, string codigoIso, List<BEEstrategia> ofertasDelDia)
+        private OfertaDelDiaModel ObtenerOfertaDelDiaModel(int paisId, string codigoIso, List<ServicePedido.BEEstrategia> ofertasDelDia)
         {
             if (!ofertasDelDia.Any())
                 return null;
@@ -118,8 +118,6 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     oferta.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, oferta.FotoProducto01, carpetaPais);
                 }
-
-                oferta.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
 
                 var oddModel = new OfertaDelDiaModel
                 {

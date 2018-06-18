@@ -708,7 +708,7 @@ $(document).ready(function () {
 
                             $(me.Variables.txtCuv2).html(cuv2);
                             $(me.Variables.txtDescripcionCuv2).html(descripcion);
-                            $(me.Variables.spnSimboloMonedaCuv2).html(vbSimbolo);
+                            $(me.Variables.spnSimboloMonedaCuv2).html(variablesPortal.SimboloMoneda);
                             $(me.Variables.txtPrecioCuv2).html(DecimalToStringFormat(precio));
                             $(me.Variables.hdCuvPrecio2).val(precio);
 
@@ -896,7 +896,7 @@ $(document).ready(function () {
                     $("[data-tipo-confirma=cambio]").show();
                     $(me.Variables.wrpMobile).addClass(me.Variables.pb120);
 
-                    $(me.Variables.spnSimboloMonedaReclamo).html(vbSimbolo);
+                    $(me.Variables.spnSimboloMonedaReclamo).html(variablesPortal.SimboloMoneda);
 
                     var precioUnidad = $(me.Variables.txtPrecioUnidad).val();
                     var cantidad = $(me.Variables.txtCantidad1).val();

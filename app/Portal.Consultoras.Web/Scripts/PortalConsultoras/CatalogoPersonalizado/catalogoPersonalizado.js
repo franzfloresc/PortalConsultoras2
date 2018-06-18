@@ -85,9 +85,9 @@ $(document).ready(function () {
 
     if (tipoOrigen == '1') {
 
-        var myformat = simbolo + '%s';
-        var scala1 = simbolo + precioMin;
-        var scala2 = simbolo + precioMax;
+        var myformat = variablesPortal.SimboloMoneda + '%s';
+        var scala1 = variablesPortal.SimboloMoneda + precioMin;
+        var scala2 = variablesPortal.SimboloMoneda + precioMax;
         $('.range-slider').val(precioMin + ',' + precioMax);
 
         $('.range-slider').show();
@@ -655,7 +655,7 @@ function ObtenerOfertaRevista(item) {
                     DialogLoadingCerrar();
                     return false;
                 }
-                response.data.dataPROL.Simbolo = vbSimbolo;
+                response.data.dataPROL.Simbolo = variablesPortal.SimboloMoneda;
                 response.data.dataPROL.TxtGanancia = response.data.txtGanancia;
                 response.data.dataPROL.TxtRecibeGratis = response.data.txtRecibeGratis;
                 var settings = $.extend({}, response.data.dataPROL, obj);

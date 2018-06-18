@@ -288,10 +288,9 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv)
         {
-            IList<BEProducto> productos = new List<BEProducto>();
-            var daProducto = new DAProducto(paisID);
+            var productos = new List<BEProducto>();
 
-            using (IDataReader reader = daProducto.SelectProductoToKitInicio(campaniaID, cuv))
+            using (var reader = new DAProducto(paisID).SelectProductoToKitInicio(campaniaID, cuv))
             {
                 while (reader.Read())
                 {
@@ -401,7 +400,7 @@ namespace Portal.Consultoras.BizLogic
             if (lstProdcutos == null || lstProdcutos.Count == 0) return false;
             lstProdcutos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
             if (lstProdcutos.Count == 0) return false;
-            var oCuv = lstProdcutos.Where(a => a.CodigoCupon == cuvIngresado).FirstOrDefault();
+            var oCuv = lstProdcutos.FirstOrDefault(a => a.CodigoCupon == cuvIngresado);
             if (oCuv.IndicadorCuponIndependiente) return false;
             List<BEProductoProgramaNuevas> lstElectivas = lstProdcutos.Where(a => !a.IndicadorCuponIndependiente && a.CodigoCupon != cuvIngresado).ToList();
             if (lstElectivas.Count == 0) return false;
@@ -501,6 +500,39 @@ namespace Portal.Consultoras.BizLogic
         }
         #endregion
         #endregion
+
+        public string ValidarMatrizCampaniaMasivo(int paisID, string CUVs, int AnioCampania)
+        {
+            return new DAProductoDescripcion(paisID).ValidarMatrizCampaniaMasivo(CUVs, AnioCampania);
+        }
+
+        public string RegistrarProductoMasivo(int paisID, string data)
+        {
+            return new DAProductoDescripcion(paisID).RegistrarProductoMasivo(data);
+        }
+
+        public void UpdProductoDescripcionMasivo(int paisID, int campaniaID, IList<BEProductoDescripcion> productos, string codigoUsuario)
+        {
+
+            var daProductoDescripcion = new DAProductoDescripcion(paisID);
+
+            List<BEProductoDescripcion> lstFinal = new List<BEProductoDescripcion>();
+
+            //foreach (BEProductoDescripcion be in productos)
+            //{
+            //    BEProductoDescripcion item = new BEProductoDescripcion();
+            //    item.CampaniaID = campaniaID;
+            //    item.CUV  = be.CUV;
+            //    item.Descripcion  = be.Descripcion;
+            //    item.PrecioProducto = be.PrecioProducto;
+            //    item.FactorRepeticion = be.FactorRepeticion;
+            //    lstFinal.Add(item);
+            //}
+
+            // daProductoDescripcion.UpdProductoDescripcionMasivo(paisID,campaniaID, lstFinal, codigoUsuario);
+            daProductoDescripcion.UpdProductoDescripcionMasivo(paisID, campaniaID, productos, codigoUsuario);
+
+        }
 
     }
 }

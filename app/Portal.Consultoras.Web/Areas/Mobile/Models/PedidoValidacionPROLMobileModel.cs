@@ -5,7 +5,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
     public class PedidoValidacionPROLMobileModel
     {
-       // Make this field 'private' and encapsulate it in a 'public' property
         public decimal MontoAhorroRevista { get; set; }
 
         public string CodigoISO { get; set; }

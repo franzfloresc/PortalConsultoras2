@@ -1,8 +1,6 @@
 ﻿@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.EditarDireccionModel
 @* Template para DO,PR *@
-@* Template para DO,PR *@
-@*aqui nuevo*@
 <div class="contenedor_camposUbigeo">
     <label>@Dictionaries.LabelLugar1[Model.CodigoPais]:</label>
     <div class="contenedor_campoFormulario">
@@ -20,7 +18,6 @@
 <div class="contenedor_camposUbigeo">
     <label>@Dictionaries.LabelLugar3[Model.CodigoPais]:</label>
     <div class="contenedor_campoFormulario">
-        @*@Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3)*@
         @Html.TextBoxFor(m => Model.LugarNivel3, new { @readonly = "readonly" })
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>
     </div>

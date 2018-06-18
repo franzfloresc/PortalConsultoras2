@@ -248,34 +248,34 @@ var rdAnalyticsModule = (function () {
         try {
             var origenWebString = origenWeb.toString();
             switch (origenWebString) {
-                case _origenWeb.home: //Home
+                case _origenWeb.home:
                     _virtualEventPush(_seccionWeb.home, _text.epm, _action.clickBanner);
                     break;
-                case _origenWeb.catalogo: //Catalogos
+                case _origenWeb.catalogo:
                     _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
                     break;
-                case _origenWeb.pedido: //Pedido
+                case _origenWeb.pedido:
                     _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.clickBanner);
                     break;
-                case _origenWeb.homeLan: //Lanzamiento
+                case _origenWeb.homeLan:
                     _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
                     break;
-                case _origenWeb.homeLanMobile: //Lanzamiento mobile
+                case _origenWeb.homeLanMobile:
                     _virtualEventPush(_seccionWeb.homeMobile, _text.epm, _action.verLan);
                     break;
-                case _origenWeb.homeMobile: //Home
+                case _origenWeb.homeMobile:
                     _virtualEventPush(_seccionWeb.homeMobile, _text.epm, _action.clickBanner);
                     break;
-                case _origenWeb.catalogoMobile: //Catalogos
+                case _origenWeb.catalogoMobile:
                     _virtualEventPush(_seccionWeb.catalogoMobile, _text.epm, _action.clickBanner);
                     break;
-                case _origenWeb.pedidoMobile: //Pedido
+                case _origenWeb.pedidoMobile:
                     _virtualEventPush(_seccionWeb.pedidoMobile, _text.epm, _action.clickBanner);
                     break;
-                case _origenWeb.homeVerMobile: //Home
+                case _origenWeb.homeVerMobile:
                     _virtualEventPush(_seccionWeb.homeMobile, _text.epm, _action.verTodas);
                     break;
-                case _origenWeb.homeVerMasMobile: //Home
+                case _origenWeb.homeVerMasMobile:
                     _virtualEventPush(_seccionWeb.homeMobile, _text.epm, _action.verMas);
                     break;
             }
@@ -329,26 +329,26 @@ var rdAnalyticsModule = (function () {
         try {
             var origenWebString = origenWeb.toString();
             switch (origenWebString) {
-                case _origenWeb.rdLan://Lan desktop
+                case _origenWeb.rdLan:
                     if (popup) _addToCartPush(_text.rdBannerDetPrincipal, estrategia);
                     else _addToCartPush(_text.rdBannerPrincipal, estrategia);
                     break;
-                case _origenWeb.rdLanMobile://Lan Mobile
+                case _origenWeb.rdLanMobile:
                     if (popup) _addToCartPush(_text.rdBannerDetPrincipal, estrategia);
                     else _addToCartPush(_text.rdBannerPrincipal, estrategia);
                     break;
-                case _origenWeb.rdOferas: //Mis Ofertas
+                case _origenWeb.rdOferas:
                     if (!popup) _addToCartPush(_text.rdMisOfertas, estrategia);
                     else _addToCartPush(_text.rdDetalleMisOfertas, estrategia);
                     break;
-                case _origenWeb.rdOferasMobile: //Mis Ofertas Mobile
+                case _origenWeb.rdOferasMobile:
                     if (!popup) _addToCartPush(_text.rdMisOfertas, estrategia);
                     else _addToCartPush(_text.rdDetalleMisOfertas, estrategia);
                     break;
-                case _origenWeb.rdDetalle: //Mis Ofertas Mobile
+                case _origenWeb.rdDetalle:
                     _addToCartPush(_text.rdDetalleProducto, estrategia);
                     break;
-                case _origenWeb.rdDetalleMobile: //Mis Ofertas Mobile
+                case _origenWeb.rdDetalleMobile:
                     _addToCartPush(_text.rdDetalleProducto, estrategia);
                     break;
                 default:
@@ -375,10 +375,10 @@ var rdAnalyticsModule = (function () {
                 case _origenWeb.rdOferasMobile:
                     _productClickPush(_text.rdMisOfertas, estrategia);
                     break;
-                case _origenWeb.rdDetalle: //Mis Ofertas 
+                case _origenWeb.rdDetalle:
                     _productClickPush(_text.rdDetalleProducto, estrategia);
                     break;
-                case _origenWeb.rdDetalleMobile: //Mis Ofertas Mobile
+                case _origenWeb.rdDetalleMobile:
                     _productClickPush(_text.rdDetalleProducto, estrategia);
                     break;
             }
@@ -401,18 +401,18 @@ var rdAnalyticsModule = (function () {
                     if (popup) _virtualEventPush(category, _text.rdAgregarBannerDetPrincipal, label);
                     else _virtualEventPush(category, _text.rdAgregarBannerPrincipal, label);
                     break;
-                case _origenWeb.rdOferas: //Mis Ofertas
+                case _origenWeb.rdOferas:
                     if (popup) _virtualEventPush(category, _text.rdAgregarDetalleMisOfertas, label);
                     _virtualEventPush(category, _text.rdAgregarMisOfertas, label);
                     break;
-                case _origenWeb.rdOferasMobile: //Mis Ofertas Mobile
+                case _origenWeb.rdOferasMobile:
                     if (popup) _virtualEventPush(category, _text.rdAgregarDetalleMisOfertas, label);
                     _virtualEventPush(category, _text.rdAgregarMisOfertas, label);
                     break;
-                case _origenWeb.rdDetalle: //Mis Ofertas Mobile
+                case _origenWeb.rdDetalle:
                     _virtualEventPush(category, _text.rdAgregarDetalleProducto, label);
                     break;
-                case _origenWeb.rdDetalleMobile: //Mis Ofertas Mobile
+                case _origenWeb.rdDetalleMobile:
                     _virtualEventPush(category, _text.rdAgregarDetalleProducto, label);
                     break;
             }
@@ -516,7 +516,7 @@ var rdAnalyticsModule = (function () {
         _virtualEventPush(_text.contenedor + " - Home", _action.clickFlechas, _getDirection(direction));
     }
     
-    return { //rdAnalyticsModule
+    return {
         CancelarSuscripcion: CancelarSuscripcion,
         IrCancelarSuscripcion: IrCancelarSuscripcion,
         CerrarPopUp: CerrarPopUp,

@@ -11,7 +11,7 @@ function noback() {
 $(document).ready(function () {
 
     LocalStorageLimpiar();
-
+    /*
     if (esPaisEsika == 'True') {
         $('#cssStyle>link').attr('disabled', false);
         $('#cssStyleLbel>link').attr('disabled', true);
@@ -19,7 +19,7 @@ $(document).ready(function () {
     if (esPaisLbel == 'True') {
         $('#cssStyle>link').attr('disabled', true);
         $('#cssStyleLbel>link').attr('disabled', false);
-    }
+    }*/
 
     $(".DropDown").change(function () {
         val_Usuario = false;

@@ -41,19 +41,20 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var listaFinal1 = ConsultarEstrategiasModel("", 0, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
-                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
-
+                
                 if (revistaDigital.TieneRDCR)
                 {
                     if (GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + userData.CodigoISO, userData.CodigoZona))
                     {
-                        listModel = listModel.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor1 || e.FlagRevista == Constantes.FlagRevista.Valor3).ToList();
+                        listaFinal1 = listaFinal1.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor1 || e.FlagRevista == Constantes.FlagRevista.Valor3).ToList();
                     }
                     else
                     {
-                        listModel = listModel.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor1).ToList();
+                        listaFinal1 = listaFinal1.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor1).ToList();
                     }
                 }
+
+                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
 
                 int cantidadTotal = listModel.Count;
 

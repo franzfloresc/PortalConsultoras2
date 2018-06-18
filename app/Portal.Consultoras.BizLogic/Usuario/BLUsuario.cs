@@ -394,7 +394,7 @@ namespace Portal.Consultoras.BizLogic
                 usuario = GetUsuario(paisID, codigoUsuario);
                 if (usuario == null) return null;
 
-                var configuracionConsultora = this.GetConfiguracionCampania(usuario, Constantes.TipoUsuario.Consultora);
+                var configuracionConsultora = GetConfiguracionCampania(usuario, Constantes.TipoUsuario.Consultora);
                 if (configuracionConsultora != null)
                 {
                     usuario.CampaniaID = configuracionConsultora.CampaniaID;
@@ -446,7 +446,7 @@ namespace Portal.Consultoras.BizLogic
                         usuario.CodigorRegion = postulante.Region;
                         usuario.CodigoZona = postulante.CodigoZona;
 
-                        var configuracion = this.GetConfiguracionCampania(usuario, Constantes.TipoUsuario.Postulante);
+                        var configuracion = GetConfiguracionCampania(usuario, Constantes.TipoUsuario.Postulante);
 
                         if (configuracion != null)
                         {
@@ -658,21 +658,21 @@ namespace Portal.Consultoras.BizLogic
 
         private BEConfiguracionCampania GetConfiguracionCampania(BEUsuario beUsuario, int tipoUsuario)
         {
-            var beConfiguracionCampania = new BEConfiguracionCampania();
+            BEConfiguracionCampania beConfiguracionCampania = null;
             var daConfiguracionCampania = new DAConfiguracionCampania(beUsuario.PaisID);
 
             if (tipoUsuario == Constantes.TipoUsuario.Consultora)
             {
-                using (IDataReader reader = daConfiguracionCampania.GetConfiguracionCampania(beUsuario.PaisID, beUsuario.ZonaID, beUsuario.RegionID, beUsuario.ConsultoraID))
+                using (var reader = daConfiguracionCampania.GetConfiguracionCampania(beUsuario.PaisID, beUsuario.ZonaID, beUsuario.RegionID, beUsuario.ConsultoraID))
                 {
-                    beConfiguracionCampania = reader.MapToObject<BEConfiguracionCampania>();
+                    beConfiguracionCampania = reader.MapToObject<BEConfiguracionCampania>(true);
                 }
             }
             else if (tipoUsuario == Constantes.TipoUsuario.Postulante)
             {
-                using (IDataReader readerCampania = daConfiguracionCampania.GetConfiguracionCampaniaNoConsultora(beUsuario.PaisID, beUsuario.ZonaID, beUsuario.RegionID))
+                using (var reader = daConfiguracionCampania.GetConfiguracionCampaniaNoConsultora(beUsuario.PaisID, beUsuario.ZonaID, beUsuario.RegionID))
                 {
-                    beConfiguracionCampania = readerCampania.MapToObject<BEConfiguracionCampania>();
+                    beConfiguracionCampania = reader.MapToObject<BEConfiguracionCampania>(true);
                 }
             }
 

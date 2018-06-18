@@ -198,12 +198,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (beConfiguracionCampania.CampaniaID == 0)
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
-
-            //if (beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
-            //    && !beConfiguracionCampania.ModificaPedidoReservado
-            //    && !beConfiguracionCampania.ValidacionAbierta)
-            //    return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
-
+            
             var model = new PedidoDetalleMobileModel
             {
                 AutoReservar = autoReservar,
@@ -326,10 +321,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
 
-                var olstPedidoFicDetalle = ObtenerPedidoFICDetalle();   //   PPC
-                olstPedidoFicDetalle = olstPedidoFicDetalle ?? new List<BEPedidoFICDetalle>();  //  PPC
-
-                //var listProducto = ObtenerPedidoWebDetalle();
+                var olstPedidoFicDetalle = ObtenerPedidoFICDetalle();
+                olstPedidoFicDetalle = olstPedidoFicDetalle ?? new List<BEPedidoFICDetalle>(); 
+                
                 objR.TotalPedido = olstPedidoFicDetalle.Sum(p => p.ImporteTotal);
                 objR.TotalPedidoStr = Util.DecimalToStringFormat(objR.TotalPedido, userData.CodigoISO);
 
@@ -596,19 +590,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View(model);
         }
-
-
-
-        ///////////////////////////        Index  --  Pedido FIC
-
- 
-
-        ///////////////////////////        Detalle  --  Pedido FIC
-
+        
         private List<BEPedidoFICDetalle> ObtenerPedidoFICDetalle()
         {
-           // if (Session[Constantes.ConstSession.PedidoFIC] != null) return (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];
-
             List<BEPedidoFICDetalle> list;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {

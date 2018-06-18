@@ -249,7 +249,6 @@
 <input type="hidden" id="PaginaLogin" />
 
 <div id="FormsSignInContentPopup">
-    <!-- OLVIDASTE TU CONTRASEÑA -->
     <div id="popup1" style="display:none;">
         <div id="popup_olvidasteContrasenia">
             <div class="content_bg_olvidasteContrasenia">
@@ -383,7 +382,6 @@
         </div>
     </div>
 
-    <!-- OPCIONES DE RECUPERACIÓN DE CONTRASEÑA -->
     <input type="hidden" id="hdcorreo" />
     <input type="hidden" id="hdclave" />
     <input type="hidden" id="hdCodigoConsultora" />
@@ -408,97 +406,26 @@
                 </div>
                 <div class="contenedor_opciones">
                     <div class="opciones_recuperacionContrasenia opcion_correoElectronico" id="divRecup_porcorreo2">
-                        <!-- CUANDO ESTA OPCIÓN NO TENGA CORREO REGISTRADO AGREGAR esta clase css en el atributo class: deshabilitar_opcion_correo -->
                         <div class="icono_mail"></div>
                         <div class="bloque_texto_opcionRecuperacionContrasenia">
                             <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Por correo electrónico</span>
-                            <!-- CUANDO EXISTE CORREO -->
                             <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente correo_electronico_consult" style="display: block;" id="spcorreo"></span>
-                            <!-- CUANDO NO EXISTE CORREO -->
                             <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente correo_electronico_consult" style="display: none;" id="spsincorreo">No existe correo registrado</span>
                         </div>
                     </div>
-
-                    @*<div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros" onclick="javascript:Construir_EnlacexDispositivo(2);">*@
-                    @*<div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros">
-                            <div class="icono_chateaConNosotros"></div>
-                            <div class="bloque_texto_opcionRecuperacionContrasenia">
-                                <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
-                                <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente horarios_atencion_chat">
-                                    @{
-                                        if (HttpContext.Current.Request.Browser.IsMobileDevice)
-                                        {
-                                            <a href="#" class="lk_chat" ismovildevice="1" target="_blank">L-V: 08:00 a 20:00 y S: 08:00 a 18:00</a>
-                                        }
-                                        else
-                                        {
-                                            <a href="#" class="lk_chat" ismovildevice="0">L-V: 08:00 a 20:00 y S: 08:00 a 18:00</a>
-                                        }
-                                    }
-                                </span>
-                            </div>
-                        </div>*@
-
-                    @*@{
-                            if (HttpContext.Current.Request.Browser.IsMobileDevice)
-                            {
-                                <a href="#" class="lk_chat" ismovildevice="1" target="_blank">
-                                    <div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros2">
-                                        <div class="icono_chateaConNosotros"></div>
-                                        <div class="bloque_texto_opcionRecuperacionContrasenia">
-                                            <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
-                                            <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente horarios_atencion_chat" id="sp_chat">
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            }
-                            else
-                            {
-                                <a href="#" class="lk_chat" ismovildevice="0">
-                                    <div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros2">
-                                        <div class="icono_chateaConNosotros"></div>
-                                        <div class="bloque_texto_opcionRecuperacionContrasenia">
-                                            <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
-                                            <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente horarios_atencion_chat" id="sp_chat">
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                </a>
-                            }
-                        }
-
-                        @if (!HttpContext.Current.Request.Browser.IsMobileDevice)
-                        {
-                            <a id="lk_telefono" href="http://www.belcorpresponde.com/" target="_blank">
-                                <!-- TELÉFONOS CENTRALES PARA VERSIÓN DESKTOP -->
-                                <div class="opciones_recuperacionContrasenia contenedor_telefonos_desktop">
-                                    <div class="icono_llamanos"></div>
-                                    <div class="bloque_texto_opcionRecuperacionContrasenia">
-                                        <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc texto_llamanos_mayusc">Llámanos</span>
-                                        <div id="divTelefonosDesktop" style="padding-left:6px; padding-right:6px;font-size:11px;letter-spacing:0.5px;font-family:lato;font-weight: 300;"></div>
-                                    </div>
-                                </div>
-                                <!-- FIN TELÉFONOS CENTRALES PARA VERSIÓN DESKTOP -->
-                            </a>
-                        }*@
-
+                    
                     @if (ViewBag.PaisID == 11)
                     {
                         <a id="lk_telefono">
-                            <!-- TELÉFONOS CENTRALES PARA VERSIÓN MOBILE -->
                             <div class="contenedor_telefonos contenedor_telefonos_mobile" id="divTelefonos">
                                 <div class="titulo_llamanos">LLÁMANOS</div>
                             </div>
-                            <!-- FIN TELÉFONOS CENTRALES PARA VERSIÓN MOBILE -->
                         </a>
                     }
                     else if (ViewBag.PaisID != 11)
                     {
                         <a id="lk_telefono">
                             <div class="titulo_llamanos">LLÁMANOS</div>
-                            <!-- CASO 1 : 2 TELÉFONOS CENTRALES -->
                             <div class="contenedor_telefonos contenedor_telefonos_mobile" id="divTelefonos">
                                 <div class="telefonos_centrales" style="display: block;">
                                 </div>
@@ -540,8 +467,6 @@
         <div></div>
     </script>
 
-
-    @*Nueva Version olvide contraseña HD-1254*@
     @{
         if (HttpContext.Current.Request.Browser.IsMobileDevice)
         {
@@ -552,7 +477,6 @@
             <a href="#" class="lk_chat" ismovildevice="0"></a>
         }
     }
-    <!-- OPCIONES CORREO Y SMS -->
     <div id="popupRestaurarClave" style="display:none;">
         <div id="popup_opciones_recuperacion_contrasenia">
             <div class="content_bg_opciones_recuperacion_contrasenia">
@@ -566,47 +490,22 @@
                 </div>
                 <div class="mensaje_pop_up2">
                     <span id="spnNombreConsultora"></span>
-                    <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CORREO Y SMS) -->
                     <b id="menPrioridad1" style="display:none;">Elige cómo prefieres cambiar tu contraseña.</b>
-                    <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CORREO Y SMS) -->
-
-                    <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO (OPCIÓN CORREO) -->
                     <b id="menPrioridad1_correo" style="display:none;">Te enviaremos un e-mail al siguiente correo: </b>
-                    <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO (OPCIÓN CORREO) -->
-
-                    <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
                     <b id="menPrioridad1_sms" style="display:none;">Te enviaremos un mensaje de texto al siguiente número:</b>
-                    <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
-
-                    <!-- INICIO - MENSAJE CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
                     <b id="menPrioridad2_chat" style="display:none;">Puedes comunicarte con nosotros por este medio:</b>
-                    <!-- FIN - MENSAJE CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
-
-                    <!-- INICIO - MENSAJE CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
                     <b id="menPrioridad2_llamada" style="display:none;">Puedes comunicarte con nosotros llamando a nuestra central telefónica:</b>
-                    <!-- FIN - MENSAJE CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
-
-                    <!-- INICIO - MENSAJE SI NO HAY CORREO, SMS, CHAT NI LLAMADAS -->
                     <span class="texto_disculpa menPrioridad3" style="display:none;">discúlpanos, en estos momentos no podemos atenderte.</span>
                     <b class="menPrioridad3" style="display:none;">Puedes comunicarte con nosotros llamando a nuestra central telefónica en el siguiente horario:</b>
-                    <!-- FIN - MENSAJE SI NO HAY CORREO, SMS, CHAT NI LLAMADAS -->
-
-                    <!-- INICIO - MENSAJE PARA PIN DE AUTENTICACION CONSULTORA NUEVA -->
                     <span id="menAutenticacionNueva" class="texto_disculpa" style="display:none;">por ser la primera vez que ingresas, 
                     para verificar la autenticidad te enviaremos un PIN a tu celular o a tu e-mail según la opción que elijas:</span>
-                    <!-- FIN - MENSAJE PARA PIN DE AUTENTICACION CONSULTORA NUEVA-->
-
-                    <!-- INICIO - MENSAJE PARA PIN DE AUTENTICACION CONSULTORA REACTIVADA -->
                     <span id="menAutenticacionReactivada" class="texto_disculpa" style="display:none;">ya que has vuelto después de tiempo, 
                     para verificar la autenticidad te enviaremos un PIN a tu celular o a tu e-mail según la opción que elijas:</span>
-                    <!-- FIN - MENSAJE PARA PIN DE AUTENTICACION CONSULTORA REACTIVADA -->
                 </div>
 
                 <div class="opciones_recuperacion_contrasenia">
                     <div id="prioridad1" style="display:none;">
-                        <!-- INICIO - CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CORREO Y SMS) -->
                         <a id="divRecup_porcorreo" class="opcion_recuperacion_contrasenia opcionCorreo RecuperarPorCorreo">
-                            <!-- CUANDO SE HAYA USADO YA LA OPCIÓN YA SEA DE CORREO O DE SMS SE LE AGREGA LA CLASE opcion_desactivada -->
                             <div class="icono_correo_electronico"></div>
                             <div class="contenedor_info_datos">
                                 <div class="titulo_opcion_correo">Correo electrónico</div>
@@ -623,9 +522,7 @@
                             <div class="mensajeDeBloqueoSMS" style="display:none;font-size: 10px;padding-top:15px">Esta opción está bloqueada temporalmente.</div>
                         </a>
                     </div>
-                    <!-- FIN - CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CORREO Y SMS) -->
 
-                    <!-- INICIO - CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO (OPCIÓN CORREO) -->
                     <div id="prioridad1_correo" class="opcion_recuperacion_contrasenia" style="display:none;">
                         <div class="contenedor_solo_una_opcion">
                             <div class="icono_correo_electronico mb-15"></div>
@@ -637,9 +534,7 @@
                         <button class="btn_enviar_email RecuperarPorCorreo">Enviar e-mail</button>
                         <div class="mensajeDeBloqueoCorreo" style="display:none;font-size: 10px; padding-top:5px;">Esta opción está bloqueada temporalmente.</div>
                     </div>
-                    <!-- FIN - CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO (OPCIÓN CORREO) -->
 
-                    <!-- INICIO - CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
                     <div id="prioridad1_sms" class="opcion_recuperacion_contrasenia" style="display:none;">
                         <div class="contenedor_solo_una_opcion">
                             <div class="icono_sms mb-15"></div>
@@ -651,9 +546,7 @@
                         <button class="btn_enviar_sms opcionSms">Enviar mensaje</button>
                         <div class="mensajeDeBloqueoSMS" style="display:none;font-size: 10px; padding-top:5px;">Esta opción está bloqueada temporalmente.</div>
                     </div>
-                    <!-- FIN - CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
 
-                    <!-- INICIO - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
                     <div id="prioridad2_chat" class="opcion_recuperacion_contrasenia" style="display:none;">
                         <div class="contenedor_solo_una_opcion">
                             <div class="icono_chatea_con_nosotros"></div>
@@ -664,11 +557,8 @@
                         </div>
                         <button class="btn_ingresar_chat" id="divChatearConNosotros">Ingresar al chat</button>
                     </div>
-                    <!-- FIN - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
 
-                    <!-- INICIO - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
                     <div id="Opcionesllamada" class="opcion_recuperacion_contrasenia sinMargenesMobile" style="display:none;">
-                        <!-- INICIO - OPCIÓN LLAMADA DESKTOP -->
                         <div id="prioridad2_llamada" class="contenedor_solo_una_opcion opcionLlamada_desktop" style="display:none;">
                             <div class="icono_llamada"></div>
                             <div class="contenedor_info_datos">
@@ -678,20 +568,14 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- FIN - OPCIÓN LLAMADA DESKTOP -->
 
-                        <!-- INICIO - OPCIÓN LLAMADA MOBILE -->
                         <div class="contenedor_solo_una_opcion opcionLlamada_mobile">
-                            <!-- INICIO - CENTRALES TELEFÓNICAS PERÚ -->
                             <div id="divllamadasMobile" class="grupo_centrales_telefonicas_disponibles" style="display:none;">
 
                             </div>
                         </div>
-                        <!-- FIN - OPCIÓN LLAMADA MOBILE -->
                     </div>
-                    <!-- FIN - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
 
-                    <!-- INICIO - SI NO HAY CORREO, SMS, CHAT NI LLAMADAS -->
                     <div id="prioridad3" style="display:none;">
                         <div class="contenedor_solo_una_opcion">
                             <div class="icono_reloj mb-15"></div>
@@ -703,25 +587,15 @@
                                     <div class="mb-3">
                                         <span class="divHorario">Lunes a Viernes: 08:00 a 20:00</span>
                                     </div>
-                                    @*<div>
-                                            <span class="divHs">Sábados: 08:00 a 18:00</span>
-                                        </div>*@
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- FIN - SI NO HAY CORREO, SMS, CHAT NI LLAMADAS -->
                 </div>
                 <div class="info_mas_opciones">
-                    <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS -->
                     <span style="display:none;">Mis datos no son correctos.</span>
-                    <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS -->
-                    <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO -->
                     <span style="display:none;">Este no es mi correo.</span>
-                    <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO -->
-                    <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO -->
                     <span style="display:none;">Este no es mi número.</span>
-                    <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO -->
 
                     <a id="vermasopciones1" title="Ver más opciones" data-recuperar="2" style="cursor:pointer;">
                         Ver más opciones
@@ -733,7 +607,6 @@
         </div>
     </div>
 
-    <!-- CONTRASEÑA ENVIADA -->
     <div id="popup2" style="display:none;">
         <div id="popup_contraseniaEnviada">
             <div class="content_bg_contraseniaEnviada">
@@ -742,14 +615,9 @@
                     <span>Regresar</span>
                 </a>
                 <a id="btnCerrarContraseniaEnviadaPopup" href="#" class="cerrar" onclick="CerrarPopup2()" title="Cerrar"></a>
-                <!-- INICIO - INFORMACIÓN CONTRASEÑA ENVIADA A CORREO DE CONSULTORA -->
                 <div id="divPopupIntentosCorreo" class="mensaje_pop_up_contraseniaEnviada" style="display:none;">
-                    <!-- INICIO - ESTE TITULO SE MUESTRA PARA 1ER INTENTO Y 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <h1 id="men1y2Intento">Por favor, revisa tu correo</h1>
-                    <!-- FIN - ESTE TITULO SE MUESTRA PARA 1ER INTENTO Y 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
-                    <!-- INICIO - ESTE TITULO SE MUESTRA PARA 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <h1 id="men3Intento" style="display:none;">Por favor, espera un momento, el mensaje está en camino</h1>
-                    <!-- FIN - ESTE TITULO SE MUESTRA PARA 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <br />
                     <br />
                     <div class="icono_correo">
@@ -763,14 +631,11 @@
                     </div>
                     <br />
                     <br />
-                    <!-- INICIO - MARCADOR RESTAURAR CONTRASEÑA -->
                     <p class="pMenCorreoEnviado_RC" style="display:none;">
                         Te hemos enviado las instrucciones a :
                     </p>
                     <p class="pMenCorreoEnviado_RC correoDestino" style="font: bold; display:none;"><strong></strong></p>
-                    <!-- FIN - MARCADOR RESTAURAR CONTRASEÑA -->
 
-                    <!-- INICIO - MARCADOR PIN AUTENTICACION -->
                     <p class="MenCorreoEnviado_Pin" style="display:none">
                         Te hemos enviado un código a : <strong class="correoDestino"></strong>
                     </p>
@@ -792,31 +657,21 @@
                             <span>Código inválido</span>
                         </div>
                     </div>
-                    <!-- FIN - MARCADOR PIN AUTENTICACION -->
 
-                    <!-- INICIO - 1ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <a id="divPrimerInteto" class="accion_alternativa_posterior_envio_password RecuperarPorCorreo" title="Reenviar mensaje a mi correo" style="cursor:pointer;">Reenviar mensaje a mi correo</a>
-                    <!-- FIN - 1ER INTENTO -->
-                    <!-- INICIO - 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <a class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo" style="display:none;">Intentar nuevamente</a>
-                    <!-- FIN - 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
 
-                    <!-- INICIO - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <div id="divVolverInicio" style="display:none;">
                         <span class="texto_no_llego_mensaje">No me llegó el mensaje.</span>
                         <a class="accion_alternativa_posterior_envio_password aVolverInicio" title="Reenviar mensaje a mi correo" style="cursor:pointer;">Volver al inicio</a>
                     </div>
-                    <!-- FIN - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                 </div>
-                <!-- FIN - INFORMACIÓN CONTRASEÑA ENVIADA A CORREO DE CONSULTORA -->
 
-                <!-- INICIO - INGRESO CÓDIGO ENVIADO MEDIANTE MENSAJE SMS A CELULAR DE CONSULTORA REGISTRADO -->
                 <div id="divPopupIntentosSMS" class="mensaje_pop_up_contraseniaEnviada" style="display:none;">
                     <h1 id="MenPrimerIntentoSms" style="display:none;">Por favor, revisa tu celular</h1>
                     <h1 id="MenSegundoIntentoSms" style="display:none;font-size:16px;">Por favor, espera un momento, te hemos enviado un nuevo código</h1>
                     <br />
                     <div class="icono_mensaje_sms">
-                        @*<img src="~/Content/Images/Login2/Icons/icono_nuevo_correo.png" alt="Alternate Text" />*@
                     </div>
                     <br />
                     <p>
@@ -840,39 +695,24 @@
                             <span>Código inválido</span>
                         </div>
                     </div>
-                    <!-- INICIO - 1ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <a id="aSeguntoIntentoSms" class="accion_alternativa_posterior_envio_password opcionSms" title="Reenviar mensaje a mi correo" style="display:none; cursor:pointer;">Reenviar mensaje de texto</a>
-                    <!-- FIN - 1ER INTENTO -->
-                    <!-- INICIO - 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <a id="aTercerIntentoSms" class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo" style="display:none; cursor:pointer;">Intentar nuevamente</a>
-                    <!-- FIN - 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
-                    <!-- INICIO - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <div id="divVolverInicioSms" style="display:none;">
                         <span class="texto_no_llego_mensaje">No me llego el código.</span>
                         <a class="accion_alternativa_posterior_envio_password aVolverInicio" title="Reenviar mensaje a mi correo" style="cursor:pointer;">Volver al inicio</a>
                     </div>
-                    <!-- FIN - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
-                    <!-- Contiene el link -->
                     <div>
                         <a id="aEnlaceCambiarContraseña" href="" target="_blank"></a>
                     </div>
-                    <!-- Fin donde contiene el link -->
                 </div>
-                <!-- FIN - INGRESO CÓDIGO ENVIADO MEDIANTE MENSAJE SMS A CELULAR DE CONSULTORA REGISTRADO -->
 
-                <!-- INICIO - MÁS OPCIONES -->
                 <div class="mensaje_pop_up_contraseniaEnviada" style="display:none;">
-                    <!-- INICIO - MÁS OPCIONES - CHATEA CON NOSOTROS -->
                     <h1 class="mb-34">
                         Sofía, puedes comunicarte con nosotros por este medio
                     </h1>
-                    <!-- FIN - MÁS OPCIONES - CHATEA CON NOSOTROS -->
-                    <!-- INICIO - MÁS OPCIONES - LLÁMANOS -->
                     <h1 class="mb-34" style="display:none;">
                         Sofía, puedes comunicarte con nosotros llamando a nuestra central telefónica
                     </h1>
-                    <!-- FIN - MÁS OPCIONES - LLÁMANOS -->
-                    <!-- INICIO - MÁS OPCIONES - CHATEA CON NOSOTROS -->
                     <div class="opcion_recuperacion_contrasenia">
                         <div class="contenedor_solo_una_opcion">
                             <div class="icono_chatea_con_nosotros"></div>
@@ -883,10 +723,7 @@
                         </div>
                         <button class="btn_ingresar_chat">Ingresar al chat</button>
                     </div>
-                    <!-- FIN - MÁS OPCIONES - CHATEA CON NOSOTROS -->
-                    <!-- INICIO - MÁS OPCIONES - LLÁMANOS -->
                     <div class="opcion_recuperacion_contrasenia" style="display:none;">
-                        <!-- INICIO - MÁS OPCIONES - LLÁMANOS DESKTOP -->
                         <div class="opcionLlamada_desktop">
                             <div class="icono_llamada"></div>
                             <div class="titulo_opcion_llamada">Central Telefónica del Perú</div>
@@ -899,10 +736,7 @@
                                 </span>
                             </div>
                         </div>
-                        <!-- FIN - MÁS OPCIONES - LLÁMANOS DESKTOP -->
-                        <!-- INICIO - MÁS OPCIONES - LLÁMANOS MOBILE -->
                         <div class="opcionLlamada_mobile">
-                            <!-- INICIO - CENTRALES TELEFÓNICAS PERÚ -->
                             <div class="grupo_centrales_telefonicas_disponibles" style="display:none;">
                                 <a href="" class="central_telefonica">
                                     <div class="icono_llamada"></div>
@@ -917,8 +751,6 @@
                                     </div>
                                 </a>
                             </div>
-                            <!-- FIN - CENTRALES TELEFÓNICAS PERÚ -->
-                            <!-- INICIO - CENTRALES TELEFÓNICAS OTROS PAÍSES -->
                             <div class="grupo_centrales_telefonicas_disponibles" style="display:none;">
                                 <a href="" class="central_telefonica">
                                     <div class="icono_llamada"></div>
@@ -939,14 +771,9 @@
                                     </div>
                                 </a>
                             </div>
-                            <!-- FIN  - CENTRALES TELEFÓNICAS OTROS PAÍSES -->
                         </div>
-                        <!-- FIN - MÁS OPCIONES - LLÁMANOS MOBILE -->
                     </div>
-                    <!-- FIN - MÁS OPCIONES - LLÁMANOS -->
                 </div>
-                <!-- FIN - MÁS OPCIONES -->
-                <!-- INICIO - AL HACER CLICK EN MÁS OPCIONES Y NO HAY CHAT NI LLAMADAS -->
                 <div class="mensaje_pop_up_contraseniaEnviada" style="display:none;">
                     <h1 class="texto_disculpa_2">Sofía, puedes comunicarte con nosotros llamando a nuestra central telefónica en el siguiente horario:</h1>
                     <br />
@@ -966,7 +793,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- FIN - AL HACER CLICK EN MÁS OPCIONES Y NO HAY CHAT NI LLAMADAS -->
             </div>
         </div>
     </div>
@@ -995,8 +821,6 @@
     </div>
 </div>
 
-<!-- webForm -->
-
 <div class="webForm">
 
     <div class="logo-esika">
@@ -1013,7 +837,6 @@
         <img src="~/Content/Images/Login2/logo_welcome.png" alt="" />
     </div>
 
-    <!--LOGIN EXTERNO -->
     <div class="formbtn" style="float: none;">
 
         <div id="cambcuentaboton">
@@ -1033,19 +856,8 @@
         </div>
         <hr class="clear" />
 
-        <!--
-        <div class="text_bienvenida_esika" id="divAsociarLoginExterno" style="display: none; margin-bottom: 5px;">
-            <div style="font-size: 14px;">Hola, <span id="spnLoginFB"></span></div>
-            <br />
-            <div style="font-size: 11px;">
-                Estas correctamente autenticado con <span style="font-size: 16px;">Facebook</span>. Por favor ingresa tu usuario y contraseña de SomosBelcorp, por única vez, para asociarlo.
-            </div>
-            <br />
-        </div>
-            -->
     </div>
 
-    <!--LOGIN EXTERNO -->
     <div id="btnfblogin" style="display:none;">
 
         <div class="content_sesion_facebook">
@@ -1086,7 +898,6 @@
                 <input type="hidden" name="UsuarioExterno.Redireccionar" value="true" />
             </div>
 
-            <!--- FORM CONTROL PAIS --->
             <div class="boxform">
                 <div class="flecha_select">
                     <div class="formcontrol pais" id="cargarBandera">
@@ -1133,7 +944,6 @@
                 </div>
             </div>
 
-            <!--- FORM CONTROL USUARIO --->
             <div class="boxform" data-error="@mensajeError">
                 <div class="formcontrol user">
                     <input id="txtUsuario" name="CodigoUsuario" type="text" class="inputForm" value="" onfocus="" onblur="" placeholder="Usuario o Correo Electrónico" />
@@ -1143,7 +953,6 @@
                 </div>
             </div>
 
-            <!--- FORM CONTROL PASSWORD -->
             <div class="boxform">
                 <div class="formcontrol pass">
                     <input type="password" name="ClaveSecreta" id="txtContrasenia" class="inputForm" placeholder="Contraseña" value="" />
@@ -1169,7 +978,6 @@
                 </div>
             </div>
 
-            <!-- FORM OLVIDASTE TU CONTRASEÑA -->
             <div class="boxform float_r">
                 <div class="formbtn">
                     <label for="">
@@ -1181,7 +989,6 @@
 
             <div class="clear"></div>
 
-            <!-- INGRESA A TU CUENTA -->
             <div class="boxform">
                 <div class="formbtn">
                     <input type="submit" id="btnLogin" class="btnCrear" value="INGRESA A TU CUENTA" />
@@ -1191,14 +998,12 @@
                 </div>
             </div>
 
-            <!-- ADMINISTRADOR FORMULARIO -->
             <div class="boxform">
                 <div class="admin">
                     <a href="@Url.Action("Admin", "Login")" onclick="return RedirectAdministrador();" rel="menu-superior" title="Administrador">INGRESA COMO <strong>ADMINISTRADOR</strong></a>
                 </div>
             </div>
 
-            <!-- RETIRO FONDOS TARJETA HELM -->
             <div class="boxform" id="VinculoTarjetaHelm">
                 <div class="admin" style="margin-top:14px !important">
                     <label for="">
@@ -1211,7 +1016,6 @@
 
 </div>
 
-<!-- webForm -->
 <div id="popupAsociarUsuarioExt" class="content_pop_login" style="display: none;">
     <input type="hidden" id="hdeNameUserExt" />
     <div class="content_facebook_sb">

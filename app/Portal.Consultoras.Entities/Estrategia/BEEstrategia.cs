@@ -165,10 +165,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public BETipoEstrategia TipoEstrategia { get; set; }
-
-        [DataMember]
-        public string URLCompartir { get; set; }
-
+        
         /// <summary>
         /// [Filtro] para la validacion del periodo de facturacion
         /// Si es true, verifica que la fecha actual sea mayor que la del inicio de facturacion
@@ -181,10 +178,6 @@ namespace Portal.Consultoras.Entities
         public int IdMatrizComercial { get; set; }
         [DataMember]
         public string FotoProducto01 { get; set; }
-        [DataMember]
-        public string FotoProductoSmall { get; set; }
-        [DataMember]
-        public string FotoProductoMedium { get; set; }
 
         #region EstrategiaDetalle
         [DataMember]

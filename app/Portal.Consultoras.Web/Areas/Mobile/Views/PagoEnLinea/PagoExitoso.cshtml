@@ -19,21 +19,15 @@
 
 }
 
-<!-- TÍTULO -->
 <div class="cabecera_vista_pago_en_linea">
     <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
     PAGO EN LÍNEA
 </div>
-<!-- FIN - TÍTULO -->
 
 <div class="content_belcorp">
     <div class="pestana_lbel"></div>
 
-    <!-- VISTA PROCESO DE PAGO EN LÍNEA -->
-
     <div class="proceso_de_pago_en_linea">
-
-        <!-- VISTA PAGO EXITOSO -->
 
         <div class="pago_exitoso">
 
@@ -102,23 +96,17 @@
             </a>
         </div>
 
-        <!-- FIN - VISTA PAGO EXITOSO -->
-
     </div>
-
-    <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
 
 </div>
 
 @section scripts{    
     <script type="text/javascript">
-        //var timeCloseRain = 60000;
         var esMobile = true;
         var listaIconoLluvia = new Array();
         listaIconoLluvia[0] = '@Url.Content("~/Content/Images/confetti-rombo.svg")';
         listaIconoLluvia[1] = '@Url.Content("~/Content/Images/confetti-estrella.svg")';
         listaIconoLluvia[2] = '@Url.Content("~/Content/Images/confetti-circulo.svg")';
-        //listaIconoLluvia[3] = '@Url.Content("~/Content/Images/confetti-tiras.svg")';
         listaIconoLluvia[3] = '@Url.Content("~/Content/Images/confetti-ondas.svg")';
 
         $(document).ready(function () {

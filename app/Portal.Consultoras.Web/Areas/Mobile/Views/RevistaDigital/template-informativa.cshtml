@@ -27,11 +27,8 @@
     <div class="video-visual">
         <div class="video-container">
 
-            <!--div id="player"></div-->
-            <!--, videoId:'@@Model.TipoEstrategiaDetalle.UrlVideoMobile-->
-            <!--data-extra="{'descripcionResumen':'@@Model.DescripcionResumen'}"-->
             <div id="ytMobileRevistaDigitalTemplateInformativa"
-                 data-youtube="{ height:'415', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}"
+                 data-youtube="{ height:'390', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}"
                  class="yt-video"></div>
 
         </div>
@@ -253,14 +250,11 @@ else if (Model.CancelarSuscripcion)
                             GANA+ es un conjunto de ofertas exclusivas para ti que encontrarás entrando desde el App Ésika Conmigo o desde somosbelcorp.com
                             Club GANA+ es un espacio exclusivo para nuestras consultoras suscritas, en donde recibirán muchos beneficios como: más ofertas hechas a su medida que GANA+, packs de sus productos favoritos, no tendrán que digitar códigos y mucho más.
                         </span>
-                        @*@if (Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
-                            {*@
                         <b>¿Cómo cancelo mi suscripción?</b>
                         <span>
                             Ingresa a tu cuenta y haz clic en “Saber más”. Una vez ahí, baja el cursor hasta el botón “CANCELA TU SUSCRIPCIÓN AQUÍ” y al hacer clic, tu suscripción se anulará.
                             Recuerda que puedes suscribirte nuevamente cuando desees.
                         </span>
-                        @*}*@
                         <b>¿Por qué ya no recibo la guía de negocio impresa?</b>
                         <span>Al suscribirte al Club GANA+, dejarás de recibir la guía de negocio impresa desde la siguiente campaña, pues siendo miembro del Club, contarás con muchos beneficios que reemplazarán a tu guía.</span>
                     </li>
@@ -289,12 +283,6 @@ else if (Model.CancelarSuscripcion)
         var isScroll = false;
         window.estaSuscrita = '@Model.EsSuscrita';
 
-        /*
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        var player;*/ // create youtube player
     </script>
 
     @Scripts.Render("~/bundles/Mobile/RevistaDigital-Info")

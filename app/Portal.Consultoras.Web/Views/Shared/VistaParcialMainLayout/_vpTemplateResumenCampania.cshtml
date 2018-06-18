@@ -3,21 +3,18 @@
         He agregado <span>{{cantidadProductos}}</span> unidades.<br />
         Últimos agregados:
     </div>
-    <!--ITEMS CARRITO-->
     {{#each this.ultimosTresPedidos}}
     <div class="productos_agregado_carrito">
         <div class="marca_belcorp">{{DescripcionLarga}}</div>
         <hr class="clear" />
         <div class="descripcion_producto_carrito">{{Split DescripcionProd '|' 0}}</div>
         <div class="marca_belcorp" style="font-size: 13px;">x{{Cantidad}}</div>
-        <div class="precio_carrito">{{{../Simbolo}}}{{ImporteTotal}}</div>
+        <div class="precio_carrito">{{SimboloMoneda}} {{ImporteTotal}}</div>
     </div>
     {{/each}}
-    <!--FIN-->
     <div class="pago_pedido_carrito">
         <div class="info_copy">
             <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
-            <!--TOOLTIP-->
             <div class="tooltip_importe">
                 <div class="left_reservado">
                     <div class="datos_Reservado">
@@ -27,15 +24,14 @@
                 </div>
                 <div class="right_reservado">
                     <div class="datos_Reservado">
-                        <span data-pedidototal="">{{Simbolo}} {{montoWebAcumulado}}</span>
-                        <span data-montodescuento="">{{Simbolo}} {{#iff DescuentoProl '>' 0}}-{{/iff}}{{DescuentoProlStr}}</span>
+                        <span data-pedidototal="">{{SimboloMoneda}} {{montoWebAcumulado}}</span>
+                        <span data-montodescuento="">{{SimboloMoneda}} {{#iff DescuentoProl '>' 0}}-{{/iff}}{{DescuentoProlStr}}</span>
                     </div>
                 </div>
             </div>
-            <!--FIN-->
         </div>
         PEDIDO TOTAL
-        <span>{{Simbolo}} <span data-pedidocondescuento="">{{montoWebConDescuentoStr}}</span></span>
+        <span>{{SimboloMoneda}} <span data-pedidocondescuento="">{{montoWebConDescuentoStr}}</span></span>
     </div>
     <hr class="clear" />
     <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido" role="menu" region="Superior" title="Ver mi pedido" id="lnk-sup-ver-mi-pedido">VER TODO MI PEDIDO</a>

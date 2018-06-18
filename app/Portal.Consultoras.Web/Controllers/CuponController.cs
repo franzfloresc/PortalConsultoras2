@@ -119,7 +119,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 bool tieneOfertasPlan20 = true;
-                //tieneOfertasPlan20 = TieneOfertasPlan20();
 
                 return Json(new { success = true, tieneOfertasPlan20 = tieneOfertasPlan20, message = "" }, JsonRequestBehavior.AllowGet);   
             }

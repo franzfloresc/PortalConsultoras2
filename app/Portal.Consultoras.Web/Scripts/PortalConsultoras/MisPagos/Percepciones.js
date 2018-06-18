@@ -129,7 +129,7 @@ function DownloadAttachPDF(RUCAgentePerceptor, NombreAgentePerceptor, NumeroComp
             "&vNumeroComprobanteSerie=" + NumeroComprobante +
             "&vFechaEmision=" + FechaEmision +
             "&vImportePercepcion=" + ImportePercepcion +
-            "&vSimbolo=" + ViewBagSimbolo;
+            "&vSimbolo=" + variablesPortal.SimboloMoneda;
 
     var iframe_ = document.createElement("iframe");
     iframe_.style.display = "none";

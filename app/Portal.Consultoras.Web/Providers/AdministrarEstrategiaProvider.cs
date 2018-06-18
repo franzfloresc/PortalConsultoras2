@@ -74,8 +74,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 return 0;
             }
-            int iCantidadActualizada = content.Equals("true") ? 1 : 0;
-            return iCantidadActualizada;
+            return JsonConvert.DeserializeObject<GenericResponse>(content).Success.Equals(true) ? 1 : 0; ;
         }
 
         public Dictionary<string, int> ObtenerCantidadOfertasParaTi(string tipoCodigo, int campania, string pais)
@@ -109,7 +108,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     _id = d._id,
                     FlagConfig = d.FlagConfig,
-                    BEEstrategia = new BEEstrategia
+                    BEEstrategia = new ServicePedido.BEEstrategia
                     {
                         EstrategiaID = d.EstrategiaId,
                         CampaniaID = int.Parse(d.CodigoCampania),
@@ -124,8 +123,8 @@ namespace Portal.Consultoras.Web.Providers
                         FlagNueva = d.FlagNueva ? 1 : 0,
                         CodigoEstrategia = d.CodigoEstrategia,
                         CodigoTipoEstrategia = d.CodigoTipoEstrategia,
-                        //cambiar por CodigoProducto cuando se correija el servicio
-                        CodigoProducto = d.CodigoSap,
+                        //cambiar por CodigoProducto cuando se corrija el servicio
+                        CodigoProducto = string.IsNullOrEmpty(d.CodigoSap)?d.CodigoProducto:d.CodigoSap,
                         IndicadorMontoMinimo = d.IndicadorMontoMinimo ? 1 : 0,
                         MarcaID = d.MarcaId,
                         DescripcionMarca = d.MarcaDescripcion,
@@ -164,6 +163,10 @@ namespace Portal.Consultoras.Web.Providers
             }
             var userData = sessionManager.GetUserData();
             //entidad.Imagen
+            if (jsonParameters != string.Empty)
+            {
+                jsonParameters = string.Format("?{0}", jsonParameters);
+            }
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlListarWebApi, pais, tipoEstrategiaCodigo, campaniaID);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
@@ -231,7 +234,7 @@ namespace Portal.Consultoras.Web.Providers
             return listaEstrategias;
         }
 
-        public void RegistrarEstrategia(BEEstrategia entidad, string pais)
+        public void RegistrarEstrategia(ServicePedido.BEEstrategia entidad, string pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlRegistrarWebApi, pais);
@@ -247,7 +250,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public void EditarEstrategia(BEEstrategia entidad, string mongoId, string pais)
+        public void EditarEstrategia(ServicePedido.BEEstrategia entidad, string mongoId, string pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEditarWebApi, pais);
@@ -263,7 +266,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        private static WaEstrategiaModel ObtenerEstrategia(BEEstrategia entidad, string id)
+        private static WaEstrategiaModel ObtenerEstrategia(ServicePedido.BEEstrategia entidad, string id)
         {
             WaEstrategiaModel waModel = new WaEstrategiaModel
             {
@@ -300,7 +303,7 @@ namespace Portal.Consultoras.Web.Providers
             return waModel;
         }
 
-        private static WaTipoEstrategia ObtenerTipoEstrategia(BETipoEstrategia tipoEstrategia)
+        private static WaTipoEstrategia ObtenerTipoEstrategia(ServicePedido.BETipoEstrategia tipoEstrategia)
         {
             WaTipoEstrategia tipoEstrategiaWa = new WaTipoEstrategia
             {
@@ -365,7 +368,7 @@ namespace Portal.Consultoras.Web.Providers
             return activarResponse || inactivarResponse;
         }
 
-        public BEEstrategia ObtenerEstrategiaCuv(string cuv, string campania, string tipoEstrategia, string pais, string prod, string perfil)
+        public ServicePedido.BEEstrategia ObtenerEstrategiaCuv(string cuv, string campania, string tipoEstrategia, string pais, string prod, string perfil)
         {
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParameters = "?prod=" + prod + "&perfil=" + perfil;
@@ -422,7 +425,7 @@ namespace Portal.Consultoras.Web.Providers
             return descripcionList;
         }
 
-        public void RegistrarTipoEstrategia(BETipoEstrategia entidad, string pais)
+        public void RegistrarTipoEstrategia(ServicePedido.BETipoEstrategia entidad, string pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlRegistrarTipoEstrategiaWebApi, pais);
@@ -438,7 +441,7 @@ namespace Portal.Consultoras.Web.Providers
                 throw new Exception(respuesta.Message);
         }
 
-        public void EditarTipoEstrategia(BETipoEstrategia entidad, string pais)
+        public void EditarTipoEstrategia(ServicePedido.BETipoEstrategia entidad, string pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEditarTipoEstrategiaWebApi, pais);

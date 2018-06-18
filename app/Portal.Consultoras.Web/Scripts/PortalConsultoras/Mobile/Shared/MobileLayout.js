@@ -1063,8 +1063,18 @@ function BannerApp() {
 function VerificarVistaBannerApp() {
     for (var row = 0; row < oBannerApp.Vistas.length; row++) {
         var oVista = oBannerApp.Vistas[row];
-        if (oVista.NombreControlador != controllerName) continue;
-        if (oVista.NombreVista == null || oVista.NombreVista == actionName) return true;
+
+        var nombreControlador = "";
+        if (oVista.NombreControlador != undefined && oVista.NombreControlador != null) {
+            nombreControlador = oVista.NombreControlador.toLowerCase();
+        }
+        var nombreVista = "";
+        if (oVista.NombreVista != undefined && oVista.NombreVista != null) {
+            nombreVista = oVista.NombreVista.toLowerCase();
+        }
+
+        if (nombreControlador != controllerName) continue;
+        if (nombreVista == "" || nombreVista == actionName) return true;
     }
     return false;
 }

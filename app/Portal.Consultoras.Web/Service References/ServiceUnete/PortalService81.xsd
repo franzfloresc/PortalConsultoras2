@@ -140,6 +140,7 @@
       <xs:element minOccurs="0" name="NombreEmpresaAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreFamiliar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreNoFamiliar" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreTipoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumDiasAprobadoFFVV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumDiasRechazados" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Numero" nillable="true" type="xs:string" />

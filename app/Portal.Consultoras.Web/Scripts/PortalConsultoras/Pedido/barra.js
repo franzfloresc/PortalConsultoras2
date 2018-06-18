@@ -76,7 +76,7 @@ function MostrarBarra(datax, destino) {
         vLogro = mt - md;
 
         listaLimite.push({
-            nombre: textoPunto.replace("{titulo}", "M. mínimo").replace("{detalle}", vbSimbolo + " " + data.MontoMinimoStr),
+            nombre: textoPunto.replace("{titulo}", "M. mínimo").replace("{detalle}", variablesPortal.SimboloMoneda + " " + data.MontoMinimoStr),
             tipoMensaje: 'MontoMinimo',
             width: wPrimer,
             valor: data.MontoMinimo,
@@ -93,7 +93,7 @@ function MostrarBarra(datax, destino) {
         }
         
         listaLimite.push({
-            nombre: textoPunto.replace("{titulo}", "L. crédito").replace("{detalle}", vbSimbolo + " " + data.MontoMaximoStr),
+            nombre: textoPunto.replace("{titulo}", "L. crédito").replace("{detalle}", variablesPortal.SimboloMoneda + " " + data.MontoMaximoStr),
             tipoMensaje: 'MontoMaximo',
             widthR: wmin,
             valor: data.MontoMaximo,
@@ -140,11 +140,11 @@ function MostrarBarra(datax, destino) {
             listaLimite.push({
                 nombre: textoPunto
                     .replace("{titulo}", monto.PorDescuento + "% DSCTO")
-                    .replace("{detalle}", (ind == 0 ? "M. mínimo: " : "") + vbSimbolo + " " + (ind == 0 ? data.MontoMinimoStr : montox.MontoHastaStr)),
+                    .replace("{detalle}", (ind == 0 ? "M. mínimo: " : "") + variablesPortal.SimboloMoneda + " " + (ind == 0 ? data.MontoMinimoStr : montox.MontoHastaStr)),
                 nombre2: textoPunto2.replace("{titulo}", monto.PorDescuento + "% {DSCTO}"),
                 nombreApp: textoApp
                     .replace("{titulo}", "<span>" + monto.PorDescuento + "</span>" + "% DSCTO")
-                    .replace("{detalle}", vbSimbolo + " " + (ind === 0 ? data.MontoMinimoStr : montox.MontoHastaStr)),
+                    .replace("{detalle}", variablesPortal.SimboloMoneda + " " + (ind === 0 ? data.MontoMinimoStr : montox.MontoHastaStr)),
                 width: ind == 0 ? wPrimer : null,
                 widthR: ind == listaEscala.length - 1 ? wmin : null,
                 tipoMensaje: 'EscalaDescuento',
@@ -161,7 +161,7 @@ function MostrarBarra(datax, destino) {
 
         if (listaLimite.length == 0 && mn > 0 && destino == '2') {
             listaLimite.push({
-                nombre: textoPunto.replace("{titulo}", "M. mínimo").replace("{detalle}", vbSimbolo + " " + data.MontoMinimoStr),
+                nombre: textoPunto.replace("{titulo}", "M. mínimo").replace("{detalle}", variablesPortal.SimboloMoneda + " " + data.MontoMinimoStr),
                 tipoMensaje: 'MontoMinimo',
                 width: wPrimer,
                 valor: data.MontoMinimo,
@@ -271,16 +271,16 @@ function MostrarBarra(datax, destino) {
                 else {
                     txtDscto = "DSCTO";
                     txtDetalle = indPuntoLimite - 1 != ind ? "" :
-                    (vbSimbolo + "" + limite.MontoDesdeStr + " a " + vbSimbolo + "" + limite.MontoHastaStr);
+                    (variablesPortal.SimboloMoneda + "" + limite.MontoDesdeStr + " a " + variablesPortal.SimboloMoneda + "" + limite.MontoHastaStr);
                 }
             }
             else {
                 txtDscto = "DSCTO";
                 txtDetalle = indPuntoLimite != ind ? "" :
-                (vbSimbolo + "" + limite.MontoDesdeStr + " a más");
+                (variablesPortal.SimboloMoneda + "" + limite.MontoDesdeStr + " a más");
                 if (mx > 0 && destino == "1") {
                     txtDetalle = indPuntoLimite != ind ? "" :
-                    (vbSimbolo + "" + limite.MontoDesdeStr + " a " + vbSimbolo + "" + limite.MontoHastaStr);
+                    (variablesPortal.SimboloMoneda + "" + limite.MontoDesdeStr + " a " + variablesPortal.SimboloMoneda + "" + limite.MontoHastaStr);
                 }
             }
 
@@ -499,8 +499,8 @@ function MostrarBarra(datax, destino) {
         return false;
     }
     var valPor = listaLimite[indPuntoLimite].valPor || "";
-    var valorMonto = vbSimbolo + " " + DecimalToStringFormat(parseFloat(vLimite - vLogro));
-    var valorMontoEsacalaDescuento = vbSimbolo + " " + DecimalToStringFormat(parseFloat(listaLimite[indPuntoLimite].valor - me));
+    var valorMonto = variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(parseFloat(vLimite - vLogro));
+    var valorMontoEsacalaDescuento = variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(parseFloat(listaLimite[indPuntoLimite].valor - me));
     $("#divBarra #divBarraMensajeLogrado").show();
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
     $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", (mt < mn ? valorMonto : valorMontoEsacalaDescuento)));

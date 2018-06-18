@@ -23,13 +23,13 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<MatrizComercialModel, BEMatrizComercial>();
 
-            Mapper.CreateMap<EstrategiaPedidoModel, BEEstrategia>()
+            Mapper.CreateMap<EstrategiaPedidoModel, ServicePedido.BEEstrategia>()
                 .ForMember(t => t.EstrategiaDetalle, f => f.MapFrom(c => c.EstrategiaDetalle))
                 .ForMember(t => t.TipoEstrategia, f => f.MapFrom(c => c.TipoEstrategia));
 
-            Mapper.CreateMap<EstrategiaDetalleModelo, BEEstrategiaDetalle>();
+            Mapper.CreateMap<EstrategiaDetalleModelo, ServicePedido.BEEstrategiaDetalle>();
 
-            Mapper.CreateMap<TipoEstrategiaModelo, BETipoEstrategia>()
+            Mapper.CreateMap<TipoEstrategiaModelo, ServicePedido.BETipoEstrategia>()
                 .ForMember(t => t.FlagActivo, f => f.MapFrom(c => c.FlagActivo ? 1 : 0));
 
             Mapper.CreateMap<ProductoModel, Producto>()
@@ -71,7 +71,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CompartirDatos, f => f.MapFrom(c => c.CompartirDatos))
                 .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
 
-            Mapper.CreateMap<RegistrarEstrategiaModel, BEEstrategia>();
+            Mapper.CreateMap<RegistrarEstrategiaModel, ServicePedido.BEEstrategia>();
 
             Mapper.CreateMap<UsuarioModel, BEInputReservaProl>()
                 .ForMember(t => t.PaisISO, f => f.MapFrom(c => c.CodigoISO))

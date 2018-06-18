@@ -8,11 +8,9 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BEClienteDB
     {
-        private short _Estado;
-
         public BEClienteDB()
         {
-            _Estado = 1;
+            Estado = 1;
         }
 
         [DataMember]
@@ -51,17 +49,7 @@ namespace Portal.Consultoras.Entities
         public string Origen { get; set; }
 
         [DataMember]
-        public short Estado
-        {
-            get
-            {
-                return _Estado;
-            }
-            set
-            {
-                _Estado = value;
-            }
-        }
+        public short Estado { get; set; }
 
         [DataMember]
         public short Favorito { get; set; }

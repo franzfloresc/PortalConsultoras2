@@ -272,7 +272,7 @@ namespace Portal.Consultoras.Web.Controllers
                         where a.FlagActivo == 1
                         select a;
 
-            return Mapper.Map<IList<BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista.ToList());
+            return Mapper.Map<IList<ServicePedido.BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista.ToList());
         }
 
         private IEnumerable<TablaLogicaDatosModel> ListTipoPresentacion()

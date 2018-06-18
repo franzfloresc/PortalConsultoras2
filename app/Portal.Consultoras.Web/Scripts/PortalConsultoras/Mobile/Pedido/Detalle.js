@@ -545,7 +545,7 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
 
                 ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
                 ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
-                ActualizarLocalStorageAgregado("hv", data.data.CUV, false);
+                ActualizarLocalStorageAgregado("lan", data.data.CUV, false);
             },
             error: function (data, error) {
                 CloseLoading();
@@ -684,6 +684,7 @@ function PedidoDetalleEliminarTodo() {
             ActualizarLocalStorageAgregado("rd", "todo", false);
             ActualizarLocalStorageAgregado("gn", "todo", false);
             ActualizarLocalStorageAgregado("hv", "todo", false);
+            ActualizarLocalStorageAgregado("lan", "todo", false);
 
             location.reload();
 
@@ -741,11 +742,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBa
         if (CantidadAnti == Cantidad)
             return false;
     }
-    //else {
-    //    if (ClienteAnti == CliDes) //todo: Obs ClienteAnti no esta declarado ni se usa
-    //        return false;
-    //}
-
+    
     if (CliDes.length == 0) {
         CliID = 0;
     }
@@ -1286,7 +1283,6 @@ function MostrarDetalleGanancia() {
 }
 
 function InsertarProducto(model, asyncX) {
-    //alert("seguimiento Alan, copiar el caso para hacer seguimiento de donde se llama a este metodo");
     var retorno = new Object();
 
     jQuery.ajax({

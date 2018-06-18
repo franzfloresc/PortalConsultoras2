@@ -13,23 +13,27 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetConfiguracionCampania(int PaisID, int ZonaID, int RegionID, long ConsultoraID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionCampania");
-            Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, PaisID);
-            Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, ZonaID);
-            Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, RegionID);
-            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionCampania"))
+            {
+                Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, PaisID);
+                Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, ZonaID);
+                Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, RegionID);
+                Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
 
-            return Context.ExecuteReader(command);
+                return Context.ExecuteReader(command);
+            }
         }
 
         public IDataReader GetConfiguracionCampaniaNoConsultora(int PaisID, int ZonaID, int RegionID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionCampaniaNoConsultora");
-            Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, PaisID);
-            Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, ZonaID);
-            Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, RegionID);
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionCampaniaNoConsultora"))
+            {
+                Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, PaisID);
+                Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, ZonaID);
+                Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, RegionID);
 
-            return Context.ExecuteReader(command);
+                return Context.ExecuteReader(command);
+            }
         }
 
         public IDataReader GetConfiguracionByUsuarioAndCampania(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA)

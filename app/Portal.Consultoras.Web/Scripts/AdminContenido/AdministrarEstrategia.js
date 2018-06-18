@@ -104,8 +104,8 @@
 
     var _paginador = Paginador({
         elementId: "matriz-" +
-        "imagen" +
-        "es-paginacion",
+            "imagen" +
+            "es-paginacion",
         elementClick: _paginadorClick
     });
 
@@ -386,12 +386,12 @@
     var _obtenerFiltrarEstrategiaSuccess = function (editData, id) {
         return function (data, textStatus, jqXHR) {
 
-           if (data.success == false) {
+            if (data.success == false) {
                 _toastHelper.success(data.message);
                 closeWaitingDialog();
                 return false;
             }
-            
+
             $('#CodigoEstrategia').val(data.CodigoEstrategia);
             $('#flagImagenUrl').val(data.Imagen);
             $('#DescripcionEstrategia').val(data.DescripcionEstrategia);
@@ -439,7 +439,7 @@
 
             $("#txtAlcance").val($("#ddlPais option:selected").html());
             $("#spanCampania").val($("#ddlCampania option:selected").html());
-            $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html() ? $("#ddlTipoEstrategia option:selected").html().trim():'');
+            $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html() ? $("#ddlTipoEstrategia option:selected").html().trim() : '');
             $("#hdEstrategiaID").val(data.EstrategiaID);
             $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
             $("#hdCampania").val(data.CampaniaID);
@@ -488,18 +488,6 @@
             $("#txtCantidad").val(data.Cantidad);
             $("#hdZonas").val(data.Zona);
             $("#hdNiveles").val(data.Niveles);
-
-            //var strZonas = $("#hdZonas").val();
-            //if (strZonas != "") {
-            //    $.jstree._reference($("#arbolRegionZona")).uncheck_all();
-            //    var strZonasArreglo = strZonas.split(",");
-            //    for (i = 0; i < strZonasArreglo.length; i++) {
-            //        $("#arbolRegionZona").jstree("check_node", "#" + strZonasArreglo[i], true);
-            //    }
-            //} else {
-            //    $.jstree._reference($("#arbolRegionZona")).uncheck_all();
-            //    $("#chkSeleccionar").attr("checked", false);
-            //}
 
             var aux1 = $("#ddlTipoEstrategia").find(":selected").data("id");
             var aux2 = $("#hdEstrategiaCodigo").val();
@@ -554,8 +542,8 @@
             else $("#chkEstrella").attr("checked", false);
             $(".checksPedidosAsociados")
                 .append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' +
-                data.NumeroPedido +
-                '" readonly /></div>');
+                    data.NumeroPedido +
+                    '" readonly /></div>');
 
             _agregarCamposLanzamiento("img-fondo-desktop", data.ImgFondoDesktop);
             _agregarCamposLanzamiento("img-fondo-mobile", data.ImgFondoMobile);
@@ -707,7 +695,7 @@
             viewrecords: true,
             hoverrows: false,
             caption: "",
-            beforeSelectRow: function (rowid, e) { return false; } //this disables row being highlighted when clicked
+            beforeSelectRow: function (rowid, e) { return false; }
         });
     }
     var _createGridNotUpdated = function (list) {
@@ -735,35 +723,7 @@
             viewrecords: true,
             hoverrows: false,
             caption: "",
-            beforeSelectRow: function (rowid, e) { return false; } //this disables row being highlighted when clicked
-        });
-    }
-    var _createGridTonoUpdated = function (list) {
-        var gridJson = { page: 1, total: 2, records: 10, rows: list };
-        $("#listTonoActualizada").jqGrid("GridUnload");
-        $("#listTonoActualizada").empty().jqGrid({
-            datatype: "jsonstring",
-            datastr: gridJson,
-            colNames: ["CUV", "Descripción"],
-            colModel: [
-                { name: "CUV2", index: "CUV2", width: 30, sortable: false },
-                { name: "DescripcionCUV2", index: "DescripcionCUV2", sortable: false }
-            ],
-            pager: jQuery("#pagerTonoActualizada"),
-            jsonReader: {
-                repeatitems: false
-            },
-            width: 540,
-            height: "auto",
-            scrollOffset: 20,
-            rowNum: 10,
-            rowList: [10, 15, 20, 25],
-            sortname: "Label",
-            sortorder: "asc",
-            viewrecords: true,
-            hoverrows: false,
-            caption: "",
-            beforeSelectRow: function (rowid, e) { return false; } //this disables row being highlighted when clicked
+            beforeSelectRow: function (rowid, e) { return false; }
         });
     }
 
@@ -775,7 +735,7 @@
         var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + id + "','" + mongoId + "','" + tipoEstrategiaCodigo + "',event);\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
         var disable = "";
         if (rowObject[10] == "1") {
-            disable += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + id + "','" + mongoId + "','" + tipoEstrategiaCodigo  +"',event);\" >" + "<img src='" + _config.rutaImagenDisable + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
+            disable += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + id + "','" + mongoId + "','" + tipoEstrategiaCodigo + "',event);\" >" + "<img src='" + _config.rutaImagenDisable + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
         }
         var remove = "";
         if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ShowRoom) {
@@ -797,53 +757,6 @@
         return edit + remove;
     }
 
-    var _showActionsVer1 = function (cellvalue, options, rowObject) {
-        var text;
-
-        var cantidad = rowObject[2];
-        var tipo = rowObject[3];
-
-        if (tipo == "2")
-            _variables.cantidadPrecargar = parseInt(cantidad);
-
-        if (tipo == "0")
-            _variables.cantidadOp = parseInt(cantidad);
-
-        if (cantidad != "0")
-            text = rowObject[2] +
-                " <a href='javascript:;' onclick=adminEstrategiaModule.VerCuvsTipo('" +
-                tipo +
-                "')>ver</a>";
-        else
-            text = rowObject[2];
-
-        return text;
-    }
-
-    var _showActionsVer2 = function (cellvalue, options, rowObject) {
-        var text;
-
-        var cantidad = rowObject[2];
-        var tipo = rowObject[3];
-
-        if (tipo == "1") {
-            _variables.cantidadPrecargar2 = parseInt(cantidad);
-            $("#spnCantidadConfigurar3").html(parseInt(cantidad));
-            $("#precargadosdiv").html(rowObject[4]);
-        }
-        if (tipo == "2")
-            $("#spnCantidadNoConfigurar3").html(parseInt(cantidad));
-
-        if (cantidad != "0")
-            text = rowObject[2] +
-                " <a href='javascript:;' onclick=adminEstrategiaModule.VerCuvsTipo2('" +
-                tipo +
-                "')>ver</a>";
-        else
-            text = rowObject[2];
-
-        return text;
-    }
 
     var _showActionsTC = function (cellvalue, options, rowObject) {
         var Des = "<a href='javascript:;' onclick=\"return EditarTalla('" + rowObject[0] + "');\" >" + "<img src='" + _config.rutaImagenEdit + "' alt='Editar Talla/Color' title='Editar Talla/Color' border='0' /></a>";
@@ -1031,7 +944,6 @@
         $("#txtTextoLibre").val("");
         _limpiarCamposLanzamiento("img-fondo-desktop");
         _limpiarCamposLanzamiento("img-fondo-mobile");
-        //_limpiarCamposLanzamiento("img-prev-desktop");
         _limpiarCamposLanzamiento("img-ficha-desktop");
         _limpiarCamposLanzamiento("img-ficha-mobile");
         _limpiarCamposLanzamiento("img-ficha-fondo-desktop");
@@ -1053,271 +965,6 @@
         _ActualizarFlagIndividual();
 
     };
-    var _fnGrillaEstrategias1 = function () {
-        $("#listCargaMasiva1").jqGrid("GridUnload");
-        jQuery("#listCargaMasiva1").jqGrid({
-            url: baseUrl + "AdministrarEstrategia/ConsultarOfertasParaTi",
-            hidegrid: false,
-            datatype: "json",
-            postData: ({
-                CampaniaID: $("#ddlCampania").val(),
-                CodigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
-            }),
-            mtype: "GET",
-            contentType: "application/json; charset=utf-8",
-            colNames: ["Id", "Descripción", "Cantidad","ValorOpcional"],
-            colModel: [
-                { name: "Id", index: "Id", width: 100, editable: true, resizable: false, hidden: true },
-                { name: "Descripcion", index: "Descripcion", width: 100, editable: true, resizable: false },
-                {
-                    name: "Activo",
-                    index: "Activo",
-                    width: 30,
-                    align: "center",
-                    editable: true,
-                    resizable: false,
-                    formatter: _showActionsVer1
-                },
-                { name: "ValorOpcional", index: "ValorOpcional", width: 10, editable: false, resizable: false, hidden: true }
-            ],
-            jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: true,
-                cell: "cell",
-                id: "id"
-            },
-            pager: jQuery("#pagerCargaMasiva1"),
-            loadtext: "Cargando datos...",
-            recordtext: "{0} - {1} de {2} Registros",
-            emptyrecords: "No hay resultados",
-            rowNum: 10,
-            scrollOffset: 0,
-            rowList: [10, 20, 30, 40, 50],
-            sortname: "Orden",
-            sortorder: "asc",
-            viewrecords: true,
-            multiselect: false,
-            height: "auto",
-            width: 540,
-            pgtext: "Pág: {0} de {1}",
-            altRows: true,
-            altclass: "jQGridAltRowClass",
-            loadComplete: function () { },
-            gridComplete: function () {
-                if (_variables.cantidadPrecargar == 0) {
-                    $("#divMostrarPreCarga").css("display", "none");
-                } else {
-                    $("#divMostrarPreCarga").css("display", "");
-                    $("#spnCantidadConfigurar1").html(_variables.cantidadPrecargar);
-                }
-            }
-        });
-        jQuery("#listCargaMasiva1").jqGrid("navGrid",
-            "#pagerCargaMasiva1",
-            { edit: false, add: false, refresh: false, del: false, search: false });
-        jQuery("#listCargaMasiva1").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
-    }
-    var _fnGrillaEstrategias2 = function () {
-        $("#listCargaMasiva2").jqGrid("GridUnload");
-        jQuery("#listCargaMasiva2").jqGrid({
-            url: baseUrl + "AdministrarEstrategia/ConsultarOfertasParaTiTemporal",
-            hidegrid: false,
-            datatype: "json",
-            postData: ({
-                CampaniaID: $("#ddlCampania").val(),
-                tipoEstrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo")
-            }),
-            mtype: "GET",
-            contentType: "application/json; charset=utf-8",
-            colNames: ["Id", "Descripción", "Cantidad"],
-            colModel: [
-                { name: "Id", index: "Id", width: 100, editable: true, resizable: false, hidden: true },
-                { name: "Descripcion", index: "Descripcion", width: 100, editable: true, resizable: false },
-                {
-                    name: "Activo",
-                    index: "Activo",
-                    width: 30,
-                    align: "center",
-                    editable: true,
-                    resizable: false,
-                    formatter: _showActionsVer2
-                }
-            ],
-            jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: true,
-                cell: "cell",
-                id: "id"
-            },
-            pager: jQuery("#pagerCargaMasiva2"),
-            loadtext: "Cargando datos...",
-            recordtext: "{0} - {1} de {2} Registros",
-            emptyrecords: "No hay resultados",
-            rowNum: 10,
-            scrollOffset: 0,
-            rowList: [10, 20, 30, 40, 50],
-            sortname: "Orden",
-            sortorder: "asc",
-            viewrecords: true,
-            multiselect: false,
-            height: "auto",
-            width: 540,
-            pgtext: "Pág: {0} de {1}",
-            altRows: true,
-            altclass: "jQGridAltRowClass",
-            loadComplete: function () { },
-            gridComplete: function () {
-                if (_variables.cantidadPrecargar2 == 0) {
-                    $("#divMostrarPreCarga2").css("display", "none");
-                } else {
-                    $("#divMostrarPreCarga2").css("display", "");
-                    $("#spnCantidadConfigurar2").html(_variables.cantidadPrecargar2);
-                }
-
-                $("#divMasivoPaso1").hide();
-                $("#divMasivoPaso2").show();
-
-                $("#divPaso1").removeClass("boton_redondo_admcontenido_on");
-                $("#divPaso1").addClass("boton_redondo_admcontenido_off");
-
-                $("#divPaso2").removeClass("boton_redondo_admcontenido_off");
-                $("#divPaso2").addClass("boton_redondo_admcontenido_on");
-            }
-        });
-        jQuery("#listCargaMasiva2").jqGrid("navGrid",
-            "#pagerCargaMasiva2",
-            { edit: false, add: false, refresh: false, del: false, search: false });
-        jQuery("#listCargaMasiva2").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
-    }
-    var _fnGrillaCuv1 = function (tipo) {
-        $("#listGrillaCuv1").jqGrid("clearGridData");
-
-        var parametros = {
-            campaniaId: parseInt($("#ddlCampania").val()),
-            tipoConfigurado: parseInt(tipo),
-            estrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo")
-        };
-
-        $("#listGrillaCuv1").setGridParam({ postData: parametros });
-
-        jQuery("#listGrillaCuv1").jqGrid({
-            url: _config.urlConsultarCuvTipoConfigurado,
-            hidegrid: false,
-            datatype: "json",
-            postData: (parametros),
-            mtype: "GET",
-            contentType: "application/json; charset=utf-8",
-            colNames: ["CUV", "Descripción"],
-            colModel: [
-                { name: "CUV2", index: "CUV", width: 10, editable: true, resizable: false },
-                { name: "DescripcionCUV2", index: "DescripcionCUV2", width: 90, editable: true, resizable: false }
-            ],
-            jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: true,
-                cell: "cell",
-                id: "id"
-            },
-            pager: jQuery("#pagerGrillaCuv1"),
-            loadtext: "Cargando datos...",
-            recordtext: "{0} - {1} de {2} Registros",
-            emptyrecords: "No hay resultados",
-            rowNum: 10,
-            scrollOffset: 0,
-            rowList: [10, 20, 30, 40, 50],
-            sortname: "Nombre",
-            sortorder: "asc",
-            viewrecords: true,
-            multiselect: false,
-            height: "auto",
-            width: 540,
-            pgtext: "Pág: {0} de {1}",
-            altRows: true,
-            altclass: "jQGridAltRowClass",
-            loadComplete: function () {
-            },
-            gridComplete: function () {
-                showDialog("DialogGrillaCuv1");
-            }
-        });
-        jQuery("#listGrillaCuv1").jqGrid("navGrid",
-            "#pagerGrillaCuv1",
-            { edit: false, add: false, refresh: false, del: false, search: false });
-        jQuery("#listGrillaCuv1").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
-    }
-    var _fnGrillaCuv2 = function (tipo) {
-        $("#listGrillaCuv2").jqGrid("clearGridData");
-
-        var parametros = {
-            campaniaId: parseInt($("#ddlCampania").val()),
-            tipoConfigurado: parseInt(tipo),
-            nroLote: _variables.NroLote,
-            tipoEstrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo")
-        };
-
-        $("#listGrillaCuv2").setGridParam({ postData: parametros });
-
-        jQuery("#listGrillaCuv2").jqGrid({
-            url: _config.urlConsultarCuvTipoConfiguradoTemporal,
-            hidegrid: false,
-            datatype: "json",
-            postData: (parametros),
-            mtype: "GET",
-            contentType: "application/json; charset=utf-8",
-            colNames: ["CUV", "Descripción"],
-            colModel: [
-                { name: "CUV2", index: "CUV", width: 10, editable: true, resizable: false },
-                { name: "DescripcionCUV2", index: "DescripcionCUV2", width: 90, editable: true, resizable: false }
-            ],
-            jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: true,
-                cell: "cell",
-                id: "id"
-            },
-            pager: jQuery("#pagerGrillaCuv2"),
-            loadtext: "Cargando datos...",
-            recordtext: "{0} - {1} de {2} Registros",
-            emptyrecords: "No hay resultados",
-            rowNum: 10,
-            scrollOffset: 0,
-            rowList: [10, 20, 30, 40, 50],
-            sortname: "Nombre",
-            sortorder: "asc",
-            viewrecords: true,
-            multiselect: false,
-            height: "auto",
-            width: 540,
-            pgtext: "Pág: {0} de {1}",
-            altRows: true,
-            altclass: "jQGridAltRowClass",
-            loadComplete: function () {
-            },
-            gridComplete: function () {
-                showDialog("DialogGrillaCuv2");
-            }
-        });
-        jQuery("#listGrillaCuv2").jqGrid("navGrid",
-            "#pagerGrillaCuv2",
-            { edit: false, add: false, refresh: false, del: false, search: false });
-        jQuery("#listGrillaCuv2").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
-    }
 
     var _uploadFileCvs = function () {
         var formData = new FormData();
@@ -1332,7 +979,7 @@
         formData.append("CampaniaId", $("#ddlCampania").val());
         formData.append("TipoEstrategia", $("#ddlTipoEstrategia").val());
         formData.append("TipoEstrategiaCodigo", $("#ddlTipoEstrategia").find(":selected").data("codigo"));
-        
+
         $.ajax({
             url: _config.urlUploadCvs,
             type: "POST",
@@ -1350,12 +997,12 @@
                         {
                             Descripcion: "CUVs Actualizados",
                             Cantidad: data.listActualizado.length +
-                            " <a href='#' onclick=showDialog(\'DialogDescActualizada\')> Ver </a>"
+                                " <a href='#' onclick=showDialog(\'DialogDescActualizada\')> Ver </a>"
                         },
                         {
                             Descripcion: "CUVs no Actualizados",
                             Cantidad: data.listNoActualizado.length +
-                            " <a href='#' onclick=showDialog(\'DialogDescNoActualizada\')> Ver </a>"
+                                " <a href='#' onclick=showDialog(\'DialogDescNoActualizada\')> Ver </a>"
                         }
                     ]
                 };
@@ -1476,75 +1123,7 @@
             }
         });
     }
-    var _actualizarTonos = function () {
-        waitingDialog();
-        var params = {
-            CampaniaID: $("#ddlCampania").val(),
-            TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
-            CUV: $("#CUV").val()
-        };
 
-        jQuery.ajax({
-            type: "POST",
-            url: baseUrl + "AdministrarEstrategia/ActualizarTono",
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(params),
-            async: true,
-            success: function (data) {
-                $("#listActualizarTono").jqGrid("GridUnload");
-                var gridJson = {
-                    page: 1,
-                    total: 2,
-                    records: 10,
-                    rows: [
-                        {
-                            Descripcion: "CUVs Actualizados",
-                            Cantidad: data.listActualizado.length +
-                            " <a href='#' onclick=showDialog(\'DialogTonoActualizada\')> Ver </a>"
-                        }
-                    ]
-                };
-
-                $("#listActualizarTono").empty().jqGrid({
-                    datatype: "jsonstring",
-                    datastr: gridJson,
-                    colNames: ["Descripcion", "Cantidad"],
-                    colModel: [
-                        { name: "Descripcion", index: "Descripcion", sortable: false },
-                        {
-                            name: "Cantidad",
-                            index: "Cantidad",
-                            width: 30,
-                            sortable: false
-                        }
-                    ],
-                    pager: false,
-                    jsonReader: {
-                        repeatitems: false
-                    },
-                    width: 540,
-                    height: "auto",
-                    scrollOffset: 20,
-                    rowNum: 10,
-                    rowList: [10, 15, 20, 25],
-                    sortname: "Label",
-                    sortorder: "asc",
-                    viewrecords: true,
-                    hoverrows: false,
-                    caption: ""
-                });
-                _createGridTonoUpdated(data.listActualizado);
-                _toastHelper.success(data.message);
-                closeWaitingDialog();
-                showDialog("DialogActualizarTono");
-            },
-            error: function (data, error) {
-                closeWaitingDialog();
-                _toastHelper.error(data.message);
-            }
-        });
-    }
     var _basicFieldsValidation = function () {
         if ($("#ddlPais").val() === "") {
             _toastHelper.error("Debe seleccionar el País, verifique.");
@@ -1751,15 +1330,15 @@
                 }
             ],
             jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: true,
-                cell: "cell",
-                id: "id"
-            },
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+                },
             pager: jQuery("#pager"),
             loadtext: "Cargando datos...",
             recordtext: "{0} - {1} de {2} Registros",
@@ -1831,15 +1410,15 @@
                             var item = $(this)[0];
                             $(".checksPedidosAsociados")
                                 .append(
-                                '<div class="titB" style="width:9px;"><input type="checkbox" class="chkclass" id="PedidoAsociado_' +
-                                item +
-                                '" name="PedidoAsociado_' +
-                                item +
-                                '" value=' +
-                                item +
-                                " >" +
-                                item +
-                                "</div>");
+                                    '<div class="titB" style="width:9px;"><input type="checkbox" class="chkclass" id="PedidoAsociado_' +
+                                    item +
+                                    '" name="PedidoAsociado_' +
+                                    item +
+                                    '" value=' +
+                                    item +
+                                    " >" +
+                                    item +
+                                    "</div>");
                         });
                 }
                 closeWaitingDialog();
@@ -1983,15 +1562,15 @@
                 { name: "IDAux", index: "IDAux", width: 0, editable: true, resizable: false, hidden: true }
             ],
             jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: true,
-                cell: "cell",
-                id: "id"
-            },
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+                },
             pager: jQuery("#pagerTC"),
             loadtext: "Cargando datos...",
             recordtext: "{0} - {1} de {2} Registros",
@@ -2102,14 +1681,12 @@
                         }
                     } else {
                         $("#divPersonalizacion").css("display", "none");
-                        //alert_msg(response.message);
                         alert(response.message);
                     }
                 }
             },
             error: function (response, error) {
                 if (checkTimeout(response)) {
-                    //alert_msg(response.message);
                     alert(response.message);
                     closeWaitingDialog();
                 }
@@ -2238,15 +1815,15 @@
                 { name: "Options", width: 60, editable: true, sortable: false, align: "center", resizable: false, formatter: _showActionsEvento }
             ],
             jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: false,
-                cell: "",
-                id: "id"
-            },
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: false,
+                    cell: "",
+                    id: "id"
+                },
             pager: jQuery("#pagerEvento"),
             loadtext: "Cargando datos...",
             recordtext: "{0} - {1} de {2} Registros",
@@ -2282,11 +1859,8 @@
                     $("#hdCargarProductoCpcCampaniaID").val("");
 
                     $("#divShowRoomEventoNuevo").css("display", "");
-                    //$("#divCargaArchivos").css("display", "none");
-                    //$("#divOfertasShowRoom").css("display", "none");
                 } else {
                     $("#divShowRoomEventoNuevo").css("display", "none");
-                    //$("#divCargaArchivos").css("display", "");
 
                     // Listar Productos ShowRoom
                     _fnGrilla();
@@ -2295,15 +1869,6 @@
                     _cargarImagenes(showroomEvento);
 
                     _cargarNiveles();
-                    //CargarCategorias();
-
-                    //fnGrilla();
-
-                    //if (showroomEvento.TienePersonalizacion && showroomEvento.TienePersonalizacion == 'Activa') {
-                    //$("#divPerfilOfertaShowRoom").hide();
-                    //}
-
-                    //$("#divOfertasShowRoom").css("display", "");
                 }
             }
         });
@@ -2322,9 +1887,6 @@
             msjex += " - Debe seleccionar un Campania .\n";
 
         if (msjex === "") {
-            //paisNombre = $("#ddlPais option:selected").text();
-            //paisID = $("#ddlPais").val();
-
             _fnGrillaEvento();
 
             $("#divShowRoomEvento").css("display", "");
@@ -2404,17 +1966,14 @@
 
                         HideDialog("DialogDatosShowRoom");
                         jQuery("#listEvento").setGridParam({ datatype: "json", page: 1 }).trigger("reloadGrid");
-                        //alert_msg(response.message);
                         alert(response.message);
                     } else {
-                        //alert_msg(response.message);
                         alert(response.message);
                     }
                 }
             },
             error: function (response, error) {
                 if (checkTimeout(response)) {
-                    //alert_msg(response.message);
                     alert(response.message);
                     closeWaitingDialog();
                 }
@@ -2521,8 +2080,6 @@
         $("#listShowRoomDetalle").jqGrid("clearGridData");
 
         var parametros = {
-            //campaniaId: campaniaId,
-            //cuv: cuv,
             estrategiaId: estrategiaId
         };
 
@@ -2536,22 +2093,7 @@
             postData: (parametros),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
-            //colNames: ['OfertaShowRoomDetalleID', 'CampaniaID', 'CUV', 'Nombre', 'Descripcion1', 'Descripcion2', 'Descripcion3', 'MarcaProducto', 'Foto', ''],
             colNames: ["EstrategiaProductoId", "EstrategiaId", "CampaniaID", "CUV", "Nombre", "Descripcion1", "Foto", "Marca", "", "", "", ""],
-            /*
-            colModel: [
-                { name: 'OfertaShowRoomDetalleID', index: 'OfertaShowRoomDetalleID', width: 50, editable: true, resizable: false, hidden: true },
-                { name: 'CampaniaID', index: 'CampaniaID', width: 50, editable: true, resizable: false, hidden: true },
-                { name: 'CUV', index: 'CUV', width: 50, editable: true, resizable: false, hidden: true },
-                { name: 'NombreProducto', index: 'NombreProducto', width: 80, editable: true, resizable: false },
-                { name: 'Descripcion1', index: 'Descripcion1', width: 80, editable: true, resizable: false },
-                { name: 'Descripcion2', index: 'Descripcion2', width: 80, editable: true, resizable: false },
-                { name: 'Descripcion3', index: 'Descripcion3', width: 80, editable: true, resizable: false },
-                { name: 'Imagen', index: 'Imagen', width: 55, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImageDetalle },
-                { name: 'MarcaProducto', index: 'MarcaProducto', width: 80, editable: true, resizable: false, hidden: true },
-                { name: 'Options', index: 'Options', width: 40, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActionsDetalle }
-            ],
-            */
             colModel: [
                 { name: "EstrategiaProductoId", index: "EstrategiaProductoId", width: 50, editable: true, resizable: false, hidden: true },
                 { name: "EstrategiaId", index: "Estrategia", width: 50, editable: true, resizable: false, hidden: true },
@@ -2567,15 +2109,15 @@
                 { name: "Options", index: "Options", width: 40, editable: true, sortable: false, align: "center", resizable: false, formatter: _showActionsDetalle }
             ],
             jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: true,
-                cell: "cell",
-                id: "id"
-            },
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+                },
             pager: jQuery("#pagerShowRoomDetalle"),
             loadtext: "Cargando datos...",
             recordtext: "{0} - {1} de {2} Registros",
@@ -2604,7 +2146,7 @@
     var _showImageDetalle = function (cellvalue, options, rowObject) {
         var image = "";
         if (rowObject[6] != "") {
-            image = '<img src="' + rowObject[6] + '" alt="" width="70px" height="60px" title="" border="0" />'; // 1664
+            image = '<img src="' + rowObject[6] + '" alt="" width="70px" height="60px" title="" border="0" />';
         } else {
             image = '<img src="' + _config.imagenProductoVacio + '" alt="" width="60px" height="60px" title="" border="0" />';
         }
@@ -2638,7 +2180,6 @@
         var isActive = ($("#chkActivoOfertaDetalle").val()) ? "1" : "0";
 
         var item = {
-            //OfertaShowRoomDetalleID: $("#hdOfertaShowRoomDetalleID").val(),
             EstrategiaProductoID: $("#hdEstrategiaProductoID").val(),
             EstrategiaID: $("#hdEstrategiaID").val(),
             Campania: $("#txtCampaniaDetalle").val(),
@@ -2647,10 +2188,7 @@
             Precio: $("#txtPrecioOfertaDetalle").val(),
             NombreProducto: $("#txtNombreProductoDetalle").val(),
             Descripcion1: $("#txtDescripcion1Detalle").val(),
-            //Descripcion2: $("#txtDescripcion2Detalle").val(),
-            //Descripcion3: $("#txtDescripcion3Detalle").val(),
             IdMarca: $("#ddlMarcaProductoDetalle").val(),
-            //Imagen: $("#hdImagenDetalle").val(),
             Activo: isActive,
             ImagenProducto: $("#hdImagenDetalle").val(),
             ImagenAnterior: $("#hdImagenDetalleAnterior").val()
@@ -2821,264 +2359,262 @@
             title: "Registro de Estrategias",
             open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:
-            {
-                "Guardar": function () {
+                {
+                    "Guardar": function () {
 
-                    if ($("#mensajeErrorCUV").val() != "") {
-                        _toastHelper.error($("#mensajeErrorCUV").val());
-                        return false;
-                    }
-                    if ($("#mensajeErrorCUV2").val() != "") {
-                        _toastHelper.error($("#mensajeErrorCUV2").val());
-                        return false;
-                    }
-                    if ($(".DatosNuevas").css("display") == "block") {
-                        if ($("#ddlCampaniaFin").val() == "") {
-                            _toastHelper.error("Seleccione la campaña de vigencia hasta.");
+                        if ($("#mensajeErrorCUV").val() != "") {
+                            _toastHelper.error($("#mensajeErrorCUV").val());
                             return false;
                         }
-                        var campaniaIni = $("#spanCampania").val();
-                        var campaniaFin = $("#ddlCampaniaFin").val();
-                        if (parseInt(campaniaFin) < parseInt(campaniaIni)) {
-                            _toastHelper.error(
-                                "La campaña de vigencia final  no puede ser menor a la campaña de inicio.");
+                        if ($("#mensajeErrorCUV2").val() != "") {
+                            _toastHelper.error($("#mensajeErrorCUV2").val());
                             return false;
                         }
-                    }
+                        if ($(".DatosNuevas").css("display") == "block") {
+                            if ($("#ddlCampaniaFin").val() == "") {
+                                _toastHelper.error("Seleccione la campaña de vigencia hasta.");
+                                return false;
+                            }
+                            var campaniaIni = $("#spanCampania").val();
+                            var campaniaFin = $("#ddlCampaniaFin").val();
+                            if (parseInt(campaniaFin) < parseInt(campaniaIni)) {
+                                _toastHelper.error(
+                                    "La campaña de vigencia final  no puede ser menor a la campaña de inicio.");
+                                return false;
+                            }
+                        }
 
-                    var valor = $("#txtDescripcion").val();
-                    if ($.trim(valor) == "") {
-                        _toastHelper.error("Ingrese el valor del CUV2 para obtener la descripción o ingrese una.");
-                        return false;
-                    }
-                    var m = "";
-
-                    if (($.trim($("#txtCUV").val()) != "" && $.trim($("#txtPrecio").val()) == "") ||
-                        ($.trim($("#txtCUV").val()) != "" && $.isNumeric($("#txtPrecio").val()) == false)) {
-                        m += "- Digite un valor correspondiente para el precio." + "\n";
-                    }
-                    if ($.trim($("#txtCUV").val()) != "" && $("#txtPrecio").val() <= 0) {
-                        m += "- Ingrese un valor para el precio mayor a cero." + "\n";
-                    }
-
-                    if ($.trim($("#txtCUV2").val()) == "") {
-                        m += "- Ingrese un valor para el CUV2." + "\n";
-                    }
-
-                    if ($.trim($("#txtPrecio2").val()) == "" || $.isNumeric($("#txtPrecio2").val()) == false) {
-                        m += "- Digite un valor correspondiente para el precio." + "\n";
-                    }
-                    if ($("#txtPrecio2").val() <= 0) {
-                        m += "- Ingrese un valor para el precio mayor a cero." + "\n";
-                    }
-                    if (m != "") {
-                        _toastHelper.error(m);
-                        return false;
-                    }
-
-                    if ($("#idEstrella").css("display") == "block") {
-                        if (!$("#chkEstrella").attr("checked")) {
-                            _toastHelper.error(
-                                "Debe activar el la opción para mostrar estrella en la zona de producto.  ");
+                        var valor = $("#txtDescripcion").val();
+                        if ($.trim(valor) == "") {
+                            _toastHelper.error("Ingrese el valor del CUV2 para obtener la descripción o ingrese una.");
                             return false;
                         }
-                    }
+                        var m = "";
 
-                    if ($(".chkImagenProducto:checked").length == 0) {
-                        _toastHelper.error("Seleccione una imagen a mostrar.");
-                        return false;
-                    }
+                        if (($.trim($("#txtCUV").val()) != "" && $.trim($("#txtPrecio").val()) == "") ||
+                            ($.trim($("#txtCUV").val()) != "" && $.isNumeric($("#txtPrecio").val()) == false)) {
+                            m += "- Digite un valor correspondiente para el precio." + "\n";
+                        }
+                        if ($.trim($("#txtCUV").val()) != "" && $("#txtPrecio").val() <= 0) {
+                            m += "- Ingrese un valor para el precio mayor a cero." + "\n";
+                        }
 
-                    if (_variables.imagen == "") {
-                        _toastHelper.error("Seleccione una imagen a mostrar.");
-                        return false;
-                    }
-                    var aux2 = $("#ddlTipoEstrategia").find(":selected").data("id");
-                    var aux3 = $("#ddlTipoEstrategia").find(":selected").data("codigo");
-                    if (aux2 !== 4 &&
-                        aux2 !== 7 &&
-                        aux2 !== 20 &&
-                        aux2 !== 9 &&
-                        aux2 !== 10 &&
-                        aux2 !== 11 &&
-                        aux2 !== 12 &&
-                        aux2 !== 13 &&
-                        aux2 !== 30) {
-                        if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
-                            _toastHelper.error("Ingrese un orden para mostrar.");
+                        if ($.trim($("#txtCUV2").val()) == "") {
+                            m += "- Ingrese un valor para el CUV2." + "\n";
+                        }
+
+                        if ($.trim($("#txtPrecio2").val()) == "" || $.isNumeric($("#txtPrecio2").val()) == false) {
+                            m += "- Digite un valor correspondiente para el precio." + "\n";
+                        }
+                        if ($("#txtPrecio2").val() <= 0) {
+                            m += "- Ingrese un valor para el precio mayor a cero." + "\n";
+                        }
+                        if (m != "") {
+                            _toastHelper.error(m);
                             return false;
                         }
-                        if ($("#txtOrden").val() <= 0) {
-                            _toastHelper.error("Ingrese un valor para el orden a mostrar mayor a cero.");
+
+                        if ($("#idEstrella").css("display") == "block") {
+                            if (!$("#chkEstrella").attr("checked")) {
+                                _toastHelper.error(
+                                    "Debe activar el la opción para mostrar estrella en la zona de producto.  ");
+                                return false;
+                            }
+                        }
+
+                        if ($(".chkImagenProducto:checked").length == 0) {
+                            _toastHelper.error("Seleccione una imagen a mostrar.");
                             return false;
                         }
-                    }
 
-                    if ($.trim($("#txtLimite").val()) == "" || $.isNumeric($("#txtLimite").val()) == false) {
-                        _toastHelper.error("Ingrese un valor para el limite de venta.");
-                        return false;
-                    }
-                    if ($("#txtLimite").val() <= 0) {
-                        _toastHelper.error("Ingrese un valor para el limite de venta mayor a cero.");
-                        return false;
-                    }
-                    var imagenEstrategiaProducto = $("#imgSeleccionada").attr("src");
+                        if (_variables.imagen == "") {
+                            _toastHelper.error("Seleccione una imagen a mostrar.");
+                            return false;
+                        }
+                        var aux2 = $("#ddlTipoEstrategia").find(":selected").data("id");
+                        var aux3 = $("#ddlTipoEstrategia").find(":selected").data("codigo");
+                        if (aux2 !== 4 &&
+                            aux2 !== 7 &&
+                            aux2 !== 20 &&
+                            aux2 !== 9 &&
+                            aux2 !== 10 &&
+                            aux2 !== 11 &&
+                            aux2 !== 12 &&
+                            aux2 !== 13 &&
+                            aux2 !== 30) {
+                            if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
+                                _toastHelper.error("Ingrese un orden para mostrar.");
+                                return false;
+                            }
+                            if ($("#txtOrden").val() <= 0) {
+                                _toastHelper.error("Ingrese un valor para el orden a mostrar mayor a cero.");
+                                return false;
+                            }
+                        }
 
-                    var EstrategiaID = 0;
-                    if (!_variables.isNuevo)
-                        EstrategiaID = $("#hdEstrategiaID").val();
+                        if ($.trim($("#txtLimite").val()) == "" || $.isNumeric($("#txtLimite").val()) == false) {
+                            _toastHelper.error("Ingrese un valor para el limite de venta.");
+                            return false;
+                        }
+                        if ($("#txtLimite").val() <= 0) {
+                            _toastHelper.error("Ingrese un valor para el limite de venta mayor a cero.");
+                            return false;
+                        }
+                        var imagenEstrategiaProducto = $("#imgSeleccionada").attr("src");
 
-                    var TipoEstrategiaID = $("#hdTipoEstrategiaID").val();
-                    var CampaniaID = $("#hdCampania").val();
-                    var CampaniaIDFin = $("#ddlCampaniaFin").val();
-                    var Activo = ($("#chkHabilitarOferta").attr("checked")) ? "1" : "0";
-                    var ImagenURL = imagenEstrategiaProducto.substr(imagenEstrategiaProducto.lastIndexOf("/") + 1);
-                    var LimiteVenta = $("#txtLimite").val();
-                    var DescripcionCUV2 = $("#txtDescripcion").val();
-                    var FlagDescripcion = (DescripcionCUV2 != "") ? "1" : "0";
-                    var CUV = $("#txtCUV").val();
-                    var EtiquetaID = $("#hdnEtiqueta1").val();
-                    var Precio = $("#txtPrecio").val();
-                    var FlagCEP = (CUV != "") ? "1" : "0";
-                    var CUV2 = $("#txtCUV2").val();
-                    var EtiquetaID2 = $("#hdnEtiqueta2").val();
-                    var Precio2 = $("#txtPrecio2").val();
-                    var FlagCEP2 = (CUV2 != "") ? "1" : "0";
-                    var TextoLibre = $("#txtTextoLibre").val();
-                    var FlagTextoLibre = (TextoLibre != "") ? "1" : "0";
-                    var Cantidad = "";
-                    var FlagCantidad = "0";
-                    var Zona = $("#hdZonas").val();
-                    var Orden = $("#txtOrden").val();
-                    var flagEstrella = ($("#chkOfertaUltimoMinuto").attr("checked")) ? "1" : "0";
-                    var colorFondo = $("#hdColorFondo").val();
+                        var EstrategiaID = 0;
+                        if (!_variables.isNuevo)
+                            EstrategiaID = $("#hdEstrategiaID").val();
 
-                    var NumeroPedidoAsociado = $(".checksPedidosAsociados input:checked").map(function () {
-                        return $(this).val();
-                    }).get().join(",");
+                        var TipoEstrategiaID = $("#hdTipoEstrategiaID").val();
+                        var CampaniaID = $("#hdCampania").val();
+                        var CampaniaIDFin = $("#ddlCampaniaFin").val();
+                        var Activo = ($("#chkHabilitarOferta").attr("checked")) ? "1" : "0";
+                        var ImagenURL = imagenEstrategiaProducto.substr(imagenEstrategiaProducto.lastIndexOf("/") + 1);
+                        var LimiteVenta = $("#txtLimite").val();
+                        var DescripcionCUV2 = $("#txtDescripcion").val();
+                        var FlagDescripcion = (DescripcionCUV2 != "") ? "1" : "0";
+                        var CUV = $("#txtCUV").val();
+                        var EtiquetaID = $("#hdnEtiqueta1").val();
+                        var Precio = $("#txtPrecio").val();
+                        var FlagCEP = (CUV != "") ? "1" : "0";
+                        var CUV2 = $("#txtCUV2").val();
+                        var EtiquetaID2 = $("#hdnEtiqueta2").val();
+                        var Precio2 = $("#txtPrecio2").val();
+                        var FlagCEP2 = (CUV2 != "") ? "1" : "0";
+                        var TextoLibre = $("#txtTextoLibre").val();
+                        var FlagTextoLibre = (TextoLibre != "") ? "1" : "0";
+                        var Cantidad = "";
+                        var FlagCantidad = "0";
+                        var Zona = $("#hdZonas").val();
+                        var Orden = $("#txtOrden").val();
+                        var flagEstrella = ($("#chkOfertaUltimoMinuto").attr("checked")) ? "1" : "0";
+                        var colorFondo = $("#hdColorFondo").val();
 
-                    if (NumeroPedidoAsociado == "" && $("#txtPedidoAsociado").length) {
-                        NumeroPedidoAsociado = $("#txtPedidoAsociado").val();
-                    }
-                    //valores para el carrusel de la estrategia de lanzamiento
-                    var imgFondoDesktop = $("#nombre-img-fondo-desktop").val();
-                    //var imgPrevDesktop = $("#nombre-img-prev-desktop").val();
-                    var imgFichaDesktop = $("#nombre-img-ficha-desktop").val();
-                    var urlVideoDesktop = $("#url-video-desktop").val();
-                    var imgFondoMobile = $("#nombre-img-fondo-mobile").val();
-                    var imgFichaMobile = $("#nombre-img-ficha-mobile").val();
-                    var urlVideoMobile = $("#url-video-mobile").val();
-                    var imgFichaFondoDesktop = $("#nombre-img-ficha-fondo-desktop").val();
-                    var imgFichaFondoMobile = $("#nombre-img-ficha-fondo-mobile").val();
-                    var imgHomeDesktop = $("#nombre-img-home-desktop").val();
-                    var imgHomeMobile = $("#nombre-img-home-mobile").val();
-                    var ganancia = $("#txtGanancia").val();
-                    var esOfertaIndependiente = ($("#chkEsOfertaIndependiente").attr("checked")) ? true : false;
-                    var ImagenMiniaturaURL = $("#imgMiniSeleccionada").attr("src").substr($("#imgMiniSeleccionada").attr("src").lastIndexOf("/") + 1);
-                    var EsSubCampania = ($("#chkEsSubCampania").attr("checked")) ? true : false;
-                    var niveles = $("#hdNiveles").val() || "";
-                    var _idVal = $("#_id").val();
+                        var NumeroPedidoAsociado = $(".checksPedidosAsociados input:checked").map(function () {
+                            return $(this).val();
+                        }).get().join(",");
 
-                    var CodigoEstrategiaVal = $('#CodigoEstrategia').val();
-                    var ImagenVal = $('#flagImagenUrl').val();
-                    var DescripcionEstrategiaVal = $('#DescripcionEstrategia').val();
-                    var MarcaIDVal = $('#MarcaID').val();
-                    var DescripcionMarcaVal = $('#MarcaDescripcion').val();
-                    var CodigoProductoVal = $('#hdnCodigoSAP').val();
-                    //var CodigoSAPVal = '';
-                    var CodigoSAPVal = $('#hdnCodigoSAP').val();
-                    //TODO Validar yrdsf
-                    var flagIndividual = $("#chkFlagIndividual").is(":checked");
-                    var slogan = $("#txtSlogan").val() || "";
-                    var params = {
-                        EstrategiaID: EstrategiaID,
-                        TipoEstrategiaID: TipoEstrategiaID,
-                        CampaniaID: CampaniaID,
-                        CampaniaIDFin: CampaniaIDFin,
-                        NumeroPedido: NumeroPedidoAsociado,
-                        Activo: Activo,
-                        ImagenURL: ImagenURL,
-                        LimiteVenta: LimiteVenta,
-                        DescripcionCUV2: DescripcionCUV2,
-                        FlagDescripcion: FlagDescripcion,
-                        CUV: CUV,
-                        EtiquetaID: EtiquetaID,
-                        Precio: Precio,
-                        FlagCEP: FlagCEP,
-                        CUV2: CUV2,
-                        EtiquetaID2: EtiquetaID2,
-                        Precio2: Precio2,
-                        FlagCEP2: FlagCEP2,
-                        TextoLibre: TextoLibre,
-                        FlagTextoLibre: FlagTextoLibre,
-                        Cantidad: Cantidad,
-                        FlagCantidad: FlagCantidad,
-                        Zona: Zona,
-                        Orden: Orden,
-                        ColorFondo: colorFondo,
-                        FlagEstrella: flagEstrella,
-                        CodigoTipoEstrategia: aux3,
-                        ImgFondoDesktop: imgFondoDesktop,
-                        //ImgPrevDesktop: imgPrevDesktop,
-                        ImgFichaDesktop: imgFichaDesktop,
-                        UrlVideoDesktop: urlVideoDesktop,
-                        ImgFondoMobile: imgFondoMobile,
-                        ImgFichaMobile: imgFichaMobile,
-                        UrlVideoMobile: urlVideoMobile,
-                        ImgFichaFondoDesktop: imgFichaFondoDesktop,
-                        ImgFichaFondoMobile: imgFichaFondoMobile,
-                        ImgHomeDesktop: imgHomeDesktop,
-                        ImgHomeMobile: imgHomeMobile,
-                        PrecioAnt: $("#hdEstrategiaPrecioAnt").val(),
-                        EsOfertaIndependiente: esOfertaIndependiente,
-                        Ganancia: ganancia,
-                        RutaImagenCompleta: imagenEstrategiaProducto,
-                        ImagenMiniaturaURL: ImagenMiniaturaURL,
-                        ImagenMiniaturaURLAnterior: $("#hdImagenMiniaturaURLAnterior").val(),
-                        EsSubCampania: EsSubCampania,
-                        Niveles: niveles,
-                        CodigoEstrategia: CodigoEstrategiaVal,
-                        Imagen: ImagenVal,
-                        DescripcionEstrategia: DescripcionEstrategiaVal,
-                        MarcaID: MarcaIDVal,
-                        DescripcionMarca: DescripcionMarcaVal,
-                        CodigoProducto: CodigoProductoVal,
-                        CodigoSAP: CodigoSAPVal,
-                        _id: _idVal,
-                        //TODO validar yrdsf
-                        FlagIndividual: flagIndividual,
-                        Slogan: slogan
-                    };
-                    jQuery.ajax({
-                        type: "POST",
-                        url: baseUrl + "AdministrarEstrategia/RegistrarEstrategia",
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify(params),
-                        async: true,
-                        success: function (data) {
-                            closeWaitingDialog();
-                            if (data.success) {
-                                _toastHelper.success(data.message);
-                                $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
-                                HideDialog("DialogAdministracionEstrategia");
-                                $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
-                            } else {
+                        if (NumeroPedidoAsociado == "" && $("#txtPedidoAsociado").length) {
+                            NumeroPedidoAsociado = $("#txtPedidoAsociado").val();
+                        }
+                        //valores para el carrusel de la estrategia de lanzamiento
+                        var imgFondoDesktop = $("#nombre-img-fondo-desktop").val();
+                        var imgFichaDesktop = $("#nombre-img-ficha-desktop").val();
+                        var urlVideoDesktop = $("#url-video-desktop").val();
+                        var imgFondoMobile = $("#nombre-img-fondo-mobile").val();
+                        var imgFichaMobile = $("#nombre-img-ficha-mobile").val();
+                        var urlVideoMobile = $("#url-video-mobile").val();
+                        var imgFichaFondoDesktop = $("#nombre-img-ficha-fondo-desktop").val();
+                        var imgFichaFondoMobile = $("#nombre-img-ficha-fondo-mobile").val();
+                        var imgHomeDesktop = $("#nombre-img-home-desktop").val();
+                        var imgHomeMobile = $("#nombre-img-home-mobile").val();
+                        var ganancia = $("#txtGanancia").val();
+                        var esOfertaIndependiente = ($("#chkEsOfertaIndependiente").attr("checked")) ? true : false;
+                        var ImagenMiniaturaURL = $("#imgMiniSeleccionada").attr("src").substr($("#imgMiniSeleccionada").attr("src").lastIndexOf("/") + 1);
+                        var EsSubCampania = ($("#chkEsSubCampania").attr("checked")) ? true : false;
+                        var niveles = $("#hdNiveles").val() || "";
+                        var _idVal = $("#_id").val();
+
+                        var CodigoEstrategiaVal = $('#CodigoEstrategia').val();
+                        var ImagenVal = $('#flagImagenUrl').val();
+                        var DescripcionEstrategiaVal = $('#DescripcionEstrategia').val();
+                        var MarcaIDVal = $('#MarcaID').val();
+                        var DescripcionMarcaVal = $('#MarcaDescripcion').val();
+                        var CodigoProductoVal = $('#hdnCodigoSAP').val();
+                        //var CodigoSAPVal = '';
+                        var CodigoSAPVal = $('#hdnCodigoSAP').val();
+                        //TODO Validar yrdsf
+                        var flagIndividual = $("#chkFlagIndividual").is(":checked");
+                        var slogan = $("#txtSlogan").val() || "";
+                        var params = {
+                            EstrategiaID: EstrategiaID,
+                            TipoEstrategiaID: TipoEstrategiaID,
+                            CampaniaID: CampaniaID,
+                            CampaniaIDFin: CampaniaIDFin,
+                            NumeroPedido: NumeroPedidoAsociado,
+                            Activo: Activo,
+                            ImagenURL: ImagenURL,
+                            LimiteVenta: LimiteVenta,
+                            DescripcionCUV2: DescripcionCUV2,
+                            FlagDescripcion: FlagDescripcion,
+                            CUV: CUV,
+                            EtiquetaID: EtiquetaID,
+                            Precio: Precio,
+                            FlagCEP: FlagCEP,
+                            CUV2: CUV2,
+                            EtiquetaID2: EtiquetaID2,
+                            Precio2: Precio2,
+                            FlagCEP2: FlagCEP2,
+                            TextoLibre: TextoLibre,
+                            FlagTextoLibre: FlagTextoLibre,
+                            Cantidad: Cantidad,
+                            FlagCantidad: FlagCantidad,
+                            Zona: Zona,
+                            Orden: Orden,
+                            ColorFondo: colorFondo,
+                            FlagEstrella: flagEstrella,
+                            CodigoTipoEstrategia: aux3,
+                            ImgFondoDesktop: imgFondoDesktop,
+                            ImgFichaDesktop: imgFichaDesktop,
+                            UrlVideoDesktop: urlVideoDesktop,
+                            ImgFondoMobile: imgFondoMobile,
+                            ImgFichaMobile: imgFichaMobile,
+                            UrlVideoMobile: urlVideoMobile,
+                            ImgFichaFondoDesktop: imgFichaFondoDesktop,
+                            ImgFichaFondoMobile: imgFichaFondoMobile,
+                            ImgHomeDesktop: imgHomeDesktop,
+                            ImgHomeMobile: imgHomeMobile,
+                            PrecioAnt: $("#hdEstrategiaPrecioAnt").val(),
+                            EsOfertaIndependiente: esOfertaIndependiente,
+                            Ganancia: ganancia,
+                            RutaImagenCompleta: imagenEstrategiaProducto,
+                            ImagenMiniaturaURL: ImagenMiniaturaURL,
+                            ImagenMiniaturaURLAnterior: $("#hdImagenMiniaturaURLAnterior").val(),
+                            EsSubCampania: EsSubCampania,
+                            Niveles: niveles,
+                            CodigoEstrategia: CodigoEstrategiaVal,
+                            Imagen: ImagenVal,
+                            DescripcionEstrategia: DescripcionEstrategiaVal,
+                            MarcaID: MarcaIDVal,
+                            DescripcionMarca: DescripcionMarcaVal,
+                            CodigoProducto: CodigoProductoVal,
+                            CodigoSAP: CodigoSAPVal,
+                            _id: _idVal,
+                            //TODO validar yrdsf
+                            FlagIndividual: flagIndividual,
+                            Slogan: slogan
+                        };
+                        jQuery.ajax({
+                            type: "POST",
+                            url: baseUrl + "AdministrarEstrategia/RegistrarEstrategia",
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify(params),
+                            async: true,
+                            success: function (data) {
+                                closeWaitingDialog();
+                                if (data.success) {
+                                    _toastHelper.success(data.message);
+                                    $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
+                                    HideDialog("DialogAdministracionEstrategia");
+                                    $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
+                                } else {
+                                    _toastHelper.error(data.message);
+                                }
+                            },
+                            error: function (data, error) {
+                                closeWaitingDialog();
                                 _toastHelper.error(data.message);
                             }
-                        },
-                        error: function (data, error) {
-                            closeWaitingDialog();
-                            _toastHelper.error(data.message);
-                        }
-                    });
+                        });
 
-                },
-                "Salir": function () {
-                    $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
-                    $(this).dialog("close");
+                    },
+                    "Salir": function () {
+                        $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
+                        $(this).dialog("close");
+                    }
                 }
-            }
         });
 
         $("#DialogZona").dialog({
@@ -3092,30 +2628,30 @@
             close: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).show(); },
             open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:
-            {
-                "Guardar": function () {
-                    var zonas = "";
-                    $.jstree._reference($("#arbolRegionZona")).get_checked(null, true).each(function () {
-                        if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
-                            return true;
+                {
+                    "Guardar": function () {
+                        var zonas = "";
+                        $.jstree._reference($("#arbolRegionZona")).get_checked(null, true).each(function () {
+                            if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
+                                return true;
+                            }
+                            zonas += this.id + ",";
+                        });
+                        if (zonas != "") {
+                            zonas = zonas.substring(0, zonas.length - 1);
                         }
-                        zonas += this.id + ",";
-                    });
-                    if (zonas != "") {
-                        zonas = zonas.substring(0, zonas.length - 1);
+                        if (zonas == "") {
+                            _toastHelper.error("No se ha marcado ninguna zona o región.");
+                            return false;
+                        }
+                        $("#hdZonas").val(zonas);
+                        _toastHelper.success("Se agregaron las zonas seleccionadas.");
+                        $(this).dialog("close");
+                    },
+                    "Salir": function () {
+                        $(this).dialog("close");
                     }
-                    if (zonas == "") {
-                        _toastHelper.error("No se ha marcado ninguna zona o región.");
-                        return false;
-                    }
-                    $("#hdZonas").val(zonas);
-                    _toastHelper.success("Se agregaron las zonas seleccionadas.");
-                    $(this).dialog("close");
-                },
-                "Salir": function () {
-                    $(this).dialog("close");
                 }
-            }
         });
 
         $("#divVistaPrevia").dialog({
@@ -3127,25 +2663,25 @@
             draggable: false,
             title: "Vista previa",
             buttons:
-            {
-                "Cerrar": function () {
-                    if (_variables.isVistaPreviaOpened) {
-                        var params = {
-                            paisID: $("#ddlPais").val(),
-                            EstrategiaID: $("#hdEstrategiaID").val(),
-                            CampaniaID: $("#ddlCampania").val(),
-                            TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
-                            CUV2: $("#txtCUV2").val()
-                        };
-                        _obtenerImagenes(params, 1, true).done(function () {
-                            showDialog("matriz-comercial-dialog");
-                            closeWaitingDialog();
-                        });
+                {
+                    "Cerrar": function () {
+                        if (_variables.isVistaPreviaOpened) {
+                            var params = {
+                                paisID: $("#ddlPais").val(),
+                                EstrategiaID: $("#hdEstrategiaID").val(),
+                                CampaniaID: $("#ddlCampania").val(),
+                                TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+                                CUV2: $("#txtCUV2").val()
+                            };
+                            _obtenerImagenes(params, 1, true).done(function () {
+                                showDialog("matriz-comercial-dialog");
+                                closeWaitingDialog();
+                            });
+                        }
+                        _variables.isVistaPreviaOpened = false;
+                        $(this).dialog("close");
                     }
-                    _variables.isVistaPreviaOpened = false;
-                    $(this).dialog("close");
                 }
-            }
         });
 
         $("#DialogTonoMarca").dialog({
@@ -3159,19 +2695,19 @@
             close: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).show(); },
             open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:
-            {
-                "Nueva Talla/Color": function () {
-                    $("#hdTallaColorID").val("0");
-                    $("#ddlTallaColor").val("0");
-                    $("#txtDescripcionTC").val("");
-                    $("#txtCUVTC").val("");
-                    $("#txtDescripcionCUVTC").val("");
-                    $("#txtPrecioCUVTC").val("");
-                    $("#txtCUVTC").attr("readonly", false);
-                    showDialog("DialogEditarTallaColor");
-                },
-                "Salir": _cerrarTallaColor
-            }
+                {
+                    "Nueva Talla/Color": function () {
+                        $("#hdTallaColorID").val("0");
+                        $("#ddlTallaColor").val("0");
+                        $("#txtDescripcionTC").val("");
+                        $("#txtCUVTC").val("");
+                        $("#txtDescripcionCUVTC").val("");
+                        $("#txtPrecioCUVTC").val("");
+                        $("#txtCUVTC").attr("readonly", false);
+                        showDialog("DialogEditarTallaColor");
+                    },
+                    "Salir": _cerrarTallaColor
+                }
         });
 
         $("#DialogEditarTallaColor").dialog({
@@ -3183,116 +2719,74 @@
             draggable: false,
             title: "Registro Talla/Color",
             buttons:
-            {
-                "Guardar": function () {
-                    var msj = "";
+                {
+                    "Guardar": function () {
+                        var msj = "";
 
-                    if ($("#txtCUVTC").val() == "") {
-                        msj += "- Ingrese un CUV." + "\n";
-                    }
+                        if ($("#txtCUVTC").val() == "") {
+                            msj += "- Ingrese un CUV." + "\n";
+                        }
 
-                    if ($("#ddlTallaColor").val() == "0") {
-                        msj += "- Seleccione el tipo (Talla/Color)." + "\n";
-                    }
+                        if ($("#ddlTallaColor").val() == "0") {
+                            msj += "- Seleccione el tipo (Talla/Color)." + "\n";
+                        }
 
-                    if ($("#txtDescripcionTC").val() == "") {
-                        msj += "- Ingrese descripción (Talla/Color)." + "\n";
-                    }
+                        if ($("#txtDescripcionTC").val() == "") {
+                            msj += "- Ingrese descripción (Talla/Color)." + "\n";
+                        }
 
-                    if (msj != "") {
-                        _toastHelper.error(msj);
-                        return false;
-                    }
+                        if (msj != "") {
+                            _toastHelper.error(msj);
+                            return false;
+                        }
 
-                    var id = $("#hdTallaColorID").val();
-                    var cuv = $("#txtCUVTC").val();
-                    var campaniaID = $("#ddlCampania").val();
-                    var tipo = $("#ddlTallaColor").val();
-                    var descripcion = $("#txtDescripcionTC").val();
-                    var CUVPadre = $("#txtCUV2").val();
-                    var xmlString = "<params>";
+                        var id = $("#hdTallaColorID").val();
+                        var cuv = $("#txtCUVTC").val();
+                        var campaniaID = $("#ddlCampania").val();
+                        var tipo = $("#ddlTallaColor").val();
+                        var descripcion = $("#txtDescripcionTC").val();
+                        var CUVPadre = $("#txtCUV2").val();
+                        var xmlString = "<params>";
 
-                    xmlString += "<param ";
-                    xmlString += ' ID = "' + id + '"';
-                    xmlString += ' CampaniaID = "' + campaniaID + '"';
-                    xmlString += ' CUV = "' + cuv + '"';
-                    xmlString += ' Tipo = "' + tipo + '"';
-                    xmlString += ' Descripcion = "' + descripcion + '"';
-                    xmlString += ' CUVPadre = "' + CUVPadre + '"';
-                    xmlString += " />";
-                    xmlString += "</params>";
+                        xmlString += "<param ";
+                        xmlString += ' ID = "' + id + '"';
+                        xmlString += ' CampaniaID = "' + campaniaID + '"';
+                        xmlString += ' CUV = "' + cuv + '"';
+                        xmlString += ' Tipo = "' + tipo + '"';
+                        xmlString += ' Descripcion = "' + descripcion + '"';
+                        xmlString += ' CUVPadre = "' + CUVPadre + '"';
+                        xmlString += " />";
+                        xmlString += "</params>";
 
-                    var params = {
-                        xmlTallaColor: xmlString
-                    };
+                        var params = {
+                            xmlTallaColor: xmlString
+                        };
 
-                    jQuery.ajax({
-                        type: "POST",
-                        url: baseUrl + "AdministrarEstrategia/RegistrarTallaColor",
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify(params),
-                        async: true,
-                        success: function (data) {
-                            if (data.success) {
-                                _toastHelper.success(data.message);
-                                _fnGrillaTC();
-                                HideDialog("DialogEditarTallaColor");
-                            } else {
+                        jQuery.ajax({
+                            type: "POST",
+                            url: baseUrl + "AdministrarEstrategia/RegistrarTallaColor",
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify(params),
+                            async: true,
+                            success: function (data) {
+                                if (data.success) {
+                                    _toastHelper.success(data.message);
+                                    _fnGrillaTC();
+                                    HideDialog("DialogEditarTallaColor");
+                                } else {
+                                    _toastHelper.error(data.message);
+                                }
+                            },
+                            error: function (data, error) {
                                 _toastHelper.error(data.message);
                             }
-                        },
-                        error: function (data, error) {
-                            _toastHelper.error(data.message);
-                        }
-                    });
-                },
-                "Salir": function () {
-                    $(this).dialog("close");
+                        });
+                    },
+                    "Salir": function () {
+                        $(this).dialog("close");
+                    }
                 }
-            }
-        });
-
-        $("#DialogNuevoMasivo").dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: true,
-            width: 600,
-            draggable: false,
-            title: "Carga Masiva de Estrategias"
-        });
-
-        $("#DialogGrillaCuv1").dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: true,
-            width: 600,
-            draggable: false,
-            title: "Carga Masiva de Estrategias",
-            buttons:
-            {
-                "Salir": function () {
-                    $(this).dialog("close");
-                }
-            }
-        });
-
-        $("#DialogGrillaCuv2").dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: true,
-            width: 600,
-            draggable: false,
-            title: "Carga Masiva de Estrategias",
-            buttons:
-            {
-                "Salir": function () {
-                    $(this).dialog("close");
-                }
-            }
         });
 
         $("#DialogDescMasivo").dialog({
@@ -3325,26 +2819,6 @@
             title: "Resultado de estrategias no actualizadas"
         });
 
-        $("#DialogActualizarTono").dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: true,
-            width: 600,
-            draggable: false,
-            title: "Resultado de actualización de tonos."
-        });
-
-        $("#DialogTonoActualizada").dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: true,
-            width: 600,
-            draggable: false,
-            title: "Lista de CUVs actualizados."
-        });
-
         $("#DialogBloqueoCuv").dialog({
             autoOpen: false,
             resizable: false,
@@ -3365,41 +2839,33 @@
             draggable: true,
             title: "Carga de Evento ShowRoom",
             buttons:
-            {
-                "Guardar": function () {
-                    var vMessage = "";
-                    if (jQuery.trim($("#txtEventoNombre").val()) == "")
-                        vMessage += "- Debe ingresar el Nombre del Evento.\n";
-                    if (jQuery.trim($("#txtEventoTema").val()) == "")
-                        vMessage += "- Debe ingresar el Tema del Evento.\n";
-                    if (jQuery.trim($("#txtEventoDiasAntes").val()) == "")
-                        vMessage += "- Debe ingresar la cantidad de dias antes de la Facturación.\n";
-                    if (parseInt(jQuery.trim($("#txtEventoDiasAntes").val())) <= 0)
-                        vMessage += "- La cantidad de dias antes de la Facturación debe ser mayor a cero.\n";
-                    if (jQuery.trim($("#txtEventoDiasDespues").val()) == "")
-                        vMessage += "- Debe ingresar la cantidad de dias después de la Facturación.\n";
-                    if (parseInt(jQuery.trim($("#txtEventoDiasDespues").val())) <= 0)
-                        vMessage += "- La cantidad de dias después de la Facturación debe ser mayor a cero.\n";
-                    //if (jQuery.trim($('#txtEventoNumeroPerfiles').val()) == "")
-                    //    vMessage += "- Debe ingresar la cantidad de perfiles.\n";
-                    //if (parseInt(jQuery.trim($('#txtEventoNumeroPerfiles').val())) <= 0)
-                    //    vMessage += "- La cantidad de perfiles debe ser mayor a cero.\n";
-                    //if (jQuery.trim($('#txtEventoRutaShowRoomPopup').val()) == "")
-                    //    vMessage += "- Debe ingresar la ruta del Popup del Evento ShowRoom.\n";
-                    //if (jQuery.trim($('#txtEventoRutaShowRoomBannerLateral').val()) == "")
-                    //    vMessage += "- Debe ingresar la ruta del del Banner Lateral del Evento ShowRoom.\n";
+                {
+                    "Guardar": function () {
+                        var vMessage = "";
+                        if (jQuery.trim($("#txtEventoNombre").val()) == "")
+                            vMessage += "- Debe ingresar el Nombre del Evento.\n";
+                        if (jQuery.trim($("#txtEventoTema").val()) == "")
+                            vMessage += "- Debe ingresar el Tema del Evento.\n";
+                        if (jQuery.trim($("#txtEventoDiasAntes").val()) == "")
+                            vMessage += "- Debe ingresar la cantidad de dias antes de la Facturación.\n";
+                        if (parseInt(jQuery.trim($("#txtEventoDiasAntes").val())) <= 0)
+                            vMessage += "- La cantidad de dias antes de la Facturación debe ser mayor a cero.\n";
+                        if (jQuery.trim($("#txtEventoDiasDespues").val()) == "")
+                            vMessage += "- Debe ingresar la cantidad de dias después de la Facturación.\n";
+                        if (parseInt(jQuery.trim($("#txtEventoDiasDespues").val())) <= 0)
+                            vMessage += "- La cantidad de dias después de la Facturación debe ser mayor a cero.\n";
 
-                    if (vMessage != "") {
-                        alert(vMessage);
-                        return false;
-                    } else {
-                        _guardarShowRoomEvento();
+                        if (vMessage != "") {
+                            alert(vMessage);
+                            return false;
+                        } else {
+                            _guardarShowRoomEvento();
+                        }
+                    },
+                    "Cancelar": function () {
+                        $(this).dialog("close");
                     }
-                },
-                "Cancelar": function () {
-                    $(this).dialog("close");
                 }
-            }
         });
 
         $("#DialogPersonalizacionDetalle").dialog({
@@ -3411,32 +2877,32 @@
             draggable: true,
             title: "Detalle de Personalizacion por Nivel",
             buttons:
-            {
-                "Guardar": function () {
-                    var vMessage = "";
+                {
+                    "Guardar": function () {
+                        var vMessage = "";
 
-                    var eventoId = $("#hdEventoID").val();
-                    var nivelId = $("#cbNivelEvento").val();
+                        var eventoId = $("#hdEventoID").val();
+                        var nivelId = $("#cbNivelEvento").val();
 
-                    if (eventoId == "")
-                        vMessage += "- Debe seleccionar el evento.\n";
+                        if (eventoId == "")
+                            vMessage += "- Debe seleccionar el evento.\n";
 
-                    if (nivelId == "")
-                        vMessage += "- Debe seleccionar el nivel de la personalización.\n";
+                        if (nivelId == "")
+                            vMessage += "- Debe seleccionar el nivel de la personalización.\n";
 
-                    if (vMessage != "") {
-                        alert(vMessage);
+                        if (vMessage != "") {
+                            alert(vMessage);
+                            return false;
+                        }
+                        else {
+                            _registrarShowRoomPersonalizacionNivel(eventoId, nivelId);
+                        }
                         return false;
+                    },
+                    "Cancelar": function () {
+                        $(this).dialog("close");
                     }
-                    else {
-                        _registrarShowRoomPersonalizacionNivel(eventoId, nivelId);
-                    }
-                    return false;
-                },
-                "Cancelar": function () {
-                    $(this).dialog("close");
                 }
-            }
         });
 
         $("#DialogRegistroOfertaShowRoomDetalle").dialog({
@@ -3447,15 +2913,6 @@
             width: 900,
             draggable: true,
             title: "Edición de Productos"
-            //buttons:
-            //{
-            //    "Guardar": function () {
-            //        alert("hola");
-            //    },
-            //    "Cancelar": function () {
-            //        $(this).dialog('close');
-            //    }
-            //}
         });
 
         $("#DialogRegistroOfertaShowRoomDetalleEditar").dialog({
@@ -3467,31 +2924,31 @@
             draggable: true,
             title: "Registro / Edición de Productos",
             buttons:
-            {
-                "Guardar": function () {
-                    var vMessage = "";
-                    if (jQuery.trim($("#txtCUVProductoDetalle").val()) == "")
-                        vMessage += "- Debe ingresar el CUV del Producto.\n";
+                {
+                    "Guardar": function () {
+                        var vMessage = "";
+                        if (jQuery.trim($("#txtCUVProductoDetalle").val()) == "")
+                            vMessage += "- Debe ingresar el CUV del Producto.\n";
 
-                    if (jQuery.trim($("#ddlMarcaProductoDetalle").val()) == "0")
-                        vMessage += "- Seleccione una marca del Producto.\n";
+                        if (jQuery.trim($("#ddlMarcaProductoDetalle").val()) == "0")
+                            vMessage += "- Seleccione una marca del Producto.\n";
 
-                    if (jQuery.trim($("#txtNombreProductoDetalle").val()) == "")
-                        vMessage += "- Debe ingresar la el nombre del Producto.\n";
+                        if (jQuery.trim($("#txtNombreProductoDetalle").val()) == "")
+                            vMessage += "- Debe ingresar la el nombre del Producto.\n";
 
-                    if (vMessage != "") {
-                        alert(vMessage);
+                        if (vMessage != "") {
+                            alert(vMessage);
+                            return false;
+                        }
+                        else {
+                            _registrarOfertaShowRoomDetalle();
+                        }
                         return false;
+                    },
+                    "Cancelar": function () {
+                        $(this).dialog("close");
                     }
-                    else {
-                        _registrarOfertaShowRoomDetalle();
-                    }
-                    return false;
-                },
-                "Cancelar": function () {
-                    $(this).dialog("close");
                 }
-            }
         });
         // SHOWROOM-FIN
     }
@@ -3502,7 +2959,6 @@
             var tieneFlagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
             (tieneFlagNueva == "1") ? $(".chkEsOfertaIndependiente").show() : $(".chkEsOfertaIndependiente").hide();
 
-            //$.jstree._reference($("#arbolRegionZona")).check_all();
             if (!_basicFieldsValidation()) return false;
 
             _seleccionarTipoOferta();
@@ -3610,7 +3066,6 @@
 
             _limpiarCamposLanzamiento("img-fondo-desktop");
             _limpiarCamposLanzamiento("img-fondo-mobile");
-            //_limpiarCamposLanzamiento("img-prev-desktop");
             _limpiarCamposLanzamiento("img-ficha-desktop");
             _limpiarCamposLanzamiento("img-ficha-mobile");
             _limpiarCamposLanzamiento("img-ficha-fondo-desktop");
@@ -3656,24 +3111,19 @@
             var rows = jQuery("#list").jqGrid('getRowData');
             for (i = 0; i < rows.length; i++) {
                 var row = rows[i];
-                if (row.CodigoTipoEstrategia === "009")
-                {
+                if (row.CodigoTipoEstrategia === "009") {
                     if (!estrategiasSeleccionadasIds.includes(row.EstrategiaID)) {
                         estrategiasNoSeleccionadas.push(row._id);
                     }
-                    else
-                    {
+                    else {
                         estrategiasSeleccionadas.push(row._id);
                     }
                 }
-                else
-                {
-                    if (!estrategiasSeleccionadasIds.includes(row.EstrategiaID))
-                    {
+                else {
+                    if (!estrategiasSeleccionadasIds.includes(row.EstrategiaID)) {
                         estrategiasNoSeleccionadas.push(row.EstrategiaID);
                     }
-                    else
-                    {
+                    else {
                         estrategiasSeleccionadas.push(row.EstrategiaID);
                     }
                 }
@@ -3782,29 +3232,6 @@
                 _paletaColores();
             }
         },
-        clickNuevoMasivo: function () {
-            _variables.NroLote = 0;
-            _variables.cantGuardadaTemporal = 0;
-            _variables.Pagina = 0;
-            _variables.cantidadOp = 0;
-            if (_validarMasivo()) {
-                $("#divMasivoPaso1").show();
-                $("#divMasivoPaso2").hide();
-                $("#divMasivoPaso3").hide();
-
-                $("#divPaso1").removeClass("boton_redondo_admcontenido_off");
-                $("#divPaso1").addClass("boton_redondo_admcontenido_on");
-
-                $("#divPaso2").removeClass("boton_redondo_admcontenido_on");
-                $("#divPaso2").addClass("boton_redondo_admcontenido_off");
-
-                $("#divPaso3").removeClass("boton_redondo_admcontenido_on");
-                $("#divPaso3").addClass("boton_redondo_admcontenido_off");
-
-                _fnGrillaEstrategias1();
-                showDialog("DialogNuevoMasivo");
-            }
-        },
         clickDescripcionMasivo: function () {
             $("#hdTipoCargaShowroom").val("SetShowroom");
             $("#fileDescMasivo").val("");
@@ -3841,7 +3268,6 @@
             $("#estadoCargaMasiva").text("");
             if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoEstrategia.ShowRoom) {
                 if ($("#hdTipoCargaShowroom").val() == "SetShowroom") {
-                    //UploadFileSetStrategyShowroom();
                     _uploadFileSetStrategyShowroom();
                 } else {
                     _uploadFileProductStrategyShowroom();
@@ -3849,132 +3275,6 @@
             } else {
                 _uploadFileCvs();
             }
-        },
-        clickActualizarTonos: function () {
-            if (_validarMasivo()) _actualizarTonos();
-        },
-        clickAceptarMasivo1: function () {
-            var params = {
-                campaniaId: parseInt($("#ddlCampania").val()),
-                tipoConfigurado: 2,
-                estrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo"),
-                habilitarNemotecnico: _config.habilitarNemotecnico,
-                cantGuardadaTemporal: _variables.cantGuardadaTemporal,
-                cantTotal: _variables.cantidadPrecargar,
-                nroLote: _variables.NroLote,
-                pagina: _variables.Pagina,
-                cantidadOp: _variables.cantidadOp
-            };
-
-            waitingDialog();
-
-            jQuery.ajax({
-                type: "POST",
-                url: baseUrl + "AdministrarEstrategia/InsertEstrategiaTemporal",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(params),
-                async: true,
-                success: function (data) {
-                    console.log(data);
-                    if (data.success) {
-                        closeWaitingDialog();
-                        if (data.cantGuardadaTemporal != undefined) {
-                            _variables.Pagina = (data.pagina || 0) + 1;
-                            _variables.NroLote = data.NroLote;
-                            _variables.cantGuardadaTemporal += parseInt(data.cantGuardadaTemporal, 10)
-                            if (_variables.cantGuardadaTemporal >= _variables.cantidadPrecargar) {
-                                _fnGrillaEstrategias2();
-                            }
-                            else {
-                                _eventos.clickAceptarMasivo1();
-                            }
-                        }
-                        else if (_variables.cantGuardadaTemporal > 0) {
-                            _fnGrillaEstrategias2();
-                        }
-                    } else {
-                        _toastHelper.error(data.message);
-                    }
-                },
-                error: function (data, error) {
-                    console.log(data);
-                    closeWaitingDialog();
-                    _toastHelper.error(data.message);
-                }
-            });
-        },
-        clickAceptarMasivo2: function () {
-            var params = {
-                campaniaId: parseInt($("#ddlCampania").val()),
-                tipoConfigurado: 1,
-                estrategiaId: $("#ddlTipoEstrategia").find(":selected").data("id"),
-                nroLote: _variables.NroLote,
-                estrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo"),
-                EstrategiaMIds: $('#precargadosdiv').text()
-            };
-
-            waitingDialog();
-
-            jQuery.ajax({
-                type: "POST",
-                url: baseUrl + "AdministrarEstrategia/InsertEstrategiaOfertaParaTi",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(params),
-                async: true,
-                success: function (data) {
-                    if (data.success) {
-                        closeWaitingDialog();
-                        $("#divMasivoPaso1").hide();
-                        $("#divMasivoPaso2").hide();
-                        $("#divMasivoPaso3").show();
-
-                        $("#divPaso1").removeClass("boton_redondo_admcontenido_on");
-                        $("#divPaso1").addClass("boton_redondo_admcontenido_off");
-
-                        $("#divPaso2").removeClass("boton_redondo_admcontenido_on");
-                        $("#divPaso2").addClass("boton_redondo_admcontenido_off");
-
-                        $("#divPaso3").removeClass("boton_redondo_admcontenido_off");
-                        $("#divPaso3").addClass("boton_redondo_admcontenido_on");
-                    } else {
-                        _toastHelper.error(data.message);
-                    }
-                },
-                error: function (data, error) {
-                    _toastHelper.error(data.message);
-                }
-            });
-        },
-        clickCancelarMasivo1: function () {
-            HideDialog("DialogNuevoMasivo");
-        },
-        clickCancelarMasivo2: function () {
-            var params = {
-                campaniaId: parseInt($("#ddlCampania").val())
-            };
-
-            jQuery.ajax({
-                type: "POST",
-                url: baseUrl + "AdministrarEstrategia/CancelarInsertEstrategiaTemporal",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(params),
-                async: true,
-                success: function (data) {
-                    if (data.success) {
-                        HideDialog("DialogNuevoMasivo");
-                    }
-                    _toastHelper.success(data.message);
-                },
-                error: function (data, error) {
-                    _toastHelper.error(data.message);
-                }
-            });
-        },
-        clickAceptarMasivo3: function () {
-            HideDialog("DialogNuevoMasivo");
         },
         clickImagenEstrategia: function () {
             $(this).css("color", "white");
@@ -4166,7 +3466,6 @@
                 },
                 error: function (response, error) {
                     if (checkTimeout(response)) {
-                        //alert_msg(response.message);
                         alert(response.message);
                         closeWaitingDialog();
                     }
@@ -4538,16 +3837,9 @@
         $("body").on("click", "#btnActivarDesactivar", _eventos.clickActivarDesactivar);
         $("body").on("click", ".chk-estrategia-imagen", _eventos.clickClassEstrategiaImagen);
         $("body").on("click", ".activar-desactivar", _eventos.clickClassActivarDesactivar);
-        $("body").on("click", "#btnNuevoMasivo", _eventos.clickNuevoMasivo);
         $("body").on("click", "#btnDescripcionMasivo", _eventos.clickDescripcionMasivo);
         $("body").on("click", "#btnCancelarDescMasivo1", _eventos.clickCancelarDescMasivo1);
         $("body").on("click", "#btnAceptarDescMasivo1", _eventos.clickAceptarDescMasivo1);
-        $("body").on("click", "#btnActualizarTonos", _eventos.clickActualizarTonos);
-        $("body").on("click", "#btnAceptarMasivo1", _eventos.clickAceptarMasivo1);
-        $("body").on("click", "#btnAceptarMasivo2", _eventos.clickAceptarMasivo2);
-        $("body").on("click", "#btnCancelarMasivo1", _eventos.clickCancelarMasivo1);
-        $("body").on("click", "#btnCancelarMasivo2", _eventos.clickCancelarMasivo2);
-        $("body").on("click", "#btnAceptarMasivo3", _eventos.clickAceptarMasivo3);
         $("body").on("click", "#divImagenEstrategia", _eventos.clickImagenEstrategia);
         $("body").on("click", "#divInformacionAdicionalEstrategia", _eventos.clickInformacionAdicionalEstrategia);
         $("body").on("click", "#linkTallaColor", _eventos.clickLinkTallaColor);
@@ -4610,14 +3902,8 @@
             plugins: ["themes", "json_data", "ui", "checkbox"]
         });
     }
-    // Public functions 
-    function VerCuvsTipo(tipo) {
-        _fnGrillaCuv1(tipo);
-    }
-    function VerCuvsTipo2(tipo) {
-        _fnGrillaCuv2(tipo);
-    }
-    function Editar(id,mongoId,tipoEstrategiaCodigo, event) {
+
+    function Editar(id, mongoId, tipoEstrategiaCodigo, event) {
         event.preventDefault();
         event.stopPropagation();
 
@@ -4649,6 +3935,38 @@
 
         return false;
     }
+
+    //function Editar(id, event) {
+    //    event.preventDefault();
+    //    event.stopPropagation();
+
+    //    if (id != 0)
+    //        _variables.isNuevo = false;
+
+    //    if (id) {
+    //        _limpiarFiltrosNemotecnico();
+
+    //        waitingDialog();
+
+    //        $("#hdEstrategiaID").val(id);
+
+    //        _clearFields();
+
+    //        var params = {
+    //            EstrategiaID: $("#hdEstrategiaID").val(),
+    //            TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+    //            CampaniaID: $("#ddlCampania").val(),
+    //            ValidarImagen: $("#ddlTipoEstrategia option:selected").attr("data-FValidarImagen"),
+    //            PesoMaximo: $("#ddlTipoEstrategia option:selected").attr("data-PesoMaximo")
+    //        };
+
+    //        _idImagen = id;
+    //        _editar(params, id);
+    //    }
+
+    //    return false;
+    //}
+
     function Deshabilitar(id, mongoId, tipoEstrategiaCodigo, event) {
         event.preventDefault();
         event.stopPropagation();
@@ -4737,14 +4055,11 @@
         $("#txtEventoTema").val(jQuery("#listEvento").jqGrid("getCell", ID, "Tema"));
         $("#txtEventoDiasAntes").val(jQuery("#listEvento").jqGrid("getCell", ID, "DiasAntes"));
         $("#txtEventoDiasDespues").val(jQuery("#listEvento").jqGrid("getCell", ID, "DiasDespues"));
-        //$('#txtEventoNumeroPerfiles').val(jQuery("#listEvento").jqGrid('getCell', ID, 'NumeroPerfiles'));
         $("#txtEventoRutaShowRoomPopup").val(jQuery("#listEvento").jqGrid("getCell", ID, "RutaShowRoomPopup"));
         $("#txtEventoRutaShowRoomBannerLateral").val(jQuery("#listEvento").jqGrid("getCell", ID, "RutaShowRoomBannerLateral"));
         $("#chkEventoEstado").prop("checked", estado == "1");
-        //$("#chkEventoTieneCategoria").prop('checked', tieneCategoria == "True");
         $("#chkEventocompraXcompra").prop("checked", tieneCompraXCompra == "True");
         $("#chkEventoTieneSubCampania").prop("checked", tieneSubCampania == "True");
-        //$("#chkEventoTienePersonalizacion").prop('checked', tienePersonalizacion);
         $("#divEventoEstado").css("display", "");
         showDialog("DialogDatosShowRoom");
     }
@@ -4844,11 +4159,8 @@
 
         $("#txtPaisDetalle").val(_variables.paisNombre);
         $("#txtCampaniaDetalle").val(CampaniaID);
-        //$("#txtTipoOfertaDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'TipoOferta'));
         $("#txtCUVDetalle").val(CUV);
-        //$("#txtDescripcionDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'Descripcion'));
         $("#txtDescripcionDetalle").val(jQuery("#list").jqGrid("getCell", ID, "DescripcionCUV2"));
-        //$("#txtPrecioValorizadoDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'PrecioValorizado'));
         $("#txtPrecioValorizadoDetalle").val(jQuery("#list").jqGrid("getCell", ID, "Precio2"));
 
         showDialog("DialogRegistroOfertaShowRoomDetalle");
@@ -4868,8 +4180,6 @@
             return false;
 
         var item = {
-            //campaniaID: CampaniaID,
-            //cuv: CUV
             estrategiaID: EstrategiaID
         };
 
@@ -4906,14 +4216,11 @@
     }
 
     function EditarProductoDetalle(ID, Imagen) {
-        //$('#hdOfertaShowRoomDetalleID').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'OfertaShowRoomDetalleID'));
         $("#hdEstrategiaProductoID").val(jQuery("#listShowRoomDetalle").jqGrid("getCell", ID, "EstrategiaProductoId"));
         $("#hdEstrategiaID").val(jQuery("#listShowRoomDetalle").jqGrid("getCell", ID, "EstrategiaId"));
         $("#txtCUVProductoDetalle").val(jQuery("#listShowRoomDetalle").jqGrid("getCell", ID, "CUV"));
         $("#txtNombreProductoDetalle").val(jQuery("#listShowRoomDetalle").jqGrid("getCell", ID, "NombreProducto"));
         $("#txtDescripcion1Detalle").val(jQuery("#listShowRoomDetalle").jqGrid("getCell", ID, "Descripcion1"));
-        //$('#txtDescripcion2Detalle').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'Descripcion2'));
-        //$('#txtDescripcion3Detalle').val(jQuery("#listShowRoomDetalle").jqGrid('getCell', ID, 'Descripcion3'));
         $("#txtPrecioOfertaDetalle").val(jQuery("#listShowRoomDetalle").jqGrid("getCell", ID, "Precio"));
         $("#ddlMarcaProductoDetalle").val(jQuery("#listShowRoomDetalle").jqGrid("getCell", ID, "IdMarca"));
 
@@ -4951,8 +4258,6 @@
             return false;
 
         var item = {
-            //ofertaShowRoomDetalleID: ID,
-            //campaniaID: CampaniaID,
             estrategiaId: EstrategiaID,
             cuv: CUV
         };
@@ -5018,7 +4323,6 @@
 
         _uploadFileLanzamineto("img-fondo-desktop");
         _uploadFileLanzamineto("img-fondo-mobile");
-        //_uploadFileLanzamineto("img-prev-desktop");
         _uploadFileLanzamineto("img-ficha-desktop");
         _uploadFileLanzamineto("img-ficha-fondo-desktop");
         _uploadFileLanzamineto("img-ficha-mobile");
@@ -5040,8 +4344,6 @@
         Editar: Editar,
         Deshabilitar: Deshabilitar,
         Remover: Remover,
-        VerCuvsTipo: VerCuvsTipo,
-        VerCuvsTipo2: VerCuvsTipo2,
         ActualizarParNemotecnico: ActualizarParNemotecnico,
         EditarDescripcionComercial: EditarDescripcionComercial,
         EditarEvento: EditarEvento,

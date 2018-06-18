@@ -41,14 +41,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 MontoAhorroRevista = 0,
                 MontoEscala = respuestaSicc.montoBaseDcto.ToDecimalSecure()
             };
-
-            //if (respuestaProl.ListaConcursoIncentivos != null)
-            //{
-            //    resultado.ListaConcursosCodigos = string.Join("|", respuestaProl.ListaConcursoIncentivos.Select(i => i.codigoconcurso).ToArray());
-            //    resultado.ListaConcursosPuntaje = string.Join("|", respuestaProl.ListaConcursoIncentivos.Select(i => i.puntajeconcurso.Split('|')[0]).ToArray());
-            //    resultado.ListaConcursosPuntajeExigido = string.Join("|", respuestaProl.ListaConcursoIncentivos.Select(i => (i.puntajeconcurso.IndexOf('|') > -1 ? i.puntajeconcurso.Split('|')[1] : "0")).ToArray());
-            //}
-
+            
             var listMensajeObs = blTablaLogicaDatos.GetTablaLogicaDatosCache(input.PaisID, Constantes.TablaLogica.ProlObsCod);
             var pedidoObservacion = CreateCabPedidoObs(input, respuestaSicc, listMensajeObs);
             if (pedidoObservacion != null) resultado.ListPedidoObservacion.Add(pedidoObservacion);
@@ -120,7 +113,6 @@ namespace Portal.Consultoras.BizLogic.Reserva
             
             var path = "/Service.svc/EjecutarCuadreOfertas";
             return await RestClient.PostAsync<BEPedidoSicc>(Enumeradores.RestService.ReservaSicc, path, inputPedido);
-            //return await DARSicc.EjecutarCuadreOfertas(inputPedido);
         }
 
         private async Task<string> ConsumirDeExtCancelarReserva(string codigoPais, long pedidoSapId)

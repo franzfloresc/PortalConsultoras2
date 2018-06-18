@@ -88,6 +88,7 @@
     <Compile Include="DABannerPedido.cs" />
     <Compile Include="DABelcorpNoticia.cs" />
     <Compile Include="DABelcorpResponde.cs" />
+    <Compile Include="DACategoria.cs" />
     <Compile Include="DACuponesProgramaNuevas.cs" />
     <Compile Include="DAHorario.cs" />
     <Compile Include="DAClienteDB.cs" />
@@ -214,7 +215,6 @@
     <Compile Include="DAUsuarioOP.cs" />
     <Compile Include="DAValidacionAutomatica.cs" />
     <Compile Include="DAZonificacion.cs" />
-    <Compile Include="Estrategia\EstrategiaDataAccess.cs" />
     <Compile Include="Estrategia\UpSellingDataAccess.cs" />
     <Compile Include="Estrategia\UpSellingMarcaCategoriaDataAccess.cs" />
     <Compile Include="Mobile\DAApp.cs" />

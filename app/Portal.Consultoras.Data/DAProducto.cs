@@ -137,11 +137,13 @@ namespace Portal.Consultoras.Data
 
         public IDataReader SelectProductoToKitInicio(int CampaniaID, string cuv)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.SelectProductoToKitInicio_SB2");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
-            Context.Database.AddInParameter(command, "@cuv", DbType.String, cuv);
+            using (var command = Context.Database.GetStoredProcCommand("dbo.SelectProductoToKitInicio_SB2"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+                Context.Database.AddInParameter(command, "@cuv", DbType.String, cuv);
 
-            return Context.ExecuteReader(command);
+                return Context.ExecuteReader(command);
+            }
         }
 
         public string GetNombreProducto048ByCuv(int campaniaID, string cuv)

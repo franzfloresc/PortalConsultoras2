@@ -29,6 +29,7 @@
 	}
 	<link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
 	<script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
         window.urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
@@ -41,7 +42,6 @@
         }
         window.controllerName = '@ctrl.ToLower()';
         window.actionName     = '@acti.ToLower()';
-        //console.log("controllerName:" + controllerName + " | actionName:" + actionName);
     </script>
 
 	@RenderSection("styles", required: false)
@@ -67,7 +67,6 @@
         </script>
     }
 
-	<!-- Google Tag Manager -->
 	<script type="text/javascript">
         dataLayer = [{
             'campana': '@ViewBag.AnalyticsCampania',
@@ -103,11 +102,9 @@
 			f.parentNode.insertBefore(j, f);
 		})(window, document, 'script', 'dataLayer', 'GTM-TTK6KS');
 	</script>
-	<!-- End Google Tag Manager -->
 
 	<input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
 
-	<!-- content -->
 	<section style="min-height: 380px;">
 		<div id="content" data-content="" style="margin-top: 0;">
 			@RenderBody()
@@ -163,7 +160,6 @@
 		</div>
 	</div>
 
-	<!--POP MENSAJE IMPORTANTE-->
 	<div id="popupInformacionSB2Malo" class="MensajeAlertaMobile" style="display:none;">
 		<div class="content_mensajeAlerta">
 			<a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Malo').hide();">
@@ -176,8 +172,6 @@
 			<a href="javascript:;" onclick="$('#popupInformacionSB2Malo').hide();" class="btn_ok_mobile"><b>OK</b></a>
 		</div>
 	</div>
-	<!--FIN-->
-	<!--POP MENSAJE Error-->
 	<div id="popupInformacionSB2Error" class="MensajeAlertaMobile" style="display:none;">
 		<div class="content_mensajeAlerta">
 			<a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Error').hide();">
@@ -190,8 +184,6 @@
 			<a href="javascript:;" onclick="$('#popupInformacionSB2Error').hide();" class="btn_ok_mobile"><b>OK</b></a>
 		</div>
 	</div>
-	<!--FIN-->
-	<!--POP MENSAJE SESION FINALIZADA Error-->
 	<div id="popupInformacionSB2SesionFinalizada" class="MensajeAlertaMobile" style="display:none;">
 		<div class="content_mensajeAlerta">
 			<a class="cerrar_popMobile" href="javascript:;" onclick="window.location.href='@Url.Action("Index", "Login", new { area = "" })'">
@@ -204,8 +196,6 @@
 			<a href="javascript:;" onclick="window.location.href='/Login'" class="btn_ok_mobile"><b>OK</b></a>
 		</div>
 	</div>
-	<!--FIN-->
-	<!--POP MENSAJE LO LOGRASTE-->
 	<div id="popupInformacionSB2Bueno" class="MensajeAlertaMobile" style="display:none;">
 		<div class="content_mensajeAlerta">
 			<a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Bueno').hide();">
@@ -219,9 +209,7 @@
 		</div>
 	</div>
 
-	<!--POP MENSAJE INFORMACION-->
 	@Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
-	<!--FIN-->
 
 	<div style="display:none">
 		<a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
@@ -229,13 +217,12 @@
 
 	@Scripts.Render("~/Scripts/MobileLayout")
 
-	<script type="text/javascript">
+    <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var urlReservadoEnHorarioRestringuido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new { area = "" })';
         var urlGetNotificacionesSinLeer = '@Url.Action("GetNotificacionesSinLeer", "Notificaciones", new { area = "" })';
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
-        var vbSimbolo = '@ViewBag.Simbolo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
         var urlChatbot = '@System.Configuration.ConfigurationManager.AppSettings.Get("UrlChatbot")';
         var ingresoExterno = '@ViewContext.GetUniqueSession("IngresoExterno")';
@@ -277,12 +264,10 @@
         var OrigenDesktopODD = 0;
 
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++
-         // parametros _MobileLayout 
+        // parametros _MobileLayout 
         //++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-        var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore'; //
-        //var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
-        //var mostrarOfertaDelDia = '@ViewBag.MostrarODD';
+        var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
         var vbMmostrarOfertaDelDia = '@ViewBag.MostrarOfertaDelDia';
 
         var MostrarBannerOtros = '@ViewBag.MostrarBannerOtros';
@@ -295,7 +280,8 @@
         var emt_first_name = '@ViewBag.NombreC';
         var emt_id = '@ViewBag.CodigoUsuario';
         var emt_type = '0';
-
+        var emt_device = ' ';
+        var emt_default_message = '@Html.Raw(Constantes.ConfiguracionManager.MensajeChatBienvenida)';
 
         var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl';
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
@@ -321,7 +307,7 @@
         var actionName = '@ViewContext.RouteData.GetRequiredString("action")';
         var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
         var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
-	</script>
+    </script>
 
 	<script type="text/javascript">
 		$(function () {

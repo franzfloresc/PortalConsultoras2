@@ -162,7 +162,7 @@ namespace Portal.Consultoras.Web.Controllers
                         a.TipoProceso,
                         FomatearMontoDecimalGPR(string.IsNullOrEmpty(a.MotivoRechazo) ? " " : a.MotivoRechazo)
                     }
-                })
+                }).ToList()
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -857,10 +857,12 @@ namespace Portal.Consultoras.Web.Controllers
         private List<BEPedidoDDWeb> GetPedidoWebDD(FiltroReportePedidoDDWebModel model)
         {
             AjustarModel(model);
-            if ((string)Session[Constantes.ConstSession.PedidoWebDDConf] == model.UniqueId) return (List<BEPedidoDDWeb>)Session[Constantes.ConstSession.PedidoWebDD];
+            //if ((string)Session[Constantes.ConstSession.PedidoWebDDConf] == model.UniqueId) return (List<BEPedidoDDWeb>)Session[Constantes.ConstSession.PedidoWebDD];
 
-            Session[Constantes.ConstSession.PedidoWebDDConf] = model.UniqueId;
+            //Session[Constantes.ConstSession.PedidoWebDDConf] = model.UniqueId;
             List<BEPedidoDDWeb> list;
+
+            if (model.EsPrimeraBusqueda) return new List<BEPedidoDDWeb>();
             try
             {
                 var pedidoDDWebFiltro = Mapper.Map<BEPedidoDDWeb>(model);
@@ -869,21 +871,22 @@ namespace Portal.Consultoras.Web.Controllers
                     list = sv.GetPedidosWebDDNoFacturados(pedidoDDWebFiltro).ToList();
                 }
 
-                list = list.Select((p, i) =>
-                {
+                var i = 0;
+                list.Update(p=>{
                     p.NroRegistro = (i + 1).ToString();
                     p.paisISO = model.CodigoISO;
                     p.TipoProceso = p.OrigenNombre;
+                    i++;
 
-                    return p;
-                }).ToList();
+                });
+           
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 list = new List<BEPedidoDDWeb>();
             }
-            Session[Constantes.ConstSession.PedidoWebDD] = list;
+            //Session[Constantes.ConstSession.PedidoWebDD] = list;
             return list;
         }
 
@@ -913,9 +916,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void AjustarModel(FiltroReportePedidoDDWebModel model)
         {
-            if (model.RegionID == "" || model.RegionID == "-- Todas --") model.RegionID = "0";
-            if (model.ZonaID == "" || model.ZonaID == "-- Todas --") model.ZonaID = "0";
-            if (model.Consultora == "") model.Consultora = "0";
+            if (model.RegionID == "" || model.RegionID == "-- Todas --") model.RegionID = null;
+           
+            //if (model.ZonaID == "" || model.ZonaID == "-- Todas --") model.ZonaID = "0";
+            //if (model.Consultora == "") model.Consultora = "0";
+
+            if (model.Campania == null) model.EsPrimeraBusqueda = true;
             model.CodigoISO = Util.GetPaisISO(Convert.ToInt32(model.PaisID));
         }
 

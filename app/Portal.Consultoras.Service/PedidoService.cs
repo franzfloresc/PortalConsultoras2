@@ -1173,11 +1173,6 @@ namespace Portal.Consultoras.Service
             return blEstrategia.GetEstrategiasPedido(entidad);
         }
 
-        public List<BEEstrategia> GetMasVendidos(BEEstrategia entidad)
-        {
-            return blEstrategia.GetMasVendidos(entidad);
-        }
-
         public List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad)
         {
             return new BLEstrategia().FiltrarEstrategiaPedido(entidad);
@@ -1892,41 +1887,6 @@ namespace Portal.Consultoras.Service
             BLPedidoWeb.DeshacerUltimaDescargaPedido(PaisID);
         }
 
-        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia)
-        {
-            return new BLEstrategia().GetCantidadOfertasParaTi(paisId, campaniaId, tipoConfigurado, codigoEstrategia);
-        }
-
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
-        {
-            return new BLEstrategia().GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv);
-        }
-
-        public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLote)
-        {
-            return new BLEstrategia().InsertEstrategiaTemporal(paisId, lista, campaniaId, codigoUsuario, nroLote);
-        }
-
-        public int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado)
-        {
-            return new BLEstrategia().GetCantidadOfertasParaTiTemporal(paisId, campaniaId, tipoConfigurado);
-        }
-
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote)
-        {
-            return new BLEstrategia().GetOfertasParaTiByTipoConfiguradoTemporal(paisId, campaniaId, tipoConfigurado, nroLote);
-        }
-
-        public int DeleteEstrategiaTemporal(int paisId, int campaniaId)
-        {
-            return new BLEstrategia().DeleteEstrategiaTemporal(paisId, campaniaId);
-        }
-
-        public int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
-        {
-            return new BLEstrategia().InsertEstrategiaOfertaParaTi(paisId, lista, campaniaId, codigoUsuario, estrategiaId);
-        }
-
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             return blEstrategia.GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
@@ -2374,8 +2334,8 @@ namespace Portal.Consultoras.Service
             return BLCuponesProgramaNuevas.ObtenerListadoCuvCupon(paisId, campaniaId);
         }
 
-    #region PedidoApp
-    public BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar)
+        #region PedidoApp
+        public BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar)
         {
             return _pedidoAppBusinessLogic.GetCUV(productoBuscar);
         }
@@ -2410,14 +2370,14 @@ namespace Portal.Consultoras.Service
             return await _pedidoAppBusinessLogic.Delete(pedidoDetalle);
         }
 
-        public async Task<BEPedidoDetalleAppResult> ReservaPedidoDetalleApp(BEUsuario usuario)
+        public async Task<BEPedidoReservaAppResult> ReservaPedidoDetalleApp(BEUsuario usuario)
         {
             return await _pedidoAppBusinessLogic.Reserva(usuario);
         }
 
         public BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario)
         {
-            return _pedidoAppBusinessLogic.DeshacerReservaPedido(usuario);
+            return _pedidoAppBusinessLogic.DeshacerReserva(usuario);
         }        
         #endregion
 

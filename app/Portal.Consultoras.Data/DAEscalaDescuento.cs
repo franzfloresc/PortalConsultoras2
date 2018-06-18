@@ -13,9 +13,10 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetEscalaDescuento()
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEscalaDescuento_SB2");
-
-            return Context.ExecuteReader(command);
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GetEscalaDescuento_SB2"))
+            {
+                return Context.ExecuteReader(command);
+            }
         }
 
         public IDataReader GetParametriaOfertaFinal(string algoritmo)

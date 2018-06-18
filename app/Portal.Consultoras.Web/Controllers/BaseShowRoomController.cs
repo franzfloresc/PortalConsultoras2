@@ -191,7 +191,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool ValidarIngresoShowRoom(bool esIntriga)
         {
-            if (!userData.CargoEntidadesShowRoom)
+            if (!configEstrategiaSR.CargoEntidadesShowRoom)
                 return false;
 
             var resultado = false;
@@ -214,13 +214,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Obtener Ofertas ShowRoom
-        //public bool TienePersonalizacion()
-        //{
-        //    var showRoomEvento = userData.BeShowRoom;
-        //    var tienePersonalizacion = showRoomEvento != null && showRoomEvento.TienePersonalizacion;
-        //    return tienePersonalizacion;
-        //}
-
         protected virtual List<BEShowRoomOferta> ObtenerOfertasShowRoom()
         {
             var listaShowRoomOferta = ObtenerListaProductoShowRoomService(userData.CampaniaID, userData.CodigoConsultora);
@@ -230,8 +223,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<ShowRoomOfertaModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion = false)
         {
-            //var tienePersonalizacion = TienePersonalizacion();
-
             var listaDetalle = ObtenerPedidoWebDetalle();
 
             if (Session[Constantes.ConstSession.ListaProductoShowRoom] != null)
@@ -257,14 +248,8 @@ namespace Portal.Consultoras.Web.Controllers
                 x.Simbolo = userData.Simbolo;
                 x.Agregado = (listaPedidoDetalle.Find(p => p.CUV == x.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none";
                 string CodigoEstrategia = listadoOfertasTodas.Where(f => f.CUV == x.CUV).Select(o => o.CodigoEstrategia).FirstOrDefault();
-                if (CodigoEstrategia == "2001" || CodigoEstrategia == "2002")
-                {
-                    x.TipoAccionAgregar = 0;
-                }
-                else
-                {
-                    x.TipoAccionAgregar = 1;
-                }
+
+                    x.TipoAccionAgregar = TipoAccionAgregar(0, Constantes.TipoEstrategiaCodigo.ShowRoom, false, CodigoEstrategia);
 
             });
             return listadoOfertasTodasModel;
@@ -352,9 +337,10 @@ namespace Portal.Consultoras.Web.Controllers
                 x.CodigoISO = userData.CodigoISO;
                 x.Simbolo = userData.Simbolo;
                 x.Agregado = (listaPedidoDetalle.Find(p => p.CUV == x.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none";
-                x.UrlCompartir = GetUrlCompartirFB();
+
                 string CodigoEstrategia = listaShowRoomOfertaFinal.Where(f => f.CUV == x.CUV).Select(o => o.CodigoEstrategia).FirstOrDefault();
-                x.TipoAccionAgregar = CodigoEstrategia == "2001" || CodigoEstrategia == "2002" ? 0 : 1;
+
+                x.TipoAccionAgregar = TipoAccionAgregar(0, Constantes.TipoEstrategiaCodigo.ShowRoom, false, CodigoEstrategia);
             });
             return listadoOfertasTodasModel1;
         }
@@ -502,8 +488,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.ListaOfertaShowRoom = GetOfertaListadoExcepto(id);
             var listaDetalle = ObtenerPedidoWebDetalle();
             modelo.ListaOfertaShowRoom.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
-
-            modelo.FBRuta = GetUrlCompartirFB();
+            
             modelo.FBMensaje = "";
 
             bool esMovil = Request.Browser.IsMobileDevice;
@@ -735,7 +720,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var showRoomEvento = userData.BeShowRoom;
+                var showRoomEvento = configEstrategiaSR.BeShowRoom;
                 var codigoConsultora = userData.CodigoConsultora;
 
                 showRoomEventoModel = Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);

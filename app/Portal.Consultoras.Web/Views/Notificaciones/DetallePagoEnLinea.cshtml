@@ -1,21 +1,13 @@
 ﻿@using Portal.Consultoras.Web.Models.PagoEnLinea;
 @model PagoEnLineaModel
 
-@*@section styles{
-    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/pago-en-linea.css")">
-}*@
-
 <div class="logo_lista_detalle">    
 </div>
 
 <div class="content_belcorp">
     <div class="pestana_lbel"></div>
 
-    <!-- VISTA PROCESO DE PAGO EN LÍNEA -->
-
     <div class="proceso_de_pago_en_linea">
-
-        <!-- VISTA PAGO EXITOSO -->
 
         <div class="pago_exitoso" style="text-align: center;">
             <h3 class="titulo_pago_exitoso">
@@ -26,12 +18,6 @@
                 <p class="mensaje_felicitacion_por_pago_exitoso">
                     ¡Muy bien @Model.NombreConsultora @Model.PrimerApellido! <span class="imagen_felicitacion"><img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Felicitaciones" /></span>
                 </p>
-                @*<p class="info_constancia_pago_exitoso">
-                    Te enviamos una constancia de pago a tu correo o puedes revisarla <a href='@Url.Action("DetallePagoEnLinea", "Notificaciones")?solicitudId=@Model.PagoEnLineaResultadoLogId' class="enlace_ir_a_notificaciones" title="Ir A Notificaciones">aquí</a>.
-                </p>*@
-                @*<p class="info_horarios_efectivos_pagos">
-                    @Model.MensajeInformacionPagoExitoso
-                </p>*@
             </div>
             <div class="col_der">
                 <div class="resumen_pago_exitoso">
@@ -63,13 +49,6 @@
                             <span>Total pagado:</span>
                             <span>@Model.Simbolo @Model.MontoDeudaConGastosNotString</span>
                         </div>
-                        @*<div class="monto_saldo_pendiente">
-                            <div>Saldo pendiente:</div>
-                            <div>
-                                <span>@Model.Simbolo</span>
-                                <span>@Model.SaldoPendienteString</span>
-                            </div>
-                        </div>*@
                         <div class="fecha_vencimiento_saldo_pendiente">
                             <span>Vencimiento:</span>
                             <span>@Model.FechaVencimientoString</span>
@@ -79,14 +58,11 @@
             </div>
         </div>
 
-        <!-- FIN - VISTA PAGO EXITOSO -->
-
     </div>
     <div class="clearfix" style="text-align: center">
         <div class="input_global">
             <input type="button" style="float: none" onclick="printElement('.proceso_de_pago_en_linea')" value="Imprimir">
         </div>
     </div>
-    <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
 
 </div>

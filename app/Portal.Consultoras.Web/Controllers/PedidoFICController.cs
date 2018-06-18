@@ -40,7 +40,6 @@ namespace Portal.Consultoras.Web.Controllers
                     Simbolo = userData.Simbolo,
                     Total = string.Format("{0:N2}", olstPedidoFicDetalle.Sum(p => p.ImporteTotal))
                 };
-                ViewBag.Simbolo = pedidoModelo.Simbolo;
                 ViewBag.Total = pedidoModelo.Total;
                 ViewBag.IndicadorOfertaFIC = userData.IndicadorOfertaFIC;
 

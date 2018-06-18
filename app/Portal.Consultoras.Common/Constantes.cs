@@ -311,6 +311,8 @@ namespace Portal.Consultoras.Common
 
             public const string PedidosFacturados = "PedidosFacturados";
 
+            public const string DescripcionPedidoOtro = "OTROS";
+            public const int CodigoPedidoOtro = 0;
 
         }
 
@@ -344,6 +346,7 @@ namespace Portal.Consultoras.Common
             public const string BelcorpRespondeTEL = "BelcorpRespondeTEL_{0}";
             public const string DES_UBIGEO = "DES_UBIGEO_";
             public const string FechaChat = "FechaChat_";
+            public const string MensajeChatBienvenida = " Te damos la bienvenida a nuestro chat, en un momento uno de nuestro creadores de experiencia le estará atendiendo. ";
             public const string PaisesBelcorpChatEMTELCO = "PaisesBelcorpChatEMTELCO";
             public const string UrlBelcorpChat = "UrlBelcorpChat";
             public const string UrlChatPA = "UrlChatPA";
@@ -440,6 +443,14 @@ namespace Portal.Consultoras.Common
             public const int Jetlore = 2;
         }
 
+        #region Banner Security
+        public static class TipoAccesoSegmento
+        {
+            public const byte Inclusion = 1;
+            public const byte Exclusion = 2;
+        }
+        #endregion
+
         public static class OrigenPantallaWeb
         {
             // Primer Dígito -- Plataforma
@@ -522,7 +533,6 @@ namespace Portal.Consultoras.Common
             public const int DesktopPedido = 12;
             public const int MobilePedido = 22;
             public const int AppPedido = 42;
-
 
             #region OfertasParaTi
             public const int OfertasParaTiDesktopHome = 1121;

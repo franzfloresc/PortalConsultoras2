@@ -161,6 +161,10 @@
                 alert("Debe seleccionar una Campaña, verifique");
                 return false;
             }
+            if ($("#ddlRegion").val() == "") {
+                alert("Debe seleccionar una Region, verifique");
+                return false;
+            }
             fnGrilla();
         });
         $("#btnExcel").click(function () {
@@ -350,7 +354,7 @@
                 {
                     name: 'MotivoRechazo', index: 'MotivoRechazo', width: 12, editable: true, resizable: false,
                     cellattr: function (rowId, tv, rawObject, cm, rdata) {
-                        return 'style="white-space:normal !important;word-break: break-all;"'
+                        return 'style="white-space:normal !important;word-break: break-all;"';
                     },
                     formatter: function (cellValue, options, rowObject) {
                         return cellValue.replace(',', '<br/>');
@@ -401,6 +405,7 @@
     }
 
     function SendData(paisISO, CampaniaCod, ConsultoraCod, ConsultoraNombre, UsuarioNombre, Origen, Validado, Saldo, Importe, importeConDescuento, tipoProceso, motivoRechazo) {
+       
         var form1 = document.createElement("form");
         var data = document.createElement("input");
         form1.setAttribute("id", "form1");

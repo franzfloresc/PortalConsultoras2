@@ -177,9 +177,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoCategoria { get; set; }
         public string CodigoMarca { get; set; }
         public bool PaisEsikizado { get; set; }
-
-        public string UrlCompartirFB { get; set; }
-
+        
         public string NombreComercial { get; set; }
         public string NombreComercialCorto { get; set; }
 

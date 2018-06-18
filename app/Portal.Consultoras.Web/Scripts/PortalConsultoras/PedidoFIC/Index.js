@@ -263,14 +263,13 @@ function CargarDetallePedido(page, rows) {
 function MostrarInformacionCliente(clienteId) {
     $("#hdnClienteID_").val(clienteId);
     var nomCli = $("#ddlClientes option:selected").text();
-    var simbolo = $("#hdfSimbolo").val();
     var monto = $("#hdfTotalCliente").val();
 
     $(".pMontoCliente").css("display", "none");
     if ($("#hdnClienteID_").val() != "-1") {
         $(".pMontoCliente").css("display", "block");
         $("#spnNombreCliente").html(nomCli + " :");
-        $("#spnTotalCliente").html(simbolo + monto);
+        $("#spnTotalCliente").html(variablesPortal.SimboloMoneda + monto);
     }
 }
 
@@ -869,14 +868,13 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
             $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
 
             var nomCli = $("#ddlClientes option:selected").text();
-            var simbolo = data.Simbolo;
             var monto = data.TotalCliente;
 
             $(".pMontoCliente").css("display", "none");
             if (data.ClienteID_ != "-1") {
                 $(".pMontoCliente").css("display", "block");
                 $("#spnNombreCliente").html(nomCli + " :");
-                $("#spnTotalCliente").html(simbolo + monto);
+                $("#spnTotalCliente").html(variablesPortal.SimboloMoneda + monto);
             }
             ActualizarMontosPedido(data.FormatoTotal, data.Total, data.TotalCliente);
         },

@@ -11,21 +11,13 @@
             <input type="hidden" class="OrigenPedidoWeb" value="{{OrigenPedidoWeb}}" />
             <div class="bloque_producto_packNuevas">
                 <div class="content_item_carrusel">
-                    {{#iff EsOfertaIndependiente '==' '1'}}
-                        {{#iff MostrarImgOfertaIndependiente '==' '1'}}
-                        <div class="etiqueta_producto" data-item-tag="etiqueta">
-                            <img src="{{ImagenOfertaIndependiente}}" alt="Etiqueta Producto" />
-                        </div>
-                        {{/iff}}
-                    {{else}}
-                        {{#iff ImagenURL '!=' ''}}
-                        <div class="etiqueta_producto" data-item-tag="etiqueta">
-                            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                        </div>
-                        {{/iff}}
+                    {{#iff ImagenURL '!=' ''}}
+                    <div class="etiqueta_producto" data-item-tag="etiqueta">
+                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                    </div>
                     {{/iff}}
                     <div class="producto_img_home">
-                        <img src="{{FotoProducto01}}">
+                        <img src="{{ImgUrl FotoProducto01}}">
                     </div>
                     <div class="etiqueta_producto"></div>
                     <div class="producto_nombre_descripcion">
@@ -36,11 +28,11 @@
                         <p class="nombre_producto"><b>{{DescripcionCortada}}</b></p>
                         {{/iff}}
                         <div class="producto_precio">
-                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioVenta}}</b></span>
+                            <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioVenta}}</b></span>
                         </div>
                         {{#iff Precio '>' 0}}
                         <div class="monto_ganancia_producto">
-                            <span>GANANCIA :</span><span>&nbsp;{{Simbolo}} {{PrecioTachado}}</span>
+                            <span>GANANCIA :</span><span>&nbsp;{{SimboloMoneda}} {{PrecioTachado}}</span>
                         </div>
                         {{/iff}}
                         <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"

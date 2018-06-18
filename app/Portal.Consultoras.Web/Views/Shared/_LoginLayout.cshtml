@@ -22,12 +22,23 @@
 
     <link rel="shortcut icon" type="image/x-icon" id="iconoPagina" data-id="iconPagina" href="@ViewBag.IconoPagina" />
 
-    <div data-id="cssStyle" id="cssStyle" @(ViewBag.EsPaisEsika == false ? "disabled='disabled'" : "")>
-        @Styles.Render("~/Content/Css/Site/Login2/Esika")
-    </div>
-    <div data-id="cssStyleLbel" id="cssStyleLbel" @(ViewBag.EsPaisLbel == false ? "disabled='disabled'" : "")>
-        @Styles.Render("~/Content/Css/Site/Login2/Lbel")
-    </div>
+    @if (ViewBag.EsPaisEsika) {
+        <div data-id="cssStyle" 
+             class="current-belcorp-style" 
+             data-srcesika="@Url.Content("~/Content/Css/Site/Login2/style_esika.css")" 
+             data-srclbel="@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")" 
+             id="cssStyle"
+        >@Styles.Render("~/Content/Css/Site/Login2/Esika")</div>
+    }
+    
+    @if (ViewBag.EsPaisLbel) {
+        <div data-id="cssStyleLbel" 
+             class="current-belcorp-style" 
+             data-srcesika="@Url.Content("~/Content/Css/Site/Login2/style_esika.css")" 
+             data-srclbel="@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")" 
+             id="cssStyleLbel" 
+        >@Styles.Render("~/Content/Css/Site/Login2/Lbel")</div>
+    }
 
     @Styles.Render("~/Content/Css/Login")
 
@@ -42,6 +53,8 @@
         var emt_first_name = '';
         var emt_id = '';
         var emt_type = '';
+        var emt_device = ' ';
+        var emt_default_message = '@Html.Raw(Constantes.ConfiguracionManager.MensajeChatBienvenida)';
         //Fin Variables nuevo chat
 
         // varaibles log de error
@@ -107,10 +120,7 @@
     @RenderSection("headerScripts", required: false)
 </head>
 <body class="body_login @Model.NombreClase" onload="noback();" onpageshow="if(event.persisted) noback();" onunload="">
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!-- Google Tag Manager -->
+
     <noscript>
         <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display:none;visibility:hidden;"></iframe>
     </noscript>
@@ -129,14 +139,10 @@
             f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
     </script>
-    <!-- End Google Tag Manager -->
-    <!-- MANTENIMIENTO -->
     <div id="divMant" style="display: none;" class="modal_mantenimiento">
         <a href="#" onclick="closeMant();">
         </a>
     </div>
-    <!-- CIERRA MANTENIMIENTO -->
-    <!-- AVISO PRIVACIDAD -->
     <div id="box-pop-up" style="display: none;">
         <div class="content-pop-up">
             <div class="cabecera">
@@ -248,7 +254,6 @@
         </div>
     </div>
 
-    <!--POPUP MODAL CREA TU CORREO AQUI-->
     <div id="bg_1" style="display: none;">
         <div class="content_bg_1">
             <a href="javascript:closeit()" class="cerrar"></a>
@@ -282,9 +287,7 @@
         <span class="hola"></span>
         <div id="content">
             <section id="main_formulaio">
-                <!-- wrapper -->
                 <div class="wrapper">
-                    <!-- wrapMain -->
                     <div class="wrapMain">
                         <div class="content-left">
                             <label id="PageTitleLabel" style="display: none;"></label>
@@ -294,9 +297,7 @@
                                 @RenderBody()
                             </section>
                         </div>
-                        <!-- MENU PARTE SUPERIOR -->
                         <div class="content-right">
-                            <!-- top -->
                             <div class="top">
                                 <div class="boxMenu">
                                     <div class="nav">
@@ -318,11 +319,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- cierra top -->
                         </div>
                         <div class="sombra_superior"></div>
 
-                        <!-- ALERTAS PARA VALIDACION DE INPUTS USUARIO-->
                         <div class="content-alerta-red-user  left">
                             <div class="alerta_red_peru_user left">@Html.Raw(Constantes.TooltipLoginUsuario.PE)</div>
                             <div class="alerta_red_bolivia_user left">@Html.Raw(Constantes.TooltipLoginUsuario.BO)</div>
@@ -336,7 +335,6 @@
                             <div class="alerta_red_cam_user9 left">@Html.Raw(Constantes.TooltipLoginUsuario.PA)</div>
                             <div class="alerta_red_cam_user7 left">@Html.Raw(Constantes.TooltipLoginUsuario.CAM)</div>
                         </div>
-                        <!-- ALERTAS PARA VALIDACION DE INPUTS CLAVE-->
                         <div class="content-alerta-red-clave">
                             <div class="alerta_red_peru_clave left">@Html.Raw(Constantes.TooltipLoginPassword.PE)</div>
                             <div class="alerta_red_bolivia_clave left">@Html.Raw(Constantes.TooltipLoginPassword.BO)</div>
@@ -351,9 +349,7 @@
                         </div>
 
                     </div>
-                    <!-- Cierra wrapMain -->
                 </div>
-                <!-- wrapper -->
             </section>
         </div>
         <div class="logo_content_ab">
@@ -377,11 +373,7 @@
         <input id="hddFondoFestivoEsika" type="hidden" value="@Model.RutaEventoEsika" />
         <input id="hddFondoFestivoLebel" type="hidden" value="@Model.RutaEventoLBel" />
     </div>
-
-    <!--[if lt IE 11>
-        <script src="http://github.com/aFarkas/html5shiv/blob/master/dist/html5shiv.js"></script>
-     <![endif]-->
-
+    
     @Scripts.Render("~/bundles/JsLogin2")
 
     @RenderSection("scripts", required: false)
@@ -392,14 +384,14 @@
             <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">
             <link rel="stylesheet" href="@Url.Content("~/emt_chat/css/font-awesome.min.css")">
             <div class="CMXD-containment-wrapper"></div><div id="marca"> <div class="CMXD-btn-help"> <div id="btn_init" class="CMXD-help_rc" style="display:none;"></div><div id="btn_open" class="CMXD-open" style="display: none"></div></div><div class="container-movil"></div><div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none"> <div class="CMXD-header-chat"> <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA <div class="CMXD-icons"> <a class="display-a" id="btn_minimize" href=""> <i class="fa fa-minus" aria-hidden="true"></i> </a> <a class="display-a" id="btn_wClose" href="" style="display: none"> <i class="fa fa-times" aria-hidden="true"></i> </a> </div><hr class="CMXD-line"> </div><div id="chat"> <div id="interaction" class="CMXD-container-welcome" style="display: none"> <div class='chat-wrapper'> <div id="transcript" class='chat-message padding container-chat'></div></div><div id="slideDownTranscript" class="message-end CMXD-animate2"> <span class="fa fa-angle-double-down"></span> </div><div class="container-txt"> <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea> <a class="" href=""> <div class="send send2" id="btn_Send"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar </div></a> </div></div><div id="loading" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="loading_image" src="" alt=""> </div><div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div><div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div></div></div><div id="schedule" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="schedule_image" src="" alt="Imagen fuera de horario"> </div><div id="schedule_title" class="CMXD-welcome"> </div><div id="schedule_description" class="CMXD-description"> </div></div></div><div id="Error" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="Error_image" src="" alt=""> </div><div class="CMXD-welcome"> Error de conexión </div><div class="CMXD-description"> En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br /> <a href="" class="btn-no display-a" id="btn_mclose"> OK</a> </div></div></div><div id="alert" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="alert_image" src="" alt=""> </div><div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div><div class="CMXD-description"> <a href="" class="btn-yes display-a" id="btn_close"> Si</a> <a href="" class="btn-no display-a" id="btn_nwClose"> No</a> </div></div></div></div><div id="poll" class="pop-up"> <div class="CMXD-container-welcome"> <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div><div id="poll_description" class="CMXD-description"> </div></div></div></div></div>
-            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")"></script>
+            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")?v1"></script>
         }
         else
         {
             <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">
             <link rel="stylesheet" href="@Url.Content("~/emt_chat/css/font-awesome.min.css")">
             <div class="CMXD-containment-wrapper"></div><div id="marca"> <div class="CMXD-btn-help"> <div id="btn_init" class="CMXD-help_rc" style="display:none;"></div><div id="btn_open" class="CMXD-open" style="display: none"></div></div><div class="container-movil"></div><div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none"> <div class="CMXD-header-chat"> <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA <div class="CMXD-icons"> <a class="display-a" id="btn_minimize" href=""> <i class="fa fa-minus" aria-hidden="true"></i> </a> <a class="display-a" id="btn_wClose" href="" style="display: none"> <i class="fa fa-times" aria-hidden="true"></i> </a> </div><hr class="CMXD-line"> </div><div id="chat"> <div id="interaction" class="CMXD-container-welcome" style="display: none"> <div class='chat-wrapper'> <div id="transcript" class='chat-message padding container-chat'></div></div><div class="container-txt"> <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea> <a class="" href=""> <div class="send send2" id="btn_Send"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar </div></a> </div></div><div id="loading" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="loading_image" src="" alt=""> </div><div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div><div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div></div></div><div id="schedule" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="schedule_image" src="" alt="Imagen fuera de horario"> </div><div id="schedule_title" class="CMXD-welcome"> </div><div id="schedule_description" class="CMXD-description"> </div></div></div><div id="Error" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="Error_image" src="" alt=""> </div><div class="CMXD-welcome"> Error de conexión </div><div class="CMXD-description"> En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br /> <a href="" class="btn-no display-a" id="btn_mclose"> OK</a> </div></div></div><div id="alert" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="alert_image" src="" alt=""> </div><div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div><div class="CMXD-description"> <a href="" class="btn-yes display-a" id="btn_close"> Si</a> <a href="" class="btn-no display-a" id="btn_nwClose"> No</a> </div></div></div></div><div id="poll" class="pop-up"> <div class="CMXD-container-welcome"> <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div><div id="poll_description" class="CMXD-description"> </div></div></div></div></div>
-            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")"></script>
+            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")?v1"></script>
         }
     }
 

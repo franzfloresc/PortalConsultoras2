@@ -135,11 +135,9 @@ else
                         <li><a href="#tab-categorias-apoyadas">Categorias apoyadas</a></li>
                         <li><a href="#tab-ganadoras" id="ganadorasLink" data-bind="click: $root.TraerListaGanadoras">Ganadoras</a></li>
                     </ul>
-                    @*seccion regalos*@
                     <div id="tab-regalos">
                         @Html.Partial("_Detalle")
                     </div>
-                    @*regalos*@
                     <div id="tab-categorias-apoyadas"></div>
                     <div id="tab-ganadoras">
                         <div>
@@ -172,7 +170,6 @@ else
             </div>
         </div>
     </div>
-    @*popup regalo*@
     <div id="editRegaloPopUp" data-bind="with: regaloSeleccionado">
         @Html.Partial("_DetalleEdit")
     </div>
@@ -186,7 +183,6 @@ else
 
 
 @Scripts.Render("~/bundles/estrategias-upselling")
-@*<script src="@Url.Content(string.Format("~/Scripts/PortalConsultoras/Estrategia/UpSelling/Index.js?ver{0}", DateTime.Now.Ticks.ToString()))" type="text/javascript"></script>*@
 @section scripts{
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/UpSelling/api.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/UpSelling/Index.js")" type="text/javascript"></script>

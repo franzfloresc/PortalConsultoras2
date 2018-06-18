@@ -247,7 +247,6 @@
     };
     
     var _init = function(){
-        //
         _bindEvents();
     };
     

@@ -43,7 +43,6 @@
 
     <hr class="clear" />
     <div class="linea_separadora" style="height:2px"></div>
-    <!--LISTADO ITEMS-->
     <div class="content_listado_notificaciones">
         <div class="icono_cliente_sb texto_gris"></div>
         <div class="nombre_cliente_sb texto_gris">Nombres</div>
@@ -60,65 +59,21 @@
 
     </div>
 
-    <!--
-    <div class="content_listado_notificaciones">
-        <div class="nombre_cliente_sb">Fiorella Goyzueta</div>
-        <div class="correo_clientes">fgoyzueta@gmail.com</div>
-        <div class="pedido_detalle_cliente"><a href="#" onclick="javascript:$('#DetallePedidoCliente').show();"><img src="/Content/Images/icono_lupa.png"></a></div>
-        <div class="editar_cliente"><a href="#" onclick="javascript: $('#divEditarCliente').show();"><img src="/Content/Images/Esika/editar_clientes.png"></a></div>
-        <div class="eliminar_cliente"><a href="#" onclick="javascript: $('#divEliminarCliente').show();"><img src="/Content/Images/Esika/tacho-copy.png"></a></div>
-    </div>
-    <div class="content_listado_notificaciones">
-        <div class="nombre_cliente_sb">Maribel Arcaya Huarisco</div>
-        <div class="correo_clientes">marcay@sixto.com.pe</div>
-        <div class="pedido_detalle_cliente"><a onclick="javascript:$('#DetallePedidoCliente').show();" href="#"><img src="/Content/Images/icono_lupa.png"></a></div>
-        <div class="editar_cliente"><a href="#" onclick="javascript: $('#divEditarCliente').show();"><img src="/Content/Images/Esika/editar_clientes.png"></a></div>
-        <div class="eliminar_cliente"><a href="#" onclick="javascript: $('#divEliminarCliente').show();"><img src="/Content/Images/Esika/tacho-copy.png"></a></div>
-    </div>
-    -->
-    <!--FIN-->
     <div class="linea_separadora" style="margin-top: -1px; margin-bottom: 17px"></div>
-    <!--PGINADOR-->
 
     <div id="paginadorPie">
     </div>
-    <!--
-    <div class="resultado_busqueda">Resultado   5 - 5  de 15 registrados</div>
-    <ul class="paginador_notificaciones">
-        <li class="texto_pagina">Página</li>
-        <li class="flecha_paginador_atras" onclick="CambioPagina(3)"></li>
-        <li style="margin-right: 6px;">
-            <span class="paginas_pedidos">
-                <span class="pagina_actual">
-                    <input type="text" name="paginaactual" value="1" class="ValidaNumeral" id="paginaactual" onblur="CambioPagina(-1)" data-val="1">
-                </span> de
-                <span class="paginas_totales">1</span>
-            </span>
-        </li>
-        <li class="flecha_paginador_adelante" onclick="CambioPagina(4)"></li>
-        <li><input type="text" value="10" class="numero_lista" /></li>
 
-    </ul>
-    -->
     <hr class="clear" />
     <a class="agregar_cliente_btn" onclick="showClienteDetalle(null);">AGREGAR CLIENTE</a>
     <hr class="clear" />
 </div>
 
-<!-- POPUP DETAllE CLIENTE -->
 <div class="contenedor_popup_agregarCliente mis_clientes" id="divAgregarCliente">
     <div class="popup_agregarCliente">
         <div id="divDetalleCliente"></div>
     </div>
 </div>
-
-<!-- POPUP AGREGAR CLIENTE -->
-
-<!-- FIN POPUP AGREGAR CLIENTE -->
-<!-- POPUP EDITAR CLIENTE -->
-
-<!-- FIN POPUP EDITAR CLIENTE -->
-<!-- POPUP ELIMINAR CLIENTE -->
 
 <div class="contenedor_popup_eliminarCliente" id="divEliminarCliente">
     <div class="popup_eliminarCliente">
@@ -145,8 +100,6 @@
     </div>
 </div>
 
-<!-- FIN POPUP ELIMINAR CLIENTE -->
-<!-- POPUP DETALLE PEDIDO CLIENTE -->
 <div class="popup_detalle_cliente" id="DetallePedidoCliente">
     <div class="content_popUp" style="padding-bottom:0">
         <div class="btn_cerrar_popup_pedidosFacturados" data-accion="close">
@@ -171,8 +124,6 @@
         </div>
         <div class="linea_separadora" style="height:2px; margin-bottom:15px"></div>
 
-        <!--CONTENIDO DETALLE CLIENTES-->
-        <!--PGINADOR-->
         <div class="cantidad_productos_notificaciones"><span>5 productos</span>	TOTAL   <span><b>S/. 147.60</b></span></div>
         <ul class="paginador_notificaciones">
             <li class="texto_pagina">Página</li>
@@ -190,7 +141,6 @@
         </ul>
         <hr class="clear">
         <div class="linea_separadora"></div>
-        <!--LISTADO ITEMS-->
         <div class="content_listado_notificaciones">
             <div class="cod_venta_notificaciones texto_gris">Código</div>
             <div class="descripcion_notificaciones texto_gris">Producto</div>
@@ -212,8 +162,6 @@
             <div class="unitario_notificaciones">S/. 19.90</div>
             <div class="total_notificaciones">S/. 19.90</div>
         </div>
-        <!--FIN-->
-        <!--PGINADOR-->
 
         <hr class="clear">
         <div class="linea_inferior_roja" style="height:1px"></div>
@@ -223,8 +171,6 @@
 
     </div>
 </div>
-
-<!-- SB20-322 - INCIO -->
 
 <script id="paginador-template" type="text/x-handlebars-template">
 
@@ -277,7 +223,6 @@
     {{/each}}
 </script>
 
-<!-- SB20-322 - FIN -->
 @section scripts{
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';

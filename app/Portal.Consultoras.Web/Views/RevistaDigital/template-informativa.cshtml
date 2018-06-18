@@ -15,9 +15,6 @@
     <div class="video-visual">
         <div class="video-container">
 
-            <!--div id="player"></div-->
-            <!-- , videoId:'@@Model.TipoEstrategiaDetalle.UrlVideoMobile' -->
-            <!--data-extra="{'descripcionResumen':'@@Model.DescripcionResumen'}"-->
             <div id="ytRevistaDigitalTemplateInformativa"
                 data-youtube="{ height:'415', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}"
                 class="yt-video"
@@ -208,8 +205,6 @@ else if(Model.CancelarSuscripcion)
                     
                 </ul>
             </li>
-            @*@if (Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
-            {*@
             <li>
                 <a class="abrir-preg-frecuente"><p>¿Cómo cancelo mi suscripción? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
                 <ul>
@@ -223,7 +218,6 @@ else if(Model.CancelarSuscripcion)
                 </ul>
             </li>
             <div style="clear:both;"></div>
-            @*}*@
             <li>
                 <a class="abrir-preg-frecuente"><p>¿Por qué ya no recibo la guía de negocio impresa? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
                 <ul>
@@ -257,19 +251,12 @@ else if(Model.CancelarSuscripcion)
 @section scripts{
     <script type="text/javascript">
         var done = false;
-       
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
         var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';
         var isScroll = false;
         window.videoKey = '@Model.Video';
         window.estaSuscrita = '@Model.EsSuscrita';
-        /*
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        var player;*/
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")
 }

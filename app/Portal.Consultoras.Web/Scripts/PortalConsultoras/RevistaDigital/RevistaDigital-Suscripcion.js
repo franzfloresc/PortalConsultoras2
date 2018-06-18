@@ -1,4 +1,6 @@
 ﻿
+var lsListaRD = lsListaRD || "ListaRD";
+
 $(document).ready(function () {
     "use strict";
     var clickabrir = 1;
@@ -40,59 +42,6 @@ $(document).ready(function () {
     }
   
 });
-/*
-function onYouTubeIframeAPIReady() {
-    if (typeof videoKey != "undefined") {
-        player = new YT.Player("player", {
-            width: "640",
-            height: "390",
-            enablejsapi: 1,
-            fs: 0,
-            showinfo: 0,
-            modestbranding: 1,
-            loop: 1,
-            videoId: videoKey,
-            playerVars: {
-                autoplay: 1,
-                rel: 0
-            },
-            events: {
-                onReady: onScrollDown,
-                onStateChange: onPlayerStateChange
-            }
-        });
-    }
-}*/
-
-/*
-function onScrollDown(event) {
-    $(window).scroll(function () {
-        var windowHeight = $(window).scrollTop();
-        var contenido2 = ($("#saber-mas-uno").offset() || {}).top || 0;
-
-        if (windowHeight >= contenido2) {
-            event.target.pauseVideo();
-        }
-    });
-}*/
-
-// when video ends
-/*
-function onPlayerStateChange(event) {
-    if (typeof estaSuscrita == "undefined")
-        return false;
-
-    if (event.data === 0 && estaSuscrita === "False") {
-        $("a.btn-suscribete-video").animate({
-            bottom: "0%"
-        });
-        $("#div-suscribite").hide();
-    }
-    if (event.data == YT.PlayerState.PLAYING && !done) {
-        rdAnalyticsModule.CompartirProducto("YTI", player.getVideoUrl(), "");
-        done = true;
-    }
-}*/
 
 function ScrollUser(anchor, alto) {
     var topMenu = ($("#seccion-fixed-menu").position() || {}).top || 0;
@@ -139,6 +88,11 @@ function RDSuscripcion() {
             if (!data.success) {
                 AbrirMensaje(data.message);
                 return false;
+            }
+
+            if (data.revistaDigital) {
+                var key = lsListaRD + data.CampaniaID;
+                RDActualizarTipoAccionAgregar(data.revistaDigital, key);
             }
 
             $("#PopRDSuscripcion").css("display", "block");
@@ -191,19 +145,17 @@ function RDDesuscripcion() {
                 return false;
             }
 
+            if (data.revistaDigital) {
+                var key = lsListaRD + data.CampaniaID;
+                RDActualizarTipoAccionAgregar(data.revistaDigital, key);
+            }
+
             window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
         error: function (data, error) {
             CerrarLoad();
         }
     });
-}
-
-function RDRedireccionarDetalle(event) {
-    var obj = EstrategiaObtenerObj(event);
-    EstrategiaGuardarTemporal(obj);
-    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital/Detalle");
-    window.location = url + "?cuv=" + obj.CUV2 + "&campaniaId=" + obj.CampaniaID;
 }
 
 function MostrarTerminos() {
