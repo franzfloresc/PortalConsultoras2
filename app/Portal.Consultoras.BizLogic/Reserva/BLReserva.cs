@@ -615,7 +615,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             mailBody.Append("<table width='600' align='center' border='0' cellspacing='0' cellpadding='0' align='center' style='max - width: 600px; ' class='main'>");
             mailBody.Append("<tr> <td colspan = '2' style = 'width: 100%; height: 50px; border-bottom: 1px solid #000; padding: 12px 0px; text-align: center; background: #fff' > ");
             if (esEsika) mailBody.Append("<img src='" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png' alt='Logo Esika'/>");
-            else mailBody.Append("<img src='https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png' alt='Logo Lbel'/>");
+            else mailBody.Append("<img src='" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png' alt='Logo Lbel'/>");
             mailBody.Append("</td></tr> ");
             mailBody.AppendFormat(" <tr> <td colspan = '2' style = 'font-family: Arial; font-size: 15px; text-align: center; font-weight: 500; color: #000; padding: 20px 0 10px 0;' > Hola {0}, </td></tr> ", input.NombreConsultora);
             mailBody.Append("<tr> <td colspan = '2' style = 'text-align: center; font-family: Arial; font-size: 23px; font-weight: 700; color: #000; padding-bottom: 15px; padding-left: 10px; padding-right: 10px;' > RESERVASTE TU PEDIDO CON ÉXITO </td></tr>");
@@ -695,8 +695,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
             mailBody.Append(" <tr> <td colspan = '2' style = 'background: #000; height: 62px;' > <table align = 'center' style = 'text-align:center; padding:0 13px; width:100%;' >  <tr> ");
             mailBody.Append(" <td style='width: 11 %; text - align:left; vertical - align:top; '> <a href = 'http://belcorp.biz/' ><img src = '" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-belcorp.png' alt = 'Logo Belcorp' /></a></td> ");
-            mailBody.Append(" <td style='width: 8 %; text - align:left; '> <a href = 'http://www.esika.com/' > <img src = 'https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/G9GQryrWRTreo75/logo-esika.png' alt = 'Logo Esika' /> </a></td> ");
-            mailBody.Append(" <td style='width: 8 %; text - align:left; '> <a href = 'http://www.lbel.com/' > <img src = 'https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/T3o8rSPUKtKpe4g/logo-lbel.png' alt = 'Logo L'bel' /></a></td> ");
+            mailBody.Append(" <td style='width: 8 %; text - align:left; '> <a href = 'http://www.esika.com/' > <img src = '" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-esika.png' alt = 'Logo Esika' /> </a></td> ");
+            mailBody.Append(" <td style='width: 8 %; text - align:left; '> <a href = 'http://www.lbel.com/' > <img src = '" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-lbel.png' alt = 'Logo L'bel' /></a></td> ");
             mailBody.Append(" <td style='width: 15 %; text - align:left; border - right:1px solid #FFF;'><a href = 'http://www.cyzone.com/' ><img src = '" + Globals.RutaCdn + "/Correo/logo-cyzone.png' alt = 'Logo Cyzone' /> </a></td>");
             mailBody.Append(" <td style='width: 15 %; font - family:Calibri; font - weight:400; font - size:13px; color:#FFF; vertical-align:middle;'><a href = 'https://www.facebook.com/SomosBelcorpOficial?fref=ts' style = 'text-decoration: none' >");
             mailBody.Append(" <table align = 'center' style = 'text-align:center; width:100%;' ><tbody> <tr> <td style = 'text-align: right; font-family: Calibri; font-weight: 400; font-size: 13px; vertical-align: middle; width: 69%; color: white; text-decoration: none;' > SÍGUENOS </td> ");

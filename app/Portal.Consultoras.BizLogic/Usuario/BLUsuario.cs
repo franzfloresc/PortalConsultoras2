@@ -1720,7 +1720,7 @@ namespace Portal.Consultoras.BizLogic
                             string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
                             LogManager.SaveLog(new Exception(), usuario.CodigoUsuario, usuario.CodigoISO, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
                             bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);
-                            string logo = (esEsika ? Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png" : "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png");
+                            string logo = (esEsika ? Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png" : Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png");
                             string fondo = (esEsika ? "e81c36" : "642f80");
 
                             MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, logo, nomconsultora, url, fondo, paramQuerystring);

@@ -133,7 +133,7 @@ namespace Portal.Consultoras.Common
             }
             else
             {
-                s_html += "<th colspan=\"3\" style=\"width:100%; height:50px; border-bottom:1px solid #000; padding:12px 0px; text-align:center;\"><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png\" alt=\"Logo Esika\" /></th>";
+                s_html += "<th colspan=\"3\" style=\"width:100%; height:50px; border-bottom:1px solid #000; padding:12px 0px; text-align:center;\"><img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png\" alt=\"Logo Esika\" /></th>";
             }
             s_html += "</tr>";
             s_html += "</thead>";
@@ -186,10 +186,10 @@ namespace Portal.Consultoras.Common
             s_html += "<a href='http://belcorp.biz/'><img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-belcorp.png\" alt=\"Logo Belcorp\" /></a>";
             s_html += "</td>";
             s_html += "<td style=\"width:8%; text-align:left;\">";
-            s_html += "<a href='http://www.esika.com/'><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/G9GQryrWRTreo75/logo-esika.png\" alt=\"Logo Esika\" /></a>";
+            s_html += "<a href='http://www.esika.com/'><img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-esika.png\" alt=\"Logo Esika\" /></a>";
             s_html += "</td>";
             s_html += "<td style=\"width:8%; text-align:left;\">";
-            s_html += "<a href='http://www.lbel.com/'><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/T3o8rSPUKtKpe4g/logo-lbel.png\" alt=\"Logo L'bel\" /></a>";
+            s_html += "<a href='http://www.lbel.com/'><img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-lbel.png\" alt=\"Logo L'bel\" /></a>";
             s_html += "</td>";
             s_html += "<td style=\"width:15%; text-align:left;border-right:1px solid #FFF;\">";
             s_html += "<a href='http://www.cyzone.com/'><img src=\"" + Globals.RutaCdn + "/Correo/logo-cyzone.png\" alt=\"Logo Cyzone\" /></a>";
@@ -260,7 +260,7 @@ namespace Portal.Consultoras.Common
             if (tipopais)
                 sBuilder.Append("<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png\" alt =\"Logo Esika\"/>");
             else
-                sBuilder.Append("<img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png\" alt =\"Logo Esika\"/>");
+                sBuilder.Append("<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png\" alt =\"Logo Esika\"/>");
             sBuilder.Append("</td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("<tr>");
@@ -283,7 +283,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<div style=\"display: inline-block; width: 148px; vertical-align: middle; padding: 10px;\">");
             sBuilder.Append("<table>");
             sBuilder.Append("<tr>");
-            sBuilder.Append("<td><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3ldYI6JWSyCr0cQ/calendario.png\"></td>");
+            sBuilder.Append("<td><img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/calendario.png\"></td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("<tr>");
             sBuilder.Append("<td style=\"color:#fff; font-size: 12px; font-family: 'Arial'; padding-top: 10px;\">Sólo válido en la campaña C" + codigoCampania + "</td>");
@@ -293,7 +293,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<div style=\"display: inline-block; width: 148px; vertical-align: middle; padding: 10px;\">");
             sBuilder.Append("<table>");
             sBuilder.Append("<tr>");
-            sBuilder.Append("<td><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/4APfP0beByYE5yN/group-6.png\"></td>");
+            sBuilder.Append("<td><img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/group-6.png\"></td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("<tr>");
             sBuilder.Append("<td style=\"color:#fff; font-size: 12px; font-family: 'Arial'; padding-top: 10px;\">Agrega alguna oferta exclusiva web (no incluye ofertas de liquidación web)</td>");
@@ -305,9 +305,9 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<table>");
             sBuilder.Append("<tr>");
             if (tipopais)
-                sBuilder.Append("<td><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/zpKTgmlpMBbOCFr/group-13.png\" ></td>");
+                sBuilder.Append("<td><img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/group-13.png\" ></td>");
             else
-                sBuilder.Append("<td><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/JYBIo3emz2Twn5P/icono_lbel.png\" ></td>");
+                sBuilder.Append("<td><img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/icono_lbel.png\" ></td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("<tr>");
             sBuilder.Append("<td style=\"color:#fff; font-size: 12px; font-family: 'Arial';  padding-top: 10px;\">Tu dscto lo verás reflejado en tu facturación<br>(dscto hasta " + simbolo + " " + montoLimite + ")</td>");
@@ -334,10 +334,10 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<a href=\"http://belcorp.biz/\"><img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-belcorp.png\" alt =\"Logo Belcorp\"/></a>");
             sBuilder.Append("</td>");
             sBuilder.Append("<td style=\"width: 8%; text-align: left;\">");
-            sBuilder.Append("<a href=\"http://www.esika.com/\"><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/G9GQryrWRTreo75/logo-esika.png\" alt =\"Logo Esika\"/></a>");
+            sBuilder.Append("<a href=\"http://www.esika.com/\"><img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-esika.png\" alt =\"Logo Esika\"/></a>");
             sBuilder.Append("</td>");
             sBuilder.Append("<td style=\"width: 8%; text-align: left;\">");
-            sBuilder.Append("<a href=\"http://www.lbel.com/\"><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/T3o8rSPUKtKpe4g/logo-lbel.png\" alt =\"Logo L'bel\"/></a>");
+            sBuilder.Append("<a href=\"http://www.lbel.com/\"><img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-lbel.png\" alt =\"Logo L'bel\"/></a>");
             sBuilder.Append("</td>");
             sBuilder.Append("<td style=\"width: 15%; text-align: left; border-right: 1px solid #FFF;\">");
             sBuilder.Append("<a href=\"http://www.cyzone.com/\" ><img src=\"" + Globals.RutaCdn + "/Correo/logo-cyzone.png\" alt =\"Logo Cyzone\"/></a>");

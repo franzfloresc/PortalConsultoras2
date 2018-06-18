@@ -248,9 +248,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
                 {
-                    urlImagenLogo = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png";
-                    urlIconEmail = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/SWR2zWZftNbE4mn/mensaje_mail.png";
-                    urlIconTelefono = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1YI6wJJKvX90WZk/celu_mail.png";
+                    urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png";
+                    urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail_lbel.png";
+                    urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail_lbel.png";
                 }
 
                 var txtBuil = new StringBuilder();
@@ -400,12 +400,12 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "</td>";
                     mailBody += "<td style=\"width:8%; text-align:left;\">";
                     mailBody += "<a href=\"http://www.esika.biz\" style=\"width:100%; display:block;\">";
-                    mailBody += "<img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/G9GQryrWRTreo75/logo-esika.png\" alt=\"Logo Esika\" />";
+                    mailBody += "<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-esika.png\" alt=\"Logo Esika\" />";
                     mailBody += "</a>";
                     mailBody += "</td>";
                     mailBody += "<td style=\"width:8%; text-align:left;\">";
                     mailBody += "<a href=\"http://www.lbel.com\" style=\"width:100%; display:block;\">";
-                    mailBody += "<img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/T3o8rSPUKtKpe4g/logo-lbel.png\" alt=\"Logo L'bel\" />";
+                    mailBody += "<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-lbel.png\" alt=\"Logo L'bel\" />";
                     mailBody += "</a>";
                     mailBody += "</td>";
                     mailBody += "<td style=\"width:15%; text-align:left;border-right:1px solid #FFF;\">";
