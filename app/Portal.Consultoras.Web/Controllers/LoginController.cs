@@ -2684,7 +2684,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         datos = sv.GetRestaurarClaveByCodUsuario(textoRecuperacion, paisId);
                     }
-                    if (datos != null) SetTemData(datos, paisId);
+                    if (datos != null)
+                        SetTemData(datos, paisId);
                     else
                         return datos;
                 }

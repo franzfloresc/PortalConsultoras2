@@ -676,7 +676,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<BEEstrategiaProducto> lst;
+                List<ServicePedido.BEEstrategiaProducto> lst;
                 var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = estrategiaId };
 
                 using (var sv = new PedidoServiceClient())
@@ -692,7 +692,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SortOrder = sord
                 };
 
-                IEnumerable<BEEstrategiaProducto> items = lst;
+                IEnumerable<ServicePedido.BEEstrategiaProducto> items = lst;
 
                 #region Sort Section
                 if (sord == "asc")
@@ -764,13 +764,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = Mapper.Map<EstrategiaProductoModel, BEEstrategiaProducto>(model);
+                var entidad = Mapper.Map<EstrategiaProductoModel, ServicePedido.BEEstrategiaProducto>(model);
 
                 entidad.PaisID = userData.PaisID;
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
                 entidad.ImagenProducto = GuardarImagenAmazon(model.ImagenProducto, model.ImagenAnterior, userData.PaisID);
 
-                List<BEEstrategiaProducto> lstProd;
+                List<ServicePedido.BEEstrategiaProducto> lstProd;
                 var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = model.EstrategiaID };
 
                 using (var sv = new PedidoServiceClient())
@@ -856,7 +856,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = Mapper.Map<EstrategiaProductoModel, BEEstrategiaProducto>(model);
+                var entidad = Mapper.Map<EstrategiaProductoModel, ServicePedido.BEEstrategiaProducto>(model);
 
                 entidad.PaisID = userData.PaisID;
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
@@ -901,7 +901,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = new BEEstrategiaProducto
+                var entidad = new ServicePedido.BEEstrategiaProducto
                 {
                     PaisID = userData.PaisID,
                     EstrategiaID = estrategiaId,
