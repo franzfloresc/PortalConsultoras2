@@ -1143,7 +1143,8 @@ namespace Portal.Consultoras.Common
             public const string UpdCorreoConsultora_CorreoNoCambia = "Debe ingresar un correo nuevo diferente a su correo actual.";
             public const string UpdCorreoConsultora_CorreoYaExiste = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.";
             public const string ActivacionCorreo = "Ha ocurrido un error con la activación de su correo electrónico.";
-            public const string ActivacionCorreo_NoExiste = "No existe una activación de correo pendiente.";
+            public const string ActivacionCorreo_NoExiste = "No existe una activación de correo pendiente para su correo.";
+            public const string ActivacionCorreo_EstaActivo = "Esta dirección de correo electrónico ya ha sido activada.";
             public const string ValorVacio = "El valor no puede estar vacío.";
             public const string CodigoIncorrecto = "El código ingresado no es el correcto.";
             public const string CelularActivacion = "No se pudo confirmar el número registrado.";

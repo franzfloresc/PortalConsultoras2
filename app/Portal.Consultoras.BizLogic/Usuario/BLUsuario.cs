@@ -195,7 +195,7 @@ namespace Portal.Consultoras.BizLogic
             return activado;
         }
 
-        public BERespuestaServicio ActivarEmail(int paisID, string codigoUsuario, int campania)
+        public BERespuestaServicio ActivarEmail(int paisID, string codigoUsuario, string email)
         {
             try
             {
@@ -210,17 +210,22 @@ namespace Portal.Consultoras.BizLogic
                     {
                         validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader);
                     }
-                    if (validacionDato == null || validacionDato.Estado != Constantes.ValidacionDatosEstado.Pendiente)
+                    if (validacionDato == null || validacionDato.DatoNuevo != email)
                     {
-                        return new BERespuestaServicio { Message = Constantes.MensajesError.ActivacionCorreo };
+                        return new BERespuestaServicio { Message = Constantes.MensajesError.ActivacionCorreo_NoExiste };
                     }
+                    if (validacionDato.Estado == Constantes.ValidacionDatosEstado.Activo)
+                    {
+                        return new BERespuestaServicio { Message = Constantes.MensajesError.ActivacionCorreo_EstaActivo };
+                    }
+                    
+                    var usuario = GetBasicSesionUsuario(paisID, codigoUsuario);
+                    daUsuario.UpdUsuarioEmail(codigoUsuario, validacionDato.DatoNuevo, usuario.CampaniaID);
 
                     validacionDato.Estado = Constantes.ValidacionDatosEstado.Activo;
                     validacionDato.UsuarioModificacion = codigoUsuario;
-                    validacionDato.CampaniaActivacion = campania;
+                    validacionDato.CampaniaActivacion = usuario.CampaniaID;
                     dAValidacionDatos.UpdValidacionDatos(validacionDato);
-
-                    daUsuario.UpdUsuarioEmail(codigoUsuario, validacionDato.DatoNuevo, campania);
 
                     transScope.Complete();
                 }
@@ -253,143 +258,19 @@ namespace Portal.Consultoras.BizLogic
 
         public BEUsuario GetSesionUsuario(int paisID, string codigoUsuario)
         {
-            BEUsuario usuario = null;
             try
             {
-
-                BEConfiguracionCampania configuracion = null;
-                var daUsuario = new DAUsuario(paisID);
-                var daConfiguracionCampania = new DAConfiguracionCampania(paisID);
-
-                using (IDataReader reader = daUsuario.GetSesionUsuario(codigoUsuario))
-                {
-                    if (reader.Read())
-                        usuario = new BEUsuario(reader, true);
-                }
-
-                if (usuario == null)
-                    return null;
-
-                if (usuario.ConsultoraID != 0)
-                {
-                    using (IDataReader reader = daConfiguracionCampania.GetConfiguracionCampania(paisID, usuario.ZonaID, usuario.RegionID, usuario.ConsultoraID))
-                    {
-                        if (reader.Read())
-                            configuracion = new BEConfiguracionCampania(reader);
-                    }
-
-                    if (configuracion != null)
-                    {
-                        usuario.CampaniaID = configuracion.CampaniaID;
-                        usuario.FechaInicioFacturacion = configuracion.FechaInicioFacturacion;
-                        usuario.FechaFinFacturacion = configuracion.FechaFinFacturacion;
-                        usuario.CampaniaDescripcion = configuracion.CampaniaDescripcion;
-                        usuario.HoraInicio = configuracion.HoraInicio;
-                        usuario.HoraFin = configuracion.HoraFin;
-                        usuario.ZonaValida = configuracion.ZonaValida;
-                        usuario.HoraInicioNoFacturable = configuracion.HoraInicioNoFacturable;
-                        usuario.HoraCierreNoFacturable = configuracion.HoraCierreNoFacturable;
-                        usuario.DiasAntes = configuracion.DiasAntes;
-                        usuario.HoraCierreZonaNormal = configuracion.HoraCierreZonaNormal;
-                        usuario.HoraCierreZonaDemAnti = configuracion.HoraCierreZonaDemAnti;
-                        usuario.ZonaHoraria = configuracion.ZonaHoraria;
-                        usuario.EsZonaDemAnti = configuracion.EsZonaDemAnti;
-                        usuario.DiasDuracionCronograma = configuracion.DiasDuracionCronograma;
-                        usuario.HabilitarRestriccionHoraria = configuracion.HabilitarRestriccionHoraria;
-                        usuario.HorasDuracionRestriccion = configuracion.HorasDuracionRestriccion;
-                        usuario.NroCampanias = configuracion.NroCampanias;
-                        usuario.FechaFinFIC = configuracion.FechaFinFIC;
-                        usuario.IndicadorOfertaFIC = configuracion.IndicadorOfertaFIC;
-                        usuario.ImagenURLOfertaFIC = configuracion.ImagenURLOfertaFIC;
-                        usuario.PROLSinStock = configuracion.PROLSinStock;
-                        usuario.NuevoPROL = true;
-                        usuario.ZonaNuevoPROL = true;
-                        usuario.EstadoSimplificacionCUV = configuracion.EstadoSimplificacionCUV;
-                        usuario.EsquemaDAConsultora = configuracion.EsquemaDAConsultora;
-                        usuario.HoraCierreZonaDemAntiCierre = configuracion.HoraCierreZonaDemAntiCierre;
-                        usuario.ValidacionInteractiva = configuracion.ValidacionInteractiva;
-                        usuario.MensajeValidacionInteractiva = configuracion.MensajeValidacionInteractiva;
-                        usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
-                        usuario.FechaActualPais = configuracion.FechaActualPais;
-                        usuario.EstadoPedido = configuracion.EstadoPedido;
-                        usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
-                        usuario.AceptacionConsultoraDA = configuracion.AceptacionConsultoraDA;
-                    }
-                }
-
-                if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                {
-                    BEUsuarioPostulante postulante = null;
-
-                    using (IDataReader reader = daUsuario.GetUsuarioPostulante(usuario.CodigoUsuario))
-                    {
-                        if (reader.Read())
-                            postulante = new BEUsuarioPostulante(reader);
-                    }
-
-                    if (postulante != null)
-                    {
-                        usuario.ZonaID = postulante.ZonaID;
-                        usuario.RegionID = postulante.RegionID;
-                        usuario.ConsultoraID = postulante.ConsultoraID;
-
-                        usuario.MensajePedidoDesktop = postulante.MensajeDesktop;
-                        usuario.MensajePedidoMobile = postulante.MensajeMobile;
-
-                        using (IDataReader reader = daConfiguracionCampania.GetConfiguracionCampaniaNoConsultora(paisID, usuario.ZonaID, usuario.RegionID))
-                        {
-                            if (reader.Read())
-                                configuracion = new BEConfiguracionCampania(reader);
-                        }
-
-                        if (configuracion != null)
-                        {
-                            usuario.CampaniaID = configuracion.CampaniaID;
-                            usuario.FechaInicioFacturacion = configuracion.FechaInicioFacturacion;
-                            usuario.FechaFinFacturacion = configuracion.FechaFinFacturacion;
-                            usuario.CampaniaDescripcion = configuracion.CampaniaDescripcion;
-                            usuario.HoraInicio = configuracion.HoraInicio;
-                            usuario.HoraFin = configuracion.HoraFin;
-                            usuario.ZonaValida = configuracion.ZonaValida;
-                            usuario.HoraInicioNoFacturable = configuracion.HoraInicioNoFacturable;
-                            usuario.HoraCierreNoFacturable = configuracion.HoraCierreNoFacturable;
-                            usuario.DiasAntes = configuracion.DiasAntes;
-                            usuario.HoraCierreZonaNormal = configuracion.HoraCierreZonaNormal;
-                            usuario.HoraCierreZonaDemAnti = configuracion.HoraCierreZonaDemAnti;
-                            usuario.ZonaHoraria = configuracion.ZonaHoraria;
-                            usuario.EsZonaDemAnti = configuracion.EsZonaDemAnti;
-                            usuario.DiasDuracionCronograma = configuracion.DiasDuracionCronograma;
-                            usuario.HabilitarRestriccionHoraria = configuracion.HabilitarRestriccionHoraria;
-                            usuario.HorasDuracionRestriccion = configuracion.HorasDuracionRestriccion;
-                            usuario.NroCampanias = configuracion.NroCampanias;
-                            usuario.FechaFinFIC = configuracion.FechaFinFIC;
-                            usuario.PROLSinStock = configuracion.PROLSinStock;
-                            usuario.NuevoPROL = true;
-                            usuario.ZonaNuevoPROL = true;
-                            usuario.EstadoSimplificacionCUV = configuracion.EstadoSimplificacionCUV;
-                            usuario.EsquemaDAConsultora = configuracion.EsquemaDAConsultora;
-                            usuario.HoraCierreZonaDemAntiCierre = configuracion.HoraCierreZonaDemAntiCierre;
-                            usuario.ValidacionInteractiva = configuracion.ValidacionInteractiva;
-                            usuario.MensajeValidacionInteractiva = configuracion.MensajeValidacionInteractiva;
-                            usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
-                            usuario.FechaActualPais = configuracion.FechaActualPais;
-                            usuario.EstadoPedido = configuracion.EstadoPedido;
-                            usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
-                            usuario.AceptacionConsultoraDA = configuracion.AceptacionConsultoraDA;
-                        }
-                    }
-                }
+                var usuario = GetBasicSesionUsuario(paisID, codigoUsuario);
+                if (usuario == null) return null;
 
                 usuario.EsConsultoraNueva = EsConsultoraNueva(usuario);
+
                 BEConsultorasProgramaNuevas beConsultoraProgramaNuevas = null;
                 var daConsultoraProgramaNuevas = new DAConsultorasProgramaNuevas(paisID);
-
                 using (IDataReader reader = daConsultoraProgramaNuevas.GetConsultorasProgramaNuevasByConsultoraId(usuario.ConsultoraID))
                 {
-                    if (reader.Read())
-                        beConsultoraProgramaNuevas = new BEConsultorasProgramaNuevas(reader);
+                    if (reader.Read()) beConsultoraProgramaNuevas = new BEConsultorasProgramaNuevas(reader);
                 }
-
                 if (beConsultoraProgramaNuevas != null)
                 {
                     usuario.ConsecutivoNueva = beConsultoraProgramaNuevas.ConsecutivoNueva;
@@ -419,21 +300,110 @@ namespace Portal.Consultoras.BizLogic
 
                 var valores = new List<BETablaLogicaDatos>();
                 valores = tabla.GetTablaLogicaDatosCache(usuario.PaisID, Convert.ToInt16(Constantes.TablaLogica.ActualizaDatosEnabled));
-                var listado = valores.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));
-                
+                var listado = valores.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));                
                 usuario.PuedeActualizar =  Convert.ToBoolean(listado.Valor.ToInt());
 
                 var verificacion = new BLOpcionesVerificacion();
                 var verificacionResult = new BEOpcionesVerificacion();
                 verificacionResult = verificacion.GetOpcionesVerificacionCache(usuario.PaisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos);
                 usuario.PuedeEnviarSMS = (verificacionResult == null ? false : verificacionResult.OpcionSms);
+
+                return usuario;
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, codigoUsuario, paisID.ToString());
-                usuario = null;
+                return null;
             }
+        }
+
+        public BEUsuario GetBasicSesionUsuario(int paisID, string codigoUsuario)
+        {
+            var daUsuario = new DAUsuario(paisID);
+            BEUsuario usuario = null;
+            using (IDataReader reader = daUsuario.GetSesionUsuario(codigoUsuario))
+            {
+                if (reader.Read()) usuario = new BEUsuario(reader, true);
+            }
+            if (usuario == null) return null;
+            
+            var daConfiguracionCampania = new DAConfiguracionCampania(paisID);
+            BEConfiguracionCampania configuracion = null;
+            if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
+            {
+                BEUsuarioPostulante postulante = null;
+                using (IDataReader reader = daUsuario.GetUsuarioPostulante(usuario.CodigoUsuario))
+                {
+                    if (reader.Read()) postulante = new BEUsuarioPostulante(reader);
+                }
+                if (postulante == null) return usuario;
+
+                UpdateUsuarioFromUsuarioPostulante(usuario, postulante);
+                using (IDataReader reader = daConfiguracionCampania.GetConfiguracionCampaniaNoConsultora(paisID, usuario.ZonaID, usuario.RegionID))
+                {
+                    if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+                }
+                UpdateUsuarioFromConfiguracionCampania(usuario, configuracion);
+            }
+            else if (usuario.ConsultoraID != 0)
+            {
+                using (IDataReader reader = daConfiguracionCampania.GetConfiguracionCampania(paisID, usuario.ZonaID, usuario.RegionID, usuario.ConsultoraID))
+                {
+                    if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+                }
+                UpdateUsuarioFromConfiguracionCampania(usuario, configuracion);
+            }                
             return usuario;
+        }
+
+        private void UpdateUsuarioFromConfiguracionCampania(BEUsuario usuario, BEConfiguracionCampania configuracion)
+        {
+            if (configuracion == null) return;
+            
+            usuario.CampaniaID = configuracion.CampaniaID;
+            usuario.FechaInicioFacturacion = configuracion.FechaInicioFacturacion;
+            usuario.FechaFinFacturacion = configuracion.FechaFinFacturacion;
+            usuario.CampaniaDescripcion = configuracion.CampaniaDescripcion;
+            usuario.HoraInicio = configuracion.HoraInicio;
+            usuario.HoraFin = configuracion.HoraFin;
+            usuario.ZonaValida = configuracion.ZonaValida;
+            usuario.HoraInicioNoFacturable = configuracion.HoraInicioNoFacturable;
+            usuario.HoraCierreNoFacturable = configuracion.HoraCierreNoFacturable;
+            usuario.DiasAntes = configuracion.DiasAntes;
+            usuario.HoraCierreZonaNormal = configuracion.HoraCierreZonaNormal;
+            usuario.HoraCierreZonaDemAnti = configuracion.HoraCierreZonaDemAnti;
+            usuario.ZonaHoraria = configuracion.ZonaHoraria;
+            usuario.EsZonaDemAnti = configuracion.EsZonaDemAnti;
+            usuario.DiasDuracionCronograma = configuracion.DiasDuracionCronograma;
+            usuario.HabilitarRestriccionHoraria = configuracion.HabilitarRestriccionHoraria;
+            usuario.HorasDuracionRestriccion = configuracion.HorasDuracionRestriccion;
+            usuario.NroCampanias = configuracion.NroCampanias;
+            usuario.FechaFinFIC = configuracion.FechaFinFIC;
+            usuario.IndicadorOfertaFIC = configuracion.IndicadorOfertaFIC;
+            usuario.ImagenURLOfertaFIC = configuracion.ImagenURLOfertaFIC;
+            usuario.PROLSinStock = configuracion.PROLSinStock;
+            usuario.NuevoPROL = true;
+            usuario.ZonaNuevoPROL = true;
+            usuario.EstadoSimplificacionCUV = configuracion.EstadoSimplificacionCUV;
+            usuario.EsquemaDAConsultora = configuracion.EsquemaDAConsultora;
+            usuario.HoraCierreZonaDemAntiCierre = configuracion.HoraCierreZonaDemAntiCierre;
+            usuario.ValidacionInteractiva = configuracion.ValidacionInteractiva;
+            usuario.MensajeValidacionInteractiva = configuracion.MensajeValidacionInteractiva;
+            usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
+            usuario.FechaActualPais = configuracion.FechaActualPais;
+            usuario.EstadoPedido = configuracion.EstadoPedido;
+            usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
+            usuario.AceptacionConsultoraDA = configuracion.AceptacionConsultoraDA;
+        }
+        private void UpdateUsuarioFromUsuarioPostulante(BEUsuario usuario, BEUsuarioPostulante postulante)
+        {
+            if (postulante == null) return;
+
+            usuario.ZonaID = postulante.ZonaID;
+            usuario.RegionID = postulante.RegionID;
+            usuario.ConsultoraID = postulante.ConsultoraID;
+            usuario.MensajePedidoDesktop = postulante.MensajeDesktop;
+            usuario.MensajePedidoMobile = postulante.MensajeMobile;
         }
 
         private Stream ConsultarImagen(string URL)
@@ -1835,7 +1805,7 @@ namespace Portal.Consultoras.BizLogic
                             DatoNuevo = correoNuevo,
                             CodigoUsuario = usuario.CodigoUsuario,
                             Estado = Constantes.ValidacionDatosEstado.Pendiente,
-                            UsuarioModificacion = usuario.CodigoUsuario
+                            UsuarioCreacion = usuario.CodigoUsuario
                         });
                     }
                     else
@@ -1847,13 +1817,13 @@ namespace Portal.Consultoras.BizLogic
                         dAValidacionDatos.UpdValidacionDatos(validacionDato);
                     }
 
-                    dAUsuario.InsActualizarCodigoGenerado(new BEUsuarioCorreo {
-                        OrigenID = Constantes.EnviarCorreoYSms.Origen_ActualizarCorreo,
-                        //origenDescripcion = actualizar datos,
-                        tipoEnvio = Constantes.EnviarCorreoYSms.TipoEnvio_Email,
-                        CodigoUsuario = usuario.CodigoUsuario,
-                        opcionHabilitar = true
-                    });
+                    //dAUsuario.InsActualizarCodigoGenerado(new BEUsuarioCorreo {
+                    //    OrigenID = Constantes.EnviarCorreoYSms.Origen_ActualizarCorreo,
+                    //    //origenDescripcion = actualizar datos,
+                    //    tipoEnvio = Constantes.EnviarCorreoYSms.TipoEnvio_Email,
+                    //    CodigoUsuario = usuario.CodigoUsuario,
+                    //    opcionHabilitar = true
+                    //});
 
                     EnviarEmailActualizarCorreo(usuario, correoNuevo);
                     transScope.Complete();
@@ -1876,7 +1846,7 @@ namespace Portal.Consultoras.BizLogic
             string url = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
             string nomconsultora = (string.IsNullOrEmpty(usuario.Sobrenombre) ? usuario.PrimerNombre : usuario.Sobrenombre);
 
-            string[] parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), usuario.CodigoISO, usuario.EMail };
+            string[] parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), usuario.EMail };
             string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
             LogManager.SaveLog(new Exception(), usuario.CodigoUsuario, usuario.CodigoISO, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
             bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);

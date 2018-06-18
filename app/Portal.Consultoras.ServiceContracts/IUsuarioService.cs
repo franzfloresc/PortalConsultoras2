@@ -66,7 +66,7 @@ namespace Portal.Consultoras.ServiceContracts
         bool ActiveEmail(int paisID, string codigoUsuario, string iso, string email);
 
         [OperationContract]
-        BERespuestaServicio ActivarEmail(int paisID, string codigoConsultora, int campania);
+        BERespuestaServicio ActivarEmail(int paisID, string codigoConsultora, string email);
 
         [OperationContract]
         BEUsuario GetSesionUsuario(int paisID, string codigoUsuario);

@@ -145,14 +145,17 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var paramDesencriptados = Util.Decrypt(data);
-                string[] arrayParam = paramDesencriptados.Split(';');
+                var arrayParam = paramDesencriptados.Split(';');
+                var codigoUsuario = arrayParam[0];
+                var paisId = Convert.ToInt32(arrayParam[1]);
+                var email = arrayParam[2];
 
-                bool success;
+                BERespuestaServicio respuesta;
                 using (UsuarioServiceClient srv = new UsuarioServiceClient())
                 {
-                    success = srv.ActiveEmail(Convert.ToInt32(arrayParam[1]), arrayParam[0], arrayParam[2], arrayParam[3]);
+                    respuesta = srv.ActivarEmail(paisId, codigoUsuario, email);
                 }
-                mensaje = success ? Constantes.CambioCorreoResult.Valido : Constantes.CambioCorreoResult.Invalido;
+                mensaje = respuesta.Succcess ? Constantes.CambioCorreoResult.Valido : respuesta.Message;
             }
             catch (Exception ex)
             {

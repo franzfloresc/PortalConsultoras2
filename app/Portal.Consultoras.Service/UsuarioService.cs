@@ -138,9 +138,9 @@ namespace Portal.Consultoras.Service
             return blUsuario.ActiveEmail(paisID, codigoUsuario, iso, email);
         }
 
-        public BERespuestaServicio ActivarEmail(int paisID, string codigoConsultora, int campania)
+        public BERespuestaServicio ActivarEmail(int paisID, string codigoConsultora, string email)
         {
-            return new BLUsuario().ActivarEmail(paisID, codigoConsultora, campania);
+            return new BLUsuario().ActivarEmail(paisID, codigoConsultora, email);
         }
 
         public BEUsuario GetSesionUsuario(int paisID, string codigoUsuario)
