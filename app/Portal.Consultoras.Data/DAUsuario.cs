@@ -856,13 +856,13 @@ namespace Portal.Consultoras.Data
             return (Context.ExecuteReader(command));
         }
 
-        public bool VerificarIgualdadCodigoIngresado(BEUsuarioDatos oUsu, string codigoIngresado)
+        public bool ValidarCodigoIngresado(BEUsuarioDatos oUsu, string codigoIngresado)
         {
-            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.GetVerificarCodigo"); ;
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarCodigoIngresado"); ;
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsu.CodigoUsuario);
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsu.OrigenID);
             Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, codigoIngresado);
-            Context.Database.AddInParameter(command, "@IdEstadoActividad", DbType.Int32, oUsu.IdEstadoActividad);
+
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
 
