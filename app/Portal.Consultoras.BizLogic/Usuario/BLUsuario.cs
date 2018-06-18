@@ -2566,7 +2566,7 @@ namespace Portal.Consultoras.BizLogic
         private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID, int regionID, int zonaID)
         {
             var BLobj = new BLOpcionesVerificacion();
-            return BLobj.GetOpcionesVerificacion(paisID, origenID, regionID, zonaID);
+            return BLobj.GetOpcionesVerificacionCache(paisID, origenID, regionID, zonaID);
         }
 
         private bool ValidaCampania(int campaniaActual, int campaniaInicio, int campaniaFin)
