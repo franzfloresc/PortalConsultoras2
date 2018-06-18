@@ -30,10 +30,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
             case 1://video introductorio
                 if (cancel == 0) {
                     if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
-                    if (document.getElementById('marca') != null) {
-                        document.getElementById('marca').style.display = 'None';
-                        cancel = 1;
-                    }
+                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
                     if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
                     document.getElementsByClassName('flexslider')[0].style.display = 'None';
                 }
@@ -107,10 +104,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
            case 4: //AceptacionContrato 
                 if (cancel == 0) {
                     if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
-                    if (document.getElementById('marca') != null) {
-                        document.getElementById('marca').style.display = 'None';
-                        cancel = 1;
-                    }
+                    if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
                     if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
                     document.getElementsByClassName('flexslider')[0].style.display = 'None';
                   
@@ -119,6 +113,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
                 $('#popupAceptacionContrato').on('hide', function () {
                     if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                         document.getElementById('survicate-box').style.display = 'block';
+                        cancel = 1;
                         ValidacionEncuesta();
                         clearTimeout(timeoutHandle);
                     }
@@ -133,19 +128,16 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
            case 6://ActualizarDatos 
                if (cancel == 0) {
                    if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
-                   if (document.getElementById('marca') != null) {
-                       document.getElementById('marca').style.display = 'None';
-                       cancel = 1;
-                   }
+                   if (document.getElementById('marca') != null)  document.getElementById('marca').style.display = 'None';         
                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
                    document.getElementsByClassName('flexslider')[0].style.display = 'None';
-               
                }
 
                $('#popupActualizarMisDatos').on('hide', function () {
 
                    if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                        document.getElementById('survicate-box').style.display = 'block';
+                       cancel = 1;
                        ValidacionEncuesta();
                        clearTimeout(timeoutHandle);
                    } else {
@@ -162,10 +154,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
            case 7: //Flexipago 
                if (cancel == 0) {
                    if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
-                   if (document.getElementById('marca') != null) {
-                       document.getElementById('marca').style.display = 'None';
-                       cancel = 1;
-                   }
+                   if (document.getElementById('marca') != null)  document.getElementById('marca').style.display = 'None';
                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
                    document.getElementsByClassName('flexslider')[0].style.display = 'None';
                  
@@ -174,6 +163,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
 
                    if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                        document.getElementById('survicate-box').style.display = 'block';
+                       cancel = 1;
                        ValidacionEncuesta();
                        clearTimeout(timeoutHandle);
                    } else {
@@ -189,17 +179,14 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
            case 8://Comunicado 
                if (cancel == 0) {
                    if (document.getElementById('survicate-box') != null) document.getElementById('survicate-box').style.display = 'None';
-                   if (document.getElementById('marca') != null) {
-                       document.getElementById('marca').style.display = 'None';
-                       cancel = 1;
-                   }
+                   if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'None';
                    if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
-                   document.getElementsByClassName('flexslider')[0].style.display = 'None';
-                   
+                   document.getElementsByClassName('flexslider')[0].style.display = 'None';                
                }
                $('#popupComunicados').on('hide', function () {
                    if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                        document.getElementById('survicate-box').style.display = 'block';
+                       cancel = 1;
                        ValidacionEncuesta();
                        clearTimeout(timeoutHandle);
                    } else {
@@ -208,8 +195,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop) {
                        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
                        document.getElementsByClassName('flexslider')[0].style.display = 'block';
                        clearTimeout(timeoutHandle);
-                   }
-                  
+                   }                 
                });
                break;
 
