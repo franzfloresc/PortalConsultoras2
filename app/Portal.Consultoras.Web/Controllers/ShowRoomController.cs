@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index", "Bienvenida");
             }
-            InicializarViewbag();
+
             model.Simbolo = userData.Simbolo;
             model.CodigoISO = userData.CodigoISO;
             model.Suscripcion = (configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel()).Suscripcion;
@@ -1657,26 +1657,6 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ex.Message,
                     extra = ""
                 });
-            }
-        }
-
-        private void InicializarViewbag()
-        {
-            ViewBag.urlImagenPopupIntriga = string.Empty;
-            ViewBag.urlTerminosyCondiciones = string.Empty;
-            configEstrategiaSR.ListaPersonalizacionConsultora = configEstrategiaSR.ListaPersonalizacionConsultora ?? new List<ShowRoomPersonalizacionModel>();
-            var personalizacionesDesktop = configEstrategiaSR.ListaPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
-            foreach (var item in personalizacionesDesktop)
-            {
-                switch (item.Atributo)
-                {
-                    case Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenIntriga:
-                        ViewBag.urlImagenPopupIntriga = item.Valor;
-                        break;
-                    case Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones:
-                        ViewBag.urlTerminosyCondiciones = item.Valor;
-                        break;
-                }
             }
         }
 
