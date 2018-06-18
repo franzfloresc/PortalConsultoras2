@@ -240,7 +240,7 @@ function EstrategiaVerDetalleGeneral(estrategia) {
     $(".indicador_tono").click();
     $(".indicador_tono").click();
 
-    estrategiaVariedadModule.MostrarMasTonos(true);
+    estrategiaComponenteModule.MostrarMasTonos(true);
     TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
 }
 
@@ -357,7 +357,7 @@ function EstrategiaAgregar(event, popup, limite) {
         return false;
     }
 
-    if (estrategiaVariedadModule.ValidarSeleccionTono(objInput)) {
+    if (estrategiaComponenteModule.ValidarSeleccionTono(objInput)) {
         return false;
     }
 

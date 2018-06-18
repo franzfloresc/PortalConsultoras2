@@ -719,6 +719,7 @@
     <Compile Include="Providers\CdrProvider.cs" />
     <Compile Include="Providers\ConfiguracionManagerProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
+    <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
     <Compile Include="Providers\EventoFestivoProvider.cs" />
     <Compile Include="Providers\GuiaNegocioProvider.cs" />
     <Compile Include="Providers\BaseProvider.cs" />
@@ -3694,7 +3695,7 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Index.js" />
-    <Content Include="Scripts\PortalConsultoras\Estrategia\EstrategiaVariedad.js" />
+    <Content Include="Scripts\PortalConsultoras\Estrategia\EstrategiaComponente.js" />
     <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\api.js" />
     <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\Index.js" />
     <Content Include="Scripts\knockout.extensions.js" />

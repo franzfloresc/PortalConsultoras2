@@ -26,7 +26,28 @@ namespace Portal.Consultoras.Web.Models
 
         public string RutaShowRoomBannerLateral { get; set; }
 
-        public string LetrasDias { get; set; }
+        private string _letrasDias;
+        public string LetrasDias
+        {
+            private set { _letrasDias = value; }
+
+            get
+            {
+                _letrasDias = string.Empty;
+                if (DiasFaltantes > 1)
+                {
+                    _letrasDias = "FALTAN " + Convert.ToInt32(DiasFaltantes) + " DÍAS";
+                }
+                else
+                {
+                    _letrasDias = LetrasDias = "FALTA " + Convert.ToInt32(DiasFaltantes) + " DÍA";
+                }
+
+                return _letrasDias;
+            }
+
+        }
+
         public string ImagenPopupShowroomIntriga { get; set; }
 
         public string ImagenBannerShowroomIntriga { get; set; }

@@ -534,6 +534,28 @@ namespace Portal.Consultoras.BizLogic
                 throw;
             }
         }
+        
+        public bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia,string campaniaID)
+        {
+            try
+            {
+                switch (codigoTipoEstrategia)
+                {
+                    case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                        CacheManager<BEEstrategia>.RemoveData(paisID, ECacheItem.GNDEstrategia, campaniaID);
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                        CacheManager<BEEstrategia>.RemoveData(paisID, ECacheItem.HVEstrategia, campaniaID);
+                        break;
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
 
         public BEEstrategia GetEstrategiaProgramaNuevas(BEEstrategia entidad)
         {
@@ -572,27 +594,5 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-        public bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia,string campaniaID)
-        {
-            try
-            {
-                switch (codigoTipoEstrategia)
-                {
-                    case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
-                        CacheManager<BEEstrategia>.RemoveData(paisID, ECacheItem.GNDEstrategia, campaniaID);
-                        break;
-                    case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
-                        CacheManager<BEEstrategia>.RemoveData(paisID, ECacheItem.HVEstrategia, campaniaID);
-                        break;
-                }
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-
-        }
-        
     }
 }

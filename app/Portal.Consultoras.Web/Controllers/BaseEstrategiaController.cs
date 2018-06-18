@@ -169,7 +169,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return estrategiaModelo;
 
                 estrategiaModelo.CampaniaID = estrategiaModelo.CampaniaID > 0 ? estrategiaModelo.CampaniaID : userData.CampaniaID;
-                estrategiaModelo.Hermanos = GetListaHermanos(estrategiaModelo, string.Empty);
+                estrategiaModelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, string.Empty);
             }
             catch (Exception ex)
             {
