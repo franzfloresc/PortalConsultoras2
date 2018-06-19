@@ -183,7 +183,7 @@ namespace Portal.Consultoras.Web.Providers
         
         public void CargarEntidadesShowRoom(UsuarioModel model)
         {
-            var configEstrategiaSR = sessionManager.GetEstrategiaSR();
+            var configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new ConfigModel();
             try
             {
                 const int SHOWROOM_ESTADO_ACTIVO = 1;
