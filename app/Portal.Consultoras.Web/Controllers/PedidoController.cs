@@ -1745,7 +1745,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (revistaDigital.BloquearRevistaImpresaGeneral == 1 || revistaDigital.BloqueoRevistaImpresa)
             {
                 beProductos = beProductos
-                    .Where(x => userData.CodigosRevistaImpresa != null && !("," + userData.CodigosRevistaImpresa + ",").Contains("," + x.CodigoCatalogo.ToString() + ",")).ToList();
+                    .Where(x => !("," + userData.CodigosRevistaImpresa + ",").Contains("," + x.CodigoCatalogo.ToString() + ",")).ToList();
             }
         }
 
