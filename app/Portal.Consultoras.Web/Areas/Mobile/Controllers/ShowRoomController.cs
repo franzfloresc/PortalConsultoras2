@@ -128,7 +128,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Simbolo = userData.Simbolo;
                 model.CodigoISO = userData.CodigoISO;
 
-                var showRoomBannerLateral = GetShowRoomBannerLateral();
+                var showRoomBannerLateral = _showRoomProvider.GetShowRoomBannerLateral(userData.CodigoISO, userData.ZonaHoraria, userData.FechaInicioCampania);
                 ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
                 ViewBag.EstadoActivo = showRoomBannerLateral.EstadoActivo;
 

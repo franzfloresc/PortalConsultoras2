@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (mostrarBanner || mostrarBannerTop)
                 {
                     ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
-                    ShowRoomBannerLateralModel showRoomBannerLateral = GetShowRoomBannerLateral();
+                    ShowRoomBannerLateralModel showRoomBannerLateral = _showRoomProvider.GetShowRoomBannerLateral(userData.CodigoISO, userData.ZonaHoraria, userData.FechaInicioCampania);
                     ViewBag.ShowRoomBannerLateral = showRoomBannerLateral;
                     ViewBag.MostrarShowRoomBannerLateral = sessionManager.GetEsShowRoom() &&
                         !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&

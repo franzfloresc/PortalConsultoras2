@@ -7,8 +7,8 @@
 @{
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
     if (ViewBag.MostrarShowRoomBannerLateral == true) { showRoomBannerLateral = ViewBag.ShowRoomBannerLateral; }
-    
-    OfertaDelDiaModel ofertaDelDia = ViewBag.MostrarOfertaDelDia == true ? ViewBag.OfertaDelDia ?? new OfertaDelDiaModel() : new OfertaDelDiaModel();
+
+    EstrategiaPedidoModel ofertaDelDia = ViewBag.MostrarOfertaDelDia == true ? ViewBag.OfertaDelDia ?? new EstrategiaPedidoModel() : new EstrategiaPedidoModel();
     ofertaDelDia.ConfiguracionContenedor = ofertaDelDia.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
 
     bool esIngresoUnico = ViewContext.EsIngresoUnico();
