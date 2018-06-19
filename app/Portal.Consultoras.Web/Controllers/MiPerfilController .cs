@@ -121,6 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return ErrorJson(Constantes.MensajesError.UpdCorreoConsultora);
             }
+            if (!respuesta.Succcess) return ErrorJson(respuesta.Message);
 
             try
             {
@@ -129,8 +130,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ActualizarDatosLogDynamoDB(misDatosModel, "MI NEGOCIO/MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
             }
             catch (Exception ex) { LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO); }
-
-            return Json(new { success = respuesta.Succcess, message = respuesta.Message });
+            return SuccessJson(respuesta.Message);
         }
 
         public ActionResult ConfirmacionCorreo(string data)

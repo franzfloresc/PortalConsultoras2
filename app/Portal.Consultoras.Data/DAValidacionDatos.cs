@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@DatoAntiguo", DbType.AnsiString, validacion.DatoAntiguo);
             Context.Database.AddInParameter(command, "@DatoNuevo", DbType.AnsiString, validacion.DatoNuevo);
             Context.Database.AddInParameter(command, "@Estado", DbType.AnsiString, validacion.Estado);
-            Context.Database.AddInParameter(command, "@CampaniaActivacion", DbType.Int32, validacion.CampaniaActivacion);
+            Context.Database.AddInParameter(command, "@CampaniaActivacionEmail", DbType.Int32, validacion.CampaniaActivacionEmail);
             Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, validacion.UsuarioModificacion);
 
             Context.ExecuteNonQuery(command);

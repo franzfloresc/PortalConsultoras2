@@ -37,7 +37,7 @@ var MiPerfil_ActualizarCorreo = function (_config) {
         $.post(config.UrlActualizarEnviarCorreo, data)
             .done(function (response) {
                 if (!response.success) {
-                    showArrayError(response.message);
+                    showError(response.message);
                     return;
                 }
 

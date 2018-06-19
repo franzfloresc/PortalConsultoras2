@@ -208,7 +208,7 @@ namespace Portal.Consultoras.BizLogic
                     BEValidacionDatos validacionDato;
                     using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.ValidacionDatosTipoEnvio.Email, codigoUsuario))
                     {
-                        validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader);
+                        validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);
                     }
                     if (validacionDato == null || validacionDato.DatoNuevo != email)
                     {
@@ -224,7 +224,7 @@ namespace Portal.Consultoras.BizLogic
 
                     validacionDato.Estado = Constantes.ValidacionDatosEstado.Activo;
                     validacionDato.UsuarioModificacion = codigoUsuario;
-                    validacionDato.CampaniaActivacion = usuario.CampaniaID;
+                    validacionDato.CampaniaActivacionEmail = usuario.CampaniaID;
                     dAValidacionDatos.UpdValidacionDatos(validacionDato);
 
                     transScope.Complete();
@@ -1793,7 +1793,7 @@ namespace Portal.Consultoras.BizLogic
                     BEValidacionDatos validacionDato;
                     using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.ValidacionDatosTipoEnvio.Email, usuario.CodigoUsuario))
                     {
-                        validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader);
+                        validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);
                     }
 
                     if (validacionDato == null)
@@ -2010,7 +2010,7 @@ namespace Portal.Consultoras.BizLogic
 
             validacionDato.Estado = Constantes.ValidacionDatosEstado.Activo;
             validacionDato.UsuarioModificacion = codigoUsuario;
-            validacionDato.CampaniaActivacion = campania;
+            validacionDato.CampaniaActivacionEmail = campania;
             
             return new BERespuestaServicio { Succcess = true };
         }
