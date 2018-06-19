@@ -1574,7 +1574,7 @@ namespace Portal.Consultoras.Web.Controllers
         private bool CumpleOfertaDelDia()
         {
             var result = false;
-            if (!NoMostrarBannerODD())
+            if (!_ofertaDelDiaProvider.NoMostrarBannerODD(GetControllerActual()))
             {
                 var tieneOfertaDelDia = sessionManager.GetFlagOfertaDelDia();
                 result = (!tieneOfertaDelDia ||
@@ -1627,11 +1627,11 @@ namespace Portal.Consultoras.Web.Controllers
                 x.TeQuedan = countdown;
                 x.ImagenFondo1 = string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo1ODD"), userData.CodigoISO);
                 x.ColorFondo1 = colorFondoBanner.Codigo ?? string.Empty;
-                x.ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(userData.CodigoISO, ofertasOddModel.Count);
+                x.ImagenSoloHoy = _ofertaDelDiaProvider.ObtenerUrlImagenOfertaDelDia(userData.CodigoISO, ofertasOddModel.Count);
                 x.ImagenFondo2 = string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo2ODD"), userData.CodigoISO);
                 x.ColorFondo2 = coloFondoDisplay.Codigo ?? string.Empty;
-                x.NombreOferta = ObtenerNombreOfertaDelDia(x.NombreOferta);
-                x.DescripcionOferta = ObtenerDescripcionOfertaDelDia(x.DescripcionOferta);
+                x.NombreOferta = _ofertaDelDiaProvider.ObtenerNombreOfertaDelDia(x.NombreOferta);
+                x.DescripcionOferta = _ofertaDelDiaProvider.ObtenerDescripcionOfertaDelDia(x.DescripcionOferta);
                 x.TieneOfertaDelDia = true;
                 x.DescripcionMarca = Util.GetDescripcionMarca(x.MarcaID);
                 x.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == x.CUV2 && (d.TipoEstrategiaID == x.TipoEstrategiaID || d.TipoEstrategiaID == 0)) ? "block" : "none";
@@ -1654,71 +1654,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
-
-        private bool NoMostrarBannerODD()
-        {
-            var controllerName = ControllerContext.RouteData.Values["controller"].ToString();
-            switch (controllerName)
-            {
-                case "OfertaLiquidacion":
-                    return true;
-                case "CatalogoPersonalizado":
-                    return true;
-                case "ShowRoom":
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
-        private string ObtenerNombreOfertaDelDia(string descripcionCuv2)
-        {
-            var nombreOferta = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(descripcionCuv2))
-            {
-                nombreOferta = descripcionCuv2.Split('|').First();
-            }
-
-            return nombreOferta;
-        }
-
-        private string ObtenerDescripcionOfertaDelDia(string descripcionCuv2)
-        {
-            var descripcionOdd = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(descripcionCuv2))
-            {
-                var temp = descripcionCuv2.Split('|').ToList();
-                temp = temp.Skip(1).ToList();
-
-                var txtBuil = new StringBuilder();
-                foreach (var item in temp)
-                {
-                    if (!string.IsNullOrEmpty(item))
-                        txtBuil.Append(item.Trim() + "|");
-                }
-
-                descripcionOdd = txtBuil.ToString();
-                descripcionOdd = descripcionOdd == string.Empty
-                    ? string.Empty
-                    : descripcionOdd.Substring(0, descripcionOdd.Length - 1);
-                descripcionOdd = descripcionOdd.Replace("|", " +<br />");
-                descripcionOdd = descripcionOdd.Replace("\\", "");
-                descripcionOdd = descripcionOdd.Replace("(GRATIS)", "<b>GRATIS</b>");
-            }
-
-            return descripcionOdd;
-        }
-
-        private string ObtenerUrlImagenOfertaDelDia(string codigoIso, int cantidadOfertas)
-        {
-            var imgSh = string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgSoloHoyODD"), codigoIso);
-            var exte = imgSh.Split('.')[imgSh.Split('.').Length - 1];
-            imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
-            return imgSh;
-        }
-
+        
         #endregion
 
         #region Zonificacion
@@ -4170,6 +4106,11 @@ namespace Portal.Consultoras.Web.Controllers
         public bool EsDispositivoMovil()
         {
             return Request.Browser.IsMobileDevice;
+        }
+
+        public string GetControllerActual()
+        {
+            return ControllerContext.RouteData.Values["controller"].ToString();
         }
     }
 }

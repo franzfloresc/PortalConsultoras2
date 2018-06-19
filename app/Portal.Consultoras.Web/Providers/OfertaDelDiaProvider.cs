@@ -13,6 +13,13 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class OfertaDelDiaProvider
     {
+        protected ConfiguracionManagerProvider _configuracionManager;
+
+        public OfertaDelDiaProvider()
+        {
+            _configuracionManager = new ConfiguracionManagerProvider();
+        }
+
         public List<OfertaDelDiaModel> GetOfertas(UsuarioModel model)
         {
             List<ServiceOferta.BEEstrategia> ofertasDelDia;
@@ -49,5 +56,70 @@ namespace Portal.Consultoras.Web.Providers
             var t2 = (d2 - hoy);
             return t2;
         }
+
+        public bool NoMostrarBannerODD(string controller)
+        {
+            var controllerName = controller;
+            switch (controllerName)
+            {
+                case "OfertaLiquidacion":
+                    return true;
+                case "CatalogoPersonalizado":
+                    return true;
+                case "ShowRoom":
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        public string ObtenerUrlImagenOfertaDelDia(string codigoIso, int cantidadOfertas)
+        {
+            var imgSh = string.Format(_configuracionManager.GetConfiguracionManager("UrlImgSoloHoyODD"), codigoIso);
+            var exte = imgSh.Split('.')[imgSh.Split('.').Length - 1];
+            imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
+            return imgSh;
+        }
+
+        public string ObtenerDescripcionOfertaDelDia(string descripcionCuv2)
+        {
+            var descripcionOdd = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(descripcionCuv2))
+            {
+                var temp = descripcionCuv2.Split('|').ToList();
+                temp = temp.Skip(1).ToList();
+
+                var txtBuil = new StringBuilder();
+                foreach (var item in temp)
+                {
+                    if (!string.IsNullOrEmpty(item))
+                        txtBuil.Append(item.Trim() + "|");
+                }
+
+                descripcionOdd = txtBuil.ToString();
+                descripcionOdd = descripcionOdd == string.Empty
+                    ? string.Empty
+                    : descripcionOdd.Substring(0, descripcionOdd.Length - 1);
+                descripcionOdd = descripcionOdd.Replace("|", " +<br />");
+                descripcionOdd = descripcionOdd.Replace("\\", "");
+                descripcionOdd = descripcionOdd.Replace("(GRATIS)", "<b>GRATIS</b>");
+            }
+
+            return descripcionOdd;
+        }
+        
+        public string ObtenerNombreOfertaDelDia(string descripcionCuv2)
+        {
+            var nombreOferta = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(descripcionCuv2))
+            {
+                nombreOferta = descripcionCuv2.Split('|').First();
+            }
+
+            return nombreOferta;
+        }
+
     }
 }
