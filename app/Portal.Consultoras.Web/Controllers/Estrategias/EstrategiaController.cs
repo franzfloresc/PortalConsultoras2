@@ -1,16 +1,13 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers.Estrategias

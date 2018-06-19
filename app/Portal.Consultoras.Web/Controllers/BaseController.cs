@@ -11,10 +11,8 @@ using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceSeguridad;
@@ -37,7 +35,6 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using System.Drawing;
 using EstrategiaPedidoModel = Portal.Consultoras.Web.Models.EstrategiaPedidoModel;
 
 namespace Portal.Consultoras.Web.Controllers

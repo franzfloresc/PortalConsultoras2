@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.ServiceAsesoraOnline;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -9,11 +10,9 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 
 namespace Portal.Consultoras.Web.Controllers
 {

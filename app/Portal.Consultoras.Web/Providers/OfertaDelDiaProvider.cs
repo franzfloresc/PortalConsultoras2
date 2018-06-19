@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Text;
 

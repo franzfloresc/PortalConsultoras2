@@ -3699,6 +3699,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        #region Oferta del dia
+
         public JsonResult GetOfertaDelDia()
         {
             try
@@ -3744,6 +3746,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        #endregion
+
 
         public JsonResult GetQtyPedidoDetalleByCuvODD(string cuv, string tipoEstrategiaID)
         {
