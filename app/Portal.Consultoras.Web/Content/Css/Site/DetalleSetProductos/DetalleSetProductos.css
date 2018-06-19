@@ -69,10 +69,11 @@
     .flip-clock-divider .flip-clock-label {
         display: block;
         left: 6px;
+        right: initial;
         top: 30px;
     }
 
-    .flip-clock-divider.flip-clock-label, .flip-clock-divider.minutes .flip-clock-label, .flip-clock-divider.seconds .flip-clock-label {
+    .flip-clock-divider.minutes .flip-clock-label, .flip-clock-divider.seconds .flip-clock-label {
         right: initial;
     }
 
@@ -151,6 +152,7 @@
 
 .texto_referencial {
     font-weight: 700;
+    height: 19px;
     margin-top: 24px;
 }
 
@@ -188,6 +190,7 @@
 
 .nombre_marca {
     font-size: 12px;
+    height: 21px;
     letter-spacing: .8px;
     line-height: 1.83;
 }
@@ -206,8 +209,7 @@
 }
 
 .precio_valorizado {
-    font-weight: 300;
-    text-decoration: line-through;
+    
 }
 
 .precio_venta_oferta {
@@ -228,14 +230,17 @@
 }
 
 .texto_contenido {
+    font-size: 12px;
     font-weight: 700;
-    margin: 22px 0 25px 0;
+    letter-spacing: .5px;
+    line-height: 1.08;
+    margin: 22px 0 14px 0;
 }
 
 .detalle_producto {
     border-bottom: solid 1px #d8d8d8;
-    padding-bottom: 32px;
-    margin-bottom: 27px;
+    padding-bottom: 18px;
+    margin-bottom: 10px;
 }
 
     .detalle_producto:last-child {
@@ -243,12 +248,23 @@
         padding-bottom: 0;
     }
 
-.cantidad_descripcion_detalle {
-    font-size: 14px;
-    font-weight: 700;
+.marca_cantidad_descripcion_detalle {
     float: left;
-    margin: 8px 0;
-    width: 60%;
+    margin-right: 2%;
+    width: 58%;
+}
+
+.marca_detalle_producto {
+    font-size: 11px;
+    height: 19px;
+    letter-spacing: .4px;
+    line-height: 1.73;
+}
+
+.cantidad_descripcion_detalle {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.27;
 }
 
 .cantidad_detalle_producto {
@@ -265,6 +281,7 @@
     border: solid 1px #000;
     float: right;
     height: 45px;
+    margin-top: 10px;
     position: relative;
     width: 40%;
 }
