@@ -2827,7 +2827,8 @@ namespace Portal.Consultoras.Web.Controllers
                 textoRecuperacion = !string.IsNullOrEmpty(textoRecuperacion) ? textoRecuperacion : Convert.ToString(TempData["CodigoUsuario"]);
 
                 BEUsuarioCorreo oUsuCorreo = DatosUsuarioCorreo(paisId, textoRecuperacion, nroOpcion);
-                ViewBag.HabilitarChatEmtelco = oUsuCorreo.HabilitarChatEmtelco;
+                ViewBag.HabilitarChatEmtelco = (oUsuCorreo == null) ? false : oUsuCorreo.HabilitarChatEmtelco;
+
                 return Json(new
                 {
                     success = true,
@@ -2873,7 +2874,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return datos;
                 }
 
-                if (datos.Cantidad != 0)
+                if (datos.Cantidad == 0)
                     return datos;
 
                 datos.resultado = "";
@@ -2991,6 +2992,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 if (nroOpcion == 4) datos.resultado = "prioridad3";
+
+
                 return datos;
             }
             catch (FaultException ex)

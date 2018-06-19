@@ -305,11 +305,11 @@ $(document).ready(function () {
     $("#divChatearConNosotros").click(function () {
         
         if ($('#hddHabilitarChatEmtelco').val() === 'false') {
-
-            if (!isMobile()) {
-                $('#popupChatDisabled .content_bg_chatdisabled .mensaje_pop_up2 .contenedor_info_datos .titulo_opcion_chatea_con_nosotros')
-                    .text('Por el momento el chat no esta disponible');
-            }
+            
+            //if (!isMobile()) {
+            //    $('#popupChatDisabled .content_bg_chatdisabled .mensaje_pop_up2 .contenedor_info_datos .titulo_opcion_chatea_con_nosotros')
+            //        .text('Por el momento el chat no esta disponible');
+            //}
 
             $('#popupChatDisabled').show();
             return;
@@ -1098,12 +1098,13 @@ function RecuperarContrasenia() {
             if (response.success) {
                 var telefonos;
                 var datos = response.data;
-                $("#hddHabilitarChatEmtelco").val(datos.HabilitarChatEmtelco);
-
-                if (datos.resultado == "") {
+                
+                if (datos.resultado == "" || datos.resultado == undefined) {
                     alert(nombreDato + " Incorrectas.")
                     return false;
                 }
+                
+                $("#hddHabilitarChatEmtelco").val(datos.HabilitarChatEmtelco);
 
                 if (indicadorPin == 0)
                     origen = 1;
@@ -1150,7 +1151,7 @@ function RecuperarContrasenia() {
                         ActivaOpcionSms();
                     }
                 }
-
+                
                 switch (datos.resultado) {
                     case "prioridad1":
                         {
