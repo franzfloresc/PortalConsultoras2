@@ -128,6 +128,14 @@
             return code;
         }
 
+        function setSmsCode(value) {
+            value = value || '';
+            $('.campo_ingreso_codigo_sms').each(function(idx) {
+                var char = value.charAt(idx);
+                $(this).val(char);
+            });
+        }
+
         function markSmsCodeStatus(valid) {
             var icon = $('.icono_validacion_codigo_sms');
 
@@ -187,12 +195,7 @@
 
             var resultSmsCode = function(r) {
                 if (!r.Success) {
-                    if (r.Message) {
-                        me.Funciones.ShowError(r.Message);
-                        me.Funciones.NavigatePanel(0);
-                    } else {
-                        me.Funciones.MarkSmsCodeStatus(false);
-                    }
+                    me.Funciones.MarkSmsCodeStatus(false);
 
                     return;
                 }
@@ -237,7 +240,8 @@
             ShowError: showError,
             NavigatePanel: navigatePanel,
             SetIsoPais: setIsoPais,
-            HandleError: handleError
+            HandleError: handleError,
+            SetSmsCode: setSmsCode
         };
 
     })();
@@ -252,6 +256,7 @@
             }
 
             localData.CelularNuevo = nuevoCelular;
+            me.Funciones.SetSmsCode('');
             me.Services.enviarSmsCode(nuevoCelular)
                 .then(function(r) {
                     localData.CelularValido = r.Success;
@@ -272,6 +277,7 @@
         }
 
         function sendSmsCode() {
+            me.Funciones.SetSmsCode('');
             me.Services.enviarSmsCode(localData.CelularNuevo)
                 .then(function(r) {
                     if (!r.Success) {

@@ -58,11 +58,8 @@ describe('Actualizar Celular', () => {
 
     it('Enter Invalid SMS Code', (done) => {
         mod.Funciones.InitCounter();
+        mod.Funciones.SetSmsCode('012345');
 
-        var i = 0;
-        $('.campo_ingreso_codigo_sms').each(function() {
-            $(this).val(i++);
-        });
         $('.campo_ingreso_codigo_sms').first().keyup();
 
         setImmediate(() => {
@@ -75,11 +72,8 @@ describe('Actualizar Celular', () => {
 
     it('Enter Valid SMS Code', (done) => {
         mod.Funciones.InitCounter();
+        mod.Funciones.SetSmsCode('123456');
 
-        var i = 1;
-        $('.campo_ingreso_codigo_sms').each(function() {
-            $(this).val(i++);
-        });
         $('.campo_ingreso_codigo_sms').first().keyup();
 
         setImmediate(() => {
