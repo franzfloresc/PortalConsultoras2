@@ -21,8 +21,7 @@
     "gulp": "^3.9.1",
     "gulp-csslint": "^1.0.0",
     "gulp-csslint-report": "^2.0.0",
-    "html5-lint": "^0.3.0",
-    "jest": "^23.1.0"
+    "html5-lint": "^0.3.0"
   },
   "dependencies": {
     "dateformat": "^3.0.0",
