@@ -19,12 +19,12 @@ describe('Actualizar Celular', () => {
             enviarSmsCode: jest.fn().mockReturnValue(Promise.resolve({
                 Success: true
             })),
-            confirmarSmsCode: jest.fn().mockReturnValue(Promise.resolve({
-                Success: true
+            confirmarSmsCode: jest.fn(code => Promise.resolve({
+                Success: code === '123456'
             })),
         };
         
-        var data = fs.readFileSync('./app/Portal.Consultoras.Web/__tests__/MiPerfil/actualizar-celular.html');
+        var data = fs.readFileSync('./__tests__/MiPerfil/actualizar-celular.html');
         document.body.innerHTML = data.toString();
         actualizarCelularModule.Funciones.SetIsoPais(global.IsoPais);
         actualizarCelularModule.Inicializar();
@@ -56,7 +56,24 @@ describe('Actualizar Celular', () => {
         });
     });
 
-    it('Enter SMS Code', (done) => {
+    it('Enter Invalid SMS Code', (done) => {
+        mod.Funciones.InitCounter();
+
+        var i = 0;
+        $('.campo_ingreso_codigo_sms').each(function() {
+            $(this).val(i++);
+        });
+        $('.campo_ingreso_codigo_sms').first().keyup();
+
+        setImmediate(() => {
+            expect(mod.Services.confirmarSmsCode).toHaveBeenCalledWith('012345');
+            expect($('.icono_validacion_codigo_sms').hasClass('validacion_erronea')).toBeTruthy();
+
+            done();
+        });
+    });
+
+    it('Enter Valid SMS Code', (done) => {
         mod.Funciones.InitCounter();
 
         var i = 1;
