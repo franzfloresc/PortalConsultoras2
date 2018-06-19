@@ -497,7 +497,7 @@ function ValidarExcel() {
                                         }
 
                                         if (listCuvInval[0].trim().length>0) {
-                                            for (var k = 0; k <= listCuvInval.length; k++) {
+                                            for (var k = 0; k < listCuvInval.length; k++) {
                                                 if (cuv == listCuvInval[k].split('¦')[0]) Obs += " - CUV no registrado en campaña seleccionada";
                                             }
                                         }
