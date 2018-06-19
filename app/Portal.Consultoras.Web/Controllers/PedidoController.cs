@@ -1494,13 +1494,22 @@ namespace Portal.Consultoras.Web.Controllers
             var userModel = userData;
             var productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userModel, CRITERIO_BUSQUEDA_PRODUCTO_CANT, criterio);
 
+            var siExiste = productos.Any(p => p.CUV == term);
+
             BloqueoProductosCatalogo(ref productos);
 
             BloqueoProductosDigitales(ref productos);
 
             if (!productos.Any())
             {
-                productosModel.Add(GetProductoNoExiste());
+                if (siExiste)
+                {
+                    productosModel.Add(GetProductoDigital());
+                }
+                else
+                {
+                    productosModel.Add(GetProductoNoExiste());
+                }
                 return productosModel;
             }
 
@@ -1569,6 +1578,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                 }
                 #endregion
+
                 #region Venta exclusiva
                 if (!Convert.ToBoolean(Session["CuvEsProgramaNuevas"]))
                 {
@@ -1592,13 +1602,23 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 1, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
 
+                var siExiste = productos.Any(p => p.CUV == model.CUV);
+
                 BloqueoProductosCatalogo(ref productos);
 
                 BloqueoProductosDigitales(ref productos);
 
                 if (!productos.Any())
                 {
-                    productosModel.Add(GetProductoNoExiste());
+                    if (siExiste)
+                    {
+                        productosModel.Add(GetProductoDigital());
+                    }
+                    else
+                    {
+                        productosModel.Add(GetProductoNoExiste());
+                    }
+                    
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
@@ -1779,6 +1799,16 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 MarcaID = 0,
                 CUV = "El producto solicitado no existe.",
+                TieneSugerido = 0
+            };
+        }
+
+        private ProductoModel GetProductoDigital()
+        {
+            return new ProductoModel()
+            {
+                MarcaID = 0,
+                CUV = "Este producto es una oferta digital. Te invitamos a que revises tu sección de ofertas.",
                 TieneSugerido = 0
             };
         }
