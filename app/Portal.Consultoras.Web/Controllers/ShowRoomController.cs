@@ -2986,7 +2986,17 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.Limite > 0)
                     listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
 
-                var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+
+                var listaSubCampania = new List<ShowRoomOfertaModel>();
+
+                if (revistaDigital.EsActiva)
+                {
+                    var FlagRevistaLista = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
+                    listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && FlagRevistaLista.Contains(x.FlagRevista)).ToList();
+                }
+                else
+                    listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+
                 listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
 
                 return Json(new
