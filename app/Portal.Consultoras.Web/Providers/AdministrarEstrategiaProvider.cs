@@ -118,6 +118,7 @@ namespace Portal.Consultoras.Web.Providers
                         DescripcionCUV2 = d.DescripcionCUV2,
                         Precio = (decimal)d.Precio,
                         Precio2 = (decimal)d.Precio2,
+                        Ganancia = (decimal)d.Ganancia,
                         CUV2 = d.CUV2,
                         Orden = d.Orden,
                         FlagNueva = d.FlagNueva ? 1 : 0,
@@ -134,7 +135,7 @@ namespace Portal.Consultoras.Web.Providers
                         TipoEstrategiaID = d.TipoEstrategiaId,
                         Imagen = d.FlagImagenURL ? 1 : 0,
                         DescripcionEstrategia = d.DescripcionTipoEstrategia,                    
-                        CodigoSAP = d.CodigoSap,
+                        CodigoSAP = string.IsNullOrEmpty(d.CodigoSap) ? d.CodigoProducto : d.CodigoSap,
                         Zona = d.Zona
                     }
 
