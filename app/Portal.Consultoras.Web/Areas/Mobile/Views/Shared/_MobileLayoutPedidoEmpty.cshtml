@@ -223,11 +223,12 @@
     var EstadoActivo = '@ViewBag.EstadoActivo';
     var ocultarBannerTop = '@Session["OcultarBannerTop"]';
 
+    var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
     var sesionEsShowRoom = '@Session["EsShowRoom"]';
 
     var fingerprintOk = '@ViewBag.FingerprintOk';
     var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
-        
+
     var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
     var userData = {
         'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
