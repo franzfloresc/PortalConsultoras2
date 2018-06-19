@@ -36212,8 +36212,6 @@ height:30px;
     position: relative;
     float: left;
     min-width: 330px;
-    padding-left: 15px;
-    padding-right: 30px;
     font-family: 'LAto';
     font-size: 12px;
     font-weight: bold;
@@ -36226,14 +36224,18 @@ height:30px;
     background-position-y: 5px;
 }
 
+.txt_filtrar_por_precio {
+    padding-left: 15px;
+    padding-right: 30px;
+    width: 100%;
+}
+
 .content_detalle_filtro {
     width: 350px;
     position: absolute;
     z-index: 20;
-    top: 90px;
     border: 1px solid #b8b8b8;
     border-top: 0;
-    right: 264px;
     background: white;
     min-height: 100px;
 }

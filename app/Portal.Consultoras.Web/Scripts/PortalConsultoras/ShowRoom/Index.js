@@ -175,7 +175,7 @@ $(document).ready(function () {
 
     $("#divBorrarFiltros").click(function () {
         $(".content_filtro_range").html("");
-        $(".content_filtro_range").html('<input class="range-slider" type="text" value="" style="display: none;" />');
+        $(".content_filtro_range").html('<input class="range-slider" type="text" value="" />');
         CargarFiltroRangoPrecio();
 
         $.each($("[data-filtro-categoria]"), function (index, value) {
@@ -297,7 +297,6 @@ function CargarFiltroRangoPrecio() {
 
     $('.range-slider').val(min + ',' + max);
 
-    $('.range-slider').show();
     $('.range-slider').ionRangeSlider({
         hide_min_max: true,
         keyboard: true,
@@ -326,6 +325,7 @@ function CargarFiltroRangoPrecio() {
 
     $(".js-grid-text-0").text(scala1);
     $(".js-grid-text-1").text(scala2);
+    $("#detalle_filtro_precio").css("display", "none");
 }
 
 function filterShowRoomDesktop() {
