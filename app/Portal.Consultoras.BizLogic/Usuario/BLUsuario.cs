@@ -2435,7 +2435,8 @@ namespace Portal.Consultoras.BizLogic
 
                 var configuraciones = GetConfiguracionPais(usuario);
 
-                var configuracion = configuraciones.Where(x => x.Codigo == codigoConfiguracionPais).FirstOrDefault();
+                var lstCodigo = codigoConfiguracionPais.Split('|');
+                var configuracion = configuraciones.Where(x => lstCodigo.Any(y => y == x.Codigo)).FirstOrDefault();
 
                 if (configuracion == null) return usuario;
 
@@ -2453,6 +2454,8 @@ namespace Portal.Consultoras.BizLogic
                     case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
                         usuario.TieneValidacionMontoMaximo = configuracion.Estado;
                         break;
+                    case Constantes.ConfiguracionPais.OfertaFinalTradicional:
+                    case Constantes.ConfiguracionPais.OfertaFinalCrossSelling:
                     case Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa:
                         var ofertaFinalModel = new BEOfertaFinal()
                         {

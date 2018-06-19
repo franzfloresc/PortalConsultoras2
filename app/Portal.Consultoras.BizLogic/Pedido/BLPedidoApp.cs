@@ -621,7 +621,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var obsByCuv = ObtenerMensajePROLByCuv(resultadoReserva.ListPedidoObservacion);
 
                 //Obtener datos Oferta Final
-                usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa);
+                var lstCodigo = string.Format("{0}|{1}|{2}", Constantes.ConfiguracionPais.OfertaFinalTradicional, Constantes.ConfiguracionPais.OfertaFinalCrossSelling, Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa);
+                usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, lstCodigo);
                 //Obtener datos Revista Digital
                 usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.RevistaDigital);
 
