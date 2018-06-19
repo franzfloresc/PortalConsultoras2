@@ -74,7 +74,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public BaseController() : this(SessionManager.SessionManager.Instance, LogManager.LogManager.Instance)
         {
-            userData = new UsuarioModel();
+            userData = UserData();
             _tablaLogicaProvider = new TablaLogicaProvider();
             _baseProvider = new BaseProvider();
             _guiaNegocioProvider = new GuiaNegocioProvider();
