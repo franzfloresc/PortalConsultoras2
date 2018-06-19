@@ -677,11 +677,11 @@ namespace Portal.Consultoras.Web.Controllers
             if (ModelState.IsValid)
             {
                 List<ServicePedido.BEEstrategiaProducto> lst;
-                var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = estrategiaId };
+                var estrategiaX = new BEEstrategia() { PaisID = userData.PaisID, EstrategiaID = estrategiaId };
 
                 using (var sv = new PedidoServiceClient())
                 {
-                    lst = sv.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, ServicePedido.BEEstrategia>(estrategiaX)).ToList();
+                    lst = sv.GetEstrategiaProducto(estrategiaX).ToList();
                 }
 
                 var grid = new BEGrid
@@ -771,11 +771,11 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.ImagenProducto = GuardarImagenAmazon(model.ImagenProducto, model.ImagenAnterior, userData.PaisID);
 
                 List<ServicePedido.BEEstrategiaProducto> lstProd;
-                var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = model.EstrategiaID };
+                var estrategiaX = new ServicePedido.BEEstrategia() { PaisID = userData.PaisID, EstrategiaID = model.EstrategiaID };
 
                 using (var sv = new PedidoServiceClient())
                 {
-                    lstProd = sv.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, ServicePedido.BEEstrategia>(estrategiaX)).ToList();
+                    lstProd = sv.GetEstrategiaProducto(estrategiaX).ToList();
                 }
 
                 var existe = false;

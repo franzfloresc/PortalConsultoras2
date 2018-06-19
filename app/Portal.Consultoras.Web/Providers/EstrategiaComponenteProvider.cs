@@ -49,10 +49,10 @@ namespace Portal.Consultoras.Web.Providers
             if (!string.IsNullOrEmpty(estrategiaModelo.CodigoVariante))
             {
 
-                var estrategiaX = new EstrategiaPedidoModel { PaisID = _paisId, EstrategiaID = estrategiaModelo.EstrategiaID };
+                var estrategiaX = new BEEstrategia { PaisID = _paisId, EstrategiaID = estrategiaModelo.EstrategiaID };
                 using (var svc = new PedidoServiceClient())
                 {
-                    listaProducto = svc.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, BEEstrategia>(estrategiaX)).ToList();
+                    listaProducto = svc.GetEstrategiaProducto(estrategiaX).ToList();
                 }
 
                 foreach (var item in listaProducto)
