@@ -291,7 +291,7 @@ function CargarFiltroRangoPrecio() {
     var precioMinFormat = DecimalToStringFormat(min);
     var precioMaxFormat = DecimalToStringFormat(max);
 
-    var myformat = variablesPortal.SimboloMoneda + '%s';
+    var myformat = variablesPortal.SimboloMoneda;
     var scala1 = variablesPortal.SimboloMoneda + precioMinFormat;
     var scala2 = variablesPortal.SimboloMoneda + precioMaxFormat;
 

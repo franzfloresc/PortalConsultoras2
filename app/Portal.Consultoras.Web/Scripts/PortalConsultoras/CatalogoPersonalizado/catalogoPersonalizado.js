@@ -85,7 +85,7 @@ $(document).ready(function () {
 
     if (tipoOrigen == '1') {
 
-        var myformat = variablesPortal.SimboloMoneda + '%s';
+        var myformat = variablesPortal.SimboloMoneda;
         var scala1 = variablesPortal.SimboloMoneda + precioMin;
         var scala2 = variablesPortal.SimboloMoneda + precioMax;
         $('.range-slider').val(precioMin + ',' + precioMax);
