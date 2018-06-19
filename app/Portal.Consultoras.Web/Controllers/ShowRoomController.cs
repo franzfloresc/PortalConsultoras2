@@ -3016,8 +3016,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var esFacturacion = EsFacturacion();
                 var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
-                productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+                productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
 
+                var cantidadTotal = productosShowRoom.Count();
+
+                productosShowRoom = productosShowRoom.Where(x => x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
                 if (model.Limite > 0 && productosShowRoom.Count > 0)
                 {
                     productosShowRoom = productosShowRoom.Take(model.Limite).ToList();
@@ -3035,6 +3038,8 @@ namespace Portal.Consultoras.Web.Controllers
                     success = true,
                     message = "Ok",
                     data = productosShowRoom,
+                    cantidadTotal = cantidadTotal,
+                    cantidadAMostrar = productosShowRoom.Count(),
                     codigo = Constantes.ConfiguracionPais.ShowRoom
                 });
             }
