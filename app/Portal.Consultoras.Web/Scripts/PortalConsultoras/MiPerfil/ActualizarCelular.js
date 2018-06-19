@@ -1,9 +1,11 @@
-﻿var actualizarCelularModule = (function (urls, $) {
+﻿var actualizarCelularModule = (function (globalData, $) {
     'use strict';
 
     var me = {};
 
+    var urls = globalData.urlProvider;
     var localData = {
+        CelularActual: globalData.celular,
         CelularValido: false,
         CelularNuevo: '',
         Expired: true,
@@ -44,6 +46,7 @@
         ];
         var interval;
         var counterElement = $('#time_counter');
+        var cantMsInterval = 1000;
 
         function inicializarEventos() {
             var body = $('body');
@@ -89,6 +92,14 @@
                     Message: 'El número no puede estar vacío.'
                 };
             }
+
+            if (localData.CelularActual === numero) {
+                return {
+                    Success: false,
+                    Message: 'El número no puede ser el mismo.'
+                };
+            }
+
             var reg = /^\d+$/;
             if (!reg.test(numero)) {
                 return {
@@ -104,7 +115,7 @@
                     Message: 'El número debe tener ' + result.length + ' digitos.'
                 };
             }
-            // call ajax
+
             return { Success: true };
         }
 
@@ -145,7 +156,7 @@
             var now = 0;
             interval = setInterval(function() {
                 
-                    now += 1000;
+                    now += cantMsInterval;
                     var distance = segs - now;
 
                     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -155,10 +166,9 @@
                     if (distance < 0) {
                         localData.Expired = true;
                         clearInterval(interval);
-                        counterElement.text("EXPIRÓ");
+                        counterElement.text("00:00");
                     }
-                },
-                500);
+            }, cantMsInterval);
         }
 
         function counter() {
@@ -301,7 +311,7 @@
     };
 
     return me;
-})(urlProvider, jQuery);
+})(actualizaCelularData, jQuery);
 
 window.actualizarCelularModule = actualizarCelularModule;
 

@@ -1,6 +1,5 @@
 ﻿@{
     ViewBag.Title = "Actualiza tu numero de celular";
-    ViewBag.Celular = "987 654 321";
 }
 
 @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
@@ -115,9 +114,12 @@ else
 @section scripts
 {
     <script>
-        var urlProvider = {
-            enviarSmsCodigo: '@Url.Action("EnviarSmsCodigo")',
-            confirmarSmsCode: '@Url.Action("ConfirmarSmsCode")'
+        var actualizaCelularData = {
+            celular: '@ViewBag.Celular',
+            urlProvider: {
+                enviarSmsCodigo: '@Url.Action("EnviarSmsCodigo")',
+                confirmarSmsCode: '@Url.Action("ConfirmarSmsCode")'
+            }
         };
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Base.js")"></script>

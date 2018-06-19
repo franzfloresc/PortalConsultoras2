@@ -1883,7 +1883,8 @@ namespace Portal.Consultoras.BizLogic
                         validacionDato = reader.MapToObject<BEValidacionDatos>();
                     }
 
-                    if (validacionDato == null)
+                    if (validacionDato == null ||
+                        string.IsNullOrEmpty(validacionDato.TipoEnvio))
                     {
                         validacionDato = new BEValidacionDatos
                         {
@@ -1909,7 +1910,7 @@ namespace Portal.Consultoras.BizLogic
 
                     var code = Common.Util.GenerarCodigoRandom();
                     dAUsuario.InsActualizarCodigoGenerado(new BEUsuarioCorreo {
-                        OrigenID = Constantes.EnviarCorreoYSms.Origen_ActualizarCorreo,
+                        OrigenID = Constantes.EnviarCorreoYSms.OrigenActualizarCelular,
                         Descripcion = Constantes.EnviarCorreoYSms.OrigenDescripcion,
                         tipoEnvio = Constantes.EnviarCorreoYSms.TipoEnvio_Sms,
                         CodigoUsuario = codigoUsuario,
@@ -1942,11 +1943,10 @@ namespace Portal.Consultoras.BizLogic
                 var daValidacionDatos = new DAValidacionDatos(paisId);
                 var daUsuario = new DAUsuario(paisId);
 
-                var valid = daUsuario.VerificarIgualdadCodigoIngresado(new BEUsuarioDatos()
+                var valid = daUsuario.ValidarCodigoIngresado(new BEUsuarioDatos
                 {
                     CodigoUsuario = codigoUsuario,
-                    OrigenID = Constantes.EnviarCorreoYSms.Origen_ActualizarCorreo,
-                    IdEstadoActividad = 1,
+                    OrigenID = Constantes.EnviarCorreoYSms.OrigenActualizarCelular
                 }, codigoUsuario);
 
                 if (!valid)

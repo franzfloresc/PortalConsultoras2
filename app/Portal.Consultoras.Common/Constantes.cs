@@ -2118,6 +2118,7 @@ namespace Portal.Consultoras.Common
             public const int Origen_RecuperarClave = 1;
             public const int Origen_Autenticacion = 2;
             public const int Origen_ActualizarCorreo = 3;
+            public const int OrigenActualizarCelular = 3;
 
             public const string OrigenDescripcion = "actualizar datos";
 
