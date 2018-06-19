@@ -100,14 +100,19 @@
                             }
                         }
                     </div>
-                    <div class="block">
-                        <p class="texto_alternativa_call_center block">
-                            <span class="inline-block v-alignMiddle">
-                                Si no reconoces tu celular o correo, comunícate con nuestro
-                                <a title="Chat" id="aChatearConNosotros" class="inline-block v-alignBottom enlace_call_center text-bold">Chat</a>
-                            </span>
-                        </p>
-                    </div>
+                    @{ if (Model.OpcionChat)
+                        {
+                            <div class="block">
+                                <p class="texto_alternativa_call_center block">
+                                    <span class="inline-block v-alignMiddle">
+                                        Si no reconoces tu celular o correo, comunícate con nuestro
+                                        <a title="Chat" id="aChatearConNosotros" class="inline-block v-alignBottom enlace_call_center text-bold">Chat</a>
+                                    </span>
+                                </p>
+                            </div>
+                        }
+                    }
+
                 </div>
                 <!-- FIN - OPCIONES DE VERIFICACIÓN DE AUTENTICIDAD -->
                 <!-- VERIFICACIÓN POR CÓDIGO SMS -->
@@ -230,10 +235,11 @@
     var emt_first_name = '@Model.PrimerNombre';
     var emt_id = '@Model.CodigoUsuario';
     var emt_type = '1';
+    var emt_device = '';
     var UrlLogin = '@Url.Action("Index", "Login")';
 </script>
 
-@Scripts.Render("~/bundles/JQueryJs")
+@*@Scripts.Render("~/bundles/JQueryJs")*@
 @Scripts.Render("~/bundles/JS-Login-VerificaAutenticidad")
 
 @{

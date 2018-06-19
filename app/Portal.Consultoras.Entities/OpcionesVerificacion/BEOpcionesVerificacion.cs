@@ -113,7 +113,10 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         public bool OpcionDesabilitado { get; set; }
         [DataMember]
         public string DescripcionHorario { get; set; }
-        
+
+        [DataMember]
+        public bool OpcionChat { get; set; }
+
 
         public BEUsuarioDatos()
         { }

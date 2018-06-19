@@ -17,6 +17,7 @@
       <xs:element minOccurs="0" name="IdEstadoActividad" type="xs:int" />
       <xs:element minOccurs="0" name="MensajeSaludo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MostrarOpcion" type="xs:int" />
+      <xs:element minOccurs="0" name="OpcionChat" type="xs:boolean" />
       <xs:element minOccurs="0" name="OpcionCorreoDesabilitado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OpcionDesabilitado" type="xs:boolean" />
       <xs:element minOccurs="0" name="OpcionSmsDesabilitado" nillable="true" type="xs:string" />
