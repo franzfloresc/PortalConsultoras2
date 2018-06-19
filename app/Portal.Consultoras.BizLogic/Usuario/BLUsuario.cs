@@ -1913,7 +1913,8 @@ namespace Portal.Consultoras.BizLogic
                         validacionDato = reader.MapToObject<BEValidacionDatos>();
                     }
 
-                    if (validacionDato == null)
+                    if (validacionDato == null ||
+                        string.IsNullOrEmpty(validacionDato.TipoEnvio))
                     {
                         validacionDato = new BEValidacionDatos
                         {
