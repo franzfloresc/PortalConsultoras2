@@ -2672,47 +2672,47 @@ namespace Portal.Consultoras.Web.Controllers
                     if (string.IsNullOrEmpty(p_modelo.Celular)) p_modelo.Celular = "";
                     if (string.IsNullOrEmpty(p_modelo.TelefonoTrabajo)) p_modelo.TelefonoTrabajo = "";
 
-                    if (userData.Sobrenombre.ToString().Trim().ToUpper() != p_modelo.Sobrenombre.ToString().Trim().ToUpper())
+                    if (userData.Sobrenombre.Trim().ToUpper() != p_modelo.Sobrenombre.Trim().ToUpper())
                     {
                         v_campomodificacion = "SOBRENOMBRE";
-                        v_valoractual = p_modelo.Sobrenombre.ToString().Trim();
-                        v_valoranterior = userData.Sobrenombre.ToString().Trim();
+                        v_valoractual = p_modelo.Sobrenombre.Trim();
+                        v_valoranterior = userData.Sobrenombre.Trim();
                         userData.Sobrenombre = v_valoractual;
                         EjecutarLogDynamoDB(v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
                     }
 
-                    if (userData.EMail.ToString().Trim().ToUpper() != p_modelo.EMail.ToString().Trim().ToUpper())
+                    if (userData.EMail.Trim().ToUpper() != p_modelo.EMail.Trim().ToUpper())
                     {
                         v_campomodificacion = "EMAIL";
-                        v_valoractual = p_modelo.EMail.ToString().Trim();
-                        v_valoranterior = userData.EMail.ToString().Trim();
+                        v_valoractual = p_modelo.EMail.Trim();
+                        v_valoranterior = userData.EMail.Trim();
                         userData.EMail = v_valoractual;
                         EjecutarLogDynamoDB(v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
                     }
 
-                    if (userData.Telefono.ToString().Trim().ToUpper() != p_modelo.Telefono.ToString().Trim().ToUpper())
+                    if (userData.Telefono.Trim().ToUpper() != p_modelo.Telefono.Trim().ToUpper())
                     {
                         v_campomodificacion = "TELEFONO";
-                        v_valoractual = p_modelo.Telefono.ToString().Trim();
-                        v_valoranterior = userData.Telefono.ToString().Trim();
+                        v_valoractual = p_modelo.Telefono.Trim();
+                        v_valoranterior = userData.Telefono.Trim();
                         userData.Telefono = v_valoractual;
                         EjecutarLogDynamoDB(v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
                     }
 
-                    if (userData.Celular.ToString().Trim().ToUpper() != p_modelo.Celular.ToString().Trim().ToUpper())
+                    if (userData.Celular.Trim().ToUpper() != p_modelo.Celular.Trim().ToUpper())
                     {
                         v_campomodificacion = "CELULAR";
-                        v_valoractual = p_modelo.Celular.ToString().Trim();
-                        v_valoranterior = userData.Celular.ToString().Trim();
+                        v_valoractual = p_modelo.Celular.Trim();
+                        v_valoranterior = userData.Celular.Trim();
                         userData.Celular = v_valoractual;
                         EjecutarLogDynamoDB(v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
                     }
 
-                    if (userData.TelefonoTrabajo.ToString().Trim().ToUpper() != p_modelo.TelefonoTrabajo.ToString().Trim().ToUpper())
+                    if (userData.TelefonoTrabajo.Trim().ToUpper() != p_modelo.TelefonoTrabajo.Trim().ToUpper())
                     {
                         v_campomodificacion = "TELEFONO TRABAJO";
-                        v_valoractual = p_modelo.TelefonoTrabajo.ToString().Trim();
-                        v_valoranterior = userData.TelefonoTrabajo.ToString().Trim();
+                        v_valoractual = p_modelo.TelefonoTrabajo.Trim();
+                        v_valoranterior = userData.TelefonoTrabajo.Trim();
                         userData.TelefonoTrabajo = v_valoractual;
                         EjecutarLogDynamoDB(v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
                     }
