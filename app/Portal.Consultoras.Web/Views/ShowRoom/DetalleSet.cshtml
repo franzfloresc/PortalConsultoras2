@@ -7,6 +7,7 @@
 }
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+
     <style>
         .SubHeader {
             display: none;
@@ -101,8 +102,8 @@
                 {
                     <div data-estrategia="@Model.CodigoEstrategia">
                         @if (Model.Hermanos != null && Model.Hermanos.Any())
-                            {
-                                <div>
+                        {
+                            <div>
                                     @foreach (var producto in Model.Hermanos)
                                     {
                                         if ((producto.NombreComercial ?? "") == "" && producto.Digitable != 1)
