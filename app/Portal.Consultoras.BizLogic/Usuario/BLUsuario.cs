@@ -1948,7 +1948,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     CodigoUsuario = codigoUsuario,
                     OrigenID = Constantes.EnviarCorreoYSms.OrigenActualizarCelular
-                }, codigoUsuario);
+                }, codigoSms);
 
                 if (!valid)
                 {

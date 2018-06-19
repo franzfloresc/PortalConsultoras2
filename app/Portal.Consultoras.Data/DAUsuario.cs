@@ -826,12 +826,12 @@ namespace Portal.Consultoras.Data
         public int InsActualizarCodigoGenerado(BEUsuarioCorreo oUsuCorreo)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsCodigoGenerado");
-            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsuCorreo.OrigenID);
-            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.Int32, oUsuCorreo.tipoEnvio);
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsuCorreo.CodigoUsuario);
+            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsuCorreo.OrigenID);
+            Context.Database.AddInParameter(command, "@OrigenDescripcion", DbType.AnsiString, oUsuCorreo.Descripcion);
+            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.Int32, oUsuCorreo.tipoEnvio);
             Context.Database.AddInParameter(command, "@CodigoGenerado", DbType.AnsiString, oUsuCorreo.codigoGenerado);
-            Context.Database.AddInParameter(command, "@EsMobile", DbType.Boolean, oUsuCorreo.EsMobile);
-            Context.Database.AddInParameter(command, "@OpcionHabilitada", DbType.Boolean, oUsuCorreo.opcionHabilitar);
+            Context.Database.AddInParameter(command, "@OpcionDesabilitado", DbType.Boolean, oUsuCorreo.opcionHabilitar);
 
             return Context.ExecuteNonQuery(command);
         }
