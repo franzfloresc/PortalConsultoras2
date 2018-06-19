@@ -46,6 +46,7 @@
         ];
         var interval;
         var counterElement = $('#time_counter');
+        var cantMsInterval = 1000;
 
         function inicializarEventos() {
             var body = $('body');
@@ -155,7 +156,7 @@
             var now = 0;
             interval = setInterval(function() {
                 
-                    now += 1000;
+                    now += cantMsInterval;
                     var distance = segs - now;
 
                     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -165,10 +166,9 @@
                     if (distance < 0) {
                         localData.Expired = true;
                         clearInterval(interval);
-                        counterElement.text("EXPIRÓ");
+                        counterElement.text("00:00");
                     }
-                },
-                500);
+            }, cantMsInterval);
         }
 
         function counter() {
