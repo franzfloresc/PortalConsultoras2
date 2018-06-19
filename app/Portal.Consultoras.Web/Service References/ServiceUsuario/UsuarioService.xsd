@@ -667,6 +667,16 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEDupla" nillable="true" type="tns:BEDupla" />
+  <xs:complexType name="BERespuestaActivarEmail">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BERespuestaServicio">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Usuario" nillable="true" type="tns:BEUsuario" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BERespuestaActivarEmail" nillable="true" type="tns:BERespuestaActivarEmail" />
   <xs:complexType name="ArrayOfBEKitNueva">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEKitNueva" nillable="true" type="tns:BEKitNueva" />

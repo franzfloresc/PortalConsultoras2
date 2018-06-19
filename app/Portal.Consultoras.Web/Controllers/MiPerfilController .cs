@@ -106,31 +106,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ActualizarEnviarCorreo(string correoNuevo)
         {
-            BERespuestaServicio respuesta;
-            BEUsuario usuario;
             try
             {
-                usuario = Mapper.Map<BEUsuario>(userData);
+                BERespuestaServicio respuesta;
+                BEUsuario usuario = Mapper.Map<BEUsuario>(userData);
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     respuesta = sv.ActualizarEmail(usuario, correoNuevo);
                 }
+                return Json(new { success = respuesta.Succcess, message = respuesta.Message });
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return ErrorJson(Constantes.MensajesError.UpdCorreoConsultora);
             }
-            if (!respuesta.Succcess) return ErrorJson(respuesta.Message);
-
-            try
-            {
-                var misDatosModel = Mapper.Map<MisDatosModel>(usuario);
-                misDatosModel.EMail = correoNuevo;
-                ActualizarDatosLogDynamoDB(misDatosModel, "MI NEGOCIO/MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
-            }
-            catch (Exception ex) { LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO); }
-            return SuccessJson(respuesta.Message);
         }
 
         public ActionResult ConfirmacionCorreo(string data)
@@ -150,12 +140,21 @@ namespace Portal.Consultoras.Web.Controllers
                 var paisId = Convert.ToInt32(arrayParam[1]);
                 var email = arrayParam[2];
 
-                BERespuestaServicio respuesta;
+                BERespuestaActivarEmail respuesta;
                 using (UsuarioServiceClient srv = new UsuarioServiceClient())
                 {
                     respuesta = srv.ActivarEmail(paisId, codigoUsuario, email);
                 }
                 mensaje = respuesta.Succcess ? Constantes.CambioCorreoResult.Valido : respuesta.Message;
+
+                try
+                {
+                    BEUsuario usuario = Mapper.Map<BEUsuario>(userData);
+                    var misDatosModel = Mapper.Map<MisDatosModel>(usuario);
+                    misDatosModel.EMail = email;
+                    ActualizarDatosLogDynamoDB(misDatosModel, "MI NEGOCIO/MI PERFIL", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
+                }
+                catch (Exception ex) { LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO); }
             }
             catch (Exception ex)
             {

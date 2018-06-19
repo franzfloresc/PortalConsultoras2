@@ -5150,6 +5150,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BERespuestaServicio", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BERespuestaActivarEmail))]
     public partial class BERespuestaServicio : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -5203,6 +5204,29 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BERespuestaActivarEmail", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BERespuestaActivarEmail : Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceUsuario.BEUsuario UsuarioField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Usuario {
+            get {
+                return this.UsuarioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsuarioField, value) != true)) {
+                    this.UsuarioField = value;
+                    this.RaisePropertyChanged("Usuario");
+                }
             }
         }
     }
@@ -10469,10 +10493,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<bool> ActiveEmailAsync(int paisID, string codigoUsuario, string iso, string email);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActivarEmail", ReplyAction="http://tempuri.org/IUsuarioService/ActivarEmailResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ActivarEmail(int paisID, string codigoConsultora, string email);
+        Portal.Consultoras.Web.ServiceUsuario.BERespuestaActivarEmail ActivarEmail(int paisID, string codigoConsultora, string email);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActivarEmail", ReplyAction="http://tempuri.org/IUsuarioService/ActivarEmailResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ActivarEmailAsync(int paisID, string codigoConsultora, string email);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaActivarEmail> ActivarEmailAsync(int paisID, string codigoConsultora, string email);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetSesionUsuario", ReplyAction="http://tempuri.org/IUsuarioService/GetSesionUsuarioResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario GetSesionUsuario(int paisID, string codigoUsuario);
@@ -11398,11 +11422,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.ActiveEmailAsync(paisID, codigoUsuario, iso, email);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ActivarEmail(int paisID, string codigoConsultora, string email) {
+        public Portal.Consultoras.Web.ServiceUsuario.BERespuestaActivarEmail ActivarEmail(int paisID, string codigoConsultora, string email) {
             return base.Channel.ActivarEmail(paisID, codigoConsultora, email);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ActivarEmailAsync(int paisID, string codigoConsultora, string email) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaActivarEmail> ActivarEmailAsync(int paisID, string codigoConsultora, string email) {
             return base.Channel.ActivarEmailAsync(paisID, codigoConsultora, email);
         }
         

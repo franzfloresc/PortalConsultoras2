@@ -723,6 +723,7 @@
     <Compile Include="Providers\ShowRoomProvider.cs" />
     <Compile Include="Providers\TablaLogicaProvider.cs" />
     <Compile Include="Providers\UpSellingProvider.cs" />
+    <Compile Include="Providers\LogDynamoProvider.cs" />
     <Compile Include="Providers\ZonificacionProvider.cs" />
     <Compile Include="Service References\HojaInscripcionBelcorpPais\Reference.cs">
       <AutoGen>True</AutoGen>

@@ -195,8 +195,9 @@ namespace Portal.Consultoras.BizLogic
             return activado;
         }
 
-        public BERespuestaServicio ActivarEmail(int paisID, string codigoUsuario, string email)
+        public BERespuestaActivarEmail ActivarEmail(int paisID, string codigoUsuario, string email)
         {
+            BEUsuario usuario = null;
             try
             {
                 var daUsuario = new DAUsuario(paisID);
@@ -212,14 +213,14 @@ namespace Portal.Consultoras.BizLogic
                     }
                     if (validacionDato == null || validacionDato.DatoNuevo != email)
                     {
-                        return new BERespuestaServicio { Message = Constantes.MensajesError.ActivacionCorreo_NoExiste };
+                        return new BERespuestaActivarEmail { Message = Constantes.MensajesError.ActivacionCorreo_NoExiste };
                     }
                     if (validacionDato.Estado == Constantes.ValidacionDatosEstado.Activo)
                     {
-                        return new BERespuestaServicio { Message = Constantes.MensajesError.ActivacionCorreo_EstaActivo };
+                        return new BERespuestaActivarEmail { Message = Constantes.MensajesError.ActivacionCorreo_EstaActivo };
                     }
                     
-                    var usuario = GetBasicSesionUsuario(paisID, codigoUsuario);
+                    usuario = GetBasicSesionUsuario(paisID, codigoUsuario);
                     daUsuario.UpdUsuarioEmail(codigoUsuario, validacionDato.DatoNuevo, usuario.CampaniaID);
 
                     validacionDato.Estado = Constantes.ValidacionDatosEstado.Activo;
@@ -233,9 +234,9 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, codigoUsuario, string.Empty);
-                return new BERespuestaServicio { Message = Constantes.MensajesError.ActivacionCorreo };
+                return new BERespuestaActivarEmail { Message = Constantes.MensajesError.ActivacionCorreo };
             }
-            return new BERespuestaServicio { Succcess = true };
+            return new BERespuestaActivarEmail { Succcess = true, Usuario = usuario  };
         }
 
         public int setUsuarioVideoIntroductorio(int paisID, string CodigoUsuario)
@@ -1846,7 +1847,7 @@ namespace Portal.Consultoras.BizLogic
             string url = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
             string nomconsultora = (string.IsNullOrEmpty(usuario.Sobrenombre) ? usuario.PrimerNombre : usuario.Sobrenombre);
 
-            string[] parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), usuario.EMail };
+            string[] parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), correoNuevo };
             string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
             LogManager.SaveLog(new Exception(), usuario.CodigoUsuario, usuario.CodigoISO, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
             bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);

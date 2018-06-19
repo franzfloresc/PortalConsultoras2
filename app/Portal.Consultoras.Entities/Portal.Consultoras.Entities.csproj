@@ -356,6 +356,7 @@
     <Compile Include="BEUnidadGeografica.cs" />
     <Compile Include="ShowRoom\BEShowRoomTono.cs" />
     <Compile Include="RevistaDigital\BERevistaDigital.cs" />
+    <Compile Include="Usuario\BERespuestaActivarEmail.cs" />
     <Compile Include="Usuario\BEUsuario.cs" />
     <Compile Include="BEUsuarioCorreo.cs" />
     <Compile Include="BEUsuarioRol.cs" />

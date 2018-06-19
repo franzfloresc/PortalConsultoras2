@@ -937,7 +937,7 @@
   <xs:element name="ActivarEmailResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ActivarEmailResult" nillable="true" type="q50:BERespuestaServicio" />
+        <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ActivarEmailResult" nillable="true" type="q50:BERespuestaActivarEmail" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
