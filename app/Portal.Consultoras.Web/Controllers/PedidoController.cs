@@ -559,6 +559,15 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
+                if (!errorServer)
+                {
+                    using (var pedidoServiceClient = new PedidoServiceClient())
+                    {
+                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
+                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
+                    }
+                }
+
                 return Json(new
                 {
                     success = !errorServer,
