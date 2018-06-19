@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Web.ServicePedido;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
@@ -111,6 +112,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
                     ConfiguracionOfertaID = detalleWeb.ConfiguracionOfertaID,
                     IndicadorOfertaCUV = detalleWeb.IndicadorOfertaCUV,
                     TipoObservacion = detalleWeb.TipoObservacion,
+                    ListObservacionProl = (detalleWeb.ObservacionPROL ?? "").Split('|').Where(o => !string.IsNullOrEmpty(o)).ToList(),
                     EsBackOrder = detalleWeb.EsBackOrder,
                     AceptoBackOrder = detalleWeb.AceptoBackOrder
                 });

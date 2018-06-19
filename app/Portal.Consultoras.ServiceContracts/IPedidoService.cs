@@ -1241,6 +1241,8 @@ namespace Portal.Consultoras.ServiceContracts
         Task<BEPedidoReservaAppResult> ReservaPedidoDetalleApp(BEUsuario usuario);
         [OperationContract]
         BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario);
+        [OperationContract]
+        List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario);
         #endregion
 
         #region Pago en Linea
@@ -1284,5 +1286,14 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario);
+
+        [OperationContract]
+        BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
+        
+        [OperationContract]
+        List<BEPedidoWebDetalle> ObtenerCuvSetDetalle(int paisID,int campaniaID, long consultoraID, int pedidoID, string ListaSet);
+
+        [OperationContract]
+        BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
     }
 }

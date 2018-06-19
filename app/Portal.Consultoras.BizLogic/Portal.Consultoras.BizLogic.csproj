@@ -91,12 +91,14 @@
   <ItemGroup>
     <Compile Include="App\IMenuAppBusinessLogic.cs" />
     <Compile Include="BLCategoria.cs" />
+    <Compile Include="BLActivarPremioNuevas.cs" />
     <Compile Include="BLCuponesProgramaNuevas.cs" />
     <Compile Include="BLHorario.cs" />
     <Compile Include="BLAdministrarEstrategia.cs" />
     <Compile Include="BLConfiguracionOfertasHome.cs" />
     <Compile Include="BLAsesoraOnline.cs" />
     <Compile Include="BLCupon.cs" />
+    <Compile Include="BLPremiosProgramaNuevas.cs" />
     <Compile Include="Cache\BLCache.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="Cliente\IClienteBusinessLogic.cs" />
@@ -107,6 +109,7 @@
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
     <Compile Include="Estrategia\IConfiguracionProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Estrategia\IEstrategiaBusinessLogic.cs" />
+    <Compile Include="Estrategia\IEstrategiaProductoBusinessLogic.cs" />
     <Compile Include="Estrategia\ITipoEstrategiaBusinessLogic.cs" />
     <Compile Include="Estrategia\IUpSellingBusinessLogic.cs" />
     <Compile Include="Estrategia\IUpSellingMarcaCategoriaBusinessLogic.cs" />
@@ -127,7 +130,7 @@
     <Compile Include="Pedido\IPedidoWebDetalleBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\IConsultorasProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Reserva\BLReserva.cs" />
-    <Compile Include="BLEstrategiaProducto.cs" />
+    <Compile Include="Estrategia\BLEstrategiaProducto.cs" />
     <Compile Include="BizLogicException.cs" />
     <Compile Include="BLAfiliaClienteConsultora.cs" />
     <Compile Include="BLBanner.cs" />
@@ -211,7 +214,8 @@
     <Compile Include="Pedido\IPedidoWebSetBusinessLogic.cs" />
     <Compile Include="Reserva\IReservaExternaBL.cs" />
     <Compile Include="Reserva\BLReservaProl2.cs" />
-    <Compile Include="Reserva\RestClient.cs" />
+    <Compile Include="Reserva\Rest\DictHttpClient.cs" />
+    <Compile Include="Reserva\Rest\RestClient.cs" />
     <Compile Include="Resources\IncentivoMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
