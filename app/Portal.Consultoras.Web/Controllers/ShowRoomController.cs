@@ -3015,7 +3015,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return ErrorJson(string.Empty);
 
                 var esFacturacion = EsFacturacion();
-                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion, false);
                 productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
 
                 if (model.Limite > 0 && productosShowRoom.Count > 0)

@@ -230,8 +230,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var listaShowRoomOferta = ObtenerListaProductoShowRoomService(campaniaId, codigoConsultora);
-            if(conFiltroMdo)
+            if (conFiltroMdo)
+            {
                 listaShowRoomOferta = ObtenerListaProductoShowRoomMdo(listaShowRoomOferta, Constantes.FlagRevista.Valor0);
+            }
             
             var listadoOfertasTodasModel1 = ObtenerListaProductoShowRoomFormato(listaShowRoomOferta, listaDetalle, esFacturacion);
             
@@ -731,7 +733,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
 
-                var listaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, codigoConsultora, esFacturacion);
+                var listaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, codigoConsultora, esFacturacion, false);
                 showRoomEventoModel.ListaShowRoomOferta = listaShowRoomOferta;
 
                 var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, showRoomEventoModel.EventoID, showRoomEventoModel.CampaniaID);
