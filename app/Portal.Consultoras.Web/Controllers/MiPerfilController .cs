@@ -593,8 +593,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var misDatosModel = Mapper.Map<MisDatosModel>(userData);
-                userData.Celular = celularNuevo;
+                var usuario = Mapper.Map<BEUsuario>(userData);
+                var misDatosModel = Mapper.Map<MisDatosModel>(usuario);
+                misDatosModel.Celular = celularNuevo;
                 ActualizarDatosLogDynamoDB(misDatosModel, "MI NEGOCIO/MIS DATOS",
                     Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
             }
