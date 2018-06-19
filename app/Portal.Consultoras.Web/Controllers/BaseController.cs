@@ -1630,13 +1630,10 @@ namespace Portal.Consultoras.Web.Controllers
                 x.ImagenSoloHoy = _ofertaDelDiaProvider.ObtenerUrlImagenOfertaDelDia(userData.CodigoISO, ofertasOddModel.Count);
                 x.ImagenFondo2 = string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo2ODD"), userData.CodigoISO);
                 x.ColorFondo2 = coloFondoDisplay.Codigo ?? string.Empty;
-<<<<<<< HEAD
-                x.NombreOferta = ObtenerNombreOfertaDelDia(x.NombreOferta);
-                x.DescripcionLegal = ObtenerDescripcionOfertaDelDia(x.DescripcionLegal);
-=======
+                //x.NombreOferta = ObtenerNombreOfertaDelDia(x.NombreOferta);
+                //x.DescripcionLegal = ObtenerDescripcionOfertaDelDia(x.DescripcionLegal);
                 x.NombreOferta = _ofertaDelDiaProvider.ObtenerNombreOfertaDelDia(x.NombreOferta);
                 x.DescripcionOferta = _ofertaDelDiaProvider.ObtenerDescripcionOfertaDelDia(x.DescripcionOferta);
->>>>>>> 4d4cb4ff9d29b91e11324596a2bda78bac6f9bbe
                 x.TieneOfertaDelDia = true;
                 x.DescripcionMarca = Util.GetDescripcionMarca(x.MarcaID);
                 x.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == x.CUV2 && (d.TipoEstrategiaID == x.TipoEstrategiaID || d.TipoEstrategiaID == 0)) ? "block" : "none";

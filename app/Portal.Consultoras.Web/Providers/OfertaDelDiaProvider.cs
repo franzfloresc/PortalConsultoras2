@@ -13,7 +13,6 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class OfertaDelDiaProvider
     {
-<<<<<<< HEAD
         //public List<OfertaDelDiaModel> GetOfertas(UsuarioModel model)
         //{
         //    List<ServiceOferta.BEEstrategia> ofertasDelDia;
@@ -27,8 +26,7 @@ namespace Portal.Consultoras.Web.Providers
 
         //    return Mapper.Map<List<ServiceOferta.BEEstrategia>, List<OfertaDelDiaModel>>(ofertasDelDia).ToList();
         //}
-        public List<EstrategiaPedidoModel> GetOfertas(UsuarioModel model)
-=======
+        
         protected ConfiguracionManagerProvider _configuracionManager;
 
         public OfertaDelDiaProvider()
@@ -36,8 +34,7 @@ namespace Portal.Consultoras.Web.Providers
             _configuracionManager = new ConfiguracionManagerProvider();
         }
 
-        public List<OfertaDelDiaModel> GetOfertas(UsuarioModel model)
->>>>>>> 4d4cb4ff9d29b91e11324596a2bda78bac6f9bbe
+        public List<EstrategiaPedidoModel> GetOfertas(UsuarioModel model)
         {
             List<ServiceOferta.BEEstrategia> ofertasDelDia;
 
