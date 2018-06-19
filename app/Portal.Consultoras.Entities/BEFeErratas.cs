@@ -40,19 +40,19 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "PaisNombre"))
                 PaisNombre = Convert.ToString(row["PaisNombre"]);
             if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = DbConvert.ToInt32(row["CampaniaID"]);
+                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
             if (DataRecord.HasColumn(row, "NombreCorto"))
-                NombreCorto = DbConvert.ToString(row["NombreCorto"]);
+                NombreCorto = Convert.ToString(row["NombreCorto"]);
             if (DataRecord.HasColumn(row, "Titulo"))
-                Titulo = DbConvert.ToString(row["Titulo"]);
+                Titulo = Convert.ToString(row["Titulo"]);
             else
                 Titulo = string.Empty;
             if (DataRecord.HasColumn(row, "Pagina"))
-                Pagina = DbConvert.ToInt32(row["Pagina"]);
+                Pagina = Convert.ToInt32(row["Pagina"]);
             if (DataRecord.HasColumn(row, "Dice"))
-                Dice = DbConvert.ToString(row["Dice"]);
+                Dice = Convert.ToString(row["Dice"]);
             if (DataRecord.HasColumn(row, "DebeDecir"))
-                DebeDecir = DbConvert.ToString(row["DebeDecir"]);
+                DebeDecir = Convert.ToString(row["DebeDecir"]);
         }
     }
 }

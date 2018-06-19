@@ -3,6 +3,7 @@ using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.Pedido.App;
 
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -17,5 +18,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         Task<BEPedidoDetalleAppResult> Delete(BEPedidoDetalleApp pedidoDetalle);
         Task<BEPedidoReservaAppResult> Reserva(BEUsuario usuario);
         BEPedidoDetalleAppResult DeshacerReserva(BEUsuario usuario);
+        List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario);
     }
 }
