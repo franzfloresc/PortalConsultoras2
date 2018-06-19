@@ -179,7 +179,7 @@
     return {
         Inicializar: Inicializar,
         MostrarMasTonos: _mostrarMasTonos,
-        ValidarSeleccionTono: _ValidarSeleccionTono()
+        ValidarSeleccionTono: _ValidarSeleccionTono
     };
     
 })();
