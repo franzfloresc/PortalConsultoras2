@@ -1,5 +1,9 @@
 ﻿/* Desktop */
 
+body {
+    background: #fff;
+}
+
 .texto_font {
     font-family: 'Lato';
 }
@@ -19,13 +23,12 @@
 .contenedor_detalle {
     display: flex;
     font-size: 13px;
-    margin: 80px auto;
+    margin: 240px auto;
     max-width: 1189px;
     position: relative;
 }
 
 .contenedor_fichas {
-    margin-left: 8em;
     width: 100%;
 }
 
@@ -567,6 +570,7 @@
     border: solid 1px transparent;
     font-size: 13px;
     font-weight: 700;
+    letter-spacing: 2.5px;
     line-height: 34px;
     position: absolute;
     text-align: center;
