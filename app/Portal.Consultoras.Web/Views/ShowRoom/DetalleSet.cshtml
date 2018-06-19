@@ -55,7 +55,9 @@
                 <div class="contenedor_imagen">
                     <img class="contenedor_img" src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201809/E/productos/PE_200050018.jpg" alt="">
                 </div>
-                <div class="texto_referencial">* Foto Referencial</div>
+                <div class="texto_referencial">
+                    <span data-texto_referencial="">* Foto Referencial</span>
+                </div>
                 <div class="ficha_redes_sociales">
                     <div class="texto_redes_sociales">Comparte este producto con tus clientes</div>
                     <a class="btn_compartir_facebook" href="javascript:;" data-compartir="FB">
@@ -66,23 +68,30 @@
             <div class="ficha_detalle">
                 <div class="contenedor_nombre_precio">
                     <div class="contenedor_izquierdo">
-                        <div class="nombre_marca">ÉSIKA</div>
-                        <div class="descripcion">PACK TOTAL + PULSO + ALVIENTO</div>
+                        <div class="nombre_marca">
+                            <span data-nombre_marca="">ÉSIKA</span>
+                        </div>
+                        <div class="descripcion" data-descripcion="">PACK TOTAL + PULSO + ALVIENTO</div>
                     </div>
                     <div class="contenedor_derecho">
-                        <div class="precio_valorizado">S/.200</div>
-                        <div class="precio_venta_oferta">Precio para ti <b>S/.110</b></div>
-                        <div class="ganancia">GANA S/.90</div>
+                        <div class="precio_valorizado">Valorizado en <span data-precio_valorizado="">S/.200</span></div>
+                        <div class="precio_venta_oferta">Precio para ti <b><span data-precio_venta_oferta="">S/.110</span></b></div>
+                        <div class="ganancia">GANA <span data-ganancia="">S/.90</span></div>
                     </div>
                 </div>
                 <div class="contenedor_lista_detalle">
                     <div class="texto_contenido">CONTENIDO:</div>
                     <div class="detalle_producto" data-tono="" data-tono-select="" data-tono-digitable="">
-                        <div class="cantidad_descripcion_detalle">
-                            <span class="cantidad_detalle_producto">x2</span>
-                            <span class="descripcion_detalle_producto" @*data-tono-cuv-producto="" data-tono-select-nombrecomercial=""*@>
-                                Labial en barra rouge l'intense 4g/14o.z
-                            </span>
+                        <div class="marca_cantidad_descripcion_detalle">
+                            <div class="marca_detalle_producto">
+                                <span data-marca_detalle_producto>LBEL</span>
+                            </div>
+                            <div class="cantidad_descripcion_detalle">
+                                <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x2</span>
+                                <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="" @* data-tono-cuv-producto="" data-tono-select-nombrecomercial="" *@>
+                                    Labial en barra rouge l'intense 4g/14o.z
+                                </span>
+                            </div>
                         </div>
                         <div class="selector_tono" data-selector_tono="">
                             <div class="elige_tono" data-tono-showroom-change="1">
@@ -115,11 +124,16 @@
                         <hr class="clear">
                     </div>
                     <div class="detalle_producto" data-tono="" data-tono-select="" data-tono-digitable="">
-                        <div class="cantidad_descripcion_detalle">
-                            <span class="cantidad_detalle_producto">x1</span>
-                            <span class="descripcion_detalle_producto" @*data-tono-cuv-producto="" data-tono-select-nombrecomercial=""*@>
-                                Perfume Pulso 100m/3.4 fl.oz
-                            </span>
+                        <div class="marca_cantidad_descripcion_detalle">
+                            <div class="marca_detalle_producto">
+                                <span data-marca_detalle_producto>ÉSIKA</span>
+                            </div>
+                            <div class="cantidad_descripcion_detalle">
+                                <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x1</span>
+                                <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="" @* data-tono-cuv-producto="" data-tono-select-nombrecomercial="" *@>
+                                    Perfume Pulso 100m/3.4 fl.oz
+                                </span>
+                            </div>
                         </div>
                         <hr class="clear">
                     </div>
@@ -138,7 +152,7 @@
                     </div>
                     <a id="btnAgregalo" class="btn_agregalo btn_agregalo_desactivado" onclick="javascript:EstrategiaAgregarShowRoom(event, true); ">AGRÉGALO</a>
                     <div class="contenedor_agregado">
-                        <div class="txt_agregado">
+                        <div class="txt_agregado" data-txt_agregado="">
                             <span class="span_agregado">AGREGADO</span>
                             <div class="check_agregado">
                                 <div class="dibujar_linea dibujar_check_agregado"></div>
