@@ -1749,7 +1749,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (tablaLogicaDatos != null)
             {
-                codigoRevista = tablaLogicaDatos.Codigo;
+                codigoRevista = Util.Trim(tablaLogicaDatos.Codigo);
             }
 
             return codigoRevista;
