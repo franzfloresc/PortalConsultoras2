@@ -40,12 +40,12 @@ $(document).ready(function () {
             lazyLoad: 'ondemand',
             infinite: true,
             vertical: false,
-            slidesToShow: 3,
+            slidesToShow: 4,
             slidesToScroll: 1,
             autoplay: false,
             speed: 260,
-            prevArrow: '<a class="contenedor_flecha_carrusel flecha_izquierda_carrusel js-slick-prev slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_izquierda_carrusel"></div></a>',
-            nextArrow: '<a class="contenedor_flecha_carrusel flecha_derecha_carrusel js-slick-next slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_derecha_carrusel"></div></a>'
+            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;text-align:right"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
         });
 
         EstablecerLazyCarrusel($('.content_ficha_compra'));
@@ -278,36 +278,7 @@ $(document).ready(function () {
             }
         }
     }
-
-    for (var i = 1; i <= 5; i++) {
-        if (document.getElementById("ficha_tab_" + i.toString()).checked) {
-            document.getElementById("contenido_" + i.toString()).style.display = "block";
-        }
-
-        document.getElementById("ficha_tab_" + i.toString()).onclick = function (event) {
-            var numID = event.target.getAttribute('data-numTab');
-
-            for (var j = 1; j <= 5; j++) {
-                document.getElementById("contenido_" + j.toString()).style.display = "none";
-            }
-
-            document.getElementById("contenido_" + numID.toString()).style.display = "block";
-        }
-    }
-
-    MostrarRelojOfertaDelDia(50000);
 });
-
-function MostrarRelojOfertaDelDia(totalSegundos) {
-    $('.clock').each(function (index, elem) {
-        $(elem).FlipClock(totalSegundos, {
-            countdown: true,
-            clockFace: 'HourlyCounter',
-            language: 'es-es',
-        });
-    });
-
-}
 
 $(document).ready(function () {
     if (isMobile()) {
@@ -319,23 +290,23 @@ $(document).ready(function () {
     function mostrarListaTonos() {
         var accion = $(this).attr("data-tono-showroom-change");
 
-        var hideSelect = $(this).parents("[data-tono]").find('.contenedor_items_tonos').attr("data-visible");
+        var hideSelect = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
         if (hideSelect == "1") {
-            $(this).parents("[data-tono]").find('.contenedor_items_tonos').hide();
-            $(this).parents("[data-tono]").find('.contenedor_items_tonos').attr("data-visible", "0");
-            $(this).parents("[data-tono]").find("[data-flecha-tonos]").removeClass("dibujar_flecha_tonos_por_elegir");
+            $(this).parents("[data-tono]").find('.content_tonos_select').hide();
+            $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "0");
+            $(this).parents("[data-tono]").find("[data-tono-showroom-change='1']").parent().removeClass("tono_por_elegir");
             if (accion == 1)
                 return true;
         }
 
         if (accion == 1) {
-            $("[data-tono]").find('.contenedor_items_tonos').hide();
-            $("[data-tono]").find('.contenedor_items_tonos').attr("data-visible", "0");
-            $("[data-tono]").find("[data-flecha-tonos]").removeClass("dibujar_flecha_tonos_por_elegir");
+            $("[data-tono]").find('.content_tonos_select').hide();
+            $("[data-tono]").find('.content_tonos_select').attr("data-visible", "0");
+            $("[data-tono]").find("[data-tono-showroom-change='1']").parent().removeClass("tono_por_elegir");
 
-            $(this).parents("[data-tono]").find('.contenedor_items_tonos').attr("data-visible", "1");
-            $(this).parents("[data-tono]").find('.contenedor_items_tonos').show();
-            $("[data-tono]").find("[data-flecha-tonos]").addClass("dibujar_flecha_tonos_por_elegir");
+            $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "1");
+            $(this).parents("[data-tono]").find('.content_tonos_select').show();
+            $(this).parent().addClass("tono_por_elegir");
             return true;
         }
 
@@ -343,10 +314,10 @@ $(document).ready(function () {
         var prod = $(this).parents("[data-tono]");
         var objSet = prod.find("[data-tono-showroom-change='1']");
         objSet.find("img").attr("src", $(this).find("img").attr("src"));
-        objSet.find(".img_item_tono").show();
-        objSet.find(".txt_item_tono").html($(this).attr("data-tono-nombre"));
+        objSet.find(".tono_seleccionado").show();
+        objSet.find(".texto_tono_seleccionado").html($(this).attr("data-tono-nombre"));
 
-        objSet.parent().addClass("selector_tono_escogido");
+        objSet.parent().addClass("tono_escogido");
         prod.find("[data-tono-select-nombrecomercial]").html($(this).attr("data-tono-descripcion"));
         prod.attr("data-tono-select", cuv);
 
@@ -1103,7 +1074,7 @@ function ValidarUnidadesPermitidas(data, cantidad) {
 
 function EstrategiaValidarSeleccionTonoShowRoom(objInput) {
 
-    if (!$('.selector_tono')[0])
+    if (!$('.tono_select_opt')[0])
         return false;
   
     var attrClass = $.trim($('#btnAgregalo').attr("class"));
