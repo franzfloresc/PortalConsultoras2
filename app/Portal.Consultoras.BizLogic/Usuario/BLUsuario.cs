@@ -2598,11 +2598,12 @@ namespace Portal.Consultoras.BizLogic
                 /*Obteniendo Datos de Verificacion de Autenticidad*/
                 var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad, oUsu.RegionID, oUsu.ZonaID);
                 if (opcion == null) return null;
-                /*validando si tiene Zona*/
+                /*validando si tiene Zona*/                
                 if (opcion.TieneZonas)
                 {
-                    if (opcion.oZona == null) return null;
-                    if (!opcion.oZona.VerifAutenticidad) return null;
+                    var TieneZona = new BLOpcionesVerificacion().GetZonasOpcionesVerificacion(paisID, oUsu.RegionID, oUsu.ZonaID);
+                    if (TieneZona == null) return null;
+                    if (!TieneZona.VerifAutenticidad) return null;
                 }
                 /*Validando si corresponde al Usuario*/
                 if (opcion.lstFiltros.Count >= 0) 

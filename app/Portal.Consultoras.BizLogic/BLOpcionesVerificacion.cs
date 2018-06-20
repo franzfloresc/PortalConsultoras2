@@ -24,13 +24,13 @@ namespace Portal.Consultoras.BizLogic
             }
             if (OpcVeri == null) return null;
             OpcVeri.lstFiltros = new List<BEFiltrosOpcionesVerificacion>();
-            OpcVeri.oZona = new BEZonasOpcionesVerificacion();
+            //OpcVeri.oZona = new BEZonasOpcionesVerificacion();
             if (OpcVeri.IncluyeFiltros) OpcVeri.lstFiltros =  GetFiltrosOpcionesVerificacion(paisID, origenID) ?? new List<BEFiltrosOpcionesVerificacion>();
-            if (OpcVeri.TieneZonas) OpcVeri.oZona =  GetZonasOpcionesVerificacion(paisID, regionID, zonaID) ?? new BEZonasOpcionesVerificacion();
+            //if (OpcVeri.TieneZonas) OpcVeri.oZona =  GetZonasOpcionesVerificacion(paisID, regionID, zonaID) ?? new BEZonasOpcionesVerificacion();
             return OpcVeri;
         }
 
-        private BEZonasOpcionesVerificacion GetZonasOpcionesVerificacion(int paisID, int regionID, int zonaID)
+        public BEZonasOpcionesVerificacion GetZonasOpcionesVerificacion(int paisID, int regionID, int zonaID)
         {
             var obj = new DAOpcionesVerificacion(paisID);
             var oOp = new BEZonasOpcionesVerificacion();
