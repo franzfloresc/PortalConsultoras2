@@ -1474,5 +1474,7 @@ namespace Portal.Consultoras.Entities
 
 
         }
+        [DataMember]
+        public string NivelProyectado { get; set; }
     }
 }

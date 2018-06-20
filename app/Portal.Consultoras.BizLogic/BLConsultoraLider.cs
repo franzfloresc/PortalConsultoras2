@@ -4,7 +4,7 @@ using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLConsultoraLider
+    public class BLConsultoraLider : IConsultoraLiderBusinessLogic
     {
         public IList<string> GetLiderCampaniaActual(int paisID, long ConsultoraID, string CodigoPais)
         {
@@ -19,7 +19,7 @@ namespace Portal.Consultoras.BizLogic
             if (datos.Count < 1) datos.Add("");
             return datos;
         }
-
+         
         public IList<string> GetProyectaNivel(int paisID, long ConsultoraID)
         {
             List<string> datos = new List<string>();

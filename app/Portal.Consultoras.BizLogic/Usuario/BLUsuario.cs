@@ -31,6 +31,8 @@ namespace Portal.Consultoras.BizLogic
         private readonly IPedidoRechazadoBusinessLogic _pedidoRechazadoBusinessLogic;
         private readonly IResumenCampaniaBusinessLogic _resumenCampaniaBusinessLogic;
         private readonly IShowRoomEventoBusinessLogic _showRoomEventoBusinessLogic;
+        private readonly IConsultoraLiderBusinessLogic _consultoraLiderBusinessLogic;
+
 
         public BLUsuario() : this(new BLTablaLogicaDatos(),
                                     new BLConsultoraConcurso(),
@@ -40,7 +42,8 @@ namespace Portal.Consultoras.BizLogic
                                     new BLConfiguracionPaisDatos(),
                                     new BLPedidoRechazado(),
                                     new BLResumenCampania(),
-                                    new BLShowRoomEvento())
+                                    new BLShowRoomEvento(),
+                                    new BLConsultoraLider())
         { }
 
         public BLUsuario(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic,
@@ -51,7 +54,8 @@ namespace Portal.Consultoras.BizLogic
                         IConfiguracionPaisDatosBusinessLogic configuracionPaisDatosBusinessLogic,
                         IPedidoRechazadoBusinessLogic pedidoRechazadoBusinessLogic,
                         IResumenCampaniaBusinessLogic resumenCampaniaBusinessLogic,
-                        IShowRoomEventoBusinessLogic showRoomEventoBusinessLogic)
+                        IShowRoomEventoBusinessLogic showRoomEventoBusinessLogic,
+                        IConsultoraLiderBusinessLogic consultoraLiderBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
@@ -62,6 +66,7 @@ namespace Portal.Consultoras.BizLogic
             _pedidoRechazadoBusinessLogic = pedidoRechazadoBusinessLogic;
             _resumenCampaniaBusinessLogic = resumenCampaniaBusinessLogic;
             _showRoomEventoBusinessLogic = showRoomEventoBusinessLogic;
+            _consultoraLiderBusinessLogic = consultoraLiderBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -485,6 +490,7 @@ namespace Portal.Consultoras.BizLogic
                 var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
                 var cuponTask = Task.Run(() => GetCupon(usuario));
                 var programaNuevasTask = Task.Run(() => GetProgramaNuevas(usuario));
+                var nivelProyectado = Task.Run(() => GetNivelProyectado(paisID,usuario.ConsultoraID,usuario.CampaniaID));
 
                 Task.WaitAll(
                                 terminosCondicionesTask,
@@ -497,7 +503,8 @@ namespace Portal.Consultoras.BizLogic
                                 incentivosConcursosTask,
                                 revistaDigitalSuscripcionTask,
                                 cuponTask,
-                                programaNuevasTask);
+                                programaNuevasTask,
+                                nivelProyectado);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -537,6 +544,8 @@ namespace Portal.Consultoras.BizLogic
                     usuario.ConsecutivoNueva = programaNuevas.ConsecutivoNueva;
                     usuario.CodigoPrograma = programaNuevas.CodigoPrograma ?? string.Empty;
                 }
+
+                usuario.NivelProyectado = nivelProyectado.Result;
 
                 return usuario;
             }
@@ -2664,6 +2673,20 @@ namespace Portal.Consultoras.BizLogic
         public bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID)
         {
             return new DAUsuario(paisID).GetConsultoraParticipaEnPrograma(codigoPrograma, codigoConsultora, campaniaID);
+        }
+
+        private string GetNivelProyectado(int paisID, long consultoraId, int campaniaId)
+        {
+            string nivelProyectado = "";
+            DataSet ds;
+
+            ds = _consultoraLiderBusinessLogic.ObtenerParametrosSuperateLider(paisID, consultoraId, campaniaId);
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                nivelProyectado = ds.Tables[0].Rows[0][1].ToString();
+            }
+
+            return nivelProyectado;
         }
     }
 }
