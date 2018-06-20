@@ -73,6 +73,10 @@ input:focus{
 
 /* MI PERFIL */
 
+.titulo_interiores_mi_perfil{
+    background-position: right top;
+}
+
 .w-100,
 .datos_usuario_iniciales,
 .wrapper_content_mi_perfil,

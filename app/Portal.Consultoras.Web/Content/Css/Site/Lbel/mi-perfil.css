@@ -16,8 +16,8 @@
     font-weight:bold;
 }
 
-.mt-10{
-    margin-top:10px!important;
+.mt-9{
+    margin-top:9px!important;
 }
 
 .mt-13{
@@ -526,6 +526,17 @@ input:focus{
 .enlace_no_cambiar_correo{
     text-decoration: underline;
     margin-top: 11px;
+}
+
+.fondoDesktop{
+    overflow:initial;
+}
+
+.pestania_lbel_mi_perfil{
+    position: absolute;
+    top: 60px;
+    left: -55px;
+    z-index: 1000;
 }
 
 /*  FIN - MI PERFIL */
