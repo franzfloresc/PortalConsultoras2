@@ -2579,12 +2579,6 @@ namespace Portal.Consultoras.BizLogic
             if (campaniaInicio <= campaniaActual && campaniaActual <= campaniaFin) return true;
             return false;
         }
-
-        //private bool ValidaZona(List<BEZonasOpcionesVerificacion> lstZona, int ZonaID)
-        //{
-        //    if (lstZona.Any(a => a.ZonaID == ZonaID)) return true;
-        //    return false;
-        //}
         #endregion
 
         #region Verificacion De Autenticidad
