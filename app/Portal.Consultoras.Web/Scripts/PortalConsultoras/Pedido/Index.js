@@ -2060,27 +2060,7 @@ function EjecutarServicioPROL() {
             if (!checkTimeout(response)) return;
             if (RespuestaEjecutarServicioPROL(response)) return;
 
-            AnalyticsGuardarValidar(response);
-            var cumpleOferta = CumpleOfertaFinalMostrar(
-                response.data.TotalConDescuento,
-                response.data.MontoEscala,
-                (response.data.Reserva || response.data.CodigoMensajeProl == "00") ? 1 : 2,
-                response.data.CodigoMensajeProl,
-                response.data.ListaObservacionesProl,
-                response.permiteOfertaFinal,
-                response.data.Reserva
-            );
-            if (cumpleOferta.resultado) return;
-
-            if (!response.data.Reserva) {
-                ShowPopupObservacionesReserva();
-                return;
-            }
-
-            if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
-            AnalyticsPedidoValidado(response);
-            $('#dialog_divReservaSatisfactoria').show();
-            RedirigirPedidoValidado();
+            MostrarMensajeProl(response, function () { return CumpleOfertaFinalMostrar(response.data, response.permiteOfertaFinal); });
         },
         error: function (data, error) { CerrarSplash(); }
     });
@@ -2095,14 +2075,13 @@ function EjecutarServicioPROLSinOfertaFinal() {
         data: { enviarCorreo: true },
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            if (!checkTimeout(response)) return;
-            
-            RespuestaEjecutarServicioPROL(response, false);
-            MostrarMensajeProl(response.data);
-        },
-        error: function (data, error) {
             CerrarSplash();
-        }
+            if (!checkTimeout(response)) return;
+            if (RespuestaEjecutarServicioPROL(response, false)) return;
+
+            MostrarMensajeProl(response, function () { return false; });
+        },
+        error: function (data, error) { CerrarSplash(); }
     });
 }
 
@@ -2207,23 +2186,20 @@ function ActualizarBtnGuardar(data) {
     $('#btnValidarPROL').val(data.Prol);
 }
 
-function MostrarMensajeProl(data) {
+function MostrarMensajeProl(response, fnOfertaFinal) {
     AnalyticsGuardarValidar(response);
+    var cumpleOferta = fnOfertaFinal(response);
+    if (cumpleOferta) return;
 
-    if (!data.Reserva) {
+    if (!response.data.Reserva) {
         ShowPopupObservacionesReserva();
-        CargarDetallePedido();
         return;
     }
-    if (!data.ZonaValida) {
-        showDialog("divReservaSatisfactoria3");
-        CargarDetallePedido();
-        return;
-    }
-    
-    $('#dialog_divReservaSatisfactoria').show(); //EPD-2278
+
+    if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
     AnalyticsPedidoValidado(response);
-    RedirigirPedidoValidado();    
+    $('#dialog_divReservaSatisfactoria').show();
+    RedirigirPedidoValidado();
 }
 
 function EliminarPedido() {

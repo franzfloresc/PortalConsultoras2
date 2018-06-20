@@ -154,23 +154,6 @@ function CloseLoadingOF() {
     else CloseLoading();
 }
 
-function EnviarCorreoPedidoReservado(fnSuccess) {
-    OpenLoadingOF();
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/EnviarCorreoPedidoReservado',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            CloseLoadingOF();
-            if (!checkTimeout(data)) return;
-
-            if ($.isFunction(fnSuccess)) fnSuccess();
-        },
-        error: function (data, error) { CloseLoadingOF(); }
-    });
-}
-
 function AgregarOfertaFinal(model) {
     var add;
     if (tipoOrigen == "1") add = AgregarProducto('PedidoInsertar', model, "", false, false);
@@ -1049,48 +1032,36 @@ function PopupOfertaFinalCerrar() {
         $("#divOfertaFinal").show();
     }
 
-    function CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl, permiteOfertaFinal, reservo) {
+    function CumpleOfertaFinalMostrar(data, permiteOfertaFinal) {
+        var tipoPopupMostrar = (data.Reserva || data.CodigoMensajeProl == "00") ? 1 : 2;
+        reservoPedidoInicio = data.Reserva;
+
         OpenLoadingOF();
-
-        reservoPedidoInicio = reservo;
-        var cumpleOferta = CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl, permiteOfertaFinal);
+        var cumpleOferta = CumpleOfertaFinal(permiteOfertaFinal);
         if (cumpleOferta.resultado) cumpleOferta.resultado = MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar);
+        CloseLoadingOF();
 
-        CloseLoadingOF()
-        return cumpleOferta;
+        return cumpleOferta.resultado;
     }
 
-    function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl, permiteOfertaFinal) {
-        var montoFaltante = 0;
-        var porcentajeDescuento = 0;
-        var tipoMeta = 0;
-        var _upselling = null;
-        var productoOfertaFinal = new Object();
+    function CumpleOfertaFinal(permiteOfertaFinal) {
+        tipoOfertaFinal_Log = tipoMeta || 0;
+        if (!permiteOfertaFinal) return { resultado: false };
 
         var tipoOfertaFinal = $("#hdOfertaFinal").val();
-        var esOfertaFinalZonaValida = ($("#hdEsOfertaFinalZonaValida").val() == "True");
         var esFacturacion = ($("#hdEsFacturacion").val() == "True");
+        var esOfertaFinalZonaValida = ($("#hdEsOfertaFinalZonaValida").val() == "True");
         var ofertaFinalActiva = (tipoOfertaFinal == "1" || tipoOfertaFinal == "2") && esFacturacion && esOfertaFinalZonaValida;
-        var mostrarOfertaFinal = false;
+        if (!ofertaFinalActiva) return { resultado: false };
 
-        if (ofertaFinalActiva) mostrarOfertaFinal = permiteOfertaFinal;
-        else CloseLoadingOF()
+        var listOF = ObtenerProductosOfertaFinal(tipoOfertaFinal).lista || new Array();
+        var hasItemsListOF = (listOF.length > 0);
+        var tipoMeta = hasItemsListOF ? listOF[0].TipoMeta : 0;
+        var _upselling = (hasItemsListOF && esUpselling) ? GetUpSelling() : null;
 
-        if (mostrarOfertaFinal) {
-            productoOfertaFinal = ObtenerProductosOfertaFinal(tipoOfertaFinal);
-            if (productoOfertaFinal.lista.length != 0) {
-                tipoMeta = productoOfertaFinal.lista[0].TipoMeta;
-                if (esUpselling) _upselling = GetUpSelling();
-            }
-        }
-
-        tipoOfertaFinal_Log = tipoMeta || 0;
         return {
-            resultado: mostrarOfertaFinal,
-            productosMostrar: productoOfertaFinal.lista || new Array(),
-            montoFaltante: montoFaltante,
-            porcentajeDescuento: porcentajeDescuento,
-            muestraGanaMas: 0,
+            resultado: true,
+            productosMostrar: listOF,
             tipoOfertaFinal_Log: tipoMeta,
             gap_Log: 0,
             upselling: _upselling

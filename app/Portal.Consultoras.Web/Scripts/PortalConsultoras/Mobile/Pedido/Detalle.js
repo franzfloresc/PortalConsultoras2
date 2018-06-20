@@ -898,7 +898,7 @@ function EjecutarServicioPROL() {
             CloseLoading();
             if (!checkTimeout(response)) return;
 
-            RespuestaEjecutarServicioPROL(response);
+            RespuestaEjecutarServicioPROL(response, function () { return CumpleOfertaFinalMostrar(response.data, response.permiteOfertaFinal); });
         },
         error: function (data, error) {
             CloseLoading();
@@ -921,7 +921,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
             CloseLoading();
             if (!checkTimeout(response)) return;
 
-            RespuestaEjecutarServicioPROL(response, false);
+            RespuestaEjecutarServicioPROL(response, function () { return false; });
         },
         error: function (data, error) {
             CloseLoading();
@@ -930,21 +930,12 @@ function EjecutarServicioPROLSinOfertaFinal() {
     });
 }
 
-function RespuestaEjecutarServicioPROL(response, inicio) {
+function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
     if (ConstruirObservacionesPROL(response.data)) return;
 
     AnalyticsGuardarValidar(response);
-    inicio = inicio == null || inicio == undefined ? true : inicio;
-    var cumpleOferta = !inicio ? { resultado: false } : CumpleOfertaFinalMostrar(
-        response.data.TotalConDescuento,
-        response.data.MontoEscala,
-        (response.data.Reserva || response.data.CodigoMensajeProl == "00") ? 1 : 2,
-        response.data.CodigoMensajeProl,
-        response.data.ListaObservacionesProl,
-        response.permiteOfertaFinal,
-        response.data.Reserva
-    );
-    if (cumpleOferta.resultado) return;
+    var cumpleOferta = fnOfertaFinal();
+    if (cumpleOferta) return;
     
     if (!response.data.Reserva) {
         ShowPopupObservacionesReserva();

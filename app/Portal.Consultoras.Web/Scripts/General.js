@@ -1704,7 +1704,9 @@ function EnviarCorreoPedidoReservado() {
         type: 'POST',
         url: baseUrl + 'Pedido/EnviarCorreoPedidoReservado',
         dataType: 'json',
-        contentType: 'application/json; charset=utf-8'
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        cache: false
     });
 }
 
