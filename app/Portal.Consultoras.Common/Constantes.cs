@@ -2177,7 +2177,7 @@ namespace Portal.Consultoras.Common
             public class SmsConsultoraWs
             {
                 public const string urlKey = "SmsConsultorasWS";
-                public const string RecursoApi = "/Api/EnviarSms";
+                public const string RecursoApi = "Api/EnviarSms";
             }
 
             public class Mensaje

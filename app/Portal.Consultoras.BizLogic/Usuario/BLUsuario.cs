@@ -2506,7 +2506,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 BEEnviarSms oCredencial = GetCredencialesSmsCache(paisID);
                 string codGenerado = Common.Util.GenerarCodigoRandom();
-                oCredencial.Mensaje = string.Format(oCredencial.Mensaje, codGenerado);               
+                oCredencial.Mensaje = string.Format(oCredencial.Mensaje, codGenerado);
 
                 var data = new
                 {
@@ -2528,7 +2528,6 @@ namespace Portal.Consultoras.BizLogic
                 string requestUrl = ConfigurationManager.AppSettings.Get(Constantes.EnviarSMS.SmsConsultoraWs.urlKey);
                 string urlApiSms = Constantes.EnviarSMS.SmsConsultoraWs.RecursoApi;
                 var result = new BERespuestaSMS();
-
                 HttpClient httpClient = new HttpClient();
                 httpClient.BaseAddress = new Uri(requestUrl);
                 httpClient.DefaultRequestHeaders.Accept.Clear();
