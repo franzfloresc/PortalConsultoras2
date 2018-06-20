@@ -895,19 +895,16 @@ function EjecutarServicioPROL() {
         async: true,
         cache: false,
         success: function (response) {
-            if (!checkTimeout(response)) return;            
+            CloseLoading();
+            if (!checkTimeout(response)) return;
+
             RespuestaEjecutarServicioPROL(response);
         },
         error: function (data, error) {
-            if (!checkTimeout(data)) return;
-
             CloseLoading();
             messageInfoMalo('<h3>Por favor, vuelva a intentarlo</h3>');
         }
     })
-    .always(function () {
-        CloseLoading();
-    });
 }
 
 function EjecutarServicioPROLSinOfertaFinal() {
@@ -921,12 +918,12 @@ function EjecutarServicioPROLSinOfertaFinal() {
         async: true,
         cache: false,
         success: function (response) {
-            if (!checkTimeout(response)) return;            
+            CloseLoading();
+            if (!checkTimeout(response)) return;
+
             RespuestaEjecutarServicioPROL(response, false);
         },
         error: function (data, error) {
-            if (!checkTimeout(data)) return;
-
             CloseLoading();
             messageInfoMalo('<h3>Por favor, vuelva a intentarlo</h3>')
         }
@@ -934,96 +931,58 @@ function EjecutarServicioPROLSinOfertaFinal() {
 }
 
 function RespuestaEjecutarServicioPROL(response, inicio) {
-    if (!model.ValidacionInteractiva) {
-        messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
-        return false;
-    }
+    if (ConstruirObservacionesPROL(response.data)) return;
 
+    AnalyticsGuardarValidar(response);
     inicio = inicio == null || inicio == undefined ? true : inicio;
-    var tipoMensaje;
-    var model = response.data;
-    var montoEscala = model.MontoEscala;
-    var montoPedido = model.Total - model.MontoDescuento;
-
-    $("hdfModificaPedido").val(model.EsModificacion == true ? "1" : "0");
-
-    ConstruirObservacionesPROL(model);
-
-    $('#btnGuardarPedido').text(model.Prol);
-    var tooltips = model.ProlTooltip.split('|');
-    $('.tooltip_noOlvidesGuardarTuPedido')[0].children[0].innerHTML = tooltips[0];
-    $('.tooltip_noOlvidesGuardarTuPedido')[0].children[1].innerHTML = tooltips[1];
-    codigoMensajeProl = inicio ? response.data.CodigoMensajeProl : "";
-
-    var cumpleOferta = { resultado: false };
-    if (!model.Reserva) {
-        if (inicio) {
-            tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
-            cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
-        }
-        if (!cumpleOferta.resultado) {
-            $('#modal-prol-botonesAceptarCancelar').hide();
-            $('#modal-prol-botoneAceptar').show();
-            $('#popup-observaciones-prol').show();
-            AnalyticsGuardarValidar(response);
-        }
-
-        CargarPedido();
-        return true;
+    var cumpleOferta = !inicio ? { resultado: false } : CumpleOfertaFinalMostrar(
+        response.data.TotalConDescuento,
+        response.data.MontoEscala,
+        (response.data.Reserva || response.data.CodigoMensajeProl == "00") ? 1 : 2,
+        response.data.CodigoMensajeProl,
+        response.data.ListaObservacionesProl,
+        response.permiteOfertaFinal,
+        response.data.Reserva
+    );
+    if (cumpleOferta.resultado) return;
+    
+    if (!response.data.Reserva) {
+        ShowPopupObservacionesReserva();
+        return;
     }
 
-    if (model.ZonaValida) {
-        if (inicio) cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
-
-        if (!cumpleOferta.resultado) {
-            messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
-            if (estaRechazado == "2") cerrarMensajeEstadoPedido();
-
-            AnalyticsGuardarValidar(response);
-            AnalyticsPedidoValidado(response);
-            RedirigirPedidoValidado();
-        }
-        return true;
-    }
-    if (inicio) cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
-
-    if (!cumpleOferta.resultado) {
-        messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
-        AnalyticsGuardarValidar(response);
-    }
-
-    CargarPedido();
-    return true;
+    if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
+    if (estaRechazado == "2") cerrarMensajeEstadoPedido();
+    AnalyticsPedidoValidado(response);
+    messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
+    RedirigirPedidoValidado();    
 }
 
 function ConstruirObservacionesPROL(model) {
-    var mensajePedido = "";
     if (model.ErrorProl) {
-        mensajePedido = model.ListaObservacionesProl[0].Descripcion;
-        $("#modal-prol-titulo").html(model.AvisoProl ? "AVISO" : "ERROR");
-        $("#modal-prol-contenido").html(mensajePedido);
-        return mensajePedido;
+        MostrarPopupErrorReserva(model.ListaObservacionesProl[0].Descripcion, model.AvisoProl);
+        return true;
+    }
+    var mensajeBloqueante = true;
+
+    if (!model.ZonaValida) messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
+    if (!model.ValidacionInteractiva) messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
+    else {
+        mensajeBloqueante = false;
+
+        if (model.ObservacionRestrictiva) CrearPopupObservaciones(model);
+        else ArmarPopupObsReserva(true, '¡LO <b>LOGRASTE</b>!', 'Tu pedido fue guardado con éxito. Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.');
     }
 
-    if (!model.ObservacionRestrictiva) {
-        $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').removeClass("icono_alerta exclamacion_icono_mobile");
-        $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').addClass("icono_alerta check_icono_mobile");
-        $('#popup-observaciones-prol .content_mensajeAlerta .titulo_compartir').html("¡LO <b>LOGRASTE</b>!");
-        mensajePedido += "Tu pedido fue guardado con éxito.";
-        $("#modal-prol-titulo").html(mensajePedido);
-        $("#modal-prol-contenido").html("Tu pedido fue guardado con éxito. Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
-        mensajePedido += " Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.";
-        return "-1 " + mensajePedido;
-    }
+    CargarPedido();
+    AlmacenarRespuestaReservaEnHidden(model);
+    ActualizarBtnGuardar(model);
+    return mensajeBloqueante;
+}
 
-    if (model.EsDiaProl) $("#modal-prol-titulo").html("IMPORTANTE");
-    else $("#modal-prol-titulo").html("AVISO");
-
-    var htmlObservacionesPROL = "<ul style='padding-left: 15px; list-style-type: none; text-align: center;'>";
-    if (model.ListaObservacionesProl.length == 0) {
-        htmlObservacionesPROL += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
-        mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
-    }
+function CrearPopupObservaciones(model) {
+    var mensaje = "<ul style='padding-left: 15px; list-style-type: none; text-align: center;'>";
+    if (model.ListaObservacionesProl.length == 0) mensaje += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
     else {
         $.each(model.ListaObservacionesProl, function (index, item) {
             if (model.CodigoIso == "BO" || model.CodigoIso == "MX") {
@@ -1032,21 +991,44 @@ function ConstruirObservacionesPROL(model) {
                 }
             }
 
-            if (item.Caso == 95 || item.Caso == 105) {
-                htmlObservacionesPROL += "<li>" + item.Descripcion + "</li>";
-                mensajePedido += item.Caso + " " + item.Descripcion + " ";
-            }
-            else {
-                htmlObservacionesPROL += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
-                mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
-            }
-            return false;
+            if (item.Caso == 95 || item.Caso == 105) mensaje += "<li>" + item.Descripcion + "</li>";
+            else mensaje += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
+
+            return false; //?????????????????????????????????????????
         });
     }
-    htmlObservacionesPROL += "</ul>";
+    mensaje += "</ul>";
 
-    $("#modal-prol-contenido").html(htmlObservacionesPROL);
-    return mensajePedido;
+    ArmarPopupObsReserva(false, model.EsDiaProl ? 'IMPORTANTE' : 'AVISO', mensaje)
+}
+
+function ArmarPopupObsReserva(esIconCheck, titulo, mensaje) {
+    $('#popup-observaciones-prol .content_mensajeAlerta .titulo_compartir').html(titulo);
+    $("#modal-prol-contenido").html(mensaje);
+
+    var objIcon = $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile');
+    objIcon.removeClass('check_icono_mobile exclamacion_icono_mobile');
+    objIcon.addClass(esIconCheck ? 'check_icono_mobile' : 'exclamacion_icono_mobile');
+}
+function MostrarPopupErrorReserva(mensajePedido, esAviso) {
+    if (typeof esAviso !== 'undefined') esAviso = false;
+    ArmarPopupObsReserva(false, esAviso ? 'AVISO' : 'ERROR', mensajePedido);
+
+    $('#popup-observaciones-prol').show();
+}
+
+function ShowPopupObservacionesReserva() {
+    $('#popup-observaciones-prol').show();
+}
+
+function AlmacenarRespuestaReservaEnHidden(model) {
+    $("hdfModificaPedido").val(model.EsModificacion == true ? "1" : "0");
+}
+function ActualizarBtnGuardar(model) {
+    var tooltips = model.ProlTooltip.split('|');
+    $('.tooltip_noOlvidesGuardarTuPedido')[0].children[0].innerHTML = tooltips[0];
+    $('.tooltip_noOlvidesGuardarTuPedido')[0].children[1].innerHTML = tooltips[1];
+    $('#btnGuardarPedido').text(model.Prol);
 }
 
 function AceptarObsInformativas() {

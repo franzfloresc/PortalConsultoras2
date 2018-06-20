@@ -2044,8 +2044,7 @@ function EsValidoMontoTotalReserva() {
     var total = parseFloat($('#hdfTotal').val());
     if (total != 0) return true;
 
-    CrearPopupErrorReserva(mensajePedidoVacio, true);
-    ShowPopupObservacionesReserva(true);
+    MostrarPopupErrorReserva(mensajePedidoVacio, true);
     if ($('#hdfEstadoPedido').val() == 1) EliminarPedido();
     return false;
 }
@@ -2057,9 +2056,11 @@ function EjecutarServicioPROL() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            if (!checkTimeout(response)) return;                        
+            CerrarSplash();
+            if (!checkTimeout(response)) return;
             if (RespuestaEjecutarServicioPROL(response)) return;
 
+            AnalyticsGuardarValidar(response);
             var cumpleOferta = CumpleOfertaFinalMostrar(
                 response.data.TotalConDescuento,
                 response.data.MontoEscala,
@@ -2069,22 +2070,17 @@ function EjecutarServicioPROL() {
                 response.permiteOfertaFinal,
                 response.data.Reserva
             );
-            
-            if (!response.data.Reserva) {
-                if (!cumpleOferta.resultado) ShowPopupObservacionesReserva(true);
-            }
-            else if (!cumpleOferta.resultado) {
-                $('#dialog_divReservaSatisfactoria').show();
-                if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
+            if (cumpleOferta.resultado) return;
 
-                AnalyticsGuardarValidar(response);
-                AnalyticsPedidoValidado(response);
-                RedirigirPedidoValidado();
+            if (!response.data.Reserva) {
+                ShowPopupObservacionesReserva();
                 return;
             }
 
-            AnalyticsGuardarValidar(response);
-            CerrarSplash();            
+            if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
+            AnalyticsPedidoValidado(response);
+            $('#dialog_divReservaSatisfactoria').show();
+            RedirigirPedidoValidado();
         },
         error: function (data, error) { CerrarSplash(); }
     });
@@ -2113,8 +2109,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
 function RespuestaEjecutarServicioPROL(data, inicio) {
     CerrarSplash();
     if (data.ErrorProl) {
-        mensajePedido = data.ListaObservacionesProl[0].Descripcion;
-        CrearPopupErrorReserva(mensajePedido, data.AvisoProl);
+        MostrarPopupErrorReserva(data.ListaObservacionesProl[0].Descripcion, data.AvisoProl);
         return true;
     }
     var mensajeBloqueante = true;
@@ -2132,42 +2127,44 @@ function RespuestaEjecutarServicioPROL(data, inicio) {
     else {
         mensajeBloqueante = false;
 
-        if (data.ListaObservacionesProl.length == 0) ArmarPopupObsReserva('¡Lo lograste! Tu pedido fue guardado con éxito', '');
-        else CrearPopupObservaciones(data, inicio);
+        if (!model.ObservacionRestrictiva) CrearPopupObservaciones(data, inicio);
+        else ArmarPopupObsReserva('¡Lo lograste! Tu pedido fue guardado con éxito', '');
     }
     
     CargarDetallePedido();
     AlmacenarRespuestaReservaEnHidden(data);
     ActualizarObjMontosTotales(data);
+    ActualizarBtnGuardar(data);
     return mensajeBloqueante;
 }
 
 function CrearPopupObservaciones(data, inicio) {
     inicio = inicio == null || inicio == undefined ? true : inicio;
-    $("#divTituloObservacionesPROL").html(data.EsDiaProl ? "Importante" : "Aviso");
-
     var html = "<ul>";
     var msgDefault = "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
     var msgDefaultCont = 0;
-
-    $.each(data.ListaObservacionesProl, function (index, item) {
-        if (data.CodigoIso == "BO" || data.CodigoIso == "MX") {
-            if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
-                item.Caso = 105;
+    
+    if (data.ListaObservacionesProl.length == 0) html += msgDefault;
+    else {
+        $.each(data.ListaObservacionesProl, function (index, item) {
+            if (data.CodigoIso == "BO" || data.CodigoIso == "MX") {
+                if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
+                    item.Caso = 105;
+                }
             }
-        }
 
-        if (item.Caso == 95 || item.Caso == 105 || (item.Caso == 0 && inicio)) {
-            html += "<li>" + item.Descripcion + "</li>";
-            return;
-        }
+            if (item.Caso == 95 || item.Caso == 105 || (item.Caso == 0 && inicio)) {
+                html += "<li>" + item.Descripcion + "</li>";
+                return;
+            }
 
-        if (msgDefaultCont == 0) html += html == msgDefault ? "" : msgDefault;
-        msgDefaultCont++;
-    });
+            if (msgDefaultCont == 0) html += html == msgDefault ? "" : msgDefault;
+            msgDefaultCont++;
+        });
+    }
     html += "</ul>";
 
-    $("#divMensajeObservacionesPROL").html(html);
+    ArmarPopupObsReserva(data.EsDiaProl ? 'Importante' : 'Aviso', html)
 }
 function AlmacenarRespuestaReservaEnHidden(data) {
     $("#hdfAccionPROL").val(data.Prol);
@@ -2202,7 +2199,8 @@ function ActualizarObjMontosTotales(data) {
         $("#divMontosEscalaDescuentoTexto").html('').hide();
         $("#divMontosEscalaDescuento").html('').hide();
     }
-
+}
+function ActualizarBtnGuardar(data) {
     var tooltips = data.ProlTooltip.split('|');
     $('.tooltip_importanteGuardarPedido')[0].children[0].innerHTML = tooltips[0];
     $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
@@ -2213,7 +2211,7 @@ function MostrarMensajeProl(data) {
     AnalyticsGuardarValidar(response);
 
     if (!data.Reserva) {
-        ShowPopupObservacionesReserva(true);
+        ShowPopupObservacionesReserva();
         CargarDetallePedido();
         return;
     }
@@ -3531,17 +3529,16 @@ function ArmarPopupObsReserva(titulo, mensaje) {
     $("#divTituloObservacionesPROL").html(titulo);
     $("#divMensajeObservacionesPROL").html(mensaje);
 }
-function CrearPopupErrorReserva(mensajePedido, esAviso) {
+function MostrarPopupErrorReserva(mensajePedido, esAviso) {
     if (typeof esAviso !== 'undefined') esAviso = false;
 
     if (esAviso) ArmarPopupObsReserva('Aviso', mensajePedido);
     else ArmarPopupObsReserva('Error', 'ERROR: ' + mensajePedido);
+
+    ShowPopupObservacionesReserva();
 }
 
-function ShowPopupObservacionesReserva(mostrarBoton) {
-    $('#DivObsBut').css({ "display": (mostrarBoton ? "block" : "none") });
-    $('#DivObsInfBut').css({ "display": (!mostrarBoton ? "block" : "none") });
-
+function ShowPopupObservacionesReserva() {
     showDialog("divObservacionesPROL");
     $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
 }

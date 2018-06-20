@@ -1704,13 +1704,7 @@ function EnviarCorreoPedidoReservado() {
         type: 'POST',
         url: baseUrl + 'Pedido/EnviarCorreoPedidoReservado',
         dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) { },
-        error: function (data, error) {
-            CerrarSplash();
-            if (checkTimeout(data)) {
-            }
-        }
+        contentType: 'application/json; charset=utf-8'
     });
 }
 

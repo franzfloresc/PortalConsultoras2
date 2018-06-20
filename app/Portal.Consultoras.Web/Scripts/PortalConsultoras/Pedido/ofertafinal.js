@@ -154,6 +154,23 @@ function CloseLoadingOF() {
     else CloseLoading();
 }
 
+function EnviarCorreoPedidoReservado(fnSuccess) {
+    OpenLoadingOF();
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/EnviarCorreoPedidoReservado',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            CloseLoadingOF();
+            if (!checkTimeout(data)) return;
+
+            if ($.isFunction(fnSuccess)) fnSuccess();
+        },
+        error: function (data, error) { CloseLoadingOF(); }
+    });
+}
+
 function AgregarOfertaFinal(model) {
     var add;
     if (tipoOrigen == "1") add = AgregarProducto('PedidoInsertar', model, "", false, false);
@@ -173,6 +190,7 @@ function PopupOfertaFinalCerrar() {
 
     if (agregoOfertaFinal) setTimeout(EjecutarServicioPROLSinOfertaFinal, 100);
     else if (reservoPedidoInicio) RedirigirPedidoValidado();
+    else ShowPopupObservacionesReserva();
 }
 
     function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
@@ -1033,9 +1051,12 @@ function PopupOfertaFinalCerrar() {
 
     function CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl, permiteOfertaFinal, reservo) {
         OpenLoadingOF();
+
         reservoPedidoInicio = reservo;
         var cumpleOferta = CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl, permiteOfertaFinal);
         if (cumpleOferta.resultado) cumpleOferta.resultado = MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar);
+
+        CloseLoadingOF()
         return cumpleOferta;
     }
 
@@ -1093,11 +1114,8 @@ function PopupOfertaFinalCerrar() {
                 if (response.success) lista = response.data;
             },
             error: function (data, error) {
-                if (tipoOrigen == "1") CerrarSplash()
-                else CloseLoading();
-                if (checkTimeout(data)) {
-                    lista = null;
-                }
+                CloseLoadingOF();
+                if (checkTimeout(data)) lista = null;
             }
         });
         return { lista: lista };
@@ -1236,9 +1254,7 @@ function PopupOfertaFinalCerrar() {
             UpSellingDetalleId: id
         };
 
-        if (tipoOrigen == "1") AbrirSplash();
-        else ShowLoading();
-
+        OpenLoadingOF();
         jQuery.ajax({
             type: 'POST',
             url: baseUrl + 'UpSelling/GuardarRegalo',
@@ -1289,30 +1305,21 @@ function PopupOfertaFinalCerrar() {
                                 }
                             }
                         }
-                        else if (response.code == -1) {
-                            alert("El producto elegido no cuenta con stock");
-                        }
+                        else if (response.code == -1) alert("El producto elegido no cuenta con stock");
 
-                        if (tipoOrigen == "1") CerrarSplash();
-                        else CloseLoading();
+                        CloseLoadingOF();
                     }
                     else {
                         alert("No se pudo guardar el producto elegido");
-
-                        if (tipoOrigen == "1") CerrarSplash();
-                        else CloseLoading();
+                        CloseLoadingOF();
                     }
                 }
             },
             error: function (data, error) {
                 alert("No se pudo procesar la operacion");
+                CloseLoadingOF();
 
-                if (tipoOrigen == "1") CerrarSplash();
-                else CloseLoading();
-
-                if (checkTimeout(data)) {
-                    console.log(error);
-                }
+                if (checkTimeout(data)) console.log(error);
             }
         });
 
