@@ -1749,7 +1749,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (tablaLogicaDatos != null)
             {
-                codigoRevista = tablaLogicaDatos.Codigo;
+                codigoRevista = Util.Trim(tablaLogicaDatos.Codigo);
             }
 
             return codigoRevista;
@@ -2827,7 +2827,8 @@ namespace Portal.Consultoras.Web.Controllers
                 textoRecuperacion = !string.IsNullOrEmpty(textoRecuperacion) ? textoRecuperacion : Convert.ToString(TempData["CodigoUsuario"]);
 
                 BEUsuarioCorreo oUsuCorreo = DatosUsuarioCorreo(paisId, textoRecuperacion, nroOpcion);
-                ViewBag.HabilitarChatEmtelco = oUsuCorreo.HabilitarChatEmtelco;
+                ViewBag.HabilitarChatEmtelco = (oUsuCorreo == null) ? false : oUsuCorreo.HabilitarChatEmtelco;
+
                 return Json(new
                 {
                     success = true,
@@ -2869,12 +2870,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     if (datos != null)
                         SetTemData(datos, paisId);
-                    else
-                        return datos;
                 }
 
-                if (datos.Cantidad != 0)
-                    return datos;
+                if (datos == null) return datos;
+                if (datos.Cantidad == 0) return datos;
 
                 datos.resultado = "";
                 datos.EsMobile = EsDispositivoMovil();
@@ -2991,6 +2990,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 if (nroOpcion == 4) datos.resultado = "prioridad3";
+
+
                 return datos;
             }
             catch (FaultException ex)
