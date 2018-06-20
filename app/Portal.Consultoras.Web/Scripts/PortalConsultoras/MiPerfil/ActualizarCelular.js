@@ -12,8 +12,42 @@
         IsoPais: IsoPais
     };
 
+    me.Elements = (function() {
+        function getInputCelular() {
+            return $('#NuevoCelular');
+        }
+
+        function getButtonContinuar() {
+            return $('.btn_continuar');
+        }
+
+        function getIconValidacionSms() {
+            return $('.icono_validacion_codigo_sms');
+        }
+
+        function getErrorText() {
+            return $('.text-error');
+        }
+
+        function getInputsCodeSms() {
+            return $('.campo_ingreso_codigo_sms');
+        }
+
+        function getResenCode() {
+            return $('.enlace_reenviar_instrucciones');
+        }
+
+        return {
+            getInputCelular: getInputCelular,
+            getButtonContinuar: getButtonContinuar,
+            getIconValidacionSms: getIconValidacionSms,
+            getErrorText: getErrorText,
+            getInputsCodeSms: getInputsCodeSms,
+            getResenCode: getResenCode
+        };
+    })();
     me.Services = (function() {
-        function enviarSmsCode (numero) {
+        function enviarSmsCode(numero) {
             return $.ajax({
                 url: urls.enviarSmsCodigo,
                 method: 'POST',
@@ -23,7 +57,7 @@
             });
         };
 
-        function confirmarSmsCode (code) {
+        function confirmarSmsCode(code) {
             return $.ajax({
                 url: urls.confirmarSmsCode,
                 method: 'POST',
@@ -119,9 +153,15 @@
             return { Success: true };
         }
 
+        function setDisabledSmsCodeInput(disabled) {
+            me.Elements.getInputsCodeSms().each(function() {
+                $(this).prop('disabled', disabled);
+            });
+        }
+
         function getSmsCode() {
             var code = '';
-            $('.campo_ingreso_codigo_sms').each(function() {
+            me.Elements.getInputsCodeSms().each(function() {
                 code += $(this).val();
             });
 
@@ -130,14 +170,14 @@
 
         function setSmsCode(value) {
             value = value || '';
-            $('.campo_ingreso_codigo_sms').each(function(idx) {
+            me.Elements.getInputsCodeSms().each(function(idx) {
                 var char = value.charAt(idx);
                 $(this).val(char);
             });
         }
 
         function markSmsCodeStatus(valid) {
-            var icon = $('.icono_validacion_codigo_sms');
+            var icon = me.Elements.getIconValidacionSms();
 
             icon.show();
             if (!valid) {
@@ -185,7 +225,7 @@
         }
 
         function showError(text) {
-            $('.text-error').text(text);
+            me.Elements.getErrorText().text(text);
         }
 
         function verifySmsCode(code) {
@@ -193,7 +233,8 @@
                 return;
             }
 
-            var resultSmsCode = function(r) {
+            var successConfirmarSmsCode = function(r) {
+                setDisabledSmsCodeInput(false);
                 if (!r.Success) {
                     me.Funciones.MarkSmsCodeStatus(false);
 
@@ -201,15 +242,18 @@
                 }
 
                 me.Funciones.MarkSmsCodeStatus(true);
-
                 setTimeout(function() {
                         me.Funciones.NavigatePanel(2);
                     },
                     1000);
             };
 
+            setDisabledSmsCodeInput(true);
             me.Services.confirmarSmsCode(code)
-                .then(resultSmsCode, me.Funciones.HandleError);
+                .then(successConfirmarSmsCode, function(er) {
+                    setDisabledSmsCodeInput(false);
+                    me.Funciones.HandleError(er);
+                });
         }
 
         function navigatePanel(index) {
@@ -247,7 +291,7 @@
     })();
     me.Eventos = (function() {
         function continuar() {
-            var nuevoCelular = $('#NuevoCelular').val();
+            var nuevoCelular = me.Elements.getInputCelular().val();
 
             var result = me.Funciones.ValidarCelular(nuevoCelular);
             if (!result.Success) {
@@ -257,19 +301,26 @@
 
             localData.CelularNuevo = nuevoCelular;
             me.Funciones.SetSmsCode('');
-            me.Services.enviarSmsCode(nuevoCelular)
-                .then(function(r) {
-                    localData.CelularValido = r.Success;
-                    if (!r.Success) {
-                        me.Funciones.ShowError(r.Message);
-                        return;
-                    }
-                    me.Funciones.NavigatePanel(1);
-                    $('.icono_validacion_codigo_sms').hide();
-                    me.Funciones.ShowError('');
+            me.Elements.getButtonContinuar().prop('disabled', true);
 
-                    me.Funciones.InitCounter();
-                }, me.Funciones.HandleError);
+            var successEnviarSmsCode = function(r) {
+                localData.CelularValido = r.Success;
+                if (!r.Success) {
+                    me.Funciones.ShowError(r.Message);
+                    return;
+                }
+                me.Funciones.NavigatePanel(1);
+                me.Elements.getIconValidacionSms().hide();
+                me.Funciones.ShowError('');
+                me.Funciones.InitCounter();
+                me.Elements.getButtonContinuar().prop('disabled', false);
+            };
+
+            me.Services.enviarSmsCode(nuevoCelular)
+                .then(successEnviarSmsCode, function(er) {
+                        me.Elements.getButtonContinuar().prop('disabled', false);
+                        me.Funciones.HandleError(er);
+                    });
         }
 
         function backEdiNumber() {
