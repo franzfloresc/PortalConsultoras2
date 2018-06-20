@@ -5,7 +5,6 @@ using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.PagoEnLinea;
@@ -15,6 +14,7 @@ using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -2385,6 +2385,11 @@ namespace Portal.Consultoras.Service
         public List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario)
         {
             return _pedidoAppBusinessLogic.GetEstrategiaCarrusel(usuario);
+        }
+
+        public BEUsuario GetConfiguracionOfertaFinal(BEUsuario usuario)
+        {
+            return _pedidoAppBusinessLogic.GetConfiguracionOfertaFinal(usuario);
         }
         #endregion
 

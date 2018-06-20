@@ -618,28 +618,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 else code = (enumReserva + 2020).ToString();
 
                 var obsPedido = ObtenerMensajePROLAnalytics(resultadoReserva.ListPedidoObservacion);
-                var obsByCuv = ObtenerMensajePROLByCuv(resultadoReserva.ListPedidoObservacion);
+                //var obsByCuv = ObtenerMensajePROLByCuv(resultadoReserva.ListPedidoObservacion);
 
-                //Obtener datos Oferta Final
-                var lstCodigo = string.Format("{0}|{1}|{2}", Constantes.ConfiguracionPais.OfertaFinalTradicional, Constantes.ConfiguracionPais.OfertaFinalCrossSelling, Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa);
-                usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, lstCodigo);
-                //Obtener datos Revista Digital
-                usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.RevistaDigital);
-
-                //Obtener Pedido Web Detalle
-                var pedidoID = 0;
-                var pedidoBuscar = new BEPedidoAppBuscar()
-                {
-                    PaisID = usuario.PaisID,
-                    CampaniaID = usuario.CampaniaID,
-                    ConsultoraID = usuario.ConsultoraID,
-                    NombreConsultora = usuario.Nombre,
-                    CodigoPrograma = usuario.CodigoPrograma,
-                    ConsecutivoNueva = usuario.ConsecutivoNueva
-                };
-                var lstDetalle = ObtenerPedidoWebDetalle(pedidoBuscar, out pedidoID);
-
-                return PedidoReservaRespuesta(code, obsPedido, obsByCuv, resultadoReserva, usuario, lstDetalle);
+                return PedidoReservaRespuesta(code, obsPedido, resultadoReserva);
             }
             catch (Exception ex)
             {
@@ -715,6 +696,26 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
 
             return lstEstrategia ?? new List<BEEstrategia>();
+        }
+
+        public BEUsuario GetConfiguracionOfertaFinal(BEUsuario usuario)
+        {
+            try
+            {
+                //Obtener datos Oferta Final
+                var lstCodigo = string.Format("{0}|{1}|{2}", Constantes.ConfiguracionPais.OfertaFinalTradicional, 
+                                                                Constantes.ConfiguracionPais.OfertaFinalCrossSelling, 
+                                                                Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa);
+                usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, lstCodigo);
+                //Obtener datos Revista Digital
+                usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.RevistaDigital);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, usuario.PaisID, usuario.CodigoUsuario);
+            }
+
+            return usuario;
         }
         #endregion
 
@@ -1283,8 +1284,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         }
 
         private BEPedidoReservaAppResult PedidoReservaRespuesta(string codigoRespuesta, string mensajeRespuesta = null,
-            List<BEPedidoObservacion> observaciones = null, BEResultadoReservaProl resultadoReserva = null, BEUsuario usuario = null,
-            List<BEPedidoWebDetalle> pedidoDetalle = null)
+            BEResultadoReservaProl resultadoReserva = null)
         {
             LogPerformance("Fin");
             LogPerformance(string.Empty);
@@ -1297,10 +1297,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     codigoRespuesta == Constantes.PedidoAppValidacion.Code.SUCCESS_GUARDAR_OBS ?
                                     Constantes.PedidoAppValidacion.Code.SUCCESS : codigoRespuesta),
                 MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoAppValidacion.Message[codigoRespuesta] : mensajeRespuesta,
-                Observaciones = observaciones,
                 ResultadoReserva = resultadoReserva,
-                Usuario = usuario,
-                PedidoDetalle = pedidoDetalle
             };
         }
         #endregion
