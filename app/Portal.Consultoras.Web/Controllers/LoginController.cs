@@ -2868,11 +2868,8 @@ namespace Portal.Consultoras.Web.Controllers
                         SetTemData(datos, paisId);
                 }
 
-                if (datos == null)
-                    return datos;
-
-                if (datos.Cantidad == 0)
-                    return datos;
+                if (datos == null) return datos;
+                if (datos.Cantidad == 0) return datos;
 
                 datos.resultado = "";
                 datos.EsMobile = EsDispositivoMovil();
