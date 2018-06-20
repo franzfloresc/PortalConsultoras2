@@ -20,7 +20,8 @@
     padding: 0;
 }
 
-.aviso_privacidad {
+.aviso_privacidad,
+.enlace_solicitud a{
     color: #959595;
     font-family: lato;
     font-size: 12px;
@@ -28,6 +29,51 @@
     text-align: right;
     text-decoration: none;
 }
+
+.wrapper_lista_enlaces_solicitudes,
+.lista_enlaces_solicitudes,
+.enlace_solicitud a
+{
+    display:block;
+}
+
+.wrapper_lista_enlaces_solicitudes{
+    width: 100%;
+    position: absolute;
+    bottom: 34px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.lista_enlaces_solicitudes{
+    margin:0;
+    list-style-type:none;
+}
+
+.enlace_solicitud{
+    display:inline-block;
+    border-right:1px solid #959595;
+}
+
+.enlace_solicitud:last-child{
+    border-right:0;
+}
+
+.enlace_solicitud a{
+    padding-left:5px;
+    padding-right:5px;
+    text-align:center;
+}
+
+ .enlace_solicitud a:hover,
+ .enlace_solicitud a:focus,
+ .enlace_solicitud a:active
+ {
+     color:#959595;
+     text-decoration:underline;
+ }
 
 #container, #content, .nav, .top .logo-lbel {
     position: relative;
@@ -232,7 +278,7 @@ span {
 
 .webForm {
     max-width: 349px;
-    padding: 45px 18% 36px;
+    padding: 37px 18% 36px;
 }
 
     .webForm .title {
@@ -353,7 +399,7 @@ span {
         letter-spacing: .5px;
         font-size: 13px;
         font-weight: 700;
-        margin-top: 20px;
+        margin-top: 7px;
         border-radius: 2px;
     }
 
@@ -455,7 +501,7 @@ span {
 }
 
 .boxform .admin {
-    margin-top: 28px;
+    margin-top: 18px;
     text-align: left;
 }
 

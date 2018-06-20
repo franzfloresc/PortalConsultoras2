@@ -995,42 +995,6 @@
                 <a href="@Url.Action("Admin", "Login")" onclick="return RedirectAdministrador();" rel="menu-superior" title="Administrador">INGRESA COMO <strong>ADMINISTRADOR</strong></a>
             </div>
         </div>
-
-        <div class="boxform float_r">
-            <div class="formbtn">
-                <div style="padding-left: 4px;">
-                    <a id="AvisoASP" class="aviso_privacidad" href="javascript:void(0)" style="display: none;">Aviso de Privacidad | </a>
-                </div>
-            </div>
-        </div>
-        <div class="boxform float_r">
-            <div class="formbtn">
-                <label for="">
-                    <a id="btnAccesoUrl" href="javascript:void(0);" target="_blank" style="display: none;">Acceso | </a>
-                </label>
-            </div>
-        </div>
-        <div class="boxform float_r">
-            <div class="formbtn">
-                <label for="">
-                    <a id="btnCancelacionUrl" href="javascript:void(0);" target="_blank" style="display: none;">Cancelación | </a>
-                </label>
-            </div>
-        </div>
-        <div class="boxform float_r">
-            <div class="formbtn">
-                <label for="">
-                    <a id="btnOposicionUrl" href="javascript:void(0);" target="_blank" style="display: none;">Oposición | </a>
-                </label>
-            </div>
-        </div>
-        <div class="boxform float_r">
-            <div class="formbtn">
-                <label for="">
-                    <a id="btnRectificacionUrl" href="javascript:void(0);" target="_blank" style="display: none;">Rectificación</a>
-                </label>
-            </div>
-        </div>
         <p>&nbsp;</p>
         <div class="boxform" id="VinculoTarjetaHelm">
             <div class="admin" style="margin-top:14px !important">
@@ -1041,7 +1005,25 @@
         </div>
     </div>
     }
-
+    <div class="wrapper_lista_enlaces_solicitudes">
+        <ul class="lista_enlaces_solicitudes">
+            <li class="enlace_solicitud">
+                <a id="AvisoASP" href="javascript:void(0)">Aviso de Privacidad</a>
+            </li>
+            <li class="enlace_solicitud">
+                <a id="btnAccesoUrl" href="javascript:void(0);" target="_blank">Acceso</a>
+            </li>
+            <li class="enlace_solicitud">
+                <a id="btnCancelacionUrl" href="javascript:void(0);" target="_blank">Cancelación</a>
+            </li>
+            <li class="enlace_solicitud">
+                <a id="btnOposicionUrl" href="javascript:void(0);" target="_blank" style="display: none;">Oposición</a>
+            </li>
+            <li class="enlace_solicitud">
+                <a id="btnRectificacionUrl" href="javascript:void(0);" target="_blank" style="display: none;">Rectificación</a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <div id="popupAsociarUsuarioExt" class="content_pop_login" style="display: none;">
