@@ -212,6 +212,8 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     listaCUVsAEvaluar.AddRange(cuvHijos.Where(x => x.SetID == item.SetID).Select(x => x.CUV));
                 }
+                else
+                    listaCUVsAEvaluar.Add(item.CUV);
 
                 var temp = observaciones.Where(o => listaCUVsAEvaluar.Contains(o.CUV)).ToList();
 

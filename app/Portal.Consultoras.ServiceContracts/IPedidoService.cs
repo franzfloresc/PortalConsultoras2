@@ -1252,7 +1252,7 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
-
+        
         [OperationContract]
         BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
 

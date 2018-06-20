@@ -2686,12 +2686,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     if (datos != null)
                         SetTemData(datos, paisId);
-                    else
-                        return datos;
                 }
 
-                if (datos.Cantidad == 0)
-                    return datos;
+                if (datos == null) return datos;
+                if (datos.Cantidad == 0) return datos;
                 datos.resultado = "";
                 datos.EsMobile = EsDispositivoMovil();
 
@@ -2726,7 +2724,8 @@ namespace Portal.Consultoras.Web.Controllers
                     if (mostrarChat && habilitarChat)
                         datos.resultado = "prioridad2_chat";
 
-                    if (datos.resultado == "") nroOpcion = 3;
+                    if (datos.resultado == "")
+                        nroOpcion = 3;
                 }
 
                 if (nroOpcion == 3)
@@ -2799,11 +2798,18 @@ namespace Portal.Consultoras.Web.Controllers
                                     datos.TelefonoCentral = "0501-2352677"; break;
                                 }
                         }
-                        if (datos.TelefonoCentral.Length > 0) datos.resultado = "prioridad2_llamada";
+
+                        if (datos.TelefonoCentral.Length > 0)
+                            datos.resultado = "prioridad2_llamada";
                     }
-                    if (datos.resultado == "") nroOpcion = 4;
+
+                    if (datos.resultado == "")
+                        nroOpcion = 4;
                 }
-                if (nroOpcion == 4) datos.resultado = "prioridad3";
+
+                if (nroOpcion == 4)
+                    datos.resultado = "prioridad3";
+
                 return datos;
             }
             catch (FaultException ex)
@@ -2814,6 +2820,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 logManager.LogErrorWebServicesBusWrap(ex, textoRecuperacion, Util.GetPaisISO(paisId), string.Empty);
             }
+
             return null;
         }
 
