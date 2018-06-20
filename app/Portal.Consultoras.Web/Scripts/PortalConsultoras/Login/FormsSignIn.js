@@ -66,6 +66,10 @@ $(document).ready(function () {
     
     if (avisoASP == 1) {
         $('#AvisoASP').hide();
+        $('#btnAccesoUrl').hide();        
+        $('#btnCancelacionUrl').hide();        
+        $('#btnOposicionUrl').hide();        
+        $('#btnRectificacionUrl').hide();        
     }
     else {
         $('#AvisoASP').css({
@@ -77,6 +81,11 @@ $(document).ready(function () {
             'text-alig': 'right',
             'text-decoration': 'none'
         });
+
+        $('#btnAccesoUrl').css({ 'display': 'block'});  
+        $('#btnCancelacionUrl').css({ 'display': 'block' });
+        $('#btnOposicionUrl').css({ 'display': 'block' });
+        $('#btnRectificacionUrl').css({ 'display': 'block' });  
     }
 
     if (banderaOk == 'True') {
@@ -94,8 +103,20 @@ $(document).ready(function () {
         imgISO = $("#ddlPais").val();
         analytics.invocarAnalyticsByCodigoIso(imgISO);
 
-        if ($("#ddlPais").val() == "MX") $("#AvisoASP").show();
-        else $("#AvisoASP").hide();
+        if ($("#ddlPais").val() == "MX") {
+            $("#AvisoASP").show();
+            $("#btnAccesoUrl").show();
+            $("#btnCancelacionUrl").show();
+            $("#btnOposicionUrl").show();
+            $("#btnRectificacionUrl").show();
+        } else {
+            $("#AvisoASP").hide();
+            $("#btnAccesoUrl").hide();
+            $("#btnCancelacionUrl").hide();
+            $("#btnOposicionUrl").hide();
+            $("#btnRectificacionUrl").hide();
+        };
+
         if (imgISO == "PA") $("#footer_esika").hide();
         else $("#footer_esika").show();
         if ($("#ddlPais").val() == "CO") $("#VinculoTarjetaHelm").show();
@@ -360,7 +381,19 @@ $(document).ready(function () {
         indicadorPin = 1;
         RecuperarContrasenia();
     });
+    
+    $('#btnAccesoUrl').click(function () { EnlaceUrlsDocumentos('btnAccesoUrl', urlAcceso); });
+
+    $('#btnCancelacionUrl').click(function () { EnlaceUrlsDocumentos('btnCancelacionUrl', urlCancelacion); });
+
+    $('#btnOposicionUrl').click(function () { EnlaceUrlsDocumentos('btnOposicionUrl', urlOposicion); });
+
+    $('#btnRectificacionUrl').click(function () { EnlaceUrlsDocumentos('btnRectificacionUrl', urlRectificacion); });
 });
+
+function EnlaceUrlsDocumentos(id, enlace) {
+    $('#' + id).attr('href', enlace);
+}
 
 function Inicializar()
 {
