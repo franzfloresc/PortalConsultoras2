@@ -1,9 +1,11 @@
-﻿@section styles{
+﻿@model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
+
+@section styles{
     <link href="@Url.Content("~/Content/Css/Site/DetalleSetProductos/DetalleSetProductos.css")" rel="stylesheet" />
 }
 
 <div class="contenedor_detalle texto_font">
-    <div class="contenedor_fichas">
+    <div class="contenedor_fichas" data-item="">
         <div class="contenedor_ficha_etiquetas">
             <div class="contenedor_etiqueta_odd">
                 <div id="clock" class="clock_odd"></div>
@@ -22,6 +24,19 @@
                     <span data-texto_referencial="">* Foto Referencial</span>
                 </div>
                 <div class="ficha_redes_sociales">
+                    <div data-compartir-campos="" style="display:none;">
+                        <input type="hidden" class="CUV" value="@Model.CUV2" />
+                        <input type="hidden" class="rsFBMensaje" value="" />
+                        <input type="hidden" class="rsWAMensaje" value="" />
+                        <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
+                        <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
+                        <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+                        <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+                        <input type="hidden" class="Nombre" value="@Model.DescripcionResumen" />
+                        <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionDetalle" />
+                        <input type="hidden" class="Volumen" value="" />
+                        <input type="hidden" class="Palanca" value="" />
+                    </div>
                     <div class="texto_redes_sociales">Comparte este producto con tus clientes</div>
                     <a class="btn_compartir_facebook" href="javascript:;" data-compartir="FB">
                         <img class="contenedor_img" src="/Content/Images/Esika/facebook.png">
