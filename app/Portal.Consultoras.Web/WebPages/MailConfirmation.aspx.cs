@@ -5,8 +5,10 @@ using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.SessionManager;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -14,11 +16,19 @@ namespace Portal.Consultoras.Web.WebPages
     {
         private ISessionManager sessionManager;
         private readonly LogDynamoProvider logDynamoProvider;
+        private readonly List<string> listUrlCss;
 
         public MailConfirmation()
         {
             sessionManager = SessionManager.SessionManager.Instance;
             logDynamoProvider = new LogDynamoProvider();
+            listUrlCss = new List<string> {
+                "../Content/Css/Site/{0}/reset.css",
+                "../Content/Css/Site/{0}/style.css",
+                "../Content/Css/Site/{0}/mi-perfil.css",
+                "../Content/Css/Site/{0}/styleDefault.css",
+                "../Content/Css/ui.jquery/{0}/jquery-ui.css"
+            };
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -63,13 +73,20 @@ namespace Portal.Consultoras.Web.WebPages
         {
             var urlPortal = ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteSE];
             var area = EsDispositivoMovil() ? "/Mobile" : "";
-            linkregresarasomosbelcorp.NavigateUrl = urlPortal + area + "/MiPerfil/Index";
+            linkMainPage.NavigateUrl = urlPortal + area + "/MiPerfil/Index";
         }
 
         private void SetStyle(string paisISO, string codigoUsuario)
         {
-            var esEsika = WebConfig.PaisesEsika.Contains(paisISO);                
-            txtmarca.Text = esEsika ? "esika" : "lbel";
+            var marca = WebConfig.PaisesEsika.Contains(paisISO) ? "Esika" : "Lbel";
+            foreach (var urlCss in listUrlCss)
+            {
+                var link = new HtmlLink();
+                link.Href = string.Format(urlCss, marca);
+                link.Attributes.Add("rel", "stylesheet");
+                link.Attributes.Add("type", "text/css");
+                Page.Header.Controls.Add(link);
+            }
         }
 
         private void GuardarLogDynamo(BEUsuario usuarioActual, string correoNuevo)
