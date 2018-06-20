@@ -45,6 +45,7 @@
     right: 0;
     margin: 0 auto;
     text-align: center;
+    z-index:10001;
 }
 
 .lista_enlaces_solicitudes{
@@ -1698,7 +1699,14 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .fondo_form {
-        display: none;
+        width:100%;
+        position:fixed;
+    }
+
+    .wrapper_lista_enlaces_solicitudes{
+        width:111%;
+        bottom:34px;
+        left:-18px;
     }
 
     #cuadro1 {
@@ -2105,10 +2113,6 @@ h1, h2, h3, h4, h5, h6 {
         width: 100%;
     }
 
-    .webForm {
-        padding-bottom: 10px;
-    }
-
     .footer .footerWrap .logosRight a {
         padding-right: 0;
     }
@@ -2118,6 +2122,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .webForm {
+        padding-bottom: 10px;
         padding-left: 20px;
         padding-right: 20px;
     }
@@ -2128,6 +2133,10 @@ h1, h2, h3, h4, h5, h6 {
 
     #cuadro1, #cuadro2 {
         zoom: 68%;
+    }
+
+    .wrapper_lista_enlaces_solicitudes{
+        bottom:13px;
     }
 }
 
@@ -2157,6 +2166,21 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+@media screen and (max-width:329px){
+
+    .wrapper_lista_enlaces_solicitudes {
+        bottom: -17px;
+    }
+
+    .enlace_solicitud{
+        margin-bottom:7px;
+    }
+
+    .content-right{
+        margin-top:19px;
+    }
+
+}
 
 @media only screen and (max-width : 320px) {
     .content-alerta-red-clave {
