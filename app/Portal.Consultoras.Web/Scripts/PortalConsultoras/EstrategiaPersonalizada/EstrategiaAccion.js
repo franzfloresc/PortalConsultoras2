@@ -431,6 +431,7 @@ function EstrategiaAgregar(event, popup, limite) {
         OrigenPedidoWeb: $.trim(origenPedidoWebEstrategia),
         TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
         FlagNueva: $.trim(estrategia.FlagNueva)
+        // ClienteID_:
     };
 
     estrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function (data) {

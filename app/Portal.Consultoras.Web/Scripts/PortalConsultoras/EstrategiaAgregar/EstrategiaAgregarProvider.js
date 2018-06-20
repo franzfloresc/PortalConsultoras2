@@ -11,6 +11,7 @@
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(params),
             async: true,
+            cache: false,    
             success: function(data) {
                 dfd.resolve(data);
             },
