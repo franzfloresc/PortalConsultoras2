@@ -159,9 +159,6 @@
                 <asp:TextBox ID="txtmarca" runat="server" CssClass="txttexto"></asp:TextBox>
             </form>
             <div style="display:none;">
-                <asp:Label ID="lblConfirmacion" runat="server"></asp:Label>
-            </div>
-            <div style="display:none;">
                 <asp:HyperLink ID="linkregresarasomosbelcorp" runat="server" CssClass="btnCambiarContrasenia" style="text-align: center;">IR A SOMOS BELCORP</asp:HyperLink>
             </div>
             <div class="correo_actualizado text-center correo_actualizado_paddingMobile">
@@ -170,71 +167,11 @@
                     ¡Actualizaste <span class="text-bold">tu correo</span>!
                 </h1>
                 <p class="mensaje_correo_actualizado">
-                    @Html.Raw(ViewBag.Mensaje)
+                    <asp:Label ID="lblConfirmacion" runat="server"></asp:Label>
                 </p>
                 <a href="@Url.Action("Index")" class="btn_acept text-uppercase text-bold default-background-color">Ok</a>
             </div>
         </div>
     </section>
-<%--    <header>
-        <div class="wrapper_header">
-            <div class="fondo_oscuro"></div>
-            <div class="logo_esika logoEsikaActualizarContrasenia">
-                <a href="#"></a>
-            </div>
-        </div>
-        <div class="clear"></div>
-    </header>
-    <div id="loadingScreen"></div>
- <div class="ubicacion_web ActivacionCorreo">
-        
-    </div>
-    <div class="content" style="padding-top:20px">
-        <div class="fondo_f9f9f9">
-            <div class="content_belcorp">
-                <div class="fondo_negro_lateral"></div>
-                <div class="titulo_interiores "><span>ACTIVACIÓN DE CORREO</span></div>
-            </div>
-            <hr class="clear" />
-            <div class="linea_separadora" style="margin-top: -1px"></div>
-        </div>
-
-        <div class="content_belcorp">
-            <div class="pestana_lbel "></div>
-            <!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
-        <div class="contenedor_actualizarContraseniaForm" id="divFormularioActualizacion">
-                
-                    <form id="frmractivarcorreo" runat="server" >
-                        <div style="display: none;">
-                            <asp:TextBox ID="txtmarca" runat="server" CssClass="txttexto"></asp:TextBox>
-                        </div>
-                        
-                    </form>
-
-                <div class="campos_actualizacionContrasenia" id="divActualizacionCorrecta" >
-                    <div class="saludoConsultora"> <asp:Label ID="lblConfirmacion" runat="server"></asp:Label></div>
-                    
-                 
-                    <span class="cambiarContraseniaTexto"></span>
-                    <div class="formulario_actualizarContrasenia">
-                        <asp:HyperLink ID="linkregresarasomosbelcorp" runat="server" CssClass="btnCambiarContrasenia" style="text-align: center;">IR A SOMOS BELCORP</asp:HyperLink>
-                    </div>
-                </div>
-          </div>  
-        </div>
-        <hr class="clear">
-    </div>
-    <div id="popup-eliminar-mensaje" class="MensajeAlertaMobile" style="display: none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popup-eliminar-mensaje').hide();">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>ERROR</b></div>
-            <div class="mensaje_alerta" id="mensajeInformacionEliminar"></div>
-            <a href="javascript:;" onclick="$('#popup-eliminar-mensaje').hide();" class="btn_ok_mobile"><b>OK</b></a>
-        </div>
-    </div>--%>
 </body>
 </html>
