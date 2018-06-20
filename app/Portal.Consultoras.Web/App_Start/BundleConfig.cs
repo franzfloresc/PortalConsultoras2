@@ -593,7 +593,14 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
             ));
 
-
+            #region MisCatalogosRevistas
+            bundles.Add(new ScriptBundle("~/bundles/MisCatalogosRevistas").Include(
+                 "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
+                 "~/Scripts/Tag/jquery.tags.input.js",
+                 "~/Scripts/PortalConsultoras/MisCatalogosRevistas/Index.js",
+                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
+            ));
+            #endregion
 
             #region GuiaNegocio
 
