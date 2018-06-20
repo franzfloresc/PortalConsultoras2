@@ -698,6 +698,10 @@
     background: rgba(0, 0, 0, .70) !important;
 }
 
+.contenedor_fondo_popup_oscuro {
+    background: rgba(0, 0, 0, .85) !important;
+}
+
 .Acortar2Renglones3puntos {
     overflow: hidden !important;
     display: -webkit-box !important;

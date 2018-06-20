@@ -145,7 +145,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var pedidoWeb = ObtenerPedidoWeb();
-                var pedidoWebDetalle = ObtenerPedidoWebSetDetalleAgrupado();// ObtenerPedidoWebDetalle();
+                var pedidoWebDetalle = ObtenerPedidoWebSetDetalleAgrupado();
                 var ultimosTresPedidos = ObtenerUltimosDetallesPedido(soloCantidad, pedidoWebDetalle);
 
                 return Json(new ResumenCampaniaModel

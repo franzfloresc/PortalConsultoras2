@@ -396,5 +396,19 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int32, consultoraId);
             return Context.ExecuteReader(command);
         }
+
+        public IDataReader ObtenerCuvSetDetalle(int campaniaID, long consultoraID, int pedidoID, string ListaSet)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerCuvSetDetalle");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int32, consultoraID);
+            Context.Database.AddInParameter(command, "@PedidoId", DbType.Int32, pedidoID);
+            Context.Database.AddInParameter(command, "@ListaSet", DbType.String, ListaSet);
+            return Context.ExecuteReader(command);
+        }
+
+       
+       
+
     }
 }
