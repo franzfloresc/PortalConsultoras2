@@ -2870,12 +2870,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     if (datos != null)
                         SetTemData(datos, paisId);
-                    else
-                        return datos;
                 }
 
-                if (datos.Cantidad == 0)
-                    return datos;
+                if (datos == null) return datos;
+                if (datos.Cantidad == 0) return datos;
 
                 datos.resultado = "";
                 datos.EsMobile = EsDispositivoMovil();
