@@ -206,6 +206,17 @@
         }
     }
 
+    var TagManagerWS = function (catalogo, campaniaCatalogo) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Compartir WhatsApp',
+            'label': catalogo,
+            'value': 0
+        });
+        InsertarLogCatalogoDynamo('Whatsapp', campaniaCatalogo, catalogo, 1);
+    }
+
     var _bindingEvents = function () {
         $("body").on("click", "[data-compartir]", function (e) {
             e.preventDefault();
@@ -221,7 +232,8 @@
         init: Inicializar,
         CompartirTexto: CompartirRedesSocialesTexto,
         CompartirFacebook: CompartirFacebook,
-        AbrirCompartirCorreo: AbrirCompartirCorreo
+        AbrirCompartirCorreo: AbrirCompartirCorreo,
+        TagManagerWS: TagManagerWS
     }
 })();
 

@@ -625,14 +625,3 @@ function TagManagerPaginasVirtuales() {
         'pageName': 'Catálogo – Revistas | Somos Belcorp'
     });
 }
-function TagManagerWS(catalogo, campaniaCatalogo) {
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Catálogos y revistas',
-        'action': 'Compartir WhatsApp',
-        'label': catalogo,
-        'value': 0
-    });
-    InsertarLogCatalogoDynamo('Whatsapp', campaniaCatalogo, catalogo, 1);
-}
-
