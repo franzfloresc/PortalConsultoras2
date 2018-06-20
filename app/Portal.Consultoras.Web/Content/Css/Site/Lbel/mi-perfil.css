@@ -16,6 +16,10 @@
     font-weight:bold;
 }
 
+.mt-10{
+    margin-top:10px!important;
+}
+
 .mt-13{
     margin-top:13px;
 }
@@ -34,6 +38,10 @@
 
 .mb-61{
     margin-bottom:61px!important;
+}
+
+.ml-87{
+    margin-left:87px;
 }
 
 .w-18{
@@ -59,6 +67,20 @@
 
 input:focus{
     outline:0;
+}
+
+.fondoMobile,
+.titulo_interiores
+{
+    background:#FFF;
+}
+
+.fondo_negro_lateral{
+    display:none;
+}
+
+.vista_actualizar_correo{
+    background-color:#FFF!important;
 }
 
 /* FIN - HELPERS */
@@ -399,7 +421,7 @@ input:focus{
 }
 
 .linea_separadora{
-    height:2px;
+    height:1px;
 }
 
 .btn_guardar_datos_nuevos,
@@ -890,6 +912,38 @@ input:focus{
     overflow: hidden;
     position: absolute;
     z-index: -1;
+}
+
+@media screen and (max-width:991px){
+
+    .w-100-mobile{
+        width:100%;
+    }
+
+    .mt-0-mobile{
+        margin-top:0!important;
+    }
+
+    .vista_actualizar_correo_paddingMobile{
+        padding:37px 0!important;
+    }
+
+    .pl-20-mobile{
+        padding-left:20px;
+    }
+
+    .correo_actualizado_paddingMobile{
+        padding:50px 20px!important;
+    }
+
+    .quitarBackgroundImageMobile{
+        background-image:none;
+    }
+
+    .quitarPaddingDerechoMobile{
+        padding-right:0;
+    }   
+
 }
 
 /* FIN - CAMBIA TU CONTRASEÑA, ACTUALIZA TU CORREO ELECTRÓNICO, ACTUALIZA TU CELULAR, CAMBIAR FOTO DE PERFIL */

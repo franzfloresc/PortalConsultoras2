@@ -19,13 +19,18 @@
     
     <link href="../Content/Css/Site/Esika/reset.css" rel="stylesheet" data-id="cssResetEsika"/>
     <link href="../Content/Css/Site/Esika/style.css" rel="stylesheet" data-id="cssStyleEsika"/>
+    <link href="../Content/Css/Site/Esika/mi-perfil.css" rel="stylesheet" data-id="cssStyleEsika"/>
+    <link href="../Content/Css/Site/Esika/styleDefault.css" rel="stylesheet" data-id="cssStyleEsika"/>
     <link href="../Content/Css/ui.jquery/Esika/jquery-ui.css" rel="stylesheet" data-id="cssJqueryEsika"/>
     <link href="../Content/Css/Site/Lbel/reset.css" rel="stylesheet" data-id="cssResetLbel"/>
     <link href="../Content/Css/Site/Lbel/style.css" rel="stylesheet" data-id="cssStyleLbel"/>
+    <link href="../Content/Css/Site/Lbel/mi-perfil.css" rel="stylesheet" data-id="cssStyleLbel"/>
+    <link href="../Content/Css/Site/Lbel/styleDefault.css" rel="stylesheet" data-id="cssStyleLbel"/>
     <link href="../Content/Css/ui.jquery/Lbel/jquery-ui.css" rel="stylesheet" data-id="cssJqueryLbel"/>
     <link href="../Content/Css/Site/calc.css" rel="stylesheet" />
 
     <style type="text/css">
+
         .MensajeAlertaMobile {
             position: fixed;
             z-index: 2010;
@@ -139,7 +144,39 @@
 </head>
 
 <body id="bodyrestablece" class="bodyrecuperaclave">
-    <header>
+    <div class="fondo_f9f9f9 w-100-mobile mt-50 mt-0-mobile fondoMobile">
+        <div class="content_belcorp">
+            <div class="fondo_negro_lateral"></div>
+            <div class="titulo_interiores quitarBackgroundImageMobile pl-20-mobile quitarPaddingDerechoMobile"><span>CORREO</span> ACTUALIZADO</div>
+        </div>
+        <hr class="clear" />
+        <div class="linea_separadora mt-10" style="margin-top:-1px"></div>
+        <div class="pestana_lbel ml-87"></div>
+    </div>
+    <section class="vista_actualizar_correo altoAutomatico vista_actualizar_correo_paddingMobile">
+        <div class="wrapper_content_actualizar_correo w-100-mobile">
+            <form style="display: none;" runat="server">
+                <asp:TextBox ID="txtmarca" runat="server" CssClass="txttexto"></asp:TextBox>
+            </form>
+            <div style="display:none;">
+                <asp:Label ID="lblConfirmacion" runat="server"></asp:Label>
+            </div>
+            <div style="display:none;">
+                <asp:HyperLink ID="linkregresarasomosbelcorp" runat="server" CssClass="btnCambiarContrasenia" style="text-align: center;">IR A SOMOS BELCORP</asp:HyperLink>
+            </div>
+            <div class="correo_actualizado text-center correo_actualizado_paddingMobile">
+                <div class="icono_actualizacion_correo_exitoso"></div>
+                <h1 class="titulo_correo_actualizado text-uppercase">
+                    ¡Actualizaste <span class="text-bold">tu correo</span>!
+                </h1>
+                <p class="mensaje_correo_actualizado">
+                    @Html.Raw(ViewBag.Mensaje)
+                </p>
+                <a href="@Url.Action("Index")" class="btn_acept text-uppercase text-bold default-background-color">Ok</a>
+            </div>
+        </div>
+    </section>
+<%--    <header>
         <div class="wrapper_header">
             <div class="fondo_oscuro"></div>
             <div class="logo_esika logoEsikaActualizarContrasenia">
@@ -198,6 +235,6 @@
             <div class="mensaje_alerta" id="mensajeInformacionEliminar"></div>
             <a href="javascript:;" onclick="$('#popup-eliminar-mensaje').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
-    </div>
+    </div>--%>
 </body>
 </html>
