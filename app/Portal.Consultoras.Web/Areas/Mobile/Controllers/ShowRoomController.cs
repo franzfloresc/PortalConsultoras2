@@ -358,14 +358,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult DetalleOferta(int id)
         {
+            var FlagRevistaListaCompleta = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
+
             ActionExecutingMobile();
             if (!ValidarIngresoShowRoom(false))
                 return RedirectToAction("Index", "Bienvenida");
 
             var modelo = ViewDetalleOferta(id);
             modelo.EstrategiaId = id;
-            var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-            modelo.ListaOfertaShowRoom = xList;
+
+            if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
+            {
+                modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();              
+            }
+            else {
+                modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+            }
+
             bool esFacturacion = EsFacturacion();
 
             var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, configEstrategiaSR.BeShowRoom.EventoID,

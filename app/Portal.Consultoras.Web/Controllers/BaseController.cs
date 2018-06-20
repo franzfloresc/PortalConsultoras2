@@ -6073,8 +6073,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
 
-                dato.Valor1 = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
-                dato.Valor2 = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+                string CampaniaFuturoActiva = string.IsNullOrWhiteSpace(revistaDigital.CampaniaFuturoActiva) ? Util.SubStr(revistaDigital.SuscripcionModel.CampaniaEfectiva.ToString(), 4, 2) : revistaDigital.CampaniaFuturoActiva;
+
+                dato.Valor1 = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", CampaniaFuturoActiva));
+                dato.Valor2 = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", CampaniaFuturoActiva));
 
                 if (upper)
                 {

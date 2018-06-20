@@ -2897,14 +2897,27 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DetalleOferta(int id)
         {
+            var FlagRevistaListaCompleta = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
+
+
             if (!ValidarIngresoShowRoom(false))
                 return RedirectToAction("Index", "Bienvenida");
 
             var estrategiaSR = sessionManager.GetEstrategiaSR();
             var modelo = ViewDetalleOferta(id);
             modelo.EstrategiaId = id;
-            var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-            modelo.ListaOfertaShowRoom = xList;
+
+
+            if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
+            {
+                modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
+            }
+            else
+            {
+                modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+            }
+
+         
 
             bool esFacturacion = EsFacturacion();
 
@@ -2926,6 +2939,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var FlagRevistaListaCompleta = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
+
                 if (!ValidarIngresoShowRoom(false))
                     return ErrorJson(string.Empty);
 
@@ -2939,6 +2954,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
                     listaNoSubCampaniaPerdio = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
+                }
+                else if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
+                {
+                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
                 }
                 else
                 {
@@ -2991,8 +3010,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (revistaDigital.EsActiva)
                 {
-                    var FlagRevistaLista = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
-                    listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && FlagRevistaLista.Contains(x.FlagRevista)).ToList();
+                 
+                    listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
                 }
                 else
                     listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
@@ -3021,6 +3040,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var FlagRevistaListaCompleta = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
+
+             
+
                 if (!ValidarIngresoShowRoom(esIntriga: false))
                     return ErrorJson(string.Empty);
 
@@ -3029,8 +3052,14 @@ namespace Portal.Consultoras.Web.Controllers
                 productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
 
                 var cantidadTotal = productosShowRoom.Count();
+                
+                if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
+                {
+                    productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
+                }
+                else
+                    productosShowRoom = productosShowRoom.Where(x => x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
 
-                productosShowRoom = productosShowRoom.Where(x => x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
                 if (model.Limite > 0 && productosShowRoom.Count > 0)
                 {
                     productosShowRoom = productosShowRoom.Take(model.Limite).ToList();
