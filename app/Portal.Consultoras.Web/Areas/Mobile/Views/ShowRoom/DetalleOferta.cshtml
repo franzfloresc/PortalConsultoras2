@@ -87,7 +87,7 @@
                                                 <div>
                                                     <div class="@claseItem3 content_detalle_set_showroom" data-tono="" data-tono-select="" data-tono-digitable="@producto.Digitable">
                                                         <div style="display: none;">
-                                                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@producto.MarcaID" />
+                                                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@producto.IdMarca" />
                                                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@producto.PrecioCatalogo" />
                                                         </div>
                                                         @if (@producto.DescripcionMarca != "")
@@ -102,7 +102,7 @@
                                                             {
                                                                 <span class="cantidad_producto_opt">x @producto.Cantidad </span>
                                                             }
-                                                            <span class="product_name" data-tono-cuv-producto="@producto.CUV" data-tono-select-nombrecomercial="">@producto.NombreComercial</span>
+                                                            <span class="product_name" data-tono-cuv-producto="@producto.Cuv" data-tono-select-nombrecomercial="">@producto.NombreComercial</span>
                                                             <span class="price">@producto.Descripcion</span>
                                                         </div>
                                                         <hr class="clear">
@@ -125,7 +125,7 @@
                                                                             btnDesabled = 1;
                                                                             <div class="content_tono_elegido" 
                                                                                  data-tono-showroom-change="2" 
-                                                                                 data-tono-cuv="@tono.CUV" 
+                                                                                 data-tono-cuv="@tono.Cuv" 
                                                                                  data-tono-nombre="@tono.NombreBulk" 
                                                                                  data-tono-descripcion="@tono.NombreComercial"
                                                                             >
