@@ -463,8 +463,8 @@ function ValidarExcel() {
 
                                 for (var g = 0; g < listaCamposNovalidos.length; g++) {
                                     var item = listaCamposNovalidos[g];
-                                    if (item.indexOf(colum[0].toString()) >= 0 && item.indexOf(colum[1].toString()) >= 0 && item.indexOf(colum[2].toString()) >= 0 && item.indexOf(colum[3].toString()) >= 0) {
-
+                                    if (item.split('¦')[0] == colum[0].toString() && item.split('¦')[1] == colum[1].toString() && item.split('¦')[2] == colum[2].toString() && item.split('¦')[3]==colum[3].toString() ) {
+                                        
                                         var list = CamposNovalidos.split('¬');
                                         var listCuvInval = cuvInValidados.split('¬');
                                         contInValidos++;
@@ -745,9 +745,7 @@ function ValidarInvalidos() {
 
                             for (var g = 0; g < listaCamposNovalidos.length; g++) {
                                 var item = listaCamposNovalidos[g];
-                                //if (item.indexOf(colum[0].toString()) >= 0 && item.indexOf(colum[1].toString()) >= 0) {
-                                if (item.indexOf(colum[0].toString()) >= 0 && item.indexOf(colum[1].toString()) >= 0 && item.indexOf(colum[2].toString()) >= 0 && item.indexOf(colum[3].toString()) >= 0) {
-
+                                if (item.split('¦')[0] == colum[0].toString() && item.split('¦')[1] == colum[1].toString() && item.split('¦')[2] == colum[2].toString() && item.split('¦')[3] == colum[3].toString()) {
                                     var list = CamposNovalidos.split('¬');
                                     var listCuvInval = cuvInValidados.split('¬');
                                     contInValidos++;
