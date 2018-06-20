@@ -46,6 +46,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
         {
+            if (EsDispositivoMovil())
+            {
+                return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
+            }
+
             var model = new PedidoSb2Model();
 
             try
@@ -3500,6 +3505,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return;
                     }
                 }
+
+                if (userData.EsConsultoraOficina) return;
                 if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
 
                 var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
@@ -3715,102 +3722,6 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ex.Message,
                     data = "",
                     limiteJetlore = 0
-                });
-            }
-        }
-
-        [Obsolete("Nuevo UpSelling")]
-        public JsonResult ObtenerOfertaFinalRegalo()
-        {
-            try
-            {
-                OfertaFinalRegaloModel model = null;
-                using (var svc = new ProductoServiceClient())
-                {
-                    var entidad = svc.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
-                    if (entidad != null)
-                    {
-                        model = Mapper.Map<RegaloOfertaFinal, OfertaFinalRegaloModel>(entidad);
-                        model.CodigoISO = userData.CodigoISO;
-                        var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                        model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, entidad.RegaloImagenUrl, carpetaPais);
-                        model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, userData.CodigoISO);
-                    }
-                }
-
-                return Json(new
-                {
-                    success = true,
-                    data = model
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                });
-            }
-        }
-
-        [Obsolete("Nuevo UpSelling")]
-        public JsonResult ObtenerRegaloMontoMeta()
-        {
-            try
-            {
-                OfertaFinalRegaloModel model = null;
-                using (var svc = new ProductoServiceClient())
-                {
-                    var entidad = svc.ObtenerRegaloMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
-                    if (entidad != null)
-                    {
-                        model = Mapper.Map<RegaloOfertaFinal, OfertaFinalRegaloModel>(entidad);
-                        model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, userData.CodigoISO);
-                    }
-                }
-
-                return Json(new
-                {
-                    success = true,
-                    data = model
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                });
-            }
-        }
-
-        [Obsolete("Nuevo UpSelling")]
-        public JsonResult InsertarOfertaFinalRegalo()
-        {
-            try
-            {
-                using (var svc = new ProductoServiceClient())
-                {
-                    var montoTotal = Convert.ToDouble(ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal));
-                    svc.InsertarRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID, montoTotal, "OFR");
-                }
-
-                return Json(new
-                {
-                    success = true
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
                 });
             }
         }

@@ -49,24 +49,6 @@
   <wsdl:message name="IProductoService_UpdateCacheListaOfertaFinal_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateCacheListaOfertaFinalResponse" />
   </wsdl:message>
-  <wsdl:message name="IProductoService_ObtenerRegaloOfertaFinal_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerRegaloOfertaFinal" />
-  </wsdl:message>
-  <wsdl:message name="IProductoService_ObtenerRegaloOfertaFinal_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerRegaloOfertaFinalResponse" />
-  </wsdl:message>
-  <wsdl:message name="IProductoService_ObtenerRegaloMontoMeta_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerRegaloMontoMeta" />
-  </wsdl:message>
-  <wsdl:message name="IProductoService_ObtenerRegaloMontoMeta_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerRegaloMontoMetaResponse" />
-  </wsdl:message>
-  <wsdl:message name="IProductoService_InsertarRegaloOfertaFinal_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertarRegaloOfertaFinal" />
-  </wsdl:message>
-  <wsdl:message name="IProductoService_InsertarRegaloOfertaFinal_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertarRegaloOfertaFinalResponse" />
-  </wsdl:message>
   <wsdl:portType name="IProductoService">
     <wsdl:operation name="ObtenerProductos">
       <wsdl:input wsaw:Action="http://tempuri.org/IProductoService/ObtenerProductos" message="tns:IProductoService_ObtenerProductos_InputMessage" />
@@ -95,18 +77,6 @@
     <wsdl:operation name="UpdateCacheListaOfertaFinal">
       <wsdl:input wsaw:Action="http://tempuri.org/IProductoService/UpdateCacheListaOfertaFinal" message="tns:IProductoService_UpdateCacheListaOfertaFinal_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IProductoService/UpdateCacheListaOfertaFinalResponse" message="tns:IProductoService_UpdateCacheListaOfertaFinal_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerRegaloOfertaFinal">
-      <wsdl:input wsaw:Action="http://tempuri.org/IProductoService/ObtenerRegaloOfertaFinal" message="tns:IProductoService_ObtenerRegaloOfertaFinal_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IProductoService/ObtenerRegaloOfertaFinalResponse" message="tns:IProductoService_ObtenerRegaloOfertaFinal_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerRegaloMontoMeta">
-      <wsdl:input wsaw:Action="http://tempuri.org/IProductoService/ObtenerRegaloMontoMeta" message="tns:IProductoService_ObtenerRegaloMontoMeta_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IProductoService/ObtenerRegaloMontoMetaResponse" message="tns:IProductoService_ObtenerRegaloMontoMeta_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsertarRegaloOfertaFinal">
-      <wsdl:input wsaw:Action="http://tempuri.org/IProductoService/InsertarRegaloOfertaFinal" message="tns:IProductoService_InsertarRegaloOfertaFinal_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IProductoService/InsertarRegaloOfertaFinalResponse" message="tns:IProductoService_InsertarRegaloOfertaFinal_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IProductoService" type="tns:IProductoService">
@@ -167,33 +137,6 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateCacheListaOfertaFinal">
       <soap:operation soapAction="http://tempuri.org/IProductoService/UpdateCacheListaOfertaFinal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerRegaloOfertaFinal">
-      <soap:operation soapAction="http://tempuri.org/IProductoService/ObtenerRegaloOfertaFinal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerRegaloMontoMeta">
-      <soap:operation soapAction="http://tempuri.org/IProductoService/ObtenerRegaloMontoMeta" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsertarRegaloOfertaFinal">
-      <soap:operation soapAction="http://tempuri.org/IProductoService/InsertarRegaloOfertaFinal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

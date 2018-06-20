@@ -916,6 +916,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.CambioClave = Convert.ToInt32(usuario.CambioClave);
                     usuarioModel.ConsultoraNueva = usuario.ConsultoraNueva;
                     usuarioModel.EsConsultoraNueva = usuario.EsConsultoraNueva;
+                    usuarioModel.EsConsultoraOficina = usuario.EsConsultoraOficina;
                     usuarioModel.Telefono = usuario.Telefono;
                     usuarioModel.TelefonoTrabajo = usuario.TelefonoTrabajo;
                     usuarioModel.Celular = usuario.Celular;
@@ -976,7 +977,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     usuarioModel.DiasAntes = usuario.DiasAntes;
                     usuarioModel.DiasDuracionCronograma = usuario.DiasDuracionCronograma;
-
+                    
                     switch (usuario.RolID)
                     {
                         case Constantes.Rol.Administrador:
@@ -1247,8 +1248,9 @@ namespace Portal.Consultoras.Web.Controllers
                         var lstFiltersFAV = await CargarFiltersFAV(usuarioModel);
                         if (lstFiltersFAV.Any()) sessionManager.SetListFiltersFAV(lstFiltersFAV);
                     }
-
+ 
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
+                    usuarioModel.MensajeChat = await GetMessageChat(usuarioModel.PaisID);
 
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
@@ -1276,6 +1278,23 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region metodos asincronos
+
+        private async Task<string> GetMessageChat(int paisId)
+        {
+            IEnumerable<BETablaLogicaDatos> datos;
+            using (var service = new SACServiceClient())
+            {
+                datos = await service.GetTablaLogicaDatosAsync(paisId, 142);
+            }
+
+            if (datos == null)
+            {
+                return string.Empty;
+            }
+
+            var result = datos.FirstOrDefault(r => r.TablaLogicaDatosID == 14201);
+            return result == null ? string.Empty : result.Valor;
+        }
 
         private async Task<bool> GetPermisoFlexipago(ServiceUsuario.BEUsuario usuario)
         {
