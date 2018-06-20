@@ -6,7 +6,7 @@ using System.Data;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLEstrategiaProducto
+    public class BLEstrategiaProducto : IEstrategiaProductoBusinessLogic
     {
         public int InsertEstrategiaProducto(BEEstrategiaProducto entidad)
         {

@@ -306,6 +306,7 @@
     <Compile Include="Infraestructure\Reader\ColumnCsvTransform.cs" />
     <Compile Include="Models\AdministrarEstrategia\AdministrarEstrategiaMasivoModel.cs" />
     <Compile Include="Models\Estrategia\OfertaDelDia\DataModel.cs" />
+    <Compile Include="Models\BarraTippingPoint.cs" />
     <Compile Include="Models\Cache\CacheModel.cs" />
     <Compile Include="Models\Common\ListStringModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\BannerInferiorConfiguracion.cs" />
@@ -3456,7 +3457,9 @@
     <Content Include="Content\Images\tipBtm.png" />
     <Content Include="Content\Images\tipMid.png" />
     <Content Include="Content\Images\tippingPoint.PNG" />
+    <Content Include="Content\Images\tippingPoint.svg" />
     <Content Include="Content\Images\tippingPointActivo.PNG" />
+    <Content Include="Content\Images\tippingPointActivo.svg" />
     <Content Include="Content\Images\tipTop.png" />
     <Content Include="Content\Images\tooltip-flecha.png" />
     <Content Include="Content\Images\tooltip_guardar.png" />
