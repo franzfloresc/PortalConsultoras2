@@ -35,14 +35,14 @@
 }
 
 <div class="fondo_set" style="background:url(@ViewBag.ImagenFondoProductPage) no-repeat; background-size: contain;height:340px;">
-    <div class="content_belcorp" data-item>
+    <div class="content_belcorp" data-item >
         <div class="rd_volver" style="margin-left: 145px; position: absolute; top: -20px;">
             <a href="@Url.Action("Index", "Showroom")">
                 <img class="previous_volver" src="@Url.Content("~/Content/Images/RevistaDigital/previous_volver.png")" style="width: 8px" />
                 <span style="top: -4px; position: absolute;left: 15px; font-weight: bold; font-family: 'Lato'; font-size:15px">VOLVER</span>
             </a>
         </div>
-        <div class="content_solo_ficha_set" data-posicion="0" data-item="@Model.EstrategiaID" >
+        <div class="content_solo_ficha_set" data-posicion="0" data-item="@Model.EstrategiaID" data-estrategia-id="@Model.EstrategiaID" data-campania-id="@Model.CampaniaID">
             <div data-compartir-campos="" style="display: none;">
                 <input type="hidden" id="hcuv" class="CUV" value="@Model.CUV" />
                 <input type="hidden" class="rsFBMensaje" value="@Model.FBMensaje" />
@@ -70,7 +70,7 @@
                 <hr class="clear">
             </div>
             <div class="content_detalle_set detailItem" style="@styleWidth">
-                <div data-campos="" style="display: none;" data-estrategiaJson="@Json.Encode(Model)">
+                <div data-campos="" style="display: none;" @*data-estrategiaJson="@Json.Encode(Model)"*@>
                     <input type="hidden" class="hdOfertaShowRoomID" value="@Model.EstrategiaID" />
                     <input type="hidden" class="valorCuv" value="@Model.CUV" />
                     <input type="hidden" class="claseMarcaID" value="@Model.MarcaID" />

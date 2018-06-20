@@ -800,17 +800,19 @@ function EstrategiaAgregarShowRoom(event, popup) {
     var padre = $('#btnAgregalo').parents("[data-item]");
     var article = $(padre).find("[data-campos]").eq(0);
     var cantidad = $(padre).find("[data-input='cantidad']").val();
-    var estrategia = EstrategiaObtenerObjShowRoom(event);
+    //var estrategia = EstrategiaObtenerObjShowRoom(event);
     var objInput = $('.detailItem');
     var origenPedidoWebEstrategia = "";
-    var campania = estrategia.CampaniaID;
+    //var campania = estrategia.CampaniaID;
     var posicion = $(article).find(".posicionEstrategia").val();
     var esSubCampania = $(article).parents('.content_set_oferta_especial').length > 0;
     var CUV = $(article).find(".valorCuv").val();
     var PrecioUnidad = $(article).find(".clasePrecioUnidad").val();
     var cuvs = "";
     var origen = '';
-
+    var estrategiaId = $(padre).data('estrategia-id');
+    var campania = $(padre).data('campania-id');
+    debugger;
     if (EstrategiaValidarSeleccionTonoShowRoom(objInput)) {
         return false;
     }
@@ -826,7 +828,7 @@ function EstrategiaAgregarShowRoom(event, popup) {
 
     AbrirLoad();
 
-    estrategia.Cantidad = cantidad;
+    //estrategia.Cantidad = cantidad;
 
     cuvs = GenerarCadenaCuvs(objInput);
 
@@ -843,7 +845,7 @@ function EstrategiaAgregarShowRoom(event, popup) {
 
             var params = ({
                 CuvTonos: $.trim(cuvs),
-                EstrategiaID: $.trim(estrategia.EstrategiaID),
+                EstrategiaID: estrategiaId,
                 FlagNueva: "0",
                 Cantidad: $.trim(cantidad),
                 OrigenPedidoWeb: $.trim(origen),

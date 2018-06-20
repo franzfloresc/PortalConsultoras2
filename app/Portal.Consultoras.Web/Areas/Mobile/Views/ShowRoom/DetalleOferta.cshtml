@@ -60,10 +60,10 @@
             <span class="comment">Gana @Model.Simbolo @Model.FormatoGana</span>
         </div>
         <div class="item_product">
-            <div class="description_item" data-item>
+            <div class="description_item" data-item >
                 <div class="detail detailItem">
                     <div class="" >
-                        <div style="display:none;"><div data-estrategiaJson="@Json.Encode(Model)"></div></div>
+                        <div style="display:none;"><div @*data-estrategiaJson="@Json.Encode(Model)"*@></div></div>
                         @{
                             var btnDesabled = 0;
                             var btnDesabledClass = "";
@@ -383,7 +383,7 @@
         }
     </div>
 </div>
-<div class="content_btn_agregar" data-posicion="0" data-item="@Model.EstrategiaID">
+<div class="content_btn_agregar" data-posicion="0" data-item="@Model.EstrategiaID" data-estrategia-id="@Model.EstrategiaID" data-campania-id="@Model.CampaniaID">
     <div data-campos="" style="display:none;">
         <input type="hidden" class="hdOfertaShowRoomID" value="@Model.EstrategiaID" />
         <input type="hidden" class="valorCuv" value="@Model.CUV" />
