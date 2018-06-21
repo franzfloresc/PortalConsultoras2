@@ -286,6 +286,7 @@
     <Compile Include="Controllers\AdministrarLugaresPagoController.cs" />
     <Compile Include="Controllers\AdministrarProductoSugeridoController.cs" />
     <Compile Include="Controllers\AdministrarReporteValidacionController.cs" />
+    <Compile Include="Controllers\AdministrarShowRoomController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
