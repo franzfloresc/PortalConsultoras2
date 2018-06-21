@@ -795,7 +795,7 @@ function compraxcompra_promotion_click(cuv, descripcion) {
     });
 }
 
-function EstrategiaAgregarShowRoom(event, popup) {
+function EstrategiaAgregarShowRoom(event) {
      
     var padre = $('#btnAgregalo').parents("[data-item]");
     var article = $(padre).find("[data-campos]").eq(0);
