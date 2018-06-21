@@ -4,20 +4,17 @@
 @font-face {
     font-family: 'logo_esika';
     src: url('../fonts/icomoon/logo_esika.eot?ur7cdc');
-    src: url('../fonts/icomoon/logo_esika.eot?ur7cdc#iefix') format('embedded-opentype'),
-        url('../fonts/icomoon/logo_esika.ttf?ur7cdc') format('truetype'),
-        url('../fonts/icomoon/logo_esika.woff?ur7cdc') format('woff'),
-        url('../fonts/icomoon/logo_esika.svg?ur7cdc#icomoon') format('svg');
+    src: url('../fonts/icomoon/logo_esika.eot?ur7cdc#iefix') format('embedded-opentype'), url('../fonts/icomoon/logo_esika.ttf?ur7cdc') format('truetype'), url('../fonts/icomoon/logo_esika.woff?ur7cdc') format('woff'), url('../fonts/icomoon/logo_esika.svg?ur7cdc#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-  font-family: 'iconos_cambio_pass';
-  src:  url('../fonts/icomoon/iconos-cambio-pass.eot?dhvc7r');
-  src:  url('../fonts/icomoon/iconos-cambio-pass.eot?dhvc7r#iefix') format('embedded-opentype'), url('../fonts/icomoon/iconos-cambio-pass.ttf?dhvc7r') format('truetype'), url('../fonts/icomoon/iconos-cambio-pass.woff?dhvc7r') format('woff'), url('../fonts/icomoon/iconos-cambio-pass.svg?dhvc7r#icomoon') format('svg');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'iconos_cambio_pass';
+    src: url('../fonts/icomoon/iconos-cambio-pass.eot?dhvc7r');
+    src: url('../fonts/icomoon/iconos-cambio-pass.eot?dhvc7r#iefix') format('embedded-opentype'), url('../fonts/icomoon/iconos-cambio-pass.ttf?dhvc7r') format('truetype'), url('../fonts/icomoon/iconos-cambio-pass.woff?dhvc7r') format('woff'), url('../fonts/icomoon/iconos-cambio-pass.svg?dhvc7r#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 html, body {
@@ -341,7 +338,7 @@ Image .nav0:hover {
         color: white;
         font-family: 'lato';
         letter-spacing: .3px;
-        float: left;        
+        float: left;
     }
 
     .formcontrol select {
@@ -399,23 +396,23 @@ Image .nav0:hover {
         border: none;
         cursor: pointer;
         color: #fff;
-        background: #d12a35!important;
+        background: #d12a35 !important;
         font-family: lato;
         letter-spacing: .5px;
         font-size: 13px;
         font-weight: 700;
         margin-top: 3px;
         border-radius: 2px;
-        transition:all 0.3s ease;
-        -moz-transition:all 0.3s ease;
-        -o-transition:all 0.3s ease;
-        -ms-transition:all 0.3s ease;
-        -webkit-transition:all 0.3s ease;
+        transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
     }
 
-    .formbtn .btnCrear:hover{
-        opacity:0.8;
-    }
+        .formbtn .btnCrear:hover {
+            opacity: 0.8;
+        }
 
     .formbtn label a {
         color: #959595;
@@ -440,8 +437,8 @@ Image .nav0:hover {
         font-size: 20px;
         text-align: left;
         color: #949494;
-        font-weight:600;
-        margin-top:4px;
+        font-weight: 600;
+        margin-top: 4px;
         margin-right: 7px;
         float: left;
     }
@@ -454,7 +451,6 @@ Image .nav0:hover {
         content: "\e903";
         font-size: 20px;
         text-align: left;
-        
         margin-right: 7px;
         float: left;
     }
@@ -632,10 +628,7 @@ Image .nav0:hover {
 @font-face {
     font-family: 'icomoon';
     src: url('../fonts/icomoon/icomoon.eot?ur7cdc');
-    src: url('../fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'),
-        url('../fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'),
-        url('../fonts/icomoon/icomoon.woff?ur7cdc') format('woff'),
-        url('../fonts/icomoon/icomoon.svg?ur7cdc#icomoon') format('svg');
+    src: url('../fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'), url('../fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'), url('../fonts/icomoon/icomoon.woff?ur7cdc') format('woff'), url('../fonts/icomoon/icomoon.svg?ur7cdc#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -997,12 +990,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*  Main Navigation */
+#popup_chatDisabled {
+    font-family: lato;
+    overflow-y: auto;
+    position: fixed;
+    z-index: 220;
+    width: 100%;
+    height: 100%;
+    background: url('../Images/popup_esika/fondo_pop_up.png');
+}
 
 #bg_1, #popup_olvidasteContrasenia, #popup_cambioContrasenia, #popup_opciones_recuperacion_contrasenia {
     font-family: lato;
     overflow-y: auto;
     position: fixed;
-    z-index: 1000;
+    z-index: 200;
     width: 100%;
     height: 100%;
     background: url('../Images/popup_esika/fondo_pop_up.png');
@@ -1045,30 +1047,30 @@ h1, h2, h3, h4, h5, h6 {
             color: #959595;
         }
 
-.iconoUsuario:before{
-    position:relative;
-    top:3px;
+.iconoUsuario:before {
+    position: relative;
+    top: 3px;
     color: #838383;
 }
 
-.iconoUsuarioActivo:before{
-    color:#000;
+.iconoUsuarioActivo:before {
+    color: #000;
 }
 
 #popup_olvidasteContrasenia .campo_correoElectronico_activo::-webkit-input-placeholder {
-    color: #000!important;
+    color: #000 !important;
 }
 
 #popup_olvidasteContrasenia .campo_correoElectronico_activo:-moz-placeholder {
-    color: #000!important;
+    color: #000 !important;
 }
 
 #popup_olvidasteContrasenia .campo_correoElectronico_activo::-moz-placeholder {
-    color: #000!important;
+    color: #000 !important;
 }
 
 #popup_olvidasteContrasenia .campo_correoElectronico_activo:-ms-input-placeholder {
-    color: #000!important;
+    color: #000 !important;
 }
 
 #popup_contraseniaEnviada {
@@ -1078,7 +1080,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     height: 100%;
     background: url('../Images/popup_esika/fondo_pop_up.png');
-    overflow-y:scroll;
+    overflow-y: scroll;
 }
 
 .content_bg_1 {
@@ -1088,7 +1090,7 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     background: white;
     padding-bottom: 55px;
-    margin-bottom:30px;
+    margin-bottom: 30px;
 }
 
 .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia {
@@ -1100,26 +1102,40 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     background: white;
     padding-bottom: 44px;
-    margin-bottom:30px;
+    margin-bottom: 30px;
 }
 
-.content_bg_olvidasteContrasenia{
+
+.content_bg_chatdisabled {
+    width: 87%;
+    max-width: 588px;
+    min-height: 166px;
+    top: 20%;
+    margin: 0 auto;
+    position: relative;
+    background: white;
+    /*padding-top: 29px;*/
+    padding-bottom: 44px;
+    margin-bottom: 30px;
+}
+
+.content_bg_olvidasteContrasenia {
     top: 18.5%;
 }
 
-.content_bg_cambioContrasenia{
-    top:18.5%;
-    padding-bottom:43px;
+.content_bg_cambioContrasenia, .content_bg_chatdisabled {
+    top: 18.5%;
+    padding-bottom: 43px;
 }
 
-.contenido_mensaje{
-    display:inline-block;
-    margin-bottom:16px;
+.contenido_mensaje {
+    display: inline-block;
+    margin-bottom: 16px;
 }
 
-.contenido_mensaje.texto_bold{
-    font-weight:700;
-}
+    .contenido_mensaje.texto_bold {
+        font-weight: 700;
+    }
 
 .content_bg_contraseniaEnviada {
     display: block;
@@ -1130,29 +1146,29 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 auto;
     position: relative;
     background: white;
-    padding-left:3%;
-    padding-right:3%;
+    padding-left: 3%;
+    padding-right: 3%;
     padding-bottom: 34px;
     padding-top: 10px;
     box-sizing: border-box;
-    text-align:center;
-    margin-bottom:30px;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-.contenedor_cabecera_popup{
-    display:block;
-    overflow:hidden;
+.contenedor_cabecera_popup {
+    display: block;
+    overflow: hidden;
 }
 
-#popup3{
-    display:none;
+#popup3 {
+    display: none;
 }
 
 #header, #header_cambioContrasenia {
     height: 55px;
     width: 88%;
-    background:#000;
-    font-family:'Lato';
+    background: #000;
+    font-family: 'Lato';
     color: white;
     line-height: 55px;
     text-align: left;
@@ -1161,7 +1177,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
     letter-spacing: .4px;
     font-size: 11pt;
-    position:relative;
+    position: relative;
     transform: scaleY(-1);
     -moz-transform: scaleY(-1);
     -o-transform: scaleY(-1);
@@ -1169,25 +1185,56 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-transform: scaleY(-1);
 }
 
-#header > span, #header_cambioContrasenia > span{
-    display:block;
+    #header > span, #header_cambioContrasenia > span {
+        display: block;
+        transform: scaleY(-1);
+        -moz-transform: scaleY(-1);
+        -o-transform: scaleY(-1);
+        -ms-transform: scaleY(-1);
+        -webkit-transform: scaleY(-1);
+        letter-spacing: 1px;
+    }
+
+#header-chatdisabled {
+    height: 55px;
+    width: 76%;
+    background: #000;
+    font-family: 'Lato';
+    color: white;
+    line-height: 55px;
+    text-align: left;
+    padding-left: 20.2%;
+    box-sizing: border-box;
+    font-weight: 300;
+    letter-spacing: .4px;
+    font-size: 11pt;
+    position: relative;
     transform: scaleY(-1);
     -moz-transform: scaleY(-1);
     -o-transform: scaleY(-1);
     -ms-transform: scaleY(-1);
     -webkit-transform: scaleY(-1);
-    letter-spacing:1px;
 }
 
-.content_bg_1 #header{
-    padding-left:16%;
+    #header-chatdisabled > span {
+        display: block;
+        transform: scaleY(-1);
+        -moz-transform: scaleY(-1);
+        -o-transform: scaleY(-1);
+        -ms-transform: scaleY(-1);
+        -webkit-transform: scaleY(-1);
+        letter-spacing: 1px;
+    }
+
+.content_bg_1 #header {
+    padding-left: 16%;
 }
 
-#header_cambioContrasenia{
-    padding-left:6.6%;
+#header_cambioContrasenia {
+    padding-left: 6.6%;
 }
 
-.franja_negra_fondo{
+.franja_negra_fondo {
     display: block;
     position: absolute;
     width: 30px;
@@ -1201,13 +1248,13 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-transform: skewX(-20deg);
 }
 
-#header .texto_bold, #header_cambioContrasenia .texto_bold{
-    font-weight:700;
+#header .texto_bold, #header_cambioContrasenia .texto_bold {
+    font-weight: 700;
 }
 
-.content_bg_1 .mensaje_pop_up{
-    margin-top:40px;
-    margin-bottom:44px;
+.content_bg_1 .mensaje_pop_up {
+    margin-top: 40px;
+    margin-bottom: 44px;
 }
 
 .mensaje_pop_up {
@@ -1217,7 +1264,7 @@ h1, h2, h3, h4, h5, h6 {
     color: black;
     margin-left: 15%;
     margin-right: 15%;
-    font-family:'Lato';
+    font-family: 'Lato';
     line-height: 15pt;
     font-weight: 400;
     text-align: left;
@@ -1225,71 +1272,71 @@ h1, h2, h3, h4, h5, h6 {
 
 .mensaje_pop_up2 {
     margin-top: 39px;
-    margin-bottom:26px;
+    margin-bottom: 26px;
     font-size: 11pt;
     color: black;
     margin-left: 20.2%;
     margin-right: 20.2%;
-    font-family:'Lato';
+    font-family: 'Lato';
     line-height: 15pt;
     font-weight: 400;
     text-align: left;
 }
 
-.contenedor_opciones{
-    display:block;
-    text-align:center;
+.contenedor_opciones {
+    display: block;
+    text-align: center;
 }
 
-#popup_cambioContrasenia .mensaje_popup_cambioContrasenia{
-    margin-bottom:20px;
+#popup_cambioContrasenia .mensaje_popup_cambioContrasenia {
+    margin-bottom: 20px;
     margin-right: 6%;
     margin-left: 6%;
 }
 
-.opciones_recuperacionContrasenia{
+.opciones_recuperacionContrasenia {
     display: inline-block;
     vertical-align: top;
     width: 27%;
     height: 137px;
     border: 1px solid #959595;
-    margin-left:6px;
+    margin-left: 6px;
     margin-right: 3%;
     text-align: left;
     cursor: pointer;
 }
 
-.opciones_recuperacionContrasenia:nth-child(3n){
-    background-color: rgba(242, 242, 242, 0.5);
-    border:1px solid rgba(242, 242, 242, 0.5);
-}
+    .opciones_recuperacionContrasenia:nth-child(3n) {
+        background-color: rgba(242, 242, 242, 0.5);
+        border: 1px solid rgba(242, 242, 242, 0.5);
+    }
 
 /*.opciones_recuperacionContrasenia:nth-child(3n):hover{
     border:none;
     cursor:default;
 }*/
 
-.opcion_correoElectronico, .opcion_chateaConNosotros{
+.opcion_correoElectronico, .opcion_chateaConNosotros {
     margin-bottom: 20px;
 }
 
-.opcion_chateaConNosotros, .contenedor_telefonos_desktop{
-    margin-left:0;
+.opcion_chateaConNosotros, .contenedor_telefonos_desktop {
+    margin-left: 0;
 }
 
-.contenedor_telefonos_desktop{
-    margin-right:0;
+.contenedor_telefonos_desktop {
+    margin-right: 0;
 }
 
 .icono_mail, .icono_chateaConNosotros, .icono_llamanos {
     width: 100%;
-    font-family:'iconos_cambio_pass';
-    line-height:43px;
-    padding:10px 0 0 0;
+    font-family: 'iconos_cambio_pass';
+    line-height: 43px;
+    padding: 10px 0 0 0;
 }
 
-.bloque_texto_opcionRecuperacionContrasenia{
-    padding:3px 0 0 0;
+.bloque_texto_opcionRecuperacionContrasenia {
+    padding: 3px 0 0 0;
 }
 
 .icono_mail, .icono_chateaConNosotros, .icono_llamanos, .bloque_texto_opcionRecuperacionContrasenia {
@@ -1297,28 +1344,28 @@ h1, h2, h3, h4, h5, h6 {
     vertical-align: middle;
     height: 56px;
     box-sizing: border-box;
-    text-align:center;
+    text-align: center;
 }
 
-.icono_mail:before{
-    content: "\e61c";
-    font-size:17px;
-}
+    .icono_mail:before {
+        content: "\e61c";
+        font-size: 17px;
+    }
 
-.icono_chateaConNosotros:before{
-    content: "\e60c";
-    font-size: 32px;
-}
+    .icono_chateaConNosotros:before {
+        content: "\e60c";
+        font-size: 32px;
+    }
 
-.icono_llamanos:before{
-    content: "\e63c";
-    font-size:45px;
-}
+    .icono_llamanos:before {
+        content: "\e63c";
+        font-size: 45px;
+    }
 
-.icono_mail:before, .icono_chateaConNosotros:before, .icono_llamanos:before{
-    color: #d12a35;
-    padding: 0 13px;
-}
+    .icono_mail:before, .icono_chateaConNosotros:before, .icono_llamanos:before {
+        color: #d12a35;
+        padding: 0 13px;
+    }
 
 .contenido_mensaje.texto_opcionRecuperacion {
     text-align: center;
@@ -1328,53 +1375,53 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 15px;
 }
 
-.texto_mayusc{
-    text-transform:uppercase;
+.texto_mayusc {
+    text-transform: uppercase;
     margin-bottom: 6px;
     padding: 0 4px;
     font-weight: 600;
 }
 
-.texto_llamanos_mayusc{
+.texto_llamanos_mayusc {
     margin-top: 6px;
     margin-bottom: 14px;
 }
 
-.texto_opcionRecuperacion.tamanio_fuente{
-    font-size:12px;
-    font-weight:300;
-    text-align:center;
-    overflow-wrap:break-word;
+.texto_opcionRecuperacion.tamanio_fuente {
+    font-size: 12px;
+    font-weight: 300;
+    text-align: center;
+    overflow-wrap: break-word;
 }
 
-.texto_opcionRecuperacion.tamanio_fuente.horarios_atencion_chat, .texto_opcionRecuperacion.tamanio_fuente.telefonos_desktop{
-    text-align:center;
-}
+    .texto_opcionRecuperacion.tamanio_fuente.horarios_atencion_chat, .texto_opcionRecuperacion.tamanio_fuente.telefonos_desktop {
+        text-align: center;
+    }
 
-.correo_electronico_consult{
+.correo_electronico_consult {
     padding: 0 7px;
 }
 
-.horarios_atencion_chat{
-    padding:0 7px;
-    text-align:center;
+.horarios_atencion_chat {
+    padding: 0 7px;
+    text-align: center;
 }
 
-.telefonos_desktop{
-    padding:0 12px;
+.telefonos_desktop {
+    padding: 0 12px;
 }
 
-.contenedor_telefonos, .telefonos_centrales{
-    display:block;
-    text-align:center;
+.contenedor_telefonos, .telefonos_centrales {
+    display: block;
+    text-align: center;
 }
 
-.contenedor_telefonos_mobile{
-    display:none;
+.contenedor_telefonos_mobile {
+    display: none;
 }
 
-.opciones_recuperacionContrasenia:hover, .opciones_recuperacionContrasenia:focus, .opciones_recuperacionContrasenia:active{
-    border:1px solid #e81c36;
+.opciones_recuperacionContrasenia:hover, .opciones_recuperacionContrasenia:focus, .opciones_recuperacionContrasenia:active {
+    border: 1px solid #e81c36;
 }
 
 .deshabilitar_opcion_correo {
@@ -1382,11 +1429,11 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0.45;
 }
 
-.deshabilitar_opcion_correo .icono_mail:before {
-    color: #5a5a5a;
-}
+    .deshabilitar_opcion_correo .icono_mail:before {
+        color: #5a5a5a;
+    }
 
-.opciones_recuperacionContrasenia.deshabilitar_opcion_correo:hover, .opciones_recuperacionContrasenia.deshabilitar_opcion_correo:focus, .opciones_recuperacionContrasenia.deshabilitar_opcion_correo:active{
+.opciones_recuperacionContrasenia.deshabilitar_opcion_correo:hover, .opciones_recuperacionContrasenia.deshabilitar_opcion_correo:focus, .opciones_recuperacionContrasenia.deshabilitar_opcion_correo:active {
     border: 1px solid #959595;
 }
 
@@ -1395,7 +1442,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0;
     font-size: 18px;
     color: black;
-    font-family:'Lato';
+    font-family: 'Lato';
     line-height: 25px;
     font-weight: 400;
     text-align: center;
@@ -1403,31 +1450,31 @@ h1, h2, h3, h4, h5, h6 {
 
 .mensaje_pop_up_contraseniaEnviada p {
     font-size: 14px;
-    font-family:'Lato';
+    font-family: 'Lato';
     color: black;
     text-align: center;
-    display:block;
-    margin:0 auto 3px auto;
-    padding:0;
+    display: block;
+    margin: 0 auto 3px auto;
+    padding: 0;
 }
 
 .mensaje_pop_up_contraseniaEnviada strong {
     font-size: 14px;
-    font-family:'Lato';
+    font-family: 'Lato';
     color: black;
 }
 
 .icono_correo {
     margin: 0 auto;
     width: 120px;
-    height:75px;
-    background-image:url(../../../Images/Login2/Icons/icono-nuevo-correo-esika.svg);
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:100%;
+    height: 75px;
+    background-image: url(../../../Images/Login2/Icons/icono-nuevo-correo-esika.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
-    /*.icono_correo img {
+/*.icono_correo img {
         width: 100%;
         height: auto;
     }*/
@@ -1706,7 +1753,7 @@ h1, h2, h3, h4, h5, h6 {
         top: 12%;
     }
 
-    .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia {
+    .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia, .content_bg_chatdisabled {
         width: 75%;
         top: 12%;
     }
@@ -1863,13 +1910,13 @@ h1, h2, h3, h4, h5, h6 {
         }
 }
 
-    @media only screen and (min-width : 769px) {
-        .titulo_llamanos {
-            display:none;
-        }
+@media only screen and (min-width : 769px) {
+    .titulo_llamanos {
+        display: none;
     }
+}
 
-@media only screen and (max-width:991px){
+@media only screen and (max-width:991px) {
 
     .mensaje_pop_up2 {
         margin-left: 10%;
@@ -1881,127 +1928,126 @@ h1, h2, h3, h4, h5, h6 {
         margin-right: 10%;
     }
 
-    #header{
-        padding-left: 6.3%!important;
+    #header {
+        padding-left: 6.3% !important;
     }
 
-    .content_bg_1 #header{
-        width:84%;
-        padding-left:16%!important;
+    .content_bg_1 #header {
+        width: 84%;
+        padding-left: 16% !important;
     }
-
 }
 
-    @media only screen and (max-width : 768px) {
+@media only screen and (max-width : 768px) {
 
-        .opciones_recuperacionContrasenia.contenedor_telefonos_desktop {
-            display: none;
+    .opciones_recuperacionContrasenia.contenedor_telefonos_desktop {
+        display: none;
+    }
+
+    .contenedor_telefonos_mobile {
+        display: block;
+    }
+
+    .opciones_recuperacionContrasenia {
+        display: block;
+        width: 88%;
+        height: 69px;
+        margin-left: 6%;
+        margin-right: 6%;
+    }
+
+    .icono_mail, .icono_chateaConNosotros, .bloque_texto_opcionRecuperacionContrasenia {
+        display: inline-block;
+        height: 69px;
+        padding: 13px 0;
+    }
+
+    .icono_mail, .icono_chateaConNosotros {
+        width: 19%;
+    }
+
+        .icono_chateaConNosotros:before {
+            font-size: 34px;
         }
 
-        .contenedor_telefonos_mobile {
-            display: block;
-        }
+    .contenido_mensaje {
+        display: block;
+        margin-bottom: 0;
+    }
 
-        .opciones_recuperacionContrasenia {
-            display: block;
-            width: 88%;
-            height: 69px;
-            margin-left: 6%;
-            margin-right: 6%;
-        }
-
-        .icono_mail, .icono_chateaConNosotros, .bloque_texto_opcionRecuperacionContrasenia {
-            display: inline-block;
-            height: 69px;
-            padding: 13px 0;
-        }
-
-        .icono_mail, .icono_chateaConNosotros {
-            width: 19%;
-        }
-
-            .icono_chateaConNosotros:before {
-                font-size: 34px;
-            }
-
-        .contenido_mensaje {
-            display: block;
-            margin-bottom: 0;
-        }
-
-            .contenido_mensaje.texto_opcionRecuperacion {
-                font-size: 12px;
-                text-align: left;
-                line-height: 22px;
-            }
-
-        .texto_mayusc {
-            margin-bottom: 0;
-            padding: 0;
-        }
-
-        .texto_opcionRecuperacion.tamanio_fuente {
-            font-weight: 400;
-        }
-
-        .correo_electronico_consult, .horarios_atencion_chat {
-            padding: 0;
-        }
-
-        .content_bg_1, .content_bg_contraseniaEnviada {
-            width: 75%;
-        }
-
-        .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia {
-            width: 86%;
-        }
-
-        .content_bg_cambioContrasenia {
-            top: 9.5%;
-        }
-
-        .content_bg_contraseniaEnviada {
-            width: 65%;
-        }
-
-        .titulo_llamanos {
+        .contenido_mensaje.texto_opcionRecuperacion {
             font-size: 12px;
-            color: #000;
-            letter-spacing: 0.5px;
-            margin-bottom: 20px;
-            display: block;
+            text-align: left;
+            line-height: 22px;
         }
 
-        .telefono_central {
-            display: inline-block;
-            margin-right: 23px;
-            vertical-align: top;
+    .texto_mayusc {
+        margin-bottom: 0;
+        padding: 0;
+    }
+
+    .texto_opcionRecuperacion.tamanio_fuente {
+        font-weight: 400;
+    }
+
+    .correo_electronico_consult, .horarios_atencion_chat {
+        padding: 0;
+    }
+
+    .content_bg_1, .content_bg_contraseniaEnviada {
+        width: 75%;
+    }
+
+    .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia, .content_bg_chatdisabled {
+        width: 86%;
+    }
+
+    .content_bg_cambioContrasenia, .content_bg_chatdisabled {
+        top: 9.5%;
+    }
+
+    .content_bg_contraseniaEnviada {
+        width: 65%;
+    }
+
+    .titulo_llamanos {
+        font-size: 12px;
+        color: #000;
+        letter-spacing: 0.5px;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .telefono_central {
+        display: inline-block;
+        margin-right: 23px;
+        vertical-align: top;
+    }
+
+        .telefono_central:last-child {
+            margin-right: 0px;
         }
 
-            .telefono_central:last-child {
-                margin-right: 0px;
-            }
+    .icono_tel {
+        display: block;
+        margin: 0 auto;
+        width: 45px;
+        height: 45px;
+        border-radius: 100%;
+        background: #d12a35;
+        margin-bottom: 9px;
+        font-family: 'iconos_cambio_pass';
+        font-size: 40px;
+        padding: 1px 2px 1px 0px;
+        box-sizing: border-box;
+    }
 
-        .icono_tel {
-            display: block;
-            margin: 0 auto;
-            width: 45px;
-            height: 45px;
-            border-radius: 100%;
-            background: #d12a35;
-            margin-bottom: 9px;
-            font-family: 'iconos_cambio_pass';
-            font-size: 40px;
-            padding: 1px 2px 1px 0px;
-            box-sizing: border-box;
+        .icono_tel:before {
+            content: "\e62c";
+            color: #FFF;
         }
 
-            .icono_tel:before {
-                content: "\e62c";
-                color: #FFF;
-            }
-
-        /*.icono_tel img {
+    /*.icono_tel img {
         display: block;
         margin: 0 auto;
         width: 100%;
@@ -2010,235 +2056,239 @@ h1, h2, h3, h4, h5, h6 {
         left: -1px;
     }*/
 
-        .num_central {
-            display: block;
-            color: #000;
-            max-width: 80px;
-            font-size: 11.4px;
-            text-transform: uppercase;
-        }
-
-        .primer_num_central {
-            width: 60px;
-        }
-
-        .otros_num_centrales {
-            width: 70px;
-        }
+    .num_central {
+        display: block;
+        color: #000;
+        max-width: 80px;
+        font-size: 11.4px;
+        text-transform: uppercase;
     }
 
-    @media only screen and (max-width : 595px) {
-
-        .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia {
-            width: 92%;
-        }
+    .primer_num_central {
+        width: 60px;
     }
 
-    @media only screen and (max-width : 480px) {
+    .otros_num_centrales {
+        width: 70px;
+    }
+}
 
-        .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia {
-            width: 90%;
-        }
+@media only screen and (max-width : 595px) {
 
-            .content_bg_olvidasteContrasenia #header, .content_bg_cambioContrasenia #header_cambioContrasenia {
-                padding-left: 5%;
-            }
+    .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia, .content_bg_chatdisabled {
+        width: 92%;
+    }
+}
 
-            .content_bg_olvidasteContrasenia #header {
-                font-size: 10pt;
-            }
+@media only screen and (max-width : 480px) {
 
-            .content_bg_cambioContrasenia #header_cambioContrasenia {
-                font-size: 11pt;
-            }
-
-        #popup_olvidasteContrasenia .pais select, #popup_olvidasteContrasenia .user input {
-            font-size: 14px;
-        }
-
-        #popup_olvidasteContrasenia .user:before {
-            position: relative;
-            bottom: -2px;
-        }
-
-        .content_bg_contraseniaEnviada {
-            width: 90%;
-        }
-
-        #titulo1 {
-            zoom: 67%;
-        }
-
-        #titulo2 {
-            zoom: 67%;
-        }
-
-        #titulo3 {
-            zoom: 67%;
-        }
-
-        #titulo4 {
-            zoom: 64%;
-        }
-
-        #text1, #text2, #text3 {
-            font-size: 12px;
-        }
-
-        .zoom-img {
-            zoom: 44%;
-        }
-
-        .wrapMain {
-            zoom: 90%;
-        }
-
-        .content-left, .content-right {
-            background: none;
-        }
+    .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia, .content_bg_chatdisabled {
+        width: 90%;
     }
 
-    @media only screen and (max-width : 410px) {
-        .formbtn label {
-            font-size: 8.2pt;
+        .content_bg_olvidasteContrasenia #header, .content_bg_cambioContrasenia #header_cambioContrasenia, .content_bg_chatdisabled #header-chatdisabled {
+            padding-left: 5%;
         }
 
-        .top {
-            zoom: 90%;
+        .content_bg_olvidasteContrasenia #header {
+            font-size: 10pt;
         }
 
-        .content-left {
-            float: none;
+        .content_bg_cambioContrasenia #header_cambioContrasenia {
+            font-size: 10pt;
         }
 
-        .formcontrol {
-        }
+    .content_bg_chatdisabled #header-chatdisabled {
+        font-size: 11pt;
     }
 
-    @media only screen and (max-width : 405px) {
-
-        .logo_content_ab {
-            zoom: 85%;
-            width: 100%;
-        }
-
-        .webForm {
-            padding-bottom: 10px;
-        }
-
-        .footer .footerWrap .logoFoot {
-            width: 49px;
-        }
-
-        .webForm {
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-
-            .webForm .title {
-                padding: 37px 19px 25px 20px;
-            }
-
-        #cuadro1, #cuadro2 {
-            zoom: 68%;
-        }
+    #popup_olvidasteContrasenia .pais select, #popup_olvidasteContrasenia .user input {
+        font-size: 14px;
     }
 
-    @media only screen and (max-width : 375px) {
-        .webForm {
-            padding-top: 35px;
-        }
-
-        .formCont {
-            display: inline-block;
-        }
-
-        #popup_olvidasteContrasenia .formCont {
-            margin-left: 8%;
-            margin-right: 8%;
-            margin-top: 33px;
-            display: block;
-        }
-
-        .content-alerta-red-user {
-            top: 238px;
-        }
-
-        .content-alerta-red-clave {
-            top: 288px;
-        }
-
-        .content_bg_1 {
-            width: 90%;
-        }
+    #popup_olvidasteContrasenia .user:before {
+        position: relative;
+        bottom: -2px;
     }
 
-    @media only screen and (max-width : 320px) {
-
-        .content-alerta-red-user {
-            top: 245px;
-        }
-
-        .content-alerta-red-clave {
-            top: 298px;
-        }
-
-        .formCont {
-            display: block;
-        }
-
-        #main_formulaio {
-            margin-left: 0;
-        }
-
-        .content-left {
-        }
-
-        .content-right {
-        }
-
-        .zoom-img {
-            margin-left: -112px;
-        }
-
-        .btn {
-            float: left;
-        }
-
-        .flecha_select {
-        }
+    .content_bg_contraseniaEnviada {
+        width: 90%;
     }
 
-    @media only screen and (max-width : 681px) {
-        .texto_login {
-            line-height: 20px;
-        }
-
-        .nav a {
-            display: inline-block;
-            width: 49%;
-            box-sizing: border-box;
-            text-align: center;
-        }
-
-        .nav1 {
-            background: none;
-        }
-
-        .nav a span {
-            float: none !important;
-        }
-
-        .fondo_estandar {
-            background: url('../images/login-esika-1920.jpg') no-repeat fixed !important;
-        }
+    #titulo1 {
+        zoom: 67%;
     }
 
-    .img_error_login {
-        background: url('../../../Images/Login2/error_login.svg') no-repeat;
+    #titulo2 {
+        zoom: 67%;
+    }
+
+    #titulo3 {
+        zoom: 67%;
+    }
+
+    #titulo4 {
+        zoom: 64%;
+    }
+
+    #text1, #text2, #text3 {
+        font-size: 12px;
+    }
+
+    .zoom-img {
+        zoom: 44%;
+    }
+
+    .wrapMain {
+        zoom: 90%;
+    }
+
+    .content-left, .content-right {
+        background: none;
+    }
+}
+
+@media only screen and (max-width : 410px) {
+    .formbtn label {
+        font-size: 8.2pt;
+    }
+
+    .top {
+        zoom: 90%;
+    }
+
+    .content-left {
+        float: none;
+    }
+
+    .formcontrol {
+    }
+}
+
+@media only screen and (max-width : 405px) {
+
+    .logo_content_ab {
+        zoom: 85%;
+        width: 100%;
+    }
+
+    .webForm {
+        padding-bottom: 10px;
+    }
+
+    .footer .footerWrap .logoFoot {
+        width: 49px;
+    }
+
+    .webForm {
         padding-left: 20px;
-        background-size: 15px;
+        padding-right: 20px;
     }
+
+        .webForm .title {
+            padding: 37px 19px 25px 20px;
+        }
+
+    #cuadro1, #cuadro2 {
+        zoom: 68%;
+    }
+}
+
+@media only screen and (max-width : 375px) {
+    .webForm {
+        padding-top: 35px;
+    }
+
+    .formCont {
+        display: inline-block;
+    }
+
+    #popup_olvidasteContrasenia .formCont {
+        margin-left: 8%;
+        margin-right: 8%;
+        margin-top: 33px;
+        display: block;
+    }
+
+    .content-alerta-red-user {
+        top: 238px;
+    }
+
+    .content-alerta-red-clave {
+        top: 288px;
+    }
+
+    .content_bg_1 {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width : 320px) {
+
+    .content-alerta-red-user {
+        top: 245px;
+    }
+
+    .content-alerta-red-clave {
+        top: 298px;
+    }
+
+    .formCont {
+        display: block;
+    }
+
+    #main_formulaio {
+        margin-left: 0;
+    }
+
+    .content-left {
+    }
+
+    .content-right {
+    }
+
+    .zoom-img {
+        margin-left: -112px;
+    }
+
+    .btn {
+        float: left;
+    }
+
+    .flecha_select {
+    }
+}
+
+@media only screen and (max-width : 681px) {
+    .texto_login {
+        line-height: 20px;
+    }
+
+    .nav a {
+        display: inline-block;
+        width: 49%;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .nav1 {
+        background: none;
+    }
+
+    .nav a span {
+        float: none !important;
+    }
+
+    .fondo_estandar {
+        background: url('../images/login-esika-1920.jpg') no-repeat fixed !important;
+    }
+}
+
+.img_error_login {
+    background: url('../../../Images/Login2/error_login.svg') no-repeat;
+    padding-left: 20px;
+    background-size: 15px;
+}
 
 .header_facebook {
     height: 55px;
@@ -2279,410 +2329,410 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 11pt;
 }
 
-    .icono_usuario:before {
-        content: '\e903';
-        font-size: 20px;
-        text-align: left;
-        color: black;
-        margin-right: 7px;
-        top: 2px;
-        position: absolute;
-        z-index: 100;
-    }
+.icono_usuario:before {
+    content: '\e903';
+    font-size: 20px;
+    text-align: left;
+    color: black;
+    margin-right: 7px;
+    top: 2px;
+    position: absolute;
+    z-index: 100;
+}
 
-    .icono_pass:before {
-        content: '\e900';
-        font-size: 20px;
-        text-align: left;
-        color: black;
-        margin-right: 7px;
-        top: 2px;
-        position: absolute;
-        z-index: 100;
-    }
+.icono_pass:before {
+    content: '\e900';
+    font-size: 20px;
+    text-align: left;
+    color: black;
+    margin-right: 7px;
+    top: 2px;
+    position: absolute;
+    z-index: 100;
+}
 
-    .usuario_facebook::-webkit-input-placeholder {
-        color: #676767
-    }
+.usuario_facebook::-webkit-input-placeholder {
+    color: #676767
+}
 
-    .usuario_facebook:-moz-placeholder {
-        color: #676767
-    }
+.usuario_facebook:-moz-placeholder {
+    color: #676767
+}
 
-    .usuario_facebook::-moz-placeholder {
-        color: #676767
-    }
+.usuario_facebook::-moz-placeholder {
+    color: #676767
+}
 
-    .usuario_facebook:-ms-input-placeholder {
-        color: #676767
-    }
+.usuario_facebook:-ms-input-placeholder {
+    color: #676767
+}
 
-    .inputForm::-webkit-input-placeholder {
-        color: #959595
-    }
+.inputForm::-webkit-input-placeholder {
+    color: #959595
+}
 
-    .inputForm:-moz-placeholder {
-        color: #959595
-    }
+.inputForm:-moz-placeholder {
+    color: #959595
+}
 
-    .inputForm::-moz-placeholder {
-        color: #959595
-    }
+.inputForm::-moz-placeholder {
+    color: #959595
+}
 
-    .inputForm:-ms-input-placeholder {
-        color: #959595
-    }
+.inputForm:-ms-input-placeholder {
+    color: #959595
+}
 
-    .btn_validar_usuario {
-        color: white;
-        background-color: #e81c36;
-        border-radius: 2px;
-        font-size: 13px;
-        font-weight: bold;
-        height: 45px;
-        text-align: center;
-        margin-top: 6px;
+.btn_validar_usuario {
+    color: white;
+    background-color: #e81c36;
+    border-radius: 2px;
+    font-size: 13px;
+    font-weight: bold;
+    height: 45px;
+    text-align: center;
+    margin-top: 6px;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    line-height: 45px;
+    font-family: 'Lato';
+}
+
+.content_foto_face_pop {
+    margin-top: 13px;
+    overflow: hidden;
+}
+
+.foto_pop_face {
+    float: left;
+    border-radius: 100px;
+    background: black;
+    width: 45px;
+    height: 45px;
+    overflow: hidden;
+}
+
+    .foto_pop_face img {
         width: 100%;
-        display: block;
-        box-sizing: border-box;
-        line-height: 45px;
-        font-family: 'Lato';
     }
 
-    .content_foto_face_pop {
-        margin-top: 13px;
-        overflow: hidden;
+.nombre_usuario_facebook {
+    float: right;
+    width: -moz-calc(100% -55px);
+    width: calc(100% - 55px);
+    width: -webkit-calc(100% - 55px);
+    width: -webkit-calc(~'100% - 55px');
+    font-family: 'LAto';
+    font-size: 13px;
+    margin-top: 15px;
+    color: black;
+}
+
+.ayuda_usuario_facebook:hover .mensaje_ayuda_usuario {
+    display: block;
+}
+
+.mensaje_ayuda_usuario {
+    box-sizing: border-box;
+    display: none;
+    width: 130px;
+    right: -150px;
+    top: -20px;
+    position: relative;
+    padding: 10px;
+    color: black;
+    font-size: 9pt;
+    font-family: lato;
+    background: white;
+    border: 1px solid black;
+    z-index: 30;
+}
+
+    .mensaje_ayuda_usuario:after, .mensaje_ayuda_usuario:before {
+        right: 100%;
+        top: 24px;
+        border: solid transparent;
+        content: ' ';
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
     }
 
-    .foto_pop_face {
-        float: left;
-        border-radius: 100px;
-        background: black;
-        width: 45px;
-        height: 45px;
-        overflow: hidden;
+    .mensaje_ayuda_usuario:after {
+        border-color: rgba(255, 255, 255, 0);
+        border-right-color: #ffffff;
+        border-width: 9px;
+        margin-top: -9px;
     }
 
-        .foto_pop_face img {
-            width: 100%;
-        }
-
-    .nombre_usuario_facebook {
-        float: right;
-        width: -moz-calc(100% -55px);
-        width: calc(100% - 55px);
-        width: -webkit-calc(100% - 55px);
-        width: -webkit-calc(~'100% - 55px');
-        font-family: 'LAto';
-        font-size: 13px;
-        margin-top: 15px;
-        color: black;
+    .mensaje_ayuda_usuario:before {
+        border-color: rgba(0, 0, 0, 0);
+        border-right-color: #000000;
+        border-width: 10px;
+        margin-top: -10px;
     }
 
-    .ayuda_usuario_facebook:hover .mensaje_ayuda_usuario {
-        display: block;
+.ayuda_usuario_facebook {
+    top: 3px;
+    right: 0;
+    position: absolute;
+    border: 0;
+    padding-top: 6px;
+    padding-left: 10px;
+    padding-bottom: 3px;
+    box-sizing: border-box;
+}
+
+.helper_facebook {
+    width: 20px;
+    height: 20px;
+    float: right;
+    font-family: 'icomoon';
+    margin-top: -4px;
+    padding-bottom: 4px;
+    padding-right: 8px;
+    background-repeat: no-repeat;
+    text-decoration: none;
+}
+
+    .helper_facebook:before {
+        content: '\e902';
+        font-size: 18px;
+        text-align: left;
+        color: #949494;
+    }
+
+@media only screen and (max-width : 654px) {
+    .mensaje_ayuda_usuario:after, .mensaje_ayuda_usuario:before {
+        left: 100%;
     }
 
     .mensaje_ayuda_usuario {
-        box-sizing: border-box;
-        display: none;
-        width: 130px;
-        right: -150px;
-        top: -20px;
-        position: relative;
-        padding: 10px;
-        color: black;
-        font-size: 9pt;
-        font-family: lato;
-        background: white;
-        border: 1px solid black;
-        z-index: 30;
+        right: 60px;
     }
 
-        .mensaje_ayuda_usuario:after, .mensaje_ayuda_usuario:before {
-            right: 100%;
-            top: 24px;
-            border: solid transparent;
-            content: ' ';
-            height: 0;
-            width: 0;
-            position: absolute;
-            pointer-events: none;
+        .mensaje_ayuda_usuario:before {
+            border-left-color: #000;
+            border-right-color: transparent;
         }
 
         .mensaje_ayuda_usuario:after {
-            border-color: rgba(255, 255, 255, 0);
-            border-right-color: #ffffff;
-            border-width: 9px;
-            margin-top: -9px;
+            border-left-color: #ffffff;
+            border-right-color: transparent;
         }
+}
 
-        .mensaje_ayuda_usuario:before {
-            border-color: rgba(0, 0, 0, 0);
-            border-right-color: #000000;
-            border-width: 10px;
-            margin-top: -10px;
-        }
+.content_sesion_facebook {
+    text-align: center;
+    width: 110px;
+    height: 110px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
 
-    .ayuda_usuario_facebook {
-        top: 3px;
-        right: 0;
-        position: absolute;
-        border: 0;
-        padding-top: 6px;
-        padding-left: 10px;
-        padding-bottom: 3px;
-        box-sizing: border-box;
-    }
-
-    .helper_facebook {
-        width: 20px;
-        height: 20px;
-        float: right;
-        font-family: 'icomoon';
-        margin-top: -4px;
-        padding-bottom: 4px;
-        padding-right: 8px;
-        background-repeat: no-repeat;
-        text-decoration: none;
-    }
-
-        .helper_facebook:before {
-            content: '\e902';
-            font-size: 18px;
-            text-align: left;
-            color: #949494;
-        }
-
-    @media only screen and (max-width : 654px) {
-        .mensaje_ayuda_usuario:after, .mensaje_ayuda_usuario:before {
-            left: 100%;
-        }
-
-        .mensaje_ayuda_usuario {
-            right: 60px;
-        }
-
-            .mensaje_ayuda_usuario:before {
-                border-left-color: #000;
-                border-right-color: transparent;
-            }
-
-            .mensaje_ayuda_usuario:after {
-                border-left-color: #ffffff;
-                border-right-color: transparent;
-            }
-    }
-
-    .content_sesion_facebook {
-        text-align: center;
-        width: 110px;
-        height: 110px;
-        border-radius: 100px;
-        overflow: hidden;
-        margin: 0 auto;
-        margin-bottom: 20px;
-    }
-
-        .content_sesion_facebook img {
-            width: 100%;
-            height: 100%;
-        }
-
-
-    /*Facebook*/
-
-    .loginBtn {
-        box-sizing: border-box;
-        position: relative;
-        padding: 0 50px 0 50px;
-        border: none;
-        text-align: left;
-        line-height: 34px;
-        white-space: nowrap;
-        border-radius: .2em;
-        font-size: 16px;
-        color: #fff;
-    }
-
-        .loginBtn:before {
-            content: '';
-            box-sizing: border-box;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 50px;
-            height: 100%;
-        }
-
-        .loginBtn:focus {
-            outline: none;
-        }
-
-        .loginBtn:active {
-            box-shadow: inset 0 0 0 32px rgba(0,0,0,.1);
-        }
-
-    .loginBtn--facebook {
-        background-color: #4C69BA;
-        background-image: linear-gradient(#4C69BA, #3B55A0);
-        text-shadow: 0 -1px 0 #354C8C;
-        font-family: 'LAto';
-        font-size: 12.5px;
-        font-weight: 700;
-        letter-spacing: .8px;
-        text-transform: uppercase;
-        overflow: hidden;
-        cursor: pointer;
-    }
-
-        .loginBtn--facebook:before {
-            background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/xBNWoYTwwGQ8O7Z/facebook_login.png') 22px 13px no-repeat;
-        }
-
-        .loginBtn--facebook:hover,
-        .loginBtn--facebook:focus {
-            background-color: #5B7BD5;
-            background-image: linear-gradient(#5B7BD5, #4864B1);
-        }
-
-    .div-o-login {
-        color: white;
-        text-align: center;
-        font-size: 14px;
-        margin-top: -7px;
-        font-family: 'Lato';
-        margin-top: 5px;
-        margin-bottom: 40px;
-    }
-
-    .o_login {
-        float: left;
-        width: 10%;
-    }
-
-    .linea_o {
-        margin-top: 10px;
-        float: left;
-        width: 45%;
-        height: 1px;
-        background: #959595;
-    }
-
-    .content_btn_face {
-        position: relative;
-        height: 48px;
-        overflow: hidden;
-        border-radius: 3px;
-        margin-bottom: 16px;
-    }
-
-    .imagen_perfil_facebook {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 50px;
-        height: 49px;
-        background: white;
-    }
-
-        .imagen_perfil_facebook img {
-            width: 100%;
-        }
-
-    .content_facebook_sb {
-        position: relative;
-        max-width: 475px;
-        width: 90%;
-        margin: 0 auto;
-        margin-top: 8%;
-        z-index: 1000;
-        text-align: left;
-        background: white;
-    }
-
-
-    .body_facebook {
-        padding: 30px 15% 55px 15%;
-        background: white;
-        color: black;
-        font-family: Arial;
-        box-sizing: border-box;
-        text-align: left;
-    }
-
-    .etiqueta_usuario {
-        margin-top: 15px;
-        width: 35%;
-        font-weight: bold;
-        float: left;
-        color: #5d5d65;
-        padding-top: 6px;
-        box-sizing: border-box;
-        text-align: left;
-    }
-
-    .campo_input {
-        margin-top: 10px;
-        margin-bottom: 12px;
-        width: 100%;
-        float: left;
-        box-sizing: border-box;
-        text-align: left;
-        border-bottom: 1px solid #959595;
-        position: relative;
-        font-family: 'icomoon';
-    }
-
-    .select_pais_facebook {
-        width: -moz-calc(100% - 21px);
-        width: calc(100% - 21px);
-        width: -webkit-calc(100% - 21px);
-        width: -webkit-calc(~'100% - 21px');
-        float: right;
-        border: 0;
-        height: 28px;
-        box-sizing: border-box;
-    }
-
-    .usuario_facebook {
-        width: 100%;
-        border: 0;
-        height: 28px;
-        color: black;
-        padding-left: 25px;
-        box-sizing: border-box;
-        position: relative;
-        background: transparent;
-        letter-spacing: .3px;
-    }
-
-    .content_pop_login {
-        position: fixed;
-        top: 0;
-        background: rgba(0,0,0,.8);
+    .content_sesion_facebook img {
         width: 100%;
         height: 100%;
-        z-index: 998;
-        overflow: auto;
     }
 
 
-    .center_facebook {
-        text-align: center;
+/*Facebook*/
+
+.loginBtn {
+    box-sizing: border-box;
+    position: relative;
+    padding: 0 50px 0 50px;
+    border: none;
+    text-align: left;
+    line-height: 34px;
+    white-space: nowrap;
+    border-radius: .2em;
+    font-size: 16px;
+    color: #fff;
+}
+
+    .loginBtn:before {
+        content: '';
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50px;
+        height: 100%;
     }
 
-    ._ccfb {
-        cursor: pointer;
-        color: #3897f0;
-        text-decoration: none;
+    .loginBtn:focus {
+        outline: none;
     }
 
-    /*Fin Facebook*/
-    .icono_esika {
-        background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
-        background-size: 15px;
-        color: #e81c36;
+    .loginBtn:active {
+        box-shadow: inset 0 0 0 32px rgba(0,0,0,.1);
+    }
+
+.loginBtn--facebook {
+    background-color: #4C69BA;
+    background-image: linear-gradient(#4C69BA, #3B55A0);
+    text-shadow: 0 -1px 0 #354C8C;
+    font-family: 'LAto';
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+    .loginBtn--facebook:before {
+        background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/xBNWoYTwwGQ8O7Z/facebook_login.png') 22px 13px no-repeat;
+    }
+
+    .loginBtn--facebook:hover,
+    .loginBtn--facebook:focus {
+        background-color: #5B7BD5;
+        background-image: linear-gradient(#5B7BD5, #4864B1);
+    }
+
+.div-o-login {
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    margin-top: -7px;
+    font-family: 'Lato';
+    margin-top: 5px;
+    margin-bottom: 40px;
+}
+
+.o_login {
+    float: left;
+    width: 10%;
+}
+
+.linea_o {
+    margin-top: 10px;
+    float: left;
+    width: 45%;
+    height: 1px;
+    background: #959595;
+}
+
+.content_btn_face {
+    position: relative;
+    height: 48px;
+    overflow: hidden;
+    border-radius: 3px;
+    margin-bottom: 16px;
+}
+
+.imagen_perfil_facebook {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 49px;
+    background: white;
+}
+
+    .imagen_perfil_facebook img {
+        width: 100%;
+    }
+
+.content_facebook_sb {
+    position: relative;
+    max-width: 475px;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 8%;
+    z-index: 1000;
+    text-align: left;
+    background: white;
+}
+
+
+.body_facebook {
+    padding: 30px 15% 55px 15%;
+    background: white;
+    color: black;
+    font-family: Arial;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.etiqueta_usuario {
+    margin-top: 15px;
+    width: 35%;
+    font-weight: bold;
+    float: left;
+    color: #5d5d65;
+    padding-top: 6px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.campo_input {
+    margin-top: 10px;
+    margin-bottom: 12px;
+    width: 100%;
+    float: left;
+    box-sizing: border-box;
+    text-align: left;
+    border-bottom: 1px solid #959595;
+    position: relative;
+    font-family: 'icomoon';
+}
+
+.select_pais_facebook {
+    width: -moz-calc(100% - 21px);
+    width: calc(100% - 21px);
+    width: -webkit-calc(100% - 21px);
+    width: -webkit-calc(~'100% - 21px');
+    float: right;
+    border: 0;
+    height: 28px;
+    box-sizing: border-box;
+}
+
+.usuario_facebook {
+    width: 100%;
+    border: 0;
+    height: 28px;
+    color: black;
+    padding-left: 25px;
+    box-sizing: border-box;
+    position: relative;
+    background: transparent;
+    letter-spacing: .3px;
+}
+
+.content_pop_login {
+    position: fixed;
+    top: 0;
+    background: rgba(0,0,0,.8);
+    width: 100%;
+    height: 100%;
+    z-index: 998;
+    overflow: auto;
+}
+
+
+.center_facebook {
+    text-align: center;
+}
+
+._ccfb {
+    cursor: pointer;
+    color: #3897f0;
+    text-decoration: none;
+}
+
+/*Fin Facebook*/
+.icono_esika {
+    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
+    background-size: 15px;
+    color: #e81c36;
 }
 
 .fondo_estandar {
@@ -2691,15 +2741,15 @@ h1, h2, h3, h4, h5, h6 {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    }
+}
 
 /* HD-1254 - OLVIDÉ CONTRASEÑA DESKTOP Y MOBILE */
 
-.campoPais{
-    width:93%!important;
-    background-image:url(../../../Images/Login2/Icons/arrow-select.svg)!important;
-    background-position:99% center!important;
-    background-repeat:no-repeat!important;
+.campoPais {
+    width: 93% !important;
+    background-image: url(../../../Images/Login2/Icons/arrow-select.svg) !important;
+    background-position: 99% center !important;
+    background-repeat: no-repeat !important;
 }
 
 .content_bg_opciones_recuperacion_contrasenia {
@@ -2713,11 +2763,11 @@ h1, h2, h3, h4, h5, h6 {
     padding-bottom: 25px;
 }
 
-.content_bg_opciones_recuperacion_contrasenia #header{
-    padding-left: 35px;
-}
+    .content_bg_opciones_recuperacion_contrasenia #header {
+        padding-left: 35px;
+    }
 
-.fondo_sesgado{
+.fondo_sesgado {
     display: block;
     position: absolute;
     top: 0;
@@ -2732,23 +2782,23 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-transform: skew(15deg);
 }
 
-.content_bg_opciones_recuperacion_contrasenia .mensaje_pop_up2{
+.content_bg_opciones_recuperacion_contrasenia .mensaje_pop_up2 {
     margin-top: 26.5px;
     margin-bottom: 25px;
-    font-size:14px;
-    margin-left:15%;
-    margin-right:15%;
+    font-size: 14px;
+    margin-left: 15%;
+    margin-right: 15%;
 }
 
-.opciones_recuperacion_contrasenia{
+.opciones_recuperacion_contrasenia {
     display: block;
-    text-align:center;
+    text-align: center;
     margin-bottom: 25px;
 }
 
 .content_bg_opciones_recuperacion_contrasenia .mensaje_pop_up2,
 .opciones_recuperacion_contrasenia,
-.info_mas_opciones{
+.info_mas_opciones {
     margin-left: 6%;
     margin-right: 6%;
 }
@@ -2757,7 +2807,7 @@ h1, h2, h3, h4, h5, h6 {
     display: inline-block;
     vertical-align: top;
     width: 230px;
-    margin-left:11px;
+    margin-left: 11px;
     margin-right: 11px;
     background: #FFF;
     text-align: center;
@@ -2772,22 +2822,22 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-transition: all 0.3s ease;
 }
 
-.opcion_recuperacion_contrasenia.opcionCorreo,
-.opcion_recuperacion_contrasenia.opcionSms{
-    border: 1px solid #e7e1e1;
-    height: 160px;
-    padding-top: 25px;
-    box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
-    -moz-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
-    -o-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
-    -ms-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
-    -webkit-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
-}
+    .opcion_recuperacion_contrasenia.opcionCorreo,
+    .opcion_recuperacion_contrasenia.opcionSms {
+        border: 1px solid #e7e1e1;
+        height: 160px;
+        padding-top: 25px;
+        box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
+        -moz-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
+        -o-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
+        -ms-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
+        -webkit-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
+    }
 
 .opcion_desactivada {
     opacity: 0.5;
     background: #f1f1f1;
-    pointer-events:none;
+    pointer-events: none;
 }
 
 .opcion_recuperacion_contrasenia:hover {
@@ -2800,15 +2850,15 @@ h1, h2, h3, h4, h5, h6 {
 .icono_chatea_con_nosotros,
 .icono_llamada,
 .icono_reloj,
-.icono_reloj_2{
+.icono_reloj_2 {
     display: block;
     margin: 0 auto;
 }
 
 .icono_chatea_con_nosotros,
-.icono_llamada{
-    width:62.8px;
-    height:42.1px;
+.icono_llamada {
+    width: 62.8px;
+    height: 42.1px;
 }
 
 .icono_correo_electronico.mb-15,
@@ -2816,146 +2866,146 @@ h1, h2, h3, h4, h5, h6 {
 .icono_chatea_con_nosotros,
 .icono_llamada,
 .icono_reloj.mb-15,
-.icono_reloj_2.mb-15{
-    margin-bottom:15px;
+.icono_reloj_2.mb-15 {
+    margin-bottom: 15px;
 }
 
-.icono_correo_electronico{
-    width:57.6px;
-    background-image:url(../../../Images/Login2/Icons/icono-mail-esika.svg);
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:100%;
+.icono_correo_electronico {
+    width: 57.6px;
+    background-image: url(../../../Images/Login2/Icons/icono-mail-esika.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
-.icono_sms{
+.icono_sms {
     width: 55.6px;
-    background-image:url(../../../Images/Login2/Icons/icono-mensaje-sms-esika.svg);
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:100%;
+    background-image: url(../../../Images/Login2/Icons/icono-mensaje-sms-esika.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 .icono_correo_electronico,
-.icono_sms{
-    height:45px;
-    margin-bottom:19px;
+.icono_sms {
+    height: 45px;
+    margin-bottom: 19px;
 }
 
-.icono_chatea_con_nosotros{
-    width:42.1px;
-    height:61.8px;
-    background-image:url(../../../Images/Login2/Icons/icono-chatea-con-nosotros-esika.svg);
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:100%;
+.icono_chatea_con_nosotros {
+    width: 42.1px;
+    height: 61.8px;
+    background-image: url(../../../Images/Login2/Icons/icono-chatea-con-nosotros-esika.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
-.icono_llamada{
-    width:51.9px;
-    height:51.7px;
-    background-image:url(../../../Images/Login2/Icons/icono-llamanos-esika.svg);
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:100%;
+.icono_llamada {
+    width: 51.9px;
+    height: 51.7px;
+    background-image: url(../../../Images/Login2/Icons/icono-llamanos-esika.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 .icono_reloj,
-.icono_reloj_2{
-    background-image:url(../../../Images/Login2/Icons/icono-reloj-esika.svg);
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:100%;
+.icono_reloj_2 {
+    background-image: url(../../../Images/Login2/Icons/icono-reloj-esika.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
-.icono_reloj{
-    width:60px;
-    height:60px;
+.icono_reloj {
+    width: 60px;
+    height: 60px;
 }
 
-.icono_reloj_2{
-    width:54px;
-    height:54px;
+.icono_reloj_2 {
+    width: 54px;
+    height: 54px;
 }
 
-.icono_mensaje_sms{
-    width:77px;
-    height:62px;
-    background-image:url(../../../Images/Login2/Icons/icono-sms-esika.svg);
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:100%;
+.icono_mensaje_sms {
+    width: 77px;
+    height: 62px;
+    background-image: url(../../../Images/Login2/Icons/icono-sms-esika.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
-.icono_alerta_error{
-    display:inline-block;
-    vertical-align:middle;
-    width:10px;
-    height:10px;
+.icono_alerta_error {
+    display: inline-block;
+    vertical-align: middle;
+    width: 10px;
+    height: 10px;
     margin-left: -8px;
     margin-right: 2px;
     margin-bottom: 3px;
-    background-image:url(../../../Images/Login2/Icons/icono-alerta-error-esika.png);
-    background-repeat:no-repeat;
-    background-size:100%;
+    background-image: url(../../../Images/Login2/Icons/icono-alerta-error-esika.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 .contenedor_info_datos,
 .contenedor_solo_una_opcion,
-.opcionLlamada_desktop{
-    display:block;
+.opcionLlamada_desktop {
+    display: block;
 }
 
-.opcionLlamada_mobile{
-    display:none;
+.opcionLlamada_mobile {
+    display: none;
 }
 
 .titulo_opcion_correo,
 .titulo_opcion_sms,
 .titulo_opcion_chatea_con_nosotros,
 .titulo_opcion_llamada,
-.titulo_opcion_horarios_atencion{
-    text-transform:uppercase;
-    letter-spacing:0.5px;
-    color:#000;
+.titulo_opcion_horarios_atencion {
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #000;
 }
 
 .titulo_opcion_correo,
 .titulo_opcion_sms,
 .titulo_opcion_chatea_con_nosotros,
-.titulo_opcion_horarios_atencion{
-    margin-bottom:8px;
+.titulo_opcion_horarios_atencion {
+    margin-bottom: 8px;
 }
 
-.titulo_opcion_llamada{
-    margin-bottom:10px;
+.titulo_opcion_llamada {
+    margin-bottom: 10px;
 }
 
 .correo_electronico,
 .numero_celular,
 .horarios_atencion,
 .horarios_atencion_2,
-.telefonos_central{
+.telefonos_central {
     display: block;
-    font-weight:bold;
-    letter-spacing:0.2px;
-    color:#000;
-}
-
-.horarios_atencion .mb-3,
-.horarios_atencion_2 .mb-3{
-    margin-bottom:3px;
+    font-weight: bold;
     letter-spacing: 0.2px;
+    color: #000;
 }
 
-.telefonos_central > span{
-    display:block;
-    margin-bottom:3px;
-}
+    .horarios_atencion .mb-3,
+    .horarios_atencion_2 .mb-3 {
+        margin-bottom: 3px;
+        letter-spacing: 0.2px;
+    }
+
+    .telefonos_central > span {
+        display: block;
+        margin-bottom: 3px;
+    }
 
 .btn_enviar_email,
 .btn_enviar_sms,
-.btn_ingresar_chat{
+.btn_ingresar_chat {
     display: block;
     margin: 15px auto 0 auto;
     border: none;
@@ -2969,77 +3019,77 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     font-size: 13px;
     letter-spacing: 1px;
-    opacity:1;
-    cursor:pointer;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
+    opacity: 1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
 }
 
-.btn_enviar_email:hover,
-.btn_enviar_sms:hover,
-.btn_ingresar_chat:hover{
-    opacity:0.8;
+    .btn_enviar_email:hover,
+    .btn_enviar_sms:hover,
+    .btn_ingresar_chat:hover {
+        opacity: 0.8;
+    }
+
+.info_mas_opciones {
+    text-align: center;
+    color: #000;
+    font-size: 13px;
+    letter-spacing: 0.5px;
 }
 
-.info_mas_opciones{
-    text-align:center;
-    color:#000;
-    font-size:13px;
-    letter-spacing:0.5px;
-}
-
-.info_mas_opciones a,
-.accion_alternativa_posterior_envio_password{
-    color:#e81c36;
-    text-decoration:underline;
-    font-weight:600;
-    opacity:1;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
-}
+    .info_mas_opciones a,
+    .accion_alternativa_posterior_envio_password {
+        color: #e81c36;
+        text-decoration: underline;
+        font-weight: 600;
+        opacity: 1;
+        transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+    }
 
 .texto_no_llego_mensaje,
-.accion_alternativa_posterior_envio_password{
-    display:inline-block;
-    vertical-align:middle;
+.accion_alternativa_posterior_envio_password {
+    display: inline-block;
+    vertical-align: middle;
 }
 
-.texto_no_llego_mensaje{
-    color:#000;
-    font-weight:400;
+.texto_no_llego_mensaje {
+    color: #000;
+    font-weight: 400;
 }
 
 .info_mas_opciones a:hover,
-.accion_alternativa_posterior_envio_password:hover{
-    opacity:0.8;
+.accion_alternativa_posterior_envio_password:hover {
+    opacity: 0.8;
 }
 
-#correoDestino{
-    margin-bottom:47px;
+#correoDestino {
+    margin-bottom: 47px;
 }
 
 .accion_alternativa_posterior_envio_password {
     width: auto;
     text-align: center;
-    margin-bottom:3px;
+    margin-bottom: 3px;
 }
 
-.flecha_ver_mas_opciones{
-    display:inline-block;
-    vertical-align:middle;
-    width:6px;
-    height:10px;
-    margin-left:1px;
-    margin-bottom:1px;
-    background-image:url(../../../Images/Login2/Icons/flecha-ver-mas-opciones-esika.svg);
-    background-repeat:no-repeat;
-    background-size:100%;
+.flecha_ver_mas_opciones {
+    display: inline-block;
+    vertical-align: middle;
+    width: 6px;
+    height: 10px;
+    margin-left: 1px;
+    margin-bottom: 1px;
+    background-image: url(../../../Images/Login2/Icons/flecha-ver-mas-opciones-esika.svg);
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 .btn_regresar_ver_otras_opciones {
@@ -3056,47 +3106,47 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    opacity:1;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
+    opacity: 1;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
 }
 
-.btn_regresar_ver_otras_opciones:hover span:last-child{
-    text-decoration:underline;
-    opacity:0.8;
+    .btn_regresar_ver_otras_opciones:hover span:last-child {
+        text-decoration: underline;
+        opacity: 0.8;
+    }
+
+.icono_regresar_ver_otras_opciones {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    width: 6px;
+    height: 11px;
 }
 
-.icono_regresar_ver_otras_opciones{
-    display:inline-block;
-    vertical-align:middle;
-    margin-right:3px;
-    margin-bottom:3px;
-    width:6px;
-    height:11px;
+    .icono_regresar_ver_otras_opciones img {
+        width: 100%;
+        height: auto;
+    }
+
+.mensaje_pop_up_contraseniaEnviada p.texto_informativo_ingreso_codigo {
+    margin-bottom: 8px !important;
 }
 
-.icono_regresar_ver_otras_opciones img{
-    width:100%;
-    height:auto;
-}
-
-.mensaje_pop_up_contraseniaEnviada p.texto_informativo_ingreso_codigo{
-    margin-bottom:8px!important;
-}
-
-.ingreso_codigo{
+.ingreso_codigo {
     display: block;
     margin: 0 auto 34px auto;
     width: 100%;
     max-width: 190px;
     position: relative;
-    text-align:center;
+    text-align: center;
 }
 
-.codigoSms{
+.codigoSms {
     display: inline-block;
     vertical-align: bottom;
     margin-right: 7px;
@@ -3114,7 +3164,7 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: 5px;
 }
 
-.tiempo_validez_codigoSms{
+.tiempo_validez_codigoSms {
     display: block;
     position: absolute;
     right: -31px;
@@ -3126,144 +3176,142 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: 0.5px;
 }
 
-.mensaje_error_codigo{
-    display:block;
-    margin:6px auto 0 auto;
-    width:100%;
-    max-width:110px;
-    text-align:center;
-    font-size:11px;
-    font-weight:400;
-    color:#000;
+.mensaje_error_codigo {
+    display: block;
+    margin: 6px auto 0 auto;
+    width: 100%;
+    max-width: 110px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 400;
+    color: #000;
 }
 
-.mb-34{
-    margin-bottom:34px!important;
-    line-height:23px!important;
+.mb-34 {
+    margin-bottom: 34px !important;
+    line-height: 23px !important;
 }
 
-.texto_disculpa_2{
-    display:block;
+.texto_disculpa_2 {
+    display: block;
 }
 
-@media screen and (max-width:1093px){
+@media screen and (max-width:1093px) {
 
-    .campoPais{
-        width:90%!important;
+    .campoPais {
+        width: 90% !important;
     }
-
 }
 
-@media screen and (max-width:991px){
+@media screen and (max-width:991px) {
 
-    .opcionLlamada_desktop{
-        display:none;
+    .opcionLlamada_desktop {
+        display: none;
     }
 
-    .opcionLlamada_mobile{
-        display:block;
-        border:none!important;
-        text-align:center!important;
-        padding: 12px 0!important;
+    .opcionLlamada_mobile {
+        display: block;
+        border: none !important;
+        text-align: center !important;
+        padding: 12px 0 !important;
     }
 
-    .opcion_recuperacion_contrasenia.sinMargenesMobile{
-        width:100%;
-        margin-left:0;
-        margin-right:0;
+    .opcion_recuperacion_contrasenia.sinMargenesMobile {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
     }
 
-    .grupo_centrales_telefonicas_disponibles{
-        display:block;
+    .grupo_centrales_telefonicas_disponibles {
+        display: block;
     }
 
-    .central_telefonica{
-        display:inline-block;
-        vertical-align:middle;
-        margin:0;
-        width:73px;
-        margin-right:25px;
-        text-decoration:none;
-        border:none;
-        color:#000;
+    .central_telefonica {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+        width: 73px;
+        margin-right: 25px;
+        text-decoration: none;
+        border: none;
+        color: #000;
     }
 
-    .central_telefonica:last-child{
-        margin-right:0;
+        .central_telefonica:last-child {
+            margin-right: 0;
+        }
+
+    .icono_llamada {
+        width: 50px;
+        height: 50px;
+        background: #d12a35;
+        border-radius: 100%;
+        margin-bottom: 12px;
+        background-image: url(../../../Images/Login2/Icons/icono-llamada-mobile.svg);
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
-    .icono_llamada{
-        width:50px;
-        height:50px;
-        background:#d12a35;
-        border-radius:100%;
-        margin-bottom:12px;
-        background-image:url(../../../Images/Login2/Icons/icono-llamada-mobile.svg);
-        background-repeat:no-repeat;
-        background-position:center;
+    .texto_opcion_llamada {
+        display: block;
+        text-transform: uppercase;
+        color: #000;
+        font-size: 12px;
+        font-weight: 400;
+        text-align: center;
+        font-weight: 14px;
     }
-
-    .texto_opcion_llamada{
-        display:block;
-        text-transform:uppercase;
-        color:#000;
-        font-size:12px;
-        font-weight:400;
-        text-align:center;
-        font-weight:14px;
-    }
-
 }
 
-@media screen and (max-width:678px){
+@media screen and (max-width:678px) {
 
-    .campoPais{
-        width:91%!important;
+    .campoPais {
+        width: 91% !important;
     }
 
-    .content_bg_opciones_recuperacion_contrasenia{
-        width:90%;
-        top:9%;
-        margin-bottom:5%;
+    .content_bg_opciones_recuperacion_contrasenia {
+        width: 90%;
+        top: 9%;
+        margin-bottom: 5%;
     }
 
-    .content_bg_1 #header{
-        padding-left:10%!important;
+    .content_bg_1 #header {
+        padding-left: 10% !important;
     }
 
     #header {
-        width: 78%!important;
+        width: 78% !important;
     }
 
-    .content_bg_opciones_recuperacion_contrasenia .mensaje_pop_up2 b{
-        display:block;
-    }
-
-    .opcion_recuperacion_contrasenia{
-        width:100%;
-        margin:0;
-    }
-
-    .opcion_recuperacion_contrasenia.opcionCorreo,
-    .opcion_recuperacion_contrasenia.opcionSms{
+    .content_bg_opciones_recuperacion_contrasenia .mensaje_pop_up2 b {
         display: block;
+    }
+
+    .opcion_recuperacion_contrasenia {
         width: 100%;
-        height: auto;
-        margin-left: 0;
-        margin-right: 0;
-        padding: 18px 16px;
-        text-align:left;
+        margin: 0;
     }
 
-    .opcion_recuperacion_contrasenia.opcionCorreo{
-        margin-bottom:15px;
-    }
+        .opcion_recuperacion_contrasenia.opcionCorreo,
+        .opcion_recuperacion_contrasenia.opcionSms {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-left: 0;
+            margin-right: 0;
+            padding: 18px 16px;
+            text-align: left;
+        }
 
-    .opcion_recuperacion_contrasenia.opcionSms{
-        margin-bottom:27px;
-    }
+        .opcion_recuperacion_contrasenia.opcionCorreo {
+            margin-bottom: 15px;
+        }
 
-    .contenedor_solo_una_opcion{
+        .opcion_recuperacion_contrasenia.opcionSms {
+            margin-bottom: 27px;
+        }
+
+    .contenedor_solo_una_opcion {
         width: 100%;
         height: auto;
         border: 1px solid #e7e1e1;
@@ -3277,107 +3325,105 @@ h1, h2, h3, h4, h5, h6 {
     .contenedor_info_datos,
     .icono_chatea_con_nosotros,
     .icono_reloj,
-    .horarios_atencion{
-        display:inline-block;
-        vertical-align:middle;
-        margin:0;
+    .horarios_atencion {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
     }
 
     .icono_correo_electronico,
-    .icono_sms{
-        margin-right:19px;
+    .icono_sms {
+        margin-right: 19px;
     }
 
-    .icono_correo_electronico.mb-15,
-    .icono_sms.mb-15,
-    .icono_chatea_con_nosotros{
-        margin-bottom:0;
+        .icono_correo_electronico.mb-15,
+        .icono_sms.mb-15,
+        .icono_chatea_con_nosotros {
+            margin-bottom: 0;
+        }
+
+    .icono_correo_electronico {
+        width: 27.3px;
+        height: 16px;
     }
 
-    .icono_correo_electronico{
-        width:27.3px;
-        height:16px;
+    .icono_sms {
+        width: 24.7px;
+        height: 20px;
     }
 
-    .icono_sms{
-        width:24.7px;
-        height:20px;
+    .icono_chatea_con_nosotros {
+        width: 23px;
+        height: 32px;
+        margin-right: 17px;
     }
 
-    .icono_chatea_con_nosotros{
-        width:23px;
-        height:32px;
-        margin-right:17px;
+    .icono_reloj {
+        width: 25px;
+        height: 25px;
+        margin-bottom: 0 !important;
+        margin-right: 11px;
     }
 
-    .icono_reloj{
-        width:25px;
-        height:25px;
-        margin-bottom:0!important;
-        margin-right:11px;
+    .titulo_opcion_horarios_atencion {
+        display: none;
     }
 
-    .titulo_opcion_horarios_atencion{
-        display:none;
-    }
-
-    .horarios_atencion{
-        font-weight:400;
+    .horarios_atencion {
+        font-weight: 400;
     }
 
     .btn_enviar_email,
     .btn_enviar_sms,
-    .btn_ingresar_chat{
-        width:100%;
-        max-width:none;
+    .btn_ingresar_chat {
+        width: 100%;
+        max-width: none;
     }
 
-    .content_bg_1 .mensaje_pop_up{
-        margin-left:9%;
-        margin-right:9%;
+    .content_bg_1 .mensaje_pop_up {
+        margin-left: 9%;
+        margin-right: 9%;
         margin-top: 38px;
         margin-bottom: 38px;
     }
 
-    .mensaje_pop_up_contraseniaEnviada h1{
-        font-size:18px;
+    .mensaje_pop_up_contraseniaEnviada h1 {
+        font-size: 18px;
     }
 
-    .mensaje_pop_up_contraseniaEnviada p{
+    .mensaje_pop_up_contraseniaEnviada p {
         margin: 0 auto 31px auto;
     }
 
-    .mensaje_pop_up_contraseniaEnviada p strong{
-        display:block;
-        margin-top:5px;
-    }
+        .mensaje_pop_up_contraseniaEnviada p strong {
+            display: block;
+            margin-top: 5px;
+        }
 
-    .texto_disculpa.
+    .texto_disculpa
     .icono_reloj_2{
         display:block;
     }
 
-    .icono_reloj_2{
-        width:45px;
-        height:45px;
+    .icono_reloj_2 {
+        width: 45px;
+        height: 45px;
     }
 
-    .texto_disculpa_2{
-        text-align: left!important;
+    .texto_disculpa_2 {
+        text-align: left !important;
         padding: 0 3%;
-        line-height: 22px!important;
+        line-height: 22px !important;
     }
 
-    .horarios_atencion_2{
-        font-size:17px;
+    .horarios_atencion_2 {
+        font-size: 17px;
     }
-
 }
 
-@media screen and (max-width:480px){
+@media screen and (max-width:480px) {
 
-    .campoPais{
-        width:90%!important;
+    .campoPais {
+        width: 90% !important;
     }
-
 }

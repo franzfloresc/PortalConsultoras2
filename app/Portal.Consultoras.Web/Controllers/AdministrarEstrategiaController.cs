@@ -708,7 +708,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             foreach (var producto in respuestaServiceCdr)
             {
-                var entidadPro = new BEEstrategiaProducto
+                var entidadPro = new ServicePedido.BEEstrategiaProducto
                 {
                     PaisID = userData.PaisID,
                     EstrategiaID = entidad.EstrategiaID,
@@ -2074,7 +2074,7 @@ namespace Portal.Consultoras.Web.Controllers
             int line = 0;
             try
             {
-                List<BEEstrategiaProducto> strategyEntityList = new List<BEEstrategiaProducto>();
+                var strategyEntityList = new List<ServicePedido.BEEstrategiaProducto>();
                 StreamReader streamReader = new StreamReader(model.Documento.InputStream, Encoding.Default);
                 string readLine = streamReader.ReadLine();
                 if (model.Documento == null || model.Documento.ContentLength <= 0) throw new ArgumentException("El archivo esta vac�o.");
@@ -2143,7 +2143,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 throw new ArgumentException(string.Format("El valor del campo 'Marca de Producto' no es n�merico. <br /> Referencia: La observaci�n se encontr� en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
                             line++;
-                            strategyEntityList.Add(new BEEstrategiaProducto
+                            strategyEntityList.Add(new ServicePedido.BEEstrategiaProducto
                             {
                                 CUV = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.CUV].ToString().TrimEnd(),
                                 NombreProducto = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.ProductName].ToString().TrimEnd(),
