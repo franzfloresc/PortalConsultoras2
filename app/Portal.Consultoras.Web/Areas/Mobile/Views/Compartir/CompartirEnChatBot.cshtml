@@ -15,18 +15,6 @@
             estado: "0"
         };
 
-        function TagManagerWS(catalogo, campaniaCatalogo) {
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Catálogos y revistas',
-                'action': 'Compartir WhatsApp',
-                'label': catalogo,
-                'value': 0
-            });
-
-            InsertarLogCatalogoDynamo('Whatsapp', campaniaCatalogo, catalogo, 1);
-        }
-
         function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantidad) {
             InsertarLogDymnamo(
                 'Catalogo-Compartir',
@@ -57,7 +45,7 @@
 <div class="content_carrusel_catalogo" id="divCatalogo">
     <div style="max-width:440px; margin:0 auto;" data-cat="@Model.TipoCatalogo">
         <input id="txtUrl@Model.TipoCatalogo" type="hidden" value="@Model.UrlCatalogo" />
-        <a class="btn_ws" onclick="TagManagerWS('@Model.TipoCatalogo', '@Model.Campania');">
+        <a class="btn_ws" onclick="RedesSociales.TagManagerWS('@Model.TipoCatalogo', '@Model.Campania');">
             <img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" style="height: 100%;" />
         </a>
         <a class="btn_facebook" href="#" data-accion="face" onclick="RedesSociales.CompartirFacebook('@Model.TipoCatalogo', '@Model.Campania', this);return false;">

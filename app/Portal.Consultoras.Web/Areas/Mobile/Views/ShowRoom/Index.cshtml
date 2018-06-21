@@ -35,7 +35,7 @@
     <link href="@Url.Content("~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css")" rel="stylesheet" />
 }
 @{
-var mobileConfiguracion = Html.MobileAppConfiguracion();
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 <div class="wrapper_resumen_mobile">
     <div id="orderby-filter">
@@ -217,16 +217,7 @@ var mobileConfiguracion = Html.MobileAppConfiguracion();
             <div class="content_desplegable_banner" id="BannerCompra">
                 <div class="content_carrusel_intriga" style="background: white;" id="LlamarPopCompra"
                      data-promotion-impresion-id="@Model.ListaShowRoomCompraPorCompra[0].CUV"
-                     @{ 
-                     	var _descripcion = Model.ListaShowRoomCompraPorCompra[0].Descripcion; 
-                     	if (_descripcion != null && _descripcion.Length > 41) 
-                     	{
-                     		_descripcion = _descripcion.Substring(0, 40) + " ...";
-                     	}
-                     	_descripcion = "Showroom - " + _descripcion 
-                     		+ " A SÓLO " + Model.ListaShowRoomCompraPorCompra[0].Simbolo 
-                     		+ " " + Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioOferta; 
-                     }
+                     @{ var _descripcion = Model.ListaShowRoomCompraPorCompra[0].Descripcion; if (_descripcion != null && _descripcion.Length > 41) { _descripcion = _descripcion.Substring(0, 40) + " ..."; } _descripcion = "Showroom - " + _descripcion + " A SÓLO " + Model.ListaShowRoomCompraPorCompra[0].Simbolo + " " + Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioOferta; }
                      data-promotion-impresion-name="@_descripcion">
                     <div class="content_banner_img">
                         <img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto" />
@@ -421,10 +412,10 @@ else
             </div>
 
             {{#iff TipoAccionAgregar '==' '2'}}
-                <div class="texto_elige_tono">&ensp;&nbsp;</div>
+            <div class="texto_elige_tono">&ensp;&nbsp;</div>
             {{/iff}}
             {{#iff TipoAccionAgregar '==' '3'}}
-                <div class="texto_elige_tono"> ELIGE TU OPCIÓN </div>
+            <div class="texto_elige_tono"> ELIGE TU OPCIÓN </div>
             {{/iff}}
             <div class="clear"></div>
         </div>
@@ -497,6 +488,7 @@ else
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ShowRoom/Index.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
     <script type="text/javascript">

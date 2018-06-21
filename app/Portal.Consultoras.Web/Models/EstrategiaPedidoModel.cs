@@ -19,9 +19,9 @@ namespace Portal.Consultoras.Web.Models
         }
 
         public int MarcaID { get; set; }
-        //public string ConsultoraID { get; set; }
+        public string ConsultoraID { get; set; }
         public int EstrategiaID { get; set; }
-        //public int PaisID { get; set; }
+        public int PaisID { get; set; }
         public int CampaniaID { get; set; }
         public int CampaniaIDFin { get; set; }
         public int NumeroPedido { get; set; }
@@ -80,7 +80,7 @@ namespace Portal.Consultoras.Web.Models
         public int TieneVariedad { get; set; }
         public int PuedeCambiarCantidad { get; set; }
         public int PuedeAgregar { get; set; }
-        //public int IsMobile { get; set; }
+        public int IsMobile { get; set; }
         
         public string CodigoEstrategia { get; set; }
         public List<BEEstrategiaProducto> EstrategiaProductos { get; set; }

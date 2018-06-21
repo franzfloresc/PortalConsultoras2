@@ -60,10 +60,10 @@
             <span class="comment">Gana @Model.Simbolo @Model.FormatoGana</span>
         </div>
         <div class="item_product">
-            <div class="description_item" data-item>
+            <div class="description_item" data-item >
                 <div class="detail detailItem">
                     <div class="" >
-                        <div style="display:none;"><div data-estrategiaJson="@Json.Encode(Model)"></div></div>
+                        <div style="display:none;"><div @*data-estrategiaJson="@Json.Encode(Model)"*@></div></div>
                         @{
                             var btnDesabled = 0;
                             var btnDesabledClass = "";
@@ -72,10 +72,10 @@
                         @if (Model.CodigoProducto != "")
                         {
                             <div data-estrategia="@Model.CodigoEstrategia">
-                                   @if (Model.Hermanos != null && Model.Hermanos.Any())
-                                   {
-                                       var claseItem = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija ? "content_producto_individual" : "";
-                                       var claseItem3 = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
+                                @if (Model.Hermanos != null && Model.Hermanos.Any())
+                                {
+                                    var claseItem = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija ? "content_producto_individual" : "";
+                                    var claseItem3 = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
 
                                         <div class="@claseItem">
                                             @foreach (var producto in Model.Hermanos)
@@ -87,7 +87,7 @@
                                                 <div>
                                                     <div class="@claseItem3 content_detalle_set_showroom" data-tono="" data-tono-select="" data-tono-digitable="@producto.Digitable">
                                                         <div style="display: none;">
-                                                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@producto.MarcaID" />
+                                                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@producto.IdMarca" />
                                                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@producto.PrecioCatalogo" />
                                                         </div>
                                                         @if (@producto.DescripcionMarca != "")
@@ -102,7 +102,7 @@
                                                             {
                                                                 <span class="cantidad_producto_opt">x @producto.Cantidad </span>
                                                             }
-                                                            <span class="product_name" data-tono-cuv-producto="@producto.CUV" data-tono-select-nombrecomercial="">@producto.NombreComercial</span>
+                                                            <span class="product_name" data-tono-cuv-producto="@producto.Cuv" data-tono-select-nombrecomercial="">@producto.NombreComercial</span>
                                                             <span class="price">@producto.Descripcion</span>
                                                         </div>
                                                         <hr class="clear">
@@ -125,7 +125,7 @@
                                                                             btnDesabled = 1;
                                                                             <div class="content_tono_elegido" 
                                                                                  data-tono-showroom-change="2" 
-                                                                                 data-tono-cuv="@tono.CUV" 
+                                                                                 data-tono-cuv="@tono.Cuv" 
                                                                                  data-tono-nombre="@tono.NombreBulk" 
                                                                                  data-tono-descripcion="@tono.NombreComercial"
                                                                             >
@@ -146,7 +146,7 @@
                                         </div>
                                     }
 
-                                
+
                             </div>
                         }
                     </div>
@@ -383,7 +383,7 @@
         }
     </div>
 </div>
-<div class="content_btn_agregar" data-posicion="0" data-item="@Model.EstrategiaID">
+<div class="content_btn_agregar" data-posicion="0" data-item="@Model.EstrategiaID" data-estrategia-id="@Model.EstrategiaID" data-campania-id="@Model.CampaniaID">
     <div data-campos="" style="display:none;">
         <input type="hidden" class="hdOfertaShowRoomID" value="@Model.EstrategiaID" />
         <input type="hidden" class="valorCuv" value="@Model.CUV" />
@@ -486,6 +486,7 @@
 </div>
 
 @section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
     <script type="text/javascript">
         var tipoOrigenPantalla = 21;
@@ -499,4 +500,3 @@
     </script>
 }
 
- 

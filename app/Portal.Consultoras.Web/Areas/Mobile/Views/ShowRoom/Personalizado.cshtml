@@ -20,7 +20,7 @@
     <link href="@Url.Content("~/Content/Css/Mobile/esika/slick.css")" rel="stylesheet" />
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
 }
-@{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+@{ var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 <div class="wrapper_resumen_mobile">
     <div id="orderby-filter">
@@ -89,8 +89,8 @@
                                     </div>
                                 </div>
                             </div>
-                                                    }
-                                                }
+                        }
+                    }
 
                     <div class="content_panel">
                         <div class="titulo_filtro">
@@ -185,8 +185,8 @@
                 </div>
             </div>
         </div>
-                                        }
-                                    }
+    }
+}
 <div id="divMensajeProductoAgregado" class="modal fade" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-alert ">
         <div class="modal-content">
@@ -313,14 +313,14 @@ else
                             }
                         }
                     </div>
-                                }
-                            }
+                }
+            }
             <div class="legal_footer_compra">
                 @Model.TextoDescripcionLegalCpc
             </div>
         </div>
     </div>
-                            }
+}
 
 <script id="template-showroom" type="text/x-handlebars-template">
     {{#each this as |item|}}
@@ -425,6 +425,7 @@ else
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ShowRoom/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
     <script type="text/javascript">
         var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';

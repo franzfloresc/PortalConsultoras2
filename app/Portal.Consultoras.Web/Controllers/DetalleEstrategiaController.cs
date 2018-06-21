@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using System;
 using System.Linq;
@@ -6,12 +7,21 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class DetalleEstrategiaController : BaseController
+    public class DetalleEstrategiaController : BaseEstrategiaController
     {
 
-        public ActionResult Ficha()
+        public ActionResult Ficha(string cuv, int campaniaId)
         {
-            return View("Ficha");
+
+            var modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, EstrategiaFichaPersonalizadaProductoModel>(sessionManager.GetProductoTemporal());
+
+            var EstrategiaDetalle = EstrategiaGetDetalle(modelo.EstrategiaID);
+            if (EstrategiaDetalle.Hermanos != null)
+            {
+                modelo.Hermanos = EstrategiaDetalle.Hermanos;
+            }
+
+            return View("Ficha", modelo);
         }
 
     }
