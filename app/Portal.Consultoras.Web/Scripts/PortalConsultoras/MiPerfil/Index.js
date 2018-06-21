@@ -38,8 +38,9 @@ $(document).ready(function () {
                 }
             },
             PuedeCambiarTelefono: function () {
-                if ($('#hdn_ServicioSMS').val() == '0' || $('#hdn_ServicioSMS').val() == false) {
-                    $('#btnCambiarCelular').bind('click', false);
+                var smsFlag = $('#hdn_ServicioSMS').val();
+                if (smsFlag == '0' || smsFlag == false) {
+                    $('#btnCambiarCelular').hide();
                 } else {
                     $('#txtCelularMD').prop('readonly', true);
                 }
