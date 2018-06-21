@@ -71,6 +71,7 @@
     <Compile Include="BEEventoFestivo.cs" />
     <Compile Include="BEGPRBanner.cs" />
     <Compile Include="BEGPRUsuario.cs" />
+    <Compile Include="BEParametrosLider.cs" />
     <Compile Include="BEPinAutenticacion.cs" />
     <Compile Include="BEPremiosProgramaNuevas.cs" />
     <Compile Include="CargaMasiva\BECargaMasivaImagenes.cs" />

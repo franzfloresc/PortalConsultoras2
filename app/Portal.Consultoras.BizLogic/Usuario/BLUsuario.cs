@@ -2678,12 +2678,12 @@ namespace Portal.Consultoras.BizLogic
         private string GetNivelProyectado(int paisID, long consultoraId, int campaniaId)
         {
             string nivelProyectado = "";
-            DataSet ds;
+            BEParametrosLider oBEParametrosLider;
 
-            ds = _consultoraLiderBusinessLogic.ObtenerParametrosSuperateLider(paisID, consultoraId, campaniaId);
-            if (ds != null && ds.Tables.Count > 0)
+            oBEParametrosLider = _consultoraLiderBusinessLogic.ObtenerParametrosConsultoraLider(paisID, consultoraId, campaniaId);
+            if (oBEParametrosLider != null  )
             {
-                nivelProyectado = ds.Tables[0].Rows[0][1].ToString();
+                nivelProyectado = oBEParametrosLider.NivelProyectado;
             }
 
             return nivelProyectado;
