@@ -1,5 +1,7 @@
 const $ = require('../../Scripts/jquery-1.11.2');
 global.$ = global.jQuery = $;
+global.waitingDialog = jest.fn();
+global.closeWaitingDialog = jest.fn();
 global.actualizaCelularData = {
     celular: '987654321',
     urlProvider: {}
