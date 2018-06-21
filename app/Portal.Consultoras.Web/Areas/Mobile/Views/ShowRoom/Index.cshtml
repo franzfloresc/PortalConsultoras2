@@ -385,7 +385,7 @@ else
 <script id="template-showroom" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div class="revistadigital-landing content_item_home_palanca">
-        <div class="content_item_home_bpt box_producto_mobile_fix" data-posicion="{{Posicion}}" {{#iff TipoAccionAgregar '==' '4' }} href="javascript:;" onclick="javascript:VerPopupExpGanaMas();" {{/iff}}>
+        <div class="content_item_home_bpt box_producto_mobile_fix" data-posicion="{{Posicion}}" data-TipoAccionAgregar="{{TipoAccionAgregar}}"   {{#iff TipoAccionAgregar '==' '5' }} href="javascript:;" onclick="javascript:VerPopupExpGanaMas();" {{/iff}}>
             <div style="display:none;">
                 <input type="hidden" id="hdswventaID" value="{{OfertaShowRoomID}}" />
                 <input type="hidden" id="hdswventaDescripcion" value="{{Descripcion}}" />
