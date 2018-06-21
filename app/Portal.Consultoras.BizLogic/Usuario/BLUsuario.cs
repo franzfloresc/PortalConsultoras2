@@ -1913,7 +1913,7 @@ namespace Portal.Consultoras.BizLogic
                     dAUsuario.InsActualizarCodigoGenerado(new BEUsuarioCorreo {
                         OrigenID = Constantes.EnviarCorreoYSms.OrigenActualizarCelular,
                         Descripcion = Constantes.EnviarCorreoYSms.OrigenDescripcion,
-                        tipoEnvio = Constantes.EnviarCorreoYSms.TipoEnvio_Sms,
+                        tipoEnvio = Constantes.ValidacionDatosTipoEnvio.Sms,
                         CodigoUsuario = codigoUsuario,
                         opcionHabilitar = true,
                         codigoGenerado = code
@@ -1944,11 +1944,13 @@ namespace Portal.Consultoras.BizLogic
                 var daValidacionDatos = new DAValidacionDatos(paisId);
                 var daUsuario = new DAUsuario(paisId);
 
-                var valid = daUsuario.ValidarCodigoIngresado(new BEUsuarioDatos
+                var valid = daUsuario.ValidarCodigoIngresado(new BEUsuarioCorreo
                 {
                     CodigoUsuario = codigoUsuario,
-                    OrigenID = Constantes.EnviarCorreoYSms.OrigenActualizarCelular
-                }, codigoSms);
+                    OrigenID = Constantes.EnviarCorreoYSms.OrigenActualizarCelular,
+                    tipoEnvio = Constantes.ValidacionDatosTipoEnvio.Sms,
+                    codigoGenerado = codigoSms
+                });
 
                 if (!valid)
                 {
@@ -2587,7 +2589,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 oUsuCorreo.codigoGenerado = ""; //En recuperar contraseña no hay codigo generado.
-                oUsuCorreo.tipoEnvio = Constantes.EnviarCorreoYSms.TipoEnvio_Email;
+                oUsuCorreo.tipoEnvio = Constantes.ValidacionDatosTipoEnvio.Email;
 
                 var DAUsuario = new DAUsuario(paisId);
                 DAUsuario.InsActualizarCodigoGenerado(oUsuCorreo);
@@ -2662,7 +2664,7 @@ namespace Portal.Consultoras.BizLogic
                         objUsuCorreo.opcionHabilitar = false;
 
                     //Registrando PIN
-                    objUsuCorreo.tipoEnvio = Constantes.EnviarCorreoYSms.TipoEnvio_Email;
+                    objUsuCorreo.tipoEnvio = Constantes.ValidacionDatosTipoEnvio.Email;
 
                     var DAUsuario = new DAUsuario(paisID);
                     DAUsuario.InsActualizarCodigoGenerado(objUsuCorreo);

@@ -829,7 +829,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsuCorreo.CodigoUsuario);
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsuCorreo.OrigenID);
             Context.Database.AddInParameter(command, "@OrigenDescripcion", DbType.AnsiString, oUsuCorreo.Descripcion);
-            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.Int32, oUsuCorreo.tipoEnvio);
+            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, oUsuCorreo.tipoEnvio);
             Context.Database.AddInParameter(command, "@CodigoGenerado", DbType.AnsiString, oUsuCorreo.codigoGenerado);
             Context.Database.AddInParameter(command, "@OpcionDesabilitado", DbType.Boolean, oUsuCorreo.opcionHabilitar);
 
@@ -856,12 +856,13 @@ namespace Portal.Consultoras.Data
             return (Context.ExecuteReader(command));
         }
 
-        public bool ValidarCodigoIngresado(BEUsuarioDatos oUsu, string codigoIngresado)
+        public bool ValidarCodigoIngresado(BEUsuarioCorreo oUsu)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarCodigoIngresado"); ;
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsu.CodigoUsuario);
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsu.OrigenID);
-            Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, codigoIngresado);
+            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, oUsu.tipoEnvio);
+            Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, oUsu.codigoGenerado);
 
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }

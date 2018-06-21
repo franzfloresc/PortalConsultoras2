@@ -2123,7 +2123,6 @@ namespace Portal.Consultoras.Common
             public const string OrigenDescripcion = "actualizar datos";
 
             public const int TipoEnvio_Email = 1;
-            public const int TipoEnvio_Sms = 2;
         }
         #endregion  
 

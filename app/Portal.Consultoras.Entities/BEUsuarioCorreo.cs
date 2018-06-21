@@ -81,7 +81,7 @@ namespace Portal.Consultoras.Entities
         public bool opcionHabilitar { get; set; }
 
         [DataMember]
-        public int tipoEnvio { get; set; }
+        public string tipoEnvio { get; set; }
 
         [DataMember]
         public bool EsMobile { get; set; }
