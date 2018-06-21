@@ -796,8 +796,7 @@ function compraxcompra_promotion_click(cuv, descripcion) {
 }
 
 function EstrategiaAgregarShowRoom(event) {
-     
-    var padre = $('#btnAgregalo').parents("[data-item]");
+    var padre = $(event.target).parents("[data-item]");
     var article = $(padre).find("[data-campos]").eq(0);
     var cantidad = $(padre).find("[data-input='cantidad']").val();
     //var estrategia = EstrategiaObtenerObjShowRoom(event);
