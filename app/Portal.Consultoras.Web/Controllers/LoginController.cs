@@ -137,6 +137,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.FBAppId = ConfigurationManager.AppSettings["FB_AppId"];
 
+
+
             return View(model);
         }
         [AllowAnonymous]
@@ -177,6 +179,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.PaisID = Util.GetPaisID(model.CodigoISO);
 
                 var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);
+
 
                 if (resultadoInicioSesion != null && resultadoInicioSesion.Result == USUARIO_VALIDO)
                 {
@@ -978,7 +981,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     usuarioModel.DiasAntes = usuario.DiasAntes;
                     usuarioModel.DiasDuracionCronograma = usuario.DiasDuracionCronograma;
-                    
+
                     switch (usuario.RolID)
                     {
                         case Constantes.Rol.Administrador:
@@ -1121,7 +1124,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 var montoMinimoFlexipago = ofertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : ofertaFlexipago.MontoMinimoFlexipago;
                                 usuarioModel.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", montoMinimoFlexipago);
-                            }                           
+                            }
                         }
 
                         #endregion
@@ -1161,7 +1164,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 ListaDeOferta = ofertaDelDiaTask.Result
                             };
                         }
-                       
+
                         usuarioModel.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
 
                         #endregion
@@ -1250,7 +1253,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var lstFiltersFAV = await CargarFiltersFAV(usuarioModel);
                         if (lstFiltersFAV.Any()) sessionManager.SetListFiltersFAV(lstFiltersFAV);
                     }
- 
+
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
                     usuarioModel.MensajeChat = await GetMessageChat(usuarioModel.PaisID);
 
@@ -1747,7 +1750,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (tablaLogicaDatos != null)
             {
-                codigoRevista = tablaLogicaDatos.Codigo;
+                codigoRevista = Util.Trim(tablaLogicaDatos.Codigo);
             }
 
             return codigoRevista;
@@ -2773,7 +2776,7 @@ namespace Portal.Consultoras.Web.Controllers
             var name = string.Empty;
             try
             {
-                var logonUserIdentity = ((System.Web.HttpRequestWrapper) Request).LogonUserIdentity;
+                var logonUserIdentity = ((System.Web.HttpRequestWrapper)Request).LogonUserIdentity;
                 if (logonUserIdentity != null)
                     name = logonUserIdentity.Name;
             }
@@ -2824,6 +2827,7 @@ namespace Portal.Consultoras.Web.Controllers
                 textoRecuperacion = !string.IsNullOrEmpty(textoRecuperacion) ? textoRecuperacion : Convert.ToString(TempData["CodigoUsuario"]);
 
                 BEUsuarioCorreo oUsuCorreo = DatosUsuarioCorreo(paisId, textoRecuperacion, nroOpcion);
+                ViewBag.HabilitarChatEmtelco = (oUsuCorreo == null) ? false : oUsuCorreo.HabilitarChatEmtelco;
 
                 return Json(new
                 {
@@ -2864,149 +2868,141 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         datos = sv.GetRestaurarClaveByCodUsuario(textoRecuperacion, paisId);
                     }
-                    if (datos != null) SetTemData(datos, paisId);
+                    if (datos != null)
+                        SetTemData(datos, paisId);
                 }
 
-                if (datos != null && datos.Cantidad != 0)
+                if (datos == null) return datos;
+                if (datos.Cantidad == 0) return datos;
+
+                datos.resultado = "";
+                datos.EsMobile = EsDispositivoMovil();
+
+                if (nroOpcion == 1)
                 {
-                    datos.resultado = "";
-                    datos.EsMobile = EsDispositivoMovil();
+                    if (datos.Correo != "" && datos.Celular != "") datos.resultado = "prioridad1";
+                    else if (datos.Correo != "" && datos.Celular == "") datos.resultado = "prioridad1_correo";
+                    else if (datos.Correo == "" && datos.Celular != "") datos.resultado = "prioridad1_sms";
 
-                    if (nroOpcion == 1)
-                    {
-                        if (datos.Correo != "" && datos.Celular != "") datos.resultado = "prioridad1";
-                        else if (datos.Correo != "" && datos.Celular == "") datos.resultado = "prioridad1_correo";
-                        else if (datos.Correo == "" && datos.Celular != "") datos.resultado = "prioridad1_sms";
-
-                        if (datos.resultado == "") nroOpcion = 2;
-                    }
-
-                    if (nroOpcion == 2)
-                    {
-                        BEHorario horarioChat;
-                        using (SACServiceClient sv = new SACServiceClient())
-                        {
-                            horarioChat = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.ChatEmtelco, true);
-                        }
-
-                        bool mostrarChat = false;
-                        bool habilitarChat = false;
-
-                        if (horarioChat != null)
-                        {
-                            string paisISO = Util.GetPaisISO(paisId);
-                            mostrarChat = (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO);
-                            datos.descripcionHorario = horarioChat.Resumen;
-                            habilitarChat = horarioChat.EstaDisponible;
-                        }
-
-                        if (mostrarChat && habilitarChat)
-                            datos.resultado = "prioridad2_chat";
-
-                        if (datos.resultado == "") nroOpcion = 3;
-                    }
-
-                    if (nroOpcion == 3)
-                    {
-                        BEHorario horarioBResponde;
-                        bool habilitarBResponde = false;
-
-                        using (SACServiceClient sv = new SACServiceClient())
-                        {
-                            horarioBResponde = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.BelcorpResponde, true);
-                        }
-
-                        datos.descripcionHorario = horarioBResponde.Resumen;
-                        habilitarBResponde = horarioBResponde.EstaDisponible;
-
-                        if (habilitarBResponde)
-                        {
-                            switch (paisId)
-                            {
-                                case 2:
-                                    {
-                                        //BOLIVIA
-                                        datos.TelefonoCentral = "901-105678"; break;
-                                    };
-                                case 3:
-                                    {
-                                        //CHILE
-                                        datos.TelefonoCentral = "02-28762100"; break;
-                                    };
-                                case 4:
-                                    {
-                                        //COLOMBIA
-                                        datos.TelefonoCentral = "01-8000-9-37452,5948060"; break;
-                                    };
-                                case 5:
-                                    {
-                                        //COSTA RICA
-                                        datos.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
-                                    };
-                                case 6:
-                                    {
-                                        //ECUADOR
-                                        datos.TelefonoCentral = "1800-76667"; break;
-                                    };
-                                case 7:
-                                    {
-                                        //EL SALVADOR
-                                        datos.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
-                                    };
-                                case 8:
-                                    {
-                                        //GUATEMALA
-                                        datos.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
-                                    };
-                                case 9:
-                                    {
-                                        //MEXICO
-                                        datos.TelefonoCentral = "01-800-2352677"; break;
-                                    };
-                                case 10:
-                                    {
-                                        //PANAMA
-                                        datos.TelefonoCentral = "800-5235,377-9399"; break;
-                                    };
-                                case 11:
-                                    {
-                                        //PERU
-                                        datos.TelefonoCentral = "01-2113614,080-11-3030"; break;
-                                    };
-                                case 12:
-                                    {
-                                        //PUERTO RICO
-                                        datos.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
-                                    };
-                                case 13:
-                                    {
-                                        //REPUBLICA DOMINICANA
-                                        datos.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
-                                    };
-                                case 14:
-                                    {
-                                        //VENEZUELA
-                                        datos.TelefonoCentral = "0501-2352677"; break;
-                                    };
-                            }
-                            if (datos.TelefonoCentral.Length > 0) datos.resultado = "prioridad2_llamada";
-                        }
-                        if (datos.resultado == "") nroOpcion = 4;
-                    }
-                    if (nroOpcion == 4) datos.resultado = "prioridad3";
+                    if (datos.resultado == "") nroOpcion = 2;
                 }
+
+                if (nroOpcion == 2)
+                {
+                    BEHorario horarioChat;
+                    using (SACServiceClient sv = new SACServiceClient())
+                    {
+                        horarioChat = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.ChatEmtelco, true);
+                    }
+
+                    bool mostrarChat = false;
+                    bool habilitarChat = false;
+
+                    if (horarioChat != null)
+                    {
+                        string paisISO = Util.GetPaisISO(paisId);
+                        mostrarChat = (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO);
+                        datos.descripcionHorario = horarioChat.Resumen;
+                        habilitarChat = horarioChat.EstaDisponible;
+                    }
+
+                    if (mostrarChat && habilitarChat)
+                        datos.resultado = "prioridad2_chat";
+
+                    if (datos.resultado == "") nroOpcion = 3;
+
+                    datos.HabilitarChatEmtelco = HabilitarChatEmtelco(paisId);
+                }
+
+                if (nroOpcion == 3)
+                {
+                    BEHorario horarioBResponde;
+                    bool habilitarBResponde = false;
+
+                    using (SACServiceClient sv = new SACServiceClient())
+                    {
+                        horarioBResponde = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.BelcorpResponde, true);
+                    }
+
+                    datos.descripcionHorario = horarioBResponde.Resumen;
+                    habilitarBResponde = horarioBResponde.EstaDisponible;
+
+                    if (habilitarBResponde)
+                    {
+                        switch (paisId)
+                        {
+                            case Constantes.PaisID.Bolivia:
+                                {
+                                    datos.TelefonoCentral = "901-105678"; break;
+                                }
+                            case Constantes.PaisID.Chile:
+                                {
+                                    datos.TelefonoCentral = "02-28762100"; break;
+                                }
+                            case Constantes.PaisID.Colombia:
+                                {
+                                    datos.TelefonoCentral = "01-8000-9-37452,5948060"; break;
+                                }
+                            case Constantes.PaisID.CostaRica:
+                                {
+                                    datos.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
+                                }
+                            case Constantes.PaisID.Ecuador:
+                                {
+                                    datos.TelefonoCentral = "1800-76667"; break;
+                                }
+                            case Constantes.PaisID.ElSalvador:
+                                {
+                                    datos.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
+                                }
+                            case Constantes.PaisID.Guatemala:
+                                {
+                                    datos.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
+                                }
+                            case Constantes.PaisID.Mexico:
+                                {
+                                    datos.TelefonoCentral = "01-800-2352677"; break;
+                                }
+                            case Constantes.PaisID.Panama:
+                                {
+                                    datos.TelefonoCentral = "800-5235,377-9399"; break;
+                                }
+                            case Constantes.PaisID.Peru:
+                                {
+                                    datos.TelefonoCentral = "01-2113614,080-11-3030"; break;
+                                }
+                            case Constantes.PaisID.PuertoRico:
+                                {
+                                    datos.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
+                                }
+                            case Constantes.PaisID.RepublicaDominicana:
+                                {
+                                    datos.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
+                                }
+                            case Constantes.PaisID.Venezuela:
+                                {
+                                    datos.TelefonoCentral = "0501-2352677"; break;
+                                }
+                        }
+                        if (datos.TelefonoCentral.Length > 0) datos.resultado = "prioridad2_llamada";
+                    }
+                    if (datos.resultado == "") nroOpcion = 4;
+                }
+
+                if (nroOpcion == 4) datos.resultado = "prioridad3";
+
+
                 return datos;
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, textoRecuperacion, Util.GetPaisISO(paisId));
-                return null;
             }
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, textoRecuperacion, Util.GetPaisISO(paisId), string.Empty);
-                return null;
             }
+            return null;
         }
 
         [AllowAnonymous]
@@ -3141,7 +3137,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string iguales = "";
                 string newUri = "";
                 bool igual = false;
-                
+
                 oUsuCorreo.OrigenID = OrigenID;
                 paisID = Convert.ToInt32(TempData["PaisID"]);
 
@@ -3181,7 +3177,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 TempData["FlagPin"] = true;
                                 return await Redireccionar(paisID, oUsuCorreo.CodigoUsuario);
-                            };
+                            }
                     }
                 }
 
@@ -3258,12 +3254,15 @@ namespace Portal.Consultoras.Web.Controllers
                         oPin = sv.GetPinAutenticidad(PaisID, CodigoUsuario);
                     }
 
-                    TempData["PaisID"] = PaisID;
-                    TempData["CodigoUsuario"] = oPin.CodigoUsuario;
-                    TempData["PrimerNombre"] = oPin.PrimerNombre;
-                    TempData["Email"] = oPin.Email;
-                    TempData["Celular"] = oPin.Celular;
-                    TempData["IdEstadoActividad"] = oPin.IdEstadoActividad;
+                    if (oPin != null)
+                    {
+                        TempData["PaisID"] = PaisID;
+                        TempData["CodigoUsuario"] = oPin.CodigoUsuario;
+                        TempData["PrimerNombre"] = oPin.PrimerNombre;
+                        TempData["Email"] = oPin.Email;
+                        TempData["Celular"] = oPin.Celular;
+                        TempData["IdEstadoActividad"] = oPin.IdEstadoActividad;
+                    }
                 }
             }
             catch (Exception ex)
@@ -3273,6 +3272,33 @@ namespace Portal.Consultoras.Web.Controllers
 
             return oPin;
         }
+
         #endregion
+
+        public bool HabilitarChatEmtelco(int paisId)
+        {
+            bool Mostrar = false;
+            BETablaLogicaDatos[] DataLogica;
+
+            using (var svc = new SACServiceClient())
+            {
+                DataLogica = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.HabilitarChatEmtelco);
+
+            }
+            if (DataLogica.Any())
+            {
+                if (EsDispositivoMovil())
+                {
+                    if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("02")).Valor == "1")
+                        Mostrar = true;
+                }
+                else
+                {
+                    if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("01")).Valor == "1")
+                        Mostrar = true;
+                }
+            }
+            return Mostrar;
+        }
     }
 }

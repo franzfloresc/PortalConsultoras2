@@ -1452,6 +1452,7 @@ namespace Portal.Consultoras.Common
             public const int ValoresPagoEnLinea = 122;
             public const int CantidadCuvMasivo = 137;
             public const short ProlObsCod = 5;
+            public const short HabilitarChatEmtelco = 144;
         }
 
         public struct MensajesCDRExpress

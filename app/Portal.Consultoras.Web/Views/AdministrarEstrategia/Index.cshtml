@@ -602,6 +602,7 @@
     var _toastHelper = ToastHelper();
 
     jQuery(document).ready(function () {
+
         adminEstrategiaModule = AdministrarEstrategia({
             actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
             getImagesBySapCodeAction: '@Url.Action("GetImagesBySapCode", "AdministrarEstrategia")',
@@ -654,6 +655,7 @@
             rutastylejstree: '@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")'
             // SHOWROOM-FIN
         });
+
         adminEstrategiaModule.Inicializar();
 
         $.jgrid.extend({
@@ -679,6 +681,7 @@
             urlEstrategiaOfertasPersonalizadasInsert: baseUrl + "AdministrarEstrategiaMasivo/EstrategiaOfertasPersonalizadasInsert",
             MensajeErrorGeneral: "Lo sentimos, vuelva a intentarlo"
         });
+
         admNuevoMasivoModulo.Inicializar();
 
     });

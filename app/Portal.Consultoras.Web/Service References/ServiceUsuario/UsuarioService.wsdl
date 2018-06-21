@@ -35,132 +35,6 @@
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IUsuarioService_SelectSegmento_InputMessage">
-    <wsdl:part name="parameters" element="tns:SelectSegmento" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_SelectSegmento_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SelectSegmentoResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_SelectTiempo_InputMessage">
-    <wsdl:part name="parameters" element="tns:SelectTiempo" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_SelectTiempo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SelectTiempoResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_ValidarEstadoSubscripcion_InputMessage">
-    <wsdl:part name="parameters" element="tns:ValidarEstadoSubscripcion" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_ValidarEstadoSubscripcion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ValidarEstadoSubscripcionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_ObtenerDatosPorUsuario_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerDatosPorUsuario" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_ObtenerDatosPorUsuario_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerDatosPorUsuarioResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdUsuarioLider_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdUsuarioLider" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdUsuarioLider_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdUsuarioLiderResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdCorreoUsuarioLider_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdCorreoUsuarioLider" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdCorreoUsuarioLider_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdCorreoUsuarioLiderResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_CancelarSubscripcion_InputMessage">
-    <wsdl:part name="parameters" element="tns:CancelarSubscripcion" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_CancelarSubscripcion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:CancelarSubscripcionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_ConfirmarSuscripcion_InputMessage">
-    <wsdl:part name="parameters" element="tns:ConfirmarSuscripcion" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_ConfirmarSuscripcion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ConfirmarSuscripcionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_GenerarReporteSuscripcionLideres_InputMessage">
-    <wsdl:part name="parameters" element="tns:GenerarReporteSuscripcionLideres" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_GenerarReporteSuscripcionLideres_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GenerarReporteSuscripcionLideresResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudClienteVisualizacion_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudClienteVisualizacion" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudClienteVisualizacion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudClienteVisualizacionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudClienteCatalogoVisualizacion_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudClienteCatalogoVisualizacion" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudClienteCatalogoVisualizacion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudClienteCatalogoVisualizacionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdNotificacionPedidoRechazadoVisualizacion_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdNotificacionPedidoRechazadoVisualizacion" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdNotificacionPedidoRechazadoVisualizacion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdNotificacionPedidoRechazadoVisualizacionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_ObtenerDetalleNotificacion_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerDetalleNotificacion" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_ObtenerDetalleNotificacion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerDetalleNotificacionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_ObtenerResultadoEncuesta_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerResultadoEncuesta" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_ObtenerResultadoEncuesta_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerResultadoEncuestaResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetCantidadPedidosConsultoraOnline_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetCantidadPedidosConsultoraOnline" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetCantidadPedidosConsultoraOnline_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetCantidadPedidosConsultoraOnlineResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_GuardarContrasenia_InputMessage">
-    <wsdl:part name="parameters" element="tns:GuardarContrasenia" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_GuardarContrasenia_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GuardarContraseniaResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdateUsuarioTutoriales_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateUsuarioTutoriales" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdateUsuarioTutoriales_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateUsuarioTutorialesResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetDatosConsultoraHana_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetDatosConsultoraHana" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetDatosConsultoraHana_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetDatosConsultoraHanaResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudCdrVisualizacion" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudCdrVisualizacionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdNotificacionCdrCulminadoVisualizacion" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdNotificacionCdrCulminadoVisualizacionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdNotificacionPagoEnLineaVisualizacion_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdNotificacionPagoEnLineaVisualizacion" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdNotificacionPagoEnLineaVisualizacion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdNotificacionPagoEnLineaVisualizacionResponse" />
-  </wsdl:message>
   <wsdl:message name="IUsuarioService_UpdateUsuarioEmailTelefono_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateUsuarioEmailTelefono" />
   </wsdl:message>
@@ -773,91 +647,133 @@
   <wsdl:message name="IUsuarioService_SelectDatosActualizados_OutputMessage">
     <wsdl:part name="parameters" element="tns:SelectDatosActualizadosResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_SelectSegmento_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectSegmento" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_SelectSegmento_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectSegmentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_SelectTiempo_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectTiempo" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_SelectTiempo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectTiempoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ValidarEstadoSubscripcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarEstadoSubscripcion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ValidarEstadoSubscripcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarEstadoSubscripcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ObtenerDatosPorUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosPorUsuario" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ObtenerDatosPorUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosPorUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdUsuarioLider_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdUsuarioLider" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdUsuarioLider_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdUsuarioLiderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdCorreoUsuarioLider_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdCorreoUsuarioLider" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdCorreoUsuarioLider_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdCorreoUsuarioLiderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_CancelarSubscripcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelarSubscripcion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_CancelarSubscripcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelarSubscripcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ConfirmarSuscripcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConfirmarSuscripcion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ConfirmarSuscripcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConfirmarSuscripcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GenerarReporteSuscripcionLideres_InputMessage">
+    <wsdl:part name="parameters" element="tns:GenerarReporteSuscripcionLideres" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GenerarReporteSuscripcionLideres_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GenerarReporteSuscripcionLideresResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudClienteVisualizacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudClienteVisualizacion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudClienteVisualizacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudClienteVisualizacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudClienteCatalogoVisualizacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudClienteCatalogoVisualizacion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudClienteCatalogoVisualizacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudClienteCatalogoVisualizacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionPedidoRechazadoVisualizacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionPedidoRechazadoVisualizacion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionPedidoRechazadoVisualizacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionPedidoRechazadoVisualizacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ObtenerDetalleNotificacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerDetalleNotificacion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ObtenerDetalleNotificacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerDetalleNotificacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ObtenerResultadoEncuesta_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerResultadoEncuesta" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ObtenerResultadoEncuesta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerResultadoEncuestaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetCantidadPedidosConsultoraOnline_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCantidadPedidosConsultoraOnline" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetCantidadPedidosConsultoraOnline_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCantidadPedidosConsultoraOnlineResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GuardarContrasenia_InputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarContrasenia" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GuardarContrasenia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GuardarContraseniaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdateUsuarioTutoriales_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUsuarioTutoriales" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdateUsuarioTutoriales_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUsuarioTutorialesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetDatosConsultoraHana_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDatosConsultoraHana" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetDatosConsultoraHana_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDatosConsultoraHanaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudCdrVisualizacion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionSolicitudCdrVisualizacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionCdrCulminadoVisualizacion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionCdrCulminadoVisualizacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionPagoEnLineaVisualizacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionPagoEnLineaVisualizacion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdNotificacionPagoEnLineaVisualizacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdNotificacionPagoEnLineaVisualizacionResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUsuarioService">
-    <wsdl:operation name="SelectSegmento">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/SelectSegmento" message="tns:IUsuarioService_SelectSegmento_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/SelectSegmentoResponse" message="tns:IUsuarioService_SelectSegmento_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="SelectTiempo">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/SelectTiempo" message="tns:IUsuarioService_SelectTiempo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/SelectTiempoResponse" message="tns:IUsuarioService_SelectTiempo_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ValidarEstadoSubscripcion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ValidarEstadoSubscripcion" message="tns:IUsuarioService_ValidarEstadoSubscripcion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ValidarEstadoSubscripcionResponse" message="tns:IUsuarioService_ValidarEstadoSubscripcion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerDatosPorUsuario">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerDatosPorUsuario" message="tns:IUsuarioService_ObtenerDatosPorUsuario_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerDatosPorUsuarioResponse" message="tns:IUsuarioService_ObtenerDatosPorUsuario_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdUsuarioLider">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdUsuarioLider" message="tns:IUsuarioService_UpdUsuarioLider_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdUsuarioLiderResponse" message="tns:IUsuarioService_UpdUsuarioLider_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdCorreoUsuarioLider">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdCorreoUsuarioLider" message="tns:IUsuarioService_UpdCorreoUsuarioLider_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdCorreoUsuarioLiderResponse" message="tns:IUsuarioService_UpdCorreoUsuarioLider_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="CancelarSubscripcion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/CancelarSubscripcion" message="tns:IUsuarioService_CancelarSubscripcion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/CancelarSubscripcionResponse" message="tns:IUsuarioService_CancelarSubscripcion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ConfirmarSuscripcion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ConfirmarSuscripcion" message="tns:IUsuarioService_ConfirmarSuscripcion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ConfirmarSuscripcionResponse" message="tns:IUsuarioService_ConfirmarSuscripcion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GenerarReporteSuscripcionLideres">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GenerarReporteSuscripcionLideres" message="tns:IUsuarioService_GenerarReporteSuscripcionLideres_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GenerarReporteSuscripcionLideresResponse" message="tns:IUsuarioService_GenerarReporteSuscripcionLideres_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionSolicitudClienteVisualizacion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteVisualizacion" message="tns:IUsuarioService_UpdNotificacionSolicitudClienteVisualizacion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionSolicitudClienteVisualizacion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionSolicitudClienteCatalogoVisualizacion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteCatalogoVisualizacion" message="tns:IUsuarioService_UpdNotificacionSolicitudClienteCatalogoVisualizacion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteCatalogoVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionSolicitudClienteCatalogoVisualizacion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionPedidoRechazadoVisualizacion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacion" message="tns:IUsuarioService_UpdNotificacionPedidoRechazadoVisualizacion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionPedidoRechazadoVisualizacion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerDetalleNotificacion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerDetalleNotificacion" message="tns:IUsuarioService_ObtenerDetalleNotificacion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerDetalleNotificacionResponse" message="tns:IUsuarioService_ObtenerDetalleNotificacion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerResultadoEncuesta">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerResultadoEncuesta" message="tns:IUsuarioService_ObtenerResultadoEncuesta_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerResultadoEncuestaResponse" message="tns:IUsuarioService_ObtenerResultadoEncuesta_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetCantidadPedidosConsultoraOnline">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetCantidadPedidosConsultoraOnline" message="tns:IUsuarioService_GetCantidadPedidosConsultoraOnline_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetCantidadPedidosConsultoraOnlineResponse" message="tns:IUsuarioService_GetCantidadPedidosConsultoraOnline_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GuardarContrasenia">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GuardarContrasenia" message="tns:IUsuarioService_GuardarContrasenia_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GuardarContraseniaResponse" message="tns:IUsuarioService_GuardarContrasenia_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdateUsuarioTutoriales">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdateUsuarioTutoriales" message="tns:IUsuarioService_UpdateUsuarioTutoriales_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdateUsuarioTutorialesResponse" message="tns:IUsuarioService_UpdateUsuarioTutoriales_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetDatosConsultoraHana">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetDatosConsultoraHana" message="tns:IUsuarioService_GetDatosConsultoraHana_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetDatosConsultoraHanaResponse" message="tns:IUsuarioService_GetDatosConsultoraHana_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionSolicitudCdrVisualizacion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion" message="tns:IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionCdrCulminadoVisualizacion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacion" message="tns:IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionPagoEnLineaVisualizacion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacion" message="tns:IUsuarioService_UpdNotificacionPagoEnLineaVisualizacion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionPagoEnLineaVisualizacion_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="UpdateUsuarioEmailTelefono">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdateUsuarioEmailTelefono" message="tns:IUsuarioService_UpdateUsuarioEmailTelefono_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdateUsuarioEmailTelefonoResponse" message="tns:IUsuarioService_UpdateUsuarioEmailTelefono_OutputMessage" />
@@ -1266,198 +1182,93 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/SelectDatosActualizados" message="tns:IUsuarioService_SelectDatosActualizados_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/SelectDatosActualizadosResponse" message="tns:IUsuarioService_SelectDatosActualizados_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="SelectSegmento">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/SelectSegmento" message="tns:IUsuarioService_SelectSegmento_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/SelectSegmentoResponse" message="tns:IUsuarioService_SelectSegmento_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectTiempo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/SelectTiempo" message="tns:IUsuarioService_SelectTiempo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/SelectTiempoResponse" message="tns:IUsuarioService_SelectTiempo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarEstadoSubscripcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ValidarEstadoSubscripcion" message="tns:IUsuarioService_ValidarEstadoSubscripcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ValidarEstadoSubscripcionResponse" message="tns:IUsuarioService_ValidarEstadoSubscripcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosPorUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerDatosPorUsuario" message="tns:IUsuarioService_ObtenerDatosPorUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerDatosPorUsuarioResponse" message="tns:IUsuarioService_ObtenerDatosPorUsuario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdUsuarioLider">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdUsuarioLider" message="tns:IUsuarioService_UpdUsuarioLider_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdUsuarioLiderResponse" message="tns:IUsuarioService_UpdUsuarioLider_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdCorreoUsuarioLider">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdCorreoUsuarioLider" message="tns:IUsuarioService_UpdCorreoUsuarioLider_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdCorreoUsuarioLiderResponse" message="tns:IUsuarioService_UpdCorreoUsuarioLider_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelarSubscripcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/CancelarSubscripcion" message="tns:IUsuarioService_CancelarSubscripcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/CancelarSubscripcionResponse" message="tns:IUsuarioService_CancelarSubscripcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmarSuscripcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ConfirmarSuscripcion" message="tns:IUsuarioService_ConfirmarSuscripcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ConfirmarSuscripcionResponse" message="tns:IUsuarioService_ConfirmarSuscripcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerarReporteSuscripcionLideres">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GenerarReporteSuscripcionLideres" message="tns:IUsuarioService_GenerarReporteSuscripcionLideres_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GenerarReporteSuscripcionLideresResponse" message="tns:IUsuarioService_GenerarReporteSuscripcionLideres_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionSolicitudClienteVisualizacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteVisualizacion" message="tns:IUsuarioService_UpdNotificacionSolicitudClienteVisualizacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionSolicitudClienteVisualizacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionSolicitudClienteCatalogoVisualizacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteCatalogoVisualizacion" message="tns:IUsuarioService_UpdNotificacionSolicitudClienteCatalogoVisualizacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteCatalogoVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionSolicitudClienteCatalogoVisualizacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionPedidoRechazadoVisualizacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacion" message="tns:IUsuarioService_UpdNotificacionPedidoRechazadoVisualizacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionPedidoRechazadoVisualizacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalleNotificacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerDetalleNotificacion" message="tns:IUsuarioService_ObtenerDetalleNotificacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerDetalleNotificacionResponse" message="tns:IUsuarioService_ObtenerDetalleNotificacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerResultadoEncuesta">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerResultadoEncuesta" message="tns:IUsuarioService_ObtenerResultadoEncuesta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerResultadoEncuestaResponse" message="tns:IUsuarioService_ObtenerResultadoEncuesta_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCantidadPedidosConsultoraOnline">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetCantidadPedidosConsultoraOnline" message="tns:IUsuarioService_GetCantidadPedidosConsultoraOnline_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetCantidadPedidosConsultoraOnlineResponse" message="tns:IUsuarioService_GetCantidadPedidosConsultoraOnline_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardarContrasenia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GuardarContrasenia" message="tns:IUsuarioService_GuardarContrasenia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GuardarContraseniaResponse" message="tns:IUsuarioService_GuardarContrasenia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUsuarioTutoriales">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdateUsuarioTutoriales" message="tns:IUsuarioService_UpdateUsuarioTutoriales_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdateUsuarioTutorialesResponse" message="tns:IUsuarioService_UpdateUsuarioTutoriales_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDatosConsultoraHana">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetDatosConsultoraHana" message="tns:IUsuarioService_GetDatosConsultoraHana_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetDatosConsultoraHanaResponse" message="tns:IUsuarioService_GetDatosConsultoraHana_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionSolicitudCdrVisualizacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion" message="tns:IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionSolicitudCdrVisualizacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionCdrCulminadoVisualizacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacion" message="tns:IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionCdrCulminadoVisualizacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionPagoEnLineaVisualizacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacion" message="tns:IUsuarioService_UpdNotificacionPagoEnLineaVisualizacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacionResponse" message="tns:IUsuarioService_UpdNotificacionPagoEnLineaVisualizacion_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IUsuarioService" type="tns:IUsuarioService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="SelectSegmento">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/SelectSegmento" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SelectTiempo">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/SelectTiempo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ValidarEstadoSubscripcion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ValidarEstadoSubscripcion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerDatosPorUsuario">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerDatosPorUsuario" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdUsuarioLider">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdUsuarioLider" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdCorreoUsuarioLider">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdCorreoUsuarioLider" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CancelarSubscripcion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/CancelarSubscripcion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ConfirmarSuscripcion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ConfirmarSuscripcion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GenerarReporteSuscripcionLideres">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GenerarReporteSuscripcionLideres" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionSolicitudClienteVisualizacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteVisualizacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionSolicitudClienteCatalogoVisualizacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteCatalogoVisualizacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionPedidoRechazadoVisualizacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerDetalleNotificacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerDetalleNotificacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerResultadoEncuesta">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerResultadoEncuesta" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCantidadPedidosConsultoraOnline">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetCantidadPedidosConsultoraOnline" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarContrasenia">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GuardarContrasenia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateUsuarioTutoriales">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdateUsuarioTutoriales" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetDatosConsultoraHana">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetDatosConsultoraHana" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionSolicitudCdrVisualizacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionCdrCulminadoVisualizacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionPagoEnLineaVisualizacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="UpdateUsuarioEmailTelefono">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdateUsuarioEmailTelefono" style="document" />
       <wsdl:input>
@@ -2369,6 +2180,195 @@
     </wsdl:operation>
     <wsdl:operation name="SelectDatosActualizados">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/SelectDatosActualizados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectSegmento">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/SelectSegmento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectTiempo">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/SelectTiempo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarEstadoSubscripcion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ValidarEstadoSubscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosPorUsuario">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerDatosPorUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdUsuarioLider">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdUsuarioLider" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdCorreoUsuarioLider">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdCorreoUsuarioLider" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelarSubscripcion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/CancelarSubscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmarSuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ConfirmarSuscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarReporteSuscripcionLideres">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GenerarReporteSuscripcionLideres" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionSolicitudClienteVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionSolicitudClienteCatalogoVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteCatalogoVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionPedidoRechazadoVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalleNotificacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerDetalleNotificacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerResultadoEncuesta">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerResultadoEncuesta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCantidadPedidosConsultoraOnline">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetCantidadPedidosConsultoraOnline" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarContrasenia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GuardarContrasenia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUsuarioTutoriales">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdateUsuarioTutoriales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDatosConsultoraHana">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetDatosConsultoraHana" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionSolicitudCdrVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionCdrCulminadoVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionPagoEnLineaVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2380,195 +2380,6 @@
   <wsdl:binding name="BasicHttpsBinding_IUsuarioService" type="tns:IUsuarioService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IUsuarioService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="SelectSegmento">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/SelectSegmento" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SelectTiempo">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/SelectTiempo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ValidarEstadoSubscripcion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ValidarEstadoSubscripcion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerDatosPorUsuario">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerDatosPorUsuario" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdUsuarioLider">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdUsuarioLider" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdCorreoUsuarioLider">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdCorreoUsuarioLider" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CancelarSubscripcion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/CancelarSubscripcion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ConfirmarSuscripcion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ConfirmarSuscripcion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GenerarReporteSuscripcionLideres">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GenerarReporteSuscripcionLideres" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionSolicitudClienteVisualizacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteVisualizacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionSolicitudClienteCatalogoVisualizacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteCatalogoVisualizacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionPedidoRechazadoVisualizacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerDetalleNotificacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerDetalleNotificacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerResultadoEncuesta">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerResultadoEncuesta" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCantidadPedidosConsultoraOnline">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetCantidadPedidosConsultoraOnline" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GuardarContrasenia">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GuardarContrasenia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateUsuarioTutoriales">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdateUsuarioTutoriales" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetDatosConsultoraHana">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetDatosConsultoraHana" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionSolicitudCdrVisualizacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionCdrCulminadoVisualizacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdNotificacionPagoEnLineaVisualizacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="UpdateUsuarioEmailTelefono">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdateUsuarioEmailTelefono" style="document" />
       <wsdl:input>
@@ -3480,6 +3291,195 @@
     </wsdl:operation>
     <wsdl:operation name="SelectDatosActualizados">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/SelectDatosActualizados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectSegmento">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/SelectSegmento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectTiempo">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/SelectTiempo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarEstadoSubscripcion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ValidarEstadoSubscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosPorUsuario">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerDatosPorUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdUsuarioLider">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdUsuarioLider" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdCorreoUsuarioLider">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdCorreoUsuarioLider" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelarSubscripcion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/CancelarSubscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmarSuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ConfirmarSuscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarReporteSuscripcionLideres">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GenerarReporteSuscripcionLideres" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionSolicitudClienteVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionSolicitudClienteCatalogoVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudClienteCatalogoVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionPedidoRechazadoVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionPedidoRechazadoVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDetalleNotificacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerDetalleNotificacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerResultadoEncuesta">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerResultadoEncuesta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCantidadPedidosConsultoraOnline">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetCantidadPedidosConsultoraOnline" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardarContrasenia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GuardarContrasenia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUsuarioTutoriales">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdateUsuarioTutoriales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDatosConsultoraHana">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetDatosConsultoraHana" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionSolicitudCdrVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionSolicitudCdrVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionCdrCulminadoVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionCdrCulminadoVisualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdNotificacionPagoEnLineaVisualizacion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdNotificacionPagoEnLineaVisualizacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
