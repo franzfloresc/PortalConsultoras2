@@ -61,7 +61,7 @@ $(document).ready(function () {
         $(this).toggleClass("seleccion_click_flitro");
     });
 
-    TagManagerOfertaShowRoom();
+    //TagManagerOfertaShowRoom();
 
     $('#DialogMensajesBanner').dialog({
         autoOpen: false,
@@ -224,9 +224,9 @@ $(document).ready(function () {
     if (localStorage["cerrar_banner_sub_campanias"]) {
         cerrar_banner_sub_campanias = true;
     }
-    if (tieneSubCampania == "True" && itemsSubCampania > 0 && cerrar_banner_sub_campanias == false) {
-        ver_subcamapania = true;
-    }
+    //if (tieneSubCampania == "True" && itemsSubCampania > 0 && cerrar_banner_sub_campanias == false) {
+    //    ver_subcamapania = true;
+    //}
     if (tieneCompraXCompra == "True" && itemsCompraXCompra > 0 && closeBannerCompraPorCompra == "False") {
         ver_compraxcompra = true;
     }

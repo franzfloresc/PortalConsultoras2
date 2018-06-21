@@ -232,7 +232,7 @@ $(document).ready(function () {
     CargarCarouselLiquidaciones();
     CargarMisCursos();
     CargarBanners();
-    CargarCatalogoPersonalizado();
+    //CargarCatalogoPersonalizado();
     if (showRoomMostrarLista == 1) {
         CargarProductosShowRoom({ Limite: 6, hidden: true });
     }
