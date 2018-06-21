@@ -1,4 +1,9 @@
-﻿var actualizarCelularModule = (function (globalData, $) {
+﻿var globalFunc = {
+    waitingDialog: waitingDialog,
+    closeWaitingDialog: closeWaitingDialog
+};
+
+var actualizarCelularModule = (function (globalData, sharedFunc, $) {
     'use strict';
 
     var me = {};
@@ -229,9 +234,9 @@
                 return;
             }
 
-            waitingDialog({});
+            sharedFunc.waitingDialog({});
             var successConfirmarSmsCode = function(r) {
-                closeWaitingDialog();
+                sharedFunc.closeWaitingDialog();
                 if (!r.Success) {
                     me.Funciones.MarkSmsCodeStatus(false);
 
@@ -248,7 +253,7 @@
             
             me.Services.confirmarSmsCode(code)
                 .then(successConfirmarSmsCode, function(er) {
-                    closeWaitingDialog();
+                    sharedFunc.closeWaitingDialog();
                     me.Funciones.HandleError(er);
                 });
         }
@@ -299,10 +304,10 @@
 
             localData.CelularNuevo = nuevoCelular;
             me.Funciones.ResetSmsCode();
-            waitingDialog({});
+            sharedFunc.waitingDialog({});
 
             var successEnviarSmsCode = function(r) {
-                closeWaitingDialog();
+                sharedFunc.closeWaitingDialog();
                 localData.CelularValido = r.Success;
                 if (!r.Success) {
                     me.Funciones.ShowError(r.Message);
@@ -315,7 +320,7 @@
 
             me.Services.enviarSmsCode(nuevoCelular)
                 .then(successEnviarSmsCode, function(er) {
-                        closeWaitingDialog();
+                        sharedFunc.closeWaitingDialog();
                         me.Funciones.HandleError(er);
                     });
         }
@@ -326,10 +331,10 @@
 
         function sendSmsCode() {
             me.Funciones.ResetSmsCode();
-            waitingDialog({});
+            sharedFunc.waitingDialog({});
             me.Services.enviarSmsCode(localData.CelularNuevo)
                 .then(function(r) {
-                    closeWaitingDialog();
+                    sharedFunc.closeWaitingDialog();
                     if (!r.Success) {
                         me.Funciones.ShowError(r.Message);
                         me.Funciones.NavigatePanel(0);
@@ -339,7 +344,7 @@
 
                     me.Funciones.InitCounter();
                 }, function(er) {
-                    closeWaitingDialog();
+                    sharedFunc.closeWaitingDialog();
                     me.Funciones.HandleError(er);
                 });
         }
@@ -353,7 +358,7 @@
             var code = me.Funciones.GetSmsCode();
             if (code.length !== 6) {
                 return;
-            }
+           s }
 
             me.Funciones.VerifySmsCode(code);
         }
@@ -370,7 +375,7 @@
     };
 
     return me;
-})(actualizaCelularData, jQuery);
+})(actualizaCelularData, globalFunc, jQuery);
 
 window.actualizarCelularModule = actualizarCelularModule;
 
