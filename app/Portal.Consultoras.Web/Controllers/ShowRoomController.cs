@@ -3016,11 +3016,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var listaSubCampania = new List<ShowRoomOfertaModel>();
 
-                if (revistaDigital.EsActiva)
+
+                if (revistaDigital.EsActiva && revistaDigital.ActivoMdo)
                 {
                  
                     listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
                 }
+                else if (!revistaDigital.ActivoMdo)
+                    listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania).ToList();
                 else
                     listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
 
