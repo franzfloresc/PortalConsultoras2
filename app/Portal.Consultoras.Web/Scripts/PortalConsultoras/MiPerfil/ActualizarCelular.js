@@ -83,6 +83,7 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
             body.on('click', '.enlace_cambiar_correo', me.Eventos.BackEdiNumber);
             body.on('click', '.enlace_reenviar_instrucciones', me.Eventos.SendSmsCode);
             body.on('keyup', '.campo_ingreso_codigo_sms', me.Eventos.ChangeCodeSms);
+            body.on('keydown', '.campo_ingreso_codigo_sms', me.Eventos.OnlyNumberCodeSms);
         };
 
         function validarPhonePais(iso, numero) {
@@ -307,6 +308,7 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
             sharedFunc.waitingDialog({});
 
             var successEnviarSmsCode = function(r) {
+                $('#celularNuevo').text(nuevoCelular);
                 sharedFunc.closeWaitingDialog();
                 localData.CelularValido = r.Success;
                 if (!r.Success) {
@@ -358,16 +360,28 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
             var code = me.Funciones.GetSmsCode();
             if (code.length !== 6) {
                 return;
-           s }
+            }
 
             me.Funciones.VerifySmsCode(code);
+        }
+
+        function onlyNumberCodeSms(e) {
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                return;
+            }
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
         }
 
         return {
             Continuar: continuar,
             BackEdiNumber: backEdiNumber,
             SendSmsCode: sendSmsCode,
-            ChangeCodeSms: changeCodeSms
+            ChangeCodeSms: changeCodeSms,
+            OnlyNumberCodeSms: onlyNumberCodeSms
         };
     })();
     me.Inicializar = function() {
