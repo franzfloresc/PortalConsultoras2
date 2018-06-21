@@ -374,6 +374,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private bool EsConsultoraNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsConsultoraOficinaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsCumpleanioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1572,6 +1575,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((this.EsConsultoraNuevaField.Equals(value) != true)) {
                     this.EsConsultoraNuevaField = value;
                     this.RaisePropertyChanged("EsConsultoraNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsConsultoraOficina {
+            get {
+                return this.EsConsultoraOficinaField;
+            }
+            set {
+                if ((this.EsConsultoraOficinaField.Equals(value) != true)) {
+                    this.EsConsultoraOficinaField = value;
+                    this.RaisePropertyChanged("EsConsultoraOficina");
                 }
             }
         }
@@ -3548,6 +3564,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActivoMdoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> BloquearRevistaImpresaGeneralField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3587,6 +3606,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ActivoMdo {
+            get {
+                return this.ActivoMdoField;
+            }
+            set {
+                if ((this.ActivoMdoField.Equals(value) != true)) {
+                    this.ActivoMdoField = value;
+                    this.RaisePropertyChanged("ActivoMdo");
+                }
             }
         }
         

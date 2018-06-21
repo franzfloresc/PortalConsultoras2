@@ -14,7 +14,6 @@
     <script src="../Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="../Scripts/jquery-ui-1.9.2.custom.min.js"></script>
     <script src="../Scripts/HojaInscripcion/validations.js"></script>
-
     <script src="../Scripts/General.js" type="text/javascript"></script>
     
     <link href="../Content/Css/Site/Esika/reset.css" rel="stylesheet" data-id="cssResetEsika"/>
