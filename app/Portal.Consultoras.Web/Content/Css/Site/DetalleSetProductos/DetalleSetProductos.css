@@ -66,6 +66,22 @@ body {
     margin-top: 24px;
 }
 
+.contenedor_carrusel_tonos {
+    margin: 27px auto 32px auto;
+    width: 62%;
+}
+
+.contenedor_imagen_carrusel_tonos {
+    height: 108px;
+    margin: 0 5px;
+    position: relative;
+}
+
+    .contenedor_imagen_carrusel_tonos img {
+        height: 100%;
+        width: auto;
+    }
+
 .ficha_redes_sociales {
     margin-top: 7px;
 }
@@ -75,7 +91,7 @@ body {
     line-height: 24px;
     margin-right: 2%;
     text-align: right;
-    width: 70%;
+    width: 67%;
 }
 
 .btn_compartir_facebook {
@@ -268,7 +284,9 @@ body {
 }
 
 .contenedor_lista_tonos_imagen {
+    float: left;
     margin: 17px 0 13px 0;
+    width: 100%;
 }
 
 .contenedor_item_tono_imagen {
@@ -407,7 +425,6 @@ body {
     .dibujar_linea::before, .dibujar_linea::after {
         content: '';
         border-bottom: solid 2px #000;
-        height: 100%;
         position: absolute;
         -webkit-transition: initial;
         transition: initial;
@@ -779,6 +796,7 @@ body {
 
 .contenedor_imagen_carrusel {
     height: 158px;
+    overflow: hidden;
     position: relative;
 }
 
@@ -903,6 +921,7 @@ body {
 .contenedor_flecha_carrusel {
     bottom: 0;
     display: flex;
+    height: 60%;
     margin: auto;
     top: 0;
 }
@@ -920,15 +939,16 @@ body {
 
     .dibujar_flecha_carrusel::before, .dibujar_flecha_carrusel::after {
         border-bottom: solid 3px #000;
+        left: 0;
+    }
+
+    .dibujar_flecha_carrusel::before {
+        top: 25%;
     }
 
     .dibujar_flecha_carrusel::after {
-        bottom: 10%;
+        bottom: 25%;
     }
-
-.dibujar_flecha_izquierda_carrusel {
-    left: 19px;
-}
 
     .dibujar_flecha_izquierda_carrusel::before {
         -webkit-transform: rotate(127deg);
@@ -950,10 +970,6 @@ body {
     right: -46px;
 }
 
-.dibujar_flecha_derecha_carrusel {
-    right: 19px;
-}
-
     .dibujar_flecha_derecha_carrusel::before {
         -webkit-transform: rotate(233deg);
         -moz-transform: rotate(233deg);
@@ -969,3 +985,18 @@ body {
         -o-transform: rotate(307deg);
         transform: rotate(307deg);
     }
+
+.dibujar_flecha_carrusel_tonos {
+    height: 36px;
+    margin: auto;
+    position: relative;
+    width: 22px;
+}
+
+    .dibujar_flecha_carrusel_tonos::before, .dibujar_flecha_carrusel_tonos::after {
+        border-bottom: solid 1px #000;
+    }
+
+.slick-track {
+    margin: 0 auto;
+}
