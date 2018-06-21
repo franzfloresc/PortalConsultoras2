@@ -7,9 +7,7 @@ belcorp.settings.uniquePrefix = "/g/";
 
 jQuery(document).ready(function () {
     CreateLoading();
-
-    redimensionarMenusTabs();
-
+    
 
     $("header").resize(function () {
         LayoutMenu();
@@ -487,17 +485,6 @@ jQuery(document).ready(function () {
         return newLista;
     };
 })(jQuery);
-
-function redimensionarMenusTabs() {
-    var total_menu_contenedor = $(".bc_para_ti-menu ul li").size();
-
-    if (total_menu_contenedor > 2) {
-        $('.bc_para_ti-menu ul li').addClass('fix_menu_tabs_mobil_3');
-    }
-    else {
-        $('.bc_para_ti-menu ul li').addClass('fix_menu_tabs_mobil_2');
-    }
-}
 
 function ImgUrlRender(imgOriginal, tipo) {
     imgOriginal = $.trim(imgOriginal);

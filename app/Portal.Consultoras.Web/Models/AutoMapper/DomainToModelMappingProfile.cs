@@ -257,9 +257,6 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEMiCertificado, MiCertificadoModel>();
              
-             //Mapper.CreateMap<ServiceODS.BEPagoEnLineaInfo, PagoEnlineaInfoModel>();
-
-
             Mapper.CreateMap<BEEtiqueta, EtiquetaModel>()
                 .ForMember(t => t.EtiquetaID, f => f.MapFrom(c => c.EtiquetaID))
                 .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
