@@ -76,20 +76,6 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
         var interval;
         var counterElement = $('#time_counter');
         var cantMsInterval = 1000;
-            body.on('keydown', '.campo_ingreso_codigo_sms', me.Eventos.OnlyNumberCodeSms);
-        var paises = {
-            'PE': 9,
-            'MX': 15,
-            'EC': 10,
-            'CL': 15,
-            'BO': 15,
-            'PR': 15,
-            'DO': 15,
-            'CR': 8,
-            'GT': 8,
-            'PA': 8,
-            'SV': 8
-        };
 
         function inicializarEventos() {
             var body = $('body');
@@ -100,6 +86,20 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
         };
 
         function validarPhonePais(iso, numero) {
+            var paises = {
+                'PE': 9,
+                'MX': 15,
+                'EC': 10,
+                'CL': 15,
+                'BO': 15,
+                'PR': 15,
+                'DO': 15,
+                'CR': 8,
+                'GT': 8,
+                'PA': 8,
+                'SV': 8
+            };
+
             var length = paises[iso];
             if (!length) {
                 return {
@@ -121,7 +121,7 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
                     Message: 'El número no puede estar vacío.'
                 };
             }
-
+            
             if (localData.CelularActual === numero) {
                 return {
                     Success: false,
@@ -316,13 +316,14 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
                     me.Funciones.ShowError(r.Message);
                     return;
                 }
+                $('#NumeroMensajeEnviado').text(nuevoCelular);
                 me.Funciones.NavigatePanel(1);
                 me.Funciones.ShowError('');
                 me.Funciones.InitCounter();
             };
 
             me.Services.enviarSmsCode(nuevoCelular)
-                .then(successEnviarSmsCode, function(er) {
+                .then(successEnviarSmsCode, function (er) {
                         mostratSpinner('cerrar');
                         me.Funciones.HandleError(er);
                     });
@@ -407,5 +408,5 @@ $(document).ready(function () {
     actualizarCelularModule.Inicializar();
 
     $('#NuevoCelular').on("cut copy paste", function (e) { e.preventDefault(); });
-    $('#NuevoCelular').attr('maxlength', '6');
+    $('#NuevoCelular').on("keydown", actualizarCelularModule.Eventos.OnlyNumberCodeSms);
 });

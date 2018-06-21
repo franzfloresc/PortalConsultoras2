@@ -114,11 +114,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("Index");
             }
 
-            int limiteMinimoTelef, limiteMaximoTelef;
-            GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
-            ViewBag.limiteMinimoTelef = limiteMinimoTelef;
-            ViewBag.limiteMaximoTelef = limiteMaximoTelef;
-
             ViewBag.Celular = userData.Celular;
 
             return View();
