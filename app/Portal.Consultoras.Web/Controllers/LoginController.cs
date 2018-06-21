@@ -578,7 +578,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.Correo = obj.Correo;
             model.MostrarOpcion = obj.MostrarOpcion;
             model.OpcionChat = obj.OpcionChat;
-
+            model.EsMobile = EsDispositivoMovil();
             return View(model);
         }
 

@@ -40,8 +40,12 @@ $(document).ready(function () {
         clearTimeout(t);
     }); 
 
-    $(".aContinuarLogin").click(function () {
-        ContinuarLogin();
+    $(".ContinuarBienvenida").click(function () {
+        ContinuarLogin(0);
+    });
+
+    $(".VerCambioClave").click(function () {
+        ContinuarLogin(1);
     });
 
     $(".campo_ingreso_codigo_sms").keypress(
@@ -209,8 +213,6 @@ function ProcesaEnvioEmail() {
     });
 }
 
-
-
 function VerificarCodigo(CodIngresado) {
     var parametros = {
         Codigoingresado: CodIngresado
@@ -252,8 +254,12 @@ function VerificarCodigo(CodIngresado) {
     });
 }
 
-function ContinuarLogin()
+function ContinuarLogin(CambioClave)
 {    
+    var param = "";
+    if (CambioClave == 1) //Para Desktop
+        param = "?verCambioClave=1" 
+
     waitingDialog();
     var o = 1;
     $.ajax({
@@ -263,7 +269,10 @@ function ContinuarLogin()
         contentType: 'application/json; charset=utf-8',
         async: true,
         success: function (response) {
-            document.location.href = response.redirectTo 
+            if (EsMobile && CambioClave == 1)
+                document.location.href = VerCambioClaveMobile;
+            else
+                document.location.href = response.redirectTo + param;
         },
         error: function (data, error) {
             if (checkTimeout(data)) {

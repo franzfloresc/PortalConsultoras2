@@ -160,8 +160,8 @@
                     <p class="block mensaje_celular_validado mb-45 mb-33-mobile">
                         Te recomendamos además actualizar tu contraseña por tu seguridad.
                     </p>
-                    <a  class="block center-block mb-20-mobile enlace_ir_a_somos_belcorp text-uppercase text-bold default-background-color mb-31 aContinuarLogin">Ir a somos belcorp</a>
-                    <a  title="Actualizar contraseña" class="block enlace_actualizar_contrasenia text-bold aContinuarLogin">Actualizar contraseña</a>
+                    <a  class="block center-block mb-20-mobile enlace_ir_a_somos_belcorp text-uppercase text-bold default-background-color mb-31 ContinuarBienvenida">Ir a somos belcorp</a>
+                    <a  title="Actualizar contraseña" class="block enlace_actualizar_contrasenia text-bold VerCambioClave">Actualizar contraseña</a>
                 </div>
                 <!-- FIN - VERIFICACIÓN POR CÓDIGO SMS -->
                 <!-- VERIFICACIÓN POR CORREO ELECTRÓNICO -->
@@ -209,8 +209,8 @@
                     <p class="mensaje_correo_validado block mb-45 mb-33-mobile">
                         Te recomendamos además actualizar tu contraseña por tu seguridad.
                     </p>
-                    <a class="block center-block mb-20-mobile enlace_ir_a_somos_belcorp text-uppercase text-bold default-background-color mb-31 aContinuarLogin">Ir a somos belcorp</a>
-                    <a title="Actualizar contraseña" class="block enlace_actualizar_contrasenia text-bold aContinuarLogin">Actualizar contraseña</a>
+                    <a class="block center-block mb-20-mobile enlace_ir_a_somos_belcorp text-uppercase text-bold default-background-color mb-31 ContinuarBienvenida">Ir a somos belcorp</a>
+                    <a title="Actualizar contraseña" class="block enlace_actualizar_contrasenia text-bold VerCambioClave">Actualizar contraseña</a>
                 </div>
                 <!-- FIN - VERIFICACIÓN POR CORREO ELECTRÓNICO -->
             </div>
@@ -237,6 +237,8 @@
     var emt_type = '1';
     var emt_device = '';
     var UrlLogin = '@Url.Action("Index", "Login")';
+    var EsMobile = '@Model.EsMobile';
+    var VerCambioClaveMobile = '@Url.Action("ActualizarContrasenia", "Bienvenida", new { area = "Mobile" })';
 </script>
 
 @*@Scripts.Render("~/bundles/JQueryJs")*@
