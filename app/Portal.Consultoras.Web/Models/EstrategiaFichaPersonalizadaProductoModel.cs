@@ -8,19 +8,19 @@ namespace Portal.Consultoras.Web.Models
     public class EstrategiaFichaPersonalizadaProductoModel : EstrategiaPersonalizadaProductoModel
     {
         //hacer el seguimiento.
-        List<TituloDetalle> DetallesProducto { get; set; } //Pestana detalles de la ficha detalle del CUV
-        List<TituloDetalle> DetallesPack { get; set; } //Pestana detalles del pack
-        List<TipVenta> TipsVentas { get; set; } //Pestana Tips Ventas de la ficha detalle del CUV
-        List<TituloDetalle> Beneficios { get; set; } //Pestana beneficios
-        List<String> RutaVideos { get; set; } //Por defecto 1 video
+        public List<TituloDetalle> DetallesProducto { get; set; } //Pestana detalles de la ficha detalle del CUV
+        public List<TituloDetalle> DetallesPack { get; set; } //Pestana detalles del pack
+        public List<TipVenta> TipsVentas { get; set; } //Pestana Tips Ventas de la ficha detalle del CUV
+        public List<TituloDetalle> Beneficios { get; set; } //Pestana beneficios
+        public List<String> RutaVideos { get; set; } //Por defecto 1 video
 
     }
-    class TituloDetalle
+    public class TituloDetalle
     {
         string Titulo { get; set; }
         string TextoLargo { get; set; }
     }
-    class TipVenta
+    public class TipVenta
     {
         string RutaImagen { get; set; }
         string TextoTip { get; set; }

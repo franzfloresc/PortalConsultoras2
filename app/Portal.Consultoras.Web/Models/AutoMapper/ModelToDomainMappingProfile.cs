@@ -454,6 +454,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<OfertaFinalMontoMetaModel, UpSellingMontoMeta>();
 
             Mapper.CreateMap<ShowRoomEventoConsultoraModel, ServiceOferta.BEShowRoomEventoConsultora>();
+
+            Mapper.CreateMap<EstrategiaPersonalizadaProductoModel, EstrategiaFichaPersonalizadaProductoModel>();
         }
     }
 }

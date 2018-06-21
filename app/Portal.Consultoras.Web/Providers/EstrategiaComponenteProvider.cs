@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Web.Providers
             if (!listaProductos.Any()) return new List<EstrategiaComponenteModel>();
 
             var listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos, listaProductos, codigoTipoEstrategia);
-            estrategiaModelo.CodigoVariante = "";
+            //estrategiaModelo.CodigoVariante = "";
             return GetEstrategiaDetalleFactorCuadre(listaEstrategiaComponente);
         }
 
