@@ -190,26 +190,24 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 var showRoomEventoModel = CargarValoresModel();
-                showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<EstrategiaPedidoModel>();
-                if (!showRoomEventoModel.ListaShowRoomOferta.Any())
-                    return null;
+                //showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<EstrategiaPedidoModel>();
+                //if (!showRoomEventoModel.ListaShowRoomOferta.Any())
+                //    return null;
 
                 if (configEstrategiaSR.ListaPersonalizacionConsultora != null)
                 {
                     var terminosCondiciones = configEstrategiaSR.ListaPersonalizacionConsultora.FirstOrDefault(
                         p => p.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.UrlTerminosCondiciones);
-                    showRoomEventoModel.UrlTerminosCondiciones = terminosCondiciones == null
-                        ? ""
-                        : terminosCondiciones.Valor;
+                    showRoomEventoModel.UrlTerminosCondiciones = terminosCondiciones == null ? "" : terminosCondiciones.Valor;
                 }
 
                 showRoomEventoModel.FiltersBySorting =
                     _tablaLogicaProvider.ObtenerConfiguracion(userData.PaisID,
                         Constantes.TablaLogica.OrdenamientoShowRoom);
 
-                var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
-                ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
-                ViewBag.PrecioMax = xlistaShowRoom.Any() ? xlistaShowRoom.Max(p => p.PrecioOferta) : Convert.ToDecimal(0);
+                //var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
+                //ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
+                //ViewBag.PrecioMax = xlistaShowRoom.Any() ? xlistaShowRoom.Max(p => p.PrecioOferta) : Convert.ToDecimal(0);
 
                 ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 

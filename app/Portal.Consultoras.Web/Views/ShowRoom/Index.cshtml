@@ -1,5 +1,5 @@
 ﻿
-@using Newtonsoft.Json
+@*@using Newtonsoft.Json*@
 @using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models
 @using System.Linq;
@@ -19,8 +19,8 @@
     <link href="@Url.Content("~/Content/Css/Site/Landing/producto.landing.css")" rel="stylesheet" />
 }
 
-<input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />
-<input type="hidden" id="hdTotalProductos" value="@Model.ListaShowRoomOferta.Count" />
+@*<input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />
+<input type="hidden" id="hdTotalProductos" value="@Model.ListaShowRoomOferta.Count" />*@
 <div class="catalogoPersonalizadoBloque BloqueLandingRD">
     <div class="content_belcorp parche_productos_1000">
         <div class="content-left-item content_new_showroom">
@@ -35,7 +35,7 @@
                     <div class="content_filtro_categoria" id="filtro_categoria" style="cursor: pointer; min-width: 260px;">
                         FILTRAR POR CATEGORÍA
                         <div class="content_detalle_filtro" id="detalle_filtro_categoria" style="display: none;">
-                            @if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
+                            @*@if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
                             {
                                 <div id="div-filter-category">
                                     @foreach (var itemCategoria in Model.ListaCategoria)
@@ -47,7 +47,7 @@
                                         }
                                     }
                                 </div>
-                            }
+                            }*@
                         </div>
                     </div>
                 }
@@ -166,9 +166,9 @@
     <hr class="clear" />
     @if (Model.TieneSubCampania)
     {
-        var listaSubCampania = Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList();
+        //var listaSubCampania = Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList();
 
-        if (listaSubCampania != null && listaSubCampania.Count > 0)
+        @*if (listaSubCampania != null && listaSubCampania.Count > 0)
         {
             var precioOferta = listaSubCampania[0].FormatoPrecioOferta;
             var descripcion = listaSubCampania[0].Descripcion;
@@ -209,18 +209,17 @@
                         margin: 0 .4% !important;
                     }*/
                 </style>
-                <div class="content_set_oferta_especial" style="max-width: 1024px;
-    padding: 0 0% 0 6%;">
+                <div class="content_set_oferta_especial" style="max-width: 1024px; padding: 0 0% 0 6%;">
                     <div class="content_carrusel_oferta_especial" id="contenedor-showroom-subcampanias"></div>
                 </div>
             </div>
-        }
+        }*@
     }
     else
     {
         if (Model.TieneCompraXcompra)
         {
-            if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+            @*if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
             {
                 var descripcion = Model.ListaShowRoomCompraPorCompra[0].Descripcion;
                 if (descripcion != null && descripcion.Length > 41)
@@ -258,7 +257,7 @@
 
                     </div>
                 </div>
-            }
+            }*@
         }
     }
 
@@ -266,7 +265,7 @@
 
 @if (Model.TieneCompraXcompra)
 {
-    if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+    @*if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
     {
         <div id="PopDetalleCompra" class="Content_general_pop_up" style="display: none;" data-popup-main>
             <div class="content_ficha_producto_nueva" style="width: 750px;" data-popup-body>
@@ -338,7 +337,7 @@
                 <div class="legal_footer_compra">@Model.TextoDescripcionLegalCpc</div>
             </div>
         </div>
-    }
+    }*@
 }
 
 <div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
@@ -513,9 +512,9 @@
         var iconoLluvia = '@ViewBag.IconoLLuvia';
         var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.DesktopShowRoomSubCampanias';
         var tieneCompraXCompra = '@Model.TieneCompraXcompra';
-        var itemsCompraXCompra = '@Model.ListaShowRoomCompraPorCompra.Count';
+
         var tieneSubCampania = '@Model.TieneSubCampania';
-        var itemsSubCampania = @Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList().Count;
+        
         var vfallSpeed = 4;
         var vnumObjects = 8;
         var esShowRoom = true;

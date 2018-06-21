@@ -345,7 +345,6 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<EstrategiaPedidoModel> GetShowRoomOfertasConsultora(UsuarioModel usuario)
         {
-
             using (var ofertaService = new OfertaServiceClient())
             {
                 var listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(usuario.PaisID, usuario.CampaniaID, usuario.CodigoConsultora).ToList();

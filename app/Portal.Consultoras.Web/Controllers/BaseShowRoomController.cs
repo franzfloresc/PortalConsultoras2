@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
@@ -10,7 +9,6 @@ using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
-using BEEstrategia = Portal.Consultoras.Web.ServicePedido.BEEstrategia;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -143,9 +141,9 @@ namespace Portal.Consultoras.Web.Controllers
                 showRoomEventoModel = configEstrategiaSR.BeShowRoom;
                 showRoomEventoModel.Simbolo = userData.Simbolo;
                 showRoomEventoModel.CodigoIso = userData.CodigoISO;
-                showRoomEventoModel.ListaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion);
-                showRoomEventoModel.ListaShowRoomCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, showRoomEventoModel.EventoID, showRoomEventoModel.CampaniaID);
-                showRoomEventoModel.ListaCategoria = GetCategoriasProductoShowRoom(showRoomEventoModel);
+                //showRoomEventoModel.ListaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion);
+                //showRoomEventoModel.ListaShowRoomCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, showRoomEventoModel.EventoID, showRoomEventoModel.CampaniaID);
+                //showRoomEventoModel.ListaCategoria = GetCategoriasProductoShowRoom(showRoomEventoModel);
 
                 var tipoAplicacion = Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop;
                 if (GetIsMobileDevice()) tipoAplicacion = Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile;
@@ -173,7 +171,6 @@ namespace Portal.Consultoras.Web.Controllers
                     showRoomEventoModel.ImagenFondoTituloOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoTituloOfertaSubCampania, tipoAplicacion);
                     showRoomEventoModel.ColorFondoContenidoOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ColorFondoContenidoOfertaSubCampania, tipoAplicacion);
                     showRoomEventoModel.TextoBotonVerMasOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.TextoBotonVerMasOfertaSubCampania, tipoAplicacion);
-
                 }
             }
             catch (FaultException ex)
@@ -185,27 +182,10 @@ namespace Portal.Consultoras.Web.Controllers
             return showRoomEventoModel;
         }
 
-        private List<ShowRoomCategoriaModel> GetCategoriasProductoShowRoom(ShowRoomEventoModel showRoomEventoModel)
-        {
-            var categorias = showRoomEventoModel.ListaShowRoomOferta.GroupBy(p => p.CodigoCategoria).Select(p => p.First());
-            var listaCategoria = categorias
-                .Where(x => !string.IsNullOrEmpty(x.DescripcionCategoria))
-                .Select(x => new ShowRoomCategoriaModel
-                {
-                    Codigo = x.CodigoCategoria,
-                    Descripcion = x.DescripcionCategoria,
-                    EventoID = showRoomEventoModel.EventoID
-                })
-                .OrderBy(p => p.Descripcion).ToList();
-            return listaCategoria;
-        }
-
         protected virtual bool GetIsMobileDevice()
         {
             return Request.Browser.IsMobileDevice;
         }
-
-        
 
         protected class ShowRoomQueryStringValidator
         {
@@ -292,7 +272,7 @@ namespace Portal.Consultoras.Web.Controllers
                 CodigoVariante = ofertaShowRoomModelo.CodigoEstrategia
             };
 
-            ofertaShowRoomModelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo,Constantes.TipoEstrategiaCodigo.ShowRoom);
+            ofertaShowRoomModelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, Constantes.TipoEstrategiaCodigo.ShowRoom);
 
             return ofertaShowRoomModelo;
         }
@@ -445,6 +425,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Metodos Privados
 
+        private List<ShowRoomCategoriaModel> GetCategoriasProductoShowRoom(ShowRoomEventoModel showRoomEventoModel)
+        {
+            var categorias = showRoomEventoModel.ListaShowRoomOferta.GroupBy(p => p.CodigoCategoria).Select(p => p.First());
+            var listaCategoria = categorias
+                .Where(x => !string.IsNullOrEmpty(x.DescripcionCategoria))
+                .Select(x => new ShowRoomCategoriaModel
+                {
+                    Codigo = x.CodigoCategoria,
+                    Descripcion = x.DescripcionCategoria,
+                    EventoID = showRoomEventoModel.EventoID
+                })
+                .OrderBy(p => p.Descripcion).ToList();
+            return listaCategoria;
+        }
+
         private void CargarValoresGenerales(UsuarioModel userData)
         {
             if (sessionManager.GetUserData() != null)
@@ -553,20 +548,20 @@ namespace Portal.Consultoras.Web.Controllers
             var listaTieneStock = new List<Lista>();
             if (esFacturacion)
             {
-                /*Obtener si tiene stock de PROL por CodigoSAP*/
-                var txtBuil = new StringBuilder();
-                foreach (var beProducto in listaShowRoomOferta)
-                {
-                    if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
-                    {
-                        txtBuil.Append(beProducto.CodigoProducto + "|");
-                    }
-                }
-                var codigoSap = txtBuil.ToString();
-                codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
-
                 try
                 {
+                    /*Obtener si tiene stock de PROL por CodigoSAP*/
+                    var txtBuil = new StringBuilder();
+                    foreach (var beProducto in listaShowRoomOferta)
+                    {
+                        if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
+                        {
+                            txtBuil.Append(beProducto.CodigoProducto + "|");
+                        }
+                    }
+                    var codigoSap = txtBuil.ToString();
+                    codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+
                     if (!string.IsNullOrEmpty(codigoSap))
                     {
                         using (var sv = new wsConsulta())

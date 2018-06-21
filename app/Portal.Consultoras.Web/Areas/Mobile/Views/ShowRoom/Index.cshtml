@@ -3,7 +3,6 @@
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 }
 
-@using Newtonsoft.Json
 @using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Helpers
 @using Portal.Consultoras.Web.Models
@@ -77,7 +76,7 @@
                 <div class="panel-group" id="accordion">
                     @if (Model.TieneCategoria)
                     {
-                        if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
+                        @*if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
                         {
                             <div class="content_panel">
                                 <div class="titulo_filtro">
@@ -105,7 +104,7 @@
                                     </div>
                                 </div>
                             </div>
-                        }
+                        }*@
                     }
 
                     <div class="content_panel">
@@ -211,7 +210,7 @@
 
 @if (Model.TieneCompraXcompra)
 {
-    if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+    @*if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
     {
         <div class="content_promocion">
             <div class="pestana_promocion" id="AbrirBannerCompra">PROMOCIÓN</div>
@@ -243,7 +242,7 @@
                 </div>
             </div>
         </div>
-    }
+    }*@
 }
 <div id="divMensajeProductoAgregado" class="modal fade" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-alert ">
@@ -259,7 +258,7 @@
 
 @if (Model.TieneSubCampania)
 {
-    var listaSubCampania = Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList();
+    @*var listaSubCampania = Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList();
 
     if (listaSubCampania != null && listaSubCampania.Count > 0)
     {
@@ -300,7 +299,7 @@
                     <hr class="clear">
                 </div>
             </div>
-        </div>
+        </div>*@
     }
 }
 else
@@ -316,7 +315,7 @@ else
 
             @if (Model.TieneCompraXcompra)
             {
-                if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+                @*if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
                 {
                     <div class="content_pop_compra">
                         @{ var posicionCpc = 1; }
@@ -371,7 +370,7 @@ else
                             }
                         }
                     </div>
-                }
+                }*@
             }
             <div class="legal_footer_compra">
                 @Model.TextoDescripcionLegalCpc
@@ -506,8 +505,8 @@ else
         var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileShowRoomLandingCompraTactica';
         var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.MobileShowRoomSubCampanias';
         var tieneCompraXCompra = '@Model.TieneCompraXcompra';
-        var itemsCompraXCompra = '@Model.ListaShowRoomCompraPorCompra.Count';
+        
         var tieneSubCampania = '@Model.TieneSubCampania';
-        var itemsSubCampania = @Model.ListaShowRoomOferta.Where(p => p.EsSubCampania && p.UnidadesPermitidasRestantes > 0).OrderBy(p => p.Orden).ToList().Count;
+        
     </script>
 }
