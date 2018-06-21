@@ -1,13 +1,5 @@
 ﻿var EstrategiaAgregarModule = function(){
         
-    var EstrategiaObtenerObj = function (e) {
-        var objHtmlEvent = $(e.target);
-        if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
-        var objHtml = objHtmlEvent.parents("[data-item]");
-        var objAux = $.trim($(objHtml).find("[data-estrategia]").attr("data-estrategia"));
-        var estrategia = (objAux != "") ? JSON.parse(objAux) : {};
-        return estrategia;
-    }
 
     var EstrategiaAgregar = function (event, popup, limite) {
 
@@ -112,7 +104,7 @@
         // ClienteID_:
     };
 
-    estrategiaAgregarProvider.  (params).done(function (data) {
+    EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function (data) {
         if (!checkTimeout(data)) {
             CerrarLoad();
             return false;
@@ -243,79 +235,106 @@
     }).fail(function(data, error) {
         CerrarLoad();
     });
-}
-
-
-var EstrategiaValidarBloqueada = function (objInput, estrategia) {
-    var clonarItem = true;
-    var divMensaje = $("#divMensajeBloqueada");
-
-    if ($.trim($(objInput).attr("data-bloqueada")) == "") {
-        return false;
     }
 
-    if (estrategia.CampaniaID == campaniaCodigo) {
-        return false;
+    var EstrategiaObtenerObj = function(e) {
+        var objHtmlEvent = $(e.target);
+        if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
+        var objHtml = objHtmlEvent.parents("[data-item]");
+        var objAux = $.trim($(objHtml).find("[data-estrategia]").attr("data-estrategia"));
+        var estrategia = (objAux != "") ? JSON.parse(objAux) : {};
+        return estrategia;
     }
 
-    if (isMobile()) {
-        EstrategiaVerDetalleMobile(estrategia);
+    var EstrategiaValidarBloqueada = function (objInput, estrategia) {
+        var clonarItem = true;
+        var divMensaje = $("#divMensajeBloqueada");
+
+        if ($.trim($(objInput).attr("data-bloqueada")) == "") {
+            return false;
+        }
+
+        if (estrategia.CampaniaID == campaniaCodigo) {
+            return false;
+        }
+
+        if (isMobile()) {
+            EstrategiaVerDetalleMobile(estrategia);
+            return true;
+        }
+
+        if (estrategia.CodigoEstrategia == '011' &&
+            (isPagina('ofertas') || isPagina('herramientasventa')) &&
+            !isMobile()) {
+            divMensaje = $("#divHVMensajeBloqueada");
+            divMensaje.find('.cerrar_fichaProducto').attr('data-popup-close', 'divHVMensajeBloqueada');
+        }
+
+        if (divMensaje.length > 0) {
+            var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
+            if (itemClone.length > 0) {
+                var dataItemHtml = divMensaje.find("[data-item-html]");
+
+                    if (estrategia.CodigoEstrategia != '005') {
+                        dataItemHtml.html(itemClone.html());
+                    }
+                
+                dataItemHtml.find('[data-item-tag="body"]').removeAttr("data-estrategia");
+                dataItemHtml.find('[data-item-tag="body"]').css("min-height", "auto");
+                dataItemHtml.find('[data-item-tag="body"]').css("float", "none");
+                dataItemHtml.find('[data-item-tag="body"]').css("margin", "0 auto");
+                dataItemHtml.find('[data-item-tag="body"]').css("background-color", "#fff");
+                dataItemHtml.find('[data-item-tag="body"]').attr("class", "");
+                dataItemHtml.find('[data-item-tag="agregar"]').remove();
+                dataItemHtml.find('[data-item-tag="fotofondo"]').remove();
+                dataItemHtml.find('[data-item-tag="verdetalle"]').remove();
+                dataItemHtml.find('[data-item-accion="verdetalle"]').remove();
+                dataItemHtml.find('[data-item-tag="contenido"]').removeAttr("onclick");
+                dataItemHtml.find('[data-item-tag="contenido"]').css("position", "initial");
+                dataItemHtml.find('[data-item-tag="contenido"]').attr("class", "");
+
+            }
+
+            $(".contenedor_popup_detalleCarousel").hide();
+            divMensaje.show();
+        }
         return true;
     }
 
-    if (estrategia.CodigoEstrategia == '011' &&
-        (isPagina('ofertas') || isPagina('herramientasventa')) &&
-        !isMobile()) {
-        divMensaje = $("#divHVMensajeBloqueada");
-        divMensaje.find('.cerrar_fichaProducto').attr('data-popup-close', 'divHVMensajeBloqueada');
-    }
-
-    if (divMensaje.length > 0) {
-        var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
-        if (itemClone.length > 0) {
-            var dataItemHtml = divMensaje.find("[data-item-html]");
-
-                if (estrategia.CodigoEstrategia != '005') {
-                    dataItemHtml.html(itemClone.html());
-                }
-                
-            dataItemHtml.find('[data-item-tag="body"]').removeAttr("data-estrategia");
-            dataItemHtml.find('[data-item-tag="body"]').css("min-height", "auto");
-            dataItemHtml.find('[data-item-tag="body"]').css("float", "none");
-            dataItemHtml.find('[data-item-tag="body"]').css("margin", "0 auto");
-            dataItemHtml.find('[data-item-tag="body"]').css("background-color", "#fff");
-            dataItemHtml.find('[data-item-tag="body"]').attr("class", "");
-            dataItemHtml.find('[data-item-tag="agregar"]').remove();
-            dataItemHtml.find('[data-item-tag="fotofondo"]').remove();
-            dataItemHtml.find('[data-item-tag="verdetalle"]').remove();
-            dataItemHtml.find('[data-item-accion="verdetalle"]').remove();
-            dataItemHtml.find('[data-item-tag="contenido"]').removeAttr("onclick");
-            dataItemHtml.find('[data-item-tag="contenido"]').css("position", "initial");
-            dataItemHtml.find('[data-item-tag="contenido"]').attr("class", "");
-
+    var EstrategiaObtenerObjHtmlLanding = function (objInput) {
+        var itemClone = $(objInput).parents("[data-item]");
+        var cuvClone = $.trim(itemClone.attr("data-clone-item"));
+        if (cuvClone != "") {
+            itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']").find("[data-item='" + cuvClone + "']");
+        }
+        if (itemClone.length === 0 && cuvClone != "") {
+            itemClone = $("body").find("[data-item='" + cuvClone + "']");
+        }
+        if (itemClone.length > 1) {
+            itemClone = $(itemClone.get(0));
         }
 
-        $(".contenedor_popup_detalleCarousel").hide();
-        divMensaje.show();
-    }
-    return true;
-}
+        return itemClone;
+        }
 
-var EstrategiaObtenerObjHtmlLanding = function (objInput) {
-    var itemClone = $(objInput).parents("[data-item]");
-    var cuvClone = $.trim(itemClone.attr("data-clone-item"));
-    if (cuvClone != "") {
-        itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']").find("[data-item='" + cuvClone + "']");
-    }
-    if (itemClone.length === 0 && cuvClone != "") {
-        itemClone = $("body").find("[data-item='" + cuvClone + "']");
-    }
-    if (itemClone.length > 1) {
-        itemClone = $(itemClone.get(0));
-    }
+    var AbrirMensajeEstrategia = function (txt) {
+        if (tipoOrigenEstrategia == 1) {
+            alert_msg_pedido(txt)
+        }
+        else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) {
+            alert_msg(txt);
+        }
+        else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 262) {
+            messageInfo(txt);
+        }
 
-    return itemClone;
-}
+        else if (isMobile()) {
+            messageInfo(txt);
+        }
+        else {
+            alert_msg(txt);
+        }
+    }
 
     return {
         EstrategiaAgregar: EstrategiaAgregar
