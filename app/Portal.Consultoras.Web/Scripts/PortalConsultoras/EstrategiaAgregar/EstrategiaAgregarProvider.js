@@ -1,4 +1,4 @@
-﻿var estrategiaAgregarProvider = function () {
+﻿var EstrategiaAgregarProvider = function () {
     "use strict";
 
     var pedidoAgregarProductoPromise = function (params) {

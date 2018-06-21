@@ -853,7 +853,7 @@ function EstrategiaAgregarShowRoom(event) {
                 ClienteID_: '-1'
             });
 
-            estrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function(data) {
+            EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function(data) {
                 CerrarLoad();
                 response = data;
                 if (response.success == true) {
