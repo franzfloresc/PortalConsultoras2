@@ -434,7 +434,7 @@ function EstrategiaAgregar(event, popup, limite) {
         // ClienteID_:
     };
 
-    estrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function (data) {
+    EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function (data) {
         if (!checkTimeout(data)) {
             CerrarLoad();
             return false;
