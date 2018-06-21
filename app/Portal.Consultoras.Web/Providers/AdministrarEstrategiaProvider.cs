@@ -118,6 +118,7 @@ namespace Portal.Consultoras.Web.Providers
                         DescripcionCUV2 = d.DescripcionCUV2,
                         Precio = (decimal)d.Precio,
                         Precio2 = (decimal)d.Precio2,
+                        PrecioPublico = (decimal)d.PrecioPublico,
                         Ganancia = (decimal)d.Ganancia,
                         CUV2 = d.CUV2,
                         Orden = d.Orden,
@@ -125,8 +126,9 @@ namespace Portal.Consultoras.Web.Providers
                         CodigoEstrategia = d.CodigoEstrategia,
                         CodigoTipoEstrategia = d.CodigoTipoEstrategia,
                         //cambiar por CodigoProducto cuando se corrija el servicio
-                        CodigoProducto = string.IsNullOrEmpty(d.CodigoSap)?d.CodigoProducto:d.CodigoSap,
+                        CodigoProducto = string.IsNullOrEmpty(d.CodigoSap) ? d.CodigoProducto : d.CodigoSap,
                         IndicadorMontoMinimo = d.IndicadorMontoMinimo ? 1 : 0,
+                        IdMatrizComercial = d.MatrizComercialId,
                         MarcaID = d.MarcaId,
                         DescripcionMarca = d.MarcaDescripcion,
                         UsuarioCreacion = d.UsuarioCreacion,
@@ -299,6 +301,8 @@ namespace Portal.Consultoras.Web.Providers
                 TipoEstrategiaId = entidad.TipoEstrategiaID,
                 TipoEstrategia = entidad.CodigoTipoEstrategia.Equals("009") ? "ODD" : "",
                 DescripcionTipoEstrategia = entidad.DescripcionEstrategia,
+                MatrizComercialId = entidad.IdMatrizComercial,
+                PrecioPublico = (float)entidad.PrecioPublico,
                 Zona = entidad.Zona
             };
             return waModel;
