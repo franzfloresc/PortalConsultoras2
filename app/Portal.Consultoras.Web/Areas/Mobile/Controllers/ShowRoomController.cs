@@ -371,6 +371,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();              
             }
+            else if (!revistaDigital.ActivoMdo)
+            {
+                modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
+            }
             else {
                 modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
             }

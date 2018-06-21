@@ -2912,6 +2912,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
             }
+            else if (!revistaDigital.ActivoMdo)
+            {
+                modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
+            }
             else
             {
                 modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
@@ -2958,6 +2962,10 @@ namespace Portal.Consultoras.Web.Controllers
                 else if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
                 {
                     listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
+                }
+                else if (!revistaDigital.ActivoMdo)
+                {
+                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
                 }
                 else
                 {
@@ -3056,6 +3064,10 @@ namespace Portal.Consultoras.Web.Controllers
                 if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
                 {
                     productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
+                }
+                else if (!revistaDigital.ActivoMdo)
+                {
+                    productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania ).ToList();
                 }
                 else
                     productosShowRoom = productosShowRoom.Where(x => x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
