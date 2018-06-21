@@ -3254,12 +3254,15 @@ namespace Portal.Consultoras.Web.Controllers
                         oPin = sv.GetPinAutenticidad(PaisID, CodigoUsuario);
                     }
 
-                    TempData["PaisID"] = PaisID;
-                    TempData["CodigoUsuario"] = oPin.CodigoUsuario;
-                    TempData["PrimerNombre"] = oPin.PrimerNombre;
-                    TempData["Email"] = oPin.Email;
-                    TempData["Celular"] = oPin.Celular;
-                    TempData["IdEstadoActividad"] = oPin.IdEstadoActividad;
+                    if (oPin != null)
+                    {
+                        TempData["PaisID"] = PaisID;
+                        TempData["CodigoUsuario"] = oPin.CodigoUsuario;
+                        TempData["PrimerNombre"] = oPin.PrimerNombre;
+                        TempData["Email"] = oPin.Email;
+                        TempData["Celular"] = oPin.Celular;
+                        TempData["IdEstadoActividad"] = oPin.IdEstadoActividad;
+                    }
                 }
             }
             catch (Exception ex)
