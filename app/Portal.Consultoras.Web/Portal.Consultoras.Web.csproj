@@ -4762,6 +4762,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\AdminContenido\MatrizComercial.js" />
+    <Content Include="Views\AdministrarEstrategia\_NuevoMasivo.cshtml" />
     <Content Include="Views\CatalogoPersonalizado\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -5096,7 +5097,6 @@
     <Content Include="Views\MiPerfil\CambiarFotoPerfil.cshtml" />
     <Content Include="Views\MiPerfil\ConfirmacionCorreo.cshtml" />
     <Content Include="Views\MatrizCampania\ActualizarMatrizCampaniaNew.cshtml" />
-    <Content Include="Views\AdministrarEstrategia\_NuevoMasivo.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpVariablesGeneralesPortal.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

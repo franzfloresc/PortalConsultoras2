@@ -17,10 +17,6 @@
             return $('#NuevoCelular');
         }
 
-        function getButtonContinuar() {
-            return $('.btn_continuar');
-        }
-
         function getIconValidacionSms() {
             return $('.icono_validacion_codigo_sms');
         }
@@ -33,17 +29,11 @@
             return $('.campo_ingreso_codigo_sms');
         }
 
-        function getResenCode() {
-            return $('.enlace_reenviar_instrucciones');
-        }
-
         return {
             getInputCelular: getInputCelular,
-            getButtonContinuar: getButtonContinuar,
             getIconValidacionSms: getIconValidacionSms,
             getErrorText: getErrorText,
-            getInputsCodeSms: getInputsCodeSms,
-            getResenCode: getResenCode
+            getInputsCodeSms: getInputsCodeSms
         };
     })();
     me.Services = (function() {
@@ -153,9 +143,9 @@
             return { Success: true };
         }
 
-        function setDisabledSmsCodeInput(disabled) {
+        function setReadOnlySmsCodeInput(disabled) {
             me.Elements.getInputsCodeSms().each(function() {
-                $(this).prop('disabled', disabled);
+                $(this).prop('readonly', disabled);
             });
         }
 
@@ -191,6 +181,11 @@
                 .addClass('validacion_exitosa');
         }
 
+        function resetSmsCode() {
+            me.Funciones.SetSmsCode('');
+            me.Elements.getIconValidacionSms().hide();
+        }
+
         function format2(value) {
             if (value < 10) return '0' + value;
 
@@ -215,6 +210,7 @@
                         localData.Expired = true;
                         clearInterval(interval);
                         counterElement.text("00:00");
+                        resetSmsCode();
                     }
             }, cantMsInterval);
         }
@@ -233,25 +229,26 @@
                 return;
             }
 
+            waitingDialog({});
             var successConfirmarSmsCode = function(r) {
-                setDisabledSmsCodeInput(false);
+                closeWaitingDialog();
                 if (!r.Success) {
                     me.Funciones.MarkSmsCodeStatus(false);
 
                     return;
                 }
 
+                setReadOnlySmsCodeInput(true);
                 me.Funciones.MarkSmsCodeStatus(true);
                 setTimeout(function() {
                         me.Funciones.NavigatePanel(2);
                     },
                     1000);
             };
-
-            setDisabledSmsCodeInput(true);
+            
             me.Services.confirmarSmsCode(code)
                 .then(successConfirmarSmsCode, function(er) {
-                    setDisabledSmsCodeInput(false);
+                    closeWaitingDialog();
                     me.Funciones.HandleError(er);
                 });
         }
@@ -285,7 +282,8 @@
             NavigatePanel: navigatePanel,
             SetIsoPais: setIsoPais,
             HandleError: handleError,
-            SetSmsCode: setSmsCode
+            SetSmsCode: setSmsCode,
+            ResetSmsCode: resetSmsCode
         };
 
     })();
@@ -300,25 +298,24 @@
             }
 
             localData.CelularNuevo = nuevoCelular;
-            me.Funciones.SetSmsCode('');
-            me.Elements.getButtonContinuar().prop('disabled', true);
+            me.Funciones.ResetSmsCode();
+            waitingDialog({});
 
             var successEnviarSmsCode = function(r) {
+                closeWaitingDialog();
                 localData.CelularValido = r.Success;
                 if (!r.Success) {
                     me.Funciones.ShowError(r.Message);
                     return;
                 }
                 me.Funciones.NavigatePanel(1);
-                me.Elements.getIconValidacionSms().hide();
                 me.Funciones.ShowError('');
                 me.Funciones.InitCounter();
-                me.Elements.getButtonContinuar().prop('disabled', false);
             };
 
             me.Services.enviarSmsCode(nuevoCelular)
                 .then(successEnviarSmsCode, function(er) {
-                        me.Elements.getButtonContinuar().prop('disabled', false);
+                        closeWaitingDialog();
                         me.Funciones.HandleError(er);
                     });
         }
@@ -328,9 +325,11 @@
         }
 
         function sendSmsCode() {
-            me.Funciones.SetSmsCode('');
+            me.Funciones.ResetSmsCode();
+            waitingDialog({});
             me.Services.enviarSmsCode(localData.CelularNuevo)
                 .then(function(r) {
+                    closeWaitingDialog();
                     if (!r.Success) {
                         me.Funciones.ShowError(r.Message);
                         me.Funciones.NavigatePanel(0);
@@ -339,7 +338,10 @@
                     }
 
                     me.Funciones.InitCounter();
-                }, me.Funciones.HandleError);
+                }, function(er) {
+                    closeWaitingDialog();
+                    me.Funciones.HandleError(er);
+                });
         }
 
         function changeCodeSms() {

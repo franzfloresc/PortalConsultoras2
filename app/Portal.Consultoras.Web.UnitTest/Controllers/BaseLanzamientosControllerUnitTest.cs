@@ -10,8 +10,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
     [TestClass]
     public class BaseLanzamientosControllerUnitTest
     {
-        BaseLanzamientosController controller;
-
         [TestClass]
         public class Detalle : Base
         {
@@ -40,14 +38,14 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             public void Detalle_RevistaDigitalEsNula_DebeEscribirEnLog()
             {
                 controller.RevistaDigital = null;
-                ActionResult result;
 
                 try
                 {
-                    result = controller.Detalle(string.Empty, 0);
+                    controller.Detalle(string.Empty, 0);
                 }
                 catch
                 {
+                   //
                 }
 
                 logManager.Verify(x => x.LogErrorWebServicesBusWrap(
@@ -64,7 +62,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             {
                 controller.RevistaDigital = null;
 
-                var result = controller.Detalle(string.Empty, 0);
+                controller.Detalle(string.Empty, 0);
             }
 
             [TestMethod]
