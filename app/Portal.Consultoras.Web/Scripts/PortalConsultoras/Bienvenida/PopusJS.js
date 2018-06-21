@@ -210,7 +210,7 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
                     if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'None';
                 }
 
-                $('#DialogoMensajeBannerShowRoomHoy').on('hide', function () {
+                $('#PopShowroomVenta').on('hide', function () {
                     if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
                         document.getElementById('survicate-box').style.display = 'block';
                         cancel = 1;
@@ -225,20 +225,20 @@ function MostrarPopusEnOrden(param, VideoBienvenida, VioTutorialDesktop, CambioC
                     }
                 });
 
-                $('#DialogoMensajeBannerShowRoom').on('hide', function () {
-                    if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
-                        document.getElementById('survicate-box').style.display = 'block';
-                        cancel = 1;
-                        ValidacionEncuesta();
-                        clearTimeout(timeoutHandle);
-                    } else {
-                        cancel = 1;
-                        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
-                        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
-                        EmpezarSlider();
-                        clearTimeout(timeoutHandle);
-                    }
-                });
+                //$('#DialogoMensajeBannerShowRoom').on('hide', function () {
+                //    if (document.getElementById('survicate-box') != null && document.getElementById('survicate-box').innerHTML != "") {
+                //        document.getElementById('survicate-box').style.display = 'block';
+                //        cancel = 1;
+                //        ValidacionEncuesta();
+                //        clearTimeout(timeoutHandle);
+                //    } else {
+                //        cancel = 1;
+                //        if (document.getElementById('marca') != null) document.getElementById('marca').style.display = 'block';
+                //        if (document.getElementById('showroom_banner_inferior') != null) document.getElementById('showroom_banner_inferior').style.display = 'block';
+                //        EmpezarSlider();
+                //        clearTimeout(timeoutHandle);
+                //    }
+                //});
                 
                 break;
             case 6://ActualizarDatos 
