@@ -3,13 +3,13 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class LanzamientosController : BaseLanzamientosController
+    public class LanzamientosController : BaseViewController
     {
-        public override ActionResult Detalle(string cuv, int campaniaId)
+        public override ActionResult LANDetalle(string cuv, int campaniaId)
         {
             try
             {
-                return base.Detalle(cuv, campaniaId);
+                return base.LANDetalle(cuv, campaniaId);
             }
             catch (Exception ex)
             {

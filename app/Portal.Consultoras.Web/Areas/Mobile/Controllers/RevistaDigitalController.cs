@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
     [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
-    public class RevistaDigitalController : BaseRevistaDigitalController
+    public class RevistaDigitalController : BaseViewController
     {
         public ActionResult Index()
         {
@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
 
-                return DetalleModel(cuv, campaniaId);
+                return RDDetalleModel(cuv, campaniaId);
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 ViewBag.TipoLayout = tipo;
-                return IndexModel();
+                return RDIndexModel();
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                return ViewLanding(1);
+                return RDViewLanding(1);
             }
             catch (Exception ex)
             {
@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                return ViewLanding(2);
+                return RDViewLanding(2);
             }
             catch (Exception ex)
             {

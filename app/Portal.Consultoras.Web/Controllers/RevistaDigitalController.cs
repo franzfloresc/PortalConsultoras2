@@ -11,12 +11,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.SessionManager;
 
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class RevistaDigitalController : BaseRevistaDigitalController
+    public class RevistaDigitalController : BaseViewController
     {
         public RevistaDigitalController()
             : base()
@@ -52,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 ViewBag.TipoLayout = tipo;
-                return IndexModel();
+                return RDIndexModel();
             }
             catch (Exception ex)
             {
@@ -66,7 +65,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                return ViewLanding(1);
+                return RDViewLanding(1);
             }
             catch (Exception ex)
             {
@@ -80,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                return ViewLanding(2);
+                return RDViewLanding(2);
             }
             catch (Exception ex)
             {
@@ -94,7 +93,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                return DetalleModel(cuv, campaniaId);
+                return RDDetalleModel(cuv, campaniaId);
             }
             catch (Exception ex)
             {
