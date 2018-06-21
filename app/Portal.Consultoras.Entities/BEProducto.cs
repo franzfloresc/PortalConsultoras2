@@ -14,6 +14,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int ConfiguracionOfertaID { get; set; }
+
         [DataMember]
         public int TipoOfertaSisID { get; set; }
 
@@ -41,8 +42,10 @@ namespace Portal.Consultoras.Entities
         public string CUVRevista { get; set; }
         [DataMember]
         public string MensajeEstaEnRevista1 { get; set; }
+
         [DataMember]
         public string MensajeEstaEnRevista2 { get; set; }
+
         [DataMember]
         public string CUVComplemento { get; set; }
 

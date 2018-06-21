@@ -29,18 +29,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        public RevistaDigitalModel RevistaDigital
-        {
-            get
-            {
-                return revistaDigital;
-            }
-            set
-            {
-                revistaDigital = value;
-            }
-        }
-
         public virtual ActionResult Detalle(string cuv, int campaniaId)
         {
             try

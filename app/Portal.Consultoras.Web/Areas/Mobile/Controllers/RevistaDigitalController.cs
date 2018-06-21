@@ -151,21 +151,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var usuario = Mapper.Map<MisDatosModel, ServiceUsuario.BEUsuario>(model);
 
                 string resultado = ActualizarMisDatos(usuario, model.CorreoAnterior);
-                bool seActualizoMisDatos = resultado.Split('|')[0] != "0";
-                string message = resultado.Split('|')[2];
-                int cantidad = int.Parse(resultado.Split('|')[3]);
+                var lstRes = resultado.Split('|');
 
-                if (!seActualizoMisDatos)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message,
-                        Cantidad = cantidad,
-                        extra = string.Empty
-                    });
-                }
-                else
+                bool seActualizoMisDatos = lstRes[0] != "0";
+                string message = lstRes.Length >= 3 ? lstRes[2] : "";
+
+                if (seActualizoMisDatos)
                 {
                     return Json(new
                     {
@@ -175,29 +166,33 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         extra = string.Empty
                     });
                 }
+
+                int cantidad = lstRes.Length >= 4 ? int.Parse(lstRes[3]) : 0;
+                return Json(new
+                {
+                    success = false,
+                    message,
+                    Cantidad = cantidad,
+                    extra = string.Empty
+                });
+                
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return Json(new
-                {
-                    Cantidad = 0,
-                    success = false,
-                    message = "Ocurrió un error al acceder al servicio, intente nuevamente.",
-                    extra = ""
-                });
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return Json(new
-                {
-                    Cantidad = 0,
-                    success = false,
-                    message = "Ocurrió un error al acceder al servicio, intente nuevamente.",
-                    extra = ""
-                });
             }
+
+            return Json(new
+            {
+                Cantidad = 0,
+                success = false,
+                message = "Ocurrió un error al acceder al servicio, intente nuevamente.",
+                extra = ""
+            });
         }
 
     }

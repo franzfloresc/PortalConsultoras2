@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceAsesoraOnline;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,20 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class RevistaDigitalController : BaseRevistaDigitalController
     {
+        public RevistaDigitalController()
+            : base()
+        {
+        }
+
+        public RevistaDigitalController(ISessionManager sessionManager)
+            : base(sessionManager)
+        {
+        }
+
+        public RevistaDigitalController(ISessionManager sessionManager, ILogManager logManager)
+            : base(sessionManager, logManager)
+        {
+        }
         public ActionResult Index()
         {
             try
@@ -129,6 +145,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                if (model == null) throw new ArgumentNullException("model", "model no puede ser nulo");
+
                 if (!(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
                 {
                     return Json(new
@@ -141,7 +159,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var palanca = "";
+                var palanca = string.Empty;
 
                 if (revistaDigital.ActivoMdo)
                 {
@@ -152,10 +170,10 @@ namespace Portal.Consultoras.Web.Controllers
                     palanca = model.CampaniaID != userData.CampaniaID
                         || (revistaDigital.TieneRDC && revistaDigital.EsActiva)
                         ? Constantes.TipoEstrategiaCodigo.RevistaDigital
-                        : "";
+                        : string.Empty;
                 }
 
-                var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
+                var listaFinal1 = ConsultarEstrategiasModel(string.Empty, model.CampaniaID, palanca);
 
                 List<EstrategiaPedidoModel> listModel1;
 
@@ -214,7 +232,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listPerdio = listModelCompleta.Where(e =>
                             (e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
                             || e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
-                            && e.FlagRevista == Constantes.FlagRevista.Valor2
+                            && (e.FlagRevista == Constantes.FlagRevista.Valor1 || e.FlagRevista == Constantes.FlagRevista.Valor2)
                             ).ToList();
                     }
                     else
@@ -303,16 +321,12 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaID = userData.CampaniaID,
                 CodigoZona = userData.CodigoZona,
                 EstadoRegistro = tipo,
-                Origen = Util.Trim(revistaDigital.SuscripcionModel.Origen),
+                Origen = Constantes.RevistaDigitalOrigen.RD,
                 EstadoEnvio = 0,
                 IsoPais = userData.CodigoISO,
                 EMail = userData.EMail,
                 CampaniaEfectiva = AddCampaniaAndNumero(userData.CampaniaID, revistaDigital.CantidadCampaniaEfectiva)
             };
-
-            entidad.Origen = entidad.Origen == ""
-                ? Constantes.RevistaDigitalOrigen.RD
-                : entidad.Origen;
 
             switch (tipo)
             {

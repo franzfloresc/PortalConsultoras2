@@ -439,7 +439,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
                 .ForMember(t => t.OrigenPedidoWeb, f => f.MapFrom(c => c.OrigenPedidoWeb));
 
-            Mapper.CreateMap<EstrategiaProductoModel, BEEstrategiaProducto>();
+            Mapper.CreateMap<EstrategiaProductoModel, ServicePedido.BEEstrategiaProducto>();
 
             Mapper.CreateMap<UpSellingModel, UpSelling>()
                 .ForMember(t => t.Regalos, f => f.MapFrom(c => c.Regalos));
