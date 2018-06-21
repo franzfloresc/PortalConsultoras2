@@ -6648,7 +6648,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string resultadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int tipoEnvioField;
+        private string tipoEnvioField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -6999,12 +6999,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int tipoEnvio {
+        public string tipoEnvio {
             get {
                 return this.tipoEnvioField;
             }
             set {
-                if ((this.tipoEnvioField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.tipoEnvioField, value) != true)) {
                     this.tipoEnvioField = value;
                     this.RaisePropertyChanged("tipoEnvio");
                 }

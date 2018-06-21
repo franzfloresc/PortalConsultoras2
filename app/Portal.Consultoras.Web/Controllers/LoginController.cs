@@ -3029,7 +3029,7 @@ namespace Portal.Consultoras.Web.Controllers
                 oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
                 oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
                 oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
-                oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
+                oUsuCorreo.tipoEnvio = Convert.ToString(TempData["TipoEnvio"]);
                 oUsuCorreo.CodigoISO = Util.GetPaisISO(PaisID);
                 oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
 
@@ -3045,7 +3045,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     SetTemData(oUsuCorreo, PaisID);
-                    TempData["TipoEnvio"] = Constantes.EnviarCorreoYSms.TipoEnvio_Email;
+                    TempData["TipoEnvio"] = Constantes.ValidacionDatosTipoEnvio.Email;
 
                     if (envioCorreo)
                         return SuccessJson("", true);
@@ -3084,7 +3084,7 @@ namespace Portal.Consultoras.Web.Controllers
                     oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
                     oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
                     oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
-                    oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
+                    oUsuCorreo.tipoEnvio = Convert.ToString(TempData["TipoEnvio"]);
                     oUsuCorreo.CodigoISO = Util.GetPaisISO(PaisID);
                     oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
 
@@ -3119,7 +3119,7 @@ namespace Portal.Consultoras.Web.Controllers
                     httpClient.Dispose();
 
                     SetTemData(oUsuCorreo, PaisID);
-                    TempData["TipoEnvio"] = Constantes.EnviarCorreoYSms.TipoEnvio_Sms;
+                    TempData["TipoEnvio"] = Constantes.ValidacionDatosTipoEnvio.Sms;
                 }
 
                 if (EnvioSms)
@@ -3155,7 +3155,7 @@ namespace Portal.Consultoras.Web.Controllers
                 oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
                 oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
                 oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
-                oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
+                oUsuCorreo.tipoEnvio = Convert.ToString(TempData["TipoEnvio"]);
                 oUsuCorreo.CodigoISO = Util.GetPaisISO(paisID);
                 oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
 
