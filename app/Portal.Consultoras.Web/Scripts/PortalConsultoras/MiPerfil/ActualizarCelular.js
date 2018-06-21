@@ -71,6 +71,19 @@
         var interval;
         var counterElement = $('#time_counter');
         var cantMsInterval = 1000;
+        var paises = {
+            'PE': 9,
+            'MX': 15,
+            'EC': 10,
+            'CL': 15,
+            'BO': 15,
+            'PR': 15,
+            'DO': 15,
+            'CR': 8,
+            'GT': 8,
+            'PA': 8,
+            'SV': 8
+        };
 
         function inicializarEventos() {
             var body = $('body');
@@ -81,20 +94,6 @@
         };
 
         function validarPhonePais(iso, numero) {
-            var paises = {
-                'PE': 9,
-                'MX': 15,
-                'EC': 10,
-                'CL': 15,
-                'BO': 15,
-                'PR': 15,
-                'DO': 15,
-                'CR': 8,
-                'GT': 8,
-                'PA': 8,
-                'SV': 8
-            };
-
             var length = paises[iso];
             if (!length) {
                 return {
@@ -229,9 +228,9 @@
                 return;
             }
 
-            waitingDialog({});
+            mostratSpinner('abrir');
             var successConfirmarSmsCode = function(r) {
-                closeWaitingDialog();
+                mostratSpinner('cerrar');
                 if (!r.Success) {
                     me.Funciones.MarkSmsCodeStatus(false);
 
@@ -248,7 +247,7 @@
             
             me.Services.confirmarSmsCode(code)
                 .then(successConfirmarSmsCode, function(er) {
-                    closeWaitingDialog();
+                    mostratSpinner('cerrar');
                     me.Funciones.HandleError(er);
                 });
         }
@@ -264,6 +263,7 @@
         }
 
         function setIsoPais(iso) {
+            localData.IsoPais = iso;
             localData.IsoPais = iso;
         }
 
@@ -299,10 +299,10 @@
 
             localData.CelularNuevo = nuevoCelular;
             me.Funciones.ResetSmsCode();
-            waitingDialog({});
+            mostratSpinner('abrir');
 
             var successEnviarSmsCode = function(r) {
-                closeWaitingDialog();
+                mostratSpinner('cerrar');
                 localData.CelularValido = r.Success;
                 if (!r.Success) {
                     me.Funciones.ShowError(r.Message);
@@ -315,7 +315,7 @@
 
             me.Services.enviarSmsCode(nuevoCelular)
                 .then(successEnviarSmsCode, function(er) {
-                        closeWaitingDialog();
+                        mostratSpinner('cerrar');
                         me.Funciones.HandleError(er);
                     });
         }
@@ -326,10 +326,10 @@
 
         function sendSmsCode() {
             me.Funciones.ResetSmsCode();
-            waitingDialog({});
+            mostratSpinner('abrir');
             me.Services.enviarSmsCode(localData.CelularNuevo)
                 .then(function(r) {
-                    closeWaitingDialog();
+                    mostratSpinner('cerrar');
                     if (!r.Success) {
                         me.Funciones.ShowError(r.Message);
                         me.Funciones.NavigatePanel(0);
@@ -339,7 +339,7 @@
 
                     me.Funciones.InitCounter();
                 }, function(er) {
-                    closeWaitingDialog();
+                    mostratSpinner('cerrar');
                     me.Funciones.HandleError(er);
                 });
         }
@@ -374,7 +374,18 @@
 
 window.actualizarCelularModule = actualizarCelularModule;
 
+function mostratSpinner(valor) {
+    var mobile = isMobile();
+    if (mobile) {
+        return (valor == 'abrir' ? ShowLoading() : CloseLoading());
+    }
+    return (valor == 'abrir' ? waitingDialog({}) : closeWaitingDialog());
+}
+
 $(document).ready(function () {
     actualizarCelularModule.Funciones.SetIsoPais(IsoPais);
     actualizarCelularModule.Inicializar();
+
+    $('#NuevoCelular').on("cut copy paste", function (e) { e.preventDefault(); });
+    $('#NuevoCelular').attr('maxlength', '6');
 });

@@ -1,6 +1,4 @@
 ﻿@using Portal.Consultoras.Web.Helpers
-@using Portal.Consultoras.Web.Models
-@model NotificacionesModel
 
 @{
     ViewBag.Title = "Actualizar Celular";
@@ -18,7 +16,7 @@ else
 
 <!-- TÍTULO -->
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
@@ -35,13 +33,19 @@ else
         <div class="wrapper_content_actualizar_celular">
             <div>
                 <div class="form_actualizar_celular">
-                    <div class="sin_numero_celular_registrado">
-                        <span>Aún no has registrado un número de celular. Llena el siguiente campo para añadirlo.</span>
-                    </div>
-                    <div class="celular_actual" style="display:none;">
-                        <span class="w-100 text-uppercase">Tu número actual es :</span>
-                        <span class="w-100">987 654 321</span>
-                    </div>
+                    @if (string.IsNullOrEmpty(ViewBag.Celular))
+                    {
+                        <div class="sin_numero_celular_registrado">
+                            <span>Aún no has registrado un número de celular. Llena el siguiente campo para añadirlo.</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="celular_actual">
+                            <span class="w-100 text-uppercase">Tu número actual es :</span>
+                            <span class="w-100">@ViewBag.Celular</span>
+                        </div>
+                    }
                     <fieldset class="grupo_form_cambio_datos text-uppercase">
                         <div class="w-100">
                             <input id="NuevoCelular" name="NuevoCelular" class="w-100" type="text" value="" />
@@ -50,10 +54,10 @@ else
                     </fieldset>
                     <fieldset class="grupo_form_cambio_datos text-uppercase">
                         <div class="pull-left text-left v-alignMiddle">
-                            <a href="#" title="Cancelar" class="enlace_cancelar">Cancelar</a>
+                            <a href="@Url.Action("Index", "MiPerfil", new {area = "Mobile"})" title="Cancelar" class="enlace_cancelar">Cancelar</a>
                         </div>
                         <div class="pull-right text-right v-alignMiddle">
-                            <button type="button" class="btn_cambiar_contrasenia text-uppercase text-bold default-background-color">
+                            <button type="button" class="btn_continuar btn_cambiar_contrasenia text-uppercase text-bold default-background-color">
                                 Cambiar
                             </button>
                         </div>
@@ -100,12 +104,22 @@ else
                 <p class="mensaje_celular_actualizado">
                     Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.
                 </p>
-                <button type="button" class="btn_acept text-uppercase text-bold default-background-color">Ok</button>
+                <a style="line-height: 45px" class="btn_acept text-uppercase text-bold default-background-color">Ok</a>
             </div>
         </div>
     </section>
 </div>
 
 @section scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Index.js")"></script>
+    <script>
+        var actualizaCelularData = {
+            celular: '@ViewBag.Celular',
+            urlProvider: {
+                enviarSmsCodigo: '@Url.Action("EnviarSmsCodigo", "MiPerfil", new { area = "" })',
+                confirmarSmsCode: '@Url.Action("ConfirmarSmsCode", "MiPerfil", new { area = "" })'
+            }
+        }; 
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Base.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/ActualizarCelular.js")?v1"></script>
 }

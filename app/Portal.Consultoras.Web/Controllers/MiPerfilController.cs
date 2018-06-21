@@ -585,7 +585,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var usuario = Mapper.Map<BEUsuario>(userData);
                 var misDatosModel = Mapper.Map<MisDatosModel>(usuario);
                 misDatosModel.Celular = celularNuevo;
-                ActualizarDatosLogDynamoDB(misDatosModel, "MI NEGOCIO/MIS DATOS",
+                ActualizarDatosLogDynamoDB(misDatosModel, "MI PERFIL/ACTUALIZACIÓN DE CELULAR",
                     Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
             }
             catch (Exception ex)
