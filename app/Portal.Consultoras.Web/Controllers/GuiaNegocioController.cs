@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class GuiaNegocioController : BaseGuiaNegocioController
+    public class GuiaNegocioController : BaseViewController
     {
         private readonly GuiaNegocioProvider _guiaNegocioProvider;
 
@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (_guiaNegocioProvider.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                 {
-                    return ViewLanding();
+                    return GNDViewLanding();
                 }
             }
             catch (Exception ex)

@@ -9,7 +9,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
     [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
-    public class GuiaNegocioController : BaseGuiaNegocioController
+    public class GuiaNegocioController : BaseViewController
     {
         private readonly GuiaNegocioProvider _guiaNegocioProvider;
 
@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 if (_guiaNegocioProvider.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                 {
-                    return ViewLanding();
+                    return GNDViewLanding();
                 }
             }
             catch (Exception ex)
