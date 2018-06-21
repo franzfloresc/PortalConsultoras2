@@ -12,119 +12,25 @@ body {
     font-weight: 700;
 }
 
-.centerElementos {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: center;
+.imagen_fondo_detalle {
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 315px;
+    position: absolute;
     width: 100%;
 }
 
 .contenedor_detalle {
     display: flex;
     font-size: 13px;
-    margin: 240px auto;
+    margin: 0 auto;
     max-width: 1189px;
+    padding: 25px 0;
     position: relative;
 }
 
 .contenedor_fichas {
     width: 100%;
-}
-
-.contenedor_ficha_etiquetas {
-    display: inline-block;
-    margin-bottom: 10px;
-    position: relative;
-    width: 100%;
-}
-
-.contenedor_etiqueta_odd {
-    float: right;
-    width: 52%;
-}
-
-.clock_odd {
-    float: left;
-    height: 40px;
-}
-
-.flip-clock-wrapper {
-    font-family: 'Lato';
-    font-size: 8px;
-    letter-spacing: .1px;
-    display: block;
-}
-
-    .flip-clock-wrapper ul {
-        width: 14px;
-    }
-
-.flip-clock-dot {
-    background: #000;
-    margin-top: 2px
-}
-
-.flip-clock-divider {
-    width: 7px;
-}
-
-    .flip-clock-divider .flip-clock-label {
-        display: block;
-        left: 6px;
-        right: initial;
-        top: 30px;
-    }
-
-    .flip-clock-divider.minutes .flip-clock-label, .flip-clock-divider.seconds .flip-clock-label {
-        right: initial;
-    }
-
-.flip-clock-wrapper .flip {
-    box-shadow: 0 2px 5px #fff;
-}
-
-    .flip-clock-wrapper ul li a div div.inn {
-        background-color: #fff;
-        color: #000;
-        font-size: 25px;
-        font-weight: 800;
-        letter-spacing: .4px;
-        text-shadow: 0 1px 2px #fff;
-    }
-
-.contenedor_etiqueta_nuevo {
-    float: right;
-    overflow: hidden;
-    width: 52%;
-}
-
-.triangulo_etiqueta_nuevo {
-    height: 0;
-    width: 0;
-}
-
-    .triangulo_etiqueta_nuevo:after {
-        content: "";
-        border-bottom: 70px solid transparent;
-        border-left: 22px solid #000;
-        display: block;
-        height: 0;
-        margin-left: 90px;
-        width: 0;
-    }
-
-.etiqueta_nuevo {
-    background-color: #000;
-    color: #fff;
-    font-size: 15px;
-    font-weight: 700;
-    height: 32px;
-    letter-spacing: 4.5px;
-    line-height: 32px;
-    padding-left: 5px;
-    text-align: center;
-    width: 100px;
 }
 
 .contenedor_ficha_producto {
@@ -136,6 +42,7 @@ body {
 
 .ficha_producto {
     float: left;
+    padding-top: 82px;
     text-align: center;
     width: 48%;
 }
@@ -177,8 +84,108 @@ body {
 }
 
 .ficha_detalle {
+    background-color: #fff;
     float: right;
+    padding: 32px;
     width: 52%;
+}
+
+.contenedor_ficha_etiquetas {
+    float: left;
+    padding-bottom: 10px;
+    min-height: 50px;
+    position: relative;
+    width: 100%;
+}
+
+.contenedor_etiqueta_odd {
+    float: left;
+    width: 100%;
+}
+
+.clock_odd {
+    float: left;
+    font-family: 'Lato';
+    font-size: 8px;
+    height: 40px;
+    letter-spacing: .1px;
+    display: block;
+}
+
+    .clock_odd ul {
+        width: 14px;
+    }
+
+    .clock_odd .flip-clock-dot {
+        background: #000;
+        margin-top: 2px
+    }
+
+    .clock_odd .flip-clock-divider {
+        width: 7px;
+    }
+
+        .clock_odd .flip-clock-divider:first-child {
+            width: 0;
+        }
+
+    .clock_odd .flip-clock-divider .flip-clock-label {
+        display: block;
+        left: 7px;
+        right: initial;
+        top: 30px;
+    }
+
+    .clock_odd .minutes .flip-clock-label {
+        left: 8px;
+    }
+
+    .clock_odd .flip {
+        box-shadow: 0 2px 5px #fff;
+    }
+
+    .clock_odd ul li a div div.inn {
+        background-color: #fff;
+        color: #000;
+        font-size: 25px;
+        font-weight: 800;
+        letter-spacing: .4px;
+        text-shadow: 0 1px 2px #fff;
+    }
+
+.contenedor_etiqueta_nuevo {
+    float: left;
+    margin-top: 8px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.triangulo_etiqueta_nuevo {
+    height: 0;
+    width: 0;
+}
+
+    .triangulo_etiqueta_nuevo:after {
+        content: "";
+        border-bottom: 70px solid transparent;
+        border-left: 22px solid #000;
+        display: block;
+        height: 0;
+        margin-left: 90px;
+        width: 0;
+    }
+
+.etiqueta_nuevo {
+    background-color: #000;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    height: 32px;
+    letter-spacing: 4.5px;
+    line-height: 32px;
+    padding-left: 5px;
+    text-align: center;
+    width: 100px;
 }
 
 .contenedor_nombre_precio {
@@ -226,10 +233,58 @@ body {
 
 .ganancia {
     color: #e81c36;
+    margin-top: 5px;
+}
+
+.contenedor_lista_tonos {
+    float: left;
+    min-height: 186px;
+    padding-top: 40px;
+    width: 100%;
+}
+
+.nombre_detalle_producto_tono {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .4px;
+    line-height: 1;
+}
+
+.descripcion_detalle_producto_tono {
+    margin-top: 8px;
+    line-height: 1.23;
+}
+
+.txt_ver_mas {
+    text-decoration: underline;
+}
+
+.selector_lista_tonos {
+    border: solid 1px #000;
+    height: 45px;
+    margin-top: 33px;
+    position: relative;
+    width: 48%;
+}
+
+.contenedor_lista_tonos_imagen {
+    margin: 17px 0 13px 0;
+}
+
+.contenedor_item_tono_imagen {
+    border: solid 1px rgba(0, 0, 0, 0.00);
+    float: left;
+    margin: 0 14px 14px 0;
+}
+
+.contenedor_item_tono_imagen_seleccionado {
+    border: solid 1px #000;
 }
 
 .contenedor_lista_detalle {
+    float: left;
     min-height: 186px;
+    width: 100%;
 }
 
 .texto_contenido {
@@ -237,7 +292,7 @@ body {
     font-weight: 700;
     letter-spacing: .5px;
     line-height: 1.08;
-    margin: 22px 0 14px 0;
+    margin: 22px 0 18px 0;
 }
 
 .detalle_producto {
@@ -394,7 +449,9 @@ body {
     }
 
 .contenedor_agregar {
-
+    float: left;
+    padding-top: 23px;
+    width: 100%;
 }
 
 .contenedor_rangos {
@@ -445,6 +502,7 @@ body {
     font-weight: 700;
     height: 43px;
     left: 30%;
+    letter-spacing: .2px;
     text-align: center;
     position: absolute;
     width: 40%;
@@ -596,7 +654,14 @@ body {
 .txt_li_titulo {
     font-size: 15px;
     font-weight: 700;
+    letter-spacing: .6px;
+    line-height: 1.33;
     margin-bottom: 16px;
+}
+
+.txt_li_descripcion {
+    letter-spacing: .5px;
+    line-height: 1.54;
 }
 
 .contenedor_img_txt {
@@ -623,11 +688,12 @@ body {
 }
 
 .contenedor_txt_p {
+    letter-spacing: 1px;
     margin: 0 44px;
 }
 
 .txt_p_titulo {
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: 16px;
 }
 
