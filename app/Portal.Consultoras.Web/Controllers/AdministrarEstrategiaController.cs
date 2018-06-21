@@ -1961,7 +1961,7 @@ namespace Portal.Consultoras.Web.Controllers
             int line = 0;
             try
             {
-                List<ServicePedido.BEEstrategiaProducto> strategyEntityList = new List<ServicePedido.BEEstrategiaProducto>();
+                var strategyEntityList = new List<ServicePedido.BEEstrategiaProducto>();
                 StreamReader streamReader = new StreamReader(model.Documento.InputStream, Encoding.Default);
                 string readLine = streamReader.ReadLine();
                 if (model.Documento == null || model.Documento.ContentLength <= 0) throw new ArgumentException("El archivo esta vacío.");

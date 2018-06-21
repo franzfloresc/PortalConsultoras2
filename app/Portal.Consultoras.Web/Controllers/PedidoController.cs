@@ -882,7 +882,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var detallePedido = _pedidoSetProvider.ObtenerDetalle(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
                 foreach (var detalle in set.Detalles)
                 {
-                    BEPedidoWebDetalle pedidoWebDetalle = listaPedidoWebDetalle.Where(p => p.CUV == detalle.CUV).FirstOrDefault();
+                    BEPedidoWebDetalle pedidoWebDetalle = listaPedidoWebDetalle.FirstOrDefault(p => p.CUV == detalle.CUV);
                     if (pedidoWebDetalle == null) continue;
                     int cantidad = pedidoWebDetalle.Cantidad - detallePedido.Where(p => p.CUV == detalle.CUV).Sum(p => set.Cantidad * p.FactorRepeticion);
                     if (cantidad > 0)
@@ -1503,13 +1503,22 @@ namespace Portal.Consultoras.Web.Controllers
             var userModel = userData;
             var productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userModel, CRITERIO_BUSQUEDA_PRODUCTO_CANT, criterio);
 
+            var siExiste = productos.Any(p => p.CUV == term);
+
             BloqueoProductosCatalogo(ref productos);
 
             BloqueoProductosDigitales(ref productos);
 
             if (!productos.Any())
             {
-                productosModel.Add(GetProductoNoExiste());
+                if (siExiste)
+                {
+                    productosModel.Add(GetProductoDigital());
+                }
+                else
+                {
+                    productosModel.Add(GetProductoNoExiste());
+                }
                 return productosModel;
             }
 
@@ -1578,6 +1587,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                 }
                 #endregion
+
                 #region Venta exclusiva
                 if (!Convert.ToBoolean(Session["CuvEsProgramaNuevas"]))
                 {
@@ -1601,13 +1611,23 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 1, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
 
+                var siExiste = productos.Any(p => p.CUV == model.CUV);
+
                 BloqueoProductosCatalogo(ref productos);
 
                 BloqueoProductosDigitales(ref productos);
 
                 if (!productos.Any())
                 {
-                    productosModel.Add(GetProductoNoExiste());
+                    if (siExiste)
+                    {
+                        productosModel.Add(GetProductoDigital());
+                    }
+                    else
+                    {
+                        productosModel.Add(GetProductoNoExiste());
+                    }
+                    
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
@@ -1691,7 +1711,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<string> ObtenerListadoCuvCupon()
         {
-            var lista = new List<string>();
+            List<string> lista;
 
             using (PedidoServiceClient ps = new PedidoServiceClient())
             {
@@ -1730,11 +1750,11 @@ namespace Portal.Consultoras.Web.Controllers
             if (!revistaDigital.TieneRDC) return;
 
             if (!revistaDigital.EsActiva) return;
-            
+
             if (revistaDigital.BloquearRevistaImpresaGeneral == 1 || revistaDigital.BloqueoRevistaImpresa)
             {
                 beProductos = beProductos
-                    .Where(x => userData.CodigosRevistaImpresa != null && !userData.CodigosRevistaImpresa.Contains(x.CodigoCatalogo.ToString())).ToList();
+                    .Where(x => !("," + userData.CodigosRevistaImpresa + ",").Contains("," + x.CodigoCatalogo.ToString() + ",")).ToList();
             }
         }
 
@@ -1788,6 +1808,16 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 MarcaID = 0,
                 CUV = "El producto solicitado no existe.",
+                TieneSugerido = 0
+            };
+        }
+
+        private ProductoModel GetProductoDigital()
+        {
+            return new ProductoModel()
+            {
+                MarcaID = 0,
+                CUV = "Este producto es una oferta digital. Te invitamos a que revises tu sección de ofertas.",
                 TieneSugerido = 0
             };
         }
@@ -4565,7 +4595,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var numero = Convert.ToInt32(Cantidad);
                 if (numero > ficha.LimiteVenta) return ErrorJson("La cantidad no debe ser mayor que la cantidad limite ( " + ficha.LimiteVenta + " ).", true);
-                
+
                 var descripcion = ficha.FlagNueva == 1 ? ficha.DescripcionCortada : ficha.DescripcionCompleta;
                 listaCuvTonos = Util.Trim(listaCuvTonos);
                 if (string.IsNullOrEmpty(listaCuvTonos)) listaCuvTonos = ficha.CUV2;

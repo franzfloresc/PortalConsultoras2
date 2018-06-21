@@ -1,6 +1,8 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.SessionManager;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -10,6 +12,21 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseRevistaDigitalController : BaseEstrategiaController
     {
+        public BaseRevistaDigitalController()
+            : base()
+        {
+        }
+
+        public BaseRevistaDigitalController(ISessionManager sessionManager)
+            : base(sessionManager)
+        {
+        }
+
+        public BaseRevistaDigitalController(ISessionManager sessionManager, ILogManager logManager)
+            : base(sessionManager, logManager)
+        {
+        }
+
         public ActionResult IndexModel()
         {
             if (revistaDigital.TieneRDI)
@@ -26,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.Video = GetVideoInformativo();
             modelo.UrlTerminosCondiciones = GetValorDato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones);
             modelo.UrlPreguntasFrecuentes = GetValorDato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes);
-            modelo.Origen = revistaDigital.SuscripcionEfectiva.Origen;
+            modelo.Origen = revistaDigital.SuscripcionModel.Origen;
             modelo.NombreConsultora = userData.Sobrenombre.ToUpper();
             modelo.Email = userData.EMail;
             modelo.Celular = userData.Celular;

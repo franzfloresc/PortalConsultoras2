@@ -18,7 +18,7 @@
 <div class="bc_menu_estrategia" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
     @if (ViewBag.TieneRevistaDigital)
     {
-        if((menuActivo.ConfiguracionPais.DesktopTituloBanner != "" || menuActivo.ConfiguracionPais.DesktopSubTituloBanner != "")
+        if ((menuActivo.ConfiguracionPais.DesktopTituloBanner != "" || menuActivo.ConfiguracionPais.DesktopSubTituloBanner != "")
         && menuActivo.Codigo != Constantes.ConfiguracionPais.Informacion)
         {
             <div class="contenedor_cabecera_2018">
@@ -70,7 +70,10 @@
                         <img src="@Url.Content("~/Content/Images/carrito-hover.png")" alt="" class="click-menu" style="display:none;">
                         <span>COMPRAR C-@menuActivo.CampaniaX0ConFormato</span>
                     </a>
-                </li>@if (!ViewBag.TieneRDI){<li data-campania="@menuActivo.CampaniaX1" data-codigo="2"
+                </li>
+                @if (!ViewBag.TieneRDI)
+                {
+                    <li data-campania="@menuActivo.CampaniaX1" data-codigo="2"
                         onclick="menuModule.tabClick(this, '@Url.Action("Revisar", "Ofertas")', '@menuActivo.NombreOrigenPantalla')">
                         <a class="@classMenuX1">
                             <img src="@Url.Content("~/Content/Images/ojito.png")" alt="" class="default">
@@ -78,7 +81,9 @@
                             <img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="click-menu" style="display:none;">
                             <span>REVISAR C-@menuActivo.CampaniaX1ConFormato</span>
                         </a>
-                    </li>}<li data-campania="0" data-codigo="3"
+                    </li>
+                }
+                <li data-campania="0" data-codigo="3"
                     onclick="menuModule.tabClick(this, '@Url.Action("Informacion", "RevistaDigital")', '@menuActivo.NombreOrigenPantalla')">
                     <a class="@classMenuInfo">
                         <span>CONOCE TODO SOBRE CLUB GANA+</span>
