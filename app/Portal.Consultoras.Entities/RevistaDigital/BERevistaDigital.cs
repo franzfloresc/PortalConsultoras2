@@ -36,5 +36,7 @@ namespace Portal.Consultoras.Entities
         {
             return TieneRDC;
         }
+
+        public bool ActivoMdo { get; set; }
     }
 }

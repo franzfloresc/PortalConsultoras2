@@ -48,9 +48,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "NumeroDocumentoSerie"))
                 NumeroDocumentoSerie = Convert.ToString(row["NumeroDocumentoSerie"]);
             if (DataRecord.HasColumn(row, "NumeroDocumentoCorrelativo"))
-                NumeroDocumentoCorrelativo = DbConvert.ToString(row["NumeroDocumentoCorrelativo"]);
+                NumeroDocumentoCorrelativo = Convert.ToString(row["NumeroDocumentoCorrelativo"]);
             if (DataRecord.HasColumn(row, "FechaEmisionDocumento"))
-                FechaEmisionDocumento = DbConvert.ToDateTime(row["FechaEmisionDocumento"]);
+                FechaEmisionDocumento = Convert.ToDateTime(row["FechaEmisionDocumento"]);
             if (DataRecord.HasColumn(row, "Monto"))
                 Monto = Convert.ToDecimal(row["Monto"]);
             if (DataRecord.HasColumn(row, "PorcentajePercepcion"))
