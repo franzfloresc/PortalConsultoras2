@@ -31,6 +31,8 @@
     <script type="text/javascript">
         var isEsika = '@ViewContext.EsPaisEsika().ToString().ToLower()';
         window.urlLogDynamo = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.UrlLogDynamo';
+        window.urlLogElastic = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.UrlLogElastic';
+        window.patternElastic = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.PatternElastic';
 
         // Seteando Controlador y Accion
         @{
@@ -221,11 +223,12 @@
     var EstadoActivo = '@ViewBag.EstadoActivo';
     var ocultarBannerTop = '@Session["OcultarBannerTop"]';
 
+    var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
     var sesionEsShowRoom = '@Session["EsShowRoom"]';
 
     var fingerprintOk = '@ViewBag.FingerprintOk';
     var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
-        
+
     var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
     var userData = {
         'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',

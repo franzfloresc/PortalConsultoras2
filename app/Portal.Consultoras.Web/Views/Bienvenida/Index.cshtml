@@ -7,7 +7,7 @@
 
     @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssBienvenida")
     @System.Web.Optimization.Styles.Render("~/Content/Css/Site/AsesoraOnline")
-    
+
     <style type="text/css">
         .contenedorCuponInfo .contenedor-texto-agregar {
             display: inline-block;
@@ -57,40 +57,40 @@
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
             {
 
-            <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                ¡Feliz Aniversario @nombreConsultora 
-                @if (ViewBag.TipoUsuario != 2)
-                {
-                    <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
-                }
-            </div>
+                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
+                    ¡Feliz Aniversario @nombreConsultora
+                    @if (ViewBag.TipoUsuario != 2)
+                    {
+                        <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+                    }
+                </div>
             }
             else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡Feliz Cumpleaños @nombreConsultora @if (ViewBag.TipoUsuario != 2)
-                {
-                <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
-                }
+                    {
+                        <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+                    }
                 </div>
             }
             else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡@ViewBag.SaludoFestivo @nombreConsultora @if (ViewBag.TipoUsuario != 2)
-                {
-                    <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
-                }
+                    {
+                        <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+                    }
                 </div>
 
             }
             else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                    ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a><br/>@nombreConsultora @if (ViewBag.TipoUsuario != 2)
-                {
-                <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
-                }
+                    ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a><br />@nombreConsultora @if (ViewBag.TipoUsuario != 2)
+                    {
+                        <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+                    }
                 </div>
             }
             else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && revistaDigital.EsActiva)
@@ -100,30 +100,30 @@
 
                 if (CampaniaEfectiva.Equals(CampaniaActual))
                 {
-                        <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                            ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a><br/>@nombreConsultora @if (ViewBag.TipoUsuario != 2)
-                        {
-                        <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
-                        }
-                        </div>
-                }
-                else
-                {
-                        <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                            ¡Hola @nombreConsultora @if (ViewBag.TipoUsuario != 2)
+                    <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
+                        ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a><br />@nombreConsultora @if (ViewBag.TipoUsuario != 2)
                         {
                             <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
                         }
-                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
+                        ¡Hola @nombreConsultora @if (ViewBag.TipoUsuario != 2)
+                        {
+                            <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+                        }
+                    </div>
                 }
             }
             else
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡Hola @nombreConsultora @if (ViewBag.TipoUsuario != 2)
-                {
-                <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
-                }
+                    {
+                        <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+                    }
                 </div>
             }
             <hr class="clear" />
@@ -194,14 +194,14 @@
 
         @if (Model.TienePagoEnLinea)
         {
-            <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" 
+            <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea"
                href="@Url.Action("Index","PagoEnLinea")" class="btn_paga_online btn_100_paga"
-               style="margin-top: 10px;"> PAGA EN L&Iacute;NEA</a>
+               style="margin-top: 10px;">PAGA EN L&Iacute;NEA</a>
             if (Model.PaisID == Constantes.PaisID.Ecuador || Model.PaisID == Constantes.PaisID.Peru)
             {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" 
+                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion"
                    href="@Url.Action("Index", "FacturaElectronica")" target="_blank"
-                   style="margin-top: 10px;"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> 
+                   style="margin-top: 10px;">FACTURACI&Oacute;N ELECTR&Oacute;NICA</a>
             }
         }
         else
@@ -220,7 +220,7 @@
             }
             else if (Model.PaisID == Constantes.PaisID.Ecuador || Model.PaisID == Constantes.PaisID.Peru)
             {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> 
+                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a>
             }
             else if (Model.PaisID == Constantes.PaisID.Venezuela)
             {
@@ -231,7 +231,7 @@
             }
         }
 
-        
+
         <hr class="clear" />
 
     </div>
@@ -604,8 +604,7 @@
         <div class="contenedor_video_introductorio">
             <div id="ytBienvenidaIndex"
                  data-youtube="{ width:'100%', enablejsapi:1, playerVars:{rel:0} }"
-                 class="yt-video"
-            ></div>
+                 class="yt-video"></div>
         </div>
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="javascript:;" id="cerrarVideoIntroductorio">
@@ -923,7 +922,7 @@
                             @if (Model.PaisID != Constantes.PaisID.Colombia)
                             {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCorreoElectronico
                         </label>
-                @if (Model.PaisID == Constantes.PaisID.Colombia)
+                        @if (Model.PaisID == Constantes.PaisID.Colombia)
                         {
                             <input type="text" disabled="disabled" readonly name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
                         }
@@ -936,10 +935,10 @@
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label>
-                    	@if (Model.PaisID != Constantes.PaisID.Colombia)
-                        {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoTelefono
+                            @if (Model.PaisID != Constantes.PaisID.Colombia)
+                            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoTelefono
                         </label>
-        		@if (Model.PaisID == Constantes.PaisID.Colombia)
+                        @if (Model.PaisID == Constantes.PaisID.Colombia)
                         {
                             <input type="text" disabled="disabled" readonly name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
                         }
@@ -950,10 +949,10 @@
                     </div>
                     <div>
                         <label>
-                	@if (Model.PaisID != Constantes.PaisID.Colombia)
-                        {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCelular
+                            @if (Model.PaisID != Constantes.PaisID.Colombia)
+                            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCelular
                         </label>
-        		@if (Model.PaisID == Constantes.PaisID.Colombia)
+                        @if (Model.PaisID == Constantes.PaisID.Colombia)
                         {
                             <input type="text" disabled="disabled" readonly name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
                         }
@@ -967,7 +966,7 @@
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label>Otro teléfono:</label>
-                	@if (Model.PaisID == Constantes.PaisID.Colombia)
+                        @if (Model.PaisID == Constantes.PaisID.Colombia)
                         {
                             <input type="text" disabled="disabled" readonly name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
                         }
@@ -981,7 +980,7 @@
                     <div class="checkbox_condiciones">
                         <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
                         <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
-                    	@if (Model.PaisID == Constantes.PaisID.Colombia)
+                            @if (Model.PaisID == Constantes.PaisID.Colombia)
                             {
                                 <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
                             }
@@ -993,7 +992,7 @@
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-            @if (Model.PaisID == Constantes.PaisID.Colombia)
+                    @if (Model.PaisID == Constantes.PaisID.Colombia)
                     {
                         <div class="datos_obligatorios">
                             Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
@@ -2033,7 +2032,7 @@
 @System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/Bienvenida/AsesoraOnline.js")
 
 @section scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
         var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
         var viewBagPrimeraVez = '@Model.PrimeraVez';
@@ -2147,7 +2146,8 @@
         var OrigenDesktopODD = 1;
         var nombreAlias = '@Util.SubStr(Model.NombreConsultora, 0)';
         var viewBagTieneHV = '@((ViewBag.TieneHV ??  false).ToString().ToLower())' == 'true';
-</script>
+
+    </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Portal.Consultoras.Web.SessionManager.SessionManager.Instance.SetIsContrato(0); }
 }

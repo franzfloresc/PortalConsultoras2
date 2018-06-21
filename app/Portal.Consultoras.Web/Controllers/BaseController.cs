@@ -22,6 +22,7 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -1026,6 +1027,8 @@ namespace Portal.Consultoras.Web.Controllers
             else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
             {
                 tipo = codigoTipos == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoTipos == Constantes.TipoEstrategiaSet.CompuestaFija ? 2 : 3;
+                tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
+                tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
             }
             else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
                 || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
@@ -1036,6 +1039,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return tipo;
         }
+
 
         public List<FichaProductoModel> FichaProductoModelFormato(List<BEFichaProducto> listaProducto)
         {
@@ -2232,6 +2236,25 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
+        public bool HabilitarChatEmtelco(int paisId)
+        {
+            bool Mostrar = false;
+            List<TablaLogicaDatosModel> DataLogica = _tablaLogicaProvider.ObtenerParametrosTablaLogica(paisId, Constantes.TablaLogica.HabilitarChatEmtelco, false);
+
+            if (IsMobile())
+            {
+                if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("02")).Valor == "1")
+                    Mostrar = true;
+            }
+            else
+            {
+                if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("01")).Valor == "1")
+                    Mostrar = true;
+            }
+
+            return Mostrar;
+        }
+
         public MobileAppConfiguracionModel MobileAppConfiguracion
         {
             get
@@ -2497,8 +2520,10 @@ namespace Portal.Consultoras.Web.Controllers
             if (!sessionManager.GetEsShowRoom())
                 return;
 
-            if (!sessionManager.GetMostrarShowRoomProductos() &&
-                !sessionManager.GetMostrarShowRoomProductosExpiro())
+            if (sessionManager.GetMostrarShowRoomProductosExpiro())
+                return;
+
+            if (!sessionManager.GetMostrarShowRoomProductos())
             {
 
                 seccion.UrlLandig = (seccion.IsMobile ? "/Mobile/" : "/") + "ShowRoom/Intriga";
@@ -2517,9 +2542,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
             }
-
-            if (sessionManager.GetMostrarShowRoomProductos() &&
-                !sessionManager.GetMostrarShowRoomProductosExpiro())
+            else
             {
                 seccion.UrlLandig = (seccion.IsMobile ? "/Mobile/" : "/") + "ShowRoom";
                 seccion.UrlObtenerProductos = "ShowRoom/CargarProductosShowRoomOferta";
@@ -3497,6 +3520,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
             int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
+
+            ViewBag.HabilitarChatEmtelco = HabilitarChatEmtelco(userData.PaisID);
         }
 
         private VariablesGeneralesPortalModel getBaseVariablesPortal()
@@ -4106,6 +4131,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return Request.Browser.IsMobileDevice;
         }
+
+
 
         public string GetControllerActual()
         {

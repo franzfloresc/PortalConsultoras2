@@ -85,36 +85,34 @@ $(document).ready(function () {
 
     if (tipoOrigen == '1') {
 
-        var myformat = variablesPortal.SimboloMoneda + '%s';
+        var myformat = variablesPortal.SimboloMoneda;
         var scala1 = variablesPortal.SimboloMoneda + precioMin;
         var scala2 = variablesPortal.SimboloMoneda + precioMax;
         $('.range-slider').val(precioMin + ',' + precioMax);
 
         $('.range-slider').show();
-        $('.range-slider').jRange({
+        $('.range-slider').ionRangeSlider({
+            hide_min_max: true,
+            keyboard: true,
+            min: precioMin,
+            max: precioMax,
             from: precioMin,
             to: precioMax,
+            type: 'double',
             step: 0.01,
-            scale: [scala1, scala2],
-            format: myformat,
-            width: '',
-            showLabels: true,
-            isRange: true,
-            ondragend: function (myvalue) {
-                rangoPrecios = myvalue;
-                $(".slider-container").addClass("disabledbutton");
-                filterFAVDesktop();
-
-            },
-            onbarclicked: function (myvalue) {
-                rangoPrecios = myvalue;
-
+            prefix: myformat,
+            grid: true,
+            grid_num: 1,
+            onFinish: function (data) {
+                rangoPrecios = data.from + "," + data.to;
                 $(".slider-container").addClass("disabledbutton");
                 filterFAVDesktop();
             }
         });
         $('.slider-container').css('width', '');
 
+        $(".js-grid-text-0").text(scala1);
+        $(".js-grid-text-1").text(scala2);
     }
 });
 
@@ -255,8 +253,14 @@ function deleteFilters() {
     if (tipoOrigen == '1') {
         filters = [];
         $('.seleccion_filtro_fav').removeClass("seleccion_click_flitro");
-        var rs = precioMin + ',' + precioMax;
-        $('.range-slider').jRange('setValue', rs);
+        var slider = $('.range-slider').data("ionRangeSlider");
+        slider.update({
+            from: precioMin,
+            to: precioMax,
+            min: precioMin,
+            max: precioMax
+        });
+
         $('#filter-sorting').val('03');
         $('.texto_fav_filtro').hide();
         $('#limiteFlt').hide();
@@ -1280,8 +1284,13 @@ function CargarFiltros() {
                                     $('#txt-range-price').bootstrapSlider('setValue', [mPremin, mPremax]);
                             }
                             else {
-                                var nRango = datos[i].Valor1 + ',' + datos[i].Valor2;
-                                $('.range-slider').jRange('setValue', nRango);
+                                var slider = $('.range-slider').data("ionRangeSlider");
+                                slider.update({
+                                    from: datos[i].Valor1,
+                                    to: datos[i].Valor2,
+                                    min: datos[i].Valor1,
+                                    max: datos[i].Valor2
+                                });
                             }
                         }
 

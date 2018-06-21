@@ -94,10 +94,12 @@ namespace Portal.Consultoras.Web.Providers
 
         public bool EsSuscripcionInmediata()
         {
-            return revistaDigital.SuscripcionModel != null 
-                ? (revistaDigital.ActivoMdo 
-                    && (revistaDigital.SuscripcionModel.CampaniaEfectiva == revistaDigital.SuscripcionModel.CampaniaID) 
-                    && revistaDigital.CantidadCampaniaEfectiva == 0) 
+            return revistaDigital.TieneRDC && revistaDigital.SuscripcionModel != null ?
+                revistaDigital.SuscripcionEfectiva.CampaniaEfectiva == revistaDigital.SuscripcionModel.CampaniaID
+                && (
+                    revistaDigital.EsActiva
+                    || (revistaDigital.SuscripcionEfectiva.CampaniaEfectiva == 0 && revistaDigital.CantidadCampaniaEfectiva == 0)
+                )
                 : false;
         }
 
