@@ -8,6 +8,7 @@ CREATE PROCEDURE dbo.ValidarCodigoIngresado
 (
 @CodigoUsuario varchar(20),
 @OrigenID int,
+@TipoEnvio varchar(10),
 @CodigoIngresado varchar(8)
 )
 AS
@@ -20,11 +21,11 @@ BEGIN
 	FROM dbo.CodigoGenerado
 	WHERE CodigoUsuario = @CodigoUsuario
 	and OrigenID = @OrigenID
+	and TipoEnvio = Rtrim(@TipoEnvio)
 	and CodigoGenerado = Rtrim(@CodigoIngresado))
 		set @Iguales = 1
 	SELECT @Iguales as SonIguales
 END
-
 
 GO
 USE BelcorpMexico
@@ -37,6 +38,7 @@ CREATE PROCEDURE dbo.ValidarCodigoIngresado
 (
 @CodigoUsuario varchar(20),
 @OrigenID int,
+@TipoEnvio varchar(10),
 @CodigoIngresado varchar(8)
 )
 AS
@@ -49,11 +51,11 @@ BEGIN
 	FROM dbo.CodigoGenerado
 	WHERE CodigoUsuario = @CodigoUsuario
 	and OrigenID = @OrigenID
+	and TipoEnvio = Rtrim(@TipoEnvio)
 	and CodigoGenerado = Rtrim(@CodigoIngresado))
 		set @Iguales = 1
 	SELECT @Iguales as SonIguales
 END
-
 
 GO
 USE BelcorpColombia
@@ -66,6 +68,7 @@ CREATE PROCEDURE dbo.ValidarCodigoIngresado
 (
 @CodigoUsuario varchar(20),
 @OrigenID int,
+@TipoEnvio varchar(10),
 @CodigoIngresado varchar(8)
 )
 AS
@@ -78,11 +81,11 @@ BEGIN
 	FROM dbo.CodigoGenerado
 	WHERE CodigoUsuario = @CodigoUsuario
 	and OrigenID = @OrigenID
+	and TipoEnvio = Rtrim(@TipoEnvio)
 	and CodigoGenerado = Rtrim(@CodigoIngresado))
 		set @Iguales = 1
 	SELECT @Iguales as SonIguales
 END
-
 
 GO
 USE BelcorpSalvador
@@ -95,6 +98,7 @@ CREATE PROCEDURE dbo.ValidarCodigoIngresado
 (
 @CodigoUsuario varchar(20),
 @OrigenID int,
+@TipoEnvio varchar(10),
 @CodigoIngresado varchar(8)
 )
 AS
@@ -107,11 +111,11 @@ BEGIN
 	FROM dbo.CodigoGenerado
 	WHERE CodigoUsuario = @CodigoUsuario
 	and OrigenID = @OrigenID
+	and TipoEnvio = Rtrim(@TipoEnvio)
 	and CodigoGenerado = Rtrim(@CodigoIngresado))
 		set @Iguales = 1
 	SELECT @Iguales as SonIguales
 END
-
 
 GO
 USE BelcorpPuertoRico
@@ -124,6 +128,7 @@ CREATE PROCEDURE dbo.ValidarCodigoIngresado
 (
 @CodigoUsuario varchar(20),
 @OrigenID int,
+@TipoEnvio varchar(10),
 @CodigoIngresado varchar(8)
 )
 AS
@@ -136,11 +141,11 @@ BEGIN
 	FROM dbo.CodigoGenerado
 	WHERE CodigoUsuario = @CodigoUsuario
 	and OrigenID = @OrigenID
+	and TipoEnvio = Rtrim(@TipoEnvio)
 	and CodigoGenerado = Rtrim(@CodigoIngresado))
 		set @Iguales = 1
 	SELECT @Iguales as SonIguales
 END
-
 
 GO
 USE BelcorpPanama
@@ -153,6 +158,7 @@ CREATE PROCEDURE dbo.ValidarCodigoIngresado
 (
 @CodigoUsuario varchar(20),
 @OrigenID int,
+@TipoEnvio varchar(10),
 @CodigoIngresado varchar(8)
 )
 AS
@@ -165,11 +171,11 @@ BEGIN
 	FROM dbo.CodigoGenerado
 	WHERE CodigoUsuario = @CodigoUsuario
 	and OrigenID = @OrigenID
+	and TipoEnvio = Rtrim(@TipoEnvio)
 	and CodigoGenerado = Rtrim(@CodigoIngresado))
 		set @Iguales = 1
 	SELECT @Iguales as SonIguales
 END
-
 
 GO
 USE BelcorpGuatemala
@@ -182,6 +188,7 @@ CREATE PROCEDURE dbo.ValidarCodigoIngresado
 (
 @CodigoUsuario varchar(20),
 @OrigenID int,
+@TipoEnvio varchar(10),
 @CodigoIngresado varchar(8)
 )
 AS
@@ -194,11 +201,11 @@ BEGIN
 	FROM dbo.CodigoGenerado
 	WHERE CodigoUsuario = @CodigoUsuario
 	and OrigenID = @OrigenID
+	and TipoEnvio = Rtrim(@TipoEnvio)
 	and CodigoGenerado = Rtrim(@CodigoIngresado))
 		set @Iguales = 1
 	SELECT @Iguales as SonIguales
 END
-
 
 GO
 USE BelcorpEcuador
@@ -211,6 +218,7 @@ CREATE PROCEDURE dbo.ValidarCodigoIngresado
 (
 @CodigoUsuario varchar(20),
 @OrigenID int,
+@TipoEnvio varchar(10),
 @CodigoIngresado varchar(8)
 )
 AS
@@ -223,11 +231,11 @@ BEGIN
 	FROM dbo.CodigoGenerado
 	WHERE CodigoUsuario = @CodigoUsuario
 	and OrigenID = @OrigenID
+	and TipoEnvio = Rtrim(@TipoEnvio)
 	and CodigoGenerado = Rtrim(@CodigoIngresado))
 		set @Iguales = 1
 	SELECT @Iguales as SonIguales
 END
-
 
 GO
 USE BelcorpDominicana
@@ -240,6 +248,7 @@ CREATE PROCEDURE dbo.ValidarCodigoIngresado
 (
 @CodigoUsuario varchar(20),
 @OrigenID int,
+@TipoEnvio varchar(10),
 @CodigoIngresado varchar(8)
 )
 AS
@@ -252,11 +261,11 @@ BEGIN
 	FROM dbo.CodigoGenerado
 	WHERE CodigoUsuario = @CodigoUsuario
 	and OrigenID = @OrigenID
+	and TipoEnvio = Rtrim(@TipoEnvio)
 	and CodigoGenerado = Rtrim(@CodigoIngresado))
 		set @Iguales = 1
 	SELECT @Iguales as SonIguales
 END
-
 
 GO
 USE BelcorpCostaRica
@@ -269,6 +278,7 @@ CREATE PROCEDURE dbo.ValidarCodigoIngresado
 (
 @CodigoUsuario varchar(20),
 @OrigenID int,
+@TipoEnvio varchar(10),
 @CodigoIngresado varchar(8)
 )
 AS
@@ -281,11 +291,11 @@ BEGIN
 	FROM dbo.CodigoGenerado
 	WHERE CodigoUsuario = @CodigoUsuario
 	and OrigenID = @OrigenID
+	and TipoEnvio = Rtrim(@TipoEnvio)
 	and CodigoGenerado = Rtrim(@CodigoIngresado))
 		set @Iguales = 1
 	SELECT @Iguales as SonIguales
 END
-
 
 GO
 USE BelcorpChile
@@ -298,6 +308,7 @@ CREATE PROCEDURE dbo.ValidarCodigoIngresado
 (
 @CodigoUsuario varchar(20),
 @OrigenID int,
+@TipoEnvio varchar(10),
 @CodigoIngresado varchar(8)
 )
 AS
@@ -310,11 +321,11 @@ BEGIN
 	FROM dbo.CodigoGenerado
 	WHERE CodigoUsuario = @CodigoUsuario
 	and OrigenID = @OrigenID
+	and TipoEnvio = Rtrim(@TipoEnvio)
 	and CodigoGenerado = Rtrim(@CodigoIngresado))
 		set @Iguales = 1
 	SELECT @Iguales as SonIguales
 END
-
 
 GO
 USE BelcorpBolivia
@@ -327,6 +338,7 @@ CREATE PROCEDURE dbo.ValidarCodigoIngresado
 (
 @CodigoUsuario varchar(20),
 @OrigenID int,
+@TipoEnvio varchar(10),
 @CodigoIngresado varchar(8)
 )
 AS
@@ -339,6 +351,7 @@ BEGIN
 	FROM dbo.CodigoGenerado
 	WHERE CodigoUsuario = @CodigoUsuario
 	and OrigenID = @OrigenID
+	and TipoEnvio = Rtrim(@TipoEnvio)
 	and CodigoGenerado = Rtrim(@CodigoIngresado))
 		set @Iguales = 1
 	SELECT @Iguales as SonIguales
