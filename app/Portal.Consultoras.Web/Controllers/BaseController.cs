@@ -65,6 +65,8 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly EventoFestivoProvider _eventoFestivoProvider;
         protected readonly PedidoWebProvider _pedidoWebProvider;
         protected readonly EstrategiaComponenteProvider _estrategiaComponenteProvider;
+        protected readonly TipoEstrategiaProvider _tipoEstrategiaProvider;
+        protected readonly ConfiguracionPaisProvider _configuracionPaisProvider;
         #endregion
 
         #region Constructor
@@ -84,6 +86,8 @@ namespace Portal.Consultoras.Web.Controllers
             _eventoFestivoProvider = new EventoFestivoProvider();
             _pedidoWebProvider = new PedidoWebProvider();
             _estrategiaComponenteProvider = new EstrategiaComponenteProvider(userData.PaisID, userData.CodigoISO);
+            _tipoEstrategiaProvider = new TipoEstrategiaProvider();
+            _configuracionPaisProvider = new ConfiguracionPaisProvider();
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -2334,7 +2338,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     #endregion
 
-                    RemplazarTagNombreConfiguracionOferta(ref entConf, Constantes.TagCadenaRd.Nombre1, userData.Sobrenombre);
+                    _configuracionPaisProvider.RemplazarTagNombreConfiguracionOferta(ref entConf, Constantes.TagCadenaRd.Nombre1, userData.Sobrenombre);
 
                     var seccion = new ConfiguracionSeccionHomeModel
                     {
@@ -3003,8 +3007,8 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                 }
 
-                config = ActualizarTituloYSubtituloMenu(config);
-                config = RemplazarTagNombre(config, Constantes.TagCadenaRd.Nombre1, userData.Sobrenombre);
+                config = _configuracionPaisProvider.ActualizarTituloYSubtituloMenu(config);
+                config = _configuracionPaisProvider.RemplazarTagNombre(config, Constantes.TagCadenaRd.Nombre1, userData.Sobrenombre);
 
                 menuContenedor.Add(config);
             }
@@ -3171,61 +3175,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        #region Helper contenedor 
-        private ConfiguracionPaisModel ActualizarTituloYSubtituloMenu(ConfiguracionPaisModel config)
-        {
-            if (config == null) return config;
-
-            if (!string.IsNullOrEmpty(config.DesktopTituloMenu) && config.DesktopTituloMenu.Contains("|"))
-            {
-                config.DesktopSubTituloMenu = config.DesktopTituloMenu.SplitAndTrim('|').LastOrDefault();
-                config.DesktopTituloMenu = config.DesktopTituloMenu.SplitAndTrim('|').FirstOrDefault();
-            }
-            if (!string.IsNullOrEmpty(config.MobileTituloMenu) && config.MobileTituloMenu.Contains("|"))
-            {
-                config.MobileSubTituloMenu = config.MobileTituloMenu.SplitAndTrim('|').LastOrDefault();
-                config.MobileTituloMenu = config.MobileTituloMenu.SplitAndTrim('|').FirstOrDefault();
-            }
-            return config;
-        }
-
-        private void RemplazarTagNombreConfiguracionOferta(ref BEConfiguracionOfertasHome config, string tag, string valor)
-        {
-            config.DesktopTitulo = Util.RemplazaTag(config.DesktopTitulo, tag, valor);
-            config.DesktopSubTitulo = Util.RemplazaTag(config.DesktopSubTitulo, tag, valor);
-            config.MobileTitulo = Util.RemplazaTag(config.MobileTitulo, tag, valor);
-            config.MobileSubTitulo = Util.RemplazaTag(config.MobileSubTitulo, tag, valor);
-        }
-
-        private ConfiguracionPaisModel RemplazarTagNombre(ConfiguracionPaisModel config, string tag, string valor)
-        {
-            if (config == null || string.IsNullOrEmpty(tag)) return config;
-
-            config.DesktopTituloBanner = Util.RemplazaTag(config.DesktopTituloBanner, tag, valor);
-            config.DesktopSubTituloBanner = Util.RemplazaTag(config.DesktopSubTituloBanner, tag, valor);
-            config.MobileTituloBanner = Util.RemplazaTag(config.MobileTituloBanner, tag, valor);
-            config.MobileSubTituloBanner = Util.RemplazaTag(config.MobileSubTituloBanner, tag, valor);
-            config.DesktopTituloMenu = Util.RemplazaTag(config.DesktopTituloMenu, tag, valor);
-            config.DesktopSubTituloMenu = Util.RemplazaTag(config.DesktopSubTituloMenu, tag, valor);
-            config.MobileTituloMenu = Util.RemplazaTag(config.MobileTituloMenu, tag, valor);
-            config.MobileSubTituloMenu = Util.RemplazaTag(config.MobileSubTituloMenu, tag, valor);
-
-            return config;
-        }
+        #region TipoEstrategiaProvider
 
         protected List<ServicePedido.BETipoEstrategia> GetTipoEstrategias()
         {
-            List<ServicePedido.BETipoEstrategia> tiposEstrategia;
-            var entidad = new ServicePedido.BETipoEstrategia
-            {
-                PaisID = userData.PaisID,
-                TipoEstrategiaID = 0
-            };
-            using (var pedidoServiceClient = new PedidoServiceClient())
-            {
-                tiposEstrategia = pedidoServiceClient.GetTipoEstrategias(entidad).ToList();
-            }
-
+            int PaisID = userData.PaisID;
+            int TipoEstrategiaID = 0;
+            List<ServicePedido.BETipoEstrategia> tiposEstrategia = _tipoEstrategiaProvider.GetTipoEstrategias(PaisID, TipoEstrategiaID);
             return tiposEstrategia;
         }
 
