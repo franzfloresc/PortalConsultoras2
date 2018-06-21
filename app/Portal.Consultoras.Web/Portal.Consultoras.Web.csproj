@@ -297,6 +297,7 @@
     <Compile Include="Controllers\BaseRevistaDigitalController.cs" />
     <Compile Include="Controllers\BaseEstrategiaController.cs" />
     <Compile Include="Controllers\BaseShowRoomController.cs" />
+    <Compile Include="Controllers\BaseViewController.cs" />
     <Compile Include="Controllers\CampaniaController.cs" />
     <Compile Include="Controllers\DescargablesController.cs" />
     <Compile Include="Controllers\CacheController.cs" />

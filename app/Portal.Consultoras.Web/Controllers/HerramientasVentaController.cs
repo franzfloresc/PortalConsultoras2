@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class HerramientasVentaController : BaseHerramientasVentaController
+    public class HerramientasVentaController : BaseViewController
     {
         public ActionResult Index()
         {
@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                return ViewLanding(1);
+                return HVViewLanding(1);
             }
             catch (Exception ex)
             {
@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                return ViewLanding(2);
+                return HVViewLanding(2);
             }
             catch (Exception ex)
             {

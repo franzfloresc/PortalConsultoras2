@@ -8,13 +8,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
     [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
-    public class LanzamientosController : BaseLanzamientosController
+    public class LanzamientosController : BaseViewController
     {
-        public override ActionResult Detalle(string cuv, int campaniaId)
+        public override ActionResult LANDetalle(string cuv, int campaniaId)
         {
             try
             {
-                return base.Detalle(cuv, campaniaId);
+                return base.LANDetalle(cuv, campaniaId);
             }
             catch (Exception ex)
             {
