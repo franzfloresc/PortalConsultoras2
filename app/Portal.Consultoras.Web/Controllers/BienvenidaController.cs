@@ -1827,7 +1827,16 @@ namespace Portal.Consultoras.Web.Controllers
                     rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
                 }
 
-                var lstPersonalizacion = configEstrategiaSR.ListaPersonalizacionConsultora.Where(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP).ToList();
+                List<ShowRoomPersonalizacionModel> lstPersonalizacion;
+                if (configEstrategiaSR.ListaPersonalizacionConsultora == null)
+                {
+                    lstPersonalizacion = new List<ShowRoomPersonalizacionModel>();
+                }
+                else
+                {
+                    lstPersonalizacion = configEstrategiaSR.ListaPersonalizacionConsultora.Where(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP).ToList();
+                }
+                
 
                 return Json(new
                 {

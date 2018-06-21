@@ -137,6 +137,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.FBAppId = ConfigurationManager.AppSettings["FB_AppId"];
 
+
+
             return View(model);
         }
         [AllowAnonymous]
@@ -177,6 +179,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.PaisID = Util.GetPaisID(model.CodigoISO);
 
                 var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);
+
 
                 if (resultadoInicioSesion != null && resultadoInicioSesion.Result == USUARIO_VALIDO)
                 {
@@ -1746,7 +1749,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (tablaLogicaDatos != null)
             {
-                codigoRevista = tablaLogicaDatos.Codigo;
+                codigoRevista = Util.Trim(tablaLogicaDatos.Codigo);
             }
 
             return codigoRevista;
@@ -2145,60 +2148,53 @@ namespace Portal.Consultoras.Web.Controllers
 
             revistaDigitalModel.EstadoSuscripcion = revistaDigitalModel.SuscripcionModel.EstadoRegistro;
             revistaDigitalModel.CampaniaActual = Util.SubStr(usuarioModel.CampaniaID.ToString(), 4, 2);
-            revistaDigitalModel.CampaniaFuturoActiva = Util.SubStr(
-                Util.AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva,
-                    usuarioModel.NroCampanias).ToString(), 4, 2);
 
-            revistaDigitalModel.CampaniaSuscripcion =
-                Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
+            revistaDigitalModel.CampaniaFuturoActiva = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva == 0
+                    ? revistaDigitalModel.SuscripcionModel.CampaniaEfectiva == 0
+                    ? Util.SubStr(Util.AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias).ToString(), 4, 2)
+                    : Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaEfectiva.ToString(), 4, 2)
+                    : Util.SubStr(revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva.ToString(), 4, 2);
 
-            if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-            {
-                var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
-                    revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+            revistaDigitalModel.CampaniaSuscripcion = Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
+            revistaDigitalModel.EsActiva = revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
 
-                if (ca >= revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
-                    ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
+            //if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            //{
+            //    var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
+            //        revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+            //    if (ca >= revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
+            //        ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
+            //    revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
+            //    revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
+            //}
+            //else if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
+            //{
+            //    if (revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            //    {
+            //        var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID,
+            //            revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+            //        if (ca >= revistaDigitalModel.SuscripcionModel.CampaniaEfectiva)
+            //            ca = revistaDigitalModel.SuscripcionModel.CampaniaEfectiva;
+            //        revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
+            //        revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
+            //    }
+            //    else
+            //    {
+            //        revistaDigitalModel.CampaniaActiva = "";
+            //        revistaDigitalModel.EsActiva = false;
+            //    }
+            //}
+            //else
+            //{
+            //    var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
+            //        revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+            //    if (ca < revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
+            //        ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
+            //    revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
+            //    revistaDigitalModel.EsActiva = ca > usuarioModel.CampaniaID;
+            //}
 
-                revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
-                revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
-
-            }
-            else if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro ==
-                     Constantes.EstadoRDSuscripcion.SinRegistroDB)
-            {
-                if (revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-                {
-                    var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID,
-                        revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
-                    if (ca >= revistaDigitalModel.SuscripcionModel.CampaniaEfectiva)
-                        ca = revistaDigitalModel.SuscripcionModel.CampaniaEfectiva;
-
-                    revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
-                    revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
-                }
-                else
-                {
-                    revistaDigitalModel.CampaniaActiva = "";
-                    revistaDigitalModel.EsActiva = false;
-                }
-
-            }
-            else
-            {
-                var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
-                    revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
-
-                if (ca < revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
-                    ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
-
-                revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
-
-                revistaDigitalModel.EsActiva = ca > usuarioModel.CampaniaID;
-            }
-
-            revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro ==
-                                             Constantes.EstadoRDSuscripcion.Activo;
+            revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
 
             #endregion
 
@@ -2223,8 +2219,7 @@ namespace Portal.Consultoras.Web.Controllers
                     revistaDigitalModel.NoVolverMostrar = false;
                     break;
                 case Constantes.EstadoRDSuscripcion.NoPopUp:
-                    revistaDigitalModel.NoVolverMostrar =
-                        revistaDigitalModel.SuscripcionModel.CampaniaID == usuarioModel.CampaniaID;
+                    revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.CampaniaID == usuarioModel.CampaniaID;
                     break;
             }
 
@@ -2824,6 +2819,7 @@ namespace Portal.Consultoras.Web.Controllers
                 textoRecuperacion = !string.IsNullOrEmpty(textoRecuperacion) ? textoRecuperacion : Convert.ToString(TempData["CodigoUsuario"]);
 
                 BEUsuarioCorreo oUsuCorreo = DatosUsuarioCorreo(paisId, textoRecuperacion, nroOpcion);
+                ViewBag.HabilitarChatEmtelco = (oUsuCorreo == null) ? false : oUsuCorreo.HabilitarChatEmtelco;
 
                 return Json(new
                 {
@@ -2905,8 +2901,9 @@ namespace Portal.Consultoras.Web.Controllers
                     if (mostrarChat && habilitarChat)
                         datos.resultado = "prioridad2_chat";
 
-                    if (datos.resultado == "")
-                        nroOpcion = 3;
+                    if (datos.resultado == "") nroOpcion = 3;
+
+                    datos.HabilitarChatEmtelco = HabilitarChatEmtelco(paisId);
                 }
 
                 if (nroOpcion == 3)
@@ -2979,17 +2976,13 @@ namespace Portal.Consultoras.Web.Controllers
                                     datos.TelefonoCentral = "0501-2352677"; break;
                                 }
                         }
-
-                        if (datos.TelefonoCentral.Length > 0)
-                            datos.resultado = "prioridad2_llamada";
+                        if (datos.TelefonoCentral.Length > 0) datos.resultado = "prioridad2_llamada";
                     }
-
-                    if (datos.resultado == "")
-                        nroOpcion = 4;
+                    if (datos.resultado == "") nroOpcion = 4;
                 }
 
-                if (nroOpcion == 4)
-                    datos.resultado = "prioridad3";
+                if (nroOpcion == 4) datos.resultado = "prioridad3";
+
 
                 return datos;
             }
@@ -3001,7 +2994,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 logManager.LogErrorWebServicesBusWrap(ex, textoRecuperacion, Util.GetPaisISO(paisId), string.Empty);
             }
-
             return null;
         }
 
@@ -3254,12 +3246,15 @@ namespace Portal.Consultoras.Web.Controllers
                         oPin = sv.GetPinAutenticidad(PaisID, CodigoUsuario);
                     }
 
-                    TempData["PaisID"] = PaisID;
-                    TempData["CodigoUsuario"] = oPin.CodigoUsuario;
-                    TempData["PrimerNombre"] = oPin.PrimerNombre;
-                    TempData["Email"] = oPin.Email;
-                    TempData["Celular"] = oPin.Celular;
-                    TempData["IdEstadoActividad"] = oPin.IdEstadoActividad;
+                    if (oPin != null)
+                    {
+                        TempData["PaisID"] = PaisID;
+                        TempData["CodigoUsuario"] = oPin.CodigoUsuario;
+                        TempData["PrimerNombre"] = oPin.PrimerNombre;
+                        TempData["Email"] = oPin.Email;
+                        TempData["Celular"] = oPin.Celular;
+                        TempData["IdEstadoActividad"] = oPin.IdEstadoActividad;
+                    }
                 }
             }
             catch (Exception ex)
@@ -3269,6 +3264,33 @@ namespace Portal.Consultoras.Web.Controllers
 
             return oPin;
         }
+
         #endregion
+
+        public bool HabilitarChatEmtelco(int paisId)
+        {
+            bool Mostrar = false;
+            BETablaLogicaDatos[] DataLogica;
+
+            using (var svc = new SACServiceClient())
+            {
+                DataLogica = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.HabilitarChatEmtelco);
+
+            }
+            if (DataLogica.Any())
+            {
+                if (EsDispositivoMovil())
+                {
+                    if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("02")).Valor == "1")
+                        Mostrar = true;
+                }
+                else
+                {
+                    if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("01")).Valor == "1")
+                        Mostrar = true;
+                }
+            }
+            return Mostrar;
+        }
     }
 }

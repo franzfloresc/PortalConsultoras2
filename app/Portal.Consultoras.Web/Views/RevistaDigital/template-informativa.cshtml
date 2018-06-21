@@ -285,13 +285,11 @@ else if (Model.CancelarSuscripcion)
         <a class="descargar" href="@Model.UrlPreguntasFrecuentes" target="_blank">DESCARGA MÁS PREGUNTAS FRECUENTES</a>
     </div>
 </div>
-<script type="text/javascript">
-            var EsSuscripcionInmediata= '@Model.EsSuscripcionInmediata'=='True'?true:false;
-</script>
 @Html.Partial("~/Views/RevistaDigital/template-confirmacion-datos.cshtml", Model)
 
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
+        var EsSuscripcionInmediata = '@Model.EsSuscripcionInmediata'=='True'?true:false;
         var done = false;
 
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
@@ -300,7 +298,7 @@ else if (Model.CancelarSuscripcion)
         var isScroll = false;
         window.videoKey = '@Model.Video';
         window.estaSuscrita = '@Model.EsSuscrita';
-    </script>
+</script>
     @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")
 }
 

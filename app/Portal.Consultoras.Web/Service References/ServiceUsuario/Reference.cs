@@ -6451,6 +6451,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool EsMobileField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool HabilitarChatEmtelcoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int HoraRestanteCorreoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -6637,6 +6640,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.EsMobileField.Equals(value) != true)) {
                     this.EsMobileField = value;
                     this.RaisePropertyChanged("EsMobile");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool HabilitarChatEmtelco {
+            get {
+                return this.HabilitarChatEmtelcoField;
+            }
+            set {
+                if ((this.HabilitarChatEmtelcoField.Equals(value) != true)) {
+                    this.HabilitarChatEmtelcoField = value;
+                    this.RaisePropertyChanged("HabilitarChatEmtelco");
                 }
             }
         }

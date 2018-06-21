@@ -559,6 +559,15 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
+                if (!errorServer)
+                {
+                    using (var pedidoServiceClient = new PedidoServiceClient())
+                    {
+                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
+                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
+                    }
+                }
+
                 return Json(new
                 {
                     success = !errorServer,
@@ -1494,13 +1503,22 @@ namespace Portal.Consultoras.Web.Controllers
             var userModel = userData;
             var productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userModel, CRITERIO_BUSQUEDA_PRODUCTO_CANT, criterio);
 
+            var siExiste = productos.Any(p => p.CUV == term);
+
             BloqueoProductosCatalogo(ref productos);
 
             BloqueoProductosDigitales(ref productos);
 
             if (!productos.Any())
             {
-                productosModel.Add(GetProductoNoExiste());
+                if (siExiste)
+                {
+                    productosModel.Add(GetProductoDigital());
+                }
+                else
+                {
+                    productosModel.Add(GetProductoNoExiste());
+                }
                 return productosModel;
             }
 
@@ -1569,6 +1587,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                 }
                 #endregion
+
                 #region Venta exclusiva
                 if (!Convert.ToBoolean(Session["CuvEsProgramaNuevas"]))
                 {
@@ -1592,13 +1611,23 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 1, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
 
+                var siExiste = productos.Any(p => p.CUV == model.CUV);
+
                 BloqueoProductosCatalogo(ref productos);
 
                 BloqueoProductosDigitales(ref productos);
 
                 if (!productos.Any())
                 {
-                    productosModel.Add(GetProductoNoExiste());
+                    if (siExiste)
+                    {
+                        productosModel.Add(GetProductoDigital());
+                    }
+                    else
+                    {
+                        productosModel.Add(GetProductoNoExiste());
+                    }
+                    
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
@@ -1725,7 +1754,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (revistaDigital.BloquearRevistaImpresaGeneral == 1 || revistaDigital.BloqueoRevistaImpresa)
             {
                 beProductos = beProductos
-                    .Where(x => userData.CodigosRevistaImpresa != null && !userData.CodigosRevistaImpresa.Contains(x.CodigoCatalogo.ToString())).ToList();
+                    .Where(x => !("," + userData.CodigosRevistaImpresa + ",").Contains("," + x.CodigoCatalogo.ToString() + ",")).ToList();
             }
         }
 
@@ -1779,6 +1808,16 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 MarcaID = 0,
                 CUV = "El producto solicitado no existe.",
+                TieneSugerido = 0
+            };
+        }
+
+        private ProductoModel GetProductoDigital()
+        {
+            return new ProductoModel()
+            {
+                MarcaID = 0,
+                CUV = "Este producto es una oferta digital. Te invitamos a que revises tu sección de ofertas.",
                 TieneSugerido = 0
             };
         }

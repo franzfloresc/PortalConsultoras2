@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -38,7 +39,6 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using System.Drawing;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -354,6 +354,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return pedObs.OrderByDescending(p => p.TipoObservacion).ToList();
         }
+
         private List<BEPedidoWebDetalle> TraerHijosFaltantesEnObsPROL(List<BEPedidoWebDetalle> pedido)
         {
             var idSetList = pedido.Where(x => x.SetID != 0).Select(x => x.SetID).ToList();
@@ -1457,6 +1458,8 @@ namespace Portal.Consultoras.Web.Controllers
             else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
             {
                 tipo = codigoTipos == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoTipos == Constantes.TipoEstrategiaSet.CompuestaFija ? 2 : 3;
+                tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
+                tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
             }
             else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
                 || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
@@ -1467,6 +1470,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return tipo;
         }
+
 
         public List<FichaProductoModel> FichaProductoModelFormato(List<BEFichaProducto> listaProducto)
         {
@@ -3255,6 +3259,25 @@ namespace Portal.Consultoras.Web.Controllers
             return resultado;
         }
 
+        public bool HabilitarChatEmtelco(int paisId)
+        {
+            bool Mostrar = false;
+            List<TablaLogicaDatosModel> DataLogica = ObtenerParametrosTablaLogica(paisId, Constantes.TablaLogica.HabilitarChatEmtelco, false);
+
+            if (IsMobile())
+            {
+                if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("02")).Valor == "1")
+                    Mostrar = true;
+            }
+            else
+            {
+                if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("01")).Valor == "1")
+                    Mostrar = true;
+            }
+
+            return Mostrar;
+        }
+
         #endregion
 
         public MobileAppConfiguracionModel MobileAppConfiguracion
@@ -3907,8 +3930,10 @@ namespace Portal.Consultoras.Web.Controllers
             if (!sessionManager.GetEsShowRoom())
                 return;
 
-            if (!sessionManager.GetMostrarShowRoomProductos() &&
-                !sessionManager.GetMostrarShowRoomProductosExpiro())
+            if (sessionManager.GetMostrarShowRoomProductosExpiro())
+                return;
+
+            if (!sessionManager.GetMostrarShowRoomProductos())
             {
 
                 seccion.UrlLandig = (seccion.IsMobile ? "/Mobile/" : "/") + "ShowRoom/Intriga";
@@ -3927,9 +3952,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
             }
-
-            if (sessionManager.GetMostrarShowRoomProductos() &&
-                !sessionManager.GetMostrarShowRoomProductosExpiro())
+            else
             {
                 seccion.UrlLandig = (seccion.IsMobile ? "/Mobile/" : "/") + "ShowRoom";
                 seccion.UrlObtenerProductos = "ShowRoom/CargarProductosShowRoomOferta";
@@ -5229,6 +5252,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
             int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
+
+            ViewBag.HabilitarChatEmtelco = HabilitarChatEmtelco(userData.PaisID);
         }
 
         private VariablesGeneralesPortalModel getBaseVariablesPortal()
@@ -5905,6 +5930,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
             return esFacturacion;
         }
+
         public void registraLogDynamoCDR(MisReclamosModel model)
         {
             try
@@ -6029,6 +6055,21 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        protected void GetNotificacionesValAutoProl(long procesoId, int tipoOrigen, out List<BENotificacionesDetalle> lstObservaciones, out List<BENotificacionesDetallePedido> lstObservacionesPedido)
+        {
+            using (var service = new UsuarioServiceClient())
+            {
+                lstObservaciones = service.GetNotificacionesConsultoraDetalle(userData.PaisID, procesoId, tipoOrigen).ToList();
+                lstObservacionesPedido = service.GetNotificacionesConsultoraDetallePedido(userData.PaisID, procesoId, tipoOrigen).ToList();
+            }
+            lstObservaciones = lstObservaciones.GroupBy(o => o.CUV).Select(g => g.First()).ToList();
+        }
+
+        public bool EsDispositivoMovil()
+        {
+            return Request.Browser.IsMobileDevice;
+        }
+
         #region Revista digital y Sección DORADA
         public ConfiguracionPaisDatosModel ObtenerPerdio(int campaniaId)
         {
@@ -6081,21 +6122,5 @@ namespace Portal.Consultoras.Web.Controllers
             return false;
         }
         #endregion
-
-
-        protected void GetNotificacionesValAutoProl(long procesoId, int tipoOrigen, out List<BENotificacionesDetalle> lstObservaciones, out List<BENotificacionesDetallePedido> lstObservacionesPedido)
-        {
-            using (var service = new UsuarioServiceClient())
-            {
-                lstObservaciones = service.GetNotificacionesConsultoraDetalle(userData.PaisID, procesoId, tipoOrigen).ToList();
-                lstObservacionesPedido = service.GetNotificacionesConsultoraDetallePedido(userData.PaisID, procesoId, tipoOrigen).ToList();
-            }
-            lstObservaciones = lstObservaciones.GroupBy(o => o.CUV).Select(g => g.First()).ToList();
-        }
-
-        public bool EsDispositivoMovil()
-        {
-            return Request.Browser.IsMobileDevice;
-        }
     }
 }
