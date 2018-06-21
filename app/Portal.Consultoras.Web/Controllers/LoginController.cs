@@ -2145,9 +2145,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             revistaDigitalModel.EstadoSuscripcion = revistaDigitalModel.SuscripcionModel.EstadoRegistro;
             revistaDigitalModel.CampaniaActual = Util.SubStr(usuarioModel.CampaniaID.ToString(), 4, 2);
-            revistaDigitalModel.CampaniaFuturoActiva = Util.SubStr(revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva.ToString(), 4, 2);
-            revistaDigitalModel.CampaniaSuscripcion = Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
 
+            revistaDigitalModel.CampaniaFuturoActiva = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva == 0
+                    ? Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaEfectiva.ToString(), 4, 2)
+                    : Util.SubStr(revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva.ToString(), 4, 2);
+
+            revistaDigitalModel.CampaniaSuscripcion = Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
             revistaDigitalModel.EsActiva = revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
 
             //if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)

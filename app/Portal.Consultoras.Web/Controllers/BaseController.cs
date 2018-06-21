@@ -304,7 +304,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                     listaCUVsAEvaluar.Add(item.CUV);
-                
+
                 var temp = observaciones.Where(o => listaCUVsAEvaluar.Contains(o.CUV)).ToList();
 
 
@@ -1166,15 +1166,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected List<BEProductoFaltante> GetProductosFaltantes()
         {
-            return this.GetProductosFaltantes("", "" , "" , "");
+            return this.GetProductosFaltantes("", "", "", "");
         }
 
-        protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion ,string codCategoria , string codCatalogoRevista)
+        protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion, string codCategoria, string codCatalogoRevista)
         {
             List<BEProductoFaltante> olstProductoFaltante;
             using (var sv = new SACServiceClient())
             {
-                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID, cuv, descripcion , codCategoria , codCatalogoRevista).ToList();
+                olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID, cuv, descripcion, codCategoria, codCatalogoRevista).ToList();
             }
             return olstProductoFaltante ?? new List<BEProductoFaltante>();
         }
@@ -2374,7 +2374,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.MesFaltante = userData.FechaInicioCampania.Month;
             model.AnioFaltante = userData.FechaInicioCampania.Year;
-            
+
             if (configEstrategiaSR.ListaPersonalizacionConsultora == null)
             {
                 model.ImagenPopupShowroomIntriga = "";
@@ -2895,7 +2895,7 @@ namespace Portal.Consultoras.Web.Controllers
             string urlApi = string.Empty;
             string apiController = string.Empty;
             bool noQuitar = false;
-            
+
             if (userData.CodigoISO != "PE")
                 seccion = "";
 
@@ -2948,7 +2948,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -5245,7 +5245,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //ExtensionImgMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium,
                 ImgUrlBase = ConfigS3.GetUrlFileS3Base(carpetaPais),
                 SimboloMoneda = userData.Simbolo
-        };
+            };
 
             return baseVariablesGeneral;
 
@@ -6015,7 +6015,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return descripcion;
         }
-        
+
         public void RegistrarLogDynamoCambioClave(string accion, string consultora, string v_valoractual, string v_valoranterior)
         {
             object data = null;
@@ -6047,7 +6047,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return Request.Browser.IsMobileDevice;
         }
-        
+
         #region Revista digital y Sección DORADA
         public ConfiguracionPaisDatosModel ObtenerPerdio(int campaniaId)
         {
@@ -6073,10 +6073,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
 
-                string CampaniaFuturoActiva = string.IsNullOrWhiteSpace(revistaDigital.CampaniaFuturoActiva) ? Util.SubStr(revistaDigital.SuscripcionModel.CampaniaEfectiva.ToString(), 4, 2) : revistaDigital.CampaniaFuturoActiva;
-
-                dato.Valor1 = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", CampaniaFuturoActiva));
-                dato.Valor2 = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", CampaniaFuturoActiva));
+                dato.Valor1 = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+                dato.Valor2 = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
 
                 if (upper)
                 {
