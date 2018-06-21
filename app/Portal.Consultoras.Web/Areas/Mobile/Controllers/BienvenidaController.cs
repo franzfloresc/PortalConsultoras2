@@ -476,7 +476,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 using (var svr = new UsuarioServiceClient())
                 {
-                    //svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora, Constantes.ClienteOrigen.OrigeMobile);
+                   svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora, Constantes.ClienteOrigen.OrigeMobile);
                 }
 
                 userData.IndicadorContrato = 1;
