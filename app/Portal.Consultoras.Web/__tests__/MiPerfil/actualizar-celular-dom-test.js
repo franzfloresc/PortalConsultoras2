@@ -2,6 +2,8 @@ const $ = require('../../Scripts/jquery-1.11.2');
 const fs = require('fs');
 
 global.$ = global.jQuery = $;
+global.waitingDialog = jest.fn();
+global.closeWaitingDialog = jest.fn();
 global.actualizaCelularData = {
     celular: '987654321',
     urlProvider: {}
@@ -33,9 +35,11 @@ describe('Actualizar Celular', () => {
     it('Invalid Number', (done) => {
         $('#NuevoCelular').val('12')
         $('.btn_continuar').click();
+        expect(global.waitingDialog).not.toHaveBeenCalled();
 
         setImmediate(() => {
             expect($('.text-error').text()).not.toEqual('');
+            expect(global.closeWaitingDialog).not.toHaveBeenCalled();
             expect(mod.Services.enviarSmsCode).not.toHaveBeenCalled();
             expect(mod.Services.confirmarSmsCode).not.toHaveBeenCalled();
 
@@ -46,9 +50,10 @@ describe('Actualizar Celular', () => {
     it('Send SMS Code', (done) => {
         $('#NuevoCelular').val('987654328')
         $('.btn_continuar').click();
-
+        expect(global.waitingDialog).toHaveBeenCalled();
         setImmediate(() => {
             expect($('.text-error').text()).toEqual('');
+            expect(global.closeWaitingDialog).toHaveBeenCalled();
             expect(mod.Services.enviarSmsCode).toHaveBeenCalled();
             expect(mod.Services.confirmarSmsCode).not.toHaveBeenCalled();
 
@@ -61,8 +66,10 @@ describe('Actualizar Celular', () => {
         mod.Funciones.SetSmsCode('012345');
 
         $('.campo_ingreso_codigo_sms').first().keyup();
+        expect(global.waitingDialog).toHaveBeenCalled();
 
         setImmediate(() => {
+            expect(global.closeWaitingDialog).toHaveBeenCalled();
             expect(mod.Services.confirmarSmsCode).toHaveBeenCalledWith('012345');
             expect($('.icono_validacion_codigo_sms').hasClass('validacion_erronea')).toBeTruthy();
 
@@ -75,9 +82,11 @@ describe('Actualizar Celular', () => {
         mod.Funciones.SetSmsCode('123456');
 
         $('.campo_ingreso_codigo_sms').first().keyup();
+        expect(global.waitingDialog).toHaveBeenCalled();
 
         setImmediate(() => {
             expect($('.text-error').text()).toEqual('');
+            expect(global.closeWaitingDialog).toHaveBeenCalled();
             expect(mod.Services.confirmarSmsCode).toHaveBeenCalledWith('123456');
             expect($('.icono_validacion_codigo_sms').hasClass('validacion_exitosa')).toBeTruthy();
 
