@@ -46,6 +46,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
         {
+            if (EsDispositivoMovil())
+            {
+                return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
+            }
+
             var model = new PedidoSb2Model();
 
             try
@@ -868,7 +873,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var detallePedido = _pedidoSetProvider.ObtenerDetalle(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
                 foreach (var detalle in set.Detalles)
                 {
-                    BEPedidoWebDetalle pedidoWebDetalle = listaPedidoWebDetalle.Where(p => p.CUV == detalle.CUV).FirstOrDefault();
+                    BEPedidoWebDetalle pedidoWebDetalle = listaPedidoWebDetalle.FirstOrDefault(p => p.CUV == detalle.CUV);
                     if (pedidoWebDetalle == null) continue;
                     int cantidad = pedidoWebDetalle.Cantidad - detallePedido.Where(p => p.CUV == detalle.CUV).Sum(p => set.Cantidad * p.FactorRepeticion);
                     if (cantidad > 0)
@@ -1489,13 +1494,22 @@ namespace Portal.Consultoras.Web.Controllers
             var userModel = userData;
             var productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userModel, CRITERIO_BUSQUEDA_PRODUCTO_CANT, criterio);
 
+            var siExiste = productos.Any(p => p.CUV == term);
+
             BloqueoProductosCatalogo(ref productos);
 
             BloqueoProductosDigitales(ref productos);
 
             if (!productos.Any())
             {
-                productosModel.Add(GetProductoNoExiste());
+                if (siExiste)
+                {
+                    productosModel.Add(GetProductoDigital());
+                }
+                else
+                {
+                    productosModel.Add(GetProductoNoExiste());
+                }
                 return productosModel;
             }
 
@@ -1564,6 +1578,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                 }
                 #endregion
+
                 #region Venta exclusiva
                 if (!Convert.ToBoolean(Session["CuvEsProgramaNuevas"]))
                 {
@@ -1587,13 +1602,23 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 1, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
 
+                var siExiste = productos.Any(p => p.CUV == model.CUV);
+
                 BloqueoProductosCatalogo(ref productos);
 
                 BloqueoProductosDigitales(ref productos);
 
                 if (!productos.Any())
                 {
-                    productosModel.Add(GetProductoNoExiste());
+                    if (siExiste)
+                    {
+                        productosModel.Add(GetProductoDigital());
+                    }
+                    else
+                    {
+                        productosModel.Add(GetProductoNoExiste());
+                    }
+                    
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
@@ -1677,7 +1702,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<string> ObtenerListadoCuvCupon()
         {
-            var lista = new List<string>();
+            List<string> lista;
 
             using (PedidoServiceClient ps = new PedidoServiceClient())
             {
@@ -1716,11 +1741,11 @@ namespace Portal.Consultoras.Web.Controllers
             if (!revistaDigital.TieneRDC) return;
 
             if (!revistaDigital.EsActiva) return;
-            
+
             if (revistaDigital.BloquearRevistaImpresaGeneral == 1 || revistaDigital.BloqueoRevistaImpresa)
             {
                 beProductos = beProductos
-                    .Where(x => userData.CodigosRevistaImpresa != null && !userData.CodigosRevistaImpresa.Contains(x.CodigoCatalogo.ToString())).ToList();
+                    .Where(x => !("," + userData.CodigosRevistaImpresa + ",").Contains("," + x.CodigoCatalogo.ToString() + ",")).ToList();
             }
         }
 
@@ -1774,6 +1799,16 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 MarcaID = 0,
                 CUV = "El producto solicitado no existe.",
+                TieneSugerido = 0
+            };
+        }
+
+        private ProductoModel GetProductoDigital()
+        {
+            return new ProductoModel()
+            {
+                MarcaID = 0,
+                CUV = "Este producto es una oferta digital. Te invitamos a que revises tu sección de ofertas.",
                 TieneSugerido = 0
             };
         }
@@ -2238,9 +2273,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var model = new PedidoSb2Model
                 {
                     ListaObservacionesProl = listObservacionModel,
-                    ObservacionInformativa = resultado.Informativas,
                     ObservacionRestrictiva = resultado.Restrictivas,
                     ErrorProl = resultado.Error,
+                    AvisoProl = resultado.Aviso,
                     Reserva = resultado.Reserva,
                     ZonaValida = userData.ZonaValida,
                     ValidacionInteractiva = userData.ValidacionInteractiva,
@@ -3516,6 +3551,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return;
                     }
                 }
+
+                if (userData.EsConsultoraOficina) return;
                 if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
 
                 var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
@@ -3731,102 +3768,6 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ex.Message,
                     data = "",
                     limiteJetlore = 0
-                });
-            }
-        }
-
-        [Obsolete("Nuevo UpSelling")]
-        public JsonResult ObtenerOfertaFinalRegalo()
-        {
-            try
-            {
-                OfertaFinalRegaloModel model = null;
-                using (var svc = new ProductoServiceClient())
-                {
-                    var entidad = svc.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
-                    if (entidad != null)
-                    {
-                        model = Mapper.Map<RegaloOfertaFinal, OfertaFinalRegaloModel>(entidad);
-                        model.CodigoISO = userData.CodigoISO;
-                        var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                        model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, entidad.RegaloImagenUrl, carpetaPais);
-                        model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, userData.CodigoISO);
-                    }
-                }
-
-                return Json(new
-                {
-                    success = true,
-                    data = model
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                });
-            }
-        }
-
-        [Obsolete("Nuevo UpSelling")]
-        public JsonResult ObtenerRegaloMontoMeta()
-        {
-            try
-            {
-                OfertaFinalRegaloModel model = null;
-                using (var svc = new ProductoServiceClient())
-                {
-                    var entidad = svc.ObtenerRegaloMontoMeta(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
-                    if (entidad != null)
-                    {
-                        model = Mapper.Map<RegaloOfertaFinal, OfertaFinalRegaloModel>(entidad);
-                        model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, userData.CodigoISO);
-                    }
-                }
-
-                return Json(new
-                {
-                    success = true,
-                    data = model
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                });
-            }
-        }
-
-        [Obsolete("Nuevo UpSelling")]
-        public JsonResult InsertarOfertaFinalRegalo()
-        {
-            try
-            {
-                using (var svc = new ProductoServiceClient())
-                {
-                    var montoTotal = Convert.ToDouble(ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal));
-                    svc.InsertarRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID, montoTotal, "OFR");
-                }
-
-                return Json(new
-                {
-                    success = true
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
                 });
             }
         }
@@ -4640,35 +4581,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string mensaje = "";
-
                 FichaProductoDetalleModel ficha = Session[Constantes.SessionNames.FichaProductoTemporal] as FichaProductoDetalleModel;
+                if (ficha == null) return ErrorJson(Constantes.MensajesError.ErrorGenerico, true);
 
                 var numero = Convert.ToInt32(Cantidad);
+                if (numero > ficha.LimiteVenta) return ErrorJson("La cantidad no debe ser mayor que la cantidad limite ( " + ficha.LimiteVenta + " ).", true);
 
-                if (ficha != null && numero > ficha.LimiteVenta)
-                {
-                    mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + ficha.LimiteVenta + " ).";
-                    return Json(new
-                    {
-                        success = false,
-                        message = mensaje
-                    }, JsonRequestBehavior.AllowGet);
-                }
-
-                var descripcion = ficha.DescripcionCompleta;
-                if (ficha.FlagNueva == 1)
-                {
-                    descripcion = ficha.DescripcionCortada;
-                }
-
+                var descripcion = ficha.FlagNueva == 1 ? ficha.DescripcionCortada : ficha.DescripcionCompleta;
                 listaCuvTonos = Util.Trim(listaCuvTonos);
-                if (string.IsNullOrEmpty(listaCuvTonos))
-                {
-                    listaCuvTonos = ficha.CUV2;
-                }
-
+                if (string.IsNullOrEmpty(listaCuvTonos)) listaCuvTonos = ficha.CUV2;
                 var tonos = listaCuvTonos.Split('|');
+
                 var respuesta = new JsonResult();
                 foreach (var tono in tonos)
                 {
@@ -4677,10 +4600,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (ficha.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
                     {
                         var brother = ficha.Hermanos.Select(m => m.Hermanos.Where(s => s.CUV == listSp[0])).SingleOrDefault();
-                        if (brother != null)
-                        {
-                            descripcion = brother.Select(m => m.DescripcionComercial).SingleOrDefault();
-                        }
+                        if (brother != null) descripcion = brother.Select(m => m.DescripcionComercial).SingleOrDefault();
                     }
 
                     int outVal;
@@ -4698,21 +4618,14 @@ namespace Portal.Consultoras.Web.Controllers
                         ClienteID_ = ClienteID_,
                         TipoEstrategiaImagen = ficha.TipoEstrategiaImagenMostrar
                     };
-
                     respuesta = AgregarProductoZE(modelo);
                 }
-
                 return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
-
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Ocurrio un error, vuelva ha intentalo."
-                });
+                return ErrorJson(Constantes.MensajesError.ErrorGenerico, true);
             }
         }
 

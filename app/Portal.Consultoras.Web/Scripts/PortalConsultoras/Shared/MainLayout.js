@@ -6,6 +6,8 @@ $(document).ready(function () {
     LayoutHeader();
     LayoutMenu();
 
+    OcultarChatEmtelco();
+
     window.onresize = function (event) {
         LayoutMenu();
     };
@@ -328,6 +330,16 @@ $(document).ready(function () {
         $(idBtn).trigger("click");
 
         return false;
+    });
+
+    $("body").on('click', '#btn_init', function () {
+        var data = {
+            'event': 'virtualEvent',
+            'category': controllerName,
+            'action': 'Clic en Chat',
+            'label': '¿Quieres ayuda?'
+        };
+        dataLayer.push(data);
     });
 
     setInterval(animacionFlechaScroll, 1000);
@@ -1183,4 +1195,27 @@ function dataLayerFichaProducto() {
         'action': 'Banner Ficha Producto',
         'label': 'Cerrar,popup'
     });
+}
+
+function OcultarChatEmtelco() {
+    var url = window.location.href.toLowerCase().split('/');
+    var urlPedido = url[url.length - 1];
+
+    if ((urlPedido !== 'pedido' &&
+        urlPedido !== 'pagoenlinea' &&
+        !(window.location.href.toLowerCase().indexOf('pedido/detalle') > 0))) {
+        $(".CMXD-help").show();
+    }
+
+    var urlMobile = url[url.length - 2];
+    if (urlPedido == 'pedidofic') {
+        $(".CMXD-help").hide();
+    }
+    if (urlMobile == 'pedidofic' && urlPedido == 'detalle') {
+        $(".CMXD-help").hide();
+    }
+
+    if (habilitarChatEmtelco == 'False') {
+        $(".CMXD-help").hide();
+    }
 }

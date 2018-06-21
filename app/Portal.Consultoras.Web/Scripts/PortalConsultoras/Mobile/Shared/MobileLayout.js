@@ -143,6 +143,16 @@
         return false;
     });
 
+    $("body").on('click', '#btn_init', function () {
+        var data = {
+            'event': 'virtualEvent',
+            'category': controllerName,
+            'action': 'Clic en Chat',
+            'label': '¿Quieres ayuda?'
+        };
+        dataLayer.push(data);
+    });
+
     $("#btn_cerrar_oferta_mobile").click(function () {
         var curSlide = $("#flexslidertop").find(".flex-active-slide").html();
         if (curSlide.indexOf("BloqueOfertaDiaHeader") > -1) {
@@ -357,8 +367,10 @@ function OcultarChatEmtelco() {
         $(".CMXD-help").hide();
     }
 
+    if (habilitarChatEmtelco == 'False') {
+        $(".CMXD-help").hide();
+    }
 }
-
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
@@ -798,11 +810,10 @@ function messageInfoError(message, fnAceptar) {
     $('#popupInformacionSB2Error .btn_ok_mobile').on('click', function () {
         $('#popupInformacionSB2Error').hide();
     });
-    if ((typeof titulo != "undefined") && (titulo != "") && (titulo != null))
-    {
+    if ((typeof titulo != "undefined") && (titulo != "") && (titulo != null)) {
         $(".titulo_compartir").html("<b>" + titulo + "</b>")
     }
- 
+
 }
 
 function messageInfoValidado(message, fnAceptar) {

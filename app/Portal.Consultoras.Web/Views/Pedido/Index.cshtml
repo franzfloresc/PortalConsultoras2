@@ -577,7 +577,7 @@
         </div>
     </div>
 </div>
-<div class="contenedor_fondo_popup fondo_tutorial" id="popup_tutorial_pedido" style="display: none;">
+<div class="contenedor_fondo_popup contenedor_fondo_popup_oscuro fondo_tutorial" id="popup_tutorial_pedido" style="display: none;">
     <div class="popup_tutorial_pedido" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
         <div id="slide1_container" class="shadow">
             <div id="slide1_images">
@@ -638,7 +638,6 @@
 </div>
 <input type="hidden" id="hdfAccionPROL" value="@Model.Prol" />
 <input type="hidden" id="hdfReserva" value="@Model.Reserva" />
-<input type="hidden" id="hdfObsInfor" value="@Model.ObservacionInformativa" />
 <input type="hidden" id="hdfModificaPedido" value="@Model.EsModificacion" />
 <input type="hidden" id="hdfZonaValida" value="@Model.ZonaValida" />
 <input type="hidden" id="hdfPROLSinStock" value="@Model.ProlSinStock" />
@@ -1194,7 +1193,6 @@
             </div>
         </div>
     </div>
-
     <div class="tapsPedidos"></div>
 
     <script id="pedidopend-template" type="text/x-handlebars-template">
@@ -2111,6 +2109,7 @@
 
         var seccionMisOfertas = '@Constantes.SeccionBienvenida.MisOfertas';
         var OrigenDesktopODD = 2;
+        var mensajePedidoVacio = '@Constantes.MensajesError.Reserva_SinDetalle';
 </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)

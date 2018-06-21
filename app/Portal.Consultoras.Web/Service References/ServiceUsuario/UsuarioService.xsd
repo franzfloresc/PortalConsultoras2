@@ -233,6 +233,7 @@
       <xs:element minOccurs="0" name="EsCatalogoPersonalizadoZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsConsecutivoNueva" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsConsultoraNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsConsultoraOficina" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsCumpleanio" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsJoven" type="xs:int" />
       <xs:element minOccurs="0" name="EsOFGanaMasZonaValida" type="xs:boolean" />
@@ -393,6 +394,7 @@
   <xs:element name="BEOfertaDelDia" nillable="true" type="tns:BEOfertaDelDia" />
   <xs:complexType name="BERevistaDigital">
     <xs:sequence>
+      <xs:element minOccurs="0" name="ActivoMdo" type="xs:boolean" />
       <xs:element minOccurs="0" name="BloquearRevistaImpresaGeneral" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="BloqueoProductoDigital" type="xs:boolean" />
       <xs:element minOccurs="0" name="BloqueoRevistaImpresa" type="xs:boolean" />
@@ -536,6 +538,7 @@
       <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EsMobile" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HabilitarChatEmtelco" type="xs:boolean" />
       <xs:element minOccurs="0" name="HoraRestanteCorreo" type="xs:int" />
       <xs:element minOccurs="0" name="HoraRestanteSms" type="xs:int" />
       <xs:element minOccurs="0" name="IdEstadoActividad" type="xs:int" />

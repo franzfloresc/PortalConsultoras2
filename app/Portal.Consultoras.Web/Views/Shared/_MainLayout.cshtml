@@ -58,11 +58,14 @@
         var emt_id = '@ViewBag.CodigoUsuario';
         var emt_type = '0';
         var emt_device = ' ';
-        var emt_default_message = '@Html.Raw(Constantes.ConfiguracionManager.MensajeChatBienvenida)';
+        var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
+        // New Chat -->
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
         var FechaActual = '@(DateTime.Now.ToString("dd/MM/yyyy"))';
 
         window.urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+        window.urlLogElastic = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogElastic"]';
+        window.patternElastic = '@System.Configuration.ConfigurationManager.AppSettings["PatternElastic"]';
 
         var userData = {
             'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
@@ -432,6 +435,7 @@
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
         var codigoAnclaOdd = '@ViewBag.CodigoAnclaOdd';
         var OrigenDesktopODD = 0;
+        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';        
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script type='text/javascript'>

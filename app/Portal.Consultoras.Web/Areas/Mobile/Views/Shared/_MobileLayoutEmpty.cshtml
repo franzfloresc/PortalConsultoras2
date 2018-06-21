@@ -33,6 +33,8 @@
 	<script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
         window.urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+        window.urlLogElastic = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogElastic"]';
+        window.patternElastic = '@System.Configuration.ConfigurationManager.AppSettings["PatternElastic"]';
 
         // Seteando Controlador y Accion
         @{
@@ -247,6 +249,7 @@
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ocultarBannerTop = '@Session["OcultarBannerTop"]';
 
+        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
 
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
@@ -264,7 +267,7 @@
         var OrigenDesktopODD = 0;
 
         //+++++++++++++++++++++++++++++++++++++++++++++++++++++
-        // parametros _MobileLayout 
+        // parametros _MobileLayout
         //++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
@@ -281,10 +284,12 @@
         var emt_id = '@ViewBag.CodigoUsuario';
         var emt_type = '0';
         var emt_device = ' ';
-        var emt_default_message = '@Html.Raw(Constantes.ConfiguracionManager.MensajeChatBienvenida)';
+        var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
 
         var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl';
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+        var urlLogElastic = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogElastic"]';
+        var patternElastic = '@System.Configuration.ConfigurationManager.AppSettings["PatternElastic"]';
 
         var vbFotoPerfil = '@ViewBag.FotoPerfil';
         if (vbFotoPerfil != null && vbFotoPerfil != "") {

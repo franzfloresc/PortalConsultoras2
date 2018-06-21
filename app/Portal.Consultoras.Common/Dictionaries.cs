@@ -525,18 +525,21 @@ namespace Portal.Consultoras.Common
             { "VE", "TemplatesDatosAval/_DatosAvalGrupo1" },
         };
 
-        public class FileManager
+        public static class FileManager
         {
-            public class TipoArchivo
+            public static class TipoArchivo
             {
                 public const string FotoPerfilConsultora = "01";
             }
 
-            public static Dictionary<string, string> Configuracion = new Dictionary<string, string>
+            private static readonly Dictionary<string, string> configuracion = new Dictionary<string, string>
             {
                 { TipoArchivo.FotoPerfilConsultora, "FotoPerfil" }
             };
+
+            public static Dictionary<string, string> Configuracion { get { return configuracion; } }
         }
+
         public static Dictionary<string, string> TemplatDatosAval { get { return templatDatosAval; } }
     }
 
@@ -572,7 +575,7 @@ namespace Portal.Consultoras.Common
 
     }
 
-    public class PaisesCodigoIso
+    public static class PaisesCodigoIso
     {
         public const string Colombia = "CO";
         public const string Mexico = "MX";

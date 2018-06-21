@@ -37,7 +37,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (configuracionCampania.CampaniaID == 0)
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
-            /////////////////////////////////////////
             var campaniaActual =  Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString();
             Session[Constantes.ConstSession.PedidoFIC] = null;
             ViewBag.ClaseTabla = "tabla2";
@@ -51,7 +50,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.FinFIc = userData.FechaFinFIC.ToString("dd/MM");
             ViewBag.FechaFinFIC = userData.FechaFinFIC.ToString("dd'/'MM");
             ViewBag.Campania = AddCampaniaAndNumero(userData.CampaniaID, 1).Substring(4,2);
-            var olstPedidoFicDetalle = ObtenerPedidoFICDetalle();   //   PPC
+            var olstPedidoFicDetalle = ObtenerPedidoFICDetalle();
             PedidoFICDetalleMobileModel modelo = new PedidoFICDetalleMobileModel
             {
                 PaisID = userData.PaisID,
@@ -60,8 +59,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 Total = string.Format("{0:N2}", olstPedidoFicDetalle.Sum(p => p.ImporteTotal))
             };
 
-            olstPedidoFicDetalle = olstPedidoFicDetalle ?? new List<BEPedidoFICDetalle>();  //  PPC
-           // BEPedidoFIC pedidoFICWeb = ObtenerPedidoWeb() ?? new BEPedidoFIC();
+            olstPedidoFicDetalle = olstPedidoFicDetalle ?? new List<BEPedidoFICDetalle>();
 
 
             if (userData.PedidoID == 0 && modelo.ListaDetalle.Count > 0)
@@ -75,10 +73,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.Simbolo = userData.Simbolo;
             model.CampaniaActual = ViewBag.Campania;
             model.CampaniaNro = userData.CampaniaNro;
-          //  model.Total = detallesPedidoWeb.Sum(p => p.ImporteTotal);
             model.Total = olstPedidoFicDetalle.Sum(p => p.ImporteTotal);
             model.DescripcionTotal = Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
-           // model.TotalMinimo = detallesPedidoWeb.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal);
             model.TotalMinimo = olstPedidoFicDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal);
 
             model.DescripcionTotalMinimo = Util.DecimalToStringFormat(model.TotalMinimo, userData.CodigoISO);
@@ -100,7 +96,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.EMail = userData.EMail;
             model.Celular = userData.Celular;
             model.TieneMasVendidos = userData.TieneMasVendidos;
-            //model.PartialSectionBpt = GetPartialSectionBptModel();
             var isMobileApp = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion", false) != null;
             var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
             model.ClienteId = mobileConfiguracion.ClienteID;
@@ -213,9 +208,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             };
 
             ValidarStatusCampania(beConfiguracionCampania);
-
-            TimeSpan horaCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
-            DateTime diaActual = DateTime.Today.Add(horaCierrePortal);
+            
             var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
 
             if (!userData.DiaPROL)  // Periodo de venta
@@ -249,17 +242,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
-            var olstPedidoFicDetalle = ObtenerPedidoFICDetalle();   //   PPC
-            PedidoFICDetalleMobileModel modelo = new PedidoFICDetalleMobileModel
-            {
-                PaisID = userData.PaisID,
-                ListaDetalle = olstPedidoFicDetalle,
-                Simbolo = userData.Simbolo,
-                Total = string.Format("{0:N2}", olstPedidoFicDetalle.Sum(p => p.ImporteTotal))
-            };
+            var olstPedidoFicDetalle = ObtenerPedidoFICDetalle();
+            
             olstPedidoFicDetalle = olstPedidoFicDetalle ?? new List<BEPedidoFICDetalle>();
-
-
+            
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
             bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
             model.EsFacturacion = esFacturacion;
@@ -273,7 +259,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.EsConsultoraNueva = VerificarConsultoraNueva();
             model.MontoMinimo = userData.MontoMinimo;
             model.MontoMaximo = userData.MontoMaximo;
-            //model.Total = pedidoWeb.ImporteTotal;
             model.Total = olstPedidoFicDetalle.Sum(p => p.ImporteTotal);
             model.DataBarra = GetDataBarra(true, true);
 
@@ -507,8 +492,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Email = userData.EMail;
             }
 
-            TimeSpan horaCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
-            DateTime diaActual = DateTime.Today.Add(horaCierrePortal);
             var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
 
             if (!userData.DiaPROL)  // Periodo de venta
@@ -525,6 +508,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             else // Periodo de facturacion
             {
+                TimeSpan horaCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
+                DateTime diaActual = DateTime.Today.Add(horaCierrePortal);
+
                 model.Prol = "MODIFICA TU PEDIDO";
                 model.ProlTooltip = "Modifica tu pedido sin perder lo que ya reservaste.";
 

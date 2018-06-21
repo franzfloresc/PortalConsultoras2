@@ -20,15 +20,16 @@ var menuModule = (function () {
         aHover: "ul.subnavegador li a",
         aMenuActivo: function () {
             return "ul.subnavegador li a." + this.claseActivo;
-        },//"ul.subnavegador li a.activo",
-        bcParaTiMenu: ".op_menu-horizontal ul li a",    
+        },
+        bcParaTiMenu: ".op_menu-horizontal ul li a",
         bcParaTiMenuActivo: function () {
             return ".op_menu-horizontal ul li a." + this.claseActivo;
-        },//".op_menu-horizontal ul li a.activo",
+        },
         mobContent: "#mob-content-layout",
         menuMobHome: ".opcion_home_vistaOfertas"
-    },
-        anchorMark = "#",
+    }
+
+    var anchorMark = "#",
         anchorValue,
         tagIsAnchor = "es-ancla",
         url,
@@ -40,7 +41,15 @@ var menuModule = (function () {
         alturaH,
         scr = false,
         alturaE;
-    var paddingTab = "1.5px";
+
+    var _var = {
+        Mobile: false
+    }
+
+    var paddingTab = {
+        Mobile: 3,
+        Desktop: 1.5
+    }
 
     function _getHeight(element) {
         return $(element).outerHeight(true);
@@ -53,8 +62,10 @@ var menuModule = (function () {
         }
     }
     function _changeLogoMenuDesktopAndMobile() {
-        if (!isMobile())_changeLogoMenu(elementos.subnavegadorUl);
-        if (isMobile())_changeLogoMenu(elementos.menuMobHome);
+        if (_var.Mobile)
+            _changeLogoMenu(elementos.menuMobHome);
+        else
+            _changeLogoMenu(elementos.subnavegadorUl);
     }
     function _changeLogoMenu(selector) {
         var img = $.trim($(selector).find("img").attr("src"));
@@ -68,9 +79,10 @@ var menuModule = (function () {
         $(elementos.html).animate({
             scrollTop: top
         },
-        1000);
+            1000);
     }
     function init() {
+        _var.Mobile = isMobile();
         navbarHeight = _getHeight(elementos.header);
         seccionMenuMobileHeight = _getHeight(elementos.seccionBannerMobile);
         seccionFixedMenuHeigt = _getHeight(elementos.seccionMenuFija);
@@ -78,7 +90,7 @@ var menuModule = (function () {
         alturaE = alturaH + _getHeight(elementos.bcMenuEstrategia);
 
         var esSuscrita = $(elementos.subnavegadorUl).data("es-suscrita");
-        //var esActiva = $(elementos.subnavegadorUl).data("es-activa");
+
         if (esSuscrita) {
             elementos.claseActivo = "activo-dorado";
         }
@@ -161,7 +173,7 @@ var menuModule = (function () {
     }
     function checkAnchor() {
         var menuHeight = navbarHeight;
-        if (isMobile()) {
+        if (_var.Mobile) {
             menuHeight += seccionFixedMenuHeigt;
         }
         if (url.indexOf(anchorMark) > -1) {
@@ -184,7 +196,7 @@ var menuModule = (function () {
                 _changeLogoMenuDesktopAndMobile();
             }
         }
-        if (isMobile()) {
+        if (_var.Mobile) {
             _moverSubMenuContenedorOfertasMobile();
         }
     }
@@ -211,18 +223,18 @@ var menuModule = (function () {
                         controller = "Ofertas/Revisar#";
                     }
                 }
-                window.location = originLocation + "/" + (isMobile() ? "Mobile/" : "") + controller + codigo;
+                window.location = originLocation + "/" + (_var.Mobile ? "Mobile/" : "") + controller + codigo;
             } else if (currentLocation.indexOf("/ofertas") > -1) {
                 if ($(elementos.seccionMenuFija).css("position") === "fixed") menuHeight += seccionFixedMenuHeigt;
                 _animateScrollTo(anchorMark + codigo, menuHeight);
-                if (isMobile()) _moverSubMenuContenedorOfertasMobile();
+                if (_var.Mobile) _moverSubMenuContenedorOfertasMobile();
 
 
             } else {
                 if (currentLocation.indexOf("/revisar") > -1)
-                    window.location = originLocation + "/" + (isMobile() ? "Mobile/" : "") + "Ofertas/Revisar#" + codigo;
+                    window.location = originLocation + "/" + (_var.Mobile ? "Mobile/" : "") + "Ofertas/Revisar#" + codigo;
                 else
-                    window.location = originLocation + "/" + (isMobile() ? "Mobile/" : "") + "Ofertas#" + codigo;
+                    window.location = originLocation + "/" + (_var.Mobile ? "Mobile/" : "") + "Ofertas#" + codigo;
             }
         } else {
             url = $.trim(url);
@@ -251,7 +263,7 @@ var menuModule = (function () {
         window.location = window.location.origin + url;
     }
     function setCarrouselMenu() {
-        if (isMobile()) {
+        if (_var.Mobile) {
             $(elementos.menu2Ul + ".slick-initialized").slick("unslick");
             $(elementos.menu2Ul).not(".slick-initialized").slick({
                 infinite: false,
@@ -276,26 +288,21 @@ var menuModule = (function () {
         var listaMenu = $(elementos.menu1Li);
         if (listaMenu.length === 0)
             return false;
-        
+
         var anchoMenu = $(elementos.menu1).outerWidth(true);
         if (anchoMenu <= 0)
             return false;
 
-        var anchoTab = anchoMenu / listaMenu.length;
+        var padTab = _var.Mobile ? paddingTab.Mobile : paddingTab.Desktop;
+
+        var anchoTab = ((anchoMenu - (padTab * (listaMenu.length - 1))) / listaMenu.length) - (_var.Mobile ? 0 : 1);
         $.each(listaMenu, function (ind, menuTab) {
             $(menuTab).css("width", anchoTab + "px");
-            if (ind === 0) {
-                $(menuTab).css("padding-right", paddingTab);
-            }
-            else if (ind === listaMenu.length - 1) {
-                $(menuTab).css("padding-left", paddingTab);
-            }
-            else {
-                $(menuTab).css("padding-left", paddingTab);
-                $(menuTab).css("padding-right", paddingTab);
+            if (ind > 0) {
+                $(menuTab).css("padding-left", padTab + "px");
             }
         });
-        
+
     }
     return {
         init: init,
@@ -324,6 +331,7 @@ $(document).ready(function () {
             }
         });
     menuModule.setCarrouselMenu();
+    menuModule.Resize();
     $(document).ajaxStop(function () {
         menuModule.checkAnchor();
     });
