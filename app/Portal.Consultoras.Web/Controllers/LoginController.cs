@@ -2147,7 +2147,9 @@ namespace Portal.Consultoras.Web.Controllers
             revistaDigitalModel.CampaniaActual = Util.SubStr(usuarioModel.CampaniaID.ToString(), 4, 2);
 
             revistaDigitalModel.CampaniaFuturoActiva = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva == 0
-                    ? Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaEfectiva.ToString(), 4, 2)
+                    ? revistaDigitalModel.SuscripcionModel.CampaniaEfectiva == 0
+                    ? Util.SubStr(Util.AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias).ToString(), 4, 2)
+                    : Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaEfectiva.ToString(), 4, 2)
                     : Util.SubStr(revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva.ToString(), 4, 2);
 
             revistaDigitalModel.CampaniaSuscripcion = Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
