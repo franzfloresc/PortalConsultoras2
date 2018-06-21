@@ -45,7 +45,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         using (var sv = new PedidoServiceClient())
                         {
-                            var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, true, false);
+                            var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, 
+                                userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, true, false);
                             if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado) mostrarBanner = false;
                         }
                     }
@@ -85,9 +86,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                     showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
                 }
+
                 ViewBag.MostrarBannerPL20 = mostrarBanner;
                 ViewBag.MostrarBannerOtros = mostrarBannerTop;
-
                 ViewBag.EstadoActivo = mostrarBannerTop ? "0" : "1";
 
                 if (mostrarBanner
@@ -114,7 +115,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return false;
 
             var resultado = false;
-
             var esShowRoom = sessionManager.GetEsShowRoom();
             var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
             var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
@@ -142,8 +142,14 @@ namespace Portal.Consultoras.Web.Controllers
                 showRoomEventoModel.Simbolo = userData.Simbolo;
                 showRoomEventoModel.CodigoIso = userData.CodigoISO;
                 //showRoomEventoModel.ListaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion);
+                var listaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, false);
+                showRoomEventoModel.TieneOfertasAMostrar = listaShowRoomOferta.Any();
                 //showRoomEventoModel.ListaShowRoomCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, showRoomEventoModel.EventoID, showRoomEventoModel.CampaniaID);
                 //showRoomEventoModel.ListaCategoria = GetCategoriasProductoShowRoom(showRoomEventoModel);
+                showRoomEventoModel.ListaCategoria = GetCategoriasProductoShowRoom(listaShowRoomOferta);
+                showRoomEventoModel.PrecioMinimoFiltro = listaShowRoomOferta.Min(p => p.PrecioOferta);
+                showRoomEventoModel.PrecioMaximoFiltro = listaShowRoomOferta.Max(p => p.PrecioOferta);
+                showRoomEventoModel.FiltersBySorting = _tablaLogicaProvider.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.OrdenamientoShowRoom);
 
                 var tipoAplicacion = Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop;
                 if (GetIsMobileDevice()) tipoAplicacion = Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile;
@@ -151,7 +157,6 @@ namespace Portal.Consultoras.Web.Controllers
                 showRoomEventoModel.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.UrlTerminosCondiciones, tipoAplicacion);
                 showRoomEventoModel.TextoCondicionCompraCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoCondicionCompraCpc, tipoAplicacion);
                 showRoomEventoModel.TextoDescripcionLegalCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoDescripcionLegalCpc, tipoAplicacion);
-
                 if (GetIsMobileDevice())
                 {
                     showRoomEventoModel.TextoInicialOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoInicialOfertaSubCampania, tipoAplicacion);
@@ -159,6 +164,7 @@ namespace Portal.Consultoras.Web.Controllers
                     showRoomEventoModel.TextoTituloOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoTituloOfertaSubCampania, tipoAplicacion);
                     showRoomEventoModel.ColorTextoTituloOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ColorTextoTituloOfertaSubCampania, tipoAplicacion);
                     showRoomEventoModel.ColorFondoTituloOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ColorFondoTituloOfertaSubCampania, tipoAplicacion);
+                    //showRoomEventoModel.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
                 else
                 {
@@ -171,6 +177,7 @@ namespace Portal.Consultoras.Web.Controllers
                     showRoomEventoModel.ImagenFondoTituloOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoTituloOfertaSubCampania, tipoAplicacion);
                     showRoomEventoModel.ColorFondoContenidoOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ColorFondoContenidoOfertaSubCampania, tipoAplicacion);
                     showRoomEventoModel.TextoBotonVerMasOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.TextoBotonVerMasOfertaSubCampania, tipoAplicacion);
+                    //showRoomEventoModel.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 }
             }
             catch (FaultException ex)
@@ -425,18 +432,19 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Metodos Privados
 
-        private List<ShowRoomCategoriaModel> GetCategoriasProductoShowRoom(ShowRoomEventoModel showRoomEventoModel)
+        public List<ShowRoomCategoriaModel> GetCategoriasProductoShowRoom(List<EstrategiaPedidoModel> listaShowRoomOferta)
         {
-            var categorias = showRoomEventoModel.ListaShowRoomOferta.GroupBy(p => p.CodigoCategoria).Select(p => p.First());
+            var categorias = listaShowRoomOferta.GroupBy(p => p.CodigoCategoria).Select(p => p.First());
             var listaCategoria = categorias
                 .Where(x => !string.IsNullOrEmpty(x.DescripcionCategoria))
                 .Select(x => new ShowRoomCategoriaModel
                 {
                     Codigo = x.CodigoCategoria,
                     Descripcion = x.DescripcionCategoria,
-                    EventoID = showRoomEventoModel.EventoID
+                    //EventoID = showRoomEventoModel.EventoID
                 })
                 .OrderBy(p => p.Descripcion).ToList();
+
             return listaCategoria;
         }
 
