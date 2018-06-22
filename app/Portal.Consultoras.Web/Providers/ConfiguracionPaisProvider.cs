@@ -50,5 +50,135 @@ namespace Portal.Consultoras.Web.Providers
 
             return config;
         }
+
+        public VariablesGeneralesPortalModel getBaseVariablesPortal(string CodigoISO, string Simbolo)
+        {
+            var carpetaPais = Globals.UrlMatriz + "/" + CodigoISO;
+            var baseVariablesGeneral = new VariablesGeneralesPortalModel
+            {
+                UrlCompartir = Util.GetUrlCompartirFB(CodigoISO),
+                ExtensionImgSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall,
+                ImgUrlBase = ConfigS3.GetUrlFileS3Base(carpetaPais),
+                SimboloMoneda = Simbolo
+            };
+
+            return baseVariablesGeneral;
+
+        }
+
+        public ConfiguracionPaisModel ActualizarTituloYSubtituloBanner(ConfiguracionPaisModel cp, RevistaDigitalModel revistaDigital)
+        {
+            var codigo = string.Empty;
+            var codigoMobile = string.Empty;
+
+            if (cp.Codigo == Constantes.ConfiguracionPais.Inicio &&
+                revistaDigital.TieneRDI)
+            {
+                codigo = Constantes.ConfiguracionPaisDatos.RDI.DLandingBannerIntriga;
+                codigoMobile = Constantes.ConfiguracionPaisDatos.RDI.MLandingBannerIntriga;
+            }
+
+            if (cp.Codigo == Constantes.ConfiguracionPais.InicioRD &&
+                revistaDigital.TieneRDC &&
+                revistaDigital.EsActiva &&
+                revistaDigital.EsSuscrita)
+            {
+                codigo = Constantes.ConfiguracionPaisDatos.RD.DLandingBannerInicioRdActivaSuscrita;
+            }
+            if (cp.Codigo == Constantes.ConfiguracionPais.InicioRD &&
+                revistaDigital.TieneRDC &&
+                revistaDigital.EsActiva &&
+                !revistaDigital.EsSuscrita)
+            {
+                codigo = Constantes.ConfiguracionPaisDatos.RD.DLandingBannerInicioRdActivaNoSuscrita;
+            }
+            if (cp.Codigo == Constantes.ConfiguracionPais.InicioRD &&
+                revistaDigital.TieneRDC &&
+                !revistaDigital.EsActiva &&
+                revistaDigital.EsSuscrita)
+            {
+                codigo = Constantes.ConfiguracionPaisDatos.RD.DLandingBannerInicioRdNoActivaSuscrita;
+            }
+            if (cp.Codigo == Constantes.ConfiguracionPais.InicioRD &&
+                revistaDigital.TieneRDC &&
+                !revistaDigital.EsActiva &&
+                !revistaDigital.EsSuscrita)
+            {
+                codigo = Constantes.ConfiguracionPaisDatos.RD.DLandingBannerInicioRdNoActivaNoSuscrita;
+            }
+
+            if (cp.Codigo == Constantes.ConfiguracionPais.RevistaDigital &&
+                revistaDigital.TieneRDC &&
+                revistaDigital.EsActiva &&
+                revistaDigital.EsSuscrita)
+            {
+                codigo = Constantes.ConfiguracionPaisDatos.RD.DLandingBannerActivaSuscrita;
+                codigoMobile = Constantes.ConfiguracionPaisDatos.RD.MLandingBannerActivaSuscrita;
+            }
+            if (cp.Codigo == Constantes.ConfiguracionPais.RevistaDigital &&
+                revistaDigital.TieneRDC &&
+                revistaDigital.EsActiva &&
+                !revistaDigital.EsSuscrita)
+            {
+                codigo = Constantes.ConfiguracionPaisDatos.RD.DLandingBannerActivaNoSuscrita;
+                codigoMobile = Constantes.ConfiguracionPaisDatos.RD.MLandingBannerActivaNoSuscrita;
+            }
+            if (cp.Codigo == Constantes.ConfiguracionPais.RevistaDigital &&
+                revistaDigital.TieneRDC &&
+                !revistaDigital.EsActiva &&
+                revistaDigital.EsSuscrita)
+            {
+                codigo = Constantes.ConfiguracionPaisDatos.RD.DLandingBannerNoActivaSuscrita;
+                codigoMobile = Constantes.ConfiguracionPaisDatos.RD.MLandingBannerNoActivaSuscrita;
+            }
+            if (cp.Codigo == Constantes.ConfiguracionPais.RevistaDigital &&
+                revistaDigital.TieneRDC &&
+                !revistaDigital.EsActiva &&
+                !revistaDigital.EsSuscrita)
+            {
+                codigo = Constantes.ConfiguracionPaisDatos.RD.DLandingBannerNoActivaNoSuscrita;
+                codigoMobile = Constantes.ConfiguracionPaisDatos.RD.MLandingBannerNoActivaNoSuscrita;
+            }
+
+            if (!string.IsNullOrEmpty(codigo))
+            {
+                var datoDesktop = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+                cp.DesktopTituloBanner = Util.Trim(datoDesktop.Valor1);
+                cp.DesktopSubTituloBanner = Util.Trim(datoDesktop.Valor2);
+            }
+
+            if (!string.IsNullOrEmpty(codigoMobile))
+            {
+                var datoMobile = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigoMobile) ?? new ConfiguracionPaisDatosModel();
+                cp.MobileTituloBanner = Util.Trim(datoMobile.Valor1);
+                cp.MobileSubTituloBanner = Util.Trim(datoMobile.Valor2);
+            }
+
+
+            return cp;
+        }
+
+        public virtual List<ConfiguracionPaisModel> OrdenarMenuContenedor(List<ConfiguracionPaisModel> menuContenedor, bool tieneRevistaDigital, bool esMobile)
+        {
+            if (tieneRevistaDigital && esMobile)
+            {
+                menuContenedor = menuContenedor.OrderBy(m => m.MobileOrdenBPT).ToList();
+            }
+            if (tieneRevistaDigital && !esMobile)
+            {
+                menuContenedor = menuContenedor.OrderBy(m => m.OrdenBpt).ToList();
+            }
+            if (!tieneRevistaDigital && esMobile)
+            {
+                menuContenedor = menuContenedor.OrderBy(m => m.MobileOrden).ToList();
+
+            }
+            if (!tieneRevistaDigital && !esMobile)
+            {
+                menuContenedor = menuContenedor.OrderBy(m => m.Orden).ToList();
+            }
+
+            return menuContenedor;
+        }
     }
 }
