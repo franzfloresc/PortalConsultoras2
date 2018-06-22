@@ -1,17 +1,16 @@
-﻿using Newtonsoft.Json;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Common.Response;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Estrategia;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.SessionManager;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Response;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.SessionManager;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -186,7 +185,7 @@ namespace Portal.Consultoras.Web.Providers
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
             var WaModelList = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<WaEstrategiaModel>>(respuesta.Result.ToString()) : new List<WaEstrategiaModel>();
-            if (WaModelList.Count() > 0)
+            if (WaModelList.Any())
             {
                 List<EstrategiaMDbAdapterModel> mapList = EstablecerEstrategiaList(WaModelList);
                 mapList.Select((x, d) => x.BEEstrategia.ID = d + 1).ToList();
@@ -215,7 +214,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             UsuarioModel userData = sessionManager.GetUserData();
             List<EstrategiaMDbAdapterModel> listaEstrategias = new List<EstrategiaMDbAdapterModel>();
-            string jsonParameters = "";
+            const string jsonParameters = "";
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlFiltrarEstrategia, pais,id);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
@@ -227,7 +226,7 @@ namespace Portal.Consultoras.Web.Providers
             var WaModelList = new List<WaEstrategiaModel>();
             if (WaObject != null)
                 WaModelList.Add(WaObject);
-            if (WaModelList.Count() > 0)
+            if (WaModelList.Any())
             {
                 List<EstrategiaMDbAdapterModel> mapList = EstablecerEstrategiaList(WaModelList);
                 mapList.Select((x, d) => x.BEEstrategia.ID = d + 1).ToList();
@@ -473,7 +472,7 @@ namespace Portal.Consultoras.Web.Providers
             if (respuesta == null) return new List<EstrategiaMDbAdapterModel>();
             List<WaEstrategiaModel> WaModelList = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<WaEstrategiaModel>>(respuesta.Result.ToString()) : new List<WaEstrategiaModel>();
             List<EstrategiaMDbAdapterModel> listaEstrategias = new List<EstrategiaMDbAdapterModel>();
-            if (WaModelList.Count() > 0)
+            if (WaModelList.Any())
             {
                 List<EstrategiaMDbAdapterModel> mapList = EstablecerEstrategiaList(WaModelList);
                 mapList.Select((x, d) => x.BEEstrategia.ID = d + 1).ToList();
