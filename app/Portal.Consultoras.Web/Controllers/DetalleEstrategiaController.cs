@@ -14,6 +14,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
 
             var modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, EstrategiaFichaPersonalizadaProductoModel>(sessionManager.GetProductoTemporal());
+            if (modelo == null || modelo.EstrategiaID == 0 || _ofertaPersonalizadaProvider.EsCampaniaFalsa(modelo.CampaniaID) ||
+                    modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
+            {
+                return RedirectToAction("Index", "Ofertas");
+            }
 
             var EstrategiaDetalle = EstrategiaGetDetalle(modelo.EstrategiaID);
             if (EstrategiaDetalle.Hermanos != null)
