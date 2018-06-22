@@ -931,7 +931,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-        
+
         #region FichaProducto
         public List<FichaProductoModel> ConsultarFichaProductoPorCuv(string cuv = "", int campanaId = 0)
         {
@@ -1250,7 +1250,7 @@ namespace Portal.Consultoras.Web.Controllers
                             TippingPoint.Precio2 = estrategia == null ? default(decimal) : estrategia.Precio2;
                             TippingPoint.PrecioPublico = estrategia == null ? default(decimal) : estrategia.PrecioPublico;
                             TippingPoint.PrecioUnitario = estrategia == null ? default(decimal) : estrategia.PrecioUnitario;
-                            TippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
+                            TippingPoint.LinkURL = estrategia == null ? default(string) : getUrlTippingPoint(estrategia.ImagenURL);
                         }
                     }
                 }
@@ -1661,7 +1661,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
-        
+
         #endregion
 
         #region Zonificacion
@@ -3042,7 +3042,7 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetMenuContenedor(menuContenedor);
             return menuContenedor;
         }
-        
+
         public List<ConfiguracionPaisModel> BuildMenuContenedorBloqueado(List<ConfiguracionPaisModel> menuContenedor)
         {
             var menuContenedorBloqueado = new List<ConfiguracionPaisModel>();
