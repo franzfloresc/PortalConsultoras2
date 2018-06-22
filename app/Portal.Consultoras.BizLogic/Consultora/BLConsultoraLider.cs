@@ -48,7 +48,7 @@ namespace Portal.Consultoras.BizLogic
             var daConsultoraLider = new DAConsultoraLider(PaisID);
 
             using (IDataReader reader = daConsultoraLider.ObtenerParametrosConsultoraLider(ConsultoraID, CampaniaVenta))
-                    oBEParmetrosLider = reader.MapToObject<BEParametrosLider>();
+                    oBEParmetrosLider = reader.MapToObject<BEParametrosLider>(true);
 
             return oBEParmetrosLider;
         }
