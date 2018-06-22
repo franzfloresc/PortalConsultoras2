@@ -30,7 +30,7 @@
     var estrategiaValidarBloqueada = function($btnAgregar, estrategia) {
         var $divMensaje = $("#divMensajeBloqueada");
 
-        if ($.trim($btnAgregar).attr("data-bloqueada") == "") {
+        if ($btnAgregar.attr("data-bloqueada") == "") {
             return false;
         }
 
