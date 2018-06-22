@@ -1,6 +1,4 @@
 ﻿var EstrategiaAgregarModule = function(){
-        
-
     var EstrategiaAgregar = function (event, popup, limite) {
 
     var estrategia = EstrategiaObtenerObj(event);
