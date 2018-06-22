@@ -636,7 +636,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         public BEPedidoDetalleAppResult DeshacerReserva(BEUsuario usuario)
         {
             var mensaje = string.Empty;
-            var pedido = new BEPedidoWeb();
 
             try
             {
@@ -644,7 +643,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 LogPerformance("Inicio");
 
                 //Obtener pedido
-                pedido = _pedidoWebBusinessLogic.GetPedidoWebByCampaniaConsultora(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
+                var pedido = _pedidoWebBusinessLogic.GetPedidoWebByCampaniaConsultora(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
                 LogPerformance("GetPedidoWebByCampaniaConsultora");
 
                 //verificapedidoValidado
