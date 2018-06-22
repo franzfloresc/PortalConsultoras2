@@ -89,15 +89,18 @@ namespace Portal.Consultoras.Web.Controllers
 
             var solicitudPostulanteBes = solicitudes as IList<SolicitudPostulanteBE> ?? solicitudes.ToList();
 
-            var data = new {
+            var data = new
+            {
                 total = pag.PageCount,
                 page = pag.CurrentPage,
                 records = pag.RecordCount,
-                rows = solicitudPostulanteBes.Select(i => {
+                rows = solicitudPostulanteBes.Select(i =>
+                {
 
                     string concat = i.LugarPadre.ToUpper() + ", " + i.LugarHijo.ToUpper() + ", " + i.Direccion.Replace("|", " ").ToUpper();
 
-                    return new {
+                    return new
+                    {
                         cell = new[] {
                             i.SolicitudPostulanteID.ToString(),
                             i.FechaCreacion.ToString(),
@@ -276,29 +279,29 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in lista)
                     {
-                        object altoOrOtro=null; object medioOrAlto=null; object bajoOrMedio=null; object finalValor=null;
+                        object altoOrOtro = null; object medioOrAlto = null; object bajoOrMedio = null; object finalValor = null;
 
-                        if (CodigoISO==Pais.Peru || CodigoISO==Pais.Dominicana || CodigoISO==Pais.PuertoRico || CodigoISO==Pais.Mexico || CodigoISO == Pais.Bolivia)
+                        if (CodigoISO == Pais.Peru || CodigoISO == Pais.Dominicana || CodigoISO == Pais.PuertoRico || CodigoISO == Pais.Mexico || CodigoISO == Pais.Bolivia)
                         {
-                            altoOrOtro  = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto) ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt() : Enumeradores.TipoNivelesRiesgo.Otro.ToInt();
+                            altoOrOtro = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto) ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt() : Enumeradores.TipoNivelesRiesgo.Otro.ToInt();
                             medioOrAlto = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio) ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt() : altoOrOtro;
                             bajoOrMedio = (item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo) ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() : medioOrAlto;
-                            finalValor  = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio;
+                            finalValor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio;
                         }
                         // Type @const = (CodigoISO == Pais.Ecuador) ? typeof(Enumeradores.TipoNivelesRiesgo): typeof(Constantes.TipoNivelesRiesgo)
                         // var alto = @const 
 
                         if (CodigoISO == Pais.Bolivia)
                         {
-                           finalValor  = bajoOrMedio;
+                            finalValor = bajoOrMedio;
                         }
 
                         if (CodigoISO == Pais.Ecuador)
                         {
-                            altoOrOtro  = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Alto.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt() : Enumeradores.TipoNivelesRiesgo.Otro.ToInt();
+                            altoOrOtro = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Alto.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt() : Enumeradores.TipoNivelesRiesgo.Otro.ToInt();
                             medioOrAlto = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Medio.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt() : altoOrOtro;
                             bajoOrMedio = (item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()) ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() : medioOrAlto;
-                            finalValor  = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio;
+                            finalValor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt() : bajoOrMedio;
                         }
 
                         var parametroTodos = new ParametroUnete
@@ -342,6 +345,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        // hay un metodo con el mismo nombre en Util.ReadXmlFile
+        // revisar si se utiliza el Util, para no duplicar codigo
         public static List<V> ReadXmlFile<V>(string filepath, V Source, bool ReadAllSheets, ref bool IsCorrect)
             where V : new()
         {
@@ -352,7 +357,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string extension = Path.GetExtension(@filepath).ToLower();
                 bool isExcel = (new Regex(@"^.*\.(xls|xlsx)$")).IsMatch(extension);
-                
+
                 // Si no es excel
                 if (!isExcel) return list;
 
@@ -360,7 +365,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string csXls = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties=\"Excel 8.0;IMEX=1;HDR=YES;\"";
                 string csXlsx = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=\"Excel 12.0;IMEX=1;HDR=YES;\"";
 
-                connectionString = string.Format( extension.Equals(".xls") ? csXls : csXlsx, filepath);
+                connectionString = string.Format(extension.Equals(".xls") ? csXls : csXlsx, filepath);
 
                 List<string> sheets = new List<string>();
 
@@ -405,8 +410,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                                         System.Reflection.PropertyInfo prop = entity.GetType().GetProperty(property.Name);
 
-                                        if (prop != null) continue;
-                                   
+                                        if (prop == null) continue;
+
                                         Type tipo = prop.PropertyType;
                                         object changed = Convert.ChangeType(reader[property.Name], tipo);
                                         prop.SetValue(entity, changed, null);
@@ -499,11 +504,13 @@ namespace Portal.Consultoras.Web.Controllers
                                         UBIGEO = reader["UBIGEO"].ToString(),
                                     };
 
-                                    if (codigoPais == Pais.CostaRica || codigoPais == Pais.Panama) {
+                                    if (codigoPais == Pais.CostaRica || codigoPais == Pais.Panama)
+                                    {
                                         entity.PROVINCIA = reader["PROVINCIA"].ToString();
                                         entity.DISTRITO = reader["DISTRITO"].ToString();
                                     }
-                                    if (codigoPais == Pais.CostaRica) {
+                                    if (codigoPais == Pais.CostaRica)
+                                    {
                                         entity.CANTON = reader["CANTON"].ToString();
                                         entity.BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS = reader["BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS"].ToString();
                                     }
@@ -513,17 +520,20 @@ namespace Portal.Consultoras.Web.Controllers
                                         entity.BARRIO_COLONIA_URBANIZACION_REFERENCIAS = reader["BARRIO_COLONIA_URBANIZACION_REFERENCIAS"].ToString();
                                     }
 
-                                    if (codigoPais == Pais.Guatemala || codigoPais == Pais.Salvador) {
+                                    if (codigoPais == Pais.Guatemala || codigoPais == Pais.Salvador)
+                                    {
                                         entity.DEPARTAMENTO = reader["DEPARTAMENTO"].ToString();
                                         entity.MUNICIPIO = reader["MUNICIPIO"].ToString();
                                     }
-                                    if (codigoPais == Pais.Guatemala) {
+                                    if (codigoPais == Pais.Guatemala)
+                                    {
                                         entity.ZONA_CIUDAD = reader["ZONA_CIUDAD"].ToString();
                                         entity.CENTRO_POBLADO = reader["CENTRO_POBLADO"].ToString();
                                         entity.BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS =
                                             reader["BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS"].ToString();
                                     }
-                                    if (codigoPais == Pais.Salvador) {
+                                    if (codigoPais == Pais.Salvador)
+                                    {
                                         entity.CANTON_CENTRO_POBLADO = reader["CANTON_CENTRO_POBLADO"].ToString();
                                         entity.BARRIO_COLONIA_URBANIZACION_REFERENCIAS = reader["BARRIO_COLONIA_URBANIZACION_REFERENCIAS"].ToString();
                                     }
@@ -628,14 +638,14 @@ namespace Portal.Consultoras.Web.Controllers
                     { Pais.Panama   , typeof(UbigeoPA)}, { Pais.CostaRica, typeof(UbigeoCR)},
                     { Pais.Salvador , typeof(UbigeoSV)}, { Pais.Guatemala, typeof(UbigeoGT)}
                 };
-                    
+
                 foreach (var item in lista)
                 {
-                    if ( CodigoISO == Pais.Panama && ( 
+                    if (CodigoISO == Pais.Panama && (
                         string.IsNullOrWhiteSpace(item.PROVINCIA) ||
-                        string.IsNullOrWhiteSpace(item.DISTRITO) || 
+                        string.IsNullOrWhiteSpace(item.DISTRITO) ||
                         string.IsNullOrWhiteSpace(item.CORREGIMIENTO)
-                    ) ) continue;
+                    )) continue;
 
                     // Creando instancia de objeto
                     dynamic objUbigeo = Activator.CreateInstance(dicUbigeo[CodigoISO]);
@@ -1340,10 +1350,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (!string.IsNullOrEmpty(item.DiasEnEspera) && reporteDiasEspera != null)
                     {
-                            var data = reporteDiasEspera.ToList().FirstOrDefault(x => x.SolicitudPostulanteId == item.SolicitudPostulanteID).ResumenDiasEspera.Split('|');
-                            item.DetalleDiasEsperaGSAC = data[0];
-                            item.DetalleDiasEsperaAFFVV = data[1];
-                            item.DetalleDiasEsperaASAC = data[2];
+                        var data = reporteDiasEspera.ToList().FirstOrDefault(x => x.SolicitudPostulanteId == item.SolicitudPostulanteID).ResumenDiasEspera.Split('|');
+                        item.DetalleDiasEsperaGSAC = data[0];
+                        item.DetalleDiasEsperaAFFVV = data[1];
+                        item.DetalleDiasEsperaASAC = data[2];
                     }
                 }
 

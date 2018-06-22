@@ -343,11 +343,12 @@ namespace Portal.Consultoras.Web.Providers
 
         #region ShowRoom
 
-        public List<EstrategiaPedidoModel> GetShowRoomOfertasConsultora(UsuarioModel usuario)
+        public List<EstrategiaPedidoModel> GetShowRoomOfertasConsultora(UsuarioModel usuarioModel)
         {
             using (var ofertaService = new OfertaServiceClient())
             {
-                var listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(usuario.PaisID, usuario.CampaniaID, usuario.CodigoConsultora).ToList();
+                var listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(usuarioModel.PaisID, usuarioModel.CampaniaID, 
+                    usuarioModel.CodigoConsultora).ToList();
                 return Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomOferta);
             }
         }
@@ -362,6 +363,29 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         #endregion
+
+        public int TipoAccionAgregar(int tieneVariedad, string codigoTipoEstrategia, bool esConsultoraLider = false, bool bloqueado = false, string codigoTipos = "")
+        {
+            var tipo = tieneVariedad == 0 ? codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
+            if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
+            {
+                tipo = esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva() ? 0 : tipo;
+            }
+            else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
+            {
+                tipo = codigoTipos == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoTipos == Constantes.TipoEstrategiaSet.CompuestaFija ? 2 : 3;
+                tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
+                tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
+            }
+            else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
+                || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento)
+            {
+                tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
+                tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
+            }
+            return tipo;
+        }
 
     }
 

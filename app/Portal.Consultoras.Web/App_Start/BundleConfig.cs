@@ -606,6 +606,13 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
             ));
 
+            #region DetalleEstrategia
+            bundles.Add(new ScriptBundle("~/bundles/EstrategiaAgregar").Include(
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
+            ));
+            #endregion
+
             #region MisCatalogosRevistas
             bundles.Add(new ScriptBundle("~/bundles/MisCatalogosRevistas").Include(
                  "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",

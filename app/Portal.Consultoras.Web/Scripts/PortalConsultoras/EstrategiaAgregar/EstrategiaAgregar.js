@@ -1,7 +1,7 @@
 ﻿var EstrategiaAgregarModule = function () {
     "use strict";
 
-    var estrategiaObtenerObj = function(e) {
+    var getEstrategia = function(e) {
         var objHtmlEvent = $(e.target);
         if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
         var objHtml = objHtmlEvent.parents("[data-item]");
@@ -96,24 +96,26 @@
         }
     };
 
+    var getOrigenPedidoWeb = function ($btnAgregar) {
+        return $btnAgregar.parents("[data-item]").find("input.OrigenPedidoWeb").val() ||
+            $btnAgregar.parents("[data-item]").attr("OrigenPedidoWeb") ||
+            $btnAgregar.parents("[data-item]").attr("data-OrigenPedidoWeb") ||
+            $btnAgregar.parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
+    }
+
     var estrategiaAgregar = function(event, popup, limite) {
         popup = popup || false;
         limite = limite || 0;
 
-        var estrategia = estrategiaObtenerObj(event);
+        var estrategia = getEstrategia(event);
 
-        var objInput = $(event.target);
+        var $btnAgregar = $(event.target);
 
-        origenPedidoWebEstrategia =
-            $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val() ||
-            $(objInput).parents("[data-item]").attr("OrigenPedidoWeb") ||
-            $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb") ||
-            $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb") ||
-            origenPedidoWebEstrategia;
+        origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar) || origenPedidoWebEstrategia;
 
-        var campania = $(objInput).parents("[data-tag-html]").attr("data-tag-html") || _campania;
+        var campania = $btnAgregar.parents("[data-tag-html]").attr("data-tag-html") || _campania;
 
-        if (estrategiaValidarBloqueada(objInput, estrategia)) {
+        if (estrategiaValidarBloqueada($btnAgregar, estrategia)) {
             try {
                 rdAnalyticsModule.AgregarProductoDeshabilitado(
                     origenPedidoWebEstrategia,
@@ -128,7 +130,7 @@
             return false;
         }
 
-        if (estrategiaComponenteModule.ValidarSeleccionTono(objInput)) {
+        if (estrategiaComponenteModule.ValidarSeleccionTono($btnAgregar)) {
             return false;
         }
 
@@ -137,8 +139,8 @@
             : (
                 $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido")
                     .val() ||
-                    $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val() ||
-                    $(objInput).parents("[data-item]").find("[data-input='cantidad']").val()
+                    $btnAgregar.parents("[data-item]").find("input.rango_cantidad_pedido").val() ||
+                    $btnAgregar.parents("[data-item]").find("[data-input='cantidad']").val()
             );
 
         if (!$.isNumeric(cantidad)) {
@@ -163,13 +165,13 @@
 
         AbrirLoad();
 
-        var itemClone = estrategiaObtenerObjHtmlLanding(objInput);
+        var itemClone = estrategiaObtenerObjHtmlLanding($btnAgregar);
         divAgregado = $(itemClone).find(".agregado.product-add");
 
         var cuvs = "";
         var CodigoVariante = estrategia.CodigoVariante;
         if ((CodigoVariante == "2001" || CodigoVariante == "2003") && popup) {
-            var listaCuvs = $(objInput).parents("[data-item]").find("[data-tono][data-tono-select]");
+            var listaCuvs = $btnAgregar.parents("[data-item]").find("[data-tono][data-tono-select]");
             if (listaCuvs.length > 0) {
                 $.each(listaCuvs,
                     function(i, item) {
@@ -186,14 +188,9 @@
         }
 
         if (!origenPedidoWebEstrategia) {
-            origenPedidoWebEstrategia =
-                $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val() ||
-                $(objInput).parents("[data-item]").attr("OrigenPedidoWeb") ||
-                $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb") ||
-                $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb") ||
-                origenPedidoWebEstrategia;
+            origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar) || origenPedidoWebEstrategia;
         }
-        var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
+        var tipoEstrategiaImagen = $btnAgregar.parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
         var params = {
             CuvTonos: $.trim(cuvs),
@@ -215,13 +212,13 @@
 
             if (data.success === false) {
                 abrirMensajeEstrategia(data.message);
-                $(objInput).parents("[data-item]").find("[data-input='cantidad']").val("1");
+                $btnAgregar.parents("[data-item]").find("[data-input='cantidad']").val("1");
                 CerrarLoad();
                 return false;
             }
 
             if (!isMobile() && !agregoAlCarro) {
-                agregarProductoAlCarrito(objInput);
+                agregarProductoAlCarrito($btnAgregar);
                 agregoAlCarro = true;
             }
 
@@ -239,12 +236,12 @@
                         $(".contenedor_circulos").fadeOut();
                     },
                     2700);
-                $(objInput).parents("[data-item]").find("[data-input='cantidad']").val("1");
+                $btnAgregar.parents("[data-item]").find("[data-input='cantidad']").val("1");
             } else {
                 $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido")
                     .val("1");
-                $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val("1");
-                $(objInput).parents("[data-item]").find("[data-input='cantidad']").val("1");
+                $btnAgregar.parents("[data-item]").find("input.rango_cantidad_pedido").val("1");
+                $btnAgregar.parents("[data-item]").find("[data-input='cantidad']").val("1");
 
                 CargarResumenCampaniaHeader(true);
             }
@@ -335,9 +332,12 @@
             if (belcorp.estrategia.applyChanges)
                 belcorp.estrategia.applyChanges("onProductoAgregado", data);
 
+            return false;
         }).fail(function(data, error) {
             CerrarLoad();
         });
+
+        return false;
     };
 
     return {

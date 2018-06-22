@@ -2,13 +2,12 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -73,14 +72,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
             var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
-            if (mostrarPopupIntriga)
-            {
-                return RedirectToAction("Intriga", "ShowRoom", new { area = "Mobile" });
-            }
-
+            if (mostrarPopupIntriga) return RedirectToAction("Intriga", "ShowRoom", new { area = "Mobile" });
+           
             ActionExecutingMobile();
 
             var showRoomEventoModel = OfertaShowRoom();
+
             var dato = _ofertasViewProvider.ObtenerPerdioTitulo(userData.CampaniaID, IsMobile());
             showRoomEventoModel.ProductosPerdio = dato.Estado;
             showRoomEventoModel.PerdioTitulo = dato.Valor1;
@@ -154,28 +151,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult DetalleOferta(int id)
         {
-            return RedirectToAction("DetalleOfertaView", new { id = id, ViewName = "DetalleOferta" });
-        }
-
-        public ActionResult DetalleOfertaView(int id, string ViewName)
-        {
             ActionExecutingMobile();
-            if (!ValidarIngresoShowRoom(false))
-                return RedirectToAction("Index", "Bienvenida");
+
+            if (!ValidarIngresoShowRoom(false)) return RedirectToAction("Index", "Bienvenida");
 
             var modelo = ViewDetalleOferta(id);
-          
-            var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
-            modelo.ListaOfertaShowRoom = xList;
 
-            var listaCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
-                        configEstrategiaSR.BeShowRoom.CampaniaID);
-            modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
+            //var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
+            //modelo.ListaOfertaShowRoom = xList;
+
+            //var listaCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
+            //            configEstrategiaSR.BeShowRoom.CampaniaID);
+            //modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
             modelo.TieneCompraXcompra = configEstrategiaSR.BeShowRoom.TieneCompraXcompra;
 
             ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 
-            return View(ViewName, modelo);
+            return View("DetalleOferta", modelo);
         }
 
         #region Metodos Privados
@@ -201,15 +193,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     showRoomEventoModel.UrlTerminosCondiciones = terminosCondiciones == null ? "" : terminosCondiciones.Valor;
                 }
 
-                showRoomEventoModel.FiltersBySorting =
-                    _tablaLogicaProvider.ObtenerConfiguracion(userData.PaisID,
-                        Constantes.TablaLogica.OrdenamientoShowRoom);
+                //showRoomEventoModel.FiltersBySorting = _tablaLogicaProvider.ObtenerConfiguracion(userData.PaisID,
+                //        Constantes.TablaLogica.OrdenamientoShowRoom);
 
                 //var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
                 //ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
                 //ViewBag.PrecioMax = xlistaShowRoom.Any() ? xlistaShowRoom.Max(p => p.PrecioOferta) : Convert.ToDecimal(0);
 
-                ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
+                //ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 
                 return showRoomEventoModel;
             }

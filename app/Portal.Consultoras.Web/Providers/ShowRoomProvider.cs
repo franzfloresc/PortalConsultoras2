@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
-using Portal.Consultoras.Web.SessionManager;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.SessionManager;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using BEShowRoomEventoConsultora = Portal.Consultoras.Web.ServiceOferta.BEShowRoomEventoConsultora;
 using BEShowRoomNivel = Portal.Consultoras.Web.ServiceOferta.BEShowRoomNivel;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -155,7 +155,6 @@ namespace Portal.Consultoras.Web.Providers
             {
                 _logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.CodigoISO, "ShowRoomProvider.GetEventoConsultoraRecibido");
             }
-
 
             return result;
         }

@@ -12,7 +12,7 @@
 
 <div class="imagen_fondo_detalle" style="background-image: url('https://S3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_Desktop_Fondo_del_ShowRoom_en_el_Contenedor_Ofertas_Venta 50A_2018630811_01_ytmwyupjny.jpg');"></div>
 <div class="contenedor_detalle texto_font" data-item="" data-tag-html="@ViewBag.Campania">
-    <div class="contenedor_fichas" data-item=""   data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
+    <div class="contenedor_fichas"  data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
         <div style="display:none;">
             <div data-estrategia="@Json.Encode(Model)"></div>
         </div>
@@ -393,7 +393,7 @@
                                         </a>
                                     </div>
                                 </div>
-                                <a id="btnAgregalo" class="btn_agregalo btn_agregalo_carrusel btn_agregalo_desactivado" data-btn-agregar-sr="">AGRÉGALO</a>
+                                <a id="btnAgregalo" class="btn_agregalo btn_agregalo_carrusel btn_agregalo_desactivado" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event,true)" data-btn-agregar-sr="">AGRÉGALO</a>
                                 <div class="contenedor_agregado">
                                     <div class="txt_agregado">
                                         <span class="span_agregado">AGREGADO</span>

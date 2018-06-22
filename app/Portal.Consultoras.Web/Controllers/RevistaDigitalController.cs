@@ -517,6 +517,8 @@ namespace Portal.Consultoras.Web.Controllers
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.RevistaDigital)] = null;
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, string.Empty)] = null;// OPT
             sessionManager.ShowRoom.Ofertas = null;
+            sessionManager.ShowRoom.OfertasSubCampania = null;
+            sessionManager.ShowRoom.OfertasPerdio = null;
             sessionManager.OfertaDelDia.Estrategia = null;
 
             //Limpia cache de Redis
