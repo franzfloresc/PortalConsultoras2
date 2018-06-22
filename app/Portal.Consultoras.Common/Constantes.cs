@@ -265,8 +265,10 @@ namespace Portal.Consultoras.Common
             public const string TablaLogicaDatos = "TablaLogicaDatos";
 
             //ShowRoom
-            public const string ListaProductoShowRoom = "ListaProductoShowRoom";
-            public const string ListaProductoShowRoomCpc = "ListaProductoShowRoomCpc";
+            public const string ListaShowRoomOfertas = "ListaShowRoomOfertas";
+            public const string ListaShowRoomSubCampania = "ListaShowRoomSubCampania";
+            public const string ListaShowRoomOfertasPerdio = "ListaShowRoomOfertasPerdio";
+            public const string ListaShowRoomOfertasCpc = "ListaShowRoomOfertasCpc";
 
             //FIC
             public const string PedidoFIC = "PedidoFIC";

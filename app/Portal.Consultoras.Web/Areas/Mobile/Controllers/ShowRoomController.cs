@@ -151,28 +151,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult DetalleOferta(int id)
         {
-            return RedirectToAction("DetalleOfertaView", new { id = id, ViewName = "DetalleOferta" });
-        }
-
-        public ActionResult DetalleOfertaView(int id, string ViewName)
-        {
             ActionExecutingMobile();
-            if (!ValidarIngresoShowRoom(false))
-                return RedirectToAction("Index", "Bienvenida");
+
+            if (!ValidarIngresoShowRoom(false)) return RedirectToAction("Index", "Bienvenida");
 
             var modelo = ViewDetalleOferta(id);
-          
-            var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
-            modelo.ListaOfertaShowRoom = xList;
 
-            var listaCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
-                        configEstrategiaSR.BeShowRoom.CampaniaID);
-            modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
+            //var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
+            //modelo.ListaOfertaShowRoom = xList;
+
+            //var listaCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
+            //            configEstrategiaSR.BeShowRoom.CampaniaID);
+            //modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
             modelo.TieneCompraXcompra = configEstrategiaSR.BeShowRoom.TieneCompraXcompra;
 
             ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 
-            return View(ViewName, modelo);
+            return View("DetalleOferta", modelo);
         }
 
         #region Metodos Privados

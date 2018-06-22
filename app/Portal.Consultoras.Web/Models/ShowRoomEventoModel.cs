@@ -55,8 +55,8 @@ namespace Portal.Consultoras.Web.Models
         //filtros para la busqueda
         public List<ShowRoomCategoriaModel> ListaCategoria { get; set; }
         public List<TablaLogicaDatosModel> FiltersBySorting { get; set; }
-        public decimal PrecioMinimoFiltro { get; set; }
-        public decimal PrecioMaximoFiltro { get; set; }
+        public decimal PrecioMinFiltro { get; set; }
+        public decimal PrecioMaxFiltro { get; set; }
 
         public bool ProductosPerdio { get; set; }
         public string PerdioTitulo { get; set; }

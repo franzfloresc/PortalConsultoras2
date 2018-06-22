@@ -255,13 +255,12 @@ namespace Portal.Consultoras.Web.Controllers
             var estrategiaSR = sessionManager.GetEstrategiaSR();
             var modelo = ViewDetalleOferta(id);
 
-            var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
-            modelo.ListaOfertaShowRoom = xList;
+            //var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
+            //modelo.ListaOfertaShowRoom = xList;
 
-
-            var listaCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, estrategiaSR.BeShowRoom.EventoID,
-                        estrategiaSR.BeShowRoom.CampaniaID);
-            modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
+            //var listaCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, estrategiaSR.BeShowRoom.EventoID,
+            //            estrategiaSR.BeShowRoom.CampaniaID);
+            //modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
             modelo.TieneCompraXcompra = estrategiaSR.BeShowRoom.TieneCompraXcompra;
 
             ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
@@ -280,22 +279,25 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!ValidarIngresoShowRoom(false))
                     return ErrorJson(string.Empty);
 
-                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, false);
+                //var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, false);
 
-                var listaNoSubCampania = new List<EstrategiaPedidoModel>();
-                var listaNoSubCampaniaPerdio = new List<EstrategiaPedidoModel>();
+                var listaOfertas = new List<EstrategiaPedidoModel>();
+                var listaOfertasPerdio = new List<EstrategiaPedidoModel>();
 
-                if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
-                {
-                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-                    listaNoSubCampaniaPerdio = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
-                }
-                else
-                {
-                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
-                }
+                listaOfertas = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+                listaOfertasPerdio = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 3);
 
-                var totalNoSubCampania = listaNoSubCampania.Count;
+                //if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
+                //{
+                //    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+                //    listaNoSubCampaniaPerdio = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
+                //}
+                //else
+                //{
+                //    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+                //}
+
+                var totalOfertas = listaOfertas.Count;
 
                 if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
                 {
@@ -303,7 +305,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (filtroCategoria != null)
                     {
                         var arrayCategoria = filtroCategoria.Valores.ToArray();
-                        listaNoSubCampania = listaNoSubCampania.Where(p => arrayCategoria.Contains(p.CodigoCategoria)).ToList();
+                        listaOfertas = listaOfertas.Where(p => arrayCategoria.Contains(p.CodigoCategoria)).ToList();
                     }
 
                     var filtroRangoPrecio = model.ListaFiltro.FirstOrDefault(p => p.Tipo == Constantes.ShowRoomTipoFiltro.RangoPrecios);
@@ -311,43 +313,46 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var valorDesde = filtroRangoPrecio.Valores[0];
                         var valorHasta = filtroRangoPrecio.Valores[1];
-                        listaNoSubCampania = listaNoSubCampania.Where(p => p.PrecioOferta >= Convert.ToDecimal(valorDesde)
+                        listaOfertas = listaOfertas.Where(p => p.PrecioOferta >= Convert.ToDecimal(valorDesde)
                                      && p.PrecioOferta <= Convert.ToDecimal(valorHasta)).ToList();
                     }
                 }
+
                 if (model.Ordenamiento != null && model.Ordenamiento.Tipo == Constantes.ShowRoomTipoOrdenamiento.Precio)
                 {
                     switch (model.Ordenamiento.Valor)
                     {
                         case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido:
-                            listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
+                            listaOfertas = listaOfertas.OrderBy(p => p.Orden).ToList();
                             break;
                         case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
-                            listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.PrecioOferta).ToList();
+                            listaOfertas = listaOfertas.OrderBy(p => p.PrecioOferta).ToList();
                             break;
                         case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
-                            listaNoSubCampania = listaNoSubCampania.OrderByDescending(p => p.PrecioOferta).ToList();
+                            listaOfertas = listaOfertas.OrderByDescending(p => p.PrecioOferta).ToList();
                             break;
                         default:
-                            listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
+                            listaOfertas = listaOfertas.OrderBy(p => p.Orden).ToList();
                             break;
                     }
                 }
 
                 if (model.Limite > 0)
-                    listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
+                    listaOfertas = listaOfertas.Take(model.Limite).ToList();
 
-                var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania).ToList();
+                //var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+                //listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
+                var listaSubCampania = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 2);
                 listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
 
                 return Json(new
                 {
                     success = true,
                     message = "Ok",
-                    listaNoSubCampania,
-                    totalNoSubCampania,
+                    listaOfertas,
+                    totalOfertas,
                     listaSubCampania,
-                    listaNoSubCampaniaPerdio   //JN: Nueva lista de CUV en Zona Dorada
+                    listaOfertasPerdio
                 });
             }
             catch (Exception ex)
@@ -365,7 +370,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!ValidarIngresoShowRoom(esIntriga: false))
                     return ErrorJson(string.Empty);
 
-                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion);
+                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
 
                 if (model.Limite > 0 && productosShowRoom.Count > 0)
                 {

@@ -23,22 +23,46 @@ namespace Portal.Consultoras.Web.SessionManager.ShowRoom
         public List<EstrategiaPedidoModel> Ofertas {
             get
             {
-                return (List<EstrategiaPedidoModel>) HttpContext.Current.Session[Constantes.ConstSession.ListaProductoShowRoom];
+                return (List<EstrategiaPedidoModel>) HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertas];
             }
             set
             {
-                HttpContext.Current.Session[Constantes.ConstSession.ListaProductoShowRoom] = value;
+                HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertas] = value;
+            }
+        }
+
+        public List<EstrategiaPedidoModel> OfertasSubCampania
+        {
+            get
+            {
+                return (List<EstrategiaPedidoModel>)HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomSubCampania];
+            }
+            set
+            {
+                HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomSubCampania] = value;
+            }
+        }
+
+        public List<EstrategiaPedidoModel> OfertasPerdio
+        {
+            get
+            {
+                return (List<EstrategiaPedidoModel>)HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertasPerdio];
+            }
+            set
+            {
+                HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertasPerdio] = value;
             }
         }
 
         public List<EstrategiaPedidoModel> OfertasCompraPorCompra {
             get
             {
-                return (List<EstrategiaPedidoModel>)HttpContext.Current.Session[Constantes.ConstSession.ListaProductoShowRoomCpc];
+                return (List<EstrategiaPedidoModel>)HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertasCpc];
             }
             set
             {
-                HttpContext.Current.Session[Constantes.ConstSession.ListaProductoShowRoomCpc] = value;
+                HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertasCpc] = value;
             }
         }
     }

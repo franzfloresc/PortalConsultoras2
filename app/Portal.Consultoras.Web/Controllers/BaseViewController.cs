@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.SessionManager;
-using System.Collections.Generic;
-using System.Web.Mvc;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.SessionManager;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -216,7 +216,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        #region Show Room
+        #region ShowRoom
 
 
 

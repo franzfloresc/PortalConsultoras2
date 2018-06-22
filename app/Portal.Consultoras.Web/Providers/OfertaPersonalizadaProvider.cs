@@ -343,11 +343,12 @@ namespace Portal.Consultoras.Web.Providers
 
         #region ShowRoom
 
-        public List<EstrategiaPedidoModel> GetShowRoomOfertasConsultora(UsuarioModel usuario)
+        public List<EstrategiaPedidoModel> GetShowRoomOfertasConsultora(UsuarioModel usuarioModel)
         {
             using (var ofertaService = new OfertaServiceClient())
             {
-                var listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(usuario.PaisID, usuario.CampaniaID, usuario.CodigoConsultora).ToList();
+                var listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(usuarioModel.PaisID, usuarioModel.CampaniaID, 
+                    usuarioModel.CodigoConsultora).ToList();
                 return Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomOferta);
             }
         }

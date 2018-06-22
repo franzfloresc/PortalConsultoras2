@@ -498,8 +498,8 @@ else
         var urlInsertOfertaWebPortal = '@Url.Action("InsertOfertaWebPortal", "ShowRoom", new { area = "" })';
         var urlActualizarCantidadTotalPedido = '@Url.Action("ObtenerResumenPedido", "OfertaLiquidacion", new { area = "Mobile" })';
         var tipoOrigenPantalla = 2;
-        var precioMin = '@Model.PrecioMinimoFiltro';
-        var precioMax = '@Model.PrecioMaximoFiltro';
+        var precioMin = '@Model.PrecioMinFiltro';
+        var precioMax = '@Model.PrecioMaxFiltro';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom", new {area = "Mobile"})';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileShowRoomLandingCompraTactica';
