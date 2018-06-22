@@ -157,7 +157,7 @@ var mobileConfiguracion = Html.MobileAppConfiguracion();
 @if (Model.ProductosPerdio)
 {
     <hr class="clear" />
-    <div class="contenido_zona_dorada" data-seccion-perdio="">
+    <div id="contenido_zona_dorada" class="contenido_zona_dorada" data-seccion-perdio="" style="display: none;">
         @if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
         {
         <div id="block_inscribete" class="contenido_zona_dorada_contenedor_desktop" style="display: none;">
@@ -193,7 +193,7 @@ var mobileConfiguracion = Html.MobileAppConfiguracion();
         <hr class="clear" />
         <div id="divOfertaProductosPerdio" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"
              data-content-perdido="@Model.CampaniaID"
-             class="flex-container fix_zona_dorada_mobile " style="display: inline-flex;flex-wrap: wrap;justify-content: center; display: none;"></div>
+             class="flex-container fix_zona_dorada_mobile " style="display: inline-flex !important;flex-wrap: wrap;justify-content: center; display: none;"></div>
         <hr class="clear" />
     </div>
 }

@@ -151,10 +151,9 @@ else
 
                 </span>
                 <div class="clear"></div>
-                @if (!Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
-                {
+            
 
-                   if (Model.EsSuscripcionInmediata)
+                   @if (Model.EsSuscripcionInmediata)
                     {
                         <text>   <span class="txt recuerda-txt-2">
                                 <b>
@@ -170,7 +169,7 @@ else
                             </span></text>
 
                     }
-                }
+                
             </div>
             <div class="caja-img">
                 <div class="visual-funcionamiento"></div>
