@@ -96,6 +96,13 @@
         }
     };
 
+    var getOrigenPedidoWeb = function ($btnAgregar) {
+        return $btnAgregar.parents("[data-item]").find("input.OrigenPedidoWeb").val() ||
+            $btnAgregar.parents("[data-item]").attr("OrigenPedidoWeb") ||
+            $btnAgregar.parents("[data-item]").attr("data-OrigenPedidoWeb") ||
+            $btnAgregar.parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
+    }
+
     var estrategiaAgregar = function(event, popup, limite) {
         popup = popup || false;
         limite = limite || 0;
@@ -104,12 +111,7 @@
 
         var $btnAgregar = $(event.target);
 
-        origenPedidoWebEstrategia =
-            $btnAgregar.parents("[data-item]").find("input.OrigenPedidoWeb").val() ||
-            $btnAgregar.parents("[data-item]").attr("OrigenPedidoWeb") ||
-            $btnAgregar.parents("[data-item]").attr("data-OrigenPedidoWeb") ||
-            $btnAgregar.parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb") ||
-            origenPedidoWebEstrategia;
+        origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar) || origenPedidoWebEstrategia;
 
         var campania = $btnAgregar.parents("[data-tag-html]").attr("data-tag-html") || _campania;
 
@@ -186,12 +188,7 @@
         }
 
         if (!origenPedidoWebEstrategia) {
-            origenPedidoWebEstrategia =
-                $btnAgregar.parents("[data-item]").find("input.OrigenPedidoWeb").val() ||
-                $btnAgregar.parents("[data-item]").attr("OrigenPedidoWeb") ||
-                $btnAgregar.parents("[data-item]").attr("data-OrigenPedidoWeb") ||
-                $btnAgregar.parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb") ||
-                origenPedidoWebEstrategia;
+            origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar) || origenPedidoWebEstrategia;
         }
         var tipoEstrategiaImagen = $btnAgregar.parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
