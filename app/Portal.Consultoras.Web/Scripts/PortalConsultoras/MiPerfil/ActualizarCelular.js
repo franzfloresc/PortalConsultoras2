@@ -1,9 +1,4 @@
-﻿var globalFunc = {
-    waitingDialog: waitingDialog,
-    closeWaitingDialog: closeWaitingDialog
-};
-
-var actualizarCelularModule = (function (globalData, $) {
+﻿var actualizarCelularModule = (function (globalData, $) {
     'use strict';
 
     var me = {};
@@ -126,6 +121,11 @@ var actualizarCelularModule = (function (globalData, $) {
             };
         }
 
+        function validFormatByIso(iso, number) {
+            var pattern = iso === 'PE' ? /^9\d+$/ : /^\d+$/;
+            return pattern.test(number);
+        }
+
         function validarCelular(numero) {
             if (!numero) {
                 return {
@@ -141,11 +141,11 @@ var actualizarCelularModule = (function (globalData, $) {
                 };
             }
 
-            var reg = /^\d+$/;
-            if (!reg.test(numero)) {
+            var valid = validFormatByIso(localData.IsoPais, numero);
+            if (!valid) {
                 return {
                     Success: false,
-                    Message: 'No es un número válido.'
+                    Message: 'El número no cumple con el formato.'
                 };
             }
 
