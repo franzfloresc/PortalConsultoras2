@@ -1614,6 +1614,9 @@ namespace Portal.Consultoras.Common
         {
             public const string Desktop = "SOMOS_BELCORP_DESKTOP";
             public const string Mobile = "SOMOS_BELCORP_MOBILE";
+
+            public const string OrigenDesktop = "Desktop";
+            public const string OrigeMobile = "Mobile";
         }
         #endregion
 
