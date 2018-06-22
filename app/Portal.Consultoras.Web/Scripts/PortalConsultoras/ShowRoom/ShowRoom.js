@@ -616,6 +616,7 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
 
         if (response.listaOfertasPerdio != 'undefined') {
             if (response.listaOfertasPerdio.length > 0) {
+                $("#contenido_zona_dorada").show();
                 $("#block_inscribete").show();
                 $("#divOfertaProductosPerdio").show();
 

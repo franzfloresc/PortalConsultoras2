@@ -9,8 +9,8 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BEShowRoomEventoConsultora = Portal.Consultoras.Web.ServiceOferta.BEShowRoomEventoConsultora;
-using BEShowRoomNivel = Portal.Consultoras.Web.ServiceOferta.BEShowRoomNivel;
+using BEShowRoomEventoConsultora = Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora;
+using BEShowRoomNivel = Portal.Consultoras.Web.ServicePedido.BEShowRoomNivel;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -81,19 +81,19 @@ namespace Portal.Consultoras.Web.Providers
 
         public ShowRoomEventoModel GetShowRoomEventoByCampaniaId(UsuarioModel model)
         {
-            using (var osc = new OfertaServiceClient())
+            using (var sv = new PedidoServiceClient())
             {
-                var showRoomEvento = osc.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
-                return Mapper.Map<ServiceOferta.BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
+                var showRoomEvento = sv.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
+                return Mapper.Map<ServicePedido.BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
             }
         }
 
         public ShowRoomEventoConsultoraModel GetShowRoomConsultora(UsuarioModel model)
         {
             
-            using (var osc = new OfertaServiceClient())
+            using (var sv = new PedidoServiceClient())
             {
-                var  showRoomEventoConsultora = osc.GetShowRoomConsultora(
+                var  showRoomEventoConsultora = sv.GetShowRoomConsultora(
                     model.PaisID, 
                     model.CampaniaID, 
                     model.GetCodigoConsultora(), 
@@ -104,39 +104,39 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<ShowRoomNivelModel> GetShowRoomNivel(UsuarioModel model)
         {
-            using (var osc = new OfertaServiceClient())
+            using (var sv = new PedidoServiceClient())
             {
-                var showRoomNiveles = osc.GetShowRoomNivel(model.PaisID).ToList();
+                var showRoomNiveles = sv.GetShowRoomNivel(model.PaisID).ToList();
                 return Mapper.Map<List<BEShowRoomNivel> , List<ShowRoomNivelModel>>(showRoomNiveles);
             }
         }
 
         public List<ShowRoomPersonalizacionModel> GetShowRoomPersonalizacion(UsuarioModel model)
         {
-            using (var osc = new OfertaServiceClient())
+            using (var sv = new PedidoServiceClient())
             {
-                var personalizacion = osc.GetShowRoomPersonalizacion(model.PaisID).ToList();
-                return Mapper.Map<IList<ServiceOferta.BEShowRoomPersonalizacion>, List<ShowRoomPersonalizacionModel>>(personalizacion).ToList();
+                var personalizacion = sv.GetShowRoomPersonalizacion(model.PaisID).ToList();
+                return Mapper.Map<IList<ServicePedido.BEShowRoomPersonalizacion>, List<ShowRoomPersonalizacionModel>>(personalizacion).ToList();
             }
         }
 
         public List<ShowRoomPersonalizacionNivelModel> GetShowRoomPersonalizacionNivel(UsuarioModel model,int eventoId, int showRoomNivelId,int categoriaId)
         {
-            using (var osc = new OfertaServiceClient())
+            using (var sv = new PedidoServiceClient())
             {
-                var personalizacionesNivel = osc.GetShowRoomPersonalizacionNivel(model.PaisID, eventoId, showRoomNivelId, categoriaId).ToList();
-                return Mapper.Map<List<ServiceOferta.BEShowRoomPersonalizacionNivel>, List<ShowRoomPersonalizacionNivelModel>>(personalizacionesNivel).ToList();
+                var personalizacionesNivel = sv.GetShowRoomPersonalizacionNivel(model.PaisID, eventoId, showRoomNivelId, categoriaId).ToList();
+                return Mapper.Map<List<ServicePedido.BEShowRoomPersonalizacionNivel>, List<ShowRoomPersonalizacionNivelModel>>(personalizacionesNivel).ToList();
             }
         }
 
         public void ShowRoomProgramarAviso(int paisId, ShowRoomEventoConsultoraModel showRoomConsultora)
         {
             var beShowRoomConsultora =
-                Mapper.Map<ShowRoomEventoConsultoraModel, ServiceOferta.BEShowRoomEventoConsultora>(showRoomConsultora);
+                Mapper.Map<ShowRoomEventoConsultoraModel, ServicePedido.BEShowRoomEventoConsultora>(showRoomConsultora);
 
-            using (var osc = new OfertaServiceClient())
+            using (var sv = new PedidoServiceClient())
             {
-                osc.ShowRoomProgramarAviso(paisId, beShowRoomConsultora);
+                sv.ShowRoomProgramarAviso(paisId, beShowRoomConsultora);
             }
         }
 
