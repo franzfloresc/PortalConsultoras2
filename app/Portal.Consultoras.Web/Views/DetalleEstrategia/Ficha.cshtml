@@ -12,7 +12,7 @@
 
 <div class="imagen_fondo_detalle" style="background-image: url('https://S3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_Desktop_Fondo_del_ShowRoom_en_el_Contenedor_Ofertas_Venta 50A_2018630811_01_ytmwyupjny.jpg');"></div>
 <div class="contenedor_detalle texto_font" data-item="" data-tag-html="@ViewBag.Campania">
-    <div class="contenedor_fichas"  data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
+    <div class="contenedor_fichas" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
         <div style="display:none;">
             <div data-estrategia="@Json.Encode(Model)"></div>
         </div>
@@ -135,51 +135,51 @@
                         {
                             if ((Hermano.NombreComercial ?? "") == "" && Hermano.Digitable != 1)
                             {
-                            continue;
+                                continue;
                             }
 
-                        <div class="detalle_producto" data-tono="" data-tono-select="" data-tono-digitable="@Hermano.Digitable">
-                            <div style="display: none;">
-                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.IdMarca" />
-                                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
-                            </div>
-                            <div class="marca_cantidad_descripcion_detalle">
-                                <div class="marca_detalle_producto">
-                                    <span data-marca_detalle_producto>@Hermano.DescripcionMarca</span>
+                            <div class="detalle_producto" data-tono="" data-tono-select="" data-tono-digitable="@Hermano.Digitable">
+                                <div style="display: none;">
+                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.IdMarca" />
+                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
                                 </div>
-                                <div class="cantidad_descripcion_detalle">
-                                    <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x @Hermano.Cantidad</span>
-                                    <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="" @* data-tono-cuv-producto="" data-tono-select-nombrecomercial="" *@>
-                                        Hermano.NombreComercial
-                                    </span>
-                                </div>
-                            </div>
-                            @if (Hermano.Digitable == 1)
-                            {
-                                <div class="selector_tono" data-selector_tono="">
-                                    <div class="elige_tono" data-tono-showroom-change="1">
-                                        <div class="img_item_tono" data-img_item_tono="" style="display: none;">
-                                            <img src="~/Content/Images/showroom/no_disponible.png" alt="">
-                                        </div>
-                                        <div class="txt_item_tono txt_bold" data-txt_item_tono="">ELIGE TU TONO</div>
-                                        <div class="contenedor_flecha_tonos">
-                                            <div class="dibujar_linea dibujar_flecha_tonos" data-flecha-tonos=""></div>
-                                        </div>
+                                <div class="marca_cantidad_descripcion_detalle">
+                                    <div class="marca_detalle_producto">
+                                        <span data-marca_detalle_producto>@Hermano.DescripcionMarca</span>
                                     </div>
-                                    <div class="contenedor_items_tonos" data-visible="0" style="display: none;">
-                                        @foreach (var Tono in Hermano.Hermanos)
-                                        {
-                                            <div class="contenedor_item_tono" data-tono-showroom-change="2" data-tono-cuv="@Tono.Cuv" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
-                                                <div class="img_item_tono"><img src="@Tono.ImagenBulk" alt=""></div>
-                                                <div class="txt_item_tono">@Tono.NombreBulk</div>
-                                                <hr class="clear">
+                                    <div class="cantidad_descripcion_detalle">
+                                        <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x @Hermano.Cantidad</span>
+                                        <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="" @* data-tono-cuv-producto="" data-tono-select-nombrecomercial="" *@>
+                                            Hermano.NombreComercial
+                                        </span>
+                                    </div>
+                                </div>
+                                @if (Hermano.Digitable == 1)
+                                {
+                                    <div class="selector_tono" data-selector_tono="">
+                                        <div class="elige_tono" data-tono-showroom-change="1">
+                                            <div class="img_item_tono" data-img_item_tono="" style="display: none;">
+                                                <img src="~/Content/Images/showroom/no_disponible.png" alt="">
                                             </div>
-                                        }
+                                            <div class="txt_item_tono txt_bold" data-txt_item_tono="">ELIGE TU TONO</div>
+                                            <div class="contenedor_flecha_tonos">
+                                                <div class="dibujar_linea dibujar_flecha_tonos" data-flecha-tonos=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="contenedor_items_tonos" data-visible="0" style="display: none;">
+                                            @foreach (var Tono in Hermano.Hermanos)
+                                            {
+                                                <div class="contenedor_item_tono" data-tono-showroom-change="2" data-tono-cuv="@Tono.Cuv" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
+                                                    <div class="img_item_tono"><img src="@Tono.ImagenBulk" alt=""></div>
+                                                    <div class="txt_item_tono">@Tono.NombreBulk</div>
+                                                    <hr class="clear">
+                                                </div>
+                                            }
+                                        </div>
                                     </div>
-                                </div>
-                            }
-                            <hr class="clear">
-                        </div>
+                                }
+                                <hr class="clear">
+                            </div>
                         }
                     </div>
                 }
@@ -197,7 +197,7 @@
                             </a>
                         </div>
                     </div>
-                    <a id="btnAgregalo" class="btn_agregalo btn_agregalo_desactivado" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
+                    <a id="btnAgregalo" class="btn_agregalo" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
                     <div class="contenedor_agregado">
                         <div class="txt_agregado" data-txt_agregado="">
                             <span class="span_agregado">AGREGADO</span>
@@ -485,6 +485,8 @@
 
 @section scripts{
     <script>
+
+        var origenPedidoWebEstrategia = '100';
         for (var i = 1; i <= 5; i++) {
             if (document.getElementById("ficha_tab_" + i.toString()).checked) {
                 document.getElementById("contenido_" + i.toString()).style.display = "block";
@@ -533,4 +535,6 @@
             nextArrow: '<a class="contenedor_flecha_carrusel flecha_derecha_carrusel js-slick-next slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_carrusel_tonos dibujar_flecha_derecha_carrusel"></div></a>'
         });
     </script>
+    
+    @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
 }

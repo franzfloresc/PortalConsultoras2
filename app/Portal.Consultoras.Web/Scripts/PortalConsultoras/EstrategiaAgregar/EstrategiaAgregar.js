@@ -111,7 +111,7 @@
 
         var $btnAgregar = $(event.target);
 
-        origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar) || origenPedidoWebEstrategia;
+        var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
 
         var campania = $btnAgregar.parents("[data-tag-html]").attr("data-tag-html") || _campania;
 
