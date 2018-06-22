@@ -254,6 +254,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var estrategiaSR = sessionManager.GetEstrategiaSR();
             var modelo = ViewDetalleOferta(id);
+            modelo.EstrategiaID = id;
 
             //var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
             //modelo.ListaOfertaShowRoom = xList;
@@ -280,22 +281,10 @@ namespace Portal.Consultoras.Web.Controllers
                     return ErrorJson(string.Empty);
 
                 //var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, false);
-
                 var listaOfertas = new List<EstrategiaPedidoModel>();
                 var listaOfertasPerdio = new List<EstrategiaPedidoModel>();
-
                 listaOfertas = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
                 listaOfertasPerdio = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 3);
-
-                //if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
-                //{
-                //    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-                //    listaNoSubCampaniaPerdio = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
-                //}
-                //else
-                //{
-                //    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-                //}
 
                 var totalOfertas = listaOfertas.Count;
 
@@ -371,10 +360,12 @@ namespace Portal.Consultoras.Web.Controllers
                     return ErrorJson(string.Empty);
 
                 var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+                //productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
+                var cantidadTotal = productosShowRoom.Count();
 
                 if (model.Limite > 0 && productosShowRoom.Count > 0)
                 {
-                    productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania).Take(model.Limite).ToList();
+                    productosShowRoom = productosShowRoom.Take(model.Limite).ToList();
                 }
 
                 var index = 0;
@@ -389,6 +380,8 @@ namespace Portal.Consultoras.Web.Controllers
                     success = true,
                     message = "Ok",
                     data = productosShowRoom,
+                    cantidadTotal = cantidadTotal,
+                    cantidadAMostrar = productosShowRoom.Count(),
                     codigo = Constantes.ConfiguracionPais.ShowRoom
                 });
             }

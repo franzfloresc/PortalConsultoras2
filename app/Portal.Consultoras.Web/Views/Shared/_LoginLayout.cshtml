@@ -22,24 +22,47 @@
 
     <link rel="shortcut icon" type="image/x-icon" id="iconoPagina" data-id="iconPagina" href="@ViewBag.IconoPagina" />
 
-    @if (ViewBag.EsPaisEsika)
+    @{
+        /*Limpiando de saltos de linea*/
+        string linkEsika = Styles.Render("~/Content/Css/Site/Login2/Esika").ToString();
+        string linkLbel = Styles.Render("~/Content/Css/Site/Login2/Lbel").ToString();
+        linkEsika = System.Text.RegularExpressions.Regex.Replace(linkEsika, @"\t|\n|\r", "");
+        linkLbel = System.Text.RegularExpressions.Regex.Replace(linkLbel, @"\t|\n|\r", "");
+    }
+    <script>
+        var bIsLocal = /localhost/i.test(location.hostname)
+            , oDivEsika = document.createElement("div")
+            , oDivLbel = document.createElement("div")
+        ;
+        oDivEsika.innerHTML = '@Html.Raw(linkEsika)';
+        oDivLbel.innerHTML  = '@Html.Raw(linkLbel)'; console.log("->", oDivEsika, oDivLbel);
+        window.UrlStyles = {
+            esika: bIsLocal ? '@Url.Content("~/Content/Css/Site/Login2/style_esika.css")': oDivEsika.firstChild.href,
+            lbel : bIsLocal ? '@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")' : oDivLbel.firstChild.href
+        };
+    </script>
+    @if (ViewBag.EsPaisEsika != null && ViewBag.EsPaisEsika)
     {
         <div data-id="cssStyle"
              class="current-belcorp-style"
              data-srcesika="@Url.Content("~/Content/Css/Site/Login2/style_esika.css")"
              data-srclbel="@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")"
-             id="cssStyle"
-        >@Styles.Render("~/Content/Css/Site/Login2/Esika")</div>
+             id="cssStyle">
+            <!--link href="@@Url.Content("~/Content/Css/Site/Login2/style_esika.css")" rel="stylesheet" type='text/css' /-->
+            @Styles.Render("~/Content/Css/Site/Login2/Esika")
+        </div>
     }
 
-    @if (ViewBag.EsPaisLbel)
+    @if (ViewBag.EsPaisLbel != null && ViewBag.EsPaisLbel)
     {
         <div data-id="cssStyleLbel"
              class="current-belcorp-style"
              data-srcesika="@Url.Content("~/Content/Css/Site/Login2/style_esika.css")"
              data-srclbel="@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")"
-             id="cssStyleLbel"
-        >@Styles.Render("~/Content/Css/Site/Login2/Lbel")</div>
+             id="cssStyleLbel">
+            <!--link href="@@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")" rel="stylesheet" type='text/css' /-->
+            @Styles.Render("~/Content/Css/Site/Login2/Lbel")
+        </div>
     }
 
     @Styles.Render("~/Content/Css/Login")
@@ -86,6 +109,8 @@
         var esPaisEsika = '@ViewBag.EsPaisEsika';
         var esPaisLbel = '@ViewBag.EsPaisLbel';
         window.urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+        window.urlLogElastic = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogElastic"]';
+        window.patternElastic = '@System.Configuration.ConfigurationManager.AppSettings["PatternElastic"]';
 
         // Seteando Controlador y Accion
         @{

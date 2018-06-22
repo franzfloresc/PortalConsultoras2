@@ -612,7 +612,7 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
         });
 
         SetHandlebars("#template-showroom", response.listaOfertas, '#divProductosShowRoom');
-        
+
 
         if (response.listaOfertasPerdio != 'undefined') {
             if (response.listaOfertasPerdio.length > 0) {
@@ -623,17 +623,15 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
                 //Agregamos al modelo un objeto llamado ExperienciaGanaMas para controlar si se muestra sección dorada o no.
                 //Uso de SetHandlebars , index.cshtml, <script id="template-showroom"...) 
                 var modeloTemp = Clone(response);
-                var ExperienciaGanaMas = new Object();
-                ExperienciaGanaMas.MostrarLoQuieres = !revistaDigital.EsSuscrita && !revistaDigital.EsActiva ? true : false;
-
-                $.each(modeloTemp.listaOfertasPerdio, function (ind, tem) {
+                
+                 $.each(modeloTemp.listaOfertasPerdio, function (ind, tem) {
                     tem.ExperienciaGanaMas = ExperienciaGanaMas;
                 });
                 SetHandlebars("#template-showroom", modeloTemp.listaOfertasPerdio, '#divOfertaProductosPerdio');
             }
         }
         $("#spnCantidadFiltro").html(response.listaOfertas.length);
-        $("#spnCantidadTotal").html(response.totalNoSubCampania);
+        $("#spnCantidadTotal").html(response.totalOfertas);
     }
     else {
         messageInfoError(response.message);
@@ -853,7 +851,7 @@ function EstrategiaAgregarShowRoom(event) {
                 ClienteID_: '-1'
             });
 
-            estrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function(data) {
+            EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function(data) {
                 CerrarLoad();
                 response = data;
                 if (response.success == true) {

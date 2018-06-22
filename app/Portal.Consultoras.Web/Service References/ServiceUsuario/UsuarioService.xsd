@@ -538,6 +538,7 @@
       <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EsMobile" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HabilitarChatEmtelco" type="xs:boolean" />
       <xs:element minOccurs="0" name="HoraRestanteCorreo" type="xs:int" />
       <xs:element minOccurs="0" name="HoraRestanteSms" type="xs:int" />
       <xs:element minOccurs="0" name="IdEstadoActividad" type="xs:int" />

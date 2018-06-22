@@ -142,13 +142,13 @@ namespace Portal.Consultoras.Web.Controllers
                 showRoomEventoModel.Simbolo = userData.Simbolo;
                 showRoomEventoModel.CodigoIso = userData.CodigoISO;
                 //showRoomEventoModel.ListaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion);
-                var listaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
-                showRoomEventoModel.TieneOfertasAMostrar = listaShowRoomOferta.Any();
+                var listaShowRoomOfertas = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+                showRoomEventoModel.TieneOfertasAMostrar = listaShowRoomOfertas.Any();
                 //showRoomEventoModel.ListaShowRoomCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, showRoomEventoModel.EventoID, showRoomEventoModel.CampaniaID);
                 //showRoomEventoModel.ListaCategoria = GetCategoriasProductoShowRoom(showRoomEventoModel);
-                showRoomEventoModel.ListaCategoria = GetCategoriasProductoShowRoom(listaShowRoomOferta);
-                showRoomEventoModel.PrecioMinFiltro = listaShowRoomOferta.Min(p => p.PrecioOferta);
-                showRoomEventoModel.PrecioMaxFiltro = listaShowRoomOferta.Max(p => p.PrecioOferta);
+                showRoomEventoModel.ListaCategoria = GetCategoriasProductoShowRoom(listaShowRoomOfertas);
+                showRoomEventoModel.PrecioMinFiltro = listaShowRoomOfertas.Min(p => p.PrecioOferta);
+                showRoomEventoModel.PrecioMaxFiltro = listaShowRoomOfertas.Max(p => p.PrecioOferta);
                 showRoomEventoModel.FiltersBySorting = _tablaLogicaProvider.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.OrdenamientoShowRoom);
 
                 var tipoAplicacion = Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop;
@@ -286,14 +286,15 @@ namespace Portal.Consultoras.Web.Controllers
             return ofertaShowRoomModelo;
         }
 
-        //public List<EstrategiaPedidoModel> GetOfertaListadoExcepto(int idOferta)
-        //{
-        //    var listaOferta = new List<EstrategiaPedidoModel>();
-        //    if (idOferta <= 0) return listaOferta;
-        //    var listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
-        //    listaOferta = listadoOfertasTodasModel.Where(o => o.EstrategiaID != idOferta).ToList();
-        //    return listaOferta;
-        //}
+        public List<EstrategiaPedidoModel> GetOfertaListadoExcepto(int idOferta)
+        {
+            var listaOferta = new List<EstrategiaPedidoModel>();
+            if (idOferta <= 0) return listaOferta;
+
+            var listadoOfertasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+            listaOferta = listadoOfertasModel.Where(o => o.EstrategiaID != idOferta).ToList();
+            return listaOferta;
+        }
 
         public List<EstrategiaPedidoModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion = false, int tipoOferta = 1)
         {
@@ -434,9 +435,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected EstrategiaPedidoModel ObtenerPrimeraOfertaShowRoom()
         {
-            var ofertasShowRoom = _ofertaPersonalizadaProvider.GetShowRoomOfertasConsultora(userData);
+            //var ofertasShowRoom = _ofertaPersonalizadaProvider.GetShowRoomOfertasConsultora(userData);
+            var ofertasShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
 
-            ofertasShowRoom = ObtenerListaShowRoomOfertasMdo(ofertasShowRoom);
+            //ofertasShowRoom = ObtenerListaShowRoomOfertasMdo(ofertasShowRoom);
             ActualizarUrlImagenes(ofertasShowRoom);
             ofertasShowRoom.Update(x => x.DescripcionMarca = Util.GetDescripcionMarca(x.MarcaID));
 
@@ -626,7 +628,8 @@ namespace Portal.Consultoras.Web.Controllers
                 x.Simbolo = userData.Simbolo;
                 x.Agregado = (listaPedidoDetalle.Find(p => p.CUV == x.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none";
                 string CodigoEstrategia = listaShowRoomOfertasFinal.Where(f => f.CUV == x.CUV).Select(o => o.CodigoEstrategia).FirstOrDefault();
-                x.TipoAccionAgregar = TipoAccionAgregar(0, Constantes.TipoEstrategiaCodigo.ShowRoom, false, CodigoEstrategia);
+                var bloqueado = revistaDigital.ActivoMdo && !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0;
+                x.TipoAccionAgregar = TipoAccionAgregar(0, Constantes.TipoEstrategiaCodigo.ShowRoom, bloqueado, CodigoEstrategia);
             });
 
             return listaShowRoomOfertasFinal;
@@ -634,20 +637,38 @@ namespace Portal.Consultoras.Web.Controllers
 
         public void SetShowRoomOfertasInSession(List<EstrategiaPedidoModel> listaShowRoomOfertas)
         {
-            var flagMdo = revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva;
+            var flagRevistaTodos = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
+            var listaOfertas = new List<EstrategiaPedidoModel>();
+            var listaSubCampania = new List<EstrategiaPedidoModel>();
+            var listaOfertasPerdio = new List<EstrategiaPedidoModel>();
 
-            if (flagMdo)
+            if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
             {
-                sessionManager.ShowRoom.Ofertas = listaShowRoomOfertas.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-                sessionManager.ShowRoom.OfertasSubCampania = listaShowRoomOfertas.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-                sessionManager.ShowRoom.OfertasPerdio = listaShowRoomOfertas.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
+                listaOfertas = listaShowRoomOfertas.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+                listaOfertasPerdio = listaShowRoomOfertas.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
+            }
+            else if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
+            {
+                listaOfertas = listaShowRoomOfertas.Where(x => !x.EsSubCampania && flagRevistaTodos.Contains(x.FlagRevista)).ToList();
+            }
+            else if (revistaDigital.EsActiva && revistaDigital.ActivoMdo)
+            {
+                listaSubCampania = listaShowRoomOfertas.Where(x => x.EsSubCampania && flagRevistaTodos.Contains(x.FlagRevista)).ToList();
+            }
+            else if (!revistaDigital.ActivoMdo)
+            {
+                listaOfertas = listaShowRoomOfertas.Where(x => !x.EsSubCampania).ToList();
+                listaSubCampania = listaShowRoomOfertas.Where(x => x.EsSubCampania).ToList();
             }
             else
             {
-                sessionManager.ShowRoom.Ofertas = listaShowRoomOfertas.Where(x => !x.EsSubCampania).ToList();
-                sessionManager.ShowRoom.OfertasSubCampania = listaShowRoomOfertas.Where(x => x.EsSubCampania).ToList();
-                sessionManager.ShowRoom.OfertasPerdio = listaShowRoomOfertas.Where(x => !x.EsSubCampania).ToList();
+                listaOfertas = listaShowRoomOfertas.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+                listaSubCampania = listaShowRoomOfertas.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
             }
+
+            sessionManager.ShowRoom.Ofertas = listaOfertas;
+            sessionManager.ShowRoom.OfertasSubCampania = listaSubCampania;
+            sessionManager.ShowRoom.OfertasPerdio = listaOfertasPerdio;
         }
 
         #endregion
