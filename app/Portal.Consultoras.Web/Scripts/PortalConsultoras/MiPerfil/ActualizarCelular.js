@@ -1,9 +1,12 @@
-﻿var globalFunc = {
-    waitingDialog: waitingDialog,
-    closeWaitingDialog: closeWaitingDialog
-};
+﻿function mostratSpinner(valor) {
+    var mobile = isMobile();
+    if (mobile) {
+        return (valor === 'abrir' ? ShowLoading() : CloseLoading());
+    }
+    return (valor === 'abrir' ? waitingDialog({}) : closeWaitingDialog());
+}
 
-var actualizarCelularModule = (function (globalData, sharedFunc, $) {
+var actualizarCelularModule = (function (globalData, $) {
     'use strict';
 
     var me = {};
@@ -34,10 +37,15 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
             return $('.campo_ingreso_codigo_sms');
         }
 
+        function getCelularNuevoText() {
+            return $('#NumeroMensajeEnviado');
+        }
+
         return {
             getInputCelular: getInputCelular,
             getIconValidacionSms: getIconValidacionSms,
             getErrorText: getErrorText,
+            getCelularNuevoText: getCelularNuevoText,
             getInputsCodeSms: getInputsCodeSms
         };
     })();
@@ -83,9 +91,12 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
             body.on('click', '.enlace_cambiar_correo', me.Eventos.BackEdiNumber);
             body.on('click', '.enlace_reenviar_instrucciones', me.Eventos.SendSmsCode);
             body.on('keyup', '.campo_ingreso_codigo_sms', me.Eventos.ChangeCodeSms);
+            body.on('keydown', '.campo_ingreso_codigo_sms', me.Eventos.OnlyNumberCodeSms);
+            body.on('keydown', '#NuevoCelular', me.Eventos.OnlyNumberCodeSms);
+            body.on('cut copy paste', '#NuevoCelular', function (e) { e.preventDefault(); });
         };
 
-        function validarPhonePais(iso, numero) {
+        function getLengthPais(iso) {
             var paises = {
                 'PE': 9,
                 'MX': 15,
@@ -100,7 +111,11 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
                 'SV': 8
             };
 
-            var length = paises[iso];
+            return paises[iso];
+        }
+
+        function validarPhonePais(iso, numero) {
+            var length = getLengthPais(iso);
             if (!length) {
                 return {
                     valid: false,
@@ -270,7 +285,11 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
 
         function setIsoPais(iso) {
             localData.IsoPais = iso;
-            localData.IsoPais = iso;
+
+            var len = getLengthPais(iso);
+            if (len) {
+                me.Elements.getInputCelular().prop('maxLength', len);
+            }
         }
 
         function handleError(er) {
@@ -308,15 +327,12 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
             mostratSpinner('abrir');
 
             var successEnviarSmsCode = function(r) {
-                $('#celularNuevo').text(nuevoCelular);
                 mostratSpinner('cerrar');
-                sharedFunc.closeWaitingDialog();
-                localData.CelularValido = r.Success;
                 if (!r.Success) {
                     me.Funciones.ShowError(r.Message);
                     return;
                 }
-                $('#NumeroMensajeEnviado').text(nuevoCelular);
+                me.Elements.getCelularNuevoText().text(nuevoCelular);
                 me.Funciones.NavigatePanel(1);
                 me.Funciones.ShowError('');
                 me.Funciones.InitCounter();
@@ -391,22 +407,11 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
     };
 
     return me;
-})(actualizaCelularData, globalFunc, jQuery);
+})(actualizaCelularData, jQuery);
 
 window.actualizarCelularModule = actualizarCelularModule;
-
-function mostratSpinner(valor) {
-    var mobile = isMobile();
-    if (mobile) {
-        return (valor == 'abrir' ? ShowLoading() : CloseLoading());
-    }
-    return (valor == 'abrir' ? waitingDialog({}) : closeWaitingDialog());
-}
 
 $(document).ready(function () {
     actualizarCelularModule.Funciones.SetIsoPais(IsoPais);
     actualizarCelularModule.Inicializar();
-
-    $('#NuevoCelular').on("cut copy paste", function (e) { e.preventDefault(); });
-    $('#NuevoCelular').on("keydown", actualizarCelularModule.Eventos.OnlyNumberCodeSms);
 });

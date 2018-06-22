@@ -2,6 +2,7 @@ const $ = require('../../Scripts/jquery-1.11.2');
 const fs = require('fs');
 
 global.$ = global.jQuery = $;
+global.isMobile = jest.fn();
 global.waitingDialog = jest.fn();
 global.closeWaitingDialog = jest.fn();
 global.actualizaCelularData = {
