@@ -45,9 +45,9 @@
     }
 
     <div class="product_sheet_image" data-img="" style="background: url(@ViewBag.ImagenFondoProductPage) no-repeat top center; background-size: 100% auto;">
-
         <img src="@Model.ImagenProducto" width="236" style="margin-top: 20px;">
     </div>
+
     <div class="wrapper_resumen_mobile" style="margin-top: 10px;">
         <h1>@Model.Descripcion</h1>
         <input type="hidden" id="swdetdescripcion" value="@Model.Descripcion" />
@@ -239,7 +239,7 @@
 
     @if (Model.TieneCompraXcompra)
     {
-        if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+        @*if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
         {
             <div style="max-width: 250px; margin: 0 auto;">
                 <div class="box_promotions">
@@ -292,9 +292,8 @@
                 </div>
             </div>
 
-        }
+        }*@
     }
-
 
     <div class="other_consultants">
         <div class="oc_title">
@@ -303,7 +302,7 @@
         <div class="content_carrusel_intriga" id="divEstrategias">
             @{ var posicionx = 0; }
             <div class="variable-width">
-                @foreach (var oferta in Model.ListaOfertaShowRoom)
+                @*@foreach (var oferta in Model.ListaOfertaShowRoom)
                 {
                     var descripcion = oferta.Descripcion;
                     if (descripcion != null && descripcion.Length > 41)
@@ -332,7 +331,7 @@
                             <span class="price"><b>@oferta.Simbolo @oferta.FormatoPrecioOferta </b></span>
                         </a>
                     </div>
-                }
+                }*@
             </div>
             <div class="content_orden_carrusel" data-posicion-set="">
                 <div class="orden_listado_numero"><span data-posicion-current=""></span> / @posicionx</div>
@@ -383,6 +382,7 @@
         }
     </div>
 </div>
+
 <div class="content_btn_agregar" data-posicion="0" data-item="@Model.EstrategiaID" data-estrategia-id="@Model.EstrategiaID" data-campania-id="@Model.CampaniaID">
     <div data-campos="" style="display:none;">
         <input type="hidden" class="hdOfertaShowRoomID" value="@Model.EstrategiaID" />
@@ -420,7 +420,7 @@
 
         @if (Model.TieneCompraXcompra)
         {
-            if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+            @*if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
             {
                 <div class="content_pop_compra">
                     @{ var posicionCpc = 1; }
@@ -477,7 +477,7 @@
                         }
                     }
                 </div>
-            }
+            }*@
         }
         <div class="legal_footer_compra">
             @Model.TextoDescripcionLegalCpc
@@ -490,13 +490,13 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
     <script type="text/javascript">
         var tipoOrigenPantalla = 21;
-
         var urlCarruselPrev = "@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")";
         var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
         var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.MobileShowRoomProductPage';
         var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileShowRoomProductPageTactica';
         var origenPedidoWebCarrusel = '@Constantes.OrigenPedidoWeb.MobileShowRoomProductPageCarrusel';
         var CodigoVariante = '@Model.CodigoEstrategia';
+
     </script>
 }
 

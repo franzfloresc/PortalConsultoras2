@@ -605,16 +605,17 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
 
         }
 
-        $.each(response.listaNoSubCampania, function (index, value) {
+        $.each(response.listaOfertas, function (index, value) {
             value.Descripcion = IfNull(value.Descripcion, '').SubStrToMax($.trim(tipoOrigenPantalla)[0] == '1' ? 40 : 30, true);
             value.Posicion = index + 1;
             value.UrlDetalle = urlDetalleShowRoom + '/' + value.EstrategiaID;
         });
 
-        SetHandlebars("#template-showroom", response.listaNoSubCampania, '#divProductosShowRoom');
+        SetHandlebars("#template-showroom", response.listaOfertas, '#divProductosShowRoom');
 
-        if (response.listaNoSubCampaniaPerdio != 'undefined') {
-            if (response.listaNoSubCampaniaPerdio.length > 0) {
+
+        if (response.listaOfertasPerdio != 'undefined') {
+            if (response.listaOfertasPerdio.length > 0) {
                 $("#block_inscribete").show();
                 $("#divOfertaProductosPerdio").show();
 
@@ -623,11 +624,14 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
                 //Uso de SetHandlebars , index.cshtml, <script id="template-showroom"...) 
                 var modeloTemp = Clone(response);
                 
-                SetHandlebars("#template-showroom", modeloTemp.listaNoSubCampaniaPerdio, '#divOfertaProductosPerdio');
+                 $.each(modeloTemp.listaOfertasPerdio, function (ind, tem) {
+                    tem.ExperienciaGanaMas = ExperienciaGanaMas;
+                });
+                SetHandlebars("#template-showroom", modeloTemp.listaOfertasPerdio, '#divOfertaProductosPerdio');
             }
         }
-        $("#spnCantidadFiltro").html(response.listaNoSubCampania.length);
-        $("#spnCantidadTotal").html(response.totalNoSubCampania);
+        $("#spnCantidadFiltro").html(response.listaOfertas.length);
+        $("#spnCantidadTotal").html(response.totalOfertas);
     }
     else {
         messageInfoError(response.message);

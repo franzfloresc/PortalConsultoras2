@@ -2,7 +2,7 @@
 @*@using Newtonsoft.Json*@
 @using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models
-@using System.Linq;
+@*@using System.Linq;*@
 
 @model Portal.Consultoras.Web.Models.ShowRoomEventoModel
 @{
@@ -37,7 +37,7 @@
                     <div class="content_filtro_categoria" id="filtro_categoria" style="cursor: pointer; min-width: 260px;">
                         FILTRAR POR CATEGORÍA
                         <div class="content_detalle_filtro" id="detalle_filtro_categoria" style="display: none;">
-                            @*@if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
+                            @if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
                             {
                                 <div id="div-filter-category">
                                     @foreach (var itemCategoria in Model.ListaCategoria)
@@ -49,7 +49,7 @@
                                         }
                                     }
                                 </div>
-                            }*@
+                            }
                         </div>
                     </div>
                 }
@@ -363,6 +363,92 @@
 
 <div id="loadingScreen"></div>
 
+<script id="template-showroom" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <div class="revistadigital-landing">
+        <div class="content_item_carrusel" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}">
+            <div data-campos="">
+                <input type="hidden" class="hdOfertaShowRoomID" value="{{OfertaShowRoomID}}" />
+                <input type="hidden" class="valorCuv" value="{{CUV}}" />
+                <input type="hidden" class="claseMarcaID" value="{{MarcaID}}" />
+                <input type="hidden" class="clasePrecioUnidad" value="{{PrecioOferta}}" />
+                <input type="hidden" class="claseConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+                <input type="hidden" class="DescripcionProd" value="{{Descripcion}}" />
+                <input type="hidden" class="DescripcionMarca" value="{{DescripcionMarca}}" />
+                <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
+            </div>
+
+            <div class="producto_img_home" data-img="" onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}')">
+                {{#IsNullOrEmpty ImagenProducto '=='}}
+                <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom="" />
+                {{else}}
+                <img data-src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom="" />
+                {{/IsNullOrEmpty}}
+
+                {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}}
+                <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
+                {{/iff}}
+            </div>
+            <div class="producto_nombre_descripcion" data-item-tag="descripcion">
+                <h6>&ensp;&nbsp;</h6>
+                <p class="nombre-producto nombre_producto"><b>{{Descripcion}}</b></p>
+            </div>
+            <div class="producto_nombre_descripcion" data-item-tag="precio">
+                <div>
+                    <span class="precio-oferta-normal">{{SimboloMoneda}} {{FormatoPrecioValorizado}}</span>
+                    <span class="precio-oferta-venta"><b>{{SimboloMoneda}} {{FormatoPrecioOferta}}</b></span>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                <div class="texto_elige_tono"></div>
+                
+                {{#iff TipoAccionAgregar '==' '2'}}
+                <div class="clear"></div>
+                <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                    <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
+                           class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                           oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); "
+                           data-input="cantidad" data-cantidad-input="-">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home" data-btn-agregar-sr="">
+                    AGRÉGALO
+                </a>
+                {{/iff}}
+
+                {{#iff TipoAccionAgregar '==' '3'}}
+                <div class="clear"></div>
+                <a class="btn_elige_tono" href="{{UrlDetalle}}">
+                    <b style="color:#000000">ELIGE TU OPCIÓN</b>
+                </a>
+                {{/iff}}
+
+                {{#iff TipoAccionAgregar '==' '4'}}
+                <a href="javascript:;" class="btn_elige_tono js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
+                    onclick="javascript:VerPopupExpGanaMas(); ">
+                    ¿LO QUIERES?
+                </a>
+                {{/iff}}
+
+                <div class="clear"></div>
+                <div style="margin-top: 9px;margin-bottom:9px; height: 15px;">
+                    <div class="agregado product-add" style="text-align: right; display: {{Agregado}};">
+                        AGREGADO
+                        <div class="icono"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    <hr class="clear" />
+</script>
+
 <script id="template-showroom-subcampania" type="text/x-handlebars-template">
     {{#each this as |producto|}}
 
@@ -415,90 +501,56 @@
 
 </script>
 
-<script id="template-showroom" type="text/x-handlebars-template">
+<script id="template-showroom-compraxcompra" type="text/x-handlebars-template">
+   
+</script>
+
+<script id="template-showroom-cxcdetalle" type="text/x-handlebars-template">
     {{#each this as |item|}}
-    <div class="revistadigital-landing">
-        <div class="content_item_carrusel" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}">
-            <div data-campos="">
-                <input type="hidden" class="hdOfertaShowRoomID" value="{{OfertaShowRoomID}}" />
-                <input type="hidden" class="valorCuv" value="{{CUV}}" />
-                <input type="hidden" class="claseMarcaID" value="{{MarcaID}}" />
-                <input type="hidden" class="clasePrecioUnidad" value="{{PrecioOferta}}" />
-                <input type="hidden" class="claseConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
-                <input type="hidden" class="DescripcionProd" value="{{Descripcion}}" />
-                <input type="hidden" class="DescripcionMarca" value="{{DescripcionMarca}}" />
-                <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
-            </div>
-
-            <div class="producto_img_home" data-img="" onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}')">
-                {{#IsNullOrEmpty ImagenProducto '=='}}
-                <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom="" />
-                {{else}}
-                <img data-src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom="" />
-                {{/IsNullOrEmpty}}
-
-                {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}}
-                <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
-                {{/iff}}
-            </div>
-            <div class="producto_nombre_descripcion" data-item-tag="descripcion">
-                <h6>&ensp;&nbsp;</h6>
-                <p class="nombre-producto nombre_producto"><b>{{Descripcion}}</b></p>
-            </div>
-            <div class="producto_nombre_descripcion" data-item-tag="precio">
-                <div>
-                    <span class="precio-oferta-normal">{{SimboloMoneda}} {{FormatoPrecioValorizado}}</span>
-                    <span class="precio-oferta-venta"><b>{{SimboloMoneda}} {{FormatoPrecioOferta}}</b></span>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div class="producto_nombre_descripcion" data-item-tag="agregar">
-                <div class="texto_elige_tono"></div>
-                
-                {{#iff TipoAccionAgregar '==' '2'}}
-                    <div class="clear"></div>
-                    <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                        <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
-                               class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                               oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); "
-                               data-input="cantidad" data-cantidad-input="-">
-                        <div class="liquidacion_rango_right_pedido">
-                            <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                        </div>
-                    </div>
-                    <a class="boton_Agregalo_home" data-btn-agregar-sr="">
-                        AGRÉGALO
-                    </a>
-                {{/iff}}
-
-                {{#iff TipoAccionAgregar '==' '3'}}
-                <div class="clear"></div>
-                <a class="btn_elige_tono" href="{{UrlDetalle}}">
-                    <b style="color:#000000">ELIGE TU OPCIÓN</b>
-                </a>
-                {{/iff}}
-                
-                {{#iff TipoAccionAgregar '==' '4'}}
-                <a href="javascript:;" class="btn_elige_tono js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
-                    onclick="javascript:VerPopupExpGanaMas(); ">
-                    ¿LO QUIERES?
-                </a>
-                {{/iff}}
-
-                <div class="clear"></div>
-                <div style="margin-top: 9px;margin-bottom:9px; height: 15px;">
-                    <div class="agregado product-add" style="text-align: right; display: {{Agregado}};">
-                        AGREGADO
-                        <div class="icono"></div>
-                    </div>
-                </div>
-
-            </div>
+    <div data-posicion="" data-item="{{EstrategiaID}}">
+        <div data-campos="">
+            <input type="hidden" class="hdOfertaShowRoomID" value="{{EstrategiaID}}" />
+            <input type="hidden" class="valorCuv" value="{{CUV}}" />
+            <input type="hidden" class="claseMarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="clasePrecioUnidad" value="{{PrecioOferta}}" />
+            <input type="hidden" class="DescripcionProd" value="{{Descripcion}}" />
+            <input type="hidden" class="DescripcionMarca" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="posicionEstrategia" value="" />
         </div>
+
+        <div class="content_imagen_compra" data-img="">
+            {{#IsNullOrEmpty ImagenProducto '=='}}
+                <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1" />
+            {{else}}
+                <img data-src="{{ImagenProducto}}" class="imagen_producto" data-img-lazy="1" />
+            {{/IsNullOrEmpty}}
+        </div>
+
+        <div class="content_datos_carrusel">
+            <div class="titulo_pop_compra">{{Descripcion}}</div>
+            <div class="precio_set_compra" style="text-align:left"><b>A SÓLO {{Simbolo}} {{FormatoPrecioOferta}}</b></div>
+            <div class="descripcion_producto_compra" style="font-weight:400;">Valorizado en {{Simbolo}} {{FormatoPrecioValorizado}}</div>
+            <div class="producto_compra">{{DescripcionLegal}}</div>
+
+            <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
+                       class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                       oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
+                       data-input="cantidad" data-cantidad-input="-">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a data-btn-agregar-cpc="" class="boton_Agregalo_home btn_aregar_set" onclick="" style="width: 70%;">
+                AGRÉGALO
+            </a>
+            <hr class="clear" />
+        </div>
+        <hr class="clear" />
     </div>
+
     {{/each}}
-    <hr class="clear" />
 </script>
 
 @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", @Model.MensajeProductoBloqueado)
@@ -509,8 +561,10 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var tipoOrigenPantalla = 1;
         var urlTerminosCondiciones = '@Model.UrlTerminosCondiciones';
-        var precioMin = '@ViewBag.PrecioMin';
-        var precioMax = '@ViewBag.PrecioMax';
+        //var precioMin = '@ViewBag.PrecioMin';
+        //var precioMax = '@ViewBag.PrecioMax';
+        var precioMin = '@Model.PrecioMinFiltro';
+        var precioMax = '@Model.PrecioMaxFiltro';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
         var closeBannerCompraPorCompra = '@ViewBag.CloseBannerCompraPorCompra';
         var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.DesktopShowRoomLandingCompra';
@@ -519,14 +573,12 @@
         var iconoLluvia = '@ViewBag.IconoLLuvia';
         var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.DesktopShowRoomSubCampanias';
         var tieneCompraXCompra = '@Model.TieneCompraXcompra';
-
         var tieneSubCampania = '@Model.TieneSubCampania';
-        
         var vfallSpeed = 4;
         var vnumObjects = 8;
         var esShowRoom = true;
-
     </script>
+
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/ion.rangeSlider/ion.rangeSlider.js")"></script>
     @System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/ShowRoom/ShowRoomJs")

@@ -741,6 +741,7 @@
     <Compile Include="Providers\TablaLogicaProvider.cs" />
     <Compile Include="Providers\TipoEstrategiaProvider.cs" />
     <Compile Include="Providers\UpSellingProvider.cs" />
+    <Compile Include="Providers\VCFichaProductoProvider.cs" />
     <Compile Include="Providers\ZonificacionProvider.cs" />
     <Compile Include="Service References\HojaInscripcionBelcorpPais\Reference.cs">
       <AutoGen>True</AutoGen>

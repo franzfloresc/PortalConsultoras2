@@ -7,7 +7,6 @@
 @using Portal.Consultoras.Web.Helpers
 @using Portal.Consultoras.Web.Models
 
-
 @model Portal.Consultoras.Web.Models.ShowRoomEventoModel
 @{
     var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
@@ -76,7 +75,7 @@
                 <div class="panel-group" id="accordion">
                     @if (Model.TieneCategoria)
                     {
-                        @*if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
+                        if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
                             {
                                 <div class="content_panel">
                                     <div class="titulo_filtro">
@@ -104,7 +103,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            }*@
+                        }
                     }
 
                     <div class="content_panel">
@@ -302,8 +301,9 @@
                         <hr class="clear">
                     </div>
                 </div>
-            </div>*@
+        </div>
 }
+    *@
 }
 else
 {
@@ -502,8 +502,8 @@ else
         var urlInsertOfertaWebPortal = '@Url.Action("InsertOfertaWebPortal", "ShowRoom", new { area = "" })';
         var urlActualizarCantidadTotalPedido = '@Url.Action("ObtenerResumenPedido", "OfertaLiquidacion", new { area = "Mobile" })';
         var tipoOrigenPantalla = 2;
-        var precioMin = '@ViewBag.PrecioMin';
-        var precioMax = '@ViewBag.PrecioMax';
+        var precioMin = '@Model.PrecioMinFiltro';
+        var precioMax = '@Model.PrecioMaxFiltro';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom", new {area = "Mobile"})';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileShowRoomLandingCompraTactica';

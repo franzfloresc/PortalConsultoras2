@@ -2,18 +2,14 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Common;
-using Portal.Consultoras.Web.ServiceGestionWebPROL;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -57,7 +53,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
                 var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
-
                 var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
                 if (mostrarPopupIntriga) return RedirectToAction("Intriga", "ShowRoom");
@@ -87,19 +82,17 @@ namespace Portal.Consultoras.Web.Controllers
                 var showRoomEventoModel = CargarValoresModel();
                 //showRoomEventoModel.ListaShowRoomOferta = ValidarUnidadesPermitidas(showRoomEventoModel.ListaShowRoomOferta);
                 //showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<EstrategiaPedidoModel>();
-
                 //if (!showRoomEventoModel.ListaShowRoomOferta.Any()) return RedirectToAction("Index", "Bienvenida");
+                if (!showRoomEventoModel.TieneOfertasAMostrar) return RedirectToAction("Index", "Bienvenida");
 
-                showRoomEventoModel.FiltersBySorting =
-                    _tablaLogicaProvider.ObtenerConfiguracion(userData.PaisID,
-                        Constantes.TablaLogica.OrdenamientoShowRoom);
+                //showRoomEventoModel.FiltersBySorting = _tablaLogicaProvider.ObtenerConfiguracion(userData.PaisID,
+                //        Constantes.TablaLogica.OrdenamientoShowRoom);
                 //var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
                 //ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
                 //ViewBag.PrecioMax = xlistaShowRoom.Any() ? xlistaShowRoom.Max(p => p.PrecioOferta) : Convert.ToDecimal(0);
-
+                
                 ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
-
-                ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                //ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
                 var dato = _ofertasViewProvider.ObtenerPerdioTitulo(userData.CampaniaID, IsMobile());
@@ -109,7 +102,6 @@ namespace Portal.Consultoras.Web.Controllers
                 showRoomEventoModel.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
 
                 return View(showRoomEventoModel);
-
             }
             catch (Exception ex)
             {
@@ -257,9 +249,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DetalleOferta(int id)
         {
-            var FlagRevistaListaCompleta = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
-
-
             if (!ValidarIngresoShowRoom(false))
                 return RedirectToAction("Index", "Bienvenida");
 
@@ -267,22 +256,12 @@ namespace Portal.Consultoras.Web.Controllers
             var modelo = ViewDetalleOferta(id);
             modelo.EstrategiaID = id;
 
-            if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
-            {
-                modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
-            }
-            else if (!revistaDigital.ActivoMdo)
-            {
-                modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
-            }
-            else
-            {
-                modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-            }
+            //var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
+            //modelo.ListaOfertaShowRoom = xList;
 
-            var listaCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, estrategiaSR.BeShowRoom.EventoID,
-                        estrategiaSR.BeShowRoom.CampaniaID);
-            modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
+            //var listaCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, estrategiaSR.BeShowRoom.EventoID,
+            //            estrategiaSR.BeShowRoom.CampaniaID);
+            //modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
             modelo.TieneCompraXcompra = estrategiaSR.BeShowRoom.TieneCompraXcompra;
 
             ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
@@ -298,33 +277,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var FlagRevistaListaCompleta = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
-
                 if (!ValidarIngresoShowRoom(false))
                     return ErrorJson(string.Empty);
 
-                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, false);
+                //var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, false);
+                var listaOfertas = new List<EstrategiaPedidoModel>();
+                var listaOfertasPerdio = new List<EstrategiaPedidoModel>();
+                listaOfertas = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+                listaOfertasPerdio = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 3);
 
-                var listaNoSubCampania = new List<EstrategiaPedidoModel>();
-                var listaNoSubCampaniaPerdio = new List<EstrategiaPedidoModel>();
-                if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
-                {
-                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-                    listaNoSubCampaniaPerdio = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
-                }
-                else if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
-                {
-                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
-                }
-                else if (!revistaDigital.ActivoMdo)
-                {
-                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
-                }
-                else
-                {
-                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-                }
-                var totalNoSubCampania = listaNoSubCampania.Count;
+                var totalOfertas = listaOfertas.Count;
 
                 if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
                 {
@@ -332,7 +294,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (filtroCategoria != null)
                     {
                         var arrayCategoria = filtroCategoria.Valores.ToArray();
-                        listaNoSubCampania = listaNoSubCampania.Where(p => arrayCategoria.Contains(p.CodigoCategoria)).ToList();
+                        listaOfertas = listaOfertas.Where(p => arrayCategoria.Contains(p.CodigoCategoria)).ToList();
                     }
 
                     var filtroRangoPrecio = model.ListaFiltro.FirstOrDefault(p => p.Tipo == Constantes.ShowRoomTipoFiltro.RangoPrecios);
@@ -340,54 +302,46 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var valorDesde = filtroRangoPrecio.Valores[0];
                         var valorHasta = filtroRangoPrecio.Valores[1];
-                        listaNoSubCampania = listaNoSubCampania.Where(p => p.PrecioOferta >= Convert.ToDecimal(valorDesde)
+                        listaOfertas = listaOfertas.Where(p => p.PrecioOferta >= Convert.ToDecimal(valorDesde)
                                      && p.PrecioOferta <= Convert.ToDecimal(valorHasta)).ToList();
                     }
                 }
+
                 if (model.Ordenamiento != null && model.Ordenamiento.Tipo == Constantes.ShowRoomTipoOrdenamiento.Precio)
                 {
                     switch (model.Ordenamiento.Valor)
                     {
                         case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido:
-                            listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
+                            listaOfertas = listaOfertas.OrderBy(p => p.Orden).ToList();
                             break;
                         case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
-                            listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.PrecioOferta).ToList();
+                            listaOfertas = listaOfertas.OrderBy(p => p.PrecioOferta).ToList();
                             break;
                         case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
-                            listaNoSubCampania = listaNoSubCampania.OrderByDescending(p => p.PrecioOferta).ToList();
+                            listaOfertas = listaOfertas.OrderByDescending(p => p.PrecioOferta).ToList();
                             break;
                         default:
-                            listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
+                            listaOfertas = listaOfertas.OrderBy(p => p.Orden).ToList();
                             break;
                     }
                 }
 
                 if (model.Limite > 0)
-                    listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
+                    listaOfertas = listaOfertas.Take(model.Limite).ToList();
 
-
-                var listaSubCampania = new List<EstrategiaPedidoModel>();
-                
-                if (revistaDigital.EsActiva && revistaDigital.ActivoMdo)
-                {
-                    listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
-                }
-                else if (!revistaDigital.ActivoMdo)
-                    listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania).ToList();
-                else
-                    listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-
+                //var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+                //listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
+                var listaSubCampania = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 2);
                 listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
 
                 return Json(new
                 {
                     success = true,
                     message = "Ok",
-                    listaNoSubCampania,
-                    totalNoSubCampania,
+                    listaOfertas,
+                    totalOfertas,
                     listaSubCampania,
-                    listaNoSubCampaniaPerdio
+                    listaOfertasPerdio
                 });
             }
             catch (Exception ex)
@@ -402,28 +356,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var FlagRevistaListaCompleta = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
-
-
-
                 if (!ValidarIngresoShowRoom(esIntriga: false))
                     return ErrorJson(string.Empty);
 
-                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion);
-                productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
-
+                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+                //productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
                 var cantidadTotal = productosShowRoom.Count();
-
-                if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
-                {
-                    productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
-                }
-                else if (!revistaDigital.ActivoMdo)
-                {
-                    productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
-                }
-                else
-                    productosShowRoom = productosShowRoom.Where(x => x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
 
                 if (model.Limite > 0 && productosShowRoom.Count > 0)
                 {

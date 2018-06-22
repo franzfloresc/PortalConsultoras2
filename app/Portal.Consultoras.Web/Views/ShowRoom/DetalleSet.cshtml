@@ -1,10 +1,12 @@
 ﻿@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.EstrategiaPedidoModel
+
 @{
     ViewBag.Title = "Detalle Oferta";
     //Layout = "~/Views/Shared/_MainLayout.cshtml";
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
+
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
 
@@ -19,14 +21,14 @@
     var styleWidth = "";
     if (Model.TieneCompraXcompra)
     {
-        if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
-        {
-            styleWidth = "";
-        }
-        else
-        {
-            styleWidth = "width: 65%;";
-        }
+        //if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+        //{
+        //    styleWidth = "";
+        //}
+        //else
+        //{
+        //    styleWidth = "width: 65%;";
+        //}
     }
     else
     {
@@ -184,9 +186,10 @@
                 }
                 <a id="btnAgregalo" class="boton_Agregalo_home btn_aregar_set @btnDesabledClass" onclick="javascript:EstrategiaAgregarShowRoom(event); ">AGRÉGALO</a>
             </div>
+
             @if (Model.TieneCompraXcompra)
             {
-                if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+                @*if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
                 {
                     <div class="content_ficha_compra slider center" style="margin-top: 0px !important;">
 
@@ -237,18 +240,20 @@
                             }
                         }
                     </div>
-                }
+                }*@
             }
         </div>
         <hr class="clear" />
     </div>
 </div>
+
 <hr class="clear" />
+
 <div class="catalogoPersonalizadoBloque" style="margin-top:85px; padding-bottom: 30px; overflow:hidden;">
     <div class="content_belcorp" style="width: 85%">
         <div class="titulo_carrusel_showroom"><b>VER MÁS SETS </b>EXCLUSIVOS PARA TI</div>
         <div class="responsive" style="margin-left: 10em;">
-            @{ var posicionx = 1; }
+            @*@{ var posicionx = 1; }
             @foreach (var oferta in Model.ListaOfertaShowRoom)
             {
                 var descripcion = oferta.Descripcion;
@@ -297,10 +302,11 @@
                 {
                     posicionx++;
                 }
-            }
+            }*@
         </div>
     </div>
 </div>
+
 @if (!string.IsNullOrEmpty(Model.TipNegocio))
 {
     <div class="content_belcorp" style="margin-top:30px;">
@@ -314,7 +320,7 @@
 
 @if (Model.TieneCompraXcompra)
 {
-    if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+    @*if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
     {
         <div id="PopDetalleCompra" class="Content_general_pop_up" style="display: none;" data-popup-main>
             <div class="content_ficha_producto_nueva" style="width: 750px;" data-popup-body>
@@ -386,10 +392,8 @@
                 <div class="legal_footer_compra">@Model.TextoDescripcionLegalCpc</div>
             </div>
         </div>
-    }
+    }*@
 }
-
-
 
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js")"></script>
