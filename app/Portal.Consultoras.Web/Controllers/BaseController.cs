@@ -90,6 +90,7 @@ namespace Portal.Consultoras.Web.Controllers
             _estrategiaComponenteProvider = new EstrategiaComponenteProvider(userData.PaisID, userData.CodigoISO);
             _tipoEstrategiaProvider = new TipoEstrategiaProvider();
             _configuracionPaisProvider = new ConfiguracionPaisProvider();
+            _menuContenedorProvider = new MenuContenedorProvider();
         }
 
         public BaseController(ISessionManager sessionManager)
