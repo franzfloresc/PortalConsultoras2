@@ -2058,9 +2058,9 @@ function EjecutarServicioPROL() {
         success: function (response) {
             CerrarSplash();
             if (!checkTimeout(response)) return;
-            if (RespuestaEjecutarServicioPROL(response)) return;
+            if (RespuestaEjecutarServicioPROL(response.data)) return;
 
-            MostrarMensajeProl(response, function () { return CumpleOfertaFinalMostrar(response.data, response.permiteOfertaFinal); });
+            MostrarMensajeProl(response, function () { return CumpleOfertaFinalMostrar(response); });
         },
         error: function (data, error) { CerrarSplash(); }
     });
@@ -2072,12 +2072,11 @@ function EjecutarServicioPROLSinOfertaFinal() {
         type: 'POST',
         url: baseUrl + 'Pedido/EjecutarServicioPROL',
         dataType: 'json',
-        data: { enviarCorreo: true },
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             CerrarSplash();
             if (!checkTimeout(response)) return;
-            if (RespuestaEjecutarServicioPROL(response, false)) return;
+            if (RespuestaEjecutarServicioPROL(response.data, false)) return;
 
             MostrarMensajeProl(response, function () { return false; });
         },
@@ -2086,7 +2085,6 @@ function EjecutarServicioPROLSinOfertaFinal() {
 }
 
 function RespuestaEjecutarServicioPROL(data, inicio) {
-    CerrarSplash();
     if (data.ErrorProl) {
         MostrarPopupErrorReserva(data.ListaObservacionesProl[0].Descripcion, data.AvisoProl);
         return true;
@@ -2106,7 +2104,7 @@ function RespuestaEjecutarServicioPROL(data, inicio) {
     else {
         mensajeBloqueante = false;
 
-        if (!model.ObservacionRestrictiva) CrearPopupObservaciones(data, inicio);
+        if (data.ObservacionRestrictiva) CrearPopupObservaciones(data, inicio);
         else ArmarPopupObsReserva('¡Lo lograste! Tu pedido fue guardado con éxito', '');
     }
     
@@ -2196,6 +2194,9 @@ function MostrarMensajeProl(response, fnOfertaFinal) {
         return;
     }
 
+    EjecutarAccionesReservaExitosa(response);
+}
+function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
     AnalyticsPedidoValidado(response);
     $('#dialog_divReservaSatisfactoria').show();
@@ -3506,7 +3507,7 @@ function ArmarPopupObsReserva(titulo, mensaje) {
     $("#divMensajeObservacionesPROL").html(mensaje);
 }
 function MostrarPopupErrorReserva(mensajePedido, esAviso) {
-    if (typeof esAviso !== 'undefined') esAviso = false;
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
 
     if (esAviso) ArmarPopupObsReserva('Aviso', mensajePedido);
     else ArmarPopupObsReserva('Error', 'ERROR: ' + mensajePedido);

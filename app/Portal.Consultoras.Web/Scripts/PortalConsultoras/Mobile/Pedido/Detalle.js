@@ -898,7 +898,7 @@ function EjecutarServicioPROL() {
             CloseLoading();
             if (!checkTimeout(response)) return;
 
-            RespuestaEjecutarServicioPROL(response, function () { return CumpleOfertaFinalMostrar(response.data, response.permiteOfertaFinal); });
+            RespuestaEjecutarServicioPROL(response, function () { return CumpleOfertaFinalMostrar(response); });
         },
         error: function (data, error) {
             CloseLoading();
@@ -913,7 +913,6 @@ function EjecutarServicioPROLSinOfertaFinal() {
         type: 'POST',
         url: urlEjecutarServicioPROL,
         dataType: 'json',
-        data: { enviarCorreo: true },
         contentType: 'application/json; charset=utf-8',
         async: true,
         cache: false,
@@ -942,11 +941,14 @@ function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
         return;
     }
 
+    EjecutarAccionesReservaExitosa(response);
+}
+function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
     if (estaRechazado == "2") cerrarMensajeEstadoPedido();
     AnalyticsPedidoValidado(response);
     messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
-    RedirigirPedidoValidado();    
+    RedirigirPedidoValidado();
 }
 
 function ConstruirObservacionesPROL(model) {
@@ -957,7 +959,7 @@ function ConstruirObservacionesPROL(model) {
     var mensajeBloqueante = true;
 
     if (!model.ZonaValida) messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
-    if (!model.ValidacionInteractiva) messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
+    else if (!model.ValidacionInteractiva) messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
     else {
         mensajeBloqueante = false;
 

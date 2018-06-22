@@ -1,7 +1,7 @@
 ﻿var tipoOrigen = tipoOrigen || "";// 1: escritorio      2: mobile
 var agregoOfertaFinal = false;
-var reservoPedidoInicio = false;
 var idProdOf = 0;
+var reservaResponse = {};
 
 var esParaOFGanaMas = false;
 var cuvOfertaProl = cuvOfertaProl || "";
@@ -61,11 +61,13 @@ $(document).ready(function () {
             IndicadorMontoMinimo: indicadorMontoMinimo,
             ConfiguracionOfertaID: configuracionOfertaID
         };
-
-        if (!AgregarOfertaFinal(model)) {
+        
+        var add = AgregarOfertaFinal(model);
+        if (!add.success) {
             CloseLoadingOF();
             return false;
         }
+        else OpenLoadingOF();
 
         AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
         ActulizarValoresPopupOfertaFinal(add, true);
@@ -119,7 +121,8 @@ $(document).ready(function () {
             ConfiguracionOfertaID: configuracionOfertaID
         };
         
-        if (!AgregarOfertaFinal(model)) {
+        var add = AgregarOfertaFinal(model);
+        if (!add.success) {
             CloseLoadingOF();
             return false;
         }
@@ -155,15 +158,42 @@ function CloseLoadingOF() {
 }
 
 function AgregarOfertaFinal(model) {
+    if (!agregoOfertaFinal) {
+        if (!DesvalidarPedido()) return false;
+    }
+
     var add;
     if (tipoOrigen == "1") add = AgregarProducto('PedidoInsertar', model, "", false, false);
     else add = InsertarProducto(model, false);
 
-    if (add == null) return false;
-    if (!add.success) return false;
-
+    if (add == null) add.success = false;
     agregoOfertaFinal = true;
-    return true;
+    return add;
+}
+
+function DesvalidarPedido() {
+    var success = false;
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/PedidoValidadoDeshacerReserva?Tipo=PV',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        cache: false,
+        success: function (data) {
+            if (!checkTimeout(data)) return;
+            if (!data.success) return;
+
+            //dataLayer.push({
+            //    'event': 'virtualEvent',
+            //    'category': 'Ecommerce',
+            //    'action': 'Modificar Pedido',
+            //    'label': '(not available)'
+            //});
+            success = true;
+        }
+    });
+    return success;
 }
 
 function PopupOfertaFinalCerrar() {
@@ -172,7 +202,7 @@ function PopupOfertaFinalCerrar() {
     $("#btnGuardarPedido").show();
 
     if (agregoOfertaFinal) setTimeout(EjecutarServicioPROLSinOfertaFinal, 100);
-    else if (reservoPedidoInicio) RedirigirPedidoValidado();
+    else if (reservaResponse.data.Reserva) EjecutarAccionesReservaExitosa(reservaResponse);
     else ShowPopupObservacionesReserva();
 }
 
@@ -1032,12 +1062,13 @@ function PopupOfertaFinalCerrar() {
         $("#divOfertaFinal").show();
     }
 
-    function CumpleOfertaFinalMostrar(data, permiteOfertaFinal) {
-        var tipoPopupMostrar = (data.Reserva || data.CodigoMensajeProl == "00") ? 1 : 2;
-        reservoPedidoInicio = data.Reserva;
+    function CumpleOfertaFinalMostrar(response) {
+        var tipoPopupMostrar = (response.data.Reserva || response.data.CodigoMensajeProl == "00") ? 1 : 2;
+        reservaResponse = response;
+        agregoOfertaFinal = false;
 
         OpenLoadingOF();
-        var cumpleOferta = CumpleOfertaFinal(permiteOfertaFinal);
+        var cumpleOferta = CumpleOfertaFinal(response.permiteOfertaFinal);
         if (cumpleOferta.resultado) cumpleOferta.resultado = MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar);
         CloseLoadingOF();
 
@@ -1081,12 +1112,7 @@ function PopupOfertaFinalCerrar() {
             success: function (response) {
                 if (!checkTimeout(response)) return;
 
-                CloseLoadingOF();
                 if (response.success) lista = response.data;
-            },
-            error: function (data, error) {
-                CloseLoadingOF();
-                if (checkTimeout(data)) lista = null;
             }
         });
         return { lista: lista };
