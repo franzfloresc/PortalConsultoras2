@@ -788,7 +788,10 @@
 .campos_ingreso_codigo_sms{
     margin-bottom:15px;
     position:relative;
-    width:247px;
+    width: 100%;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .campo_ingreso_codigo_sms{
@@ -822,7 +825,7 @@
     border-style:solid;
     position:absolute;
     bottom:0;
-    right:0;
+    right:-9px;
 }
 
 .validacion_erronea{

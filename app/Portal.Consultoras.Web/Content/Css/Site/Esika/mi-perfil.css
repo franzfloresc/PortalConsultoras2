@@ -772,7 +772,10 @@ input:focus{
 .campos_ingreso_codigo_sms{
     margin-bottom:15px;
     position:relative;
-    width:296px;
+    width: 100%;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .campo_ingreso_codigo_sms{
