@@ -11,9 +11,9 @@ namespace Portal.Consultoras.Web.UnitTest.Infraestructure.Validator.Phone
 
         [TestMethod]
         [DataRow(Constantes.PaisID.Peru,                "990011514")]
-        [DataRow(Constantes.PaisID.Mexico,              "990011514000000")]
+        [DataRow(Constantes.PaisID.Mexico,              "9900115140")]
         [DataRow(Constantes.PaisID.Ecuador,             "9900115141")]
-        [DataRow(Constantes.PaisID.Colombia,             "9900115141")]
+        [DataRow(Constantes.PaisID.Colombia,            "9900115141")]
         [DataRow(Constantes.PaisID.Chile,               "990011514000000")]
         [DataRow(Constantes.PaisID.Bolivia,             "990011514000000")]
         [DataRow(Constantes.PaisID.PuertoRico,          "990011514000000")]

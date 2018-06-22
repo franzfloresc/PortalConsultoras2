@@ -3199,7 +3199,7 @@ namespace Portal.Consultoras.Common
             {
                 case Constantes.PaisID.Mexico:
                     limiteMinimoTelef = 5;
-                    limiteMaximoTelef = 15;
+                    limiteMaximoTelef = 10;
                     break;
                 case Constantes.PaisID.Peru:
                     limiteMinimoTelef = 7;
