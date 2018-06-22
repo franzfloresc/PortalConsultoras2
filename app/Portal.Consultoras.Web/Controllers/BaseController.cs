@@ -929,237 +929,30 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return ip;
         }
-
-        #endregion
         
-        #region FichaProducto
-        public List<FichaProductoModel> ConsultarFichaProductoPorCuv(string cuv = "", int campanaId = 0)
-        {
-            var entidad = new BEFichaProducto
-            {
-                PaisID = userData.PaisID,
-                CampaniaID = campanaId > 0 ? campanaId : userData.CampaniaID,
-                ConsultoraID = userData.GetConsultoraId().ToString(),
-                CUV2 = Util.Trim(cuv),
-                Zona = userData.ZonaID.ToString(),
-                ZonaHoraria = userData.ZonaHoraria,
-                FechaInicioFacturacion = userData.FechaFinCampania,
-                ValidarPeriodoFacturacion = true,
-                Simbolo = userData.Simbolo,
-                CodigoAgrupacion = Util.Trim("")
-            };
-
-            List<BEFichaProducto> listFichaProducto;
-            using (var sv = new PedidoServiceClient())
-            {
-                listFichaProducto = sv.GetFichaProducto(entidad).ToList();
-            }
-
-            listFichaProducto = listFichaProducto.Where(e => e.Precio2 > 0).ToList();
-
-            listFichaProducto.Where(e => (e.Precio <= e.Precio2) && e.FlagNueva != 1).ToList().ForEach(e =>
-            {
-                e.Precio = 0;
-                e.PrecioTachado = Util.DecimalToStringFormat(e.Precio, userData.CodigoISO);
-            });
-
-            var listaProductoModel = FichaProductoModelFormato(listFichaProducto);
-
-            return listaProductoModel;
-        }
-
-        public List<FichaProductoDetalleModel> FichaProductoFormatearModelo(List<FichaProductoModel> listaProductoModel)
-        {
-            var listaRetorno = new List<FichaProductoDetalleModel>();
-            if (!listaProductoModel.Any())
-                return listaRetorno;
-
-            var listaPedido = ObtenerPedidoWebDetalle();
-
-            listaProductoModel.ForEach(fichaProducto =>
-            {
-                var prodModel = new FichaProductoDetalleModel
-                {
-                    CampaniaID = fichaProducto.CampaniaID,
-                    EstrategiaID = fichaProducto.EstrategiaID,
-                    CUV2 = fichaProducto.CUV2,
-                    TipoEstrategiaImagenMostrar = fichaProducto.TipoEstrategiaImagenMostrar,
-                    CodigoEstrategia = fichaProducto.TipoEstrategia.Codigo,
-                    CodigoVariante = fichaProducto.CodigoEstrategia,
-                    FotoProducto01 = fichaProducto.FotoProducto01,
-                    ImagenURL = fichaProducto.ImagenURL,
-                    DescripcionMarca = fichaProducto.DescripcionMarca,
-                    DescripcionResumen = fichaProducto.DescripcionResumen,
-                    DescripcionCortada = fichaProducto.DescripcionCortada,
-                    DescripcionDetalle = fichaProducto.DescripcionDetalle,
-                    DescripcionCompleta = fichaProducto.DescripcionCUV2.Split('|')[0],
-                    Simbolo = userData.Simbolo,
-                    Precio = fichaProducto.Precio,
-                    Precio2 = fichaProducto.Precio2,
-                    PrecioTachado = fichaProducto.PrecioTachado,
-                    PrecioVenta = fichaProducto.PrecioString,
-
-                    TipoEstrategiaID = fichaProducto.TipoEstrategiaID,
-                    FlagNueva = fichaProducto.FlagNueva,
-                    IsAgregado = listaPedido.Any(p => p.CUV == fichaProducto.CUV2.Trim()),
-                    ArrayContenidoSet = fichaProducto.FlagNueva == 1 ? fichaProducto.DescripcionCUV2.Split('|').Skip(1).ToList() : new List<string>(),
-                    ListaDescripcionDetalle = fichaProducto.ListaDescripcionDetalle ?? new List<string>(),
-                    TextoLibre = Util.Trim(fichaProducto.TextoLibre),
-
-                    MarcaID = fichaProducto.MarcaID,
-
-                    TienePaginaProducto = fichaProducto.PuedeVerDetalle,
-                    TienePaginaProductoMob = fichaProducto.PuedeVerDetalleMob,
-
-                    TipoAccionAgregar = TipoAccionAgregar(fichaProducto.TieneVariedad, fichaProducto.TipoEstrategia.Codigo),
-                    LimiteVenta = fichaProducto.LimiteVenta
-                };
-                listaRetorno.Add(prodModel);
-            });
-
-            return listaRetorno;
-        }
-
-        public int TipoAccionAgregar(int tieneVariedad, string codigoTipoEstrategia, bool bloqueado = false, string codigoTipos = "")
-        {
-            var tipo = tieneVariedad == 0 ? codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
-
-            if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
-            {
-                tipo = userData.esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva() ? 0 : tipo;
-            }
-            else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
-            {
-                tipo = codigoTipos == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoTipos == Constantes.TipoEstrategiaSet.CompuestaFija ? 2 : 3;
-                tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
-                tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
-            }
-            else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
-                || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento)
-            {
-                tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
-                tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
-            }
-            return tipo;
-        }
-
-
-        public List<FichaProductoModel> FichaProductoModelFormato(List<BEFichaProducto> listaProducto)
-        {
-            listaProducto = listaProducto ?? new List<BEFichaProducto>();
-            var listaProductoModel = Mapper.Map<List<BEFichaProducto>, List<FichaProductoModel>>(listaProducto);
-            return FichaProductoModelFormato(listaProductoModel);
-        }
-
-        public List<FichaProductoModel> FichaProductoModelFormato(List<FichaProductoModel> listaProductoModel)
-        {
-            if (!listaProductoModel.Any())
-                return listaProductoModel;
-
-            var listaPedido = ObtenerPedidoWebDetalle();
-
-            var claseBloqueada = "btn_desactivado_general";
-
-            listaProductoModel.ForEach(ficha =>
-            {
-                ficha.ClaseBloqueada = ficha.CampaniaID > 0 && ficha.CampaniaID != userData.CampaniaID ? claseBloqueada : "";
-                ficha.IsAgregado = ficha.ClaseBloqueada != claseBloqueada && listaPedido.Any(p => p.CUV == ficha.CUV2.Trim());
-                ficha.DescripcionResumen = "";
-                ficha.DescripcionDetalle = "";
-                if (ficha.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
-                {
-                    var listadescr = ficha.DescripcionCUV2.Split('|');
-                    ficha.DescripcionResumen = listadescr.Length > 0 ? listadescr[0] : "";
-                    ficha.DescripcionCortada = listadescr.Length > 1 ? listadescr[1] : "";
-                    if (listadescr.Length > 2)
-                    {
-                        ficha.ListaDescripcionDetalle = new List<string>(listadescr.Skip(2));
-                        ficha.DescripcionDetalle = string.Join("<br />", listadescr.Skip(2));
-                    }
-                    ficha.DescripcionCortada = Util.SubStrCortarNombre(ficha.DescripcionCortada, 40);
-                }
-                else if (ficha.FlagNueva == 1)
-                {
-                    ficha.DescripcionCortada = ficha.DescripcionCUV2.Split('|')[0];
-                    ficha.DescripcionDetalle = ficha.DescripcionCUV2.Split('|')[1];
-                    ficha.DescripcionResumen = "";
-                }
-                else
-                {
-                    ficha.DescripcionCortada = Util.SubStrCortarNombre(ficha.DescripcionCUV2, 40);
-                }
-
-                ficha.ImagenURL = ficha.FlagMostrarImg == 1 ? "/Content/Images/oferta-ultimo-minuto.png" : "";
-
-                ficha.ID = ficha.EstrategiaID;
-                if (ficha.FlagMostrarImg == 1)
-                {
-                    if (ficha.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
-                    {
-                        if (ficha.FlagEstrella == 1)
-                        {
-                            ficha.ImagenURL = "/Content/Images/oferta-ultimo-minuto.png";
-                        }
-                    }
-                    else if (!(ficha.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas
-                        || ficha.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.Lanzamiento))
-                    {
-                        ficha.ImagenURL = "";
-                    }
-                }
-                else
-                {
-                    ficha.ImagenURL = "";
-                }
-
-                ficha.PuedeCambiarCantidad = 1;
-                if (ficha.TieneVariedad == 0 && ficha.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas)
-                    ficha.PuedeCambiarCantidad = 0;
-
-                ficha.PuedeAgregar = 1;
-                ficha.PuedeVerDetalle = false;
-                ficha.PuedeVerDetalleMob = false;
-            });
-
-            return listaProductoModel;
-        }
-
-        public FichaProductoDetalleModel FichaProductoHermanos(FichaProductoDetalleModel fichaProductoModelo)
-        {
-            try
-            {
-                if (fichaProductoModelo == null)
-                    return null;
-
-                fichaProductoModelo.Hermanos = new List<EstrategiaComponenteModel>();
-                fichaProductoModelo.TextoLibre = Util.Trim(fichaProductoModelo.TextoLibre);
-                fichaProductoModelo.CodigoVariante = Util.Trim(fichaProductoModelo.CodigoVariante);
-
-                var listaPedido = ObtenerPedidoWebDetalle();
-                fichaProductoModelo.IsAgregado = listaPedido.Any(p => p.CUV == fichaProductoModelo.CUV2);
-
-                if (fichaProductoModelo.CodigoVariante == "")
-                    return fichaProductoModelo;
-
-                fichaProductoModelo.CampaniaID = fichaProductoModelo.CampaniaID > 0 ? fichaProductoModelo.CampaniaID : userData.CampaniaID;
-
-                var estrategiaModelo = new EstrategiaPersonalizadaProductoModel
-                {
-                    CodigoVariante = fichaProductoModelo.CodigoVariante,
-                    EstrategiaID = fichaProductoModelo.EstrategiaID
-                };
-
-                fichaProductoModelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, string.Empty);
-            }
-            catch (Exception ex)
-            {
-                fichaProductoModelo = new FichaProductoDetalleModel();
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-            return fichaProductoModelo;
-        }
-
+        //public int TipoAccionAgregar(int tieneVariedad, string codigoTipoEstrategia, bool esConsultoraLider = false, bool bloqueado = false, string codigoTipos = "")
+        //{
+        //    var tipo = tieneVariedad == 0 ? codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
+        //    if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
+        //    {
+        //        tipo = esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva() ? 0 : tipo;
+        //    }
+        //    else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
+        //    {
+        //        tipo = codigoTipos == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoTipos == Constantes.TipoEstrategiaSet.CompuestaFija ? 2 : 3;
+        //        tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
+        //        tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
+        //    }
+        //    else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+        //        || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
+        //        || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento)
+        //    {
+        //        tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
+        //        tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
+        //    }
+        //    return tipo;
+        //}
+        
         #endregion
 
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(string constSession)
@@ -1250,7 +1043,7 @@ namespace Portal.Consultoras.Web.Controllers
                             TippingPoint.Precio2 = estrategia == null ? default(decimal) : estrategia.Precio2;
                             TippingPoint.PrecioPublico = estrategia == null ? default(decimal) : estrategia.PrecioPublico;
                             TippingPoint.PrecioUnitario = estrategia == null ? default(decimal) : estrategia.PrecioUnitario;
-                            TippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
+                            TippingPoint.LinkURL = estrategia == null ? default(string) : getUrlTippingPoint(estrategia.ImagenURL);
                         }
                     }
                 }
@@ -1661,7 +1454,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
-        
+
         #endregion
 
         #region Zonificacion
@@ -3042,7 +2835,7 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetMenuContenedor(menuContenedor);
             return menuContenedor;
         }
-        
+
         public List<ConfiguracionPaisModel> BuildMenuContenedorBloqueado(List<ConfiguracionPaisModel> menuContenedor)
         {
             var menuContenedorBloqueado = new List<ConfiguracionPaisModel>();
@@ -3975,9 +3768,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return Request.Browser.IsMobileDevice;
         }
-
-
-
+        
         public string GetControllerActual()
         {
             return ControllerContext.RouteData.Values["controller"].ToString();
