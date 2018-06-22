@@ -95,14 +95,18 @@ namespace Portal.Consultoras.Web.Providers
         public bool EsSuscripcionInmediata()
         {
             return revistaDigital.TieneRDC && revistaDigital.SuscripcionModel != null ?
-               (
-                   revistaDigital.SuscripcionEfectiva.CampaniaEfectiva == revistaDigital.SuscripcionModel.CampaniaID
-                   && revistaDigital.SuscripcionModel.CampaniaID > 0
-               ) || (
-                   revistaDigital.SuscripcionModel.CampaniaID == 0
-                   && revistaDigital.CantidadCampaniaEfectiva == 0
-               )
-               : false;
+             (
+                 revistaDigital.SuscripcionEfectiva.CampaniaEfectiva == revistaDigital.SuscripcionModel.CampaniaID
+                 && revistaDigital.SuscripcionModel.CampaniaID > 0
+             ) || (
+                 revistaDigital.SuscripcionModel.CampaniaID == 0
+                 && revistaDigital.CantidadCampaniaEfectiva == 0
+             ) || (
+                revistaDigital.SuscripcionEfectiva.CampaniaEfectiva < userData.CampaniaID
+                && revistaDigital.CantidadCampaniaEfectiva == 0
+             )
+
+             : false;
         }
 
         public string GetUrlTerminosCondicionesDatosUsuario(string codigoIso)
