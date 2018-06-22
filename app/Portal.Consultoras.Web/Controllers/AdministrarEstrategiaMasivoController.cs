@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 int cantidadEstrategiasConfiguradas;
                 int cantidadEstrategiasSinConfigurar;
-
+                string oddIdsEstrategia = "";
                 try
                 {
                     if (UsarMsPer(codigoEstrategia))
@@ -27,6 +27,13 @@ namespace Portal.Consultoras.Web.Controllers
                         Dictionary<string, int> cantidades = administrarEstrategiaProvider.ObtenerCantidadOfertasParaTi(codigoEstrategia, campaniaId, userData.CodigoISO);
                         cantidadEstrategiasConfiguradas = cantidades["CUV_ZE"];
                         cantidadEstrategiasSinConfigurar = cantidades["CUV_OP"];
+
+                        List<string> estrategiasWA = administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO);
+                        foreach (var item in estrategiasWA)
+                        {
+                            oddIdsEstrategia += oddIdsEstrategia != "" ? "," : "";
+                            oddIdsEstrategia += item;
+                        }
                     }
                     else
                     {
@@ -67,7 +74,8 @@ namespace Portal.Consultoras.Web.Controllers
                         Id = 3,
                         Descripcion = "CUVS por configurar en Zonas de Estrategias",
                         Valor = cantidadEstrategiasSinConfigurar.ToString(),
-                        ValorOpcional = "2"
+                        ValorOpcional = "2",
+                        mongoIds=oddIdsEstrategia
                     }
                 };
 
@@ -109,7 +117,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public ActionResult ConsultarCuvTipoConfigurado(string sidx, string sord, int page, int rows, int campaniaId,
-            int tipoConfigurado, string estrategiaCodigo)
+            int tipoConfigurado, string estrategiaCodigo, string estrategiaMIds)
         {
             if (ModelState.IsValid)
             {
@@ -125,7 +133,13 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         if (tipoConfigurado == 0 || tipoConfigurado == 2)
                         {
-                            webApiList.AddRange(administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), estrategiaCodigo, userData.CodigoISO));
+                            List<string> estrategiaMidsList = new List<string>();
+                            estrategiaMidsList.AddRange(estrategiaMIds.Split(',').ToList());
+                            if (estrategiaMidsList.Count() > 0)
+                            {
+                                var estado = administrarEstrategiaProvider.Listar(estrategiaMidsList, userData.CodigoISO);
+                                webApiList.AddRange(estado);
+                            }
                         }
                         foreach (ServicePedido.BEEstrategia item in webApiList.Select(d => d.BEEstrategia).ToList())
                         {
@@ -197,15 +211,8 @@ namespace Portal.Consultoras.Web.Controllers
                     if (UsarMsPer(codigoEstrategia))
                     {
                         Dictionary<string, int> cantidades = administrarEstrategiaProvider.ObtenerCantidadOfertasParaTi(codigoEstrategia, campaniaId, userData.CodigoISO);
-                        var estrategiasWA = administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO);
-
                         cantidadEstrategiasConfiguradas = cantidades["CUV_OP"];
                         cantidadEstrategiasSinConfigurar = 0;
-                        foreach (var item in estrategiasWA)
-                        {
-                            oddIdsEstrategia += oddIdsEstrategia != "" ? "," : "";
-                            oddIdsEstrategia += item._id;
-                        }
                     }
                     else
                     {
@@ -310,7 +317,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ConsultarCuvTipoConfiguradoTemporal(string sidx, string sord, int page, int rows, int tipoConfigurado, int nroLote, int campaniaId, string codigoEstrategia)
+        public ActionResult ConsultarCuvTipoConfiguradoTemporal(string sidx, string sord, int page, int rows, int tipoConfigurado, int nroLote, int campaniaId, string codigoEstrategia, string estrategiaMIds)
         {
             if (ModelState.IsValid)
             {
@@ -322,7 +329,15 @@ namespace Portal.Consultoras.Web.Controllers
                         if (tipoConfigurado == 1)
                         {
                             List<EstrategiaMDbAdapterModel> webApiList = new List<EstrategiaMDbAdapterModel>();
-                            webApiList.AddRange(administrarEstrategiaProvider.PreCargar(campaniaId.ToString(), codigoEstrategia, userData.CodigoISO));
+
+                            List<string> estrategiaMidsList = new List<string>();
+                            estrategiaMidsList.AddRange(estrategiaMIds.Split(',').ToList());
+                            if (estrategiaMidsList.Count() > 0)
+                            {
+                                var estado = administrarEstrategiaProvider.Listar(estrategiaMidsList, userData.CodigoISO);
+                                webApiList.AddRange(estado);
+                            }
+
                             foreach (ServicePedido.BEEstrategia item in webApiList.Select(d => d.BEEstrategia).ToList())
                             {
                                 BEEstrategia estrategia = new BEEstrategia
@@ -575,6 +590,8 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 int lote = 0;
+                string idsEstrategiaok = string.Empty;
+                string idsEstrategiaerror = string.Empty;
 
                 if (UsarMsPer(codigoEstrategia))
                 {
@@ -582,10 +599,17 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategiaMidsList.AddRange(estrategiaMIds.Split(',').ToList());
                     if (estrategiaMidsList.Count() > 0)
                     {
-                        int estado = administrarEstrategiaProvider.CargarEstrategia(estrategiaMidsList, userData.CodigoISO);
-                        if (estado == 1)
+                        var estado = administrarEstrategiaProvider.CargarEstrategia(estrategiaMidsList, userData.CodigoISO);
+                        lote = estado["CUVOK"].Count;
+                        foreach (var item in estado["CUVOK"])
                         {
-                            lote = estrategiaMidsList.Count();
+                            idsEstrategiaok += idsEstrategiaok != "" ? "," : "";
+                            idsEstrategiaok += item;
+                        }
+                        foreach (var item in estado["CUVERROR"])
+                        {
+                            idsEstrategiaerror += idsEstrategiaerror != "" ? "," : "";
+                            idsEstrategiaerror += item;
                         }
                     }
                 }
@@ -602,7 +626,9 @@ namespace Portal.Consultoras.Web.Controllers
                     success = lote > 0,
                     message = lote > 0 ? "Se insertaron las Estrategias." : "Error al insertar las estrategias.",
                     NroLote = nroLote,
-                    NroLoteRetorno = lote
+                    NroLoteRetorno = lote,
+                    mongoIdsOK= idsEstrategiaok,
+                    mongoIdsERROR= idsEstrategiaerror
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

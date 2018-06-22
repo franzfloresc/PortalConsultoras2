@@ -2147,7 +2147,8 @@ namespace Portal.Consultoras.Common
             //api/TipoEstrategia/registrar/{pais}
             public const string UrlRegistrarTipoEstrategiaWebApi = "api/tipo/registrar/{0}";
 
-
+            //api/Estrategia/multiple/{pais}
+            public const string UrlListarEstrategiaPorConfigurarWebApi = "api/Estrategia/multiple/{0}";
             #endregion
 
             #region Oferta
