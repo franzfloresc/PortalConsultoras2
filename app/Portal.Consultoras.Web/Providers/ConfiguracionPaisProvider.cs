@@ -157,28 +157,5 @@ namespace Portal.Consultoras.Web.Providers
 
             return cp;
         }
-
-        public virtual List<ConfiguracionPaisModel> OrdenarMenuContenedor(List<ConfiguracionPaisModel> menuContenedor, bool tieneRevistaDigital, bool esMobile)
-        {
-            if (tieneRevistaDigital && esMobile)
-            {
-                menuContenedor = menuContenedor.OrderBy(m => m.MobileOrdenBPT).ToList();
-            }
-            if (tieneRevistaDigital && !esMobile)
-            {
-                menuContenedor = menuContenedor.OrderBy(m => m.OrdenBpt).ToList();
-            }
-            if (!tieneRevistaDigital && esMobile)
-            {
-                menuContenedor = menuContenedor.OrderBy(m => m.MobileOrden).ToList();
-
-            }
-            if (!tieneRevistaDigital && !esMobile)
-            {
-                menuContenedor = menuContenedor.OrderBy(m => m.Orden).ToList();
-            }
-
-            return menuContenedor;
-        }
     }
 }

@@ -3014,14 +3014,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             menuContenedor.AddRange(BuildMenuContenedorBloqueado(menuContenedor));
-            var isMobile = IsMobile();
-            menuContenedor = _configuracionPaisProvider.OrdenarMenuContenedor(menuContenedor, revistaDigital.TieneRevistaDigital(), isMobile);
+            menuContenedor = OrdenarMenuContenedor(menuContenedor, revistaDigital.TieneRevistaDigital());
 
             sessionManager.SetMenuContenedor(menuContenedor);
             return menuContenedor;
         }
         
-
         public List<ConfiguracionPaisModel> BuildMenuContenedorBloqueado(List<ConfiguracionPaisModel> menuContenedor)
         {
             var menuContenedorBloqueado = new List<ConfiguracionPaisModel>();
@@ -3057,6 +3055,31 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             return menuContenedorBloqueado;
+        }
+
+        protected virtual List<ConfiguracionPaisModel> OrdenarMenuContenedor(List<ConfiguracionPaisModel> menuContenedor, bool tieneRevistaDigital)
+        {
+            var esMobile = IsMobile();
+
+            if (tieneRevistaDigital && esMobile)
+            {
+                menuContenedor = menuContenedor.OrderBy(m => m.MobileOrdenBPT).ToList();
+            }
+            if (tieneRevistaDigital && !esMobile)
+            {
+                menuContenedor = menuContenedor.OrderBy(m => m.OrdenBpt).ToList();
+            }
+            if (!tieneRevistaDigital && esMobile)
+            {
+                menuContenedor = menuContenedor.OrderBy(m => m.MobileOrden).ToList();
+
+            }
+            if (!tieneRevistaDigital && !esMobile)
+            {
+                menuContenedor = menuContenedor.OrderBy(m => m.Orden).ToList();
+            }
+
+            return menuContenedor;
         }
 
         #endregion
