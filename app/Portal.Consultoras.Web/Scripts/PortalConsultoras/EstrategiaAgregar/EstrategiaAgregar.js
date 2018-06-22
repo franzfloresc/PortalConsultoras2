@@ -27,10 +27,10 @@
         return itemClone;
     };
 
-    var estrategiaValidarBloqueada = function(objInput, estrategia) {
-        var divMensaje = $("#divMensajeBloqueada");
+    var estrategiaValidarBloqueada = function($btnAgregar, estrategia) {
+        var $divMensaje = $("#divMensajeBloqueada");
 
-        if ($.trim($(objInput).attr("data-bloqueada")) == "") {
+        if ($.trim($btnAgregar).attr("data-bloqueada") == "") {
             return false;
         }
 
@@ -46,14 +46,14 @@
         if (estrategia.CodigoEstrategia == '011' &&
             (isPagina('ofertas') || isPagina('herramientasventa')) &&
             !isMobile()) {
-            divMensaje = $("#divHVMensajeBloqueada");
-            divMensaje.find('.cerrar_fichaProducto').attr('data-popup-close', 'divHVMensajeBloqueada');
+            $divMensaje = $("#divHVMensajeBloqueada");
+            $divMensaje.find('.cerrar_fichaProducto').attr('data-popup-close', 'divHVMensajeBloqueada');
         }
 
-        if (divMensaje.length > 0) {
-            var itemClone = estrategiaObtenerObjHtmlLanding(objInput);
+        if ($divMensaje.length > 0) {
+            var itemClone = estrategiaObtenerObjHtmlLanding($btnAgregar);
             if (itemClone.length > 0) {
-                var dataItemHtml = divMensaje.find("[data-item-html]");
+                var dataItemHtml = $divMensaje.find("[data-item-html]");
 
                 if (estrategia.CodigoEstrategia != '005') {
                     dataItemHtml.html(itemClone.html());
@@ -76,7 +76,7 @@
             }
 
             $(".contenedor_popup_detalleCarousel").hide();
-            divMensaje.show();
+            $divMensaje.show();
         }
         return true;
     };
