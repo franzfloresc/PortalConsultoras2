@@ -730,6 +730,7 @@
     <Compile Include="Providers\GuiaNegocioProvider.cs" />
     <Compile Include="Providers\BaseProvider.cs" />
     <Compile Include="Providers\IssuuProvider.cs" />
+    <Compile Include="Providers\MenuContenedorProvider.cs" />
     <Compile Include="Providers\OfertaDelDiaProvider.cs" />
     <Compile Include="Providers\OfertaPersonalizadaProvider.cs" />
     <Compile Include="Providers\OfertaViewProvider.cs" />
