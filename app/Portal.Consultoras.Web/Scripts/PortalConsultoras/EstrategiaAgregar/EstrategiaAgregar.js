@@ -28,7 +28,6 @@
     };
 
     var estrategiaValidarBloqueada = function(objInput, estrategia) {
-        var clonarItem = true;
         var divMensaje = $("#divMensajeBloqueada");
 
         if ($.trim($(objInput).attr("data-bloqueada")) == "") {
