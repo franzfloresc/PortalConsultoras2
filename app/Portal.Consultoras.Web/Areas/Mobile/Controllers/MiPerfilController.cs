@@ -104,6 +104,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult ActualizarCorreo()
         {
+            ViewBag.CorreoActual = userData.EMail;
             return View();
         }
 

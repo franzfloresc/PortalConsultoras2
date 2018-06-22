@@ -1,6 +1,5 @@
 ﻿@using Portal.Consultoras.Web.Helpers
-@using Portal.Consultoras.Web.Models
-@model NotificacionesModel
+@using Portal.Consultoras.Common;
 
 @{
     ViewBag.Title = "Actualizar Correo";
@@ -18,7 +17,7 @@ else
 
 <!-- TÍTULO -->
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
@@ -33,15 +32,21 @@ else
 <div class="content_belcorp">
     <section class="vista_actualizar_correo">
         <div class="wrapper_content_actualizar_correo">
-            <div>
-                <div class="form_actualizar_correo">
-                    <div class="sin_correo_registrado">
-                        <span>Aún no has registrado un correo electrónico. Llena el siguiente campo para añadirlo.</span>
-                    </div>
-                    <div class="correo_electronico_actual" style="display:none;">
-                        <span class="w-100 text-uppercase">Tu correo electrónico actual es :</span>
-                        <span class="w-100">vtarazona@belcorp.biz</span>
-                    </div>
+            <div id="tabVistas">
+                <div vista-id="1" class="form_actualizar_correo" style="display: none;">
+                    @if (!string.IsNullOrEmpty(ViewBag.CorreoActual))
+                    {
+                        <div class="correo_electronico_actual" style="display:none;">
+                            <span class="w-100 text-uppercase">Tu correo electrónico actual es :</span>
+                            <span class="w-100">@ViewBag.CorreoActual</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="sin_correo_registrado">
+                            <span>Aún no has registrado un correo electrónico. Llena el siguiente campo para añadirlo.</span>
+                        </div>
+                    }
                     <fieldset class="grupo_form_cambio_datos text-uppercase">
                         <div class="w-100">
                             <input id="NuevoCorreo" name="NuevoCorreo" class="w-100" type="text" value="" />
@@ -50,23 +55,23 @@ else
                     </fieldset>
                     <fieldset class="grupo_form_cambio_datos text-uppercase">
                         <div class="pull-left text-left v-alignMiddle">
-                            <a href="#" title="Cancelar" class="enlace_cancelar">Cancelar</a>
+                            <a id="btnCancelar" title="Cancelar" class="enlace_cancelar">Cancelar</a>
                         </div>
                         <div class="pull-right text-right v-alignMiddle">
-                            <button type="button" class="btn_cambiar_contrasenia text-uppercase text-bold default-background-color">
-                                Cambiar
+                            <button id="btnActualizarCorreo" type="button" class="btn_cambiar_contrasenia text-uppercase text-bold default-background-color">
+                                Continuar
                             </button>
                         </div>
                     </fieldset>
                 </div>
-                <div class="revisa_tu_correo text-center" style="display:none;">
+                <div vista-id="2" class="revisa_tu_correo text-center" style="display:none;">
                     <h1 class="titulo_revisa_tu_correo text-uppercase">
                         Revisa <span class="text-bold">tu correo</span>
                     </h1>
                     <div class="icono_correo_sobre"></div>
                     <p class="w-100 envio_instrucciones_info">
                         <span class="w-100">Te hemos enviado las instrucciones a:</span>
-                        <span class="w-100 text-bold">valeria.tarazona@gmail.com</span>
+                        <span id="txtCorreoEnviado" class="w-100 text-bold"></span>
                     </p>
                     <p class="w-100 envio_instrucciones_info">
                         <span class="w-100">¿Aún no recibes nuestro correo?</span>
@@ -76,24 +81,24 @@ else
                     </p>
                     <p class="w-100 cambiar_correo_info">
                         <span>¿Este no es tu correo?</span>
-                        <a href="#" title="Cambia tu correo" class="enlace_cambiar_correo text-bold">Cambia tu correo</a>
+                        <a id="btnReescribirCorreo" title="Cambia tu correo" class="enlace_cambiar_correo text-bold">Cambia tu correo</a>
                     </p>
                 </div>
-            </div>
-            <div class="correo_actualizado text-center" style="display:none;">
-                <div class="icono_actualizacion_correo_exitoso"></div>
-                <h1 class="titulo_correo_actualizado text-uppercase">
-                    ¡Actualizaste <span class="text-bold">tu correo</span>!
-                </h1>
-                <p class="mensaje_correo_actualizado">
-                    Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.
-                </p>
-                <button type="button" class="btn_acept text-uppercase text-bold default-background-color">Ok</button>
             </div>
         </div>
     </section>
 </div>
 
 @section scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Base.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/ActualizarCorreo.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            new MiPerfil_ActualizarCorreo({
+                UrlPaginaPrevia: '@Url.Action("Index", "MiPerfil", new { area = "Mobile" })',
+                UrlActualizarEnviarCorreo: '@Url.Action("ActualizarEnviarCorreo", "MiPerfil", new { area = "" })',
+                MensajeError: '@Html.Raw(Constantes.MensajesError.ActivacionCorreo)',
+            }).Inicializar();
+        });
+    </script>
 }

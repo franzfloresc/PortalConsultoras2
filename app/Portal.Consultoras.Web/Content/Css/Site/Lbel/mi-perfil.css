@@ -560,8 +560,9 @@ input:focus{
     padding:37px;
 }
 
-.enlace_volver_a_mi_perfil{
-    margin-bottom:11px;
+.enlace_volver_a_mi_perfil {
+    margin-bottom: 11px;
+    width: 80px;
 }
 
 .icono_back_arrow,

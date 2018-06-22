@@ -347,7 +347,7 @@ namespace Portal.Consultoras.Web.Controllers
             var celularNuevo = result.Message;
             UpdateCelularLogDynamo(celularNuevo);
 
-            return Json(new { Success = true});
+            return Json(new { Success = true });
         }
 
         [HttpPost]
@@ -447,24 +447,33 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    var contraseñaAnt = "";
-                    var contraseñaCambiada = "";
+                    var resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, OldPassword);
+                    if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
+                    {
+                        var contraseñaAnt = "";
+                        var contraseñaCambiada = "";
 
-                    List<BEUsuario> lst;
-                    List<BEUsuario> lstClave;
+                        List<BEUsuario> lst;
+                        List<BEUsuario> lstClave;
 
-                    lstClave = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoConsultora).ToList();
-                    contraseñaAnt = lstClave[0].ClaveSecreta;
+                        lstClave = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoConsultora).ToList();
+                        contraseñaAnt = lstClave[0].ClaveSecreta;
 
-                    var result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
-                        NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
+                        var result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
+                            NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
 
-                    rslt = result ? 2 : 1;
+                        rslt = result ? 2 : 1;
 
-                    lst = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoConsultora).ToList();
-                    contraseñaCambiada = lst[0].ClaveSecreta;
+                        lst = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoConsultora).ToList();
+                        contraseñaCambiada = lst[0].ClaveSecreta;
 
-                    RegistrarLogDynamoCambioClave("MODIFICACION", userData.CodigoConsultora, contraseñaCambiada, contraseñaAnt, "Mi PERFIL", "ACTUALIZAR CONTRASEÑA");
+                        RegistrarLogDynamoCambioClave("MODIFICACION", userData.CodigoConsultora, contraseñaCambiada, contraseñaAnt, "Mi PERFIL", "ACTUALIZAR CONTRASEÑA");
+                    }
+                    else
+                    {
+                        if (resultExiste == Constantes.ValidacionExisteUsuario.ExisteDiferenteClave)
+                            rslt = 0;
+                    }
 
                 }
 

@@ -234,9 +234,9 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
                 return;
             }
 
-            mostratSpinner('abrir');
+            AbrirLoad();
             var successConfirmarSmsCode = function(r) {
-                mostratSpinner('cerrar');
+                CerrarLoad();
                 if (!r.Success) {
                     me.Funciones.MarkSmsCodeStatus(false);
 
@@ -253,7 +253,7 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
             
             me.Services.confirmarSmsCode(code)
                 .then(successConfirmarSmsCode, function(er) {
-                    mostratSpinner('cerrar');
+                    CerrarLoad();
                     me.Funciones.HandleError(er);
                 });
         }
@@ -305,11 +305,11 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
 
             localData.CelularNuevo = nuevoCelular;
             me.Funciones.ResetSmsCode();
-            mostratSpinner('abrir');
+            AbrirLoad();
 
             var successEnviarSmsCode = function(r) {
                 $('#celularNuevo').text(nuevoCelular);
-                mostratSpinner('cerrar');
+                CerrarLoad();
                 sharedFunc.closeWaitingDialog();
                 localData.CelularValido = r.Success;
                 if (!r.Success) {
@@ -324,7 +324,7 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
 
             me.Services.enviarSmsCode(nuevoCelular)
                 .then(successEnviarSmsCode, function (er) {
-                        mostratSpinner('cerrar');
+                        CerrarLoad();
                         me.Funciones.HandleError(er);
                     });
         }
@@ -335,10 +335,10 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
 
         function sendSmsCode() {
             me.Funciones.ResetSmsCode();
-            mostratSpinner('abrir');
+            AbrirLoad();
             me.Services.enviarSmsCode(localData.CelularNuevo)
                 .then(function(r) {
-                    mostratSpinner('cerrar');
+                    CerrarLoad();
                     if (!r.Success) {
                         me.Funciones.ShowError(r.Message);
                         me.Funciones.NavigatePanel(0);
@@ -348,7 +348,7 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
 
                     me.Funciones.InitCounter();
                 }, function(er) {
-                    mostratSpinner('cerrar');
+                    CerrarLoad();
                     me.Funciones.HandleError(er);
                 });
         }
@@ -394,14 +394,6 @@ var actualizarCelularModule = (function (globalData, sharedFunc, $) {
 })(actualizaCelularData, globalFunc, jQuery);
 
 window.actualizarCelularModule = actualizarCelularModule;
-
-function mostratSpinner(valor) {
-    var mobile = isMobile();
-    if (mobile) {
-        return (valor == 'abrir' ? ShowLoading() : CloseLoading());
-    }
-    return (valor == 'abrir' ? waitingDialog({}) : closeWaitingDialog());
-}
 
 $(document).ready(function () {
     actualizarCelularModule.Funciones.SetIsoPais(IsoPais);
