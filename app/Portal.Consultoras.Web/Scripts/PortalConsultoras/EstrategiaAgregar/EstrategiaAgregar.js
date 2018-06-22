@@ -324,6 +324,7 @@
     };
 
     return {
-        EstrategiaAgregar: estrategiaAgregar
+        EstrategiaAgregar: estrategiaAgregar,
+        EstrategiaObtenerObj: getEstrategia,
     }
 }();
