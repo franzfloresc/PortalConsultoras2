@@ -647,7 +647,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaOfertas = listaShowRoomOfertas.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
                 listaOfertasPerdio = listaShowRoomOfertas.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
             }
-            else if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
+            else if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
             {
                 listaOfertas = listaShowRoomOfertas.Where(x => !x.EsSubCampania && flagRevistaTodos.Contains(x.FlagRevista)).ToList();
             }
