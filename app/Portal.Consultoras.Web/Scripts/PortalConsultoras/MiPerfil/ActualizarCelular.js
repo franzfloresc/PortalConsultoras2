@@ -369,10 +369,14 @@ var actualizarCelularModule = (function (globalData, $) {
                 });
         }
 
-        function changeCodeSms() {
+        function changeCodeSms(e) {
             var input = $(this);
             if (input.val()) {
                 input.next().focus();
+            }
+
+            if (e.keyCode == 8) {
+                input.prev().focus();
             }
 
             var code = me.Funciones.GetSmsCode();
