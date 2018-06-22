@@ -21,6 +21,19 @@ namespace Portal.Consultoras.Service
             return new BLOfertaPersonalizada().GetProductosCompraPorCompra(paisId, EventoID, CampaniaID);
         }
 
+        #endregion
+
+        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
+        {
+            return new BLOfertaPersonalizada().GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
+        }
+
+        public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
+        {
+            return new BLOfertaPersonalizada().GetEstrategiasPedido(entidad);
+        }
+
+        #region Confi
         public BEShowRoomEvento GetShowRoomEventoByCampaniaID(int paisID, int campaniaID)
         {
             return new BLOfertaPersonalizada().GetShowRoomEventoByCampaniaID(paisID, campaniaID);
@@ -51,21 +64,11 @@ namespace Portal.Consultoras.Service
             return new BLOfertaPersonalizada().ShowRoomProgramarAviso(paisID, entity);
         }
 
-        #endregion
-
-        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
-        {
-            return new BLOfertaPersonalizada().GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
-        }
-
-        public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
-        {
-            return new BLOfertaPersonalizada().GetEstrategiasPedido(entidad);
-        }
-
         public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID, string algoritmo)
         {
             return new BLOfertaPersonalizada().GetParametriaOfertaFinal(paisID, algoritmo);
         }
+
+        #endregion
     }
 }
