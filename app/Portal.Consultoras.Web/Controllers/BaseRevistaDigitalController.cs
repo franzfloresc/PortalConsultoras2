@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.LimiteMax = limiteMaximoTelef;
             modelo.LimiteMin = limiteMinimoTelef;
             modelo.UrlTerminosCondicionesDatosUsuario = GetUrlTerminosCondicionesDatosUsuario();
-            modelo.CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString().Substring(4);
+            modelo.CampaniaX1 = Util.AddCampaniaAndNumero(userData.CampaniaID, revistaDigital.CantidadCampaniaEfectiva, userData.NroCampanias).ToString().Substring(4);
             modelo.MostrarCancelarSuscripcion = !(userData.esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas &&
                 ((!revistaDigital.EsSuscrita && (!revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion || !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)) ||
                 (revistaDigital.EsSuscrita && !revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion) ||
@@ -63,12 +63,18 @@ namespace Portal.Consultoras.Web.Controllers
         public bool EsSuscripcionInmediata()
         {
             return revistaDigital.TieneRDC && revistaDigital.SuscripcionModel != null ?
-                revistaDigital.SuscripcionEfectiva.CampaniaEfectiva == revistaDigital.SuscripcionModel.CampaniaID
-                && (
-                    revistaDigital.EsActiva
-                    || (revistaDigital.SuscripcionEfectiva.CampaniaEfectiva == 0 && revistaDigital.CantidadCampaniaEfectiva == 0)
-                )
-                : false;
+             (
+                 revistaDigital.SuscripcionEfectiva.CampaniaEfectiva == revistaDigital.SuscripcionModel.CampaniaID
+                 && revistaDigital.SuscripcionModel.CampaniaID > 0
+             ) || (
+                 revistaDigital.SuscripcionModel.CampaniaID == 0
+                 && revistaDigital.CantidadCampaniaEfectiva == 0
+             ) || (
+                revistaDigital.SuscripcionEfectiva.CampaniaEfectiva < userData.CampaniaID
+                && revistaDigital.CantidadCampaniaEfectiva == 0
+             )
+
+             : false;
         }
 
         public ActionResult ViewLanding(int tipo)
@@ -156,7 +162,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.Campania = campaniaId;
             return View(modelo);
 
-        } 
+        }
 
         private string GetVideoInformativo()
         {
