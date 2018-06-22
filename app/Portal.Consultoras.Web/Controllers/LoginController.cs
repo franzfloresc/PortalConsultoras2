@@ -2148,60 +2148,53 @@ namespace Portal.Consultoras.Web.Controllers
 
             revistaDigitalModel.EstadoSuscripcion = revistaDigitalModel.SuscripcionModel.EstadoRegistro;
             revistaDigitalModel.CampaniaActual = Util.SubStr(usuarioModel.CampaniaID.ToString(), 4, 2);
-            revistaDigitalModel.CampaniaFuturoActiva = Util.SubStr(
-                Util.AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva,
-                    usuarioModel.NroCampanias).ToString(), 4, 2);
 
-            revistaDigitalModel.CampaniaSuscripcion =
-                Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
+            revistaDigitalModel.CampaniaFuturoActiva = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva == 0
+                    ? revistaDigitalModel.SuscripcionModel.CampaniaEfectiva == 0
+                    ? Util.SubStr(Util.AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias).ToString(), 4, 2)
+                    : Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaEfectiva.ToString(), 4, 2)
+                    : Util.SubStr(revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva.ToString(), 4, 2);
 
-            if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-            {
-                var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
-                    revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+            revistaDigitalModel.CampaniaSuscripcion = Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
+            revistaDigitalModel.EsActiva = revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
 
-                if (ca >= revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
-                    ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
+            //if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            //{
+            //    var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
+            //        revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+            //    if (ca >= revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
+            //        ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
+            //    revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
+            //    revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
+            //}
+            //else if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
+            //{
+            //    if (revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            //    {
+            //        var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID,
+            //            revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+            //        if (ca >= revistaDigitalModel.SuscripcionModel.CampaniaEfectiva)
+            //            ca = revistaDigitalModel.SuscripcionModel.CampaniaEfectiva;
+            //        revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
+            //        revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
+            //    }
+            //    else
+            //    {
+            //        revistaDigitalModel.CampaniaActiva = "";
+            //        revistaDigitalModel.EsActiva = false;
+            //    }
+            //}
+            //else
+            //{
+            //    var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
+            //        revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+            //    if (ca < revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
+            //        ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
+            //    revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
+            //    revistaDigitalModel.EsActiva = ca > usuarioModel.CampaniaID;
+            //}
 
-                revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
-                revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
-
-            }
-            else if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro ==
-                     Constantes.EstadoRDSuscripcion.SinRegistroDB)
-            {
-                if (revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-                {
-                    var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID,
-                        revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
-                    if (ca >= revistaDigitalModel.SuscripcionModel.CampaniaEfectiva)
-                        ca = revistaDigitalModel.SuscripcionModel.CampaniaEfectiva;
-
-                    revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
-                    revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
-                }
-                else
-                {
-                    revistaDigitalModel.CampaniaActiva = "";
-                    revistaDigitalModel.EsActiva = false;
-                }
-
-            }
-            else
-            {
-                var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
-                    revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
-
-                if (ca < revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
-                    ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
-
-                revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
-
-                revistaDigitalModel.EsActiva = ca > usuarioModel.CampaniaID;
-            }
-
-            revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro ==
-                                             Constantes.EstadoRDSuscripcion.Activo;
+            revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
 
             #endregion
 
@@ -2226,8 +2219,7 @@ namespace Portal.Consultoras.Web.Controllers
                     revistaDigitalModel.NoVolverMostrar = false;
                     break;
                 case Constantes.EstadoRDSuscripcion.NoPopUp:
-                    revistaDigitalModel.NoVolverMostrar =
-                        revistaDigitalModel.SuscripcionModel.CampaniaID == usuarioModel.CampaniaID;
+                    revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.CampaniaID == usuarioModel.CampaniaID;
                     break;
             }
 

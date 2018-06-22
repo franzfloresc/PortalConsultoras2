@@ -10635,8 +10635,15 @@ a {
 /*OFERTA DEL DIA*/
 .BloqueOfertaDia {
     width: 100%;
-    padding-top: 4px;
     min-height: 190px;
+}
+
+.centerElementos {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
 }
 
 .bloqueOfertaDia_vistaOfertas {
@@ -10650,10 +10657,9 @@ a {
 }
 
 .solo_hoy_mobile {
-    width: 70%;
     margin: 0 auto;
     position: relative;
-    margin-top: 5%;
+    width: 70%;
 }
 
     .solo_hoy_mobile img {
@@ -10661,10 +10667,12 @@ a {
     }
 
 .nombre_set_oferta_mobile {
+    color: #fff;
     font-family: 'Lato';
-    font-size: 11.5px;
-    color: white;
+    font-size: 11px;
     line-height: 15px;
+    margin-bottom: 50px;
+    position: relative;
     text-align: center;
 }
 
@@ -10678,17 +10686,19 @@ a {
     float: left;
 }
 
+.detalle_oferta_dia {
+    margin-left: 3%;
+    min-height: 100px;
+    position: relative;
+    width: 50%;
+}
+
 .imagen_set_oferta_mobile {
     float: right;
     width: 34%;
-    margin: 9px 20px 0 0;
+    margin: 3px 20px 0 0;
     text-align: center;
 }
-
-    .imagen_set_oferta_mobile img {
-        width: 90%;
-        margin-top: -7px;
-    }
 
 .imagen_set_oferta_mobile2 {
     width: 14%;
@@ -10833,19 +10843,31 @@ a {
     background: black;
 }
 
+.content_oferta_dia_mobile {
+    margin: auto;
+    width: 290px;
+}
+
 .btn_compralo_ahora {
-    display: block;
-    position: relative;
-    margin-top: 9px;
-    left: 0;
-    font-family: 'Lato';
-    color: #fff;
-    font-size: 11px;
-    padding: 2px 21px;
     border: 1px solid #fff;
-    line-height: 30px;
+    color: #fff;
+    display: block;
+    font-family: 'Lato';
+    font-size: 11px;
     height: 36.2px;
+    left: 0;
+    line-height: 30px;
+    margin-top: 9px;
+    padding: 2px 21px;
+    position: relative;
     text-align: center;
+}
+
+.btn_compralo_ahora_odd {
+    bottom: 0;
+    margin-top: 0;
+    position: absolute;
+    width: 100%;
 }
 
 .flexslider {

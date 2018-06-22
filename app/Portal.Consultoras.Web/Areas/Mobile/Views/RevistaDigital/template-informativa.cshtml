@@ -139,17 +139,41 @@ else
             <div class="bloque-texto">
                 <span class="nro"><img src="~/Content/Images/RevistaDigital/check-icon.svg" /></span>
                 <span class="txt">
-                    En esta campaña te suscribes al Club GANA+
+                    @if (Model.EsSuscripcionInmediata)
+                    {
+                        <text>Suscríbete hoy mismo con un solo clic al Club Gana+</text>
+                    }
+                    else
+                    {
+                        <text>En esta campaña te suscribes al Club GANA+</text>
+                    }
                 </span>
                 <div class="clear"></div>
                 <span class="nro"><img src="~/Content/Images/RevistaDigital/check-icon.svg" /></span>
                 <span class="txt">
-                    Desde tu próximo pedido, <b>dejarás de recibir la revista guía de negocio impresa.</b>
+                    @if (Model.EsSuscripcionInmediata)
+                    {
+                        <text>Comienza a disfrutar de todos los beneficios desde el primer día.</text>
+                    }
+                    else
+                    {
+                        <text>Desde tu próximo pedido, <b> dejarás de recibir la revista guía de negocio impresa.</b></text>
+                    }
+
                 </span>
                 <div class="clear"></div>
                 <span class="nro mobil-nro-funciona"><img src="~/Content/Images/RevistaDigital/check-icon.svg" /></span>
                 <span class="txt mobil-nro-funciona">
-                    En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
+
+                    @if (Model.EsSuscripcionInmediata)
+                    {
+                        <text>Encuentra las ofertas exclusivas para ti a diario.</text>
+                    }
+                    else
+                    {
+                        <text>En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!</text>
+                    }
+
                 </span>
                 <div class="clear"></div>
 
@@ -164,7 +188,15 @@ else
             <div class="bloque-texto mobil-nro-funciona2" style="width:100%;">
                 <span class="nro" style="width:7%;"><img src="~/Content/Images/RevistaDigital/check-icon.svg" /></span>
                 <span class="txt" style="width: 91%;">
-                    En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
+                    @if (Model.EsSuscripcionInmediata)
+                    {
+                        <text>Encuentra las ofertas exclusivas para ti a diario.</text>
+                    }
+                    else
+                    {
+
+                        <text>En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!</text>
+                    }
                 </span>
                 <div class="clear"></div>
 
@@ -172,9 +204,21 @@ else
             <div class="clear"></div>
             @if (!Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
             {
-                <span class="txt recuerda-txt">
-                    RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
-                </span>
+
+                if (Model.EsSuscripcionInmediata)
+                {
+                    <text><span class="txt recuerda-txt-2">
+                            <b>
+                                Recuerda que al suscribirte dejarás de recibir tu guía de negocio impresa<br />
+                            </b>
+                            (Ejemplo: Si te suscribes en C10, dejarás de recibir tu guía de negocio en C12).
+                        </span></text>
+                }
+                else
+                {
+                    <text><span class="txt recuerda-txt">RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.</span></text>
+                }
+
             }
             <div class="clear"></div>
         </div>

@@ -36279,8 +36279,6 @@ h1#penmostreo .campana {
     position: relative;
     float: left;
     min-width: 330px;
-    padding-left: 15px;
-    padding-right: 30px;
     font-family: 'LAto';
     font-size: 12px;
     font-weight: bold;
@@ -36293,22 +36291,38 @@ h1#penmostreo .campana {
     background-position-y: 5px;
 }
 
-.content_detalle_filtro {
+.txt_filtrar_por_precio {
+    padding-left: 15px;
+    padding-right: 30px;
     width: 100%;
+}
+
+.content_detalle_filtro {
+    width: 350px;
     position: absolute;
     z-index: 20;
-    top: 33px;
     border: 1px solid #b8b8b8;
     border-top: 0;
-    left: 0;
     background: white;
     min-height: 100px;
 }
 
 .content_filtro_range_showroom {
     width: 70%;
-    margin: 0 auto;
-    margin-top: 50px;
+    margin: 15px auto 10px auto;
+}
+
+.irs-bar, .irs-slider {
+    background-color: #e81c36 !important;
+    border-color: #e81c36 !important;
+}
+
+    .irs-slider.state_hover, .irs-slider:hover {
+        background: #f13049 !important;
+    }
+
+.irs-from, .irs-to, .irs-single {
+    color: #e81c36 !important;
 }
 
 .filtros_derecha_SHOWROOM {
