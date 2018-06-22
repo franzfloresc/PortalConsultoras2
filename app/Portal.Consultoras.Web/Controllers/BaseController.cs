@@ -1886,7 +1886,7 @@ namespace Portal.Consultoras.Web.Controllers
                             TippingPoint.Precio2 = estrategia == null ? default(decimal) : estrategia.Precio2;
                             TippingPoint.PrecioPublico = estrategia == null ? default(decimal) : estrategia.PrecioPublico;
                             TippingPoint.PrecioUnitario = estrategia == null ? default(decimal) : estrategia.PrecioUnitario;
-                            TippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
+                            TippingPoint.LinkURL = estrategia == null ? default(string) : getUrlTippingPoint(estrategia.ImagenURL);
                         }
                     }
                 }
