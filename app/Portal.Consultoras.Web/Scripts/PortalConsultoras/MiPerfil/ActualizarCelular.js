@@ -370,12 +370,11 @@ var actualizarCelularModule = (function (globalData, $) {
         function changeCodeSms(e) {
             var input = $(this);
             if (input.val()) {
-                input.next().focus();
+                input.parent().next().find('.campo_ingreso_codigo_sms').focus();
             }
 
             if (e.keyCode == 8) {
-                input.prev().focus();
-                input.prev().val('');
+                input.parent().prev().find('.campo_ingreso_codigo_sms').focus();
             }
 
             var code = me.Funciones.GetSmsCode();

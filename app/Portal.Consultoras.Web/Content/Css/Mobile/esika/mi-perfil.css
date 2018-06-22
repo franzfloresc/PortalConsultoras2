@@ -805,10 +805,15 @@
     border-left:none;
     border-right:none;
     border-bottom:2px solid #000;
+}
+
+.wrapper_campo_ingreso_codigo_sms{
+    display:inline-block;
+    position:relative;
     margin-right:4px;
 }
 
-    .campo_ingreso_codigo_sms:last-child{
+    .wrapper_campo_ingreso_codigo_sms:last-child{
         margin-right:0;
     }
 
@@ -824,8 +829,8 @@
     border-width:1.5px;
     border-style:solid;
     position:absolute;
-    bottom:0;
-    right:-9px;
+    bottom: 1px;
+    right: -30px;
 }
 
 .validacion_erronea{
