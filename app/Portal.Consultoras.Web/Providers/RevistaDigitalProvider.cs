@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Web.Providers
             modelo.LimiteMax = limiteMaximoTelef;
             modelo.LimiteMin = limiteMinimoTelef;
             modelo.UrlTerminosCondicionesDatosUsuario = GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
-            modelo.CampaniaX1 = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString().Substring(4);
+            modelo.CampaniaX1 = Util.AddCampaniaAndNumero(userData.CampaniaID, revistaDigital.CantidadCampaniaEfectiva, userData.NroCampanias).ToString().Substring(4);
             modelo.MostrarCancelarSuscripcion = !(userData.esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas &&
                 ((!revistaDigital.EsSuscrita && (!revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion || !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)) ||
                 (revistaDigital.EsSuscrita && !revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion) ||
