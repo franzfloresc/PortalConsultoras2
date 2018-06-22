@@ -112,7 +112,7 @@
 
         origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar) || origenPedidoWebEstrategia;
 
-        var campania = $btnAgregar.parents("[data-tag-html]").attr("data-tag-html") || _campania;
+        var campania = $btnAgregar.parents("[data-tag-html]").attr("data-tag-html");
 
         if (estrategiaValidarBloqueada($btnAgregar, estrategia)) {
             try {
@@ -124,7 +124,7 @@
                         estrategia.DescripcionCortada).trim(),
                     popup);
             } catch (e) {
-                console.log(e)
+                console.log(e);
             }
             return false;
         }
@@ -136,8 +136,7 @@
         var cantidad = (limite > 0)
             ? limite
             : (
-                $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido")
-                    .val() ||
+                $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val() ||
                     $btnAgregar.parents("[data-item]").find("input.rango_cantidad_pedido").val() ||
                     $btnAgregar.parents("[data-item]").find("[data-input='cantidad']").val()
             );
