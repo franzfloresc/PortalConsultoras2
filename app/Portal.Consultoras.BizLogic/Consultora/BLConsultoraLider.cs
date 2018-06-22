@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -47,10 +48,8 @@ namespace Portal.Consultoras.BizLogic
             var daConsultoraLider = new DAConsultoraLider(PaisID);
 
             using (IDataReader reader = daConsultoraLider.ObtenerParametrosConsultoraLider(ConsultoraID, CampaniaVenta))
-            {
-                if (reader.Read())
-                    oBEParmetrosLider = new BEParametrosLider(reader);
-            }
+                    oBEParmetrosLider = reader.MapToObject<BEParametrosLider>();
+
             return oBEParmetrosLider;
         }
     }
