@@ -635,7 +635,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listaShowRoomOfertasFinal;
         }
 
-        public void SetShowRoomOfertasInSession(List<EstrategiaPedidoModel> listaShowRoomOfertas)
+        private void SetShowRoomOfertasInSession(List<EstrategiaPedidoModel> listaShowRoomOfertas)
         {
             var flagRevistaTodos = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
             var listaOfertas = new List<EstrategiaPedidoModel>();
