@@ -2,24 +2,26 @@
 @using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.EstrategiaOutModel
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";    
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
 @section styles{
     <style>
-        .select_bestSeller{
-            width:-moz-calc(100% -118px);
-            width:calc(100% - 118px);
-            width:-webkit-calc(100% - 118px);            
+        .select_bestSeller {
+            width: -moz-calc(100% -118px);
+            width: calc(100% - 118px);
+            width: -webkit-calc(100% - 118px);
         }
-        footer{ 
-            display:none;
+
+        footer {
+            display: none;
         }
-        body{
-            overflow-x:hidden;
+
+        body {
+            overflow-x: hidden;
         }
     </style>
-    <link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />   
+    <link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
 }
 <div class="fondo_pestana">
     <div class="titulo_mobile">
@@ -29,61 +31,61 @@
     <div class="pestana_esika"></div>
     <div class="pestana_lbel"></div>
 </div>
-    <div id="contenedor-detalle-producto"></div>    
-    <hr class="clear" />
-    <div id="divCarrouselMasVendidos"></div>        
-    <div class="section_comentarios">
-        <div class="wrapper_resumen_mobile">
-            <div class="titulo_principal_comentarios">COMENTARIOS</div>
-            <div style="text-align:center;"><div id="star_promedio_valorizado" class="rateyo-readonly-comentarios"></div></div>
-            <div id="texto1_recomiendan" class="subtexto_comentario">95% de personas lo recomiendan (295 de 364)</div>
-            <div class="content_filtros_bestSeller">
-                <div class="texto_filtros_bestSeller">ORDENAR POR</div>
-                <select id="ddlFiltro" class="select_bestSeller">
-                    <option value="2">NUEVOS</option>
-                    <option value="1">ANTIGUOS</option>
-                </select>
-            </div>
-            <hr class="clear" />
-            <a name="ComentariosUsuarios"></a>
-            <div class="contentAgregarComentarios">
-                <div class="texto_agregarComentarios">AGREGA TU COMENTARIO</div>
-                <div class="contentValoracion">
-                    <div class="titulo_principal_valoracion">¡VALORAMOS TU OPINIÓN!</div>
-                    <div class="subtitulo_comentarios">Cuéntanos tu experiencia con este producto</div>
-                    <div class="content_detalle_puntuacion">
-                        Evalúa el Producto
-                        <div class="rateyo-puntuacion-seccion-comentario"></div>
-                        ¿Lo recomiendas?
-                        <div>
-                            <a class="respuesta_pregunta" id="btnRecomendar">SI</a>
-                            <a class="respuesta_pregunta" id="btnNoRecomendar">NO</a>
-                            <input type="hidden" id="hdRecomendado" value="" />
-                        </div>
+<div id="contenedor-detalle-producto"></div>
+<hr class="clear" />
+<div id="divCarrouselMasVendidos"></div>
+<div class="section_comentarios">
+    <div class="wrapper_resumen_mobile">
+        <div class="titulo_principal_comentarios">COMENTARIOS</div>
+        <div style="text-align:center;"><div id="star_promedio_valorizado" class="rateyo-readonly-comentarios"></div></div>
+        <div id="texto1_recomiendan" class="subtexto_comentario">95% de personas lo recomiendan (295 de 364)</div>
+        <div class="content_filtros_bestSeller">
+            <div class="texto_filtros_bestSeller">ORDENAR POR</div>
+            <select id="ddlFiltro" class="select_bestSeller">
+                <option value="2">NUEVOS</option>
+                <option value="1">ANTIGUOS</option>
+            </select>
+        </div>
+        <hr class="clear" />
+        <a name="ComentariosUsuarios"></a>
+        <div class="contentAgregarComentarios">
+            <div class="texto_agregarComentarios">AGREGA TU COMENTARIO</div>
+            <div class="contentValoracion">
+                <div class="titulo_principal_valoracion">¡VALORAMOS TU OPINIÓN!</div>
+                <div class="subtitulo_comentarios">Cuéntanos tu experiencia con este producto</div>
+                <div class="content_detalle_puntuacion">
+                    Evalúa el Producto
+                    <div class="rateyo-puntuacion-seccion-comentario"></div>
+                    ¿Lo recomiendas?
+                    <div>
+                        <a class="respuesta_pregunta" id="btnRecomendar">SI</a>
+                        <a class="respuesta_pregunta" id="btnNoRecomendar">NO</a>
+                        <input type="hidden" id="hdRecomendado" value="" />
                     </div>
-                    <div class="content_detalle_comentarios">
-                        <textarea type="text" class="texto_comentario_usuario" id="txtComentario" placeholder="Escribe un comentario sobre el producto" maxlength="400"> </textarea>
-                        <a class="enviar_comentario_Seller" disabled="disabled">ENVIAR COMENTARIO</a>
-                        <a class="cancelar_comentario">CANCELAR</a>
-                    </div>
-                    <hr class="clear" />
-                    </div>
-                <div class="content_confirmacion_comentario">
-                    <div class="icono_check_comentario"></div>
-                    <div class="titulo_principal_comentarios extra_titulo">¡TU COMENTARIO SE ENVIÓ CON ÉXITO!</div>
-                    <div class="subtexto_comentario" style="font-size:14px;">¡Gracias por tu comentario! Revisaremos su contenido para publicarlo en nuestra página</div>
-                    <a class="btn_cerrar_comentario">CERRAR</a>
                 </div>
+                <div class="content_detalle_comentarios">
+                    <textarea type="text" class="texto_comentario_usuario" id="txtComentario" placeholder="Escribe un comentario sobre el producto" maxlength="400"> </textarea>
+                    <a class="enviar_comentario_Seller" disabled="disabled">ENVIAR COMENTARIO</a>
+                    <a class="cancelar_comentario">CANCELAR</a>
+                </div>
+                <hr class="clear" />
             </div>
-            <div id="contenedorComentarios">
-            </div>                        
+            <div class="content_confirmacion_comentario">
+                <div class="icono_check_comentario"></div>
+                <div class="titulo_principal_comentarios extra_titulo">¡TU COMENTARIO SE ENVIÓ CON ÉXITO!</div>
+                <div class="subtexto_comentario" style="font-size:14px;">¡Gracias por tu comentario! Revisaremos su contenido para publicarlo en nuestra página</div>
+                <a class="btn_cerrar_comentario">CERRAR</a>
+            </div>
+        </div>
+        <div id="contenedorComentarios">
         </div>
     </div>
+</div>
 <div class="share_social_nertwoks">
     <div id="contenedor-detalle-producto-compartir" class="content_redes_ficha"></div>
 </div>
-    
-    <script id="template-detalle-producto-compartir" type="text/x-handlebars-template">
+
+<script id="template-detalle-producto-compartir" type="text/x-handlebars-template">
     <div data-popup-body="" data-item="">
         <div class="" data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
             <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.MasVendidosMobileProductPageFicha" />
@@ -105,19 +107,50 @@
             <div>
                 <div class="texto_redes">Comparte este set con tus clientes</div>
                 <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
-                        <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
-               </a>
-               <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
-                        <img src="/Content/Images/Mobile/Esika/facebook.png">
-               </a>                
+                    <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
+                </a>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
+                    <img src="/Content/Images/Mobile/Esika/facebook.png">
+                </a>
             </div>
-        </div>                        
+        </div>
     </div>
 </script>
-    <div id="contenedor-detalle-producto-agregar"></div>
+<div id="contenedor-detalle-producto-agregar"></div>
 
-    <script id="template-detalle-producto-agregar" type="text/x-handlebars-template">
-        <div class="content_btn_agregar" data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
+<script id="template-detalle-producto-agregar" type="text/x-handlebars-template">
+    <div class="content_btn_agregar" data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
+        <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.MasVendidosMobileProductPageFicha" />
+        <div data-compartir-campos="" style="display:none;">
+            <input type="hidden" class="CUV" value="{{CUV2}}" />
+            <input type="hidden" class="rsFBMensaje" value="" />
+            <input type="hidden" class="rsWAMensaje" value="" />
+            <input type="hidden" class="rsFBRutaImagen" value="{{ImgUrl FotoProducto01}}" />
+            <input type="hidden" class="rsWARutaImagen" value="{{ImgUrl FotoProducto01}}" />
+            <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
+            <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
+            <input type="hidden" class="Volumen" value="{{Volumen}}" />
+            <input type="hidden" class="Palanca" value="BS" />
+            <input type="hidden" id="hdTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
+        </div>
+        <div data-estrategia="{{CodigoEstrategia}}"></div>
+        <div class="content_320">
+            <div class="content_cantidad_ficha_producto">
+                <a class="cantidad_menos_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                <a class="cantidad_mas_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+            </div>
+            <a class="btn_agregar_ficha_producto" data-btn-agregar-sr="" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true); ">AGRÉGALO</a>
+            <hr class="clear">
+        </div>
+    </div>
+</script>
+
+<script id="template-detalle-producto" type="text/x-handlebars-template">
+    <div>
+        <div class="content_room_product_sheet" data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
             <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.MasVendidosMobileProductPageFicha" />
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{CUV2}}" />
@@ -127,113 +160,82 @@
                 <input type="hidden" class="rsWARutaImagen" value="{{ImgUrl FotoProducto01}}" />
                 <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
                 <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
-                <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
+                <input type="hidden" class="Nombre" value="{{DescripcionCUV2}}" />
                 <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
                 <input type="hidden" class="Volumen" value="{{Volumen}}" />
                 <input type="hidden" class="Palanca" value="BS" />
                 <input type="hidden" id="hdTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
             </div>
             <div data-estrategia="{{CodigoEstrategia}}"></div>
-            <div class="content_320">
-                <div class="content_cantidad_ficha_producto">
-                    <a class="cantidad_menos_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                    <a class="cantidad_mas_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                </div>
-                <a class="btn_agregar_ficha_producto" data-btn-agregar-sr="" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true); ">AGRÉGALO</a>
-                <hr class="clear">
+            <div class="content_imagen_best">
+                <div class="content_fondo_bestSeller"><img src="{{ImgUrl FotoProducto01}}" /></div>
             </div>
-        </div>
-    </script>
-
-    <script id="template-detalle-producto" type="text/x-handlebars-template">
-        <div>
-            <div class="content_room_product_sheet" data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
-                <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.MasVendidosMobileProductPageFicha" />
-                <div data-compartir-campos="" style="display:none;">
-                    <input type="hidden" class="CUV" value="{{CUV2}}" />
-                    <input type="hidden" class="rsFBMensaje" value="" />
-                    <input type="hidden" class="rsWAMensaje" value="" />
-                    <input type="hidden" class="rsFBRutaImagen" value="{{ImgUrl FotoProducto01}}" />
-                    <input type="hidden" class="rsWARutaImagen" value="{{ImgUrl FotoProducto01}}" />
-                    <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
-                    <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
-                    <input type="hidden" class="Nombre" value="{{DescripcionCUV2}}" />
-                    <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
-                    <input type="hidden" class="Volumen" value="{{Volumen}}" />
-                    <input type="hidden" class="Palanca" value="BS" />
-                    <input type="hidden" id="hdTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
+            <hr class="clear" />
+            <div class="wrapper_resumen_mobile" style="margin-top:10px;">
+                <div class="marca_best">{{DescripcionMarca}}</div>
+                <h1>{{DescripcionCUV2}}</h1>
+                <div class="content_puntuacion_detalle">
+                    <div class="rateyo-readonly-widg" id="star-{{EstrategiaID}}"></div>
+                    <a href="#ComentariosUsuarios" class="comentarios_detalle_best" id="recommendation-{{EstrategiaID}}"></a>
                 </div>
-                <div data-estrategia="{{CodigoEstrategia}}"></div>
-                <div class="content_imagen_best">
-                    <div class="content_fondo_bestSeller"><img src="{{ImgUrl FotoProducto01}}" /></div>
+                <div class="price_product">
+                    <div id="precio-tachado-{{EstrategiaID}}"><s class="price_offer">{{SimboloMoneda}} {{PrecioTachado}}</s></div>
+                    <span class="price">Precio para ti <b>{{SimboloMoneda}} {{PrecioString}}</b></span>
+                    <div id="precio-gana-{{EstrategiaID}}"><span class="comment">Gana {{SimboloMoneda}} {{GananciaString}}</span></div>
                 </div>
-                <hr class="clear" />
-                <div class="wrapper_resumen_mobile" style="margin-top:10px;">
-                    <div class="marca_best">{{DescripcionMarca}}</div>
-                    <h1>{{DescripcionCUV2}}</h1>
-                    <div class="content_puntuacion_detalle">
-                        <div class="rateyo-readonly-widg" id="star-{{EstrategiaID}}"></div>
-                        <a href="#ComentariosUsuarios" class="comentarios_detalle_best" id="recommendation-{{EstrategiaID}}"></a>
+                <div class="comentarios_best_seller_ficha">
+                    <div id="last-commentary-{{EstrategiaID}}">
+                        <br />
                     </div>
-                    <div class="price_product">
-                        <div id="precio-tachado-{{EstrategiaID}}"><s class="price_offer">{{SimboloMoneda}} {{PrecioTachado}}</s></div>
-                        <span class="price">Precio para ti <b>{{SimboloMoneda}} {{PrecioString}}</b></span>
-                        <div id="precio-gana-{{EstrategiaID}}"><span class="comment">Gana {{SimboloMoneda}} {{GananciaString}}</span></div>
-                    </div>
-                    <div class="comentarios_best_seller_ficha">
-                        <div id="last-commentary-{{EstrategiaID}}">
-                            <br />
-                        </div>
-                        <div id="consultant-commentary-{{EstrategiaID}}">- Sandra A.</div>
-                    </div>
+                    <div id="consultant-commentary-{{EstrategiaID}}">- Sandra A.</div>
                 </div>
             </div>
         </div>
-    </script>
+    </div>
+</script>
 
-    <script id="template-detalle-producto-lista" type="text/x-handlebars-template">        
-        <div class="content_carrusel_bestSeller" id="divCarrouselMasVendidosLista">
-            <div class="titulo_carrusel_best"><b>LOS MÁS VENDIDOS</b></div>
-            <div id="Carrusel" class="variable-width">
-                {{#each this.Lista as |item|}}
-                <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
-                     class="{{#iff (Trim ../CodigoEstrategia) '==' '101'}}{{../ClassEstrategia}}{{/iff}}">
+<script id="template-detalle-producto-lista" type="text/x-handlebars-template">
+    <div class="content_carrusel_bestSeller" id="divCarrouselMasVendidosLista">
+        <div class="titulo_carrusel_best"><b>LOS MÁS VENDIDOS</b></div>
+        <div id="Carrusel" class="variable-width">
+            {{#each this.Lista as |item|}}
+            <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
+                 class="{{#iff (Trim ../CodigoEstrategia) '==' '101'}}{{../ClassEstrategia}}{{/iff}}">
+                <div>
                     <div>
-                        <div>
-                            <div onclick="javascript:masVendidosModule.estrategiaVerDetalle({{EstrategiaID}});">
-                                <div class="slider_item" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
-                                    <a href="#" class="slider_item_content">
-                                        <div data-img="">
-                                            <img src="{{ImgUrl FotoProducto01}}" class="imagen_carrusel_best">
-                                        </div>
-                                        <div class="marca_carrusel_best">{{DescripcionMarca}}</div>
-                                        <span class="title">{{DescripcionCortada}}</span>
-                                        <div style="height:15px">
-                                            <div id="precio-tachado-{{EstrategiaID}}"><s class="price_offer">{{SimboloMoneda}} {{PrecioTachado}}</s></div>
-                                        </div>                                            
-                                        <span class="price"><b>{{SimboloMoneda}} {{PrecioString}}</b></span>
-                                        <div class="rateyo-readonly-carrusel" id="star-{{EstrategiaID}}" style="margin-top:6px;"></div>
-                                        <div class="cantidad_puntuacion" id="recommedation-{{EstrategiaID}}">(326)</div>
-                                    </a>
-                                </div>
+                        <div onclick="javascript:masVendidosModule.estrategiaVerDetalle({{EstrategiaID}});">
+                            <div class="slider_item" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
+                                <a href="#" class="slider_item_content">
+                                    <div data-img="">
+                                        <img src="{{ImgUrl FotoProducto01}}" class="imagen_carrusel_best">
+                                    </div>
+                                    <div class="marca_carrusel_best">{{DescripcionMarca}}</div>
+                                    <span class="title">{{DescripcionCortada}}</span>
+                                    <div style="height:15px">
+                                        <div id="precio-tachado-{{EstrategiaID}}"><s class="price_offer">{{SimboloMoneda}} {{PrecioTachado}}</s></div>
+                                    </div>
+                                    <span class="price"><b>{{SimboloMoneda}} {{PrecioString}}</b></span>
+                                    <div class="rateyo-readonly-carrusel" id="star-{{EstrategiaID}}" style="margin-top:6px;"></div>
+                                    <div class="cantidad_puntuacion" id="recommedation-{{EstrategiaID}}">(326)</div>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                {{/each}}
             </div>
-            <div class="content_orden_carrusel" data-posicion-set="">
-                <div class="orden_listado_numero"><span data-posicion-current=""></span> / {{this.Lista.length}}</div>
-                <div class="linea_separadora_mobile" style="margin-top:-7px;"></div>
-                <div class="orden_flecha"><img src="/Content/Images/Esika/flecha_orden.png" alt="flecha"></div>
-                <div class="orden_flecha" style="right:0;"><img src="/Content/Images/Esika/flecha_orden_right.png" alt="flecha"></div>
-            </div>
+            {{/each}}
         </div>
+        <div class="content_orden_carrusel" data-posicion-set="">
+            <div class="orden_listado_numero"><span data-posicion-current=""></span> / {{this.Lista.length}}</div>
+            <div class="linea_separadora_mobile" style="margin-top:-7px;"></div>
+            <div class="orden_flecha"><img src="/Content/Images/Esika/flecha_orden.png" alt="flecha"></div>
+            <div class="orden_flecha" style="right:0;"><img src="/Content/Images/Esika/flecha_orden_right.png" alt="flecha"></div>
+        </div>
+    </div>
 </script>
 
-    @section scripts{
-        <script type="text/javascript">
+@section scripts{
+    <script type="text/javascript">
             $(function () {
                 var rating = 1.6;
                 $(".rateyo-readonly-widg").rateYo({
@@ -270,18 +272,20 @@
                     });
                 });
             });
-        </script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
-        <script type="text/javascript">
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
+    <script type="text/javascript">
             var tipoOrigenEstrategia = 2;
             var tieneMasVendidos = 1;
             var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MasVendidosMobileProductPageFicha';
-            var tipoOrigenPantalla = 2;
-        </script>
-        <script src="~/Scripts/PortalConsultoras/BestSeller/BestSellerCommentModule.js"></script>
-        <script src="~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js"></script>
-        <script src="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"></script>
-        <script src="~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js"></script>
-        <script src="~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js"></script>
-        <script src="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js"></script>
-    }
+        var tipoOrigenPantalla = 2;
+    </script>
+    <script src="~/Scripts/PortalConsultoras/BestSeller/BestSellerCommentModule.js"></script>
+    <script src="~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js"></script>
+    <script src="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"></script>
+    <script src="~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js"></script>
+    <script src="~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js"></script>
+    <script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js"></script>
+    <script src="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"></script>
+    <script src="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js"></script>
+}
