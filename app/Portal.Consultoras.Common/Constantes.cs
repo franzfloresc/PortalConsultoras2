@@ -1137,6 +1137,8 @@ namespace Portal.Consultoras.Common
             public const string Reserva_SinDetalle = "No tiene productos que reservar esta campaña.";
             public const string DeleteAllPedido_Error = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
             public const string Reserva_ObsHuerfanas = "Reserva_ObsHuerfanas: Se obtuvieron observaciones al reservar que no se encuentran en el detalle.";
+            public const string Reserva_Prol2 = "Reserva_Prol2: El servicio externo de reserva de Prol2 retornó vacio.";
+            public const string Reserva_Prol3 = "Reserva_Prol3: El servicio externo de reserva de Sicc retornó vacio o error.";
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
         }
 
