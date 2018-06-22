@@ -51,53 +51,11 @@
   <wsdl:message name="IOfertaService_GetEstrategiaODD_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategiaODDResponse" />
   </wsdl:message>
-  <wsdl:message name="IOfertaService_GetShowRoomEventoByCampaniaID_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetShowRoomEventoByCampaniaID" />
-  </wsdl:message>
-  <wsdl:message name="IOfertaService_GetShowRoomEventoByCampaniaID_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetShowRoomEventoByCampaniaIDResponse" />
-  </wsdl:message>
-  <wsdl:message name="IOfertaService_GetShowRoomConsultora_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetShowRoomConsultora" />
-  </wsdl:message>
-  <wsdl:message name="IOfertaService_GetShowRoomConsultora_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetShowRoomConsultoraResponse" />
-  </wsdl:message>
-  <wsdl:message name="IOfertaService_GetShowRoomNivel_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetShowRoomNivel" />
-  </wsdl:message>
-  <wsdl:message name="IOfertaService_GetShowRoomNivel_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetShowRoomNivelResponse" />
-  </wsdl:message>
-  <wsdl:message name="IOfertaService_GetShowRoomPersonalizacion_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetShowRoomPersonalizacion" />
-  </wsdl:message>
-  <wsdl:message name="IOfertaService_GetShowRoomPersonalizacion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetShowRoomPersonalizacionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IOfertaService_GetShowRoomPersonalizacionNivel_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetShowRoomPersonalizacionNivel" />
-  </wsdl:message>
-  <wsdl:message name="IOfertaService_GetShowRoomPersonalizacionNivel_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetShowRoomPersonalizacionNivelResponse" />
-  </wsdl:message>
-  <wsdl:message name="IOfertaService_ShowRoomProgramarAviso_InputMessage">
-    <wsdl:part name="parameters" element="tns:ShowRoomProgramarAviso" />
-  </wsdl:message>
-  <wsdl:message name="IOfertaService_ShowRoomProgramarAviso_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ShowRoomProgramarAvisoResponse" />
-  </wsdl:message>
   <wsdl:message name="IOfertaService_GetEstrategiasPedido_InputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategiasPedido" />
   </wsdl:message>
   <wsdl:message name="IOfertaService_GetEstrategiasPedido_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategiasPedidoResponse" />
-  </wsdl:message>
-  <wsdl:message name="IOfertaService_GetParametriaOfertaFinal_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetParametriaOfertaFinal" />
-  </wsdl:message>
-  <wsdl:message name="IOfertaService_GetParametriaOfertaFinal_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetParametriaOfertaFinalResponse" />
   </wsdl:message>
   <wsdl:portType name="IOfertaService">
     <wsdl:operation name="GetShowRoomOfertasConsultora">
@@ -112,37 +70,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetEstrategiaODD" message="tns:IOfertaService_GetEstrategiaODD_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/GetEstrategiaODDResponse" message="tns:IOfertaService_GetEstrategiaODD_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetShowRoomEventoByCampaniaID">
-      <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomEventoByCampaniaID" message="tns:IOfertaService_GetShowRoomEventoByCampaniaID_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomEventoByCampaniaIDResponse" message="tns:IOfertaService_GetShowRoomEventoByCampaniaID_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetShowRoomConsultora">
-      <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomConsultora" message="tns:IOfertaService_GetShowRoomConsultora_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomConsultoraResponse" message="tns:IOfertaService_GetShowRoomConsultora_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetShowRoomNivel">
-      <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomNivel" message="tns:IOfertaService_GetShowRoomNivel_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomNivelResponse" message="tns:IOfertaService_GetShowRoomNivel_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetShowRoomPersonalizacion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomPersonalizacion" message="tns:IOfertaService_GetShowRoomPersonalizacion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomPersonalizacionResponse" message="tns:IOfertaService_GetShowRoomPersonalizacion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetShowRoomPersonalizacionNivel">
-      <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomPersonalizacionNivel" message="tns:IOfertaService_GetShowRoomPersonalizacionNivel_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/GetShowRoomPersonalizacionNivelResponse" message="tns:IOfertaService_GetShowRoomPersonalizacionNivel_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ShowRoomProgramarAviso">
-      <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/ShowRoomProgramarAviso" message="tns:IOfertaService_ShowRoomProgramarAviso_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/ShowRoomProgramarAvisoResponse" message="tns:IOfertaService_ShowRoomProgramarAviso_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetEstrategiasPedido">
       <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetEstrategiasPedido" message="tns:IOfertaService_GetEstrategiasPedido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/GetEstrategiasPedidoResponse" message="tns:IOfertaService_GetEstrategiasPedido_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetParametriaOfertaFinal">
-      <wsdl:input wsaw:Action="http://tempuri.org/IOfertaService/GetParametriaOfertaFinal" message="tns:IOfertaService_GetParametriaOfertaFinal_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IOfertaService/GetParametriaOfertaFinalResponse" message="tns:IOfertaService_GetParametriaOfertaFinal_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IOfertaService" type="tns:IOfertaService">
@@ -174,71 +104,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetShowRoomEventoByCampaniaID">
-      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomEventoByCampaniaID" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetShowRoomConsultora">
-      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomConsultora" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetShowRoomNivel">
-      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomNivel" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetShowRoomPersonalizacion">
-      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomPersonalizacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetShowRoomPersonalizacionNivel">
-      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomPersonalizacionNivel" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ShowRoomProgramarAviso">
-      <soap:operation soapAction="http://tempuri.org/IOfertaService/ShowRoomProgramarAviso" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetEstrategiasPedido">
       <soap:operation soapAction="http://tempuri.org/IOfertaService/GetEstrategiasPedido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetParametriaOfertaFinal">
-      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetParametriaOfertaFinal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -277,71 +144,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetShowRoomEventoByCampaniaID">
-      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomEventoByCampaniaID" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetShowRoomConsultora">
-      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomConsultora" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetShowRoomNivel">
-      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomNivel" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetShowRoomPersonalizacion">
-      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomPersonalizacion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetShowRoomPersonalizacionNivel">
-      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetShowRoomPersonalizacionNivel" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ShowRoomProgramarAviso">
-      <soap:operation soapAction="http://tempuri.org/IOfertaService/ShowRoomProgramarAviso" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetEstrategiasPedido">
       <soap:operation soapAction="http://tempuri.org/IOfertaService/GetEstrategiasPedido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetParametriaOfertaFinal">
-      <soap:operation soapAction="http://tempuri.org/IOfertaService/GetParametriaOfertaFinal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

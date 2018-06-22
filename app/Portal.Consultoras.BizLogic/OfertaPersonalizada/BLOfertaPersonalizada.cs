@@ -13,21 +13,6 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
 {
     public class BLOfertaPersonalizada
     {
-        public BEShowRoomEvento GetShowRoomEventoByCampaniaID(int paisID, int campaniaID)
-        {
-            BEShowRoomEvento entidad = null;
-            var da = new DAShowRoomEvento(paisID);
-
-            using (IDataReader reader = da.GetShowRoomEventoByCampaniaID(campaniaID))
-            {
-                if (reader.Read())
-                {
-                    entidad = new BEShowRoomEvento(reader);
-                }
-            }
-            return entidad;
-        }
-
         public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora)
         {
             List<BEShowRoomOferta> showRoomOfertas;
@@ -77,71 +62,7 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
 
             return listaEstrategias;
         }
-
-        public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
-        {
-            BEShowRoomEventoConsultora entidad = null;
-            var daPedidoWeb = new DAShowRoomEvento(paisID);
-
-            using (IDataReader reader = daPedidoWeb.GetShowRoomConsultoraPersonalizacion(campaniaID, codigoConsultora))
-            {
-                if (reader.Read())
-                {
-                    entidad = new BEShowRoomEventoConsultora(reader);
-                }
-            }
-
-            return entidad;
-        }
-
-        public IList<BEShowRoomNivel> GetShowRoomNivel(int paisId)
-        {
-            var lst = new List<BEShowRoomNivel>();
-            var dataAccess = new DAShowRoomEvento(paisId);
-
-            using (IDataReader reader = dataAccess.GetShowRoomNivel())
-                while (reader.Read())
-                {
-                    var entity = new BEShowRoomNivel(reader);
-                    lst.Add(entity);
-                }
-            return lst;
-        }
-
-        public IList<BEShowRoomPersonalizacion> GetShowRoomPersonalizacion(int paisId)
-        {
-            var lst = new List<BEShowRoomPersonalizacion>();
-            var dataAccess = new DAShowRoomEvento(paisId);
-
-            using (IDataReader reader = dataAccess.GetShowRoomPersonalizacion())
-                while (reader.Read())
-                {
-                    var entity = new BEShowRoomPersonalizacion(reader);
-                    lst.Add(entity);
-                }
-            return lst;
-        }
-
-        public IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId, int nivelId, int categoriaId)
-        {
-            var lst = new List<BEShowRoomPersonalizacionNivel>();
-            var dataAccess = new DAShowRoomEvento(paisId);
-
-            using (IDataReader reader = dataAccess.GetShowRoomPersonalizacionNivel(eventoId, nivelId, categoriaId))
-                while (reader.Read())
-                {
-                    var entity = new BEShowRoomPersonalizacionNivel(reader);
-                    lst.Add(entity);
-                }
-            return lst;
-        }
-
-        public int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity)
-        {
-            var dataAccess = new DAShowRoomEvento(paisID);
-            return dataAccess.ShowRoomProgramarAviso(entity);
-        }
-
+        
         public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
         {
             try
@@ -301,38 +222,6 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
             });
             return estrategiasResult;
-        }
-
-        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID, string algoritmo)
-        {
-            List<BEEscalaDescuento> lstParametriaOfertaFinal = (List<BEEscalaDescuento>)CacheManager<BEEscalaDescuento>.GetData(paisID, ECacheItem.ParametriaOfertaFinal);
-            if (lstParametriaOfertaFinal != null)
-            {
-                lstParametriaOfertaFinal = lstParametriaOfertaFinal.Where(x => x.Algoritmo == algoritmo).ToList();
-            }
-
-            if (lstParametriaOfertaFinal == null || lstParametriaOfertaFinal.Count == 0)
-            {
-                DAEscalaDescuento daEscalaDescuento = new DAEscalaDescuento(paisID);
-
-                List<BEEscalaDescuento> lstEscalaDescuentoTemp = new List<BEEscalaDescuento>();
-                using (IDataReader reader = daEscalaDescuento.GetParametriaOfertaFinal(algoritmo))
-                    while (reader.Read())
-                    {
-                        var entidad = new BEEscalaDescuento(reader);
-                        lstEscalaDescuentoTemp.Add(entidad);
-                    }
-
-                lstParametriaOfertaFinal = new List<BEEscalaDescuento>();
-                if (lstEscalaDescuentoTemp.Count > 0)
-                {
-                    lstParametriaOfertaFinal.AddRange(lstEscalaDescuentoTemp);
-                }
-
-                CacheManager<BEEscalaDescuento>.AddData(paisID, ECacheItem.ParametriaOfertaFinal, lstParametriaOfertaFinal);
-            }
-
-            return lstParametriaOfertaFinal;
         }
     }
 }

@@ -359,7 +359,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(x => x.Descripcion, t => t.MapFrom(c => c.Descripcion))
                 .ForMember(x => x.Url, t => t.MapFrom(c => c.Url));
 
-            Mapper.CreateMap<ServiceOferta.BEShowRoomEvento, ShowRoomEventoModel>()
+            Mapper.CreateMap<ServicePedido.BEShowRoomEvento, ShowRoomEventoModel>()
                 .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
                 .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                 .ForMember(t => t.Tema, f => f.MapFrom(c => c.Tema))
@@ -532,7 +532,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Codigo, f => f.MapFrom(c => c.DesCampania))
                 .ForMember(t => t.Codigo, f => f.MapFrom(c => c.DesCampania));
 
-            Mapper.CreateMap<ServiceOferta.BEShowRoomPersonalizacion, ShowRoomPersonalizacionModel>()
+            Mapper.CreateMap<ServicePedido.BEShowRoomPersonalizacion, ShowRoomPersonalizacionModel>()
                 .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
                 .ForMember(t => t.TipoAplicacion, f => f.MapFrom(c => c.TipoAplicacion))
                 .ForMember(t => t.Atributo, f => f.MapFrom(c => c.Atributo))
@@ -591,14 +591,14 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CUV, f => f.MapFrom(c => c.CuvProducto))
                 .ForMember(t => t.TipoOfertaSisId, f => f.MapFrom(c => c.TipoOfertaSisId));
 
-            Mapper.CreateMap<ServiceOferta.BEShowRoomEventoConsultora, ShowRoomEventoConsultoraModel>();
+            Mapper.CreateMap<ServicePedido.BEShowRoomEventoConsultora, ShowRoomEventoConsultoraModel>();
 
-            Mapper.CreateMap<ServiceOferta.BEShowRoomNivel, ShowRoomNivelModel>()
+            Mapper.CreateMap<ServicePedido.BEShowRoomNivel, ShowRoomNivelModel>()
                 .ForMember(t => t.NivelId, f => f.MapFrom(c => c.NivelId))
                 .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
                 .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
 
-            Mapper.CreateMap<ServiceOferta.BEShowRoomPersonalizacionNivel, ShowRoomPersonalizacionNivelModel>()
+            Mapper.CreateMap<ServicePedido.BEShowRoomPersonalizacionNivel, ShowRoomPersonalizacionNivelModel>()
                 .ForMember(t => t.PersonalizacionNivelId, f => f.MapFrom(c => c.PersonalizacionNivelId))
                 .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
                 .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
