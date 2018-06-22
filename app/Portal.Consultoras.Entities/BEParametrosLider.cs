@@ -2,6 +2,7 @@
 using System.Data;
 using Portal.Consultoras.Common;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Portal.Consultoras.Entities
 {
@@ -11,8 +12,10 @@ namespace Portal.Consultoras.Entities
         { }
 
         [DataMember]
+        [Column("SeccionGestionLider")]
         public string SeccionGestionLider { get; set; }
         [DataMember]
+        [Column("NivelProyectado")]
         public string NivelProyectado { get; set; }
 
         public BEParametrosLider(IDataRecord row)
