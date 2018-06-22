@@ -230,11 +230,7 @@
 
                 ActualizarGanancia(data.DataBarra);
 
-                $(".contenedor_circulos").fadeIn();
-                setTimeout(function() {
-                        $(".contenedor_circulos").fadeOut();
-                    },
-                    2700);
+                microefectoPedidoGuardado();
                 $btnAgregar.parents("[data-item]").find("[data-input='cantidad']").val("1");
             } else {
                 $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido")
