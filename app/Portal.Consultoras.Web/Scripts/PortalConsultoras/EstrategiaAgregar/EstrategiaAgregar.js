@@ -1,12 +1,8 @@
 ﻿var EstrategiaAgregarModule = function () {
     "use strict";
 
-    var getEstrategia = function(e) {
-        var objHtmlEvent = $(e.target);
-        if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
-        var objHtml = objHtmlEvent.parents("[data-item]");
-        var objAux = $.trim($(objHtml).find("[data-estrategia]").attr("data-estrategia"));
-        var estrategia = (objAux != "") ? JSON.parse(objAux) : {};
+    var getEstrategia = function($btnAgregar) {
+        var estrategia = $btnAgregar.parents("[data-item]").find("[data-estrategia]").data("estrategia") || {};
         return estrategia;
     };
 
@@ -109,19 +105,15 @@
         var estrategia = getEstrategia(event);
 
         var $btnAgregar = $(event.target);
-
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
-
-        var campania = $btnAgregar.parents("[data-tag-html]").attr("data-tag-html");
 
         if (estrategiaValidarBloqueada($btnAgregar, estrategia)) {
             try {
+                var name = $.trim(estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada);
                 rdAnalyticsModule.AgregarProductoDeshabilitado(
                     origenPedidoWebEstrategia,
-                    campania,
-                    (estrategia.DescripcionResumen +
-                        " " +
-                        estrategia.DescripcionCortada).trim(),
+                    estrategia.CampaniaID,
+                    name,
                     popup);
             } catch (e) {
                 console.log(e);
@@ -185,9 +177,6 @@
             }
         }
 
-        if (!origenPedidoWebEstrategia) {
-            origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar) || origenPedidoWebEstrategia;
-        }
         var tipoEstrategiaImagen = $btnAgregar.parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
         var params = {
