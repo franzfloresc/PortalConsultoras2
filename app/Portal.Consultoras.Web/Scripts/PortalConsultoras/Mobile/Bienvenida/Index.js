@@ -84,6 +84,8 @@ $(document).ready(function () {
     }
     
     if (consultoraNuevaBannerAppMostrar == "False") CargarPopupsConsultora();
+    else MostrarPopupAceptacionContratoGet();
+
     TagManagerCatalogosPersonalizados();
     $(document).on('click', '.banner_inferior_mobile', function () {
         dataLayer.push({
@@ -380,6 +382,14 @@ function CargarPopupsConsultora() {
         rdPopup.Mostrar();
     }
     else if (TipoPopUpMostrar == popupAceptacionContrato)
+    {
+        MostrarPopupAceptacionContratoGet();
+    }
+}
+
+function MostrarPopupAceptacionContratoGet()
+{
+    if (TipoPopUpMostrar == popupAceptacionContrato)
     {
         $("#fondoPopup_aceptacionTerminosYCondicionesContrato").show();
     }
