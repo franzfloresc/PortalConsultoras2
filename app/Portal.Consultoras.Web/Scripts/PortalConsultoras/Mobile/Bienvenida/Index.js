@@ -735,11 +735,14 @@ function VerTutorialMobile() {
 }
 
 function AceptarContrato() {
+
+    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato };
     ShowLoading({});
+
     $.ajax({
         type: "POST",
         url: baseUrl + "Bienvenida/AceptarContrato",
-        data: JSON.stringify({ checkAceptar: 1 }),
+        data: JSON.stringify(parameter),
         contentType: 'application/json',
         success: function (data) {
             if (checkTimeout(data)) {

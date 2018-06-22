@@ -460,7 +460,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return partial;
         }
 
-        public JsonResult AceptarContrato(bool checkAceptar)
+        public JsonResult AceptarContrato(bool checkAceptar, string origenAceptacion)
         {
             try
             {
@@ -476,7 +476,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 using (var svr = new UsuarioServiceClient())
                 {
-                   svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora, Constantes.ClienteOrigen.OrigeMobile);
+                   svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora, origenAceptacion);
                 }
 
                 userData.IndicadorContrato = 1;

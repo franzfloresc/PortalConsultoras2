@@ -2136,7 +2136,7 @@
 
 <!--EPD-1204 FIN-->
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
         var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
         var viewBagPrimeraVez = '@Model.PrimeraVez';
@@ -2189,7 +2189,10 @@
         var popupVideoIntroductorio = '@Constantes.TipoPopUp.VideoIntroductorio';
         var popupGPR = '@Constantes.TipoPopUp.GPR';
         var popupDemandaAnticipada = '@Constantes.TipoPopUp.DemandaAnticipada';
+
         var popupAceptacionContrato = '@Constantes.TipoPopUp.AceptacionContrato';
+        var OrigenAceptacionContrato = '@Constantes.ClienteOrigen.OrigenDesktop';
+
         var popupShowRoom = '@Constantes.TipoPopUp.Showroom';
         var popupActualizarDatos = '@Constantes.TipoPopUp.ActualizarDatos';
         var popupFlexipago = '@Constantes.TipoPopUp.Flexipago';
@@ -2251,7 +2254,7 @@
         var OrigenDesktopODD = 1;
         var nombreAlias = '@Util.SubStr(Model.NombreConsultora, 0)';
         var viewBagTieneHV = '@((ViewBag.TieneHV ??  false).ToString().ToLower())' == 'true';
-    </script>
+</script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Portal.Consultoras.Web.SessionManager.SessionManager.Instance.SetIsContrato(0); }
 }
