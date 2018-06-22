@@ -375,6 +375,7 @@ var actualizarCelularModule = (function (globalData, $) {
 
             if (e.keyCode == 8) {
                 input.prev().focus();
+                input.prev().val('');
             }
 
             var code = me.Funciones.GetSmsCode();
