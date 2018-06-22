@@ -379,6 +379,7 @@ namespace Portal.Consultoras.Common
             string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
 
             MailMessage objMail = new MailMessage();
+            objMail.SubjectEncoding = System.Text.Encoding.UTF8;
             SmtpClient objClient = new SmtpClient(strServidor);
 
             AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);

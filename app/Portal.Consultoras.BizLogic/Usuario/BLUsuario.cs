@@ -19,6 +19,7 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using JWT;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -2244,14 +2245,14 @@ namespace Portal.Consultoras.BizLogic
                 if (!ValidaCampania(oUsu.campaniaID, usuFiltro.CampaniaInicio, usuFiltro.CampaniaFinal)) return oUsu;
                 oUsu.MensajeSaludo = usuFiltro.MensajeSaludo;
             }
-            
-            
+
+
             oUsu.MostrarOpcion = Constantes.OlvideContrasenia.NombreOpcion.MostrarMensajeFueraHorario;
             if (oUsu == null) return null;
-            if (oUsu.Cantidad == 0) return null;           
+            if (oUsu.Cantidad == 0) return null;
 
             if (prioridad == 1)
-            {                
+            {
                 if (opcion.OpcionEmail && oUsu.Correo != "")
                 {
                     oUsu.CorreoEnmascarado = Common.Util.EnmascararCorreo(oUsu.Correo);
@@ -2317,7 +2318,7 @@ namespace Portal.Consultoras.BizLogic
                 switch (oUsu.OrigenID)
                 {
                     case Constantes.OpcionesDeVerificacion.OrigenOlvideContrasenia:
-                        return EnviarEmailOlvideContrasenia(paisID, oUsu, cantidadEnvios);                   
+                        return EnviarEmailOlvideContrasenia(paisID, oUsu, cantidadEnvios);
                     case Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad:
                         return EnviarEmailVerificacionAutenticidad(paisID, oUsu, cantidadEnvios);
                 }
@@ -2335,7 +2336,7 @@ namespace Portal.Consultoras.BizLogic
             var DAUsuario = new DAUsuario(paisID);
             return DAUsuario.VerificarIgualdadCodigoIngresado(oUsu, codigoIngresado);
         }
-       
+
         #region METODOS OLVIDE CONTRASENIA
         private List<BETablaLogicaDatos> GetFlagEncendido(int paisID, short TablaLogicaID, string CodigoActivar)
         {
@@ -2499,6 +2500,62 @@ namespace Portal.Consultoras.BizLogic
             return CacheManager<BEEnviarSms>.ValidateDataElement(paisID, ECacheItem.CredencialesSMS, paisID.ToString(), () => GetCredencialesSms(paisID));
         }
 
+        //public bool ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios)
+        //{
+        //    if (oUsu.Celular == "") return false;
+        //    try
+        //    {
+        //        BEEnviarSms oCredencial = GetCredencialesSmsCache(paisID);
+        //        string codGenerado = Common.Util.GenerarCodigoRandom();
+        //        oCredencial.Mensaje = string.Format(oCredencial.Mensaje, codGenerado);
+
+        //        var data = new
+        //        {
+        //            OrigenID = oUsu.OrigenID,
+        //            CodigoUsuario = oUsu.CodigoUsuario,
+        //            CodigoConsultora = oUsu.CodigoConsultora,
+        //            OrigenDescripcion = oUsu.OrigenDescripcion,
+        //            UsuarioSms = oCredencial.UsuarioSms,
+        //            ClaveSms = oCredencial.ClaveSms,
+        //            CampaniaID = oUsu.campaniaID,
+        //            NroCelular = oUsu.Celular,
+        //            Mensaje = oCredencial.Mensaje,
+        //            CodigoIso = oUsu.CodigoIso,
+        //            EsMobile = oUsu .EsMobile,
+        //            RequestUrl = oCredencial.RequestUrl,
+        //            RecursoApi = oCredencial.RecursoApi
+        //        };
+
+        //        string requestUrl = ConfigurationManager.AppSettings.Get(Constantes.EnviarSMS.SmsConsultoraWs.urlKey);
+        //        string urlApiSms = Constantes.EnviarSMS.SmsConsultoraWs.RecursoApi;
+        //        var result = new BERespuestaSMS();
+        //        HttpClient httpClient = new HttpClient();
+        //        httpClient.BaseAddress = new Uri(requestUrl);
+        //        httpClient.DefaultRequestHeaders.Accept.Clear();
+        //        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //        string dataString = JsonConvert.SerializeObject(data);
+        //        HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+        //        HttpResponseMessage response = httpClient.PostAsync(urlApiSms, contentPost).GetAwaiter().GetResult();
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            string jsonString = response.Content.ReadAsStringAsync().Result;
+        //            result = JsonConvert.DeserializeObject<BERespuestaSMS>(jsonString);
+        //        }
+        //        httpClient.Dispose();
+
+        //        if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
+        //        InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorSms, codGenerado);
+        //        if (result.codigo == "OK") return true;
+        //        return false;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.SaveLog(ex, oUsu.CodigoUsuario, paisID);
+        //        return false;
+        //    }
+        //}
+
+
         public bool ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios)
         {
             if (oUsu.Celular == "") return false;
@@ -2520,7 +2577,7 @@ namespace Portal.Consultoras.BizLogic
                     NroCelular = oUsu.Celular,
                     Mensaje = oCredencial.Mensaje,
                     CodigoIso = oUsu.CodigoIso,
-                    EsMobile = oUsu .EsMobile,
+                    EsMobile = oUsu.EsMobile,
                     RequestUrl = oCredencial.RequestUrl,
                     RecursoApi = oCredencial.RecursoApi
                 };
@@ -2528,13 +2585,27 @@ namespace Portal.Consultoras.BizLogic
                 string requestUrl = ConfigurationManager.AppSettings.Get(Constantes.EnviarSMS.SmsConsultoraWs.urlKey);
                 string urlApiSms = Constantes.EnviarSMS.SmsConsultoraWs.RecursoApi;
                 var result = new BERespuestaSMS();
+
                 HttpClient httpClient = new HttpClient();
                 httpClient.BaseAddress = new Uri(requestUrl);
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                string dataString = JsonConvert.SerializeObject(data);
-                HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = httpClient.PostAsync(urlApiSms, contentPost).GetAwaiter().GetResult();
+                //httpClient.DefaultRequestHeaders.Accept.Clear();
+                //httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                string secretKey = ConfigurationManager.AppSettings.Get("JsonWebTokenSecretKey");
+                var token = JsonWebToken.Encode(data, secretKey, JwtHashAlgorithm.HS512);
+
+                //HttpContent contentPost = new StringContent(token, Encoding.UTF8, "application/json");
+                //HttpContent contentPost = new StringContent(string.Format("token={0}", token));
+
+                //var parameters = new Dictionary<string, string>();
+                //parameters.Add("id", token);
+                
+
+                //var values = new List<KeyValuePair<string, string>>();
+                //values.Add(new KeyValuePair<string, string>("id", token));
+                //var encodedContent = new FormUrlEncodedContent(values);
+
+                HttpResponseMessage response = httpClient.PostAsync(urlApiSms + "?id=" + token, null).GetAwaiter().GetResult();
                 if (response.IsSuccessStatusCode)
                 {
                     string jsonString = response.Content.ReadAsStringAsync().Result;
@@ -2557,7 +2628,7 @@ namespace Portal.Consultoras.BizLogic
         private void InsCodigoGenerado(BEUsuarioDatos oUsu, int paisID, string TipoEnvio, string CodigoGenerado = "")
         {
             var DAUsuario = new DAUsuario(paisID);
-            DAUsuario.InsCodigoGenerado(oUsu,TipoEnvio, CodigoGenerado);
+            DAUsuario.InsCodigoGenerado(oUsu, TipoEnvio, CodigoGenerado);
         }
         #endregion
 
@@ -2592,7 +2663,7 @@ namespace Portal.Consultoras.BizLogic
                 /*Obteniendo Datos de Verificacion de Autenticidad*/
                 var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad, oUsu.RegionID, oUsu.ZonaID);
                 if (opcion == null) return null;
-                /*validando si tiene Zona*/                
+                /*validando si tiene Zona*/
                 if (opcion.TieneZonas)
                 {
                     var TieneZona = new BLOpcionesVerificacion().GetZonasOpcionesVerificacion(paisID, oUsu.RegionID, oUsu.ZonaID);
@@ -2600,7 +2671,7 @@ namespace Portal.Consultoras.BizLogic
                     if (!TieneZona.VerifAutenticidad) return null;
                 }
                 /*Validando si corresponde al Usuario*/
-                if (opcion.lstFiltros.Count >= 0) 
+                if (opcion.lstFiltros.Count >= 0)
                 {
                     var usuFiltro = opcion.lstFiltros.Where(a => a.IdEstadoActividad == oUsu.IdEstadoActividad).FirstOrDefault();
                     if (usuFiltro == null) return null;
@@ -2629,7 +2700,7 @@ namespace Portal.Consultoras.BizLogic
                 oUsu.OrigenID = opcion.OrigenID;
                 oUsu.OrigenDescripcion = opcion.OrigenDescripcion;
                 oUsu.CodigoUsuario = CodigoUsuario;
-                oUsu.CodigoIso = Common.Util.GetPaisISO(paisID);                
+                oUsu.CodigoIso = Common.Util.GetPaisISO(paisID);
                 GetOpcionHabilitar(paisID, Constantes.VerificacionAutenticidad.Origen, ref oUsu);
                 return oUsu;
             }
@@ -2647,6 +2718,15 @@ namespace Portal.Consultoras.BizLogic
 
         private BEUsuarioDatos GetUsuarioVerificacionAutenticidad(int paisID, string CodigoUsuario)
         {
+
+            string iso = Common.Util.GetPaisISO(paisID);
+
+            string key = "CL,CO,EC"; //config
+            bool buscarxDNI = false;
+
+            if (key.Contains(iso)) buscarxDNI = true;
+
+
             var DAUsuario = new DAUsuario(paisID);
             var datos = new BEUsuarioDatos();
             using (IDataReader rd = DAUsuario.GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario))
@@ -2743,7 +2823,7 @@ namespace Portal.Consultoras.BizLogic
 
                 listaConfigPais = _configuracionPaisBusinessLogic.GetList(config);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.SaveLog(ex, CodigoUsuarioLog, PaisIDLog);
             }
@@ -2775,7 +2855,7 @@ namespace Portal.Consultoras.BizLogic
 
                 listaEntidad = _configuracionPaisDatosBusinessLogic.GetList(entidad);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.SaveLog(ex, CodigoUsuarioLog, PaisIDLog);
             }
@@ -2917,7 +2997,7 @@ namespace Portal.Consultoras.BizLogic
 
             return codigoUsuario;
         }
-        
+
         public bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID)
         {
             return new DAUsuario(paisID).GetConsultoraParticipaEnPrograma(codigoPrograma, codigoConsultora, campaniaID);

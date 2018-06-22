@@ -2129,6 +2129,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ActualizarContrasenia()
         {
+            ViewBag.NombreConsultora = userData.PrimerNombre;
             return View();
         }
 

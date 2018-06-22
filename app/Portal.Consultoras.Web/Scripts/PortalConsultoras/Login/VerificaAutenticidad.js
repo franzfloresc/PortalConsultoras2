@@ -256,6 +256,8 @@ function VerificarCodigo(CodIngresado) {
 
 function ContinuarLogin(CambioClave)
 {    
+    console.log('EM>>' + EsMobile);
+
     var param = "";
     if (CambioClave == 1) //Para Desktop
         param = "?verCambioClave=1" 
@@ -269,10 +271,14 @@ function ContinuarLogin(CambioClave)
         contentType: 'application/json; charset=utf-8',
         async: true,
         success: function (response) {
-            if (EsMobile && CambioClave == 1)
+            if (EsMobile == "True" && CambioClave == 1) {
+                console.log('**A');
                 document.location.href = VerCambioClaveMobile;
-            else
+            }
+            else {
+                console.log('**B');
                 document.location.href = response.redirectTo + param;
+            }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {

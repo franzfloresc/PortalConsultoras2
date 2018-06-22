@@ -323,6 +323,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult ActualizarContrasenia()
         {
+            ViewBag.NombreConsultora = ObtenerNombreConsultora();
             return View();
         }
 
