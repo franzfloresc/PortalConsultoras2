@@ -2,7 +2,7 @@
     "use strict";
 
     var getEstrategia = function($btnAgregar) {
-        var estrategia = $btnAgregar.parents("[data-item]").find("[data-estrategia]").data("estrategia") || {};
+        var estrategia = $($btnAgregar.target).parents("[data-item]").find("[data-estrategia]").data("estrategia") || {};
         return estrategia;
     };
 
