@@ -6,6 +6,7 @@
     var urls = globalData.urlProvider;
     var localData = {
         CelularActual: globalData.celular,
+        InicialNumero: globalData.iniciaNumero,
         CelularValido: false,
         CelularNuevo: '',
         Expired: true,
@@ -15,10 +16,6 @@
     me.Elements = (function() {
         function getInputCelular() {
             return $('#NuevoCelular');
-        }
-
-        function getValidateStartedPhone() {
-            return $('#hdn_iniciaNumero');
         }
 
         function getIconValidacionSms() {
@@ -42,8 +39,7 @@
             getIconValidacionSms: getIconValidacionSms,
             getErrorText: getErrorText,
             getCelularNuevoText: getCelularNuevoText,
-            getInputsCodeSms: getInputsCodeSms,
-            getValidateStartedPhone: getValidateStartedPhone
+            getInputsCodeSms: getInputsCodeSms
         };
     })();
     me.Services = (function() {
@@ -126,11 +122,6 @@
             };
         }
 
-        function validFormatByIso(iso, number) {
-            var pattern = iso === 'PE' ? /^9\d+$/ : /^\d+$/;
-            return pattern.test(number);
-        }
-
         function validarCelular(numero, numberInitialPhone) {
             if (!numero) {
                 return {
@@ -146,8 +137,8 @@
                 };
             }
 
-            var valid = validFormatByIso(localData.IsoPais, numero);
-            if (!valid) {
+            var pattern = /^\d+$/;
+            if (!pattern.test(numero)) {
                 return {
                     Success: false,
                     Message: 'El número no cumple con el formato.'
@@ -162,8 +153,8 @@
                 };
             }
 
-            if (numberInitialPhone > 0) {
-                if (numero.charAt(0) != numberInitialPhone) {
+            if (numberInitialPhone) {
+                if (numero.charAt(0) !== numberInitialPhone) {
                     return {
                         Success: false,
                         Message: 'El número debe empezar con ' + numberInitialPhone + '.'
@@ -326,7 +317,7 @@
     me.Eventos = (function() {
         function continuar() {
             var nuevoCelular = me.Elements.getInputCelular().val();
-            var numberInitialPhone = me.Elements.getValidateStartedPhone().val();
+            var numberInitialPhone = localData.InicialNumero;
 
             var result = me.Funciones.ValidarCelular(nuevoCelular, numberInitialPhone);
             if (!result.Success) {
