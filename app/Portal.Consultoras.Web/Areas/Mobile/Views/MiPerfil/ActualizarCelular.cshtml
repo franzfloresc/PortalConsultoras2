@@ -127,7 +127,7 @@ else
     <script>
         var actualizaCelularData = {
             celular: '@ViewBag.Celular',
-            iniciaNumero: '@ViewBag.IniciaNumeroCelular',
+            iniciaNumero: @ViewBag.IniciaNumeroCelular,
             urlProvider: {
                 enviarSmsCodigo: '@Url.Action("EnviarSmsCodigo", "MiPerfil", new { area = "" })',
                 confirmarSmsCode: '@Url.Action("ConfirmarSmsCode", "MiPerfil", new { area = "" })'

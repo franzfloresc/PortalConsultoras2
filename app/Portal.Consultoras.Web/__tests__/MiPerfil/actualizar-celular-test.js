@@ -4,7 +4,7 @@ global.AbrirLoad = jest.fn();
 global.CerrarLoad = jest.fn();
 global.actualizaCelularData = {
     celular: '987654321',
-    iniciaNumero: '9',
+    iniciaNumero: 9,
     urlProvider: {}
 };
 global.IsoPais = ''; 
