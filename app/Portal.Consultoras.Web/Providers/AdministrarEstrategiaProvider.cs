@@ -395,7 +395,7 @@ namespace Portal.Consultoras.Web.Providers
             return null;
         }
 
-        public List<DescripcionEstrategiaModel> UploadCsv(List<BEDescripcionEstrategia> descripcionEstrategiaLista, string pais)
+        public List<DescripcionEstrategiaModel> UploadCsv(List<BEDescripcionEstrategia> descripcionEstrategiaLista, string pais, string campaniaId)
         {
             var descripcionEstrategiaListaWA = descripcionEstrategiaLista.Select(d => new
             {
@@ -406,7 +406,7 @@ namespace Portal.Consultoras.Web.Providers
 
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParameters = JsonConvert.SerializeObject(descripcionEstrategiaListaWA);
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlUploadCsv, pais);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlUploadCsv, pais, campaniaId);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
