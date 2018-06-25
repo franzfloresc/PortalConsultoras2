@@ -168,6 +168,17 @@ function actualizarDatos() {
         return false;
     }
 
+    if ($('#hdn_iniciaNumero').val() > 0) {
+        if ($('#txtCelularMD').val() != null || $.trim($('#txtCelularMD')) == "") {
+            var numero = $('#txtCelularMD').val();
+            var inicia = $('#hdn_iniciaNumero').val();
+            if (inicia != numero.charAt(0)) {
+                alert('Su número de celular debe empezar con ' + inicia + '.');
+                return false;
+            }
+        }
+    }
+
     if (jQuery.trim($('#txtCelularMD').val()) != "") {
         if (!ValidarTelefono($("#txtCelularMD").val())) {
             alert('El celular que está ingresando ya se encuenta registrado.');

@@ -17,6 +17,10 @@
             return $('#NuevoCelular');
         }
 
+        function getValidateStartedPhone() {
+            return $('#hdn_iniciaNumero');
+        }
+
         function getIconValidacionSms() {
             return $('.icono_validacion_codigo_sms');
         }
@@ -38,7 +42,8 @@
             getIconValidacionSms: getIconValidacionSms,
             getErrorText: getErrorText,
             getCelularNuevoText: getCelularNuevoText,
-            getInputsCodeSms: getInputsCodeSms
+            getInputsCodeSms: getInputsCodeSms,
+            getValidateStartedPhone: getValidateStartedPhone
         };
     })();
     me.Services = (function() {
@@ -91,12 +96,12 @@
         function getLengthPais(iso) {
             var paises = {
                 'PE': 9,
-                'MX': 15,
+                'MX': 10,
                 'EC': 10,
-                'CL': 15,
-                'BO': 15,
-                'PR': 15,
-                'DO': 15,
+                'CL': 9,
+                'BO': 8,
+                'PR': 10,
+                'DO': 10,
                 'CR': 8,
                 'GT': 8,
                 'PA': 8,
@@ -126,7 +131,7 @@
             return pattern.test(number);
         }
 
-        function validarCelular(numero) {
+        function validarCelular(numero, numberInitialPhone) {
             if (!numero) {
                 return {
                     Success: false,
@@ -155,6 +160,15 @@
                     Success: false,
                     Message: 'El número debe tener ' + result.length + ' digitos.'
                 };
+            }
+
+            if (numberInitialPhone > 0) {
+                if (numero.charAt(0) != numberInitialPhone) {
+                    return {
+                        Success: false,
+                        Message: 'El número debe empezar con ' + numberInitialPhone + '.'
+                    }
+                }                
             }
 
             return { Success: true };
@@ -312,8 +326,9 @@
     me.Eventos = (function() {
         function continuar() {
             var nuevoCelular = me.Elements.getInputCelular().val();
+            var numberInitialPhone = me.Elements.getValidateStartedPhone().val();
 
-            var result = me.Funciones.ValidarCelular(nuevoCelular);
+            var result = me.Funciones.ValidarCelular(nuevoCelular, numberInitialPhone);
             if (!result.Success) {
                 me.Funciones.ShowError(result.Message);
                 return;

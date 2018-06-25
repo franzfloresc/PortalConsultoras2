@@ -88,6 +88,10 @@ namespace Portal.Consultoras.Web.Controllers
                 model.limiteMinimoTelef = limiteMinimoTelef;
                 model.limiteMaximoTelef = limiteMaximoTelef;
                 #endregion
+                var numero = 0;
+                var valida = false;
+                ObtenerIniciaNumeroCelular(out valida, out numero);
+                model.IniciaNumeroCelular = valida ? numero : -1;
             }
 
             return View(model);
@@ -174,6 +178,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ViewBag.Celular = userData.Celular;
+
+            var numero = 0;
+            var valida = false;
+            ObtenerIniciaNumeroCelular(out valida, out numero);
+            ViewBag.IniciaNumeroCelular = valida ? numero : -1;
 
             return View();
         }
