@@ -291,13 +291,21 @@ namespace Portal.Consultoras.Data
             return Convert.ToString(Context.ExecuteScalar(command));
         }
 
-        public int ValidarEmailConsultora(string Email, string CodigoUsuario)
+        public int ValidarEmailConsultora(string email, string codigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidateConsultoraEmail");
-            Context.Database.AddInParameter(command, "@Email", DbType.AnsiString, Email);
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@Email", DbType.AnsiString, email);
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
 
             return Convert.ToInt32(Context.ExecuteScalar(command));
+        }
+
+        public bool ExistsUsuarioEmail(string email)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ExistsUsuarioEmail");
+            Context.Database.AddInParameter(command, "@Email", DbType.AnsiString, email);
+
+            return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
 
         public int ValidarTelefonoConsultora(string Telefono, string CodigoUsuario)
