@@ -241,7 +241,8 @@ namespace Portal.Consultoras.Web.Providers
         {
             UsuarioModel userData = sessionManager.GetUserData();
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlRegistrarWebApi, pais);
-            WaEstrategiaModel waModel = ObtenerEstrategia(entidad, "");
+            WaEstrategiaModel waModel = ObtenerEstrategia(entidad, string.Empty);
+            waModel.FechaCreacion = DateTime.Now;
             string jsonParameters = JsonConvert.SerializeObject(waModel);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "post", userData));
             Task.WhenAll(taskApi);
@@ -258,6 +259,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEditarWebApi, pais);
             WaEstrategiaModel waModel = ObtenerEstrategia(entidad, mongoId);
+            waModel.FechaModificacion = DateTime.Now;
             string jsonParameters = JsonConvert.SerializeObject(waModel);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);

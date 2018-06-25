@@ -543,8 +543,10 @@ namespace Portal.Consultoras.Web.Controllers
                 decimal wspreciopack, ganancia = 0;
                 string niveles = "";
                 string codigoSap = "";
+                string DescripcionMarca = "";
+                int MarcaID = 0;
                 int enMatrizComercial = 0;
-                int idMatrizComercial = 0;
+                int IdMatrizComercial = 0;
                 string wsprecio = "";
                 ServicePedido.BEEstrategia beEstrategia = null;
 
@@ -562,9 +564,11 @@ namespace Portal.Consultoras.Web.Controllers
                         descripcion = beEstrategia.DescripcionCUV2;
                         precio = beEstrategia.Precio.ToString();
                         ganancia = beEstrategia.Ganancia;
+                        DescripcionMarca = beEstrategia.DescripcionMarca;
+                        MarcaID = beEstrategia.MarcaID;
                         codigoSap = beEstrategia.CodigoSAP;
                         enMatrizComercial = beEstrategia.EnMatrizComercial.ToInt();
-                        idMatrizComercial = beEstrategia.IdMatrizComercial.ToInt();
+                        IdMatrizComercial = beEstrategia.IdMatrizComercial.ToInt();
                     }
                 }
                 else
@@ -613,7 +617,7 @@ namespace Portal.Consultoras.Web.Controllers
                     beEstrategia = lst[0];
                     descripcion = beEstrategia.DescripcionCUV2;
                     enMatrizComercial = beEstrategia.EnMatrizComercial.ToInt();
-                    idMatrizComercial = beEstrategia.IdMatrizComercial.ToInt();
+                    IdMatrizComercial = beEstrategia.IdMatrizComercial.ToInt();
                     codigoSap = beEstrategia.CodigoSAP;
                 }
 
@@ -637,9 +641,11 @@ namespace Portal.Consultoras.Web.Controllers
                     descripcion,
                     precio,
                     wsprecio,
+                    MarcaID,
+                    DescripcionMarca,
                     codigoSAP = codigoSap,
                     enMatrizComercial,
-                    idMatrizComercial,
+                    IdMatrizComercial,
                     ganancia = ganancia.ToString("F2"),
                     extra = "",
                     niveles,

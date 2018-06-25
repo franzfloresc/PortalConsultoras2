@@ -329,7 +329,6 @@
             TipoEstrategiaID: data.TipoEstrategiaID,
             CodigoSAP: 0,
             CampaniaID: data.CampaniaID,
-            IdMatrizComercial: 0,
             paisID: $("#ddlPais").val(),
             imagenes: [],
             imagen: _obtenerImagenGrilla(id),
@@ -385,7 +384,7 @@
 
     var _obtenerFiltrarEstrategiaSuccess = function (editData, id) {
         return function (data, textStatus, jqXHR) {
-
+          
             if (data.success == false) {
                 _toastHelper.success(data.message);
                 closeWaitingDialog();
@@ -398,8 +397,9 @@
             $('#MarcaID').val(data.MarcaID);
             $('#MarcaDescripcion').val(data.DescripcionMarca);
             $('#CodigoProducto').val(data.CodigoProducto);
-            $('#hdnCodigoSAP').val(data.CodigoSAP);
-
+            $("#hdnCodigoSAP").val(data.CodigoSAP);
+            $('#hdnIdMatrizComercial').val(data.IdMatrizComercial);
+            debugger;
             $("#hdSimbolo").val(data.Simbolo);
 
             if (data.Activo == "1") $("#chkHabilitarOferta").attr("checked", true);
@@ -431,7 +431,7 @@
             $("#hdCampania").val($("#ddlCampania").val());
             $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
             $("#ddlTipoEstrategia").val(data.TipoEstrategiaID);
-            $("#hdnCodigoSAP").val(data.CodigoSAP);
+           
 
             _editData.CodigoSAP = data.CodigoSAP;
 
@@ -839,11 +839,14 @@
                         }
                         $("#hdNiveles").val(data.niveles);
                         $("#hdnCodigoSAP").val(data.codigoSAP);
+                        $('#MarcaID').val(data.MarcaID);
+                        $('#MarcaDescripcion').val(data.DescripcionMarca);
                         $("#hdnEnMatrizComercial").val(data.enMatrizComercial);
-
+                        $("#hdnIdMatrizComercial").val(data.IdMatrizComercial)
+                        debugger;
                         _editData.CUV2 = $("#txtCUV2").val();
                         _editData.CodigoSAP = data.codigoSAP;
-                        _editData.IdMatrizComercial = data.idMatrizComercial;
+                        _editData.IdMatrizComercial = data.IdMatrizComercial;
                         _editData.imagenes = [];
                         _editData.imagen = _obtenerImagenGrilla(_idImagen);
 
@@ -2518,12 +2521,13 @@
 
                         var CodigoEstrategiaVal = $('#CodigoEstrategia').val();
                         var ImagenVal = $('#flagImagenUrl').val();
-                        var DescripcionEstrategiaVal = $('#DescripcionEstrategia').val();
+                        var DescripcionEstrategiaVal = $('#spanTipoEstrategia').val();
                         var MarcaIDVal = $('#MarcaID').val();
                         var DescripcionMarcaVal = $('#MarcaDescripcion').val();
                         var CodigoProductoVal = $('#hdnCodigoSAP').val();
-                        //var CodigoSAPVal = '';
+                        var IdMatrizComercial = $('#hdnIdMatrizComercial').val();
                         var CodigoSAPVal = $('#hdnCodigoSAP').val();
+                        debugger;
                         //TODO Validar yrdsf
                         var flagIndividual = $("#chkFlagIndividual").is(":checked");
                         var slogan = $("#txtSlogan").val() || "";
@@ -2580,6 +2584,7 @@
                             DescripcionMarca: DescripcionMarcaVal,
                             CodigoProducto: CodigoProductoVal,
                             CodigoSAP: CodigoSAPVal,
+                            IdMatrizComercial: IdMatrizComercial,
                             _id: _idVal,
                             //TODO validar yrdsf
                             FlagIndividual: flagIndividual,
@@ -3813,6 +3818,7 @@
                 if (zonas != "") {
                     zonas = zonas.substring(0, zonas.length - 1);
                 }
+                debugger;
                 $("#hdZonas").val(zonas);
                 $("#chkSeleccionar").attr("checked", true);
             }
@@ -3906,7 +3912,7 @@
     function Editar(id, mongoId, tipoEstrategiaCodigo, event) {
         event.preventDefault();
         event.stopPropagation();
-
+        debugger;
         if (id != 0)
             _variables.isNuevo = false;
 
@@ -3923,6 +3929,7 @@
                 EstrategiaID: $("#hdEstrategiaID").val(),
                 TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                 CampaniaID: $("#ddlCampania").val(),
+                //IdMatrizComercial: $("").val(),
                 ValidarImagen: $("#ddlTipoEstrategia option:selected").attr("data-FValidarImagen"),
                 PesoMaximo: $("#ddlTipoEstrategia option:selected").attr("data-PesoMaximo"),
                 mongoIdP: mongoId,

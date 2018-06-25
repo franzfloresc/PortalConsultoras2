@@ -2123,7 +2123,7 @@ namespace Portal.Consultoras.Common
             public const string UrlActivarEstrategia = "api/estrategia/activar/{0}/{1}?Usuario={2}";
 
             //api/Estrategia/activar/{pais}?Usuario=
-            public const string UrlActivarEstrategias = "api/estrategia/activar/{0}?usuario={0}";
+            public const string UrlActivarEstrategias = "api/estrategia/activar/{0}?usuario={1}";
 
 
             //api/Estrategia/desactivar/{pais}/{id}?Usuario=           

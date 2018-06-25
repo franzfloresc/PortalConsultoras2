@@ -53,6 +53,7 @@ var MatrizComercial = function (config) {
     };
 
     var _obtenerParamsFileUpload = function (itemData, editData) {
+        debugger;
         return {
             elementId: itemData.elementId,
             idMatrizComercial: editData.idMatrizComercial,
@@ -66,6 +67,7 @@ var MatrizComercial = function (config) {
     };
 
     var _uploadComplete = function (imageElementId) {
+        debugger;
         return function (id, fileName, response) {
             if (checkTimeout(response)) {
                 $(".qq-upload-list").css("display", "none");
@@ -121,6 +123,7 @@ var MatrizComercial = function (config) {
     };
 
     var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
+        debugger;
         var params = { paisID: data.paisID, idMatrizComercial: data.idMatrizComercial, pagina: pagina };
         return $.post(_config.getImagesByIdMatrizAction, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
     };
