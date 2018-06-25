@@ -18,126 +18,22 @@ var tipoMeta = null;
 
 $(document).ready(function () {
     $("body").on("click", ".agregarOfertaFinal", function () {
-        OpenLoadingOF();
-
         var divPadre = $(this).parents("[data-item='ofertaFinal']").eq(0);
-        var cuv = $(divPadre).find(".hdOfertaFinalCuv").val();
-        var cantidad = $(divPadre).find("[data-input='cantidad']").val();
-        var tipoOfertaSisID = $(divPadre).find(".hdOfertaFinalTipoOfertaSisID").val();
-        var configuracionOfertaID = $(divPadre).find(".hdOfertaFinalConfiguracionOfertaID").val();
-        var indicadorMontoMinimo = $(divPadre).find(".hdOfertaFinalIndicadorMontoMinimo").val();
-        
-        var marcaID = $(divPadre).find(".hdOfertaFinalMarcaID").val();
-        var precioUnidad = $(divPadre).find(".hdOfertaFinalPrecioUnidad").val();
-        var descripcionProd = $(divPadre).find(".hdOfertaFinalDescripcionProd").val();
-        
-        var tipoEstrategiaId = $(divPadre).find(".hdOfertaFinalTipoEstrategiaID").val();
-        var OrigenPedidoWeb = tipoOrigen == "1" ? DesktopPedidoOfertaFinal : MobilePedidoOfertaFinal;
-        tipoOfertaFinal_Log = $(divPadre).find(".hdTipoMeta").val();
+        var objCantidad = $(this).parent().find('[data-input="cantidad"]');
 
-        if (!isInt(cantidad)) {
-            alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
-            $(this).parent().find('[data-input="cantidad"]').val(1);
-            CloseLoadingOF();
-            return false;
-        }
-
-        if (cantidad <= 0) {
-            alert_msg("La cantidad ingresada debe ser mayor que cero, verifique");
-            $(this).parent().find('[data-input="cantidad"]').val(1);
-            CloseLoadingOF();
-            return false;
-        }
-
-        var model = {
-            CUV: cuv,
-            Cantidad: cantidad,
-            PrecioUnidad: precioUnidad,
-            TipoEstrategiaID: tipoEstrategiaId,
-            OrigenPedidoWeb: OrigenPedidoWeb,
-            MarcaID: marcaID,
-            DescripcionProd: descripcionProd,
-            TipoOfertaSisID: tipoOfertaSisID,
-            IndicadorMontoMinimo: indicadorMontoMinimo,
-            ConfiguracionOfertaID: configuracionOfertaID
-        };
-        
-        var add = AgregarOfertaFinal(model);
-        if (!add.success) {
-            CloseLoadingOF();
-            return false;
-        }
-        else OpenLoadingOF();
-
-        AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
-        ActulizarValoresPopupOfertaFinal(add, true);
-        $("#divCarruselOfertaFinal").find(".hdOfertaFinalCuv[value='" + cuv + "']").parents('[data-item="ofertaFinal"]').find('.agregado').show();
-        CloseLoadingOF();
+        ValidarAgregarOfertaFinal($(divPadre), objCantidad, null);
     });
 
     $("body").on("click", ".agregarOfertaFinalVerDetalle", function () {
-        OpenLoadingOF();
-
         var prodId = $(this).attr("data-popup-verdetalle");
+        var divPadre = $("#divCarruselOfertaFinal").find("[data-popup-id=" + prodId + "]").eq(0);
+        var objCantidad = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-input='cantidad']");
+        var fnFinal = function () { $("#contenedor_popup_ofertaFinalVerDetalle").hide(); };
 
-        var divPadre = $("#divCarruselOfertaFinal").find("[data-id=" + prodId + "]").eq(0);
-        var cuv = $(divPadre).find(".hdOfertaFinalCuv").val();
-        var cantidad = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-input='cantidad']").val();
-        var tipoOfertaSisID = $(divPadre).find(".hdOfertaFinalTipoOfertaSisID").val();
-        var configuracionOfertaID = $(divPadre).find(".hdOfertaFinalConfiguracionOfertaID").val();
-        var indicadorMontoMinimo = $(divPadre).find(".hdOfertaFinalIndicadorMontoMinimo").val();
-
-        var marcaID = $(divPadre).find(".hdOfertaFinalMarcaID").val();
-        var precioUnidad = $(divPadre).find(".hdOfertaFinalPrecioUnidad").val();
-        var descripcionProd = $(divPadre).find(".hdOfertaFinalDescripcionProd").val();
-
-        var tipoEstrategiaId = $(divPadre).find(".hdOfertaFinalTipoEstrategiaID").val();
-        var OrigenPedidoWeb = tipoOrigen == "1" ? DesktopPedidoOfertaFinal : MobilePedidoOfertaFinal;
-
-        if (!isInt(cantidad)) {
-            alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
-            $('.liquidacion_rango_cantidad_pedido').val(1);
-            CloseLoadingOF();
-            return false;
-        }
-
-        if (cantidad <= 0) {
-            alert_msg("La cantidad ingresada debe ser mayor que cero, verifique");
-            $('.liquidacion_rango_cantidad_pedido').val(1);
-            CloseLoadingOF();
-            return false;
-        }
-
-        var model = {
-            CUV: cuv,
-            Cantidad: cantidad,
-            PrecioUnidad: precioUnidad,
-            TipoEstrategiaID: tipoEstrategiaId,
-            OrigenPedidoWeb: OrigenPedidoWeb,
-            MarcaID: marcaID,
-            DescripcionProd: descripcionProd,
-            TipoOfertaSisID: tipoOfertaSisID,
-            IndicadorMontoMinimo: indicadorMontoMinimo,
-            ConfiguracionOfertaID: configuracionOfertaID
-        };
-        
-        var add = AgregarOfertaFinal(model);
-        if (!add.success) {
-            CloseLoadingOF();
-            return false;
-        }
-
-        AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
-
-        ActulizarValoresPopupOfertaFinal(add, true);
-        $("#divCarruselOfertaFinal").find(".hdOfertaFinalCuv[value='" + cuv + "']").parents('[data-item="ofertaFinal"]').find('.agregado').show();
-        $("#contenedor_popup_ofertaFinalVerDetalle").hide();
-        CloseLoadingOF();
+        ValidarAgregarOfertaFinal($(divPadre), objCantidad, fnFinal);
     });
 
-    $("body").on("click", '.btnNoGraciasOfertaFinal', function () {
-        PopupOfertaFinalCerrar();
-    });
+    $("body").on("click", '.btnNoGraciasOfertaFinal', PopupOfertaFinalCerrar);
 
     if (typeof ofertaFinalEstado !== 'undefined' && typeof ofertaFinalAlgoritmo !== 'undefined') {
         if (ofertaFinalEstado == 'True' && ofertaFinalAlgoritmo == 'OFR') {
@@ -147,6 +43,43 @@ $(document).ready(function () {
 
     if (cuvOfertaProl != "") EjecutarPROL(cuvOfertaProl);
 });
+
+function ValidarAgregarOfertaFinal(objDivPadre, objCantidad, fnFinal) {
+    OpenLoadingOF();
+    //Se usa SetTimeout, para que se muestre el loading y no haya problemas con los ajax no async.
+    setTimeout(function () {
+        var model = {
+            CUV: objDivPadre.find(".hdOfertaFinalCuv").val(),
+            Cantidad: objCantidad.val(),
+            PrecioUnidad: objDivPadre.find(".hdOfertaFinalPrecioUnidad").val(),
+            TipoEstrategiaID: objDivPadre.find(".hdOfertaFinalTipoEstrategiaID").val(),
+            OrigenPedidoWeb: tipoOrigen == "1" ? DesktopPedidoOfertaFinal : MobilePedidoOfertaFinal,
+            MarcaID: objDivPadre.find(".hdOfertaFinalMarcaID").val(),
+            DescripcionProd: objDivPadre.find(".hdOfertaFinalDescripcionProd").val(),
+            TipoOfertaSisID: objDivPadre.find(".hdOfertaFinalTipoOfertaSisID").val(),
+            IndicadorMontoMinimo: objDivPadre.find(".hdOfertaFinalIndicadorMontoMinimo").val(),
+            ConfiguracionOfertaID: objDivPadre.find(".hdOfertaFinalConfiguracionOfertaID").val()
+        }
+
+        var message = !isInt(model.Cantidad) ? 'La cantidad ingresada debe ser un número mayor que cero, verifique' :
+            model.Cantidad <= 0 ? 'La cantidad ingresada debe ser mayor que cero, verifique' : '';
+        if (message != '') {
+            alert_msg(message);
+            objCantidad.val(1);
+            CloseLoadingOF();
+            return false;
+        }
+
+        var add = AgregarOfertaFinal(model);
+        if (add.success) {
+            AgregarOfertaFinalLog(model.CUV, model.Cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
+            ActualizarValoresPopupOfertaFinal(add, true);
+            objDivPadre.find('.agregado').show();
+            if ($.isFunction(fnFinal)) fnFinal();
+        }
+        CloseLoadingOF();
+    }, 1);
+}
 
 function OpenLoadingOF() {
     if (tipoOrigen == "1") AbrirSplash();
@@ -158,13 +91,14 @@ function CloseLoadingOF() {
 }
 
 function AgregarOfertaFinal(model) {
-    if (!agregoOfertaFinal) {
+    if (reservaResponse.data.Reserva && !agregoOfertaFinal) {
         if (!DesvalidarPedido()) return false;
     }
 
     var add;
     if (tipoOrigen == "1") add = AgregarProducto('PedidoInsertar', model, "", false, false);
     else add = InsertarProducto(model, false);
+    OpenLoadingOF();
 
     if (add == null) add.success = false;
     agregoOfertaFinal = true;
@@ -656,7 +590,7 @@ function PopupOfertaFinalCerrar() {
         }
     }
 
-    function ActulizarValoresPopupOfertaFinal(data, popup) {
+    function ActualizarValoresPopupOfertaFinal(data, popup) {
         var nivel;
         var msg1 = "", msj ="";
         var montolimite = 0;
@@ -1387,7 +1321,7 @@ function PopupOfertaFinalCerrar() {
 
     function CargarVerDetalleOF(objInput, e) {
         idProdOf = idProdOf + 1;
-        $(objInput).parents('[data-item="ofertaFinal"]').attr("data-id", idProdOf);
+        $(objInput).parents('[data-item="ofertaFinal"]').attr("data-popup-id", idProdOf);
 
         var divPadre = $(objInput).parents('[data-item="ofertaFinal"]').eq(0);
 

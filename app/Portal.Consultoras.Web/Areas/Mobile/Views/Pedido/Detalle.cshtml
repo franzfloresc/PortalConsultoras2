@@ -822,7 +822,7 @@
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                         <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
-                        <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" href="javascript:;" data-popup-verdetalle="{{ID}}"
+                        <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" href="javascript:;" data-popup-verdetalle="{{id}}"
                            onclick="of_google_analytics_addtocar('mobile','detail',{{ID}},'{{TipoMeta}}')">AGRÉGALO</a>
                     <hr class="clear">
                 </div>
@@ -895,6 +895,8 @@
         var nombreConsultora = '@ViewBag.NombreConsultora';
         var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
         var mensajePedidoVacio = '@Constantes.MensajesError.Reserva_SinDetalle';
+        var mensajeErrorReserva = '@Constantes.MensajesError.Reserva_Error';
+        var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/PedidoDetalle")
 

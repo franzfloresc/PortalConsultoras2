@@ -2278,6 +2278,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new
                 {
+                    success = true,
                     data = model,
                     mensajeAnalytics = ObtenerMensajePROLAnalytics(listObservacionModel),
                     pedidoDetalle = from item in listPedidoWebDetalle

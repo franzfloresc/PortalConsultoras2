@@ -392,7 +392,12 @@
 
                 <div class="clear"></div>
 
-                <div id="divContendorPrincipal">
+                <div id="divContendorPrincipal"></div>
+
+                <div id="divNoValInteractiva" class="divNoValInteractiva" style="display:none;">
+                    <img src="/Content/Images/icons/warning.png">
+                    <span class="spnMensajeNoValInteractiva"></span>
+                    <img id="idImagenCerrar" src="/Content/Images/icons/close.png" style="padding-left: 35px;">
                 </div>
             </div>
 
@@ -2047,7 +2052,9 @@
         var seccionMisOfertas = '@Constantes.SeccionBienvenida.MisOfertas';
         var OrigenDesktopODD = 2;
         var mensajePedidoVacio = '@Constantes.MensajesError.Reserva_SinDetalle';
-</script>
+        var mensajeErrorReserva = '@Constantes.MensajesError.Reserva_Error';
+        var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
+    </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)
     {

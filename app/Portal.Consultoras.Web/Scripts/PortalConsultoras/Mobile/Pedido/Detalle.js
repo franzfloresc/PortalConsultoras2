@@ -897,12 +897,16 @@ function EjecutarServicioPROL() {
         success: function (response) {
             CloseLoading();
             if (!checkTimeout(response)) return;
+            if (!response.success) {
+                messageInfoMalo(mensajeErrorReserva);
+                return;
+            }
 
             RespuestaEjecutarServicioPROL(response, function () { return CumpleOfertaFinalMostrar(response); });
         },
         error: function (data, error) {
             CloseLoading();
-            messageInfoMalo('<h3>Por favor, vuelva a intentarlo</h3>');
+            messageInfoMalo(mensajeSinConexionReserva);
         }
     })
 }
@@ -919,12 +923,16 @@ function EjecutarServicioPROLSinOfertaFinal() {
         success: function (response) {
             CloseLoading();
             if (!checkTimeout(response)) return;
+            if (!response.success) {
+                messageInfoMalo(mensajeErrorReserva);
+                return;
+            }
 
             RespuestaEjecutarServicioPROL(response, function () { return false; });
         },
         error: function (data, error) {
             CloseLoading();
-            messageInfoMalo('<h3>Por favor, vuelva a intentarlo</h3>')
+            messageInfoMalo(mensajeSinConexionReserva);
         }
     });
 }

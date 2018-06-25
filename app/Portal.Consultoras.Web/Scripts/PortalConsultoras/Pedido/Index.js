@@ -429,9 +429,7 @@ $(document).ready(function () {
         CargarProductoAgotados(0);
     });
    
-    $(document).on('click', '#idImagenCerrar', function (e) {
-        $(this).parent().remove();
-    });
+    $(document).on('click', '#idImagenCerrar', function (e) { $(this).parent().hide(); });
 
     CrearDialogs();
     MostrarBarra();
@@ -1765,11 +1763,6 @@ function CargarAutocomplete() {
 function CalcularTotal() {
     $('#sSimbolo').html($('#hdfSimbolo').val());
     $('#sSimbolo_minimo').html($('#hdfSimbolo').val());
-
-    $("#divListadoPedido").find('a[class="imgIndicadorCUV"]').tooltip({
-        content: "<img src='" + baseUrl + "Content/Images/aviso.png" + "' />",
-        position: { my: "left bottom", at: "left top-20%", collision: "flipfit" }
-    });
 }
 
 function MostrarProductoAgregado(imagen, descripcion, cantidad, total) {
@@ -2058,11 +2051,18 @@ function EjecutarServicioPROL() {
         success: function (response) {
             CerrarSplash();
             if (!checkTimeout(response)) return;
-            if (RespuestaEjecutarServicioPROL(response.data)) return;
+            if (!response.success) {
+                MostrarPopupErrorReserva(mensajeErrorReserva, false);
+                return;
+            }
 
+            if (RespuestaEjecutarServicioPROL(response.data)) return;
             MostrarMensajeProl(response, function () { return CumpleOfertaFinalMostrar(response); });
         },
-        error: function (data, error) { CerrarSplash(); }
+        error: function (data, error) {
+            CerrarSplash();
+            MostrarPopupErrorReserva(mensajeSinConexionReserva, true);
+        }
     });
 }
 
@@ -2076,11 +2076,18 @@ function EjecutarServicioPROLSinOfertaFinal() {
         success: function (response) {
             CerrarSplash();
             if (!checkTimeout(response)) return;
-            if (RespuestaEjecutarServicioPROL(response.data, false)) return;
+            if (!response.success) {
+                MostrarPopupErrorReserva(mensajeErrorReserva, false);
+                return;
+            }
 
+            if (RespuestaEjecutarServicioPROL(response.data, false)) return;
             MostrarMensajeProl(response, function () { return false; });
         },
-        error: function (data, error) { CerrarSplash(); }
+        error: function (data, error) {
+            CerrarSplash();
+            MostrarPopupErrorReserva(mensajeSinConexionReserva, true);
+        }
     });
 }
 
@@ -2093,13 +2100,9 @@ function RespuestaEjecutarServicioPROL(data, inicio) {
 
     if (!data.ZonaValida) showDialog("divReservaSatisfactoria3");
     else if (!data.ValidacionInteractiva) {
-        $("#divContendorPrincipal").after(
-            '<div id="divContendor" style="border-radius: 10px;padding: 5px;border: 1px solid #ccc;background-color: #efefef;margin-bottom: 5px;">\
-                <img src="/Content/Images/icons/warning.png">\
-                <span id="idmensajeProl" style="padding-left:5px;"> ' + data.MensajeValidacionInteractiva + '</span>\
-                <img id="idImagenCerrar" src="/Content/Images/icons/close.png" style="padding-left: 35px;">\
-            </div>'
-        );
+        var objDiv = $('#divNoValInteractiva');
+        objDiv.find('.spnMensajeNoValInteractiva').html(data.MensajeValidacionInteractiva);
+        objDiv.show();
     }
     else {
         mensajeBloqueante = false;
