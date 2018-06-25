@@ -21,36 +21,6 @@ namespace Portal.Consultoras.Service
             return new BLOfertaPersonalizada().GetProductosCompraPorCompra(paisId, EventoID, CampaniaID);
         }
 
-        public BEShowRoomEvento GetShowRoomEventoByCampaniaID(int paisID, int campaniaID)
-        {
-            return new BLOfertaPersonalizada().GetShowRoomEventoByCampaniaID(paisID, campaniaID);
-        }
-
-        public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
-        {
-            return new BLOfertaPersonalizada().GetShowRoomConsultora(paisID, campaniaID, codigoConsultora, tienePersonalizacion);
-        }
-
-        public IList<BEShowRoomNivel> GetShowRoomNivel(int paisId)
-        {
-            return new BLOfertaPersonalizada().GetShowRoomNivel(paisId);
-        }
-
-        public IList<BEShowRoomPersonalizacion> GetShowRoomPersonalizacion(int paisId)
-        {
-            return new BLOfertaPersonalizada().GetShowRoomPersonalizacion(paisId);
-        }
-
-        public IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId, int nivelId, int categoriaId)
-        {
-            return new BLOfertaPersonalizada().GetShowRoomPersonalizacionNivel(paisId, eventoId, nivelId, categoriaId);
-        }
-
-        public int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity)
-        {
-            return new BLOfertaPersonalizada().ShowRoomProgramarAviso(paisID, entity);
-        }
-
         #endregion
 
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
@@ -61,11 +31,6 @@ namespace Portal.Consultoras.Service
         public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
         {
             return new BLOfertaPersonalizada().GetEstrategiasPedido(entidad);
-        }
-
-        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID, string algoritmo)
-        {
-            return new BLOfertaPersonalizada().GetParametriaOfertaFinal(paisID, algoritmo);
         }
     }
 }

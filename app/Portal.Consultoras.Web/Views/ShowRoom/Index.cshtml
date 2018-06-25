@@ -366,7 +366,7 @@
 <script id="template-showroom" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div class="revistadigital-landing">
-        <div class="content_item_carrusel" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}">
+        <div class="content_item_carrusel" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}"  {{#iff  TipoAccionAgregar '==' '5'}} href="javascript:;" onclick="javascript:VerPopupExpGanaMas();" {{/iff}}>
             <div data-campos="">
                 <input type="hidden" class="hdOfertaShowRoomID" value="{{OfertaShowRoomID}}" />
                 <input type="hidden" class="valorCuv" value="{{CUV}}" />

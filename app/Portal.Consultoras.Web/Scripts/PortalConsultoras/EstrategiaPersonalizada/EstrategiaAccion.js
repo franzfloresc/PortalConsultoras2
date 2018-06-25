@@ -24,8 +24,8 @@ belcorp.estrategia.initialize = function () {
 function VerDetalleEstrategia(e) {
 
     AbrirLoad();
-    var estrategia = EstrategiaObtenerObj(e);
     var objHtmlEvent = $(e.target);
+    var estrategia = EstrategiaAgregarModule.EstrategiaObtenerObj(objHtmlEvent);
     if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
 
     var origenPedido = $(objHtmlEvent).parents("[data-item]").find("input.OrigenPedidoWeb").val()

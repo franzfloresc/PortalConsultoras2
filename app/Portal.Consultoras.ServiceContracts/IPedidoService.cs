@@ -662,9 +662,6 @@ namespace Portal.Consultoras.ServiceContracts
         int ValidarCUVsRecomendados(BEEstrategia entidad);
 
         [OperationContract]
-        List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad);
-
-        [OperationContract]
         List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad);
 
         [OperationContract]
@@ -834,14 +831,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void GuardarPerfilOfertaShowRoom(int paisId, int perfilId, int eventoId, int campaniaId, string cadenaCuv);
 
-        //@001 FSV INICIO
-        [Obsolete("Optimizacion Ficha-Producto")]
-        //@001 FSV FIN
-        [OperationContract]
-        IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora);
-
-
-
         [OperationContract]
         BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID);
 
@@ -871,9 +860,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void DeleteInsertShowRoomCategoriaByEvento(int paisId, int eventoId, List<BEShowRoomCategoria> listaCategoria);
-
-        [OperationContract]
-        List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID);
 
         [OperationContract]
         IList<BEShowRoomTipoOferta> GetShowRoomTipoOferta(int paisID);
@@ -965,9 +951,6 @@ namespace Portal.Consultoras.ServiceContracts
         void DeshacerUltimaDescargaPedido(int PaisID);
         [OperationContract]
         BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID);
-
-        [OperationContract]
-        List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
 
         [OperationContract]
         int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas);

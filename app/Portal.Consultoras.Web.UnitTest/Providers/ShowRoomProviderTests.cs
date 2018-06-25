@@ -128,6 +128,8 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
             }
 
             public List<EstrategiaPedidoModel> Ofertas { get; set; }
+            public List<EstrategiaPedidoModel> OfertasSubCampania { get; set; }
+            public List<EstrategiaPedidoModel> OfertasPerdio { get; set; }
             public List<EstrategiaPedidoModel> OfertasCompraPorCompra { get; set; }
         }
 
