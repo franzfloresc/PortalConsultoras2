@@ -78,7 +78,7 @@ GO
 USE BelcorpBolivia
 GO
 
-DELETE FromTablaLogica where TablaLogicaID = 139
-DELETE FromTablaLogicaDatos where TablaLogicaId = 139
+DELETE FROM TablaLogica where TablaLogicaID = 139
+DELETE FROM TablaLogicaDatos where TablaLogicaId = 139
 GO
 
