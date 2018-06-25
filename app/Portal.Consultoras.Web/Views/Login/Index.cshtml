@@ -1117,10 +1117,10 @@
     var urlChatBelCorp = '@Url.Action("ChatBelcorp", "Login")';
     var urlObtenerCodigoGenerado = '@Url.Action("ObtenerCodigoGenerado", "Login")';
     var urlIniciarLogin = '@Url.Action("Login", "Login")';
-    var urlAcceso = '@ViewBag.UrlAcceso';
-    var urlCancelacion = '@ViewBag.UrlCancelacion'.replace('&#243;', 'ó');
-    var urlOposicion = '@ViewBag.UrlOposicion'.replace('&#243;', 'ó');
-    var urlRectificacion = '@ViewBag.UrlRectificacion'.replace('&#243;', 'ó');
+    var urlAcceso = '@Html.Raw(ViewBag.UrlAcceso)';
+    var urlCancelacion = '@Html.Raw(ViewBag.UrlCancelacion)';
+    var urlOposicion = '@Html.Raw(ViewBag.UrlOposicion)';
+    var urlRectificacion = '@Html.Raw(ViewBag.UrlRectificacion)';
 </script>
 
 @if (TempData["errorLogin"] != null)
