@@ -365,30 +365,6 @@ namespace Portal.Consultoras.BizLogic
             return daEstrategia.GetImagenOfertaPersonalizadaOF(campaniaID, cuv);
         }
         
-        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
-        {
-            var listaEstrategias = new List<BEEstrategia>();
-            var daEstrategia = new DAEstrategia(paisID);
-
-            using (var reader = daEstrategia.GetEstrategiaODD(codCampania, codConsultora, fechaInicioFact))
-            {
-                while (reader.Read())
-                {
-                    listaEstrategias.Add(new BEEstrategia(reader));
-                }
-            }
-
-            var codigoIso = Util.GetPaisISO(paisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
-
-            listaEstrategias.ForEach(item =>
-            {
-                item.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
-            });
-
-            return listaEstrategias;
-        }
-
         public int ActivarDesactivarEstrategias(int paisID, String UsuarioModificacion, String EstrategiasActivas, String EstrategiasDesactivas)
         {
             var daEstrategia = new DAEstrategia(paisID);

@@ -19,8 +19,6 @@ namespace Portal.Consultoras.BizLogic
         int ExisteShowRoomTipoOferta(int paisId, BEShowRoomTipoOferta entity);
         bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID);
         
-        List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID);
-        
         IList<BEShowRoomOfertaDetalle> GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv);
         BEShowRoomCategoria GetShowRoomCategoriaById(int paisId, int categoriaId);
         List<BEShowRoomCategoria> GetShowRoomCategorias(int paisId, int eventoId);
@@ -28,7 +26,7 @@ namespace Portal.Consultoras.BizLogic
         BEShowRoomEvento GetShowRoomEventoByCampaniaID(int paisID, int campaniaID);
         IList<BEShowRoomNivel> GetShowRoomNivel(int paisId);
         BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID);
-        IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora);
+        
         IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId);
         
         IList<BEShowRoomPersonalizacion> GetShowRoomPersonalizacion(int paisId);

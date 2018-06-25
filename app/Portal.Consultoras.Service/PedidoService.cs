@@ -1170,11 +1170,7 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().ValidarCUVsRecomendados(entidad);
         }
-        public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
-        {
-            return blEstrategia.GetEstrategiasPedido(entidad);
-        }
-
+        
         public List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad)
         {
             return new BLEstrategia().FiltrarEstrategiaPedido(entidad);
@@ -1583,11 +1579,6 @@ namespace Portal.Consultoras.Service
             return new BLReporteValidacion().GetReporteShowRoomComponentes(paisID, campaniaID).ToList();
         }
 
-        public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora)
-        {
-            return BLShowRoomEvento.GetShowRoomOfertasConsultora(paisID, campaniaID, codigoConsultora);
-        }
-
         public BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID)
         {
             return BLShowRoomEvento.GetShowRoomOfertaById(paisID, ofertaShowRoomID);
@@ -1637,11 +1628,6 @@ namespace Portal.Consultoras.Service
         public void DeleteInsertShowRoomCategoriaByEvento(int paisId, int eventoId, List<BEShowRoomCategoria> listaCategoria)
         {
             BLShowRoomEvento.DeleteInsertShowRoomCategoriaByEvento(paisId, eventoId, listaCategoria);
-        }
-
-        public List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID)
-        {
-            return BLShowRoomEvento.GetProductosCompraPorCompra(paisId, EventoID, CampaniaID);
         }
 
         public IList<BEShowRoomTipoOferta> GetShowRoomTipoOferta(int paisID)
@@ -1805,11 +1791,6 @@ namespace Portal.Consultoras.Service
         public void DeshacerUltimaDescargaPedido(int PaisID)
         {
             BLPedidoWeb.DeshacerUltimaDescargaPedido(PaisID);
-        }
-
-        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
-        {
-            return blEstrategia.GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
         }
 
         public int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas)
