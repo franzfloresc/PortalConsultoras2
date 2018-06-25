@@ -4,6 +4,7 @@ global.AbrirLoad = jest.fn();
 global.CerrarLoad = jest.fn();
 global.actualizaCelularData = {
     celular: '987654321',
+    iniciaNumero: '9',
     urlProvider: {}
 };
 global.IsoPais = ''; 
@@ -54,12 +55,12 @@ describe('Update Number Phone', () => {
         var result = mod.Funciones.ValidarCelular('123456');
 
         expect(result.Success).toBeFalsy();
-        expect(result.Message).toEqual('El número debe tener 15 digitos.');
+        expect(result.Message).toEqual('El número debe tener 9 digitos.');
     });
 
     it('Valid Length Number CL', () => {
         mod.Funciones.SetIsoPais('CL');
-        var result = mod.Funciones.ValidarCelular('123456789000000');
+        var result = mod.Funciones.ValidarCelular('123456789');
 
         expect(result.Success).toBeTruthy();
     });
