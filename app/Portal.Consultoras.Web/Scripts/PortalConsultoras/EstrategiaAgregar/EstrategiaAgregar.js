@@ -2,7 +2,7 @@
     "use strict";
 
     var getEstrategia = function($btnAgregar) {
-        var estrategia = $($btnAgregar.target).parents("[data-item]").find("[data-estrategia]").data("estrategia") || {};
+        var estrategia = $btnAgregar.parents("[data-item]").find("[data-estrategia]").data("estrategia") || {};
         return estrategia;
     };
 
@@ -102,9 +102,8 @@
         popup = popup || false;
         limite = limite || 0;
 
-        var estrategia = getEstrategia(event);
-
         var $btnAgregar = $(event.target);
+        var estrategia = getEstrategia($btnAgregar);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
 
         if (estrategiaValidarBloqueada($btnAgregar, estrategia)) {
