@@ -2133,8 +2133,8 @@ namespace Portal.Consultoras.Common
             public const string UrlDesactivarEstrategias = "api/estrategia/desactivar/{0}?Usuario={1}";
 
             //api/Estrategia/actualizar/{pais}
-            public const string UrlUploadCsv = "api/estrategia/actualizar/{0}";
-
+            public const string UrlUploadCsv = "api/estrategia/actualizar/{0}/{1}";
+                                                
             //api/Estrategia/cuv/{pais}/{tipo}/{campania}/{cuv}
             public const string UrlEstrategiaCuv = "api/estrategia/cuv/{0}/{1}/{2}/{3}";
 
@@ -2147,7 +2147,8 @@ namespace Portal.Consultoras.Common
             //api/TipoEstrategia/registrar/{pais}
             public const string UrlRegistrarTipoEstrategiaWebApi = "api/tipo/registrar/{0}";
 
-
+            //api/Estrategia/multiple/{pais}
+            public const string UrlListarEstrategiaPorConfigurarWebApi = "api/Estrategia/multiple/{0}";
             #endregion
 
             #region Oferta

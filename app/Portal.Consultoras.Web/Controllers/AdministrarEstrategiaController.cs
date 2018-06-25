@@ -1864,7 +1864,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (UsarMsPer(model.TipoEstrategiaCodigo))
                 {
-                    descripcionEstrategiaModels = administrarEstrategiaProvider.UploadCsv(fileContent, userData.CodigoISO);
+                    descripcionEstrategiaModels = administrarEstrategiaProvider.UploadCsv(fileContent, userData.CodigoISO, model.CampaniaId);
                 }
                 else
                 {

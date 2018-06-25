@@ -65,10 +65,11 @@
         if (tipo == "1") {
             _variables.cantidadPrecargar2 = parseInt(cantidad);
             $("#spnCantidadConfigurar3").html(parseInt(cantidad));
-            $("#precargadosdiv").html(rowObject[4]);
         }
-        if (tipo == "2")
+        if (tipo == "2") {
             $("#spnCantidadNoConfigurar3").html(parseInt(cantidad));
+        }
+
 
         var text;
         if (cantidad != "0")
@@ -135,8 +136,10 @@
             pgtext: "Pág: {0} de {1}",
             altRows: true,
             altclass: "jQGridAltRowClass",
-            loadComplete: function () { },
-            gridComplete: function () {
+            loadComplete: function (data) {
+                $("#precargadosdiv").html(JSON.parse(JSON.stringify(data.rows[2].cell))[4]);
+            },
+            gridComplete: function (data) {
                 console.log('_fnGrillaEstrategias1 gridComplete', new Date());
                 if (_variables.cantidadPrecargar == 0) {
                     $("#divMostrarPreCarga").css("display", "none");
@@ -240,7 +243,8 @@
         var parametros = {
             campaniaId: parseInt($("#ddlCampania").val()),
             tipoConfigurado: parseInt(tipo),
-            estrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo")
+            estrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo"),
+            estrategiaMIds: $('#precargadosdiv').text()
         };
 
         $("#listGrillaCuv1").setGridParam({ postData: parametros });
@@ -297,11 +301,20 @@
     var _fnGrillaCuv2 = function (tipo) {
         $("#listGrillaCuv2").jqGrid("clearGridData");
 
+        var estrategiaId;
+        if (tipo == 1) {
+            estrategiaId = $('#precargadosdiv').text();
+        }
+        if (tipo == 2) {
+            estrategiaId = $('#cargadoserrordiv').text();
+        }
+
         var parametros = {
             tipoConfigurado: parseInt(tipo),
             nroLote: _variables.NroLote,
             campaniaId: $("#ddlCampania").val(),
-            codigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
+            codigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo"),
+            estrategiaMIds: estrategiaId
         };
 
         $("#listGrillaCuv2").setGridParam({ postData: parametros });
@@ -547,6 +560,9 @@
                     console.log('respuesta ' + _config.urlEstrategiaOfertasPersonalizadasInsert, new Date());
                     console.log(data); 
                     if (data.success) {
+                        $("#precargadosdiv").html(data.mongoIdsOK);
+                        $("#cargadoserrordiv").html(data.mongoIdsERROR);
+
                         closeWaitingDialog();
                         $("#divMasivoPaso1").hide();
                         $("#divMasivoPaso2").hide();
