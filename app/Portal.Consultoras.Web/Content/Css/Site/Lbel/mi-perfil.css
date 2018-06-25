@@ -473,9 +473,11 @@ input:focus{
     width: auto;
     max-width: 320px;
     min-height: 98px;
+    margin-top: -25px;
+    margin-bottom: 16px;
     padding: 17px 12px;
-    position: absolute;
-    top: 97%;
+    position: relative;
+    top: 0;
     left: 0;
     border:1px solid #dcdcdc;
     background-color: #FFF;
