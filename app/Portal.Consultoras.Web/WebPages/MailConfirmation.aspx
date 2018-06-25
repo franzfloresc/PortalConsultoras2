@@ -29,10 +29,10 @@
                         ¡Actualizaste <span class="text-bold">tu correo</span>!
                     </h1>
                 </div>
-                <div runat="server" id="divHeadError">
-                    <div class="icono_actualizacion_correo_exitoso"></div>
+                <div runat="server" id="divHeadError" style="display:none;">
+                    <div class="icono_actualizacion_correo_erroneo"></div>
                     <h1 class="titulo_correo_actualizado text-uppercase">
-                        <span class="text-bold">LO SENTIMOS</span>
+                        <span class="text-bold">Lo sentimos</span>
                     </h1>
                 </div>
                 <p class="mensaje_correo_actualizado">

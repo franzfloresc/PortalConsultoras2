@@ -88,23 +88,23 @@ else
             <div class="w-82">
                 <input id="txtEMailMD" name="txtEMailMD" class="w-100" type="text" value="@Model.EMail" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" readonly />
                 <label for="txtEMailMD" class="w-100">Correo Electrónico</label>
-                <div class="tooltip_info_revision_correo" style="display:none;">
-                    <div class="icono_info_alerta"></div>
-                    <div class="tooltip_texto">
-                        <p>
-                            Revisa tu correo <span class="text-bold">@Model.EMail</span><br />para cambiar de cuenta.
-                        </p>
-                        <a href="#" class="enlace_no_cambiar_correo" title="Ya no quiero cambiar mi correo">
-                            Ya no quiero cambiar mi correo
-                        </a>
-                    </div>
-                </div>
             </div>
             <a id="btnCambiarEmail" href="@Url.Action("ActualizarCorreo", "MiPerfil", new {area = ""})" title="Cambiar" class="enlace_cambiar_dato w-18 text-right">
                 <span class="icono_cambiar_dato"></span>
                 <span class="enlace_texto text-bold">Cambiar</span>
             </a>
         </fieldset>
+        <div class="tooltip_info_revision_correo" style="display:none;">
+            <div class="icono_info_alerta"></div>
+            <div class="tooltip_texto">
+                <p>
+                    Revisa tu correo <span class="text-bold">@Model.EMail</span><br />para cambiar de cuenta.
+                </p>
+                <a href="#" class="enlace_no_cambiar_correo" title="Ya no quiero cambiar mi correo">
+                    Ya no quiero cambiar mi correo
+                </a>
+            </div>
+        </div>
         <fieldset class="grupo_form_cambio_datos text-uppercase">
             <div class="w-82">
                 <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" onkeypress="return SoloNumerosInputs(event)" maxlength="@Model.limiteMaximoTelef"/>
