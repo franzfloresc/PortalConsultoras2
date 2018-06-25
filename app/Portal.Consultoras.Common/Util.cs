@@ -3213,6 +3213,7 @@ namespace Portal.Consultoras.Common
                     limiteMinimoTelef = 7;
                     limiteMaximoTelef = 9;
                     break;
+                case Constantes.PaisID.RepublicaDominicana:
                 case Constantes.PaisID.Colombia:
                     limiteMinimoTelef = 10;
                     limiteMaximoTelef = 10;
