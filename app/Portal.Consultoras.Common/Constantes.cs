@@ -1154,6 +1154,11 @@ namespace Portal.Consultoras.Common
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
         }
 
+        public static class MensajesExito
+        {
+            public const string UpdCorreoConsultora_Reenvio = "Email reenviado satisfactoriamente.";
+        }
+
         public static class ConfiguracionPais
         {
             public const string InicioRD = "INICIORD";

@@ -58,7 +58,7 @@ namespace Portal.Consultoras.Web.WebPages
                 {
                     respuesta = srv.ActivarEmail(paisId, codigoUsuario, email);
                 }
-                lblConfirmacion.Text = respuesta.Succcess ? Constantes.CambioCorreoResult.Valido : respuesta.Message;
+                SetRespuesta(respuesta);
 
                 if (respuesta.Succcess) GuardarLogDynamo(respuesta.Usuario, email);
             }
@@ -87,6 +87,13 @@ namespace Portal.Consultoras.Web.WebPages
                 link.Attributes.Add("type", "text/css");
                 Page.Header.Controls.Add(link);
             }
+        }
+
+        private void SetRespuesta(BERespuestaActivarEmail respuesta)
+        {
+            divHeadSuccess.Visible = respuesta.Succcess;
+            divHeadError.Visible = !respuesta.Succcess;
+            lblConfirmacion.Text = respuesta.Succcess ? Constantes.CambioCorreoResult.Valido : respuesta.Message;
         }
 
         private void GuardarLogDynamo(BEUsuario usuarioActual, string correoNuevo)
