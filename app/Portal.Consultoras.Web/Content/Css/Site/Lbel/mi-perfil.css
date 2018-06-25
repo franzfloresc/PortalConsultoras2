@@ -87,6 +87,10 @@ input:focus{
 
 /* MI PERFIL */
 
+.titulo_interiores_mi_perfil{
+    padding-top:17px;
+}
+
 .w-100,
 .datos_usuario_iniciales,
 .wrapper_content_mi_perfil,
@@ -118,6 +122,7 @@ input:focus{
 .correo_actualizado,
 .titulo_correo_actualizado,
 .icono_actualizacion_correo_exitoso,
+.icono_actualizacion_correo_erroneo,
 .mensaje_correo_actualizado,
 .correo_pendiente_de_confirmar,
 .vista_actualizar_celular,
@@ -631,6 +636,7 @@ input:focus{
 .icono_actualizacion_contrasenia_exitosa,
 .icono_correo_sobre,
 .icono_actualizacion_correo_exitoso,
+.icono_actualizacion_correo_erroneo,
 .titulo_contrasenia_actualizada,
 .titulo_revisa_tu_correo,
 .titulo_correo_pendiente_confirmacion,
@@ -655,6 +661,14 @@ input:focus{
     height:50px;
     margin-bottom:15px;
     background-image:url("../../../Images/Lbel/icono_check_lbel.svg");
+    background-size:100%;
+}
+
+.icono_actualizacion_correo_erroneo{
+    width:50px;
+    height:50px;
+    margin-bottom:15px;
+    background-image:url("../../../Images/Lbel/icono_exclamacion_lbel.svg");
     background-size:100%;
 }
 
