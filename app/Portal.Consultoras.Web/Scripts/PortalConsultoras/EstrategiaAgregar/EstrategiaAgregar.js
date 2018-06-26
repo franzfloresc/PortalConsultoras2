@@ -1,8 +1,16 @@
-﻿/// <reference path="../../General.js" />
-/// <reference path="../EstrategiaPersonalizada/EstrategiaAccion.js" />
-/// <reference path="EstrategiaAgregarProvider.js" />
-/// <reference path="../Estrategia/EstrategiaComponente.js" />
+﻿/// <reference path="~/Scripts/jquery-1.11.2.js" />
 
+/// <reference path="~/Scripts/General.js" />
+/// <reference path="~/Scripts/PortalConsultoras/Shared/MainLayout.js" />
+/// <reference path="~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js" />
+/// <reference path="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js" />
+/// <reference path="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js" />
+/// <reference path="~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js" />
+/// <reference path="~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js" />
+/// <reference path="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
+/// <reference path="~/Scripts/PortalConsultoras/Pedido/barra.js" />
+/// <reference path="~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js" />
+/// <reference path="~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js" />
 
 var EstrategiaAgregarModule = function () {
     "use strict";
@@ -100,7 +108,7 @@ var EstrategiaAgregarModule = function () {
     var getOrigenPedidoWeb = function ($btnAgregar) {
        var origenPedidoWeb = $btnAgregar.parents("[data-OrigenPedidoWeb]").data("origenpedidoweb") || 0;
        return origenPedidoWeb;
-    }
+    };
 
     var estrategiaAgregar = function(event, popup, limite) {
         popup = popup || false;
@@ -330,5 +338,5 @@ var EstrategiaAgregarModule = function () {
         EstrategiaAgregar: estrategiaAgregar,
         EstrategiaObtenerObj: getEstrategia,
         GetOrigenPedidoWeb: getOrigenPedidoWeb
-    }
+    };
 }();
