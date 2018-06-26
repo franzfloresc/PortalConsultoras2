@@ -1,4 +1,10 @@
-﻿var EstrategiaAgregarModule = function () {
+﻿/// <reference path="../../General.js" />
+/// <reference path="../EstrategiaPersonalizada/EstrategiaAccion.js" />
+/// <reference path="EstrategiaAgregarProvider.js" />
+/// <reference path="../Estrategia/EstrategiaComponente.js" />
+
+
+var EstrategiaAgregarModule = function () {
     "use strict";
 
     var getEstrategia = function($btnAgregar) {
@@ -30,7 +36,7 @@
             return false;
         }
 
-        if (estrategia.CampaniaID == campaniaCodigo) {
+        if (estrategia.CampaniaID === parseInt(campaniaCodigo)) {
             return false;
         }
 
@@ -79,7 +85,7 @@
 
     var abrirMensajeEstrategia = function(txt) {
         if (tipoOrigenEstrategia == 1) {
-            alert_msg_pedido(txt)
+            alert_msg_pedido(txt);
         } else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) {
             alert_msg(txt);
         } else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 262) {
