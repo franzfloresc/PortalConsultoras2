@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Web.Controllers
     public class DetalleEstrategiaController : BaseEstrategiaController
     {
 
-        public ActionResult Ficha(string cuv, int campaniaId)
+        public ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
 
             var modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, EstrategiaFichaPersonalizadaProductoModel>(sessionManager.GetProductoTemporal());
