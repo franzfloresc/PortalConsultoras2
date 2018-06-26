@@ -92,10 +92,8 @@
     };
 
     var getOrigenPedidoWeb = function ($btnAgregar) {
-        return $btnAgregar.parents("[data-item]").find("input.OrigenPedidoWeb").val() ||
-            $btnAgregar.parents("[data-item]").attr("OrigenPedidoWeb") ||
-            $btnAgregar.parents("[data-item]").attr("data-OrigenPedidoWeb") ||
-            $btnAgregar.parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
+       var OrigenPedidoWeb = $btnAgregar.parents("[data-OrigenPedidoWeb]").data("origenpedidoweb") || 0;
+       return OrigenPedidoWeb;
     }
 
     var estrategiaAgregar = function(event, popup, limite) {

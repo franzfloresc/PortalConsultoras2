@@ -15,10 +15,9 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Mobile/Lanzamientos-Detalle")
 }
 
-<div data-item="" data-tag-html="@ViewBag.Campania">
+<div data-item="" data-tag-html="@ViewBag.Campania" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
     <div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoMobile); background-color: #efefef !important;'
-         data-estadoregistro="@ViewBag.EstadoSuscripcion"
-         data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
+         data-estadoregistro="@ViewBag.EstadoSuscripcion">
         <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
         <div class="wrapper_resumen_mobile">
             <div class="detalle-prod">
