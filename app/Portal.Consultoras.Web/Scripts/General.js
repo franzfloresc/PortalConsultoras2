@@ -1880,3 +1880,10 @@ function CuponPopupCerrar() {
         }
     });
 }
+
+function microefectoPedidoGuardado() {
+    $(".contenedor_circulos").fadeIn();
+    setTimeout(function () {
+        $(".contenedor_circulos").fadeOut();
+    }, 2700);
+}

@@ -374,8 +374,6 @@ function messageInfoError(message, titulo, fnAceptar) {
     }
 }
 
-
-
 function CargarResumenCampaniaHeader(showPopup) {
     
     showPopup = showPopup || false;
@@ -428,13 +426,6 @@ function CargarResumenCampaniaHeader(showPopup) {
         },
         error: function (data, error) { }
     });
-}
-
-function microefectoPedidoGuardado() {
-    $(".contenedor_circulos").fadeIn();
-    setTimeout(function () {
-        $(".contenedor_circulos").fadeOut();
-    }, 2700);
 }
 
 function CargarCantidadNotificacionesSinLeer() {
