@@ -448,6 +448,15 @@ function SubirImagen(url, image) {
             }
         }
     });
+<<<<<<< HEAD
+}
+
+function mostratSpinner(valor) {
+    var mobile = isMobile();
+    if (mobile) {
+        return (valor == 'abrir' ? ShowLoading() : CloseLoading());
+    }
+    return (valor == 'abrir' ? waitingDialog({}) : closeWaitingDialog());
 }
 
 function ConsultarActualizaEmail() { 
@@ -493,3 +502,6 @@ function CancelarAtualizacionEmail() {
     }  
 
 }
+=======
+}
+>>>>>>> a6820f2d20f2725136f01ec205d4b0417c53b1e8

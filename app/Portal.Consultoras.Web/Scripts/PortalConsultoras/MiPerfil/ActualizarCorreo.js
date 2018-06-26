@@ -5,9 +5,11 @@ var MiPerfil_ActualizarCorreo = function (_config) {
         UrlPaginaPrevia: _config.UrlPaginaPrevia || '',
         UrlActualizarEnviarCorreo: _config.UrlActualizarEnviarCorreo || '',
         MensajeError: _config.MensajeError || '',
+        MensajeReenvioExitoso: _config.MensajeReenvioExitoso || '',
         VistaActual: 1
     };
 
+    var showSuccess = function (message) { alert_msg(message); };
     var showError = function (error) { messageInfoError(error); };
     var showArrayError = function (arrayError) {
         var mensaje = '';
@@ -76,7 +78,7 @@ var MiPerfil_ActualizarCorreo = function (_config) {
         $('#btnCancelar').on('click', irPaginaPrevia);
         $('#btnReescribirCorreo').on('click', function () { irVista(1); });
 
-        $('#btnReenviameInstruciones').on('click', actualizarEnviarCorreo);
+        $('#btnReenviameInstruciones').on('click', function () { actualizarEnviarCorreo(function () { showSuccess(config.MensajeReenvioExitoso); }); });
         $('#btnActualizarCorreo').on('click', function () { actualizarEnviarCorreo(function (data) { irVista2(data.correoNuevo); }); });
     };
 

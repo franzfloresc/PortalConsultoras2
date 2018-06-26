@@ -1,12 +1,4 @@
-﻿function mostratSpinner(valor) {
-    var mobile = isMobile();
-    if (mobile) {
-        return (valor === 'abrir' ? ShowLoading() : CloseLoading());
-    }
-    return (valor === 'abrir' ? waitingDialog({}) : closeWaitingDialog());
-}
-
-var actualizarCelularModule = (function (globalData, $) {
+﻿var actualizarCelularModule = (function (globalData, $) {
     'use strict';
 
     var me = {};
@@ -14,6 +6,7 @@ var actualizarCelularModule = (function (globalData, $) {
     var urls = globalData.urlProvider;
     var localData = {
         CelularActual: globalData.celular,
+        InicialNumero: globalData.iniciaNumero,
         CelularValido: false,
         CelularNuevo: '',
         Expired: true,
@@ -99,12 +92,12 @@ var actualizarCelularModule = (function (globalData, $) {
         function getLengthPais(iso) {
             var paises = {
                 'PE': 9,
-                'MX': 15,
+                'MX': 10,
                 'EC': 10,
-                'CL': 15,
-                'BO': 15,
-                'PR': 15,
-                'DO': 15,
+                'CL': 9,
+                'BO': 8,
+                'PR': 10,
+                'DO': 10,
                 'CR': 8,
                 'GT': 8,
                 'PA': 8,
@@ -129,7 +122,7 @@ var actualizarCelularModule = (function (globalData, $) {
             };
         }
 
-        function validarCelular(numero) {
+        function validarCelular(numero, numberInitialPhone) {
             if (!numero) {
                 return {
                     Success: false,
@@ -144,11 +137,11 @@ var actualizarCelularModule = (function (globalData, $) {
                 };
             }
 
-            var reg = /^\d+$/;
-            if (!reg.test(numero)) {
+            var pattern = /^\d+$/;
+            if (!pattern.test(numero)) {
                 return {
                     Success: false,
-                    Message: 'No es un número válido.'
+                    Message: 'El número no cumple con el formato.'
                 };
             }
 
@@ -158,6 +151,15 @@ var actualizarCelularModule = (function (globalData, $) {
                     Success: false,
                     Message: 'El número debe tener ' + result.length + ' digitos.'
                 };
+            }
+
+            if (numberInitialPhone) {
+                if (numero.charAt(0) !== numberInitialPhone) {
+                    return {
+                        Success: false,
+                        Message: 'El número debe empezar con ' + numberInitialPhone + '.'
+                    }
+                }                
             }
 
             return { Success: true };
@@ -249,9 +251,9 @@ var actualizarCelularModule = (function (globalData, $) {
                 return;
             }
 
-            mostratSpinner('abrir');
+            AbrirLoad();
             var successConfirmarSmsCode = function(r) {
-                mostratSpinner('cerrar');
+                CerrarLoad();
                 if (!r.Success) {
                     me.Funciones.MarkSmsCodeStatus(false);
 
@@ -268,7 +270,7 @@ var actualizarCelularModule = (function (globalData, $) {
             
             me.Services.confirmarSmsCode(code)
                 .then(successConfirmarSmsCode, function(er) {
-                    mostratSpinner('cerrar');
+                    CerrarLoad();
                     me.Funciones.HandleError(er);
                 });
         }
@@ -315,8 +317,9 @@ var actualizarCelularModule = (function (globalData, $) {
     me.Eventos = (function() {
         function continuar() {
             var nuevoCelular = me.Elements.getInputCelular().val();
+            var numberInitialPhone = localData.InicialNumero;
 
-            var result = me.Funciones.ValidarCelular(nuevoCelular);
+            var result = me.Funciones.ValidarCelular(nuevoCelular, numberInitialPhone);
             if (!result.Success) {
                 me.Funciones.ShowError(result.Message);
                 return;
@@ -324,10 +327,11 @@ var actualizarCelularModule = (function (globalData, $) {
 
             localData.CelularNuevo = nuevoCelular;
             me.Funciones.ResetSmsCode();
-            mostratSpinner('abrir');
+            AbrirLoad();
 
             var successEnviarSmsCode = function(r) {
-                mostratSpinner('cerrar');
+                $('#celularNuevo').text(nuevoCelular);
+                CerrarLoad();
                 if (!r.Success) {
                     me.Funciones.ShowError(r.Message);
                     return;
@@ -340,7 +344,7 @@ var actualizarCelularModule = (function (globalData, $) {
 
             me.Services.enviarSmsCode(nuevoCelular)
                 .then(successEnviarSmsCode, function (er) {
-                        mostratSpinner('cerrar');
+                        CerrarLoad();
                         me.Funciones.HandleError(er);
                     });
         }
@@ -351,10 +355,10 @@ var actualizarCelularModule = (function (globalData, $) {
 
         function sendSmsCode() {
             me.Funciones.ResetSmsCode();
-            mostratSpinner('abrir');
+            AbrirLoad();
             me.Services.enviarSmsCode(localData.CelularNuevo)
                 .then(function(r) {
-                    mostratSpinner('cerrar');
+                    CerrarLoad();
                     if (!r.Success) {
                         me.Funciones.ShowError(r.Message);
                         me.Funciones.NavigatePanel(0);
@@ -364,15 +368,19 @@ var actualizarCelularModule = (function (globalData, $) {
 
                     me.Funciones.InitCounter();
                 }, function(er) {
-                    mostratSpinner('cerrar');
+                    CerrarLoad();
                     me.Funciones.HandleError(er);
                 });
         }
 
-        function changeCodeSms() {
+        function changeCodeSms(e) {
             var input = $(this);
             if (input.val()) {
-                input.next().focus();
+                input.parent().next().find('.campo_ingreso_codigo_sms').focus();
+            }
+
+            if (e.keyCode == 8) {
+                input.parent().prev().find('.campo_ingreso_codigo_sms').focus();
             }
 
             var code = me.Funciones.GetSmsCode();

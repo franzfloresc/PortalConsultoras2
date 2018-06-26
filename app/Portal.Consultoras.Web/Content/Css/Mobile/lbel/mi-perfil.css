@@ -460,16 +460,12 @@
     transition: all 0.3s ease;
 }
 
-.btn_guardar_datos_nuevos{
-    background-color:#CDC7C8;
-}
-
     .btn_guardar_datos_nuevos.default-background-color:hover,
     .btn_cambiar_contrasenia:hover,
     .btn_continuar:hover,
     .btn_acept:hover
     {
-        background-color: rgba(232,28,54,0.8);
+        background-color: rgba(100,47,128,0.8);
     }
 
 .tooltip_info_revision_correo {
@@ -793,24 +789,32 @@
 .campos_ingreso_codigo_sms{
     margin-bottom:15px;
     position:relative;
-    width:247px;
+    width: 100%;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
 }
 
-.campo_ingreso_codigo_sms{
-    width:35px;
-    height:37px;
-    font-family:'Lato', sans-serif;
-    font-size:24px;
-    font-weight:400;
-    color:#000;
-    border-top:none;
-    border-left:none;
-    border-right:none;
-    border-bottom:2px solid #000;
+.campo_ingreso_codigo_sms {
+    width: 35px;
+    height: 37px;
+    font-family: 'Lato', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: #000;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #000;
+}
+
+.wrapper_campo_ingreso_codigo_sms{
+    display:inline-block;
+    position:relative;
     margin-right:4px;
 }
 
-    .campo_ingreso_codigo_sms:last-child{
+    .wrapper_campo_ingreso_codigo_sms:last-child{
         margin-right:0;
     }
 
@@ -826,8 +830,8 @@
     border-width:1.5px;
     border-style:solid;
     position:absolute;
-    bottom:0;
-    right:0;
+    bottom: 1px;
+    right: -30px;
 }
 
 .validacion_erronea{

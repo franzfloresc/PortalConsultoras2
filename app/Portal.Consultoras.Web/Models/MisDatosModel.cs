@@ -34,5 +34,6 @@
         public bool ServiceSMS { get; set; }
         public bool ActualizaDatos { get; set; }
         public int PaisID { get; set; }
+        public int IniciaNumeroCelular { get; set; }
     }
 }

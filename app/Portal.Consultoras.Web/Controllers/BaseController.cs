@@ -5395,6 +5395,11 @@ namespace Portal.Consultoras.Web.Controllers
             Util.GetLimitNumberPhone(userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
         }
 
+        public void ObtenerIniciaNumeroCelular(out bool use, out int numero)
+        {
+            Util.ObtenerIniciaNumeroCelular(userData.PaisID, out use, out numero);
+        }
+
         public RevistaDigitalShortModel getRevistaDigitalShortModel()
         {
             RevistaDigitalShortModel _RevistaDigitalShortModel = null;

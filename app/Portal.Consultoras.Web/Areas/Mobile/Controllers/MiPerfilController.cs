@@ -87,6 +87,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.limiteMinimoTelef = limiteMinimoTelef;
                 model.limiteMaximoTelef = limiteMaximoTelef;
                 #endregion
+
+                var numero = 0;
+                var valida = false;
+                ObtenerIniciaNumeroCelular(out valida, out numero);
+                model.IniciaNumeroCelular = valida ? numero : -1;
             }
 
             return View(model);
@@ -104,6 +109,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult ActualizarCorreo()
         {
+            ViewBag.CorreoActual = userData.EMail;
             return View();
         }
 
@@ -115,6 +121,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             ViewBag.Celular = userData.Celular;
+
+            var numero = 0;
+            var valida = false;
+            ObtenerIniciaNumeroCelular(out valida, out numero);
+            ViewBag.IniciaNumeroCelular = valida ? numero : -1;
 
             return View();
         }

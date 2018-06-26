@@ -59,6 +59,7 @@ else
                     <input type="hidden" id="hdn_ServicioSMS" value="@Model.ServiceSMS" />
                     <input type="hidden" id="hdn_PuedeActualizar" value="@Model.ActualizaDatos" />
                     <input type="hidden" id="hdn_enlaceTerminosCondiciones" value="@ViewBag.UrlPdfTerminosyCondiciones" />
+                    <input type="hidden" id="hdn_iniciaNumero" value="@Model.IniciaNumeroCelular" />
                     <div class="datos_codigo w-50 text-left">
                         <span>Código : </span>
                         <span class="text-bold">@Model.CodigoUsuario</span>
@@ -113,7 +114,7 @@ else
             </fieldset>
             <fieldset class="grupo_form_cambio_datos text-uppercase">
                 <div class="w-71">
-                    <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
+                    <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" onkeypress="return SoloNumerosInputs(event)" maxlength="@Model.limiteMaximoTelef" />
                     <label for="txtCelularMD" class="w-100">Celular</label>
                 </div>
                 <a id="btnCambiarCelular" href="@Url.Action("ActualizarCelular", "MiPerfil", new {area = "Mobile"})" title="Cambiar" class="enlace_cambiar_dato w-29 text-right">
@@ -123,7 +124,7 @@ else
             </fieldset>
             <fieldset class="grupo_form_cambio_datos text-uppercase">
                 <div class="w-71">
-                    <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="text" value="@Model.Telefono" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
+                    <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="text" value="@Model.Telefono" onkeypress="return SoloNumerosInputs(event)" maxlength="@Model.limiteMaximoTelef" />
                     <label for="txtTelefonoMD" class="w-100">Número fijo</label>
                 </div>
             </fieldset>
@@ -134,7 +135,7 @@ else
                 </a>
                 <div class="contenedor_campos_num_adicional w-100" style="display:none;">
                     <div class="w-71">
-                        <input id="txtTelefonoTrabajoMD" name="txtTelefonoTrabajoMD" class="w-100" type="text" value="@Model.TelefonoTrabajo" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+                        <input id="txtTelefonoTrabajoMD" name="txtTelefonoTrabajoMD" class="w-100" type="text" value="@Model.TelefonoTrabajo" onkeypress="return SoloNumerosInputs(event)" maxlength="@Model.limiteMaximoTelef" />
                         <label for="txtTelefonoTrabajoMD" class="label_num_adicional w-100">Número adicional</label>
                     </div>
                     <a href="#" title="Cambiar" class="enlace_eliminar_numero_adicional w-29 text-right">

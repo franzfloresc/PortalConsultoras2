@@ -1,10 +1,10 @@
 const $ = require('../../Scripts/jquery-1.11.2');
 global.$ = global.jQuery = $;
-global.isMobile = jest.fn();
-global.waitingDialog = jest.fn();
-global.closeWaitingDialog = jest.fn();
+global.AbrirLoad = jest.fn();
+global.CerrarLoad = jest.fn();
 global.actualizaCelularData = {
     celular: '987654321',
+    iniciaNumero: 9,
     urlProvider: {}
 };
 global.IsoPais = ''; 
@@ -25,7 +25,7 @@ describe('Update Number Phone', () => {
         var result = mod.Funciones.ValidarCelular('XX22');
 
         expect(result.Success).toBeFalsy();
-        expect(result.Message).toEqual('No es un número válido.');
+        expect(result.Message).toEqual('El número no cumple con el formato.');
     });
 
     it('Same number', () => {
@@ -37,15 +37,15 @@ describe('Update Number Phone', () => {
 
     it('Invalid Length Number PE', () => {
         mod.Funciones.SetIsoPais('PE');
-        var result = mod.Funciones.ValidarCelular('121212');
+        var result = mod.Funciones.ValidarCelular('9121212');
 
         expect(result.Success).toBeFalsy();
         expect(result.Message).toEqual('El número debe tener 9 digitos.');
     });
 
-    it('Valid Length Number PE', () => {
+    it('Valid Format and Length Number PE', () => {
         mod.Funciones.SetIsoPais('PE');
-        var result = mod.Funciones.ValidarCelular('123456789');
+        var result = mod.Funciones.ValidarCelular('912345678');
 
         expect(result.Success).toBeTruthy();
     });
@@ -55,12 +55,12 @@ describe('Update Number Phone', () => {
         var result = mod.Funciones.ValidarCelular('123456');
 
         expect(result.Success).toBeFalsy();
-        expect(result.Message).toEqual('El número debe tener 15 digitos.');
+        expect(result.Message).toEqual('El número debe tener 9 digitos.');
     });
 
     it('Valid Length Number CL', () => {
         mod.Funciones.SetIsoPais('CL');
-        var result = mod.Funciones.ValidarCelular('123456789000000');
+        var result = mod.Funciones.ValidarCelular('123456789');
 
         expect(result.Success).toBeTruthy();
     });

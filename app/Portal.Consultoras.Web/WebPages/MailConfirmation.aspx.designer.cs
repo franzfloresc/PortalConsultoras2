@@ -13,6 +13,24 @@ namespace Portal.Consultoras.Web.WebPages {
     public partial class MailConfirmation {
         
         /// <summary>
+        /// Control divHeadSuccess.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divHeadSuccess;
+        
+        /// <summary>
+        /// Control divHeadError.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divHeadError;
+        
+        /// <summary>
         /// Control lblConfirmacion.
         /// </summary>
         /// <remarks>

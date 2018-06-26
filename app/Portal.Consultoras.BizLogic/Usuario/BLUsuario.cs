@@ -219,7 +219,9 @@ namespace Portal.Consultoras.BizLogic
                     {
                         return new BERespuestaActivarEmail { Message = Constantes.MensajesError.ActivacionCorreo_EstaActivo };
                     }
-                    
+
+                    if (daUsuario.ExistsUsuarioEmail(email)) return new BERespuestaActivarEmail { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
+
                     usuario = GetBasicSesionUsuario(paisID, codigoUsuario);
                     daUsuario.UpdUsuarioEmail(codigoUsuario, validacionDato.DatoNuevo, usuario.CampaniaID);
 
@@ -1782,12 +1784,10 @@ namespace Portal.Consultoras.BizLogic
                 if (string.IsNullOrEmpty(correoNuevo)) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoVacio };
                 if (usuario.EMail == correoNuevo) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoNoCambia };
 
-                int cantidad = this.ValidarEmailConsultora(usuario.PaisID, correoNuevo, usuario.CodigoUsuario);
-                if (cantidad > 0) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
+                var dAUsuario = new DAUsuario(usuario.PaisID);
+                if (dAUsuario.ExistsUsuarioEmail(correoNuevo)) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
 
                 var dAValidacionDatos = new DAValidacionDatos(usuario.PaisID);
-                var dAUsuario = new DAUsuario(usuario.PaisID);
-
                 TransactionOptions transOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
                 using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
                 {

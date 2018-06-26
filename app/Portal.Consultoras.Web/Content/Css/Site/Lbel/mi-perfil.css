@@ -20,6 +20,10 @@
     margin-top:9px!important;
 }
 
+.mt-12-lbel{
+    margin-top:12px;
+}
+
 .mt-13{
     margin-top:13px;
 }
@@ -73,19 +77,21 @@ input:focus{
 .titulo_interiores
 {
     background:#FFF;
+    position:relative;
+    top:-1px;
 }
 
 .fondo_negro_lateral{
     display:none;
 }
 
-.vista_actualizar_correo{
-    background-color:#FFF!important;
-}
-
 /* FIN - HELPERS */
 
 /* MI PERFIL */
+
+.titulo_interiores_mi_perfil{
+    padding-top:17px;
+}
 
 .w-100,
 .datos_usuario_iniciales,
@@ -118,6 +124,7 @@ input:focus{
 .correo_actualizado,
 .titulo_correo_actualizado,
 .icono_actualizacion_correo_exitoso,
+.icono_actualizacion_correo_erroneo,
 .mensaje_correo_actualizado,
 .correo_pendiente_de_confirmar,
 .vista_actualizar_celular,
@@ -142,6 +149,10 @@ input:focus{
     display:block;
 }
 
+.pestana_lbel.pestana_lbel_mi_perfil{
+   background: url(../../../Images/mobile/Lbel/pestana_lbel.png) no-repeat top center;
+}
+
 .datos_usuario_iniciales,
 .form_cambio_datos,
 .opciones_foto_perfil
@@ -151,11 +162,12 @@ input:focus{
 }
 
 .datos_usuario_iniciales{
-    background-color:#F8F8F8;
-    min-height:210px;
-    padding-top:29px;
-    padding-bottom:37px;
-    font-weight:400;
+    background-color: #F8F8F8;
+    min-height: 210px;
+    margin-top: -26px;
+    padding-top: 47px;
+    padding-bottom: 37px;
+    font-weight: 400;
 }
 
 .wrapper_content_mi_perfil,
@@ -468,9 +480,11 @@ input:focus{
     width: auto;
     max-width: 320px;
     min-height: 98px;
+    margin-top: -25px;
+    margin-bottom: 16px;
     padding: 17px 12px;
-    position: absolute;
-    top: 97%;
+    position: relative;
+    top: 0;
     left: 0;
     border:1px solid #dcdcdc;
     background-color: #FFF;
@@ -532,12 +546,12 @@ input:focus{
     overflow:initial;
 }
 
-.pestania_lbel_mi_perfil{
+/*.pestania_lbel_mi_perfil{
     position: absolute;
     top: 60px;
     left: -55px;
     z-index: 1000;
-}
+}*/
 
 /*  FIN - MI PERFIL */
 
@@ -556,12 +570,13 @@ input:focus{
 .vista_actualizar_celular,
 .vista_cambiar_foto_perfil
 {
-    background-color:#EDEDED;
-    padding:37px;
+    background-color:#FFF;
+    padding:17px 37px 37px;
 }
 
-.enlace_volver_a_mi_perfil{
-    margin-bottom:11px;
+.enlace_volver_a_mi_perfil {
+    margin-bottom: 11px;
+    width: 80px;
 }
 
 .icono_back_arrow,
@@ -630,6 +645,7 @@ input:focus{
 .icono_actualizacion_contrasenia_exitosa,
 .icono_correo_sobre,
 .icono_actualizacion_correo_exitoso,
+.icono_actualizacion_correo_erroneo,
 .titulo_contrasenia_actualizada,
 .titulo_revisa_tu_correo,
 .titulo_correo_pendiente_confirmacion,
@@ -654,6 +670,14 @@ input:focus{
     height:50px;
     margin-bottom:15px;
     background-image:url("../../../Images/Lbel/icono_check_lbel.svg");
+    background-size:100%;
+}
+
+.icono_actualizacion_correo_erroneo{
+    width:50px;
+    height:50px;
+    margin-bottom:15px;
+    background-image:url("../../../Images/Lbel/icono_exclamacion_lbel.svg");
     background-size:100%;
 }
 
@@ -792,7 +816,10 @@ input:focus{
 .campos_ingreso_codigo_sms{
     margin-bottom:15px;
     position:relative;
-    width:296px;
+    width: 100%;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .campo_ingreso_codigo_sms{
@@ -806,10 +833,15 @@ input:focus{
     border-left:none;
     border-right:none;
     border-bottom:2px solid #000;
+}
+
+.wrapper_campo_ingreso_codigo_sms{
+    display:inline-block;
+    position:relative;
     margin-right:4px;
 }
 
-    .campo_ingreso_codigo_sms:last-child{
+    .wrapper_campo_ingreso_codigo_sms:last-child{
         margin-right:0;
     }
 
@@ -825,8 +857,8 @@ input:focus{
     border-width:1.5px;
     border-style:solid;
     position:absolute;
-    bottom:0;
-    right:0;
+    bottom:1px;
+    right:-30px;
 }
 
 .validacion_erronea{

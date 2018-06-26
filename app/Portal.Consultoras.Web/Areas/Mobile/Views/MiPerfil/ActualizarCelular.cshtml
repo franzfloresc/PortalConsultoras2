@@ -76,13 +76,25 @@ else
                     <div class="area_ingreso_codigo_sms">
                         <div class="texto_ingreso_codigo text-uppercase text-bold">Ingresa el código aquí</div>
                         <fieldset class="campos_ingreso_codigo_sms">
-                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
-                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
-                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
-                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
-                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
-                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
-                            <div class="icono_validacion_codigo_sms validacion_erronea"></div>
+                            <div class="wrapper_campo_ingreso_codigo_sms">
+                                <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            </div>
+                            <div class="wrapper_campo_ingreso_codigo_sms">
+                                <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            </div>
+                            <div class="wrapper_campo_ingreso_codigo_sms">
+                                <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            </div>
+                            <div class="wrapper_campo_ingreso_codigo_sms">
+                                <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            </div>
+                            <div class="wrapper_campo_ingreso_codigo_sms">
+                                <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            </div>
+                            <div class="wrapper_campo_ingreso_codigo_sms">
+                                <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                                <div class="icono_validacion_codigo_sms validacion_erronea"></div>
+                            </div>
                         </fieldset>
                         <div class="codigo_sms_caducidad text-uppercase">El código caduca en <span class="default-color">03:00</span></div>
                     </div>
@@ -115,6 +127,7 @@ else
     <script>
         var actualizaCelularData = {
             celular: '@ViewBag.Celular',
+            iniciaNumero: @ViewBag.IniciaNumeroCelular,
             urlProvider: {
                 enviarSmsCodigo: '@Url.Action("EnviarSmsCodigo", "MiPerfil", new { area = "" })',
                 confirmarSmsCode: '@Url.Action("ConfirmarSmsCode", "MiPerfil", new { area = "" })'
