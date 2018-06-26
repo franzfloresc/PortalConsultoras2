@@ -50,9 +50,12 @@ body {
 .contenedor_imagen {
     display: inline-block;
     margin: 0 24%;
-    /*margin: 3% 0;*/
     min-height: 203px;
     min-width: 203px;
+}
+
+.contenedor_imagen_ancho_mayor {
+    margin: 0 12%;
 }
 
 .contenedor_img {
@@ -145,12 +148,12 @@ body {
             width: 0;
         }
 
-    .clock_odd .flip-clock-divider .flip-clock-label {
-        display: block;
-        left: 7px;
-        right: initial;
-        top: 30px;
-    }
+        .clock_odd .flip-clock-divider .flip-clock-label {
+            display: block;
+            left: 7px;
+            right: initial;
+            top: 30px;
+        }
 
     .clock_odd .minutes .flip-clock-label {
         left: 8px;
@@ -169,39 +172,9 @@ body {
         text-shadow: 0 1px 2px #fff;
     }
 
-.contenedor_etiqueta_nuevo {
+.contenedor_etiquetas {
     float: left;
-    margin-top: 8px;
-    overflow: hidden;
     width: 100%;
-}
-
-.triangulo_etiqueta_nuevo {
-    height: 0;
-    width: 0;
-}
-
-    .triangulo_etiqueta_nuevo:after {
-        content: "";
-        border-bottom: 70px solid transparent;
-        border-left: 22px solid #000;
-        display: block;
-        height: 0;
-        margin-left: 90px;
-        width: 0;
-    }
-
-.etiqueta_nuevo {
-    background-color: #000;
-    color: #fff;
-    font-size: 15px;
-    font-weight: 700;
-    height: 32px;
-    letter-spacing: 4.5px;
-    line-height: 32px;
-    padding-left: 5px;
-    text-align: center;
-    width: 100px;
 }
 
 .contenedor_nombre_precio {
@@ -235,11 +208,9 @@ body {
 }
 
 .precio_valorizado {
-    
 }
 
 .precio_venta_oferta {
-
 }
 
     .precio_venta_oferta b {
@@ -252,27 +223,32 @@ body {
     margin-top: 5px;
 }
 
-.contenedor_lista_tonos {
+.contenedor_nombre_descripcion_producto {
     float: left;
-    min-height: 186px;
     padding-top: 40px;
     width: 100%;
 }
 
-.nombre_detalle_producto_tono {
+.nombre_detalle_producto {
     font-size: 15px;
     font-weight: 700;
     letter-spacing: .4px;
     line-height: 1;
 }
 
-.descripcion_detalle_producto_tono {
+.descripcion_detalle_producto_ver_mas {
     margin-top: 8px;
     line-height: 1.23;
 }
 
 .txt_ver_mas {
     text-decoration: underline;
+}
+
+.contenedor_lista_tonos {
+    float: left;
+    min-height: 126px;
+    width: 100%;
 }
 
 .selector_lista_tonos {
@@ -338,10 +314,17 @@ body {
 }
 
 .cantidad_descripcion_detalle {
+    float: left;
     font-size: 15px;
     font-weight: 700;
     line-height: 1.27;
+    padding-bottom: 11px;
+    width: 100%;
 }
+
+    .cantidad_descripcion_detalle:last-child {
+        padding-bottom: 0;
+    }
 
 .cantidad_detalle_producto {
     float: left;
@@ -422,48 +405,48 @@ body {
     width: 9px;
 }
 
-    .dibujar_linea::before, .dibujar_linea::after {
-        content: '';
-        border-bottom: solid 2px #000;
-        position: absolute;
-        -webkit-transition: initial;
-        transition: initial;
-        width: 100%;
-        z-index: 1;
-    }
+.dibujar_linea::before, .dibujar_linea::after {
+    content: '';
+    border-bottom: solid 2px #000;
+    position: absolute;
+    -webkit-transition: initial;
+    transition: initial;
+    width: 100%;
+    z-index: 1;
+}
 
-    .dibujar_flecha_tonos::before {
-        -webkit-transform: rotate(50deg);
-        -moz-transform: rotate(50deg);
-        -ms-transform: rotate(50deg);
-        -o-transform: rotate(50deg);
-        transform: rotate(50deg);
-    }
+.dibujar_flecha_tonos::before {
+    -webkit-transform: rotate(50deg);
+    -moz-transform: rotate(50deg);
+    -ms-transform: rotate(50deg);
+    -o-transform: rotate(50deg);
+    transform: rotate(50deg);
+}
 
-    .dibujar_flecha_tonos::after {
-        left: 60%;
-        -webkit-transform: rotate(130deg);
-        -moz-transform: rotate(130deg);
-        -ms-transform: rotate(130deg);
-        -o-transform: rotate(130deg);
-        transform: rotate(130deg);
-    }
+.dibujar_flecha_tonos::after {
+    left: 60%;
+    -webkit-transform: rotate(130deg);
+    -moz-transform: rotate(130deg);
+    -ms-transform: rotate(130deg);
+    -o-transform: rotate(130deg);
+    transform: rotate(130deg);
+}
 
-    .dibujar_flecha_tonos_por_elegir::before {
-        -webkit-transform: rotate(310deg);
-        -moz-transform: rotate(310deg);
-        -ms-transform: rotate(310deg);
-        -o-transform: rotate(310deg);
-        transform: rotate(310deg);
-    }
+.dibujar_flecha_tonos_por_elegir::before {
+    -webkit-transform: rotate(310deg);
+    -moz-transform: rotate(310deg);
+    -ms-transform: rotate(310deg);
+    -o-transform: rotate(310deg);
+    transform: rotate(310deg);
+}
 
-    .dibujar_flecha_tonos_por_elegir::after {
-        -webkit-transform: rotate(230deg);
-        -moz-transform: rotate(230deg);
-        -ms-transform: rotate(230deg);
-        -o-transform: rotate(230deg);
-        transform: rotate(230deg);
-    }
+.dibujar_flecha_tonos_por_elegir::after {
+    -webkit-transform: rotate(230deg);
+    -moz-transform: rotate(230deg);
+    -ms-transform: rotate(230deg);
+    -o-transform: rotate(230deg);
+    transform: rotate(230deg);
+}
 
 .contenedor_agregar {
     float: left;
@@ -545,6 +528,7 @@ body {
     height: 15px;
     margin-top: 9px;
     position: relative;
+    text-align: initial;
     width: 100%;
 }
 
@@ -594,6 +578,58 @@ body {
         -o-transform: rotate(134deg);
         transform: rotate(134deg);
     }
+
+.contenedor_limitacion {
+    float: left;
+    width: 100%;
+}
+
+.signo_exclamacion {
+    float: left;
+    position: relative;
+}
+
+.dibujar_signo_exclamacion {
+    height: 17px;
+    margin: auto;
+    position: relative;
+    width: 17px;
+}
+
+    .dibujar_signo_exclamacion::before, .dibujar_signo_exclamacion::after {
+        content: '';
+        position: absolute;
+        -webkit-transition: initial;
+        transition: initial;
+        z-index: 1;
+    }
+
+    .dibujar_signo_exclamacion, .dibujar_signo_exclamacion::after {
+        border: solid 1px #e81c36;
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+    }
+
+    .dibujar_signo_exclamacion::before {
+        border-left: solid 1px #e81c36;
+        height: 38%;
+        left: 48%;
+        top: 25%;
+    }
+
+    .dibujar_signo_exclamacion::after {
+        background-color: #e81c36;
+        height: 1%;
+        left: 46%;
+        top: 68%;
+        width: 1%;
+    }
+
+.txt_limitacion {
+    font-weight: 700;
+    margin-left: 8px;
+}
 
 .contenedor_ficha_tabs {
     display: inline-block;
@@ -864,6 +900,34 @@ body {
     width: 50%;
 }
 
+.contenedor_elige_tu_tono_carrusel {
+    
+}
+
+.txt_elige_tu_tono {
+    color: #e81c36;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .2px;
+    margin-bottom: 15px;
+}
+
+.btn_elige_tu_tono {
+    background: #fff;
+    border: solid 1px #000;
+    float: right;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    width: 100%;
+}
+
+.btn_elige_tu_tono_desactivado {
+    border: solid 1px #d8d8d8;
+    color: #d8d8d8;
+    pointer-events: none;
+}
+
 .contenedor_agregar_carrusel {
     margin-top: 30px;
     text-align: initial;
@@ -950,41 +1014,41 @@ body {
         bottom: 25%;
     }
 
-    .dibujar_flecha_izquierda_carrusel::before {
-        -webkit-transform: rotate(127deg);
-        -moz-transform: rotate(127deg);
-        -ms-transform: rotate(127deg);
-        -o-transform: rotate(127deg);
-        transform: rotate(127deg);
-    }
+.dibujar_flecha_izquierda_carrusel::before {
+    -webkit-transform: rotate(127deg);
+    -moz-transform: rotate(127deg);
+    -ms-transform: rotate(127deg);
+    -o-transform: rotate(127deg);
+    transform: rotate(127deg);
+}
 
-    .dibujar_flecha_izquierda_carrusel::after {
-        -webkit-transform: rotate(53deg);
-        -moz-transform: rotate(53deg);
-        -ms-transform: rotate(53deg);
-        -o-transform: rotate(53deg);
-        transform: rotate(53deg);
-    }
+.dibujar_flecha_izquierda_carrusel::after {
+    -webkit-transform: rotate(53deg);
+    -moz-transform: rotate(53deg);
+    -ms-transform: rotate(53deg);
+    -o-transform: rotate(53deg);
+    transform: rotate(53deg);
+}
 
 .flecha_derecha_carrusel {
     right: -46px;
 }
 
-    .dibujar_flecha_derecha_carrusel::before {
-        -webkit-transform: rotate(233deg);
-        -moz-transform: rotate(233deg);
-        -ms-transform: rotate(233deg);
-        -o-transform: rotate(233deg);
-        transform: rotate(233deg);
-    }
+.dibujar_flecha_derecha_carrusel::before {
+    -webkit-transform: rotate(233deg);
+    -moz-transform: rotate(233deg);
+    -ms-transform: rotate(233deg);
+    -o-transform: rotate(233deg);
+    transform: rotate(233deg);
+}
 
-    .dibujar_flecha_derecha_carrusel::after {
-        -webkit-transform: rotate(307deg);
-        -moz-transform: rotate(307deg);
-        -ms-transform: rotate(307deg);
-        -o-transform: rotate(307deg);
-        transform: rotate(307deg);
-    }
+.dibujar_flecha_derecha_carrusel::after {
+    -webkit-transform: rotate(307deg);
+    -moz-transform: rotate(307deg);
+    -ms-transform: rotate(307deg);
+    -o-transform: rotate(307deg);
+    transform: rotate(307deg);
+}
 
 .dibujar_flecha_carrusel_tonos {
     height: 36px;
