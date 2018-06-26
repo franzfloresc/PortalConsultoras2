@@ -559,6 +559,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
+                bool insertoPedidoWebSet = false;
+
                 if (!errorServer)
                 {
                     using (var pedidoServiceClient = new PedidoServiceClient())
@@ -566,6 +568,7 @@ namespace Portal.Consultoras.Web.Controllers
                         pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
                             , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
                     }
+                    insertoPedidoWebSet = true;
                 }
 
                 return Json(new
@@ -582,7 +585,8 @@ namespace Portal.Consultoras.Web.Controllers
                     tipo,
                     modificoBackOrder,
                     DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),
-                    cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(dp => dp.Cantidad)
+                    cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(dp => dp.Cantidad),
+                    insertoPedidoWebSet
                 });
 
             }
@@ -4377,7 +4381,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ListaCuvsTemporal.Add(listSp.Length > 0 ? listSp[0] : estrategia.CUV2);
                 }
 
-                if (respuesta.Data.ToString().Contains("success = True"))
+                if (respuesta.Data.ToString().Contains("success = True") && !respuesta.Data.ToString().Contains("insertoPedidoWebSet = True"))
                 {
                     string strCuvs = string.Empty;
                     if (ListaCuvsTemporal.Any())
