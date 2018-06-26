@@ -98,8 +98,8 @@ var EstrategiaAgregarModule = function () {
     };
 
     var getOrigenPedidoWeb = function ($btnAgregar) {
-       var OrigenPedidoWeb = $btnAgregar.parents("[data-OrigenPedidoWeb]").data("origenpedidoweb") || 0;
-       return OrigenPedidoWeb;
+       var origenPedidoWeb = $btnAgregar.parents("[data-OrigenPedidoWeb]").data("origenpedidoweb") || 0;
+       return origenPedidoWeb;
     }
 
     var estrategiaAgregar = function(event, popup, limite) {
@@ -162,8 +162,8 @@ var EstrategiaAgregarModule = function () {
         divAgregado = $(itemClone).find(".agregado.product-add");
 
         var cuvs = "";
-        var CodigoVariante = estrategia.CodigoVariante;
-        if ((CodigoVariante == "2001" || CodigoVariante == "2003") && popup) {
+        var codigoVariante = estrategia.CodigoVariante;
+        if ((codigoVariante == "2001" || codigoVariante == "2003") && popup) {
             var listaCuvs = $btnAgregar.parents("[data-item]").find("[data-tono][data-tono-select]");
             if (listaCuvs.length > 0) {
                 $.each(listaCuvs,
@@ -171,7 +171,7 @@ var EstrategiaAgregarModule = function () {
                         var cuv = $(item).attr("data-tono-select");
                         if (cuv != "") {
                             cuvs = cuvs + (cuvs == "" ? "" : "|") + cuv;
-                            if (CodigoVariante == "2003") {
+                            if (codigoVariante == "2003") {
                                 cuvs = cuvs + ";" + $(item).find("#Estrategia_hd_MarcaID").val();
                                 cuvs = cuvs + ";" + $(item).find("#Estrategia_hd_PrecioCatalogo").val();
                             }
