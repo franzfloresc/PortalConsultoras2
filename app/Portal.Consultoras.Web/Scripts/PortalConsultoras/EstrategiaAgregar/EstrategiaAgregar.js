@@ -326,9 +326,37 @@ var EstrategiaAgregarModule = function () {
         return false;
     };
 
+    var adicionarCantidad = function(e) {
+        var $this = $(e.target);
+        if ($this.data("bloqueada") !== "") return false;
+        var $inputCantidad = $this.parents("[data-ContenedorCantidad]").find("[data-input='cantidad']");
+        var cantidad = parseInt($inputCantidad.val());
+
+        cantidad = isNaN(cantidad) ? 0 : cantidad;
+        cantidad = cantidad < 99 ? (cantidad + 1) : 99;
+
+        $inputCantidad.val(cantidad);
+        e.stopPropagation();
+    }
+
+    var disminuirCantidad = function (e) {
+        var $this = $(e.target);
+        if ($this.data("bloqueada") !== "") return false;
+        var $inputCantidad = $this.parents("[data-ContenedorCantidad]").find("[data-input='cantidad']");
+        var cantidad = parseInt($inputCantidad.val());
+
+        cantidad = isNaN(cantidad) ? 0 : cantidad;
+        cantidad = cantidad > 1 ? (cantidad - 1) : 1;
+
+        $inputCantidad.val(cantidad);
+        e.stopPropagation();
+    }
+
     return {
         EstrategiaAgregar: estrategiaAgregar,
         EstrategiaObtenerObj: getEstrategia,
-        GetOrigenPedidoWeb: getOrigenPedidoWeb
+        GetOrigenPedidoWeb: getOrigenPedidoWeb,
+        AdicionarCantidad: adicionarCantidad,
+        DisminuirCantidad: disminuirCantidad
     }
 }();

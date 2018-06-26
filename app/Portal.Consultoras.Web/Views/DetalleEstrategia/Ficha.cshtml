@@ -186,13 +186,13 @@
 
 
                 <div class="contenedor_agregar">
-                    <div class="contenedor_rangos">
+                    <div class="contenedor_rangos" data-ContenedorCantidad="">
                         <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
                         <div>
-                            <a class="txt_menos menos" data-cantidad-agregar="-">
+                            <a class="txt_menos" data-cantidad-agregar="-" data-bloqueada="" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
                                 <div class="dibujar_linea dibujar_menos"></div>
                             </a>
-                            <a class="txt_mas mas" data-cantidad-agregar="+">
+                            <a class="txt_mas" data-cantidad-agregar="+" data-bloqueada="" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
                                 <div class="dibujar_linea dibujar_mas"></div>
                             </a>
                         </div>
