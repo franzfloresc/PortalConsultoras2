@@ -20,6 +20,10 @@
     margin-top:9px!important;
 }
 
+.mt-12-lbel{
+    margin-top:12px;
+}
+
 .mt-13{
     margin-top:13px;
 }
@@ -79,10 +83,6 @@ input:focus{
 
 .fondo_negro_lateral{
     display:none;
-}
-
-.vista_actualizar_correo{
-    background-color:#FFF!important;
 }
 
 /* FIN - HELPERS */
@@ -149,6 +149,10 @@ input:focus{
     display:block;
 }
 
+.pestana_lbel.pestana_lbel_mi_perfil{
+   background: url(../../../Images/mobile/Lbel/pestana_lbel.png) no-repeat top center;
+}
+
 .datos_usuario_iniciales,
 .form_cambio_datos,
 .opciones_foto_perfil
@@ -158,11 +162,12 @@ input:focus{
 }
 
 .datos_usuario_iniciales{
-    background-color:#FFF;
-    min-height:210px;
-    padding-top:29px;
-    padding-bottom:37px;
-    font-weight:400;
+    background-color: #F8F8F8;
+    min-height: 210px;
+    margin-top: -26px;
+    padding-top: 47px;
+    padding-bottom: 37px;
+    font-weight: 400;
 }
 
 .wrapper_content_mi_perfil,
@@ -541,12 +546,12 @@ input:focus{
     overflow:initial;
 }
 
-.pestania_lbel_mi_perfil{
+/*.pestania_lbel_mi_perfil{
     position: absolute;
     top: 60px;
     left: -55px;
     z-index: 1000;
-}
+}*/
 
 /*  FIN - MI PERFIL */
 

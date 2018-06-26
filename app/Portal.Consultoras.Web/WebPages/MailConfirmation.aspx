@@ -11,14 +11,16 @@
 </head>
 
 <body id="bodyrestablece" class="bodyrecuperaclave">
-    <div class="fondo_f9f9f9 fondoDesktop w-100-mobile mt-50 mt-0-mobile fondoMobile">
+    <div class="fondo_f9f9f9 fondoDesktop w-100-mobile mt-50 mt-12-lbel mt-0-mobile fondoMobile">
         <div class="content_belcorp">
             <div class="fondo_negro_lateral"></div> 
-            <div class="pestana_lbel pestania_lbel_mi_perfil ml-87"></div>
             <div class="titulo_interiores titulo_interiores_mi_perfil quitarBackgroundImageMobile pl-20-mobile quitarPaddingDerechoMobile"><span>CORREO</span> ACTUALIZADO</div>
         </div>
         <hr class="clear" />
         <div class="linea_separadora mt-9" style="margin-top:-1px"></div>
+    </div>
+    <div class="content_belcorp">
+        <div class="pestana_lbel pestana_lbel_mi_perfil"></div>
     </div>
     <section class="vista_actualizar_correo altoAutomatico vista_actualizar_correo_paddingMobile">
         <div class="wrapper_content_actualizar_correo w-100-mobile">
