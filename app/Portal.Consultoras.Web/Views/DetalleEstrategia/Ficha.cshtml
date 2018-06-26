@@ -1,5 +1,5 @@
 ﻿@section styles{
-    <link href="@Url.Content("~/Content/Css/Site/DetalleSetProductos/DetalleSetProductos.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/Ficha/Ficha.css")" rel="stylesheet" />
 }
 
 <div class="imagen_fondo_detalle" style="background-image: url('https://S3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_Desktop_Fondo_del_ShowRoom_en_el_Contenedor_Ofertas_Venta 50A_2018630811_01_ytmwyupjny.jpg');"></div>
@@ -59,12 +59,14 @@
                         <div class="ganancia">GANA <span data-ganancia="">S/.90</span></div>
                     </div>
                 </div>
-                <div class="contenedor_lista_tonos">
-                    <div class="nombre_detalle_producto_tono">Terciopelo en barra</div>
-                    <div class="descripcion_detalle_producto_tono">
+                <div class="contenedor_nombre_descripcion_producto">
+                    <div class="nombre_detalle_producto">Terciopelo en barra</div>
+                    <div class="descripcion_detalle_producto_ver_mas">
                         Lápiz Labial Color Intenso y Textura Aterciopelada.
                         <span class="txt_ver_mas">ver más</span>
                     </div>
+                </div>
+                <div class="contenedor_lista_tonos">
                     <div class="selector_lista_tonos" data-selector_tono="">
                         <div class="elige_tono" data-tono_change="1">
                             <div class="img_item_tono" data-img_item_tono="">
@@ -163,6 +165,12 @@
                                     Perfume Pulso 100m/3.4 fl.oz
                                 </span>
                             </div>
+                            <div class="cantidad_descripcion_detalle">
+                                <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x2</span>
+                                <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="" @* data-tono-cuv-producto="" data-tono-select-nombrecomercial="" *@>
+                                    Perfume Pulso 100m/3.4 fl.oz
+                                </span>
+                            </div>
                         </div>
                         <hr class="clear">
                     </div>
@@ -188,6 +196,12 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="contenedor_limitacion">
+                    <div class="signo_exclamacion">
+                        <div class="dibujar_signo_exclamacion"></div>
+                    </div>
+                    <span class="txt_limitacion">Limitado a 5 packs por consultora</span>
                 </div>
             </div>
         </div>
