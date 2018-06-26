@@ -19,6 +19,14 @@ namespace Portal.Consultoras.Web
                 namespaces: new[] { "Portal.Consultoras.Web.Controllers" }
             );
 
+            //Ejm: ~/Detalle/GanaMas/2018010/0006/1101
+            routes.MapRoute(
+                name: "DetalleEstrategiaFicha",
+                url: "Detalle/{palanca}/{campaniaId}/{cuv}/{origen}",
+                defaults: new { controller = "DetalleEstrategia", action = "Ficha" },
+                namespaces: new[] { "Portal.Consultoras.Web.Controllers" }
+            );
+
             routes.Add("UniqueRoute", new UniqueRoute(
                 "g/{guid}/{controller}/{action}/{id}",
                 new { controller = "Login", action = "Index", guid = "", id = UrlParameter.Optional },
