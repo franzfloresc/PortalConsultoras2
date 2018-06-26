@@ -202,10 +202,8 @@ else
 
             </div>
             <div class="clear"></div>
-            @if (!Model.EsSuscrita && Model.MostrarCancelarSuscripcion)
-            {
-
-                if (Model.EsSuscripcionInmediata)
+         
+                @if (Model.EsSuscripcionInmediata)
                 {
                     <text><span class="txt recuerda-txt-2">
                             <b>
@@ -219,7 +217,7 @@ else
                     <text><span class="txt recuerda-txt">RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.</span></text>
                 }
 
-            }
+            
             <div class="clear"></div>
         </div>
     </div>
