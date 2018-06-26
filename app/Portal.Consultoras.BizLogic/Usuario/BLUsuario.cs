@@ -2940,5 +2940,15 @@ namespace Portal.Consultoras.BizLogic
         {
             return new DAUsuario(paisID).GetConsultoraParticipaEnPrograma(codigoPrograma, codigoConsultora, campaniaID);
         }
+
+        public string GetActualizacionEmail(int paisID,string codigoUsuario)
+        {
+            return new DAUsuario(paisID).GetActualizacionEmail(codigoUsuario);
+        }
+        public string CancelarAtualizacionEmail(int paisID, string codigoUsuario)
+        {
+            return new DAUsuario(paisID).CancelarAtualizacionEmail(codigoUsuario);
+        }
+
     }
 }

@@ -140,6 +140,9 @@ $(document).ready(function () {
             return re.test(keyChar);
         }
     });
+
+    ConsultarActualizaEmail();
+    CancelarAtualizacionEmail();
 });
 
 function EnlaceTerminosCondiciones() {
@@ -479,4 +482,48 @@ function mostratSpinner(valor) {
         return (valor == 'abrir' ? ShowLoading() : CloseLoading());
     }
     return (valor == 'abrir' ? waitingDialog({}) : closeWaitingDialog());
+}
+
+function ConsultarActualizaEmail() { 
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'Bienvenida/ObtenerActualizacionEmail',
+            dataType: 'Text',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data.split('|')[0] == '1') {
+                        document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
+                    }
+                }
+            },
+            error: function (data, error) {
+                alert(error);
+            }
+        });
+}
+
+function CancelarAtualizacionEmail() {
+   
+    document.getElementById('hrefNocambiarCorreo').onclick = function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'MiPerfil/CancelarAtualizacionEmail',
+            dataType: 'Text',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data == '1') {
+                        alert('Revisar tu correo Pendiente para cambiar de cuenta');
+                        document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display='None';
+                    }
+                }
+            },
+            error: function (data, error) {
+
+            }
+        });
+    }  
+
 }

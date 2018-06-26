@@ -892,5 +892,17 @@ namespace Portal.Consultoras.Data
 
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
+        public string GetActualizacionEmail(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("GetActualizacionEmail");
+            Context.Database.AddInParameter(command, "@codConsultora", DbType.String, codigoUsuario);
+            return Context.ExecuteScalar(command).ToString();
+        }
+        public string CancelarAtualizacionEmail(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("CancelarAtualizacionEmail");
+            Context.Database.AddInParameter(command, "@codConsultora", DbType.String, codigoUsuario);
+            return Context.ExecuteScalar(command).ToString();
+        }
     }
 }

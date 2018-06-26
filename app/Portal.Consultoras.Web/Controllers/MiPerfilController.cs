@@ -593,6 +593,30 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
+
+
+        public string CancelarAtualizacionEmail()
+        {
+            try
+            {
+
+                using (var svClient = new UsuarioServiceClient())
+                {
+                    var result = svClient.CancelarAtualizacionEmail(userData.PaisID, userData.CodigoUsuario);
+                    return result;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "";
+            }
+        }
+
+
+
+
     }
 
 }

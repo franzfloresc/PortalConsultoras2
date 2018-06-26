@@ -875,5 +875,18 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetConsultoraParticipaEnPrograma(paisID, codigoPrograma, codigoConsultora, campaniaID);
         }
+
+        public string GetActualizacionEmail(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetActualizacionEmail(paisID, codigoUsuario);
+        }
+
+        public string CancelarAtualizacionEmail(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.CancelarAtualizacionEmail(paisID, codigoUsuario);
+        }
+
     }
 }

@@ -2331,5 +2331,26 @@ namespace Portal.Consultoras.Web.Controllers
             partial.ConfiguracionPaisDatos = partial.ConfiguracionPaisDatos ?? new ConfiguracionPaisDatosModel();
             return partial;
         }
+
+        public string ObtenerActualizacionEmail()
+        {
+            try
+            {
+
+                using (var svClient = new UsuarioServiceClient())
+                {
+                    var result = svClient.GetActualizacionEmail(userData.PaisID, userData.CodigoConsultora);
+                    return result+'|'+ userData.EMail;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "";
+            }
+        }
+
+
     }
 }

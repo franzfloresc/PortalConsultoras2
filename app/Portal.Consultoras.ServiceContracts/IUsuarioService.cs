@@ -390,5 +390,12 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID);
+
+        [OperationContract]
+        string GetActualizacionEmail(int paisID, string codigoUsuario);
+
+        [OperationContract]
+        string CancelarAtualizacionEmail(int paisID, string codigoUsuario);
+
     }
 }
