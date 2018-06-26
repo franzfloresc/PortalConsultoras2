@@ -6,8 +6,8 @@
         return estrategia;
     };
 
-    var estrategiaObtenerObjHtmlLanding = function(objInput) {
-        var itemClone = $(objInput).parents("[data-item]");
+    var estrategiaObtenerObjHtmlLanding = function($btnAgregar) {
+        var itemClone = $btnAgregar.parents("[data-item]");
         var cuvClone = $.trim(itemClone.attr("data-clone-item"));
         if (cuvClone != "") {
             itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']")
@@ -325,5 +325,6 @@
     return {
         EstrategiaAgregar: estrategiaAgregar,
         EstrategiaObtenerObj: getEstrategia,
+        GetOrigenPedidoWeb: getOrigenPedidoWeb
     }
 }();
