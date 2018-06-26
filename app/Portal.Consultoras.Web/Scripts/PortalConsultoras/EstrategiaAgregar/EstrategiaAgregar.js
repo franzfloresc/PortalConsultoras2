@@ -6,8 +6,8 @@
         return estrategia;
     };
 
-    var estrategiaObtenerObjHtmlLanding = function(objInput) {
-        var itemClone = $(objInput).parents("[data-item]");
+    var estrategiaObtenerObjHtmlLanding = function($btnAgregar) {
+        var itemClone = $btnAgregar.parents("[data-item]");
         var cuvClone = $.trim(itemClone.attr("data-clone-item"));
         if (cuvClone != "") {
             itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']")
@@ -24,9 +24,9 @@
     };
 
     var estrategiaValidarBloqueada = function($btnAgregar, estrategia) {
-        var $divMensaje = $("#divMensajeBloqueada");
+        var $divMsgProductoBloqueado = $("#divMensajeBloqueada");
 
-        if ($btnAgregar.attr("data-bloqueada") == "") {
+        if ($btnAgregar.attr("data-bloqueada") === "") {
             return false;
         }
 
@@ -42,14 +42,14 @@
         if (estrategia.CodigoEstrategia == '011' &&
             (isPagina('ofertas') || isPagina('herramientasventa')) &&
             !isMobile()) {
-            $divMensaje = $("#divHVMensajeBloqueada");
-            $divMensaje.find('.cerrar_fichaProducto').attr('data-popup-close', 'divHVMensajeBloqueada');
+            $divMsgProductoBloqueado = $("#divHVMensajeBloqueada");
+            $divMsgProductoBloqueado.find('.cerrar_fichaProducto').attr('data-popup-close', 'divHVMensajeBloqueada');
         }
 
-        if ($divMensaje.length > 0) {
+        if ($divMsgProductoBloqueado.length > 0) {
             var itemClone = estrategiaObtenerObjHtmlLanding($btnAgregar);
             if (itemClone.length > 0) {
-                var dataItemHtml = $divMensaje.find("[data-item-html]");
+                var dataItemHtml = $divMsgProductoBloqueado.find("[data-item-html]");
 
                 if (estrategia.CodigoEstrategia != '005') {
                     dataItemHtml.html(itemClone.html());
@@ -72,7 +72,7 @@
             }
 
             $(".contenedor_popup_detalleCarousel").hide();
-            $divMensaje.show();
+            $divMsgProductoBloqueado.show();
         }
         return true;
     };
@@ -323,5 +323,6 @@
     return {
         EstrategiaAgregar: estrategiaAgregar,
         EstrategiaObtenerObj: getEstrategia,
+        GetOrigenPedidoWeb: getOrigenPedidoWeb
     }
 }();
