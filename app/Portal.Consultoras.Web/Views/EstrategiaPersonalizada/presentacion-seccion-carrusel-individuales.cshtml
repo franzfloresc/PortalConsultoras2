@@ -53,7 +53,7 @@
                 <span>{{lan.TipoEstrategiaDetalle.Slogan}}</span>
                 @if (revistaDigital.EsActiva)
                 {
-                    <a href="javascript:void(0)" class="negro" data-item-accion='verdetalle'>VER PRODUCTO</a>
+                        <a href="javascript:void(0)" class="negro" onclick='OnClickFichaDetalle(this)'>VER PRODUCTO</a>
                 }
                 else
                 {
@@ -63,13 +63,13 @@
                             <b>Encuéntralo en @camapaniaEfectiva</b>
                         </span>
                     }
-                    else
-                    {
-                        <a href="javascript:;" class="js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
-                           onclick="javascript:VerPopupExpGanaMas(); ">
-                            ¿LO QUIERES?
-                        </a>
-                    }
+                else
+                {
+                    <a href="javascript:;" class="js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
+                       onclick="javascript:VerPopupExpGanaMas(); ">
+                        ¿LO QUIERES?
+                    </a>
+                }
                 }
 
             </div>

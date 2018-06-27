@@ -366,6 +366,8 @@ var EstrategiaAgregarModule = function () {
     };
 
     var adicionarCantidad = function (e) {
+        e.stopPropagation();
+
         var $this = $(e.target);
         if($this.data("bloqueada"))
         if ($this.data("bloqueada") !== "") return false;
@@ -376,10 +378,13 @@ var EstrategiaAgregarModule = function () {
         cantidad = cantidad < 99 ? (cantidad + 1) : 99;
 
         $inputCantidad.val(cantidad);
-        e.stopPropagation();
-    }
+
+        return false;
+    };
 
     var disminuirCantidad = function (e) {
+        e.stopPropagation();
+
         var $this = $(e.target);
         if($this.data("bloqueada"))
         if ($this.data("bloqueada") !== "") return false;
@@ -390,8 +395,9 @@ var EstrategiaAgregarModule = function () {
         cantidad = cantidad > 1 ? (cantidad - 1) : 1;
 
         $inputCantidad.val(cantidad);
-        e.stopPropagation();
-    }
+
+        return false;
+    };
 
     return {
         EstrategiaAgregar: estrategiaAgregar,
