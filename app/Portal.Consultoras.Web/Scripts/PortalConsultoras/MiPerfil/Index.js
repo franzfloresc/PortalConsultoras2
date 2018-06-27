@@ -460,6 +460,7 @@ function ConsultarActualizaEmail() {
                 if (checkTimeout(data)) {
                     if (data.split('|')[0] == '1') {
                         document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
+                        document.getElementById('EmailNuevo').innerHTML = data.split('|')[1];
                     }
                 }
             },

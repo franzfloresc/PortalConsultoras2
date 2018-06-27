@@ -2340,7 +2340,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var svClient = new UsuarioServiceClient())
                 {
                     var result = svClient.GetActualizacionEmail(userData.PaisID, userData.CodigoConsultora);
-                    return result+'|'+ userData.EMail;
+                    return  result;
                 }
 
             }
