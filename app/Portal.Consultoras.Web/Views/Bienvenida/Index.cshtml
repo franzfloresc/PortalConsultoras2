@@ -43,7 +43,7 @@
         <div class="contenedor_img_perfil" style="display:none;">
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
-                <a href="#" id="hrefActualizarDatos" title="Actualizar datos" class="actualizar_datos default-background"></a>
+                <a id="hrefActualizarDatos" title="Actualizar datos" class="actualizar_datos default-background"></a>
                 <div class="tooltip_info_revision_correo" style="display:none;">
                     <div class="icono_info_alerta"></div>
                     <div class="tooltip_texto">
@@ -2171,6 +2171,8 @@
         var OrigenDesktopODD = 1;
         var nombreAlias = '@Util.SubStr(Model.NombreConsultora, 0)';
         var viewBagTieneHV = '@((ViewBag.TieneHV ??  false).ToString().ToLower())' == 'true';
+        var urlActionMiPerfil = '@Url.Action("ObtenerActualizacionEmail", "Bienvenida", new { area = "" })';
+        var urlLocationMiPerfil = '@Url.Action("Index", "MiPerfil", new { area = "" })';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Portal.Consultoras.Web.SessionManager.SessionManager.Instance.SetIsContrato(0); }

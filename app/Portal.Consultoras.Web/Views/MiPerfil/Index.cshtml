@@ -103,14 +103,14 @@ else
                 <p>
                     Revisa tu correo <span class="text-bold">@Model.EMail</span><br />para cambiar de cuenta.
                 </p>
-                        <a href="#" id="hrefNocambiarCorreo" class="enlace_no_cambiar_correo" title="Ya no quiero cambiar mi correo">
+                <a href="#" id="hrefNocambiarCorreo" class="enlace_no_cambiar_correo" title="Ya no quiero cambiar mi correo">
                     Ya no quiero cambiar mi correo
                 </a>
             </div>
         </div>
         <fieldset class="grupo_form_cambio_datos text-uppercase">
             <div class="w-82">
-                <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" onkeypress="return SoloNumerosInputs(event)" maxlength="@Model.limiteMaximoTelef"/>
+                <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" onkeypress="return SoloNumerosInputs(event)" maxlength="@Model.limiteMaximoTelef" />
                 <label for="txtCelularMD" class="w-100">Celular</label>
             </div>
             <a id="btnCambiarCelular" href="@Url.Action("ActualizarCelular", "MiPerfil", new {area = ""})" title="Cambiar" class="enlace_cambiar_dato w-18 text-right">
@@ -120,7 +120,7 @@ else
         </fieldset>
         <fieldset class="grupo_form_cambio_datos text-uppercase">
             <div class="w-82">
-                <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="text" value="@Model.Telefono" onkeypress="return SoloNumerosInputs(event)" maxlength="@Model.limiteMaximoTelef"/>
+                <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="text" value="@Model.Telefono" onkeypress="return SoloNumerosInputs(event)" maxlength="@Model.limiteMaximoTelef" />
                 <label for="txtTelefonoMD" class="w-100">Número fijo</label>
             </div>
         </fieldset>
@@ -131,7 +131,7 @@ else
             </a>
             <div class="contenedor_campos_num_adicional w-100" style="display:none;">
                 <div class="w-82">
-                    <input id="txtTelefonoTrabajoMD" name="txtTelefonoTrabajoMD" class="w-100" type="text" value="@Model.TelefonoTrabajo" onkeypress="return SoloNumerosInputs(event)" maxlength="@Model.limiteMaximoTelef"/>
+                    <input id="txtTelefonoTrabajoMD" name="txtTelefonoTrabajoMD" class="w-100" type="text" value="@Model.TelefonoTrabajo" onkeypress="return SoloNumerosInputs(event)" maxlength="@Model.limiteMaximoTelef" />
                     <label for="txtTelefonoTrabajoMD" class="label_num_adicional w-100">Número adicional</label>
                 </div>
                 <a href="#" title="Cambiar" class="enlace_eliminar_numero_adicional w-18 text-right">
