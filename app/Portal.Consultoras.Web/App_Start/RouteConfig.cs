@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web
             routes.MapRoute(
                 name: "DetalleEstrategiaFicha",
                 url: "Detalle/{palanca}/{campaniaId}/{cuv}/{origen}",
-                defaults: new { controller = "DetalleEstrategia", action = "Ficha" },
+                defaults: new { controller = "DetalleEstrategia", action = "Ficha" , origen = "" },
                 namespaces: new[] { "Portal.Consultoras.Web.Controllers" }
             );
 
