@@ -724,7 +724,7 @@ function ConsultarActualizaEmail() {
         e.preventDefault();
         $.ajax({
             type: 'POST',
-            url: baseUrl + 'Bienvenida/ObtenerActualizacionEmail',
+            url: urlActionMiPerfil,
             dataType: 'Text',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
@@ -736,7 +736,7 @@ function ConsultarActualizaEmail() {
                         document.getElementById('popupVerificacionCorreoElectronicoPendiente').style.display = 'block';
                     }
                     else {
-                        location.href = baseUrl + 'MiPerfil/Index';
+                        location.href = urlLocationMiPerfil;
                     }
                 }
             },

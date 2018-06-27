@@ -471,7 +471,6 @@ function ConsultarActualizaEmail() {
 }
 
 function CancelarAtualizacionEmail() {
-   
     document.getElementById('hrefNocambiarCorreo').onclick = function (e) {
         e.preventDefault();
         $.ajax({

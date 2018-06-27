@@ -9,8 +9,8 @@ var MiPerfil_ActualizarCorreo = function (_config) {
         VistaActual: 1
     };
 
-    var showSuccess = function (message) { alert_msg(message); };
-    var showError = function (error) { messageInfoError(error); };
+    var showSuccess = function (message) { AbrirMensaje(message, 'Mensaje', '', 2); };
+    var showError = function (error) { AbrirMensaje(error, 'Error', '', 1); };
     var showArrayError = function (arrayError) {
         var mensaje = '';
         for (var i = 0; i <= arrayError.length - 2; i++) {
