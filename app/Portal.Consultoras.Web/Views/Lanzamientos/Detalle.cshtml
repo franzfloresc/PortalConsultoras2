@@ -78,10 +78,10 @@
                     @if (Model.TipoAccionAgregar > 0)
                     {
 
-                        <div class="input_agregar_cantidad" data-ContenedorCantidad="">
-                            <a href="javascript:;" class="menos cantidad_menos_home js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                        <div class="input_agregar_cantidad" data-contenedor-cantidad="">
+                            <a href="javascript:;" class="menos cantidad_menos_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                             <input value="1" size="2" maxlength="2" id="txtCantidad" class="rango-cantidad-lanzamiento liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup " data-input="cantidad" tabindex="0" type="text">
-                            <a href="javascript:;" class="mas cantidad_mas_home js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a href="javascript:;" class="mas cantidad_mas_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
                         </div>
                         <div class="boton_agregar_cantidad">
                             <a href="javascript:;" style="width: 95% !important; margin-top: 0px; margin-left: 5%;" class="@Model.ClaseBloqueada boton_Agregalo_home js-no-popup " id="tbnAgregarProducto" data-bloqueada="@Model.ClaseBloqueada" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); " tabindex="0">

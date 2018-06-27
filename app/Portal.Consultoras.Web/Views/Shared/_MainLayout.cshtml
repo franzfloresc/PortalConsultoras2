@@ -330,13 +330,13 @@
                                         <div class="precio_ofertaDia">A SOLO <span>{{SimboloMoneda}} {{detalle.PrecioOfertaFormat}}</span></div>
                                     </div>
                                     <div>
-                                        <div class="liquidacion_rango_home js-no-popup">
-                                            <input type="text" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
+                                        <div class="liquidacion_rango_home js-no-popup" data-contenedor-cantidad="">
+                                            <input type="text" value="1" style="color:white" size="2" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
                                             <div class="liquidacion_rango_right_pedido js-no-popup">
-                                                <a class="mas js-no-popup" tabindex="0" style="border-bottom:1px solid white">
+                                                <a class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0" style="border-bottom:1px solid white" >
                                                     <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt="">
                                                 </a>
-                                                <a class="menos js-no-popup" tabindex="0">
+                                                <a class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0">
                                                     <img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt="">
                                                 </a>
                                             </div>
@@ -383,13 +383,13 @@
                                     <div class="precio_carrusel_ODD">{{SimboloMoneda}} {{detalle.PrecioOfertaFormat}}</div>
                                 </div>
                                 <div style="text-align: center">
-                                    <div class="liquidacion_rango_home js-no-popup">
-                                        <input type="text" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
+                                    <div class="liquidacion_rango_home js-no-popup" data-contenedor-cantidad="">
+                                        <input type="text" value="1" style="color:white" size="2" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
                                         <div class="liquidacion_rango_right_pedido js-no-popup">
-                                            <a class="mas js-no-popup" tabindex="0" style="border-bottom:1px solid white">
+                                            <a class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0" style="border-bottom:1px solid white">
                                                 <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt="">
                                             </a>
-                                            <a class="menos js-no-popup" tabindex="0">
+                                            <a class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0">
                                                 <img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt="">
                                             </a>
                                         </div>

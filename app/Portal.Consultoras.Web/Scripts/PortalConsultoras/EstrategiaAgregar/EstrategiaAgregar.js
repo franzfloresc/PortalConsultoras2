@@ -337,7 +337,7 @@ var EstrategiaAgregarModule = function () {
     var adicionarCantidad = function(e) {
         var $this = $(e.target);
         if ($this.data("bloqueada") !== "") return false;
-        var $inputCantidad = $this.parents("[data-ContenedorCantidad]").find("[data-input='cantidad']");
+        var $inputCantidad = $this.parents("[data-contenedor-cantidad]").find("[data-input='cantidad']");
         var cantidad = parseInt($inputCantidad.val());
 
         cantidad = isNaN(cantidad) ? 0 : cantidad;
@@ -350,7 +350,7 @@ var EstrategiaAgregarModule = function () {
     var disminuirCantidad = function (e) {
         var $this = $(e.target);
         if ($this.data("bloqueada") !== "") return false;
-        var $inputCantidad = $this.parents("[data-ContenedorCantidad]").find("[data-input='cantidad']");
+        var $inputCantidad = $this.parents("[data-contenedor-cantidad]").find("[data-input='cantidad']");
         var cantidad = parseInt($inputCantidad.val());
 
         cantidad = isNaN(cantidad) ? 0 : cantidad;
