@@ -483,6 +483,43 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region CRUD
 
+
+        [HttpPost]
+        public JsonResult PedidoInsertarOF(PedidoCrudModel model)
+        {
+            try
+            {
+                var respuesta = PedidoInsertar(model);
+
+                if (respuesta.Data.ToString().Contains("success = True"))
+                {
+                    using (var pedidoServiceClient = new PedidoServiceClient())
+                    {
+                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
+                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
+                    }
+                }
+
+                return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = "",
+                    total = "",
+                    formatoTotal = "",
+                    listaCliente = "",
+                    errorInsertarProducto = "0",
+                    tipo = ""
+                });
+            }
+        }
+
         [HttpPost]
         public JsonResult PedidoInsertar(PedidoCrudModel model)
         {
@@ -558,15 +595,6 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoWebDetalleModel.TipoObservacion = bePedidoWebDetalle.TipoObservacion;
                 }
                 #endregion
-
-                if (!errorServer)
-                {
-                    using (var pedidoServiceClient = new PedidoServiceClient())
-                    {
-                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
-                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
-                    }
-                }
 
                 return Json(new
                 {
@@ -1627,7 +1655,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         productosModel.Add(GetProductoNoExiste());
                     }
-                    
+
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
@@ -4266,6 +4294,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Nuevo AgregarProducto
+
 
         public JsonResult PedidoAgregarProducto(PedidoCrudModel model)
         {
