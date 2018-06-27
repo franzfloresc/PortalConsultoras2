@@ -47,7 +47,7 @@
                         <input type="hidden" id="hdImporteTotalPedido" />
                         <input type="text" placeholder="Código" class="codigo_reclamo ValidaNumeral ValidaPasteNumeral valid" id="txtCUV" />
                         <input type="text" placeholder="Descripción del producto" class="descripcion_reclamo" id="txtCUVDescripcion" readonly="readonly" />
-                        <div class="rango_reclamo" data-contenedor-cantidad="">
+                        <div class="rango_reclamo" data-cantidad-contenedor="">
                             <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onfocus="SeleccionarContenido(this) ">
                             <div class="liquidacion_rango_right_pedido">
                                 <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
@@ -96,7 +96,7 @@
                     <input type="hidden" id="hdCuvPrecio2" />
 
                     <input type="hidden" id="hdCdrWebDatos_Ssic" />
-                    <div class="rango_reclamo" data-contenedor-cantidad="">
+                    <div class="rango_reclamo" data-cantidad-contenedor="">
                         <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onkeypress=" PreValidarCUV(event); " onfocus=" SeleccionarContenido(this) ">
                         <div class="liquidacion_rango_right_pedido">
                             <a class="mas modificarPrecioMas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
