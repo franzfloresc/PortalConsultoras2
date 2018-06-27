@@ -35,7 +35,9 @@ namespace Portal.Consultoras.Web.Providers
 
             var listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos, listaProductos, codigoTipoEstrategia);
             //estrategiaModelo.CodigoVariante = "";
-            return GetEstrategiaDetalleFactorCuadre(listaEstrategiaComponente);
+            var listaComponentesPorOrdenar = GetEstrategiaDetalleFactorCuadre(listaEstrategiaComponente);
+            listaComponentesPorOrdenar = OrdenarComponentesPorMarca(listaComponentesPorOrdenar);
+            return listaComponentesPorOrdenar;
         }
 
         private List<BEEstrategiaProducto> GetEstrategiaProductos(EstrategiaPersonalizadaProductoModel estrategiaModelo, out string codigoSap)
@@ -209,5 +211,16 @@ namespace Portal.Consultoras.Web.Providers
             return listaHermanosCuadre;
         }
 
+        private List<EstrategiaComponenteModel> OrdenarComponentesPorMarca(List<EstrategiaComponenteModel> listaComponentesPorOrdenar)
+        {
+            var listaComponentesOrdenados = new List<EstrategiaComponenteModel>();
+            var listaComponentesCyzone = !listaComponentesPorOrdenar.Any() ? new List<EstrategiaComponenteModel>() : listaComponentesPorOrdenar.OrderBy(x => x.Id == Constantes.Marca.Cyzone).ToList();
+            var listaComponentesEzika = !listaComponentesPorOrdenar.Any() ? new List<EstrategiaComponenteModel>() : listaComponentesPorOrdenar.OrderBy(x => x.Id == Constantes.Marca.Esika).ToList();
+            var listaComponentesLbel = !listaComponentesPorOrdenar.Any() ? new List<EstrategiaComponenteModel>() : listaComponentesPorOrdenar.OrderBy(x => x.Id == Constantes.Marca.LBel).ToList();
+            listaComponentesOrdenados.AddRange(listaComponentesCyzone);
+            listaComponentesOrdenados.AddRange(listaComponentesEzika);
+            listaComponentesOrdenados.AddRange(listaComponentesLbel);
+            return listaComponentesOrdenados;
+        }
     }
 }
