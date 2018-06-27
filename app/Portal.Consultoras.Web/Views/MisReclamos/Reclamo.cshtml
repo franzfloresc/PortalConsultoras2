@@ -47,11 +47,11 @@
                         <input type="hidden" id="hdImporteTotalPedido" />
                         <input type="text" placeholder="Código" class="codigo_reclamo ValidaNumeral ValidaPasteNumeral valid" id="txtCUV" />
                         <input type="text" placeholder="Descripción del producto" class="descripcion_reclamo" id="txtCUVDescripcion" readonly="readonly" />
-                        <div class="rango_reclamo">
-                            <input type="text" name="Cantidad" id="txtCantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onfocus="SeleccionarContenido(this) ">
+                        <div class="rango_reclamo" data-contenedor-cantidad="">
+                            <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onfocus="SeleccionarContenido(this) ">
                             <div class="liquidacion_rango_right_pedido">
-                                <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                             </div>
                         </div>
                     </div>
@@ -96,11 +96,11 @@
                     <input type="hidden" id="hdCuvPrecio2" />
 
                     <input type="hidden" id="hdCdrWebDatos_Ssic" />
-                    <div class="rango_reclamo">
-                        <input type="text" name="Cantidad" id="txtCantidad2" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onkeypress=" PreValidarCUV(event); " onfocus=" SeleccionarContenido(this) ">
+                    <div class="rango_reclamo" data-contenedor-cantidad="">
+                        <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onkeypress=" PreValidarCUV(event); " onfocus=" SeleccionarContenido(this) ">
                         <div class="liquidacion_rango_right_pedido">
-                            <a class="mas modificarPrecioMas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos modificarPrecioMenos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                            <a class="mas modificarPrecioMas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos modificarPrecioMenos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                         </div>
                     </div>
                     <hr class="clear" />
@@ -197,8 +197,10 @@
                                 <div id="btnDespachoExpress" class="cdr_tipo_despacho_icono"></div>
                                 <div id="divDespachoExpress" class="cdr_tipo_despacho_contenido">
                                     <span style="font-weight:bold;">@Model.MensajesExpress.ExpressPrincipal</span>
-                                    @if (!string.IsNullOrEmpty(Model.MensajesExpress.ExpressFlete)) {<span>@Model.MensajesExpress.ExpressFlete</span> }
-                                    @if (Model.EsConsultoraNueva) { <span style="color:red;">@Model.MensajesExpress.Nuevas</span> }
+                                    @if (!string.IsNullOrEmpty(Model.MensajesExpress.ExpressFlete))
+                                    {<span>@Model.MensajesExpress.ExpressFlete</span>}
+                                    @if (Model.EsConsultoraNueva)
+                                    {<span style="color:red;">@Model.MensajesExpress.Nuevas</span>}
                                     <br />
                                     <span>@Model.MensajesExpress.ExpressAdicional</span>
                                 </div>
@@ -357,7 +359,7 @@
             </div>
         </div>
         {{/IsNullOrEmpty}}
-</div>
+    </div>
 </script>
 <script id="template-detalle-paso3" type="text/x-handlebars-template">
     {{#each detalle as |item|}}
@@ -374,17 +376,17 @@
         <div class="listado_solicitud_reclamo"><b>{{item.Solicitud}}</b></div>
         <div class="listado_solicitada_reclamo">
             {{#if_eq CodigoOperacion 'C'}}
-                {{item.SolucionSolicitada}}
+            {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'D'}}
-                {{item.SolucionSolicitada}}
+            {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'F'}}
-                {{item.SolucionSolicitada}}
+            {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'G'}}
-                {{item.SolucionSolicitada}}
+            {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'T'}}
-                {{item.CUV2}}<br />
-                <b>{{item.Descripcion2}}</b> <br />
-                {{item.Cantidad2}} unidades<br />
+            {{item.CUV2}}<br />
+            <b>{{item.Descripcion2}}</b> <br />
+            {{item.Cantidad2}} unidades<br />
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
             {{else}}
             {{/if_eq}}
@@ -410,18 +412,18 @@
         <div class="listado_solicitud_reclamo"><b>{{item.Solicitud}}</b></div>
         <div class="listado_solicitada_reclamo">
             {{#if_eq CodigoOperacion 'C'}}
-                {{item.SolucionSolicitada}}
+            {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'D'}}
-                {{item.SolucionSolicitada}}
+            {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'F'}}
-                {{item.SolucionSolicitada}}
+            {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'G'}}
-                {{item.SolucionSolicitada}}
+            {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'T'}}
-                {{item.CUV2}}<br />
-                <b>{{item.Descripcion2}}</b> <br />
-                {{item.Cantidad2}} unidades<br />
-                Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
+            {{item.CUV2}}<br />
+            <b>{{item.Descripcion2}}</b> <br />
+            {{item.Cantidad2}} unidades<br />
+            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
             {{else}}
 
             {{/if_eq}}
@@ -447,7 +449,7 @@
 </script>
 @section scripts{
 
-<script type="text/javascript">
+    <script type="text/javascript">
     var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
     var imgPasos = '@Url.Content("~/Content/Images/Esika/{0}.png")';
     var urlRegresar = '@Url.Action("Index", "MisReclamos")';
@@ -457,7 +459,8 @@
     var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';
 
     var OrigenCDR = false;
-</script>
-<script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Reclamo.js")"></script>
+    </script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Reclamo.js")"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
 }
 

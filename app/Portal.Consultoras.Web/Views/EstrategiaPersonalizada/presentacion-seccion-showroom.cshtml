@@ -131,8 +131,8 @@
                                                    oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
                                                    data-input="cantidad" data-cantidad-input="-">
                                             <div class="liquidacion_rango_right_pedido">
-                                                <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                                <a class="menos" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                                <a class="mas" data-cantidad-agregar="+"  onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                                <a class="menos" data-cantidad-agregar="-"  onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                                             </div>
                                         </div>
                                         <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>

@@ -268,50 +268,6 @@ $(document).ready(function () {
             }
         });
 
-    $("body").on("click",
-        ".menos",
-        function() {
-            if ($.trim($(this).data("bloqueada")) !== "") return false;
-
-            var cantidad = parseInt($(this).parent().prev().val());
-            cantidad = isNaN(cantidad) ? 0 : cantidad;
-            cantidad = cantidad > 1 ? (cantidad - 1) : 1;
-            $(this).parent().prev().val(cantidad);
-        });
-
-    $("body").on("click", ".mas", function () {
-        if ($.trim($(this).data("bloqueada")) !== "") return false;
-
-        var cantidad = parseInt($(this).parent().prev().val());
-        cantidad = isNaN(cantidad) ? 0 : cantidad;
-        cantidad = cantidad < 99 ? (cantidad + 1) : 99;
-        $(this).parent().prev().val(cantidad);
-    });
-
-    $("body").on("click", ".cantidad_menos_home", function (e) {
-        if ($.trim($(this).data("bloqueada")) !== "") return false;
-        var $txtcantidad = $(this).siblings('input');
-        var cantidad = parseInt($txtcantidad.val());
-
-        cantidad = isNaN(cantidad) ? 0 : cantidad;
-        cantidad = cantidad > 1 ? (cantidad - 1) : 1;
-
-        $txtcantidad.val(cantidad);
-        e.stopPropagation();
-    });
-
-    $("body").on("click", ".cantidad_mas_home", function (e) {
-        if ($.trim($(this).data("bloqueada")) !== "") return false;
-        var $txtcantidad = $(this).siblings('input');
-        var cantidad = parseInt($txtcantidad.val());
-
-        cantidad = isNaN(cantidad) ? 0 : cantidad;
-        cantidad = cantidad < 99 ? (cantidad + 1) : 99;
-
-        $txtcantidad.val(cantidad);
-        e.stopPropagation();
-    });
-
     $("#belcorpChatEcuador").click(function () {
         var url = 'http://200.32.70.19/Belcorp/';
         window.open(url, '_blank');
@@ -374,8 +330,6 @@ function messageInfoError(message, titulo, fnAceptar) {
     }
 }
 
-
-
 function CargarResumenCampaniaHeader(showPopup) {
     
     showPopup = showPopup || false;
@@ -428,13 +382,6 @@ function CargarResumenCampaniaHeader(showPopup) {
         },
         error: function (data, error) { }
     });
-}
-
-function microefectoPedidoGuardado() {
-    $(".contenedor_circulos").fadeIn();
-    setTimeout(function () {
-        $(".contenedor_circulos").fadeOut();
-    }, 2700);
 }
 
 function CargarCantidadNotificacionesSinLeer() {
