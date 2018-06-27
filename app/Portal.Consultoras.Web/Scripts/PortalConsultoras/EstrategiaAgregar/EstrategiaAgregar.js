@@ -70,7 +70,7 @@ var EstrategiaAgregarModule = function () {
 
     var getOrigenPedidoWeb = function ($btnAgregar) {
         var origenPedidoWeb = $btnAgregar.parents("[data-OrigenPedidoWeb]").data("origenpedidoweb") || 0;
-        return origenPedidoWeb;
+        return origenPedidoWeb.toString();
     };
 
     var DivMsgBloqueadoBuilder = function ($btnAgregar, estrategia) {
