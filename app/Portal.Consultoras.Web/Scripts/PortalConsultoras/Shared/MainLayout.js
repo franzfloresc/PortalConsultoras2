@@ -18,15 +18,9 @@ $(document).ready(function () {
     else {
         MensajeEstadoPedido();
     }
-
-    if (!esContenedorOfertas) {
-        if (tieneOfertaDelDia == "True") {
-            window.OfertaDelDia.CargarODD();
-        }
-    } else {
-        if (mostrarOfertaDelDiaContenedor == "True") {
-            window.OfertaDelDia.CargarODD();
-        }
+    
+    if (tieneOfertaDelDia == "True") {
+        window.OfertaDelDia.CargarODD();
     }
 
     $(document).keyup(function (e) {
@@ -76,17 +70,18 @@ $(document).ready(function () {
         }
     });
 
-    $('body').click(function (e) {
-        if (!$(e.target).closest('#OfertaDelDia').length) {
-            if ($('#PopOfertaDia').is(':visible')) {
-                if (showDisplayODD == 1) {
-                    $('#PopOfertaDia').slideUp();
-                    $('.circulo_hoy span').html('+');
-                    showDisplayODD = 0;
-                }
-            }
-        }
-    });
+    //$('body').click(function (e) {
+    //    if (!$(e.target).closest('#OfertaDelDia').length) {
+    //        console.log("#body-OfertaDelDia");
+    //        if ($('#PopOfertaDia').is(':visible')) {
+    //            if (showDisplayODD == 1) {
+    //                $('#PopOfertaDia').slideUp();
+    //                $('.circulo_hoy span').html('+');
+    //                showDisplayODD = 0;
+    //            }
+    //        }
+    //    }
+    //});
 
     $('.contenedor_popup_detalleCarousel, .Content_general_pop_up').click(function (e) {
 
@@ -1038,29 +1033,6 @@ function agregarProductoAlCarrito(o) {
             });
         });
     }
-}
-
-function checkCountdownODD() {
-    var ok = true;
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'Pedido/GetOfertaDelDia',
-        async: false,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            if (response.success) {
-                var _data = response.data;
-                var tq = _data.TeQuedan;
-
-                if (tq.TotalSeconds <= 0)
-                    ok = false;
-            }
-        },
-        error: function (err) { }
-    });
-
-    return ok;
 }
 
 function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {

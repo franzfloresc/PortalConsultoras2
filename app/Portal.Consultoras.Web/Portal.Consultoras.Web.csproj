@@ -308,6 +308,7 @@
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
     <Compile Include="Controllers\LanzamientosController.cs" />
+    <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="Infraestructure\Reader\ColumnCsvTransform.cs" />
     <Compile Include="Models\AdministrarEstrategia\AdministrarEstrategiaMasivoModel.cs" />
     <Compile Include="Models\EstrategiaComponenteModel.cs" />
@@ -1307,9 +1308,9 @@
     <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
+    <Content Include="Content\Css\Site\DetalleSetProductos\DetalleSetProductos.css" />
     <Content Include="Content\Css\Site\Esika\styleDefault.css" />
     <Content Include="Content\Css\Site\Esika\unsubscribe.css" />
-    <Content Include="Content\Css\Site\Ficha\Ficha.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Landing\producto.landing.css" />
@@ -5111,6 +5112,8 @@
     <Content Include="Views\MatrizCampania\ActualizarMatrizCampaniaNew.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpVariablesGeneralesPortal.cshtml" />
     <Content Include="Views\DetalleEstrategia\Ficha.cshtml" />
+    <Content Include="Views\OfertaDelDia\ofertadeldia-banner-template.cshtml" />
+    <Content Include="Views\OfertaDelDia\ofertadeldia-contenedor-template.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

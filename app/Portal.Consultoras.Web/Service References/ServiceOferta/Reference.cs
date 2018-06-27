@@ -668,6 +668,52 @@ namespace Portal.Consultoras.Web.ServiceOferta {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BaseEntidad", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceOferta.BEEstrategia))]
+    public partial class BaseEntidad : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEEstrategia", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEEstrategia : Portal.Consultoras.Web.ServiceOferta.BaseEntidad {
@@ -2307,52 +2353,6 @@ namespace Portal.Consultoras.Web.ServiceOferta {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BaseEntidad", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceOferta.BEEstrategia))]
-    public partial class BaseEntidad : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PaisIDField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PaisID {
-            get {
-                return this.PaisIDField;
-            }
-            set {
-                if ((this.PaisIDField.Equals(value) != true)) {
-                    this.PaisIDField = value;
-                    this.RaisePropertyChanged("PaisID");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEEstrategiaDetalle", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEEstrategiaDetalle : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -3431,10 +3431,10 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceOferta.BEShowRoomOferta[]> GetProductosCompraPorCompraAsync(int paisId, int EventoID, int CampaniaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOfertaService/GetEstrategiaODD", ReplyAction="http://tempuri.org/IOfertaService/GetEstrategiaODDResponse")]
-        Portal.Consultoras.Web.ServiceOferta.BEEstrategia[] GetEstrategiaODD(int paisID, int codCampania, string codConsultora, System.DateTime fechaInicioFact);
+        Portal.Consultoras.Web.ServiceOferta.BEEstrategia[] GetEstrategiaODD(Portal.Consultoras.Web.ServiceOferta.BEEstrategia entidad, string codConsultora, System.DateTime fechaInicioFact);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOfertaService/GetEstrategiaODD", ReplyAction="http://tempuri.org/IOfertaService/GetEstrategiaODDResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceOferta.BEEstrategia[]> GetEstrategiaODDAsync(int paisID, int codCampania, string codConsultora, System.DateTime fechaInicioFact);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceOferta.BEEstrategia[]> GetEstrategiaODDAsync(Portal.Consultoras.Web.ServiceOferta.BEEstrategia entidad, string codConsultora, System.DateTime fechaInicioFact);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOfertaService/GetEstrategiasPedido", ReplyAction="http://tempuri.org/IOfertaService/GetEstrategiasPedidoResponse")]
         Portal.Consultoras.Web.ServiceOferta.BEEstrategia[] GetEstrategiasPedido(Portal.Consultoras.Web.ServiceOferta.BEEstrategia entidad);
@@ -3486,12 +3486,12 @@ namespace Portal.Consultoras.Web.ServiceOferta {
             return base.Channel.GetProductosCompraPorCompraAsync(paisId, EventoID, CampaniaID);
         }
         
-        public Portal.Consultoras.Web.ServiceOferta.BEEstrategia[] GetEstrategiaODD(int paisID, int codCampania, string codConsultora, System.DateTime fechaInicioFact) {
-            return base.Channel.GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
+        public Portal.Consultoras.Web.ServiceOferta.BEEstrategia[] GetEstrategiaODD(Portal.Consultoras.Web.ServiceOferta.BEEstrategia entidad, string codConsultora, System.DateTime fechaInicioFact) {
+            return base.Channel.GetEstrategiaODD(entidad, codConsultora, fechaInicioFact);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceOferta.BEEstrategia[]> GetEstrategiaODDAsync(int paisID, int codCampania, string codConsultora, System.DateTime fechaInicioFact) {
-            return base.Channel.GetEstrategiaODDAsync(paisID, codCampania, codConsultora, fechaInicioFact);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceOferta.BEEstrategia[]> GetEstrategiaODDAsync(Portal.Consultoras.Web.ServiceOferta.BEEstrategia entidad, string codConsultora, System.DateTime fechaInicioFact) {
+            return base.Channel.GetEstrategiaODDAsync(entidad, codConsultora, fechaInicioFact);
         }
         
         public Portal.Consultoras.Web.ServiceOferta.BEEstrategia[] GetEstrategiasPedido(Portal.Consultoras.Web.ServiceOferta.BEEstrategia entidad) {
