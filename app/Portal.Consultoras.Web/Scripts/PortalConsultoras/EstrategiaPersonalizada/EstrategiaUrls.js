@@ -21,14 +21,13 @@ const NotParticipaProgramaNuevas = "0";
 
 
 function OnClickFichaDetalle(e) {
-    
+    //el objeto e debe establecido con  target  (e.target)
     var infoItem         = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
-
     var codigoEstrategia = $.trim(infoItem.CodigoEstrategia);
     var codigoCampania   = $.trim(infoItem.CampaniaID);
     var codigoCuv        = $.trim(infoItem.CUV2);
-    var UrlDetalle       = GetPalanca(codigoEstrategia);
-    var OrigenPedidoWeb  = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e));
+    var UrlDetalle = GetPalanca(codigoEstrategia);
+    var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e));
 
     if (OrigenPedidoWeb == "" || OrigenPedidoWeb === "undefined" || OrigenPedidoWeb == null)
         OrigenPedidoWeb = "";
