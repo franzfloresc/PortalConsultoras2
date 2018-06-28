@@ -23,6 +23,7 @@ belcorp.estrategia.initialize = function () {
 
 var EstrategiaVerDetalleProvider = function () {
     "use strict";
+
     var estrategiaGuardarTemporalPromise = function (urlGuardarProductoTemporal, params) {
         var dfd = jQuery.Deferred();
 
@@ -44,8 +45,32 @@ var EstrategiaVerDetalleProvider = function () {
 
         return dfd.promise();
     };
+
+    var estrategiaConsultarEstrategiaCuvPromise = function (cuv) {
+        var dfd = jQuery.Deferred();
+
+        jQuery.ajax({
+            type: "GET",
+            url: baseUrl + 'Estrategia/ConsultarEstrategiaCuv?cuv=' + cuv,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(params),
+            async: true,
+            cache: false,
+            success: function (data) {
+                dfd.resolve(data);
+            },
+            error: function (data, error) {
+                dfd.reject(data, error);
+            }
+        });
+
+        return dfd.promise();
+    }
+
     return {
-        estrategiaGuardarTemporalPromise: estrategiaGuardarTemporalPromise
+        estrategiaGuardarTemporalPromise: estrategiaGuardarTemporalPromise,
+        estrategiaConsultarEstrategiaCuvPromise: estrategiaConsultarEstrategiaCuvPromise
     }
 }();
 
@@ -276,18 +301,16 @@ function EstrategiaGuardarTemporal(obj) {
 
 function EstrategiaCargarCuv(cuv) {
     AbrirLoad();
-    var detalle = new Array();
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'Estrategia/ConsultarEstrategiaCuv?cuv=' + cuv,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: false,
-        success: function (data) {
-            detalle = data || new Array();
-        },
-        error: function (error, x) { }
-    });
+    var detalle = [];
+
+    EstrategiaVerDetalleProvider
+        .estrategiaConsultarEstrategiaCuvPromise(cuv)
+        .done(function(data) {
+            detalle = data || [];
+        }).fail(function(data, error) {
+
+        });
+
     CerrarLoad();
     return detalle;
 }
