@@ -1,4 +1,4 @@
-﻿var cuponModule = (function () {
+﻿var cuponModule = (function (finishLoadCuponContenedorInfo) {
     "use strict";
 
     var CONS_CUPON = {
@@ -662,4 +662,4 @@
         mostrarPopupGanaste: mostrarPopupGanasteAlConfirmarCorreo,
         mostrarPopupGana: mostrarPopupGanaDesdeGestorDePopups
     };
-})();
+})(finishLoadCuponContenedorInfo);
