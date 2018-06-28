@@ -21,6 +21,41 @@ belcorp.estrategia.initialize = function () {
     registerEvent.call(this, "onProductoAgregado");
 }
 
+var EstrategiaVerDetalleProvider = function () {
+    "use strict";
+    var estrategiaGuardarTemporalPromise = function (urlGuardarProductoTemporal, params) {
+        var dfd = jQuery.Deferred();
+
+        jQuery.ajax({
+            type: "POST",
+            url: urlGuardarProductoTemporal,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(params),
+            async: true,
+            cache: false,
+            success: function (data) {
+                dfd.resolve(data);
+            },
+            error: function (data, error) {
+                dfd.reject(data, error);
+            }
+        });
+
+        return dfd.promise();
+    };
+    return {
+        estrategiaGuardarTemporalPromise: estrategiaGuardarTemporalPromise
+    }
+}();
+
+var EstrategiaVerDetalle = function () {
+    "use strict";
+    return {
+
+    }
+}();
+
 function VerDetalleEstrategia(e) {
 
     AbrirLoad();
@@ -220,41 +255,21 @@ function EstrategiaVerDetalleGeneral(estrategia) {
 }
 
 function EstrategiaGuardarTemporal(obj) {
-
-    $.ajaxSetup({
-        cache: false
-    });
-
     AbrirLoad();
 
     var varReturn = false;
-
-    var ruta = "";
-
-    if (typeof urlOfertaDetalleProductoTem == "undefined") {
-        ruta = "/Estrategia/GuardarProductoTemporal";
-    }
-    else {
-        ruta = urlOfertaDetalleProductoTem;
-    }
-
+    var urlGuardarProductoTemporal = urlOfertaDetalleProductoTem || "/Estrategia/GuardarProductoTemporal";
     obj.TipoAccionAgregar = obj.TipoAccionAgregarBack || obj.TipoAccionAgregar;
 
-    jQuery.ajax({
-        type: 'POST',
-        url: ruta,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(obj),
-        async: false,
-        success: function (response) {
-            varReturn = response.success;
-        },
-        error: function (response, error) {
+    EstrategiaVerDetalleProvider
+        .estrategiaGuardarTemporalPromise(urlGuardarProductoTemporal, obj)
+        .done(function(data) {
+            varReturn = data.success;
+        })
+        .fail(function(data, error) {
             CerrarLoad();
-            localStorage.setItem(lsListaRD, '');
-        }
-    });
+            localStorage.setItem(lsListaRD, "");
+        });
 
     return varReturn;
 }
