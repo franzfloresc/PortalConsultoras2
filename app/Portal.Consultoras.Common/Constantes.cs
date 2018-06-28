@@ -2116,14 +2116,14 @@ namespace Portal.Consultoras.Common
             public const string UrlFiltrarEstrategia = "api/estrategia/{0}/{1}";
 
             //api/Estrategia/editar/{pais}
-            public const string UrlEditarWebApi = "api/estrategia/editar/{0}";
+            public const string UrlEditarWebApi = "api/estrategia/editar/{0}?prod={1}&perfil={2}";
 
 
             //api/Estrategia/activar/{pais}/{id}?Usuario=
             public const string UrlActivarEstrategia = "api/estrategia/activar/{0}/{1}?Usuario={2}";
 
             //api/Estrategia/activar/{pais}?Usuario=
-            public const string UrlActivarEstrategias = "api/estrategia/activar/{0}?usuario={0}";
+            public const string UrlActivarEstrategias = "api/estrategia/activar/{0}?usuario={1}";
 
 
             //api/Estrategia/desactivar/{pais}/{id}?Usuario=           

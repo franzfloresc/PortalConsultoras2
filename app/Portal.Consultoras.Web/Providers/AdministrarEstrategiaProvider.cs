@@ -129,8 +129,10 @@ namespace Portal.Consultoras.Web.Providers
                         CUV2 = d.CUV2,
                         Orden = d.Orden,
                         FlagNueva = d.FlagNueva ? 1 : 0,
+                        FlagEstrella = d.FlagEstrella ? 1 : 0,
                         CodigoEstrategia = d.CodigoEstrategia,
                         CodigoTipoEstrategia = d.CodigoTipoEstrategia,
+                        TextoLibre = d.TextoLibre,
                         //cambiar por CodigoProducto cuando se corrija el servicio
                         CodigoProducto = string.IsNullOrEmpty(d.CodigoSap) ? d.CodigoProducto : d.CodigoSap,
                         IndicadorMontoMinimo = d.IndicadorMontoMinimo ? 1 : 0,
@@ -239,29 +241,31 @@ namespace Portal.Consultoras.Web.Providers
         {
             UsuarioModel userData = sessionManager.GetUserData();
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlRegistrarWebApi, pais);
-            WaEstrategiaModel waModel = ObtenerEstrategia(entidad, "");
+            WaEstrategiaModel waModel = ObtenerEstrategia(entidad, string.Empty);
+            waModel.FechaCreacion = DateTime.Now;
             string jsonParameters = JsonConvert.SerializeObject(waModel);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "post", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
-            if (!respuesta.Success)
+            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
             {
                 throw new Exception(respuesta.Message);
             }
         }
 
-        public void EditarEstrategia(ServicePedido.BEEstrategia entidad, string mongoId, string pais)
+        public void EditarEstrategia(ServicePedido.BEEstrategia entidad, string mongoId, string pais, string prod, string perfil)
         {
             UsuarioModel userData = sessionManager.GetUserData();
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEditarWebApi, pais);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEditarWebApi, pais,prod,perfil);
             WaEstrategiaModel waModel = ObtenerEstrategia(entidad, mongoId);
+            waModel.FechaModificacion = DateTime.Now;
             string jsonParameters = JsonConvert.SerializeObject(waModel);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
-            if (!respuesta.Success)
+            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
             {
                 throw new Exception(respuesta.Message);
             }
@@ -297,7 +301,7 @@ namespace Portal.Consultoras.Web.Providers
                 UsuarioCreacion = entidad.UsuarioCreacion,
                 UsuarioModificacion = entidad.UsuarioModificacion,
                 TipoEstrategiaId = entidad.TipoEstrategiaID,
-                TipoEstrategia = entidad.CodigoTipoEstrategia.Equals("009") ? "ODD" : "",
+                FlagEstrella = entidad.FlagEstrella == 1 ? true : false,
                 DescripcionTipoEstrategia = entidad.DescripcionEstrategia,
                 MatrizComercialId = entidad.IdMatrizComercial,
                 PrecioPublico = (float)entidad.PrecioPublico,
@@ -345,7 +349,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            if (!respuesta.Success)
+            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
             {
                 throw new Exception(respuesta.Message);
             }
@@ -382,7 +386,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            if (!respuesta.Success)
+            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
                 throw new Exception(respuesta.Message);
 
             if (respuesta.Result != null)
@@ -414,7 +418,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            if (respuesta.Success)
+            if (respuesta.Message.Equals("OK"))
             {
                 List<Dictionary<string, object>> resultDictionary = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(respuesta.Result.ToString());
 
@@ -440,7 +444,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            if (!respuesta.Success)
+            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
                 throw new Exception(respuesta.Message);
         }
 
@@ -456,7 +460,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            if (!respuesta.Success)
+            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
                 throw new Exception(respuesta.Message);
         }
 

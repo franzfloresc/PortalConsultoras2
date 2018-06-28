@@ -27,10 +27,10 @@ namespace Portal.Consultoras.Web.Models.Estrategia
         public int Orden { get; set; }
         public bool FlagConfig { get; set; }
         public string Zona { get; set; }
+        public bool FlagEstrella { get; set; }
 
         //TipoEstrategia
         public int TipoEstrategiaId { get; set; }
-        public string TipoEstrategia { get; set; }
         public string DescripcionTipoEstrategia { get; set; }
         public string CodigoTipoEstrategia { get; set; }
         public string ImagenEstrategia { get; set; }
