@@ -615,6 +615,13 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js"
             ));
+
+
+            bundles.Add(new ScriptBundle("~/bundles/Ficha").Include(
+               "~/Scripts/implements/youtube.js",
+                "~/Scripts/General.js",
+                  "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js"
+          ));
             #endregion
 
             #region MisCatalogosRevistas

@@ -133,7 +133,8 @@
     $.each([
         "ytMobileRevistaDigitalDetalle",            // i:0 (videoKey ?) mobile/views/revistadigital/Detalle.cshtml
         "ytMobileRevistaDigitalTemplateInformativa",// i:1  mobile/views/revistadigital/template-informativa.cshtml
-        "ytRevistaDigitalTemplateInformativa"
+        "ytRevistaDigitalTemplateInformativa",
+        "ytFicha"
     ], function (i, ytId) {
 
         // Si existe el ID del elemento 
