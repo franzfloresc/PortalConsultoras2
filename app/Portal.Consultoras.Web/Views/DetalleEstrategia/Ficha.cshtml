@@ -67,8 +67,8 @@
                         <div class="contenedor_etiqueta_odd">
                             <div id="clock" class="clock_odd"></div>
                         </div>
-                    <div class="contenedor_etiquetas">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4840045/2izIcVZzfnNuPBe/%C2%A1NUEVO%21.jpg">
+                        <div class="contenedor_etiquetas">
+                            <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4840045/2izIcVZzfnNuPBe/%C2%A1NUEVO%21.jpg">
                         </div>
                     </div>
                     <div class="contenedor_nombre_precio">
@@ -84,13 +84,13 @@
                             <div class="ganancia">GANA <span data-ganancia="">@vbSimbolo @Model.GananciaString</span></div>
                         </div>
                     </div>
-                <div class="contenedor_nombre_descripcion_producto">
-                    <div class="nombre_detalle_producto">@Model.DescripcionMarca</div>
-                    <div class="descripcion_detalle_producto_ver_mas">
-                        @Model.DescripcionResumen
-                        <span class="txt_ver_mas">ver más</span>
+                    <div class="contenedor_nombre_descripcion_producto">
+                        <div class="nombre_detalle_producto">@Model.DescripcionMarca</div>
+                        <div class="descripcion_detalle_producto_ver_mas">
+                            @Model.DescripcionResumen
+                            <span class="txt_ver_mas">ver más</span>
+                        </div>
                     </div>
-                </div>
                     @if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
                     {
                         if ((Model.Hermanos.Any()))
@@ -144,8 +144,8 @@
                                 {
                                     continue;
                                 }
-                            
-                            <div class="texto_contenido">CONTENIDO:</div>
+
+                                <div class="texto_contenido">CONTENIDO:</div>
                                 <div class="detalle_producto" data-tono="" data-tono-select="" data-tono-digitable="@Hermano.Digitable">
                                     <div style="display: none;">
                                         <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.IdMarca" />
@@ -194,7 +194,7 @@
 
 
                     <div class="contenedor_agregar">
-                    <div class="contenedor_rangos" data-cantidad-contenedor="">
+                        <div class="contenedor_rangos" data-cantidad-contenedor="">
                             <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
                             <div>
                                 <a class="txt_menos" data-cantidad-agregar="-" data-bloqueada="" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
@@ -215,12 +215,12 @@
                             </div>
                         </div>
                     </div>
-                <div class="contenedor_limitacion">
-                    <div class="signo_exclamacion">
-                        <div class="dibujar_signo_exclamacion"></div>
+                    <div class="contenedor_limitacion">
+                        <div class="signo_exclamacion">
+                            <div class="dibujar_signo_exclamacion"></div>
+                        </div>
+                        <span class="txt_limitacion">Limitado a 5 packs por consultora</span>
                     </div>
-                    <span class="txt_limitacion">Limitado a 5 packs por consultora</span>
-                </div>
                 </div>
             </div>
         }
@@ -261,7 +261,7 @@
                             <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
                             <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
                             <input type="hidden" class="Nombre" value="{{DescripcionResumen}}" />
-                            <input type="hidden" class="ProductoDescripcion" value="{{DescripcionDetalle}}"/>
+                            <input type="hidden" class="ProductoDescripcion" value="{{DescripcionDetalle}}" />
                             <input type="hidden" class="Volumen" value="" />
                             <input type="hidden" class="Palanca" value="LAN" />
                         </div>
@@ -696,21 +696,22 @@
     </div>
 </div>
 
-
-
 @section scripts{
+<script src="~/Scripts/PortalConsultoras/Shared/ConstantesModule.js" type="text/javascript"></script>
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
-    <script src="~/Scripts/PortalConsultoras/Shared/ConstantesModule.js"></script>
-    <script src="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"></script>
-    <script src="~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js"></script>
+    <script src="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" type="text/javascript"></script>
+    <script src="~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js" type="text/javascript"></script>
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js" type="text/javascript"></script>
+
     <script>
         var fichaModule;
-        jQuery(document).ready(function () {
+        $(document).ready(function() {
             fichaModule = FichaModule({
-                palanca: '@Model.Palanca',
-                origen: '@Model.Origen',
-                tieneSession: '@Model.TieneSession'
+                palanca: "@Model.Palanca.ToUpper()",
+                origen: "@Model.Origen",
+                tieneSession: "@Model.TieneSession",
+                campania: "@Model.Campania",
+                cuv: "@Model.Cuv"
             });
             fichaModule.Inicializar();
         });

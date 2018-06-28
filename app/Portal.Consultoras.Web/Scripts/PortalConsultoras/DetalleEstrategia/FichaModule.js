@@ -1,12 +1,13 @@
 ﻿var FichaModule = (function (config) {
-    var localStorageModule = LocalStorageModule;
+    'use strict';
+    var localStorageModule;
     
     var _config = {
-        palanca: config.palanca,
-        origen: config.origen,
-        tieneSession: config.tieneSession,
-        campania: cofig.campania,
-        cuv: config.cuv
+        palanca: config.palanca || "",
+        origen: config.origen || "",
+        tieneSession: config.tieneSession || "",
+        campania: config.campania || "",
+        cuv: config.cuv || ""
     }
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _codigoPalanca = ConstantesModule.CodigosPalanca;
@@ -146,6 +147,7 @@
     }
     
     function Inicializar() {
+        localStorageModule = LocalStorageModule();
         _bindingEvents();
         _crearReloj();
         _crearTabs();
@@ -155,6 +157,5 @@
 
     return {
         Inicializar: Inicializar
-    };
-
-})();
+    }
+});

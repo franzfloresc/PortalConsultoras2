@@ -1,5 +1,5 @@
-﻿var LocalStorageModule = (function (config) {
-
+﻿var LocalStorageModule = (function() {
+    'use strict';
     var _codigoPalanca = ConstantesModule.CodigosPalanca;
 
     var _keyLocalStorage = ConstantesModule.KeysLocalStorage;
@@ -41,7 +41,7 @@
     return{
         ObtenerEstrategia: _obtenerEstrategia
     }
-})();
+});
 
 
 var lsListaRD = lsListaRD || "";

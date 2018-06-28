@@ -17,6 +17,8 @@ namespace Portal.Consultoras.Web.Models
         public string Origen { get; set; }
         public string Palanca { get; set; }
         public bool TieneSession { get; set; }
+        public int Campania { get; set; }
+        public string Cuv { get; set; }
     }
     public class TituloDetalle
     {

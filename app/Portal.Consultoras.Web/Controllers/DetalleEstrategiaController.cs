@@ -17,16 +17,23 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!TienePermisoPalanca(palanca)) return RedirectToAction("Index", "Ofertas");
 
-            var estrategiaPresonalizada = ObtenerEstrategiaPersonalizada(palanca, cuv);
-            if (PalancasConSesion(palanca) && estrategiaPresonalizada == null)
+            DetalleEstrategiaFichaModel modelo;
+            if (PalancasConSesion(palanca))
             {
-                return RedirectToAction("Index", "Ofertas");
+                var estrategiaPresonalizada = ObtenerEstrategiaPersonalizada(palanca, cuv);
+                if (estrategiaPresonalizada == null) return RedirectToAction("Index", "Ofertas");
+                modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
+            }
+            else
+            {
+                modelo = new DetalleEstrategiaFichaModel();
             }
             
-            var modelo = Mapper.Map <EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel> (estrategiaPresonalizada);
             modelo.Origen = origen;
             modelo.Palanca = palanca;
             modelo.TieneSession = PalancasConSesion(palanca);
+            modelo.Campania = campaniaId;
+            modelo.Cuv = cuv;
             
             return View("Ficha", modelo);
         }

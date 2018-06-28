@@ -1,4 +1,4 @@
-﻿var ConstantesModule = (function () {
+﻿var ConstantesModule = (function() {
   
     var _codigosPalanca = {
         InicioRD: "INICIORD",
