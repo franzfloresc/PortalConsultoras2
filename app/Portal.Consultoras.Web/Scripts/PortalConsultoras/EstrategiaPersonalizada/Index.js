@@ -5,7 +5,7 @@ var sElementos = {
     listadoProductos: "[data-seccion-productos]"
 };
 
-var listaLAN = listaLAN || "listaLAN";
+var listaLAN = listaLAN || "LANLista";
 
 var CONS_TIPO_PRESENTACION = {
     CarruselSimple: 1,
@@ -112,7 +112,7 @@ function SeccionCargarProductos(objConsulta) {
         || objConsulta.Codigo === CONS_CODIGO_SECCION.RD) {
         if (!varContenedor.CargoRevista) {
             varContenedor.CargoRevista = true;
-            OfertaCargarProductos({ VarListaStorage: "ListaRD", UrlCargarProductos: urlOfertaCargarProductos }, false, objConsulta);
+            OfertaCargarProductos({ VarListaStorage: "RDLista", UrlCargarProductos: urlOfertaCargarProductos }, false, objConsulta);
         }
         return false;
     }

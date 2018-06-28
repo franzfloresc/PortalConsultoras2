@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Ficha(string cuv, int campaniaId)
         {
-            var modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, EstrategiaFichaPersonalizadaProductoModel>(sessionManager.GetProductoTemporal());
+            var modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(sessionManager.GetProductoTemporal());
 
             var EstrategiaDetalle = EstrategiaGetDetalle(modelo.EstrategiaID);
             if (EstrategiaDetalle.Hermanos != null)

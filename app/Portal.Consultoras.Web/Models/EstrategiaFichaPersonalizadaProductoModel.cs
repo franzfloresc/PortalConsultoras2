@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
-    public class EstrategiaFichaPersonalizadaProductoModel : EstrategiaPersonalizadaProductoModel
+    public class DetalleEstrategiaFichaModel : EstrategiaPersonalizadaProductoModel
     {
         //hacer el seguimiento.
         public List<TituloDetalle> DetallesProducto { get; set; } //Pestana detalles de la ficha detalle del CUV
@@ -14,6 +14,9 @@ namespace Portal.Consultoras.Web.Models
         public List<TituloDetalle> Beneficios { get; set; } //Pestana beneficios
         public List<String> RutaVideos { get; set; } //Por defecto 1 video
 
+        public string Origen { get; set; }
+        public string Palanca { get; set; }
+        public bool TieneSession { get; set; }
     }
     public class TituloDetalle
     {

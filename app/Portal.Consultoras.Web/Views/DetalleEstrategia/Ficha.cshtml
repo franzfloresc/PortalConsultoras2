@@ -1,4 +1,4 @@
-﻿@model Portal.Consultoras.Web.Models.EstrategiaFichaPersonalizadaProductoModel
+﻿@model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 @using Portal.Consultoras.Common
 
 @{
@@ -16,87 +16,335 @@
         <div style="display:none;">
             <div data-estrategia="@Json.Encode(Model)"></div>
         </div>
-        <div class="contenedor_ficha_producto">
-            <div class="ficha_producto">
-                <div class="contenedor_imagen">
-                    <img class="contenedor_img" src="@Model.FotoProducto01" alt="">
-                </div>
-                <div class="texto_referencial">
-                    <span data-texto_referencial="">* Foto Referencial</span>
-                </div>
-                <div class="contenedor_carrusel_tonos">
-                    <div id="carrusel_tonos">
-                        <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                            <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                        </div>
-                        <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                            <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                        </div>
-                        <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                            <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                        </div>
-                        <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                            <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+        @if (Model.TieneSession)
+        {
+            <div class="contenedor_ficha_producto" id="seccion_razor">
+                <div class="ficha_producto">
+                    <div class="contenedor_imagen">
+                        <img class="contenedor_img" src="@Model.FotoProducto01" alt="">
+                    </div>
+                    <div class="texto_referencial">
+                        <span data-texto_referencial="">* Foto Referencial</span>
+                    </div>
+                    <div class="contenedor_carrusel_tonos">
+                        <div id="carrusel_tonos">
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="ficha_redes_sociales">
-                    <div data-compartir-campos="" style="display:none;">
-                        <input type="hidden" class="CUV" value="@Model.CUV2" />
-                        <input type="hidden" class="rsFBMensaje" value="" />
-                        <input type="hidden" class="rsWAMensaje" value="" />
-                        <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
-                        <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
-                        <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
-                        <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
-                        <input type="hidden" class="Nombre" value="@Model.DescripcionResumen" />
-                        <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionDetalle" />
-                        <input type="hidden" class="Volumen" value="" />
-                        <input type="hidden" class="Palanca" value="LAN" />
+                    <div class="ficha_redes_sociales">
+                        <div data-compartir-campos="" style="display:none;">
+                            <input type="hidden" class="CUV" value="@Model.CUV2" />
+                            <input type="hidden" class="rsFBMensaje" value="" />
+                            <input type="hidden" class="rsWAMensaje" value="" />
+                            <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
+                            <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
+                            <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+                            <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+                            <input type="hidden" class="Nombre" value="@Model.DescripcionResumen" />
+                            <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionDetalle" />
+                            <input type="hidden" class="Volumen" value="" />
+                            <input type="hidden" class="Palanca" value="LAN" />
+                        </div>
+                        <div class="texto_redes_sociales">Comparte este producto con tus clientes</div>
+                        <a class="btn_compartir_facebook" href="javascript:;" data-compartir="FB">
+                            <img class="contenedor_img" src="/Content/Images/Esika/facebook.png">
+                        </a>
                     </div>
-                    <div class="texto_redes_sociales">Comparte este producto con tus clientes</div>
-                    <a class="btn_compartir_facebook" href="javascript:;" data-compartir="FB">
-                        <img class="contenedor_img" src="/Content/Images/Esika/facebook.png">
-                    </a>
+                </div>
+                <div class="ficha_detalle">
+                    <div class="contenedor_ficha_etiquetas">
+                        <div class="contenedor_etiqueta_odd">
+                            <div id="clock" class="clock_odd"></div>
+                        </div>
+                        <div class="contenedor_etiqueta_nuevo">
+                            <div class="triangulo_etiqueta_nuevo"></div>
+                            <div class="etiqueta_nuevo">NUEVO</div>
+                        </div>
+                    </div>
+                    <div class="contenedor_nombre_precio">
+                        <div class="contenedor_izquierdo">
+                            <div class="nombre_marca">
+                                <span data-nombre_marca="">@Model.DescripcionMarca</span>
+                            </div>
+                            <div class="descripcion" data-descripcion="">@Model.DescripcionResumen</div>
+                        </div>
+                        <div class="contenedor_derecho">
+                            <div class="precio_valorizado">Valorizado en <span data-precio_valorizado="">@vbSimbolo @Model.PrecioTachado</span></div>
+                            <div class="precio_venta_oferta">Precio para ti <b><span data-precio_venta_oferta="">@vbSimbolo @Model.PrecioVenta</span></b></div>
+                            <div class="ganancia">GANA <span data-ganancia="">@vbSimbolo @Model.GananciaString</span></div>
+                        </div>
+                    </div>
+
+                    @if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
+                    {
+                        if ((Model.Hermanos.Any()))
+                        {
+                            <div class="contenedor_lista_tonos">
+                                <div class="nombre_detalle_producto_tono">@Model.DescripcionMarca</div>
+                                <div class="descripcion_detalle_producto_tono">
+                                    @Model.DescripcionResumen
+                                    <span class="txt_ver_mas">ver más</span>
+                                </div>
+                                <div class="selector_lista_tonos" data-selector_tono="">
+                                    <div class="elige_tono" data-tono_change="1">
+                                        <div class="img_item_tono" data-img_item_tono="">
+                                            <img src="~/Content/Images/showroom/no_disponible.png" alt="">
+                                        </div>
+                                        <div class="txt_item_tono txt_bold" data-txt_item_tono="">ELIGE TU TONO</div>
+                                        <div class="contenedor_flecha_tonos">
+                                            <div class="dibujar_linea dibujar_flecha_tonos" data-flecha-tonos=""></div>
+                                        </div>
+                                    </div>
+                                    <div class="contenedor_items_tonos" data-visible="0">
+                                        @foreach (var Tono in Model.Hermanos)
+                                        {
+                                            <div class="contenedor_item_tono" data-tono-showroom-change="2" data-tono-cuv="@Tono.Cuv" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
+                                                <div class="img_item_tono"><img src="@Tono.ImagenBulk" alt=""></div>
+                                                <div class="txt_item_tono">@Tono.NombreBulk</div>
+                                                <hr class="clear">
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="contenedor_lista_tonos_imagen">
+                                    @foreach (var Tono in Model.Hermanos)
+                                    {
+                                        <a class="contenedor_item_tono_imagen" data-tono_change="2" data-tono-cuv="@Tono.Cuv" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
+                                            <div class="img_item_tono"><img src="@Tono.ImagenBulk" alt=""></div>
+                                            <hr class="clear">
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                    else if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                    {
+                        <div class="contenedor_lista_detalle">
+
+                            @foreach (var Hermano in Model.Hermanos)
+                            {
+                                if ((Hermano.NombreComercial ?? "") == "" && Hermano.Digitable != 1)
+                                {
+                                    continue;
+                                }
+
+                                <div class="detalle_producto" data-tono="" data-tono-select="" data-tono-digitable="@Hermano.Digitable">
+                                    <div style="display: none;">
+                                        <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.IdMarca" />
+                                        <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
+                                    </div>
+                                    <div class="marca_cantidad_descripcion_detalle">
+                                        <div class="marca_detalle_producto">
+                                            <span data-marca_detalle_producto>@Hermano.DescripcionMarca</span>
+                                        </div>
+                                        <div class="cantidad_descripcion_detalle">
+                                            <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x @Hermano.Cantidad</span>
+                                            <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="" @* data-tono-cuv-producto="" data-tono-select-nombrecomercial="" *@>
+                                                Hermano.NombreComercial
+                                            </span>
+                                        </div>
+                                    </div>
+                                    @if (Hermano.Digitable == 1)
+                                    {
+                                        <div class="selector_tono" data-selector_tono="">
+                                            <div class="elige_tono" data-tono-showroom-change="1">
+                                                <div class="img_item_tono" data-img_item_tono="" style="display: none;">
+                                                    <img src="~/Content/Images/showroom/no_disponible.png" alt="">
+                                                </div>
+                                                <div class="txt_item_tono txt_bold" data-txt_item_tono="">ELIGE TU TONO</div>
+                                                <div class="contenedor_flecha_tonos">
+                                                    <div class="dibujar_linea dibujar_flecha_tonos" data-flecha-tonos=""></div>
+                                                </div>
+                                            </div>
+                                            <div class="contenedor_items_tonos" data-visible="0" style="display: none;">
+                                                @foreach (var Tono in Hermano.Hermanos)
+                                                {
+                                                    <div class="contenedor_item_tono" data-tono-showroom-change="2" data-tono-cuv="@Tono.Cuv" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
+                                                        <div class="img_item_tono"><img src="@Tono.ImagenBulk" alt=""></div>
+                                                        <div class="txt_item_tono">@Tono.NombreBulk</div>
+                                                        <hr class="clear">
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                    <hr class="clear">
+                                </div>
+                            }
+                        </div>
+                    }
+
+
+                    <div class="contenedor_agregar">
+                        <div class="contenedor_rangos" data-ContenedorCantidad="">
+                            <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
+                            <div>
+                                <a class="txt_menos" data-cantidad-agregar="-" data-bloqueada="" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                                    <div class="dibujar_linea dibujar_menos"></div>
+                                </a>
+                                <a class="txt_mas" data-cantidad-agregar="+" data-bloqueada="" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                                    <div class="dibujar_linea dibujar_mas"></div>
+                                </a>
+                            </div>
+                        </div>
+                        <a id="btnAgregalo" class="btn_agregalo @Model.ClaseBloqueada" data-bloqueada="@Model.ClaseBloqueada" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
+                        <div class="contenedor_agregado">
+                            <div class="txt_agregado" data-txt_agregado="">
+                                <span class="span_agregado">AGREGADO</span>
+                                <div class="check_agregado">
+                                    <div class="dibujar_linea dibujar_check_agregado"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="ficha_detalle">
-                <div class="contenedor_ficha_etiquetas">
-                    <div class="contenedor_etiqueta_odd">
-                        <div id="clock" class="clock_odd"></div>
+        }
+        else
+        {
+            <div class="contenedor_ficha_producto" id="seccion_ficha_handlebars" data-OrigenPedidoWeb="@Model.Origen"></div>
+            <script id="detalle_ficha_template" type="text/x-handlebars-template">
+                <div class="ficha_producto">
+                    <div class="contenedor_imagen">
+                        <img class="contenedor_img" src="{{FotoProducto01}}" alt="">
                     </div>
-                    <div class="contenedor_etiqueta_nuevo">
-                        <div class="triangulo_etiqueta_nuevo"></div>
-                        <div class="etiqueta_nuevo">NUEVO</div>
+                    <div class="texto_referencial">
+                        <span data-texto_referencial="">* Foto Referencial</span>
                     </div>
-                </div>
-                <div class="contenedor_nombre_precio">
-                    <div class="contenedor_izquierdo">
-                        <div class="nombre_marca">
-                            <span data-nombre_marca="">@Model.DescripcionMarca</span>
-                        </div>
-                        <div class="descripcion" data-descripcion="">@Model.DescripcionResumen</div>
-                    </div>
-                    <div class="contenedor_derecho">
-                        <div class="precio_valorizado">Valorizado en <span data-precio_valorizado="">@vbSimbolo @Model.PrecioTachado</span></div>
-                        <div class="precio_venta_oferta">Precio para ti <b><span data-precio_venta_oferta="">@vbSimbolo @Model.PrecioVenta</span></b></div>
-                        <div class="ganancia">GANA <span data-ganancia="">@vbSimbolo @Model.GananciaString</span></div>
-                    </div>
-                </div>
-
-                @if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
-                {
-                    if ((Model.Hermanos.Any()))
-                    {
-                        <div class="contenedor_lista_tonos">
-                            <div class="nombre_detalle_producto_tono">@Model.DescripcionMarca</div>
-                            <div class="descripcion_detalle_producto_tono">
-                                @Model.DescripcionResumen
-                                <span class="txt_ver_mas">ver más</span>
+                    <div class="contenedor_carrusel_tonos">
+                        <div id="carrusel_tonos">
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
                             </div>
-                            <div class="selector_lista_tonos" data-selector_tono="">
-                                <div class="elige_tono" data-tono_change="1">
-                                    <div class="img_item_tono" data-img_item_tono="">
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ficha_redes_sociales">
+                        <div data-compartir-campos="" style="display:none;">
+                            <input type="hidden" class="CUV" value="{{CUV2}}" />
+                            <input type="hidden" class="rsFBMensaje" value="" />
+                            <input type="hidden" class="rsWAMensaje" value="" />
+                            <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
+                            <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
+                            <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+                            <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+                            <input type="hidden" class="Nombre" value="{{DescripcionResumen}}" />
+                            <input type="hidden" class="ProductoDescripcion" value="{{DescripcionDetalle}}"/>
+                            <input type="hidden" class="Volumen" value="" />
+                            <input type="hidden" class="Palanca" value="LAN" />
+                        </div>
+                        <div class="texto_redes_sociales">Comparte este producto con tus clientes</div>
+                        <a class="btn_compartir_facebook" href="javascript:;" data-compartir="FB">
+                            <img class="contenedor_img" src="/Content/Images/Esika/facebook.png">
+                        </a>
+                    </div>
+                </div>
+                <div class="ficha_detalle">
+                    <div class="contenedor_ficha_etiquetas">
+                        <div class="contenedor_etiqueta_odd">
+                            <div id="clock" class="clock_odd"></div>
+                        </div>
+                        <div class="contenedor_etiqueta_nuevo">
+                            <div class="triangulo_etiqueta_nuevo"></div>
+                            <div class="etiqueta_nuevo">NUEVO</div>
+                        </div>
+                    </div>
+                    <div class="contenedor_nombre_precio">
+                        <div class="contenedor_izquierdo">
+                            <div class="nombre_marca">
+                                <span data-nombre_marca="">{{DescripcionMarca}}</span>
+                            </div>
+                            <div class="descripcion" data-descripcion="">{{DescripcionResumen}}</div>
+                        </div>
+                        <div class="contenedor_derecho">
+                            <div class="precio_valorizado">Valorizado en <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
+                            <div class="precio_venta_oferta">Precio para ti <b><span data-precio_venta_oferta="">{{SimboloMoneda}} {{PrecioVenta}}</span></b></div>
+                            <div class="ganancia">GANA <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span></div>
+                        </div>
+                    </div>
+
+                    {{#iff CodigoVariante '==' '2001'}}
+
+                    {{#each this.Hermanos as |componente|}}
+                    <div class="contenedor_lista_tonos">
+                        <div class="nombre_detalle_producto_tono">{{componente.DescripcionMarca}}</div>
+                        <div class="descripcion_detalle_producto_tono">
+                            {{componente.DescripcionResumen}}
+                            <span class="txt_ver_mas">ver más</span>
+                        </div>
+                        <div class="selector_lista_tonos" data-selector_tono="">
+                            <div class="elige_tono" data-tono_change="1">
+                                <div class="img_item_tono" data-img_item_tono="">
+                                    <img src="~/Content/Images/showroom/no_disponible.png" alt="">
+                                </div>
+                                <div class="txt_item_tono txt_bold" data-txt_item_tono="">ELIGE TU TONO</div>
+                                <div class="contenedor_flecha_tonos">
+                                    <div class="dibujar_linea dibujar_flecha_tonos" data-flecha-tonos=""></div>
+                                </div>
+                            </div>
+                            <div class="contenedor_items_tonos" data-visible="0">
+                                {{#each item1.Hermanos as |tono|}}
+                                <div class="contenedor_item_tono" data-tono-showroom-change="2" data-tono-cuv="{{tono.Cuv}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-descripcion="{{tono.NombreComercial}}">
+                                    <div class="img_item_tono"><img src="{{tono.ImagenBulk}}" alt=""></div>
+                                    <div class="txt_item_tono">{{tono.NombreBulk}}</div>
+                                    <hr class="clear">
+                                </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                        <div class="contenedor_lista_tonos_imagen">
+                            {{#each item1.Hermanos as |tono|}}
+                            <a class="contenedor_item_tono_imagen" data-tono_change="2" data-tono-cuv="{{tono.Cuv}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-descripcion="{{tono.NombreComercial}}">
+                                <div class="img_item_tono"><img src="{{tono.ImagenBulk}}" alt=""></div>
+                                <hr class="clear">
+                            </a>
+                            {{/each}}
+                        </div>
+                    </div>
+                    {{/iff}}
+                    {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}
+                    <div class="contenedor_lista_detalle">
+                        {{#each this.Hermanos as |componente|}}
+                        <div class="detalle_producto" data-tono="" data-tono-select="" data-tono-digitable="{{componente.Digitable}}">
+                            <div style="display: none;">
+                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.IdMarca}}" />
+                                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
+                            </div>
+                            <div class="marca_cantidad_descripcion_detalle">
+                                <div class="marca_detalle_producto">
+                                    <span data-marca_detalle_producto>{{componente.DescripcionMarca}}</span>
+                                </div>
+                                <div class="cantidad_descripcion_detalle">
+                                    <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x {{componente.Cantidad}}</span>
+                                    <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="" @* data-tono-cuv-producto="" data-tono-select-nombrecomercial="" *@>
+                                        Hermano.NombreComercial
+                                    </span>
+                                </div>
+                            </div>
+                            {{#iff componente.Digitable '==' '1'}}
+                            <div class="selector_tono" data-selector_tono="">
+                                <div class="elige_tono" data-tono-showroom-change="1">
+                                    <div class="img_item_tono" data-img_item_tono="" style="display: none;">
                                         <img src="~/Content/Images/showroom/no_disponible.png" alt="">
                                     </div>
                                     <div class="txt_item_tono txt_bold" data-txt_item_tono="">ELIGE TU TONO</div>
@@ -104,111 +352,48 @@
                                         <div class="dibujar_linea dibujar_flecha_tonos" data-flecha-tonos=""></div>
                                     </div>
                                 </div>
-                                <div class="contenedor_items_tonos" data-visible="0">
-                                    @foreach (var Tono in Model.Hermanos)
-                                    {
-                                        <div class="contenedor_item_tono" data-tono-showroom-change="2" data-tono-cuv="@Tono.Cuv" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
-                                            <div class="img_item_tono"><img src="@Tono.ImagenBulk" alt=""></div>
-                                            <div class="txt_item_tono">@Tono.NombreBulk</div>
-                                            <hr class="clear">
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                            <div class="contenedor_lista_tonos_imagen">
-                                @foreach (var Tono in Model.Hermanos)
-                                {
-                                    <a class="contenedor_item_tono_imagen" data-tono_change="2" data-tono-cuv="@Tono.Cuv" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
-                                        <div class="img_item_tono"><img src="@Tono.ImagenBulk" alt=""></div>
+                                <div class="contenedor_items_tonos" data-visible="0" style="display: none;">
+                                    {{#each item1.Hermanos as |tono|}}
+                                    <div class="contenedor_item_tono" data-tono-showroom-change="2" data-tono-cuv="{{tono.Cuv}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-descripcion="{{tono.NombreComercial}}">
+                                        <div class="img_item_tono"><img src="{{tono.ImagenBulk}}" alt=""></div>
+                                        <div class="txt_item_tono">{{tono.NombreBulk}}</div>
                                         <hr class="clear">
-                                    </a>
-                                }
+                                    </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                            {{/iff}}
+                            <hr class="clear">
+                        </div>
+                        {{/each}}
+                    </div>
+                    {{/iff}}
+                    <div class="contenedor_agregar">
+                        <div class="contenedor_rangos" data-ContenedorCantidad="">
+                            <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
+                            <div>
+                                <a class="txt_menos" data-cantidad-agregar="-" data-bloqueada="" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                                    <div class="dibujar_linea dibujar_menos"></div>
+                                </a>
+                                <a class="txt_mas" data-cantidad-agregar="+" data-bloqueada="" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                                    <div class="dibujar_linea dibujar_mas"></div>
+                                </a>
                             </div>
                         </div>
-                    }
-                }
-                else if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
-                {
-                    <div class="contenedor_lista_detalle">
-
-                        @foreach (var Hermano in Model.Hermanos)
-                        {
-                            if ((Hermano.NombreComercial ?? "") == "" && Hermano.Digitable != 1)
-                            {
-                                continue;
-                            }
-
-                            <div class="detalle_producto" data-tono="" data-tono-select="" data-tono-digitable="@Hermano.Digitable">
-                                <div style="display: none;">
-                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.IdMarca" />
-                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
+                        <a id="btnAgregalo" class="btn_agregalo {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
+                        <div class="contenedor_agregado">
+                            <div class="txt_agregado" data-txt_agregado="">
+                                <span class="span_agregado">AGREGADO</span>
+                                <div class="check_agregado">
+                                    <div class="dibujar_linea dibujar_check_agregado"></div>
                                 </div>
-                                <div class="marca_cantidad_descripcion_detalle">
-                                    <div class="marca_detalle_producto">
-                                        <span data-marca_detalle_producto>@Hermano.DescripcionMarca</span>
-                                    </div>
-                                    <div class="cantidad_descripcion_detalle">
-                                        <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x @Hermano.Cantidad</span>
-                                        <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="" @* data-tono-cuv-producto="" data-tono-select-nombrecomercial="" *@>
-                                            Hermano.NombreComercial
-                                        </span>
-                                    </div>
-                                </div>
-                                @if (Hermano.Digitable == 1)
-                                {
-                                    <div class="selector_tono" data-selector_tono="">
-                                        <div class="elige_tono" data-tono-showroom-change="1">
-                                            <div class="img_item_tono" data-img_item_tono="" style="display: none;">
-                                                <img src="~/Content/Images/showroom/no_disponible.png" alt="">
-                                            </div>
-                                            <div class="txt_item_tono txt_bold" data-txt_item_tono="">ELIGE TU TONO</div>
-                                            <div class="contenedor_flecha_tonos">
-                                                <div class="dibujar_linea dibujar_flecha_tonos" data-flecha-tonos=""></div>
-                                            </div>
-                                        </div>
-                                        <div class="contenedor_items_tonos" data-visible="0" style="display: none;">
-                                            @foreach (var Tono in Hermano.Hermanos)
-                                            {
-                                                <div class="contenedor_item_tono" data-tono-showroom-change="2" data-tono-cuv="@Tono.Cuv" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
-                                                    <div class="img_item_tono"><img src="@Tono.ImagenBulk" alt=""></div>
-                                                    <div class="txt_item_tono">@Tono.NombreBulk</div>
-                                                    <hr class="clear">
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                }
-                                <hr class="clear">
-                            </div>
-                        }
-                    </div>
-                }
-
-
-                <div class="contenedor_agregar">
-                    <div class="contenedor_rangos" data-ContenedorCantidad="">
-                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
-                        <div>
-                            <a class="txt_menos" data-cantidad-agregar="-" data-bloqueada="" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                                <div class="dibujar_linea dibujar_menos"></div>
-                            </a>
-                            <a class="txt_mas" data-cantidad-agregar="+" data-bloqueada="" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                                <div class="dibujar_linea dibujar_mas"></div>
-                            </a>
-                        </div>
-                    </div>
-                    <a id="btnAgregalo" class="btn_agregalo @Model.ClaseBloqueada" data-bloqueada="@Model.ClaseBloqueada" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
-                    <div class="contenedor_agregado">
-                        <div class="txt_agregado" data-txt_agregado="">
-                            <span class="span_agregado">AGREGADO</span>
-                            <div class="check_agregado">
-                                <div class="dibujar_linea dibujar_check_agregado"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </script>
+        }
+
         <div class="contenedor_ficha_tabs">
             <div class="tabla_ficha_tab">
                 <div class="row_ficha_tab">
@@ -483,58 +668,23 @@
     </div>
 </div>
 
+
+
 @section scripts{
+    @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
+    <script src="~/Scripts/PortalConsultoras/Shared/ConstantesModule.js"></script>
+    <script src="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"></script>
+    <script src="~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js"></script>
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js"></script>
     <script>
-
-        var origenPedidoWebEstrategia = '100';
-        for (var i = 1; i <= 5; i++) {
-            if (document.getElementById("ficha_tab_" + i.toString()).checked) {
-                document.getElementById("contenido_" + i.toString()).style.display = "block";
-            }
-
-            document.getElementById("ficha_tab_" + i.toString()).onclick = function (event) {
-                var numID = event.target.getAttribute('data-numTab');
-
-                for (var j = 1; j <= 5; j++) {
-                    document.getElementById("contenido_" + j.toString()).style.display = "none";
-                }
-
-                document.getElementById("contenido_" + numID.toString()).style.display = "block";
-            }
-        }
-
-        $("#clock").each(function (index, elem) {
-            $(elem).FlipClock(50000, {
-                countdown: true,
-                clockFace: 'HourlyCounter',
-                language: 'es-es',
+        var fichaModule;
+        jQuery(document).ready(function () {
+            fichaModule = FichaModule({
+                palanca: '@Model.Palanca',
+                origen: '@Model.Origen',
+                tieneSession: '@Model.TieneSession'
             });
-        });
-
-        $("#carrusel").not('.slick-initialized').slick({
-            lazyLoad: 'ondemand',
-            infinite: true,
-            vertical: false,
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            autoplay: false,
-            speed: 260,
-            prevArrow: '<a class="contenedor_flecha_carrusel flecha_izquierda_carrusel js-slick-prev slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_izquierda_carrusel"></div></a>',
-            nextArrow: '<a class="contenedor_flecha_carrusel flecha_derecha_carrusel js-slick-next slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_derecha_carrusel"></div></a>'
-        });
-
-        $("#carrusel_tonos").not('.slick-initialized').slick({
-            lazyLoad: 'ondemand',
-            infinite: true,
-            vertical: false,
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            autoplay: false,
-            speed: 260,
-            prevArrow: '<a class="contenedor_flecha_carrusel flecha_izquierda_carrusel js-slick-prev slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_carrusel_tonos dibujar_flecha_izquierda_carrusel"></div></a>',
-            nextArrow: '<a class="contenedor_flecha_carrusel flecha_derecha_carrusel js-slick-next slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_carrusel_tonos dibujar_flecha_derecha_carrusel"></div></a>'
+            fichaModule.Inicializar();
         });
     </script>
-    <script src="~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js"></script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
 }

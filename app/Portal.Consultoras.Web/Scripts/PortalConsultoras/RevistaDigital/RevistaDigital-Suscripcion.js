@@ -1,5 +1,5 @@
 ﻿
-var lsListaRD = lsListaRD || "ListaRD";
+var lsListaRD = lsListaRD || "RDLista";
 
 $(document).ready(function () {
     "use strict";
