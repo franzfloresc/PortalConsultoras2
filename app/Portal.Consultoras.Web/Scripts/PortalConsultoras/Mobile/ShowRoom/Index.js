@@ -36,7 +36,6 @@
         });
     });
 
-
     $("#CerrarPopCompra").click(function () {
         $('body').css({ 'overflow-y': 'scroll' });
         $('#PopCompra').hide();

@@ -296,12 +296,24 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion = false, int tipoOferta = 1)
         {
+            var listaProductoRetorno = new List<EstrategiaPersonalizadaProductoModel>();
+
             if (tipoOferta == 1 && sessionManager.ShowRoom.Ofertas != null)
-                return sessionManager.ShowRoom.Ofertas;
+                listaProductoRetorno = sessionManager.ShowRoom.Ofertas;
             else if (tipoOferta == 2 && sessionManager.ShowRoom.OfertasSubCampania != null)
-                return sessionManager.ShowRoom.OfertasSubCampania;
+                listaProductoRetorno = sessionManager.ShowRoom.OfertasSubCampania;
             else if (tipoOferta == 3 && sessionManager.ShowRoom.OfertasPerdio != null)
-                return sessionManager.ShowRoom.OfertasPerdio;
+                listaProductoRetorno = sessionManager.ShowRoom.OfertasPerdio;
+
+            if (listaProductoRetorno.Any())
+            {
+                var listaPedidoDetalle = ObtenerPedidoWebDetalle();
+                listaProductoRetorno.Update(x =>
+                {
+                    x.IsAgregado = tipoOferta != 3 && listaPedidoDetalle.Any(p => p.CUV == x.CUV2);
+                });
+                return listaProductoRetorno;
+            }
 
             //var listaShowRoomOfertas = _ofertaPersonalizadaProvider.GetShowRoomOfertasConsultora(userData);
             var listaProducto = _ofertaPersonalizadaProvider.GetShowRoomOfertasConsultora(userData);

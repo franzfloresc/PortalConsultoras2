@@ -151,6 +151,7 @@
         </div>
     </div>
 </div>
+
 @if (Model.ProductosPerdio)
 {
     <hr class="clear" />
@@ -288,7 +289,7 @@ else
     <hr class="clear" />
 </script>*@
 
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
 
 <script id="template-showroom-subcampanias-mobile" type="text/x-handlebars-template">
     {{#each this.Lista as |oferta|}}
@@ -374,4 +375,5 @@ else
         var tieneCompraXCompra = '@Model.TieneCompraXcompra';
         var tieneSubCampania = '@Model.TieneSubCampania';
     </script>
+
 }

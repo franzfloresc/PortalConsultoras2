@@ -468,7 +468,8 @@ function VerificarSecciones() {
         $("#no-productos").fadeIn();
     }
 }
-function VerificarClick(slick, currentSlide, nextSlide, source) {
+
+unction VerificarClick(slick, currentSlide, nextSlide, source) {
     if (typeof CheckClickCarrousel !== "undefined" && typeof CheckClickCarrousel === "function") {
         if ((currentSlide > nextSlide && (nextSlide !== 0 || currentSlide === 1)) || (currentSlide === 0 && nextSlide === slick.slideCount - 1)) {
             CheckClickCarrousel("prev", source);
