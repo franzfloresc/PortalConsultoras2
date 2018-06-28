@@ -64,5 +64,7 @@ namespace Portal.Consultoras.Web.Models
         
         public string CodigoProducto { get; set; }
         public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }
+
+        public bool esMultimarca { get; set; }
     }
 }

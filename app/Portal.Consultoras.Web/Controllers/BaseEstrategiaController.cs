@@ -168,8 +168,10 @@ namespace Portal.Consultoras.Web.Controllers
                 if (string.IsNullOrWhiteSpace(estrategiaModelo.CodigoVariante))
                     return estrategiaModelo;
 
+                bool esMultimarca = false;
                 estrategiaModelo.CampaniaID = estrategiaModelo.CampaniaID > 0 ? estrategiaModelo.CampaniaID : userData.CampaniaID;
-                estrategiaModelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, string.Empty);
+                estrategiaModelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, string.Empty, out esMultimarca);
+                estrategiaModelo.esMultimarca = esMultimarca;
             }
             catch (Exception ex)
             {
