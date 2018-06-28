@@ -24,20 +24,26 @@ var EstrategiaAgregarModule = function () {
     };
 
     var dataProperties = {
-        dataItem: function() {
-            return "[data-item]";
-        },
-        dataContenedorCantidad: function() {
-            return "[data-cantidad-contenedor]";
-        },
-        dataInputCantidad: function(){
-            return "[data-input='cantidad']";
-        },
-        dataEstrategia: function(){
-            return "[data-estrategia]";
-        },
-        dataOrigenPedidoWeb: function() {
-            return "[data-OrigenPedidoWeb]"
+        dataItem: "[data-item]",
+        dataContenedorCantidad: "[data-cantidad-contenedor]",
+        dataInputCantidad: "[data-input='cantidad']",
+        dataEstrategia: "[data-estrategia]",
+        dataOrigenPedidoWeb: "[data-OrigenPedidoWeb]",
+        dataBloqueada: "data-bloqueada",
+        dataItemTagBody: '[data-item-tag="body"]',
+        dataItemTagAgregar: '[data-item-tag="agregar"]',
+        dataItemTagFondo: '[data-item-tag="fotofondo"]',
+        dataItemTagVerDetalle: '[data-item-tag="verdetalle"]',
+        dataItemAccionVerDetalle: '[data-item-accion="verdetalle"]',
+        dataItemTagContenido : '[data-item-tag="contenido"]',
+        dataTono: '[data-tono]',
+        dataTonoSelect: '[data-tono-select]',
+        dataItemHtml: '[data-item-html]'
+    }
+
+    var constantes = {
+        undefined: function(){
+            return "undefined"
         }
     }
 
@@ -53,13 +59,38 @@ var EstrategiaAgregarModule = function () {
         }
     }
 
+    var tipoEstrategia = {
+        rd: "rd",
+        hv: "hv",
+        gn: "gn",
+        lan: "lan"
+    }
+
+    var elementosDiv = {
+        divMensajeBloqueada: "#divMensajeBloqueada",
+        divHVMensajeBloqueada: "#divHVMensajeBloqueada",
+        divVistaPrevia: "#divVistaPrevia",
+        hdErrorInsertarProducto: "#hdErrorInsertarProducto",
+        hdCampaniaCodigo: "#hdCampaniaCodigo",
+        EstrategiaHdMarcaID: "#Estrategia_hd_MarcaID",
+        EstrategiaHdPrecioCatalogo: "#Estrategia_hd_PrecioCatalogo",
+        OfertaTipoNuevo: '#OfertaTipoNuevo'
+    }
+
+    var elementosPopPup = {
+        popupClose: "#popup-close",
+        popupDetalleCarouselLanzamiento: "#popupDetalleCarousel_lanzamiento",
+        popupDetalleCarouselPackNuevas: "#popupDetalleCarousel_packNuevas",
+        contenedorPopupDetalleCarousel: "#contenedor_popup_detalleCarousel"
+    }
+
     var getEstrategia = function ($btnAgregar) {
-        var estrategia = $btnAgregar.parents(dataProperties.dataItem()).find(dataProperties.dataEstrategia()).data("estrategia") || {};
+        var estrategia = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia") || {};
         return estrategia;
     };
 
     var estrategiaObtenerObjHtmlLanding = function ($btnAgregar) {
-        var itemClone = $btnAgregar.parents(dataProperties.dataItem());
+        var itemClone = $btnAgregar.parents(dataProperties.dataItem);
         var cuvClone = $.trim(itemClone.attr("data-clone-item"));
         if (cuvClone != "") {
             itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']")
@@ -77,7 +108,7 @@ var EstrategiaAgregarModule = function () {
 
     var estrategiaEstaBloqueada = function ($btnAgregar, campaniaId) {
 
-        if ($btnAgregar.attr("data-bloqueada") === "") return false;
+        if ($btnAgregar.attr(dataProperties.dataBloqueada) === "") return false;
 
         if (campaniaId === parseInt(campaniaCodigo)) return false;
 
@@ -99,7 +130,7 @@ var EstrategiaAgregarModule = function () {
     };
 
     var getOrigenPedidoWeb = function ($btnAgregar) {
-        var origenPedidoWeb = $btnAgregar.parents(dataProperties.dataOrigenPedidoWeb()).data("origenpedidoweb") || 0;
+        var origenPedidoWeb = $btnAgregar.parents(dataProperties.dataOrigenPedidoWeb).data("origenpedidoweb") || 0;
         return origenPedidoWeb.toString();
     };
 
@@ -111,17 +142,17 @@ var EstrategiaAgregarModule = function () {
         var estrategiaTmp = estrategia;
         return {
             getDivMsgProductoBloqueado: function () {
-                $divMsgProductoBloqueado = $("#divMensajeBloqueada");
+                $divMsgProductoBloqueado = $(elementosDiv.divMensajeBloqueada);
                 if (estrategiaTmp.CodigoEstrategia === codigoEstrategia.herraMientasVenta()) {
-                    $divMsgProductoBloqueado = $("#divHVMensajeBloqueada");
-                    $divMsgProductoBloqueado.find('.cerrar_fichaProducto').data("popup-close", "divHVMensajeBloqueada");
+                    $divMsgProductoBloqueado = $(elementosDiv.divHVMensajeBloqueada);
+                    $divMsgProductoBloqueado.find('.cerrar_fichaProducto').data(elementosPopPup.popupClose.substring(1), elementosDiv.divHVMensajeBloqueada.substring(1));
                 }
 
                 return this;
             },
             getHtmlProductoBloqueado: function () {
                 var itemClone = estrategiaObtenerObjHtmlLanding($btnAgregarTmp);
-                dataItemHtml = $divMsgProductoBloqueado.find("[data-item-html]");
+                dataItemHtml = $divMsgProductoBloqueado.find(dataProperties.dataItemHtml);
 
                 if (estrategiaTmp.CodigoEstrategia !== codigoEstrategia.lanzamiento())
                     dataItemHtml.html(itemClone.html());
@@ -129,21 +160,21 @@ var EstrategiaAgregarModule = function () {
                 return this;
             },
             formatDivMsgProductoBloqueado: function () {
-                dataItemHtml.find('[data-item-tag="body"]').removeAttr("data-estrategia");
-                dataItemHtml.find('[data-item-tag="body"]').css("min-height", "auto");
-                dataItemHtml.find('[data-item-tag="body"]').css("float", "none");
-                dataItemHtml.find('[data-item-tag="body"]').css("margin", "0 auto");
-                dataItemHtml.find('[data-item-tag="body"]').css("background-color", "#fff");
-                dataItemHtml.find('[data-item-tag="body"]').attr("class", "");
-                dataItemHtml.find('[data-item-tag="agregar"]').remove();
-                dataItemHtml.find('[data-item-tag="fotofondo"]').remove();
-                dataItemHtml.find('[data-item-tag="verdetalle"]').remove();
-                dataItemHtml.find('[data-item-accion="verdetalle"]').remove();
-                dataItemHtml.find('[data-item-tag="contenido"]').removeAttr("onclick");
-                dataItemHtml.find('[data-item-tag="contenido"]').css("position", "initial");
-                dataItemHtml.find('[data-item-tag="contenido"]').attr("class", "");
+                dataItemHtml.find(dataProperties.dataItemTagBody).removeAttr("data-estrategia");
+                dataItemHtml.find(dataProperties.dataItemTagBody).css("min-height", "auto");
+                dataItemHtml.find(dataProperties.dataItemTagBody).css("float", "none");
+                dataItemHtml.find(dataProperties.dataItemTagBody).css("margin", "0 auto");
+                dataItemHtml.find(dataProperties.dataItemTagBody).css("background-color", "#fff");
+                dataItemHtml.find(dataProperties.dataItemTagBody).attr("class", "");
+                dataItemHtml.find(dataProperties.dataItemTagAgregar).remove();
+                dataItemHtml.find(dataProperties.dataItemTagFondo).remove();
+                dataItemHtml.find(dataProperties.dataItemTagVerDetalle).remove();
+                dataItemHtml.find(dataProperties.dataItemAccionVerDetalle).remove();
+                dataItemHtml.find(dataProperties.dataItemTagContenido).removeAttr("onclick");
+                dataItemHtml.find(dataProperties.dataItemTagContenido).css("position", "initial");
+                dataItemHtml.find(dataProperties.dataItemTagContenido).attr("class", "");
                 //
-                $(".contenedor_popup_detalleCarousel").hide();
+                $(elementosPopPup.contenedorPopupDetalleCarousel.replace("#",".")).hide();
                 //
                 return this;
             },
@@ -197,7 +228,7 @@ var EstrategiaAgregarModule = function () {
             return false;
         }
 
-        var cantidad = (limite > 0) ? limite: ($btnAgregar.parents(dataProperties.dataItem()).find(dataProperties.inputCantidad()).val());
+        var cantidad = (limite > 0) ? limite : ($btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val());
 
         if (!$.isNumeric(cantidad)) {
             abrirMensajeEstrategia("Ingrese un valor numérico.");
@@ -216,7 +247,7 @@ var EstrategiaAgregarModule = function () {
         var agregoAlCarro = false;
         if (!isMobile()) {
             estrategia.FlagNueva = estrategia.FlagNueva == "1" ? estrategia.FlagNueva : "";
-            $('#OfertaTipoNuevo').val(estrategia.FlagNueva);
+            $(elementosDiv.OfertaTipoNuevo).val(estrategia.FlagNueva);
         }
 
         AbrirLoad();
@@ -227,7 +258,7 @@ var EstrategiaAgregarModule = function () {
         var cuvs = "";
         var codigoVariante = estrategia.CodigoVariante;
         if ((estrategiaVariante.IndividualConTonos() == codigoVariante || estrategiaVariante.CompuestaVariable() == codigoVariante) && popup) {
-            var listaCuvs = $btnAgregar.parents(dataProperties.dataItem()).find("[data-tono][data-tono-select]");
+            var listaCuvs = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataTono.concat(dataProperties.dataTonoSelect));
             if (listaCuvs.length > 0) {
                 $.each(listaCuvs,
                     function (i, item) {
@@ -235,15 +266,15 @@ var EstrategiaAgregarModule = function () {
                         if (cuv != "") {
                             cuvs = cuvs + (cuvs == "" ? "" : "|") + cuv;
                             if (estrategiaVariante.CompuestaVariable() == codigoVariante) {
-                                cuvs = cuvs + ";" + $(item).find("#Estrategia_hd_MarcaID").val();
-                                cuvs = cuvs + ";" + $(item).find("#Estrategia_hd_PrecioCatalogo").val();
+                                cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdMarcaID).val();
+                                cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdPrecioCatalogo).val();
                             }
                         }
                     });
             }
         }
 
-        var tipoEstrategiaImagen = $btnAgregar.parents(dataProperties.dataItem()).attr("data-tipoestrategiaimagenmostrar");
+        var tipoEstrategiaImagen = $btnAgregar.parents(dataProperties.dataItem).attr("data-tipoestrategiaimagenmostrar");
 
         var params = {
             CuvTonos: $.trim(cuvs),
@@ -265,7 +296,7 @@ var EstrategiaAgregarModule = function () {
 
             if (data.success === false) {
                 abrirMensajeEstrategia(data.message);
-                $btnAgregar.parents(dataProperties.dataItem()).find(dataProperties.dataInputCantidad()).val("1");
+                $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
                 CerrarLoad();
                 return false;
             }
@@ -285,12 +316,12 @@ var EstrategiaAgregarModule = function () {
                 ActualizarGanancia(data.DataBarra);
 
                 microefectoPedidoGuardado();
-                $btnAgregar.parents(dataProperties.dataItem()).find(dataProperties.dataInputCantidad()).val("1");
+                $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
             } else {
-                $(".btn_agregar_ficha_producto ").parents(dataProperties.dataItem()).find("input.liquidacion_rango_cantidad_pedido")
+                $(".btn_agregar_ficha_producto ").parents(dataProperties.dataItem).find("input.liquidacion_rango_cantidad_pedido")
                     .val("1");
-                $btnAgregar.parents(dataProperties.dataItem()).find("input.rango_cantidad_pedido").val("1");
-                $btnAgregar.parents(dataProperties.dataItem()).find(dataProperties.dataInputCantidad()).val("1");
+                $btnAgregar.parents(dataProperties.dataItem).find("input.rango_cantidad_pedido").val("1");
+                $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
 
                 CargarResumenCampaniaHeader(true);
             }
@@ -299,29 +330,29 @@ var EstrategiaAgregarModule = function () {
 
 
             if (tipoOrigenEstrategia == 1) {
-                if (typeof MostrarBarra != "undefined")
+                if (typeof MostrarBarra != constantes.undefined())
                     MostrarBarra(data, '1');
 
-                if (typeof ActualizarGanancia != "undefined")
+                if (typeof ActualizarGanancia != constantes.undefined())
                     ActualizarGanancia(data.DataBarra);
 
-                if (typeof CargarCarouselEstrategias != "undefined")
+                if (typeof CargarCarouselEstrategias != constantes.undefined())
                     CargarCarouselEstrategias();
 
-                if (typeof tieneMasVendidos != "undefined") {
+                if (typeof tieneMasVendidos != constantes.undefined()) {
                     if (tieneMasVendidos === 1) {
-                        if (typeof CargarCarouselMasVendidos != "undefined")
+                        if (typeof CargarCarouselMasVendidos != constantes.undefined())
                             CargarCarouselMasVendidos('desktop');
                     }
                 }
             } else if (tipoOrigenEstrategia == 11) {
 
-                $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
+                $(elementosDiv.hdErrorInsertarProducto).val(data.errorInsertarProducto);
 
 
                 cierreCarouselEstrategias();
                 CargarCarouselEstrategias();
-                HideDialog("divVistaPrevia");
+                HideDialog(elementosDiv.divVistaPrevia.substring(1));
 
                 tieneMicroefecto = true;
 
@@ -356,25 +387,25 @@ var EstrategiaAgregarModule = function () {
                 if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
                     rdAnalyticsModule.AgregarProducto(origenPedidoWebEstrategia, estrategia, popup);
                 } else {
-                    if (typeof TagManagerClickAgregarProductoOfertaParaTI !== "undefined") {
+                    if (typeof TagManagerClickAgregarProductoOfertaParaTI !== constantes.undefined()) {
                         TagManagerClickAgregarProductoOfertaParaTI(estrategia);
                     }
                 }
-                TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+                TrackingJetloreAdd(cantidad, $(elementosDiv.hdCampaniaCodigo).val(), cuv);
             } catch (e) {
                 console.log(e);
             }
 
             CerrarLoad();
             if (popup) {
-                CerrarPopup('#popupDetalleCarousel_lanzamiento');
-                $('#popupDetalleCarousel_packNuevas').hide();
+                CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
+                $(elementosPopPup.popupDetalleCarouselPackNuevas).hide();
             }
 
-            ActualizarLocalStorageAgregado("rd", params.CuvTonos || params.CUV, true);
-            ActualizarLocalStorageAgregado("gn", params.CuvTonos || params.CUV, true);
-            ActualizarLocalStorageAgregado("hv", params.CuvTonos || params.CUV, true);
-            ActualizarLocalStorageAgregado("lan", params.CuvTonos || params.CUV, true);
+            ActualizarLocalStorageAgregado(tipoEstrategia.rd, params.CuvTonos || params.CUV, true);
+            ActualizarLocalStorageAgregado(tipoEstrategia.gn, params.CuvTonos || params.CUV, true);
+            ActualizarLocalStorageAgregado(tipoEstrategia.hv, params.CuvTonos || params.CUV, true);
+            ActualizarLocalStorageAgregado(tipoEstrategia.lan, params.CuvTonos || params.CUV, true);
 
             ProcesarActualizacionMostrarContenedorCupon();
 
@@ -395,7 +426,7 @@ var EstrategiaAgregarModule = function () {
         var $this = $(e.target);
         if($this.data("bloqueada"))
         if ($this.data("bloqueada") !== "") return false;
-        var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad()).find(dataProperties.dataInputCantidad());
+        var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
         var cantidad = parseInt($inputCantidad.val());
 
         cantidad = isNaN(cantidad) ? 0 : cantidad;
@@ -412,7 +443,7 @@ var EstrategiaAgregarModule = function () {
         var $this = $(e.target);
         if($this.data("bloqueada"))
         if ($this.data("bloqueada") !== "") return false;
-        var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad()).find(dataProperties.dataInputCantidad());
+        var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
         var cantidad = parseInt($inputCantidad.val());
 
         cantidad = isNaN(cantidad) ? 0 : cantidad;

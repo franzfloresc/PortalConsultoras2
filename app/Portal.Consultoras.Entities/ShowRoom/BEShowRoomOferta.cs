@@ -16,15 +16,23 @@ namespace Portal.Consultoras.Entities.ShowRoom
         public int OfertaShowRoomID { get; set; }
 
         [DataMember]
-        public int TipoOfertaSisID { get; set; }
+        [Column("TipoEstrategiaId")]
+        public int TipoEstrategiaId { get; set; }
 
         [DataMember]
         [Column("CampaniaID")]
         public int CampaniaID { get; set; }
 
         [DataMember]
+        public int TipoOfertaSisID { get; set; }
+
+        [DataMember]
         [Column("CUV")]
         public string CUV { get; set; }
+
+        [DataMember]
+        [Column("CUV2")]
+        public string CUV2 { get; set; }
 
         [DataMember]
         [Column("Stock")]
@@ -36,11 +44,11 @@ namespace Portal.Consultoras.Entities.ShowRoom
         public int ConfiguracionOfertaID { get; set; }
 
         [DataMember]
-        [Column("PrecioValorizado")]
+        [Column("Precio")]
         public decimal PrecioValorizado { get; set; }
 
         [DataMember]
-        [Column("PrecioOferta")]
+        [Column("Precio2")]
         public decimal PrecioOferta { get; set; }
 
         [DataMember]
@@ -64,6 +72,10 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [DataMember]
         [Column("Descripcion")]
         public string Descripcion { get; set; }
+
+        [DataMember]
+        [Column("Descripcion2")]
+        public string Descripcion2 { get; set; }
 
         [DataMember]
         [ViewProperty]
@@ -178,6 +190,10 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [ViewProperty]
         [Column("FlagRevista")]
         public int FlagRevista { get; set; }
+
+        [DataMember]
+        [Column("CodigoTipoEstrategia")]
+        public string CodigoTipoEstrategia { get; set; }
 
         public BEShowRoomOferta()
         { }

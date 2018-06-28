@@ -8,7 +8,6 @@ using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
-using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
@@ -22,7 +21,6 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -2253,8 +2251,9 @@ namespace Portal.Consultoras.Web.Controllers
                             seccion.CantidadMostrar = 0;
                             break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.ShowRoom:
-                            seccion.TemplatePresentacion = "seccion-showroom";
-                            seccion.TemplateProducto = "#template-showroom";
+                            seccion.TemplatePresentacion = "seccion-simple-centrado";
+                            //seccion.TemplateProducto = "#template-showroom";
+                            seccion.TemplateProducto = "#producto-landing-template";
                             break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.OfertaDelDia:
                             seccion.TemplatePresentacion = "seccion-oferta-del-dia";
@@ -2358,8 +2357,9 @@ namespace Portal.Consultoras.Web.Controllers
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
 
-                var listaShowRoom = sessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPedidoModel>();
-                seccion.CantidadProductos = listaShowRoom.Count(x => !x.EsSubCampania);
+                var listaShowRoom = sessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPersonalizadaProductoModel>();
+                //seccion.CantidadProductos = listaShowRoom.Count(x => !x.EsSubCampania);
+                seccion.CantidadProductos = listaShowRoom.Count();
                 seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }
         }
