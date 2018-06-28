@@ -1102,6 +1102,15 @@ body {
     width: 60%;
 }
 
+.txt_te_quedan {
+    color: #fff;
+    float: left;
+    font-size: 13px;
+    line-height: 1.38;
+    margin: 0 0 4px 2px;
+    width: 100%;
+}
+
 .clock_palanca_odd {
     color: #fff !important;
     display: block !important;
@@ -1112,7 +1121,7 @@ body {
     height: 50px !important;
     letter-spacing: .2px !important;
     margin: initial !important;
-    width: initial !important;
+    width: 100% !important;
 }
 
     .clock_palanca_odd ul {
@@ -1148,11 +1157,11 @@ body {
         }
 
     .clock_palanca_odd .minutes .flip-clock-label {
-        left: 8px !important;
+        left: 13px !important;
     }
 
     .clock_palanca_odd .seconds .flip-clock-label {
-        left: 7px !important;
+        left: 12px !important;
     }
 
     .clock_palanca_odd .flip {
@@ -1167,3 +1176,44 @@ body {
         letter-spacing: .7px !important;
         text-shadow: 0 1px 2px #fff !important;
     }
+
+.marca_odd {
+    color: #fff;
+    float: left;
+    margin-top: 25px;
+    width: 100%;
+}
+
+.nombre_oferta_odd {
+    color: #fff;
+    float: left;
+    font-size: 30px;
+    font-weight: 700;
+    width: 100%;
+}
+
+.precios_odd {
+    color: #fff;
+    float: left;
+    width: 100%;
+}
+
+.precio_valorizado_odd {
+    bottom: 3px;
+    font-size: 15px;
+    font-weight: 900;
+    position: relative;
+    text-decoration: line-through;
+}
+
+.precio_venta_odd {
+    font-size: 25px;
+    font-weight: 900;
+    margin-left: 16px;
+}
+
+.contenedor_controles_odd {
+    color: #fff;
+    float: left;
+    width: 60%;
+}
