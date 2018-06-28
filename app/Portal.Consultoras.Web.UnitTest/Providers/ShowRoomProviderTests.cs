@@ -127,10 +127,10 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
                 }
             }
 
-            public List<EstrategiaPedidoModel> Ofertas { get; set; }
-            public List<EstrategiaPedidoModel> OfertasSubCampania { get; set; }
-            public List<EstrategiaPedidoModel> OfertasPerdio { get; set; }
-            public List<EstrategiaPedidoModel> OfertasCompraPorCompra { get; set; }
+            public List<EstrategiaPersonalizadaProductoModel> Ofertas { get; set; }
+            public List<EstrategiaPersonalizadaProductoModel> OfertasSubCampania { get; set; }
+            public List<EstrategiaPersonalizadaProductoModel> OfertasPerdio { get; set; }
+            //public List<EstrategiaPersonalizadaProductoModel> OfertasCompraPorCompra { get; set; }
         }
 
     }

@@ -66,5 +66,7 @@ namespace Portal.Consultoras.Web.Models
         public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }
         public string CodigoCategoria { get; set; } // se usa para filtrar los productos por categoria en ShowRoom
         public string ImagenProductoMini { get; set; }  // se usa para ShowRoom
+
+        public bool esMultimarca { get; set; }
     }
 }

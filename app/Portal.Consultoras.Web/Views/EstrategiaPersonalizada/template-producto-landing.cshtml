@@ -1,7 +1,7 @@
 ﻿@using Portal.Consultoras.Common
 <script id="producto-landing-template" type="text/x-handlebars-template">
     {{#each this.lista as |item|}}
-
+    
     {{#if EsBanner}}
     <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
@@ -37,7 +37,7 @@
                  {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
                     onclick="javascript:VerPopupExpGanaMas();"
                  {{else}}
-                    onclick="javascript:VerDetalleEstrategia(event);"
+                    onclick="javascript:OnClickFichaDetalle(event.target);"
                  {{/iff}}>
                 <div class="producto_img_home" data-item-tag="foto">
                     <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{ImgUrl FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
@@ -90,13 +90,13 @@
                     {{#iff TipoAccionAgregar '==' '2'}}
                         <div class="texto_elige_tono"></div>
                         <div class="clear"></div>
-                        <div class="liquidacion_rango_home js-no-popup">
+                        <div class="liquidacion_rango_home js-no-popup"  data-cantidad-contenedor="">
                             <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad'
                                    class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}" 
                                    {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
                             <div class="liquidacion_rango_right_pedido js-no-popup">
-                                <a href="javascript:;" class="mas js-no-popup" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" /></a>
-                                <a href="javascript:;" class="menos js-no-popup" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" /></a>
+                                <a href="javascript:;" class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" /></a>
+                                <a href="javascript:;" class="menos js-no-popup"  onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" /></a>
                             </div>
                         </div>
                         <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"

@@ -29,7 +29,7 @@
 
 <h1 class="titulo_principal_interiores pedido_left" style="margin-top:0px">INGRESA <strong>TU PEDIDO</strong></h1>
 <div class="wrapper_general2">
-    
+
     <h1 class="titulo_principal_interiores pedido_left" style="margin-top: -10px;">
         INGRESA <strong>TU PEDIDO FIC - @ViewBag.PedidoFIC @ViewBag.MensajeFIC</strong>
     </h1>
@@ -78,12 +78,12 @@
 
             <div class="pedido_ingreso_datos campo_cantidad">
                 <br />
-                <div class="liquidacion_rango_wrapper_pedido">
-                    <input type="text" name="Cantidad" id="txtCantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                <div class="liquidacion_rango_wrapper_pedido" data-cantidad-contenedor="">
+                    <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                            onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)" />
                     <div class="liquidacion_rango_right_pedido">
-                        <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                        <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                        <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                        <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
                     </div>
                 </div>
             </div>
@@ -284,14 +284,14 @@
             <input type="hidden" name="hdfCUV{{PedidoID}}" value="{{CUV}}" id="hdfCUV{{PedidoID}}" />
         </div>
         <div class="celda_cantidad_pedidos unidades_fic">
-            <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus">
+            <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
                 <input type="hidden" name="txtLPTempCant{{PedidoDetalleID}}" id="txtLPTempCant{{PedidoDetalleID}}" value="{{Cantidad}}" />
-                <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" id="txtLPCant{{PedidoDetalleID}}"
+                <input type="text" value="{{Cantidad}}" data-input="cantidad" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" id="txtLPCant{{PedidoDetalleID}}"
                        data-pedido="{{PedidoDetalleID}}" onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)"
                        onblur="UpdateLiquidacion('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}')" />
                 <div class="liquidacion_rango_right_pedido">
-                    <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                    <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                    <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                    <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
                 </div>
             </div>
         </div>
@@ -334,4 +334,5 @@
         var indicadorOfertaFIC = @ViewBag.IndicadorOfertaFIC;
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PedidoFIC/Index.js")"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
 }

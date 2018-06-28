@@ -279,7 +279,8 @@ namespace Portal.Consultoras.Web.Controllers
                 CodigoVariante = ofertaShowRoomModelo.CodigoEstrategia
             };
 
-            ofertaShowRoomModelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, Constantes.TipoEstrategiaCodigo.ShowRoom);
+            bool esMultimarca = false;
+            ofertaShowRoomModelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, Constantes.TipoEstrategiaCodigo.ShowRoom, out esMultimarca);
 
             return ofertaShowRoomModelo;
         }
