@@ -14,6 +14,7 @@
 
     <link href="@Url.Content("~/Content/Css/Site/flipclock.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/Ficha/Ficha.css")" rel="stylesheet" />
 
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900" rel="stylesheet" type="text/css">
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
@@ -268,6 +269,19 @@
             <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia(this);" style="display: none;">x</a>
         </div>
         <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia">
+            <div class="contenedor_palanca_odd">
+                <div id="imgSoloHoy" class="img_solo_hoy">
+                    <img src="{{ImagenSoloHoy}}" alt="" />
+                </div>
+                <div class="contenedor_detalle_producto_odd">
+                    <div class="img_odd">
+                        <img id="img-display-odd" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" alt="" data-img-lazy="1" />
+                    </div>
+                    <div class="contenedor_detalle_derecha_odd">
+                        <div class="clock clock_palanca_odd"></div>
+                    </div>
+                </div>
+            </div>
             <div class="parche_presentacion_contenedor parche_presentacion_contenedor_834">
                 <div class="rd_volver" style="position: absolute; margin-top: 28px;">
                     <a href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">
