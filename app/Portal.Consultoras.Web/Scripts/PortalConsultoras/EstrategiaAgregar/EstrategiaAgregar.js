@@ -108,7 +108,7 @@ var EstrategiaAgregarModule = function () {
 
     var estrategiaEstaBloqueada = function ($btnAgregar, campaniaId) {
 
-        if ($btnAgregar.attr(dataProperties.) === "") return false;
+        if ($btnAgregar.attr(dataProperties.dataBloqueada) === "") return false;
 
         if (campaniaId === parseInt(campaniaCodigo)) return false;
 
@@ -228,7 +228,7 @@ var EstrategiaAgregarModule = function () {
             return false;
         }
 
-        var cantidad = (limite > 0) ? limite: ($btnAgregar.parents(dataProperties.dataItem).find(dataProperties.inputCantidad).val());
+        var cantidad = (limite > 0) ? limite : ($btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val());
 
         if (!$.isNumeric(cantidad)) {
             abrirMensajeEstrategia("Ingrese un valor numérico.");

@@ -169,8 +169,10 @@ namespace Portal.Consultoras.Web.Controllers
                 if (string.IsNullOrWhiteSpace(estrategiaModelo.CodigoVariante))
                     return estrategiaModelo;
 
+                bool esMultimarca = false;
                 estrategiaModelo.CampaniaID = estrategiaModelo.CampaniaID > 0 ? estrategiaModelo.CampaniaID : userData.CampaniaID;
-                estrategiaModelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, string.Empty);
+                estrategiaModelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, string.Empty, out esMultimarca);
+                estrategiaModelo.esMultimarca = esMultimarca;
             }
             catch (Exception ex)
             {
@@ -350,7 +352,12 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.Ganancia = estrategia.Ganancia;
                 prodModel.GananciaString = estrategia.GananciaString;
 
-                prodModel.TipoAccionAgregar = _ofertaPersonalizadaProvider.TipoAccionAgregar(estrategia.TieneVariedad, estrategia.TipoEstrategia.Codigo, userData.esConsultoraLider, tipo == 1 || (estrategia.CampaniaID > 0 && estrategia.CampaniaID != userData.CampaniaID));
+                prodModel.TipoAccionAgregar = _ofertaPersonalizadaProvider.TipoAccionAgregar(
+                    estrategia.TieneVariedad, 
+                    estrategia.TipoEstrategia.Codigo, 
+                    userData.esConsultoraLider, 
+                    tipo == 1 || (estrategia.CampaniaID > 0 && estrategia.CampaniaID != userData.CampaniaID), 
+                    estrategia.CodigoEstrategia);
 
                 if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
                 {
@@ -442,7 +449,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listEstrategia;
         }
 
-        private List<EstrategiaPedidoModel> ConsultarEstrategiasModelFormato(List<ServiceOferta.BEEstrategia> listaProducto)
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasModelFormato(List<ServiceOferta.BEEstrategia> listaProducto)
         {
             listaProducto = listaProducto ?? new List<ServiceOferta.BEEstrategia>();
             List<EstrategiaPedidoModel> listaProductoModel = Mapper.Map<List<ServiceOferta.BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);

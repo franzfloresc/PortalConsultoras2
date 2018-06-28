@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 modelo.Hermanos = EstrategiaDetalle.Hermanos;
             }
 
-            return View("Ficha");
+            return View("Ficha", modelo); 
         }
 
     }
