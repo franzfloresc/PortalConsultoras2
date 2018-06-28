@@ -108,7 +108,7 @@ var EstrategiaAgregarModule = function () {
 
     var estrategiaEstaBloqueada = function ($btnAgregar, campaniaId) {
 
-        if ($btnAgregar.attr(dataProperties.) === "") return false;
+        if ($btnAgregar.attr(dataProperties.dataBloqueada) === "") return false;
 
         if (campaniaId === parseInt(campaniaCodigo)) return false;
 
