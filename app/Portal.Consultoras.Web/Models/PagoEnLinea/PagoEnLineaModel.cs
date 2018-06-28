@@ -18,6 +18,12 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
 
         public PagoVisaModel PagoVisaModel { get; set; }
 
+        public List<PagoEnLineaTipoPagoModel> ListaTipoPago { get; set; }
+
+        public List<PagoEnLineaMedioPagoModel> ListaMedioPago { get; set; }
+
+        public List<PagoEnLineaMedioPagoDetalleModel> ListaMetodoPago { get; set; }
+
         #region Propiedades luego de la respuesta de la pasarela de pago
 
         public int PagoEnLineaResultadoLogId { get; set; }

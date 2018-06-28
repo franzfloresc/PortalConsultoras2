@@ -83,6 +83,10 @@
     <Compile Include="Externos\ReservaSicc\BEIncentivoSicc.cs" />
     <Compile Include="Oferta\BEGuiaNegocio.cs" />
     <Compile Include="Oferta\BEOfertaDelDia.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaMedioPago.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaTipoPago.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaMedioPagoDetalle.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaTipoPasarela.cs" />
     <Compile Include="ProgramaNuevas\BEProductoProgramaNuevas.cs" />
     <Compile Include="Externos\ReservaSicc\BEDetalleSicc.cs" />
     <Compile Include="Externos\ReservaSicc\BEPedidoSicc.cs" />

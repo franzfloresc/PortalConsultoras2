@@ -27,6 +27,8 @@ $(document).ready(function () {
                 $(document).on('keyup', '#txtMontoParcial', me.Eventos.ObtenerMontosPagoParcial);
                 $(document).on('click', '#btnPagarVisa', me.Eventos.PagarConVisaPaso1);
                 $(document).on('click', '#divMetodoPagoVisa', me.Eventos.MarcacionMetodoPago);
+                $(document).on('click', '#btnPagoTotal', me.Eventos.PagoTotal);
+                $(document).on('click', '#btnPagoParcial', me.Eventos.PagoParcial);
             },
             InicializarAcciones: function () {
                 me.globals.barraActivacion.toggleClass('activado');
@@ -78,12 +80,14 @@ $(document).ready(function () {
                 $('.fondo_modal').fadeOut(300);
             },
             ObtenerMontosPagoParcial: function (e) {
-                var montoParcial = $(this).val();
-                var porcentaje = parseFloat($("#spnPorcentajeGastosAdministrativos").html());
+                var montoParcial = parseFloat($(this).val());
+                var porcentaje = parseFloat($("#hdPorcentajeGastosAdministrativos").val());
 
                 var montoGastos = montoParcial * (porcentaje / 100);                
 
-                $("#spnMontoGastosAdministrativos").html(DecimalToStringFormat(montoGastos))
+                $("#spnMontoParcial").html(DecimalToStringFormat(montoParcial));
+                $("#spnMontoGastosAdministrativos").html(DecimalToStringFormat(montoGastos));
+                $("#spnMontoParcialConGastos").html(DecimalToStringFormat(montoParcial + montoGastos));
             },
             PagarConVisaPaso1: function (e) {
                 e.preventDefault();
@@ -125,7 +129,7 @@ $(document).ready(function () {
 
                 var parametros = {
                     MontoDeuda: parseFloat(montoDeuda).toFixed(2),
-                    PorcentajeGastosAdministrativos: $("#spnPorcentajeGastosAdministrativos").html()
+                    PorcentajeGastosAdministrativos: $("#hdPorcentajeGastosAdministrativos").val()
                 };
 
                 jQuery.ajax({
@@ -154,6 +158,44 @@ $(document).ready(function () {
                     }
                 });
             },
+            PagoTotal: function (e) {
+                e.preventDefault();
+
+                var montoDeuda = $.trim($("#hdMontoDeuda").val());
+
+                if ($.trim(montoDeuda) == "" || parseFloat(montoDeuda).toFixed(2) < 0.50) {
+                    AbrirMensaje("El monto a pagar debe ser mayor o igual a 0.50");
+                    return false;
+                }
+
+                var porcentajeGastosAdministrativos = $("#hdPorcentajeGastosAdministrativos").val();
+                var urlRutaPaso2 = ObtenerRutaPaso2(montoDeuda, porcentajeGastosAdministrativos);     
+
+                if (urlRutaPaso2 != "")
+                    window.location.href = urlRutaPaso2;
+            },
+            PagoParcial: function (e) {
+                e.preventDefault();
+
+                var montoDeuda = $.trim($("#txtMontoParcial").val());
+
+                if ($.trim(montoDeuda) == "" || parseFloat(montoDeuda).toFixed(2) < 0.50) {
+                    AbrirMensaje("El monto a pagar debe ser mayor o igual a 0.50");
+                    return false;
+                }
+
+                var montoTotal = $.trim($("#hdMontoDeuda").val());
+                if (parseFloat(montoDeuda).toFixed(2) > parseFloat(montoTotal)) {
+                    AbrirMensaje("El monto a pagar excede tu deuda, por favor ingresa otro monto");
+                    return false;
+                }
+
+                var porcentajeGastosAdministrativos = $("#hdPorcentajeGastosAdministrativos").val();
+                var urlRutaPaso2 = ObtenerRutaPaso2(montoDeuda, porcentajeGastosAdministrativos);  
+
+                if (urlRutaPaso2 != "")
+                    window.location.href = urlRutaPaso2;
+            },
             MarcacionMetodoPago: function (e) {
                 dataLayer.push({
                     'event': 'virtualEvent',
@@ -173,4 +215,41 @@ $(document).ready(function () {
 
     PedidoEnLinea.Inicializar();
 
+    function ObtenerRutaPaso2(montoDeuda, porcentajeGastosAdministrativos) {
+        var resultado = "";
+
+        var parametros = {
+            MontoDeuda: parseFloat(montoDeuda).toFixed(2),
+            PorcentajeGastosAdministrativos: porcentajeGastosAdministrativos
+        };
+
+        jQuery.ajax({
+            type: 'POST',
+            url: rutaGuardarDatosPago,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(parametros),
+            async: false,
+            success: function (response) {
+                if (response.success) {
+
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Pago en Línea',
+                        'action': 'Clic en Botón',
+                        'label': 'Continuar a Confirmar Monto'
+                    });
+
+                    resultado = rutaPagoVisa;
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    resultado = "";
+                }
+            }
+        });
+
+        return resultado;
+    }
 });

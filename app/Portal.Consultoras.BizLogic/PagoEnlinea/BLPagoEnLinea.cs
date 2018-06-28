@@ -77,5 +77,53 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
 
             return lista;
         }
+
+        public List<BEPagoEnLineaTipoPago> ObtenerPagoEnLineaTipoPago(int paisId)
+        {
+            var lista = new List<BEPagoEnLineaTipoPago>();
+            var DAPagoEnLinea = new DAPagoEnLinea(paisId);
+
+            using (var reader = DAPagoEnLinea.ObtenerPagoEnLineaTipoPago())
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new BEPagoEnLineaTipoPago(reader));
+                }
+            }
+
+            return lista;
+        }
+
+        public List<BEPagoEnLineaMedioPago> ObtenerPagoEnLineaMedioPago(int paisId)
+        {
+            var lista = new List<BEPagoEnLineaMedioPago>();
+            var DAPagoEnLinea = new DAPagoEnLinea(paisId);
+
+            using (var reader = DAPagoEnLinea.ObtenerPagoEnLineaMedioPago())
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new BEPagoEnLineaMedioPago(reader));
+                }
+            }
+
+            return lista;
+        }
+
+        public List<BEPagoEnLineaMedioPagoDetalle> ObtenerPagoEnLineaMedioPagoDetalle(int paisId)
+        {
+            var lista = new List<BEPagoEnLineaMedioPagoDetalle>();
+            var DAPagoEnLinea = new DAPagoEnLinea(paisId);
+
+            using (var reader = DAPagoEnLinea.ObtenerPagoEnLineaMedioPagoDetalle())
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new BEPagoEnLineaMedioPagoDetalle(reader));
+                }
+            }
+
+            return lista;
+        }        
     }
 }

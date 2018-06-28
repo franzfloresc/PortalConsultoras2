@@ -2094,5 +2094,11 @@ namespace Portal.Consultoras.Common
             public const int EnviarPorSms = 2;
         }
         #endregion  
+
+        public class PagoEnLineaTipoPago
+        {
+            public const string PagoTotal = "01";
+            public const string PagoParcial = "02";
+        }
     }
 }

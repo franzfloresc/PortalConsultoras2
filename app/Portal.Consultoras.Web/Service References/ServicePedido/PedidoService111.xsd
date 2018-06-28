@@ -109,4 +109,55 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPagoEnLineaResultadoLogReporte" nillable="true" type="tns:BEPagoEnLineaResultadoLogReporte" />
+  <xs:complexType name="ArrayOfBEPagoEnLineaTipoPago">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPagoEnLineaTipoPago" nillable="true" type="tns:BEPagoEnLineaTipoPago" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPagoEnLineaTipoPago" nillable="true" type="tns:ArrayOfBEPagoEnLineaTipoPago" />
+  <xs:complexType name="BEPagoEnLineaTipoPago">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PagoEnLineaTipoPagoId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPagoEnLineaTipoPago" nillable="true" type="tns:BEPagoEnLineaTipoPago" />
+  <xs:complexType name="ArrayOfBEPagoEnLineaMedioPago">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPagoEnLineaMedioPago" nillable="true" type="tns:BEPagoEnLineaMedioPago" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPagoEnLineaMedioPago" nillable="true" type="tns:ArrayOfBEPagoEnLineaMedioPago" />
+  <xs:complexType name="BEPagoEnLineaMedioPago">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="PagoEnLineaMedioPagoId" type="xs:int" />
+      <xs:element minOccurs="0" name="RutaIcono" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TextoToolTip" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPagoEnLineaMedioPago" nillable="true" type="tns:BEPagoEnLineaMedioPago" />
+  <xs:complexType name="ArrayOfBEPagoEnLineaMedioPagoDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPagoEnLineaMedioPagoDetalle" nillable="true" type="tns:BEPagoEnLineaMedioPagoDetalle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPagoEnLineaMedioPagoDetalle" nillable="true" type="tns:ArrayOfBEPagoEnLineaMedioPagoDetalle" />
+  <xs:complexType name="BEPagoEnLineaMedioPagoDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="PagoEnLineaMedioPagoDetalleId" type="xs:int" />
+      <xs:element minOccurs="0" name="PagoEnLineaMedioPagoId" type="xs:int" />
+      <xs:element minOccurs="0" name="RutaIcono" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TerminosCondiciones" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoPasarelaCodigoPlataforma" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPagoEnLineaMedioPagoDetalle" nillable="true" type="tns:BEPagoEnLineaMedioPagoDetalle" />
 </xs:schema>

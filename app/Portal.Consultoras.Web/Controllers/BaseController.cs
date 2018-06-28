@@ -5601,7 +5601,94 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.PorcentajeGastosAdministrativos = esInt ? porcentajeGastosAdministrativos : 0;
 
+            model.ListaTipoPago = ObtenerListaTipoPago();
+            model.ListaMedioPago = ObtenerListaMedioPago();
+
             return model;
+        }
+
+        public List<PagoEnLineaTipoPagoModel> ObtenerListaTipoPago()
+        {
+            var listaTipoPagoModel = new List<PagoEnLineaTipoPagoModel>();
+            var listaTipoPago = new List<BEPagoEnLineaTipoPago>();
+
+            try
+            {
+                using (var ps = new PedidoServiceClient())
+                {
+                    listaTipoPago = ps.ObtenerPagoEnLineaTipoPago(userData.PaisID).ToList();
+                }
+
+                listaTipoPagoModel = Mapper.Map<List<PagoEnLineaTipoPagoModel>>(listaTipoPago);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                listaTipoPagoModel = new List<PagoEnLineaTipoPagoModel>();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                listaTipoPagoModel = new List<PagoEnLineaTipoPagoModel>();
+            }            
+
+            return listaTipoPagoModel;
+        }
+
+        public List<PagoEnLineaMedioPagoModel> ObtenerListaMedioPago()
+        {
+            var listaMedioPagoModel = new List<PagoEnLineaMedioPagoModel>();
+            var listaMedioPago = new List<BEPagoEnLineaMedioPago>();
+
+            try
+            {
+                using (var ps = new PedidoServiceClient())
+                {
+                    listaMedioPago = ps.ObtenerPagoEnLineaMedioPago(userData.PaisID).ToList();
+                }
+
+                listaMedioPagoModel = Mapper.Map<List<PagoEnLineaMedioPagoModel>>(listaMedioPago);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                listaMedioPagoModel = new List<PagoEnLineaMedioPagoModel>();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                listaMedioPagoModel = new List<PagoEnLineaMedioPagoModel>();
+            }
+
+            return listaMedioPagoModel;
+        }
+
+        public List<PagoEnLineaMedioPagoDetalleModel> ObtenerListaMetodoPago()
+        {
+            var listaMedioPagoDetalleModel = new List<PagoEnLineaMedioPagoDetalleModel>();
+            var listaMedioPagoDetalle = new List<BEPagoEnLineaMedioPagoDetalle>();
+
+            try
+            {
+                using (var ps = new PedidoServiceClient())
+                {
+                    listaMedioPagoDetalle = ps.ObtenerPagoEnLineaMedioPagoDetalle(userData.PaisID).ToList();
+                }
+
+                listaMedioPagoDetalleModel = Mapper.Map<List<PagoEnLineaMedioPagoDetalleModel>>(listaMedioPagoDetalle);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                listaMedioPagoDetalleModel = new List<PagoEnLineaMedioPagoDetalleModel>();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                listaMedioPagoDetalleModel = new List<PagoEnLineaMedioPagoDetalleModel>();
+            }
+
+            return listaMedioPagoDetalleModel;
         }
 
         public PagoVisaModel ObtenerValoresPagoVisa(PagoEnLineaModel model)

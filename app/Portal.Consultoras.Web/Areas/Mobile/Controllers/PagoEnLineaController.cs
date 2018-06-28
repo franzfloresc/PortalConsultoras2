@@ -27,7 +27,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = ObtenerValoresPagoEnLinea();
 
             return View(model);
-        }                
+        }
+        
+        public ActionResult MetodoPago()
+        {
+            var model = sessionManager.GetDatosPagoVisa();
+
+            model.ListaMetodoPago = ObtenerListaMetodoPago();
+
+            return View(model);
+        }
 
         public ActionResult PagoVisa()
         {

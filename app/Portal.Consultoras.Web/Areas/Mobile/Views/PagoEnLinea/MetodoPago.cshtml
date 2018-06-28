@@ -1,0 +1,234 @@
+﻿@using Portal.Consultoras.Common;
+@using Portal.Consultoras.Web.Models.PagoEnLinea;
+@model PagoEnLineaModel
+
+@{
+    ViewBag.Title = "Pago En Línea";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@section styles{
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")">
+
+    <style type="text/css">
+        .footer-page {
+            display: none;
+            margin-bottom: 54px;
+        }
+
+        #btn_init {
+            display: none !important;
+        }
+
+        #btn_open {
+            display: none !important;
+        }
+    </style>
+
+}
+
+<div class="cabecera_vista_pago_en_linea">
+    <a id="linkRegresar" href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
+    PAGO EN LÍNEA
+</div>
+
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div>
+
+    <div class="proceso_de_pago_en_linea">
+
+        <div class="cantidad_pasos_proceso_pago">
+
+            <span class="paso_proceso_pago_en_linea paso_activo paso_completado">1</span>
+            <span class="paso_proceso_pago_en_linea paso_activo">2</span>
+            <span class="paso_proceso_pago_en_linea mr-0">3</span>
+
+            <div class="linea_conectora_pasos">
+                <span class="fondo_pasos_proceso_pago_avance"></span>
+            </div>
+        </div>
+
+        <div class="confirmacion_pago">
+            <h3 class="titulo_resumen_pago_exitoso">
+                Elige el método de pago
+            </h3>
+            <ul class="lista_opciones_pago">
+                @foreach (var item in Model.ListaMetodoPago)
+                {
+                    <li class="opcion_pago">
+                        <div class="col_izq">
+                            <div class="contenedor_monto_pago_total">
+                                <h4 class="titulo_monto_pago_total">
+                                   <img src="@item.RutaIcono" alt=""/>@item.Descripcion
+                                </h4>
+                                <div class="monto_total_pago_en_linea">
+                                    <span class="tipo_moneda_pais">@Model.Simbolo</span>
+                                    <span class="monto_moneda_pais">@Model.MontoDeudaConGastosString</span>
+                                </div>
+                            </div>
+                            <div class="aceptar_terminos_y_condiciones">
+                                <div class="area_activa_barra_activacion">
+                                    <div class="barra_activacion" data-estado="0">
+                                        <div class="control_activacion">
+                                        </div>
+                                        <div class="tooltip_terminos_y_condiciones" style="display:none;" id="divTooltipTerminosCondiciones">
+                                            <span>Debes aceptar los términos y condiciones</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="descripcion_opcion_activacion">
+                                    Acepta los términos y condiciones
+                                </div>
+                            </div>
+                            <button type="button" class="btn_pago_credito_visa" id="btnPagoTotal">
+                                <span>
+                                    Continuar
+                                </span>
+                            </button>
+                        </div>
+                        <div class="col_der">
+                            <input type="radio" id="rbPagoTotal" name="opcionPago" value="1" checked />
+                            <label for="rbPagoTotal">
+                                <span></span>
+                            </label>
+                        </div>
+                    </li>
+                }
+                @*<li class="opcion_pago">
+                    <div class="col_izq">
+                        <div class="contenedor_monto_pago_total">
+                            <h4 class="titulo_monto_pago_total">
+                                TARJETA 1:
+                            </h4>
+                            <div class="monto_total_pago_en_linea">
+                                <span class="tipo_moneda_pais">@Model.Simbolo</span>
+                                <span class="monto_moneda_pais">@Model.MontoDeudaConGastosString</span>
+                            </div>
+                        </div>
+                        <div class="aceptar_terminos_y_condiciones">
+                            <div class="area_activa_barra_activacion">
+                                <div class="barra_activacion" data-estado="0">
+                                    <div class="control_activacion">
+                                    </div>
+                                    <div class="tooltip_terminos_y_condiciones" style="display:none;" id="divTooltipTerminosCondiciones">
+                                        <span>Debes aceptar los términos y condiciones</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="descripcion_opcion_activacion">
+                                Acepta los términos y condiciones
+                            </div>
+                        </div>
+                        <button type="button" class="btn_pago_credito_visa" id="btnPagoTotal">
+                            <span>
+                                Continuar
+                            </span>
+                        </button>
+                    </div>
+                    <div class="col_der">
+                        <input type="radio" id="rbPagoTotal" name="opcionPago" value="1" checked />
+                        <label for="rbPagoTotal">
+                            <span></span>
+                        </label>
+                    </div>
+                </li>*@
+            </ul>
+            @*<div class="resumen_pago">
+                    <div class="monto_pagado">
+                        <span>Monto:</span>
+                        <span>@Model.Simbolo @Model.MontoDeudaString</span>
+                    </div>
+                    <div class="monto_gastos_administrativos">
+                        <span>Cargo plataforma online (@Model.PorcentajeGastosAdministrativos%):</span>
+                        <span>@Model.Simbolo @Model.MontoGastosAdministrativosString</span>
+                    </div>
+                    <div class="total_monto_pagado">
+                        <span>Total por pagar:</span>
+                        <span>@Model.Simbolo @Model.MontoDeudaConGastosString</span>
+                    </div>
+                </div>*@
+        </div>
+
+        <div class="contenedor_info_pago_seguro_y_ctas" style="margin-bottom:10px;">
+
+            <div class="info_pago_seguro_con_tarjetas">
+                <div class="icono_pago_seguro">
+                </div>
+                <div class="texto_info_pago_seguro">
+                    <span class="texto_pago_seguro solo_visa">Pago seguro a través de</span>
+                </div>
+                <div class="icono_marcas_tarjetas">
+                    <span class="icono_marca_visa">
+                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        @*<div class="contenedor_btn_pagar_con_visa">
+                <form id="formBoton" action="@Url.Action("PagoVisaResultado","PagoEnLinea")" method="post">
+                    <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
+                            data-sessiontoken="@Model.PagoVisaModel.SessionToken"
+                            data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"
+                            data-formbuttoncolor="@Model.PagoVisaModel.FormButtonColor" data-purchasenumber="@Model.PagoVisaModel.PurchaseNumber"
+                            data-amount="@Model.PagoVisaModel.Amount" data-recurrence="@Model.PagoVisaModel.Recurrence"
+                            data-recurrencetype="@Model.PagoVisaModel.RecurrenceType" data-recurrencefrequency="@Model.PagoVisaModel.RecurrenceFrequency"
+                            data-recurrenceamount="@Model.PagoVisaModel.RecurrenceAmount"
+                            data-usertoken="@Model.PagoVisaModel.TokenTarjetaGuardada"
+                            data-buttonsize="LARGE"></script>
+                </form>
+            </div>*@
+
+    </div>
+
+</div>
+
+<div class="fondo_modal">
+    <div class="popup_terminos_y_condiciones">
+        <a href="#" class="cerrar_popup_terminos_y_condiciones" title="Cerrar">
+        </a>
+        <h4 class="titulo_terminos_y_condiciones">Términos y condiciones por uso de tarjeta de crédito VISA</h4>
+        <div class="descripcion_terminos_y_condiciones">
+            <p>
+                El uso de tarjetas de crédito o débito VISA se sujetará a los establecido en estos Términos y Condiciones y, en relación con su emisor, y a lo pactado en los respectivos contratos suscritos con el banco emisor del medio de pago.
+            </p>
+            <p>
+                En caso de contradicción, predominará lo expresado en ese último instrumento. Tratándose de tarjetas bancarias aceptadas en el Sitio, los aspectos relativos a éstas, tales como fecha de emisión, caducidad, bloqueos, cobros de intereses de compra en cuotas, etc..,
+                se regirán por los respectivos contratos suscritos con el banco emisor del medio de pago.
+            </p>
+            <p>
+                El uso de este medio de pago generará un gasto USO VISA de 3% del monto pagado, el cual le será cargado en su tarjeta junto con el monto a pagar determinado por el titular en cada transacción. Este gasto generará un comprobante electrónico el cual podrá ser visualizado en
+                su estado de cuenta de consultora y en la web.
+            </p>
+            <p>
+                Al utilizar una tarjeta de crédito, el nombre del titular debe coincidir con el nombre utilizado al registrarse en su solicitud de crédito de consultora BELCORP. De lo contrario, se podría anular la operación bajo cualquier sospecha y/o confirmación de pago no autorizado.
+            </p>
+        </div>
+        <div class="aceptar_terminos_y_condiciones mb-0">
+            <div class="area_activa_barra_activacion">
+                <div class="barra_activacion" data-estado="0">
+                    <div class="control_activacion">
+                    </div>
+                    <div class="tooltip_terminos_y_condiciones" style="display:none;">
+                        <span>Debes aceptar los términos y condiciones</span>
+                    </div>
+                </div>
+            </div>
+            <div class="descripcion_opcion_activacion">
+                Acepta los términos y condiciones
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        @*var colorBoton = '@Model.PagoVisaModel.FormButtonColor';*@
+        var colorBoton = 'red';
+        var tipoOrigenPantalla = 2;
+    </script>
+
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/PagoVisa.js")"></script>
+}

@@ -33,7 +33,8 @@
         <div class="cantidad_pasos_proceso_pago" id="divProcesoPasosVisa">
 
             <span class="paso_proceso_pago_en_linea paso_activo">1</span>
-            <span class="paso_proceso_pago_en_linea mr-0">2</span>
+            <span class="paso_proceso_pago_en_linea">2</span>
+            <span class="paso_proceso_pago_en_linea mr-0">3</span>
 
             <div class="linea_conectora_pasos">
                 <span class="fondo_pasos_proceso_pago_avance"></span>
@@ -41,7 +42,7 @@
         </div>
 
         <div class="seleccion_monto_a_pagar" id="divPagoEnLineaPaso1">
-            <div class="campo_seleccion_monto_a_pagar" id="divMetodoPagoVisa">
+            @*<div class="campo_seleccion_monto_a_pagar" id="divMetodoPagoVisa">
                 <h3>Selecciona el método y tipo de pago</h3>
                 <div class="metodo_pago_seleccionado">
                     <span class="icono_marca_tarjeta">
@@ -49,55 +50,105 @@
                     </span>
                     <span class="marca_tarjeta">Tarjeta Crédito VISA</span>
                 </div>
-            </div>
-            <h3>Tipo de pago :</h3>
+            </div>*@
+            <h3>SELECCIONA EL TIPO DE PAGO</h3>
+
+            <input type="hidden" id="hdMontoDeuda" value="@Model.MontoDeuda" name="MontoDeuda" />
+            <input type="hidden" id="hdPorcentajeGastosAdministrativos" value="@Model.PorcentajeGastosAdministrativos" name="PorcentajeGastosAdministrativos" />
+
             <ul class="lista_opciones_pago">
-                <li class="opcion_pago">
-                    <div class="col_izq">
-                        <div class="contenedor_monto_pago_total">
-                            <h4 class="titulo_monto_pago_total">
-                                Pago total:
-                            </h4>
-                            <div class="monto_total_pago_en_linea">
-                                <input type="hidden" id="hdMontoDeuda" value="@Model.MontoDeuda" name="MontoDeuda" />
-                                <span class="tipo_moneda_pais">@Model.Simbolo</span>
-                                <span class="monto_moneda_pais">@Model.MontoDeudaString</span>
+                @foreach (var item in Model.ListaTipoPago)
+                {
+                    if (item.Codigo == Constantes.PagoEnLineaTipoPago.PagoTotal)
+                    {
+                        <li class="opcion_pago">
+                            <div class="col_izq">
+                                <div class="contenedor_monto_pago_total">
+                                    <h4 class="titulo_monto_pago_total">
+                                        @item.Descripcion:
+                                    </h4>
+                                    <div class="monto_total_pago_en_linea">                                        
+                                        <span class="tipo_moneda_pais">@Model.Simbolo</span>
+                                        <span class="monto_moneda_pais">@Model.MontoDeudaString</span>
+                                    </div>
+                                </div>
+                                <div class="fecha_vencimiento_pago_en_linea">
+                                    <span>Vence </span>
+                                    <span>@Model.FechaVencimientoString</span>
+                                </div>
+                                <div>
+                                    Monto: @Model.MontoDeudaString
+                                </div>
+                                <div>
+                                    Gastos Adm. (@Model.PorcentajeGastosAdministrativos%): @Model.MontoGastosAdministrativosString
+                                </div>
+                                <div>
+                                    TOTAL POR PAGAR: @Model.MontoDeudaConGastosString
+                                </div>
+                                <button type="button" class="btn_pago_credito_visa" id="btnPagoTotal">
+                                    <span>
+                                        Continuar
+                                    </span>
+                                </button>
                             </div>
-                        </div>
-                        <div class="fecha_vencimiento_pago_en_linea">
-                            <span>Vence </span>
-                            <span>@Model.FechaVencimientoString</span>
-                        </div>
-                    </div>
-                    <div class="col_der">
-                        <input type="radio" id="rbPagoTotal" name="opcionPago" value="1" checked />
-                        <label for="rbPagoTotal">
-                            <span></span>
-                        </label>
-                    </div>
-                </li>
-                <li class="opcion_pago pagoParcial">
-                    <div class="col_izq">
-                        <h4 class="titulo_monto_pago_editable">
-                            Pago Parcial:
-                        </h4>
-                        <div class="monto_editable_pago_en_linea">
-                            <span class="tipo_moneda_pais">@Model.Simbolo</span>
-                            <input type="text" class="monto_a_editar" id="txtMontoParcial"
-                                   placeholder="@Util.DecimalToStringFormat(0,Model.CodigoIso)"
-                                   value="" onkeypress="return FuncionesGenerales.ValidarSoloDecimalPositivo(event, this, true);" />
-                        </div>
-                    </div>
-                    <div class="col_der">
-                        <input type="radio" id="rbPagoParcial" name="opcionPago" value="2" />
-                        <label for="rbPagoParcial">
-                            <span></span>
-                        </label>
-                    </div>
-                </li>
+                            <div class="col_der">
+                                <input type="radio" id="rbPagoTotal" name="opcionPago" value="1" checked />
+                                <label for="rbPagoTotal">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </li>
+                    }
+                    if (item.Codigo == Constantes.PagoEnLineaTipoPago.PagoParcial)
+                    {
+                        <li class="opcion_pago pagoParcial">
+                            <div class="col_izq">
+                                <h4 class="titulo_monto_pago_editable">
+                                    @item.Descripcion:
+                                </h4>
+                                <div class="monto_editable_pago_en_linea">
+                                    <span class="tipo_moneda_pais">@Model.Simbolo</span>
+                                    <input type="text" class="monto_a_editar" id="txtMontoParcial"
+                                           placeholder="@Util.DecimalToStringFormat(0, Model.CodigoIso)"
+                                           value="" onkeypress="return FuncionesGenerales.ValidarSoloDecimalPositivo(event, this, true);" />
+                                </div>
+                                <div>
+                                    Monto: <span id="spnMontoParcial">@Util.DecimalToStringFormat(0, Model.CodigoIso)</span> 
+                                </div>
+                                <div>
+                                    Gastos Adm. (@Model.PorcentajeGastosAdministrativos%): <span id="spnMontoGastosAdministrativos">@Util.DecimalToStringFormat(0, Model.CodigoIso)</span> 
+                                </div>
+                                <div>
+                                    TOTAL POR PAGAR: <span id="spnMontoParcialConGastos">@Util.DecimalToStringFormat(0, Model.CodigoIso)</span>
+                                </div>
+                                <button type="button" class="btn_pago_credito_visa" id="btnPagoParcial">
+                                    <span>
+                                        Continuar
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="col_der">
+                                <input type="radio" id="rbPagoParcial" name="opcionPago" value="2" />
+                                <label for="rbPagoParcial">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </li>
+                    }
+                }                
             </ul>
-            <input type="hidden" id="hdMontoGastosAdministrativosString" value="@Model.MontoGastosAdministrativosString" />
-            <p class="info_comision_pago_en_linea">
+
+            <div>
+                PAGA SEGURO CON
+                @foreach(var itemMedioPago in Model.ListaMedioPago)
+                {
+                    <div>@itemMedioPago.Codigo</div>
+                }
+                <br />
+                Recuerda habilitar tu tarjeta para Pagos por Internet.
+            </div>
+            @*<input type="hidden" id="hdMontoGastosAdministrativosString" value="@Model.MontoGastosAdministrativosString" />*@
+            @*<p class="info_comision_pago_en_linea">
                 *Cargo por uso plataforma online: <span id="spnPorcentajeGastosAdministrativos">@Model.PorcentajeGastosAdministrativos</span> % (<span class="tipo_moneda_pais">@Model.Simbolo </span><span class="monto_comision_pago_en_linea" id="spnMontoGastosAdministrativos">@Model.MontoGastosAdministrativosString</span>)
             </p>
             <div class="aceptar_terminos_y_condiciones">
@@ -111,12 +162,12 @@
                     </div>
                 </div>
                 <div class="descripcion_opcion_activacion">
-                    Acepta los términos y condiciones  
+                    Acepta los términos y condiciones
                 </div>
-            </div>
+            </div>*@
         </div>
 
-        <div class="contenedor_info_pago_seguro_y_ctas" id="divBannerInferiorVisa">
+        @*<div class="contenedor_info_pago_seguro_y_ctas" id="divBannerInferiorVisa">
             <div class="info_pago_seguro_con_tarjetas">
                 <div class="icono_pago_seguro">
                 </div>
@@ -136,7 +187,7 @@
                 </span>
             </button>
 
-        </div>
+        </div>*@
     </div>
 
 </div>
@@ -179,11 +230,11 @@
     </div>
 </div>
 
-@section scripts{    
+@section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")"></script>
     <script type="text/javascript">
         var rutaGuardarDatosPago = '@Url.Action("GuardarDatosPago", "PagoEnLinea", new { area = "" })';
-        var rutaPagoVisa = '@Url.Action("PagoVisa","PagoEnLinea", new { area = "Mobile" })';
+        var rutaPagoVisa = '@Url.Action("MetodoPago","PagoEnLinea", new { area = "Mobile" })';
         var tipoOrigenPantalla = 2;
     </script>
 }

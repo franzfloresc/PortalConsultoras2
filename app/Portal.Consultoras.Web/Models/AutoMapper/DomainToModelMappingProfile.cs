@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Pedido;
 using System.Linq;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -533,6 +534,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CUV, f => f.MapFrom(c => c.CuvProducto))
                 .ForMember(t => t.TipoOfertaSisId, f => f.MapFrom(c => c.TipoOfertaSisId));
 
+            Mapper.CreateMap<BEPagoEnLineaTipoPago, PagoEnLineaTipoPagoModel>();
+            Mapper.CreateMap<BEPagoEnLineaMedioPago, PagoEnLineaMedioPagoModel>();
+            Mapper.CreateMap<BEPagoEnLineaMedioPagoDetalle, PagoEnLineaMedioPagoDetalleModel>();
         }
     }
 }

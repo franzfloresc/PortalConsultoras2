@@ -2288,6 +2288,21 @@ namespace Portal.Consultoras.Service
             return BLPagoEnLinea.ObtenerPagoEnLineaByFiltro(paisId, filtro);
         }
 
+        public List<BEPagoEnLineaTipoPago> ObtenerPagoEnLineaTipoPago(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaTipoPago(paisId);
+        }
+
+        public List<BEPagoEnLineaMedioPago> ObtenerPagoEnLineaMedioPago(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaMedioPago(paisId);
+        }   
+        
+        public List<BEPagoEnLineaMedioPagoDetalle> ObtenerPagoEnLineaMedioPagoDetalle(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaMedioPagoDetalle(paisId);
+        }
+
         #endregion
 
 

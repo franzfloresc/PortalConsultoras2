@@ -1263,8 +1263,18 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro);
+
+        [OperationContract]
+        List<BEPagoEnLineaTipoPago> ObtenerPagoEnLineaTipoPago(int paisId);
+
+        [OperationContract]
+        List<BEPagoEnLineaMedioPago> ObtenerPagoEnLineaMedioPago(int paisId);
+
+        [OperationContract]
+        List<BEPagoEnLineaMedioPagoDetalle> ObtenerPagoEnLineaMedioPagoDetalle(int paisId);
+
         #endregion
-        
+
         [OperationContract]
         bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId);
 
