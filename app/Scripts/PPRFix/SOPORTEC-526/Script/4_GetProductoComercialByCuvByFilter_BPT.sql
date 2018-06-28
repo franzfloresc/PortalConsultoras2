@@ -52,8 +52,7 @@ BEGIN
 		SAPProductoComercialOfertaRevista varchar(50),
 		PrecioValorizado numeric(12,2),
 		CodigoSAPProductosLanzamiento bit,
-		TipoOfertaRevista varchar(20),
-		EstrategiaIDSicc int
+		TipoOfertaRevista varchar(20)
 	)
 	/*Fin creacion de tablas Temporales*/
 
@@ -72,6 +71,7 @@ BEGIN
 	WHERE
 		c.codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,op.CUV)>0
+
 	-- Producto Faltante
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
@@ -100,6 +100,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	-- Producto Comercial
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
@@ -123,7 +124,6 @@ BEGIN
 		,p.PrecioValorizado
 		,pl.CodigoSAP
 		,pcor.Oferta
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -181,8 +181,7 @@ BEGIN
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
 		p.TipoOfertaRevista as TipoOfertaRevista,
 		te.Codigo as TipoEstrategiaCodigo,
-		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente,
-		p.EstrategiaIDSicc
+		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
 	left join Estrategia e
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
@@ -193,9 +192,11 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpMexico
@@ -251,8 +252,7 @@ BEGIN
 		SAPProductoComercialOfertaRevista varchar(50),
 		PrecioValorizado numeric(12,2),
 		CodigoSAPProductosLanzamiento bit,
-		TipoOfertaRevista varchar(20),
-		EstrategiaIDSicc int
+		TipoOfertaRevista varchar(20)
 	)
 	/*Fin creacion de tablas Temporales*/
 
@@ -271,6 +271,7 @@ BEGIN
 	WHERE
 		c.codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,op.CUV)>0
+
 	-- Producto Faltante
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
@@ -299,6 +300,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	-- Producto Comercial
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
@@ -322,7 +324,6 @@ BEGIN
 		,p.PrecioValorizado
 		,pl.CodigoSAP
 		,pcor.Oferta
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -380,8 +381,7 @@ BEGIN
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
 		p.TipoOfertaRevista as TipoOfertaRevista,
 		te.Codigo as TipoEstrategiaCodigo,
-		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente,
-		p.EstrategiaIDSicc
+		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
 	left join Estrategia e
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
@@ -392,9 +392,11 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpColombia
@@ -450,8 +452,7 @@ BEGIN
 		SAPProductoComercialOfertaRevista varchar(50),
 		PrecioValorizado numeric(12,2),
 		CodigoSAPProductosLanzamiento bit,
-		TipoOfertaRevista varchar(20),
-		EstrategiaIDSicc int
+		TipoOfertaRevista varchar(20)
 	)
 	/*Fin creacion de tablas Temporales*/
 
@@ -470,6 +471,7 @@ BEGIN
 	WHERE
 		c.codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,op.CUV)>0
+
 	-- Producto Faltante
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
@@ -498,6 +500,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	-- Producto Comercial
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
@@ -521,7 +524,6 @@ BEGIN
 		,p.PrecioValorizado
 		,pl.CodigoSAP
 		,pcor.Oferta
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -579,8 +581,7 @@ BEGIN
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
 		p.TipoOfertaRevista as TipoOfertaRevista,
 		te.Codigo as TipoEstrategiaCodigo,
-		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente,
-		p.EstrategiaIDSicc
+		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
 	left join Estrategia e
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
@@ -591,9 +592,11 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpSalvador
@@ -649,8 +652,7 @@ BEGIN
 		SAPProductoComercialOfertaRevista varchar(50),
 		PrecioValorizado numeric(12,2),
 		CodigoSAPProductosLanzamiento bit,
-		TipoOfertaRevista varchar(20),
-		EstrategiaIDSicc int
+		TipoOfertaRevista varchar(20)
 	)
 	/*Fin creacion de tablas Temporales*/
 
@@ -669,6 +671,7 @@ BEGIN
 	WHERE
 		c.codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,op.CUV)>0
+
 	-- Producto Faltante
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
@@ -697,6 +700,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	-- Producto Comercial
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
@@ -720,7 +724,6 @@ BEGIN
 		,p.PrecioValorizado
 		,pl.CodigoSAP
 		,pcor.Oferta
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -778,8 +781,7 @@ BEGIN
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
 		p.TipoOfertaRevista as TipoOfertaRevista,
 		te.Codigo as TipoEstrategiaCodigo,
-		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente,
-		p.EstrategiaIDSicc
+		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
 	left join Estrategia e
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
@@ -790,9 +792,11 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpPuertoRico
@@ -848,8 +852,7 @@ BEGIN
 		SAPProductoComercialOfertaRevista varchar(50),
 		PrecioValorizado numeric(12,2),
 		CodigoSAPProductosLanzamiento bit,
-		TipoOfertaRevista varchar(20),
-		EstrategiaIDSicc int
+		TipoOfertaRevista varchar(20)
 	)
 	/*Fin creacion de tablas Temporales*/
 
@@ -868,6 +871,7 @@ BEGIN
 	WHERE
 		c.codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,op.CUV)>0
+
 	-- Producto Faltante
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
@@ -896,6 +900,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	-- Producto Comercial
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
@@ -919,7 +924,6 @@ BEGIN
 		,p.PrecioValorizado
 		,pl.CodigoSAP
 		,pcor.Oferta
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -977,8 +981,7 @@ BEGIN
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
 		p.TipoOfertaRevista as TipoOfertaRevista,
 		te.Codigo as TipoEstrategiaCodigo,
-		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente,
-		p.EstrategiaIDSicc
+		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
 	left join Estrategia e
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
@@ -989,9 +992,11 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpPanama
@@ -1047,8 +1052,7 @@ BEGIN
 		SAPProductoComercialOfertaRevista varchar(50),
 		PrecioValorizado numeric(12,2),
 		CodigoSAPProductosLanzamiento bit,
-		TipoOfertaRevista varchar(20),
-		EstrategiaIDSicc int
+		TipoOfertaRevista varchar(20)
 	)
 	/*Fin creacion de tablas Temporales*/
 
@@ -1067,6 +1071,7 @@ BEGIN
 	WHERE
 		c.codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,op.CUV)>0
+
 	-- Producto Faltante
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
@@ -1095,6 +1100,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	-- Producto Comercial
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
@@ -1118,7 +1124,6 @@ BEGIN
 		,p.PrecioValorizado
 		,pl.CodigoSAP
 		,pcor.Oferta
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -1176,8 +1181,7 @@ BEGIN
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
 		p.TipoOfertaRevista as TipoOfertaRevista,
 		te.Codigo as TipoEstrategiaCodigo,
-		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente,
-		p.EstrategiaIDSicc
+		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
 	left join Estrategia e
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
@@ -1188,9 +1192,11 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpGuatemala
@@ -1246,8 +1252,7 @@ BEGIN
 		SAPProductoComercialOfertaRevista varchar(50),
 		PrecioValorizado numeric(12,2),
 		CodigoSAPProductosLanzamiento bit,
-		TipoOfertaRevista varchar(20),
-		EstrategiaIDSicc int
+		TipoOfertaRevista varchar(20)
 	)
 	/*Fin creacion de tablas Temporales*/
 
@@ -1266,6 +1271,7 @@ BEGIN
 	WHERE
 		c.codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,op.CUV)>0
+
 	-- Producto Faltante
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
@@ -1294,6 +1300,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	-- Producto Comercial
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
@@ -1317,7 +1324,6 @@ BEGIN
 		,p.PrecioValorizado
 		,pl.CodigoSAP
 		,pcor.Oferta
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -1375,8 +1381,7 @@ BEGIN
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
 		p.TipoOfertaRevista as TipoOfertaRevista,
 		te.Codigo as TipoEstrategiaCodigo,
-		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente,
-		p.EstrategiaIDSicc
+		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
 	left join Estrategia e
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
@@ -1387,9 +1392,11 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpEcuador
@@ -1445,8 +1452,7 @@ BEGIN
 		SAPProductoComercialOfertaRevista varchar(50),
 		PrecioValorizado numeric(12,2),
 		CodigoSAPProductosLanzamiento bit,
-		TipoOfertaRevista varchar(20),
-		EstrategiaIDSicc int
+		TipoOfertaRevista varchar(20)
 	)
 	/*Fin creacion de tablas Temporales*/
 
@@ -1465,6 +1471,7 @@ BEGIN
 	WHERE
 		c.codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,op.CUV)>0
+
 	-- Producto Faltante
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
@@ -1493,6 +1500,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	-- Producto Comercial
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
@@ -1516,7 +1524,6 @@ BEGIN
 		,p.PrecioValorizado
 		,pl.CodigoSAP
 		,pcor.Oferta
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -1574,8 +1581,7 @@ BEGIN
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
 		p.TipoOfertaRevista as TipoOfertaRevista,
 		te.Codigo as TipoEstrategiaCodigo,
-		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente,
-		p.EstrategiaIDSicc
+		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
 	left join Estrategia e
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
@@ -1586,9 +1592,11 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpDominicana
@@ -1644,8 +1652,7 @@ BEGIN
 		SAPProductoComercialOfertaRevista varchar(50),
 		PrecioValorizado numeric(12,2),
 		CodigoSAPProductosLanzamiento bit,
-		TipoOfertaRevista varchar(20),
-		EstrategiaIDSicc int
+		TipoOfertaRevista varchar(20)
 	)
 	/*Fin creacion de tablas Temporales*/
 
@@ -1664,6 +1671,7 @@ BEGIN
 	WHERE
 		c.codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,op.CUV)>0
+
 	-- Producto Faltante
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
@@ -1692,6 +1700,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	-- Producto Comercial
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
@@ -1715,7 +1724,6 @@ BEGIN
 		,p.PrecioValorizado
 		,pl.CodigoSAP
 		,pcor.Oferta
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -1773,8 +1781,7 @@ BEGIN
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
 		p.TipoOfertaRevista as TipoOfertaRevista,
 		te.Codigo as TipoEstrategiaCodigo,
-		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente,
-		p.EstrategiaIDSicc
+		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
 	left join Estrategia e
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
@@ -1785,9 +1792,11 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpCostaRica
@@ -1843,8 +1852,7 @@ BEGIN
 		SAPProductoComercialOfertaRevista varchar(50),
 		PrecioValorizado numeric(12,2),
 		CodigoSAPProductosLanzamiento bit,
-		TipoOfertaRevista varchar(20),
-		EstrategiaIDSicc int
+		TipoOfertaRevista varchar(20)
 	)
 	/*Fin creacion de tablas Temporales*/
 
@@ -1863,6 +1871,7 @@ BEGIN
 	WHERE
 		c.codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,op.CUV)>0
+
 	-- Producto Faltante
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
@@ -1891,6 +1900,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	-- Producto Comercial
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
@@ -1914,7 +1924,6 @@ BEGIN
 		,p.PrecioValorizado
 		,pl.CodigoSAP
 		,pcor.Oferta
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -1972,8 +1981,7 @@ BEGIN
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
 		p.TipoOfertaRevista as TipoOfertaRevista,
 		te.Codigo as TipoEstrategiaCodigo,
-		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente,
-		p.EstrategiaIDSicc
+		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
 	left join Estrategia e
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
@@ -1984,9 +1992,11 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpChile
@@ -2042,8 +2052,7 @@ BEGIN
 		SAPProductoComercialOfertaRevista varchar(50),
 		PrecioValorizado numeric(12,2),
 		CodigoSAPProductosLanzamiento bit,
-		TipoOfertaRevista varchar(20),
-		EstrategiaIDSicc int
+		TipoOfertaRevista varchar(20)
 	)
 	/*Fin creacion de tablas Temporales*/
 
@@ -2062,6 +2071,7 @@ BEGIN
 	WHERE
 		c.codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,op.CUV)>0
+
 	-- Producto Faltante
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
@@ -2090,6 +2100,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	-- Producto Comercial
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
@@ -2113,7 +2124,6 @@ BEGIN
 		,p.PrecioValorizado
 		,pl.CodigoSAP
 		,pcor.Oferta
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -2171,8 +2181,7 @@ BEGIN
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
 		p.TipoOfertaRevista as TipoOfertaRevista,
 		te.Codigo as TipoEstrategiaCodigo,
-		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente,
-		p.EstrategiaIDSicc
+		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
 	left join Estrategia e
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
@@ -2183,9 +2192,11 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpBolivia
@@ -2241,8 +2252,7 @@ BEGIN
 		SAPProductoComercialOfertaRevista varchar(50),
 		PrecioValorizado numeric(12,2),
 		CodigoSAPProductosLanzamiento bit,
-		TipoOfertaRevista varchar(20),
-		EstrategiaIDSicc int
+		TipoOfertaRevista varchar(20)
 	)
 	/*Fin creacion de tablas Temporales*/
 
@@ -2261,6 +2271,7 @@ BEGIN
 	WHERE
 		c.codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,op.CUV)>0
+
 	-- Producto Faltante
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
@@ -2289,6 +2300,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	-- Producto Comercial
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
@@ -2312,7 +2324,6 @@ BEGIN
 		,p.PrecioValorizado
 		,pl.CodigoSAP
 		,pcor.Oferta
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -2370,8 +2381,7 @@ BEGIN
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
 		p.TipoOfertaRevista as TipoOfertaRevista,
 		te.Codigo as TipoEstrategiaCodigo,
-		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente,
-		p.EstrategiaIDSicc
+		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
 	left join Estrategia e
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
@@ -2382,8 +2392,10 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
