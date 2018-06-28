@@ -283,10 +283,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     lstDetalle.Where(x => x.ClienteID == 0).Update(x => x.NombreCliente = usuario.Nombre);
                     lstDetalle.Where(x => x.EsKitNueva).Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.DescripcionKitInicio);
-                    lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID != Constantes.PedidoDetalleApp.idHerramientaVenta).Update
+                    lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID == 0).Update
                                     (x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.OfertaNiveles);
-                    lstDetalle.Where(x => x.TipoEstrategiaID == Constantes.PedidoDetalleApp.idHerramientaVenta).Update(
-                                     x => { x.DescripcionEstrategia = string.Format("{0} (*)", x.DescripcionEstrategia.ToUpper());
+                    lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID > 0).Update(
+                                     x => { x.DescripcionEstrategia = string.Format("{0} (*)", x.DescripcionEstrategia);
                                          x.IndicadorOfertaCUV = true; });
                     pedido.olstBEPedidoWebDetalle = lstDetalle;
 
@@ -1089,7 +1089,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             };
             var detallesPedidoWeb = _pedidoWebDetalleBusinessLogic.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros, false).ToList();
             pedidoID = detallesPedidoWeb.Any() ? detallesPedidoWeb.FirstOrDefault().PedidoID : 0;
-
+           
             return detallesPedidoWeb;
         }
 
