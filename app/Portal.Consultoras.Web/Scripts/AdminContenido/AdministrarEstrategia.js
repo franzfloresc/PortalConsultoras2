@@ -399,7 +399,7 @@
             $('#CodigoProducto').val(data.CodigoProducto);
             $("#hdnCodigoSAP").val(data.CodigoSAP);
             $('#hdnIdMatrizComercial').val(data.IdMatrizComercial);
-            debugger;
+            
             $("#hdSimbolo").val(data.Simbolo);
 
             if (data.Activo == "1") $("#chkHabilitarOferta").attr("checked", true);
@@ -537,9 +537,9 @@
 
             $("#file-upload").show();
             _editData.imagen = _obtenerImagenGrilla(id);
-
+            
             if (data.FlagEstrella == "1") $("#chkOfertaUltimoMinuto").attr("checked", true);
-            else $("#chkEstrella").attr("checked", false);
+            else $("#chkOfertaUltimoMinuto").attr("checked", false);
             $(".checksPedidosAsociados")
                 .append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' +
                     data.NumeroPedido +
@@ -843,7 +843,7 @@
                         $('#MarcaDescripcion').val(data.DescripcionMarca);
                         $("#hdnEnMatrizComercial").val(data.enMatrizComercial);
                         $("#hdnIdMatrizComercial").val(data.IdMatrizComercial)
-                        debugger;
+                     
                         _editData.CUV2 = $("#txtCUV2").val();
                         _editData.CodigoSAP = data.codigoSAP;
                         _editData.IdMatrizComercial = data.IdMatrizComercial;
@@ -2468,6 +2468,8 @@
                         var EstrategiaID = 0;
                         if (!_variables.isNuevo)
                             EstrategiaID = $("#hdEstrategiaID").val();
+                        var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
+                        var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
 
                         var TipoEstrategiaID = $("#hdTipoEstrategiaID").val();
                         var CampaniaID = $("#hdCampania").val();
@@ -2527,7 +2529,7 @@
                         var CodigoProductoVal = $('#hdnCodigoSAP').val();
                         var IdMatrizComercial = $('#hdnIdMatrizComercial').val();
                         var CodigoSAPVal = $('#hdnCodigoSAP').val();
-                        debugger;
+                       
                         //TODO Validar yrdsf
                         var flagIndividual = $("#chkFlagIndividual").is(":checked");
                         var slogan = $("#txtSlogan").val() || "";
@@ -2588,7 +2590,9 @@
                             _id: _idVal,
                             //TODO validar yrdsf
                             FlagIndividual: flagIndividual,
-                            Slogan: slogan
+                            Slogan: slogan,
+                            _flagRecoProduc: flagRecoProduc,
+                            _flagRecoPerfil: flagRecoPerfil
                         };
                         jQuery.ajax({
                             type: "POST",
@@ -3008,6 +3012,7 @@
             $("#imgMiniSeleccionada").attr("src", _config.rutaImagenVacia);
             $("#hdImagenMiniaturaURLAnterior").val("");
             $("#chkEsSubCampania").removeAttr("checked");
+            $("#hdnIdMatrizComercial").val("");
 
             var aux1 = $("#ddlTipoEstrategia").find(":selected").data("id");
             var aux2 = $("#ddlTipoEstrategia").find(":selected").data("codigo");
@@ -3818,7 +3823,7 @@
                 if (zonas != "") {
                     zonas = zonas.substring(0, zonas.length - 1);
                 }
-                debugger;
+
                 $("#hdZonas").val(zonas);
                 $("#chkSeleccionar").attr("checked", true);
             }
@@ -3912,7 +3917,7 @@
     function Editar(id, mongoId, tipoEstrategiaCodigo, event) {
         event.preventDefault();
         event.stopPropagation();
-        debugger;
+        
         if (id != 0)
             _variables.isNuevo = false;
 

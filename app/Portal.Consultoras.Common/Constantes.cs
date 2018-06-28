@@ -2116,7 +2116,7 @@ namespace Portal.Consultoras.Common
             public const string UrlFiltrarEstrategia = "api/estrategia/{0}/{1}";
 
             //api/Estrategia/editar/{pais}
-            public const string UrlEditarWebApi = "api/estrategia/editar/{0}";
+            public const string UrlEditarWebApi = "api/estrategia/editar/{0}?prod={1}&perfil={2}";
 
 
             //api/Estrategia/activar/{pais}/{id}?Usuario=

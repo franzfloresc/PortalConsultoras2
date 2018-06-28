@@ -745,7 +745,8 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model, string _id)
+        public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model, 
+            string _id,string _flagRecoProduc,string _flagRecoPerfil)
         {
             try
             {
@@ -829,7 +830,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             if (entidad.EstrategiaID != 0)
                             {
-                                administrarEstrategiaProvider.EditarEstrategia(entidad, _id, userData.CodigoISO);
+                                administrarEstrategiaProvider.EditarEstrategia(entidad, _id, userData.CodigoISO,_flagRecoProduc, _flagRecoPerfil);
                             }
                             else
                             {
