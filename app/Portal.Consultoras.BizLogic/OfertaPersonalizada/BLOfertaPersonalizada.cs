@@ -1,13 +1,13 @@
-﻿using System;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
+using Portal.Consultoras.Data.ServicePROLConsultas;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ShowRoom;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
-using System.Configuration;
-using Portal.Consultoras.Data.ServicePROLConsultas;
 
 namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
 {
@@ -131,6 +131,12 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                             }
 
                             CacheManager<BEEstrategia>.AddData(entidad.PaisID, ECacheItem.HVEstrategia, entidad.CampaniaID.ToString(), estrategias);
+                        }
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.ShowRoom:
+                        using (var reader = daEstrategia.GetEstrategiaShowRoom(entidad))
+                        {
+                            while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
                         }
                         break;
                     case Constantes.TipoEstrategiaCodigo.LosMasVendidos:

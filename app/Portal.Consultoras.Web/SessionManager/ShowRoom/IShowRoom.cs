@@ -8,9 +8,9 @@ namespace Portal.Consultoras.Web.SessionManager.ShowRoom
     {
         IBannerInferiorConfiguracion BannerInferiorConfiguracion { get; set; }
 
-        List<EstrategiaPedidoModel> Ofertas { get; set; }
-        List<EstrategiaPedidoModel> OfertasSubCampania { get; set; }
-        List<EstrategiaPedidoModel> OfertasPerdio { get; set; }
-        List<EstrategiaPedidoModel> OfertasCompraPorCompra { get; set; }
+        List<EstrategiaPersonalizadaProductoModel> Ofertas { get; set; }
+        List<EstrategiaPersonalizadaProductoModel> OfertasSubCampania { get; set; }
+        List<EstrategiaPersonalizadaProductoModel> OfertasPerdio { get; set; }
+        //List<EstrategiaPersonalizadaProductoModel> OfertasCompraPorCompra { get; set; }
     }
 }

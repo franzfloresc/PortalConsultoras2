@@ -24,9 +24,10 @@ namespace Portal.Consultoras.Web.Providers
             _paisISO = paisIso;
         }
 
-        public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia)
+        public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca)
         {
             string joinCuv;
+            esMultimarca = false;
             var listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo, out joinCuv);
             if (joinCuv == "") return new List<EstrategiaComponenteModel>();
 
@@ -35,7 +36,9 @@ namespace Portal.Consultoras.Web.Providers
 
             var listaEstrategiaComponente = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos, listaProductos, codigoTipoEstrategia);
             //estrategiaModelo.CodigoVariante = "";
-            return GetEstrategiaDetalleFactorCuadre(listaEstrategiaComponente);
+            var listaComponentesPorOrdenar = GetEstrategiaDetalleFactorCuadre(listaEstrategiaComponente);
+            listaComponentesPorOrdenar = OrdenarComponentesPorMarca(listaComponentesPorOrdenar, out esMultimarca);
+            return listaComponentesPorOrdenar;
         }
 
         private List<BEEstrategiaProducto> GetEstrategiaProductos(EstrategiaPersonalizadaProductoModel estrategiaModelo, out string codigoSap)
@@ -209,5 +212,21 @@ namespace Portal.Consultoras.Web.Providers
             return listaHermanosCuadre;
         }
 
+        private List<EstrategiaComponenteModel> OrdenarComponentesPorMarca(List<EstrategiaComponenteModel> listaComponentesPorOrdenar, out bool esMultimarca)
+        {
+            int contador = 0;
+            var listaComponentesOrdenados = new List<EstrategiaComponenteModel>();
+            var listaComponentesCyzone = !listaComponentesPorOrdenar.Any() ? new List<EstrategiaComponenteModel>() : listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.Cyzone);
+            var listaComponentesEzika = !listaComponentesPorOrdenar.Any() ? new List<EstrategiaComponenteModel>() : listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.Esika);
+            var listaComponentesLbel = !listaComponentesPorOrdenar.Any() ? new List<EstrategiaComponenteModel>() : listaComponentesPorOrdenar.Where(x => x.IdMarca == Constantes.Marca.LBel);
+            contador += listaComponentesCyzone.Any() ? 1 : 0;
+            contador += listaComponentesEzika.Any() ? 1 : 0;
+            contador += listaComponentesLbel.Any() ? 1 : 0;
+            esMultimarca = contador > 1 ? true : false;
+            listaComponentesOrdenados.AddRange(listaComponentesCyzone);
+            listaComponentesOrdenados.AddRange(listaComponentesEzika);
+            listaComponentesOrdenados.AddRange(listaComponentesLbel);
+            return listaComponentesOrdenados;
+        }
     }
 }

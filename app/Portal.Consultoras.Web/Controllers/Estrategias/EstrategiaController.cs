@@ -464,5 +464,11 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
             return Json(listaProductoModel, JsonRequestBehavior.AllowGet);
         }
+
+        #region Metodos ShowRoom
+
+
+        #endregion
+
     }
 }

@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Web.Models
         public List<TituloDetalle> DetallesPack { get; set; } //Pestana detalles del pack
         public List<TipVenta> TipsVentas { get; set; } //Pestana Tips Ventas de la ficha detalle del CUV
         public List<TituloDetalle> Beneficios { get; set; } //Pestana beneficios
-        public List<String> RutaVideos { get; set; } //Por defecto 1 video
+        public String RutaVideo { get; set; } //Por defecto 1 video
 
     }
     public class TituloDetalle
