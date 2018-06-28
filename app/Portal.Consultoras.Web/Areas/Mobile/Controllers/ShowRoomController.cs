@@ -120,8 +120,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
 
-                model.Simbolo = userData.Simbolo;
-                model.CodigoISO = userData.CodigoISO;
+                //model.Simbolo = userData.Simbolo;
+                //model.CodigoISO = userData.CodigoISO;
 
                 var showRoomBannerLateral = _showRoomProvider.GetShowRoomBannerLateral(userData.CodigoISO, userData.ZonaHoraria, userData.FechaInicioCampania);
                 ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
@@ -130,12 +130,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var eventoConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel();
                 eventoConsultora.CorreoEnvioAviso = Util.Trim(eventoConsultora.CorreoEnvioAviso);
 
-                model.Suscripcion = eventoConsultora.Suscripcion;
-                model.EMail = eventoConsultora.CorreoEnvioAviso == "" ? userData.EMail : eventoConsultora.CorreoEnvioAviso;
-                model.EMailActivo = (eventoConsultora.CorreoEnvioAviso != userData.EMail) || userData.EMailActivo;
-                model.Celular = userData.Celular;
-                model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
-                model.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == model.CUV) ? "block" : "none";
+                //model.Suscripcion = eventoConsultora.Suscripcion;
+                //model.EMail = eventoConsultora.CorreoEnvioAviso == "" ? userData.EMail : eventoConsultora.CorreoEnvioAviso;
+                //model.EMailActivo = (eventoConsultora.CorreoEnvioAviso != userData.EMail) || userData.EMailActivo;
+                //model.Celular = userData.Celular;
+                //model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
+                //model.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == model.CUV) ? "block" : "none";
 
                 return View(model);
             }
@@ -161,7 +161,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //var listaCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, configEstrategiaSR.BeShowRoom.EventoID,
             //            configEstrategiaSR.BeShowRoom.CampaniaID);
             //modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
-            modelo.TieneCompraXcompra = configEstrategiaSR.BeShowRoom.TieneCompraXcompra;
+            //modelo.TieneCompraXcompra = configEstrategiaSR.BeShowRoom.TieneCompraXcompra;
 
             ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 

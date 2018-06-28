@@ -6,7 +6,6 @@ using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Web.Models
 {
-   
     [Serializable]
     [DataContract(IsReference = true)]
     public class EstrategiaPedidoModel : CompartirRedesSocialesModel
@@ -137,8 +136,8 @@ namespace Portal.Consultoras.Web.Models
         public string ImagenMini { get; set; }
         public string Subtitulo { get; set; }
         public int UnidadesPermitidas { get; set; }
-        public int Incrementa { get; set; }
-        public int CantidadIncrementa { get; set; }
+        //public int Incrementa { get; set; }
+        //public int CantidadIncrementa { get; set; }
         public IList<EstrategiaPedidoModel> ListaOfertaShowRoom { get; set; }
         public IList<EstrategiaPedidoModel> ListaShowRoomCompraPorCompra { get; set; }
         public string DescripcionLegal { get; set; }
@@ -159,8 +158,8 @@ namespace Portal.Consultoras.Web.Models
         public bool EsSubCampania { get; set; }
         public int UnidadesPermitidasRestantes { get; set; }
         public int TipoAccionAgregar { get; set; }
-        public string FBMensaje { get; set; }
-        public string WAMensaje { get; set; }
+        //public string FBMensaje { get; set; }
+        //public string WAMensaje { get; set; }
         #endregion
 
         public EstrategiaPedidoModel Clone()

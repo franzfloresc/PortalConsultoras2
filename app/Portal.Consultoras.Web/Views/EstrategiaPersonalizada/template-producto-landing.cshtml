@@ -1,7 +1,7 @@
 ﻿@using Portal.Consultoras.Common
 <script id="producto-landing-template" type="text/x-handlebars-template">
     {{#each this.lista as |item|}}
-
+    
     {{#if EsBanner}}
     <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
@@ -37,7 +37,7 @@
                  {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
                     onclick="javascript:VerPopupExpGanaMas();"
                  {{else}}
-                    onclick="javascript:VerDetalleEstrategia(event);"
+                    onclick="javascript:OnClickFichaDetalle(event.target);"
                  {{/iff}}>
                 <div class="producto_img_home" data-item-tag="foto">
                     <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{ImgUrl FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
