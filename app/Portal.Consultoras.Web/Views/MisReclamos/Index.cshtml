@@ -332,7 +332,7 @@
             </div>
             {{#if_eq item.TipoMotivoRechazo '1'}}
             {{else if_eq item.TipoMotivoRechazo '2'}}
-            <div class="rango_producto_observado" data-contenedor-cantidad="">
+            <div class="rango_producto_observado" data-cantidad-contenedor="">
                 <input style="background: white;" type="text" name="Cantidad" data-input="cantidad" value="1" maxlength="2" class="txtCantidad liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onkeypress=" PreValidarCUV(event); " onfocus=" SeleccionarContenido(this) " />
                 <div class="liquidacion_rango_right_pedido" style="background: white;">
                     <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>

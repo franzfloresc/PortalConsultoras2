@@ -78,7 +78,7 @@
 
             <div class="pedido_ingreso_datos campo_cantidad">
                 <br />
-                <div class="liquidacion_rango_wrapper_pedido" data-contenedor-cantidad="">
+                <div class="liquidacion_rango_wrapper_pedido" data-cantidad-contenedor="">
                     <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                            onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)" />
                     <div class="liquidacion_rango_right_pedido">
@@ -284,7 +284,7 @@
             <input type="hidden" name="hdfCUV{{PedidoID}}" value="{{CUV}}" id="hdfCUV{{PedidoID}}" />
         </div>
         <div class="celda_cantidad_pedidos unidades_fic">
-            <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-contenedor-cantidad="">
+            <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
                 <input type="hidden" name="txtLPTempCant{{PedidoDetalleID}}" id="txtLPTempCant{{PedidoDetalleID}}" value="{{Cantidad}}" />
                 <input type="text" value="{{Cantidad}}" data-input="cantidad" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" id="txtLPCant{{PedidoDetalleID}}"
                        data-pedido="{{PedidoDetalleID}}" onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)"
