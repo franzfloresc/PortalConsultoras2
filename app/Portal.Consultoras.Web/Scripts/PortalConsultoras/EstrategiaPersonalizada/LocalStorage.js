@@ -7,6 +7,8 @@
     var _obtenerKey = function(palanca, campania) {
         switch (palanca) {
             case _codigoPalanca.RevistaDigital:
+            case _codigoPalanca.OfertaParaTi:
+            case _codigoPalanca.OfertasParaMi:
                 return _keyLocalStorage.RevistaDigital + campania;
             case _codigoPalanca.GuiaDeNegocioDigitalizada:
                 return _keyLocalStorage.GuiaDeNegocio + campania;
