@@ -228,7 +228,7 @@ var EstrategiaAgregarModule = function () {
             return false;
         }
 
-        var cantidad = (limite > 0) ? limite: ($btnAgregar.parents(dataProperties.dataItem).find(dataProperties.inputCantidad).val());
+        var cantidad = (limite > 0) ? limite : ($btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val());
 
         if (!$.isNumeric(cantidad)) {
             abrirMensajeEstrategia("Ingrese un valor numérico.");
