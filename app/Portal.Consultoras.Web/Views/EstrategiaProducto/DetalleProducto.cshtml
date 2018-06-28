@@ -125,11 +125,11 @@
                             </div>
                             <div id="consultant-commentary-{{EstrategiaID}}">- Sandra A.</div>
                         </div>
-                        <div class="liquidacion_rango_home">
+                        <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                             <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
                             <div class="liquidacion_rango_right_pedido">
-                                <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                             </div>
                         </div>
                         <a class="boton_Agregalo_home btn_aregar_set" data-btn-agregar-sr="" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true);">AGRÉGALO</a>
