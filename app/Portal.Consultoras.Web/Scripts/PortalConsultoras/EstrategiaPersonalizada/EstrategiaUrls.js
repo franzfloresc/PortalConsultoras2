@@ -22,7 +22,9 @@ const NotParticipaProgramaNuevas = "0";
 
 function OnClickFichaDetalle(e) {
     //el objeto e debe establecido con  target  (e.target)
-    var infoItem         = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
+    var infoItem = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
+    
+    EstrategiaGuardarTemporal(infoItem);
     var codigoEstrategia = $.trim(infoItem.CodigoEstrategia);
     var codigoCampania   = $.trim(infoItem.CampaniaID);
     var codigoCuv        = $.trim(infoItem.CUV2);
