@@ -7,19 +7,19 @@
 }
 
 <html lang="es">
-    <head>
-        <meta charset="utf-8" />
-        <link href="@Url.Content("~/Content/Css/Site/incentivosSMS.css")" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="description" content="SomosBelcorp Web Mobile" />
+<head>
+    <meta charset="utf-8" />
+    <link href="@Url.Content("~/Content/Css/Site/incentivosSMS.css")" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="SomosBelcorp Web Mobile" />
 
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.9.2.custom.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
-        <script type="text/javascript">
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui-1.9.2.custom.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
+    <script type="text/javascript">
             var ViewBagEsMobile = 2;
             var productoModel = {
                 'CUV': '@Model.CUV',
@@ -39,9 +39,10 @@
 
             var mensajePostFail = 'Hubieron problemas de conexión al intentar registrar su producto. Inténtelo más tarde.';
             var mensajeRegistroSatisfactorio = 'El producto se registró satisfactoriamente';
-        </script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/IncentivosSMS/Index.js")"></script>
-    </head>
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/IncentivosSMS/Index.js")"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
+</head>
     <body>
         <div class="desktop">
             <div class="fondo_set">
@@ -80,11 +81,11 @@
                         <div class="content_agregar">
                             <div class="content_mobile_agregar">
                                 <div class="cantidad_desktop">
-                                    <div class="liquidacion_rango_home">
-                                        <input type="text" disabled="disabled" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido">
+                                    <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                                        <input type="text" disabled="disabled" value="1" size="2" maxlength="2" data-input="cantidad" class="liquidacion_rango_cantidad_pedido">
                                         <div class="liquidacion_rango_right_pedido">
-                                            <a class="mas"><img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/rMnx6GzqNrZOPda/mas.png" alt=""></a>
-                                            <a class="menos"><img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/KoqLwUxgA6rLXpX/menos.png" alt=""></a>
+                                            <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/rMnx6GzqNrZOPda/mas.png" alt=""></a>
+                                            <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/KoqLwUxgA6rLXpX/menos.png" alt=""></a>
                                         </div>
                                     </div>
                                 </div>

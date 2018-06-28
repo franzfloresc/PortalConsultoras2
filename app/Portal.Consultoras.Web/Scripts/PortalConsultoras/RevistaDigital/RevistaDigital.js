@@ -133,7 +133,8 @@ $(document).ready(function () {
         }
         return false;
     });
-
+    
+    //Este metodo será quitado porque la etiqueta verdetalle ya no existe.
     $("body").on("click", "[data-item-accion='verdetalle']", function (e) {
         var campania = $(this).parents("[data-tag-html]").attr("data-tag-html");
         var cuv = $(this).parents("[data-item]").attr("data-item-cuv");
@@ -157,7 +158,7 @@ $(document).ready(function () {
             if (guardo) {
                 obj
                 var url = urlOfertaDetalleProducto;
-
+                
                 if (obj.CodigoEstrategia) {
                     url = urlOfertaDetalleProductoLan;
                 }
@@ -165,7 +166,7 @@ $(document).ready(function () {
                 url = url +
                     "?cuv=" + obj.CUV2 +
                     "&campaniaId=" + obj.CampaniaID;
-
+                
                 return window.location = url;
             }
         }
