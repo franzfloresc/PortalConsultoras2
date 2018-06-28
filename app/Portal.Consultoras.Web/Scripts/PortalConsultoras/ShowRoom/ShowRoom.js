@@ -205,7 +205,7 @@ $(document).ready(function () {
         //***************************************
     }
     else if (tipoOrigenPantalla == 2) {
-        CargarShowroomMobile(null);
+        //CargarShowroomMobile(null);
     }
 
     $("body").on("click", "[data-btn-agregar-sr]", function (e) {
@@ -597,12 +597,12 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
     if (response.success) {
         if (aplicarFiltrosSubCampanias) {
             response.listaSubCampania = validarUnidadesPermitidas(response.listaSubCampania);
-            $.each(response.listaSubCampania, function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(35, true); });
+            $.each(response.listaSubCampania,
+                function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(35, true); });
 
             SetHandlebars("#template-showroom-subcampania", response.listaSubCampania, "#contenedor-showroom-subcampanias");
 
             EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias'));
-
         }
 
         $.each(response.listaOfertas, function (index, value) {
@@ -611,8 +611,10 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
             value.UrlDetalle = urlDetalleShowRoom + '/' + value.EstrategiaID;
         });
 
-        SetHandlebars("#template-showroom", response.listaOfertas, '#divProductosShowRoom');
-
+        //SetHandlebars("#template-showroom", response.listaOfertas, '#divProductosShowRoom');
+        var obj = new Object();
+        obj.lista = response.listaOfertas;
+        SetHandlebars("#producto-landing-template", obj, '#divProductosShowRoom');
 
         if (response.listaOfertasPerdio != 'undefined') {
             if (response.listaOfertasPerdio.length > 0) {
@@ -620,17 +622,13 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
                 $("#block_inscribete").show();
                 $("#divOfertaProductosPerdio").show();
 
-                //JN (sección gana+ en ShowRoom)
-                //Agregamos al modelo un objeto llamado ExperienciaGanaMas para controlar si se muestra sección dorada o no.
-                //Uso de SetHandlebars , index.cshtml, <script id="template-showroom"...) 
-                var modeloTemp = Clone(response);
-                
-                 $.each(modeloTemp.listaOfertasPerdio, function (ind, tem) {
-                    tem.ExperienciaGanaMas = ExperienciaGanaMas;
-                });
-                SetHandlebars("#template-showroom", modeloTemp.listaOfertasPerdio, '#divOfertaProductosPerdio');
+                var obj2 = new Object();
+                obj2.lista = response.listaOfertasPerdio;
+                //SetHandlebars("#template-showroom", response.listaOfertasPerdio, '#divOfertaProductosPerdio');
+                SetHandlebars("#producto-landing-template", obj2, '#divOfertaProductosPerdio');
             }
         }
+
         $("#spnCantidadFiltro").html(response.listaOfertas.length);
         $("#spnCantidadTotal").html(response.totalOfertas);
     }
@@ -665,12 +663,38 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
             return false;
         }
 
+        //
+        $.each(response.listaOfertas, function (index, value) {
+            value.Descripcion = IfNull(value.Descripcion, '').SubStrToMax($.trim(tipoOrigenPantalla)[0] == '1' ? 40 : 30, true);
+            value.Posicion = index + 1;
+            value.UrlDetalle = urlDetalleShowRoom + '/' + value.EstrategiaID;
+        });
+
+        var obj = new Object();
+        obj.lista = response.listaOfertas;
+        //SetHandlebars("#template-showroom", response.listaOfertas, '#divProductosShowRoom');
+        SetHandlebars("#producto-landing-template", obj, '#divProductosShowRoom');
+
+        if (response.listaOfertasPerdio != 'undefined') {
+            if (response.listaOfertasPerdio.length > 0) {
+                $("#contenido_zona_dorada").show();
+                $("#block_inscribete").show();
+                $("#divOfertaProductosPerdio").show();
+            }
+        }
+
+        $("#spnCantidadFiltro").html(response.listaOfertas.length);
+        $("#spnCantidadTotal").html(response.totalOfertas);
+        //
+
         var data = new Object();
         data.CantidadProductos = response.listaSubCampania.length;
         data.Lista = AsignarPosicionAListaOfertas(response.listaSubCampania);
-        $.each(response.listaSubCampania, function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(30, true); });
+        $.each(response.listaSubCampania,
+            function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(30, true); });
 
         SetHandlebars("#template-showroom-subcampanias-mobile", data, "#contenedor-showroom-subcampanias-mobile");
+
         EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias-mobile'));
     }
     else {
@@ -747,13 +771,9 @@ $("body").on("click", ".content_display_set_suboferta [data-odd-accion]", functi
 
 function validarUnidadesPermitidas(listaShowRoomOferta) {
     var lista = [];
-    if (listaShowRoomOferta != null) {
-        if (listaShowRoomOferta.length > 0) {
-            $.each(listaShowRoomOferta,
-                function (index, value) {
-                    lista.push(value);
-                });
-        }
+    if (listaShowRoomOferta != null && listaShowRoomOferta.length > 0) {
+        $.each(listaShowRoomOferta,
+            function (index, value) { lista.push(value); });
     }
     return lista;
 }

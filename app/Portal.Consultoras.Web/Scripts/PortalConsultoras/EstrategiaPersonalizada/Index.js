@@ -249,9 +249,10 @@ function SeccionMostrarProductos(data) {
             UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
         }
     } else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
+        // esta logica es para Intriga
         if (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString()) {
-            data.data = data.data || [];
-            if (data.data.length == 0) {
+            data.lista = data.lista || [];
+            if (data.lista.length == 0) {
                 $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor .bloque-titulo .cantidad > span").hide();
             }
             else {
@@ -262,6 +263,22 @@ function SeccionMostrarProductos(data) {
         } else {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
         }
+
+        if (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.SimpleCentrado.toString()) {
+
+            if (data.lista !== undefined && data.lista.length > 0) {
+                $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+                $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
+
+                $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal);
+                $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
+
+            } else {
+                $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
+                //UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
+            }
+        }
+
     } else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.HV) {
         if (data.lista !== undefined && data.lista.length > 0) {
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
@@ -285,7 +302,7 @@ function SeccionMostrarProductos(data) {
             item.EsLanzamiento = false;
         });
     }
-    
+
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
 
     if (data.Seccion.TemplateProducto == "#producto-landing-template") {

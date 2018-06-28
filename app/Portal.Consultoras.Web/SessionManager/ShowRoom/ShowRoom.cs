@@ -20,10 +20,10 @@ namespace Portal.Consultoras.Web.SessionManager.ShowRoom
             }
         }
 
-        public List<EstrategiaPedidoModel> Ofertas {
+        public List<EstrategiaPersonalizadaProductoModel> Ofertas {
             get
             {
-                return (List<EstrategiaPedidoModel>) HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertas];
+                return (List<EstrategiaPersonalizadaProductoModel>) HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertas];
             }
             set
             {
@@ -31,11 +31,11 @@ namespace Portal.Consultoras.Web.SessionManager.ShowRoom
             }
         }
 
-        public List<EstrategiaPedidoModel> OfertasSubCampania
+        public List<EstrategiaPersonalizadaProductoModel> OfertasSubCampania
         {
             get
             {
-                return (List<EstrategiaPedidoModel>)HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomSubCampania];
+                return (List<EstrategiaPersonalizadaProductoModel>)HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomSubCampania];
             }
             set
             {
@@ -43,11 +43,11 @@ namespace Portal.Consultoras.Web.SessionManager.ShowRoom
             }
         }
 
-        public List<EstrategiaPedidoModel> OfertasPerdio
+        public List<EstrategiaPersonalizadaProductoModel> OfertasPerdio
         {
             get
             {
-                return (List<EstrategiaPedidoModel>)HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertasPerdio];
+                return (List<EstrategiaPersonalizadaProductoModel>)HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertasPerdio];
             }
             set
             {
@@ -55,15 +55,15 @@ namespace Portal.Consultoras.Web.SessionManager.ShowRoom
             }
         }
 
-        public List<EstrategiaPedidoModel> OfertasCompraPorCompra {
-            get
-            {
-                return (List<EstrategiaPedidoModel>)HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertasCpc];
-            }
-            set
-            {
-                HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertasCpc] = value;
-            }
-        }
+        //public List<EstrategiaPersonalizadaProductoModel> OfertasCompraPorCompra {
+        //    get
+        //    {
+        //        return (List<EstrategiaPersonalizadaProductoModel>)HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertasCpc];
+        //    }
+        //    set
+        //    {
+        //        HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertasCpc] = value;
+        //    }
+        //}
     }
 }

@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Models
         public bool TienePaginaProducto { get; set; }
         public bool TienePaginaProductoMob { get; set; }
         public string FotoProducto01 { get; set; }
-        public string ImagenURL { get; set; }
+        public string ImagenURL { get; set; }   // se usa para el logo
         public string DescripcionMarca { get; set; }
         public string DescripcionResumen { get; set; } // Puede ser el nombre de un set, o la descripcion simple
         public string DescripcionCortada { get; set; } // Es la descripcion extendida solo con 40 caracteres
@@ -64,5 +64,7 @@ namespace Portal.Consultoras.Web.Models
         
         public string CodigoProducto { get; set; }
         public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }
+        public string CodigoCategoria { get; set; } // se usa para filtrar los productos por categoria en ShowRoom
+        public string ImagenProductoMini { get; set; }  // se usa para ShowRoom
     }
 }

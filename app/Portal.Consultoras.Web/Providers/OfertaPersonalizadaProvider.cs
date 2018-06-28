@@ -343,13 +343,31 @@ namespace Portal.Consultoras.Web.Providers
 
         #region ShowRoom
 
-        public List<EstrategiaPedidoModel> GetShowRoomOfertasConsultora(UsuarioModel usuarioModel)
+        public List<BEEstrategia> GetShowRoomOfertasConsultora(UsuarioModel usuarioModel)
         {
-            using (var ofertaService = new OfertaServiceClient())
+            var entidad = new ServiceOferta.BEEstrategia
             {
-                var listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(usuarioModel.PaisID, usuarioModel.CampaniaID, 
-                    usuarioModel.CodigoConsultora).ToList();
-                return Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomOferta);
+                PaisID = usuarioModel.PaisID,
+                CampaniaID = usuarioModel.CampaniaID,
+                ConsultoraID = usuarioModel.GetCodigoConsultora(),
+                //Zona = usuarioModel.ZonaID.ToString(),
+                ZonaHoraria = usuarioModel.ZonaHoraria,
+                FechaInicioFacturacion = usuarioModel.FechaFinCampania,
+                ValidarPeriodoFacturacion = true,
+                Simbolo = usuarioModel.Simbolo,
+                CodigoTipoEstrategia = "030"
+            };
+
+            using (var osc = new OfertaServiceClient())
+            {
+                //var listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(usuarioModel.PaisID, usuarioModel.CampaniaID, 
+                //    usuarioModel.CodigoConsultora).ToList();
+                //return Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomOferta);
+
+                var listaProducto = osc.GetEstrategiasPedido(entidad).ToList();
+                //var listaProductoModel = Mapper.Map<List<ServiceOferta.BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
+                //listaProductoModel = ConsultarEstrategiasModelFormato(listaProductoModel);
+                return listaProducto;
             }
         }
 
