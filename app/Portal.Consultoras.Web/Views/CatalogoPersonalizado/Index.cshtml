@@ -238,11 +238,11 @@
         </div>
         <div class="texto_mencion">Elige la cantidad y el sistema te ofrecerá la mejor combinación</div>
         <div style="width:215px; margin:0 auto; margin-top:10px;">
-            <div class="liquidacion_rango_home js-no-popup">
-                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="revista">
+            <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
+                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="revista">
                 <div class="liquidacion_rango_right_pedido js-no-popup">
-                    <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                    <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                    <a class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                 </div>
             </div>
             <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
@@ -251,12 +251,12 @@
             <div class="sombra_oferta">
                 <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>S/. 39.00</span></div>
                 <div style="width:215px; float:left; margin-top:12px;">
-                    <div class="liquidacion_rango_home js-no-popup">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad"
+                    <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad"
                                class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="catalogo">
                         <div class="liquidacion_rango_right_pedido js-no-popup">
-                            <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                            <a class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                         </div>
                     </div>
                     <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="catalogo">AGRÉGALO</a>
@@ -285,11 +285,11 @@
                 <div class="texto_ganancia_pack">Gana: S/ 10.00</div>
             </div>
             <div style="width:215px; margin:0 auto; margin-top:10px;">
-                <div class="liquidacion_rango_home js-no-popup">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="revista">
+                <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" data-cantidad-input="revista" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="revista">
                     <div class="liquidacion_rango_right_pedido js-no-popup">
-                        <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                        <a class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
                 <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
@@ -331,11 +331,11 @@
                         </div>
                     </div>
                     <div style="width:215px; margin:0 auto; margin-top:10px;">
-                        <div class="liquidacion_rango_home js-no-popup">
-                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="revista">
+                        <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
+                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="revista">
                             <div class="liquidacion_rango_right_pedido js-no-popup">
-                                <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                                <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                                <a class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                             </div>
                         </div>
                         <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
@@ -374,11 +374,11 @@
                         </div>
                     </div>
                     <div style="width:215px; margin:0 auto; margin-top:10px;">
-                        <div class="liquidacion_rango_home js-no-popup">
-                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="revista">
+                        <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
+                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="revista">
                             <div class="liquidacion_rango_right_pedido js-no-popup">
-                                <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                                <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                                <a class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                             </div>
                         </div>
                         <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
@@ -391,11 +391,11 @@
             <div class="sombra_oferta">
                 <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{SimboloMoneda}} {{DecimalToStringFormat precio_catalogo}}</span></div>
                 <div style="width:215px; float:left; margin-top:12px;">
-                    <div class="liquidacion_rango_home js-no-popup">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="catalogo">
+                    <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="catalogo">
                         <div class="liquidacion_rango_right_pedido js-no-popup">
-                            <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                            <a class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                         </div>
                     </div>
                     <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="catalogo">AGRÉGALO</a>
@@ -459,8 +459,8 @@
                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                     <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
                     <div class="liquidacion_rango_right_pedido">
-                        <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
                 <a class="boton_Agregalo_home" data-btn-agregar-catalogopersonalizado="">
@@ -533,11 +533,11 @@
             </div>
             <hr class="clear">
             <div class="mod-cantidades metido">
-                <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-cantidad-input="revista">
+                <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-cantidad-input="revista">
                     <div class="liquidacion_rango_right_pedido">
-                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
                 <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
@@ -552,11 +552,11 @@
                 <span>{{SimboloMoneda}} {{DecimalToStringFormat precio_catalogo}}</span>
             </div>
             <div class="mod-cantidades">
-                <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-cantidad-input="catalogo">
+                <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-cantidad-input="catalogo">
                     <div class="liquidacion_rango_right_pedido">
-                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
                 <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="catalogo">AGRÉGALO</a>
@@ -673,11 +673,11 @@
         </div>
         <div class="texto_mencion">Elige la cantidad y el sistema te ofrecerá la mejor combinación</div>
         <div style="width:215px; margin:0 auto; margin-top:10px;">
-            <div class="liquidacion_rango_home js-no-popup">
-                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="revista">
+            <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
+                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="revista">
                 <div class="liquidacion_rango_right_pedido js-no-popup">
-                    <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                    <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                    <a class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                 </div>
             </div>
             <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
@@ -686,12 +686,12 @@
             <div class="sombra_oferta">
                 <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{SimboloMoneda}} {{DecimalToStringFormat precio_catalogo}}</span></div>
                 <div style="width:215px; float:left; margin-top:12px;">
-                    <div class="liquidacion_rango_home js-no-popup">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad"
+                    <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad"
                                class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="catalogo">
                         <div class="liquidacion_rango_right_pedido js-no-popup">
-                            <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                            <a class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                         </div>
                     </div>
                     <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="catalogo">AGRÉGALO</a>
@@ -753,11 +753,11 @@
                 <div class="texto_ganancia_pack">{{TxtGanancia}}: {{SimboloMoneda}} {{DecimalToStringFormat ganancia}}</div>
             </div>
             <div style="width:215px; margin:0 auto; margin-top:10px;">
-                <div class="liquidacion_rango_home js-no-popup">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="revista">
+                <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="revista">
                     <div class="liquidacion_rango_right_pedido js-no-popup">
-                        <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                        <a class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
                 <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
@@ -800,11 +800,11 @@
                         </div>
                     </div>
                     <div style="width:215px; margin:0 auto; margin-top:10px;" data-cantidad-contenedor="">
-                        <div class="liquidacion_rango_home js-no-popup">
-                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="pack">
+                        <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
+                            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="pack">
                             <div class="liquidacion_rango_right_pedido js-no-popup">
-                                <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                                <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                                <a class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                             </div>
                         </div>
                         <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}">AGRÉGALO</a>
@@ -817,11 +817,11 @@
             <div class="sombra_oferta">
                 <div class="texto_sombra">También puedes comprarlo con el precio catálogo: <br /><span>{{SimboloMoneda}} {{DecimalToStringFormat precio_catalogo}}</span></div>
                 <div style="width:215px; float:left; margin-top:12px;">
-                    <div class="liquidacion_rango_home js-no-popup">
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="catalogo">
+                    <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0" data-cantidad-input="catalogo">
                         <div class="liquidacion_rango_right_pedido js-no-popup">
-                            <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                            <a class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                         </div>
                     </div>
                     <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="catalogo">AGRÉGALO</a>
@@ -907,11 +907,11 @@
                 </select>
             </div>
             {{/if}}
-            <div class="liquidacion_rango_home">
+            <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                 <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
                 <div class="liquidacion_rango_right_pedido">
-                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    <a class="mas" data-cantidad-agregar="+" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" data-cantidad-agregar="-" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                 </div>
             </div>
             <a class="boton_Agregalo_home ficha_btn_agregar" onclick="agregarCuvPedidoFichaProductoFAV(1)" style="cursor: pointer;">
@@ -940,4 +940,5 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/ion.rangeSlider/ion.rangeSlider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
 }

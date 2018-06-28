@@ -14,6 +14,7 @@
 
     <link href="@Url.Content("~/Content/Css/Site/flipclock.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/Ficha/Ficha.css")" rel="stylesheet" />
 
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900" rel="stylesheet" type="text/css">
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
@@ -268,6 +269,19 @@
             <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia(this);" style="display: none;">x</a>
         </div>
         <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia">
+            <div class="contenedor_palanca_odd">
+                <div id="imgSoloHoy" class="img_solo_hoy">
+                    <img src="{{ImagenSoloHoy}}" alt="" />
+                </div>
+                <div class="contenedor_detalle_producto_odd">
+                    <div class="img_odd">
+                        <img id="img-display-odd" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" alt="" data-img-lazy="1" />
+                    </div>
+                    <div class="contenedor_detalle_derecha_odd">
+                        <div class="clock clock_palanca_odd"></div>
+                    </div>
+                </div>
+            </div>
             <div class="parche_presentacion_contenedor parche_presentacion_contenedor_834">
                 <div class="rd_volver" style="position: absolute; margin-top: 28px;">
                     <a href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">
@@ -337,14 +351,14 @@
                                         <div class="precio_ofertaDia clase_control_color_dinamico">A SOLO <span>{{SimboloMoneda}} {{detalle.PrecioOfertaFormat}}</span></div>
                                     </div>
                                     <div>
-                                        <div class="liquidacion_rango_home js-no-popup">
-                                            <input type="text" style="color:white;" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd clase_control_color_dinamico" tabindex="0">
+                                        <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
+                                            <input type="text" style="color:white;" value="1" data-input="cantidad" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd clase_control_color_dinamico" tabindex="0">
                                             <div class="liquidacion_rango_right_pedido js-no-popup clase_control_color_dinamico">
-                                                <a class="mas js-no-popup clase_control_color_dinamico" tabindex="0">
+                                                <a class="mas js-no-popup clase_control_color_dinamico" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0">
                                                     <div class="cross cross_clase_control_color_dinamico"></div>
                                                     <img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" style="display:none">
                                                 </a>
-                                                <a class="menos js-no-popup clase_control_color_dinamico" tabindex="0">
+                                                <a class="menos js-no-popup clase_control_color_dinamico" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0">
                                                     <div class="cross_line cross_line_clase_control_color_dinamico"></div>
                                                     <img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" style="display:none">
                                                 </a>
@@ -402,12 +416,12 @@
                                 <div class="texto_elige_tono"></div>
                                 <div class="clear"></div>
                                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                                    <input type="text" value="1" size="2" maxlength="2"
+                                    <input type="text" value="1" size="2" maxlength="2"  data-input="cantidad"
                                            class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd"
                                            tabindex="0">
                                     <div class="liquidacion_rango_right_pedido js-no-popup">
-                                        <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                                        <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                                        <a class="mas js-no-popup"  onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                                        <a class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                                     </div>
                                 </div>
                                 <a class="boton_Agregalo_home" data-odd-accion="agregar" data-odd-accion-type="list" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>

@@ -429,7 +429,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js",
                 "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
-                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Descargables.js"
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Descargables.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/ccsOfertas").Include(

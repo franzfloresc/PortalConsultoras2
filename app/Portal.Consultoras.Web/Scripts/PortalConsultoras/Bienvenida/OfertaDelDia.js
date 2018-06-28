@@ -108,8 +108,9 @@ $(document).ready(function () {
     function MostrarRelojOfertaDelDia(totalSegundos) {
         $('.clock').each(function (index, elem) {
             $(elem).FlipClock(totalSegundos, {
+                countdown: true,
                 clockFace: 'HourlyCounter',
-                countdown: true
+                language: 'es-es'
             });
         });
 
