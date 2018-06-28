@@ -3,6 +3,7 @@
 @model Portal.Consultoras.Web.Models.EstrategiaFichaPersonalizadaProductoModel
 
 @{
+    Model.RutaVideo = "https://www.youtube.com/embed/Ib8S28KNZeU";
     var mobileConfiguracion = Html.MobileAppConfiguracion();
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 }
@@ -276,11 +277,12 @@ ul.ficha_tabs li ul{
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, maxime! Voluptatem nulla sunt laudantium impedit hic eligendi numquam, neque delectus iste eos consequuntur itaque cumque, eaque, quaerat voluptatum aut nemo.
                     </ul>
                 </li>
-                <li>
-                    <a>VIDEOS</a>
-                    <ul>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora, reiciendis. Quos nostrum, architecto laborum voluptatum sequi vitae dolores ad aliquam ratione praesentium quas numquam vel consequuntur alias quasi illum iste.
-                    </ul>
+                <li id="tabVideo" >
+                    <a>VIDEO</a>
+                    
+                            <iframe class="iframe_seccion_tab" id="ifmRutaVideo"
+                                    src="@Model.RutaVideo"></iframe>
+                       
                 </li>
             </ul>
         </div>
@@ -314,6 +316,21 @@ ul.ficha_tabs li ul{
       $('ul.ficha_tabs li').click(function () {
           $(this).children('ul').slideToggle();
       });
+
+
+      $(document).ready(function () {
+        
+          MostrarOcultarCargaElementos();
+      });
+
+      function MostrarOcultarCargaElementos() {
+
+           if (!$('#ifmRutaVideo').prop('src'))
+          {
+              $('#tabVideo').hide();
+          }
+      }
+
 </script>
 
 }
