@@ -200,7 +200,8 @@ namespace Portal.Consultoras.Web.Controllers
                     return estrategiaPersonalizada;
 
                 estrategiaPersonalizada.CampaniaID = estrategiaPersonalizada.CampaniaID > 0 ? estrategiaPersonalizada.CampaniaID : userData.CampaniaID;
-                estrategiaPersonalizada.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaPersonalizada, string.Empty);
+                bool esMultimarca = false;
+                estrategiaPersonalizada.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaPersonalizada, string.Empty, out esMultimarca);
                 return estrategiaPersonalizada;
             }
             catch (Exception ex)

@@ -1,4 +1,4 @@
-﻿var LocalStorageModule = (function() {
+﻿var LocalStorageModule = (function(constantes) {
     'use strict';
     var _codigoPalanca = ConstantesModule.CodigosPalanca;
 

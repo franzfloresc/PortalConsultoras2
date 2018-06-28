@@ -1,26 +1,23 @@
 ﻿var ConstantesModule = (function() {
   
     var _codigosPalanca = {
-        InicioRD: "INICIORD",
-        Inicio: "INICIO",
-        OfertasParaTi: "OPT",
-        RevistaDigitalIntriga: "RDI",
-        RevistaDigital: "RD",
-        RevistaDigitalReducida: "RDR",
-        RevistaDigitalSuscripcion: "RDS",
-        Lanzamiento: "LAN",
-        ValidacionMontoMaximo: "MMAX",
-        OfertaFinalTradicional: "OFT",
-        OfertaFinalCrossSelling: "OFC",
-        OfertaFinalRegaloSorpresa: "OFR",
-        OfertaFinalCrossSellingGanaMas: "OFCGM",
-        ShowRoom: "SR",
-        OfertaDelDia: "ODD",
-        Informacion: "INFO",
-        Descargables: "DES-NAV",
-        GuiaDeNegocioDigitalizada: "GND",
-        HerramientasVenta: "HV",
-        PagoEnLinea: "PAYONLINE"
+        OfertaParaTi: "OfertaParaTi",
+        PackNuevas: "PackNuevas", // Oferta Nueva Esika
+        OfertaWeb: "OfertaWeb",
+        Lanzamiento: "Lanzamiento",
+        OfertasParaMi: "OfertasParaMi",
+        PackAltoDesembolso: "PackAltoDesembolso",
+        RevistaDigital: "RevistaDigital", // No tiene referecia con BD, es un grupo de estrategias
+        LosMasVendidos: "LosMasVendidos",
+        IncentivosProgramaNuevas: "IncentivosProgramaNuevas",
+        OfertaDelDia: "OfertaDelDia",
+        GuiaDeNegocioDigitalizada: "GuiaDeNegocioDigitalizada",
+        Incentivos: "Incentivos",
+        ShowRoom: "ShowRoom",
+        HerramientasVenta: "HerramientasVenta",
+        ProgramaNuevasRegalo: "ProgramaNuevasRegalo",
+        ParticipaProgramaNuevas: "ParticipaProgramaNuevas",
+        NotParticipaProgramaNuevas: "NotParticipaProgramaNuevas"
     }
     
     var _keysLocalStorage = {

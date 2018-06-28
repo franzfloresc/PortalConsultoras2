@@ -48,10 +48,13 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaID = campania,
                     CodigoVariante = codigoVariante
                 };
+                bool esMultimarca = false;
+                var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, "", out esMultimarca);
 
                 return Json(new
                 {
-                    componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, Constantes.TipoEstrategiaCodigo.ShowRoom)
+                    esMultimarca,
+                    componentes 
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
@@ -72,8 +75,8 @@ namespace Portal.Consultoras.Web.Controllers
         //Por el momento solo SW y ODD se maneja de sesion
         private bool PalancasConSesion(string palanca)
         {
-            return palanca.Equals(Constantes.ConfiguracionPais.ShowRoom) ||
-                   palanca.Equals(Constantes.ConfiguracionPais.OfertaDelDia);
+            return palanca.Equals(Constantes.NombrePalanca.ShowRoom) ||
+                   palanca.Equals(Constantes.NombrePalanca.OfertaDelDia);
         }
 
         //Falta revisar las casuiticas por palanca
@@ -81,16 +84,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             switch (palanca)
             {
-                case Constantes.ConfiguracionPais.RevistaDigital:
-                case Constantes.ConfiguracionPais.Lanzamiento:
-                case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada: //TODO: Validar habilitacion para GND
-                case Constantes.ConfiguracionPais.HerramientasVenta:
+                case Constantes.NombrePalanca.RevistaDigital:
+                case Constantes.NombrePalanca.Lanzamiento:
+                case Constantes.NombrePalanca.GuiaDeNegocioDigitalizada: //TODO: Validar habilitacion para GND
+                case Constantes.NombrePalanca.HerramientasVenta:
                 {
                     return revistaDigital.TieneRDC || revistaDigital.TieneRDCR;
                 }
-                case Constantes.ConfiguracionPais.ShowRoom:
+                case Constantes.NombrePalanca.ShowRoom:
                     return true; //TODO: Validar habilitacion para ShowRoom
-                case Constantes.ConfiguracionPais.OfertaDelDia:
+                case Constantes.NombrePalanca.OfertaDelDia:
                     return true; //TODO: Validar habilitacion para OfertaDelDia
                 default:
                     return true;

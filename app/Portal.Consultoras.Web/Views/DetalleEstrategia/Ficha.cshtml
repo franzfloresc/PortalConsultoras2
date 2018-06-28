@@ -286,7 +286,7 @@
                             <div class="nombre_marca">
                                 <span data-nombre_marca="">{{DescripcionMarca}}</span>
                             </div>
-                            <div class="descripcion" data-descripcion="">{{DescripcionResumen}}</div>
+                            <div class="descripcion" data-descripcion="">{{DescripcionCortada}}</div>
                         </div>
                         <div class="contenedor_derecho">
                             <div class="precio_valorizado">Valorizado en <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
@@ -333,6 +333,7 @@
                             {{/each}}
                         </div>
                     </div>
+                    {{/each}}
                     {{/iff}}
                     {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}
                     <div class="contenedor_lista_detalle">
@@ -697,7 +698,6 @@
 </div>
 
 @section scripts{
-<script src="~/Scripts/PortalConsultoras/Shared/ConstantesModule.js" type="text/javascript"></script>
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
     <script src="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" type="text/javascript"></script>
     <script src="~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js" type="text/javascript"></script>
@@ -707,7 +707,7 @@
         var fichaModule;
         $(document).ready(function() {
             fichaModule = FichaModule({
-                palanca: "@Model.Palanca.ToUpper()",
+                palanca: "@Model.Palanca",
                 origen: "@Model.Origen",
                 tieneSession: "@Model.TieneSession",
                 campania: "@Model.Campania",
