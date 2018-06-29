@@ -323,7 +323,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else item.TipoObservacion = 0;
             }
 
-            sessionManager.SetObservacionesProl(null);
+            //sessionManager.SetObservacionesProl(null);
 
             return pedObs.OrderByDescending(p => p.TipoObservacion).ToList();
         }
