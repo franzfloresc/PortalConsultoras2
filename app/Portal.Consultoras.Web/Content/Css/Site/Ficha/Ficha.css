@@ -1070,6 +1070,7 @@ body {
 .contenedor_palanca_odd {
     margin: 0 auto;
     max-width: 834px;
+    padding: 30px 0;
 }
 
 .img_solo_hoy {
@@ -1084,6 +1085,7 @@ body {
 
 .contenedor_detalle_producto_odd {
     float: left;
+    margin-top: 13px;
     width: 100%;
 }
 
@@ -1213,7 +1215,84 @@ body {
 }
 
 .contenedor_controles_odd {
-    color: #fff;
     float: left;
-    width: 60%;
+    margin-top: 30px;
+    width: 51%;
+}
+
+.contenedor_agregar_odd {
+    float: left;
+    width: 100%;
+}
+
+.contenedor_rangos_odd {
+    border: solid 1px #fff;
+    margin-right: 3%;
+    width: 28%;
+}
+
+    .contenedor_rangos_odd .menos {
+        padding-top: 0;
+    }
+
+.txt_cantidad_pedido_odd {
+    background: none;
+    border: none;
+    border-right: solid 1px #fff;
+    color: #fff;
+    font-family: 'lato';
+    font-size: 19px;
+    font-weight: 600;
+    height: 43px;
+    letter-spacing: .3px;
+    position: relative;
+    text-align: center;
+    width: 65%;
+}
+
+.txt_mas_odd {
+    border-bottom: solid 1px #fff;
+}
+
+.dibujar_mas_odd, .dibujar_menos_odd {
+    width: 8px;
+}
+
+    .dibujar_mas_odd::before, .dibujar_mas_odd::after, .dibujar_menos_odd::before, .dibujar_menos_odd::after {
+        border-bottom: solid 2px #fff;
+    }
+
+.btn_agregalo_odd {
+    background: none;
+    border: solid 1px #fff;
+    font-size: 13px;
+    letter-spacing: 1px;
+    width: 69%;
+}
+
+.btn_agregalo_odd_desactivado {
+    background-color: #d8d8d8;
+    pointer-events: none;
+}
+
+.contenedor_elige_tu_tono_odd {
+    float: left;
+    width: 100%;
+}
+
+.btn_elige_tu_tono_odd {
+    color: #fff;
+    border: solid 1px #fff;
+    float: left;
+    font-size: 13px;
+    height: 45px;
+    letter-spacing: 1px;
+    line-height: 45px;
+    text-align: center;
+    width: 100%;
+}
+
+.btn_elige_tu_tono_odd_desactivado {
+    background-color: #d8d8d8;
+    pointer-events: none;
 }
