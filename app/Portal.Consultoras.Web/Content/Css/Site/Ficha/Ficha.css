@@ -1061,7 +1061,7 @@ body {
         border-bottom: solid 1px #000;
     }
 
-#carrusel .slick-track, #carrusel_tonos .slick-track {
+#carrusel .slick-track, #carrusel_tonos .slick-track, #carrusel_odd .slick-track {
     margin: 0 auto;
 }
 
@@ -1070,6 +1070,10 @@ body {
 .contenedor_palanca_odd {
     margin: 0 auto;
     max-width: 834px;
+}
+
+.contenedor_odd {
+    float: left;
     padding: 30px 0;
 }
 
@@ -1092,12 +1096,30 @@ body {
 .img_odd {
     height: 270px;
     float: left;
+    position: relative;
 }
 
     .img_odd img {
         height: 100%;
         width: auto;
     }
+
+    .img_odd:hover .btn_ver_detalle {
+        opacity: 1;
+    }
+
+.btn_ver_detalle_odd {
+    bottom: 0;
+    font-size: 13px;
+    font-weight: normal;
+    height: 35px;
+    letter-spacing: 1px;
+    line-height: 33px;
+    text-align: center;
+    margin: auto;
+    top: 0;
+    width: 49%;
+}
 
 .contenedor_detalle_derecha_odd {
     float: right;
@@ -1113,44 +1135,57 @@ body {
     width: 100%;
 }
 
-.clock_palanca_odd {
+.clock_clean {
+    display: initial !important;
+    font: initial !important;
+    margin: initial !important;
+    margin-top: initial !important;
+    position: initial !important;
+    text-align: initial !important;
+    width: initial !important;
+    -webkit-user-select: initial !important;
+}
+
+.clock_panlanca_odd {
+    float: right;
+}
+
+.clock_palanca_detalle_odd {
     color: #fff !important;
     display: block !important;
     float: left !important;
-    font: initial !important;
     font-family: 'Lato' !important;
     font-size: 11.6px !important;
     height: 50px !important;
     letter-spacing: .2px !important;
-    margin: initial !important;
     width: 100% !important;
 }
 
-    .clock_palanca_odd ul {
+    .clock_palanca_detalle_odd ul {
         width: 24px !important;
         height: 40px !important;
     }
 
-    .clock_palanca_odd .flip-clock-dot {
+    .clock_palanca_detalle_odd .flip-clock-dot {
         height: 5px !important;
         background: #fff !important;
         margin-top: 10px !important;
         width: 5px !important;
     }
 
-        .clock_palanca_odd .flip-clock-dot.bottom {
+        .clock_palanca_detalle_odd .flip-clock-dot.bottom {
             top: 24px;
         }
 
-    .clock_palanca_odd .flip-clock-divider {
+    .clock_palanca_detalle_odd .flip-clock-divider {
         width: 10px !important;
     }
 
-        .clock_palanca_odd .flip-clock-divider:first-child {
+        .clock_palanca_detalle_odd .flip-clock-divider:first-child {
             width: 0 !important;
         }
 
-        .clock_palanca_odd .flip-clock-divider .flip-clock-label {
+        .clock_palanca_detalle_odd .flip-clock-divider .flip-clock-label {
             color: #fff !important;
             display: block !important;
             left: 10px !important;
@@ -1158,19 +1193,19 @@ body {
             top: 42px !important;
         }
 
-    .clock_palanca_odd .minutes .flip-clock-label {
+    .clock_palanca_detalle_odd .minutes .flip-clock-label {
         left: 13px !important;
     }
 
-    .clock_palanca_odd .seconds .flip-clock-label {
+    .clock_palanca_detalle_odd .seconds .flip-clock-label {
         left: 12px !important;
     }
 
-    .clock_palanca_odd .flip {
+    .clock_palanca_detalle_odd .flip {
         box-shadow: 0 2px 5px #fff !important;
     }
 
-    .clock_palanca_odd ul li a div div.inn {
+    .clock_palanca_detalle_odd ul li a div div.inn {
         background-color: #fff !important;
         color: #000 !important;
         font-size: 40px !important;
@@ -1295,4 +1330,14 @@ body {
 .btn_elige_tu_tono_odd_desactivado {
     background-color: #d8d8d8;
     pointer-events: none;
+}
+
+.contenedor_carrusel_odd {
+    float: left;
+    margin-top: 13px;
+    width: 813.75px;
+}
+
+#carrusel_odd .dibujar_flecha_carrusel::before, #carrusel_odd .dibujar_flecha_carrusel::after {
+    border-bottom: solid 3px #fff;
 }
