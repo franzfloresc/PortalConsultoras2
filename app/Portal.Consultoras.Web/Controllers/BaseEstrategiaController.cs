@@ -149,6 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listEstrategia;
         }
 
+        [Obsolete("Metodo obsoleto no usar.")]
         public EstrategiaPersonalizadaProductoModel EstrategiaGetDetalle(int id, string cuv = "")
         {
             EstrategiaPersonalizadaProductoModel estrategiaModelo;
@@ -168,8 +169,10 @@ namespace Portal.Consultoras.Web.Controllers
                 if (string.IsNullOrWhiteSpace(estrategiaModelo.CodigoVariante))
                     return estrategiaModelo;
 
+                bool esMultimarca = false;
                 estrategiaModelo.CampaniaID = estrategiaModelo.CampaniaID > 0 ? estrategiaModelo.CampaniaID : userData.CampaniaID;
-                estrategiaModelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, string.Empty);
+                estrategiaModelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, string.Empty, out esMultimarca);
+                estrategiaModelo.esMultimarca = esMultimarca;
             }
             catch (Exception ex)
             {
@@ -177,6 +180,49 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return estrategiaModelo;
+        }
+
+        public EstrategiaPersonalizadaProductoModel ObtenerEstrategiaPersonalizada(string palanca, string cuv)
+        {
+            try
+            {
+                var estrategiaPersonalizada = ObtenerEstrategiaPersonalizadaSession(palanca);
+                if (estrategiaPersonalizada == null || estrategiaPersonalizada.CUV2.Equals(cuv))
+                    return null;
+                estrategiaPersonalizada.Hermanos = new List<EstrategiaComponenteModel>();
+                estrategiaPersonalizada.TextoLibre = Util.Trim(estrategiaPersonalizada.TextoLibre);
+                estrategiaPersonalizada.CodigoVariante = Util.Trim(estrategiaPersonalizada.CodigoVariante);
+
+                var listaPedido = ObtenerPedidoWebDetalle();
+                estrategiaPersonalizada.IsAgregado = listaPedido.Any(p => p.CUV == estrategiaPersonalizada.CUV2);
+
+                if (string.IsNullOrWhiteSpace(estrategiaPersonalizada.CodigoVariante))
+                    return estrategiaPersonalizada;
+
+                estrategiaPersonalizada.CampaniaID = estrategiaPersonalizada.CampaniaID > 0 ? estrategiaPersonalizada.CampaniaID : userData.CampaniaID;
+                bool esMultimarca = false;
+                estrategiaPersonalizada.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaPersonalizada, string.Empty, out esMultimarca);
+                return estrategiaPersonalizada;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return null;
+            }
+        }
+        
+
+        private EstrategiaPersonalizadaProductoModel ObtenerEstrategiaPersonalizadaSession(string palanca)
+        {
+            switch (palanca)
+            {
+                case Constantes.ConfiguracionPais.ShowRoom:
+                    return new DetalleEstrategiaFichaModel();
+                case Constantes.ConfiguracionPais.OfertaDelDia:
+                    return new DetalleEstrategiaFichaModel();
+                default:
+                    return null;
+            }
         }
 
         public List<EstrategiaPedidoModel> ConsultarEstrategiasHomePedido(string codAgrupacion = "")
@@ -307,7 +353,12 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.Ganancia = estrategia.Ganancia;
                 prodModel.GananciaString = estrategia.GananciaString;
 
-                prodModel.TipoAccionAgregar = _ofertaPersonalizadaProvider.TipoAccionAgregar(estrategia.TieneVariedad, estrategia.TipoEstrategia.Codigo, userData.esConsultoraLider, tipo == 1 || (estrategia.CampaniaID > 0 && estrategia.CampaniaID != userData.CampaniaID));
+                prodModel.TipoAccionAgregar = _ofertaPersonalizadaProvider.TipoAccionAgregar(
+                    estrategia.TieneVariedad, 
+                    estrategia.TipoEstrategia.Codigo, 
+                    userData.esConsultoraLider, 
+                    tipo == 1 || (estrategia.CampaniaID > 0 && estrategia.CampaniaID != userData.CampaniaID), 
+                    estrategia.CodigoEstrategia);
 
                 if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
                 {
@@ -399,7 +450,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listEstrategia;
         }
 
-        private List<EstrategiaPedidoModel> ConsultarEstrategiasModelFormato(List<ServiceOferta.BEEstrategia> listaProducto)
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasModelFormato(List<ServiceOferta.BEEstrategia> listaProducto)
         {
             listaProducto = listaProducto ?? new List<ServiceOferta.BEEstrategia>();
             List<EstrategiaPedidoModel> listaProductoModel = Mapper.Map<List<ServiceOferta.BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);

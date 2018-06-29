@@ -6,7 +6,6 @@ using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceODS;
-using Portal.Consultoras.Web.ServiceOferta;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
@@ -557,14 +556,14 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                if (!errorServer)
-                {
-                    using (var pedidoServiceClient = new PedidoServiceClient())
-                    {
-                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
-                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
-                    }
-                }
+                //if (!errorServer)
+                //{
+                //    using (var pedidoServiceClient = new PedidoServiceClient())
+                //    {
+                //        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
+                //            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
+                //    }
+                //}
 
                 return Json(new
                 {
@@ -4101,7 +4100,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region UnidadesPermitidas
                 estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
-
                 var PedidosAgregados = ObtenerPedidoWebSetDetalleAgrupado();
 
                 if (PedidosAgregados.Any(x => x.CUV == estrategia.CUV2 && x.SetID != 0))
@@ -4116,7 +4114,6 @@ namespace Portal.Consultoras.Web.Controllers
                             success = false,
                             message = mensaje
                         }, JsonRequestBehavior.AllowGet);
-
                     }
                 }
                 else
@@ -4130,7 +4127,6 @@ namespace Portal.Consultoras.Web.Controllers
                             message = mensaje
                         }, JsonRequestBehavior.AllowGet);
                     }
-
                 }
                 #endregion
 
@@ -4151,12 +4147,9 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategia.MarcaID = listSp.Length > 1 ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
                     estrategia.Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
 
-
-
                     respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, model, false);
                     ListaCuvsTemporal.Add(listSp.Length > 0 ? listSp[0] : estrategia.CUV2);
                 }
-
 
                 if (respuesta.Data.ToString().Contains("success = True"))
                 {
@@ -4169,8 +4162,6 @@ namespace Portal.Consultoras.Web.Controllers
                         });
                     }
 
-
-
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
                         pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), CuvSet
@@ -4178,10 +4169,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-
-
                 return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
-
             }
             catch (Exception ex)
             {

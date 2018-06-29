@@ -1,28 +1,11 @@
-﻿/**
- * Constantes Referenciadas por Palancas
- */
-const OfertaParaTi = "001";
-const PackNuevas = "002";
-const OfertaWeb = "003";
-const Lanzamiento = "005";
-const OfertasParaMi = "007";
-const PackAltoDesembolso = "008";
-const RevistaDigital = "101";
-const LosMasVendidos = "020";
-const IncentivosProgramaNuevas = "021";
-const OfertaDelDia = "009";
-const GuiaDeNegocioDigitalizada = "010";
-const Incentivos = "022";
-const ShowRoom = "030";
-const HerramientasVenta = "011";
-const ProgramaNuevasRegalo = "044";
-const ParticipaProgramaNuevas = "1";
-const NotParticipaProgramaNuevas = "0";
+﻿
 
 
 function OnClickFichaDetalle(e) {
-    //el objeto e debe establecido con  target  (e.target)
-    var infoItem         = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
+    //el objeto e debe ser establecido con target  (e.target)
+    var infoItem = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
+    
+    EstrategiaGuardarTemporal(infoItem);
     var codigoEstrategia = $.trim(infoItem.CodigoEstrategia);
     var codigoCampania   = $.trim(infoItem.CampaniaID);
     var codigoCuv        = $.trim(infoItem.CUV2);
@@ -47,60 +30,62 @@ function GetPalanca(codigoEstrategia) {
     if (codigoEstrategia != null && typeof codigoEstrategia !== "undefined")
 
         switch (codigoEstrategia) {
-            case OfertaParaTi:
-                url += "OfertaParaTi/";
+
+            case ConstantesModule.ConstantesPalanca.OfertaParaTi:
+                url += ConstantesModule.CodigosPalanca.OfertaParaTi + "/";
                 break;
-            case PackNuevas:
-                url += "PackNuevas/";
+            case ConstantesModule.ConstantesPalanca.PackNuevas:
+                url += ConstantesModule.CodigosPalanca.PackNuevas + "/";
                 break;
-            case OfertaWeb:
-                url += "OfertaWeb/";
+            case ConstantesModule.ConstantesPalanca.OfertaWeb:
+                url += ConstantesModule.CodigosPalanca.OfertaWeb + "/";
                 break;
-            case Lanzamiento:
-                url += "Lanzamiento/";
+            case ConstantesModule.ConstantesPalanca.Lanzamiento:
+                url += ConstantesModule.CodigosPalanca.Lanzamiento + "/";
                 break;
-            case OfertasParaMi:
-                url += "OfertasParaMi/";
+            case ConstantesModule.ConstantesPalanca.OfertasParaMi:
+                url += ConstantesModule.CodigosPalanca.OfertasParaMi + "/";
                 break;
-            case PackAltoDesembolso:
-                url += "PackAltoDesembolso/";
+            case ConstantesModule.ConstantesPalanca.PackAltoDesembolso:
+                url += ConstantesModule.CodigosPalanca.PackAltoDesembolso + "/";
                 break;
-            case RevistaDigital:
-                url += "RevistaDigital/";
+            case ConstantesModule.ConstantesPalanca.RevistaDigital:
+                url += ConstantesModule.CodigosPalanca.RevistaDigital + "/";
                 break;
-            case LosMasVendidos:
-                url += "LosMasVendidos/";
+            case ConstantesModule.ConstantesPalanca.LosMasVendidos:
+                url += ConstantesModule.CodigosPalanca.LosMasVendidos + "/";
                 break;
-            case IncentivosProgramaNuevas:
-                url += "IncentivosProgramaNuevas/";
+            case ConstantesModule.ConstantesPalanca.IncentivosProgramaNuevas:
+                url += ConstantesModule.CodigosPalanca.IncentivosProgramaNuevas + "/";
                 break;
-            case OfertaDelDia:
-                url += "OfertaDelDia/";
+            case ConstantesModule.ConstantesPalanca.OfertaDelDia:
+                url += ConstantesModule.CodigosPalanca.OfertaDelDia + "/";
                 break;
-            case GuiaDeNegocioDigitalizada:
-                url += "GuiaDeNegocioDigitalizada/";
+            case ConstantesModule.ConstantesPalanca.GuiaDeNegocioDigitalizada:
+                url += ConstantesModule.CodigosPalanca.GuiaDeNegocioDigitalizada + "/";
                 break;
-            case Incentivos:
-                url += "Incentivos/";
+            case ConstantesModule.ConstantesPalanca.Incentivos:
+                url += ConstantesModule.CodigosPalanca.Incentivos + "/";
                 break;
-            case ShowRoom:
-                url += "ShowRoom/";
+            case ConstantesModule.ConstantesPalanca.ShowRoom:
+                url += ConstantesModule.CodigosPalanca.ShowRoom + "/";
                 break;
-            case HerramientasVenta:
-                url += "HerramientasVenta/";
+            case ConstantesModule.ConstantesPalanca.HerramientasVenta:
+                url += ConstantesModule.CodigosPalanca.HerramientasVenta + "/";
                 break;
-            case ProgramaNuevasRegalo:
-                url += "ProgramaNuevasRegalo/";
+            case ConstantesModule.ConstantesPalanca.ProgramaNuevasRegalo:
+                url += ConstantesModule.CodigosPalanca.ProgramaNuevasRegalo + "/";
                 break;
-            case ParticipaProgramaNuevas:
-                url += "ParticipaProgramaNuevas/";
+            case ConstantesModule.ConstantesPalanca.ParticipaProgramaNuevas:
+                url += ConstantesModule.CodigosPalanca.ParticipaProgramaNuevas + "/";
                 break;
-            case NotParticipaProgramaNuevas:
-                url += "NotParticipaProgramaNuevas/";
+            case ConstantesModule.ConstantesPalanca.NotParticipaProgramaNuevas:
+                url += ConstantesModule.CodigosPalanca.NotParticipaProgramaNuevas + "/";
                 break;
             default:
                 return "";
         }
+
     return url;
 }
 

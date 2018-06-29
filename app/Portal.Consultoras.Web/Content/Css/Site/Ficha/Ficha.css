@@ -1070,6 +1070,7 @@ body {
 .contenedor_palanca_odd {
     margin: 0 auto;
     max-width: 834px;
+    padding: 30px 0;
 }
 
 .img_solo_hoy {
@@ -1084,6 +1085,7 @@ body {
 
 .contenedor_detalle_producto_odd {
     float: left;
+    margin-top: 13px;
     width: 100%;
 }
 
@@ -1102,6 +1104,15 @@ body {
     width: 60%;
 }
 
+.txt_te_quedan {
+    color: #fff;
+    float: left;
+    font-size: 13px;
+    line-height: 1.38;
+    margin: 0 0 4px 2px;
+    width: 100%;
+}
+
 .clock_palanca_odd {
     color: #fff !important;
     display: block !important;
@@ -1112,7 +1123,7 @@ body {
     height: 50px !important;
     letter-spacing: .2px !important;
     margin: initial !important;
-    width: initial !important;
+    width: 100% !important;
 }
 
     .clock_palanca_odd ul {
@@ -1148,11 +1159,11 @@ body {
         }
 
     .clock_palanca_odd .minutes .flip-clock-label {
-        left: 8px !important;
+        left: 13px !important;
     }
 
     .clock_palanca_odd .seconds .flip-clock-label {
-        left: 7px !important;
+        left: 12px !important;
     }
 
     .clock_palanca_odd .flip {
@@ -1167,3 +1178,121 @@ body {
         letter-spacing: .7px !important;
         text-shadow: 0 1px 2px #fff !important;
     }
+
+.marca_odd {
+    color: #fff;
+    float: left;
+    margin-top: 25px;
+    width: 100%;
+}
+
+.nombre_oferta_odd {
+    color: #fff;
+    float: left;
+    font-size: 30px;
+    font-weight: 700;
+    width: 100%;
+}
+
+.precios_odd {
+    color: #fff;
+    float: left;
+    width: 100%;
+}
+
+.precio_valorizado_odd {
+    bottom: 3px;
+    font-size: 15px;
+    font-weight: 900;
+    position: relative;
+    text-decoration: line-through;
+}
+
+.precio_venta_odd {
+    font-size: 25px;
+    font-weight: 900;
+    margin-left: 16px;
+}
+
+.contenedor_controles_odd {
+    float: left;
+    margin-top: 30px;
+    width: 51%;
+}
+
+.contenedor_agregar_odd {
+    float: left;
+    width: 100%;
+}
+
+.contenedor_rangos_odd {
+    border: solid 1px #fff;
+    margin-right: 3%;
+    width: 28%;
+}
+
+    .contenedor_rangos_odd .menos {
+        padding-top: 0;
+    }
+
+.txt_cantidad_pedido_odd {
+    background: none;
+    border: none;
+    border-right: solid 1px #fff;
+    color: #fff;
+    font-family: 'lato';
+    font-size: 19px;
+    font-weight: 600;
+    height: 43px;
+    letter-spacing: .3px;
+    position: relative;
+    text-align: center;
+    width: 65%;
+}
+
+.txt_mas_odd {
+    border-bottom: solid 1px #fff;
+}
+
+.dibujar_mas_odd, .dibujar_menos_odd {
+    width: 8px;
+}
+
+    .dibujar_mas_odd::before, .dibujar_mas_odd::after, .dibujar_menos_odd::before, .dibujar_menos_odd::after {
+        border-bottom: solid 2px #fff;
+    }
+
+.btn_agregalo_odd {
+    background: none;
+    border: solid 1px #fff;
+    font-size: 13px;
+    letter-spacing: 1px;
+    width: 69%;
+}
+
+.btn_agregalo_odd_desactivado {
+    background-color: #d8d8d8;
+    pointer-events: none;
+}
+
+.contenedor_elige_tu_tono_odd {
+    float: left;
+    width: 100%;
+}
+
+.btn_elige_tu_tono_odd {
+    color: #fff;
+    border: solid 1px #fff;
+    float: left;
+    font-size: 13px;
+    height: 45px;
+    letter-spacing: 1px;
+    line-height: 45px;
+    text-align: center;
+    width: 100%;
+}
+
+.btn_elige_tu_tono_odd_desactivado {
+    background-color: #d8d8d8;
+    pointer-events: none;
+}

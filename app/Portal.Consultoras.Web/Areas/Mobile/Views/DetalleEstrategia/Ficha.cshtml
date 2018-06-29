@@ -3,209 +3,239 @@
 @model Portal.Consultoras.Web.Models.EstrategiaFichaPersonalizadaProductoModel
 
 @{
+    Model.CodigoVideo = "Ajoq2mlOliw";
     var mobileConfiguracion = Html.MobileAppConfiguracion();
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 }
 @section styles
 {
     <style>
-        .ficha_nombremarca{
-	font-size: 11px;
-	font-weight: bold;
-	font-style: normal;
-	font-stretch: normal;
-	line-height: 1.91;
-	letter-spacing: 0.5px;
-	color: #000000;
+        .ficha_nombremarca {
+            font-size: 11px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.91;
+            letter-spacing: 0.5px;
+            color: #000000;
+        }
 
-}
-.ficha_nombreproducto{
-	font-size: 13px;
-	font-weight: 900;
-	font-style: normal;
-	font-stretch: normal;
-	line-height: 1.62;
-	letter-spacing: normal;
-	color: #000000;
-	margin-bottom: 9px;
-}
-.ficha_infoganadora{
-	font-size: 16px;
-	font-weight: normal;
-	font-style: normal;
-	font-stretch: normal;
-	line-height: normal;
-	letter-spacing: normal;
-	color: #000000;
-	margin-bottom: 14px;
-}
-.ficha_precioantiguo{
-	font-size: 13px;
-	font-weight: normal;
-	font-style: normal;
-	font-stretch: normal;
-	line-height: normal;
-	letter-spacing: normal;
-	color: #000000;
-	text-decoration: line-through;
-}
-.ficha_precioparati{
-	font-size: 14px;
-	font-weight: normal;
-	font-style: normal;
-	font-stretch: normal;
-	line-height: normal;
-	letter-spacing: normal;
-	color: #000000;
-	margin-bottom: 17px;
-}
-.ficha_precioparati b{
-	font-weight: 900;
+        .ficha_nombreproducto {
+            font-size: 13px;
+            font-weight: 900;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.62;
+            letter-spacing: normal;
+            color: #000000;
+            margin-bottom: 9px;
+        }
 
-}
-.ficha_precioparati span.separador{
-	margin: 0 2px 0px 5px;
-	color: #00000042;
-}
-.ficha_precioparati span.gana{
-	font-size: 14px;
-	font-weight: normal;
-	font-style: normal;
-	font-stretch: normal;
-	line-height: normal;
-	letter-spacing: normal;
-	color: #e81c36;
-}
-.ficha_seleccionatonos{
-	margin-bottom: 19px;
-}
-.ficha_eligetono{
-	margin-bottom: 23px;
-}
-.ficha_encuentraproducto{
-	font-size: 13px;
-	font-weight: bold;
-	font-style: normal;
-	font-stretch: normal;
-	line-height: 1.38;
-	letter-spacing: 2.5px;
-	text-align: center;
-	color: #000000;
-	padding-bottom: 10px;
-}
-.ficha_encuentraproducto p{
-	display: block;
-}
-.ficha_productoencontrado{
-}
-.ficha_lineaencuentraproducto hr{
-	margin: 0;
-	border: .5px solid #0000001a;
-        margin-top: 30px;
+        .ficha_infoganadora {
+            font-size: 16px;
+            font-weight: normal;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            color: #000000;
+            margin-bottom: 14px;
+        }
 
-}
-.ficha_redes{
-	padding:24px 0px;
-}
-.ficha_redes p{
-	display: block;
-	margin-bottom: 17px;
-	font-size: 13px;
-	font-weight: normal;
-	font-style: normal;
-	font-stretch: normal;
-	line-height: 1;
-	letter-spacing: normal;
-	text-align: center;
-	color: #000000;
-}
-.ficha_redes a img{
-	display: block;
-	width: 51.4px;
-}
-.ficha_redes a{
-	display: block;
-	float: left;
-	width:50%;
-}
-.ficha_redes a img.fb{
-	float: left;
-	margin:0px 18.85px;
-}
-.ficha_redes a img.wsp{
-	float: right;
-	margin:0px 18.85px;
-}
-ul.ficha_tabs{
-	margin:0;
-	padding: 0;
-	list-style: none;
-	margin-bottom: 26px;
-}
-ul.ficha_tabs li {
-	width:100%;
-	border-bottom: 1px solid #00000029;
-}
-ul.ficha_tabs li a {
-	display: block;
-	width: 100%;
-	padding: 16px 0px;
-	font-weight: 700;
-	letter-spacing: 1.5px;
-	color: black;
-	text-decoration: none;
-	background: url(../../../../Content/Images/mobile/dropdown-arrow.png);
-	background-repeat: no-repeat;
-	background-position: right center;
-	background-size: 12px;
-	font-size: 13px;
-	font-weight: 500;
-	font-style: normal;
-	font-stretch: normal;
-	line-height: normal;
-	letter-spacing: 2.5px;
-	text-align: left;
-	color: #000000;
-	font-weight: 900;
-}
-ul.ficha_tabs li ul{
-	display: none;
-}
-ul.ficha_tabs li ul.abierto{
-    display:block;
-}
-ul.ficha_tabs li:first-child {
-	border-top: 1px solid #00000029;
-}
-ul.ficha_tabs li a.abierto{
-	background: url(up-arrow.svg);
-}
-ul.ficha_tabs li ul{
-	padding: 0 0px 20px 0px;
-}
-.ficha_breadcrumbs{
-	margin-bottom: 13px;
-}
-.ficha_breadcrumbs .breadcrumb{
-	margin-bottom: 0;
-	margin-bottom: 0;
-	background: white;
-	border-radius: 0;
-	padding: 8px 0px;
-}
-.ficha_breadcrumbs .breadcrumb li a{
-	opacity: 0.5;
-    font-size: 9px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.8;
-    letter-spacing: .5px;
-    color: #000000;
-}
-    .breadcrumb>li+li:before{
-        content: '|' !important;
-    }
+        .ficha_precioantiguo {
+            font-size: 13px;
+            font-weight: normal;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            color: #000000;
+            text-decoration: line-through;
+        }
+
+        .ficha_precioparati {
+            font-size: 14px;
+            font-weight: normal;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            color: #000000;
+            margin-bottom: 17px;
+        }
+
+            .ficha_precioparati b {
+                font-weight: 900;
+            }
+
+            .ficha_precioparati span.separador {
+                margin: 0 2px 0px 5px;
+                color: #00000042;
+            }
+
+            .ficha_precioparati span.gana {
+                font-size: 14px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: normal;
+                letter-spacing: normal;
+                color: #e81c36;
+            }
+
+        .ficha_seleccionatonos {
+            margin-bottom: 19px;
+        }
+
+        .ficha_eligetono {
+            margin-bottom: 23px;
+        }
+
+        .ficha_encuentraproducto {
+            font-size: 13px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.38;
+            letter-spacing: 2.5px;
+            text-align: center;
+            color: #000000;
+            padding-bottom: 10px;
+        }
+
+            .ficha_encuentraproducto p {
+                display: block;
+            }
+
+        .ficha_productoencontrado {
+        }
+
+        .ficha_lineaencuentraproducto hr {
+            margin: 0;
+            border: .5px solid #0000001a;
+            margin-top: 30px;
+        }
+
+        .ficha_redes {
+            padding: 24px 0px;
+        }
+
+            .ficha_redes p {
+                display: block;
+                margin-bottom: 17px;
+                font-size: 13px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1;
+                letter-spacing: normal;
+                text-align: center;
+                color: #000000;
+            }
+
+            .ficha_redes a img {
+                display: block;
+                width: 51.4px;
+            }
+
+            .ficha_redes a {
+                display: block;
+                float: left;
+                width: 50%;
+            }
+
+                .ficha_redes a img.fb {
+                    float: left;
+                    margin: 0px 18.85px;
+                }
+
+                .ficha_redes a img.wsp {
+                    float: right;
+                    margin: 0px 18.85px;
+                }
+
+        ul.ficha_tabs {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            margin-bottom: 26px;
+        }
+
+            ul.ficha_tabs li {
+                width: 100%;
+                border-bottom: 1px solid #00000029;
+            }
+
+                ul.ficha_tabs li a {
+                    display: block;
+                    width: 100%;
+                    padding: 16px 0px;
+                    font-weight: 700;
+                    letter-spacing: 1.5px;
+                    color: black;
+                    text-decoration: none;
+                    background: url(../../../../Content/Images/mobile/dropdown-arrow.png);
+                    background-repeat: no-repeat;
+                    background-position: right center;
+                    background-size: 12px;
+                    font-size: 13px;
+                    font-weight: 500;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: normal;
+                    letter-spacing: 2.5px;
+                    text-align: left;
+                    color: #000000;
+                    font-weight: 900;
+                }
+
+                ul.ficha_tabs li ul {
+                    display: none;
+                }
+
+                    ul.ficha_tabs li ul.abierto {
+                        display: block;
+                    }
+
+                ul.ficha_tabs li:first-child {
+                    border-top: 1px solid #00000029;
+                }
+
+                ul.ficha_tabs li a.abierto {
+                    background: url(up-arrow.svg);
+                }
+
+                ul.ficha_tabs li ul {
+                    padding: 0 0px 20px 0px;
+                }
+
+        .ficha_breadcrumbs {
+            margin-bottom: 13px;
+        }
+
+            .ficha_breadcrumbs .breadcrumb {
+                margin-bottom: 0;
+                margin-bottom: 0;
+                background: white;
+                border-radius: 0;
+                padding: 8px 0px;
+            }
+
+                .ficha_breadcrumbs .breadcrumb li a {
+                    opacity: 0.5;
+                    font-size: 9px;
+                    font-weight: normal;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: 1.8;
+                    letter-spacing: .5px;
+                    color: #000000;
+                }
+
+        .breadcrumb > li + li:before {
+            content: '|' !important;
+        }
+
         .breadcrumb > li + li:before
     </style>
 }
@@ -276,11 +306,17 @@ ul.ficha_tabs li ul{
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, maxime! Voluptatem nulla sunt laudantium impedit hic eligendi numquam, neque delectus iste eos consequuntur itaque cumque, eaque, quaerat voluptatum aut nemo.
                     </ul>
                 </li>
-                <li>
-                    <a>VIDEOS</a>
-                    <ul>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora, reiciendis. Quos nostrum, architecto laborum voluptatum sequi vitae dolores ad aliquam ratione praesentium quas numquam vel consequuntur alias quasi illum iste.
-                    </ul>
+                <li id="tabVideo">
+                    <a>VIDEO</a>
+                    <div class="video-visual">
+                        <div class="video-container">
+                            <div id="ytFicha"
+                                 data-youtube="{ height:'220', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}"
+                                 class="yt-video"></div>
+                        </div>
+                    </div>
+
+
                 </li>
             </ul>
         </div>
@@ -295,25 +331,49 @@ ul.ficha_tabs li ul{
     text-align: center;
     /* margin: 0; */
     padding: 0;" />
-        </div>  
+        </div>
         <div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
             <hr>
         </div>
-        
+
         <div class="col-md-12 col-sm-12 col-xs-12 ficha_redes">
             <p>Comparte el producto con tus clientes</p>
-            <a href="" class="text-right"><img src="~/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp"></a>
-            <a href="" class="text-left"><img src="~/Content/Images/showroom/redes_facebook.png" alt="" class="fb"></a>
+            <a href="javascript: void(0);" class="text-right"><img src="~/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp" data-compartir="WA"></a>
+            <a href="javascript: void(0);"><img src="~/Content/Images/showroom/redes_facebook.png" alt="" class="fb" data-compartir="FB"></a>
             <div class="clearfix"></div>
+
+
+          
         </div>
     </div>
 </div>
 
 @section scripts{
-  <script>
-      $('ul.ficha_tabs li').click(function () {
-          $(this).children('ul').slideToggle();
+    <script>
+        window.videoKey = '@Model.CodigoVideo';
+
+
+
+
+      $(document).ready(function () {
+
+         MostrarOcultarCargaElementos();
       });
-</script>
+
+      function MostrarOcultarCargaElementos() {
+
+          if (!window.videoKey)
+          {
+              $('#tabVideo').hide();
+          }
+
+          $('ul.ficha_tabs li').click(function () {
+              $(this).children('ul').slideToggle();
+          });
+      }
+
+    </script>
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")
 
 }

@@ -1,8 +1,9 @@
-﻿namespace Portal.Consultoras.Web.Models.Estrategia.ShowRoom
-{
-    using System;
-    using System.Collections.Generic;
+﻿
+using System;
+using System.Collections.Generic;
 
+namespace Portal.Consultoras.Web.Models.Estrategia.ShowRoom
+{
     [Serializable()]
     public class ConfigModel
     {
@@ -12,5 +13,6 @@
         public int ShowRoomNivelId { get; set; }
         public List<ShowRoomNivelModel> ListaNivel { get; set; }
         public List<ShowRoomPersonalizacionModel> ListaPersonalizacionConsultora { get; set; }
+        public List<ShowRoomCategoriaModel> ListaCategoria { get; set; }
     }
 }

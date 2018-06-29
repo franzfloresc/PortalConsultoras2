@@ -276,9 +276,46 @@
                 <div class="contenedor_detalle_producto_odd">
                     <div class="img_odd">
                         <img id="img-display-odd" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" alt="" data-img-lazy="1" />
+                        <a class="btn_ver_detalle" href="">VER DETALLE</a>
                     </div>
                     <div class="contenedor_detalle_derecha_odd">
+                        <div class="txt_te_quedan">Te quedan:</div>
                         <div class="clock clock_palanca_odd"></div>
+                        <div class="nombre_marca marca_odd">
+                            <span data-marca_odd>LBEL</span>
+                        </div>
+                        <div class="nombre_oferta_odd">Nombre Fantasía</div>
+                        <div class="precios_odd">
+                            <span class="precio_valorizado_odd">S/. 144.00</span>
+                            <span class="precio_venta_odd">S/. 86.90</span>
+                        </div>
+                        <div class="contenedor_controles_odd">
+                            <div class="contenedor_elige_tu_tono_odd">
+                                <a id="btnElegirTono" class="btn_elige_tu_tono_odd btn_elige_tu_tono_odd_desactivado" data-btn-elegir-tono="">ELIGE TU OPCIÓN</a>
+                            </div>
+                            <div class="contenedor_agregar_odd">
+                                <div class="contenedor_rangos contenedor_rangos_odd" data-cantidad-contenedor="">
+                                    <input class="txt_cantidad_pedido_odd ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
+                                    <div class="menos_mas_carrusel">
+                                        <a class="txt_mas_carrusel txt_mas_odd mas" data-cantidad-agregar="+" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0">
+                                            <div class="dibujar_linea dibujar_mas dibujar_mas_odd"></div>
+                                        </a>
+                                        <a class="txt_menos_carrusel menos" data-cantidad-agregar="-" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0">
+                                            <div class="dibujar_linea dibujar_menos dibujar_menos_odd"></div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <a id="btnAgregalo" class="btn_agregalo btn_agregalo_odd btn_agregalo_odd_desactivado" data-btn-agregar-sr="">AGRÉGALO</a>
+                            </div>
+                            <div class="contenedor_agregado">
+                                <div class="txt_agregado">
+                                    <span class="span_agregado">AGREGADO</span>
+                                    <div class="check_agregado">
+                                        <div class="dibujar_linea dibujar_check_agregado"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
