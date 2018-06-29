@@ -4099,6 +4099,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
+                #region UnidadesPermitidas
                 estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
 
                 var PedidosAgregados = ObtenerPedidoWebSetDetalleAgrupado();
@@ -4131,8 +4132,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                 }
+                #endregion
 
-
+                
                 var listCuvTonos = Util.Trim(model.CuvTonos);
                 if (listCuvTonos == "")
                 {
