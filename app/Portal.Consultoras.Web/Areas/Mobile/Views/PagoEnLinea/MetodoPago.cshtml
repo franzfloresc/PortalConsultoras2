@@ -60,7 +60,46 @@
                         <div class="col_izq">
                             <div class="contenedor_monto_pago_total">
                                 <h4 class="titulo_monto_pago_total">
-                                   <img src="@item.RutaIcono" alt=""/>@item.Descripcion
+                                    <img src="@item.RutaIcono" alt="" />@item.Descripcion
+                                </h4>
+                                <div class="monto_total_pago_en_linea">
+                                    <span class="tipo_moneda_pais">@Model.Simbolo</span>
+                                    <span class="monto_moneda_pais">@Model.MontoDeudaConGastosString</span>
+                                </div>
+                            </div>
+                            <div class="aceptar_terminos_y_condiciones">
+                                <div class="area_activa_barra_activacion">
+                                    <div class="barra_activacion" data-estado="0">
+                                        <div class="control_activacion">
+                                        </div>
+                                        <div class="tooltip_terminos_y_condiciones" style="display:none;" id="divTooltipTerminosCondiciones">
+                                            <span>Debes aceptar los términos y condiciones</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="descripcion_opcion_activacion">
+                                    Acepta los términos y condiciones
+                                </div>
+                            </div>
+                            <button type="button" class="btn_pago_credito_visa" data-metodopago="@item.TipoPasarelaCodigoPlataforma">
+                                <span>
+                                    Continuar
+                                </span>
+                            </button>
+                        </div>
+                        <div class="col_der">
+                            <input type="radio" id="rbPagoTotal" name="opcionPago" value="1" checked />
+                            <label for="rbPagoTotal">
+                                <span></span>
+                            </label>
+                        </div>
+                    </li>
+                }
+                @*<li class="opcion_pago">
+                        <div class="col_izq">
+                            <div class="contenedor_monto_pago_total">
+                                <h4 class="titulo_monto_pago_total">
+                                    TARJETA 1:
                                 </h4>
                                 <div class="monto_total_pago_en_linea">
                                     <span class="tipo_moneda_pais">@Model.Simbolo</span>
@@ -93,46 +132,7 @@
                                 <span></span>
                             </label>
                         </div>
-                    </li>
-                }
-                @*<li class="opcion_pago">
-                    <div class="col_izq">
-                        <div class="contenedor_monto_pago_total">
-                            <h4 class="titulo_monto_pago_total">
-                                TARJETA 1:
-                            </h4>
-                            <div class="monto_total_pago_en_linea">
-                                <span class="tipo_moneda_pais">@Model.Simbolo</span>
-                                <span class="monto_moneda_pais">@Model.MontoDeudaConGastosString</span>
-                            </div>
-                        </div>
-                        <div class="aceptar_terminos_y_condiciones">
-                            <div class="area_activa_barra_activacion">
-                                <div class="barra_activacion" data-estado="0">
-                                    <div class="control_activacion">
-                                    </div>
-                                    <div class="tooltip_terminos_y_condiciones" style="display:none;" id="divTooltipTerminosCondiciones">
-                                        <span>Debes aceptar los términos y condiciones</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="descripcion_opcion_activacion">
-                                Acepta los términos y condiciones
-                            </div>
-                        </div>
-                        <button type="button" class="btn_pago_credito_visa" id="btnPagoTotal">
-                            <span>
-                                Continuar
-                            </span>
-                        </button>
-                    </div>
-                    <div class="col_der">
-                        <input type="radio" id="rbPagoTotal" name="opcionPago" value="1" checked />
-                        <label for="rbPagoTotal">
-                            <span></span>
-                        </label>
-                    </div>
-                </li>*@
+                    </li>*@
             </ul>
             @*<div class="resumen_pago">
                     <div class="monto_pagado">
@@ -231,4 +231,5 @@
     </script>
 
     <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/PagoVisa.js")"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/MetodoPago.js")"></script>
 }
