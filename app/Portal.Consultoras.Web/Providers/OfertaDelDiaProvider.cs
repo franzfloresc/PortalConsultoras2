@@ -216,6 +216,7 @@ namespace Portal.Consultoras.Web.Providers
                 oddSession.ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(usuario.CodigoISO, oddSession.ListaOferta.Count);
 
                 var primeraOferta = oddSession.ListaOferta.FirstOrDefault();
+                oddSession.EstrategiaID = primeraOferta.EstrategiaID;
                 oddSession.ImagenBanner = primeraOferta.FotoProducto01;
                 oddSession.NombreOferta = ObtenerNombreOfertaDelDia(primeraOferta.DescripcionCompleta);
                 oddSession.PrecioOfertaFormat = Util.DecimalToStringFormat(primeraOferta.Precio2, usuario.CodigoISO);
