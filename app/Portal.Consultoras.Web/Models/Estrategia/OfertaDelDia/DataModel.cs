@@ -7,7 +7,6 @@
     {
         public DataModel()
         {
-            //ListaDeOferta = new List<EstrategiaPedidoModel>();
             ListaOferta = new List<EstrategiaPersonalizadaProductoModel>();
             ConfiguracionContenedor = new ConfiguracionSeccionHomeModel();
         }
@@ -29,6 +28,5 @@
 
         public ConfiguracionSeccionHomeModel ConfiguracionContenedor { get; set; }
         public List<EstrategiaPersonalizadaProductoModel> ListaOferta { get; set; }
-        public List<EstrategiaPedidoModel> ListaDeOferta { get; set; }
     }
 }

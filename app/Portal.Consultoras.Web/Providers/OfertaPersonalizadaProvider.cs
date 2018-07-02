@@ -412,16 +412,22 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<EstrategiaPersonalizadaProductoModel> ConsultarEstrategiasModelFormato(List<ServiceOferta.BEEstrategia> listaProducto, string codigoISO, int campaniaID, int tipo, bool esConsultoraLider, string simbolo)
         {
-            listaProducto = listaProducto ?? new List<ServiceOferta.BEEstrategia>();
-            List<EstrategiaPedidoModel> listaProductoModel = Mapper.Map<List<ServiceOferta.BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
-
             var listaPedido = _pedidoWeb.ObtenerPedidoWebDetalle(0);
-            var listaEstrategiaPedidoModel = ConsultarEstrategiasModelFormato(listaProductoModel, listaPedido, codigoISO, campaniaID);
-            var listaPersonalizadaModel = ConsultarEstrategiasFormatearModelo(listaEstrategiaPedidoModel, listaPedido, codigoISO, campaniaID, tipo, esConsultoraLider, simbolo);
+            var listaEstrategiaPedidoModel = ConsultarEstrategiasFormatoEstrategiaToModel1(listaProducto, codigoISO, campaniaID);
+            var listaPersonalizadaModel = FormatearModelo1ToPersonalizado(listaEstrategiaPedidoModel, listaPedido, codigoISO, campaniaID, tipo, esConsultoraLider, simbolo);
             return listaPersonalizadaModel;
         }
+        
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasFormatoEstrategiaToModel1(List<ServiceOferta.BEEstrategia> listaProducto, string codigoISO, int campaniaID)
+        {
+            listaProducto = listaProducto ?? new List<ServiceOferta.BEEstrategia>();
+            List<EstrategiaPedidoModel> listaProductoModel = Mapper.Map<List<ServiceOferta.BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
+            var listaPedido = _pedidoWeb.ObtenerPedidoWebDetalle(0);
+            var listaEstrategiaPedidoModel = ConsultarEstrategiasFormatoModelo1(listaProductoModel, listaPedido, codigoISO, campaniaID);
+            return listaEstrategiaPedidoModel;
+        }
 
-        private List<EstrategiaPedidoModel> ConsultarEstrategiasModelFormato(List<EstrategiaPedidoModel> listaProductoModel, List<BEPedidoWebDetalle> listaPedido, string codigoISO, int campaniaID)
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasFormatoModelo1(List<EstrategiaPedidoModel> listaProductoModel, List<BEPedidoWebDetalle> listaPedido, string codigoISO, int campaniaID)
         {
             if (!listaProductoModel.Any())
                 return listaProductoModel;
@@ -511,7 +517,7 @@ namespace Portal.Consultoras.Web.Providers
             return listaProductoModel;
         }
         
-        public List<EstrategiaPersonalizadaProductoModel> ConsultarEstrategiasFormatearModelo(List<EstrategiaPedidoModel> listaProductoModel, List<BEPedidoWebDetalle> listaPedido, string codigoISO, int campaniaID,  int tipo, bool esConsultoraLider, string simbolo)
+        public List<EstrategiaPersonalizadaProductoModel> FormatearModelo1ToPersonalizado(List<EstrategiaPedidoModel> listaProductoModel, List<BEPedidoWebDetalle> listaPedido, string codigoISO, int campaniaID,  int tipo, bool esConsultoraLider, string simbolo)
         {
             var listaRetorno = new List<EstrategiaPersonalizadaProductoModel>();
             if (!listaProductoModel.Any())
@@ -567,7 +573,13 @@ namespace Portal.Consultoras.Web.Providers
                 prodModel.Ganancia = estrategia.Ganancia;
                 prodModel.GananciaString = estrategia.GananciaString;
 
-                prodModel.TipoAccionAgregar = TipoAccionAgregar(estrategia.TieneVariedad, estrategia.TipoEstrategia.Codigo, esConsultoraLider, tipo == 1 || (estrategia.CampaniaID > 0 && estrategia.CampaniaID != campaniaID));
+                prodModel.TipoAccionAgregar = TipoAccionAgregar(
+                    estrategia.TieneVariedad, 
+                    estrategia.TipoEstrategia.Codigo, 
+                    esConsultoraLider, 
+                    tipo == 1 || (estrategia.CampaniaID > 0 && estrategia.CampaniaID != campaniaID),
+                    estrategia.CodigoEstrategia
+                );
 
                 if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
                 {
@@ -636,7 +648,7 @@ namespace Portal.Consultoras.Web.Providers
             return listaRetorno;
         }
         #endregion
-
+        
     }
 
 }
