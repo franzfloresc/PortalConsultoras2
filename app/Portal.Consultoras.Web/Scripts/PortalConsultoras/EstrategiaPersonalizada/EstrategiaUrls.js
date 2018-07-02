@@ -19,8 +19,9 @@ function OnClickFichaDetalle(e) {
         return null;
 
     UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
-                            
-    return window.location = UrlDetalle;
+    window.location = UrlDetalle;  
+                       
+    return true;
 }
 
 function GetPalanca(codigoEstrategia) {
