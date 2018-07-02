@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.ServiceOferta;
@@ -32,14 +31,14 @@ namespace Portal.Consultoras.Web.Providers
 
         protected ConfiguracionManagerProvider _configuracionManager;
         protected TablaLogicaProvider _tablaLogica;
-        protected OfertaPersonalizadaProvider _fertaPersonalizada;
+        protected OfertaPersonalizadaProvider _ofertaPersonalizada;
 
         public OfertaDelDiaProvider()
         {
             sessionManager = SessionManager.SessionManager.Instance;
             _configuracionManager = new ConfiguracionManagerProvider();
             _tablaLogica = new TablaLogicaProvider();
-            _fertaPersonalizada = new OfertaPersonalizadaProvider();
+            _ofertaPersonalizada = new OfertaPersonalizadaProvider();
         }
 
         public List<ServiceOferta.BEEstrategia> GetOfertas(UsuarioModel model)
@@ -191,7 +190,7 @@ namespace Portal.Consultoras.Web.Providers
                 }
                 var listaEstrategia = GetOfertas(usuario);
 
-                oddSession.ListaOferta = _fertaPersonalizada.ConsultarEstrategiasModelFormato(listaEstrategia, usuario.CodigoISO, usuario.CampaniaID, 2, usuario.esConsultoraLider, usuario.Simbolo);
+                oddSession.ListaOferta = _ofertaPersonalizada.ConsultarEstrategiasModelFormato(listaEstrategia, usuario.CodigoISO, usuario.CampaniaID, 2, usuario.esConsultoraLider, usuario.Simbolo);
                 if (!oddSession.ListaOferta.Any())
                 {
                     oddSession.TieneOfertaDelDia = false;
