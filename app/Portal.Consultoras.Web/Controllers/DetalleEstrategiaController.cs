@@ -38,14 +38,14 @@ namespace Portal.Consultoras.Web.Controllers
             return View("Ficha", modelo);
         }
 
-        public JsonResult ObtenerComponentes (int estrategiaId, int campania, string codigoVariante)
+        public JsonResult ObtenerComponentes (string estrategiaId, string campania, string codigoVariante)
         {
             try
             {
                 var estrategiaModelo = new EstrategiaPersonalizadaProductoModel
                 {
-                    EstrategiaID = estrategiaId,
-                    CampaniaID = campania,
+                    EstrategiaID = estrategiaId.ToInt(),
+                    CampaniaID = campania.ToInt(),
                     CodigoVariante = codigoVariante
                 };
                 bool esMultimarca = false;

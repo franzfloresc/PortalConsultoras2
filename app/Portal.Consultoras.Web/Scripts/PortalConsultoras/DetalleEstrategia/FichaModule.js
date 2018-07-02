@@ -7,7 +7,9 @@
         origen: config.origen || "",
         tieneSession: config.tieneSession || "",
         campania: config.campania || "",
-        cuv: config.cuv || ""
+        cuv: config.cuv || "",
+        urlObtenerComponentes: config.urlObtenerComponentes
+        
     }
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _codigoPalanca = ConstantesModule.CodigosPalanca;
@@ -98,34 +100,50 @@
                 '<a class="contenedor_flecha_carrusel flecha_derecha_carrusel js-slick-next slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_carrusel_tonos dibujar_flecha_derecha_carrusel"></div></a>'
         });
     }
+    
+    var _promiseObternerComponentes = function (params) {
+        var dfd = $.Deferred();
+
+        $.ajax({
+            type: "POST",
+            url: _config.urlObtenerComponentes,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(params),
+            async: false,
+            cache: false,
+            success: function (data) {
+                dfd.resolve(data);
+            },
+            error: function (data, error) {
+                dfd.reject(data, error);
+            }
+        });
+
+        return dfd.promise();
+    }
 
     var _verificarVariedad = function (estrategia) {
         if (IsNullOrEmpty(estrategia.codigoVariante)) {
             var componentes;
             var param = {
-                estrategiaId: estrategia.estragiaId,
+                estrategiaId: estrategia.EstrategiaID,
                 campania: _config.campania,
-                codigoVariante: estrategia.codigoVariante
+                codigoVariante: estrategia.CodigoVariante
             }
-            $.ajax({
-                type: "GET",
-                url: baseUrl + "/DetalleEstrategia/ObtenerComponentes",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(param),
-                //async: true,
-                success: function (data) {
-                    componentes = data.componentes;
-                },
-                error: function (error, x) {
-                    console.error(error);
-                    componentes = new Object();
-                }
+            
+            _promiseObternerComponentes(param).done(function (data) {
+                componentes = data.componentes;
+            }).fail(function (data, error) {
+                componentes = new Object();
             });
+            
             return componentes;
         } else return new Object();
     }
     
+   
+
     var _construirSeccionEstrategia = function () {
 
         var estrategia;
