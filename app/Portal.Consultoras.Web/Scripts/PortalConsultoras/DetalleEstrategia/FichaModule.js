@@ -15,6 +15,7 @@
     var _codigoPalanca = ConstantesModule.CodigosPalanca;
     
     var _elementos = {
+        dataEstrategia: "data-estrategia",
         dataClicked: "[data-clicked]",
         dataChange: "[data-change]",
         dataSelected:  "[data-select-area]"
@@ -147,14 +148,14 @@
         var estrategia;
         if (_config.tieneSession === "True") {
             //revisar si se realiza con razor o handle bar para SW y ODD
-            estrategia = new Object();
+            estrategia = JSON.parse($("#estrategia_json").attr(_elementos.dataEstrategia));
         } else {
             estrategia = localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
         }
 
         if (estrategia == null) {
             window.location = (isMobile() ? "/Mobile/" : "") + "Ofertas";
-            return false;
+            return true;
         }
 
         estrategia.Hermanos = _verificarVariedad(estrategia);

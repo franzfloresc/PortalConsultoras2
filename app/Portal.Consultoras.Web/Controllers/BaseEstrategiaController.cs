@@ -187,21 +187,21 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var estrategiaPersonalizada = ObtenerEstrategiaPersonalizadaSession(palanca, cuv, campaniaId);
-                if (estrategiaPersonalizada == null || estrategiaPersonalizada.CUV2.Equals(cuv))
+                if (estrategiaPersonalizada == null || !estrategiaPersonalizada.CUV2.Equals(cuv))
                     return null;
                 estrategiaPersonalizada.Hermanos = new List<EstrategiaComponenteModel>();
                 estrategiaPersonalizada.TextoLibre = Util.Trim(estrategiaPersonalizada.TextoLibre);
                 estrategiaPersonalizada.CodigoVariante = Util.Trim(estrategiaPersonalizada.CodigoVariante);
 
-                var listaPedido = ObtenerPedidoWebDetalle();
-                estrategiaPersonalizada.IsAgregado = listaPedido.Any(p => p.CUV == estrategiaPersonalizada.CUV2);
+                //var listaPedido = ObtenerPedidoWebDetalle();
+                //estrategiaPersonalizada.IsAgregado = listaPedido.Any(p => p.CUV == estrategiaPersonalizada.CUV2);
 
-                if (string.IsNullOrWhiteSpace(estrategiaPersonalizada.CodigoVariante))
-                    return estrategiaPersonalizada;
+                //if (string.IsNullOrWhiteSpace(estrategiaPersonalizada.CodigoVariante))
+                //    return estrategiaPersonalizada;
 
-                estrategiaPersonalizada.CampaniaID = estrategiaPersonalizada.CampaniaID > 0 ? estrategiaPersonalizada.CampaniaID : userData.CampaniaID;
-                bool esMultimarca = false;
-                estrategiaPersonalizada.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaPersonalizada, string.Empty, out esMultimarca);
+                //estrategiaPersonalizada.CampaniaID = estrategiaPersonalizada.CampaniaID > 0 ? estrategiaPersonalizada.CampaniaID : userData.CampaniaID;
+                //bool esMultimarca = false;
+                //estrategiaPersonalizada.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaPersonalizada, string.Empty, out esMultimarca);
                 return estrategiaPersonalizada;
             }
             catch (Exception ex)
@@ -544,10 +544,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             switch (palanca)
             {
-                case Constantes.ConfiguracionPais.ShowRoom:
+                case Constantes.NombrePalanca.ShowRoom:
                     return ObtenerListaProductoShowRoom(campaniaId, userData.CodigoConsultora, userData.EsDiasFacturacion, 1)
                         .FirstOrDefault(x => x.CUV2 == cuv);
-                case Constantes.ConfiguracionPais.OfertaDelDia:
+                case Constantes.NombrePalanca.OfertaDelDia:
                     return new DetalleEstrategiaFichaModel();
                 default:
                     return null;
