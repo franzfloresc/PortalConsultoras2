@@ -26,6 +26,13 @@ namespace Portal.Consultoras.Web
                 defaults: new { controller = "DetalleEstrategia", action = "Ficha" , origen = "" },
                 namespaces: new[] { "Portal.Consultoras.Web.Controllers" }
             );
+            //mobile version
+            routes.MapRoute(
+                name: "DetalleEstrategiaFichaMobile",
+                url: "Mobile/Detalle/{palanca}/{campaniaId}/{cuv}/{origen}",
+                defaults: new { controller = "DetalleEstrategia" ,  action = "Ficha", origen = "" },
+                namespaces: new[] { "Portal.Consultoras.Web.Areas.Mobile.Controllers" }
+            );
 
             routes.Add("UniqueRoute", new UniqueRoute(
                 "g/{guid}/{controller}/{action}/{id}",
@@ -35,6 +42,8 @@ namespace Portal.Consultoras.Web
                     Area = "Mobile",
                     Namespaces = new[] { "Portal.Consultoras.Web.Areas.Mobile.Controllers" }
                 })));
+
+            
 
             routes.MapRoute(
                 name: "Default",
