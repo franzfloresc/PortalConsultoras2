@@ -52,7 +52,6 @@ $(document).ready(function () {
     };
 
     var props = {
-        UrlGetOfertaDelDia: 'Pedido/GetOfertaDelDia',
         UrlActual: window.location.href.toLowerCase(),
         UrlValidarStockEstrategia: 'Pedido/ValidarStockEstrategia',
         UrlAgregarProducto: 'Pedido/AgregarProductoZE',
