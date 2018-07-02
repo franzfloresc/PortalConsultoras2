@@ -23,14 +23,14 @@ namespace Portal.Consultoras.Web
             routes.MapRoute(
                 name: "DetalleEstrategiaFicha",
                 url: "Detalle/{palanca}/{campaniaId}/{cuv}/{origen}",
-                defaults: new { controller = "DetalleEstrategia", action = "Ficha" , origen = "" },
+                defaults: new { controller = "DetalleEstrategia", action = "Ficha" , origen = UrlParameter.Optional },
                 namespaces: new[] { "Portal.Consultoras.Web.Controllers" }
             );
             //mobile version
             routes.MapRoute(
                 name: "DetalleEstrategiaFichaMobile",
                 url: "Mobile/Detalle/{palanca}/{campaniaId}/{cuv}/{origen}",
-                defaults: new { controller = "DetalleEstrategia" ,  action = "Ficha", origen = "" },
+                defaults: new { controller = "DetalleEstrategia" ,  action = "Ficha", origen = UrlParameter.Optional },
                 namespaces: new[] { "Portal.Consultoras.Web.Areas.Mobile.Controllers" }
             );
 
