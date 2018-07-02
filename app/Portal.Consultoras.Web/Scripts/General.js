@@ -278,6 +278,7 @@ jQuery(document).ready(function () {
             });
 
             Handlebars.registerHelper('EscapeSpecialChars', function (textoOrigen) {
+                textoOrigen = textoOrigen || "";
                 textoOrigen = textoOrigen.replace(/'/g, "\\'");
                 return new Handlebars.SafeString(textoOrigen);
             });
@@ -1474,6 +1475,7 @@ function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
         }
         else if (NameContenedor == "#OfertasDelDiaOfertas") {
             NameList = "Oferta del día - Detalle Slider";
+            listaOferta.ListaOfertas = listaOferta.ListaOfertas || [];
             if (listaOferta.ListaOfertas.length > 1) {
                 NameList = "Oferta del día - Slider Productos";
                 var lstOferta = data ? data.ListaOfertas : [];

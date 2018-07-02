@@ -8,9 +8,6 @@
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
     if (ViewBag.MostrarShowRoomBannerLateral == true) { showRoomBannerLateral = ViewBag.ShowRoomBannerLateral; }
     
-    EstrategiaPedidoModel ofertaDelDia = ViewBag.MostrarOfertaDelDia == true ? ViewBag.OfertaDelDia ?? new EstrategiaPedidoModel() : new EstrategiaPedidoModel();
-    ofertaDelDia.ConfiguracionContenedor = ofertaDelDia.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
-
     bool esIngresoUnico = ViewContext.EsIngresoUnico();
 }
 
@@ -183,8 +180,8 @@
 
                                 @if (ViewBag.MostrarOfertaDelDia == true)
                                 {
-                                    <li>
-                                        @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBanner.cshtml", ofertaDelDia);
+                                    <li data-section="ODD">
+                                        @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBanner.cshtml");
                                     </li>
                                 }
                             </ul>
@@ -284,7 +281,6 @@
 
         //ODD
         var mostrarOfertaDelDia = '@ViewBag.MostrarODD' == 'True';
-        var vbMmostrarOfertaDelDia = '@ViewBag.MostrarOfertaDelDia';
         var usuarioNombre = '@ViewBag.UsuarioNombre';
         var campaniaCodigo = '@ViewBag.CampaniaCodigo';
         var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
@@ -348,7 +344,7 @@
         window.actionName     = '@acti.ToLower()';
     </script>
 
-    @if (ViewBag.MostrarOfertaDelDiaContenedor == true)
+    @if (ViewBag.TieneOfertaDelDia == true)
     {
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
         <script type="text/javascript">
@@ -357,8 +353,6 @@
             });
         </script>
     }
-
-
 
     @if (ViewBag.MostrarBannerPL20 == true || ViewBag.MostrarBannerOtros == true)
     {

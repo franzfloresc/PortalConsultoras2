@@ -39,31 +39,13 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
             return lst;
         }
 
-        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
+        public List<BEEstrategia> GetEstrategiaODD(BEEstrategia entidad, string codConsultora, DateTime fechaInicioFact)
         {
-            var listaEstrategias = new List<BEEstrategia>();
-            var daEstrategia = new DAEstrategia(paisID);
-
-            using (var reader = daEstrategia.GetEstrategiaODD(codCampania, codConsultora, fechaInicioFact))
-            {
-                while (reader.Read())
-                {
-                    listaEstrategias.Add(new BEEstrategia(reader));
-                }
-            }
-
-            var codigoIso = Util.GetPaisISO(paisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
-
-            listaEstrategias.ForEach(item =>
-            {
-                item.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
-            });
-
+            var listaEstrategias = GetEstrategiasPedido(entidad, codConsultora, fechaInicioFact);
             return listaEstrategias;
         }
-        
-        public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
+
+        public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad, string codConsultora = "", DateTime fechaInicioFact = default(DateTime))
         {
             try
             {
@@ -141,6 +123,12 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                         break;
                     case Constantes.TipoEstrategiaCodigo.LosMasVendidos:
                         using (var reader = daEstrategia.GetEstrategiaMasVendidos(entidad))
+                        {
+                            while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                        }
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                        using (var reader = daEstrategia.GetEstrategiaODD(entidad.CampaniaID, codConsultora, fechaInicioFact))
                         {
                             while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
                         }

@@ -14,15 +14,29 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
-            var modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(sessionManager.GetProductoTemporal());
+            if (!EnviaronParametrosValidos(palanca, campaniaId, cuv)) return RedirectToAction("Index", "Ofertas");
 
-            var EstrategiaDetalle = EstrategiaGetDetalle(modelo.EstrategiaID);
-            if (EstrategiaDetalle.Hermanos != null)
+            if (!TienePermisoPalanca(palanca)) return RedirectToAction("Index", "Ofertas");
+
+            DetalleEstrategiaFichaModel modelo;
+            if (PalancasConSesion(palanca))
             {
-                modelo.Hermanos = EstrategiaDetalle.Hermanos;
+                var estrategiaPresonalizada = ObtenerEstrategiaPersonalizada(palanca, cuv);
+                if (estrategiaPresonalizada == null) return RedirectToAction("Index", "Ofertas");
+                modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
+            }
+            else
+            {
+                modelo = new DetalleEstrategiaFichaModel();
             }
 
-            return View("Ficha", modelo); 
+            modelo.Origen = origen;
+            modelo.Palanca = palanca;
+            modelo.TieneSession = PalancasConSesion(palanca);
+            modelo.Campania = campaniaId;
+            modelo.Cuv = cuv;
+
+            return View("Ficha", modelo);
             
             //return View(modelo);
         }

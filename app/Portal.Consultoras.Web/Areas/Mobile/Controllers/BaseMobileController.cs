@@ -74,15 +74,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ViewBag.DiasFaltantesLetras = showRoomBannerLateral.LetrasDias;
 
                     ViewBag.MostrarShowRoomProductos = showRoomBannerLateral.MostrarShowRoomProductos;
-
-                    EstrategiaPedidoModel ofertaDelDia = GetOfertaDelDiaModel();
-                    ViewBag.OfertaDelDia = ofertaDelDia;
-
-                    ViewBag.MostrarOfertaDelDia =
-                            !(userData.IndicadorGPRSB == 1 || userData.CloseOfertaDelDia)
-                            && userData.TieneOfertaDelDia
-                            && ofertaDelDia != null
-                            && ofertaDelDia.TeQuedan.TotalSeconds > 0;
+                    
+                    ViewBag.MostrarOfertaDelDia = _ofertaDelDiaProvider.MostrarOfertaDelDia(userData);
 
                     showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
                 }
@@ -113,29 +106,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
-
-        public JsonResult GetOfertaDelDia()
-        {
-            try
-            {
-                var oddModel = GetOfertaDelDiaModel();
-                return Json(new
-                {
-                    success = oddModel != null,
-                    data = oddModel
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "No se pudo procesar la solicitud"
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
+        
         private void CargarValoresGenerales(UsuarioModel userData)
         {
             if (sessionManager.GetUserData() != null)

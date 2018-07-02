@@ -1,0 +1,51 @@
+﻿<script id="ofertadeldia-template" type="text/x-handlebars-template">
+
+    <div data-odd-tipoventana="baner">
+        <div class="content_oferta_dia" id="banner-odd" data-item="">
+            <div class="content_oferta_dia_img izquierda_img">
+                <img src="" alt="">
+            </div>
+            <div class="content_oferta_dia_img derecha_img">
+                <img src="" alt="">
+            </div>
+            @*<div style="display:none;" data-item-campos="">
+                    <input type="hidden" Class="tipoestrategia-id-odd" value="{{TipoEstrategiaID}}" />
+                    <input type="hidden" Class="estrategia-id-odd" value="{{EstrategiaID}}" />
+                    <input type="hidden" Class="marca-id-odd" value="{{MarcaID}}" />
+                    <input type="hidden" Class="cuv2-odd" value="{{CUV2}}" />
+                    <input type="hidden" Class="limite-venta-odd" value="{{LimiteVenta}}" />
+                    <input type="hidden" Class="flagnueva-odd" value="{{FlagNueva}}" />
+                    <input type="hidden" Class="precio-odd" value="{{PrecioOferta}}" />
+                    <input type="hidden" Class="nombre-odd" value="{{NombreOferta}}" />
+                    <input type="hidden" Class="indmonto-min-odd" value="{{IndicadorMontoMinimo}}" />
+                    <input type="hidden" Class="teimagenmostrar-odd" value="{{TipoEstrategiaImagenMostrar}}" />
+                    <input type="hidden" Class="imagen-odd" value="{{ImagenBanner}}" />
+                    <input type="hidden" class="origenPedidoWeb-odd" value="2" />
+                    <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
+                    <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
+            </div>*@
+            <div class="solo_hoy">
+                <div style="height:42px; overflow:hidden;"><img src="{{ImgUrl ImagenSoloHoy}}" id="img-solohoy-odd" alt="" /></div>
+                <div class="clock"></div>
+                <div class="message"></div>
+            </div>
+            <div class="producto_set">
+                <img src="{{ImgUrl ImagenBanner}}" alt="" id="img-banner-odd" class="imagen_producto" />
+            </div>
+            <div class="precio_set_dia">
+                <div class="nombre_set_oferta">{{NombreOferta}}</div>
+                <span>{{SimboloMoneda}} {{PrecioOfertaFormat}}</span>
+            </div>
+            <div style="float: left">
+                <input type="hidden" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
+                <a class="btn_agrega_set_dia" data-odd-accion="agregar" data-odd-accion-type="banner" data-odd-accion-element="0" data-odd-cabecera-position="0" href="javascript: void(0);">AGRÉGALO YA</a>
+            </div>
+            <a class="btn_detalle_hoy" data-odd-accion="veroferta" data-odd-cantidad="{{CantidadProductos}}" onclick="odd_desktop_google_analytics_promotion_click_verofertas();">
+                <div class="circulo_hoy"><span id="odd_simbolo_ver_ofertas">+</span></div>
+                <div class="texto_detalle_set">{{TextoVerDetalle}}</div>
+            </a>
+        </div>
+        <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia(this);">x</a>
+    </div>
+
+</script>

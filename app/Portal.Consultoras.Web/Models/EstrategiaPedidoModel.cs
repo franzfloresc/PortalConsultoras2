@@ -167,7 +167,7 @@ namespace Portal.Consultoras.Web.Models
             return (EstrategiaPedidoModel)this.MemberwiseClone();
         }
 
-        public TimeSpan TeQuedan { get; set; }
+        //public TimeSpan TeQuedan { get; set; }
         public string ImagenFondo1 { get; set; }
         public string ColorFondo1 { get; set; }
         public string ImagenBanner { get; set; }
