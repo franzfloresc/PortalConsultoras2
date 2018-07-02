@@ -1,6 +1,6 @@
 ﻿<script id="ofertadeldia-template" type="text/x-handlebars-template">
 
-    <div data-odd-tipoventana="baner">
+    <div data-odd-tipoventana="baner" data-OrigenPedidoWeb="">
         <div class="content_oferta_dia" id="banner-odd" data-item="">
             <div class="content_oferta_dia_img izquierda_img">
                 <img src="" alt="">
@@ -8,8 +8,9 @@
             <div class="content_oferta_dia_img derecha_img">
                 <img src="" alt="">
             </div>
-            <div style="display:none;" data-item-campos="">
-                <input type="hidden" Class="estrategia-id-odd" value="{{EstrategiaID}}" />
+            <div style="display:none;" data-item-campos="" >
+                <input data-estrategia="{{JSON2string prod}}" />
+                @*<input type="hidden" Class="estrategia-id-odd" value="{{EstrategiaID}}" />*@
                 @*<input type="hidden" Class="tipoestrategia-id-odd" value="{{TipoEstrategiaID}}" />
                 <input type="hidden" Class="estrategia-id-odd" value="{{EstrategiaID}}" />
                 <input type="hidden" Class="marca-id-odd" value="{{MarcaID}}" />
@@ -38,8 +39,12 @@
                 <span>{{SimboloMoneda}} {{PrecioOfertaFormat}}</span>
             </div>
             <div style="float: left">
-                <input type="hidden" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
-                <a class="btn_agrega_set_dia" data-odd-accion="agregar" data-odd-accion-type="banner" data-odd-accion-element="0" data-odd-cabecera-position="0" href="javascript: void(0);">AGRÉGALO YA</a>
+                <input type="hidden" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0" data-input="cantidad" >
+                <a class="btn_agrega_set_dia" 
+                    @*data-odd-accion="agregar" data-odd-accion-type="banner" data-odd-accion-element="0" data-odd-cabecera-position="0" href="javascript: void(0);"*@
+                   href="javascript:;" 
+                   onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, true, 1);"
+                   >AGRÉGALO YA</a>
             </div>
             <a class="btn_detalle_hoy" data-odd-accion="veroferta" data-odd-cantidad="{{CantidadProductos}}" onclick="odd_desktop_google_analytics_promotion_click_verofertas();">
                 <div class="circulo_hoy"><span id="odd_simbolo_ver_ofertas">+</span></div>
