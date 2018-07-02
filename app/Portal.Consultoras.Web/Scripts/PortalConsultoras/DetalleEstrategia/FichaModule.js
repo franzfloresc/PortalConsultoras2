@@ -156,7 +156,7 @@
             estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
         } else {
             estrategia = localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
-            $("#data-estrategia").attr(_elementos.idDataEstrategia, JSON.stringify(estrategia));
+            $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
         }
 
         if (estrategia == null) {
@@ -177,7 +177,6 @@
         _crearReloj();
         _crearTabs();
         _crearCarruseles();
-       
     }
 
     return {

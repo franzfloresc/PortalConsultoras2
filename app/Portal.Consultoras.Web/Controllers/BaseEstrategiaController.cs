@@ -548,7 +548,8 @@ namespace Portal.Consultoras.Web.Controllers
                     return ObtenerListaProductoShowRoom(campaniaId, userData.CodigoConsultora, userData.EsDiasFacturacion, 1)
                         .FirstOrDefault(x => x.CUV2 == cuv);
                 case Constantes.NombrePalanca.OfertaDelDia:
-                    return new DetalleEstrategiaFichaModel();
+                    return sessionManager.OfertaDelDia.Estrategia.ListaOferta
+                        .FirstOrDefault(x => x.CUV2 == cuv);
                 default:
                     return null;
             }
