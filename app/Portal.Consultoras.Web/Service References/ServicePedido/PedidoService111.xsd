@@ -160,4 +160,20 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPagoEnLineaMedioPagoDetalle" nillable="true" type="tns:BEPagoEnLineaMedioPagoDetalle" />
+  <xs:complexType name="ArrayOfBEPagoEnLineaTipoPasarela">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPagoEnLineaTipoPasarela" nillable="true" type="tns:BEPagoEnLineaTipoPasarela" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPagoEnLineaTipoPasarela" nillable="true" type="tns:ArrayOfBEPagoEnLineaTipoPasarela" />
+  <xs:complexType name="BEPagoEnLineaTipoPasarela">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoPlataforma" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PagoEnLineaTipoPasarelaId" type="xs:int" />
+      <xs:element minOccurs="0" name="Valor" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPagoEnLineaTipoPasarela" nillable="true" type="tns:BEPagoEnLineaTipoPasarela" />
 </xs:schema>

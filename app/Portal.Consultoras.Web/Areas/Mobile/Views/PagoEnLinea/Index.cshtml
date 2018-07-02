@@ -42,15 +42,6 @@
         </div>
 
         <div class="seleccion_monto_a_pagar" id="divPagoEnLineaPaso1">
-            @*<div class="campo_seleccion_monto_a_pagar" id="divMetodoPagoVisa">
-                <h3>Selecciona el método y tipo de pago</h3>
-                <div class="metodo_pago_seleccionado">
-                    <span class="icono_marca_tarjeta">
-                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
-                    </span>
-                    <span class="marca_tarjeta">Tarjeta Crédito VISA</span>
-                </div>
-            </div>*@
             <h3>SELECCIONA EL TIPO DE PAGO</h3>
 
             <input type="hidden" id="hdMontoDeuda" value="@Model.MontoDeuda" name="MontoDeuda" />
@@ -140,54 +131,16 @@
 
             <div>
                 PAGA SEGURO CON
-                @foreach(var itemMedioPago in Model.ListaMedioPago)
+                @foreach (var itemMedioPago in Model.ListaMedioPago)
                 {
-                    <div>@itemMedioPago.Codigo</div>
+                <div style="width: 40px; height:20px;">
+                    <img src="@itemMedioPago.RutaIcono" alt="" style="width: 100%;"/>
+                </div>                    
                 }
                 <br />
                 Recuerda habilitar tu tarjeta para Pagos por Internet.
             </div>
-            @*<input type="hidden" id="hdMontoGastosAdministrativosString" value="@Model.MontoGastosAdministrativosString" />*@
-            @*<p class="info_comision_pago_en_linea">
-                *Cargo por uso plataforma online: <span id="spnPorcentajeGastosAdministrativos">@Model.PorcentajeGastosAdministrativos</span> % (<span class="tipo_moneda_pais">@Model.Simbolo </span><span class="monto_comision_pago_en_linea" id="spnMontoGastosAdministrativos">@Model.MontoGastosAdministrativosString</span>)
-            </p>
-            <div class="aceptar_terminos_y_condiciones">
-                <div class="area_activa_barra_activacion">
-                    <div class="barra_activacion" data-estado="0">
-                        <div class="control_activacion">
-                        </div>
-                        <div class="tooltip_terminos_y_condiciones" style="display:none;" id="divTooltipTerminosCondiciones">
-                            <span>Debes aceptar los términos y condiciones</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="descripcion_opcion_activacion">
-                    Acepta los términos y condiciones
-                </div>
-            </div>*@
         </div>
-
-        @*<div class="contenedor_info_pago_seguro_y_ctas" id="divBannerInferiorVisa">
-            <div class="info_pago_seguro_con_tarjetas">
-                <div class="icono_pago_seguro">
-                </div>
-                <div class="texto_info_pago_seguro">
-                    <span class="texto_pago_seguro solo_visa">Pago seguro a través de</span>
-                </div>
-                <div class="icono_marcas_tarjetas">
-                    <span class="icono_marca_visa">
-                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
-                    </span>
-                </div>
-            </div>
-
-            <button type="button" class="cta_pago_en_linea btn_pago_credito_visa" id="btnPagarVisa">
-                <span>
-                    Continuar
-                </span>
-            </button>
-
-        </div>*@
     </div>
 
 </div>

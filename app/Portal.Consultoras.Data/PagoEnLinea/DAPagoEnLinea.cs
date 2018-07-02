@@ -146,6 +146,15 @@ namespace Portal.Consultoras.Data.PagoEnLinea
 
             return Context.ExecuteReader(command);
 
+        }
+
+        public IDataReader ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(string codigoPlataforma)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma");
+            Context.Database.AddInParameter(command, "@CodigoPlataforma", DbType.String, codigoPlataforma);
+
+            return Context.ExecuteReader(command);
+
         }        
     }
 }

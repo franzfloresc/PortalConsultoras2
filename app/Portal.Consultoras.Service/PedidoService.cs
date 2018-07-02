@@ -2303,6 +2303,11 @@ namespace Portal.Consultoras.Service
             return BLPagoEnLinea.ObtenerPagoEnLineaMedioPagoDetalle(paisId);
         }
 
+        public List<BEPagoEnLineaTipoPasarela> ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(int paisId, string codigoPlataforma)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(paisId, codigoPlataforma);
+        }
+
         #endregion
 
 

@@ -60,7 +60,7 @@
                         <div class="col_izq">
                             <div class="contenedor_monto_pago_total">
                                 <h4 class="titulo_monto_pago_total">
-                                    <img src="@item.RutaIcono" alt="" />@item.Descripcion
+                                    <img src="@item.RutaIcono" alt="" style="width: 40px;"/>@item.Descripcion
                                 </h4>
                                 <div class="monto_total_pago_en_linea">
                                     <span class="tipo_moneda_pais">@Model.Simbolo</span>
@@ -68,24 +68,35 @@
                                 </div>
                             </div>
                             <div class="aceptar_terminos_y_condiciones">
-                                <div class="area_activa_barra_activacion">
-                                    <div class="barra_activacion" data-estado="0">
-                                        <div class="control_activacion">
-                                        </div>
-                                        <div class="tooltip_terminos_y_condiciones" style="display:none;" id="divTooltipTerminosCondiciones">
-                                            <span>Debes aceptar los términos y condiciones</span>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="descripcion_opcion_activacion">
-                                    Acepta los términos y condiciones
+                                    Al presionar continuar aceptas los <a id="lnkAceptaTerminosCondiciones" style="text-decoration: underline;">términos y condiciones</a>
                                 </div>
                             </div>
-                            <button type="button" class="btn_pago_credito_visa" data-metodopago="@item.TipoPasarelaCodigoPlataforma">
-                                <span>
-                                    Continuar
-                                </span>
-                            </button>
+                            @if (Constantes.PagoEnLineaMetodoPago.PasarelaVisa == item.TipoPasarelaCodigoPlataforma)
+                            {
+                                <div class="contenedor_btn_pagar_con_visa">
+                                    <form id="formBoton" action="@Url.Action("PagoVisaResultado", "PagoEnLinea")" method="post">
+                                        <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
+                                                data-sessiontoken="@Model.PagoVisaModel.SessionToken"
+                                                data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"
+                                                data-formbuttoncolor="@Model.PagoVisaModel.FormButtonColor" data-purchasenumber="@Model.PagoVisaModel.PurchaseNumber"
+                                                data-amount="@Model.PagoVisaModel.Amount" data-recurrence="@Model.PagoVisaModel.Recurrence"
+                                                data-recurrencetype="@Model.PagoVisaModel.RecurrenceType" data-recurrencefrequency="@Model.PagoVisaModel.RecurrenceFrequency"
+                                                data-recurrenceamount="@Model.PagoVisaModel.RecurrenceAmount"
+                                                data-usertoken="@Model.PagoVisaModel.TokenTarjetaGuardada"
+                                                data-buttonsize="LARGE"></script>
+                                    </form>
+                                </div>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn_pago_credito_visa" data-metodopago="@item.TipoPasarelaCodigoPlataforma">
+                                    <span>
+                                        Continuar
+                                    </span>
+                                </button>
+                            }
+
                         </div>
                         <div class="col_der">
                             <input type="radio" id="rbPagoTotal" name="opcionPago" value="1" checked />
@@ -94,95 +105,10 @@
                             </label>
                         </div>
                     </li>
-                }
-                @*<li class="opcion_pago">
-                        <div class="col_izq">
-                            <div class="contenedor_monto_pago_total">
-                                <h4 class="titulo_monto_pago_total">
-                                    TARJETA 1:
-                                </h4>
-                                <div class="monto_total_pago_en_linea">
-                                    <span class="tipo_moneda_pais">@Model.Simbolo</span>
-                                    <span class="monto_moneda_pais">@Model.MontoDeudaConGastosString</span>
-                                </div>
-                            </div>
-                            <div class="aceptar_terminos_y_condiciones">
-                                <div class="area_activa_barra_activacion">
-                                    <div class="barra_activacion" data-estado="0">
-                                        <div class="control_activacion">
-                                        </div>
-                                        <div class="tooltip_terminos_y_condiciones" style="display:none;" id="divTooltipTerminosCondiciones">
-                                            <span>Debes aceptar los términos y condiciones</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="descripcion_opcion_activacion">
-                                    Acepta los términos y condiciones
-                                </div>
-                            </div>
-                            <button type="button" class="btn_pago_credito_visa" id="btnPagoTotal">
-                                <span>
-                                    Continuar
-                                </span>
-                            </button>
-                        </div>
-                        <div class="col_der">
-                            <input type="radio" id="rbPagoTotal" name="opcionPago" value="1" checked />
-                            <label for="rbPagoTotal">
-                                <span></span>
-                            </label>
-                        </div>
-                    </li>*@
+                }               
             </ul>
-            @*<div class="resumen_pago">
-                    <div class="monto_pagado">
-                        <span>Monto:</span>
-                        <span>@Model.Simbolo @Model.MontoDeudaString</span>
-                    </div>
-                    <div class="monto_gastos_administrativos">
-                        <span>Cargo plataforma online (@Model.PorcentajeGastosAdministrativos%):</span>
-                        <span>@Model.Simbolo @Model.MontoGastosAdministrativosString</span>
-                    </div>
-                    <div class="total_monto_pagado">
-                        <span>Total por pagar:</span>
-                        <span>@Model.Simbolo @Model.MontoDeudaConGastosString</span>
-                    </div>
-                </div>*@
         </div>
-
-        <div class="contenedor_info_pago_seguro_y_ctas" style="margin-bottom:10px;">
-
-            <div class="info_pago_seguro_con_tarjetas">
-                <div class="icono_pago_seguro">
-                </div>
-                <div class="texto_info_pago_seguro">
-                    <span class="texto_pago_seguro solo_visa">Pago seguro a través de</span>
-                </div>
-                <div class="icono_marcas_tarjetas">
-                    <span class="icono_marca_visa">
-                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
-                    </span>
-                </div>
-            </div>
-
-        </div>
-
-        @*<div class="contenedor_btn_pagar_con_visa">
-                <form id="formBoton" action="@Url.Action("PagoVisaResultado","PagoEnLinea")" method="post">
-                    <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
-                            data-sessiontoken="@Model.PagoVisaModel.SessionToken"
-                            data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"
-                            data-formbuttoncolor="@Model.PagoVisaModel.FormButtonColor" data-purchasenumber="@Model.PagoVisaModel.PurchaseNumber"
-                            data-amount="@Model.PagoVisaModel.Amount" data-recurrence="@Model.PagoVisaModel.Recurrence"
-                            data-recurrencetype="@Model.PagoVisaModel.RecurrenceType" data-recurrencefrequency="@Model.PagoVisaModel.RecurrenceFrequency"
-                            data-recurrenceamount="@Model.PagoVisaModel.RecurrenceAmount"
-                            data-usertoken="@Model.PagoVisaModel.TokenTarjetaGuardada"
-                            data-buttonsize="LARGE"></script>
-                </form>
-            </div>*@
-
     </div>
-
 </div>
 
 <div class="fondo_modal">
@@ -206,30 +132,15 @@
                 Al utilizar una tarjeta de crédito, el nombre del titular debe coincidir con el nombre utilizado al registrarse en su solicitud de crédito de consultora BELCORP. De lo contrario, se podría anular la operación bajo cualquier sospecha y/o confirmación de pago no autorizado.
             </p>
         </div>
-        <div class="aceptar_terminos_y_condiciones mb-0">
-            <div class="area_activa_barra_activacion">
-                <div class="barra_activacion" data-estado="0">
-                    <div class="control_activacion">
-                    </div>
-                    <div class="tooltip_terminos_y_condiciones" style="display:none;">
-                        <span>Debes aceptar los términos y condiciones</span>
-                    </div>
-                </div>
-            </div>
-            <div class="descripcion_opcion_activacion">
-                Acepta los términos y condiciones
-            </div>
-        </div>
     </div>
 </div>
 
 @section scripts{
     <script type="text/javascript">
-        @*var colorBoton = '@Model.PagoVisaModel.FormButtonColor';*@
-        var colorBoton = 'red';
+        var colorBoton = '@Model.PagoVisaModel.FormButtonColor';
+        var metodoPagoPasarelaVisa = '@Constantes.PagoEnLineaMetodoPago.PasarelaVisa';
         var tipoOrigenPantalla = 2;
     </script>
 
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/PagoVisa.js")"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/MetodoPago.js")"></script>
 }

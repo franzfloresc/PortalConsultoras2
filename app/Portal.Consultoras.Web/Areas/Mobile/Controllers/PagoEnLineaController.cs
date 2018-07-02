@@ -35,6 +35,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             model.ListaMetodoPago = ObtenerListaMetodoPago();
 
+            if (model.ListaMetodoPago.Count > 0)
+            {
+                var metodoPagoPasarelaVisa = model.ListaMetodoPago.FirstOrDefault(p => p.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaVisa);
+
+                if (metodoPagoPasarelaVisa != null)
+                    model.PagoVisaModel = ObtenerValoresPagoVisa(model);
+                else
+                    model.PagoVisaModel = new PagoVisaModel();
+            }
+
+
             return View(model);
         }
 

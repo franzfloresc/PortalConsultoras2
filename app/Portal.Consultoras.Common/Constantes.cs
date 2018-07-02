@@ -2100,5 +2100,25 @@ namespace Portal.Consultoras.Common
             public const string PagoTotal = "01";
             public const string PagoParcial = "02";
         }
+
+        public class PagoEnLineaMetodoPago
+        {
+            public const string PasarelaVisa = "A";
+        }
+
+        public class PagoEnLineaPasarelaVisa
+        {
+            public const string MerchantId = "01";
+            public const string AccessKeyId = "02";
+            public const string SecretAccessKey = "03";
+            public const string UrlSessionBotonPago = "04";
+            public const string UrlGenerarNumeroPedido = "05";
+            public const string PorcentajeGastosAdministrativos = "06";
+            public const string UrlLibreriaPagoVisa = "07";
+            public const string UrlAutorizacionBotonPago = "08";
+            public const string UrlLogoPasarelaPago = "09";
+            public const string ColorBotonPagarPasarelaPago = "10";
+            public const string MensajeInformacionPagoExitoso = "11";
+        }
     }
 }

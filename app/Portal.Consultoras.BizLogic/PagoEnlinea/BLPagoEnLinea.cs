@@ -124,6 +124,22 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             }
 
             return lista;
-        }        
+        }
+
+        public List<BEPagoEnLineaTipoPasarela> ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(int paisId, string codigoPlataforma)
+        {
+            var lista = new List<BEPagoEnLineaTipoPasarela>();
+            var DAPagoEnLinea = new DAPagoEnLinea(paisId);
+
+            using (var reader = DAPagoEnLinea.ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(codigoPlataforma))
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new BEPagoEnLineaTipoPasarela(reader));
+                }
+            }
+
+            return lista;
+        }
     }
 }

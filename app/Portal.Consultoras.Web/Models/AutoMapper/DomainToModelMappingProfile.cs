@@ -537,6 +537,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEPagoEnLineaTipoPago, PagoEnLineaTipoPagoModel>();
             Mapper.CreateMap<BEPagoEnLineaMedioPago, PagoEnLineaMedioPagoModel>();
             Mapper.CreateMap<BEPagoEnLineaMedioPagoDetalle, PagoEnLineaMedioPagoDetalleModel>();
+            Mapper.CreateMap<BEPagoEnLineaTipoPasarela, PagoEnLineaTipoPasarelaModel>();
         }
     }
 }
