@@ -3198,19 +3198,19 @@ namespace Portal.Consultoras.Common
             switch (paisId)
             {
                 case Constantes.PaisID.Peru:
-                    limiteMinimoTelef = 7;
+                    limiteMinimoTelef = 9;
                     limiteMaximoTelef = 9;
                     break;
                 case Constantes.PaisID.Mexico:
-                    limiteMinimoTelef = 5;
+                    limiteMinimoTelef = 10;
                     limiteMaximoTelef = 10;
                     break;
                 case Constantes.PaisID.Ecuador:
-                    limiteMinimoTelef = 9;
+                    limiteMinimoTelef = 10;
                     limiteMaximoTelef = 10;
                     break;
                 case Constantes.PaisID.Chile:
-                    limiteMinimoTelef = 7;
+                    limiteMinimoTelef = 9;
                     limiteMaximoTelef = 9;
                     break;
                 case Constantes.PaisID.RepublicaDominicana:
@@ -3227,11 +3227,11 @@ namespace Portal.Consultoras.Common
                     limiteMaximoTelef = 8;
                     break;
                 case Constantes.PaisID.ElSalvador:
-                    limiteMinimoTelef = 7;
+                    limiteMinimoTelef = 8;
                     limiteMaximoTelef = 8;
                     break;
                 case Constantes.PaisID.Panama:
-                    limiteMinimoTelef = 7;
+                    limiteMinimoTelef = 8;
                     limiteMaximoTelef = 8;
                     break;
                 case Constantes.PaisID.CostaRica:

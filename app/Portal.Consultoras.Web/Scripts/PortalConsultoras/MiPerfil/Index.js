@@ -192,7 +192,7 @@ function actualizarDatos() {
     var MinCaracterCelular = limitarMinimo($('#txtCelularMD').val(), $("#hdn_CaracterMinimo").val(), 2);
     if (!MinCaracterCelular) {
         $('#txtCelularMD').focus();
-        alert('El formato del celular no es correcto.');
+        //alert('El formato del celular no es correcto.');
         return false;
     }
 
