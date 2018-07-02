@@ -22,15 +22,15 @@ var EstrategiaAgregarModule = function () {
         dataEstrategia: "[data-estrategia]",
         dataOrigenPedidoWeb: "[data-OrigenPedidoWeb]",
         dataBloqueada: "data-bloqueada",
-        dataItemTagBody: '[data-item-tag="body"]',
-        dataItemTagAgregar: '[data-item-tag="agregar"]',
-        dataItemTagFondo: '[data-item-tag="fotofondo"]',
-        dataItemTagVerDetalle: '[data-item-tag="verdetalle"]',
-        dataItemAccionVerDetalle: '[data-item-accion="verdetalle"]',
-        dataItemTagContenido : '[data-item-tag="contenido"]',
-        dataTono: '[data-tono]',
-        dataTonoSelect: '[data-tono-select]',
-        dataItemHtml: '[data-item-html]'
+        dataItemTagBody: "[data-item-tag=\"body\"]",
+        dataItemTagAgregar: "[data-item-tag=\"agregar\"]",
+        dataItemTagFondo: "[data-item-tag=\"fotofondo\"]",
+        dataItemTagVerDetalle: "[data-item-tag=\"verdetalle\"]",
+        dataItemAccionVerDetalle: "[data-item-accion=\"verdetalle\"]",
+        dataItemTagContenido : "[data-item-tag=\"contenido\"]",
+        dataTono: "[data-tono]",
+        dataTonoSelect: "[data-tono-select]",
+        dataItemHtml: "[data-item-html]"
     };
 
     var constantes = {
