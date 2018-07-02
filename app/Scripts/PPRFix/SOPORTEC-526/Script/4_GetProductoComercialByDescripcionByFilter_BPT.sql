@@ -93,7 +93,6 @@ BEGIN
 		,pcor.Oferta AS TipoOfertaRevista
 		,TE.Codigo AS TipoEstrategiaCodigo
 		,CASE WHEN (TE.MostrarImgOfertaIndependiente = 1 AND EST.EsOfertaIndependiente = 1) THEN 1 ELSE 0 END AS EsOfertaIndependiente
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -129,9 +128,11 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
+		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpMexico
@@ -228,7 +229,6 @@ BEGIN
 		,pcor.Oferta AS TipoOfertaRevista
 		,TE.Codigo AS TipoEstrategiaCodigo
 		,CASE WHEN (TE.MostrarImgOfertaIndependiente = 1 AND EST.EsOfertaIndependiente = 1) THEN 1 ELSE 0 END AS EsOfertaIndependiente
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -264,9 +264,11 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
+		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpColombia
@@ -363,7 +365,6 @@ BEGIN
 		,pcor.Oferta AS TipoOfertaRevista
 		,TE.Codigo AS TipoEstrategiaCodigo
 		,CASE WHEN (TE.MostrarImgOfertaIndependiente = 1 AND EST.EsOfertaIndependiente = 1) THEN 1 ELSE 0 END AS EsOfertaIndependiente
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -399,9 +400,11 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
+		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpSalvador
@@ -498,7 +501,6 @@ BEGIN
 		,pcor.Oferta AS TipoOfertaRevista
 		,TE.Codigo AS TipoEstrategiaCodigo
 		,CASE WHEN (TE.MostrarImgOfertaIndependiente = 1 AND EST.EsOfertaIndependiente = 1) THEN 1 ELSE 0 END AS EsOfertaIndependiente
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -534,9 +536,11 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
+		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpPuertoRico
@@ -633,7 +637,6 @@ BEGIN
 		,pcor.Oferta AS TipoOfertaRevista
 		,TE.Codigo AS TipoEstrategiaCodigo
 		,CASE WHEN (TE.MostrarImgOfertaIndependiente = 1 AND EST.EsOfertaIndependiente = 1) THEN 1 ELSE 0 END AS EsOfertaIndependiente
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -669,9 +672,11 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
+		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpPanama
@@ -768,7 +773,6 @@ BEGIN
 		,pcor.Oferta AS TipoOfertaRevista
 		,TE.Codigo AS TipoEstrategiaCodigo
 		,CASE WHEN (TE.MostrarImgOfertaIndependiente = 1 AND EST.EsOfertaIndependiente = 1) THEN 1 ELSE 0 END AS EsOfertaIndependiente
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -804,9 +808,11 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
+		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpGuatemala
@@ -903,7 +909,6 @@ BEGIN
 		,pcor.Oferta AS TipoOfertaRevista
 		,TE.Codigo AS TipoEstrategiaCodigo
 		,CASE WHEN (TE.MostrarImgOfertaIndependiente = 1 AND EST.EsOfertaIndependiente = 1) THEN 1 ELSE 0 END AS EsOfertaIndependiente
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -939,9 +944,11 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
+		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpEcuador
@@ -1038,7 +1045,6 @@ BEGIN
 		,pcor.Oferta AS TipoOfertaRevista
 		,TE.Codigo AS TipoEstrategiaCodigo
 		,CASE WHEN (TE.MostrarImgOfertaIndependiente = 1 AND EST.EsOfertaIndependiente = 1) THEN 1 ELSE 0 END AS EsOfertaIndependiente
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -1074,9 +1080,11 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
+		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpDominicana
@@ -1173,7 +1181,6 @@ BEGIN
 		,pcor.Oferta AS TipoOfertaRevista
 		,TE.Codigo AS TipoEstrategiaCodigo
 		,CASE WHEN (TE.MostrarImgOfertaIndependiente = 1 AND EST.EsOfertaIndependiente = 1) THEN 1 ELSE 0 END AS EsOfertaIndependiente
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -1209,9 +1216,11 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
+		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpCostaRica
@@ -1308,7 +1317,6 @@ BEGIN
 		,pcor.Oferta AS TipoOfertaRevista
 		,TE.Codigo AS TipoEstrategiaCodigo
 		,CASE WHEN (TE.MostrarImgOfertaIndependiente = 1 AND EST.EsOfertaIndependiente = 1) THEN 1 ELSE 0 END AS EsOfertaIndependiente
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -1344,9 +1352,11 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
+		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpChile
@@ -1443,7 +1453,6 @@ BEGIN
 		,pcor.Oferta AS TipoOfertaRevista
 		,TE.Codigo AS TipoEstrategiaCodigo
 		,CASE WHEN (TE.MostrarImgOfertaIndependiente = 1 AND EST.EsOfertaIndependiente = 1) THEN 1 ELSE 0 END AS EsOfertaIndependiente
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -1479,9 +1488,11 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
+		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO
 USE BelcorpBolivia
@@ -1578,7 +1589,6 @@ BEGIN
 		,pcor.Oferta AS TipoOfertaRevista
 		,TE.Codigo AS TipoEstrategiaCodigo
 		,CASE WHEN (TE.MostrarImgOfertaIndependiente = 1 AND EST.EsOfertaIndependiente = 1) THEN 1 ELSE 0 END AS EsOfertaIndependiente
-		,p.EstrategiaIDSicc
 	FROM ods.ProductoComercial p WITH (NOLOCK)
 	LEFT JOIN dbo.ProductoDescripcion pd WITH (NOLOCK)
 		ON p.AnoCampania = pd.CampaniaID
@@ -1614,8 +1624,10 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
+		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
 
 END
 GO
+
 
 GO

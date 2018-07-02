@@ -1505,9 +1505,7 @@ namespace Portal.Consultoras.Web.Controllers
             BloqueoProductosCatalogo(ref productos);
 
             BloqueoProductosDigitales(ref productos);
-
-            BloqueoProductosSet(ref productos);
-
+            
             if (!productos.Any())
             {
                 if (siExiste)
@@ -1621,9 +1619,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BloqueoProductosCatalogo(ref productos);
 
                 BloqueoProductosDigitales(ref productos);
-
-                BloqueoProductosSet(ref productos);
-
+                
                 if (!productos.Any())
                 {
                     if (siExiste)
@@ -1814,21 +1810,6 @@ namespace Portal.Consultoras.Web.Controllers
                         .ToList();
                 }
             }
-        }
-        
-        private void BloqueoProductosSet(ref List<ServiceODS.BEProducto> beProductos)
-        {
-            if (beProductos == null) return;
-            if (!beProductos.Any()) return;
-            
-            beProductos = beProductos
-                .Where(prod =>
-                    !(prod.EstrategiaIDSicc.ToString() == Constantes.TipoEstrategiaSet.IndividualConTonos
-                        || prod.EstrategiaIDSicc.ToString() == Constantes.TipoEstrategiaSet.CompuestaFija
-                        || prod.EstrategiaIDSicc.ToString() == Constantes.TipoEstrategiaSet.CompuestaVariable
-                    )
-                )
-                .ToList();
         }
         
         private ProductoModel GetProductoNoExiste()
