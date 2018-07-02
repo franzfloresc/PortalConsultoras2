@@ -53,11 +53,20 @@ var ConstantesModule = (function () {
         ParticipaProgramaNuevas: "1",
         NotParticipaProgramaNuevas: "0"
     }
+
+    var _tipoEstrategia = {
+        rd: "rd",
+        hv: "hv",
+        gn: "gn",
+        lan: "lan"
+    }
+
     return {
         CodigosPalanca: _codigosPalanca,
         KeysLocalStorage: _keysLocalStorage,
         CodigoVariedad: _codigoVariedad,
-        ConstantesPalanca: _constantesPalanca
+        ConstantesPalanca: _constantesPalanca,
+        TipoEstrategia: _tipoEstrategia
     }
     
 })();

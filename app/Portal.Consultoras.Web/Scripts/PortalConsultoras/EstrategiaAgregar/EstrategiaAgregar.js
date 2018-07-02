@@ -14,14 +14,6 @@
 
 var EstrategiaAgregarModule = function () {
     "use strict";
-    var codigoEstrategia = {
-        herraMientasVenta: function () {
-            return "011";
-        },
-        lanzamiento: function () {
-            return "005";
-        }
-    };
 
     var dataProperties = {
         dataItem: "[data-item]",
@@ -45,25 +37,6 @@ var EstrategiaAgregarModule = function () {
         undefined: function(){
             return "undefined"
         }
-    }
-
-    var estrategiaVariante = {
-        IndividualConTonos: function(){
-            return "2001";
-        },
-        CompuestaFija: function(){
-            return "2002";
-        },
-        CompuestaVariable: function(){
-            return "2003"
-        }
-    }
-
-    var tipoEstrategia = {
-        rd: "rd",
-        hv: "hv",
-        gn: "gn",
-        lan: "lan"
     }
 
     var elementosDiv = {
@@ -143,7 +116,7 @@ var EstrategiaAgregarModule = function () {
         return {
             getDivMsgProductoBloqueado: function () {
                 $divMsgProductoBloqueado = $(elementosDiv.divMensajeBloqueada);
-                if (estrategiaTmp.CodigoEstrategia === codigoEstrategia.herraMientasVenta()) {
+                if (estrategiaTmp.CodigoEstrategia === ConstantesModule.ConstantesPalanca.HerramientasVenta) {
                     $divMsgProductoBloqueado = $(elementosDiv.divHVMensajeBloqueada);
                     $divMsgProductoBloqueado.find('.cerrar_fichaProducto').data(elementosPopPup.popupClose.substring(1), elementosDiv.divHVMensajeBloqueada.substring(1));
                 }
@@ -154,7 +127,7 @@ var EstrategiaAgregarModule = function () {
                 var itemClone = estrategiaObtenerObjHtmlLanding($btnAgregarTmp);
                 dataItemHtml = $divMsgProductoBloqueado.find(dataProperties.dataItemHtml);
 
-                if (estrategiaTmp.CodigoEstrategia !== codigoEstrategia.lanzamiento())
+                if (estrategiaTmp.CodigoEstrategia !== ConstantesModule.ConstantesPalanca.Lanzamiento)
                     dataItemHtml.html(itemClone.html());
 
                 return this;
@@ -232,13 +205,13 @@ var EstrategiaAgregarModule = function () {
 
         if (!$.isNumeric(cantidad)) {
             abrirMensajeEstrategia("Ingrese un valor numérico.");
-            $('.liquidacion_rango_cantidad_pedido').val(1);
+            $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
             CerrarLoad();
             return false;
         }
         if (parseInt(cantidad) <= 0) {
             abrirMensajeEstrategia("La cantidad debe ser mayor a cero.");
-            $('.liquidacion_rango_cantidad_pedido').val(1);
+            $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
             CerrarLoad();
             return false;
         }
@@ -257,7 +230,7 @@ var EstrategiaAgregarModule = function () {
 
         var cuvs = "";
         var codigoVariante = estrategia.CodigoVariante;
-        if ((estrategiaVariante.IndividualConTonos() == codigoVariante || estrategiaVariante.CompuestaVariable() == codigoVariante) && popup) {
+        if ((ConstantesModule.CodigoVariedad.IndividualVariable == codigoVariante || ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante) && popup) {
             var listaCuvs = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataTono.concat(dataProperties.dataTonoSelect));
             if (listaCuvs.length > 0) {
                 $.each(listaCuvs,
@@ -265,7 +238,7 @@ var EstrategiaAgregarModule = function () {
                         var cuv = $(item).attr("data-tono-select");
                         if (cuv != "") {
                             cuvs = cuvs + (cuvs == "" ? "" : "|") + cuv;
-                            if (estrategiaVariante.CompuestaVariable() == codigoVariante) {
+                            if (ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante) {
                                 cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdMarcaID).val();
                                 cuvs = cuvs + ";" + $(item).find(elementosDiv.EstrategiaHdPrecioCatalogo).val();
                             }
@@ -294,9 +267,10 @@ var EstrategiaAgregarModule = function () {
                 return false;
             }
 
+            $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
+
             if (data.success === false) {
                 abrirMensajeEstrategia(data.message);
-                $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
                 CerrarLoad();
                 return false;
             }
@@ -312,17 +286,11 @@ var EstrategiaAgregarModule = function () {
                 $(divAgregado).show();
             }
             if (isMobile()) {
-
                 ActualizarGanancia(data.DataBarra);
-
                 microefectoPedidoGuardado();
-                $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
+                if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.ShowRoom)
+                CargarCantidadProductosPedidos();
             } else {
-                $(".btn_agregar_ficha_producto ").parents(dataProperties.dataItem).find("input.liquidacion_rango_cantidad_pedido")
-                    .val("1");
-                $btnAgregar.parents(dataProperties.dataItem).find("input.rango_cantidad_pedido").val("1");
-                $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
-
                 CargarResumenCampaniaHeader(true);
             }
 
@@ -402,10 +370,10 @@ var EstrategiaAgregarModule = function () {
                 $(elementosPopPup.popupDetalleCarouselPackNuevas).hide();
             }
 
-            ActualizarLocalStorageAgregado(tipoEstrategia.rd, params.CuvTonos || params.CUV, true);
-            ActualizarLocalStorageAgregado(tipoEstrategia.gn, params.CuvTonos || params.CUV, true);
-            ActualizarLocalStorageAgregado(tipoEstrategia.hv, params.CuvTonos || params.CUV, true);
-            ActualizarLocalStorageAgregado(tipoEstrategia.lan, params.CuvTonos || params.CUV, true);
+            ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.rd, params.CuvTonos || params.CUV, true);
+            ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.gn, params.CuvTonos || params.CUV, true);
+            ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.hv, params.CuvTonos || params.CUV, true);
+            ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.lan, params.CuvTonos || params.CUV, true);
 
             ProcesarActualizacionMostrarContenedorCupon();
 
