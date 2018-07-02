@@ -1,10 +1,7 @@
 ﻿
 using AutoMapper;
-using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
-using System;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
@@ -21,7 +18,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             DetalleEstrategiaFichaModel modelo;
             if (PalancasConSesion(palanca))
             {
-                var estrategiaPresonalizada = ObtenerEstrategiaPersonalizada(palanca, cuv);
+                var estrategiaPresonalizada = ObtenerEstrategiaPersonalizada(palanca, cuv, campaniaId);
                 if (estrategiaPresonalizada == null) return RedirectToAction("Index", "Ofertas");
                 modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
             }

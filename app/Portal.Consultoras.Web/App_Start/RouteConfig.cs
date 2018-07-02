@@ -27,6 +27,19 @@ namespace Portal.Consultoras.Web
                 namespaces: new[] { "Portal.Consultoras.Web.Controllers" }
             );
 
+            //Ejm: ~/Detalle/GanaMas/2018010/0006/1101
+            routes.Add(
+                "MobileDetalleEstrategiaFicha",
+                new UniqueRoute(
+                    "Mobile/Detalle/{palanca}/{campaniaId}/{cuv}/{origen}",
+                    new { controller = "DetalleEstrategia", action = "Ficha", origen = "" },
+                    new RouteValueDictionary(new
+                    {
+                        Area = "Mobile",
+                        Namespaces = new[] { "Portal.Consultoras.Web.Areas.Mobile.Controllers" }
+                    })
+            ));
+            
             routes.Add("UniqueRoute", new UniqueRoute(
                 "g/{guid}/{controller}/{action}/{id}",
                 new { controller = "Login", action = "Index", guid = "", id = UrlParameter.Optional },

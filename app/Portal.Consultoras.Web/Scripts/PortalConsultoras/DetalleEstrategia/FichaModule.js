@@ -52,7 +52,7 @@
                 });
         });
     }
-
+    
     var _crearTabs = function() {
         for (var i = 1; i <= 5; i++) {
             if (document.getElementById("ficha_tab_" + i.toString()).checked) {
@@ -142,8 +142,6 @@
         } else return new Object();
     }
     
-   
-
     var _construirSeccionEstrategia = function () {
 
         var estrategia;

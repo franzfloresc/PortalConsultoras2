@@ -240,6 +240,7 @@
     </style>
 }
 
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12 ficha_breadcrumbs">
@@ -349,14 +350,11 @@
 </div>
 
 @section scripts{
+    @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")
     <script>
-        window.videoKey = '@Model.CodigoVideo';
-
-
-
-
+       window.videoKey = '@Model.CodigoVideo';
+       
       $(document).ready(function () {
-
          MostrarOcultarCargaElementos();
       });
 
@@ -371,9 +369,5 @@
               $(this).children('ul').slideToggle();
           });
       }
-
     </script>
-
-    @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")
-
 }
