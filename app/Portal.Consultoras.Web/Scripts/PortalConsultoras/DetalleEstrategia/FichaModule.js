@@ -18,16 +18,16 @@
         idDataEstrategia: "#data-estrategia",
         dataClicked: "[data-clicked]",
         dataChange: "[data-change]",
-        dataSelected:  "[data-select-area]"
+        dataSelected: "[data-select-area]",
+        idPlantillaProductoLanding: "#producto-landing-template",
+        divCarruselSetsProductosRelacionados: "#divOfertaProductos",
+        divSetsProductosRelacionados: "#set_relacionados"
     }
     var _atributos = {
         dataEstrategia: "data-estrategia",
         dataClicked: "[data-clicked]",
         dataChange: "[data-change]",
-        dataSelected: "[data-select-area]",
-        idPlantillaProductoLanding: "#producto-landing-template",
-        divCarruselSetsProductosRelacionados: "#divOfertaProductos",
-        divSetsProductosRelacionados: "#set_relacionados"
+        dataSelected: "[data-select-area]"
     }
   
 
@@ -156,6 +156,7 @@
 
 
     var _mostrarSetRelacionados = function () {
+        debugger;
          
         $(_elementos.divSetsProductosRelacionados).fadeOut();
 
@@ -166,6 +167,10 @@
         if (cuv == "" || campaniaId == "" || campaniaId == "0") {
             return false;
         }
+
+        if (platform != 'mobile')
+            return false;
+
 
         var str = LocalStorageListado("LANLista" + campaniaId, '', 1) || '';
 
