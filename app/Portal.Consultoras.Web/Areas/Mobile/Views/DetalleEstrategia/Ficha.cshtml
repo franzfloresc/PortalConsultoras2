@@ -366,25 +366,6 @@
     <script>
         window.videoKey = '@Model.CodigoVideo';
 
-      $(document).ready(function () {
-
-         MostrarOcultarCargaElementos();
-      });
-
-      function MostrarOcultarCargaElementos() {
-
-          if (!window.videoKey)
-          {
-              $('#tabVideo').hide();
-          }
-
-          $('ul.ficha_tabs li').click(function () {
-              $(this).children('ul').slideToggle();
-          });
-      }
-
-    </script>
-    <script>
         var fichaModule;
         $(document).ready(function() {
             fichaModule = FichaModule({
