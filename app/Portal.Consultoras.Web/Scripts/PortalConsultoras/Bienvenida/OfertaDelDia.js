@@ -41,14 +41,14 @@ $(document).ready(function () {
     };
 
     var elements = {
-        ContenedorOfertaDelDia: '#OfertaDelDia',
-        ContenedorOfertaDelDiaMobile: '#OfertasDiaMobile',
-        ContenedorOfertaDelDiaOfertas: '#OfertasDelDiaOfertas',
-        ContenedorEstrategiaTemplateCarrusel: '#estrategia-template_carrusel',
-        ContenedorInternoSliderOfertaDelDiaMobileHome: '#content_oferta_dia_mobile',
-        ContenedorInternoSliderOfertaDelDiaMobile: '.BloqueOfertaDiaHeader',
-        BtnAgregarMobile: '#btnAgregarMobile',
-        TxtCantidadMobile: '#txtCantidad'
+        ContenedorOfertaDelDia: "#OfertaDelDia",
+        ContenedorOfertaDelDiaMobile: "#OfertasDiaMobile",
+        ContenedorOfertaDelDiaOfertas: "#OfertasDelDiaOfertas",
+        ContenedorEstrategiaTemplateCarrusel: "#estrategia-template_carrusel",
+        ContenedorInternoSliderOfertaDelDiaMobileHome: "#content_oferta_dia_mobile",
+        ContenedorInternoSliderOfertaDelDiaMobile: ".BloqueOfertaDiaHeader",
+        BtnAgregarMobile: "#btnAgregarMobile",
+        TxtCantidadMobile: "#txtCantidad"
     };
 
     self.CargarODD = function () {
