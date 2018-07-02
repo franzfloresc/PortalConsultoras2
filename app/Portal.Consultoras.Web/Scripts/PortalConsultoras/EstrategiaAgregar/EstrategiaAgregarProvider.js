@@ -21,9 +21,9 @@
         });
 
         return dfd.promise();
-    }
+    };
 
     return {
         pedidoAgregarProductoPromise: pedidoAgregarProductoPromise
-    }
+    };
 }();

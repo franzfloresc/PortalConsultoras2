@@ -16,7 +16,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID);
 
         [OperationContract]
-        List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
+        List<BEEstrategia> GetEstrategiaODD(BEEstrategia entidad, string codConsultora, DateTime fechaInicioFact);
 
         [OperationContract]
         List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad);

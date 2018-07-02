@@ -16,10 +16,10 @@ var TieneHV = TieneHV || false;
 var revistaDigital = revistaDigital || {};
 
 var belcorp = belcorp || {};
-belcorp.estrategia = belcorp.estrategia || new Object();
+belcorp.estrategia = belcorp.estrategia || {};
 belcorp.estrategia.initialize = function () {
     registerEvent.call(this, "onProductoAgregado");
-}
+};
 
 var EstrategiaVerDetalleProvider = function () {
     "use strict";
@@ -66,19 +66,19 @@ var EstrategiaVerDetalleProvider = function () {
         });
 
         return dfd.promise();
-    }
+    };
 
     return {
         estrategiaGuardarTemporalPromise: estrategiaGuardarTemporalPromise,
         estrategiaConsultarEstrategiaCuvPromise: estrategiaConsultarEstrategiaCuvPromise
-    }
+    };
 }();
 
 var EstrategiaVerDetalle = function () {
     "use strict";
     return {
 
-    }
+    };
 }();
 
 function VerDetalleEstrategia(e) {
@@ -88,11 +88,11 @@ function VerDetalleEstrategia(e) {
     var estrategia = EstrategiaAgregarModule.EstrategiaObtenerObj(objHtmlEvent);
     if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
 
-    var origenPedido = $(objHtmlEvent).parents("[data-item]").find("input.OrigenPedidoWeb").val()
-        || $(objHtmlEvent).parents("[data-item]").attr("OrigenPedidoWeb")
-        || $(objHtmlEvent).parents("[data-item]").attr("data-OrigenPedidoWeb")
-        || $(objHtmlEvent).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
-        || origenPedidoWebEstrategia;
+    var origenPedido = $(objHtmlEvent).parents("[data-item]").find("input.OrigenPedidoWeb").val() || 
+        $(objHtmlEvent).parents("[data-item]").attr("OrigenPedidoWeb") || 
+        $(objHtmlEvent).parents("[data-item]").attr("data-OrigenPedidoWeb") || 
+        $(objHtmlEvent).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb") || 
+        origenPedidoWebEstrategia;
 
     estrategia.OrigenPedidoWeb = origenPedido;
 
@@ -125,7 +125,9 @@ function VerDetalleEstrategia(e) {
         }
 
 
-    } catch (e) { console.log(e) }
+    } catch (ex) { 
+        console.log(ex); 
+    }
 
     if (isMobile()) {
         EstrategiaVerDetalleMobile(estrategia, origenPedido);
@@ -136,7 +138,7 @@ function VerDetalleEstrategia(e) {
 
     estrategia.ContentItem = $(e.target).parents("[data-content-item]").attr("data-content-item");
 
-    estrategia.OrigenPedidoWeb = $(objHtmlEvent).parents("[data-OrigenPedidoWeb-popup]").attr("data-OrigenPedidoWeb-popup") || origenPedido
+    estrategia.OrigenPedidoWeb = $(objHtmlEvent).parents("[data-OrigenPedidoWeb-popup]").attr("data-OrigenPedidoWeb-popup") || origenPedido;
 
     if (estrategia.TipoEstrategiaImagenMostrar == '2') {
 
@@ -146,7 +148,7 @@ function VerDetalleEstrategia(e) {
 
         EstrategiaVerDetalleGeneral(estrategia);
 
-    };
+    }
 
     CerrarLoad();
     return true;
@@ -208,7 +210,7 @@ function EstrategiaVerDetalleGeneral(estrategia) {
     estrategia.Posicion = 1;
     estrategia.CodigoVariante = $.trim(estrategia.CodigoVariante);
 
-    estrategia.Detalle = new Array();
+    estrategia.Detalle = [];
     var btnDesabled = 0;
     if (estrategia.CodigoVariante != "") {
 
@@ -219,7 +221,7 @@ function EstrategiaVerDetalleGeneral(estrategia) {
         estrategia.Linea = "0px";
         if (estrategia.Detalle.length > 0) {
             $.each(estrategia.Detalle, function (i, item) {
-                item.Hermanos = item.Hermanos || new Array();
+                item.Hermanos = item.Hermanos || [];
                 item.CUVSelect = "";
                 item.ImagenBulkSelect = i == 0 ? item.ImagenBulk : "";
                 item.NombreBulkSelect = i == 0 ? item.NombreBulk : "";

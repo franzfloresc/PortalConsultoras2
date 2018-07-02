@@ -3739,29 +3739,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Oferta del dia
 
-        public JsonResult GetOfertaDelDia()
-        {
-            try
-            {
-                var oddModel = GetOfertaDelDiaModel();
-
-                return Json(new
-                {
-                    success = oddModel != null,
-                    data = oddModel
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "No se pudo procesar la solicitud"
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
         public JsonResult CloseOfertaDelDia()
         {
             try
@@ -4146,7 +4123,7 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategia.CUV2 = listSp.Length > 0 ? listSp[0] : estrategia.CUV2;
                     estrategia.MarcaID = listSp.Length > 1 ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
                     estrategia.Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
-
+                    
                     respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, model, false);
                     ListaCuvsTemporal.Add(listSp.Length > 0 ? listSp[0] : estrategia.CUV2);
                 }
@@ -4161,7 +4138,7 @@ namespace Portal.Consultoras.Web.Controllers
                             strCuvs = strCuvs + string.Format("{0}:{1},", x, ListaCuvsTemporal.Count(a => a == x));
                         });
                     }
-
+                    
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
                         pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), CuvSet

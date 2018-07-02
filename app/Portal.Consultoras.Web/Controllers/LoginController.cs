@@ -1255,7 +1255,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 sessionManager.SetUserData(usuarioModel);
-                //sessionManager.SetEstrategiaODD(estrategiaODD);
             }
             catch (Exception ex)
             {

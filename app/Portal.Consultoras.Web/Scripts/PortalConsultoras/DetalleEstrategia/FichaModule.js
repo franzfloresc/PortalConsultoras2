@@ -7,12 +7,15 @@
         origen: config.origen || "",
         tieneSession: config.tieneSession || "",
         campania: config.campania || "",
-        cuv: config.cuv || ""
+        cuv: config.cuv || "",
+        urlObtenerComponentes: config.urlObtenerComponentes
+        
     }
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _codigoPalanca = ConstantesModule.CodigosPalanca;
     
     var _elementos = {
+        dataEstrategia: "data-estrategia",
         dataClicked: "[data-clicked]",
         dataChange: "[data-change]",
         dataSelected: "[data-select-area]",
@@ -74,7 +77,7 @@
                 });
         });
     }
-
+    
     var _crearTabs = function() {
         for (var i = 1; i <= 5; i++) {
             if (document.getElementById("ficha_tab_" + i.toString()).checked) {
@@ -121,6 +124,28 @@
             nextArrow:
                 '<a class="contenedor_flecha_carrusel flecha_derecha_carrusel js-slick-next slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_carrusel_tonos dibujar_flecha_derecha_carrusel"></div></a>'
         });
+    }
+    
+    var _promiseObternerComponentes = function (params) {
+        var dfd = $.Deferred();
+
+        $.ajax({
+            type: "POST",
+            url: _config.urlObtenerComponentes,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(params),
+            async: false,
+            cache: false,
+            success: function (data) {
+                dfd.resolve(data);
+            },
+            error: function (data, error) {
+                dfd.reject(data, error);
+            }
+        });
+
+        return dfd.promise();
     }
 
 
@@ -212,25 +237,17 @@
         if (IsNullOrEmpty(estrategia.codigoVariante)) {
             var componentes;
             var param = {
-                estrategiaId: estrategia.estragiaId,
+                estrategiaId: estrategia.EstrategiaID,
                 campania: _config.campania,
-                codigoVariante: estrategia.codigoVariante
+                codigoVariante: estrategia.CodigoVariante
             }
-            $.ajax({
-                type: "GET",
-                url: baseUrl + "/DetalleEstrategia/ObtenerComponentes",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(param),
-                //async: true,
-                success: function (data) {
-                    componentes = data.componentes;
-                },
-                error: function (error, x) {
-                    console.error(error);
-                    componentes = new Object();
-                }
+            
+            _promiseObternerComponentes(param).done(function (data) {
+                componentes = data.componentes;
+            }).fail(function (data, error) {
+                componentes = new Object();
             });
+            
             return componentes;
         } else return new Object();
     }
@@ -240,15 +257,17 @@
         var estrategia;
         if (_config.tieneSession === "True") {
             //revisar si se realiza con razor o handle bar para SW y ODD
-            estrategia = new Object();
+            estrategia = JSON.parse($("#estrategia_json").attr(_elementos.dataEstrategia));
         } else {
             estrategia = localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
         }
 
         if (estrategia == null) {
             window.location = (isMobile() ? "/Mobile/" : "") + "Ofertas";
-            return false;
+            return true;
         }
+        
+        $("#data-estrategia").attr("data-estrategia", JSON.stringify(estrategia));
 
         estrategia.Hermanos = _verificarVariedad(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
