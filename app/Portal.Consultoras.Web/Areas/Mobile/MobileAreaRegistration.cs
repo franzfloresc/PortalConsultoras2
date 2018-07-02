@@ -20,6 +20,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile
                 new { controller = "Bienvenida", action = "Index", id = UrlParameter.Optional },
                 new[] { "Portal.Consultoras.Web.Areas.Mobile.Controllers" }
             );
+
+            context.MapRoute(
+                name: "DetalleEstrategiaFichaMobile",
+                url: "Mobile/Detalle/{palanca}/{campaniaId}/{cuv}/{origen}",
+                defaults: new { controller = "DetalleEstrategia", action = "Ficha", origen = UrlParameter.Optional },
+                namespaces: new[] { "Portal.Consultoras.Web.Areas.Mobile.Controllers" }
+            );
         }
     }
 }

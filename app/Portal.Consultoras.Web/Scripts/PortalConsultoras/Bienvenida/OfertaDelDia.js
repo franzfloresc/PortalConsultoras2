@@ -87,8 +87,8 @@ $(document).ready(function () {
             self.CargarODDMobile();
             odd_mobile_home_google_analytics_promotion_impresion();
         }
-        else if (props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_HOME
-            || props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_OFERTAS) {
+        else if (props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_HOME || 
+            props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_OFERTAS) {
             self.CargarODDEscritorio(props.TipoOrigenPantallaODD);
         }
     };
@@ -318,7 +318,7 @@ $(document).ready(function () {
     };
 
     function RenderOfertaDelDia(data, contenedorOfertas) {
-
+        
         $(contenedorOfertas).hide();
 
         data.CantidadProductos = data.ListaOferta.length;
@@ -560,6 +560,7 @@ $(document).ready(function () {
     }
 
     function OddAgregar(btn) {
+        
         waitingDialog();
 
         if (ReservadoOEnHorarioRestringido()) {
@@ -567,7 +568,7 @@ $(document).ready(function () {
             return false;
         }
 
-        if (!checkCountdownODD()) {
+        if (!CheckCountdownODD()) {
             alert_msg_pedido('La Oferta del Día se terminó');
             closeWaitingDialog();
             return false;
@@ -638,7 +639,6 @@ $(document).ready(function () {
         EstrategiaAgregarProvider
             .pedidoAgregarProductoPromise(obj)
             .done(function (data) {
-                debugger;
                 MarcarProductoComoAgregado(btn, item);
 
                 if (!checkTimeout(data)) {
@@ -1020,7 +1020,7 @@ function odd_mobile_google_analytics_promotion_click() {
     if ($('#BloqueMobileOfertaDia').length > 0) {
         var id = $('#BloqueMobileOfertaDia').find("#estrategia-id-odd").val();
         var name = "Oferta del día - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
-        var creative = $('#BloqueMobileOfertaDia').find("#nombre-odd").val() + " - " + $('#BloqueMobileOfertaDia').find("#cuv2-odd").val()
+        var creative = $('#BloqueMobileOfertaDia').find("#nombre-odd").val() + " - " + $('#BloqueMobileOfertaDia').find("#cuv2-odd").val();
         dataLayer.push({
             'event': 'promotionClick',
             'ecommerce': {

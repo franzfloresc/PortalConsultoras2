@@ -113,7 +113,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
-                "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js"
+                "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js",
+                "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Scripts/MobileLayoutEmpty").Include(
@@ -454,7 +455,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
-                "~/Scripts/PortalConsultoras/Cupon/Cupon.js"
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/ccsOfertasMobile").Include(
@@ -621,9 +623,9 @@ namespace Portal.Consultoras.Web
 
 
             bundles.Add(new ScriptBundle("~/bundles/Ficha").Include(
-               "~/Scripts/implements/youtube.js",
+                "~/Scripts/implements/youtube.js",
                 "~/Scripts/General.js",
-                  "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js"
+                "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js"
           ));
             #endregion
 

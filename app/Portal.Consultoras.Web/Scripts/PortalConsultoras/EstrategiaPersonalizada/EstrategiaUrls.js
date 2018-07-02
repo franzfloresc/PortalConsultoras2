@@ -2,6 +2,7 @@
 
 
 function OnClickFichaDetalle(e) {
+    
     //el objeto e debe ser establecido con target  (e.target)
     var infoItem = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
     
@@ -19,6 +20,7 @@ function OnClickFichaDetalle(e) {
         return null;
 
     UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
+    
     window.location = UrlDetalle;  
                        
     return true;
@@ -26,7 +28,7 @@ function OnClickFichaDetalle(e) {
 
 function GetPalanca(codigoEstrategia) {
 
-    var url = "/Detalle/";
+    var url = isMobile() ? "/Mobile/Detalle/": "/Detalle/";
 
     if (codigoEstrategia != null && typeof codigoEstrategia !== "undefined")
 

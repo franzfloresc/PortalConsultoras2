@@ -85,8 +85,11 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                         : (Request.UrlReferrer != null && IsMobile()) ? Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido : 0;
                 }
 
-                model.ListaLan = ConsultarEstrategiasFormatearModelo(listModel.Where(l => l.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList());
-                model.ListaModelo = ConsultarEstrategiasFormatearModelo(listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList());
+
+                var listaPedido = _pedidoWebProvider.ObtenerPedidoWebDetalle(0);
+                
+                model.ListaLan = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listModel.Where(l => l.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), listaPedido, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
+                model.ListaModelo = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), listaPedido, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
             }
             catch (Exception ex)
             {
@@ -185,8 +188,9 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 listaFinal1 = _ofertaPersonalizadaProvider.ConsultarOfertasFiltrar(model, listaFinal1, tipoConsulta);
 
                 var tipo = _ofertaPersonalizadaProvider.ConsultarOfertasTipoPerdio(model, tipoConsulta);
-
-                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, tipo);
+                
+                var listaPedido = _pedidoWebProvider.ObtenerPedidoWebDetalle(0);
+                var listModel = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaFinal1, listaPedido, userData.CodigoISO, userData.CampaniaID, tipo, userData.esConsultoraLider, userData.Simbolo);
 
                 var cantidadTotal = listModel.Count;
 
@@ -247,7 +251,9 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                         listPerdio = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas && p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                     }
 
-                    listPerdioFormato = ConsultarEstrategiasFormatearModelo(listPerdio, 1);
+                    var listaPedido = _pedidoWebProvider.ObtenerPedidoWebDetalle(0);
+
+                    listPerdioFormato = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listPerdio, listaPedido, userData.CodigoISO, userData.CampaniaID, 1, userData.esConsultoraLider, userData.Simbolo);
                 }
 
             }
