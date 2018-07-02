@@ -12,9 +12,9 @@
 
 <div class="imagen_fondo_detalle" style="background-image: url('https://S3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_Desktop_Fondo_del_ShowRoom_en_el_Contenedor_Ofertas_Venta 50A_2018630811_01_ytmwyupjny.jpg');"></div>
 <div class="contenedor_detalle texto_font" data-item="" data-tag-html="@ViewBag.Campania">
-    <div class="contenedor_fichas" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
+    <div class="contenedor_fichas" data-OrigenPedidoWeb="@Model.Origen">
         <div style="display:none;">
-            <div id="estrategia_json" data-estrategia="@Json.Encode(Model)"></div>
+            <div id="data-estrategia" data-estrategia="@Json.Encode(Model)"></div>
         </div>
         <div class="contenedor_ficha_producto" id="seccion_ficha_handlebars" data-OrigenPedidoWeb="@Model.Origen"></div>
         <script id="detalle_ficha_template" type="text/x-handlebars-template">
@@ -172,7 +172,7 @@
                 </div>
                 {{/iff}}
                 <div class="contenedor_agregar">
-                    <div class="contenedor_rangos" data-ContenedorCantidad="">
+                        <div class="contenedor_rangos" data-cantidad-contenedor="">
                         <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
                         <div>
                             <a class="txt_menos" data-cantidad-agregar="-" data-bloqueada="" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">

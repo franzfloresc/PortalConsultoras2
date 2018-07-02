@@ -11,6 +11,7 @@
 /// <reference path="../../../Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/TagManager/Home-Pedido.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
+/// <reference path="../../../PortalConsultoras/Shared/ConstantesModule.js" />
 
 var EstrategiaAgregarModule = function () {
     "use strict";
