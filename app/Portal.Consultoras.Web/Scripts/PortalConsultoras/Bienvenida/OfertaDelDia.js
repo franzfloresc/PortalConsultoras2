@@ -735,24 +735,20 @@ $(document).ready(function () {
 
     function CheckCountdownODD() {
         var ok = true;
-        $.ajax({
-            type: 'GET',
-            url: baseUrl + props.UrlGetOfertaDelDia,
-            async: false,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (response) {
+
+        OfertaDelDiaProvider
+            .pedidoGetOfertaDelDiaPromise()
+            .done(function (response) {
                 if (checkTimeout(response)) {
                     if (response.success) {
-                        var _data = response.data;
-
-                        if (_data.TeQuedan.TotalSeconds <= 0)
+                        if (response.data.TeQuedan.TotalSeconds <= 0)
                             ok = false;
                     }
                 }
-            },
-            error: function (err) { }
-        });
+            })
+            .fail(function (data, error) {
+                //
+            });
 
         return ok;
     }
