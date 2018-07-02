@@ -11,6 +11,7 @@ namespace Portal.Consultoras.Common
             public const int Terminos = 303;
         }
 
+		
         public static class Marca
         {
             public const int LBel = 1;
