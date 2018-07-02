@@ -23,9 +23,9 @@ namespace Portal.Consultoras.Service
 
         #endregion
 
-        public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
+        public List<BEEstrategia> GetEstrategiaODD(BEEstrategia entidad, string codConsultora, DateTime fechaInicioFact)
         {
-            return new BLOfertaPersonalizada().GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
+            return new BLOfertaPersonalizada().GetEstrategiaODD(entidad, codConsultora, fechaInicioFact);
         }
 
         public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)

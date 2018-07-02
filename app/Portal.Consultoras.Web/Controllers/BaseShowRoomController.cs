@@ -72,15 +72,8 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.ImagenPopupShowroomVenta = showRoomBannerLateral.ImagenPopupShowroomVenta;
                     ViewBag.ImagenBannerShowroomVenta = showRoomBannerLateral.ImagenBannerShowroomVenta;
                     ViewBag.DiasFaltantesLetras = showRoomBannerLateral.LetrasDias;
-
-                    EstrategiaPedidoModel ofertaDelDia = GetOfertaDelDiaModel();
-                    ViewBag.OfertaDelDia = ofertaDelDia;
-
-                    ViewBag.MostrarOfertaDelDia =
-                        !userData.CloseOfertaDelDia
-                        && userData.TieneOfertaDelDia
-                        && ofertaDelDia != null
-                        && ofertaDelDia.TeQuedan.TotalSeconds > 0;
+                    
+                    ViewBag.MostrarOfertaDelDia = _ofertaDelDiaProvider.MostrarOfertaDelDia(userData);
 
                     showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
                 }

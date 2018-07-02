@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using System.Web;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 
 namespace Portal.Consultoras.Web.SessionManager.OfertaDelDia
 {

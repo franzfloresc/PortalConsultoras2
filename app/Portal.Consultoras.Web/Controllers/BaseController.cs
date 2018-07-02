@@ -929,7 +929,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return ip;
         }
-        
+
         //public int TipoAccionAgregar(int tieneVariedad, string codigoTipoEstrategia, bool esConsultoraLider = false, bool bloqueado = false, string codigoTipos = "")
         //{
         //    var tipo = tieneVariedad == 0 ? codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
@@ -952,7 +952,7 @@ namespace Portal.Consultoras.Web.Controllers
         //    }
         //    return tipo;
         //}
-        
+
         #endregion
 
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(string constSession)
@@ -1369,91 +1369,94 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Metodos Oferta del Dia
 
-        private bool CumpleOfertaDelDia()
-        {
-            var result = false;
-            if (!_ofertaDelDiaProvider.NoMostrarBannerODD(GetControllerActual()))
-            {
-                var tieneOfertaDelDia = sessionManager.GetFlagOfertaDelDia();
-                result = (!tieneOfertaDelDia ||
-                          (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2 || userData.IndicadorGPRSB == 0)
-                          && !userData.CloseOfertaDelDia) && tieneOfertaDelDia;
-            }
+        //private bool CumpleOfertaDelDia()
+        //{
+        //    var result = false;
+        //    if (!_ofertaDelDiaProvider.NoMostrarBannerODD(GetControllerActual()))
+        //    {
+        //        var tieneOfertaDelDia = sessionManager.GetFlagOfertaDelDia();
+        //        result = (!tieneOfertaDelDia ||
+        //                  (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2 || userData.IndicadorGPRSB == 0)
+        //                  && !userData.CloseOfertaDelDia) && tieneOfertaDelDia;
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
 
-        protected EstrategiaPedidoModel GetOfertaDelDiaModel()
-        {
-            if (!userData.TieneOfertaDelDia && !userData.EsConsultora()) return new EstrategiaPedidoModel();
+        //protected EstrategiaPedidoModel GetOfertaDelDiaModel()
+        //{
+        //    if (!userData.EsConsultora())
+        //        return new EstrategiaPedidoModel();
 
-            estrategiaODD = estrategiaODD ?? sessionManager.OfertaDelDia.Estrategia;
+        //    estrategiaODD = estrategiaODD ?? sessionManager.OfertaDelDia.Estrategia;
 
-            if (estrategiaODD != null &&
-                estrategiaODD.ListaDeOferta != null &&
-                estrategiaODD.ListaDeOferta.Any())
-            {
-                var oddModel = estrategiaODD.ListaDeOferta.First().Clone();
-                oddModel.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData);
-                oddModel.ListaOfertas = estrategiaODD.ListaDeOferta;
-                return oddModel;
-            }
+        //    if (estrategiaODD != null && !estrategiaODD.TieneOfertaDelDia)
+        //        return new EstrategiaPedidoModel();
 
+        //    if (estrategiaODD != null &&
+        //        estrategiaODD.ListaOferta.Any())
+        //    {
+        //        var oddModel = estrategiaODD.ListaDeOferta.First().Clone();
+        //        //oddModel.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData);
+        //        oddModel.ListaOfertas = estrategiaODD.ListaDeOferta;
+        //        return oddModel;
+        //    }
 
-            var ofertasOddModel = _ofertaDelDiaProvider.GetOfertas(userData);
-            if (!ofertasOddModel.Any()) return new EstrategiaPedidoModel();
+        //    var ofertasOddModel = _ofertaDelDiaProvider.GetOfertas(userData);
+        //    if (!ofertasOddModel.Any()) return new EstrategiaPedidoModel();
 
-            var personalizacionesOdd = _tablaLogicaProvider.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.PersonalizacionODD);
-            if (!personalizacionesOdd.Any()) return new EstrategiaPedidoModel();
+        //    var personalizacionesOdd = _tablaLogicaProvider.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.PersonalizacionODD);
+        //    if (!personalizacionesOdd.Any()) return new EstrategiaPedidoModel();
 
-            var tiposEstrategia = sessionManager.GetTiposEstrategia();
-            if (tiposEstrategia == null)
-            {
-                tiposEstrategia = GetTipoEstrategias();
-                sessionManager.SetTiposEstrategia(tiposEstrategia);
-            }
+        //    var tiposEstrategia = sessionManager.GetTiposEstrategia();
+        //    if (tiposEstrategia == null)
+        //    {
+        //        tiposEstrategia = GetTipoEstrategias();
+        //        sessionManager.SetTiposEstrategia(tiposEstrategia);
+        //    }
 
-            short posicion = 0;
-            var colorFondoBanner = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionOdd.ColorFondoBanner) ?? new TablaLogicaDatosModel();
-            var coloFondoDisplay = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionOdd.ColorFondoDisplay) ?? new TablaLogicaDatosModel();
-            var countdown = _ofertaDelDiaProvider.CountdownOdd(userData);
+        //    var colorFondoBanner = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionOdd.ColorFondoBanner) ?? new TablaLogicaDatosModel();
+        //    var coloFondoDisplay = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionOdd.ColorFondoDisplay) ?? new TablaLogicaDatosModel();
+        //    var countdown = _ofertaDelDiaProvider.CountdownOdd(userData);
 
-            ofertasOddModel.Update(x =>
-            {
-                x.Position = posicion++;
-                x.CodigoISO = userData.CodigoISO;
-                x.TeQuedan = countdown;
-                x.ImagenFondo1 = string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo1ODD"), userData.CodigoISO);
-                x.ColorFondo1 = colorFondoBanner.Codigo ?? string.Empty;
-                x.ImagenSoloHoy = _ofertaDelDiaProvider.ObtenerUrlImagenOfertaDelDia(userData.CodigoISO, ofertasOddModel.Count);
-                x.ImagenFondo2 = string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo2ODD"), userData.CodigoISO);
-                x.ColorFondo2 = coloFondoDisplay.Codigo ?? string.Empty;
-                //x.NombreOferta = ObtenerNombreOfertaDelDia(x.NombreOferta);
-                //x.DescripcionLegal = ObtenerDescripcionOfertaDelDia(x.DescripcionLegal);
-                x.NombreOferta = _ofertaDelDiaProvider.ObtenerNombreOfertaDelDia(x.NombreOferta);
-                x.DescripcionOferta = _ofertaDelDiaProvider.ObtenerDescripcionOfertaDelDia(x.DescripcionOferta);
-                x.TieneOfertaDelDia = true;
-                x.DescripcionMarca = Util.GetDescripcionMarca(x.MarcaID);
-                x.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == x.CUV2 && (d.TipoEstrategiaID == x.TipoEstrategiaID || d.TipoEstrategiaID == 0)) ? "block" : "none";
-                if (tiposEstrategia != null && tiposEstrategia.Any(te => te.TipoEstrategiaID == x.TipoEstrategiaID))
-                    x.TipoEstrategiaDescripcion = tiposEstrategia.First(te => te.TipoEstrategiaID == x.TipoEstrategiaID).DescripcionEstrategia ?? string.Empty;
-            });
+        //    short posicion = 0;
+        //    ofertasOddModel.Update(x =>
+        //    {
+        //        x.Position = posicion++;
+        //        x.CodigoISO = userData.CodigoISO;
+        //        //x.TeQuedan = countdown;
+        //        x.ImagenFondo1 = string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo1ODD"), userData.CodigoISO);
+        //        x.ColorFondo1 = colorFondoBanner.Codigo ?? string.Empty;
+        //        x.ImagenSoloHoy = _ofertaDelDiaProvider.ObtenerUrlImagenOfertaDelDia(userData.CodigoISO, ofertasOddModel.Count);
+        //        x.ImagenFondo2 = string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo2ODD"), userData.CodigoISO);
+        //        x.ColorFondo2 = coloFondoDisplay.Codigo ?? string.Empty;
+        //        //x.NombreOferta = ObtenerNombreOfertaDelDia(x.NombreOferta);
+        //        //x.DescripcionLegal = ObtenerDescripcionOfertaDelDia(x.DescripcionLegal);
+        //        x.NombreOferta = _ofertaDelDiaProvider.ObtenerNombreOfertaDelDia(x.NombreOferta);
+        //        x.DescripcionOferta = _ofertaDelDiaProvider.ObtenerDescripcionOfertaDelDia(x.DescripcionOferta);
+        //        x.TieneOfertaDelDia = true;
+        //        x.DescripcionMarca = Util.GetDescripcionMarca(x.MarcaID);
+        //        x.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == x.CUV2 && (d.TipoEstrategiaID == x.TipoEstrategiaID || d.TipoEstrategiaID == 0)) ? "block" : "none";
+        //        if (tiposEstrategia != null && tiposEstrategia.Any(te => te.TipoEstrategiaID == x.TipoEstrategiaID))
+        //            x.TipoEstrategiaDescripcion = tiposEstrategia.First(te => te.TipoEstrategiaID == x.TipoEstrategiaID).DescripcionEstrategia ?? string.Empty;
+        //    });
 
-            estrategiaODD = estrategiaODD ?? new DataModel();
-            estrategiaODD.ListaDeOferta = ofertasOddModel;
-            userData.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
-            sessionManager.SetUserData(userData);
+        //    estrategiaODD = estrategiaODD ?? new DataModel();
+        //    estrategiaODD.ListaDeOferta = ofertasOddModel;
+        //    estrategiaODD.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
+        //    //sessionManager.SetUserData(userData);
 
-            var odd = estrategiaODD.ListaDeOferta.First();
-            odd.ConfiguracionContenedor = ObtenerConfiguracionSeccion(revistaDigital)
-                .FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
-            sessionManager.OfertaDelDia.Estrategia = estrategiaODD;
+        //    var odd = estrategiaODD.ListaDeOferta.First();
+        //    odd.ConfiguracionContenedor = ObtenerConfiguracionSeccion(revistaDigital)
+        //        .FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
 
-            var model = estrategiaODD.ListaDeOferta.First().Clone();
-            model.ListaOfertas = estrategiaODD.ListaDeOferta;
+        //    sessionManager.OfertaDelDia.Estrategia = estrategiaODD;
 
-            return model;
-        }
+        //    var model = estrategiaODD.ListaDeOferta.First().Clone();
+        //    model.ListaOfertas = estrategiaODD.ListaDeOferta;
+
+        //    return model;
+        //}
 
         #endregion
 
@@ -2215,8 +2218,11 @@ namespace Portal.Consultoras.Web.Controllers
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.DesktopShowRoomContenedor : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor;
                             break;
                         case Constantes.ConfiguracionPais.OfertaDelDia:
-                            if (!userData.TieneOfertaDelDia)
+                            if (!estrategiaODD.TieneOfertaDelDia)
                                 continue;
+
+                            sessionManager.OfertaDelDia.Estrategia.ConfiguracionContenedor = seccion;
+
                             break;
                         case Constantes.ConfiguracionPais.HerramientasVenta:
                             seccion.UrlObtenerProductos = "Estrategia/HVObtenerProductos";
@@ -2565,13 +2571,11 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.GPRBannerMensaje = userData.GPRBannerMensaje ?? "";
                 ViewBag.GPRBannerUrl = userData.GPRBannerUrl;
 
-                ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia();
-                ViewBag.MostrarOfertaDelDiaContenedor = userData.TieneOfertaDelDia;
-
-                var configuracionPaisOdd = sessionManager.GetConfiguracionesPaisModel().FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
-                configuracionPaisOdd = configuracionPaisOdd ?? new ConfiguracionPaisModel();
-                ViewBag.CodigoAnclaOdd = configuracionPaisOdd.Codigo;
-
+                // odd
+                ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
+                ViewBag.TieneOfertaDelDia = _ofertaDelDiaProvider.CumpleOfertaDelDia(userData, GetControllerActual());
+                //ViewBag.MostrarOfertaDelDiaContenedor = estrategiaODD.TieneOfertaDelDia;
+                ViewBag.oddConfiguracion = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
             }
             catch (Exception ex)
             {
@@ -3257,7 +3261,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return Request.Browser.IsMobileDevice;
         }
-        
+
         public string GetControllerActual()
         {
             return ControllerContext.RouteData.Values["controller"].ToString();

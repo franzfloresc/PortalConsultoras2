@@ -1,4 +1,9 @@
-﻿@model Portal.Consultoras.Web.Models.EstrategiaPedidoModel
+﻿@using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
+@{
+
+    DataModel Model = ViewBag.MostrarOfertaDelDia == true ? ViewBag.OfertaDelDia ?? new DataModel() : new DataModel();
+
+}
 <style>
     .flip-clock-wrapper .flip{
         box-shadow: 0 2px 5px @Model.ColorFondo1 !important;
@@ -15,18 +20,11 @@
 
             <div class="clock" data-total-seconds="@Model.TeQuedan.TotalSeconds" style="top:2px; left:115px;"></div>
         </div>
-        @if (Model.ListaOfertas != null && Model.ListaOfertas.Count > 1)
-        {
-            <a class="btn_compralo_ahora cabecera-no-home" href="#">VER OFERTAS</a>
-        }
-        else
-        {
-            <a class="btn_compralo_ahora cabecera-no-home" href="#">VER OFERTA</a>
-        }
+        <a class="btn_compralo_ahora cabecera-no-home" href="#">@Model.TextoVerDetalle</a>
         <div class="imagen_set_oferta_mobile2">
             <img src="@Model.ImagenBanner" alt="" />
         </div>
-        <hr class="clear" />
+        @*<hr class="clear" />
         <input type="hidden" id="tipoestrategia-id-odd" value="@Model.TipoEstrategiaID" />
         <input type="hidden" id="marca-id-odd" value="@Model.MarcaID" />
         <input type="hidden" id="cuv2-odd" value="@Model.CUV2" />
@@ -35,6 +33,6 @@
         <input type="hidden" id="precio-odd" value="@Model.PrecioOferta" />
         <input type="hidden" id="nombre-odd" value="@Model.NombreOferta" />
         <input type="hidden" id="indmonto-min-odd" value="@Model.IndicadorMontoMinimo" />
-        <input type="hidden" id="teimagenmostrar-odd" value="@Model.TipoEstrategiaImagenMostrar" />
+        <input type="hidden" id="teimagenmostrar-odd" value="@Model.TipoEstrategiaImagenMostrar" />*@
     </div>
 </div>

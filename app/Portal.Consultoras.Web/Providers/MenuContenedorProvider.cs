@@ -406,7 +406,7 @@ namespace Portal.Consultoras.Web.Providers
 
                         break;
                     case Constantes.ConfiguracionPais.OfertaDelDia:
-                        if (!userData.TieneOfertaDelDia)
+                        if (!sessionManager.OfertaDelDia.Estrategia.TieneOfertaDelDia)
                             continue;
 
                         config.UrlMenu = "#";
