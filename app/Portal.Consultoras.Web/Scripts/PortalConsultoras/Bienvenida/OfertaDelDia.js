@@ -206,14 +206,9 @@ $(document).ready(function () {
         if ($(contenedorOfertas).length == 0)
             return false;
 
-        $.ajax({
-            type: 'GET',
-            url: baseUrl + props.UrlGetOfertaDelDia,
-            cache: false,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (response) {
-
+        OfertaDelDiaProvider
+            .pedidoGetOfertaDelDiaPromise()
+            .done(function (response) {
                 array_odd = response.data;
 
                 if (!EsValidoResponseGetOfertaDelDia(response))
@@ -224,7 +219,7 @@ $(document).ready(function () {
                 RenderOfertaDelDia(_data, contenedorOfertas);
 
                 MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
-                
+
 
                 var setColorFondo = _data.ColorFondo1;
                 var setColorTexto = "";
@@ -287,9 +282,10 @@ $(document).ready(function () {
                         odd_desktop_google_analytics_promotion_impresion_flag = false;
                     }
                 }
-            },
-            error: function (err) { }
-        });
+            })
+            .fail(function(data, error) {
+                //
+            });
 
         if (!seAtacharonEventosOdd) {
 
