@@ -4106,7 +4106,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     int CantidadActual = PedidosAgregados.Where(x => x.CUV == estrategia.CUV2 && x.SetID != 0).Sum(x => x.Cantidad);
 
-                    if (CantidadActual + model.Cantidad.ToInt() > estrategia.LimiteVenta)
+                    if (CantidadActual + estrategia.Cantidad > estrategia.LimiteVenta)
                     {
                         mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + estrategia.LimiteVenta + " ).";
                         return Json(new
