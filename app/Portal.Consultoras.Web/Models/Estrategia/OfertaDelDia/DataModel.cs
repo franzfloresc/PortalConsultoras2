@@ -7,7 +7,6 @@
     {
         public DataModel()
         {
-            //ListaDeOferta = new List<EstrategiaPedidoModel>();
             ListaOferta = new List<EstrategiaPersonalizadaProductoModel>();
             ConfiguracionContenedor = new ConfiguracionSeccionHomeModel();
         }
@@ -21,6 +20,7 @@
         public string TextoVerDetalle { get; set; }
 
         #region campos de la primera estrategia
+        public int EstrategiaID { get; set; }
         public string ImagenBanner { get; set; }
         public string NombreOferta { get; set; }
         public string PrecioOfertaFormat { get; set; }
@@ -28,6 +28,5 @@
 
         public ConfiguracionSeccionHomeModel ConfiguracionContenedor { get; set; }
         public List<EstrategiaPersonalizadaProductoModel> ListaOferta { get; set; }
-        public List<EstrategiaPedidoModel> ListaDeOferta { get; set; }
     }
 }

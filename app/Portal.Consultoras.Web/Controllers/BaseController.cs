@@ -929,7 +929,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return ip;
         }
-        
+
         //public int TipoAccionAgregar(int tieneVariedad, string codigoTipoEstrategia, bool esConsultoraLider = false, bool bloqueado = false, string codigoTipos = "")
         //{
         //    var tipo = tieneVariedad == 0 ? codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
@@ -952,7 +952,7 @@ namespace Portal.Consultoras.Web.Controllers
         //    }
         //    return tipo;
         //}
-        
+
         #endregion
 
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(string constSession)
@@ -1369,30 +1369,30 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Metodos Oferta del Dia
 
-        private bool CumpleOfertaDelDia()
-        {
-            var result = false;
-            if (!_ofertaDelDiaProvider.NoMostrarBannerODD(GetControllerActual()))
-            {
-                var tieneOfertaDelDia = sessionManager.GetFlagOfertaDelDia();
-                result = (!tieneOfertaDelDia ||
-                          (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2 || userData.IndicadorGPRSB == 0)
-                          && !userData.CloseOfertaDelDia) && tieneOfertaDelDia;
-            }
+        //private bool CumpleOfertaDelDia()
+        //{
+        //    var result = false;
+        //    if (!_ofertaDelDiaProvider.NoMostrarBannerODD(GetControllerActual()))
+        //    {
+        //        var tieneOfertaDelDia = sessionManager.GetFlagOfertaDelDia();
+        //        result = (!tieneOfertaDelDia ||
+        //                  (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2 || userData.IndicadorGPRSB == 0)
+        //                  && !userData.CloseOfertaDelDia) && tieneOfertaDelDia;
+        //    }
 
-            return result;
-        }
-        
+        //    return result;
+        //}
+
         //protected EstrategiaPedidoModel GetOfertaDelDiaModel()
         //{
         //    if (!userData.EsConsultora())
         //        return new EstrategiaPedidoModel();
 
         //    estrategiaODD = estrategiaODD ?? sessionManager.OfertaDelDia.Estrategia;
-            
+
         //    if (estrategiaODD != null && !estrategiaODD.TieneOfertaDelDia)
         //        return new EstrategiaPedidoModel();
-            
+
         //    if (estrategiaODD != null &&
         //        estrategiaODD.ListaOferta.Any())
         //    {
@@ -2573,7 +2573,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 // odd
                 ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
-                ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia();
+                ViewBag.TieneOfertaDelDia = _ofertaDelDiaProvider.CumpleOfertaDelDia(userData, GetControllerActual());
                 //ViewBag.MostrarOfertaDelDiaContenedor = estrategiaODD.TieneOfertaDelDia;
                 ViewBag.oddConfiguracion = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
             }
@@ -3261,7 +3261,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return Request.Browser.IsMobileDevice;
         }
-        
+
         public string GetControllerActual()
         {
             return ControllerContext.RouteData.Values["controller"].ToString();

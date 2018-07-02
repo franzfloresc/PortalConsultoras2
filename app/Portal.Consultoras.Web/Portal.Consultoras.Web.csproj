@@ -4785,6 +4785,7 @@
     <Content Include="Views\CatalogoPersonalizado\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\DetalleEstrategia\Ficha.cshtml" />
     <Content Include="Views\Unete\ReporteFuenteIngreso.cshtml" />
     <Content Include="Web References\ServiceCatalogosIssuu\MulticatalogoWebService.disco" />
     <Content Include="WebPages\AppCatalogoTyC\BO_AppCatalogoTyC.html" />
@@ -5111,7 +5112,6 @@
     <Content Include="Views\Lanzamientos\Template_LanzamientosTonos.cshtml" />
     <Content Include="Views\MatrizCampania\ActualizarMatrizCampaniaNew.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpVariablesGeneralesPortal.cshtml" />
-    <Content Include="Views\DetalleEstrategia\Ficha.cshtml" />
     <Content Include="Views\OfertaDelDia\ofertadeldia-banner-template.cshtml" />
     <Content Include="Views\OfertaDelDia\ofertadeldia-contenedor-template.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">

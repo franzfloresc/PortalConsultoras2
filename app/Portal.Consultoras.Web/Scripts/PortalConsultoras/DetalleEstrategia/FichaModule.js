@@ -15,11 +15,41 @@
     var _codigoPalanca = ConstantesModule.CodigosPalanca;
     
     var _elementos = {
+        idDataEstrategia: "#data-estrategia",
         dataClicked: "[data-clicked]",
         dataChange: "[data-change]",
-        dataSelected:  "[data-select-area]"
+        dataSelected: "[data-select-area]",
+        idPlantillaProductoLanding: "#producto-landing-template",
+        divCarruselSetsProductosRelacionados: "#divOfertaProductos",
+        divSetsProductosRelacionados: "#set_relacionados"
     }
+    var _atributos = {
+        dataEstrategia: "data-estrategia",
+        dataClicked: "[data-clicked]",
+        dataChange: "[data-change]",
+        dataSelected: "[data-select-area]"
+    }
+  
 
+    var _getParamValueFromQueryString = function (queryStringName) {
+        queryStringName = queryStringName || '';
+        queryStringName = queryStringName.toLowerCase();
+        var queryStringValue = '';
+        var stringUrlParameters = location.href.toLowerCase().split('?');
+        if (stringUrlParameters.length > 1 && queryStringName != '') {
+            var arrParameterString = stringUrlParameters[1].split('&');
+            $.each(arrParameterString, function (index, stringParameter) {
+                var items = stringParameter.split('=');
+                var parameterName = $.trim(items[0]);
+                var parameterValue = $.trim(items[1]);
+                if (parameterName == queryStringName) {
+                    queryStringValue = parameterValue;
+                    return false;
+                }
+            });
+        }
+        return queryStringValue;
+    };
     var _eventos =
     {
         clickChange: function () {
@@ -52,7 +82,7 @@
                 });
         });
     }
-
+    
     var _crearTabs = function() {
         for (var i = 1; i <= 5; i++) {
             if (document.getElementById("ficha_tab_" + i.toString()).checked) {
@@ -123,6 +153,96 @@
         return dfd.promise();
     }
 
+
+
+    var _mostrarSetRelacionados = function () {
+        debugger;
+         
+        $(_elementos.divSetsProductosRelacionados).fadeOut();
+
+        var platform = !isMobile() ? 'desktop' : 'mobile';
+        var cuv = _getParamValueFromQueryString("cuv");
+        var campaniaId = _getParamValueFromQueryString("campaniaid");
+
+        if (cuv == "" || campaniaId == "" || campaniaId == "0") {
+            return false;
+        }
+
+        if (platform != 'mobile')
+            return false;
+
+
+        var str = LocalStorageListado("LANLista" + campaniaId, '', 1) || '';
+
+        if (str === '') {
+            return false;
+        }
+
+        var data = {
+            lista: JSON.parse(str).response.listaLan
+        };
+
+        var setRelacionados = [];
+        var codigoProducto = '';
+        $.each(data.lista, function (index, lanzamiento) {
+            if (cuv === lanzamiento.CUV2) {
+                codigoProducto = lanzamiento.CodigoProducto;
+                return false;
+            }
+        });
+
+        $.each(data.lista, function (index, lanzamiento) {
+            if (cuv != lanzamiento.CUV2 && lanzamiento.CodigoProducto === codigoProducto) {
+                setRelacionados.push(lanzamiento);
+            }
+        });
+        if (setRelacionados.length == 0) {
+            return false;
+        }
+        data.lista = setRelacionados;
+        console.log(data);
+        SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
+        EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
+
+        var slickArrows = {
+            'mobile': {
+                prev: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-left: 0%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
+                next: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-right:0%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>'
+            },
+            'desktop': {
+                prev: '<a class="previous_ofertas" style="left:-5%; text-align:left;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+                next: '<a class="previous_ofertas" style="display: block; right:-5%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+            }
+        };
+
+        var widthDimamico = !isMobile();
+
+        $(_elementos.divCarruselSetsProductosRelacionados + '.slick-initialized').slick('unslick');
+        $(_elementos.divCarruselSetsProductosRelacionados).not('.slick-initialized').slick({
+            dots: false,
+            infinite: true,
+            speed: 260,
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            variableWidth: widthDimamico,
+            prevArrow: slickArrows[platform].prev,
+            nextArrow: slickArrows[platform].next,
+            responsive: [
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        infinite: true
+                    }
+                }
+            ]
+        });
+
+        $(_elementos.divSetsProductosRelacionados).fadeIn();
+    };
+
+
     var _verificarVariedad = function (estrategia) {
         if (IsNullOrEmpty(estrategia.codigoVariante)) {
             var componentes;
@@ -142,16 +262,15 @@
         } else return new Object();
     }
     
-   
-
     var _construirSeccionEstrategia = function () {
 
         var estrategia;
         if (_config.tieneSession === "True") {
             //revisar si se realiza con razor o handle bar para SW y ODD
-            estrategia = new Object();
+            estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
         } else {
             estrategia = localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+            $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
         }
 
         if (estrategia == null) {
@@ -162,6 +281,7 @@
         estrategia.Hermanos = _verificarVariedad(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
         return true;
+        
     }
     
     function Inicializar() {
@@ -171,7 +291,7 @@
         _crearReloj();
         _crearTabs();
         _crearCarruseles();
-       
+        _mostrarSetRelacionados();
     }
 
     return {
