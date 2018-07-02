@@ -1,6 +1,32 @@
 ﻿var fechaMostrarBanner = Date.now();
 var codigoAnclaOdd = codigoAnclaOdd || "";
 
+var OfertaDelDiaProvider = function () {
+    var pedidoGetOfertaDelDiaPromise = function () {
+        var dfd = $.Deferred();
+
+        $.ajax({
+            type: "GET",
+            url: baseUrl + "Pedido/GetOfertaDelDia",
+            cache: false,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                dfd.resolve(data);
+            },
+            error: function (data, error) {
+                dfd.reject(data, error);
+            }
+        });
+
+        return dfd.promise();
+    };
+
+    return {
+        pedidoGetOfertaDelDiaPromise: pedidoGetOfertaDelDiaPromise
+    };
+}();
+
 $(document).ready(function () {
     window.OfertaDelDia = window.OfertaDelDia || {};
     var odd_desktop_google_analytics_promotion_impresion_flag = true;
@@ -19,10 +45,10 @@ $(document).ready(function () {
     };
 
     var CONS_TIPO_ACCION = {
-        AGREGAR: 'AGREGAR',
-        VERDETALLE: 'VERDETALLE',
-        REGRESAR: 'REGRESAR',
-        VEROFERTA: 'VEROFERTA'
+        AGREGAR: "AGREGAR",
+        VERDETALLE: "VERDETALLE",
+        REGRESAR: "REGRESAR",
+        VEROFERTA: "VEROFERTA"
     };
 
     var props = {
@@ -68,7 +94,7 @@ $(document).ready(function () {
         if (props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_OFERTAS) {
             self.CargarODDEscritorio(props.TipoOrigenPantallaODD);
         }
-    }
+    };
 
 
     self.CargarODDMobile = function () {
@@ -79,31 +105,30 @@ $(document).ready(function () {
         if ($(contenedorOfertas).length == 0)
             return false;
 
-        $.ajax({
-            type: 'GET',
-            url: baseUrl + props.UrlGetOfertaDelDia,
-            cache: false,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (response) {
-                array_odd = response.data;
+        OfertaDelDiaProvider
+            .pedidoGetOfertaDelDiaPromise()
+            .done(function (data) {
+                array_odd = data.data;
 
-                if (!EsValidoResponseGetOfertaDelDia(response))
+                if (!EsValidoResponseGetOfertaDelDia(data))
                     return false;
-                var _data = response.data;
+                var _data = data.data;
 
                 RenderOfertaDelDiaMobile(_data, contenedorOfertas);
                 MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
 
-                $('#txtCantidad').val('1');
-                $('body').css({ 'overflow-y': 'auto' });
-
-            },
-            error: function (err) {
-                checkTimeout(err);
-            }
-        });
-    }
+                $("#txtCantidad").val("1");
+                var overflowY = "auto";
+                $("body").css({
+                    get "overflow-y"() { return overflowY; }, set "overflow-y"(value) {
+                        overflowY = value;
+                    }
+                });
+                return false;
+            }).fail(function(data, error) {
+                checkTimeout(data);
+            });
+    };
 
     function MostrarRelojOfertaDelDia(totalSegundos) {
         $('.clock').each(function (index, elem) {
@@ -297,7 +322,7 @@ $(document).ready(function () {
             });
             seAtacharonEventosOdd = true;
         }
-    }
+    };
 
     function RenderOfertaDelDia(data, contenedorOfertas) {
 
@@ -416,7 +441,7 @@ $(document).ready(function () {
 
     function EsOddAgregarValido(btn, cantidad) {
 
-        var contenedor = $(btn).parents(".row.contenedor-botones").siblings("#OfertasDiaMobile").find(".slick-active")
+        var contenedor = $(btn).parents(".row.contenedor-botones").siblings("#OfertasDiaMobile").find(".slick-active");
         var itemCampos = contenedor.find("[data-item-campos]");
         var limiteVenta = parseInt(itemCampos.find('.limite-venta-odd').val());
         var mesageLimiteVenta = 'Solo puede llevar ' + limiteVenta.toString() + ' unidades de este producto.';
@@ -488,7 +513,7 @@ $(document).ready(function () {
 
     function OddAgregarMobile(btn) {
         AbrirLoad();
-        var contenedor = $(btn).parents(".row.contenedor-botones").siblings("#OfertasDiaMobile").find(".slick-active")
+        var contenedor = $(btn).parents(".row.contenedor-botones").siblings("#OfertasDiaMobile").find(".slick-active");
         var itemCampos = contenedor.find("[data-item-campos]");
         var valorCantidad = $(btn).parents(".row.contenedor-botones").find(elements.TxtCantidadMobile).val().trim();
         var cantidad = parseInt(valorCantidad == '' ? 0 : valorCantidad);
@@ -749,7 +774,7 @@ $(document).ready(function () {
 
         promise.done(function (response) {
             d.resolve(response);
-        })
+        });
         promise.fail(d.reject);
 
         return d.promise();
@@ -768,7 +793,7 @@ $(document).ready(function () {
 
         promise.done(function (response) {
             d.resolve(response);
-        })
+        });
         promise.fail(d.reject);
 
         return d.promise();
@@ -855,9 +880,9 @@ $(document).ready(function () {
         }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
             var list = array_odd.ListaOfertas;
             var evento = "arrow_click";
-            var index = odd_mobile_procesar_evento_before_change(event, slick, currentSlide, nextSlide, list)
+            var index = odd_mobile_procesar_evento_before_change(event, slick, currentSlide, nextSlide, list);
             if (index !== -1)
-                odd_mobile_google_analytics_promotion_impresion(list, evento, index)
+                odd_mobile_google_analytics_promotion_impresion(list, evento, index);
         });
         $(elements.ContenedorOfertaDelDiaMobile).slick('slickGoTo', 0);
     }
