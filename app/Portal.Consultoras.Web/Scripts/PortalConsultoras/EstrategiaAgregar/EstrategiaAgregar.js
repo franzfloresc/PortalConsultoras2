@@ -1,16 +1,16 @@
-﻿/// <reference path="~/Scripts/jquery-1.11.2.js" />
-/// <reference path="~/Scripts/General.js" />
-/// <reference path="~/Scripts/PortalConsultoras/Shared/MainLayout.js" />
-/// <reference path="~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js" />
-/// <reference path="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js" />
-/// <reference path="~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js" />
-/// <reference path="~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js" />
-/// <reference path="~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js" />
-/// <reference path="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
-/// <reference path="~/Scripts/PortalConsultoras/Pedido/barra.js" />
-/// <reference path="~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js" />
-/// <reference path="~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js" />
-/// <reference path="~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
+﻿/// <reference path="../../../Scripts/jquery-1.11.2.js" />
+/// <reference path="../../../Scripts/General.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/Shared/MainLayout.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/Bienvenida/Estrategia.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/Pedido/barra.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/TagManager/Home-Pedido.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
 
 var EstrategiaAgregarModule = function () {
     "use strict";
@@ -31,13 +31,13 @@ var EstrategiaAgregarModule = function () {
         dataTono: '[data-tono]',
         dataTonoSelect: '[data-tono-select]',
         dataItemHtml: '[data-item-html]'
-    }
+    };
 
     var constantes = {
         undefined: function(){
-            return "undefined"
+            return "undefined";
         }
-    }
+    };
 
     var elementosDiv = {
         divMensajeBloqueada: "#divMensajeBloqueada",
@@ -48,14 +48,14 @@ var EstrategiaAgregarModule = function () {
         EstrategiaHdMarcaID: "#Estrategia_hd_MarcaID",
         EstrategiaHdPrecioCatalogo: "#Estrategia_hd_PrecioCatalogo",
         OfertaTipoNuevo: '#OfertaTipoNuevo'
-    }
+    };
 
     var elementosPopPup = {
         popupClose: "#popup-close",
         popupDetalleCarouselLanzamiento: "#popupDetalleCarousel_lanzamiento",
         popupDetalleCarouselPackNuevas: "#popupDetalleCarousel_packNuevas",
         contenedorPopupDetalleCarousel: "#contenedor_popup_detalleCarousel"
-    }
+    };
 
     var getEstrategia = function ($btnAgregar) {
         var estrategia = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia") || {};
@@ -154,8 +154,8 @@ var EstrategiaAgregarModule = function () {
             build: function () {
                 return $divMsgProductoBloqueado;
             }
-        }
-    }
+        };
+    };
 
     var getDivMsgBloqueado = function ($btnAgregar, estrategia) {
         var divMsgBloqueadoBuilder = new DivMsgBloqueadoBuilder($btnAgregar, estrategia);
@@ -164,7 +164,7 @@ var EstrategiaAgregarModule = function () {
             .getHtmlProductoBloqueado()
             .formatDivMsgProductoBloqueado()
             .build();
-    }
+    };
 
     var sendAnalyticAgregarProductoDeshabilitado = function (estrategia) {
         try {
@@ -177,7 +177,7 @@ var EstrategiaAgregarModule = function () {
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
     var estrategiaAgregar = function (event, popup, limite) {
         popup = popup || false;
@@ -428,5 +428,5 @@ var EstrategiaAgregarModule = function () {
         GetOrigenPedidoWeb: getOrigenPedidoWeb,
         AdicionarCantidad: adicionarCantidad,
         DisminuirCantidad: disminuirCantidad
-    }
+    };
 }();
