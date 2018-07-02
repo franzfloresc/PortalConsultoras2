@@ -158,6 +158,8 @@
             window.location = (isMobile() ? "/Mobile/" : "") + "Ofertas";
             return false;
         }
+        
+        $("#data-estrategia").attr("data-estrategia", JSON.stringify(estrategia));
 
         estrategia.Hermanos = _verificarVariedad(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
