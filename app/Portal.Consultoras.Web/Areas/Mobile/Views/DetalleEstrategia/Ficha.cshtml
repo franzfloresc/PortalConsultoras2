@@ -384,7 +384,20 @@
       }
 
     </script>
+    <script>
+        var fichaModule;
+        $(document).ready(function() {
+            fichaModule = FichaModule({
+                palanca: "@Model.Palanca",
+                origen: "@Model.Origen",
+                tieneSession: "@Model.TieneSession",
+                campania: "@Model.Campania",
+                cuv: "@Model.Cuv"
+            });
+            fichaModule.Inicializar();
+        });
 
+    </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
 
 }
