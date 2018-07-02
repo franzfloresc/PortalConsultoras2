@@ -1,11 +1,14 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using Portal.Consultoras.Web.Controllers;
+using Portal.Consultoras.Web.CustomFilters;
+using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
+    [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
+    [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
     public class DetalleEstrategiaController : BaseEstrategiaController
     {
 
@@ -33,9 +36,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             modelo.Campania = campaniaId;
             modelo.Cuv = cuv;
 
-            return View("Ficha", modelo);
-            
-            //return View(modelo);
+            return View(modelo);
         }
 
     }
