@@ -21,6 +21,7 @@
         public string TextoVerDetalle { get; set; }
 
         #region campos de la primera estrategia
+        public int EstrategiaID { get; set; }
         public string ImagenBanner { get; set; }
         public string NombreOferta { get; set; }
         public string PrecioOfertaFormat { get; set; }

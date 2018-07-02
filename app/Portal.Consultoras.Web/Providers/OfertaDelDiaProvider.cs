@@ -65,18 +65,13 @@ namespace Portal.Consultoras.Web.Providers
                     ofertasDelDia = osc.GetEstrategiaODD(entidad, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
                 }
 
-                if (ofertasDelDia.Count() > 1)
-                {
-                    ofertasDelDia.RemoveRange(1, ofertasDelDia.Count() - 1);
-                }
-
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.PaisID.ToString());
                 ofertasDelDia = new List<ServiceOferta.BEEstrategia>();
             }
-                return ofertasDelDia;
+            return ofertasDelDia;
         }
 
         public TimeSpan CountdownOdd(UsuarioModel model)
@@ -195,7 +190,7 @@ namespace Portal.Consultoras.Web.Providers
                     oddSession.ListaOferta = new List<EstrategiaPersonalizadaProductoModel>();
                 }
                 var listaEstrategia = GetOfertas(usuario);
-               
+
                 oddSession.ListaOferta = _fertaPersonalizada.ConsultarEstrategiasModelFormato(listaEstrategia, usuario.CodigoISO, usuario.CampaniaID, 2, usuario.esConsultoraLider, usuario.Simbolo);
                 if (!oddSession.ListaOferta.Any())
                 {
@@ -221,6 +216,7 @@ namespace Portal.Consultoras.Web.Providers
                 oddSession.ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(usuario.CodigoISO, oddSession.ListaOferta.Count);
 
                 var primeraOferta = oddSession.ListaOferta.FirstOrDefault();
+                oddSession.EstrategiaID = primeraOferta.EstrategiaID;
                 oddSession.ImagenBanner = primeraOferta.FotoProducto01;
                 oddSession.NombreOferta = ObtenerNombreOfertaDelDia(primeraOferta.DescripcionCompleta);
                 oddSession.PrecioOfertaFormat = Util.DecimalToStringFormat(primeraOferta.Precio2, usuario.CodigoISO);
@@ -240,6 +236,20 @@ namespace Portal.Consultoras.Web.Providers
             return !(usuario.IndicadorGPRSB == 1 || usuario.CloseOfertaDelDia)
                             && ofertaDelDiaConfi.TieneOfertaDelDia
                             && ofertaDelDiaConfi.TeQuedan.TotalSeconds > 0;
+        }
+
+        public bool CumpleOfertaDelDia(UsuarioModel usuario, string controlador)
+        {
+            var result = false;
+            if (!NoMostrarBannerODD(controlador))
+            {
+                var tieneOfertaDelDia = sessionManager.GetFlagOfertaDelDia();
+                result = (!tieneOfertaDelDia ||
+                          (!usuario.ValidacionAbierta && usuario.EstadoPedido == 202 && usuario.IndicadorGPRSB == 2 || usuario.IndicadorGPRSB == 0)
+                          && !usuario.CloseOfertaDelDia) && tieneOfertaDelDia;
+            }
+
+            return result;
         }
     }
 }
