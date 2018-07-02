@@ -15,6 +15,12 @@
     var _codigoPalanca = ConstantesModule.CodigosPalanca;
     
     var _elementos = {
+        idDataEstrategia: "#data-estrategia",
+        dataClicked: "[data-clicked]",
+        dataChange: "[data-change]",
+        dataSelected:  "[data-select-area]"
+    }
+    var _atributos = {
         dataEstrategia: "data-estrategia",
         dataClicked: "[data-clicked]",
         dataChange: "[data-change]",
@@ -23,7 +29,6 @@
         divCarruselSetsProductosRelacionados: "#divOfertaProductos",
         divSetsProductosRelacionados: "#set_relacionados"
     }
-
   
 
     var _getParamValueFromQueryString = function (queryStringName) {
@@ -257,21 +262,21 @@
         var estrategia;
         if (_config.tieneSession === "True") {
             //revisar si se realiza con razor o handle bar para SW y ODD
-            estrategia = JSON.parse($("#estrategia_json").attr(_elementos.dataEstrategia));
+            estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
         } else {
             estrategia = localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+            $("#data-estrategia").attr(_elementos.idDataEstrategia, JSON.stringify(estrategia));
         }
 
         if (estrategia == null) {
             window.location = (isMobile() ? "/Mobile/" : "") + "Ofertas";
-            return true;
+            return false;
         }
-        
-        $("#data-estrategia").attr("data-estrategia", JSON.stringify(estrategia));
 
         estrategia.Hermanos = _verificarVariedad(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
         return true;
+        
     }
     
     function Inicializar() {
