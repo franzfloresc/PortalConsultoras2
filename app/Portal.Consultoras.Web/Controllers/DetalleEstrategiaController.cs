@@ -64,40 +64,6 @@ namespace Portal.Consultoras.Web.Controllers
            
         }
 
-        private bool EnviaronParametrosValidos(string palanca, int campaniaId, string cuv)
-        {
-            return !string.IsNullOrEmpty(palanca) && 
-                   !string.IsNullOrEmpty(cuv) && 
-                   !string.IsNullOrEmpty(campaniaId.ToString()) && 
-                   !_ofertaPersonalizadaProvider.EsCampaniaFalsa(campaniaId);
-        }
-
-        //Por el momento solo SW y ODD se maneja de sesion
-        private bool PalancasConSesion(string palanca)
-        {
-            return palanca.Equals(Constantes.NombrePalanca.ShowRoom) ||
-                   palanca.Equals(Constantes.NombrePalanca.OfertaDelDia);
-        }
-
-        //Falta revisar las casuiticas por palanca
-        private bool TienePermisoPalanca(string palanca)
-        {
-            switch (palanca)
-            {
-                case Constantes.NombrePalanca.RevistaDigital:
-                case Constantes.NombrePalanca.Lanzamiento:
-                case Constantes.NombrePalanca.GuiaDeNegocioDigitalizada: //TODO: Validar habilitacion para GND
-                case Constantes.NombrePalanca.HerramientasVenta:
-                {
-                    return revistaDigital.TieneRDC || revistaDigital.TieneRDCR;
-                }
-                case Constantes.NombrePalanca.ShowRoom:
-                    return true; //TODO: Validar habilitacion para ShowRoom
-                case Constantes.NombrePalanca.OfertaDelDia:
-                    return true; //TODO: Validar habilitacion para OfertaDelDia
-                default:
-                    return true;
-            }
-        }
+       
     }
 }

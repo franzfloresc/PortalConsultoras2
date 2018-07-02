@@ -547,7 +547,45 @@ namespace Portal.Consultoras.Web.Controllers
 
             return listaProductoModel;
         }
-        
+
+        #endregion
+
+        #region DetalleFicha
+        public bool EnviaronParametrosValidos(string palanca, int campaniaId, string cuv)
+        {
+            return !string.IsNullOrEmpty(palanca) &&
+                   !string.IsNullOrEmpty(cuv) &&
+                   !string.IsNullOrEmpty(campaniaId.ToString()) &&
+                   !_ofertaPersonalizadaProvider.EsCampaniaFalsa(campaniaId);
+        }
+
+        //Por el momento solo SW y ODD se maneja de sesion
+        public bool PalancasConSesion(string palanca)
+        {
+            return palanca.Equals(Constantes.NombrePalanca.ShowRoom) ||
+                   palanca.Equals(Constantes.NombrePalanca.OfertaDelDia);
+        }
+
+        //Falta revisar las casuiticas por palanca
+        public bool TienePermisoPalanca(string palanca)
+        {
+            switch (palanca)
+            {
+                case Constantes.NombrePalanca.RevistaDigital:
+                case Constantes.NombrePalanca.Lanzamiento:
+                case Constantes.NombrePalanca.GuiaDeNegocioDigitalizada: //TODO: Validar habilitacion para GND
+                case Constantes.NombrePalanca.HerramientasVenta:
+                {
+                    return revistaDigital.TieneRDC || revistaDigital.TieneRDCR;
+                }
+                case Constantes.NombrePalanca.ShowRoom:
+                    return true; //TODO: Validar habilitacion para ShowRoom
+                case Constantes.NombrePalanca.OfertaDelDia:
+                    return true; //TODO: Validar habilitacion para OfertaDelDia
+                default:
+                    return true;
+            }
+        }
         #endregion
     }
 }
