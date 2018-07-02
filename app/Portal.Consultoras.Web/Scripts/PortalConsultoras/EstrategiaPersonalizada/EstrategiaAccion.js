@@ -285,7 +285,7 @@ function EstrategiaGuardarTemporal(obj) {
     AbrirLoad();
 
     var varReturn = false;
-    var urlGuardarProductoTemporal = urlOfertaDetalleProductoTem || "/Estrategia/GuardarProductoTemporal";
+    var urlGuardarProductoTemporal = /*urlOfertaDetalleProductoTem ||*/ "/Estrategia/GuardarProductoTemporal";
     obj.TipoAccionAgregar = obj.TipoAccionAgregarBack || obj.TipoAccionAgregar;
 
     EstrategiaVerDetalleProvider
