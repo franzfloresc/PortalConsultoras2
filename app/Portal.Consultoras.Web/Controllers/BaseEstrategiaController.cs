@@ -273,7 +273,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Session[Constantes.ConstSession.ListaEstrategia] = listModel;
             }
 
-            var listaProductoModel = ConsultarEstrategiasModelFormato(listModel);
+            var listaProductoModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasFormatoEstrategiaToModel1(listModel, userData.CodigoISO, userData.CampaniaID);
             return listaProductoModel;
         }
 
@@ -281,146 +281,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var listaProducto = ConsultarEstrategias(campaniaId, codAgrupacion);
 
-            List<EstrategiaPedidoModel> listaProductoModel = ConsultarEstrategiasModelFormato(listaProducto);
+            List<EstrategiaPedidoModel> listaProductoModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasFormatoEstrategiaToModel1(listaProducto, userData.CodigoISO, userData.CampaniaID);
 
             return listaProductoModel;
         }
-
-        public List<EstrategiaPersonalizadaProductoModel> ConsultarEstrategiasFormatearModelo(List<EstrategiaPedidoModel> listaProductoModel, int tipo = 0)
-        {
-            var listaRetorno = new List<EstrategiaPersonalizadaProductoModel>();
-            if (!listaProductoModel.Any())
-                return listaRetorno;
-
-            var listaPedido = ObtenerPedidoWebDetalle();
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-            var claseBloqueada = "btn_desactivado_general";
-            listaProductoModel.ForEach(estrategia =>
-            {
-                var prodModel = new EstrategiaPersonalizadaProductoModel();
-                prodModel.CampaniaID = estrategia.CampaniaID;
-                prodModel.EstrategiaID = estrategia.EstrategiaID;
-                prodModel.CUV2 = estrategia.CUV2;
-                prodModel.TipoEstrategiaImagenMostrar = estrategia.TipoEstrategiaImagenMostrar;
-                prodModel.CodigoEstrategia = estrategia.TipoEstrategia.Codigo;
-                prodModel.CodigoVariante = estrategia.CodigoEstrategia;
-                prodModel.ClaseEstrategia =
-                    (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
-                    || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
-                    || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi)
-                    || (
-                        (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
-                        || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
-                        && (revistaDigital.TieneRDC || revistaDigital.TieneRDI))
-                    || tipo == 1
-                    || tipo == 2
-                    ? "revistadigital-landing" : "";
-                prodModel.FotoProducto01 = estrategia.FotoProducto01;
-                prodModel.ImagenURL = estrategia.ImagenURL;
-                prodModel.DescripcionMarca = estrategia.DescripcionMarca;
-                prodModel.DescripcionResumen = estrategia.DescripcionResumen;
-                prodModel.DescripcionCortada = estrategia.DescripcionCortada;
-                prodModel.DescripcionDetalle = estrategia.DescripcionDetalle;
-                prodModel.DescripcionCompleta = estrategia.DescripcionCUV2.Split('|')[0];
-                prodModel.Precio = estrategia.Precio;
-                prodModel.Precio2 = estrategia.Precio2;
-                prodModel.PrecioTachado = estrategia.PrecioTachado;
-                prodModel.PrecioVenta = estrategia.PrecioString;
-                prodModel.ClaseBloqueada = tipo == 1 || (estrategia.CampaniaID > 0 && estrategia.CampaniaID != userData.CampaniaID) ? claseBloqueada : "";
-                prodModel.TipoEstrategiaID = estrategia.TipoEstrategiaID;
-                prodModel.FlagNueva = estrategia.FlagNueva;
-                prodModel.IsAgregado = prodModel.ClaseBloqueada != claseBloqueada && listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
-                prodModel.ArrayContenidoSet = estrategia.FlagNueva == 1 ? estrategia.DescripcionCUV2.Split('|').Skip(1).ToList() : new List<string>();
-                prodModel.ListaDescripcionDetalle = estrategia.ListaDescripcionDetalle ?? new List<string>();
-                prodModel.TextoLibre = Util.Trim(estrategia.TextoLibre);
-
-                prodModel.MarcaID = estrategia.MarcaID;
-
-                prodModel.TienePaginaProducto = estrategia.PuedeVerDetalle;
-                prodModel.TienePaginaProductoMob = estrategia.PuedeVerDetalleMob;
-                prodModel.Ganancia = estrategia.Ganancia;
-                prodModel.GananciaString = estrategia.GananciaString;
-
-                prodModel.TipoAccionAgregar = _ofertaPersonalizadaProvider.TipoAccionAgregar(
-                    estrategia.TieneVariedad, 
-                    estrategia.TipoEstrategia.Codigo, 
-                    userData.esConsultoraLider, 
-                    tipo == 1 || (estrategia.CampaniaID > 0 && estrategia.CampaniaID != userData.CampaniaID), 
-                    estrategia.CodigoEstrategia);
-
-                if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
-                {
-                    prodModel.TipoEstrategiaDetalle.ImgFondoDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoDesktop);
-                    prodModel.TipoEstrategiaDetalle.ImgFichaDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaDesktop);
-                    prodModel.TipoEstrategiaDetalle.ImgFichaFondoDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaFondoDesktop);
-                    prodModel.TipoEstrategiaDetalle.UrlVideoDesktop = Util.Trim(estrategia.EstrategiaDetalle.UrlVideoDesktop);
-                    prodModel.TipoEstrategiaDetalle.ImgFondoMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoMobile);
-                    prodModel.TipoEstrategiaDetalle.ImgFichaMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaMobile);
-                    prodModel.TipoEstrategiaDetalle.ImgFichaFondoMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaFondoMobile);
-                    prodModel.TipoEstrategiaDetalle.UrlVideoMobile = Util.Trim(estrategia.EstrategiaDetalle.UrlVideoMobile);
-                    prodModel.TipoEstrategiaDetalle.ImgHomeDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeDesktop);
-                    prodModel.TipoEstrategiaDetalle.ImgHomeMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeMobile);
-                    prodModel.TipoEstrategiaDetalle.Slogan = estrategia.EstrategiaDetalle.Slogan.IsNullOrEmptyTrim() ? "" : estrategia.EstrategiaDetalle.Slogan.First().ToString().ToUpper() + estrategia.EstrategiaDetalle.Slogan.Substring(1).ToLower();
-                    prodModel.TipoEstrategiaDetalle.FlagIndividual = estrategia.EstrategiaDetalle.FlagIndividual;
-                    prodModel.CodigoProducto = estrategia.CodigoProducto;
-                }
-                else if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
-                {
-                    prodModel.EsOfertaIndependiente = estrategia.EsOfertaIndependiente;
-                    if (estrategia.EsOfertaIndependiente && estrategia.MostrarImgOfertaIndependiente)
-                    {
-                        prodModel.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenOfertaIndependiente);
-                    }
-                }
-                else if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
-                {
-                    prodModel.Precio = 0;
-                    prodModel.Ganancia = 0;
-                    if (estrategia.Precio2 > 0 && !string.IsNullOrWhiteSpace(estrategia.Niveles))
-                    {
-                        try
-                        {
-                            var niveles = estrategia.Niveles.Split('|');
-                            if (niveles.Length > 0)
-                            {
-                                var nivelesConFormato = new List<string>();
-                                niveles.Each(n =>
-                                {
-                                    var tmp = n.Split('-');
-                                    if (tmp.Length == 2)
-                                    {
-                                        tmp[0] = Util.Trim(tmp[0]).ToLower();
-                                        var precio = decimal.Parse(tmp[1]);
-                                        tmp[1] = Util.DecimalToStringFormat(precio, userData.CodigoISO, userData.Simbolo);
-                                    }
-                                    nivelesConFormato.Add(string.Join(" ", tmp));
-                                });
-
-                                estrategia.Niveles = string.Join("|", nivelesConFormato);
-                            }
-                        }
-                        catch
-                        {
-                            estrategia.Niveles = "";
-                        }
-                    }
-
-                    prodModel.PrecioNiveles = estrategia.Niveles ?? string.Empty;
-                }
-
-
-                listaRetorno.Add(prodModel);
-            });
-
-            return listaRetorno;
-        }
-
+        
         public List<EstrategiaPedidoModel> ConsultarMasVendidosModel()
         {
             var listaProducto = ConsultarEstrategias(0, Constantes.TipoEstrategiaCodigo.LosMasVendidos);
             var listaProductoModel = Mapper.Map<List<ServiceOferta.BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
-            listaProductoModel = ConsultarEstrategiasModelFormato(listaProductoModel);
+            var listaPedido = _pedidoWebProvider.ObtenerPedidoWebDetalle(0);
+            listaProductoModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasFormatoModelo1(listaProductoModel, listaPedido, userData.CodigoISO, userData.CampaniaID);
             return listaProductoModel;
         }
 
@@ -438,105 +309,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return listEstrategia;
         }
-
-        public List<EstrategiaPedidoModel> ConsultarEstrategiasModelFormato(List<ServiceOferta.BEEstrategia> listaProducto)
-        {
-            listaProducto = listaProducto ?? new List<ServiceOferta.BEEstrategia>();
-            List<EstrategiaPedidoModel> listaProductoModel = Mapper.Map<List<ServiceOferta.BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
-            return ConsultarEstrategiasModelFormato(listaProductoModel);
-        }
-
-        private List<EstrategiaPedidoModel> ConsultarEstrategiasModelFormato(List<EstrategiaPedidoModel> listaProductoModel)
-        {
-            if (!listaProductoModel.Any())
-                return listaProductoModel;
-
-            var listaPedido = ObtenerPedidoWebDetalle();
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            var claseBloqueada = "btn_desactivado_general";
-            listaProductoModel.ForEach(estrategia =>
-            {
-                estrategia.ClaseBloqueada = estrategia.CampaniaID > 0 && estrategia.CampaniaID != userData.CampaniaID ? claseBloqueada : "";
-                estrategia.IsAgregado = estrategia.ClaseBloqueada != claseBloqueada && listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
-                estrategia.DescripcionResumen = "";
-                estrategia.DescripcionDetalle = "";
-                estrategia.EstrategiaDetalle = estrategia.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
-
-                if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
-                {
-                    #region Lanzamiento
-                    estrategia.EstrategiaDetalle.ImgFondoDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoDesktop);
-                    estrategia.EstrategiaDetalle.ImgFichaDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaDesktop);
-                    estrategia.EstrategiaDetalle.ImgFichaFondoDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaFondoDesktop);
-                    estrategia.EstrategiaDetalle.UrlVideoDesktop = Util.Trim(estrategia.EstrategiaDetalle.UrlVideoDesktop);
-                    estrategia.EstrategiaDetalle.ImgFondoMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoMobile);
-                    estrategia.EstrategiaDetalle.ImgFichaMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaMobile);
-                    estrategia.EstrategiaDetalle.ImgFichaFondoMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaFondoMobile);
-                    estrategia.EstrategiaDetalle.UrlVideoMobile = Util.Trim(estrategia.EstrategiaDetalle.UrlVideoMobile);
-                    estrategia.EstrategiaDetalle.ImgHomeDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeDesktop);
-                    estrategia.EstrategiaDetalle.ImgHomeMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeMobile);
-
-                    var listadescr = estrategia.DescripcionCUV2.Split('|');
-                    estrategia.DescripcionResumen = listadescr.Length > 0 ? listadescr[0] : "";
-                    estrategia.DescripcionCortada = listadescr.Length > 1 ? listadescr[1] : "";
-                    if (listadescr.Length > 2)
-                    {
-                        estrategia.ListaDescripcionDetalle = new List<string>(listadescr.Skip(2));
-                        estrategia.DescripcionDetalle = string.Join("<br />", listadescr.Skip(2));
-                    }
-                    estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCortada, 40);
-
-                    #endregion
-                }
-                else if (estrategia.FlagNueva == 1)
-                {
-                    estrategia.Precio = 0;
-                    estrategia.DescripcionCortada = estrategia.DescripcionCUV2.Split('|')[0];
-                    estrategia.DescripcionDetalle = estrategia.DescripcionCUV2.Contains("|") ? estrategia.DescripcionCUV2.Split('|')[1] : string.Empty;
-                }
-                else
-                {
-                    estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCUV2, 40);
-                }
-
-                estrategia.ID = estrategia.EstrategiaID;
-                if (estrategia.FlagMostrarImg == 1)
-                {
-                    if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
-                    {
-                        if (estrategia.FlagEstrella == 1)
-                        {
-                            estrategia.ImagenURL = "/Content/Images/oferta-ultimo-minuto.png";
-                        }
-                    }
-                    else if (!(estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas
-                        || estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.Lanzamiento))
-                    {
-                        estrategia.ImagenURL = "";
-                    }
-                }
-                else
-                {
-                    estrategia.ImagenURL = "";
-                }
-
-                estrategia.PuedeCambiarCantidad = 1;
-                if (estrategia.TieneVariedad == 0 && estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas)
-                {
-                    estrategia.PuedeCambiarCantidad = 0;
-                }
-                estrategia.PuedeAgregar = 1;
-                estrategia.PuedeVerDetalle = estrategia.EstrategiaDetalle != null &&
-                                                ((estrategia.ListaDescripcionDetalle != null && estrategia.ListaDescripcionDetalle.Any()) ||
-                                                !estrategia.EstrategiaDetalle.UrlVideoDesktop.IsNullOrEmptyTrim());
-                estrategia.PuedeVerDetalleMob = estrategia.EstrategiaDetalle != null &&
-                                             ((estrategia.ListaDescripcionDetalle != null && estrategia.ListaDescripcionDetalle.Any()) ||
-                                              !estrategia.EstrategiaDetalle.UrlVideoMobile.IsNullOrEmptyTrim());
-            });
-
-            return listaProductoModel;
-        }
-
+        
         #endregion
 
         #region DetalleFicha
@@ -621,8 +394,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var listaProducto = _ofertaPersonalizadaProvider.GetShowRoomOfertasConsultora(userData);
-            var listaProductoModel = ConsultarEstrategiasModelFormato(listaProducto);
-
+            var listaProductoModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasFormatoEstrategiaToModel1(listaProducto, userData.CodigoISO, userData.CampaniaID);
+            
             SetShowRoomOfertasInSession(listaProductoModel);
 
             switch (tipoOferta)
@@ -668,11 +441,12 @@ namespace Portal.Consultoras.Web.Controllers
                 listaOfertas = listaProductoModel.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
                 listaSubCampania = listaProductoModel.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
             }
-
+            var listaPedido = _pedidoWebProvider.ObtenerPedidoWebDetalle(0);
             configEstrategiaSR.ListaCategoria = new List<ShowRoomCategoriaModel>();
-            sessionManager.ShowRoom.Ofertas = ConsultarEstrategiasFormatearModelo(listaOfertas, 2);
-            sessionManager.ShowRoom.OfertasSubCampania = ConsultarEstrategiasFormatearModelo(listaSubCampania, 2);
-            sessionManager.ShowRoom.OfertasPerdio = ConsultarEstrategiasFormatearModelo(listaOfertasPerdio, 1);
+            sessionManager.ShowRoom.Ofertas = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaOfertas, listaPedido, userData.CodigoISO, userData.CampaniaID, 2, userData.esConsultoraLider, userData.Simbolo);
+            sessionManager.ShowRoom.OfertasSubCampania = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaSubCampania, listaPedido, userData.CodigoISO, userData.CampaniaID, 2, userData.esConsultoraLider, userData.Simbolo);
+            sessionManager.ShowRoom.OfertasPerdio = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaOfertasPerdio, listaPedido, userData.CodigoISO, userData.CampaniaID, 1, userData.esConsultoraLider, userData.Simbolo);
+
         }
 
         #endregion
