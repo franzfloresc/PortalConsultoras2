@@ -2177,12 +2177,16 @@ function AbrirAceptacionContrato() {
         }
     }
 }
+
 function AceptarContrato() {
+   
+    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato};
     waitingDialog({});
+
     $.ajax({
         type: "POST",
         url: baseUrl + "Bienvenida/AceptarContrato",
-        data: JSON.stringify({ checkAceptar: 1 }),
+        data: JSON.stringify(parameter),
         contentType: 'application/json',
         success: function (data) {
             if (checkTimeout(data)) {
@@ -2206,6 +2210,7 @@ function AceptarContrato() {
         }
     });
 }
+
 function DownloadAttachPDF() {
     var iframe_ = document.createElement("iframe");
     iframe_.style.display = "none";

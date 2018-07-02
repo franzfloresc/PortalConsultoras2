@@ -149,7 +149,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                             { "Monto a Agregar" ,"MontoAgregar"},
                             { "Monto Meta","MontoMeta" },
                              { "Monto Ganador", "MontoGanador" },
-                            { "Fecha Registro" ,"FechaRegistro" },
+                              { "Monto Real" ,"ImporteReal" },
+                            { "Fecha Registro" ,"FechaRegistro" },                                                     
                 };
 
             var filename = string.Format("{0}_{1}_Upselling", userData.CodigoISO, campaniaListaGanadoras);

@@ -405,7 +405,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                                         System.Reflection.PropertyInfo prop = entity.GetType().GetProperty(property.Name);
 
-                                        if (prop != null) continue;
+                                        if (prop == null) continue;
                                    
                                         Type tipo = prop.PropertyType;
                                         object changed = Convert.ChangeType(reader[property.Name], tipo);
