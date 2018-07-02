@@ -11,6 +11,7 @@ namespace Portal.Consultoras.Common
             public const int Terminos = 303;
         }
 
+		
         public static class Marca
         {
             public const int LBel = 1;
@@ -19,12 +20,14 @@ namespace Portal.Consultoras.Common
             public const int Finart = 4;
         }
 
+		
         public static class TipoCronograma
         {
             public const int Regular = 1;
             public const int Anticipado = 2;
         }
 
+		
         public static class TipoUsuario
         {
             public const int Consultora = 1;
@@ -32,6 +35,7 @@ namespace Portal.Consultoras.Common
             public const int Admin = 3;
         }
 
+		
         public static class Rol
         {
             public const int Consultora = 1;
