@@ -8,7 +8,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class DetalleEstrategiaController : BaseEstrategiaController
     {
-
         public ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
             if (!EnviaronParametrosValidos(palanca, campaniaId, cuv)) return RedirectToAction("Index", "Ofertas");

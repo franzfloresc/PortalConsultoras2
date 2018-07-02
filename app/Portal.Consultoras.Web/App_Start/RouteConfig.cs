@@ -23,15 +23,8 @@ namespace Portal.Consultoras.Web
             routes.MapRoute(
                 name: "DetalleEstrategiaFicha",
                 url: "Detalle/{palanca}/{campaniaId}/{cuv}/{origen}",
-                defaults: new { controller = "DetalleEstrategia", action = "Ficha" , origen = UrlParameter.Optional },
+                defaults: new { controller = "DetalleEstrategia", action = "Ficha", origen = UrlParameter.Optional },
                 namespaces: new[] { "Portal.Consultoras.Web.Controllers" }
-            );
-            //mobile version
-            routes.MapRoute(
-                name: "DetalleEstrategiaFichaMobile",
-                url: "Mobile/Detalle/{palanca}/{campaniaId}/{cuv}/{origen}",
-                defaults: new { controller = "DetalleEstrategia" ,  action = "Ficha", origen = UrlParameter.Optional },
-                namespaces: new[] { "Portal.Consultoras.Web.Areas.Mobile.Controllers" }
             );
 
             //Ejm: ~/Detalle/GanaMas/2018010/0006/1101
@@ -56,7 +49,7 @@ namespace Portal.Consultoras.Web
                     Namespaces = new[] { "Portal.Consultoras.Web.Areas.Mobile.Controllers" }
                 })));
 
-            
+
 
             routes.MapRoute(
                 name: "Default",

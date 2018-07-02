@@ -3,8 +3,9 @@
 @model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 
 @{
+    ViewBag.Title = "Ficha-Mobile";
     Model.CodigoVideo = "Ajoq2mlOliw";
-    var mobileConfiguracion = Html.MobileAppConfiguracion();
+    //var mobileConfiguracion = Html.MobileAppConfiguracion();
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 }
 @section styles
@@ -235,8 +236,6 @@
         .breadcrumb > li + li:before {
             content: '|' !important;
         }
-
-
     </style>
 }
 
@@ -323,15 +322,20 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12 ficha_encuentraproducto">
-            <p>SET DONDE ENCUENTRAS EL PRODUCTO</p>
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 ficha_productoencontrado">
-            <img src="http://i65.tinypic.com/2h39d3m.png" style="    margin: auto;
-    display: block;
-    text-align: center;
-    /* margin: 0; */
-    padding: 0;" />
+        <div>
+
+            <div class="set_encuentras_producto" id="set_relacionados">
+
+                <div class="wrapper_resumen_mobile ficha_encuentraproducto">
+                    <p class="titulo_set">
+                        SET DONDE ENCUENTRAS EL PRODUCTO
+                    </p>
+                    <div class="set_encuentras_producto_carrusel">
+                        <div id="divOfertaProductos"></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
             <hr>
@@ -344,30 +348,38 @@
             <div class="clearfix"></div>
 
 
-          
         </div>
+
     </div>
 </div>
 
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
+
 @section scripts{
-    @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")
+    @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
+    <script src="~/Scripts/PortalConsultoras/Shared/ConstantesModule.js" type="text/javascript"></script>
+    <script src="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" type="text/javascript"></script>
+    <script src="~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js" type="text/javascript"></script>
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js" type="text/javascript"></script>
+
     <script>
-       window.videoKey = '@Model.CodigoVideo';
-       
-      $(document).ready(function () {
-         MostrarOcultarCargaElementos();
-      });
-
-      function MostrarOcultarCargaElementos() {
-
-          if (!window.videoKey)
-          {
-              $('#tabVideo').hide();
-          }
-
-          $('ul.ficha_tabs li').click(function () {
-              $(this).children('ul').slideToggle();
-          });
-      }
+        $('ul.ficha_tabs li').click(function () {
+            $(this).children('ul').slideToggle();
+        });
     </script>
-}
+    <script>
+        var fichaModule;
+        window.videoKey = '@Model.CodigoVideo';
+        $(document).ready(function() {
+            fichaModule = FichaModule({
+                palanca: "@Model.Palanca",
+                origen: "@Model.Origen",
+                tieneSession: "@Model.TieneSession",
+                campania: "@Model.Campania",
+                cuv: "@Model.Cuv"
+            });
+            fichaModule.Inicializar();
+        });
+
+    </script>
+}    @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
