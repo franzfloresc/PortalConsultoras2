@@ -2500,62 +2500,6 @@ namespace Portal.Consultoras.BizLogic
             return CacheManager<BEEnviarSms>.ValidateDataElement(paisID, ECacheItem.CredencialesSMS, paisID.ToString(), () => GetCredencialesSms(paisID));
         }
 
-        //public bool ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios)
-        //{
-        //    if (oUsu.Celular == "") return false;
-        //    try
-        //    {
-        //        BEEnviarSms oCredencial = GetCredencialesSmsCache(paisID);
-        //        string codGenerado = Common.Util.GenerarCodigoRandom();
-        //        oCredencial.Mensaje = string.Format(oCredencial.Mensaje, codGenerado);
-
-        //        var data = new
-        //        {
-        //            OrigenID = oUsu.OrigenID,
-        //            CodigoUsuario = oUsu.CodigoUsuario,
-        //            CodigoConsultora = oUsu.CodigoConsultora,
-        //            OrigenDescripcion = oUsu.OrigenDescripcion,
-        //            UsuarioSms = oCredencial.UsuarioSms,
-        //            ClaveSms = oCredencial.ClaveSms,
-        //            CampaniaID = oUsu.campaniaID,
-        //            NroCelular = oUsu.Celular,
-        //            Mensaje = oCredencial.Mensaje,
-        //            CodigoIso = oUsu.CodigoIso,
-        //            EsMobile = oUsu .EsMobile,
-        //            RequestUrl = oCredencial.RequestUrl,
-        //            RecursoApi = oCredencial.RecursoApi
-        //        };
-
-        //        string requestUrl = ConfigurationManager.AppSettings.Get(Constantes.EnviarSMS.SmsConsultoraWs.urlKey);
-        //        string urlApiSms = Constantes.EnviarSMS.SmsConsultoraWs.RecursoApi;
-        //        var result = new BERespuestaSMS();
-        //        HttpClient httpClient = new HttpClient();
-        //        httpClient.BaseAddress = new Uri(requestUrl);
-        //        httpClient.DefaultRequestHeaders.Accept.Clear();
-        //        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        //        string dataString = JsonConvert.SerializeObject(data);
-        //        HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-        //        HttpResponseMessage response = httpClient.PostAsync(urlApiSms, contentPost).GetAwaiter().GetResult();
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            string jsonString = response.Content.ReadAsStringAsync().Result;
-        //            result = JsonConvert.DeserializeObject<BERespuestaSMS>(jsonString);
-        //        }
-        //        httpClient.Dispose();
-
-        //        if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
-        //        InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorSms, codGenerado);
-        //        if (result.codigo == "OK") return true;
-        //        return false;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.SaveLog(ex, oUsu.CodigoUsuario, paisID);
-        //        return false;
-        //    }
-        //}
-
-
         public bool ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios)
         {
             if (oUsu.Celular == "") return false;
@@ -2588,22 +2532,9 @@ namespace Portal.Consultoras.BizLogic
 
                 HttpClient httpClient = new HttpClient();
                 httpClient.BaseAddress = new Uri(requestUrl);
-                //httpClient.DefaultRequestHeaders.Accept.Clear();
-                //httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 string secretKey = ConfigurationManager.AppSettings.Get("JsonWebTokenSecretKey");
                 var token = JsonWebToken.Encode(data, secretKey, JwtHashAlgorithm.HS512);
-
-                //HttpContent contentPost = new StringContent(token, Encoding.UTF8, "application/json");
-                //HttpContent contentPost = new StringContent(string.Format("token={0}", token));
-
-                //var parameters = new Dictionary<string, string>();
-                //parameters.Add("id", token);
-                
-
-                //var values = new List<KeyValuePair<string, string>>();
-                //values.Add(new KeyValuePair<string, string>("id", token));
-                //var encodedContent = new FormUrlEncodedContent(values);
 
                 HttpResponseMessage response = httpClient.PostAsync(urlApiSms + "?id=" + token, null).GetAwaiter().GetResult();
                 if (response.IsSuccessStatusCode)
