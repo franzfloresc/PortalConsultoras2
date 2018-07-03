@@ -5,356 +5,195 @@
 @{
     ViewBag.Title = "Ficha-Mobile";
     Model.CodigoVideo = "Ajoq2mlOliw";
-    //var mobileConfiguracion = Html.MobileAppConfiguracion();
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 }
-@section styles
-{
-    <style>
-        .ficha_nombremarca {
-            font-size: 11px;
-            font-weight: bold;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1.91;
-            letter-spacing: 0.5px;
-            color: #000000;
-        }
 
-        .ficha_nombreproducto {
-            font-size: 13px;
-            font-weight: 900;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1.62;
-            letter-spacing: normal;
-            color: #000000;
-            margin-bottom: 9px;
-        }
-
-        .ficha_infoganadora {
-            font-size: 16px;
-            font-weight: normal;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: normal;
-            letter-spacing: normal;
-            color: #000000;
-            margin-bottom: 14px;
-        }
-
-        .ficha_precioantiguo {
-            font-size: 13px;
-            font-weight: normal;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: normal;
-            letter-spacing: normal;
-            color: #000000;
-            text-decoration: line-through;
-        }
-
-        .ficha_precioparati {
-            font-size: 14px;
-            font-weight: normal;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: normal;
-            letter-spacing: normal;
-            color: #000000;
-            margin-bottom: 17px;
-        }
-
-            .ficha_precioparati b {
-                font-weight: 900;
-            }
-
-            .ficha_precioparati span.separador {
-                margin: 0 2px 0px 5px;
-                color: #00000042;
-            }
-
-            .ficha_precioparati span.gana {
-                font-size: 14px;
-                font-weight: normal;
-                font-style: normal;
-                font-stretch: normal;
-                line-height: normal;
-                letter-spacing: normal;
-                color: #e81c36;
-            }
-
-        .ficha_seleccionatonos {
-            margin-bottom: 19px;
-        }
-
-        .ficha_eligetono {
-            margin-bottom: 23px;
-        }
-
-        .ficha_encuentraproducto {
-            font-size: 13px;
-            font-weight: bold;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1.38;
-            letter-spacing: 2.5px;
-            text-align: center;
-            color: #000000;
-            padding-bottom: 10px;
-        }
-
-            .ficha_encuentraproducto p {
-                display: block;
-            }
-
-        .ficha_productoencontrado {
-        }
-
-        .ficha_lineaencuentraproducto hr {
-            margin: 0;
-            border: .5px solid #0000001a;
-            margin-top: 30px;
-        }
-
-        .ficha_redes {
-            padding: 24px 0px;
-        }
-
-            .ficha_redes p {
-                display: block;
-                margin-bottom: 17px;
-                font-size: 13px;
-                font-weight: normal;
-                font-style: normal;
-                font-stretch: normal;
-                line-height: 1;
-                letter-spacing: normal;
-                text-align: center;
-                color: #000000;
-            }
-
-            .ficha_redes a img {
-                display: block;
-                width: 51.4px;
-            }
-
-            .ficha_redes a {
-                display: block;
-                float: left;
-                width: 50%;
-            }
-
-                .ficha_redes a img.fb {
-                    float: left;
-                    margin: 0px 18.85px;
-                }
-
-                .ficha_redes a img.wsp {
-                    float: right;
-                    margin: 0px 18.85px;
-                }
-
-        ul.ficha_tabs {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            margin-bottom: 26px;
-        }
-
-            ul.ficha_tabs li {
-                width: 100%;
-                border-bottom: 1px solid #00000029;
-            }
-
-                ul.ficha_tabs li a {
-                    display: block;
-                    width: 100%;
-                    padding: 16px 0px;
-                    font-weight: 700;
-                    letter-spacing: 1.5px;
-                    color: black;
-                    text-decoration: none;
-                    background: url(../../../../Content/Images/mobile/dropdown-arrow.png);
-                    background-repeat: no-repeat;
-                    background-position: right center;
-                    background-size: 12px;
-                    font-size: 13px;
-                    font-weight: 500;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: normal;
-                    letter-spacing: 2.5px;
-                    text-align: left;
-                    color: #000000;
-                    font-weight: 900;
-                }
-
-                ul.ficha_tabs li ul {
-                    display: none;
-                }
-
-                    ul.ficha_tabs li ul.abierto {
-                        display: block;
-                    }
-
-                ul.ficha_tabs li:first-child {
-                    border-top: 1px solid #00000029;
-                }
-
-                ul.ficha_tabs li a.abierto {
-                    background: url(up-arrow.svg);
-                }
-
-                ul.ficha_tabs li ul {
-                    padding: 0 0px 20px 0px;
-                }
-
-        .ficha_breadcrumbs {
-            margin-bottom: 13px;
-        }
-
-            .ficha_breadcrumbs .breadcrumb {
-                margin-bottom: 0;
-                margin-bottom: 0;
-                background: white;
-                border-radius: 0;
-                padding: 8px 0px;
-            }
-
-                .ficha_breadcrumbs .breadcrumb li a {
-                    opacity: 0.5;
-                    font-size: 9px;
-                    font-weight: normal;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 1.8;
-                    letter-spacing: .5px;
-                    color: #000000;
-                }
-
-        .breadcrumb > li + li:before {
-            content: '|' !important;
-        }
-    </style>
+@section styles{
+    <link href="@Url.Content("~/Content/Css/Mobile/Ficha/ficha.css")" rel="stylesheet" />
 }
 
+    <div class="container" data-item="" data-tag-html="@Model.Campania" data-OrigenPedidoWeb="@Model.Origen">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcumbs">
+                    <li><a href="">Inicio</a></li>
+                    <li><a href="">Club Gana+</a></li>
+                    <li><a href="">Ofertas para tí</a></li>
+                    <li><a href="">Nuevo</a></li>
+                </ul>
+            </div>
+        </div>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12 ficha_breadcrumbs">
-            <ol class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Private</a></li>
-                <li><a href="#">Pictures</a></li>
-                <li><a href="">Vacation</a></li>
-            </ol>
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 ficha_relojodd">
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 ficha_producto">
-            <img src="http://i65.tinypic.com/4t7ofs.png" style="    margin: auto;
-    display: block;
-    text-align: center;
-    /* margin: 0; */
-    padding: 0;" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <!-- SELLO NUEVO-->
-            <img src="" alt="">
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 ficha_nombremarca">
-            ÉSIKA
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 ficha_nombreproducto">
-            NUEVO LABIAL HIDRACOLOR MATE
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 ficha_infoganadora">
-            Gana hasta 8 veces más intensidad de color y duración
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 ficha_precioantiguo">
-            $200.000
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 ficha_precioparati">
-            Precio para ti <b>$1130.000</b> <span class="separador">|</span>  <span class="gana">GANA $9000.00</span>
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 ficha_seleccionatonos">
-            <img src="http://i63.tinypic.com/1sbpk4.png" style="    margin: auto;
-    display: block;
-    text-align: center;
-    /* margin: 0; */
-    padding: 0; width:100%;" />
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 ficha_eligetono" style="display:none;">
-            <!-- CUADRITOS DE TONOS-->
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <ul class="ficha_tabs">
-                <li>
-                    <a>TIPS DE VENTA</a>
-                    <ul>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi ipsa expedita nihil reiciendis ut ad, voluptates quidem impedit dignissimos doloribus repellendus labore ratione odit amet! Assumenda voluptate aspernatur beatae officiis.
-                    </ul>
-                </li>
-                <li>
-                    <a>BENEFICIOS</a>
-                    <ul>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, maxime! Voluptatem nulla sunt laudantium impedit hic eligendi numquam, neque delectus iste eos consequuntur itaque cumque, eaque, quaerat voluptatum aut nemo.
-                    </ul>
-                </li>
-                <li id="tabVideo">
-                    <a>VIDEO</a>
-                    <div class="video-visual">
-                        <div class="video-container">
-                            <div id="ytFicha"
-                                 data-youtube="{ height:'220', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}"
-                                 class="yt-video"></div>
-                        </div>
-                    </div>
+        <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
 
+        <div id="seccion_ficha_handlebars" data-OrigenPedidoWeb="@Model.Origen"></div>
+        <script id="detalle_ficha_template" type="text/x-handlebars-template">
+            <div class="row bg_imagen_producto" style='background: url(""); background-color: #efefef !important;'
+                 data-estadoregistro="">
+            </div>
 
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="row">
-        <div>
-
-            <div class="set_encuentras_producto" id="set_relacionados">
-
-                <div class="wrapper_resumen_mobile ficha_encuentraproducto">
-                    <p class="titulo_set">
-                        SET DONDE ENCUENTRAS EL PRODUCTO
-                    </p>
-                    <div class="set_encuentras_producto_carrusel">
-                        <div id="divOfertaProductos"></div>
-                    </div>
+            <div class="row imagen_producto bg_imagen_producto_subir">
+                <div class="col-md-12">
+                    <img src="{{FotoProducto01}}" />    
+                </div>
+            </div>
+            <div class="row label_producto">
+                <div class="col-md-12">
+                    <img src="img/label.jpg" alt="">
+                </div>
+            </div>
+            <div class="row marca_producto">
+                <div class="col-md-12">
+                    <h2>{{DescripcionMarca}}</h2>
+                </div>
+            </div>
+            <div class="row descripcion_producto">
+                <div class="col-md-12">
+                    {{DescripcionCortada}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12 precio_producto">
+                    <p>Valorizado en <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7 col-sm-7 col-xs-7 precio_producto">
+                    <p>Precio para ti  <b>{{SimboloMoneda}} {{PrecioVenta}}</b></p>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5 gana_precio_producto">
+                    <p>GANA {{SimboloMoneda}} {{GananciaString}}</p>
                 </div>
             </div>
 
+
+            <div class="row seleccion_tonos">
+               
+                <div data-estrategia="{{CodigoVariante}}">
+
+                    {{#iff CodigoVariante '==' '2001'}}
+                    {{#each this.Hermanos as |componente|}}
+                    <div class="content_tonos_producto" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
+                        <div class="tono_select_opt">
+                            <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" /></div>
+                                <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
+                                <hr class="clear" />
+                            </div>
+                            <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
+                                {{#each this.Detalle as |variedad|}}
+                                <div class="content_tono_elegido" data-tono-change="2"
+                                     data-tono-cuv="{{variedad.Cuv}}" d
+                                     ata-tono-nombre="{{variedad.NombreBulk}}"
+                                     data-tono-descripcion="{{variedad.NombreComercial}}">
+                                    <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt=""></div>
+                                    <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
+                                    <hr class="clear" />
+                                </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                        <hr class="clear">
+                        <div data-tono-div="">
+                            {{#each this.Detalle as |variedad|}}
+                            <div style="display: none;">
+                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.MarcaID}}" />
+                                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
+                            </div>
+                            <div class="content_tono_detalle" d
+                                 ata-tono-cuv="{{variedad.Cuv}}"
+                                 data-tono-change="2"
+                                 data-tono-nombre="{{variedad.NombreBulk}}">
+                                <img src="{{variedad.ImagenBulk}}" alt="">
+                            </div>
+                            <div style="clear:both;"></div>
+                            {{/each}}
+                        </div>
+                        <hr class="clear">
+                    </div>
+                    {{/each}}
+                    {{/iff}}
+                    {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}
+                    <div class="titulo_contenido">CONTENIDO</div>
+                    <div class="content_producto_compuesto">
+                        {{#each this.Hermanos as |componente|}}
+                        <div class="" data-tono="" data-tono-select="" data-tono-digitable="{{componente.Digitable}}">
+                            <div style="display: none;">
+                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
+                                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
+                            </div>
+                            <div class="nombre_producto_opt" data-tono-select-nombrecomercial="">
+                                <span class="cantidad_producto_opt">x {{componente.Cantidad}}</span>
+                                <span data-tono-select-nombrecomercial="">{{componente.NombreComercial}}</span>
+                            </div>
+                            {{#iff componente.Digitable '==' '1'}}
+                            <div class="content_tonos_producto">
+                                <div class="tono_select_opt">
+                                    <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                        <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                        <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
+                                        <hr class="clear" />
+                                    </div>
+                                    <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
+                                        {{#each componente.Hermanos as |variedad|}}
+                                        <div class="content_tono_elegido" data-tono-change="2" 
+                                             data-tono-cuv="{{variedad.Cuv}}" 
+                                             data-tono-nombre="{{variedad.NombreBulk}}" 
+                                             data-tono-descripcion="{{variedad.NombreComercial}}">
+                                            <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt=""></div>
+                                            <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
+                                            <hr class="clear" />
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                                <hr class="clear">
+                            </div>
+                            {{/iff}}
+                            <hr class="clear" />
+                        </div>
+                        {{/each}}
+                    </div>
+                    {{/iff}}
+                </div>
+            </div>
+        </script>
+    
+      
+        <div class="row tabs">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <ul class="tabs">
+                    <li>
+                        <a>DETALLE DEL PACK</a>
+                        <ul>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
+                        </ul>
+                    </li>
+                    <li>
+                        <a>TIP DE VENTA</a>
+                        <ul>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis itaque nisi ratione sit excepturi. Porro nemo ipsam fugiat quidem accusamus, cumque temporibus atque! Voluptatum nesciunt odio consectetur eos, quibusdam sint?
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
-            <hr>
+        <div class="row carrusel">
+            <p>SET DONDE ENCUENTRAS EL PRODUCTO</p>
+
+            <!--pegar aqui elcarrusel-->
         </div>
-
-        <div class="col-md-12 col-sm-12 col-xs-12 ficha_redes">
-            <p>Comparte el producto con tus clientes</p>
-            <a href="javascript: void(0);" class="text-right"><img src="~/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp" data-compartir="WA"></a>
-            <a href="javascript: void(0);"><img src="~/Content/Images/showroom/redes_facebook.png" alt="" class="fb" data-compartir="FB"></a>
-            <div class="clearfix"></div>
-
-
+        <div class="row compartir_redes">
+            <div class="col-md-12">
+                <p>Comparte el producto con tus clientes</p>
+            </div>
+            <div class="col-md-12">
+                <a href=""><img src="img/wsp.png" alt=""></a>
+                <a href=""><img src="img/fb.png" alt=""></a>
+            </div>
         </div>
-
     </div>
-</div>
-
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
-
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
@@ -373,7 +212,8 @@
                 origen: "@Model.Origen",
                 tieneSession: "@Model.TieneSession",
                 campania: "@Model.Campania",
-                cuv: "@Model.Cuv"
+                cuv: "@Model.Cuv",
+                urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new { area = "" })'
             });
             fichaModule.Inicializar();
         });
