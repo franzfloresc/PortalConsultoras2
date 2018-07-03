@@ -303,11 +303,11 @@
     }
     
     function Inicializar() {
-        localStorageModule = LocalStorageModule();
-        _construirSeccionEstrategia();
-        _bindingEvents();
-        _crearReloj();
-        _crearTabs();
+        //localStorageModule = LocalStorageModule();
+        //_construirSeccionEstrategia();
+        //_bindingEvents();
+        //_crearReloj();
+        //_crearTabs();
         _crearCarruseles();
         _mostrarSetRelacionados();
     }

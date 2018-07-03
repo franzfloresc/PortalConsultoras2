@@ -183,7 +183,7 @@
 <div class="container">
     <div class="row tabs">
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <ul class="tabs">
+            <ul class="tabs ficha_tabs">
                 <li>
                     <a>DETALLE DEL PACK</a>
                     <ul>
@@ -245,6 +245,23 @@
 
     <script>
         window.videoKey = '@Model.CodigoVideo';
+        $(document).ready(function () {
+
+            MostrarOcultarCargaElementos();
+        });
+
+        function MostrarOcultarCargaElementos() {
+
+            if (!window.videoKey) {
+                $('#tabVideo').hide();
+            }
+
+            $('ul.ficha_tabs li').click(function () {
+                $(this).children('ul').slideToggle();
+            });
+        }
+
+
 
         var fichaModule;
         $(document).ready(function() {
@@ -256,7 +273,7 @@
                 cuv: "@Model.Cuv",
                 urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new { area = "" })'
             });
-          //  fichaModule.Inicializar();
+            fichaModule.Inicializar();
         });
 
     </script>
