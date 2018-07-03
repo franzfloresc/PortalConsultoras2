@@ -1800,6 +1800,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ToList();
             }
 
+            // el campo BloqueoProductoDigital se llenaba en el login, hacer cambio para cargar el campo con listaDatos
             //if (estrategiaODD.ListaDeOferta != null)
             //{
             //    var prodOdd = estrategiaODD.ListaDeOferta.FirstOrDefault();
