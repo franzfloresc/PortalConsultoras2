@@ -1813,6 +1813,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int IndicadorBloqueoCDRField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IndicadorConsultoraDigitalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IndicadorContratoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3466,6 +3469,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.IndicadorBloqueoCDRField.Equals(value) != true)) {
                     this.IndicadorBloqueoCDRField = value;
                     this.RaisePropertyChanged("IndicadorBloqueoCDR");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IndicadorConsultoraDigital {
+            get {
+                return this.IndicadorConsultoraDigitalField;
+            }
+            set {
+                if ((this.IndicadorConsultoraDigitalField.Equals(value) != true)) {
+                    this.IndicadorConsultoraDigitalField = value;
+                    this.RaisePropertyChanged("IndicadorConsultoraDigital");
                 }
             }
         }

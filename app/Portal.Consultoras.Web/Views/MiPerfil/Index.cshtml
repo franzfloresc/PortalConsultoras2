@@ -65,7 +65,7 @@ else
                     <span class="text-bold">@Model.Zona</span>
                 </div>
             </div>
-            @if (Model.NombreGerenteZonal != "")
+            @if (Model.NombreGerenteZonal != "" && Model.IndicadorConsultoraDigital == 0)
             {
                 <div class="datos_gerente_zona">
                     <span>Gerente de zona : </span>
