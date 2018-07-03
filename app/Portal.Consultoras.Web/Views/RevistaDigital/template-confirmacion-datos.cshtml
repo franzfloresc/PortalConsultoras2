@@ -9,10 +9,30 @@
             <div class="cont-datos">
                 <div class="form_datos">
                     <p class="felicidades">¡FELICIDADES @Model.NombreConsultora!</p>
-                    <p class="estasganando">DISFRUTA LOS BENEFICIOS DESDE LA CAMPAÑA @Model.CampaniaX1</p>
+                    <p class="estasganando">
+                        @if (Model.EsSuscripcionInmediata)
+                        {
+                            <text>YA ESTÁS SUSCRITA </text>
+                        }
+                        else
+                        {
+
+                            <text>DISFRUTA LOS BENEFICIOS DESDE LA CAMPAÑA  </text> @Model.CampaniaX1
+                        }
+                    </p>
                     <span class="confirmanos">
-                        Ya estás suscrita al Club. <br />
-                        Por favor, confirmanos tus datos.
+                        @if (Model.EsSuscripcionInmediata)
+                        {
+                            <text> Por favor, confírmanos tus datos <br />
+                                para recibir los mejores tips. </text>
+                        }
+                        else
+                        {
+
+                            <text> Ya estás suscrita al Club. <br />
+                                Por favor, confirmanos tus datos.</text>
+                        }
+
                     </span>
                     <div class="form-datos">
                         <div class="input">
@@ -20,21 +40,21 @@
                         </div>
                         <div class="input">
                             <img src="~/Content/Images/mailIcon.png" alt="">
-                            <input id="CorreoAnterior" type="hidden" value="@Model.Email"/>
-                            <input id="Email" type="text" class="txtformvalidar" value="@Model.Email" placeholder="Tu correo electrónico"/>
+                            <input id="CorreoAnterior" type="hidden" value="@Model.Email" />
+                            <input id="Email" type="text" class="txtformvalidar" value="@Model.Email" placeholder="Tu correo electrónico" />
                             <p id="errorEmail" class="txtvalidar" style="display: none">Debe ingresar un email válido</p>
                         </div>
                         <div class="input">
                             <img src="~/Content/Images/phoneIcon.png" alt="" class="phone">
                             <input type="hidden" id="hdn_CaracterMinimo" value="@Model.LimiteMin" />
                             <input type="hidden" id="hdn_CaracterMaximo" value="@Model.LimiteMax" />
-                            <input id="Celular" type="text" value="@Model.Celular" placeholder="Tu teléfono" class="txtformvalidar"/>
+                            <input id="Celular" type="text" value="@Model.Celular" placeholder="Tu teléfono" class="txtformvalidar" />
                             <p id="errorPhone" class="txtvalidar" style="display: none">Debe ingresar un número válido</p>
                         </div>
-                        
+
                         <div class="validar_chk">
                             <div class="inputchk">
-                                <input type="checkbox" name="chkinput" id="chkinput"/>
+                                <input type="checkbox" name="chkinput" id="chkinput" />
                                 <label for="chkinput"></label>
                             </div>
                             <div class="txtchk">

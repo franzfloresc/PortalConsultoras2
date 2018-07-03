@@ -732,6 +732,19 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return (tipoEstrategiaResponse == null ? string.Empty : tipoEstrategiaResponse.MensajeValidacion);
         }
 
+        private BEProductoApp ProductoBuscarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEProducto producto = null)
+        {
+            LogPerformance("Fin");
+            LogPerformance(string.Empty);
+
+            return new BEProductoApp()
+            {
+                CodigoRespuesta = codigoRespuesta,
+                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoAppValidacion.Message[codigoRespuesta] : mensajeRespuesta,
+                Producto = producto
+            };
+        }
+
         private bool BloqueoProductosCatalogo(BERevistaDigital revistaDigital, string codigosRevistaImpresa, BEProducto producto, BEProductoAppBuscar productoBuscar)
         {
             if (producto == null) return true;
@@ -754,18 +767,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return true;
         }
 
-        private BEProductoApp ProductoBuscarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEProducto producto = null)
-        {
-            LogPerformance("Fin");
-            LogPerformance(string.Empty);
-
-            return new BEProductoApp()
-            {
-                CodigoRespuesta = codigoRespuesta,
-                MensajeRespuesta = string.IsNullOrEmpty(mensajeRespuesta) ? Constantes.PedidoAppValidacion.Message[codigoRespuesta] : mensajeRespuesta,
-                Producto = producto
-            };
-        }
         #endregion
 
         #region Insert

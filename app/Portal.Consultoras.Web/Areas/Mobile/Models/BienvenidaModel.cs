@@ -59,5 +59,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public int TipoPopUpMostrar { get; set; }
         public bool ConsultoraNuevaBannerAppMostrar { get; set; }
         public bool TienePagoEnLinea { get; set; }
+        public int CambioClave { get; set; }
     }
 }

@@ -59,5 +59,52 @@
     position: absolute;
     z-index: 901;
 }
-
 /*#endregion */
+
+/*#Rangos */
+.irs-bar, .irs-line {
+    background: none;
+    border-radius: 2px;
+    height: 2px;
+}
+
+.irs-slider {
+    background: none;
+    border-radius: 10px;
+    box-shadow: none;
+    height: 11px;
+    top: 28px;
+    width: 11px;
+}
+
+.irs-with-grid {
+    height: 62px;
+}
+
+.irs-grid-pol {
+    background: #e5e5e5;
+    opacity: 1;
+}
+
+    .irs-grid-pol.small {
+        background: #999;
+        display: none;
+    }
+
+.irs-grid-text {
+    bottom: 0px;
+    color: #4a4a4a;
+    font-family: 'Lato';
+    font-size: 12.5px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.irs-from, .irs-to, .irs-single {
+    background: #428bca00;
+    font-family: 'Lato';
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    top: 2px;
+}
