@@ -1802,6 +1802,18 @@ namespace Portal.Consultoras.Web.Controllers
                     )
                     .ToList();
             }
+
+            if (estrategiaODD.ListaDeOferta != null)
+            {
+                var prodOdd = estrategiaODD.ListaDeOferta.FirstOrDefault();
+                if (prodOdd.BloqueoProductoDigital)
+                {
+                    beProductos = beProductos
+                    .Where(prod => prod.TipoEstrategiaCodigo != Constantes.TipoEstrategiaCodigo.OfertaDelDia)
+                    .ToList();
+                }
+            }
+
             if (guiaNegocio.BloqueoProductoDigital)
             {
                 beProductos = beProductos
