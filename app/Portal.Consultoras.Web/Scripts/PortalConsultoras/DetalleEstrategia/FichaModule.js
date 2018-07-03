@@ -252,21 +252,31 @@
 
     var _verificarVariedad = function (estrategia) {
         if (!IsNullOrEmpty(estrategia.CodigoVariante)) {
-            var componentes;
             var param = {
                 estrategiaId: estrategia.EstrategiaID,
                 campania: _config.campania,
                 codigoVariante: estrategia.CodigoVariante
             }
-            
             _promiseObternerComponentes(param).done(function (data) {
-                componentes = data.componentes;
+                estrategia.Hermanos = data.componentes;
+                estrategia.EsMultimarca = data.EsMultimarca;
             }).fail(function (data, error) {
-                componentes = new Object();
+                estrategia.Hermanos = new Object();
+                estrategia.EsMultimarca = false;
             });
             
-            return componentes;
-        } else return new Object();
+            return true;
+        } else return false;
+    }
+    
+    var _actualizarVariedad = function (estrategia) {
+        if (estrategia.Hermanos.length == 1) {
+            if (estrategia.Hermanos[0].Hermanos) {
+                if (estrategia.Hermanos[0].Hermanos.length > 0) {
+                    estrategia.CodigoVariante = ConstantesModule.CodigoVariedad.IndividualVariable;
+                }
+            }
+        }
     }
     
     var _construirSeccionEstrategia = function () {
@@ -284,23 +294,16 @@
             window.location = (isMobile() ? "/Mobile/" : "") + "Ofertas";
             return false;
         }
-
-        estrategia.Hermanos = _verificarVariedad(estrategia);
-        actualizarVariedad(estrategia);
+        
+        _verificarVariedad(estrategia);
+        _actualizarVariedad(estrategia);
+        
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
         return true;
         
     }
 
-    var actualizarVariedad = function (estrategia) {
-        if (estrategia.Hermanos.length == 1) {
-            if (estrategia.Hermanos[0].Hermanos) {
-                if (estrategia.Hermanos[0].Hermanos.length > 0) {
-                    estrategia.CodigoVariante = ConstantesModule.CodigoVariedad.IndividualVariable;
-                }
-            }
-        }
-    }
+  
     
     function Inicializar() {
         localStorageModule = LocalStorageModule();
