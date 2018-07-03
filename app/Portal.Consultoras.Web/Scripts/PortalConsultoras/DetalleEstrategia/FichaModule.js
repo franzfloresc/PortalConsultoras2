@@ -10,7 +10,7 @@
         cuv: config.cuv || "",
         urlObtenerComponentes: config.urlObtenerComponentes
         
-    }
+    };
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _codigoPalanca = ConstantesModule.CodigosPalanca;
     
@@ -22,13 +22,13 @@
         idPlantillaProductoLanding: "#producto-landing-template",
         divCarruselSetsProductosRelacionados: "#divOfertaProductos",
         divSetsProductosRelacionados: "#set_relacionados"
-    }
+    };
     var _atributos = {
         dataEstrategia: "data-estrategia",
         dataClicked: "[data-clicked]",
         dataChange: "[data-change]",
         dataSelected: "[data-select-area]"
-    }
+    };
   
 
     var _getParamValueFromQueryString = function (queryStringName) {
@@ -61,7 +61,7 @@
         mouseLeaveSelectArea: function () {
 
         }
-    }
+    };
 
     var _bindingEvents = function () {
         $("body").on("click", _elementos.dataClicked, _eventos.clickChange);
@@ -70,7 +70,7 @@
             $(document).on("mousemove", _elementos.dataChange, _eventos.mouseMove);
             $(document).on("mouseleave",_elementos.dataSelected, _eventos.mouseLeaveSelectArea);
         }
-    }
+    };
     
     var _crearReloj = function() {
         $("#clock").each(function (index, elem) {
@@ -81,15 +81,22 @@
                     language: 'es-es',
                 });
         });
-    }
+    };
     
-    var _crearTabs = function() {
-        for (var i = 1; i <= 5; i++) {
-            if (document.getElementById("ficha_tab_" + i.toString()).checked) {
-                document.getElementById("contenido_" + i.toString()).style.display = "block";
-            }
+    var _crearTabs = function () {
 
-            document.getElementById("ficha_tab_" + i.toString()).onclick = function (event) {
+        for (var i = 1; i <= 5; i++) {
+
+            var FichaTabElement = document.getElementById("ficha_tab_" + i.toString());
+
+            if (FichaTabElement)
+            {
+
+                if (FichaTabElement.checked) {
+                document.getElementById("contenido_" + i.toString()).style.display = "block";
+                }
+
+                FichaTabElement.onclick = function (event) {
                 var numID = event.target.getAttribute('data-numTab');
 
                 for (var j = 1; j <= 5; j++) {
@@ -97,7 +104,9 @@
                 }
 
                 document.getElementById("contenido_" + numID.toString()).style.display = "block";
-            }
+            };
+
+         }
         }
 
         if (!window.videoKey) {
@@ -107,7 +116,7 @@
         $('ul.ficha_tabs li').click(function () {
             $(this).children('ul').slideToggle();
         });
-    }
+    };
     
     var _crearCarruseles = function() {
         $("#carrusel").not('.slick-initialized').slick({
@@ -137,7 +146,7 @@
             nextArrow:
                 '<a class="contenedor_flecha_carrusel flecha_derecha_carrusel js-slick-next slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_carrusel_tonos dibujar_flecha_derecha_carrusel"></div></a>'
         });
-    }
+    };
     
     var _promiseObternerComponentes = function (params) {
         var dfd = $.Deferred();
@@ -159,7 +168,7 @@
         });
 
         return dfd.promise();
-    }
+    };
 
 
 
@@ -256,12 +265,12 @@
                 estrategiaId: estrategia.EstrategiaID,
                 campania: _config.campania,
                 codigoVariante: estrategia.CodigoVariante
-            }
+            };
             _promiseObternerComponentes(param).done(function (data) {
                 estrategia.Hermanos = data.componentes;
                 estrategia.EsMultimarca = data.EsMultimarca;
             }).fail(function (data, error) {
-                estrategia.Hermanos = new Object();
+                estrategia.Hermanos = {};
                 estrategia.EsMultimarca = false;
             });
             
@@ -277,10 +286,10 @@
                 }
             }
         }
-    }
+    };
     
     var _construirSeccionEstrategia = function () {
-
+ 
         var estrategia;
         if (_config.tieneSession === "True") {
             //revisar si se realiza con razor o handle bar para SW y ODD
@@ -301,7 +310,7 @@
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
         return true;
         
-    }
+    };
 
   
     
@@ -317,5 +326,5 @@
 
     return {
         Inicializar: Inicializar
-    }
+    };
 });
