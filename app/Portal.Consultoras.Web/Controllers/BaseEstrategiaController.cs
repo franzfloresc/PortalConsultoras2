@@ -367,7 +367,7 @@ namespace Portal.Consultoras.Web.Controllers
         public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion = false, int tipoOferta = 1)
         {
             var listaProductoRetorno = new List<EstrategiaPersonalizadaProductoModel>();
-            var cargo = sessionManager.ShowRoom.CargoOfertas ?? "";
+            var cargo = sessionManager.ShowRoom.CargoOfertas ?? "0";
 
             if (cargo == "1")
             {

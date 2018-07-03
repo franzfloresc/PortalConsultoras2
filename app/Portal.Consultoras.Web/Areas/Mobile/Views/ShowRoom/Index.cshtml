@@ -228,41 +228,43 @@
 
     //if (listaSubCampania != null && listaSubCampania.Count > 0)
     //{
-        <div class="content_sub_oferta_showroom" id="content_sub_oferta_showroom">
-            <div class="content_titulo_sub_oferta">
-                <hr class="clear" />
-                <div class="content_titulo_texto_sw" style="color: @Model.ColorTextoInicialOfertaSubCampania">
-                    <span style="font-size: 12px;">@Model.TextoInicialOfertaSubCampania</span>
-                    <span class="titulo_banner_showroom" style="font-size=11px;color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
-                </div>
-                <a href="#" class="btn_descubre_set_especial" id="btn_descubre_mobile"></a>
-            </div>
-            <hr class="clear" />
-
-        </div>
-        <div class="content_display_set_suboferta">
-            <div class="content_header_sub">
+        <div id="divContentSubCampania" style="display:none;">
+            <div class="content_sub_oferta_showroom" id="content_sub_oferta_showroom">
                 <div class="content_titulo_sub_oferta">
                     <hr class="clear" />
                     <div class="content_titulo_texto_sw" style="color: @Model.ColorTextoInicialOfertaSubCampania">
-                        @Model.TextoInicialOfertaSubCampania
-                        <span class="titulo_banner_showroom" style="color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
+                        <span style="font-size: 12px;">@Model.TextoInicialOfertaSubCampania</span>
+                        <span class="titulo_banner_showroom" style="font-size=11px;color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
                     </div>
-                    <a href="#" class="btn_descubre_set_especial btn_descubre_set_especial_click" id="btn_cerrar_mobile"></a>
+                    <a href="#" class="btn_descubre_set_especial" id="btn_descubre_mobile"></a>
                 </div>
-                <div style="top: 45px; left: 50%; border: solid transparent; height: 0; width: 0; pointer-events: none; border-color: rgba(0, 0, 0, 0);
-                    border-top-color: #020202; border-width: 12px; margin-left: -12px; position: absolute;"></div>
+                <hr class="clear" />
+
             </div>
-            <div id="contenedor-showroom-subcampanias-mobile" class="content_info_set_especial" style="height: 100%;"></div>
-            <div class="content_btn_agregar" style="display:none;" id="agregarSetEspecial">
-                <div class="content_320">
-                    <div class="content_cantidad_ficha_producto">
-                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                        <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+            <div class="content_display_set_suboferta">
+                <div class="content_header_sub">
+                    <div class="content_titulo_sub_oferta">
+                        <hr class="clear" />
+                        <div class="content_titulo_texto_sw" style="color: @Model.ColorTextoInicialOfertaSubCampania">
+                            @Model.TextoInicialOfertaSubCampania
+                            <span class="titulo_banner_showroom" style="color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
+                        </div>
+                        <a href="#" class="btn_descubre_set_especial btn_descubre_set_especial_click" id="btn_cerrar_mobile"></a>
                     </div>
-                    <a class="btn_agregar_ficha_producto" data-odd-accion="agregar">AGRÉGALO</a>
-                    <hr class="clear">
+                    <div style="top: 45px; left: 50%; border: solid transparent; height: 0; width: 0; pointer-events: none; border-color: rgba(0, 0, 0, 0);
+                    border-top-color: #020202; border-width: 12px; margin-left: -12px; position: absolute;"></div>
+                </div>
+                <div id="contenedor-showroom-subcampanias-mobile" class="content_info_set_especial" style="height: 100%;"></div>
+                <div class="content_btn_agregar" style="display:none;" id="agregarSetEspecial">
+                    <div class="content_320">
+                        <div class="content_cantidad_ficha_producto">
+                            <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                            <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        </div>
+                        <a class="btn_agregar_ficha_producto" data-odd-accion="agregar">AGRÉGALO</a>
+                        <hr class="clear">
+                    </div>
                 </div>
             </div>
         </div>
