@@ -11,7 +11,7 @@
 /// <reference path="../../../Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/TagManager/Home-Pedido.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
-/// <reference path="../../../PortalConsultoras/Shared/ConstantesModule.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 
 var EstrategiaAgregarModule = function () {
     "use strict";
@@ -48,7 +48,7 @@ var EstrategiaAgregarModule = function () {
         hdCampaniaCodigo: "#hdCampaniaCodigo",
         EstrategiaHdMarcaID: "#Estrategia_hd_MarcaID",
         EstrategiaHdPrecioCatalogo: "#Estrategia_hd_PrecioCatalogo",
-        OfertaTipoNuevo: '#OfertaTipoNuevo'
+        OfertaTipoNuevo: "#OfertaTipoNuevo"
     };
 
     var elementosPopPup = {
@@ -119,7 +119,7 @@ var EstrategiaAgregarModule = function () {
                 $divMsgProductoBloqueado = $(elementosDiv.divMensajeBloqueada);
                 if (estrategiaTmp.CodigoEstrategia === ConstantesModule.ConstantesPalanca.HerramientasVenta) {
                     $divMsgProductoBloqueado = $(elementosDiv.divHVMensajeBloqueada);
-                    $divMsgProductoBloqueado.find('.cerrar_fichaProducto').data(elementosPopPup.popupClose.substring(1), elementosDiv.divHVMensajeBloqueada.substring(1));
+                    $divMsgProductoBloqueado.find(".cerrar_fichaProducto").data(elementosPopPup.popupClose.substring(1), elementosDiv.divHVMensajeBloqueada.substring(1));
                 }
 
                 return this;
@@ -300,7 +300,7 @@ var EstrategiaAgregarModule = function () {
 
             if (tipoOrigenEstrategia == 1) {
                 if (typeof MostrarBarra != constantes.undefined())
-                    MostrarBarra(data, '1');
+                    MostrarBarra(data, "1");
 
                 if (typeof ActualizarGanancia != constantes.undefined())
                     ActualizarGanancia(data.DataBarra);
@@ -311,7 +311,7 @@ var EstrategiaAgregarModule = function () {
                 if (typeof tieneMasVendidos != constantes.undefined()) {
                     if (tieneMasVendidos === 1) {
                         if (typeof CargarCarouselMasVendidos != constantes.undefined())
-                            CargarCarouselMasVendidos('desktop');
+                            CargarCarouselMasVendidos("desktop");
                     }
                 }
             } else if (tipoOrigenEstrategia == 11) {
@@ -347,7 +347,7 @@ var EstrategiaAgregarModule = function () {
                     CargarCarouselEstrategias();
 
                     if (tieneMasVendidos === 1) {
-                        CargarCarouselMasVendidos('mobile');
+                        CargarCarouselMasVendidos("mobile");
                     }
                 }
             }

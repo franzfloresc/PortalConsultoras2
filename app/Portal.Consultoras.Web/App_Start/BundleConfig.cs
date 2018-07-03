@@ -91,7 +91,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js",
-                "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js"
+                "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js",
+                "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Scripts/MobileLayoutContenedor").Include(
@@ -324,6 +325,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js",
                 "~/Scripts/jquery.rateyo.js"
@@ -375,7 +377,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
-                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
             ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/Login2/Esika").Include(
@@ -390,7 +393,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
-                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
             ));
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/PedidoFIC").Include(
                 "~/Scripts/PortalConsultoras/Mobile/PedidoFIC/Index.js",
@@ -575,7 +579,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
-                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/Mobile/GuiaNegocio-Landing").Include(
@@ -626,7 +631,11 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/bundles/Ficha").Include(
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/General.js",
-                "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js"
+                "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
+                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
+                  "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                   "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
+                     "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js"                     
           ));
             #endregion
 
