@@ -11,12 +11,12 @@
 }
 
 <div class="imagen_fondo_detalle" style="background-image: url('https://S3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_Desktop_Fondo_del_ShowRoom_en_el_Contenedor_Ofertas_Venta 50A_2018630811_01_ytmwyupjny.jpg');"></div>
-<div class="contenedor_detalle texto_font" data-item="" data-tag-html="@ViewBag.Campania">
-    <div class="contenedor_fichas" data-OrigenPedidoWeb="@Model.Origen">
+<div class="contenedor_detalle texto_font" data-item="" data-tag-html="@ViewBag.Campania"  data-OrigenPedidoWeb="@Model.Origen">
+    <div class="contenedor_fichas">
         <div style="display:none;">
             <div id="data-estrategia" data-estrategia="@Json.Encode(Model)"></div>
         </div>
-        <div class="contenedor_ficha_producto" id="seccion_ficha_handlebars" data-OrigenPedidoWeb="@Model.Origen"></div>
+        <div class="contenedor_ficha_producto" id="seccion_ficha_handlebars"></div>
     <script id="detalle_ficha_template" type="text/x-handlebars-template">
             <div class="ficha_producto">
                 <div class="contenedor_imagen">
