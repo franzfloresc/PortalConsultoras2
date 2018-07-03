@@ -587,7 +587,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
-                "~/Scripts/PortalConsultoras/Mobile/GuiaNegocio/GuiaNegocio-Landing.js"
+                "~/Scripts/PortalConsultoras/Mobile/GuiaNegocio/GuiaNegocio-Landing.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/RevistaDigital-Landing").Include(

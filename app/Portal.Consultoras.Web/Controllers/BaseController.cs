@@ -34,7 +34,6 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using EstrategiaPedidoModel = Portal.Consultoras.Web.Models.EstrategiaPedidoModel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -2575,7 +2574,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
                 ViewBag.TieneOfertaDelDia = _ofertaDelDiaProvider.CumpleOfertaDelDia(userData, GetControllerActual());
                 //ViewBag.MostrarOfertaDelDiaContenedor = estrategiaODD.TieneOfertaDelDia;
-                ViewBag.oddConfiguracion = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
+                //ViewBag.oddConfiguracion = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
             }
             catch (Exception ex)
             {

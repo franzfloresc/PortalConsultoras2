@@ -1,12 +1,13 @@
 ﻿@using Portal.Consultoras.Web.Helpers
 @using Portal.Consultoras.Web.Models;
+@using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 
 @{
     ViewBag.Title = "OfertaDelDia";
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 
     var mobileConfiguracion = Html.MobileAppConfiguracion();
-    EstrategiaPedidoModel ofertaDelDia = new EstrategiaPedidoModel();
+    DataModel ofertaDelDia = new DataModel();
     if (ViewBag.MostrarOfertaDelDia == true) { ofertaDelDia = ViewBag.OfertaDelDia; }
 }
 

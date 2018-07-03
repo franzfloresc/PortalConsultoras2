@@ -20,6 +20,18 @@ namespace Portal.Consultoras.Web.SessionManager.ShowRoom
             }
         }
 
+        public string CargoOfertas
+        {
+            get
+            {
+                return (string)HttpContext.Current.Session[Constantes.ConstSession.CargoShowRoomOfertas];
+            }
+            set
+            {
+                HttpContext.Current.Session[Constantes.ConstSession.CargoShowRoomOfertas] = value;
+            }
+        }
+
         public List<EstrategiaPersonalizadaProductoModel> Ofertas {
             get
             {
@@ -65,5 +77,7 @@ namespace Portal.Consultoras.Web.SessionManager.ShowRoom
         //        HttpContext.Current.Session[Constantes.ConstSession.ListaShowRoomOfertasCpc] = value;
         //    }
         //}
+
+
     }
 }
