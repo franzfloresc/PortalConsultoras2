@@ -1946,6 +1946,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_PRODUCTO_OFERTAREVISTA_ESIKA = "1106";
                 public const string ERROR_PRODUCTO_OFERTAREVISTA_LBEL = "1107";
                 public const string ERROR_PRODUCTO_ESTRATEGIA = "1108";
+                public const string ERROR_PRODUCTO_SUGERIDO = "1109";
 
                 public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                 public const string ERROR_STOCK_ESTRATEGIA = "2102";
@@ -1991,6 +1992,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, "Este producto está de oferta en la Guía de Negocio Ésika."},
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, "Este producto está de oferta en Mi Negocio L’Bel."},
                         {Code.ERROR_PRODUCTO_ESTRATEGIA, string.Empty},
+                        {Code.ERROR_PRODUCTO_SUGERIDO,"Este producto tiene reemplazos sugeridos." },
 
                         {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
                         {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
