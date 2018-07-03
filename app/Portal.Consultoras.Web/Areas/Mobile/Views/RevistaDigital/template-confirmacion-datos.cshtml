@@ -8,10 +8,28 @@
                 <div class="centrar-vertical-contenido">
                     <div class="form_datos">
                         <p class="felicidades">¡FELICIDADES @Model.NombreConsultora!</p>
-                        <p class="estasganando">DISFRUTA LOS BENEFICIOS DESDE LA CAMPAÑA @Model.CampaniaX1</p>
+                        <p class="estasganando">
+                            @if (Model.EsSuscripcionInmediata)
+                            {
+                                <text>YA ESTÁS SUSCRITA </text>
+                            }
+                            else
+                            {
+                                <text>DISFRUTA LOS BENEFICIOS DESDE LA CAMPAÑA  </text> @Model.CampaniaX1
+                            }
+
+                        </p>
                         <span class="confirmanos">
-                            Ya estás suscrita al Club. <br />
-                            Por favor, confirmanos tus datos.
+                            @if (Model.EsSuscripcionInmediata)
+                            {
+                                <text> Por favor, confírmanos tus datos <br />
+                                    para recibir los mejores tips. </text>
+                            }
+                            else
+                            {
+                                <text> Ya estás suscrita al Club. <br />
+                                    Por favor, confirmanos tus datos.</text>
+                            }
                         </span>
                         <div class="form-datos">
                             <div class="input">

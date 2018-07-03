@@ -233,6 +233,14 @@
         margin-left: -11px;
     }
 
+    .como-funciona span.recuerda-txt-2 {
+        color: black;
+        letter-spacing: .5px !important;
+        text-align: center;
+        display: block;
+        word-wrap: break-word;
+        margin-left: -11px;
+    }
     .como-funciona .caja-club-izquierda, .como-funciona .caja-club-derecha {
         width: 50%;
         float: left;

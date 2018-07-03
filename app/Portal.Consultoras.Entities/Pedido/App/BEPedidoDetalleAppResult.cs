@@ -22,6 +22,6 @@ namespace Portal.Consultoras.Entities.Pedido.App
         [DataMember]
         public string MensajeRespuesta { get; set; }
         [DataMember]
-        public List<BEPedidoObservacion> Observaciones { get; set; }
+        public BEResultadoReservaProl ResultadoReserva { get; set; }
     }
 }
