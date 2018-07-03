@@ -26,6 +26,9 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         private string CUVField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CUV2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -47,6 +50,9 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         private string CodigoProductoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoTipoEstrategiaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoTipoOfertaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -54,6 +60,9 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string Descripcion2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionCategoriaField;
@@ -125,6 +134,9 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         private string TipNegocioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoEstrategiaIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoOfertaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -158,6 +170,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
                 if ((object.ReferenceEquals(this.CUVField, value) != true)) {
                     this.CUVField = value;
                     this.RaisePropertyChanged("CUV");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CUV2 {
+            get {
+                return this.CUV2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CUV2Field, value) != true)) {
+                    this.CUV2Field = value;
+                    this.RaisePropertyChanged("CUV2");
                 }
             }
         }
@@ -254,6 +279,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoTipoEstrategia {
+            get {
+                return this.CodigoTipoEstrategiaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoTipoEstrategiaField, value) != true)) {
+                    this.CodigoTipoEstrategiaField = value;
+                    this.RaisePropertyChanged("CodigoTipoEstrategia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string CodigoTipoOferta {
             get {
                 return this.CodigoTipoOfertaField;
@@ -288,6 +326,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
                 if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
                     this.DescripcionField = value;
                     this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion2 {
+            get {
+                return this.Descripcion2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.Descripcion2Field, value) != true)) {
+                    this.Descripcion2Field = value;
+                    this.RaisePropertyChanged("Descripcion2");
                 }
             }
         }
@@ -592,6 +643,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TipoEstrategiaId {
+            get {
+                return this.TipoEstrategiaIdField;
+            }
+            set {
+                if ((this.TipoEstrategiaIdField.Equals(value) != true)) {
+                    this.TipoEstrategiaIdField = value;
+                    this.RaisePropertyChanged("TipoEstrategiaId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string TipoOferta {
             get {
                 return this.TipoOfertaField;
@@ -861,6 +925,12 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FotoProducto01Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FotoProductoMediumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FotoProductoSmallField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal GananciaField;
@@ -1644,6 +1714,32 @@ namespace Portal.Consultoras.Web.ServiceOferta {
                 if ((object.ReferenceEquals(this.FotoProducto01Field, value) != true)) {
                     this.FotoProducto01Field = value;
                     this.RaisePropertyChanged("FotoProducto01");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FotoProductoMedium {
+            get {
+                return this.FotoProductoMediumField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FotoProductoMediumField, value) != true)) {
+                    this.FotoProductoMediumField = value;
+                    this.RaisePropertyChanged("FotoProductoMedium");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FotoProductoSmall {
+            get {
+                return this.FotoProductoSmallField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FotoProductoSmallField, value) != true)) {
+                    this.FotoProductoSmallField = value;
+                    this.RaisePropertyChanged("FotoProductoSmall");
                 }
             }
         }
