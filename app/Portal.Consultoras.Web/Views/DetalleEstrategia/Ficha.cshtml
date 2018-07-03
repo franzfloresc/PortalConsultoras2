@@ -87,13 +87,11 @@
 
 
                 {{#iff CodigoVariante '==' '2001'}}
-                <div class="contenedor_lista_tonos">
                     <div class="nombre_detalle_producto_tono">Slogan de Proucto 2001</div>
                     <div class="descripcion_detalle_producto_tono">
                         Descripcion de producto 
                         <span class="txt_ver_mas">ver más</span>
                     </div>
-                </div>
                 {{#each this.Hermanos as |componente|}}
                 <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
                     <div class="tono_select_opt">
@@ -103,10 +101,10 @@
                             <hr class="clear">
                         </div>
                         <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
-                            {{#each this.Detalle as |variedad|}}
-                            <div class="content_tono_elegido" data-tono-change="2" 
-                                 data-tono-cuv="{{variedad.CUV}}" 
-                                 data-tono-nombre="{{variedad.NombreBulk}}" 
+                            {{#each componente.Hermanos as |variedad|}}
+                            <div class="content_tono_elegido" data-tono-change="2"
+                                 data-tono-cuv="{{variedad.CUV}}"
+                                 data-tono-nombre="{{variedad.NombreBulk}}"
                                  data-tono-descripcion="{{variedad.NombreComercial}}">
                                 <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt=""></div>
                                 <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
@@ -116,15 +114,15 @@
                         </div>
                     </div>
                     <div class="content_tonos_maquillaje" data-tono-div="">
-                        {{#each this.Detalle as |variedad|}}
+                        {{#each componente.Hermanos as |variedad|}}
                         <div style="display: none;">
                             <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.MarcaID}}" />
                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
                         </div>
-                        <div id="fav_tono_{{variedad.CUV}}" class="content_tono_detalle {{#iff variedad.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}" 
-                             data-tono-cuv="{{variedad.CUV}}" 
-                             data-tono-change="2" 
-                             data-tono-nombre="{{variedad.NombreBulk}}" 
+                        <div id="fav_tono_{{variedad.CUV}}" class="content_tono_detalle {{#iff variedad.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}"
+                             data-tono-cuv="{{variedad.CUV}}"
+                             data-tono-change="2"
+                             data-tono-nombre="{{variedad.NombreBulk}}"
                              data-tono-descripcion="{{variedad.NombreComercial}}">
                             <img src="{{variedad.ImagenBulk}}" alt="">
                         </div>

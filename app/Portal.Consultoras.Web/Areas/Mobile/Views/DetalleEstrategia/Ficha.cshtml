@@ -23,32 +23,32 @@
                 </ul>
             </div>
         </div>
-
+    </div>
         <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
 
         <div id="seccion_ficha_handlebars" data-OrigenPedidoWeb="@Model.Origen"></div>
         <script id="detalle_ficha_template" type="text/x-handlebars-template">
-            <div class="row bg_imagen_producto" style='background: url(""); background-color: #efefef !important;'
+            <div class="bg_imagen_producto" style='background: url(""); background-color: #efefef !important;'
                  data-estadoregistro="">
             </div>
-
+            <div class="container">
             <div class="row imagen_producto bg_imagen_producto_subir">
-                <div class="col-md-12">
+                <div class="col-md-12 col-sm-12 col-xs-12">
                     <img src="{{FotoProducto01}}" />    
                 </div>
             </div>
             <div class="row label_producto">
-                <div class="col-md-12">
+                <div class="col-md-12 col-sm-12 col-xs-12">
                     <img src="img/label.jpg" alt="">
                 </div>
             </div>
             <div class="row marca_producto">
-                <div class="col-md-12">
+                <div class="col-md-12 col-sm-12 col-xs-12">
                     <h2>{{DescripcionMarca}}</h2>
                 </div>
             </div>
             <div class="row descripcion_producto">
-                <div class="col-md-12">
+                <div class="col-md-12 col-sm-12 col-xs-12">
                     {{DescripcionCortada}}
                 </div>
             </div>
@@ -114,43 +114,48 @@
                     {{/each}}
                     {{/iff}}
                     {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}
-                    <div class="titulo_contenido">CONTENIDO</div>
+                    <div class="contenido_titulo">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <span>CONTENIDO</span>
+                        </div>
                     <div class="content_producto_compuesto">
                         {{#each this.Hermanos as |componente|}}
-                        <div class="" data-tono="" data-tono-select="" data-tono-digitable="{{componente.Digitable}}">
-                            <div style="display: none;">
-                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
-                                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
-                            </div>
-                            <div class="nombre_producto_opt" data-tono-select-nombrecomercial="">
-                                <span class="cantidad_producto_opt">x {{componente.Cantidad}}</span>
-                                <span data-tono-select-nombrecomercial="">{{componente.NombreComercial}}</span>
-                            </div>
-                            {{#iff componente.Digitable '==' '1'}}
-                            <div class="content_tonos_producto">
-                                <div class="tono_select_opt">
-                                    <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                                        <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
-                                        <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
-                                        <hr class="clear" />
-                                    </div>
-                                    <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
-                                        {{#each componente.Hermanos as |variedad|}}
-                                        <div class="content_tono_elegido" data-tono-change="2" 
-                                             data-tono-cuv="{{variedad.Cuv}}" 
-                                             data-tono-nombre="{{variedad.NombreBulk}}" 
-                                             data-tono-descripcion="{{variedad.NombreComercial}}">
-                                            <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt=""></div>
-                                            <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="" data-tono="" data-tono-select="" data-tono-digitable="{{componente.Digitable}}">
+                                <div style="display: none;">
+                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
+                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
+                                </div>
+                                <div class="nombre_producto_opt" data-tono-select-nombrecomercial="">
+                                    <span class="cantidad_producto_opt">x {{componente.Cantidad}}</span>
+                                    <span data-tono-select-nombrecomercial="">{{componente.NombreComercial}}</span>
+                                </div>
+                                {{#iff componente.Digitable '==' '1'}}
+                                <div class="content_tonos_producto">
+                                    <div class="tono_select_opt">
+                                        <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                            <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                            <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
                                             <hr class="clear" />
                                         </div>
-                                        {{/each}}
+                                        <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
+                                            {{#each componente.Hermanos as |variedad|}}
+                                            <div class="content_tono_elegido" data-tono-change="2"
+                                                 data-tono-cuv="{{variedad.Cuv}}"
+                                                 data-tono-nombre="{{variedad.NombreBulk}}"
+                                                 data-tono-descripcion="{{variedad.NombreComercial}}">
+                                                <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt=""></div>
+                                                <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
+                                                <hr class="clear" />
+                                            </div>
+                                            {{/each}}
+                                        </div>
                                     </div>
+                                    <hr class="clear">
                                 </div>
-                                <hr class="clear">
+                                {{/iff}}
+                                <hr class="clear" />
                             </div>
-                            {{/iff}}
-                            <hr class="clear" />
                         </div>
                         {{/each}}
                     </div>
@@ -160,39 +165,48 @@
         </script>
     
       
-        <div class="row tabs">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <ul class="tabs">
-                    <li>
-                        <a>DETALLE DEL PACK</a>
-                        <ul>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
-                        </ul>
-                    </li>
-                    <li>
-                        <a>TIP DE VENTA</a>
-                        <ul>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis itaque nisi ratione sit excepturi. Porro nemo ipsam fugiat quidem accusamus, cumque temporibus atque! Voluptatum nesciunt odio consectetur eos, quibusdam sint?
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+<div class="container">
+    <div class="row tabs">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <ul class="tabs">
+                <li>
+                    <a>DETALLE DEL PACK</a>
+                    <ul>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
+                    </ul>
+                </li>
+                <li>
+                    <a>TIP DE VENTA</a>
+                    <ul>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis itaque nisi ratione sit excepturi. Porro nemo ipsam fugiat quidem accusamus, cumque temporibus atque! Voluptatum nesciunt odio consectetur eos, quibusdam sint?
+                    </ul>
+                </li>
+            </ul>
         </div>
-        <div class="row carrusel">
+    </div>
+</div>
+
+<div class="container">
+    <div class="row carrusel">
+        <div class="col-md-12 col-sm-12 col-xs-12">
             <p>SET DONDE ENCUENTRAS EL PRODUCTO</p>
 
             <!--pegar aqui elcarrusel-->
         </div>
-        <div class="row compartir_redes">
-            <div class="col-md-12">
-                <p>Comparte el producto con tus clientes</p>
-            </div>
-            <div class="col-md-12">
-                <a href=""><img src="img/wsp.png" alt=""></a>
-                <a href=""><img src="img/fb.png" alt=""></a>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12 compartir_redes_ficha">
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 compartir_redes">
+            <p>Comparte el producto con tus clientes</p>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <a href=""><img src="img/wsp.png" alt=""></a>
+            <a href=""><img src="img/fb.png" alt=""></a>
         </div>
     </div>
+</div>
+        
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
 
 @section scripts{
