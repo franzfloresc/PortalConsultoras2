@@ -285,7 +285,14 @@ function EstrategiaGuardarTemporal(obj) {
     AbrirLoad();
 
     var varReturn = false;
-    var urlGuardarProductoTemporal = urlOfertaDetalleProductoTem || "/Estrategia/GuardarProductoTemporal";
+    var urlGuardarProductoTemporal = "";
+    if (typeof urlOfertaDetalleProductoTem !== "undefined") {
+        urlGuardarProductoTemporal = urlOfertaDetalleProductoTem || "/Estrategia/GuardarProductoTemporal";
+    }
+    else {
+            urlGuardarProductoTemporal = "/Estrategia/GuardarProductoTemporal";
+    }
+
     obj.TipoAccionAgregar = obj.TipoAccionAgregarBack || obj.TipoAccionAgregar;
 
     EstrategiaVerDetalleProvider
