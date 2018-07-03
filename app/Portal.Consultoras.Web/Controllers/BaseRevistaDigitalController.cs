@@ -50,20 +50,37 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.LimiteMax = limiteMaximoTelef;
             modelo.LimiteMin = limiteMinimoTelef;
             modelo.UrlTerminosCondicionesDatosUsuario = GetUrlTerminosCondicionesDatosUsuario();
-            modelo.CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString().Substring(4);
+            modelo.CampaniaX1 = Util.AddCampaniaAndNumero(userData.CampaniaID, revistaDigital.CantidadCampaniaEfectiva, userData.NroCampanias).ToString().Substring(4);
             modelo.MostrarCancelarSuscripcion = !(userData.esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas &&
                 ((!revistaDigital.EsSuscrita && (!revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion || !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)) ||
                 (revistaDigital.EsSuscrita && !revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaNoActivaCancelarSuscripcion) ||
                 (revistaDigital.EsSuscrita && revistaDigital.EsActiva && !revistaDigital.SociaEmpresariaSuscritaActivaCancelarSuscripcion)));
             modelo.CancelarSuscripcion = CancelarSuscripcion(revistaDigital.SuscripcionModel.Origen, userData.CodigoISO);
-
+            modelo.EsSuscripcionInmediata = EsSuscripcionInmediata();
             return View("template-informativa", modelo);
+        }
+
+        public bool EsSuscripcionInmediata()
+        {
+            return revistaDigital.TieneRDC && revistaDigital.SuscripcionModel != null ?
+             (
+                 revistaDigital.SuscripcionEfectiva.CampaniaEfectiva == revistaDigital.SuscripcionModel.CampaniaID
+                 && revistaDigital.SuscripcionModel.CampaniaID > 0
+             ) || (
+                 revistaDigital.SuscripcionModel.CampaniaID == 0
+                 && revistaDigital.CantidadCampaniaEfectiva == 0
+             ) || (
+                revistaDigital.SuscripcionEfectiva.CampaniaEfectiva < userData.CampaniaID
+                && revistaDigital.CantidadCampaniaEfectiva == 0
+             )
+
+             : false;
         }
 
         public ActionResult ViewLanding(int tipo)
         {
             var id = tipo == 1 ? userData.CampaniaID : AddCampaniaAndNumero(userData.CampaniaID, 1);
-
+            ;
             var model = new RevistaDigitalLandingModel();
             if (EsCampaniaFalsa(id)) return PartialView("template-landing", model);
 
@@ -145,48 +162,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.Campania = campaniaId;
             return View(modelo);
 
-        }
-        
-        private ConfiguracionPaisDatosModel ObtenerPerdio(int campaniaId)
-        {
-            var dato = new ConfiguracionPaisDatosModel();
-            if (TieneProductosPerdio(campaniaId))
-            {
-                var codigo = "";
-                bool upper = false;
-                if (!revistaDigital.EsSuscrita)
-                {
-                    codigo = Constantes.ConfiguracionPaisDatos.RD.NSPerdiste;
-                    upper = true;
-                }
-                else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
-                {
-                    codigo = Constantes.ConfiguracionPaisDatos.RD.SNAPerdiste;
-                    upper = true;
-                }
-                else
-                {
-                    codigo = IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MPerdiste : Constantes.ConfiguracionPaisDatos.RD.DPerdiste;
-                }
-
-                dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-
-                dato.Valor1 = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
-                dato.Valor2 = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
-
-                if (upper)
-                {
-                    dato.Valor1 = dato.Valor1.ToUpper();
-                    dato.Valor2 = dato.Valor2.ToUpper();
-                }
-                
-                dato.Estado = true;
-            }
-
-            dato.Valor1 = Util.Trim(dato.Valor1);
-            dato.Valor2 = Util.Trim(dato.Valor2);
-
-            return dato;
         }
 
         private string GetVideoInformativo()
