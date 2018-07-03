@@ -10,6 +10,47 @@
 
 @section styles{
     <link href="@Url.Content("~/Content/Css/Mobile/Ficha/ficha.css")" rel="stylesheet" />
+    <style>
+        .ficha_redes {
+            padding: 24px 0px;
+        }
+
+            .ficha_redes p {
+                display: block;
+                margin-bottom: 17px;
+                font-size: 13px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1;
+                letter-spacing: normal;
+                text-align: center;
+                color: #000000;
+            }
+
+            .ficha_redes a img {
+                display: block;
+                width: 51.4px;
+            }
+
+            .ficha_redes a {
+                display: block;
+                float: left;
+                width: 50%;
+            }
+
+                .ficha_redes a img.fb {
+                    float: left;
+                    margin: 0px 18.85px;
+                }
+
+                .ficha_redes a img.wsp {
+                    float: right;
+                    margin: 0px 18.85px;
+                }
+
+
+    </style>
 }
 
     <div class="container" data-item="" data-tag-html="@Model.Campania" data-OrigenPedidoWeb="@Model.Origen">
@@ -221,16 +262,17 @@
             <!--pegar aqui elcarrusel-->
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12 compartir_redes_ficha">
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12 compartir_redes">
-            <p>Comparte el producto con tus clientes</p>
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <a href=""><img src="img/wsp.png" alt=""></a>
-            <a href=""><img src="img/fb.png" alt=""></a>
-        </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
+        <hr>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 ficha_redes">
+        <p>Comparte el producto con tus clientes</p>
+        <a href="javascript: void(0);" class="text-right"><img src="~/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp" data-compartir="WA"></a>
+        <a href="javascript: void(0);"><img src="~/Content/Images/showroom/redes_facebook.png" alt="" class="fb" data-compartir="FB"></a>
+        <div class="clearfix"></div>
+
+
     </div>
 </div>
         
