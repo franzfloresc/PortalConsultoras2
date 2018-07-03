@@ -99,6 +99,14 @@
                 document.getElementById("contenido_" + numID.toString()).style.display = "block";
             }
         }
+
+        if (!window.videoKey) {
+            $('#tabVideo').hide();
+        }
+
+        $('ul.ficha_tabs li').click(function () {
+            $(this).children('ul').slideToggle();
+        });
     }
     
     var _crearCarruseles = function() {
@@ -156,13 +164,12 @@
 
 
     var _mostrarSetRelacionados = function () {
-        debugger;
          
         $(_elementos.divSetsProductosRelacionados).fadeOut();
 
         var platform = !isMobile() ? 'desktop' : 'mobile';
-        var cuv = _getParamValueFromQueryString("cuv");
-        var campaniaId = _getParamValueFromQueryString("campaniaid");
+        var cuv = _config.cuv; 
+        var campaniaId =  _config.campania; 
 
         if (cuv == "" || campaniaId == "" || campaniaId == "0") {
             return false;
@@ -244,7 +251,7 @@
 
 
     var _verificarVariedad = function (estrategia) {
-        if (IsNullOrEmpty(estrategia.codigoVariante)) {
+        if (!IsNullOrEmpty(estrategia.CodigoVariante)) {
             var componentes;
             var param = {
                 estrategiaId: estrategia.EstrategiaID,
