@@ -80,7 +80,7 @@ $(document).ready(function () {
         };
         var add;
         if (tipoOrigen == "1") {
-             add = AgregarProducto('PedidoInsertar', model, "", false, false);
+            add = AgregarProducto('PedidoInsertarOF', model, "", false, false);
         }
         else {
              add = InsertarProducto(model, false);
@@ -179,7 +179,7 @@ $(document).ready(function () {
 
         var add;
         if (tipoOrigen == "1") {
-             add = AgregarProducto('PedidoInsertar', model, "", false, false);
+            add = AgregarProducto('PedidoInsertarOF', model, "", false, false);
         }
         else {
              add = InsertarProducto(model, false);

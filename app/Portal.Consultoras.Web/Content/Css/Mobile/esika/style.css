@@ -14963,9 +14963,118 @@ a {
     border:2px solid #BA8B47;
 }
 
-    .boton_cincuenta_anios_belcorp input:hover{
-        background:#BA8B47;
-        color:#BA8B47;
+/* FIN - HD-2513 - 50 AÑOS BELCORP */
+/* HD-2430 -  ACEPTAR TYC OBLIGATORIO MOBILE */
+
+.popup_aceptacionTerminosYCondicionesContrato,
+.icono_contrato,
+.titulo_aceptacionTerminosYCondicionesContrato,
+.mensaje_popUp_aceptacionTerminosYCondicionesContrato,
+.enlace_detalleTerminosYCondicionesContrato,
+.btn_aceptarTerminosYCondicionesContrato
+{
+    display:block;
+}
+
+.popup_aceptacionTerminosYCondicionesContrato{
+    position: absolute;
+    top: 21px;
+    left: 8px;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto;
+    background: #fff;
+    width: 95%;
+    max-width: 320px;
+    min-height: 541px;
+    margin-bottom: 21px;
+    padding: 35px 30px 0 30px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    z-index: 2;
+}
+
+.icono_contrato{
+    width: 53.95px;
+    height: 49.28px;
+    margin: 0 auto;
+    background: url('../../../Images/Esika/icono_contrato.svg') center center no-repeat;
+    margin-bottom: 21px;
+    background-size: 99%;
+}
+
+.titulo_aceptacionTerminosYCondicionesContrato {
+    width: 100%;
+    margin-bottom:40px;
+    padding: 0;
+    font-family: 'Lato';
+    font-size: 16px;
+    font-weight:300!important;
+    line-height: 25px;
+    letter-spacing:0.45px;
+    color: #000;
+    text-align: center;
+}
+
+    .titulo_aceptacionTerminosYCondicionesContrato b {
+        font-weight: 700;
     }
 
-/* FIN - HD-2513 - 50 AÑOS BELCORP */
+.mensaje_popUp_aceptacionTerminosYCondicionesContrato{
+    font-size: 13px;
+    color: #000;
+    text-align: left;
+    margin-bottom: 17px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing:0.32px;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.enlace_detalleTerminosYCondicionesContrato{
+    text-align: center;
+    color: #000;
+    font-size: 12px;
+    margin-top: 48px;
+    margin-bottom: 48px;
+    text-decoration: underline;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.btn_aceptarTerminosYCondicionesContrato {
+    margin: 0 auto;
+    width: 100%;
+    /*
+    height: 45px;
+    line-height: 45px;
+    */
+    height: 55px;
+    line-height: 20px;
+
+    font-family: 'Lato';
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    background: #e81c36;
+    color: #fff;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+    .btn_aceptarTerminosYCondicionesContrato:hover{
+        background:rgba(232, 28, 54, 0.80);
+    }
+
+@media screen and (min-width:0) and (max-width:350px){
+
+    .titulo_aceptacionTerminosYCondicionesContrato{
+        font-size:14px;
+    }
+
+}
+
+/* FIN - HD-2430 -  ACEPTAR TYC OBLIGATORIO MOBILE */

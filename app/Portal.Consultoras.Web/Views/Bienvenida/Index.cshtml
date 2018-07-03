@@ -771,7 +771,9 @@
             </form>
         </div>
     </div>
-    <div class="popup_aceptacionContrato" id="popupAceptacionContrato" style="display: none;">
+    <!-- FIN POPUP ACTUALIZACIÓN DATOS -->
+    <!-- POPUP ACEPTACIÓN DE CONTRATO -->
+    <div class="popup_aceptacionContrato" id="popupAceptacionContrato_backup" style="display: none;">
         <div class="btn_cerrar_aceptacionContrato">
             <a href="javascript:;" id="cerrarAceptacionContrato" title="Cerrar">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
@@ -792,6 +794,30 @@
             </button>
         </div>
     </div>
+    <!-- FIN POPUP ACEPTACIÓN DE CONTRATO -->
+    <!-- POPUP ACEPTACIÓN DE CONTRATO (COLOMBIA) -->
+    <div id="popupAceptacionContrato"  class="popup_aceptacionTerminosYCondicionesContrato" style="display:none;">
+        <div class="contenido_popUp">
+            <div class="icono_contrato"></div>
+            <h1 class="titulo_aceptacionTerminosYCondicionesContrato">
+                TÉRMINOS Y CONDICIONES DE USO DE<br /><b>SOMOSBELCORP.COM</b>
+            </h1>
+            <p class="mensaje_popUp_aceptacionTerminosYCondicionesContrato">
+                <b>Querida @(nombreConsultoraSin),</b>
+            </p>
+            <p class="mensaje_popUp_aceptacionTerminosYCondicionesContrato">
+                Al dar click en el botón, aceptas los términos y condiciones de la Solicitud de Crédito y Autorización de consulta y reporte de datos financieros.
+            </p>
+            <a href="javascript:;" onclick="return DownloadAttachPDF();" class="enlace_detalleTerminosYCondicionesContrato text-uppercase" title="Revisar términos y condiciones de uso">
+                >  CONOCE EL DETALLE AQUÍ
+            </a>
+            <button type="button" name="btn_aceptarTerminosYCondicionesContrato" class="btn_aceptarTerminosYCondicionesContrato" onclick="return AceptarContrato();">
+                <b>¡ACEPTO!</b> <br /> QUIERO EMPEZAR A USARLO
+            </button>
+        </div>
+    </div>
+    <!-- FIN - POPUP ACEPTACIÓN DE CONTRATO (COLOMBIA) -->
+    <!-- POPUP DEMANDA ANTICIPADA -->
     <div class="popup_demandaAnticipada" id="popupDemandaAnticipada" style="display: none;">
         <div class="contenido_popUp">
             <h1 class="titulo_demandaAnticipada">
@@ -2084,7 +2110,10 @@
         var popupVideoIntroductorio = '@Constantes.TipoPopUp.VideoIntroductorio';
         var popupGPR = '@Constantes.TipoPopUp.GPR';
         var popupDemandaAnticipada = '@Constantes.TipoPopUp.DemandaAnticipada';
+
         var popupAceptacionContrato = '@Constantes.TipoPopUp.AceptacionContrato';
+        var OrigenAceptacionContrato = '@Constantes.ClienteOrigen.OrigenDesktop';
+
         var popupShowRoom = '@Constantes.TipoPopUp.Showroom';
         var popupActualizarDatos = '@Constantes.TipoPopUp.ActualizarDatos';
         var popupFlexipago = '@Constantes.TipoPopUp.Flexipago';

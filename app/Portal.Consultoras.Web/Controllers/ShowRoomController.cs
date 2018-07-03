@@ -63,7 +63,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     var srQsv = new ShowRoomQueryStringValidator(query);
 
-                    if (srQsv.CodigoConsultora != userData.CodigoConsultora && srQsv.CodigoIso != userData.CodigoISO 
+                    if (srQsv.CodigoConsultora != userData.CodigoConsultora && srQsv.CodigoIso != userData.CodigoISO
                         || srQsv.CodigoProceso != CodigoProceso)
                     {
                         return RedirectToAction("Index", "Bienvenida");
@@ -86,7 +86,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
                 //ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
                 //ViewBag.PrecioMax = xlistaShowRoom.Any() ? xlistaShowRoom.Max(p => p.PrecioOferta) : Convert.ToDecimal(0);
-                
+
                 ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
                 //ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
@@ -313,9 +313,9 @@ namespace Portal.Consultoras.Web.Controllers
                         case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
                             listaOfertas = listaOfertas.OrderByDescending(p => p.Precio2).ToList();
                             break;
-                        //default:
-                        //    listaOfertas = listaOfertas.OrderBy(p => p.Orden).ToList();
-                        //    break;
+                            //default:
+                            //    listaOfertas = listaOfertas.OrderBy(p => p.Orden).ToList();
+                            //    break;
                     }
                 }
 

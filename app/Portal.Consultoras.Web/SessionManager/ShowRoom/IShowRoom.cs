@@ -8,6 +8,7 @@ namespace Portal.Consultoras.Web.SessionManager.ShowRoom
     {
         IBannerInferiorConfiguracion BannerInferiorConfiguracion { get; set; }
 
+        string CargoOfertas { get; set; }
         List<EstrategiaPersonalizadaProductoModel> Ofertas { get; set; }
         List<EstrategiaPersonalizadaProductoModel> OfertasSubCampania { get; set; }
         List<EstrategiaPersonalizadaProductoModel> OfertasPerdio { get; set; }
