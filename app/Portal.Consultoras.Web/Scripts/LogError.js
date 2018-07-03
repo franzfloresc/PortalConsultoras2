@@ -119,6 +119,19 @@ function registrarLogError(objError) {
         return;
     }
 
+    var listaErroresExcluidos = new Array();
+    listaErroresExcluidos.push("200-OK");
+    listaErroresExcluidos.push("Script error");
+    listaErroresExcluidos.push("Error no especificado."); 
+
+    var esMensajeValido = true;
+    $.each(listaErroresExcluidos, function(index, value) {
+        if (value == objError.Mensaje)
+            esMensajeValido = false;
+    });
+
+    if (!esMensajeValido) return;
+
     if (!urlLogDynamo) return;
 
     var urlLogError = urlLogDynamo + "Api/LogError";

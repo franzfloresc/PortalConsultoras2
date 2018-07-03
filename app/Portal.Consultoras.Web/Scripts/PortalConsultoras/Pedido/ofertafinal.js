@@ -96,7 +96,7 @@ function AgregarOfertaFinal(model) {
     }
 
     var add;
-    if (tipoOrigen == "1") add = AgregarProducto('PedidoInsertar', model, "", false, false);
+    if (tipoOrigen == "1") add = AgregarProducto('PedidoInsertarOF', model, "", false, false);
     else add = InsertarProducto(model, false);
     OpenLoadingOF();
 
