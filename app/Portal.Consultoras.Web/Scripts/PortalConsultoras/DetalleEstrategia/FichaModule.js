@@ -171,52 +171,73 @@
     }
 
 
+    var _obtenerSetRelacionados = function () {
+        debugger;
+
+        var cuv = _config.cuv;
+        var campaniaId = _config.campania;
+        var setRelacionados = [];
+        var data = {
+            lista: []
+        };
+
+
+        if (_config.palanca == 'Lanzamiento')
+        {
+            if (cuv == "" || campaniaId == "" || campaniaId == "0") {
+                return false;
+            }
+
+            var str = LocalStorageListado("LANLista" + campaniaId, '', 1) || '';
+
+            if (str === '') {
+                return false;
+            }
+
+            data.lista = JSON.parse(str).response.listaLan;
+
+
+            var codigoProducto = '';
+            $.each(data.lista, function (index, lanzamiento) {
+                if (cuv === lanzamiento.CUV2) {
+                    codigoProducto = lanzamiento.CodigoProducto;
+                    return false;
+                }
+            });
+
+            $.each(data.lista, function (index, lanzamiento) {
+                if (cuv != lanzamiento.CUV2 && lanzamiento.CodigoProducto === codigoProducto) {
+                    setRelacionados.push(lanzamiento);
+                }
+            });
+            if (setRelacionados.length == 0) {
+                return false;
+            }
+
+            data.lista = setRelacionados;
+        }
+
+        return data;
+
+    }
+
+
 
     var _mostrarSetRelacionados = function () {
-         
+        debugger;
         $(_elementos.divSetsProductosRelacionados).fadeOut();
 
         var platform = !isMobile() ? 'desktop' : 'mobile';
-        var cuv = _config.cuv; 
-        var campaniaId =  _config.campania; 
-
-        if (cuv == "" || campaniaId == "" || campaniaId == "0") {
-            return false;
-        }
+     
 
         if (platform != 'mobile')
             return false;
 
+        var data = _obtenerSetRelacionados();
 
-        var str = LocalStorageListado("LANLista" + campaniaId, '', 1) || '';
-
-        if (str === '') {
+        if (!data)
             return false;
-        }
 
-        var data = {
-            lista: JSON.parse(str).response.listaLan
-        };
-
-        var setRelacionados = [];
-        var codigoProducto = '';
-        $.each(data.lista, function (index, lanzamiento) {
-            if (cuv === lanzamiento.CUV2) {
-                codigoProducto = lanzamiento.CodigoProducto;
-                return false;
-            }
-        });
-
-        $.each(data.lista, function (index, lanzamiento) {
-            if (cuv != lanzamiento.CUV2 && lanzamiento.CodigoProducto === codigoProducto) {
-                setRelacionados.push(lanzamiento);
-            }
-        });
-        if (setRelacionados.length == 0) {
-            return false;
-        }
-        data.lista = setRelacionados;
-        console.log(data);
         SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
         EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
 
