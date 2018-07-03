@@ -156,9 +156,12 @@ namespace Portal.Consultoras.Web.Controllers
             if (url.Length > 1)
             {
                 var MiCurso = url[1].Split('=');
-                if (Util.IsNumeric(MiCurso[1]))
-                {
-                    misCursos = Convert.ToInt32(MiCurso[1]);
+                var MiId = MiCurso[1].Split('&');
+               // if (Util.IsNumeric(MiCurso[1]))
+                 if (Util.IsNumeric(MiId[0]))
+                   {
+                    // misCursos = Convert.ToInt32(MiCurso[1]);
+                    misCursos = Convert.ToInt32(MiId[0]);
                     TempData["MiAcademia"] = misCursos;
                 }
             }
