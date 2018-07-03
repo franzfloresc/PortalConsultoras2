@@ -1074,7 +1074,7 @@ body {
 
 .contenedor_odd {
     float: left;
-    padding: 30px 0;
+    padding: 30px 0 15px 0;
 }
 
 .img_solo_hoy {

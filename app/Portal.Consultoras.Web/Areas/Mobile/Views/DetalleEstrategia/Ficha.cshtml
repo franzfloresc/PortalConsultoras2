@@ -236,8 +236,6 @@
         .breadcrumb > li + li:before {
             content: '|' !important;
         }
-
-
     </style>
 }
 
@@ -357,21 +355,18 @@
 
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
 
+
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
     <script src="~/Scripts/PortalConsultoras/Shared/ConstantesModule.js" type="text/javascript"></script>
     <script src="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" type="text/javascript"></script>
     <script src="~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js" type="text/javascript"></script>
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js" type="text/javascript"></script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
+
     <script>
-        //$('ul.ficha_tabs li').click(function () {
-        //    $(this).children('ul').slideToggle();
-        //});
-    </script>
-    <script>
-        var fichaModule;
         window.videoKey = '@Model.CodigoVideo';
+
+        var fichaModule;
         $(document).ready(function() {
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",
@@ -382,5 +377,8 @@
             });
             fichaModule.Inicializar();
         });
+
     </script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
+
 }

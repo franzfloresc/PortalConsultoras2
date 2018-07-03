@@ -18,16 +18,16 @@
         idDataEstrategia: "#data-estrategia",
         dataClicked: "[data-clicked]",
         dataChange: "[data-change]",
-        dataSelected:  "[data-select-area]"
+        dataSelected: "[data-select-area]",
+        idPlantillaProductoLanding: "#producto-landing-template",
+        divCarruselSetsProductosRelacionados: "#divOfertaProductos",
+        divSetsProductosRelacionados: "#set_relacionados"
     }
     var _atributos = {
         dataEstrategia: "data-estrategia",
         dataClicked: "[data-clicked]",
         dataChange: "[data-change]",
-        dataSelected: "[data-select-area]",
-        idPlantillaProductoLanding: "#producto-landing-template",
-        divCarruselSetsProductosRelacionados: "#divOfertaProductos",
-        divSetsProductosRelacionados: "#set_relacionados"
+        dataSelected: "[data-select-area]"
     }
   
 
@@ -99,6 +99,14 @@
                 document.getElementById("contenido_" + numID.toString()).style.display = "block";
             }
         }
+
+        if (!window.videoKey) {
+            $('#tabVideo').hide();
+        }
+
+        $('ul.ficha_tabs li').click(function () {
+            $(this).children('ul').slideToggle();
+        });
     }
     
     var _crearCarruseles = function() {
@@ -160,12 +168,16 @@
         $(_elementos.divSetsProductosRelacionados).fadeOut();
 
         var platform = !isMobile() ? 'desktop' : 'mobile';
-        var cuv = _getParamValueFromQueryString("cuv");
-        var campaniaId = _getParamValueFromQueryString("campaniaid");
+        var cuv = _config.cuv; 
+        var campaniaId =  _config.campania; 
 
         if (cuv == "" || campaniaId == "" || campaniaId == "0") {
             return false;
         }
+
+        if (platform != 'mobile')
+            return false;
+
 
         var str = LocalStorageListado("LANLista" + campaniaId, '', 1) || '';
 
@@ -239,7 +251,7 @@
 
 
     var _verificarVariedad = function (estrategia) {
-        if (IsNullOrEmpty(estrategia.codigoVariante)) {
+        if (!IsNullOrEmpty(estrategia.CodigoVariante)) {
             var componentes;
             var param = {
                 estrategiaId: estrategia.EstrategiaID,
@@ -265,7 +277,7 @@
             estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
         } else {
             estrategia = localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
-            $("#data-estrategia").attr(_elementos.idDataEstrategia, JSON.stringify(estrategia));
+            $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
         }
 
         if (estrategia == null) {
@@ -287,7 +299,6 @@
         _crearTabs();
         _crearCarruseles();
         _mostrarSetRelacionados();
-       
     }
 
     return {

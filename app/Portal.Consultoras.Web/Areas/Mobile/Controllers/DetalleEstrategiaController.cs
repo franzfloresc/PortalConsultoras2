@@ -36,6 +36,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             modelo.Campania = campaniaId;
             modelo.Cuv = cuv;
 
+            
+            ViewBag.PaisAnalytics = userData.CodigoISO;
+            ViewBag.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();
+
             return View(modelo);
         }
 
