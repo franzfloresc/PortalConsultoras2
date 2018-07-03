@@ -54,7 +54,7 @@ var EstrategiaVerDetalleProvider = function () {
             url: baseUrl + "Estrategia/ConsultarEstrategiaCuv?cuv=" + cuv,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(params),
+           // data: JSON.stringify(params),
             async: true,
             cache: false,
             success: function (data) {

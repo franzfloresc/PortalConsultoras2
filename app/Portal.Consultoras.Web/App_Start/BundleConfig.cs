@@ -631,7 +631,11 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/bundles/Ficha").Include(
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/General.js",
-                "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js"
+                "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
+                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
+                  "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                   "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
+                     "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js"                     
           ));
             #endregion
 
