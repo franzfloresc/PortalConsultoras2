@@ -2104,6 +2104,7 @@ namespace Portal.Consultoras.Common
         public class PagoEnLineaMetodoPago
         {
             public const string PasarelaVisa = "A";
+            public const string PasarelaBelcorpPayU = "B";
         }
 
         public class PagoEnLineaPasarelaVisa

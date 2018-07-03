@@ -33,6 +33,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var model = sessionManager.GetDatosPagoVisa();
 
+            if (model == null)
+                return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
+
             model.ListaMetodoPago = ObtenerListaMetodoPago();
 
             if (model.ListaMetodoPago.Count > 0)
@@ -45,6 +48,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     model.PagoVisaModel = new PagoVisaModel();
             }
 
+
+            return View(model);
+        }
+
+        public ActionResult PasarelaPago()
+        {
+            var model = sessionManager.GetDatosPagoVisa();
+
+            //Logica para Obtener Valores de la PasarelaBelcorp
 
             return View(model);
         }

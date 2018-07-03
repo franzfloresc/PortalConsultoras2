@@ -35,6 +35,38 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
+        public ActionResult MetodoPago()
+        {
+            var model = sessionManager.GetDatosPagoVisa();
+
+            if (model == null)
+                return RedirectToAction("Index", "PagoEnLinea");
+
+            model.ListaMetodoPago = ObtenerListaMetodoPago();
+
+            if (model.ListaMetodoPago.Count > 0)
+            {
+                var metodoPagoPasarelaVisa = model.ListaMetodoPago.FirstOrDefault(p => p.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaVisa);
+
+                if (metodoPagoPasarelaVisa != null)
+                    model.PagoVisaModel = ObtenerValoresPagoVisa(model);
+                else
+                    model.PagoVisaModel = new PagoVisaModel();
+            }
+
+
+            return View(model);
+        }
+
+        public ActionResult PasarelaPago()
+        {
+            var model = sessionManager.GetDatosPagoVisa();
+
+            //Logica para Obtener Valores de la PasarelaBelcorp
+
+            return View(model);
+        }
+
         public JsonResult GuardarDatosPago(PagoEnLineaModel model)
         {
             model.CodigoIso = userData.CodigoISO;

@@ -1,7 +1,9 @@
 ﻿var PagoEnLineaMetodoPago;
 var colorBoton = colorBoton || "";
 var metodoPagoPasarelaVisa = metodoPagoPasarelaVisa || "";
+var metodoPagoPasarelaBelcorpPayU = metodoPagoPasarelaBelcorpPayU || "";
 var tipoOrigenPantalla = tipoOrigenPantalla || 0;
+var urlPasarelaPago = urlPasarelaPago || "";
 
 $(document).ready(function () {
     //'use strict';
@@ -64,6 +66,10 @@ $(document).ready(function () {
                     e.preventDefault();
 
                     var metodoPago = $(this).data("metodopago");
+
+                    if (metodoPago == metodoPagoPasarelaBelcorpPayU) {
+                        window.location.href = urlPasarelaPago;
+                    }
 
                     //alert("123");
                 }

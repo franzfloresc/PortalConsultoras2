@@ -4100,6 +4100,7 @@
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
     <Content Include="Content\Css\Site\Contenedor\producto.simple.css" />
     <Content Include="Areas\Mobile\Views\PagoEnLinea\MetodoPago.cshtml" />
+    <Content Include="Areas\Mobile\Views\PagoEnLinea\PasarelaPago.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -5052,6 +5053,8 @@
     <Content Include="Views\Lanzamientos\Template_LanzamientosTonos.cshtml" />
     <Content Include="Views\MatrizCampania\ActualizarMatrizCampaniaNew.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpVariablesGeneralesPortal.cshtml" />
+    <Content Include="Views\PagoEnLinea\MetodoPago.cshtml" />
+    <Content Include="Views\PagoEnLinea\PasarelaPago.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

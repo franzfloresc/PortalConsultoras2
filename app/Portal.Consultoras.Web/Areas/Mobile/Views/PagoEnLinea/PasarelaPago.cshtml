@@ -1,0 +1,55 @@
+﻿@using Portal.Consultoras.Common;
+@using Portal.Consultoras.Web.Models.PagoEnLinea;
+@model PagoEnLineaModel
+
+@{
+    ViewBag.Title = "Pago En Línea";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@section styles{
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")">
+
+    <style type="text/css">
+        .footer-page {
+            display: none;
+            margin-bottom: 54px;
+        }
+
+        #btn_init {
+            display: none !important;
+        }
+
+        #btn_open {
+            display: none !important;
+        }
+    </style>
+
+}
+
+<div class="cabecera_vista_pago_en_linea">
+    <a id="linkRegresar" href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
+    PAGO EN LÍNEA
+</div>
+
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div>
+    <div class="proceso_de_pago_en_linea">
+        <div class="cantidad_pasos_proceso_pago">
+
+            <span class="paso_proceso_pago_en_linea paso_activo paso_completado">1</span>
+            <span class="paso_proceso_pago_en_linea paso_activo paso_completado">2</span>
+            <span class="paso_proceso_pago_en_linea mr-0">3</span>
+
+            <div class="linea_conectora_pasos">
+                <span class="fondo_pasos_proceso_pago_avance"></span>
+            </div>
+        </div>
+        <div>
+            <h3 class="titulo_resumen_pago_exitoso">
+                TARJETA DE CRÉDITO O DÉBITO
+            </h3>
+        </div>
+    </div>
+</div>

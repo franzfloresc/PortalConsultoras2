@@ -139,7 +139,9 @@
     <script type="text/javascript">
         var colorBoton = '@Model.PagoVisaModel.FormButtonColor';
         var metodoPagoPasarelaVisa = '@Constantes.PagoEnLineaMetodoPago.PasarelaVisa';
+        var metodoPagoPasarelaBelcorpPayU = '@Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU';
         var tipoOrigenPantalla = 2;
+        var urlPasarelaPago = '@Url.Action("PasarelaPago","PagoEnLinea", new { area = "Mobile" })';
     </script>
 
     <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/MetodoPago.js")"></script>

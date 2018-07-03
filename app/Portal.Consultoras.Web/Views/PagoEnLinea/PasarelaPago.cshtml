@@ -1,0 +1,41 @@
+﻿@using Portal.Consultoras.Common;
+@using Portal.Consultoras.Web.Models.PagoEnLinea;
+@model PagoEnLineaModel
+
+@{
+    ViewBag.Title = "Pago en Línea";
+}
+
+@section styles{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/pago-en-linea.css")">
+}
+
+<div class="fondo_f9f9f9">
+    <div class="content_belcorp content_belcorp_misPedidos">
+        <div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores"><span>PAGO EN LÍNEA</span></div>
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+</div>
+
+<a id="linkRegresar" class="btn_paso_anterior_pago_en_linea" href="@Url.Action("Index", "PagoEnLinea")">REGRESAR</a>
+
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div>
+    <div class="proceso_de_pago_en_linea">
+        <div class="cantidad_pasos_proceso_pago">
+
+            <span class="paso_proceso_pago_en_linea paso_activo paso_completado">1</span>
+            <span class="paso_proceso_pago_en_linea paso_activo paso_completado">2</span>
+            <span class="paso_proceso_pago_en_linea paso_activo mr-0">3</span>
+
+            <div class="linea_conectora_pasos">
+                <span class="fondo_pasos_proceso_pago_avance"></span>
+            </div>
+        </div>
+        <div class="vista_confirmacion_pago">
+            <h3 class="titulo_seleccion_monto_a_pagar">TARJETA DE CRÉDITO O DÉBITO</h3>
+        </div>
+    </div>
+</div>
