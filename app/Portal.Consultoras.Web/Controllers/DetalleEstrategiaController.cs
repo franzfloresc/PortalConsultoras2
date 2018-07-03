@@ -32,6 +32,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.Campania = campaniaId;
             modelo.Cuv = cuv;
             
+
             return View("Ficha", modelo);
         }
 

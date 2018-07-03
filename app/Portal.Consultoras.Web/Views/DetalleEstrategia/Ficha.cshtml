@@ -3,6 +3,8 @@
 
 @{
     var vbSimbolo = ViewBag.Simbolo ?? "";
+    var OcultarContenidoProducto = Model.CodigoEstrategia == "gnd"?"none":"block";
+    var OcultarCarrusel = Model.CodigoEstrategia == "gnd" ? "none" : "block";
 }
 
 @section styles{
@@ -10,14 +12,14 @@
 
 }
 
-<div class="imagen_fondo_detalle" style="background-image: url('https://S3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_Desktop_Fondo_del_ShowRoom_en_el_Contenedor_Ofertas_Venta 50A_2018630811_01_ytmwyupjny.jpg');"></div>
+<div id="ImagenDeFondo" class="imagen_fondo_detalle" style="background-image: url('https://S3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_Desktop_Fondo_del_ShowRoom_en_el_Contenedor_Ofertas_Venta 50A_2018630811_01_ytmwyupjny.jpg');"></div>
 <div class="contenedor_detalle texto_font" data-item="" data-tag-html="@ViewBag.Campania"  data-OrigenPedidoWeb="@Model.Origen">
     <div class="contenedor_fichas">
         <div style="display:none;">
             <div id="data-estrategia" data-estrategia="@Json.Encode(Model)"></div>
         </div>
         <div class="contenedor_ficha_producto" id="seccion_ficha_handlebars"></div>
-    <script id="detalle_ficha_template" type="text/x-handlebars-template">
+        <script id="detalle_ficha_template" type="text/x-handlebars-template">
             <div class="ficha_producto">
                 <div class="contenedor_imagen">
                     <img class="contenedor_img" src="{{FotoProducto01}}" alt="">
@@ -63,12 +65,12 @@
             </div>
             <div class="ficha_detalle">
                 <div class="contenedor_ficha_etiquetas">
-                    <div class="contenedor_etiqueta_odd">
+                    <div id="EtiquetaOdd" class="contenedor_etiqueta_odd" >
                         <div id="clock" class="clock_odd"></div>
                     </div>
-                    <div class="contenedor_etiqueta_nuevo">
+                    <div id="EtiquetaLanzamientos" class="contenedor_etiqueta_nuevo">
                         <div class="triangulo_etiqueta_nuevo"></div>
-                        <div class="etiqueta_nuevo">NUEVO</div>
+                        <div class="etiqueta_nuevo" >NUEVO</div>
                     </div>
                 </div>
                 <div class="contenedor_nombre_precio">
@@ -87,7 +89,7 @@
 
 
                 {{#iff CodigoVariante '==' '2001'}}
-                <div class="contenedor_lista_tonos">
+                <div id="DescripcionAdicional" class="contenedor_lista_tonos">
                     <div class="nombre_detalle_producto_tono">Slogan de Proucto 2001</div>
                     <div class="descripcion_detalle_producto_tono">
                         Descripcion de producto 
@@ -207,7 +209,7 @@
             </div>
         </script>
 
-        <div class="contenedor_ficha_tabs">
+        <div id="ContenidoProducto" class="contenedor_ficha_tabs">
             <div class="tabla_ficha_tab">
                 <div class="row_ficha_tab">
                     <div class="cell_ficha_tab">
@@ -319,7 +321,7 @@
                 </div>
             </section>
         </div>
-        <div class="contenedor_ficha_carrusel">
+        <div id="CarruselProducto" class="contenedor_ficha_carrusel">
             <div class="contenedor_titulo_carrusel">
                 <div class="contenedor_linea_carrusel">
                     <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_izquierda"></div>
