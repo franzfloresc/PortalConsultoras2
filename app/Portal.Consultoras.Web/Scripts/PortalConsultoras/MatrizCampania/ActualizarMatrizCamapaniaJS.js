@@ -100,6 +100,7 @@ function GrabarMatrizCampania() {
             processData: false,
             success: function (data, textStatus, jQxhr) {
                 if (checkTimeout(data)) {
+                    limpiarFormulario();
                     closeWaitingDialog();
                     alert(data.message);
                 }
@@ -1054,4 +1055,16 @@ function requestServer(url, tipo, metodo, texto, metodoError) {
     else {
         if (texto != null && texto != "") xhr.send(texto);
     }
+}
+
+function limpiarFormulario() {
+
+    document.getElementById('txtCodVenta').value = "";
+    document.getElementById('txtDescripcion').value = "";
+    document.getElementById('txtPrecio').value = "";
+    document.getElementById('txtFactorRepeticion').value = "";
+
+    document.getElementById('txtDescripcionNueva').value = "";
+    document.getElementById('txtPrecioNuevo').value = "";
+    document.getElementById('txtFactorRepeticionNuevo').value = "";
 }

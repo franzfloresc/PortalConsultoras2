@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.IO.Compression;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -630,6 +631,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool resultado;
 
             var CUV = "";
+
             string[] registros = data.Split('¬');
             bool FlagCampoValido = true;
             var longCUV = 0;
@@ -655,7 +657,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!resultado || campo.Trim().Length != 5)
                     {
                         FlagCampoValido = false;
-                        rpta.Append(" CUV no válido - ");
+                        rpta.Append(" CUV no válido  ");
                     }
 
                 }
@@ -664,10 +666,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     campo = registros[j].Split('¦')[1];
                     longDes = campo.Trim().Length;
-                    if (campo.Length > 500 || longDes == 0)
+                    if (campo.Length > 100 || longDes == 0)
                     {
                         FlagCampoValido = false;
-                        rpta.Append(" Longitud  de descripción de Producto no válido - ");
+                        rpta.Append(" -Longitud  de descripción de Producto no válido(1-100 caracteres) ");
                     }
                 }
 
@@ -681,14 +683,14 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!resultado)
                     {
                         FlagCampoValido = false;
-                        rpta.Append(" Precio Producto invalido -");
+                        rpta.Append("-Precio Producto invalido ");
                     }
                     else
                     {
                         if (decimal.Parse(campo) < 0)
                         {
                             FlagCampoValido = false;
-                            rpta.Append(" Precio Producto invalido -");
+                            rpta.Append("-Precio Producto invalido ");
                         }
                     }
 
@@ -704,14 +706,14 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!resultado)
                     {
                         FlagCampoValido = false;
-                        rpta.Append(" Factor Repetición no válido ");
+                        rpta.Append(" -Factor Repetición no válido ");
                     }
                     else
                     {
                         if (numero==0)
                         {
                             FlagCampoValido = false;
-                            rpta.Append(" Factor Repetición no válido ");
+                            rpta.Append(" -Factor Repetición no válido ");
                         }
                     }
                 }
