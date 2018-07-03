@@ -842,4 +842,8 @@ a{
     color: #5a5a5a;
 }
 
+.agotasteIntentos {
+    box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
+    margin-top: 20px;
+}
 /* FIN - RESTABLECE TU CONTRASEÑA, VERIFICACIÓN DE AUTENTICIDAD */

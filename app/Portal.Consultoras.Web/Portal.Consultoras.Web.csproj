@@ -5083,8 +5083,6 @@
     <Content Include="Views\Lanzamientos\Detalle.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
     <Content Include="Views\Lanzamientos\Template_LanzamientosTonos.cshtml" />
-    <Content Include="Views\RestableceTuContrasenia\Index.cshtml" />
-    <Content Include="Views\RestableceTuContrasenia\VerificarAutenticidad.cshtml" />
     <Content Include="Views\Login\VerificaAutenticidad.cshtml" />
     <Content Include="Views\MatrizCampania\ActualizarMatrizCampaniaNew.cshtml" />
     <Content Include="Views\AdministrarEstrategia\_NuevoMasivo.cshtml" />
