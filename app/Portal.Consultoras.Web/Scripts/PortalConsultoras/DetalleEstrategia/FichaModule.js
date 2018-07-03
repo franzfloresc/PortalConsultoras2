@@ -279,7 +279,7 @@
     }
     
     var _construirSeccionEstrategia = function () {
-
+ 
         var estrategia;
         if (_config.tieneSession === "True") {
             //revisar si se realiza con razor o handle bar para SW y ODD
@@ -312,10 +312,10 @@
     }
     
     function Inicializar() {
-        //localStorageModule = LocalStorageModule();
-        //_construirSeccionEstrategia();
-        //_bindingEvents();
-        //_crearReloj();
+        localStorageModule = LocalStorageModule();
+        _construirSeccionEstrategia();
+        _bindingEvents();
+        _crearReloj();
         _crearTabs();
         _crearCarruseles();
         _mostrarSetRelacionados();
