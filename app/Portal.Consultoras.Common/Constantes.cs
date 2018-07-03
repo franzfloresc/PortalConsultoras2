@@ -285,6 +285,7 @@ namespace Portal.Consultoras.Common
             public const string TablaLogicaDatos = "TablaLogicaDatos";
 
             //ShowRoom
+            public const string CargoShowRoomOfertas = "CargoShowRoomOfertas";
             public const string ListaShowRoomOfertas = "ListaShowRoomOfertas";
             public const string ListaShowRoomSubCampania = "ListaShowRoomSubCampania";
             public const string ListaShowRoomOfertasPerdio = "ListaShowRoomOfertasPerdio";

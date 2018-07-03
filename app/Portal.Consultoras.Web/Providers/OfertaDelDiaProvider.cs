@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Web.Providers
                     ConsultoraID = model.GetCodigoConsultora(),
                     Zona = model.ZonaID.ToString(),
                     ZonaHoraria = model.ZonaHoraria,
-                    FechaInicioFacturacion = model.FechaFinCampania,
+                    FechaInicioFacturacion = model.FechaInicioCampania,
                     ValidarPeriodoFacturacion = true,
                     Simbolo = model.Simbolo,
                     CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.OfertaDelDia
