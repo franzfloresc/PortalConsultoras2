@@ -10,7 +10,6 @@ using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.BizLogic.Reserva;
 
 using System;
-using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -743,12 +742,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     {
                         if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
                         {
-                            txtBuil.Append(beProducto.CodigoProducto + "|");
+                            txtBuil.Append(string.Concat(beProducto.CodigoProducto , "|"));
                         }
                     }
 
                     var codigoSap = txtBuil.ToString();
-                    codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
+                    codigoSap = codigoSap == string.Empty  ? string.Empty  : codigoSap.Substring(0, codigoSap.Length - 1);
 
                     try
                     {
@@ -756,7 +755,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         {
                             using (var sv = new wsConsulta())
                             {
-                                sv.Url = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.RutaServicePROLConsultas];
+                                sv.Url = WebConfig.PROL_Consultas;
                                 listaTieneStock = sv.ConsultaStock(codigoSap, usuario.CodigoISO).ToList();
                             }
                         }
@@ -782,24 +781,24 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     {
                         listaProductoSugerido.Add(new BEProducto()
                         {
-                            CUV = producto.CUV ?? "",
+                            CUV = producto.CUV ?? string.Empty ,
                             Descripcion = producto.Descripcion.Trim(),
                             PrecioCatalogo = producto.PrecioCatalogo,
                             MarcaID = producto.MarcaID,
                             EstaEnRevista = producto.EstaEnRevista,
                             TieneStock = true,
                             EsExpoOferta = producto.EsExpoOferta,
-                            CUVRevista = producto.CUVRevista ?? "",
+                            CUVRevista = producto.CUVRevista ?? string.Empty ,
                             CUVComplemento = producto.CUVComplemento ?? "",
                             IndicadorMontoMinimo = producto.IndicadorMontoMinimo,
                             TipoOfertaSisID = producto.TipoOfertaSisID,
                             ConfiguracionOfertaID = producto.ConfiguracionOfertaID,
-                            DescripcionMarca = producto.DescripcionMarca ?? "",
-                            DescripcionEstrategia = producto.DescripcionEstrategia ?? "",
-                            DescripcionCategoria = producto.DescripcionCategoria ?? "",
+                            DescripcionMarca = producto.DescripcionMarca ?? string.Empty ,
+                            DescripcionEstrategia = producto.DescripcionEstrategia ?? string.Empty ,
+                            DescripcionCategoria = producto.DescripcionCategoria ?? string.Empty ,
                             FlagNueva = producto.FlagNueva,
                             TipoEstrategiaID = producto.TipoEstrategiaID,
-                            ImagenProductoSugerido = producto.ImagenProductoSugerido ?? "",    
+                            ImagenProductoSugerido = producto.ImagenProductoSugerido ?? string.Empty ,    
                             CodigoProducto = producto.CodigoProducto
                         }); 
                     }
