@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Common
 
             List<ExcelCellHeader> listHeader = new List<ExcelCellHeader>();
 
-
+            wbToStream.Version = ExcelVersion.Version2013;
             wbToStream.Worksheets[2].Remove();
             wbToStream.Worksheets[1].Remove();
 

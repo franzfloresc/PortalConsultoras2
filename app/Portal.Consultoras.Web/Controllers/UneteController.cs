@@ -1456,17 +1456,33 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ExportarExcel(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre,
             int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso,
-            int MostrarPaso1y2SE = 1)
+            int MostrarPaso1y2SE = 1, int PaginaActual = 1)
         {
-            var url = ObtenerPostulante(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, MostrarPaso1y2SE);
-          
-            return new RedirectResult(url);
+
+            using (var sv = new PortalServiceClient())
+            {
+
+                var solicitudes = sv.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde,
+                       FechaHasta, Nombre,
+                       Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO,
+                       MostrarPaso1y2SE, PaginaActual).ToList();
+
+                Dictionary<string, string> dic = sv.GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
+
+                MemoryStream workbook = new MemoryStream();
+
+                workbook = ExcelExportHelper.ExportarExcel("Reporte_GestionaPostulante", "GestionaPostulante", dic, solicitudes);
+                string saveAsFileName = "Reporte_GestionaPostulante" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + ".xlsx";
+
+                return File(workbook.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", string.Format("{0}", saveAsFileName));
+            }
+         
         }
 
 
-        public string ObtenerPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre,
+        public List<SolicitudPostulanteXLS> ObtenerPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre,
         int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso,
-        int MostrarPaso1y2SE = 1)
+        int MostrarPaso1y2SE = 1, int PaginaActual = 1)
         {
             //string resultado = string.Empty;
             using (var sv = new PortalServiceClient())
@@ -1475,7 +1491,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var resultado = sv.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde,
                        FechaHasta, Nombre,
                        Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO,
-                       MostrarPaso1y2SE);                   
+                       MostrarPaso1y2SE, PaginaActual).ToList();
 
                 return resultado;
             }
