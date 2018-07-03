@@ -18,8 +18,7 @@ namespace Portal.Consultoras.Data
             using (var command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionProgramaNuevas_SB2"))
             {
                 Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.CampaniaInicio);
-                Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
-                Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.CodigoConsultora);
 
                 return Context.ExecuteReader(command);
             }
@@ -30,8 +29,7 @@ namespace Portal.Consultoras.Data
             using (var command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionProgramaNuevas_2y3PedidoSB2"))
             {
                 Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.CampaniaInicio);
-                Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
-                Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.CodigoConsultora);
                 Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, entidad.CodigoNivel);
 
                 return Context.ExecuteReader(command);

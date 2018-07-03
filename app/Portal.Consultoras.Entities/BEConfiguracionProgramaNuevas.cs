@@ -28,11 +28,8 @@ namespace Portal.Consultoras.Entities
         [Column("CUVKit")]
         public string CUVKit { get; set; }
         [DataMember]
-        [Column("CodigoZona")]
-        public string CodigoZona { get; set; }
-        [DataMember]
-        [Column("CodigoRegion")]
-        public string CodigoRegion { get; set; }
+        [Column("CUVKit")]
+        public string CodigoConsultora { get; set; }
         [DataMember]
         public string CodigoNivel { get; set; }
     }

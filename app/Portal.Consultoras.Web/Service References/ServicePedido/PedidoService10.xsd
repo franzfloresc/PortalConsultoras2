@@ -132,6 +132,7 @@
       <xs:element minOccurs="0" name="Nivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NivelEducacion" type="xs:int" />
       <xs:element minOccurs="0" name="NivelLider" type="xs:int" />
+      <xs:element minOccurs="0" name="NivelProyectado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreGerenteZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombrePais" nillable="true" type="xs:string" />
@@ -200,6 +201,7 @@
       <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
       <xs:element minOccurs="0" name="ZonaNuevoPROL" type="xs:boolean" />
       <xs:element minOccurs="0" name="ZonaValida" type="xs:boolean" />
+      <xs:element minOccurs="0" name="_OfertaFinal" nillable="true" type="tns:BEOfertaFinal" />
       <xs:element minOccurs="0" name="esConsultoraLider" type="xs:boolean" />
       <xs:element minOccurs="0" name="mdFechaEncuesta" type="xs:dateTime" />
       <xs:element minOccurs="0" name="msCampaniaEncuesta" nillable="true" type="xs:string" />
@@ -324,6 +326,13 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BERevistaDigital" nillable="true" type="tns:BERevistaDigital" />
+  <xs:complexType name="BEOfertaFinal">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Algoritmo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEOfertaFinal" nillable="true" type="tns:BEOfertaFinal" />
   <xs:complexType name="BEConsultoraResumen">
     <xs:sequence>
       <xs:element minOccurs="0" name="CantidadClientes" type="xs:int" />
@@ -1090,6 +1099,8 @@
           <xs:element minOccurs="0" name="FlagTextoLibre" type="xs:int" />
           <xs:element minOccurs="0" name="FlagValidarImagen" type="xs:int" />
           <xs:element minOccurs="0" name="FotoProducto01" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FotoProductoMedium" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FotoProductoSmall" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Ganancia" type="xs:decimal" />
           <xs:element minOccurs="0" name="GananciaString" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ID" type="xs:int" />
@@ -1289,10 +1300,9 @@
       <xs:element minOccurs="0" name="CUVKit" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampaniaFin" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampaniaInicio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CuponKit" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndExigVent" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndProgObli" nillable="true" type="xs:string" />

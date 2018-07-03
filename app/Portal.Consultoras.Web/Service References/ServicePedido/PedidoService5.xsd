@@ -49,7 +49,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
-      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" minOccurs="0" name="Observaciones" nillable="true" type="q5:ArrayOfBEPedidoObservacion" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" minOccurs="0" name="ResultadoReserva" nillable="true" type="q5:BEResultadoReservaProl" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoReservaAppResult" nillable="true" type="tns:BEPedidoReservaAppResult" />

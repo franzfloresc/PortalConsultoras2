@@ -1786,40 +1786,17 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(string constSession)
         {
-            constSession = constSession ?? "";
-            constSession = constSession.Trim();
-            if (constSession == "")
-                return new BEConfiguracionProgramaNuevas();
-
-            if (Session[constSession] != null)
-                return (BEConfiguracionProgramaNuevas)Session[constSession];
+            constSession = (constSession ?? "").Trim();
+            if (constSession == "") return new BEConfiguracionProgramaNuevas();
+            if (Session[constSession] != null) return (BEConfiguracionProgramaNuevas)Session[constSession];
 
             try
             {
-                var obeConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas()
-                {
-                    CampaniaInicio = userData.CampaniaID.ToString(),
-                    CodigoRegion = userData.CodigorRegion,
-                    CodigoZona = userData.CodigoZona
-                };
+                var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
-                    if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
-                        userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
-                        userData.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
-                    {
-                        var PaisesFraccionKit = WebConfigurationManager.AppSettings["PaisesFraccionKitNuevas"];
-                        if (PaisesFraccionKit.Contains(userData.CodigoISO))
-                        {
-                            obeConfiguracionProgramaNuevas.CodigoNivel = userData.ConsecutivoNueva == 1 ? "02" : userData.ConsecutivoNueva == 2 ? "03" : "";
-                            obeConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaDespuesPrimerPedido(userData.PaisID, obeConfiguracionProgramaNuevas);
-                        }
-                    }
-                    else
-                        obeConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(userData.PaisID, obeConfiguracionProgramaNuevas);
+                    Session[constSession] = sv.GetConfiguracionProgramaNuevas(usuario) ?? new BEConfiguracionProgramaNuevas();
                 }
-
-                Session[constSession] = obeConfiguracionProgramaNuevas ?? new BEConfiguracionProgramaNuevas();
             }
             catch (Exception ex)
             {

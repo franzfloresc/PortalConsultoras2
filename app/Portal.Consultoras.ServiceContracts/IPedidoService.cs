@@ -956,10 +956,7 @@ namespace Portal.Consultoras.ServiceContracts
         #region kit Nuevas
 
         [OperationContract]
-        BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(int paisID, BEConfiguracionProgramaNuevas entidad);
-
-        [OperationContract]
-        BEConfiguracionProgramaNuevas GetConfiguracionProgramaDespuesPrimerPedido(int paisID, BEConfiguracionProgramaNuevas entidad);
+        BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(BEUsuario usuario);
 
         #endregion
 

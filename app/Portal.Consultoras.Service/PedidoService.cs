@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Service
         private readonly BLValidacionAutomatica BLValidacionAutomatica;
         private readonly BLShowRoomEvento BLShowRoomEvento;
         private readonly BLProductoSugerido BLProductoSugerido;
-        private readonly BLConfiguracionProgramaNuevas BLConfiguracionProgramaNuevas;
+        private readonly IConfiguracionProgramaNuevasBusinessLogic BLConfiguracionProgramaNuevas;
         private readonly BLEscalaDescuento BLEscalaDescuento;
         private readonly BLConsultorasProgramaNuevas BLConsultorasProgramaNuevas;
         private readonly BLMensajeMetaConsultora BLMensajeMetaConsultora;
@@ -1753,7 +1753,7 @@ namespace Portal.Consultoras.Service
 
         #endregion
 
-        #region Producto SUgerido
+        #region Producto Sugerido
 
         public IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido)
         {
@@ -1781,16 +1781,11 @@ namespace Portal.Consultoras.Service
         }
         #endregion
 
-        #region
+        #region Configuracion Programa Nuevas
 
-        public BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(int paisID, BEConfiguracionProgramaNuevas entity)
+        public BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(BEUsuario usuario)
         {
-            return BLConfiguracionProgramaNuevas.GetConfiguracionProgramaNuevas(paisID, entity);
-        }
-
-        public BEConfiguracionProgramaNuevas GetConfiguracionProgramaDespuesPrimerPedido(int paisID, BEConfiguracionProgramaNuevas entidad)
-        {
-            return BLConfiguracionProgramaNuevas.GetConfiguracionProgramaDespuesPrimerPedido(paisID, entidad);
+            return BLConfiguracionProgramaNuevas.Get(usuario);
         }
 
         #endregion

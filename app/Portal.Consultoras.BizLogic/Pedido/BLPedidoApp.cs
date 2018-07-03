@@ -297,7 +297,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Programa nuevas
                 if (usuario.MontoMaximoPedido > 0)
                 {
-                    var tp = GetConfiguracionProgramaNuevas(usuario);
+                    var tp = _configuracionProgramaNuevasBusinessLogic.Get(usuario);
 
                     if (tp.IndExigVent == "1")
                     {
@@ -347,7 +347,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (usuario.EsConsultoraOficina) return false;
                 if (usuario.DiaPROL && !EsHoraReserva(usuario, DateTime.Now.AddHours(usuario.ZonaHoraria))) return false;
 
-                var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas(usuario);
+                var obeConfiguracionProgramaNuevas = _configuracionProgramaNuevasBusinessLogic.Get(usuario);
                 LogPerformance("GetConfiguracionProgramaNuevas");
                 if (obeConfiguracionProgramaNuevas == null) return false;
                 if (!flagkit && obeConfiguracionProgramaNuevas.IndProgObli != "1") return false;
@@ -904,41 +904,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 detCuv.CUV = Util.Trim(detCuv.CUV);
                 if (detCuv.CUV != string.Empty)
                 {
-                    var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas(usuario);
+                    var obeConfiguracionProgramaNuevas = _configuracionProgramaNuevasBusinessLogic.Get(usuario);
                     if (obeConfiguracionProgramaNuevas.IndProgObli == "1" && obeConfiguracionProgramaNuevas.CUVKit == detCuv.CUV)
                         resultado = false;
                 }
             }
 
             return resultado;
-        }
-
-        private BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(BEUsuario usuario)
-        {
-            var obeConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas()
-            {
-                CampaniaInicio = usuario.CampaniaID.ToString(),
-                CodigoRegion = usuario.CodigorRegion,
-                CodigoZona = usuario.CodigoZona
-            };
-
-            if (usuario.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
-                    usuario.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
-                    usuario.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
-            {
-                var PaisesFraccionKit = WebConfig.PaisesFraccionKitNuevas;
-                if (PaisesFraccionKit.Contains(usuario.CodigoISO))
-                {
-                    obeConfiguracionProgramaNuevas.CodigoNivel = usuario.ConsecutivoNueva == 1 ? "02" : usuario.ConsecutivoNueva == 2 ? "03" : string.Empty;
-                    obeConfiguracionProgramaNuevas = _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaDespuesPrimerPedido(usuario.PaisID, obeConfiguracionProgramaNuevas);
-                }
-            }
-            else
-            {
-                obeConfiguracionProgramaNuevas = _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaNuevas(usuario.PaisID, obeConfiguracionProgramaNuevas);
-            }
-
-            return obeConfiguracionProgramaNuevas ?? new BEConfiguracionProgramaNuevas();
         }
 
         private bool AdministradorPedido(BEUsuario usuario, BEPedidoDetalleApp pedidoDetalle, BEPedidoWebDetalle obePedidoWebDetalle,
