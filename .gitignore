@@ -58,5 +58,10 @@ app/Portal.Consultoras.Web/bin
 app/Portal.Consultoras.Web/obj
 /app/Portal.Consultoras.Web/node_modules
 
+# Cakebuild
+/app/tools/**
+!/app/tools/packages.config
+
 .sonarqube/
+.scannerwork/
 app/.axoCover

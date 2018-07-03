@@ -483,6 +483,43 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region CRUD
 
+
+        [HttpPost]
+        public JsonResult PedidoInsertarOF(PedidoCrudModel model)
+        {
+            try
+            {
+                var respuesta = PedidoInsertar(model);
+
+                if (respuesta.Data.ToString().Contains("success = True"))
+                {
+                    using (var pedidoServiceClient = new PedidoServiceClient())
+                    {
+                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
+                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
+                    }
+                }
+
+                return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = "",
+                    total = "",
+                    formatoTotal = "",
+                    listaCliente = "",
+                    errorInsertarProducto = "0",
+                    tipo = ""
+                });
+            }
+        }
+
         [HttpPost]
         public JsonResult PedidoInsertar(PedidoCrudModel model)
         {
@@ -558,15 +595,6 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoWebDetalleModel.TipoObservacion = bePedidoWebDetalle.TipoObservacion;
                 }
                 #endregion
-
-                if (!errorServer)
-                {
-                    using (var pedidoServiceClient = new PedidoServiceClient())
-                    {
-                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
-                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
-                    }
-                }
 
                 return Json(new
                 {
@@ -1627,7 +1655,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         productosModel.Add(GetProductoNoExiste());
                     }
-                    
+
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
@@ -4267,6 +4295,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Nuevo AgregarProducto
 
+
         public JsonResult PedidoAgregarProducto(PedidoCrudModel model)
         {
             try
@@ -4284,7 +4313,6 @@ namespace Portal.Consultoras.Web.Controllers
                         message = mensaje,
                         urlRedireccionar
                     }, JsonRequestBehavior.AllowGet);
-
                 }
                 #endregion
 
@@ -4343,7 +4371,6 @@ namespace Portal.Consultoras.Web.Controllers
                             success = false,
                             message = mensaje
                         }, JsonRequestBehavior.AllowGet);
-
                     }
                 }
                 else
@@ -4357,9 +4384,7 @@ namespace Portal.Consultoras.Web.Controllers
                             message = mensaje
                         }, JsonRequestBehavior.AllowGet);
                     }
-
                 }
-
 
                 var listCuvTonos = Util.Trim(model.CuvTonos);
                 if (listCuvTonos == "")
@@ -4377,12 +4402,9 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategia.MarcaID = listSp.Length > 1 ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
                     estrategia.Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
 
-
-
                     respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, model, false);
                     ListaCuvsTemporal.Add(listSp.Length > 0 ? listSp[0] : estrategia.CUV2);
                 }
-
 
                 if (respuesta.Data.ToString().Contains("success = True"))
                 {
@@ -4395,16 +4417,12 @@ namespace Portal.Consultoras.Web.Controllers
                         });
                     }
 
-
-
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
                         pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), CuvSet
                             , userData.ConsultoraID, "", strCuvs, estrategia.EstrategiaID);
                     }
                 }
-
-
 
                 return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
 
