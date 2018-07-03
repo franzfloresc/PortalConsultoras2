@@ -789,7 +789,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             TieneStock = true,
                             EsExpoOferta = producto.EsExpoOferta,
                             CUVRevista = producto.CUVRevista ?? string.Empty ,
-                            CUVComplemento = producto.CUVComplemento ?? "",
+                            CUVComplemento = producto.CUVComplemento ?? string.Empty,
                             IndicadorMontoMinimo = producto.IndicadorMontoMinimo,
                             TipoOfertaSisID = producto.TipoOfertaSisID,
                             ConfiguracionOfertaID = producto.ConfiguracionOfertaID,
