@@ -210,9 +210,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return null;
             }
         }
-        
-
-       
 
         public List<EstrategiaPedidoModel> ConsultarEstrategiasHomePedido(string codAgrupacion = "")
         {
@@ -370,27 +367,32 @@ namespace Portal.Consultoras.Web.Controllers
         public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion = false, int tipoOferta = 1)
         {
             var listaProductoRetorno = new List<EstrategiaPersonalizadaProductoModel>();
+            var cargo = sessionManager.ShowRoom.CargoOfertas ?? "";
 
-            switch (tipoOferta)
+            if (cargo == "1")
             {
-                case 1 when sessionManager.ShowRoom.Ofertas != null:
-                    listaProductoRetorno = sessionManager.ShowRoom.Ofertas;
-                    break;
-                case 2 when sessionManager.ShowRoom.OfertasSubCampania != null:
-                    listaProductoRetorno = sessionManager.ShowRoom.OfertasSubCampania;
-                    break;
-                case 3 when sessionManager.ShowRoom.OfertasPerdio != null:
-                    listaProductoRetorno = sessionManager.ShowRoom.OfertasPerdio;
-                    break;
-            }
-
-            if (listaProductoRetorno.Any())
-            {
-                var listaPedidoDetalle = ObtenerPedidoWebDetalle();
-                listaProductoRetorno.Update(x =>
+                switch (tipoOferta)
                 {
-                    x.IsAgregado = tipoOferta != 3 && listaPedidoDetalle.Any(p => p.CUV == x.CUV2);
-                });
+                    case 1:
+                        listaProductoRetorno = sessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPersonalizadaProductoModel>();
+                        break;
+                    case 2:
+                        listaProductoRetorno = sessionManager.ShowRoom.OfertasSubCampania ?? new List<EstrategiaPersonalizadaProductoModel>();
+                        break;
+                    case 3:
+                        listaProductoRetorno = sessionManager.ShowRoom.OfertasPerdio ?? new List<EstrategiaPersonalizadaProductoModel>();
+                        break;
+                }
+
+                if (tipoOferta != 3)
+                {
+                    var listaPedidoDetalle = ObtenerPedidoWebDetalle();
+                    listaProductoRetorno.Update(x =>
+                    {
+                        x.IsAgregado = listaPedidoDetalle.Any(p => p.CUV == x.CUV2);
+                    });
+                }
+                
                 return listaProductoRetorno;
             }
 
@@ -442,12 +444,13 @@ namespace Portal.Consultoras.Web.Controllers
                 listaOfertas = listaProductoModel.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
                 listaSubCampania = listaProductoModel.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
             }
+
             var listaPedido = _pedidoWebProvider.ObtenerPedidoWebDetalle(0);
             configEstrategiaSR.ListaCategoria = new List<ShowRoomCategoriaModel>();
+            sessionManager.ShowRoom.CargoOfertas = "1";
             sessionManager.ShowRoom.Ofertas = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaOfertas, listaPedido, userData.CodigoISO, userData.CampaniaID, 2, userData.esConsultoraLider, userData.Simbolo);
             sessionManager.ShowRoom.OfertasSubCampania = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaSubCampania, listaPedido, userData.CodigoISO, userData.CampaniaID, 2, userData.esConsultoraLider, userData.Simbolo);
             sessionManager.ShowRoom.OfertasPerdio = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaOfertasPerdio, listaPedido, userData.CodigoISO, userData.CampaniaID, 1, userData.esConsultoraLider, userData.Simbolo);
-
         }
 
         #endregion

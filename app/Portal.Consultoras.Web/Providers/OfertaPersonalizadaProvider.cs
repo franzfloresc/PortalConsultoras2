@@ -355,7 +355,7 @@ namespace Portal.Consultoras.Web.Providers
                 ConsultoraID = usuarioModel.GetCodigoConsultora(),
                 //Zona = usuarioModel.ZonaID.ToString(),
                 ZonaHoraria = usuarioModel.ZonaHoraria,
-                FechaInicioFacturacion = usuarioModel.FechaFinCampania,
+                FechaInicioFacturacion = usuarioModel.FechaInicioCampania,
                 ValidarPeriodoFacturacion = true,
                 Simbolo = usuarioModel.Simbolo,
                 CodigoTipoEstrategia = "030"
