@@ -257,23 +257,6 @@
 
     <script>
         window.videoKey = '@Model.CodigoVideo';
-        $(document).ready(function () {
-
-            MostrarOcultarCargaElementos();
-        });
-
-        function MostrarOcultarCargaElementos() {
-
-            if (!window.videoKey) {
-                $('#tabVideo').hide();
-            }
-
-            $('ul.ficha_tabs li').click(function () {
-                $(this).children('ul').slideToggle();
-            });
-        }
-
-
 
         var fichaModule;
         $(document).ready(function() {

@@ -83,13 +83,20 @@
         });
     }
     
-    var _crearTabs = function() {
-        for (var i = 1; i <= 5; i++) {
-            if (document.getElementById("ficha_tab_" + i.toString()).checked) {
-                document.getElementById("contenido_" + i.toString()).style.display = "block";
-            }
+    var _crearTabs = function () {
 
-            document.getElementById("ficha_tab_" + i.toString()).onclick = function (event) {
+        for (var i = 1; i <= 5; i++) {
+
+            var FichaTabElement = document.getElementById("ficha_tab_" + i.toString());
+
+            if (FichaTabElement)
+            {
+
+                if (FichaTabElement.checked) {
+                document.getElementById("contenido_" + i.toString()).style.display = "block";
+                }
+
+                FichaTabElement.onclick = function (event) {
                 var numID = event.target.getAttribute('data-numTab');
 
                 for (var j = 1; j <= 5; j++) {
@@ -98,6 +105,8 @@
 
                 document.getElementById("contenido_" + numID.toString()).style.display = "block";
             }
+
+         }
         }
 
         if (!window.videoKey) {
@@ -307,7 +316,7 @@
         //_construirSeccionEstrategia();
         //_bindingEvents();
         //_crearReloj();
-        //_crearTabs();
+        _crearTabs();
         _crearCarruseles();
         _mostrarSetRelacionados();
     }
