@@ -1644,13 +1644,14 @@ function ActualizarMD() {
 
     if (viewBagPaisID != 4) {
 
-        if (jQuery.trim($('#txtEMailMD').val()) == "") {
+        if (jQuery.trim($('#txtEMail').val()) == ""  ) {
+                      
             $('#txtEMailMD').focus();
             alert("Debe ingresar EMail.\n");
             return false;
         }
 
-        if (!validateEmail(jQuery.trim($('#txtEMailMD').val()))) {
+        if (!validateEmail(jQuery.trim($('#txtEMail').val()))) {
             $('#txtEMailMD').focus();
             alert("El formato del correo electrónico ingresado no es correcto.\n");
             return false;
