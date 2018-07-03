@@ -51,7 +51,7 @@ var EstrategiaVerDetalleProvider = function () {
 
         jQuery.ajax({
             type: "GET",
-            url: baseUrl + 'Estrategia/ConsultarEstrategiaCuv?cuv=' + cuv,
+            url: baseUrl + "Estrategia/ConsultarEstrategiaCuv?cuv=" + cuv,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(params),
@@ -106,16 +106,16 @@ function VerDetalleEstrategia(e) {
             rdAnalyticsModule.VerDetalleComprar(origenPedido, estrategia);
         } else {
             dataLayer.push({
-                'event': 'productClick',
+                'event': "productClick",
                 'ecommerce': {
                     'click': {
-                        'actionField': { 'list': 'Ofertas para ti – ' + origen },
+                        'actionField': { 'list': "Ofertas para ti – " + origen },
                         'products': [{
                             'id': estrategia.CUV2,
                             'name': estrategia.DescripcionCompleta,
                             'price': $.trim(estrategia.Precio2),
                             'brand': estrategia.DescripcionMarca,
-                            'category': 'NO DISPONIBLE',
+                            'category': "NO DISPONIBLE",
                             'variant': estrategia.DescripcionEstrategia,
                             'position': estrategia.Posicion
                         }]
@@ -140,11 +140,11 @@ function VerDetalleEstrategia(e) {
 
     estrategia.OrigenPedidoWeb = $(objHtmlEvent).parents("[data-OrigenPedidoWeb-popup]").attr("data-OrigenPedidoWeb-popup") || origenPedido;
 
-    if (estrategia.TipoEstrategiaImagenMostrar == '2') {
+    if (estrategia.TipoEstrategiaImagenMostrar == "2") {
 
         EstrategiaVerDetallePackNueva(estrategia);
 
-    } else if (estrategia.TipoEstrategiaImagenMostrar == '5' || estrategia.TipoEstrategiaImagenMostrar == '3') {
+    } else if (estrategia.TipoEstrategiaImagenMostrar == "5" || estrategia.TipoEstrategiaImagenMostrar == "3") {
 
         EstrategiaVerDetalleGeneral(estrategia);
 
@@ -201,8 +201,8 @@ function EstrategiaVerDetalleMobile(estrategia, origen) {
 }
 
 function EstrategiaVerDetallePackNueva(estrategia) {
-    SetHandlebars("#pack-nuevas-template", estrategia, '#popupDetalleCarousel_packNuevas');
-    $('#popupDetalleCarousel_packNuevas').show();
+    SetHandlebars("#pack-nuevas-template", estrategia, "#popupDetalleCarousel_packNuevas");
+    $("#popupDetalleCarousel_packNuevas").show();
     TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
 }
 
@@ -255,10 +255,10 @@ function EstrategiaVerDetalleGeneral(estrategia) {
         }
     }
 
-    var popupId = '#popupDetalleCarousel_lanzamiento';
-    estrategia.PrecioNiveles = estrategia.PrecioNiveles || '';
-    if (estrategia.PrecioNiveles != '') {
-        estrategia.lstPrecioNiveles = estrategia.PrecioNiveles.split('|');
+    var popupId = "#popupDetalleCarousel_lanzamiento";
+    estrategia.PrecioNiveles = estrategia.PrecioNiveles || "";
+    if (estrategia.PrecioNiveles != "") {
+        estrategia.lstPrecioNiveles = estrategia.PrecioNiveles.split("|");
     }
 
     SetHandlebars("#verdetalle-template", estrategia, popupId);

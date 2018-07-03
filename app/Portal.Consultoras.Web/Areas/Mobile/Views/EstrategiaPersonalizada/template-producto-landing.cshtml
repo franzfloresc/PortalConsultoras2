@@ -102,13 +102,13 @@
                     {{#iff TipoAccionAgregar '==' '2'}}
                     <div class="texto_elige_tono">&nbsp;</div>
                     <div class="producto_nombre_descripcion">
-                        <div class="liquidacion_rango_home">
-                            <a class="cantidad_menos_home" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                            <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                             <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' 
                                    class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{ClaseBloqueada}}" 
                                    onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" 
                                    {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
-                            <a class="cantidad_mas_home" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                            <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                         </div>
                         <div class="clear"></div>
                         <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">

@@ -286,17 +286,28 @@
         }
 
         estrategia.Hermanos = _verificarVariedad(estrategia);
+        actualizarVariedad(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
         return true;
         
     }
+
+    var actualizarVariedad = function (estrategia) {
+        if (estrategia.Hermanos.length == 1) {
+            if (estrategia.Hermanos[0].Hermanos) {
+                if (estrategia.Hermanos[0].Hermanos.length > 0) {
+                    estrategia.CodigoVariante = ConstantesModule.CodigoVariedad.IndividualVariable;
+                }
+            }
+        }
+    }
     
     function Inicializar() {
-        localStorageModule = LocalStorageModule();
-        _construirSeccionEstrategia();
-        _bindingEvents();
-        _crearReloj();
-        _crearTabs();
+        //localStorageModule = LocalStorageModule();
+        //_construirSeccionEstrategia();
+        //_bindingEvents();
+        //_crearReloj();
+        //_crearTabs();
         _crearCarruseles();
         _mostrarSetRelacionados();
     }
