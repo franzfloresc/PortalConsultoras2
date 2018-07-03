@@ -69,7 +69,6 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-
         public List<BEEstrategia> GetOfertasPersonalizadasByTipoConfiguradoTemporal(int paisId, int tipoConfigurado, int nroLote)
         {
             List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
