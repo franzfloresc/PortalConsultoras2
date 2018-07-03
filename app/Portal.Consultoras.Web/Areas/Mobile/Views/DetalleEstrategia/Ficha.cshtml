@@ -196,6 +196,18 @@
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis itaque nisi ratione sit excepturi. Porro nemo ipsam fugiat quidem accusamus, cumque temporibus atque! Voluptatum nesciunt odio consectetur eos, quibusdam sint?
                     </ul>
                 </li>
+                <li id="tabVideo">
+                    <a>VIDEO</a>
+                    <div class="video-visual">
+                        <div class="video-container">
+                            <div id="ytFicha"
+                                 data-youtube="{ height:'220', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}"
+                                 class="yt-video"></div>
+                        </div>
+                    </div>
+
+
+                </li>
             </ul>
         </div>
     </div>
@@ -244,7 +256,7 @@
                 cuv: "@Model.Cuv",
                 urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new { area = "" })'
             });
-            fichaModule.Inicializar();
+          //  fichaModule.Inicializar();
         });
 
     </script>
