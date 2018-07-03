@@ -977,7 +977,6 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.PedidoFICActivo = usuario.PedidoFICActivo;
                     usuarioModel.HorasDuracionRestriccion = usuario.HorasDuracionRestriccion;
                     usuarioModel.EsJoven = usuario.EsJoven;
-                    usuarioModel.PROLSinStock = usuario.PROLSinStock;
                     usuarioModel.HoraCierreZonaDemAntiCierre = usuario.HoraCierreZonaDemAntiCierre;
                     usuarioModel.ConsultoraAsociadaID = usuario.ConsultoraAsociadaID;
                     usuarioModel.ValidacionAbierta = usuario.ValidacionAbierta;
