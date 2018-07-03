@@ -382,7 +382,7 @@ namespace Portal.Consultoras.Data
         
         public IDataReader GetEstrategiaODD(int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasODD"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasODD2"))
             {
                 Context.Database.AddInParameter(command, "@CodCampania", DbType.Int32, codCampania);
                 Context.Database.AddInParameter(command, "@CodConsultora", DbType.String, codConsultora);

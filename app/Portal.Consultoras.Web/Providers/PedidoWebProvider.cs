@@ -233,7 +233,7 @@ namespace Portal.Consultoras.Web.Providers
                 else item.TipoObservacion = 0;
             }
 
-            sessionManager.SetObservacionesProl(null);
+            //sessionManager.SetObservacionesProl(null);
 
             return pedObs.OrderByDescending(p => p.TipoObservacion).ToList();
         }

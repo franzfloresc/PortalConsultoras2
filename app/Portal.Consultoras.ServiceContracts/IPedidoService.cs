@@ -1177,6 +1177,8 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario);
         [OperationContract]
         List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario);
+        [OperationContract]
+        BEUsuario GetConfiguracionOfertaFinal(BEUsuario usuario);
         #endregion
 
         #region Pago en Linea
