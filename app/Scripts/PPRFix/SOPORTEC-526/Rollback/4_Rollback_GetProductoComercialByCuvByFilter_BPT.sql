@@ -1,6 +1,5 @@
-GO
+﻿GO
 USE BelcorpPeru
-GO
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 	@CampaniaID INT
@@ -17,8 +16,7 @@ exec dbo.GetProductoComercialByCampaniaBySearchRegionZona_sb2 201808,1,1,'32072'
 */
 BEGIN
 	/*Creacion de tablas Temporales*/
-	DECLARE @OfertaProductoTemp TABLE
-	(
+	DECLARE @OfertaProductoTemp TABLE (
 		CampaniaID INT
 		,CUV VARCHAR(6)
 		,Descripcion VARCHAR(250)
@@ -27,16 +25,14 @@ BEGIN
 		,PrecioOferta NUMERIC(12, 2)
 	)
 
-	DECLARE @ProductoFaltanteTemp TABLE
-	(
+	DECLARE @ProductoFaltanteTemp TABLE (
 		CUV VARCHAR(6)
 	)
-	declare @ProductoSugeridoTemp table
-	(
+	declare @ProductoSugeridoTemp TABLE (
 		CUV varchar(6)
 	)
-	declare @Producto table
-(
+
+	declare @Producto TABLE (
 		CUV varchar(50),
 		Descripcion varchar(250),
 		PrecioCatalogo numeric(12,2),
@@ -99,6 +95,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
 		p.CUV
@@ -150,8 +147,7 @@ BEGIN
 	select distinct top (@RowCount)
 		p.CUV,
 		coalesce(e.DescripcionCUV2,p.Descripcion) as Descripcion,
-
-	coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
+		coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
 		p.MarcaID,
 		0 AS EstaEnRevista,
 		case when isnull(p.CUVProductoFaltante,0) = 0 then 1 else 0 end as TieneStock,
@@ -171,7 +167,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                    CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -188,13 +189,13 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
+
 END
-GO
 
 GO
 USE BelcorpMexico
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -210,8 +211,7 @@ exec dbo.GetProductoComercialByCampaniaBySearchRegionZona_sb2 201808,1,1,'32072'
 */
 BEGIN
 	/*Creacion de tablas Temporales*/
-	DECLARE @OfertaProductoTemp TABLE
-	(
+	DECLARE @OfertaProductoTemp TABLE (
 		CampaniaID INT
 		,CUV VARCHAR(6)
 		,Descripcion VARCHAR(250)
@@ -220,16 +220,14 @@ BEGIN
 		,PrecioOferta NUMERIC(12, 2)
 	)
 
-	DECLARE @ProductoFaltanteTemp TABLE
-	(
+	DECLARE @ProductoFaltanteTemp TABLE (
 		CUV VARCHAR(6)
 	)
-	declare @ProductoSugeridoTemp table
-	(
+	declare @ProductoSugeridoTemp TABLE (
 		CUV varchar(6)
 	)
-	declare @Producto table
-(
+
+	declare @Producto TABLE (
 		CUV varchar(50),
 		Descripcion varchar(250),
 		PrecioCatalogo numeric(12,2),
@@ -292,6 +290,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
 		p.CUV
@@ -343,8 +342,7 @@ BEGIN
 	select distinct top (@RowCount)
 		p.CUV,
 		coalesce(e.DescripcionCUV2,p.Descripcion) as Descripcion,
-
-	coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
+		coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
 		p.MarcaID,
 		0 AS EstaEnRevista,
 		case when isnull(p.CUVProductoFaltante,0) = 0 then 1 else 0 end as TieneStock,
@@ -364,7 +362,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                    CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -381,13 +384,13 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
+
 END
-GO
 
 GO
 USE BelcorpColombia
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -403,8 +406,7 @@ exec dbo.GetProductoComercialByCampaniaBySearchRegionZona_sb2 201808,1,1,'32072'
 */
 BEGIN
 	/*Creacion de tablas Temporales*/
-	DECLARE @OfertaProductoTemp TABLE
-	(
+	DECLARE @OfertaProductoTemp TABLE (
 		CampaniaID INT
 		,CUV VARCHAR(6)
 		,Descripcion VARCHAR(250)
@@ -413,16 +415,14 @@ BEGIN
 		,PrecioOferta NUMERIC(12, 2)
 	)
 
-	DECLARE @ProductoFaltanteTemp TABLE
-	(
+	DECLARE @ProductoFaltanteTemp TABLE (
 		CUV VARCHAR(6)
 	)
-	declare @ProductoSugeridoTemp table
-	(
+	declare @ProductoSugeridoTemp TABLE (
 		CUV varchar(6)
 	)
-	declare @Producto table
-(
+
+	declare @Producto TABLE (
 		CUV varchar(50),
 		Descripcion varchar(250),
 		PrecioCatalogo numeric(12,2),
@@ -485,6 +485,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
 		p.CUV
@@ -536,8 +537,7 @@ BEGIN
 	select distinct top (@RowCount)
 		p.CUV,
 		coalesce(e.DescripcionCUV2,p.Descripcion) as Descripcion,
-
-	coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
+		coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
 		p.MarcaID,
 		0 AS EstaEnRevista,
 		case when isnull(p.CUVProductoFaltante,0) = 0 then 1 else 0 end as TieneStock,
@@ -557,7 +557,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                    CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -574,13 +579,13 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
+
 END
-GO
 
 GO
 USE BelcorpSalvador
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -596,8 +601,7 @@ exec dbo.GetProductoComercialByCampaniaBySearchRegionZona_sb2 201808,1,1,'32072'
 */
 BEGIN
 	/*Creacion de tablas Temporales*/
-	DECLARE @OfertaProductoTemp TABLE
-	(
+	DECLARE @OfertaProductoTemp TABLE (
 		CampaniaID INT
 		,CUV VARCHAR(6)
 		,Descripcion VARCHAR(250)
@@ -606,16 +610,14 @@ BEGIN
 		,PrecioOferta NUMERIC(12, 2)
 	)
 
-	DECLARE @ProductoFaltanteTemp TABLE
-	(
+	DECLARE @ProductoFaltanteTemp TABLE (
 		CUV VARCHAR(6)
 	)
-	declare @ProductoSugeridoTemp table
-	(
+	declare @ProductoSugeridoTemp TABLE (
 		CUV varchar(6)
 	)
-	declare @Producto table
-(
+
+	declare @Producto TABLE (
 		CUV varchar(50),
 		Descripcion varchar(250),
 		PrecioCatalogo numeric(12,2),
@@ -678,6 +680,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
 		p.CUV
@@ -729,8 +732,7 @@ BEGIN
 	select distinct top (@RowCount)
 		p.CUV,
 		coalesce(e.DescripcionCUV2,p.Descripcion) as Descripcion,
-
-	coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
+		coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
 		p.MarcaID,
 		0 AS EstaEnRevista,
 		case when isnull(p.CUVProductoFaltante,0) = 0 then 1 else 0 end as TieneStock,
@@ -750,7 +752,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                    CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -767,13 +774,13 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
+
 END
-GO
 
 GO
 USE BelcorpPuertoRico
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -789,8 +796,7 @@ exec dbo.GetProductoComercialByCampaniaBySearchRegionZona_sb2 201808,1,1,'32072'
 */
 BEGIN
 	/*Creacion de tablas Temporales*/
-	DECLARE @OfertaProductoTemp TABLE
-	(
+	DECLARE @OfertaProductoTemp TABLE (
 		CampaniaID INT
 		,CUV VARCHAR(6)
 		,Descripcion VARCHAR(250)
@@ -799,16 +805,14 @@ BEGIN
 		,PrecioOferta NUMERIC(12, 2)
 	)
 
-	DECLARE @ProductoFaltanteTemp TABLE
-	(
+	DECLARE @ProductoFaltanteTemp TABLE (
 		CUV VARCHAR(6)
 	)
-	declare @ProductoSugeridoTemp table
-	(
+	declare @ProductoSugeridoTemp TABLE (
 		CUV varchar(6)
 	)
-	declare @Producto table
-(
+
+	declare @Producto TABLE (
 		CUV varchar(50),
 		Descripcion varchar(250),
 		PrecioCatalogo numeric(12,2),
@@ -871,6 +875,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
 		p.CUV
@@ -922,8 +927,7 @@ BEGIN
 	select distinct top (@RowCount)
 		p.CUV,
 		coalesce(e.DescripcionCUV2,p.Descripcion) as Descripcion,
-
-	coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
+		coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
 		p.MarcaID,
 		0 AS EstaEnRevista,
 		case when isnull(p.CUVProductoFaltante,0) = 0 then 1 else 0 end as TieneStock,
@@ -943,7 +947,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                    CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -960,13 +969,13 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
+
 END
-GO
 
 GO
 USE BelcorpPanama
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -982,8 +991,7 @@ exec dbo.GetProductoComercialByCampaniaBySearchRegionZona_sb2 201808,1,1,'32072'
 */
 BEGIN
 	/*Creacion de tablas Temporales*/
-	DECLARE @OfertaProductoTemp TABLE
-	(
+	DECLARE @OfertaProductoTemp TABLE (
 		CampaniaID INT
 		,CUV VARCHAR(6)
 		,Descripcion VARCHAR(250)
@@ -992,16 +1000,14 @@ BEGIN
 		,PrecioOferta NUMERIC(12, 2)
 	)
 
-	DECLARE @ProductoFaltanteTemp TABLE
-	(
+	DECLARE @ProductoFaltanteTemp TABLE (
 		CUV VARCHAR(6)
 	)
-	declare @ProductoSugeridoTemp table
-	(
+	declare @ProductoSugeridoTemp TABLE (
 		CUV varchar(6)
 	)
-	declare @Producto table
-(
+
+	declare @Producto TABLE (
 		CUV varchar(50),
 		Descripcion varchar(250),
 		PrecioCatalogo numeric(12,2),
@@ -1064,6 +1070,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
 		p.CUV
@@ -1115,8 +1122,7 @@ BEGIN
 	select distinct top (@RowCount)
 		p.CUV,
 		coalesce(e.DescripcionCUV2,p.Descripcion) as Descripcion,
-
-	coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
+		coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
 		p.MarcaID,
 		0 AS EstaEnRevista,
 		case when isnull(p.CUVProductoFaltante,0) = 0 then 1 else 0 end as TieneStock,
@@ -1136,7 +1142,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                    CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -1153,13 +1164,13 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
+
 END
-GO
 
 GO
 USE BelcorpGuatemala
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -1175,8 +1186,7 @@ exec dbo.GetProductoComercialByCampaniaBySearchRegionZona_sb2 201808,1,1,'32072'
 */
 BEGIN
 	/*Creacion de tablas Temporales*/
-	DECLARE @OfertaProductoTemp TABLE
-	(
+	DECLARE @OfertaProductoTemp TABLE (
 		CampaniaID INT
 		,CUV VARCHAR(6)
 		,Descripcion VARCHAR(250)
@@ -1185,16 +1195,14 @@ BEGIN
 		,PrecioOferta NUMERIC(12, 2)
 	)
 
-	DECLARE @ProductoFaltanteTemp TABLE
-	(
+	DECLARE @ProductoFaltanteTemp TABLE (
 		CUV VARCHAR(6)
 	)
-	declare @ProductoSugeridoTemp table
-	(
+	declare @ProductoSugeridoTemp TABLE (
 		CUV varchar(6)
 	)
-	declare @Producto table
-(
+
+	declare @Producto TABLE (
 		CUV varchar(50),
 		Descripcion varchar(250),
 		PrecioCatalogo numeric(12,2),
@@ -1257,6 +1265,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
 		p.CUV
@@ -1308,8 +1317,7 @@ BEGIN
 	select distinct top (@RowCount)
 		p.CUV,
 		coalesce(e.DescripcionCUV2,p.Descripcion) as Descripcion,
-
-	coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
+		coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
 		p.MarcaID,
 		0 AS EstaEnRevista,
 		case when isnull(p.CUVProductoFaltante,0) = 0 then 1 else 0 end as TieneStock,
@@ -1329,7 +1337,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                    CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -1346,13 +1359,13 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
+
 END
-GO
 
 GO
 USE BelcorpEcuador
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -1368,8 +1381,7 @@ exec dbo.GetProductoComercialByCampaniaBySearchRegionZona_sb2 201808,1,1,'32072'
 */
 BEGIN
 	/*Creacion de tablas Temporales*/
-	DECLARE @OfertaProductoTemp TABLE
-	(
+	DECLARE @OfertaProductoTemp TABLE (
 		CampaniaID INT
 		,CUV VARCHAR(6)
 		,Descripcion VARCHAR(250)
@@ -1378,16 +1390,14 @@ BEGIN
 		,PrecioOferta NUMERIC(12, 2)
 	)
 
-	DECLARE @ProductoFaltanteTemp TABLE
-	(
+	DECLARE @ProductoFaltanteTemp TABLE (
 		CUV VARCHAR(6)
 	)
-	declare @ProductoSugeridoTemp table
-	(
+	declare @ProductoSugeridoTemp TABLE (
 		CUV varchar(6)
 	)
-	declare @Producto table
-(
+
+	declare @Producto TABLE (
 		CUV varchar(50),
 		Descripcion varchar(250),
 		PrecioCatalogo numeric(12,2),
@@ -1450,6 +1460,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
 		p.CUV
@@ -1501,8 +1512,7 @@ BEGIN
 	select distinct top (@RowCount)
 		p.CUV,
 		coalesce(e.DescripcionCUV2,p.Descripcion) as Descripcion,
-
-	coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
+		coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
 		p.MarcaID,
 		0 AS EstaEnRevista,
 		case when isnull(p.CUVProductoFaltante,0) = 0 then 1 else 0 end as TieneStock,
@@ -1522,7 +1532,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                    CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -1539,13 +1554,13 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
+
 END
-GO
 
 GO
 USE BelcorpDominicana
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -1561,8 +1576,7 @@ exec dbo.GetProductoComercialByCampaniaBySearchRegionZona_sb2 201808,1,1,'32072'
 */
 BEGIN
 	/*Creacion de tablas Temporales*/
-	DECLARE @OfertaProductoTemp TABLE
-	(
+	DECLARE @OfertaProductoTemp TABLE (
 		CampaniaID INT
 		,CUV VARCHAR(6)
 		,Descripcion VARCHAR(250)
@@ -1571,16 +1585,14 @@ BEGIN
 		,PrecioOferta NUMERIC(12, 2)
 	)
 
-	DECLARE @ProductoFaltanteTemp TABLE
-	(
+	DECLARE @ProductoFaltanteTemp TABLE (
 		CUV VARCHAR(6)
 	)
-	declare @ProductoSugeridoTemp table
-	(
+	declare @ProductoSugeridoTemp TABLE (
 		CUV varchar(6)
 	)
-	declare @Producto table
-(
+
+	declare @Producto TABLE (
 		CUV varchar(50),
 		Descripcion varchar(250),
 		PrecioCatalogo numeric(12,2),
@@ -1643,6 +1655,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
 		p.CUV
@@ -1694,8 +1707,7 @@ BEGIN
 	select distinct top (@RowCount)
 		p.CUV,
 		coalesce(e.DescripcionCUV2,p.Descripcion) as Descripcion,
-
-	coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
+		coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
 		p.MarcaID,
 		0 AS EstaEnRevista,
 		case when isnull(p.CUVProductoFaltante,0) = 0 then 1 else 0 end as TieneStock,
@@ -1715,7 +1727,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                    CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -1732,13 +1749,13 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
+
 END
-GO
 
 GO
 USE BelcorpCostaRica
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -1754,8 +1771,7 @@ exec dbo.GetProductoComercialByCampaniaBySearchRegionZona_sb2 201808,1,1,'32072'
 */
 BEGIN
 	/*Creacion de tablas Temporales*/
-	DECLARE @OfertaProductoTemp TABLE
-	(
+	DECLARE @OfertaProductoTemp TABLE (
 		CampaniaID INT
 		,CUV VARCHAR(6)
 		,Descripcion VARCHAR(250)
@@ -1764,16 +1780,14 @@ BEGIN
 		,PrecioOferta NUMERIC(12, 2)
 	)
 
-	DECLARE @ProductoFaltanteTemp TABLE
-	(
+	DECLARE @ProductoFaltanteTemp TABLE (
 		CUV VARCHAR(6)
 	)
-	declare @ProductoSugeridoTemp table
-	(
+	declare @ProductoSugeridoTemp TABLE (
 		CUV varchar(6)
 	)
-	declare @Producto table
-(
+
+	declare @Producto TABLE (
 		CUV varchar(50),
 		Descripcion varchar(250),
 		PrecioCatalogo numeric(12,2),
@@ -1836,6 +1850,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
 		p.CUV
@@ -1887,8 +1902,7 @@ BEGIN
 	select distinct top (@RowCount)
 		p.CUV,
 		coalesce(e.DescripcionCUV2,p.Descripcion) as Descripcion,
-
-	coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
+		coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
 		p.MarcaID,
 		0 AS EstaEnRevista,
 		case when isnull(p.CUVProductoFaltante,0) = 0 then 1 else 0 end as TieneStock,
@@ -1908,7 +1922,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                    CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -1925,13 +1944,13 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
+
 END
-GO
 
 GO
 USE BelcorpChile
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -1947,8 +1966,7 @@ exec dbo.GetProductoComercialByCampaniaBySearchRegionZona_sb2 201808,1,1,'32072'
 */
 BEGIN
 	/*Creacion de tablas Temporales*/
-	DECLARE @OfertaProductoTemp TABLE
-	(
+	DECLARE @OfertaProductoTemp TABLE (
 		CampaniaID INT
 		,CUV VARCHAR(6)
 		,Descripcion VARCHAR(250)
@@ -1957,16 +1975,14 @@ BEGIN
 		,PrecioOferta NUMERIC(12, 2)
 	)
 
-	DECLARE @ProductoFaltanteTemp TABLE
-	(
+	DECLARE @ProductoFaltanteTemp TABLE (
 		CUV VARCHAR(6)
 	)
-	declare @ProductoSugeridoTemp table
-	(
+	declare @ProductoSugeridoTemp TABLE (
 		CUV varchar(6)
 	)
-	declare @Producto table
-(
+
+	declare @Producto TABLE (
 		CUV varchar(50),
 		Descripcion varchar(250),
 		PrecioCatalogo numeric(12,2),
@@ -2029,6 +2045,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
 		p.CUV
@@ -2080,8 +2097,7 @@ BEGIN
 	select distinct top (@RowCount)
 		p.CUV,
 		coalesce(e.DescripcionCUV2,p.Descripcion) as Descripcion,
-
-	coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
+		coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
 		p.MarcaID,
 		0 AS EstaEnRevista,
 		case when isnull(p.CUVProductoFaltante,0) = 0 then 1 else 0 end as TieneStock,
@@ -2101,7 +2117,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                    CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -2118,13 +2139,13 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
+
 END
-GO
 
 GO
 USE BelcorpBolivia
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -2140,8 +2161,7 @@ exec dbo.GetProductoComercialByCampaniaBySearchRegionZona_sb2 201808,1,1,'32072'
 */
 BEGIN
 	/*Creacion de tablas Temporales*/
-	DECLARE @OfertaProductoTemp TABLE
-	(
+	DECLARE @OfertaProductoTemp TABLE (
 		CampaniaID INT
 		,CUV VARCHAR(6)
 		,Descripcion VARCHAR(250)
@@ -2150,16 +2170,14 @@ BEGIN
 		,PrecioOferta NUMERIC(12, 2)
 	)
 
-	DECLARE @ProductoFaltanteTemp TABLE
-	(
+	DECLARE @ProductoFaltanteTemp TABLE (
 		CUV VARCHAR(6)
 	)
-	declare @ProductoSugeridoTemp table
-	(
+	declare @ProductoSugeridoTemp TABLE (
 		CUV varchar(6)
 	)
-	declare @Producto table
-(
+
+	declare @Producto TABLE (
 		CUV varchar(50),
 		Descripcion varchar(250),
 		PrecioCatalogo numeric(12,2),
@@ -2222,6 +2240,7 @@ BEGIN
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
 		and Estado = 1
+
 	insert into @Producto
 	SELECT DISTINCT TOP (@RowCount)
 		p.CUV
@@ -2273,8 +2292,7 @@ BEGIN
 	select distinct top (@RowCount)
 		p.CUV,
 		coalesce(e.DescripcionCUV2,p.Descripcion) as Descripcion,
-
-	coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
+		coalesce(e.Precio2,p.PrecioCatalogo) as PrecioCatalogo,
 		p.MarcaID,
 		0 AS EstaEnRevista,
 		case when isnull(p.CUVProductoFaltante,0) = 0 then 1 else 0 end as TieneStock,
@@ -2294,7 +2312,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                    CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -2311,7 +2334,8 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
+
 END
-GO
 
 GO

@@ -1,6 +1,5 @@
-GO
+﻿GO
 USE BelcorpPeru
-GO
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByDescripcionByFilter
 	@CampaniaID INT
@@ -27,6 +26,7 @@ BEGIN
 		,TipoOfertaSisID INT
 		,PrecioOferta NUMERIC(12, 2)
 		)
+
 	INSERT INTO @OfertaProductoTemp
 	SELECT op.CampaniaID
 		,op.CUV
@@ -80,7 +80,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,--case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -110,17 +115,16 @@ BEGIN
 		p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK) ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
 
 END
-GO
 
 GO
 USE BelcorpMexico
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByDescripcionByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -146,6 +150,7 @@ BEGIN
 		,TipoOfertaSisID INT
 		,PrecioOferta NUMERIC(12, 2)
 		)
+
 	INSERT INTO @OfertaProductoTemp
 	SELECT op.CampaniaID
 		,op.CUV
@@ -199,7 +204,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,--case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -229,17 +239,16 @@ BEGIN
 		p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK) ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
 
 END
-GO
 
 GO
 USE BelcorpColombia
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByDescripcionByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -265,6 +274,7 @@ BEGIN
 		,TipoOfertaSisID INT
 		,PrecioOferta NUMERIC(12, 2)
 		)
+
 	INSERT INTO @OfertaProductoTemp
 	SELECT op.CampaniaID
 		,op.CUV
@@ -318,7 +328,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,--case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -348,17 +363,16 @@ BEGIN
 		p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK) ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
 
 END
-GO
 
 GO
 USE BelcorpSalvador
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByDescripcionByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -384,6 +398,7 @@ BEGIN
 		,TipoOfertaSisID INT
 		,PrecioOferta NUMERIC(12, 2)
 		)
+
 	INSERT INTO @OfertaProductoTemp
 	SELECT op.CampaniaID
 		,op.CUV
@@ -437,7 +452,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,--case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -467,17 +487,16 @@ BEGIN
 		p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK) ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
 
 END
-GO
 
 GO
 USE BelcorpPuertoRico
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByDescripcionByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -503,6 +522,7 @@ BEGIN
 		,TipoOfertaSisID INT
 		,PrecioOferta NUMERIC(12, 2)
 		)
+
 	INSERT INTO @OfertaProductoTemp
 	SELECT op.CampaniaID
 		,op.CUV
@@ -556,7 +576,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,--case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -586,17 +611,16 @@ BEGIN
 		p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK) ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
 
 END
-GO
 
 GO
 USE BelcorpPanama
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByDescripcionByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -622,6 +646,7 @@ BEGIN
 		,TipoOfertaSisID INT
 		,PrecioOferta NUMERIC(12, 2)
 		)
+
 	INSERT INTO @OfertaProductoTemp
 	SELECT op.CampaniaID
 		,op.CUV
@@ -675,7 +700,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,--case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -705,17 +735,16 @@ BEGIN
 		p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK) ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
 
 END
-GO
 
 GO
 USE BelcorpGuatemala
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByDescripcionByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -741,6 +770,7 @@ BEGIN
 		,TipoOfertaSisID INT
 		,PrecioOferta NUMERIC(12, 2)
 		)
+
 	INSERT INTO @OfertaProductoTemp
 	SELECT op.CampaniaID
 		,op.CUV
@@ -794,7 +824,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,--case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -824,17 +859,16 @@ BEGIN
 		p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK) ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
 
 END
-GO
 
 GO
 USE BelcorpEcuador
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByDescripcionByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -860,6 +894,7 @@ BEGIN
 		,TipoOfertaSisID INT
 		,PrecioOferta NUMERIC(12, 2)
 		)
+
 	INSERT INTO @OfertaProductoTemp
 	SELECT op.CampaniaID
 		,op.CUV
@@ -913,7 +948,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,--case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -943,17 +983,16 @@ BEGIN
 		p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK) ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
 
 END
-GO
 
 GO
 USE BelcorpDominicana
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByDescripcionByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -979,6 +1018,7 @@ BEGIN
 		,TipoOfertaSisID INT
 		,PrecioOferta NUMERIC(12, 2)
 		)
+
 	INSERT INTO @OfertaProductoTemp
 	SELECT op.CampaniaID
 		,op.CUV
@@ -1032,7 +1072,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,--case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -1062,17 +1107,16 @@ BEGIN
 		p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK) ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
 
 END
-GO
 
 GO
 USE BelcorpCostaRica
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByDescripcionByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -1098,6 +1142,7 @@ BEGIN
 		,TipoOfertaSisID INT
 		,PrecioOferta NUMERIC(12, 2)
 		)
+
 	INSERT INTO @OfertaProductoTemp
 	SELECT op.CampaniaID
 		,op.CUV
@@ -1151,7 +1196,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,--case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -1181,17 +1231,16 @@ BEGIN
 		p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK) ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
 
 END
-GO
 
 GO
 USE BelcorpChile
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByDescripcionByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -1217,6 +1266,7 @@ BEGIN
 		,TipoOfertaSisID INT
 		,PrecioOferta NUMERIC(12, 2)
 		)
+
 	INSERT INTO @OfertaProductoTemp
 	SELECT op.CampaniaID
 		,op.CUV
@@ -1270,7 +1320,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,--case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -1300,17 +1355,16 @@ BEGIN
 		p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK) ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
 
 END
-GO
 
 GO
 USE BelcorpBolivia
 GO
-GO
 ALTER PROCEDURE [dbo].GetProductoComercialByDescripcionByFilter
 	@CampaniaID INT
 	,@RowCount INT
@@ -1336,6 +1390,7 @@ BEGIN
 		,TipoOfertaSisID INT
 		,PrecioOferta NUMERIC(12, 2)
 		)
+
 	INSERT INTO @OfertaProductoTemp
 	SELECT op.CampaniaID
 		,op.CUV
@@ -1389,7 +1444,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,--case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -1419,11 +1479,11 @@ BEGIN
 		p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK) ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
 
 END
-GO
 
 GO

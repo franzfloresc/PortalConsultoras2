@@ -1,4 +1,4 @@
-GO
+﻿GO
 USE BelcorpPeru
 GO
 GO
@@ -21,6 +21,7 @@ BEGIN
 
 	DECLARE @_RowCount INT = @RowCount
 	DECLARE @CampaniaIDVarchar varchar(8) = cast(@CampaniaID as varchar(8))
+
 	/*Creacion de tablas Temporales*/
 	DECLARE @OfertaProductoTemp TABLE
 	(
@@ -34,6 +35,7 @@ BEGIN
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
 	/*Fin creacion de tablas Temporales*/
+
 	-- Oferta Producto
 	INSERT INTO @OfertaProductoTemp
 	SELECT
@@ -86,7 +88,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		--,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -125,6 +132,8 @@ BEGIN
 		ON p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK)
+		ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
@@ -157,6 +166,7 @@ BEGIN
 
 	DECLARE @_RowCount INT = @RowCount
 	DECLARE @CampaniaIDVarchar varchar(8) = cast(@CampaniaID as varchar(8))
+
 	/*Creacion de tablas Temporales*/
 	DECLARE @OfertaProductoTemp TABLE
 	(
@@ -170,6 +180,7 @@ BEGIN
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
 	/*Fin creacion de tablas Temporales*/
+
 	-- Oferta Producto
 	INSERT INTO @OfertaProductoTemp
 	SELECT
@@ -222,7 +233,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		--,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -261,6 +277,8 @@ BEGIN
 		ON p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK)
+		ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
@@ -293,6 +311,7 @@ BEGIN
 
 	DECLARE @_RowCount INT = @RowCount
 	DECLARE @CampaniaIDVarchar varchar(8) = cast(@CampaniaID as varchar(8))
+
 	/*Creacion de tablas Temporales*/
 	DECLARE @OfertaProductoTemp TABLE
 	(
@@ -306,6 +325,7 @@ BEGIN
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
 	/*Fin creacion de tablas Temporales*/
+
 	-- Oferta Producto
 	INSERT INTO @OfertaProductoTemp
 	SELECT
@@ -358,7 +378,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		--,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -397,6 +422,8 @@ BEGIN
 		ON p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK)
+		ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
@@ -429,6 +456,7 @@ BEGIN
 
 	DECLARE @_RowCount INT = @RowCount
 	DECLARE @CampaniaIDVarchar varchar(8) = cast(@CampaniaID as varchar(8))
+
 	/*Creacion de tablas Temporales*/
 	DECLARE @OfertaProductoTemp TABLE
 	(
@@ -442,6 +470,7 @@ BEGIN
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
 	/*Fin creacion de tablas Temporales*/
+
 	-- Oferta Producto
 	INSERT INTO @OfertaProductoTemp
 	SELECT
@@ -494,7 +523,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		--,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -533,6 +567,8 @@ BEGIN
 		ON p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK)
+		ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
@@ -565,6 +601,7 @@ BEGIN
 
 	DECLARE @_RowCount INT = @RowCount
 	DECLARE @CampaniaIDVarchar varchar(8) = cast(@CampaniaID as varchar(8))
+
 	/*Creacion de tablas Temporales*/
 	DECLARE @OfertaProductoTemp TABLE
 	(
@@ -578,6 +615,7 @@ BEGIN
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
 	/*Fin creacion de tablas Temporales*/
+
 	-- Oferta Producto
 	INSERT INTO @OfertaProductoTemp
 	SELECT
@@ -630,7 +668,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		--,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -669,6 +712,8 @@ BEGIN
 		ON p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK)
+		ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
@@ -701,6 +746,7 @@ BEGIN
 
 	DECLARE @_RowCount INT = @RowCount
 	DECLARE @CampaniaIDVarchar varchar(8) = cast(@CampaniaID as varchar(8))
+
 	/*Creacion de tablas Temporales*/
 	DECLARE @OfertaProductoTemp TABLE
 	(
@@ -714,6 +760,7 @@ BEGIN
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
 	/*Fin creacion de tablas Temporales*/
+
 	-- Oferta Producto
 	INSERT INTO @OfertaProductoTemp
 	SELECT
@@ -766,7 +813,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		--,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -805,6 +857,8 @@ BEGIN
 		ON p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK)
+		ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
@@ -837,6 +891,7 @@ BEGIN
 
 	DECLARE @_RowCount INT = @RowCount
 	DECLARE @CampaniaIDVarchar varchar(8) = cast(@CampaniaID as varchar(8))
+
 	/*Creacion de tablas Temporales*/
 	DECLARE @OfertaProductoTemp TABLE
 	(
@@ -850,6 +905,7 @@ BEGIN
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
 	/*Fin creacion de tablas Temporales*/
+
 	-- Oferta Producto
 	INSERT INTO @OfertaProductoTemp
 	SELECT
@@ -902,7 +958,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		--,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -941,6 +1002,8 @@ BEGIN
 		ON p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK)
+		ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
@@ -973,6 +1036,7 @@ BEGIN
 
 	DECLARE @_RowCount INT = @RowCount
 	DECLARE @CampaniaIDVarchar varchar(8) = cast(@CampaniaID as varchar(8))
+
 	/*Creacion de tablas Temporales*/
 	DECLARE @OfertaProductoTemp TABLE
 	(
@@ -986,6 +1050,7 @@ BEGIN
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
 	/*Fin creacion de tablas Temporales*/
+
 	-- Oferta Producto
 	INSERT INTO @OfertaProductoTemp
 	SELECT
@@ -1038,7 +1103,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		--,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -1077,6 +1147,8 @@ BEGIN
 		ON p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK)
+		ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
@@ -1109,6 +1181,7 @@ BEGIN
 
 	DECLARE @_RowCount INT = @RowCount
 	DECLARE @CampaniaIDVarchar varchar(8) = cast(@CampaniaID as varchar(8))
+
 	/*Creacion de tablas Temporales*/
 	DECLARE @OfertaProductoTemp TABLE
 	(
@@ -1122,6 +1195,7 @@ BEGIN
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
 	/*Fin creacion de tablas Temporales*/
+
 	-- Oferta Producto
 	INSERT INTO @OfertaProductoTemp
 	SELECT
@@ -1174,7 +1248,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		--,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -1213,6 +1292,8 @@ BEGIN
 		ON p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK)
+		ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
@@ -1245,6 +1326,7 @@ BEGIN
 
 	DECLARE @_RowCount INT = @RowCount
 	DECLARE @CampaniaIDVarchar varchar(8) = cast(@CampaniaID as varchar(8))
+
 	/*Creacion de tablas Temporales*/
 	DECLARE @OfertaProductoTemp TABLE
 	(
@@ -1258,6 +1340,7 @@ BEGIN
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
 	/*Fin creacion de tablas Temporales*/
+
 	-- Oferta Producto
 	INSERT INTO @OfertaProductoTemp
 	SELECT
@@ -1310,7 +1393,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		--,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -1349,6 +1437,8 @@ BEGIN
 		ON p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK)
+		ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
@@ -1381,6 +1471,7 @@ BEGIN
 
 	DECLARE @_RowCount INT = @RowCount
 	DECLARE @CampaniaIDVarchar varchar(8) = cast(@CampaniaID as varchar(8))
+
 	/*Creacion de tablas Temporales*/
 	DECLARE @OfertaProductoTemp TABLE
 	(
@@ -1394,6 +1485,7 @@ BEGIN
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
 	/*Fin creacion de tablas Temporales*/
+
 	-- Oferta Producto
 	INSERT INTO @OfertaProductoTemp
 	SELECT
@@ -1446,7 +1538,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		--,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -1485,6 +1582,8 @@ BEGIN
 		ON p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK)
+		ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
@@ -1517,6 +1616,7 @@ BEGIN
 
 	DECLARE @_RowCount INT = @RowCount
 	DECLARE @CampaniaIDVarchar varchar(8) = cast(@CampaniaID as varchar(8))
+
 	/*Creacion de tablas Temporales*/
 	DECLARE @OfertaProductoTemp TABLE
 	(
@@ -1530,6 +1630,7 @@ BEGIN
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
 	/*Fin creacion de tablas Temporales*/
+
 	-- Oferta Producto
 	INSERT INTO @OfertaProductoTemp
 	SELECT
@@ -1582,7 +1683,12 @@ BEGIN
 		,te.flagNueva
 		,te.TipoEstrategiaID
 		,P.IndicadorOferta
-		,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		--,case when isnull(ps.CUV, 0) = 0 then 0 else 1 end as TieneSugerido
+		,CASE WHEN ISNULL(ps.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN ISNULL(pf.CUV, 0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido
 		,CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END TieneOfertaRevista
 		,p.PrecioValorizado
 		,CASE WHEN pl.CodigoSAP IS NULL	THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado
@@ -1621,6 +1727,8 @@ BEGIN
 		ON p.AnoCampania = ps.CampaniaID
 		AND p.CUV = ps.CUV
 		AND ps.Estado = 1
+	LEFT JOIN dbo.ProductoSugeridoPadre psp WITH (NOLOCK)
+		ON p.AnoCampania = psp.CampaniaID AND p.CUV = psp.CUV
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0

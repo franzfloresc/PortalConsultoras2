@@ -1,4 +1,4 @@
-GO
+﻿GO
 USE BelcorpPeru
 GO
 GO
@@ -30,8 +30,8 @@ BEGIN
 	)
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
-	declare @ProductoSugeridoTemp TABLE (CUV varchar(6))
-	declare @Producto table
+	DECLARE @ProductoSugeridoTemp TABLE (CUV varchar(6))
+	DECLARE @Producto TABLE
 	(
 		CUV varchar(50),
 		Descripcion varchar(250),
@@ -175,7 +175,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -192,6 +197,7 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
 	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
@@ -230,8 +236,8 @@ BEGIN
 	)
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
-	declare @ProductoSugeridoTemp TABLE (CUV varchar(6))
-	declare @Producto table
+	DECLARE @ProductoSugeridoTemp TABLE (CUV varchar(6))
+	DECLARE @Producto TABLE
 	(
 		CUV varchar(50),
 		Descripcion varchar(250),
@@ -375,7 +381,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -392,6 +403,7 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
 	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
@@ -430,8 +442,8 @@ BEGIN
 	)
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
-	declare @ProductoSugeridoTemp TABLE (CUV varchar(6))
-	declare @Producto table
+	DECLARE @ProductoSugeridoTemp TABLE (CUV varchar(6))
+	DECLARE @Producto TABLE
 	(
 		CUV varchar(50),
 		Descripcion varchar(250),
@@ -575,7 +587,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -592,6 +609,7 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
 	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
@@ -630,8 +648,8 @@ BEGIN
 	)
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
-	declare @ProductoSugeridoTemp TABLE (CUV varchar(6))
-	declare @Producto table
+	DECLARE @ProductoSugeridoTemp TABLE (CUV varchar(6))
+	DECLARE @Producto TABLE
 	(
 		CUV varchar(50),
 		Descripcion varchar(250),
@@ -775,7 +793,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -792,6 +815,7 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
 	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
@@ -830,8 +854,8 @@ BEGIN
 	)
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
-	declare @ProductoSugeridoTemp TABLE (CUV varchar(6))
-	declare @Producto table
+	DECLARE @ProductoSugeridoTemp TABLE (CUV varchar(6))
+	DECLARE @Producto TABLE
 	(
 		CUV varchar(50),
 		Descripcion varchar(250),
@@ -975,7 +999,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -992,6 +1021,7 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
 	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
@@ -1030,8 +1060,8 @@ BEGIN
 	)
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
-	declare @ProductoSugeridoTemp TABLE (CUV varchar(6))
-	declare @Producto table
+	DECLARE @ProductoSugeridoTemp TABLE (CUV varchar(6))
+	DECLARE @Producto TABLE
 	(
 		CUV varchar(50),
 		Descripcion varchar(250),
@@ -1175,7 +1205,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -1192,6 +1227,7 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
 	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
@@ -1230,8 +1266,8 @@ BEGIN
 	)
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
-	declare @ProductoSugeridoTemp TABLE (CUV varchar(6))
-	declare @Producto table
+	DECLARE @ProductoSugeridoTemp TABLE (CUV varchar(6))
+	DECLARE @Producto TABLE
 	(
 		CUV varchar(50),
 		Descripcion varchar(250),
@@ -1375,7 +1411,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -1392,6 +1433,7 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
 	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
@@ -1430,8 +1472,8 @@ BEGIN
 	)
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
-	declare @ProductoSugeridoTemp TABLE (CUV varchar(6))
-	declare @Producto table
+	DECLARE @ProductoSugeridoTemp TABLE (CUV varchar(6))
+	DECLARE @Producto TABLE
 	(
 		CUV varchar(50),
 		Descripcion varchar(250),
@@ -1575,7 +1617,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -1592,6 +1639,7 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
 	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
@@ -1630,8 +1678,8 @@ BEGIN
 	)
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
-	declare @ProductoSugeridoTemp TABLE (CUV varchar(6))
-	declare @Producto table
+	DECLARE @ProductoSugeridoTemp TABLE (CUV varchar(6))
+	DECLARE @Producto TABLE
 	(
 		CUV varchar(50),
 		Descripcion varchar(250),
@@ -1775,7 +1823,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -1792,6 +1845,7 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
 	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
@@ -1830,8 +1884,8 @@ BEGIN
 	)
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
-	declare @ProductoSugeridoTemp TABLE (CUV varchar(6))
-	declare @Producto table
+	DECLARE @ProductoSugeridoTemp TABLE (CUV varchar(6))
+	DECLARE @Producto TABLE
 	(
 		CUV varchar(50),
 		Descripcion varchar(250),
@@ -1975,7 +2029,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -1992,6 +2051,7 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
 	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
@@ -2030,8 +2090,8 @@ BEGIN
 	)
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
-	declare @ProductoSugeridoTemp TABLE (CUV varchar(6))
-	declare @Producto table
+	DECLARE @ProductoSugeridoTemp TABLE (CUV varchar(6))
+	DECLARE @Producto TABLE
 	(
 		CUV varchar(50),
 		Descripcion varchar(250),
@@ -2175,7 +2235,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -2192,6 +2257,7 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
 	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
@@ -2230,8 +2296,8 @@ BEGIN
 	)
 
 	DECLARE @ProductoFaltanteTemp TABLE (CUV VARCHAR(6))
-	declare @ProductoSugeridoTemp TABLE (CUV varchar(6))
-	declare @Producto table
+	DECLARE @ProductoSugeridoTemp TABLE (CUV varchar(6))
+	DECLARE @Producto TABLE
 	(
 		CUV varchar(50),
 		Descripcion varchar(250),
@@ -2375,7 +2441,12 @@ BEGIN
 		te.flagNueva as FlagNueva,
 		te.TipoEstrategiaID as TipoEstrategiaID,
 		p.IndicadorOferta,
-		case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		--case when pst.CUV is null then 0 else 1 end as TieneSugerido,
+		CASE WHEN ISNULL(pst.CUV, 0) = 0 THEN 0 ELSE
+            CASE WHEN ISNULL(psp.MostrarAgotado, 0) = 0 THEN 1 ELSE
+                CASE WHEN isnull(p.CUVProductoFaltante,0) = 0 THEN 0 ELSE 1 END
+            END
+        END TieneSugerido,
 		case when p.SAPProductoComercialOfertaRevista is null then 0 else 1 end as TieneOfertaRevista,
 		p.PrecioValorizado,
 		case when p.CodigoSAPProductosLanzamiento is null then 0 else 1 end as TieneLanzamientoCatalogoPersonalizado,
@@ -2392,6 +2463,7 @@ BEGIN
 		and te.FlagActivo = 1
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
+	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
 	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
