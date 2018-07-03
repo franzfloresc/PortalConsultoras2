@@ -244,7 +244,7 @@
 
 
     var _verificarVariedad = function (estrategia) {
-        if (IsNullOrEmpty(estrategia.codigoVariante)) {
+        if (!IsNullOrEmpty(estrategia.CodigoVariante)) {
             var componentes;
             var param = {
                 estrategiaId: estrategia.EstrategiaID,
