@@ -287,7 +287,6 @@
     <Compile Include="Controllers\AdministrarReporteValidacionController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\AppController.cs" />
-    <Compile Include="Controllers\RestableceTuContraseniaController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
     <Compile Include="Controllers\BaseGuiaNegocioController.cs" />
@@ -697,6 +696,7 @@
     <Compile Include="Models\ValidacionAutomaticaModel.cs" />
     <Compile Include="Models\ValidacionStockModel.cs" />
     <Compile Include="Models\ValidacionTelefonicaModel.cs" />
+    <Compile Include="Models\VericaAutenticidadModel.cs" />
     <Compile Include="Models\ZonaModel.cs" />
     <Compile Include="Pdto.aspx.cs">
       <DependentUpon>Pdto.aspx</DependentUpon>
@@ -1433,6 +1433,8 @@
     <Content Include="Content\Images\Esika\icono_sms.svg" />
     <Content Include="Content\Images\flecha-campo-select.svg" />
     <Content Include="Content\Images\icono-calendario.svg" />
+    <Content Include="Content\Images\icono_validacion_codigo_sms_correcto.svg" />
+    <Content Include="Content\Images\icono_validacion_codigo_sms_erroneo.svg" />
     <Content Include="Content\Images\icono_volver.svg" />
     <Content Include="Content\Images\icono_volver_mobile.svg" />
     <Content Include="Content\Images\Lbel\icono_check_lbel.png" />
@@ -3699,6 +3701,7 @@
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Index.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Mensaje.js" />
+    <Content Include="Scripts\PortalConsultoras\Login\VerificaAutenticidad.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCamapaniaJS.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
@@ -4535,6 +4538,33 @@
     <None Include="Service References\ServiceUsuario\UsuarioService5.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService51.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService52.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService61.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService62.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService63.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService64.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService65.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService66.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceZonificacion\ZonificacionService.wsdl" />
     <None Include="Service References\ServiceZonificacion\ZonificacionService.xsd">
       <SubType>Designer</SubType>
@@ -5064,8 +5094,7 @@
     <Content Include="Views\Lanzamientos\Detalle.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
     <Content Include="Views\Lanzamientos\Template_LanzamientosTonos.cshtml" />
-    <Content Include="Views\RestableceTuContrasenia\Index.cshtml" />
-    <Content Include="Views\RestableceTuContrasenia\VerificarAutenticidad.cshtml" />
+    <Content Include="Views\Login\VerificaAutenticidad.cshtml" />
     <Content Include="Views\MatrizCampania\ActualizarMatrizCampaniaNew.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpVariablesGeneralesPortal.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
