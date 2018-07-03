@@ -1135,9 +1135,11 @@ namespace Portal.Consultoras.Entities
         public bool EsquemaDAConsultora { get; set; }
 
         [DataMember]
+        [Column("OfertaFinal")]
         public int OfertaFinal { get; set; }
-
+        
         [DataMember]
+        [Column("EsOfertaFinalZonaValida")]
         public bool EsOfertaFinalZonaValida { get; set; }
 
         [DataMember]
@@ -1466,7 +1468,11 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool FotoPerfilAncha { get; set; }
         [DataMember]
+        public BEOfertaFinal _OfertaFinal { get; set; }
+        [DataMember]
         public bool EsConsultoraOficina { get; set; }
+        [DataMember]
+        public string NivelProyectado { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {

@@ -118,6 +118,7 @@
     <Compile Include="Estrategia\UpSellingBusinessLogic.cs" />
     <Compile Include="Estrategia\UpsellingMarcaCategoriaBusinessLogic.cs" />
     <Compile Include="ICatalogoBusinessLogic.cs" />
+    <Compile Include="Consultora\IConsultoraLiderBusinessLogic.cs" />
     <Compile Include="Incentivo\BLConsultoraConcurso.cs" />
     <Compile Include="BLFichaProducto.cs" />
     <Compile Include="BLPalabraInvalida.cs" />
@@ -155,7 +156,7 @@
     <Compile Include="BLConsultoraDigitales.cs" />
     <Compile Include="BLConsultoraCatalogo.cs" />
     <Compile Include="BLConsultoraFicticia.cs" />
-    <Compile Include="BLConsultoraLider.cs" />
+    <Compile Include="Consultora\BLConsultoraLider.cs" />
     <Compile Include="ProgramaNuevas\BLConsultorasProgramaNuevas.cs" />
     <Compile Include="BLContenidoDato.cs" />
     <Compile Include="BLContenidoRevista.cs" />

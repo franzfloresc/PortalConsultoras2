@@ -14,6 +14,10 @@
     var nombreConsultora = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     var tipoUsuaio = ViewBag.TipoUsuario;
     ViewBag.SourcePage = 1;
+
+    Model.NombreConsultora = Util.SubStr(Model.NombreConsultora, 0).ToUpper();
+    var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
+
 }
 
 @section styles{
@@ -590,7 +594,31 @@
         </div>
     </div>
 </div>
-
+<!-- POPUP ACEPTACIÓN DE CONTRATO (COLOMBIA) -->
+<div id="fondoPopup_aceptacionTerminosYCondicionesContrato" class="contenedor_fondo_popup" style="display:none;">
+    <div id="popupAceptacionContrato" class="popup_aceptacionTerminosYCondicionesContrato">
+        <div class="contenido_popUp">
+            <div class="icono_contrato"></div>
+            <h1 class="titulo_aceptacionTerminosYCondicionesContrato">
+                TÉRMINOS Y CONDICIONES DE USO DE <b>SOMOSBELCORP.COM</b>
+            </h1>
+            <p class="mensaje_popUp_aceptacionTerminosYCondicionesContrato">
+                <b>Querida @(nombreConsultoraSin),</b>
+            </p>
+            <p class="mensaje_popUp_aceptacionTerminosYCondicionesContrato">
+                Al dar click en el botón, aceptas los términos y condiciones de la Solicitud de Crédito y Autorización de consulta y reporte de datos financieros.
+            </p>
+            <a href="javascript:;" onclick="return DownloadAttachPDF();" class="enlace_detalleTerminosYCondicionesContrato text-uppercase" title="Revisar términos y condiciones de uso">
+                >  CONOCE EL DETALLE AQUÍ
+            </a>
+            <button type="button" name="btn_aceptarTerminosYCondicionesContrato" class="btn_aceptarTerminosYCondicionesContrato" onclick="return AceptarContrato();">
+                <b>¡ACEPTO!</b> <br /> QUIERO EMPEZAR A USARLO
+            </button>
+        </div>
+    </div>
+</div>
+<!-- FIN - POPUP ACEPTACIÓN DE CONTRATO (COLOMBIA) -->
+<!-- POPUP DEMANDA ANTICIPADA -->
 <div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display: none;">
     <div class="popup_demandaAnticipada" id="popupDemandaAnticipada" style="display: none;">
         <div class="contenido_popUp">
@@ -814,6 +842,13 @@
         var viewBagVioTutorial = '@Model.VioTutorial';
         var TipoPopUpMostrar = '@Model.TipoPopUpMostrar';
         var popupRevistaDigitalSuscripcion = '@Constantes.TipoPopUp.RevistaDigitalSuscripcion';
+
+        var popupAceptacionContrato = '@Constantes.TipoPopUp.AceptacionContrato';
+        var OrigenAceptacionContrato = '@Constantes.ClienteOrigen.OrigeMobile';
+
+        var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/41577-BELCORP-SolCre-CO-400073315-300916.pdf")';
+        var viewBagCambioClave = '@Model.CambioClave';
+
         var origenPagina = 1;
         var urlUpdatePopupShowRoom = '@Url.Action("UpdatePopupShowRoom", "ShowRoom", new { area = "" })';
         var urlMostrarShowRoomPopup = '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new { area = "" })';
