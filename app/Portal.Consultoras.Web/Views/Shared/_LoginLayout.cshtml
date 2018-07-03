@@ -24,18 +24,19 @@
 
     @{
         /*Limpiando de saltos de linea*/
-        string linkEsika = Styles.Render("~/Content/Css/Site/Login2/Esika").ToString();
-        string linkLbel = Styles.Render("~/Content/Css/Site/Login2/Lbel").ToString();
-        linkEsika = System.Text.RegularExpressions.Regex.Replace(linkEsika, @"\t|\n|\r", "");
-        linkLbel = System.Text.RegularExpressions.Regex.Replace(linkLbel, @"\t|\n|\r", "");
+        var regex = new System.Text.RegularExpressions.Regex(@"\t|\n|\r");
+        string linkEsika = Styles.Render("~/Content/Css/Site/Login2/Esika").ToHtmlString();
+        string linkLbel = Styles.Render("~/Content/Css/Site/Login2/Lbel").ToHtmlString();
+        linkEsika = regex.Replace(linkEsika, "");
+        linkLbel = regex.Replace(linkLbel, "");
     }
     <script>
-        var bIsLocal = /localhost/i.test(location.hostname)
+        var bIsLocal = /^localhost/i.test(location.hostname)
             , oDivEsika = document.createElement("div")
-            , oDivLbel = document.createElement("div")
-        ;
+            , oDivLbel = document.createElement("div");
+
         oDivEsika.innerHTML = '@Html.Raw(linkEsika)';
-        oDivLbel.innerHTML  = '@Html.Raw(linkLbel)'; console.log("->", oDivEsika, oDivLbel);
+        oDivLbel.innerHTML  = '@Html.Raw(linkLbel)';
         window.UrlStyles = {
             esika: bIsLocal ? '@Url.Content("~/Content/Css/Site/Login2/style_esika.css")': oDivEsika.firstChild.href,
             lbel : bIsLocal ? '@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")' : oDivLbel.firstChild.href
@@ -48,7 +49,6 @@
              data-srcesika="@Url.Content("~/Content/Css/Site/Login2/style_esika.css")"
              data-srclbel="@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")"
              id="cssStyle">
-            <!--link href="@@Url.Content("~/Content/Css/Site/Login2/style_esika.css")" rel="stylesheet" type='text/css' /-->
             @Styles.Render("~/Content/Css/Site/Login2/Esika")
         </div>
     }
@@ -60,7 +60,6 @@
              data-srcesika="@Url.Content("~/Content/Css/Site/Login2/style_esika.css")"
              data-srclbel="@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")"
              id="cssStyleLbel">
-            <!--link href="@@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")" rel="stylesheet" type='text/css' /-->
             @Styles.Render("~/Content/Css/Site/Login2/Lbel")
         </div>
     }
@@ -73,7 +72,7 @@
 
         //Variables nuevo chat
         var emt_client_type = '';
-        var emt_country = '';
+        var emt_country = '@ViewBag.IsoPais';
         var emt_email_address = '';
         var emt_first_name = '';
         var emt_id = '';

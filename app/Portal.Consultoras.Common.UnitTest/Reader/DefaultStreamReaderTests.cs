@@ -15,9 +15,9 @@ namespace Portal.Consultoras.Common.UnitTest.Reader
         public void ReadCsvTest()
         {
             var content = @"codigoConsultora
-213123
-444556
-677778";
+            213123
+            444556
+            677778";
             var items = GetElements(content);
 
             Assert.AreEqual(3, items.Length);
@@ -27,9 +27,9 @@ namespace Portal.Consultoras.Common.UnitTest.Reader
         public void ReadCsvWithComaTest()
         {
             var content = @"codigoConsultora
-213123,
-444556,
-677778,";
+            213123,
+            444556,
+            677778,";
             var items = GetElements(content);
 
             Assert.AreEqual(3, items.Length);
@@ -39,12 +39,12 @@ namespace Portal.Consultoras.Common.UnitTest.Reader
         public void ReadCsvWithEmptyLinesTest()
         {
             var content = @"codigoConsultora
-213123
-444556
-677778
+            213123
+            444556
+            677778
 
 
-";
+            ";
             var items = GetElements(content);
 
             Assert.AreEqual(3, items.Length);
