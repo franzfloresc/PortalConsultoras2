@@ -375,7 +375,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
-                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
             ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/Login2/Esika").Include(
@@ -390,7 +391,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
-                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
             ));
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/PedidoFIC").Include(
                 "~/Scripts/PortalConsultoras/Mobile/PedidoFIC/Index.js",

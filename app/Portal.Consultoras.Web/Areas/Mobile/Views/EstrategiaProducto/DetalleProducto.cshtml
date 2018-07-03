@@ -135,10 +135,10 @@
         </div>
         <div data-estrategia="{{CodigoEstrategia}}"></div>
         <div class="content_320">
-            <div class="content_cantidad_ficha_producto">
-                <a class="cantidad_menos_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+            <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
+                <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                 <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                <a class="cantidad_mas_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
             </div>
             <a class="btn_agregar_ficha_producto" data-btn-agregar-sr="" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true); ">AGRÉGALO</a>
             <hr class="clear">

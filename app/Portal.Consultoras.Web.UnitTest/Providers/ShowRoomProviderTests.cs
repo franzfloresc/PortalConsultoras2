@@ -127,6 +127,7 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
                 }
             }
 
+            public string CargoOfertas { get; set; }
             public List<EstrategiaPersonalizadaProductoModel> Ofertas { get; set; }
             public List<EstrategiaPersonalizadaProductoModel> OfertasSubCampania { get; set; }
             public List<EstrategiaPersonalizadaProductoModel> OfertasPerdio { get; set; }
