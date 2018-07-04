@@ -7,7 +7,9 @@
 
 @section styles{
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/ion.rangeSlider/normalize.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/ion.rangeSlider/ion.rangeSlider.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/ion.rangeSlider/ion.rangeSlider.skinHTML5.css")" rel="stylesheet" />
     <style>
         body {
             background: white;
@@ -94,7 +96,7 @@
                 <div class="linea_separadora"></div>
                 <span class="titulo_filtro_fav">RANGO DE PRECIO</span>
                 <div class="content_filtro_range">
-                    <input class="range-slider" value="" style="width:100%; display:none;" />
+                    <input class="range-slider" type="text" value="" style="display:none;" />
                 </div>
 
                 <hr class="clear" />
@@ -935,7 +937,7 @@
         var precioMin = '@ViewBag.PrecioMin';
         var precioMax = '@ViewBag.PrecioMax';
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/ion.rangeSlider/ion.rangeSlider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
 }

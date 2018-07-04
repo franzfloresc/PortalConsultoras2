@@ -36279,8 +36279,6 @@ h1#penmostreo .campana {
     position: relative;
     float: left;
     min-width: 330px;
-    padding-left: 15px;
-    padding-right: 30px;
     font-family: 'LAto';
     font-size: 12px;
     font-weight: bold;
@@ -36293,22 +36291,38 @@ h1#penmostreo .campana {
     background-position-y: 5px;
 }
 
-.content_detalle_filtro {
+.txt_filtrar_por_precio {
+    padding-left: 15px;
+    padding-right: 30px;
     width: 100%;
+}
+
+.content_detalle_filtro {
+    width: 350px;
     position: absolute;
     z-index: 20;
-    top: 33px;
     border: 1px solid #b8b8b8;
     border-top: 0;
-    left: 0;
     background: white;
     min-height: 100px;
 }
 
 .content_filtro_range_showroom {
     width: 70%;
-    margin: 0 auto;
-    margin-top: 50px;
+    margin: 15px auto 10px auto;
+}
+
+.irs-bar, .irs-slider {
+    background-color: #e81c36 !important;
+    border-color: #e81c36 !important;
+}
+
+    .irs-slider.state_hover, .irs-slider:hover {
+        background: #f13049 !important;
+    }
+
+.irs-from, .irs-to, .irs-single {
+    color: #e81c36 !important;
 }
 
 .filtros_derecha_SHOWROOM {
@@ -36740,3 +36754,104 @@ h1#penmostreo .campana {
 }
 
 /* FIN - MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */
+/* HD-2430 -  ACEPTAR TYC OBLIGATORIO DESKTOP */
+
+.popup_aceptacionTerminosYCondicionesContrato,
+.icono_contrato,
+.titulo_aceptacionTerminosYCondicionesContrato,
+.mensaje_popUp_aceptacionTerminosYCondicionesContrato,
+.enlace_detalleTerminosYCondicionesContrato,
+.btn_aceptarTerminosYCondicionesContrato
+{
+    display:block;
+}
+
+.popup_aceptacionTerminosYCondicionesContrato{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right:0;
+    bottom:0;
+    margin: auto;
+    background: #fff;
+    width: 100%;
+    max-width: 520px;
+    height: 506px;
+    padding: 48px 80px 62px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    z-index: 2;
+}
+
+.icono_contrato{
+    width: 53.95px;
+    height: 49.28px;
+    margin: 0 auto;
+    background: url('../../../Images/Esika/icono_contrato.svg') center center no-repeat;
+    margin-bottom: 21px;
+    background-size: 99%;
+}
+
+.titulo_aceptacionTerminosYCondicionesContrato {
+    width: 100%;
+    margin-bottom:32px;
+    padding: 0;
+    font-family: 'Lato';
+    font-size: 18px;
+    font-weight:300!important;
+    line-height: 25px;
+    letter-spacing:0.45px;
+    color: #000;
+    text-align: center;
+}
+
+    .titulo_aceptacionTerminosYCondicionesContrato b {
+        font-weight: 700;
+    }
+
+.mensaje_popUp_aceptacionTerminosYCondicionesContrato{
+    font-size: 13px;
+    color: #000;
+    text-align: left;
+    margin-bottom: 17px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing:0.32px;
+}
+
+.enlace_detalleTerminosYCondicionesContrato{
+    text-align: center;
+    color: #000;
+    font-size: 13px;
+    margin-top:36px;
+    margin-bottom: 56px;
+    text-decoration:underline;
+}
+
+.btn_aceptarTerminosYCondicionesContrato {
+    margin: 0 auto;
+    width: 100%;
+    /*
+    height: 45px;
+    line-height: 45px;
+    */
+    height: 55px;
+    line-height: 20px;
+
+    font-family: 'Lato';
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    background: #e81c36;
+    color: #fff;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+    .btn_aceptarTerminosYCondicionesContrato:hover{
+        background:rgba(232, 28, 54, 0.80);
+    }
+
+/* FIN - HD-2430 -  ACEPTAR TYC OBLIGATORIO DESKTOP */

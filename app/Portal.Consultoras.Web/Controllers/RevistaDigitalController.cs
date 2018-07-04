@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.SessionManager;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -291,7 +292,8 @@ namespace Portal.Consultoras.Web.Controllers
                     success = revistaDigital.EstadoSuscripcion > 0,
                     message = revistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo.",
                     revistaDigital = getRevistaDigitalShortModel(),
-                    CampaniaID = userData.CampaniaID
+                    CampaniaID = userData.CampaniaID,
+                    Inmediata = EsSuscripcionInmediata()
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -351,19 +353,10 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
             }
 
-            if (entidad.RevistaDigitalSuscripcionID <= 0) return "";
-            revistaDigital.SuscripcionModel = Mapper.Map<ServicePedido.BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
-            revistaDigital.NoVolverMostrar = true;
-            revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
-            revistaDigital.EsSuscrita = revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
-            var campaniaEfectiva = userData.CampaniaID + revistaDigital.CantidadCampaniaEfectiva;
-            revistaDigital.CampaniaActiva =
-                campaniaEfectiva.ToString().Substring(campaniaEfectiva.ToString().Length - 2);
-            sessionManager.SetRevistaDigital(revistaDigital);
-            userData.MenuMobile = null;
-            userData.Menu = null;
-            Session[Constantes.ConstSession.MenuContenedor] = null;
-            SetUserData(userData);
+            if (entidad.RevistaDigitalSuscripcionID <= 0)
+                return "";
+
+            RevistaDigitalActualizarSuscripcion();
 
             return "";
         }
@@ -644,5 +637,68 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
+        private void RevistaDigitalActualizarSuscripcion()
+        {
+            try
+            {
+                var rds = new ServicePedido.BERevistaDigitalSuscripcion
+                {
+                    PaisID = userData.PaisID,
+                    CodigoConsultora = userData.CodigoConsultora
+                };
+
+                using (var pedidoServiceClient = new PedidoServiceClient())
+                {
+                    revistaDigital.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(pedidoServiceClient.RDGetSuscripcion(rds));
+
+                    rds.CampaniaID = userData.CampaniaID;
+                    revistaDigital.SuscripcionEfectiva = Mapper.Map<RevistaDigitalSuscripcionModel>(pedidoServiceClient.RDGetSuscripcionActiva(rds));
+                }
+
+                revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
+                revistaDigital.EsSuscrita = revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+                revistaDigital.EsActiva = revistaDigital.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+                revistaDigital.NoVolverMostrar = true; // se puede copiar la logica del login
+
+                sessionManager.SetRevistaDigital(revistaDigital);
+                userData.MenuMobile = null;
+                userData.Menu = null;
+                sessionManager.SetMenuContenedor(null);
+                sessionManager.SetUserData(userData);
+
+                if (EsSuscripcionInmediata())
+                {
+                    LimpiarEstrategia(userData.PaisID, userData.CampaniaID.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+        }
+
+        private void LimpiarEstrategia(int paisID, string campaniaID)
+        {
+            //Limpiar session del servidor
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)] = null;
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.HerramientasVenta)] = null;
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.Lanzamiento)] = null;
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.LosMasVendidos)] = null;
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaParaTi)] = null;//
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaWeb)] = null;//
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.PackNuevas)] = null;//
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.RevistaDigital)] = null;
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, string.Empty)] = null;// OPT
+            Session[Constantes.ConstSession.ListaProductoShowRoom] = null;//
+            sessionManager.SetEstrategiaODD(null);
+            //Limpia cache de Redis
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                sv.LimpiarCacheRedis(paisID, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada, campaniaID);
+                sv.LimpiarCacheRedis(paisID, Constantes.TipoEstrategiaCodigo.HerramientasVenta, campaniaID);
+            }
+        }
+
     }
 }

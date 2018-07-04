@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -38,7 +39,6 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using System.Drawing;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -296,7 +296,7 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var item in pedObs)
             {
                 listaCUVsAEvaluar = new List<string>();
-                item.Mensaje = string.Empty;                
+                item.Mensaje = string.Empty;
 
                 if (cuvHijos.Any(x => x.SetID == item.SetID))
                 {
@@ -304,7 +304,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                     listaCUVsAEvaluar.Add(item.CUV);
-                
+
                 var temp = observaciones.Where(o => listaCUVsAEvaluar.Contains(o.CUV)).ToList();
 
 
@@ -323,7 +323,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else item.TipoObservacion = 0;
             }
 
-            sessionManager.SetObservacionesProl(null);
+            //sessionManager.SetObservacionesProl(null);
 
             return pedObs.OrderByDescending(p => p.TipoObservacion).ToList();
         }
@@ -354,6 +354,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return pedObs.OrderByDescending(p => p.TipoObservacion).ToList();
         }
+
         private List<BEPedidoWebDetalle> TraerHijosFaltantesEnObsPROL(List<BEPedidoWebDetalle> pedido)
         {
             var idSetList = pedido.Where(x => x.SetID != 0).Select(x => x.SetID).ToList();
@@ -1456,6 +1457,8 @@ namespace Portal.Consultoras.Web.Controllers
             else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
             {
                 tipo = codigoTipos == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoTipos == Constantes.TipoEstrategiaSet.CompuestaFija ? 2 : 3;
+                tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
+                tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
             }
             else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
                 || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
@@ -1466,6 +1469,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return tipo;
         }
+
 
         public List<FichaProductoModel> FichaProductoModelFormato(List<BEFichaProducto> listaProducto)
         {
@@ -1881,7 +1885,7 @@ namespace Portal.Consultoras.Web.Controllers
                             TippingPoint.Precio2 = estrategia == null ? default(decimal) : estrategia.Precio2;
                             TippingPoint.PrecioPublico = estrategia == null ? default(decimal) : estrategia.PrecioPublico;
                             TippingPoint.PrecioUnitario = estrategia == null ? default(decimal) : estrategia.PrecioUnitario;
-                            TippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
+                            TippingPoint.LinkURL = estrategia == null ? default(string) : getUrlTippingPoint(estrategia.ImagenURL);
                         }
                     }
                 }
@@ -3925,8 +3929,10 @@ namespace Portal.Consultoras.Web.Controllers
             if (!sessionManager.GetEsShowRoom())
                 return;
 
-            if (!sessionManager.GetMostrarShowRoomProductos() &&
-                !sessionManager.GetMostrarShowRoomProductosExpiro())
+            if (sessionManager.GetMostrarShowRoomProductosExpiro())
+                return;
+
+            if (!sessionManager.GetMostrarShowRoomProductos())
             {
 
                 seccion.UrlLandig = (seccion.IsMobile ? "/Mobile/" : "/") + "ShowRoom/Intriga";
@@ -3945,9 +3951,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
             }
-
-            if (sessionManager.GetMostrarShowRoomProductos() &&
-                !sessionManager.GetMostrarShowRoomProductosExpiro())
+            else
             {
                 seccion.UrlLandig = (seccion.IsMobile ? "/Mobile/" : "/") + "ShowRoom";
                 seccion.UrlObtenerProductos = "ShowRoom/CargarProductosShowRoomOferta";
@@ -5934,6 +5938,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
             return esFacturacion;
         }
+
         public void registraLogDynamoCDR(MisReclamosModel model)
         {
             try
@@ -5974,6 +5979,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
+
         private string ObtenerDescripcionOferta(BEPedidoWebDetalle item)
         {
             var descripcion = "";
@@ -6071,5 +6077,58 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return Request.Browser.IsMobileDevice;
         }
+
+        #region Revista digital y Sección DORADA
+        public ConfiguracionPaisDatosModel ObtenerPerdio(int campaniaId)
+        {
+            var dato = new ConfiguracionPaisDatosModel();
+            if (TieneProductosPerdio(campaniaId))
+            {
+                var codigo = "";
+                bool upper = false;
+                if (!revistaDigital.EsSuscrita)
+                {
+                    codigo = Constantes.ConfiguracionPaisDatos.RD.NSPerdiste;
+                    upper = true;
+                }
+                else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+                {
+                    codigo = Constantes.ConfiguracionPaisDatos.RD.SNAPerdiste;
+                    upper = true;
+                }
+                else
+                {
+                    codigo = IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MPerdiste : Constantes.ConfiguracionPaisDatos.RD.DPerdiste;
+                }
+
+                dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+
+                dato.Valor1 = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+                dato.Valor2 = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
+
+                if (upper)
+                {
+                    dato.Valor1 = dato.Valor1.ToUpper();
+                    dato.Valor2 = dato.Valor2.ToUpper();
+                }
+
+                dato.Estado = true;
+            }
+
+            dato.Valor1 = Util.Trim(dato.Valor1);
+            dato.Valor2 = Util.Trim(dato.Valor2);
+
+            return dato;
+        }
+
+        public bool TieneProductosPerdio(int campaniaId)
+        {
+            if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&
+                campaniaId == userData.CampaniaID)
+                return true;
+
+            return false;
+        }
+        #endregion
     }
 }

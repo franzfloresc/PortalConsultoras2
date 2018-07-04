@@ -732,7 +732,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { success = true, message = "La imagen se subió exitosamente", imagen = Url.Content(rutaImagen) });
         }
 
-        public JsonResult AceptarContrato(bool checkAceptar)
+        public JsonResult AceptarContrato(bool checkAceptar , string origenAceptacion)
         {
             try
             {
@@ -748,7 +748,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var svr = new UsuarioServiceClient())
                 {
-                    svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora);
+                  svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora , origenAceptacion);
                 }
 
                 userData.IndicadorContrato = 1;
@@ -1827,7 +1827,16 @@ namespace Portal.Consultoras.Web.Controllers
                     rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
                 }
 
-                var lstPersonalizacion = configEstrategiaSR.ListaPersonalizacionConsultora.Where(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP).ToList();
+                List<ShowRoomPersonalizacionModel> lstPersonalizacion;
+                if (configEstrategiaSR.ListaPersonalizacionConsultora == null)
+                {
+                    lstPersonalizacion = new List<ShowRoomPersonalizacionModel>();
+                }
+                else
+                {
+                    lstPersonalizacion = configEstrategiaSR.ListaPersonalizacionConsultora.Where(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP).ToList();
+                }
+                
 
                 return Json(new
                 {

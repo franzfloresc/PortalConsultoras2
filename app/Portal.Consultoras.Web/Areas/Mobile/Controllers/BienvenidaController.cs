@@ -93,6 +93,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.NombreConsultoraFAV = ObtenerNombreConsultoraFav();
                 ViewBag.UrlImagenFAVMobile = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
 
+                model.CambioClave = userData.CambioClave;
+
                 if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
                 {
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
@@ -109,6 +111,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.VerSeccion = verSeccion;
 
                 model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar();
+
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.ConsultoraNuevaBannerAppMostrar = (bool)(Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar] ?? false);
             }
@@ -238,6 +241,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     return tipoPopUpMostrar;
                 }
             }
+            else if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora
+                     && userData.CambioClave == 0 && userData.IndicadorContrato == 0
+                     && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia)
+                     && sessionManager.GetIsContrato() == 1)
+            {
+                tipoPopUpMostrar = Constantes.TipoPopUp.AceptacionContrato;
+                Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+                return tipoPopUpMostrar;
+            }
+
+
 
             // debe tener la misma logica que desktop
 
@@ -258,7 +272,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return tipoPopUpMostrar;
         }
-
+        
         private BECuponConsultora ObtenerCuponDesdeServicio()
         {
             BECuponConsultora cuponResult;
@@ -444,6 +458,85 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
             return partial;
+        }
+
+        public JsonResult AceptarContrato(bool checkAceptar, string origenAceptacion)
+        {
+            try
+            {
+                if (!checkAceptar)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Debe marcar la aceptación del contrato.",
+                        extra = ""
+                    });
+                }
+
+                using (var svr = new UsuarioServiceClient())
+                {
+                   svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora, origenAceptacion);
+                }
+
+                userData.IndicadorContrato = 1;
+
+                var cadena = "<br /><br /> Por la presente se le comunica que usted ha indicado estar de acuerdo con el contrato. Se adjunta una copia del contrato firmado.";
+
+                var correoDestino = string.Empty;
+                if (userData.EMail.Length > 0)
+                {
+                    correoDestino = userData.EMail;
+                }
+
+                var filePath = Server.MapPath("~/Content/FAQ/Contrato_CO.pdf");
+                var indicadorEnvio = GetConfiguracionManager(Constantes.ConfiguracionManager.indicadorContrato);
+                if (indicadorEnvio == "1")
+                {
+                    try
+                    {
+                        Util.EnviarMail3("no-responder@somosbelcorp.com", correoDestino, "Usted ha firmado el contrato con SomosBelcorp", cadena, true, string.Empty, filePath, userData.NombreConsultora);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                        return Json(new
+                        {
+                            success = false,
+                            message = "Se acepto el contrato pero no se pudo enviar correo electrónico.",
+                            extra = "nocorreo"
+                        });
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Se Acepto la contrata",
+                    extra = ""
+                });
+
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
         }
     }
 

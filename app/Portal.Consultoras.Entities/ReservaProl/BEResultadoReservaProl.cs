@@ -72,7 +72,7 @@ namespace Portal.Consultoras.Entities.ReservaProl
 
         public BEResultadoReservaProl()
         {
-            CodigoMensaje = "";
+            CodigoMensaje = string.Empty;
             ListPedidoObservacion = new List<BEPedidoObservacion>();
             ListDetalleBackOrder = new List<BEPedidoWebDetalle>();
         }
