@@ -373,15 +373,6 @@
             else  return options.fn(this);
         }
     });
-    var _actualizarVariedad = function (estrategia) {
-        if (estrategia.Hermanos.length == 1) {
-            if (estrategia.Hermanos[0].Hermanos) {
-                if (estrategia.Hermanos[0].Hermanos.length > 0) {
-                    estrategia.CodigoVariante = ConstantesModule.CodigoVariedad.IndividualVariable;
-                }
-            }
-        }
-    }
 
     var _ocultarSecciones = function (CodigoEstrategia) {
         if (ConstantesModule.ConstantesPalanca.HerramientasVenta == CodigoEstrategia
