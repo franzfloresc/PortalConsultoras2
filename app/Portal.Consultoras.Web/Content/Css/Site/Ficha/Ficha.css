@@ -523,6 +523,12 @@ body {
     pointer-events: none;
 }
 
+.btn_desactivado_general {
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
+}
+
 .contenedor_agregado {
     float: left;
     height: 15px;

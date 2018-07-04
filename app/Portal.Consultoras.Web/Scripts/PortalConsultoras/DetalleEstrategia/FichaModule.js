@@ -334,6 +334,7 @@
         
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
+        _validarDesactivadoGeneral(estrategia);
         
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
         _ocultarSecciones(estrategia.CodigoEstrategia);
@@ -371,7 +372,7 @@
                 }
             }
         }
-    }
+    };
 
     var _ocultarSecciones = function (CodigoEstrategia) {
         if (ConstantesModule.ConstantesPalanca.HerramientasVenta == CodigoEstrategia
@@ -386,7 +387,18 @@
             $(_seccionesFichaProducto.CarruselProducto).hide();
             $(_seccionesFichaProducto.EtiquetaOdd).hide();
         }
-    }
+    };
+
+    var _validarDesactivadoGeneral = function (estrategia) {
+        $.each(estrategia.Hermanos, function (index, hermano) {
+            if (hermano.Hermanos) {
+                if (hermano.Hermanos.length > 0) {
+                    estrategia.ClaseBloqueada = "btn_desactivado_general";
+                    $("#btnAgregarProducto").addClass("btn_desactivado_general");
+                }
+            }
+        });
+    };
     
     function Inicializar() {
         localStorageModule = LocalStorageModule();

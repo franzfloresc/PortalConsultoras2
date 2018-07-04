@@ -343,22 +343,33 @@ namespace Portal.Consultoras.Web.Controllers
         //Falta revisar las casuiticas por palanca
         public bool TienePermisoPalanca(string palanca)
         {
+            var listaConfigPais = sessionManager.GetConfiguracionesPaisModel();
+            bool tienePalanca;
             switch (palanca)
             {
                 case Constantes.NombrePalanca.RevistaDigital:
+                    tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.RevistaDigital); break;
                 case Constantes.NombrePalanca.Lanzamiento:
+                    tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.Lanzamiento); break;
                 case Constantes.NombrePalanca.GuiaDeNegocioDigitalizada: //TODO: Validar habilitacion para GND
+                    tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada); break;
                 case Constantes.NombrePalanca.HerramientasVenta:
                 {
                     return revistaDigital.TieneRDC || revistaDigital.TieneRDCR;
                 }
                 case Constantes.NombrePalanca.ShowRoom:
-                    return true; //TODO: Validar habilitacion para ShowRoom
+                    tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.ShowRoom); break;
                 case Constantes.NombrePalanca.OfertaDelDia:
-                    return true; //TODO: Validar habilitacion para OfertaDelDia
+                    tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.OfertaDelDia); break;
+                case Constantes.NombrePalanca.OfertaParaTi:
+                    tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.OfertasParaTi); break;
+                case Constantes.NombrePalanca.OfertasParaMi:
+                    tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.RevistaDigital); break;
                 default:
-                    return true;
+                    tienePalanca = false; break;
             }
+
+            return tienePalanca;
         }
         #endregion
 

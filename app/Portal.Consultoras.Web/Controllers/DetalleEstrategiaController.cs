@@ -31,7 +31,6 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.TieneSession = PalancasConSesion(palanca);
             modelo.Campania = campaniaId;
             modelo.Cuv = cuv;
-            
 
             return View("Ficha", modelo);
         }
