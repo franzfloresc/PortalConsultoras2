@@ -405,7 +405,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                                         System.Reflection.PropertyInfo prop = entity.GetType().GetProperty(property.Name);
 
-                                        if (prop != null) continue;
+                                        if (prop == null) continue;
                                    
                                         Type tipo = prop.PropertyType;
                                         object changed = Convert.ChangeType(reader[property.Name], tipo);
@@ -1338,15 +1338,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in resultado)
                 {
-                    if (!string.IsNullOrEmpty(item.DiasEnEspera))
+                    if (!string.IsNullOrEmpty(item.DiasEnEspera) && reporteDiasEspera != null)
                     {
-                        if (reporteDiasEspera != null)
-                        {
                             var data = reporteDiasEspera.ToList().FirstOrDefault(x => x.SolicitudPostulanteId == item.SolicitudPostulanteID).ResumenDiasEspera.Split('|');
                             item.DetalleDiasEsperaGSAC = data[0];
                             item.DetalleDiasEsperaAFFVV = data[1];
                             item.DetalleDiasEsperaASAC = data[2];
-                        }
                     }
                 }
 

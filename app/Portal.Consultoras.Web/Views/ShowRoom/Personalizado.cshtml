@@ -10,7 +10,9 @@
 
 @section styles{
 
-    <link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/ion.rangeSlider/normalize.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/ion.rangeSlider/ion.rangeSlider.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/ion.rangeSlider/ion.rangeSlider.skinHTML5.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
 }
 
@@ -47,15 +49,16 @@
                     </div>
                 }
 
-                <div class="content_filtro_categoria" id="filtro_precio" style="cursor: pointer; min-width:350px;">
-                    FILTRAR POR PRECIO
-                    <div class="content_detalle_filtro" id="detalle_filtro_precio" style="display: none; padding-right: 13%;">
+                <div class="content_filtro_categoria" style="cursor: pointer; min-width:350px;">
+                    <div id="filtro_precio" class="txt_filtrar_por_precio">
+                        FILTRAR POR PRECIO
+                    </div>
+                    <div class="content_detalle_filtro" id="detalle_filtro_precio">
                         <div class="content_filtro_range_showroom">
-                            <input class="range-slider" value="" style="width: 100%; display: none;" />
+                            <input class="range-slider" type="text" value="" />
                         </div>
                     </div>
                 </div>
-
 
                 @if (Model.FiltersBySorting != null)
                 {
@@ -169,9 +172,9 @@
 
                     </div>
                 </div>
-                                }
-                            }
-                        }
+            }
+        }
+    }
 
 </div>
 
@@ -249,8 +252,8 @@
                 <div class="legal_footer_compra">@Model.TextoDescripcionLegalCpc</div>
             </div>
         </div>
-                            }
-                        }
+    }
+}
 
 <div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
     <div class="titulo_producto_agregado">
@@ -408,7 +411,7 @@
 
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/ion.rangeSlider/ion.rangeSlider.js")"></script>
     @System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/ShowRoom/ShowRoomJs")
 
 }

@@ -89,6 +89,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string resultado { get; set; }
 
+        [DataMember]
+        public bool HabilitarChatEmtelco { get; set; }
+
         public BEUsuarioCorreo()
         { }
 

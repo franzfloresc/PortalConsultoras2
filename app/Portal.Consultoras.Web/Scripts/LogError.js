@@ -15,11 +15,11 @@ window.onerror = function (msg, url, line, col, error) {
 
     // Tener en cuenta que col & error son nuevos en la especificación HTML 5 y no pueden ser 
     // soportados en todos los navegadores. 
-    var stackTrace = '';
+    var stackTrace = "";
     if (!error && !col) {
-        stackTrace += msg + ' en ' + url + ' linea ' + line;
+        stackTrace = url + ' -> line: ' + line;
     } else {
-        stackTrace = 'linea: ' + line + ', columna: ' + col + ', ' + error.stack;
+        stackTrace = url + ' -> line: ' + line + ', col: ' + col + ', error: ' + error;
     }
 
     if (msg === 'Script error.') {
@@ -37,6 +37,7 @@ window.onerror = function (msg, url, line, col, error) {
         TipoTrace: 'ScriptError'
     };
 
+    registrarLogErrorElastic(objError);
     registrarLogError(objError);
 
     var suppressErrorAlert = true;
@@ -67,7 +68,7 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
     // HTTP Status Messages 
     // https://www.w3schools.com/tags/ref_httpmessages.asp
 
-    var urlAjax = window.location.origin + "" + settings.url;
+    var urlAjax = window.location.origin + " -> " + settings.url;
 
     var message = settings.url + ": ";
     var stackTrace = "";
@@ -108,14 +109,28 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
         Origen: 'Cliente',
         TipoTrace: 'AjaxError'
     };
+    registrarLogErrorElastic(objError);
     registrarLogError(objError);
 });
 
 function registrarLogError(objError) {
 
-    if (isPagina('localhost') || location.host.indexOf('qa') > 0 || location.host.indexOf('ppr') > 0) {
-        console.log(objError);
+    if (isPagina('localhost')) {
+        return;
     }
+
+    var listaErroresExcluidos = new Array();
+    listaErroresExcluidos.push("200-OK");
+    listaErroresExcluidos.push("Script error");
+    listaErroresExcluidos.push("Error no especificado."); 
+
+    var esMensajeValido = true;
+    $.each(listaErroresExcluidos, function(index, value) {
+        if (value == objError.Mensaje)
+            esMensajeValido = false;
+    });
+
+    if (!esMensajeValido) return;
 
     if (!urlLogDynamo) return;
 
@@ -161,4 +176,75 @@ function registrarLogError(objError) {
             error: function (x, xh, xhr) { }
         });
     }
+}
+
+function registrarLogErrorElastic(objError) {
+
+    if (isPagina('localhost')) {
+        console.log(objError);
+        return;
+    }
+    else if (location.host.indexOf('qa') > 0 || location.host.indexOf('ppr') > 0) {
+        console.log(objError);
+    }
+
+    if (!urlLogElastic) return;
+
+    var urlLogError = urlLogElastic + getIndexName() + "/LogEvent";
+
+    // Ctrl, Action, Url actual
+    var controllerName = window.controllerName
+        , actionName = window.actionName
+        , currentUrl = window.location.href
+        ;
+
+    var data = {
+        'Date': new Date(),
+        'Path': window.location.pathname,
+        'HostName': window.location.origin,
+        'Ajax': objError.Url,
+        'Class': controllerName,
+        'Method': actionName,
+        'Url': currentUrl,
+        'Level': 'ERROR',
+        'Message': objError.Mensaje,
+        'Application': 'Javascript',
+        'Trace': objError.TipoTrace,
+        'Pais': userData.pais,
+        'User': userData.codigoConsultora,
+        'Navigator': navigator.appVersion,
+        'Exception': JSON.stringify(objError.StackTrace)
+    };
+
+    if (urlLogError != "") {
+        $.ajax({
+            type: "POST",
+            async: true,
+            crossOrigin: true,
+            url: urlLogError,
+            dataType: "json",
+            contentType: 'application/json',
+            global: false,
+            data: JSON.stringify(data),
+            success: function (result) { },
+            error: function (x, xh, xhr) { }
+        });
+    }
+}
+
+function getIndexName() {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+
+    return patternElastic + yyyy + '.' + mm + '.' + dd;
 }

@@ -168,6 +168,13 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
+                //21-may-2018
+                var dato = ObtenerPerdio(userData.CampaniaID);
+                showRoomEventoModel.ProductosPerdio = dato.Estado;
+                showRoomEventoModel.PerdioTitulo = dato.Valor1;
+                showRoomEventoModel.PerdioSubTitulo = dato.Valor2;
+                showRoomEventoModel.MensajeProductoBloqueado = MensajeProductoBloqueado();
+
                 return View(showRoomEventoModel);
 
             }
@@ -1765,11 +1772,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
 
-
                 if (tipo == 1)
                 {
-
-
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
                         pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
@@ -1938,7 +1942,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<BEEstrategiaProducto> lst;
+                List<ServicePedido.BEEstrategiaProducto> lst;
                 var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = estrategiaId };
 
                 using (var sv = new PedidoServiceClient())
@@ -1954,7 +1958,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SortOrder = sord
                 };
 
-                IEnumerable<BEEstrategiaProducto> items = lst;
+                IEnumerable<ServicePedido.BEEstrategiaProducto> items = lst;
 
                 #region Sort Section
                 if (sord == "asc")
@@ -2071,13 +2075,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = Mapper.Map<EstrategiaProductoModel, BEEstrategiaProducto>(model);
+                var entidad = Mapper.Map<EstrategiaProductoModel, ServicePedido.BEEstrategiaProducto>(model);
 
                 entidad.PaisID = userData.PaisID;
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
                 entidad.ImagenProducto = GuardarImagenAmazon(model.ImagenProducto, model.ImagenAnterior, userData.PaisID);
 
-                List<BEEstrategiaProducto> lstProd;
+                List<ServicePedido.BEEstrategiaProducto> lstProd;
                 var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = model.EstrategiaID };
 
                 using (var sv = new PedidoServiceClient())
@@ -2253,7 +2257,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = Mapper.Map<EstrategiaProductoModel, BEEstrategiaProducto>(model);
+                var entidad = Mapper.Map<EstrategiaProductoModel, ServicePedido.BEEstrategiaProducto>(model);
 
                 entidad.PaisID = userData.PaisID;
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
@@ -2345,7 +2349,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = new BEEstrategiaProducto
+                var entidad = new ServicePedido.BEEstrategiaProducto
                 {
                     PaisID = userData.PaisID,
                     EstrategiaID = estrategiaId,
@@ -2890,14 +2894,31 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DetalleOferta(int id)
         {
+            var FlagRevistaListaCompleta = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
+
+
             if (!ValidarIngresoShowRoom(false))
                 return RedirectToAction("Index", "Bienvenida");
 
             var estrategiaSR = sessionManager.GetEstrategiaSR();
             var modelo = ViewDetalleOferta(id);
             modelo.EstrategiaId = id;
-            var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
-            modelo.ListaOfertaShowRoom = xList;
+
+
+            if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
+            {
+                modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
+            }
+            else if (!revistaDigital.ActivoMdo)
+            {
+                modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
+            }
+            else
+            {
+                modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+            }
+
+         
 
             bool esFacturacion = EsFacturacion();
 
@@ -2919,13 +2940,34 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var FlagRevistaListaCompleta = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
+
                 if (!ValidarIngresoShowRoom(false))
                     return ErrorJson(string.Empty);
 
                 bool esFacturacion = EsFacturacion();
-                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion, false);
 
-                var listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
+                var listaNoSubCampania = new List<ShowRoomOfertaModel>();
+                var listaNoSubCampaniaPerdio = new List<ShowRoomOfertaModel>();
+
+                if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
+                {
+                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+                    listaNoSubCampaniaPerdio = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
+                }
+                else if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
+                {
+                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
+                }
+                else if (!revistaDigital.ActivoMdo)
+                {
+                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
+                }
+                else
+                {
+                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+                }
                 var totalNoSubCampania = listaNoSubCampania.Count;
 
                 if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
@@ -2968,7 +3010,20 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.Limite > 0)
                     listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
 
-                var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania).ToList();
+
+                var listaSubCampania = new List<ShowRoomOfertaModel>();
+
+
+                if (revistaDigital.EsActiva && revistaDigital.ActivoMdo)
+                {
+                 
+                    listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
+                }
+                else if (!revistaDigital.ActivoMdo)
+                    listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania).ToList();
+                else
+                    listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+
                 listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
 
                 return Json(new
@@ -2977,7 +3032,8 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Ok",
                     listaNoSubCampania,
                     totalNoSubCampania,
-                    listaSubCampania
+                    listaSubCampania,
+                    listaNoSubCampaniaPerdio
                 });
             }
             catch (Exception ex)
@@ -2992,15 +3048,33 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var FlagRevistaListaCompleta = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
+
+             
+
                 if (!ValidarIngresoShowRoom(esIntriga: false))
                     return ErrorJson(string.Empty);
 
                 var esFacturacion = EsFacturacion();
-                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion, false);
+                productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
+
+                var cantidadTotal = productosShowRoom.Count();
+                
+                if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
+                {
+                    productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
+                }
+                else if (!revistaDigital.ActivoMdo)
+                {
+                    productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania ).ToList();
+                }
+                else
+                    productosShowRoom = productosShowRoom.Where(x => x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
 
                 if (model.Limite > 0 && productosShowRoom.Count > 0)
                 {
-                    productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania).Take(model.Limite).ToList();
+                    productosShowRoom = productosShowRoom.Take(model.Limite).ToList();
                 }
 
                 var index = 0;
@@ -3015,6 +3089,8 @@ namespace Portal.Consultoras.Web.Controllers
                     success = true,
                     message = "Ok",
                     data = productosShowRoom,
+                    cantidadTotal = cantidadTotal,
+                    cantidadAMostrar = productosShowRoom.Count(),
                     codigo = Constantes.ConfiguracionPais.ShowRoom
                 });
             }
