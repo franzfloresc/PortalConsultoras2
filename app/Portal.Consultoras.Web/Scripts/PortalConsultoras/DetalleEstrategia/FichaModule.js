@@ -385,6 +385,13 @@
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             $(_seccionesFichaProducto.CarruselProducto).hide();
             $(_seccionesFichaProducto.EtiquetaOdd).hide();
+        } else if (ConstantesModule.ConstantesPalanca.Lanzamiento == CodigoEstrategia) {
+            $(_seccionesFichaProducto.EtiquetaLanzamientos).show();
+            $(_seccionesFichaProducto.ImagenDeFondo).show();
+            $(_seccionesFichaProducto.DescripcionAdicional).show();
+            $(_seccionesFichaProducto.ContenidoProducto).show();
+            $(_seccionesFichaProducto.CarruselProducto).show();
+            $(_seccionesFichaProducto.EtiquetaOdd).hide();
         }
     }
     

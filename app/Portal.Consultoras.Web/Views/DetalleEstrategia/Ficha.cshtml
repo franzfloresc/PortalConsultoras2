@@ -68,7 +68,9 @@
                     </div>
                     <div id="EtiquetaLanzamientos" class="contenedor_etiqueta_nuevo">
                         <div class="triangulo_etiqueta_nuevo"></div>
-                        <div class="etiqueta_nuevo" >NUEVO</div>
+                        <div class="etiqueta_nuevo" >
+                            <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" />
+                        </div>
                     </div>
                 </div>
                 <div class="contenedor_nombre_precio">
@@ -137,7 +139,7 @@
                 {{/iff}}
                 {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}
                 <div class="contenedor_lista_detalle">
-                    @*{{#each this.Hermanos as |componente|}}
+                    {{#each this.Hermanos as |componente|}}
 
                         <div class="content_producto_tono detalle_producto" data-tono="" data-tono-select="{{componente.CUVSelect}}" data-tono-digitable="{{componente.Digitable}}" style="border-bottom: {{../Linea}};">
                             <div style="display: none;">
@@ -181,8 +183,8 @@
                             {{/iff}}
                             <hr class="clear" />
                         </div>
-                        {{/each}}*@
-                    {{#ifVerificarMarca this.Hermanos 3}}
+                        {{/each}}
+                    @*{{#ifVerificarMarca this.Hermanos 3}}
                     <div class="content_producto_tono detalle_producto">
                         <div class="marca_detalle_producto">
                             <span data-marca_detalle_producto>Cyzone</span>
@@ -279,7 +281,7 @@
                         </div>
                         {{/agruparLista}}
                     </div>
-                    {{/ifVerificarMarca}}
+                    {{/ifVerificarMarca}}*@
                 </div>
                 {{/iff}}
                 <div class="contenedor_agregar">
