@@ -54,7 +54,7 @@ var EstrategiaVerDetalleProvider = function () {
             url: baseUrl + "Estrategia/ConsultarEstrategiaCuv?cuv=" + cuv,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(params),
+           // data: JSON.stringify(params),
             async: true,
             cache: false,
             success: function (data) {
@@ -285,7 +285,14 @@ function EstrategiaGuardarTemporal(obj) {
     AbrirLoad();
 
     var varReturn = false;
-    var urlGuardarProductoTemporal = urlOfertaDetalleProductoTem || "/Estrategia/GuardarProductoTemporal";
+    var urlGuardarProductoTemporal = "";
+    if (typeof urlOfertaDetalleProductoTem !== "undefined") {
+        urlGuardarProductoTemporal = urlOfertaDetalleProductoTem || "/Estrategia/GuardarProductoTemporal";
+    }
+    else {
+            urlGuardarProductoTemporal = "/Estrategia/GuardarProductoTemporal";
+    }
+
     obj.TipoAccionAgregar = obj.TipoAccionAgregarBack || obj.TipoAccionAgregar;
 
     EstrategiaVerDetalleProvider

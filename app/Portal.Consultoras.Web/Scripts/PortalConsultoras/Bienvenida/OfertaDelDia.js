@@ -32,6 +32,23 @@ var OfertaDelDiaProvider = function () {
     };
 }();
 
+var OfertaDelDiaModule = function() {
+    var irAContenedorOfertas = function () {
+        try {
+            odd_desktop_google_analytics_promotion_click_verofertas();
+        } catch (e) {
+            //
+        } 
+        var urlOfertas = "/Ofertas" + (codigoAnclaOdd == "" ? "" : "#" + codigoAnclaOdd);
+        document.location.href = urlOfertas;
+        return true;
+    };
+
+    return {
+        IrContenedorOfertas: irAContenedorOfertas
+    };
+}();
+
 $(document).ready(function () {
     window.OfertaDelDia = window.OfertaDelDia || {};
     var odd_desktop_google_analytics_promotion_impresion_flag = true;
@@ -291,11 +308,11 @@ $(document).ready(function () {
             $("body").off("click", contenedorOfertas + " [data-odd-accion]");
             $("body").on("click", contenedorOfertas + " [data-odd-accion]", function (e) {
                 var accion = $(this).attr("data-odd-accion").toUpperCase();
-                if (accion == CONS_TIPO_ACCION.VEROFERTA) {
+                /*if (accion == CONS_TIPO_ACCION.VEROFERTA) {
                     var urlOfertas = "/Ofertas" + (codigoAnclaOdd == "" ? "" : "#" + codigoAnclaOdd);
                     document.location.href = urlOfertas;
                 }
-                else if (accion == CONS_TIPO_ACCION.VERDETALLE) {
+                else*/ if (accion == CONS_TIPO_ACCION.VERDETALLE) {
                     $(contenedorOfertas + " #imgSoloHoy").hide();
                     $(contenedorOfertas + ' [data-odd-accion="regresar"]').show();
                     $(contenedorOfertas + ' [data-odd-tipoventana="carrusel"]').hide();
