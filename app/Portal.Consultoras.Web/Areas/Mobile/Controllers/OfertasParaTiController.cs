@@ -7,36 +7,36 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class OfertasParaTiController : BaseEstrategiaController
     {
-        public ActionResult Detalle(int id, int origen)
-        {
-            try
-            {
-                return RenderDetalle(id, origen);
+        //public ActionResult Detalle(int id, int origen)
+        //{
+        //    try
+        //    {
+        //        return RenderDetalle(id, origen);
 
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, string.Empty);
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, string.Empty);
+        //    }
 
-            return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-        }
+        //    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+        //}
 
-        public virtual ActionResult RenderDetalle(int id, int origen)
-        {
-            var modelo = EstrategiaGetDetalle(id);
-            var origenPantalla = GetPantallaOrigenPedidoWeb(origen);
+        //public virtual ActionResult RenderDetalle(int id, int origen)
+        //{
+        //    var modelo = EstrategiaGetDetalle(id);
+        //    var origenPantalla = GetPantallaOrigenPedidoWeb(origen);
 
-            if (modelo == null || modelo.EstrategiaID <= 0)
-                return GetRedirectTo(origenPantalla);
+        //    if (modelo == null || modelo.EstrategiaID <= 0)
+        //        return GetRedirectTo(origenPantalla);
             
-            ViewBag.OrigenUrl = GetActionTo(origenPantalla, origen);
+        //    ViewBag.OrigenUrl = GetActionTo(origenPantalla, origen);
 
-            ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
-            ViewBag.origenPedidoWebEstrategia = GetOrigenPedidoWebDetalle(origen);
+        //    ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
+        //    ViewBag.origenPedidoWebEstrategia = GetOrigenPedidoWebDetalle(origen);
 
-            return View(modelo);
-        }
+        //    return View(modelo);
+        //}
 
         public virtual Enumeradores.PantallaOrigenPedidoWeb GetPantallaOrigenPedidoWeb(int origen)
         {

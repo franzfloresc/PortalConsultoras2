@@ -208,12 +208,13 @@
         }
 
         if (estrategia == null) {
-            window.location = (isMobile() ? "/Mobile/" : "") + "Ofertas";
+            window.location = baseUrl + (isMobile() ? "/Mobile/" : "") + "Ofertas";
             return false;
         }
         
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
+        _validarDesactivadoGeneral(estrategia);
         if (estrategia.CodigoEstrategia) {
             _crearReloj();
         }
@@ -222,6 +223,9 @@
 
         console.log(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
+        if (!isMobile()) {
+            _validarSiEsAgregado(estrategia);
+        }
         
         return true;
     };
@@ -229,6 +233,12 @@
     Handlebars.registerHelper('ifVerificarMarca', function (marca, options) {
         if (_primeraMarca !== marca && _esMultimarca) {
             _primeraMarca = marca;
+            return options.fn(this);
+        }
+    });
+
+    Handlebars.registerHelper('ifVerificarSlogan', function (CodigoEstrategia, Slogan, options) {
+        if (CodigoEstrategia == ConstantesModule.ConstantesPalanca.Lanzamiento && Slogan.length > 0) {
             return options.fn(this);
         }
     });
@@ -293,6 +303,23 @@
         if (ConstantesModule.ConstantesPalanca.Lanzamiento == CodigoEstrategia) {
             $(_tabsFichaProducto.video).show();
         }
+    };
+
+    var _validarDesactivadoGeneral = function (estrategia) {
+        $.each(estrategia.Hermanos, function (index, hermano) {
+            if (hermano.Hermanos) {
+                if (hermano.Hermanos.length > 0) {
+                    estrategia.ClaseBloqueada = "btn_desactivado_general";
+                    $("#btnAgregarProducto").addClass("btn_desactivado_general");
+                }
+            }
+        });
+    };
+
+    var _validarSiEsAgregado = function (estrategia) {
+        if (estrategia.IsAgregado) {
+            $("#ContenedorAgregado").show();
+        }
     }
     
     function Inicializar() {
@@ -301,8 +328,38 @@
         _bindingEvents();
         //_crearReloj();
         _crearTabs();
- 
+        _crearCarruseles();
     }
+
+    var _crearCarruseles = function () {
+        $("#carrusel").not('.slick-initialized').slick({
+            lazyLoad: 'ondemand',
+            infinite: true,
+            vertical: false,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: false,
+            speed: 260,
+            prevArrow:
+                '<a class="contenedor_flecha_carrusel flecha_izquierda_carrusel js-slick-prev slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_izquierda_carrusel"></div></a>',
+            nextArrow:
+                '<a class="contenedor_flecha_carrusel flecha_derecha_carrusel js-slick-next slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_derecha_carrusel"></div></a>'
+        });
+
+        $("#carrusel_tonos").not('.slick-initialized').slick({
+            lazyLoad: 'ondemand',
+            infinite: true,
+            vertical: false,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: false,
+            speed: 260,
+            prevArrow:
+                '<a class="contenedor_flecha_carrusel flecha_izquierda_carrusel js-slick-prev slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_carrusel_tonos dibujar_flecha_izquierda_carrusel"></div></a>',
+            nextArrow:
+                '<a class="contenedor_flecha_carrusel flecha_derecha_carrusel js-slick-next slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_carrusel_tonos dibujar_flecha_derecha_carrusel"></div></a>'
+        });
+    };
 
     return {
         Inicializar: Inicializar

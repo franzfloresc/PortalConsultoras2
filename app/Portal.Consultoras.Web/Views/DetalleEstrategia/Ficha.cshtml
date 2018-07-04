@@ -9,7 +9,7 @@
     <link href="@Url.Content("~/Content/Css/Site/Ficha/Ficha.css")" rel="stylesheet" />
 
 }
-
+<!--prueba-->
 <div id="ImagenDeFondo" class="imagen_fondo_detalle" style="background-image: url('https://S3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_Desktop_Fondo_del_ShowRoom_en_el_Contenedor_Ofertas_Venta 50A_2018630811_01_ytmwyupjny.jpg');"></div>
 <div class="contenedor_detalle texto_font" data-item="" data-tag-html="@ViewBag.Campania" data-OrigenPedidoWeb="@Model.Origen">
     <div class="contenedor_fichas">
@@ -68,7 +68,7 @@
                     </div>
                     <div id="EtiquetaLanzamientos" class="contenedor_etiqueta_nuevo">
                         <div class="triangulo_etiqueta_nuevo"></div>
-                        <div class="etiqueta_nuevo" >
+                        <div class="etiqueta_nuevo">
                             <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" />
                         </div>
                     </div>
@@ -77,9 +77,9 @@
                     <div class="contenedor_izquierdo">
                         <div class="nombre_marca">
                             {{#if EsMultimarca}}
-                                <span data-nombre_marca=""></span>
+                            <span data-nombre_marca=""></span>
                             {{else}}
-                                <span data-nombre_marca="">{{DescripcionMarca}}</span>
+                            <span data-nombre_marca="">{{DescripcionMarca}}</span>
                             {{/if}}
                         </div>
                         <div class="descripcion" data-descripcion="">{{DescripcionCompleta}}</div>
@@ -93,12 +93,17 @@
 
 
                 {{#iff CodigoVariante '==' '2001'}}
-                <div id="DescripcionAdicional" class="contenedor_lista_tonos">
-                <div class="nombre_detalle_producto_tono">Slogan de Proucto 2001</div>
-                <div class="descripcion_detalle_producto_tono">
-                    Descripcion de producto
-                    <span class="txt_ver_mas">ver más</span>
-                </div>
+                <div id="DescripcionAdicional">
+                    {{#ifVerificarSlogan this.CodigoEstrategia this.TipoEstrategiaDetalle.Slogan}}
+                    <div class="nombre_detalle_producto_tono">{{this.TipoEstrategiaDetalle.Slogan}}</div>
+                    <div class="descripcion_detalle_producto_tono">
+                        <ul>
+                            {{#each this.ListaDescripcionDetalle}}
+                            <li><span class="vineta">-</span><span class="txt-des">{{this}}</span></li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                    {{/ifVerificarSlogan}}
                 </div>
                 {{#each this.Hermanos as |componente|}}
                 <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
@@ -111,7 +116,7 @@
                         <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
                             {{#each componente.Hermanos as |variedad|}}
                             <div class="content_tono_elegido" data-tono-change="2"
-                                 data-tono-cuv="{{variedad.CUV}}"
+                                 data-tono-cuv="{{variedad.Cuv}}"
                                  data-tono-nombre="{{variedad.NombreBulk}}"
                                  data-tono-descripcion="{{variedad.NombreComercial}}">
                                 <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt=""></div>
@@ -127,8 +132,8 @@
                             <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.MarcaID}}" />
                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
                         </div>
-                        <div id="fav_tono_{{variedad.CUV}}" class="content_tono_detalle {{#iff variedad.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}"
-                             data-tono-cuv="{{variedad.CUV}}"
+                        <div id="fav_tono_{{variedad.Cuv}}" class="content_tono_detalle {{#iff variedad.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}"
+                             data-tono-cuv="{{variedad.Cuv}}"
                              data-tono-change="2"
                              data-tono-nombre="{{variedad.NombreBulk}}"
                              data-tono-descripcion="{{variedad.NombreComercial}}">
@@ -145,50 +150,50 @@
                     {{#ifVerificarMarcaLast componente.DescripcionMarca}}
                     <div style="border-bottom: 1px solid #ccc; margin-top:15px;"></div>
                     {{/ifVerificarMarcaLast}}
-                        <div class="content_producto_tono detalle_producto" data-tono="" data-tono-select="{{componente.CUVSelect}}" data-tono-digitable="{{componente.Digitable}}" style="border-bottom: {{../Linea}};">
-                            <div style="display: none;">
-                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
-                                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
-                            </div>
-                            <div class="marca_cantidad_descripcion_detalle" data-tono-visible="">
+                    <div class="content_producto_tono detalle_producto" data-tono="" data-tono-select="{{componente.CUVSelect}}" data-tono-digitable="{{componente.Digitable}}" style="border-bottom: {{../Linea}};">
+                        <div style="display: none;">
+                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
+                            <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
+                        </div>
+                        <div class="marca_cantidad_descripcion_detalle" data-tono-visible="">
                             {{#ifVerificarMarca componente.DescripcionMarca}}
-                                <div class="marca_detalle_producto">
-                                    <span data-marca_detalle_producto>{{componente.DescripcionMarca}}</span>
-                                </div>
-                            {{/ifVerificarMarca}}
-                                <div class="cantidad_descripcion_detalle">
-                                    <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x {{componente.Cantidad}}</span>
-                                    <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="">
-                                        {{componente.NombreComercial}}
-                                    </span>
-                                </div>
+                            <div class="marca_detalle_producto">
+                                <span data-marca_detalle_producto>{{componente.DescripcionMarca}}</span>
                             </div>
+                            {{/ifVerificarMarca}}
+                            <div class="cantidad_descripcion_detalle">
+                                <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x {{componente.Cantidad}}</span>
+                                <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="">
+                                    {{componente.NombreComercial}}
+                                </span>
+                            </div>
+                        </div>
 
-                            {{#iff componente.Digitable '==' '1'}}
-                            <div class="content_right_ficha" style="width:40%;">
-                                <div class="tono_select_opt">
-                                    <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                                        <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
-                                        <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
+                        {{#iff componente.Digitable '==' '1'}}
+                        <div class="content_right_ficha" style="width:40%;">
+                            <div class="tono_select_opt">
+                                <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                    <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                    <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
+                                    <hr class="clear">
+                                </div>
+                                <div class="content_tonos_select" style="width:102%;" data-tono-select-area="1">
+                                    {{#each componente.Hermanos as |variedad|}}
+                                    <div class="content_tono_elegido" data-tono-change="2"
+                                         data-tono-cuv="{{variedad.Cuv}}"
+                                         data-tono-nombre="{{variedad.NombreBulk}}"
+                                         data-tono-descripcion="{{variedad.NombreComercial}}">
+                                        <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt="PRODUCTO"></div>
+                                        <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
                                         <hr class="clear">
                                     </div>
-                                    <div class="content_tonos_select" style="width:102%;" data-tono-select-area="1">
-                                        {{#each componente.Hermanos as |variedad|}}
-                                        <div class="content_tono_elegido" data-tono-change="2"
-                                             data-tono-cuv="{{variedad.CUV}}"
-                                             data-tono-nombre="{{variedad.NombreBulk}}"
-                                             data-tono-descripcion="{{variedad.NombreComercial}}">
-                                            <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt="PRODUCTO"></div>
-                                            <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
-                                            <hr class="clear">
-                                        </div>
-                                        {{/each}}
-                                    </div>
+                                    {{/each}}
                                 </div>
                             </div>
-                            {{/iff}}
-
                         </div>
+                        {{/iff}}
+
+                    </div>
                     <hr class="clear">
                     {{/each}}
                 </div>
@@ -206,7 +211,7 @@
                         </div>
                     </div>
                     <a id="btnAgregalo" class="btn_agregalo {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
-                    <div class="contenedor_agregado">
+                    <div id="ContenedorAgregado" class="contenedor_agregado" style="display:none;">
                         <div class="txt_agregado" data-txt_agregado="">
                             <span class="span_agregado">AGREGADO</span>
                             <div class="check_agregado">
@@ -342,171 +347,13 @@
             </div>
             <div class="contenedor_carrusel">
                 <div id="carrusel">
-                    <div class="contenedor_producto_carrusel" data-item="">
-                        <div class="contenedor_imagen_carrusel" data-img="">
-                            <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                            <a class="btn_ver_detalle" href="">VER DETALLE</a>
-                        </div>
-                        <div class="contenedor_detalle_carrusel">
-                            <div class="marca_detalle_carrusel">ÉSIKA</div>
-                            <div class="descripcion_detalle_carrusel">7 Kalos Sport + 4 Shampoos Mañanas Felic ...</div>
-                            <div class="precio_detalle_carrusel">
-                                <span class="precio_oferta_normal_carrusel">S/. 875.00</span>
-                                <span class="precio_oferta_venta_carrusel">S/. 329.90</span>
-                            </div>
-                            <div class="contenedor_elige_tu_tono_carrusel">
-                                <div class="txt_elige_tu_tono">¡AHORA ELIGE TU TONO!</div>
-                                <a id="btnElegirTono" class="btn_elige_tu_tono btn_elige_tu_tono_desactivado" data-btn-elegir-tono="">ELIGE TU OPCIÓN</a>
-                            </div>
-                            <div class="contenedor_agregar_carrusel">
-                                <div class="contenedor_rangos contenedor_rangos_carrusel" data-cantidad-contenedor="">
-                                    <input class="txt_cantidad_pedido_carrusel ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
-                                    <div class="menos_mas_carrusel">
-                                        <a class="txt_mas_carrusel mas" data-cantidad-agregar="+">
-                                            <div class="dibujar_linea dibujar_mas dibujar_mas_carrusel"></div>
-                                        </a>
-                                        <a class="txt_menos_carrusel menos" data-cantidad-agregar="-">
-                                            <div class="dibujar_linea dibujar_menos dibujar_menos_carrusel"></div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a id="btnAgregalo" class="btn_agregalo btn_agregalo_carrusel btn_agregalo_desactivado" data-btn-agregar-sr="">AGRÉGALO</a>
-                            </div>
-                            <div class="contenedor_agregado">
-                                <div class="txt_agregado">
-                                    <span class="span_agregado">AGREGADO</span>
-                                    <div class="check_agregado">
-                                        <div class="dibujar_linea dibujar_check_agregado"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contenedor_producto_carrusel" data-item="">
-                        <div class="contenedor_imagen_carrusel" data-img="">
-                            <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                            <a class="btn_ver_detalle" href="">VER DETALLE</a>
-                        </div>
-                        <div class="contenedor_detalle_carrusel">
-                            <div class="marca_detalle_carrusel">ÉSIKA</div>
-                            <div class="descripcion_detalle_carrusel">7 Kalos Sport + 4 Shampoos Mañanas Felic ...</div>
-                            <div class="precio_detalle_carrusel">
-                                <span class="precio_oferta_normal_carrusel">S/. 875.00</span>
-                                <span class="precio_oferta_venta_carrusel">S/. 329.90</span>
-                            </div>
-                            <div class="contenedor_elige_tu_tono_carrusel">
-                                <div class="txt_elige_tu_tono">¡AHORA ELIGE TU TONO!</div>
-                                <a id="btnElegirTono" class="btn_elige_tu_tono btn_elige_tu_tono_desactivado" data-btn-elegir-tono="">ELIGE TU OPCIÓN</a>
-                            </div>
-                            <div class="contenedor_agregar_carrusel">
-                                <div class="contenedor_rangos contenedor_rangos_carrusel" data-cantidad-contenedor="">
-                                    <input class="txt_cantidad_pedido_carrusel ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
-                                    <div class="menos_mas_carrusel">
-                                        <a class="txt_mas_carrusel mas" data-cantidad-agregar="+">
-                                            <div class="dibujar_linea dibujar_mas dibujar_mas_carrusel"></div>
-                                        </a>
-                                        <a class="txt_menos_carrusel menos" data-cantidad-agregar="-">
-                                            <div class="dibujar_linea dibujar_menos dibujar_menos_carrusel"></div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a id="btnAgregalo" class="btn_agregalo btn_agregalo_carrusel btn_agregalo_desactivado" data-btn-agregar-sr="">AGRÉGALO</a>
-                            </div>
-                            <div class="contenedor_agregado">
-                                <div class="txt_agregado">
-                                    <span class="span_agregado">AGREGADO</span>
-                                    <div class="check_agregado">
-                                        <div class="dibujar_linea dibujar_check_agregado"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contenedor_producto_carrusel" data-item="">
-                        <div class="contenedor_imagen_carrusel" data-img="">
-                            <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                            <a class="btn_ver_detalle" href="">VER DETALLE</a>
-                        </div>
-                        <div class="contenedor_detalle_carrusel">
-                            <div class="marca_detalle_carrusel">ÉSIKA</div>
-                            <div class="descripcion_detalle_carrusel">7 Kalos Sport + 4 Shampoos Mañanas Felic ...</div>
-                            <div class="precio_detalle_carrusel">
-                                <span class="precio_oferta_normal_carrusel">S/. 875.00</span>
-                                <span class="precio_oferta_venta_carrusel">S/. 329.90</span>
-                            </div>
-                            <div class="contenedor_elige_tu_tono_carrusel">
-                                <div class="txt_elige_tu_tono">¡AHORA ELIGE TU TONO!</div>
-                                <a id="btnElegirTono" class="btn_elige_tu_tono btn_elige_tu_tono_desactivado" data-btn-elegir-tono="">ELIGE TU OPCIÓN</a>
-                            </div>
-                            <div class="contenedor_agregar_carrusel">
-                                <div class="contenedor_rangos contenedor_rangos_carrusel" data-cantidad-contenedor="">
-                                    <input class="txt_cantidad_pedido_carrusel ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
-                                    <div class="menos_mas_carrusel">
-                                        <a class="txt_mas_carrusel mas" data-cantidad-agregar="+">
-                                            <div class="dibujar_linea dibujar_mas dibujar_mas_carrusel"></div>
-                                        </a>
-                                        <a class="txt_menos_carrusel menos" data-cantidad-agregar="-">
-                                            <div class="dibujar_linea dibujar_menos dibujar_menos_carrusel"></div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a id="btnAgregalo" class="btn_agregalo btn_agregalo_carrusel btn_agregalo_desactivado" data-btn-agregar-sr="">AGRÉGALO</a>
-                            </div>
-                            <div class="contenedor_agregado">
-                                <div class="txt_agregado">
-                                    <span class="span_agregado">AGREGADO</span>
-                                    <div class="check_agregado">
-                                        <div class="dibujar_linea dibujar_check_agregado"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contenedor_producto_carrusel" data-item="">
-                        <div class="contenedor_imagen_carrusel" data-img="">
-                            <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                            <a class="btn_ver_detalle" href="">VER DETALLE</a>
-                        </div>
-                        <div class="contenedor_detalle_carrusel">
-                            <div class="marca_detalle_carrusel">ÉSIKA</div>
-                            <div class="descripcion_detalle_carrusel">7 Kalos Sport + 4 Shampoos Mañanas Felic ...</div>
-                            <div class="precio_detalle_carrusel">
-                                <span class="precio_oferta_normal_carrusel">S/. 875.00</span>
-                                <span class="precio_oferta_venta_carrusel">S/. 329.90</span>
-                            </div>
-                            <div class="contenedor_elige_tu_tono_carrusel">
-                                <div class="txt_elige_tu_tono">¡AHORA ELIGE TU TONO!</div>
-                                <a id="btnElegirTono" class="btn_elige_tu_tono btn_elige_tu_tono_desactivado" data-btn-elegir-tono="">ELIGE TU OPCIÓN</a>
-                            </div>
-                            <div class="contenedor_agregar_carrusel">
-                                <div class="contenedor_rangos contenedor_rangos_carrusel" data-cantidad-contenedor="">
-                                    <input class="txt_cantidad_pedido_carrusel ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
-                                    <div class="menos_mas_carrusel">
-                                        <a class="txt_mas_carrusel mas" data-cantidad-agregar="+">
-                                            <div class="dibujar_linea dibujar_mas dibujar_mas_carrusel"></div>
-                                        </a>
-                                        <a class="txt_menos_carrusel menos" data-cantidad-agregar="-">
-                                            <div class="dibujar_linea dibujar_menos dibujar_menos_carrusel"></div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a id="btnAgregalo" class="btn_agregalo btn_agregalo_carrusel btn_agregalo_desactivado" data-btn-agregar-sr="">AGRÉGALO</a>
-                            </div>
-                            <div class="contenedor_agregado">
-                                <div class="txt_agregado">
-                                    <span class="span_agregado">AGREGADO</span>
-                                    <div class="check_agregado">
-                                        <div class="dibujar_linea dibujar_check_agregado"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </div>
     </div>
 </div>
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
@@ -526,6 +373,18 @@
                 urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia")'
             });
             fichaModule.Inicializar();
+
+            carruselModule = CarruselModule({
+                palanca: "@Model.Palanca",
+                campania: "@Model.Campania",
+                cuv: "@Model.Cuv",
+                idPlantilla: "#producto-landing-template",
+                divCarrusel: "#carrusel",
+                divSetsProductosdata: "#CarruselProducto"
+            });
+            carruselModule.Inicializar();
         });
     </script>
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
 }
