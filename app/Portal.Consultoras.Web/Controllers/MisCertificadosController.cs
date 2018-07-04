@@ -75,48 +75,38 @@ namespace Portal.Consultoras.Web.Controllers
         private MiCertificadoModel ObtenerCertificadoNoAdeudo()
         {
             var certificado = new MiCertificadoModel();
-
-            var certificadoId = 0;
-            var nombre = "";
             var mensajeError = "";
+
+            certificado.CertificadoId = 1;
+            certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPdf.cshtml";
 
             switch (userData.PaisID)
             {
                 case Constantes.PaisID.Colombia:
-                    nombre = "Paz y Salvo";
-
+                case Constantes.PaisID.RepublicaDominicana:
+                case Constantes.PaisID.PuertoRico:
+                    certificado.Nombre = "Paz y Salvo";
                     if (userData.MontoDeuda > 0)
                     {
                         mensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certficado de Paz y Salvo";
                         break;
                     }
-
-                    certificadoId = 1;
+                    certificado.MensajeError = mensajeError;
                     break;
                 case Constantes.PaisID.Ecuador:
                 case Constantes.PaisID.Peru:
-                    nombre = (userData.PaisID == Constantes.PaisID.Peru) ? "Constancia No Adeudo" : "No Adeudo";
-
+                    certificado.Nombre = (userData.PaisID == Constantes.PaisID.Peru) ? "Constancia No Adeudo" : "No Adeudo";
                     if (userData.MontoDeuda > 0)
                     {
                         mensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certificado de No Adeudo";
                         break;
                     }
-
-                    certificadoId = 1;
+                    certificado.MensajeError = mensajeError;
                     break;
                 default:
-                    nombre = "";
+                    certificado = null;
                     break;
             }
-
-            if (nombre == "") return certificado;
-
-            certificado.CertificadoId = certificadoId;
-            certificado.Nombre = nombre;
-            certificado.MensajeError = mensajeError;
-            certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPdf.cshtml";
-
             return certificado;
         }
 
@@ -127,10 +117,8 @@ namespace Portal.Consultoras.Web.Controllers
         private MiCertificadoModel ObtenerCertificadoComercial()
         {
             var certificado = new MiCertificadoModel();
-            var certificadoId = 0;
-            var nombre = "";
             var mensajeError = "";
-            var cantidadCampaniaConsecutiva = "";// ConfigurationManager.AppSettings["cantCampaniaConsecutivaCertComercial"] ?? "5";
+            var cantidadCampaniaConsecutiva = "";
 
             short codigoTablaLogica = 140;
             var CampaniaConsecutiva = new List<BETablaLogicaDatos>();
@@ -140,41 +128,36 @@ namespace Portal.Consultoras.Web.Controllers
                 cantidadCampaniaConsecutiva = CampaniaConsecutiva[0].Valor;
             }
 
+            bool tieneCampaniaConsecutivas;
+            using (PedidoServiceClient ps = new PedidoServiceClient())
+            {
+                tieneCampaniaConsecutivas = ps.TieneCampaniaConsecutivas(userData.PaisID, userData.CampaniaID, int.Parse(cantidadCampaniaConsecutiva), userData.ConsultoraID);
+            }
+
             switch (userData.PaisID)
             {
                 case Constantes.PaisID.Colombia:
                 case Constantes.PaisID.Ecuador:
                 case Constantes.PaisID.Peru:
+                case Constantes.PaisID.RepublicaDominicana:
+                case Constantes.PaisID.PuertoRico:
+                    certificado.Nombre = "Certificado Comercial";
 
-                    bool tieneCampaniaConsecutivas;
-                    using (PedidoServiceClient ps = new PedidoServiceClient())
+                    //if (!tieneCampaniaConsecutivas || userData.PromedioVenta < 0)
+                    if (userData.PromedioVenta < 0)
                     {
-                        tieneCampaniaConsecutivas = ps.TieneCampaniaConsecutivas(userData.PaisID, userData.CampaniaID, int.Parse(cantidadCampaniaConsecutiva), userData.ConsultoraID);
-                    }
-
-                    nombre = "Certificado Comercial";
-
-                    if (!tieneCampaniaConsecutivas)
-                    {
-                        mensajeError = "No has sido constante en las últimas " + cantidadCampaniaConsecutiva +
-                            " campañas, no es posible expedir un certificado comercial.";
+                        mensajeError = "No has sido constante en las últimas " + cantidadCampaniaConsecutiva + " campañas, no es posible expedir un certificado comercial.";
                         break;
                     }
 
-                    certificadoId = 2;
-
+                    certificado.CertificadoId = 2;
+                    certificado.MensajeError = mensajeError;
+                    certificado.NombreVista = "~/Views/MisCertificados/ComercialPdf.cshtml";
                     break;
                 default:
-                    nombre = "";
+                    certificado = null;
                     break;
             }
-
-            if (nombre == "") return certificado;
-
-            certificado.CertificadoId = certificadoId;
-            certificado.Nombre = nombre;
-            certificado.MensajeError = mensajeError;
-            certificado.NombreVista = "~/Views/MisCertificados/ComercialPdf.cshtml";
             return certificado;
         }
 

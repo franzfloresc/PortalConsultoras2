@@ -351,5 +351,6 @@ namespace Portal.Consultoras.Web.Models
         public double TotalCompraCer { get; set; }
         public double IvaTotalCer { get; set; }
         public string MensajeChat { get; set; }
+        public double PromedioVenta { get; set; }
     }
 }

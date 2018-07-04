@@ -511,6 +511,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "IndicadorConsultoraOficina"))
                 EsConsultoraOficina = Convert.ToInt32(row["IndicadorConsultoraOficina"]) == 1;
+
+            if (DataRecord.HasColumn(row, "PromedioVenta"))
+                PromedioVenta = Convert.ToDouble(row["PromedioVenta"]);
         }
 
         [Column("ConsultoraAsociadoID")]
@@ -1459,6 +1462,8 @@ namespace Portal.Consultoras.Entities
         public bool MostrarBotonValidar { get; set; }
         [DataMember]
         public bool EsConsultoraOficina { get; set; }
+        [DataMember]
+        public double PromedioVenta { get; set; }
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
             if (DataRecord.HasColumn(row, "ConsultoraID")) miConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
