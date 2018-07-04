@@ -346,12 +346,11 @@ $(document).ready(function () {
         data.lista = AsignarClaseCssAPalabraGratisDesktop(data.ListaOferta);
         delete data.ListaOferta;
         data.prod = {};
-        if (data.lista.length > 0) data.prod = data.lista[0];
-        //data.SoloUno = false;
-        //if (data.ListaOferta.length == 1) {
-        //    data.SoloUno = true;
-        //    data.prod = data.lista[0];
-        //}
+        data.SoloUno = false;
+        if (data.lista.length > 0) {
+            data.prod = data.lista[0];
+            data.SoloUno = data.lista.length == 1;
+        }
 
         SetHandlebars("#ofertadeldia-template", data, contenedorOfertas);
         if ($(contenedorOfertas).find("#divOddCarrusel").length > 0) {
