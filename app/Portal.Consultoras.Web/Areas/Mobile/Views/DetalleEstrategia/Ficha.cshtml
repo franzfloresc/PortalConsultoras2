@@ -13,7 +13,7 @@
 
 }
 
-<div class="container" data-item="" data-tag-html="@Model.Campania" data-OrigenPedidoWeb="@Model.Origen">
+<div class="container"  data-tag-html="@Model.Campania" >
     <div class="row">
         <div class="col-md-12">
             <ul class="breadcumbs">
@@ -25,9 +25,9 @@
         </div>
     </div>
 </div>
-<div style="display:none;"><div id="data-estrategia" data-estrategia="@Json.Encode(Model)"></div></div>
 
 <div id="seccion_ficha_handlebars"></div>
+
 <script id="detalle_ficha_template" type="text/x-handlebars-template">
     <div class="bg_imagen_producto" style='background: url(""); background-color: #efefef !important;'
          data-estadoregistro="">
@@ -180,7 +180,12 @@
         </div>
     </div>
 </script>
-<div class="row">
+
+<div class="row" data-item="" data-OrigenPedidoWeb="@Model.Origen">
+    <div style="display: none;">
+        <div id="data-estrategia" data-estrategia="@Json.Encode(Model)"></div>
+    </div>
+
     <div class="content_btn_agregar">
         <div class="content_320">
             <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
