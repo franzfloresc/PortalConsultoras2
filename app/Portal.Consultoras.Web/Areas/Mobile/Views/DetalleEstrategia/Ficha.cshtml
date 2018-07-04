@@ -257,6 +257,7 @@
         window.videoKey = '@Model.CodigoVideo';
 
         var fichaModule;
+        var carruselModule;
         $(document).ready(function() {
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",
@@ -267,6 +268,14 @@
                 urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new { area = "" })'
             });
             fichaModule.Inicializar();
+
+
+            carruselModule = CarruselModule({
+                palanca: "@Model.Palanca",
+                campania: "@Model.Campania",
+                cuv: "@Model.Cuv"
+            });
+            carruselModule.Inicializar();
         });
 
     </script>
