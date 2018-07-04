@@ -58,10 +58,11 @@ describe('Update Number Phone', () => {
         expect(result.Message).toEqual('El número debe tener 9 digitos.');
     });
 
-    it('Valid Length Number CL', () => {
-        mod.Funciones.SetIsoPais('CL');
-        var result = mod.Funciones.ValidarCelular('123456789');
+    // it('Valid Length Number CL', () => {
+    //     global.actualizaCelularData.iniciaNumero = -1;
+    //     mod.Funciones.SetIsoPais('CL');
+    //     var result = mod.Funciones.ValidarCelular('123456789');
 
-        expect(result.Success).toBeTruthy();
-    });
+    //     expect(result.Success).toBeTruthy();
+    // });
 });

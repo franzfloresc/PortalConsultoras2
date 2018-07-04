@@ -6,7 +6,7 @@
     var urls = globalData.urlProvider;
     var localData = {
         CelularActual: globalData.celular,
-        InicialNumero: globalData.iniciaNumero,
+        InicialNumero: globalData.iniciaNumero === -1 ? '' : globalData.iniciaNumero.toString(),
         CelularValido: false,
         CelularNuevo: '',
         Expired: true,
@@ -122,7 +122,7 @@
             };
         }
 
-        function validarCelular(numero, numberInitialPhone) {
+        function validarCelular(numero) {
             if (!numero) {
                 return {
                     Success: false,
@@ -153,11 +153,11 @@
                 };
             }
 
-            if (numberInitialPhone) {
-                if (numero.charAt(0) !== numberInitialPhone) {
+            if (localData.InicialNumero) {
+                if (numero.charAt(0) !== localData.InicialNumero) {
                     return {
                         Success: false,
-                        Message: 'El número debe empezar con ' + numberInitialPhone + '.'
+                        Message: 'El número debe empezar con ' + localData.InicialNumero + '.'
                     }
                 }                
             }
@@ -317,9 +317,8 @@
     me.Eventos = (function() {
         function continuar() {
             var nuevoCelular = me.Elements.getInputCelular().val();
-            var numberInitialPhone = localData.InicialNumero;
 
-            var result = me.Funciones.ValidarCelular(nuevoCelular, numberInitialPhone);
+            var result = me.Funciones.ValidarCelular(nuevoCelular);
             if (!result.Success) {
                 me.Funciones.ShowError(result.Message);
                 return;
@@ -379,7 +378,7 @@
                 input.parent().next().find('.campo_ingreso_codigo_sms').focus();
             }
 
-            if (e.keyCode == 8) {
+            if (e.keyCode === 8) {
                 input.parent().prev().find('.campo_ingreso_codigo_sms').focus();
             }
 
