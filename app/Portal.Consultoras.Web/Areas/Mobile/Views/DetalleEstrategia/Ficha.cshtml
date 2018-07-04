@@ -85,11 +85,10 @@
                         <ul>
                             {{#each this.ListaDescripcionDetalle}}
                             <li><span class="vineta">-</span><span class="txt-des">{{this}}</span></li>
-                            <div style="clear:both;"></div>
                             {{/each}}
                         </ul>
-                        {{/ifVerificarSlogan}}
                     </div>
+                    {{/ifVerificarSlogan}}
                 </div>
                 {{#each this.Hermanos as |componente|}}
                 <div class="content_tonos_producto" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
@@ -100,7 +99,7 @@
                             <hr class="clear" />
                         </div>
                         <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
-                            {{#each this.Detalle as |variedad|}}
+                            {{#each this.Hermanos as |variedad|}}
                             <div class="content_tono_elegido" data-tono-change="2"
                                  data-tono-cuv="{{variedad.Cuv}}" d
                                  ata-tono-nombre="{{variedad.NombreBulk}}"
@@ -114,18 +113,17 @@
                     </div>
                     <hr class="clear">
                     <div data-tono-div="">
-                        {{#each this.Detalle as |variedad|}}
+                        {{#each this.Hermanos as |variedad|}}
                         <div style="display: none;">
                             <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.MarcaID}}" />
                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
                         </div>
-                        <div class="content_tono_detalle" d
-                             ata-tono-cuv="{{variedad.Cuv}}"
+                        <div class="content_tono_detalle" 
+                             data-tono-cuv="{{variedad.Cuv}}"
                              data-tono-change="2"
                              data-tono-nombre="{{variedad.NombreBulk}}">
                             <img src="{{variedad.ImagenBulk}}" alt="">
                         </div>
-                        <div style="clear:both;"></div>
                         {{/each}}
                     </div>
                     <hr class="clear">
