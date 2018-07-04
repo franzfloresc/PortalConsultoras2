@@ -36,7 +36,12 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager = SessionManager.SessionManager.Instance;
             _configuracionManager = new ConfiguracionManagerProvider();
         }
-        
+
+        public ShowRoomProvider()
+        {
+            //
+        }
+
         /// <summary>
         /// Obtiene la configuracion de Base de datos
         /// </summary>
@@ -372,6 +377,19 @@ namespace Portal.Consultoras.Web.Providers
         {
             var showRoomNivelPais = niveles.FirstOrDefault(p => p.Codigo == "PAIS") ?? new ShowRoomNivelModel();
             return showRoomNivelPais.NivelId;
+        }
+        
+        public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)
+        {
+            var configEstrategiaSR = sessionManager.GetEstrategiaSR(); 
+            if (configEstrategiaSR.ListaPersonalizacionConsultora == null)
+                return string.Empty;
+
+            var model = configEstrategiaSR.ListaPersonalizacionConsultora.FirstOrDefault(p => p.Atributo == codigoAtributo && p.TipoAplicacion == tipoAplicacion);
+
+            return model == null
+                ? string.Empty
+                : model.Valor;
         }
     }
 }

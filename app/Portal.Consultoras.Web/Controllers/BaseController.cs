@@ -1939,17 +1939,17 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { success = true, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
         }
 
-        public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)
-        {
-            if (configEstrategiaSR.ListaPersonalizacionConsultora == null)
-                return string.Empty;
+        //public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)
+        //{
+        //    if (configEstrategiaSR.ListaPersonalizacionConsultora == null)
+        //        return string.Empty;
 
-            var model = configEstrategiaSR.ListaPersonalizacionConsultora.FirstOrDefault(p => p.Atributo == codigoAtributo && p.TipoAplicacion == tipoAplicacion);
+        //    var model = configEstrategiaSR.ListaPersonalizacionConsultora.FirstOrDefault(p => p.Atributo == codigoAtributo && p.TipoAplicacion == tipoAplicacion);
 
-            return model == null
-                ? string.Empty
-                : model.Valor;
-        }
+        //    return model == null
+        //        ? string.Empty
+        //        : model.Valor;
+        //}
 
         public bool ValidarPermiso(string codigo, string codigoConfig = "")
         {
@@ -2335,13 +2335,13 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!IsMobile())
                 {
                     seccion.ImagenFondo =
-                        ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomIntriga,
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomIntriga,
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 }
                 else
                 {
                     seccion.ImagenFondo =
-                        ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasIntriga,
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasIntriga,
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
             }
@@ -2352,13 +2352,13 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!IsMobile())
                 {
                     seccion.ImagenFondo =
-                        ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomVenta,
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomVenta,
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 }
                 else
                 {
                     seccion.ImagenFondo =
-                        ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasVenta,
+                        _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasVenta,
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
 
@@ -2369,7 +2369,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)
+        private bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)
         {
             if (codigo == Constantes.ConfiguracionPais.RevistaDigital && !revistaDigital.TieneRDC) return false;
 
