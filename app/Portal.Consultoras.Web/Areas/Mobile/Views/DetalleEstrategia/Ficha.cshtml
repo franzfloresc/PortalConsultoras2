@@ -5,7 +5,7 @@
 @{
     ViewBag.Title = "Ficha-Mobile";
    // Model.CodigoVideo = "Ajoq2mlOliw";
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
 @section styles{
@@ -142,9 +142,9 @@
                             <p class="marca">{{componente.DescripcionMarca}}</p>
 
                             {{/ifVerificarMarca}}
-                            <div class="nombre_producto_opt" data-tono-select-nombrecomercial="">
+                            <div class="nombre_producto_opt">
                                 <span class="cantidad_producto_opt">x {{componente.Cantidad}}</span>
-                                <span data-tono-select-nombrecomercial="">{{componente.NombreComercial}}</span>
+                                <span>{{componente.NombreComercial}}</span>
                             </div>
                             {{#iff componente.Digitable '==' '1'}}
                             <div class="content_tonos_producto">

@@ -200,7 +200,7 @@
         }
 
         if (estrategia == null) {
-            window.location = (isMobile() ? "/Mobile/" : "") + "Ofertas";
+            window.location = baseUrl + (isMobile() ? "/Mobile/" : "") + "Ofertas";
             return false;
         }
         
@@ -237,16 +237,6 @@
             }
             else  return options.fn(this);
         }
-    });
-    var _actualizarVariedad = function (estrategia) {
-        if (estrategia.Hermanos.length == 1) {
-            if (estrategia.Hermanos[0].Hermanos) {
-                if (estrategia.Hermanos[0].Hermanos.length > 0) {
-                    estrategia.CodigoVariante = ConstantesModule.CodigoVariedad.IndividualVariable;
-                }
-            }
-        }
-    };
     });
 
     var _ocultarSecciones = function (CodigoEstrategia) {
