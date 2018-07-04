@@ -35,15 +35,6 @@
         </div>
 
         <div class="seleccion_metodo_y_tipo_de_pago">
-            @*<div class="seleccion_metodo_pago" id="divMetodoPagoVisa">
-                <h3 class="titulo_seleccion_metodo_pago">Selecciona el método de pago :</h3>
-                <div class="metodo_pago_seleccionado">
-                    <span class="icono_marca_tarjeta">
-                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
-                    </span>
-                    <span class="marca_tarjeta">Tarjeta Crédito VISA</span>
-                </div>
-            </div>*@
             <div class="seleccion_tipo_pago">
                 <h3 class="titulo_seleccion_tipo_pago">SELECCIONA EL TIPO DE PAGO</h3>
 
@@ -124,25 +115,7 @@
                         </div>
                     }
                 }
-
-                @*<div class="info_cargo_gastos_administrativos">
-                    <input type="hidden" id="hdMontoGastosAdministrativosString" value="@Model.MontoGastosAdministrativosString" />
-                    *Cargo por uso plataforma online: <span id="spnPorcentajeGastosAdministrativos">@Model.PorcentajeGastosAdministrativos</span>% (<span class="tipo_moneda_pais">@Model.Simbolo </span><span class="monto_comision_pago_en_linea" id="spnMontoGastosAdministrativos">@Model.MontoGastosAdministrativosString</span>)
-                </div>*@
             </div>
-            @*<div class="aceptar_terminos_y_condiciones">
-                <div class="area_activa_barra_activacion">
-                    <div class="barra_activacion" data-estado="0">
-                        <div class="control_activacion"></div>
-                        <div class="tooltip_terminos_y_condiciones" style="display:none;">
-                            <span>Debes aceptar los términos y condiciones</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="descripcion_opcion_activacion">
-                    Acepta los términos y condiciones
-                </div>
-            </div>*@
         </div>
 
         <div>
@@ -156,71 +129,7 @@
             <br />
             Recuerda habilitar tu tarjeta para Pagos por Internet.
         </div>
-
-        @*<div class="contenedor_info_pago_seguro_y_ctas">
-            <div class="info_pago_seguro_con_tarjetas">
-                <div class="icono_pago_seguro">
-                </div>
-                <div class="texto_info_pago_seguro">
-                    <span class="texto_pago_seguro solo_visa">Pago seguro a través de</span>
-                </div>
-                <div class="icono_marcas_tarjetas">
-                    <span class="icono_marca_visa">
-                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
-                    </span>
-                </div>
-            </div>
-
-            <div class="contenedor_cta">
-                <button type="button" class="cta_pago_en_linea btn_pago_credito_visa" id="btnPagarVisa">
-                    <span>
-                        Continuar
-                    </span>
-                </button>
-            </div>
-
-        </div>*@
-
     </div>
-
-    <div class="fondo_modal">
-        <div class="popup_terminos_y_condiciones">
-            <a href="#" class="cerrar_popup_terminos_y_condiciones" title="Cerrar">
-            </a>
-            <h4 class="titulo_terminos_y_condiciones">Términos y condiciones</h4>
-            <div class="contenido_terminos_y_condiciones">
-                <p class="descripcion_terminos_y_condiciones">
-                    El uso de tarjetas de crédito o débito VISA se sujetará a los establecido en estos Términos y Condiciones y, en relación con su emisor, y a lo pactado en los respectivos contratos suscritos con el banco emisor del medio de pago.
-                </p>
-                <p class="descripcion_terminos_y_condiciones">
-                    En caso de contradicción, predominará lo expresado en ese último instrumento. Tratándose de tarjetas bancarias aceptadas en el Sitio, los aspectos relativos a éstas, tales como fecha de emisión, caducidad, bloqueos, cobros de intereses de compra en cuotas, etc..,
-                    se regirán por los respectivos contratos suscritos con el banco emisor del medio de pago.
-                </p>
-                <p class="descripcion_terminos_y_condiciones">
-                    El uso de este medio de pago generará un gasto USO VISA de 3% del monto pagado, el cual le será cargado en su tarjeta junto con el monto a pagar determinado por el titular en cada transacción. Este gasto generará un comprobante electrónico el cual podrá ser visualizado en
-                    su estado de cuenta de consultora y en la web.
-                </p>
-                <p class="descripcion_terminos_y_condiciones">
-                    Al utilizar una tarjeta de crédito, el nombre del titular debe coincidir con el nombre utilizado al registrarse en su solicitud de crédito de consultora BELCORP. De lo contrario, se podría anular la operación bajo cualquier sospecha y/o confirmación de pago no autorizado.
-                </p>
-            </div>
-            <div class="aceptar_terminos_y_condiciones mb-0">
-                <div class="area_activa_barra_activacion">
-                    <div class="barra_activacion" data-estado="0">
-                        <div class="control_activacion">
-                        </div>
-                        <div class="tooltip_terminos_y_condiciones" style="display:none;">
-                            <span>Debes aceptar los términos y condiciones</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="descripcion_opcion_activacion">
-                    Acepta los términos y condiciones
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 @section scripts{

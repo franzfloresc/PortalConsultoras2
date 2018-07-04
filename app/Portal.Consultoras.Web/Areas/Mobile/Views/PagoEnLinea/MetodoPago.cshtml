@@ -68,6 +68,7 @@
                                 </div>
                             </div>
                             <div class="aceptar_terminos_y_condiciones">
+                                <input type="hidden" value="@item.TerminosCondiciones" data-terminos />
                                 <div class="descripcion_opcion_activacion">
                                     Al presionar continuar aceptas los <a id="lnkAceptaTerminosCondiciones" style="text-decoration: underline;">términos y condiciones</a>
                                 </div>
@@ -116,21 +117,8 @@
         <a href="#" class="cerrar_popup_terminos_y_condiciones" title="Cerrar">
         </a>
         <h4 class="titulo_terminos_y_condiciones">Términos y condiciones por uso de tarjeta de crédito VISA</h4>
-        <div class="descripcion_terminos_y_condiciones">
-            <p>
-                El uso de tarjetas de crédito o débito VISA se sujetará a los establecido en estos Términos y Condiciones y, en relación con su emisor, y a lo pactado en los respectivos contratos suscritos con el banco emisor del medio de pago.
-            </p>
-            <p>
-                En caso de contradicción, predominará lo expresado en ese último instrumento. Tratándose de tarjetas bancarias aceptadas en el Sitio, los aspectos relativos a éstas, tales como fecha de emisión, caducidad, bloqueos, cobros de intereses de compra en cuotas, etc..,
-                se regirán por los respectivos contratos suscritos con el banco emisor del medio de pago.
-            </p>
-            <p>
-                El uso de este medio de pago generará un gasto USO VISA de 3% del monto pagado, el cual le será cargado en su tarjeta junto con el monto a pagar determinado por el titular en cada transacción. Este gasto generará un comprobante electrónico el cual podrá ser visualizado en
-                su estado de cuenta de consultora y en la web.
-            </p>
-            <p>
-                Al utilizar una tarjeta de crédito, el nombre del titular debe coincidir con el nombre utilizado al registrarse en su solicitud de crédito de consultora BELCORP. De lo contrario, se podría anular la operación bajo cualquier sospecha y/o confirmación de pago no autorizado.
-            </p>
+        <div class="descripcion_terminos_y_condiciones" id="divContenidoTerminosCondiciones">
+            
         </div>
     </div>
 </div>

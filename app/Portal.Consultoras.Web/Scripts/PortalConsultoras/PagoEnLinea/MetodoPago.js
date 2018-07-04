@@ -54,6 +54,12 @@ $(document).ready(function () {
                 },
                 AbrirPopupTerminosYCondiciones: function (e) {
                     e.preventDefault();
+
+                    var contenedorPadre = $(this).parents('.aceptar_terminos_y_condiciones')[0];
+                    var htmlTerminosCondiciones = $(contenedorPadre).find('input[data-terminos]').val();
+
+                    $('#divContenidoTerminosCondiciones').html(htmlTerminosCondiciones);
+
                     $('body').css({ "overflow-y": "hidden" });
                     $('.fondo_modal').fadeIn(300);
                 },
