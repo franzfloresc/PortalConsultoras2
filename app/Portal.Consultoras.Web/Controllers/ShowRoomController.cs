@@ -242,7 +242,7 @@ namespace Portal.Consultoras.Web.Controllers
             return InsertarPedidoWebPortal(model, 2);
         }
 
-        #region Comprar desde Página de Oferta
+        #region Comprar desde Pagina de Oferta
 
         public ActionResult DetalleOferta(int id)
         {
