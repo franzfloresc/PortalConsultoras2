@@ -1,16 +1,22 @@
 ﻿
 @using Newtonsoft.Json
 @using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
 @using System.Linq;
+
 @model Portal.Consultoras.Web.Models.ShowRoomEventoModel
 @{
     ViewBag.Title = "ShowRoom";
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
+
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
 }
 
 @section styles{
 
-    <link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/ion.rangeSlider/normalize.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/ion.rangeSlider/ion.rangeSlider.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/ion.rangeSlider/ion.rangeSlider.skinHTML5.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/Landing/producto.landing.css")" rel="stylesheet" />
 }
@@ -48,15 +54,16 @@
                     </div>
                 }
 
-                <div class="content_filtro_categoria" id="filtro_precio" style="cursor: pointer; min-width:350px;">
-                    FILTRAR POR PRECIO
-                    <div class="content_detalle_filtro" id="detalle_filtro_precio" style="display: none; padding-right: 13%;">
+                <div class="content_filtro_categoria" style="cursor: pointer; min-width:350px;">
+                    <div id="filtro_precio" class="txt_filtrar_por_precio">
+                        FILTRAR POR PRECIO
+                    </div>
+                    <div class="content_detalle_filtro" id="detalle_filtro_precio">
                         <div class="content_filtro_range_showroom">
-                            <input class="range-slider" value="" style="width: 100%; display: none;" />
+                            <input class="range-slider" type="text" value="" />
                         </div>
                     </div>
                 </div>
-
 
                 @if (Model.FiltersBySorting != null)
                 {
@@ -76,6 +83,86 @@
         <hr class="clear" />
         <div class="contenedor_productos_showroom" id="divProductosShowRoom" style="margin-top: 25px;"></div>
     </div>
+    <hr class="clear" />
+    @if (Model.ProductosPerdio)
+    {
+        if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+        {
+            <!--JN NO SUSCRITA Historia 636-->
+            <!-- INICIO ZONA DORADA-->
+            <div id="block_inscribete" style="display: none;">
+                <div class="zona_dorada_contenedor_desktop">
+
+                </div>
+                <div class="contenido_zona_dorada_contenedor_desktop">
+                    <div class="fix-zona-dorada">
+                        <div class="xblock-cont-uno">
+                            <img src="~/Content/Images/RevistaDigital/logo-club-ganamas-blanco.png" style="width:90px;" /><p>@Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b></p><div style="clear:both;"></div>
+                        </div>
+                        <div class="xblock-cont-dos">
+                            <a href="@Url.Action("Informacion", "RevistaDigital")">SUSCRÍBETE GRATIS</a>
+                        </div>
+
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN ZONA DORADA-->
+
+        }
+        else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+        {
+            <!-- INICIO ZONA DORADA-->
+            <div id="block_inscribete" style="display: none;">
+                <div class="zona_dorada_contenedor_desktop">
+
+                </div>
+                <div class="contenido_zona_dorada_contenedor_desktop">
+                    <div class="fix-zona-dorada">
+                        <div class="block-cont cont-uno">
+                            <div class="block-cell">
+                                <div class="logo-dorado-contenedor"></div>
+                            </div>
+                        </div>
+                        <div class="block-cont cont-dos">
+                            <div class="block-cell">
+                                <p>
+                                    @Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b>
+                                </p>
+                            </div>
+                        </div>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN ZONA DORADA-->
+        }
+        else
+        {
+            <div>
+                <div id="block_inscribete" style="display: none;">
+                    <div class="content_belcorp">
+                        <div class="block_inscribete_predio">
+                            <span class="hblock_title_perdio">@Model.PerdioTitulo</span><br />
+                            <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+
+        <div class="content_belcorp parche_productos_1000" data-listado-content="" style="margin-bottom: 55px;">
+            <div id="divOfertaProductosPerdio" class="divOfertaProductosPerdiofix" data-content-perdido="@Model.CampaniaID" style="position: relative; top: -230px; display: none;"></div>
+
+        </div>
+    }
+
+    <hr class="clear" />
+    <div id="divOfertaProductosLoad" style="display: none;">
+        Cargando Productos<br>
+    </div>
+    <hr class="clear" />
 
     <div class="popup_banner_especial" id="PopupBannerEspecial"> </div>
 
@@ -332,7 +419,7 @@
 <script id="template-showroom" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div class="revistadigital-landing">
-        <div class="content_item_carrusel" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}">
+        <div class="content_item_carrusel" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}"  {{#iff  TipoAccionAgregar '==' '5'}} href="javascript:;" onclick="javascript:VerPopupExpGanaMas();" {{/iff}}>
             <div data-campos="">
                 <input type="hidden" class="hdOfertaShowRoomID" value="{{OfertaShowRoomID}}" />
                 <input type="hidden" class="valorCuv" value="{{CUV}}" />
@@ -351,7 +438,9 @@
                 <img data-src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom="" />
                 {{/IsNullOrEmpty}}
 
+                {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}}
                 <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
+                {{/iff}}
             </div>
             <div class="producto_nombre_descripcion" data-item-tag="descripcion">
                 <h6>&ensp;&nbsp;</h6>
@@ -365,28 +454,36 @@
             </div>
             <div class="clear"></div>
             <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                <div class="texto_elige_tono"></div>
+                
                 {{#iff TipoAccionAgregar '==' '2'}}
-                <div class="texto_elige_tono"></div>
-                <div class="clear"></div>
-                <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                    <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
-                           class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                           oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); "
-                           data-input="cantidad" data-cantidad-input="-">
-                    <div class="liquidacion_rango_right_pedido">
-                        <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    <div class="clear"></div>
+                    <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                        <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
+                               class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                               oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); "
+                               data-input="cantidad" data-cantidad-input="-">
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
                     </div>
-                </div>
-                <a class="boton_Agregalo_home" data-btn-agregar-sr="">
-                    AGRÉGALO
-                </a>
+                    <a class="boton_Agregalo_home" data-btn-agregar-sr="">
+                        AGRÉGALO
+                    </a>
                 {{/iff}}
+
                 {{#iff TipoAccionAgregar '==' '3'}}
-                <div class="texto_elige_tono"></div>
                 <div class="clear"></div>
                 <a class="btn_elige_tono" href="{{UrlDetalle}}">
                     <b style="color:#000000">ELIGE TU OPCIÓN</b>
+                </a>
+                {{/iff}}
+                
+                {{#iff TipoAccionAgregar '==' '4'}}
+                <a href="javascript:;" class="btn_elige_tono js-no-popup" data-bloqueada="{{ClaseBloqueada}}"
+                    onclick="javascript:VerPopupExpGanaMas(); ">
+                    ¿LO QUIERES?
                 </a>
                 {{/iff}}
 
@@ -397,12 +494,15 @@
                         <div class="icono"></div>
                     </div>
                 </div>
+
             </div>
         </div>
-        </div>
-        {{/each}}
-        <hr class="clear" />
+    </div>
+    {{/each}}
+    <hr class="clear" />
 </script>
+
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", @Model.MensajeProductoBloqueado)
 
 @section scripts{
 
@@ -429,7 +529,7 @@
 
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/ion.rangeSlider/ion.rangeSlider.js")"></script>
     @System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/ShowRoom/ShowRoomJs")
 
 }

@@ -19,6 +19,6 @@ namespace Portal.Consultoras.Web.Models.Estrategia
         public decimal MontoAgregar { get; set; }
         public decimal MontoMeta { get; set; }
         public decimal MontoGanador { get; set; }
-  
+        public decimal ImporteReal { get; set; }
     }
 }

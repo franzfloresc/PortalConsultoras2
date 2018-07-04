@@ -1058,6 +1058,22 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="LimpiarCacheRedis">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoTipoEstrategia" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="campaniaID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LimpiarCacheRedisResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LimpiarCacheRedisResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetEstrategiaPremiosTippingPoint">
     <xs:complexType>
       <xs:sequence>
