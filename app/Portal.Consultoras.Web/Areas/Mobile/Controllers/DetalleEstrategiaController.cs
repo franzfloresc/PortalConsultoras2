@@ -14,14 +14,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
-            if (!EnviaronParametrosValidos(palanca, campaniaId, cuv)) return RedirectToAction("Index", "Ofertas");
+            if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv)) return RedirectToAction("Index", "Ofertas");
 
-            if (!TienePermisoPalanca(palanca)) return RedirectToAction("Index", "Ofertas");
+            if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca)) return RedirectToAction("Index", "Ofertas");
 
             DetalleEstrategiaFichaModel modelo;
-            if (PalancasConSesion(palanca))
+            if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
             {
-                var estrategiaPresonalizada = ObtenerEstrategiaPersonalizada(palanca, cuv, campaniaId);
+                var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
                 if (estrategiaPresonalizada == null) return RedirectToAction("Index", "Ofertas");
                 modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
             }
@@ -32,11 +32,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             modelo.Origen = origen;
             modelo.Palanca = palanca;
-            modelo.TieneSession = PalancasConSesion(palanca);
+            modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
             modelo.Campania = campaniaId;
             modelo.Cuv = cuv;
 
-            
+
             ViewBag.PaisAnalytics = userData.CodigoISO;
             ViewBag.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();
 

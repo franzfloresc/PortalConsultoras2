@@ -150,7 +150,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-        #region M?todos
+        #region Metodos
 
         #region Pedido
 

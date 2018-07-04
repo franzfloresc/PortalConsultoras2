@@ -41,130 +41,130 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     };
                 }
 
-                protected override List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
-                {
-                    var estrategias =new List<BEEstrategia>();
+                //protected override List<BEEstrategia> ConsultarEstrategiasPorTipo(string tipo, int campaniaId = 0)
+                //{
+                //    var estrategias =new List<BEEstrategia>();
 
-                    if (campaniaId == 201808 && tipo == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
-                    {
-                        estrategias.Add(new BEEstrategia
-                        {
-                            EstrategiaID = 1,
-                            CampaniaID= 201808,
-                            CodigoEstrategia = "2001",
-                            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.OfertaParaTi,
-                            DescripcionCUV2=string.Empty,
-                            EstrategiaDetalle = new BEEstrategiaDetalle { },
-                            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.OfertaParaTi }
-                        });
-                        estrategias.Add(new BEEstrategia
-                        {
-                            EstrategiaID = 2,
-                            CampaniaID = 201808,
-                            CodigoEstrategia = "2001",
-                            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.OfertaParaTi,
-                            DescripcionCUV2 = string.Empty,
-                            EstrategiaDetalle = new BEEstrategiaDetalle { },
-                            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.OfertaParaTi }
-                        });
-                    }
+                //    if (campaniaId == 201808 && tipo == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
+                //    {
+                //        estrategias.Add(new BEEstrategia
+                //        {
+                //            EstrategiaID = 1,
+                //            CampaniaID= 201808,
+                //            CodigoEstrategia = "2001",
+                //            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.OfertaParaTi,
+                //            DescripcionCUV2=string.Empty,
+                //            EstrategiaDetalle = new BEEstrategiaDetalle { },
+                //            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.OfertaParaTi }
+                //        });
+                //        estrategias.Add(new BEEstrategia
+                //        {
+                //            EstrategiaID = 2,
+                //            CampaniaID = 201808,
+                //            CodigoEstrategia = "2001",
+                //            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.OfertaParaTi,
+                //            DescripcionCUV2 = string.Empty,
+                //            EstrategiaDetalle = new BEEstrategiaDetalle { },
+                //            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.OfertaParaTi }
+                //        });
+                //    }
 
-                    if (campaniaId == 201808 && tipo == Constantes.TipoEstrategiaCodigo.RevistaDigital)
-                    {
-                        estrategias.Add(new BEEstrategia
-                        {
-                            EstrategiaID = 11,
-                            CampaniaID = 201808,
-                            CodigoEstrategia = "2001",
-                            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.OfertasParaMi,
-                            DescripcionCUV2 = string.Empty,
-                            EstrategiaDetalle = new BEEstrategiaDetalle { },
-                            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.OfertasParaMi },
-                            FlagRevista = Constantes.FlagRevista.Valor0
-                        });
-                        estrategias.Add(new BEEstrategia
-                        {
-                            EstrategiaID = 12,
-                            CampaniaID = 201808,
-                            CodigoEstrategia = "2001",
-                            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.PackAltoDesembolso,
-                            DescripcionCUV2 = string.Empty,
-                            EstrategiaDetalle = new BEEstrategiaDetalle { },
-                            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.PackAltoDesembolso },
-                            FlagRevista = Constantes.FlagRevista.Valor0
-                        });
-                        estrategias.Add(new BEEstrategia
-                        {
-                            EstrategiaID = 17,
-                            CampaniaID = 201808,
-                            CodigoEstrategia = "2001",
-                            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.OfertasParaMi,
-                            DescripcionCUV2 = string.Empty,
-                            EstrategiaDetalle = new BEEstrategiaDetalle { },
-                            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.OfertasParaMi },
-                            FlagRevista = Constantes.FlagRevista.Valor1
-                        });
-                        estrategias.Add(new BEEstrategia
-                        {
-                            EstrategiaID = 18,
-                            CampaniaID = 201808,
-                            CodigoEstrategia = "2001",
-                            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.PackAltoDesembolso,
-                            DescripcionCUV2 = string.Empty,
-                            EstrategiaDetalle = new BEEstrategiaDetalle { },
-                            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.PackAltoDesembolso },
-                            FlagRevista = Constantes.FlagRevista.Valor1
-                        });
-                        estrategias.Add(new BEEstrategia
-                        {
-                            EstrategiaID = 13,
-                            CampaniaID = 201808,
-                            CodigoEstrategia = "2001",
-                            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.OfertasParaMi,
-                            DescripcionCUV2 = string.Empty,
-                            EstrategiaDetalle = new BEEstrategiaDetalle { },
-                            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.OfertasParaMi },
-                            FlagRevista = Constantes.FlagRevista.Valor2
-                        });
-                        estrategias.Add(new BEEstrategia
-                        {
-                            EstrategiaID = 14,
-                            CampaniaID = 201808,
-                            CodigoEstrategia = "2001",
-                            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.PackAltoDesembolso,
-                            DescripcionCUV2 = string.Empty,
-                            EstrategiaDetalle = new BEEstrategiaDetalle { },
-                            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.PackAltoDesembolso },
-                            FlagRevista = Constantes.FlagRevista.Valor2
-                        });
-                    }
+                //    if (campaniaId == 201808 && tipo == Constantes.TipoEstrategiaCodigo.RevistaDigital)
+                //    {
+                //        estrategias.Add(new BEEstrategia
+                //        {
+                //            EstrategiaID = 11,
+                //            CampaniaID = 201808,
+                //            CodigoEstrategia = "2001",
+                //            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.OfertasParaMi,
+                //            DescripcionCUV2 = string.Empty,
+                //            EstrategiaDetalle = new BEEstrategiaDetalle { },
+                //            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.OfertasParaMi },
+                //            FlagRevista = Constantes.FlagRevista.Valor0
+                //        });
+                //        estrategias.Add(new BEEstrategia
+                //        {
+                //            EstrategiaID = 12,
+                //            CampaniaID = 201808,
+                //            CodigoEstrategia = "2001",
+                //            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.PackAltoDesembolso,
+                //            DescripcionCUV2 = string.Empty,
+                //            EstrategiaDetalle = new BEEstrategiaDetalle { },
+                //            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.PackAltoDesembolso },
+                //            FlagRevista = Constantes.FlagRevista.Valor0
+                //        });
+                //        estrategias.Add(new BEEstrategia
+                //        {
+                //            EstrategiaID = 17,
+                //            CampaniaID = 201808,
+                //            CodigoEstrategia = "2001",
+                //            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.OfertasParaMi,
+                //            DescripcionCUV2 = string.Empty,
+                //            EstrategiaDetalle = new BEEstrategiaDetalle { },
+                //            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.OfertasParaMi },
+                //            FlagRevista = Constantes.FlagRevista.Valor1
+                //        });
+                //        estrategias.Add(new BEEstrategia
+                //        {
+                //            EstrategiaID = 18,
+                //            CampaniaID = 201808,
+                //            CodigoEstrategia = "2001",
+                //            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.PackAltoDesembolso,
+                //            DescripcionCUV2 = string.Empty,
+                //            EstrategiaDetalle = new BEEstrategiaDetalle { },
+                //            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.PackAltoDesembolso },
+                //            FlagRevista = Constantes.FlagRevista.Valor1
+                //        });
+                //        estrategias.Add(new BEEstrategia
+                //        {
+                //            EstrategiaID = 13,
+                //            CampaniaID = 201808,
+                //            CodigoEstrategia = "2001",
+                //            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.OfertasParaMi,
+                //            DescripcionCUV2 = string.Empty,
+                //            EstrategiaDetalle = new BEEstrategiaDetalle { },
+                //            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.OfertasParaMi },
+                //            FlagRevista = Constantes.FlagRevista.Valor2
+                //        });
+                //        estrategias.Add(new BEEstrategia
+                //        {
+                //            EstrategiaID = 14,
+                //            CampaniaID = 201808,
+                //            CodigoEstrategia = "2001",
+                //            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.PackAltoDesembolso,
+                //            DescripcionCUV2 = string.Empty,
+                //            EstrategiaDetalle = new BEEstrategiaDetalle { },
+                //            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.PackAltoDesembolso },
+                //            FlagRevista = Constantes.FlagRevista.Valor2
+                //        });
+                //    }
 
-                    if (campaniaId == 201808 && tipo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
-                    {
-                        estrategias.Add(new BEEstrategia
-                        {
-                            EstrategiaID = 21,
-                            CampaniaID = 201808,
-                            CodigoEstrategia = "2001",
-                            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.Lanzamiento,
-                            DescripcionCUV2 = string.Empty,
-                            EstrategiaDetalle = new BEEstrategiaDetalle { },
-                            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.Lanzamiento }
-                        });
-                        estrategias.Add(new BEEstrategia
-                        {
-                            EstrategiaID = 22,
-                            CampaniaID = 201808,
-                            CodigoEstrategia = "2001",
-                            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.Lanzamiento,
-                            DescripcionCUV2 = string.Empty,
-                            EstrategiaDetalle = new BEEstrategiaDetalle { },
-                            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.Lanzamiento }
-                        });
-                    }
+                //    if (campaniaId == 201808 && tipo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
+                //    {
+                //        estrategias.Add(new BEEstrategia
+                //        {
+                //            EstrategiaID = 21,
+                //            CampaniaID = 201808,
+                //            CodigoEstrategia = "2001",
+                //            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.Lanzamiento,
+                //            DescripcionCUV2 = string.Empty,
+                //            EstrategiaDetalle = new BEEstrategiaDetalle { },
+                //            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.Lanzamiento }
+                //        });
+                //        estrategias.Add(new BEEstrategia
+                //        {
+                //            EstrategiaID = 22,
+                //            CampaniaID = 201808,
+                //            CodigoEstrategia = "2001",
+                //            CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.Lanzamiento,
+                //            DescripcionCUV2 = string.Empty,
+                //            EstrategiaDetalle = new BEEstrategiaDetalle { },
+                //            TipoEstrategia = new BETipoEstrategia { Codigo = Constantes.TipoEstrategiaCodigo.Lanzamiento }
+                //        });
+                //    }
 
-                    return estrategias;
-                }
+                //    return estrategias;
+                //}
             }
 
             RevistaDigitalController controller;
