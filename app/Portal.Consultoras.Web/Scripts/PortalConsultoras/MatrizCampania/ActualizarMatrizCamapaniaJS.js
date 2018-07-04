@@ -179,7 +179,7 @@ function GrabarMatrizCampaniaMasivo() {
         data += anioCampania;
         data += "|";
         for (var j = 0; j < 4; j++) {
-            data += tabla.rows[i].cells[j].innerHTML;
+            data += tabla.rows[i].cells[j].innerHTML.replace("|", '¦').replace('¬','-');
             data += "|";
         }
         data = data.substring(0, data.length-1);
