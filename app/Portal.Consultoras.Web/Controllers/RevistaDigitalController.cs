@@ -691,7 +691,7 @@ namespace Portal.Consultoras.Web.Controllers
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.RevistaDigital)] = null;
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, string.Empty)] = null;// OPT
             Session[Constantes.ConstSession.ListaProductoShowRoom] = null;//
-            sessionManager.SetEstrategiaODD(null);
+            //sessionManager.SetEstrategiaODD(null);    // no poner la session en null, ODD no tiene la funcionalidad de flagrevista aun
             //Limpia cache de Redis
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {

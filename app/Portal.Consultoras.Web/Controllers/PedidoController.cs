@@ -1531,12 +1531,18 @@ namespace Portal.Consultoras.Web.Controllers
             var userModel = userData;
             var productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userModel, CRITERIO_BUSQUEDA_PRODUCTO_CANT, criterio);
 
+            if (!productos.Any())
+            {
+                productosModel.Add(GetProductoNoExiste());
+                return productosModel;
+            }
+
             var siExiste = productos.Any(p => p.CUV == term);
 
             BloqueoProductosCatalogo(ref productos);
 
             BloqueoProductosDigitales(ref productos);
-
+            
             if (!productos.Any())
             {
                 if (siExiste)
@@ -1639,12 +1645,18 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 1, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
 
+                if (!productos.Any())
+                {
+                    productosModel.Add(GetProductoNoExiste());
+                    return Json(productosModel, JsonRequestBehavior.AllowGet);
+                }
+
                 var siExiste = productos.Any(p => p.CUV == model.CUV);
 
                 BloqueoProductosCatalogo(ref productos);
 
                 BloqueoProductosDigitales(ref productos);
-
+                
                 if (!productos.Any())
                 {
                     if (siExiste)
@@ -1752,20 +1764,27 @@ namespace Portal.Consultoras.Web.Controllers
         private List<ServiceODS.BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(string codigoDescripcion, UsuarioModel userModel, int cantidadFilas, int criterioBusqueda)
         {
             List<ServiceODS.BEProducto> productos;
-
-            using (var odsServiceClient = new ODSServiceClient())
+            try
             {
-                productos = odsServiceClient.SelectProductoByCodigoDescripcionSearchRegionZona(
-                    userModel.PaisID,
-                    userModel.CampaniaID,
-                    codigoDescripcion,
-                    userModel.RegionID,
-                    userModel.ZonaID,
-                    userModel.CodigorRegion,
-                    userModel.CodigoZona,
-                    criterioBusqueda,
-                    cantidadFilas,
-                    true).ToList();
+                using (var odsServiceClient = new ODSServiceClient())
+                {
+                    productos = odsServiceClient.SelectProductoByCodigoDescripcionSearchRegionZona(
+                        userModel.PaisID,
+                        userModel.CampaniaID,
+                        codigoDescripcion,
+                        userModel.RegionID,
+                        userModel.ZonaID,
+                        userModel.CodigorRegion,
+                        userModel.CodigoZona,
+                        criterioBusqueda,
+                        cantidadFilas,
+                        true).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                productos = new List<ServiceODS.BEProducto>();
             }
 
             return productos;
@@ -1829,7 +1848,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
         }
-
+        
         private ProductoModel GetProductoNoExiste()
         {
             return new ProductoModel()
