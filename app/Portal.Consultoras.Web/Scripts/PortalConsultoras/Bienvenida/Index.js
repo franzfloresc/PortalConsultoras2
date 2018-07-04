@@ -1547,6 +1547,11 @@ function CargarMisDatos() {
                 $('#codigoUsurioMD').html(temp.CodigoUsuario);
                 $('#nombresUsuarioMD').html(temp.NombreCompleto);
                 $('#nombreGerenteZonal').html($.trim(temp.NombreGerenteZonal));
+                if ($.trim(temp.IndicadorConsultoraDigital) == "0") {
+                    $('#GerenteZona').show();
+                } else {
+                    $('#GerenteZona').hide();
+                }
                 $('#txtSobrenombreMD').val(temp.Sobrenombre);
                 $('#txtEMailMD').val(temp.EMail);
                 $('#txtTelefonoMD').val(temp.Telefono);
