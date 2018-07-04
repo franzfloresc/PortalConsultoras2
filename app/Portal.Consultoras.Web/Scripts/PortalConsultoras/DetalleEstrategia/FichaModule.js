@@ -128,8 +128,6 @@
         });
     };
     
- 
-    
     var _promiseObternerComponentes = function (params) {
         var dfd = $.Deferred();
 
@@ -151,8 +149,6 @@
 
         return dfd.promise();
     };
-
- 
 
     var _verificarVariedad = function (estrategia) {
         if (!IsNullOrEmpty(estrategia.CodigoVariante)) {
@@ -207,9 +203,12 @@
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
         _validarDesactivadoGeneral(estrategia);
-        
+
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
         _ocultarSecciones(estrategia.CodigoEstrategia);
+        if (!isMobile()) {
+            _validarSiEsAgregado(estrategia);
+        }
         return true;
         
     };
@@ -237,16 +236,6 @@
             }
             else  return options.fn(this);
         }
-    });
-    var _actualizarVariedad = function (estrategia) {
-        if (estrategia.Hermanos.length == 1) {
-            if (estrategia.Hermanos[0].Hermanos) {
-                if (estrategia.Hermanos[0].Hermanos.length > 0) {
-                    estrategia.CodigoVariante = ConstantesModule.CodigoVariedad.IndividualVariable;
-                }
-            }
-        }
-    };
     });
 
     var _ocultarSecciones = function (CodigoEstrategia) {
@@ -281,6 +270,12 @@
             }
         });
     };
+
+    var _validarSiEsAgregado = function (estrategia) {
+        if (estrategia.IsAgregado) {
+            $("#ContenedorAgregado").show();
+        }
+    }
     
     function Inicializar() {
         localStorageModule = LocalStorageModule();
