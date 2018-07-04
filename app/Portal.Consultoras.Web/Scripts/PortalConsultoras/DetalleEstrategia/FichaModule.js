@@ -32,7 +32,14 @@
         dataChange: "[data-change]",
         dataSelected: "[data-select-area]"
     };
-  
+    var _seccionesFichaProducto = {
+        EtiquetaLanzamientos: "#EtiquetaLanzamientos",
+        ImagenDeFondo: "#ImagenDeFondo",
+        DescripcionAdicional: "#DescripcionAdicional",
+        ContenidoProducto: "#ContenidoProducto",
+        CarruselProducto: "#CarruselProducto",
+        EtiquetaOdd: "#EtiquetaOdd"
+    }
 
     var _getParamValueFromQueryString = function (queryStringName) {
         queryStringName = queryStringName || '';
@@ -175,7 +182,7 @@
 
 
     var _obtenerSetRelacionados = function () {
-        debugger;
+        
 
         var cuv = _config.cuv;
         var campaniaId = _config.campania;
@@ -227,7 +234,7 @@
 
 
     var _mostrarSetRelacionados = function () {
-        debugger;
+        
         $(_elementos.divSetsProductosRelacionados).fadeOut();
 
         var platform = !isMobile() ? 'desktop' : 'mobile';
@@ -337,6 +344,7 @@
         _actualizarVariedad(estrategia);
         
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
+        _ocultarSecciones(estrategia.CodigoEstrategia);
         return true;
         
     };
@@ -365,6 +373,37 @@
             else  return options.fn(this);
         }
     });
+    var _actualizarVariedad = function (estrategia) {
+        if (estrategia.Hermanos.length == 1) {
+            if (estrategia.Hermanos[0].Hermanos) {
+                if (estrategia.Hermanos[0].Hermanos.length > 0) {
+                    estrategia.CodigoVariante = ConstantesModule.CodigoVariedad.IndividualVariable;
+                }
+            }
+        }
+    }
+
+    var _ocultarSecciones = function (CodigoEstrategia) {
+        if (ConstantesModule.ConstantesPalanca.HerramientasVenta == CodigoEstrategia
+            || ConstantesModule.ConstantesPalanca.OfertasParaMi == CodigoEstrategia
+            || ConstantesModule.ConstantesPalanca.OfertaParaTi == CodigoEstrategia
+            || ConstantesModule.ConstantesPalanca.GuiaDeNegocioDigitalizada == CodigoEstrategia) {
+
+            $(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
+            $(_seccionesFichaProducto.ImagenDeFondo).hide();
+            $(_seccionesFichaProducto.DescripcionAdicional).hide();
+            $(_seccionesFichaProducto.ContenidoProducto).hide();
+            $(_seccionesFichaProducto.CarruselProducto).hide();
+            $(_seccionesFichaProducto.EtiquetaOdd).hide();
+        } else if (ConstantesModule.ConstantesPalanca.Lanzamiento == CodigoEstrategia) {
+            $(_seccionesFichaProducto.EtiquetaLanzamientos).show();
+            $(_seccionesFichaProducto.ImagenDeFondo).show();
+            $(_seccionesFichaProducto.DescripcionAdicional).show();
+            $(_seccionesFichaProducto.ContenidoProducto).show();
+            $(_seccionesFichaProducto.CarruselProducto).show();
+            $(_seccionesFichaProducto.EtiquetaOdd).hide();
+        }
+    }
     
     function Inicializar() {
         localStorageModule = LocalStorageModule();
@@ -372,8 +411,8 @@
         _bindingEvents();
         _crearReloj();
         _crearTabs();
-        _crearCarruseles();
-        _mostrarSetRelacionados();
+        //_crearCarruseles();
+       // _mostrarSetRelacionados();
     }
 
     return {
