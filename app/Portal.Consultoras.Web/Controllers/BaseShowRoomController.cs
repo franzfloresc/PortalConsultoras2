@@ -132,7 +132,7 @@ namespace Portal.Consultoras.Web.Controllers
                 showRoomEventoModel.Simbolo = userData.Simbolo;
                 showRoomEventoModel.CodigoIso = userData.CodigoISO;
                 //showRoomEventoModel.ListaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion);
-                var listaShowRoomOfertas = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+                var listaShowRoomOfertas = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
                 showRoomEventoModel.TieneOfertasAMostrar = listaShowRoomOfertas.Any();
                 //showRoomEventoModel.ListaShowRoomCompraPorCompra = GetProductosCompraPorCompra(userData.EsDiasFacturacion, showRoomEventoModel.EventoID, showRoomEventoModel.CampaniaID);
                 //showRoomEventoModel.ListaCategoria = GetCategoriasProductoShowRoom(showRoomEventoModel);
@@ -282,7 +282,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaOferta = new List<EstrategiaPersonalizadaProductoModel>();
             if (idOferta <= 0) return listaOferta;
 
-            var listaOfertasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+            var listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
             listaOferta = listaOfertasModel.Where(o => o.EstrategiaID != idOferta).ToList();
             return listaOferta;
         }
@@ -405,7 +405,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected EstrategiaPersonalizadaProductoModel ObtenerPrimeraOfertaShowRoom()
         {
             //var ofertasShowRoom = _ofertaPersonalizadaProvider.GetShowRoomOfertasConsultora(userData);
-            var ofertasShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+            var ofertasShowRoom = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
 
             //ofertasShowRoom = ObtenerListaShowRoomOfertasMdo(ofertasShowRoom);
             //ActualizarUrlImagenes(ofertasShowRoom);

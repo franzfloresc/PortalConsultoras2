@@ -121,12 +121,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
         }
 
-        [HttpGet]
-        public JsonResult ConsultarEstrategiaCuv(string cuv)
-        {
-            var modelo = EstrategiaGetDetalle(0, cuv) ?? new EstrategiaPersonalizadaProductoModel();
-            return Json(modelo.Hermanos, JsonRequestBehavior.AllowGet);
-        }
+        //[HttpGet]
+        //public JsonResult ConsultarEstrategiaCuv(string cuv)
+        //{
+        //    var modelo = EstrategiaGetDetalle(0, cuv) ?? new EstrategiaPersonalizadaProductoModel();
+        //    return Json(modelo.Hermanos, JsonRequestBehavior.AllowGet);
+        //}
 
         [HttpPost]
         public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
