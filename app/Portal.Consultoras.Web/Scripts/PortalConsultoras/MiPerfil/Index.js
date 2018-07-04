@@ -39,7 +39,6 @@ $(document).ready(function () {
             },
             PuedeCambiarTelefono: function () {
                 var smsFlag = $('#hdn_ServicioSMS').val();
-                console.log(smsFlag);
                 if (smsFlag == '0' || smsFlag == false) {
                     $('#btnCambiarCelular').hide();
                 } else {
@@ -53,52 +52,61 @@ $(document).ready(function () {
                         $(campoFormulario).addClass('campo_con_datos');
                     }
                 });
+            },
+            EvitandoCopiarPegar: function () {
+                FuncionesGenerales.AvoidingCopyingAndPasting('txtTelefonoMD');
+                FuncionesGenerales.AvoidingCopyingAndPasting('txtTelefonoTrabajoMD');
+                FuncionesGenerales.AvoidingCopyingAndPasting('txtCelularMD');
+                FuncionesGenerales.AvoidingCopyingAndPasting('txtContraseniaAnterior');
+                FuncionesGenerales.AvoidingCopyingAndPasting('txtNuevaContrasenia01');
+                FuncionesGenerales.AvoidingCopyingAndPasting('txtNuevaContrasenia02');
             }
         },
-        me.Eventos = {
-            LabelActivo: function () {
-                var campoDatos = $(this).val();
-                if (campoDatos != '') {
-                    $(this).addClass('campo_con_datos');
-                } else {
-                    $(this).removeClass('campo_con_datos');
-                }
-            },
-            AgregarOtroNumero: function (e) {
-                e.preventDefault();
-                $(this).fadeOut(150);
-                $('.label_num_adicional').fadeIn(100);
-                $('.contenedor_campos_num_adicional').fadeIn(150);
-            },
-            EliminarNumeroAdicional: function (e) {
-                e.preventDefault();
-                $('.contenedor_campos_num_adicional').fadeOut(150);
-                $('.label_num_adicional').fadeOut(100);
-                $('.enlace_agregar_num_adicional').fadeIn(150);
-                $('.contenedor_campos_num_adicional input').val('');
-            },
-            MostrarPassword: function (e) {
-                e.preventDefault();
-                var _this = e.target;
-                var campoPassword = $(_this).parent().find('input');
-                if (campoPassword.val() != '') {
-                    if ($(_this).is('.icono_ver_password_activo')) {
-                        $(_this).removeClass('icono_ver_password_activo');
-                        campoPassword.attr('type', 'password');
+            me.Eventos = {
+                LabelActivo: function () {
+                    var campoDatos = $(this).val();
+                    if (campoDatos != '') {
+                        $(this).addClass('campo_con_datos');
                     } else {
-                        $(_this).addClass('icono_ver_password_activo');
-                        campoPassword.attr('type', 'text');
+                        $(this).removeClass('campo_con_datos');
+                    }
+                },
+                AgregarOtroNumero: function (e) {
+                    e.preventDefault();
+                    $(this).fadeOut(150);
+                    $('.label_num_adicional').fadeIn(100);
+                    $('.contenedor_campos_num_adicional').fadeIn(150);
+                },
+                EliminarNumeroAdicional: function (e) {
+                    e.preventDefault();
+                    $('.contenedor_campos_num_adicional').fadeOut(150);
+                    $('.label_num_adicional').fadeOut(100);
+                    $('.enlace_agregar_num_adicional').fadeIn(150);
+                    $('.contenedor_campos_num_adicional input').val('');
+                },
+                MostrarPassword: function (e) {
+                    e.preventDefault();
+                    var _this = e.target;
+                    var campoPassword = $(_this).parent().find('input');
+                    if (campoPassword.val() != '') {
+                        if ($(_this).is('.icono_ver_password_activo')) {
+                            $(_this).removeClass('icono_ver_password_activo');
+                            campoPassword.attr('type', 'password');
+                        } else {
+                            $(_this).addClass('icono_ver_password_activo');
+                            campoPassword.attr('type', 'text');
+                        }
                     }
                 }
+            },
+            me.Inicializar = function () {
+                me.Funciones.InicializarEventos();
+                me.Funciones.CamposFormularioConDatos();
+                me.Funciones.mostrarTelefono();
+                me.Funciones.PuedeActualizar();
+                me.Funciones.PuedeCambiarTelefono();
+                me.Funciones.EvitandoCopiarPegar();
             }
-        },
-        me.Inicializar = function () {
-            me.Funciones.InicializarEventos();
-            me.Funciones.CamposFormularioConDatos();
-            me.Funciones.mostrarTelefono();
-            me.Funciones.PuedeActualizar();
-            me.Funciones.PuedeCambiarTelefono();
-        }
     }
 
     MiPerfil = new vistaMiPerfil();
@@ -110,37 +118,7 @@ $(document).ready(function () {
 
     $('#btnEliminarFoto').click(function () { eliminarFotoConsultora(); });
 
-    $('#txtTelefonoMD').on("cut copy paste", function (e) { e.preventDefault(); });
-
-    $('#txtTelefonoTrabajoMD').on("cut copy paste", function (e) { e.preventDefault(); });
-
-    $('#txtCelularMD').on("cut copy paste", function (e) { e.preventDefault(); });
-
     $('#hrefTerminosMD').click(function () { EnlaceTerminosCondiciones(); });
-
-    $("#txtEMailMD").keypress(function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        if (charCode <= 13) {
-            return false;
-        }
-        else {
-            var keyChar = String.fromCharCode(charCode);
-            var re = /^[a-zA-Z@._0-9\-]*$/;
-            return re.test(keyChar);
-        }
-    });
-
-    $("#txtSobrenombreMD").keypress(function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        if (charCode <= 13) {
-            return false;
-        }
-        else {
-            var keyChar = String.fromCharCode(charCode);
-            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.-]/;
-            return re.test(keyChar);
-        }
-    });
 
     ConsultarActualizaEmail();
     CancelarAtualizacionEmail();
@@ -283,26 +261,6 @@ function limitarMinimo(contenido, caracteres, a) {
         var texto = a == 1 ? "teléfono" : a == 2 ? "celular" : "otro teléfono";
         alert('El número de ' + texto + ' debe tener como mínimo ' + caracteres + ' números.');
         return false;
-    }
-    return true;
-}
-
-function SoloNumerosInputs(e) {
-    var key = window.Event ? e.which : e.keyCode
-    return ((key >= 48 && key <= 57) || (key == 8))
-}
-
-function limitarMaximo(e, contenido, caracteres, id) {
-    if (contenido.length >= caracteres) {
-        var selectedText = document.getSelection();
-        if (selectedText == contenido) {
-            $("#" + id).val("");
-            return true;
-        } else if (selectedText != "") {
-            return true;
-        } else {
-            return false;
-        }
     }
     return true;
 }
@@ -450,7 +408,9 @@ function SubirImagen(url, image) {
     });
 }
 
-function ConsultarActualizaEmail() { 
+function ConsultarActualizaEmail() {
+    var elementA = document.getElementById('hrefNocambiarCorreo');
+    if (elementA) {
         $.ajax({
             type: 'POST',
             url: baseUrl + 'Bienvenida/ObtenerActualizacionEmail',
@@ -468,28 +428,31 @@ function ConsultarActualizaEmail() {
                 alert(error);
             }
         });
+    }
 }
 
 function CancelarAtualizacionEmail() {
-    document.getElementById('hrefNocambiarCorreo').onclick = function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: baseUrl + 'MiPerfil/CancelarAtualizacionEmail',
-            dataType: 'Text',
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                if (checkTimeout(data)) {
-                    if (data == '1') {
-                        alert('Revisar tu correo Pendiente para cambiar de cuenta');
-                        document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display='None';
+    var elementA = document.getElementById('hrefNocambiarCorreo');
+    if (elementA) {
+        elementA.onclick = function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: baseUrl + 'MiPerfil/CancelarAtualizacionEmail',
+                dataType: 'Text',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        if (data == '1') {
+                            alert('Revisar tu correo Pendiente para cambiar de cuenta');
+                            document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'None';
+                        }
                     }
+                },
+                error: function (data, error) {
+
                 }
-            },
-            error: function (data, error) {
-
-            }
-        });
-    }  
-
+            });
+        }
+    }
 }

@@ -906,6 +906,17 @@ FuncionesGenerales = {
         var te = String.fromCharCode(tecla);
         return patron.test(te);
     },
+    ValidarSoloLetrasYNumeros: function (e) {
+        var charCode = (e.which) ? e.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.-]/;
+            return re.test(keyChar);
+        }
+    },
     GetDataForm: function (form) {
         var that = $(form);
         var url = that.attr('action');
@@ -952,6 +963,13 @@ FuncionesGenerales = {
     IsGuid: function (input) {
         var guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
         return guidRegex.test(input);
+    },
+    AvoidingCopyingAndPasting: function (idInput) {
+        var myInput = document.getElementById(idInput);
+        if (myInput) {
+            myInput.onpaste = function (e) { e.preventDefault(); }
+            myInput.oncopy = function (e) { e.preventDefault(); }
+        }        
     }
 };
 

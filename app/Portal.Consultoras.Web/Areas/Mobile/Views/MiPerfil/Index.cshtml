@@ -87,13 +87,13 @@ else
         <div class="wrapper_content_mi_perfil">
             <fieldset class="grupo_form_cambio_datos text-uppercase">
                 <div class="w-71">
-                    <input id="txtSobrenombreMD" name="txtSobrenombreMD" class="w-100" type="text" value="@Model.Sobrenombre" maxlength="80" />
+                    <input id="txtSobrenombreMD" name="txtSobrenombreMD" class="w-100" type="text" onkeypress="return FuncionesGenerales.ValidarSoloLetrasYNumeros(event)" value="@Model.Sobrenombre" maxlength="80" />
                     <label for="txtSobrenombreMD" class="w-100">¿Cómo quieres que te llamemos?</label>
                 </div>
             </fieldset>
             <fieldset class="grupo_form_cambio_datos text-uppercase">
                 <div class="w-71">
-                    <input id="txtEMailMD" name="txtEMailMD" class="w-100" type="text" value="@Model.EMail" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" readonly />
+                    <input id="txtEMailMD" name="txtEMailMD" class="w-100" type="text" value="@Model.EMail" readonly />
                     <label for="txtEMailMD" class="w-100">Correo Electrónico</label>
                 </div>
                 <a href="@Url.Action("ActualizarCorreo", "MiPerfil", new {area = "Mobile"})" title="Cambiar" class="enlace_cambiar_dato w-29 text-right">
@@ -114,7 +114,7 @@ else
             </fieldset>
             <fieldset class="grupo_form_cambio_datos text-uppercase">
                 <div class="w-71">
-                    <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" onkeypress="return SoloNumerosInputs(event)" maxlength="@Model.limiteMaximoTelef" />
+                    <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event)" maxlength="@Model.limiteMaximoTelef" />
                     <label for="txtCelularMD" class="w-100">Celular</label>
                 </div>
                 <a id="btnCambiarCelular" href="@Url.Action("ActualizarCelular", "MiPerfil", new {area = "Mobile"})" title="Cambiar" class="enlace_cambiar_dato w-29 text-right">
@@ -124,7 +124,7 @@ else
             </fieldset>
             <fieldset class="grupo_form_cambio_datos text-uppercase">
                 <div class="w-71">
-                    <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="text" value="@Model.Telefono" onkeypress="return SoloNumerosInputs(event)" maxlength="@Model.limiteMaximoTelef" />
+                    <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="text" value="@Model.Telefono" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event)" maxlength="@Model.limiteMaximoTelef" />
                     <label for="txtTelefonoMD" class="w-100">Número fijo</label>
                 </div>
             </fieldset>
@@ -135,7 +135,7 @@ else
                 </a>
                 <div class="contenedor_campos_num_adicional w-100" style="display:none;">
                     <div class="w-71">
-                        <input id="txtTelefonoTrabajoMD" name="txtTelefonoTrabajoMD" class="w-100" type="text" value="@Model.TelefonoTrabajo" onkeypress="return SoloNumerosInputs(event)" maxlength="@Model.limiteMaximoTelef" />
+                        <input id="txtTelefonoTrabajoMD" name="txtTelefonoTrabajoMD" class="w-100" type="text" value="@Model.TelefonoTrabajo" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event)" maxlength="@Model.limiteMaximoTelef" />
                         <label for="txtTelefonoTrabajoMD" class="label_num_adicional w-100">Número adicional</label>
                     </div>
                     <a href="#" title="Cambiar" class="enlace_eliminar_numero_adicional w-29 text-right">
