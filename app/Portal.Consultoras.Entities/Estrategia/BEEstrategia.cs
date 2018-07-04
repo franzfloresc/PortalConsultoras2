@@ -592,6 +592,12 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "FlagRevista"))
                 FlagRevista = Convert.ToInt32(row["FlagRevista"]);
 
+            if (DataRecord.HasColumn(row, "ImgFichaDesktop"))
+                ImgFichaDesktop = row["ImgFichaDesktop"].ToString();
+
+            if (DataRecord.HasColumn(row, "ImgFichaMobile"))
+                ImgFichaMobile = row["ImgFichaMobile"].ToString();
+
             EstrategiaDetalle = new BEEstrategiaDetalle(row);
             TipoEstrategia = new BETipoEstrategia(row);
         }
