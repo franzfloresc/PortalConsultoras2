@@ -1,8 +1,13 @@
-﻿@using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
+﻿@using Portal.Consultoras.Web.Models
+@using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 @{
 
     DataModel Model = ViewBag.MostrarOfertaDelDia == true ? ViewBag.OfertaDelDia ?? new DataModel() : new DataModel();
-
+    var prod = new EstrategiaPersonalizadaProductoModel();
+    if (Model.ListaOferta.Count > 0)
+    {
+        prod = Model.ListaOferta.First();
+    }
 }
 <style>
     .flip-clock-wrapper .flip{
@@ -31,27 +36,30 @@
     }
 }
 
-<div id="BloqueMobileOfertaDia" class="BloqueOfertaDia bc_plantilla-banner" style="@estiloFondo">
+<div id="BloqueMobileOfertaDia" class="BloqueOfertaDia bc_plantilla-banner" style="@estiloFondo" data-item="">
+    <div style="display:none;"   data-item-campos="">
+        <input data-estrategia="@Json.Encode(prod)" />
+    </div>
     <div class="centerElementos">
         <div class="content_oferta_dia_mobile" id="content_oferta_dia_mobile">
 
             <div class="solo_hoy_mobile">
-                <img id="img1-solohoy-odd" alt="" src="@Model.ImagenSoloHoy" />
+                <img id="img1-solohoy-odd" alt="" src="@Model.ImagenSoloHoy"/>
             </div>
 
             <div class="clock" data-total-seconds="@Model.TeQuedan.TotalSeconds"></div>
 
             <div class="imagen_set_oferta_mobile">
-                <img src="@Model.ImagenBanner" alt="" id="img-banner-odd" />
+                <img src="@Model.ImagenBanner" alt="" id="img-banner-odd"/>
             </div>
 
             <div class="detalle_oferta_dia float_left centerElementos">
                 <div class="nombre_set_oferta_mobile" @(string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorTexto) ? "" : "style=color:" + Model.ConfiguracionContenedor.ColorTexto + ";")>
-                    @Model.NombreOferta <br />
+                    @Model.NombreOferta <br/>
                     <b class="precio_oferta_soloHoy">@ViewBag.Simbolo @Model.PrecioOfertaFormat</b>
                 </div>
-                 <a class="btn_compralo_ahora btn_compralo_ahora_odd" href="#"
-                        @(string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorTexto) ? "" : "style=color:" + Model.ConfiguracionContenedor.ColorTexto + ";border-color:" + Model.ConfiguracionContenedor.ColorTexto + ";")>@Model.TextoVerDetalle</a>
+                <a class="btn_compralo_ahora btn_compralo_ahora_odd" href="#"
+                   @(string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorTexto) ? "" : "style=color:" + Model.ConfiguracionContenedor.ColorTexto + ";border-color:" + Model.ConfiguracionContenedor.ColorTexto + ";")>@Model.TextoVerDetalle</a>
             </div>
 
             @*<hr class="clear" />
