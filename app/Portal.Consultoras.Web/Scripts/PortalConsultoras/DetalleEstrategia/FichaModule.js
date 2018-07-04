@@ -190,7 +190,7 @@
         if (estrategia.Hermanos.length == 1) {
             if (estrategia.Hermanos[0].Hermanos) {
                 if (estrategia.Hermanos[0].Hermanos.length > 0) {
-                    estrategia.CodigoVariante = ConstantesModule.CodigoVariedad.IndividualVariable;
+                    estrategia.CodigoVariante = _codigoVariedad.IndividualVariable;
                 }
             }
         }
@@ -228,8 +228,7 @@
         if (estrategia.CodigoEstrategia) {
             _crearReloj();
         }
-        _ocultarSecciones(estrategia.CodigoEstrategia);
-        _ocultarTabs(estrategia.CodigoEstrategia);
+       
 
         console.log(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
@@ -297,19 +296,19 @@
         }
     }
 
-    var _ocultarTabs = function (CodigoEstrategia) {
+    var _ocultarTabs = function () {
         $(_tabsFichaProducto.detalleProducto).hide();
         $(_tabsFichaProducto.detallePack).hide();
         $(_tabsFichaProducto.tipsVenta).hide();
         $(_tabsFichaProducto.beneficios).hide();
         $(_tabsFichaProducto.video).hide();
 
-        if (ConstantesModule.ConstantesPalanca.ShowRoom == CodigoEstrategia
-            || ConstantesModule.ConstantesPalanca.Lanzamiento == CodigoEstrategia) {
+        if (_codigoPalanca.ShowRoom === _config.palanca
+            || ConstantesModule.ConstantesPalanca.Lanzamiento === _config.palanca) {
             $(_tabsFichaProducto.tipsVenta).show();
         }
 
-        if (ConstantesModule.ConstantesPalanca.Lanzamiento == CodigoEstrategia) {
+        if (_codigoPalanca.Lanzamiento === _config.palanca) {
             $(_tabsFichaProducto.video).show();
         }
     };
@@ -330,6 +329,7 @@
         //_crearReloj();
         _crearTabs();
         _crearCarruseles();
+        _ocultarTabs();
     }
 
     var _crearCarruseles = function () {
