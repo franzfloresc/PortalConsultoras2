@@ -2,12 +2,12 @@
 @using Portal.Consultoras.Common
 
 @{
-    var vbSimbolo = ViewBag.Simbolo ?? "";
+    Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
 
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/Ficha/Ficha.css")" rel="stylesheet" />
-
+    
 }
 <!--prueba-->
 <div id="ImagenDeFondo" class="imagen_fondo_detalle" style="background-image: url('https://S3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_Desktop_Fondo_del_ShowRoom_en_el_Contenedor_Ofertas_Venta 50A_2018630811_01_ytmwyupjny.jpg');"></div>
@@ -17,7 +17,7 @@
             <div id="data-estrategia" data-estrategia="@Json.Encode(Model)"></div>
         </div>
         <div class="contenedor_ficha_producto" id="seccion_ficha_handlebars"></div>
-        <script id="detalle_ficha_template" type="text/x-handlebars-template">
+    <script id="detalle_ficha_template" type="text/x-handlebars-template">
             <div class="ficha_producto">
                 <div class="contenedor_imagen">
                     <img class="contenedor_img" src="{{ImgUrl FotoProducto01}}" alt="">
@@ -26,7 +26,7 @@
                     <span data-texto_referencial="">* Foto Referencial</span>
                 </div>
                 <div class="contenedor_carrusel_tonos">
-                    <div id="carrusel_tonos">
+                    <div id="carrusel_tonos" style="display:none;">
                         <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
                             <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
                         </div>
@@ -226,31 +226,31 @@
         <div id="ContenidoProducto" class="contenedor_ficha_tabs">
             <div class="tabla_ficha_tab">
                 <div class="row_ficha_tab">
-                    <div class="cell_ficha_tab">
+                    <div class="cell_ficha_tab" id="div_ficha_tab1">
                         <div class="contents_ficha_tab">
                             <input id="ficha_tab_1" class="imput_tab_clean imput_tab" type="radio" name="tabs" data-numTab="1" checked>
                             <label for="ficha_tab_1" class="label_tab">DETALLE DEL PRODUCTO</label>
                         </div>
                     </div>
-                    <div class="cell_ficha_tab">
+                    <div class="cell_ficha_tab"  id="div_ficha_tab2">
                         <div class="contents_ficha_tab">
                             <input id="ficha_tab_2" class="imput_tab_clean imput_tab" type="radio" data-numTab="2" name="tabs">
                             <label for="ficha_tab_2" class="label_tab">DETALLE DEL PACK</label>
                         </div>
                     </div>
-                    <div class="cell_ficha_tab">
+                    <div class="cell_ficha_tab"  id="div_ficha_tab3">
                         <div class="contents_ficha_tab">
                             <input id="ficha_tab_3" class="imput_tab_clean imput_tab" type="radio" data-numTab="3" name="tabs">
                             <label for="ficha_tab_3" class="label_tab">TIPS DE VENTA</label>
                         </div>
                     </div>
-                    <div class="cell_ficha_tab">
+                    <div class="cell_ficha_tab"  id="div_ficha_tab4">
                         <div class="contents_ficha_tab">
                             <input id="ficha_tab_4" class="imput_tab_clean imput_tab" type="radio" data-numTab="4" name="tabs">
                             <label for="ficha_tab_4" class="label_tab">BENEFICIOS</label>
                         </div>
                     </div>
-                    <div class="cell_ficha_tab">
+                    <div class="cell_ficha_tab"  id="div_ficha_tab5">
                         <div class="contents_ficha_tab">
                             <input id="ficha_tab_5" class="imput_tab_clean imput_tab" type="radio" data-numTab="5" name="tabs">
                             <label for="ficha_tab_5" class="label_tab">VIDEO</label>
@@ -347,171 +347,13 @@
             </div>
             <div class="contenedor_carrusel">
                 <div id="carrusel">
-                    <div class="contenedor_producto_carrusel" data-item="">
-                        <div class="contenedor_imagen_carrusel" data-img="">
-                            <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                            <a class="btn_ver_detalle" href="">VER DETALLE</a>
-                        </div>
-                        <div class="contenedor_detalle_carrusel">
-                            <div class="marca_detalle_carrusel">ÉSIKA</div>
-                            <div class="descripcion_detalle_carrusel">7 Kalos Sport + 4 Shampoos Mañanas Felic ...</div>
-                            <div class="precio_detalle_carrusel">
-                                <span class="precio_oferta_normal_carrusel">S/. 875.00</span>
-                                <span class="precio_oferta_venta_carrusel">S/. 329.90</span>
-                            </div>
-                            <div class="contenedor_elige_tu_tono_carrusel">
-                                <div class="txt_elige_tu_tono">¡AHORA ELIGE TU TONO!</div>
-                                <a id="btnElegirTono" class="btn_elige_tu_tono btn_elige_tu_tono_desactivado" data-btn-elegir-tono="">ELIGE TU OPCIÓN</a>
-                            </div>
-                            <div class="contenedor_agregar_carrusel">
-                                <div class="contenedor_rangos contenedor_rangos_carrusel" data-cantidad-contenedor="">
-                                    <input class="txt_cantidad_pedido_carrusel ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
-                                    <div class="menos_mas_carrusel">
-                                        <a class="txt_mas_carrusel mas" data-cantidad-agregar="+">
-                                            <div class="dibujar_linea dibujar_mas dibujar_mas_carrusel"></div>
-                                        </a>
-                                        <a class="txt_menos_carrusel menos" data-cantidad-agregar="-">
-                                            <div class="dibujar_linea dibujar_menos dibujar_menos_carrusel"></div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a id="btnAgregalo" class="btn_agregalo btn_agregalo_carrusel btn_agregalo_desactivado" data-btn-agregar-sr="">AGRÉGALO</a>
-                            </div>
-                            <div class="contenedor_agregado">
-                                <div class="txt_agregado">
-                                    <span class="span_agregado">AGREGADO</span>
-                                    <div class="check_agregado">
-                                        <div class="dibujar_linea dibujar_check_agregado"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contenedor_producto_carrusel" data-item="">
-                        <div class="contenedor_imagen_carrusel" data-img="">
-                            <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                            <a class="btn_ver_detalle" href="">VER DETALLE</a>
-                        </div>
-                        <div class="contenedor_detalle_carrusel">
-                            <div class="marca_detalle_carrusel">ÉSIKA</div>
-                            <div class="descripcion_detalle_carrusel">7 Kalos Sport + 4 Shampoos Mañanas Felic ...</div>
-                            <div class="precio_detalle_carrusel">
-                                <span class="precio_oferta_normal_carrusel">S/. 875.00</span>
-                                <span class="precio_oferta_venta_carrusel">S/. 329.90</span>
-                            </div>
-                            <div class="contenedor_elige_tu_tono_carrusel">
-                                <div class="txt_elige_tu_tono">¡AHORA ELIGE TU TONO!</div>
-                                <a id="btnElegirTono" class="btn_elige_tu_tono btn_elige_tu_tono_desactivado" data-btn-elegir-tono="">ELIGE TU OPCIÓN</a>
-                            </div>
-                            <div class="contenedor_agregar_carrusel">
-                                <div class="contenedor_rangos contenedor_rangos_carrusel" data-cantidad-contenedor="">
-                                    <input class="txt_cantidad_pedido_carrusel ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
-                                    <div class="menos_mas_carrusel">
-                                        <a class="txt_mas_carrusel mas" data-cantidad-agregar="+">
-                                            <div class="dibujar_linea dibujar_mas dibujar_mas_carrusel"></div>
-                                        </a>
-                                        <a class="txt_menos_carrusel menos" data-cantidad-agregar="-">
-                                            <div class="dibujar_linea dibujar_menos dibujar_menos_carrusel"></div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a id="btnAgregalo" class="btn_agregalo btn_agregalo_carrusel btn_agregalo_desactivado" data-btn-agregar-sr="">AGRÉGALO</a>
-                            </div>
-                            <div class="contenedor_agregado">
-                                <div class="txt_agregado">
-                                    <span class="span_agregado">AGREGADO</span>
-                                    <div class="check_agregado">
-                                        <div class="dibujar_linea dibujar_check_agregado"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contenedor_producto_carrusel" data-item="">
-                        <div class="contenedor_imagen_carrusel" data-img="">
-                            <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                            <a class="btn_ver_detalle" href="">VER DETALLE</a>
-                        </div>
-                        <div class="contenedor_detalle_carrusel">
-                            <div class="marca_detalle_carrusel">ÉSIKA</div>
-                            <div class="descripcion_detalle_carrusel">7 Kalos Sport + 4 Shampoos Mañanas Felic ...</div>
-                            <div class="precio_detalle_carrusel">
-                                <span class="precio_oferta_normal_carrusel">S/. 875.00</span>
-                                <span class="precio_oferta_venta_carrusel">S/. 329.90</span>
-                            </div>
-                            <div class="contenedor_elige_tu_tono_carrusel">
-                                <div class="txt_elige_tu_tono">¡AHORA ELIGE TU TONO!</div>
-                                <a id="btnElegirTono" class="btn_elige_tu_tono btn_elige_tu_tono_desactivado" data-btn-elegir-tono="">ELIGE TU OPCIÓN</a>
-                            </div>
-                            <div class="contenedor_agregar_carrusel">
-                                <div class="contenedor_rangos contenedor_rangos_carrusel" data-cantidad-contenedor="">
-                                    <input class="txt_cantidad_pedido_carrusel ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
-                                    <div class="menos_mas_carrusel">
-                                        <a class="txt_mas_carrusel mas" data-cantidad-agregar="+">
-                                            <div class="dibujar_linea dibujar_mas dibujar_mas_carrusel"></div>
-                                        </a>
-                                        <a class="txt_menos_carrusel menos" data-cantidad-agregar="-">
-                                            <div class="dibujar_linea dibujar_menos dibujar_menos_carrusel"></div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a id="btnAgregalo" class="btn_agregalo btn_agregalo_carrusel btn_agregalo_desactivado" data-btn-agregar-sr="">AGRÉGALO</a>
-                            </div>
-                            <div class="contenedor_agregado">
-                                <div class="txt_agregado">
-                                    <span class="span_agregado">AGREGADO</span>
-                                    <div class="check_agregado">
-                                        <div class="dibujar_linea dibujar_check_agregado"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contenedor_producto_carrusel" data-item="">
-                        <div class="contenedor_imagen_carrusel" data-img="">
-                            <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                            <a class="btn_ver_detalle" href="">VER DETALLE</a>
-                        </div>
-                        <div class="contenedor_detalle_carrusel">
-                            <div class="marca_detalle_carrusel">ÉSIKA</div>
-                            <div class="descripcion_detalle_carrusel">7 Kalos Sport + 4 Shampoos Mañanas Felic ...</div>
-                            <div class="precio_detalle_carrusel">
-                                <span class="precio_oferta_normal_carrusel">S/. 875.00</span>
-                                <span class="precio_oferta_venta_carrusel">S/. 329.90</span>
-                            </div>
-                            <div class="contenedor_elige_tu_tono_carrusel">
-                                <div class="txt_elige_tu_tono">¡AHORA ELIGE TU TONO!</div>
-                                <a id="btnElegirTono" class="btn_elige_tu_tono btn_elige_tu_tono_desactivado" data-btn-elegir-tono="">ELIGE TU OPCIÓN</a>
-                            </div>
-                            <div class="contenedor_agregar_carrusel">
-                                <div class="contenedor_rangos contenedor_rangos_carrusel" data-cantidad-contenedor="">
-                                    <input class="txt_cantidad_pedido_carrusel ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
-                                    <div class="menos_mas_carrusel">
-                                        <a class="txt_mas_carrusel mas" data-cantidad-agregar="+">
-                                            <div class="dibujar_linea dibujar_mas dibujar_mas_carrusel"></div>
-                                        </a>
-                                        <a class="txt_menos_carrusel menos" data-cantidad-agregar="-">
-                                            <div class="dibujar_linea dibujar_menos dibujar_menos_carrusel"></div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a id="btnAgregalo" class="btn_agregalo btn_agregalo_carrusel btn_agregalo_desactivado" data-btn-agregar-sr="">AGRÉGALO</a>
-                            </div>
-                            <div class="contenedor_agregado">
-                                <div class="txt_agregado">
-                                    <span class="span_agregado">AGREGADO</span>
-                                    <div class="check_agregado">
-                                        <div class="dibujar_linea dibujar_check_agregado"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </div>
     </div>
 </div>
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
@@ -531,6 +373,18 @@
                 urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia")'
             });
             fichaModule.Inicializar();
+
+            carruselModule = CarruselModule({
+                palanca: "@Model.Palanca",
+                campania: "@Model.Campania",
+                cuv: "@Model.Cuv",
+                idPlantilla: "#producto-landing-template",
+                divCarrusel: "#carrusel",
+                divSetsProductosdata: "#CarruselProducto"
+            });
+            carruselModule.Inicializar();
         });
     </script>
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
 }
