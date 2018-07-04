@@ -9,7 +9,7 @@
     <link href="@Url.Content("~/Content/Css/Site/Ficha/Ficha.css")" rel="stylesheet" />
 
 }
-
+<!--prueba-->
 <div id="ImagenDeFondo" class="imagen_fondo_detalle" style="background-image: url('https://S3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_Desktop_Fondo_del_ShowRoom_en_el_Contenedor_Ofertas_Venta 50A_2018630811_01_ytmwyupjny.jpg');"></div>
 <div class="contenedor_detalle texto_font" data-item="" data-tag-html="@ViewBag.Campania" data-OrigenPedidoWeb="@Model.Origen">
     <div class="contenedor_fichas">
@@ -93,12 +93,17 @@
 
 
                 {{#iff CodigoVariante '==' '2001'}}
-                <div id="DescripcionAdicional" class="contenedor_lista_tonos">
-                    <div class="nombre_detalle_producto_tono">Slogan de Proucto 2001</div>
+                <div id="DescripcionAdicional">
+                    {{#ifVerificarSlogan this.CodigoEstrategia this.TipoEstrategiaDetalle.Slogan}}
+                    <div class="nombre_detalle_producto_tono">{{this.TipoEstrategiaDetalle.Slogan}}</div>
                     <div class="descripcion_detalle_producto_tono">
-                        Descripcion de producto
-                        <span class="txt_ver_mas">ver más</span>
+                        <ul>
+                            {{#each this.ListaDescripcionDetalle}}
+                            <li><span class="vineta">-</span><span class="txt-des">{{this}}</span></li>
+                            {{/each}}
+                        </ul>
                     </div>
+                    {{/ifVerificarSlogan}}
                 </div>
                 {{#each this.Hermanos as |componente|}}
                 <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
@@ -111,7 +116,7 @@
                         <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
                             {{#each componente.Hermanos as |variedad|}}
                             <div class="content_tono_elegido" data-tono-change="2"
-                                 data-tono-cuv="{{variedad.CUV}}"
+                                 data-tono-cuv="{{variedad.Cuv}}"
                                  data-tono-nombre="{{variedad.NombreBulk}}"
                                  data-tono-descripcion="{{variedad.NombreComercial}}">
                                 <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt=""></div>
@@ -127,8 +132,8 @@
                             <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.MarcaID}}" />
                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
                         </div>
-                        <div id="fav_tono_{{variedad.CUV}}" class="content_tono_detalle {{#iff variedad.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}"
-                             data-tono-cuv="{{variedad.CUV}}"
+                        <div id="fav_tono_{{variedad.Cuv}}" class="content_tono_detalle {{#iff variedad.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}"
+                             data-tono-cuv="{{variedad.Cuv}}"
                              data-tono-change="2"
                              data-tono-nombre="{{variedad.NombreBulk}}"
                              data-tono-descripcion="{{variedad.NombreComercial}}">
@@ -175,7 +180,7 @@
                                 <div class="content_tonos_select" style="width:102%;" data-tono-select-area="1">
                                     {{#each componente.Hermanos as |variedad|}}
                                     <div class="content_tono_elegido" data-tono-change="2"
-                                         data-tono-cuv="{{variedad.CUV}}"
+                                         data-tono-cuv="{{variedad.Cuv}}"
                                          data-tono-nombre="{{variedad.NombreBulk}}"
                                          data-tono-descripcion="{{variedad.NombreComercial}}">
                                         <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt="PRODUCTO"></div>
@@ -206,7 +211,7 @@
                         </div>
                     </div>
                     <a id="btnAgregalo" class="btn_agregalo {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
-                    <div class="contenedor_agregado">
+                    <div id="ContenedorAgregado" class="contenedor_agregado" style="display:none;">
                         <div class="txt_agregado" data-txt_agregado="">
                             <span class="span_agregado">AGREGADO</span>
                             <div class="check_agregado">

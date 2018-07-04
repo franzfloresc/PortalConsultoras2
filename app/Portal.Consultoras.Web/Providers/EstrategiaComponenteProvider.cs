@@ -80,7 +80,9 @@ namespace Portal.Consultoras.Web.Providers
             {
                 listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(_paisISO, estrategiaModelo.CampaniaID, joinSap, numeroCampanias).ToList();
             }
-            return listaAppCatalogo.Any() ? listaAppCatalogo : new List<Producto>();
+            listaAppCatalogo = listaAppCatalogo.Any() ? listaAppCatalogo : new List<Producto>();
+            listaAppCatalogo.ForEach(x=> x.NombreComercial = string.IsNullOrWhiteSpace(x.NombreBulk) ? x.NombreComercial : x.NombreComercial.Replace(x.NombreBulk , ""));
+            return listaAppCatalogo;
         }
 
         private List<EstrategiaComponenteModel> GetEstrategiaDetalleCompuesta(EstrategiaPersonalizadaProductoModel estrategiaModelo,

@@ -285,6 +285,7 @@ var EstrategiaAgregarModule = function () {
 
             if (divAgregado != null) {
                 $(divAgregado).show();
+                $("#ContenedorAgregado").show();
             }
             if (isMobile()) {
                 ActualizarGanancia(data.DataBarra);

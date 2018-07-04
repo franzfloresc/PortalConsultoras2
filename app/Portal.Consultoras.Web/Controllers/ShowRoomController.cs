@@ -278,7 +278,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return ErrorJson(string.Empty);
 
                 //var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, false);
-                var listaOfertas = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+                var listaOfertas = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
                 var totalOfertas = listaOfertas.Count;
 
                 if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
@@ -324,9 +324,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 //var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
                 //listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
-                var listaSubCampania = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 2);
+                var listaSubCampania = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 2);
                 //listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
-                var listaOfertasPerdio = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 3);
+                var listaOfertasPerdio = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 3);
 
                 return Json(new
                 {
@@ -353,7 +353,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!ValidarIngresoShowRoom(esIntriga: false))
                     return ErrorJson(string.Empty);
 
-                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+                var productosShowRoom = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
                 //productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
                 var cantidadTotal = productosShowRoom.Count();
 

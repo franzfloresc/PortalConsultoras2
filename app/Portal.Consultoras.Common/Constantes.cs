@@ -1173,6 +1173,7 @@ namespace Portal.Consultoras.Common
             public const string InicioRD = "INICIORD";
             public const string Inicio = "INICIO";
             public const string OfertasParaTi = "OPT";
+            public const string OfertasParaMi = "OPM";
             public const string RevistaDigitalIntriga = "RDI";
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";

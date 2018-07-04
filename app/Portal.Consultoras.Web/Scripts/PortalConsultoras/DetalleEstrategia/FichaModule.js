@@ -128,8 +128,6 @@
         });
     };
     
- 
-    
     var _promiseObternerComponentes = function (params) {
         var dfd = $.Deferred();
 
@@ -151,8 +149,6 @@
 
         return dfd.promise();
     };
-
- 
 
     var _verificarVariedad = function (estrategia) {
         if (!IsNullOrEmpty(estrategia.CodigoVariante)) {
@@ -200,15 +196,19 @@
         }
 
         if (estrategia == null) {
-            window.location = (isMobile() ? "/Mobile/" : "") + "Ofertas";
+            window.location = baseUrl + (isMobile() ? "/Mobile/" : "") + "Ofertas";
             return false;
         }
         
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
-        
+        _validarDesactivadoGeneral(estrategia);
+
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
         _ocultarSecciones(estrategia.CodigoEstrategia);
+        if (!isMobile()) {
+            _validarSiEsAgregado(estrategia);
+        }
         return true;
         
     };
@@ -216,6 +216,12 @@
     Handlebars.registerHelper('ifVerificarMarca', function (marca, options) {
         if (_primeraMarca !== marca && _esMultimarca) {
             _primeraMarca = marca;
+            return options.fn(this);
+        }
+    });
+
+    Handlebars.registerHelper('ifVerificarSlogan', function (CodigoEstrategia, Slogan, options) {
+        if (CodigoEstrategia == ConstantesModule.ConstantesPalanca.Lanzamiento && Slogan.length > 0) {
             return options.fn(this);
         }
     });
@@ -257,6 +263,23 @@
             $(_seccionesFichaProducto.ContenidoProducto).show();
             $(_seccionesFichaProducto.CarruselProducto).show();
             $(_seccionesFichaProducto.EtiquetaOdd).hide();
+        }
+    };
+
+    var _validarDesactivadoGeneral = function (estrategia) {
+        $.each(estrategia.Hermanos, function (index, hermano) {
+            if (hermano.Hermanos) {
+                if (hermano.Hermanos.length > 0) {
+                    estrategia.ClaseBloqueada = "btn_desactivado_general";
+                    $("#btnAgregarProducto").addClass("btn_desactivado_general");
+                }
+            }
+        });
+    };
+
+    var _validarSiEsAgregado = function (estrategia) {
+        if (estrategia.IsAgregado) {
+            $("#ContenedorAgregado").show();
         }
     }
     
