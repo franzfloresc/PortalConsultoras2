@@ -516,6 +516,16 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel)HttpContext.Current.Session["ConfigEstrategiaSR"];
         }
+        
+        public void SetBEEstrategia(string key, List<ServiceOferta.BEEstrategia> data)
+        {
+            HttpContext.Current.Session[key] = data;
+        }
+
+        public List<ServiceOferta.BEEstrategia> GetBEEstrategia(string key)
+        {
+            return (List<ServiceOferta.BEEstrategia>)HttpContext.Current.Session[key];
+        }
 
         void ISessionManager.SetPedidosFacturados(PedidoWebClientePrincipalMobilModel model)
         {
