@@ -138,7 +138,7 @@
     };     
 
     function Inicializar() {
-     
+
         _ocultarElementos();
         _mostrarCarrusel();
         _mostrarSlicks();
