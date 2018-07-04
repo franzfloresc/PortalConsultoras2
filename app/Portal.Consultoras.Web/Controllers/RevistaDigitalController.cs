@@ -2,12 +2,9 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceAsesoraOnline;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.SessionManager;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -519,7 +516,7 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.ShowRoom.Ofertas = null;
             sessionManager.ShowRoom.OfertasSubCampania = null;
             sessionManager.ShowRoom.OfertasPerdio = null;
-            sessionManager.OfertaDelDia.Estrategia = null;
+            //sessionManager.OfertaDelDia.Estrategia = null;
 
             //Limpia cache de Redis
             using (PedidoServiceClient sv = new PedidoServiceClient())
