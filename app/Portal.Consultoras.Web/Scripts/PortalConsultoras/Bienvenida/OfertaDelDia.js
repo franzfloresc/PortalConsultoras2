@@ -52,8 +52,6 @@ var OfertaDelDiaModule = function() {
 $(document).ready(function () {
     window.OfertaDelDia = window.OfertaDelDia || {};
     var odd_desktop_google_analytics_promotion_impresion_flag = true;
-    var odd_desktop_google_analytics_promotion_impresion_fech;
-
 
     var self = window.OfertaDelDia;
 
@@ -391,32 +389,6 @@ $(document).ready(function () {
         }
     }
 
-    function ConfigurarCarruselDetalleProductos(contenedorOfertas, cantidadProductos) {
-        if (cantidadProductos == 1) {
-            $(contenedorOfertas + " #imgSoloHoy").show();
-            $(contenedorOfertas + ' [data-odd-accion="regresar"]').hide();
-            $(contenedorOfertas + ' [data-odd-tipoventana="detalle"]').show();
-        }
-
-        if (cantidadProductos > 1) {
-            EstablecerLazyCarrusel($("#divOddCarruselDetalle"));
-
-            $("#divOddCarruselDetalle.slick-initialized").slick("unslick");
-            $("#divOddCarruselDetalle").not(".slick-initialized").slick({
-                lazyLoad: "ondemand",
-                infinite: true,
-                vertical: false,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                autoplay: false,
-                speed: 260,
-                prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
-                nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>'
-            });
-            $("#divOddCarruselDetalle").slick("slickGoTo", 0);
-        }
-    }
-
     function odd_desktop_google_analytics_promotion_impresion() {
         if ($("#banner-odd").length > 0) {
             var id = $("#banner-odd").find(".estrategia-id-odd").val();
@@ -578,165 +550,6 @@ $(document).ready(function () {
         });
     }
 
-    function OddAgregar(btn) {
-        
-        waitingDialog();
-
-        //if (ReservadoOEnHorarioRestringido()) {
-        //    closeWaitingDialog();
-        //    return false;
-        //}
-
-        if (!CheckCountdownODD()) {
-            alert_msg_pedido("La Oferta del Día se terminó");
-            closeWaitingDialog();
-            return false;
-        }
-
-        var item = $(btn).parents("[data-item]");
-        var itemCampos = item.find("[data-item-campos]");
-        var valorCantidad = item.find(".txtcantidad-odd").val().trim();
-        var cantidad = parseInt(valorCantidad == "" ? 0 : valorCantidad);
-        //if (cantidad <= 0 || isNaN(cantidad)) {
-        //    alert_msg_pedido("Ingrese la cantidad a solicitar");
-        //    closeWaitingDialog();
-        //    return false;
-        //}
-
-        //var limiteVenta = parseInt(itemCampos.find('.limite-venta-odd').val());
-        //var msg1 = 'Sólo puede llevar ' + limiteVenta.toString() + ' unidades de este producto.';
-        //if (cantidad > limiteVenta) {
-        //    $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
-        //    $('#dialog_ErrorMainLayout').show();
-        //    closeWaitingDialog();
-        //    ResetearCantidadesDelPopup();
-        //    return false;
-        //}
-
-        var tipoEstrategiaID = itemCampos.find(".tipoestrategia-id-odd").val();
-        var marcaID = itemCampos.find(".marca-id-odd").val();
-        var cuv2 = itemCampos.find(".cuv2-odd").val();
-        var precio = itemCampos.find(".precio-odd").val();
-        var descripcion = itemCampos.find(".nombre-odd").val();
-        var indMontoMinimo = itemCampos.find(".indmonto-min-odd").val();
-        var teImagenMostrar = itemCampos.find(".teimagenmostrar-odd").val();
-        var estrategiaId = itemCampos.find(".estrategia-id-odd").val();
-
-        var origenPedidoWeb = parseInt(itemCampos.find(".origenPedidoWeb-odd").val());
-        if (typeof origenPagina == "undefined") origenPedidoWeb = 1990 + origenPedidoWeb;
-        else if (origenPagina == 1) origenPedidoWeb = 1190 + origenPedidoWeb;
-        else if (origenPagina == 2) origenPedidoWeb = 1290 + origenPedidoWeb;
-
-        //var cqty = GetQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID);
-        //if (cqty > 0) {
-        //    var tqty = cqty + cantidad;
-        //    if (tqty > limiteVenta) {
-        //        $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
-        //        $('#dialog_ErrorMainLayout').show();
-        //        closeWaitingDialog();
-        //        ResetearCantidadesDelPopup();
-        //        return false;
-        //    }
-        //}
-
-        var obj = {
-            CUV: cuv2,
-            Cantidad: cantidad,
-            PrecioUnidad: precio,
-            TipoEstrategiaID: tipoEstrategiaID,
-            OrigenPedidoWeb: origenPedidoWeb,
-            MarcaID: marcaID,
-            DescripcionProd: descripcion,
-            IndicadorMontoMinimo: indMontoMinimo,
-            ClienteID_: "-1",
-            TipoEstrategiaImagen: teImagenMostrar || 0,
-            Descripcion: descripcion,
-            TipoOferta: tipoEstrategiaID,
-            EstrategiaID : estrategiaId
-        };
-
-        EstrategiaAgregarProvider
-            .pedidoAgregarProductoPromise(obj)
-            .done(function (data) {
-                MarcarProductoComoAgregado(btn, item);
-
-                if (!checkTimeout(data)) {
-                    closeWaitingDialog();
-                    return false;
-                }
-
-                if (!data.success) {
-                    messageInfoError(data.message);
-                    closeWaitingDialog();
-                    return false;
-                }
-
-                agregarProductoAlCarrito(btn);
-
-                waitingDialog();
-                if (typeof origenPagina !== "undefined") {
-                    MostrarBarra(data, "1");
-                    ActualizarGanancia(data.DataBarra);
-                }
-
-                var tipo = $(btn).attr("data-odd-accion-type");
-                var indiceElemeto = $(btn).attr("data-odd-accion-element");
-                odd_desktop_google_analytics_addtocart(tipo, indiceElemeto);
-
-                CargarResumenCampaniaHeader(true);
-                TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv2);
-                closeWaitingDialog();
-
-                if (typeof origenPagina !== "undefined") {
-                    if (origenPagina == 2) {
-                        CargarDetallePedido();
-                    }
-                }
-
-                ResetearCantidadesDelPopup();
-            })
-            .fail(function (data, error) {
-                if (checkTimeout(data)) {
-                    closeWaitingDialog();
-                }
-            });
-
-        return false;
-    }
-
-    function MarcarProductoComoAgregado(btn, item) {
-        var esCabecera = ($(btn).attr("data-odd-cabecera-position") != undefined || $(btn).attr("data-odd-cabecera-position") != null);
-        var positionOddCabecera = 0;
-        if (esCabecera) {
-            positionOddCabecera = $(btn).attr("data-odd-cabecera-position");
-            $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').find('[data-item-position="' + positionOddCabecera + '"]').find(".product-add").css("display", "block");
-        } else {
-            var perteneceContenedorDetalle = $(btn).parents('div [data-odd-tipoventana="detalle"]').length > 0;
-            if (perteneceContenedorDetalle) {
-                var posicion = $(btn).parents("[data-item]").attr("data-item-position");
-                $(btn).parents(".content_pop_oferta_dia ")
-                    .find('[data-odd-tipoventana="carrusel"]')
-                    .find('[data-item-position="' + posicion + '"]')
-                    .find(".product-add")
-                    .css("display", "block");
-
-            } else {
-                $(item).find(".product-add").css("display", "block");
-
-                var clonados = $("#divOddCarrusel div.slick-slide");
-                var posi1 = $(item).attr("data-item-position");
-
-                $.each(clonados, function (key, value) {
-                    var posi2 = $(value).attr("data-item-position");
-                    if (posi1 == posi2) {
-                        $(value).find(".product-add").css("display", "block");
-                    }
-                });
-            }
-                
-        }
-    }
-
     function CheckCountdownODD() {
         var ok = true;
 
@@ -795,34 +608,6 @@ $(document).ready(function () {
         return d.promise();
     }
     
-    function ResolverPromiseAgregarProducto(response) {
-        if (!checkTimeout(response)) {
-            CerrarLoad();
-            return false;
-        }
-
-        if (!response.success) {
-            AbrirMensaje(response.message);
-            CerrarLoad();
-            return false;
-        }
-
-        CargarCantidadProductosPedidos();
-        CerrarLoad();
-    }
-
-    function ResolverPromiseAgregarProductoError(response) {
-        if (checkTimeout(response)) {
-            closeWaitingDialog();
-        }
-    }
-
-    function ResolverPromiseValidarStockEstrategiaEnError(response) {
-        if (checkTimeout(response)) {
-            closeWaitingDialog();
-        }
-    }
-
     function GetQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
         var qty = 0;
         var obj = { cuv: cuv2, tipoEstrategiaID: tipoEstrategiaID };
@@ -845,11 +630,6 @@ $(document).ready(function () {
         });
 
         return qty;
-    }
-
-    function ResetearCantidadesDelPopup() {
-        $("#divOddCarrusel").find(".liquidacion_rango_cantidad_pedido.txtcantidad-odd").val(1);
-        $("#divOddCarruselDetalle").find(".liquidacion_rango_cantidad_pedido.txtcantidad-odd").val(1);
     }
 
     function ResetearCantidadEnMobile() {
