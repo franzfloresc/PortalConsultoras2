@@ -369,7 +369,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
-                "~/Scripts/PortalConsultoras/Pedido/barra.js"
+                "~/Scripts/PortalConsultoras/Pedido/barra.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/PedidoDetalle").Include(
@@ -632,10 +633,11 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
-                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
-                  "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
-                   "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
-                     "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js"                     
+                "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/EstrategiaUrls.js"
           ));
             #endregion
 
