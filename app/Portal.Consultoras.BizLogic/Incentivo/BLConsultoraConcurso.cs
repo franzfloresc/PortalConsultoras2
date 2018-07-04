@@ -401,7 +401,7 @@ namespace Portal.Consultoras.BizLogic
                         incentivosPremios = reader.MapToCollection<BEIncentivoProgramaNuevasPremio>();
                         foreach (var premio in incentivosPremios)
                         {
-                            premio.ImagenURL = (string.IsNullOrEmpty(premio.ImagenURL) ? string.Empty : string.Format(Resources.IncentivoMessages.UrlImagenCUV, ConfigS3.GetUrlS3(string.Empty), paisISO, premio.ImagenURL));
+                            premio.ImagenURL = (string.IsNullOrEmpty(premio.ImagenURL) ? string.Empty : string.Format(Resources.IncentivoMessages.UrlImagenCUV, ConfigCdn.GetUrlCdn(string.Empty), paisISO, premio.ImagenURL));
                             premio.DescripcionProducto = premio.DescripcionProducto.Split('|')[0];
                         }
 
@@ -410,7 +410,7 @@ namespace Portal.Consultoras.BizLogic
                             incentivosCupon = reader.MapToCollection<BEIncentivoProgramaNuevasCupon>();
                             foreach (var cupon in incentivosCupon)
                             {
-                                cupon.ImagenURL = (string.IsNullOrEmpty(cupon.ImagenURL) ? string.Empty : string.Format(Resources.IncentivoMessages.UrlImagenCUV, ConfigS3.GetUrlS3(string.Empty), paisISO, cupon.ImagenURL));
+                                cupon.ImagenURL = (string.IsNullOrEmpty(cupon.ImagenURL) ? string.Empty : string.Format(Resources.IncentivoMessages.UrlImagenCUV, ConfigCdn.GetUrlCdn(string.Empty), paisISO, cupon.ImagenURL));
                                 cupon.DescripcionProducto = cupon.DescripcionProducto.Split('|')[0];
                             }
                         }
