@@ -52,6 +52,8 @@
           <xs:element minOccurs="0" name="FlagTextoLibre" type="xs:int" />
           <xs:element minOccurs="0" name="FlagValidarImagen" type="xs:int" />
           <xs:element minOccurs="0" name="FotoProducto01" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FotoProductoMedium" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FotoProductoSmall" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Ganancia" type="xs:decimal" />
           <xs:element minOccurs="0" name="GananciaString" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ID" type="xs:int" />

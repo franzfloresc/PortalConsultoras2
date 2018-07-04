@@ -105,10 +105,10 @@
                         </a>
                     {{/iff}}
                     {{#iff TipoAccionAgregar '==' '3'}}
-                        <div onclick="javascript: VerDetalleEstrategia(event);">
+                        <div onclick="javascript:OnClickFichaDetalle(event.target);">
                             <div class="texto_elige_tono">¡AHORA ELIGE TU TONO!</div>
                             <div class="clear"></div>
-                            <a href="javascript:;" class="btn_elige_tono js-no-popup" data-item-tag="eligetuopcion">
+                            <a class="btn_elige_tono js-no-popup" data-item-tag="eligetuopcion">
                                 <div>ELIGE TU OPCIÓN</div>
                             </a>
                         </div>
