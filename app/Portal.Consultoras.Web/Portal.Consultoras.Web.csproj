@@ -3716,6 +3716,7 @@
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\CarruselModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaModule.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregar.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregarProvider.js" />
