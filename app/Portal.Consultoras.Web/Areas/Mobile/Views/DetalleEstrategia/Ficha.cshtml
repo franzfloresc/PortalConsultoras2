@@ -78,6 +78,19 @@
             <div data-estrategia="{{CodigoVariante}}">
 
                 {{#iff CodigoVariante '==' '2001'}}
+                <div id="DescripcionAdicional">
+                    {{#ifVerificarSlogan this.CodigoEstrategia this.TipoEstrategiaDetalle.Slogan}}
+                    <div class="nombre_detalle_producto_tono">{{this.TipoEstrategiaDetalle.Slogan}}</div>
+                    <div class="descripcion_detalle_producto_tono">
+                        <ul>
+                            {{#each this.ListaDescripcionDetalle}}
+                            <li><span class="vineta">-</span><span class="txt-des">{{this}}</span></li>
+                            <div style="clear:both;"></div>
+                            {{/each}}
+                        </ul>
+                        {{/ifVerificarSlogan}}
+                    </div>
+                </div>
                 {{#each this.Hermanos as |componente|}}
                 <div class="content_tonos_producto" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
                     <div class="tono_select_opt">
