@@ -310,6 +310,29 @@
             }
         }
     };
+
+    Handlebars.registerHelper('agruparLista', function (componentes, IdMarca, options) {
+        var data = componentes;
+        var results = '';
+        data.forEach((item) => {
+            if (item.IdMarca == IdMarca) {
+                results += options.fn(item);
+            }
+        });
+        return results;
+    });
+
+    Handlebars.registerHelper('ifVerificarMarca', function (componentes, IdMarca, options) {
+        var data = componentes;
+        var selected = false;
+
+        for (var i = 0; i < data.length; i++) {
+            var item = data[i];
+            if (item.IdMarca == IdMarca) {
+                return options.fn(this);
+            }
+        }
+    });
     
     function Inicializar() {
         localStorageModule = LocalStorageModule();

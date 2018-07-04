@@ -11,13 +11,13 @@
 }
 
 <div class="imagen_fondo_detalle" style="background-image: url('https://S3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_Desktop_Fondo_del_ShowRoom_en_el_Contenedor_Ofertas_Venta 50A_2018630811_01_ytmwyupjny.jpg');"></div>
-<div class="contenedor_detalle texto_font" data-item="" data-tag-html="@ViewBag.Campania"  data-OrigenPedidoWeb="@Model.Origen">
+<div class="contenedor_detalle texto_font" data-item="" data-tag-html="@ViewBag.Campania" data-OrigenPedidoWeb="@Model.Origen">
     <div class="contenedor_fichas">
         <div style="display:none;">
             <div id="data-estrategia" data-estrategia="@Json.Encode(Model)"></div>
         </div>
         <div class="contenedor_ficha_producto" id="seccion_ficha_handlebars"></div>
-    <script id="detalle_ficha_template" type="text/x-handlebars-template">
+        <script id="detalle_ficha_template" type="text/x-handlebars-template">
             <div class="ficha_producto">
                 <div class="contenedor_imagen">
                     <img class="contenedor_img" src="{{FotoProducto01}}" alt="">
@@ -74,7 +74,9 @@
                 <div class="contenedor_nombre_precio">
                     <div class="contenedor_izquierdo">
                         <div class="nombre_marca">
+                            {{#iff esMultimarca '==' 'false'}}
                             <span data-nombre_marca="">{{DescripcionMarca}}</span>
+                            {{/iff}}
                         </div>
                         <div class="descripcion" data-descripcion="">{{DescripcionCortada}}</div>
                     </div>
@@ -87,11 +89,11 @@
 
 
                 {{#iff CodigoVariante '==' '2001'}}
-                    <div class="nombre_detalle_producto_tono">Slogan de Proucto 2001</div>
-                    <div class="descripcion_detalle_producto_tono">
-                        Descripcion de producto 
-                        <span class="txt_ver_mas">ver más</span>
-                    </div>
+                <div class="nombre_detalle_producto_tono">Slogan de Proucto 2001</div>
+                <div class="descripcion_detalle_producto_tono">
+                    Descripcion de producto
+                    <span class="txt_ver_mas">ver más</span>
+                </div>
                 {{#each this.Hermanos as |componente|}}
                 <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
                     <div class="tono_select_opt">
@@ -146,7 +148,7 @@
                             </div>
                             <div class="cantidad_descripcion_detalle">
                                 <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x {{componente.Cantidad}}</span>
-                                <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="" @* data-tono-cuv-producto="" data-tono-select-nombrecomercial="" *@>
+                                <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="">
                                     {{componente.NombreComercial}}
                                 </span>
                             </div>
@@ -163,9 +165,9 @@
                                 <div class="content_tonos_select" style="width:102%;" data-tono-select-area="1">
                                     {{#each componente.Hermanos as |variedad|}}
                                     <div class="content_tono_elegido" data-tono-change="2"
-                                            data-tono-cuv="{{variedad.CUV}}"
-                                            data-tono-nombre="{{variedad.NombreBulk}}"
-                                            data-tono-descripcion="{{variedad.NombreComercial}}">
+                                         data-tono-cuv="{{variedad.CUV}}"
+                                         data-tono-nombre="{{variedad.NombreBulk}}"
+                                         data-tono-descripcion="{{variedad.NombreComercial}}">
                                         <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt="PRODUCTO"></div>
                                         <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
                                         <hr class="clear">
@@ -178,6 +180,78 @@
                         <hr class="clear" />
                     </div>
                     {{/each}}
+                    @*{{#ifVerificarMarca this.Hermanos 3}}
+                        <div class="content_producto_tono detalle_producto">
+                            <div class="marca_detalle_producto">
+                                <span data-marca_detalle_producto>Cyzone</span>
+                            </div>
+                            {{#agruparLista this.Hermanos 3}}
+                            <div data-tono="" data-tono-select="" data-tono-digitable="{{Digitable}}">
+                                <div style="display: none;">
+                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{IdMarca}}" />
+                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{PrecioCatalogo}}" />
+                                </div>
+                                <div class="marca_cantidad_descripcion_detalle">
+                                    <div class="cantidad_descripcion_detalle">
+                                        <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x {{Cantidad}}</span>
+                                        <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="">
+                                            Hermano.NombreComercial
+                                        </span>
+                                    </div>
+                                </div>
+                                <hr class="clear">
+                            </div>
+                            {{/agruparLista}}
+                        </div>
+                        {{/ifVerificarMarca}}
+                        {{#ifVerificarMarca this.Hermanos 2}}
+                        <div class="content_producto_tono detalle_producto">
+                            <div class="marca_detalle_producto">
+                                <span data-marca_detalle_producto>Ésika</span>
+                            </div>
+                            {{#agruparLista this.Hermanos 2}}
+                            <div data-tono="" data-tono-select="" data-tono-digitable="{{Digitable}}">
+                                <div style="display: none;">
+                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{IdMarca}}" />
+                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{PrecioCatalogo}}" />
+                                </div>
+                                <div class="marca_cantidad_descripcion_detalle">
+                                    <div class="cantidad_descripcion_detalle">
+                                        <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x {{Cantidad}}</span>
+                                        <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="">
+                                            Hermano.NombreComercial
+                                        </span>
+                                    </div>
+                                </div>
+                                <hr class="clear">
+                            </div>
+                            {{/agruparLista}}
+                        </div>
+                        {{/ifVerificarMarca}}
+                        {{#ifVerificarMarca this.Hermanos 1}}
+                        <div class="content_producto_tono detalle_producto">
+                            <div class="marca_detalle_producto">
+                                <span data-marca_detalle_producto>Lbel</span>
+                            </div>
+                            {{#agruparLista this.Hermanos 1}}
+                            <div data-tono="" data-tono-select="" data-tono-digitable="{{Digitable}}">
+                                <div style="display: none;">
+                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{IdMarca}}" />
+                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{PrecioCatalogo}}" />
+                                </div>
+                                <div class="marca_cantidad_descripcion_detalle">
+                                    <div class="cantidad_descripcion_detalle">
+                                        <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x {{Cantidad}}</span>
+                                        <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="">
+                                            Hermano.NombreComercial
+                                        </span>
+                                    </div>
+                                </div>
+                                <hr class="clear">
+                            </div>
+                            {{/agruparLista}}
+                        </div>
+                        {{/ifVerificarMarca}}*@
                 </div>
                 {{/iff}}
                 <div class="contenedor_agregar">
