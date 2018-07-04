@@ -266,8 +266,38 @@
         _bindingEvents();
         _crearReloj();
         _crearTabs();
- 
+        _crearCarruseles();
     }
+
+    var _crearCarruseles = function () {
+        $("#carrusel").not('.slick-initialized').slick({
+            lazyLoad: 'ondemand',
+            infinite: true,
+            vertical: false,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: false,
+            speed: 260,
+            prevArrow:
+                '<a class="contenedor_flecha_carrusel flecha_izquierda_carrusel js-slick-prev slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_izquierda_carrusel"></div></a>',
+            nextArrow:
+                '<a class="contenedor_flecha_carrusel flecha_derecha_carrusel js-slick-next slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_derecha_carrusel"></div></a>'
+        });
+
+        $("#carrusel_tonos").not('.slick-initialized').slick({
+            lazyLoad: 'ondemand',
+            infinite: true,
+            vertical: false,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: false,
+            speed: 260,
+            prevArrow:
+                '<a class="contenedor_flecha_carrusel flecha_izquierda_carrusel js-slick-prev slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_carrusel_tonos dibujar_flecha_izquierda_carrusel"></div></a>',
+            nextArrow:
+                '<a class="contenedor_flecha_carrusel flecha_derecha_carrusel js-slick-next slick-arrow"><div class="dibujar_linea dibujar_flecha_carrusel dibujar_flecha_carrusel_tonos dibujar_flecha_derecha_carrusel"></div></a>'
+        });
+    };
 
     return {
         Inicializar: Inicializar

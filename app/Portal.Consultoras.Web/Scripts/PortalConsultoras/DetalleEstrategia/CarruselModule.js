@@ -67,7 +67,17 @@
         if (_config.palanca == 'Lanzamiento') {
             data.lista = _cargarDatos_Lanzamiento();
         }
+       else if (_config.palanca == 'ShowRoom') {
+            data.lista = [];
+        }
+       else if (_config.palanca == 'OfertaDelDia') {
+           data.lista = [];
+       }
+       else {
+           data.lista = [];
+       }
 
+        console.log(data.lista);
         return data;
 
     }
@@ -126,15 +136,13 @@
 
 
     var _mostrarCarrusel = function () {
-
+        debugger;
         var data = _obtenerSetRelacionados();
 
         if (!data)
             return false;
 
         SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
-
-
     };     
 
     function Inicializar() {
