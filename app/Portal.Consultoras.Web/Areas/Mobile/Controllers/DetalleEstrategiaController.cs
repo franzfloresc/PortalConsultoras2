@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             DetalleEstrategiaFichaModel modelo;
             if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
             {
-                var estrategiaPresonalizada = ObtenerEstrategiaPersonalizada(palanca, cuv, campaniaId);
+                var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
                 if (estrategiaPresonalizada == null) return RedirectToAction("Index", "Ofertas");
                 modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
             }
@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             modelo.Campania = campaniaId;
             modelo.Cuv = cuv;
 
-            
+
             ViewBag.PaisAnalytics = userData.CodigoISO;
             ViewBag.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();
 

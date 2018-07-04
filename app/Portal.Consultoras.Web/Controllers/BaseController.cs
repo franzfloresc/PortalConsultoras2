@@ -1,4 +1,4 @@
-using AutoMapper;
+﻿using AutoMapper;
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.PagoEnLinea;
@@ -150,7 +150,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-        #region M?todos
+        #region Metodos
 
         #region Pedido
 
@@ -293,7 +293,7 @@ namespace Portal.Consultoras.Web.Controllers
                 mensaje = "";
                 if (userData == null)
                 {
-                    mensaje = "Su sessi?n expir?, por favor vuelva a loguearse.";
+                    mensaje = "Su sessión expiró, por favor vuelva a loguearse.";
                     sessionManager.SetUserData(null);
                     HttpContext.Session.Clear();
                     HttpContext.Session.Abandon();
@@ -311,7 +311,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
 
-                mensaje = "Ocurri? un error al intentar validar si puede modificar su pedido.";
+                mensaje = "Ocurrió un error al intentar validar si puede modificar su pedido.";
                 return true;
             }
         }
@@ -332,7 +332,7 @@ namespace Portal.Consultoras.Web.Controllers
                 && obeConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
                 && !obeConfiguracionCampania.ModificaPedidoReservado && !obeConfiguracionCampania.ValidacionAbierta)
             {
-                mensaje = "Ya tienes un pedido reservado para esta campa?a.";
+                mensaje = "Ya tienes un pedido reservado para esta campaña.";
                 return true;
             }
 
@@ -370,8 +370,8 @@ namespace Portal.Consultoras.Web.Controllers
                 if (montoActual > userData.MontoMaximo)
                 {
                     var strmen = (userData.EsDiasFacturacion) ? "VALIDADO" : "GUARDADO";
-                    mensaje = "Haz superado el l?mite de tu l?nea de cr?dito de " + userData.Simbolo + userData.MontoMaximo.ToString()
-                            + ". Por favor modifica tu pedido para que sea " + strmen + " con ?xito.";
+                    mensaje = "Haz superado el límite de tu línea de crédito de " + userData.Simbolo + userData.MontoMaximo.ToString()
+                            + ". Por favor modifica tu pedido para que sea " + strmen + " con éxito.";
                 }
 
             }
@@ -384,7 +384,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        #region Men?
+        #region Menu
 
         public List<PermisoModel> BuildMenu(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
@@ -617,8 +617,8 @@ namespace Portal.Consultoras.Web.Controllers
                 lstMenuMobileModel.Remove(lstMenuMobileModel.FirstOrDefault(p => p.UrlItem.ToLower() == "mobile/catalogopersonalizado/index"));
             }
 
-            var menuConsultoraOnlinePadre = lstMenuMobileModel.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de cat?logos" && m.MenuPadreID == 0);
-            var menuConsultoraOnlineHijo = lstMenuMobileModel.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de cat?logos" && m.MenuPadreID != 0);
+            var menuConsultoraOnlinePadre = lstMenuMobileModel.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID == 0);
+            var menuConsultoraOnlineHijo = lstMenuMobileModel.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID != 0);
 
 
             if (!_configuracionManagerProvider.GetMostrarOpcionClienteOnline(userData.CodigoISO))
@@ -670,7 +670,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else if (menu.MenuMobileID == 1002)
                 {
-                    menu.Descripcion = ViewBag.TituloCatalogo ? menu.Descripcion : "Cat?logos";
+                    menu.Descripcion = ViewBag.TituloCatalogo ? menu.Descripcion : "Catálogos";
                 }
 
                 if (menu.Posicion.ToLower() != "menu")
@@ -684,7 +684,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 menu.PageTarget = menu.PaginaNueva ? "_blank" : "_self";
                 menu.OnClickFunt = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "mi academia" ? "onclick='return messageInfoPostulante();'" : "";
-                menu.OnClickFunt = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "app de cat?logos" ? "onclick='return messageInfoPostulante();'" : menu.OnClickFunt;
+                menu.OnClickFunt = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "app de catálogos" ? "onclick='return messageInfoPostulante();'" : menu.OnClickFunt;
 
                 try
                 {
@@ -699,7 +699,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 menu.UrlItem = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "mi academia" ? "javascript:;" : menu.UrlItem;
-                menu.UrlItem = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "app de cat?logos" ? "javascript:;" : menu.UrlItem;
+                menu.UrlItem = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "app de catálogos" ? "javascript:;" : menu.UrlItem;
 
                 if (menu.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
                 {
@@ -1546,7 +1546,7 @@ namespace Portal.Consultoras.Web.Controllers
             string urlApi = string.Empty;
             bool noQuitar = false;
 
-            /*** Se registra secci?n Solo para Per? HD-881 ***/
+            /*** Se registra seccion Solo para Peru HD-881 ***/
             if (userData.CodigoISO != "PE")
                 seccion = "";
 
@@ -1800,13 +1800,13 @@ namespace Portal.Consultoras.Web.Controllers
         public void RegistrarLogDynamoCambioClave(string accion, string consultora, string v_valoractual, string v_valoranterior)
         {
             object data = null;
-            var p_origen = "SAC/ACTUALIZAR CONTRASE?A";
-            var p_seccion = "Mantenimiento de contrase?a";
+            var p_origen = "SAC/ACTUALIZAR CONTRASEÑA";
+            var p_seccion = "Mantenimiento de contraseña";
             var p_aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras;
 
             if (accion.Trim().ToUpper() == "MODIFICACION")
             {
-                EjecutarLogDynamoDB(data, "Contrase?a", v_valoractual, v_valoranterior, p_origen, p_aplicacion, accion, "", p_seccion);
+                EjecutarLogDynamoDB(data, "Contraseña", v_valoractual, v_valoranterior, p_origen, p_aplicacion, accion, "", p_seccion);
             }
             else
             {
@@ -1870,16 +1870,16 @@ namespace Portal.Consultoras.Web.Controllers
             var items = logsGprValidacion.Where(l => l.MotivoRechazo.Equals(Constantes.GPRMotivoRechazo.MontoMinino)).ToList();
             if (items.Any() && deuda.Any())
             {
-                model.CuerpoDetalles.Add(string.Format("No cumplir con el <b>monto m?nimo</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO)));
+                model.CuerpoDetalles.Add(string.Format("No cumplir con el <b>monto mínimo</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO)));
                 model.CuerpoDetalles.Add(string.Format("Tener una <b>deuda</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(deuda.FirstOrDefault().Valor, userData.CodigoISO)));
-                model.CuerpoMensaje2 = "Te invitamos a <b>a?adir</b> m?s productos, <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el d?a de hoy para que sea facturado exitosamente.";
+                model.CuerpoMensaje2 = "Te invitamos a <b>añadir</b> mís productos, <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion;
                 return;
             }
             if (items.Any())
             {
-                model.CuerpoDetalles.Add(string.Format("No cumplir con el <b>monto m?nimo</b> de  {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO)));
-                model.CuerpoMensaje2 = "Te invitamos a <b>a?adir</b> m?s productos y <b>reservar</b> tu pedido el d?a de hoy para que sea facturado exitosamente.";
+                model.CuerpoDetalles.Add(string.Format("No cumplir con el <b>monto mínimo</b> de  {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO)));
+                model.CuerpoMensaje2 = "Te invitamos a <b>añadir</b> mís productos y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.MontoMinino;
                 return;
             }
@@ -1887,32 +1887,32 @@ namespace Portal.Consultoras.Web.Controllers
             items = logsGprValidacion.Where(l => l.MotivoRechazo.Contains(Constantes.GPRMotivoRechazo.MontoMaximo)).ToList();
             if (items.Any() && deuda.Any())
             {
-                model.CuerpoDetalles.Add(string.Format("No cumplir con el <b>monto m?ximo</b> de {0} {1} ", userData.Simbolo, Util.DecimalToStringFormat(userData.MontoMaximo, userData.CodigoISO)));
+                model.CuerpoDetalles.Add(string.Format("No cumplir con el <b>monto máximo</b> de {0} {1} ", userData.Simbolo, Util.DecimalToStringFormat(userData.MontoMaximo, userData.CodigoISO)));
                 model.CuerpoDetalles.Add(string.Format("Tener una <b>deuda</b> de {0} {1} ", userData.Simbolo, Util.DecimalToStringFormat(deuda.FirstOrDefault().Valor, userData.CodigoISO)));
-                model.CuerpoMensaje2 = "Te invitamos a <b>modificar</b> tu pedido, <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el d?a de hoy para que sea facturado exitosamente.";
+                model.CuerpoMensaje2 = "Te invitamos a <b>modificar</b> tu pedido, <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion;
                 return;
             }
             if (items.Any())
             {
-                model.CuerpoDetalles.Add(string.Format("No cumplir con el <b>monto m?ximo</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(userData.MontoMaximo, userData.CodigoISO)));
-                model.CuerpoMensaje2 = "Te invitamos a <b>modificar</b> y <b>reservar</b> tu pedido el d?a de hoy para que sea facturado exitosamente.";
+                model.CuerpoDetalles.Add(string.Format("No cumplir con el <b>monto máximo</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(userData.MontoMaximo, userData.CodigoISO)));
+                model.CuerpoMensaje2 = "Te invitamos a <b>modificar</b> y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.MontoMaximo;
                 return;
             }
             items = logsGprValidacion.Where(l => l.MotivoRechazo.Contains(Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock)).ToList();
             if (items.Any() && deuda.Any())
             {
-                model.CuerpoDetalles.Add("No cumplir con el <b>monto m?nimo</b>");
+                model.CuerpoDetalles.Add("No cumplir con el <b>monto mínimo</b>");
                 model.CuerpoDetalles.Add(string.Format("Tener una <b>deuda</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(deuda.FirstOrDefault().Valor, userData.CodigoISO)));
-                model.CuerpoMensaje2 = "Te invitamos a <b>a?adir</b> m?s productos, <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el d?a de hoy para que sea facturado exitosamente.";
+                model.CuerpoMensaje2 = "Te invitamos a <b>añadir</b> mís productos, <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion;
                 return;
             }
             if (items.Any())
             {
-                model.CuerpoDetalles.Add("No cumplir con el <b>monto m?nimo</b>");
-                model.CuerpoMensaje2 = "Te invitamos a <b>a?adir</b> m?s productos y <b>reservar</b> tu pedido el d?a de hoy para que sea facturado exitosamente.";
+                model.CuerpoDetalles.Add("No cumplir con el <b>monto mínimo</b>");
+                model.CuerpoMensaje2 = "Te invitamos a <b>añadir</b> mís productos y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock;
                 return;
             }
@@ -1921,7 +1921,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var item = deuda.FirstOrDefault();
                 model.CuerpoDetalles.Add(string.Format("Tener una <b>deuda</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(item.Valor, userData.CodigoISO)));
-                model.CuerpoMensaje2 = "Te invitamos a <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el d?a de hoy para que sea facturado exitosamente.";
+                model.CuerpoMensaje2 = "Te invitamos a <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.ActualizacionDeuda;
                 model.Campania = item.Campania;
             }
@@ -2385,8 +2385,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (revistaDigital.TieneRDC) return false;
 
-                titulo = "M?S OFERTAS PARA TI " + userData.Sobrenombre.ToUpper();
-                subtitulo = "EXCLUSIVAS S?LO POR WEB";
+                titulo = "MÁS OFERTAS PARA TI " + userData.Sobrenombre.ToUpper();
+                subtitulo = "EXCLUSIVAS SÓLO POR WEB";
             }
 
             return true;
@@ -2400,7 +2400,7 @@ namespace Portal.Consultoras.Web.Controllers
             return tiposEstrategia;
         }
 
-        #region Obtener URL Cerrar Sesi?n
+        #region Obtener URL Cerrar Sesion
 
         private string ObtenerUrlCerrarSesion()
         {
@@ -2471,7 +2471,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.FechaNacimiento.Date != DateTime.Now.Date &&
                     userData.FechaNacimiento.Month == DateTime.Now.Month && userData.FechaNacimiento.Day == DateTime.Now.Day)
                 {
-                    ViewBag.MensajeCumpleanos = string.Format("!Feliz Cumplea?os {0}!", (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.PrimerNombre + " " + userData.PrimerApellido : userData.Sobrenombre));
+                    ViewBag.MensajeCumpleanos = string.Format("!Feliz Cumpleaños {0}!", (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.PrimerNombre + " " + userData.PrimerApellido : userData.Sobrenombre));
                 }
             }
 
@@ -2491,7 +2491,7 @@ namespace Portal.Consultoras.Web.Controllers
             else if (!userData.DiaPROL)
             {
                 ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + Util.FormatearHora(HoraCierrePortal) + "</b>";
-                if (!("BO CL VE").Contains(userData.CodigoISO)) TextoNuevoPROL = " Revisa tus notificaciones o correo y verifica que tu pedido est? completo.";
+                if (!("BO CL VE").Contains(userData.CodigoISO)) TextoNuevoPROL = " Revisa tus notificaciones o correo y verifica que tu pedido está completo.";
             }
             else
             {
@@ -2501,7 +2501,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    ViewBag.MensajeCierreCampania = "Pasa o modifica tu pedido hasta el d?a de <b>hoy a las " + Util.FormatearHora(HoraCierrePortal) + "</b>";
+                    ViewBag.MensajeCierreCampania = "Pasa o modifica tu pedido hasta el día de <b>hoy a las " + Util.FormatearHora(HoraCierrePortal) + "</b>";
                 }
             }
 
@@ -2509,17 +2509,17 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (userData.TipoCasoPromesa == "1" && userData.DiasCasoPromesa != -1)
                 {
-                    TextoPromesa = " y rec?belo en ";
-                    TextoPromesa += userData.DiasCasoPromesa.ToString() + (userData.DiasCasoPromesa == 1 ? " d?a." : " d?as.");
+                    TextoPromesa = " y recíbelo en ";
+                    TextoPromesa += userData.DiasCasoPromesa.ToString() + (userData.DiasCasoPromesa == 1 ? " día." : " días.");
                 }
                 else if (("2 3 4").Contains(userData.TipoCasoPromesa) && userData.DiasCasoPromesa != -1) //casos 2,3 y 4
                 {
                     userData.FechaPromesaEntrega = FechaHoraActual.AddDays(userData.DiasCasoPromesa);
                     if (TextoPromesaEspecial)
-                        TextoPromesa = " Recibir?s tu pedido el <b>" + userData.FechaPromesaEntrega.Day + " de " + Util.NombreMes(userData.FechaPromesaEntrega.Month) + "</b>.";
+                        TextoPromesa = " Recibirás tu pedido el <b>" + userData.FechaPromesaEntrega.Day + " de " + Util.NombreMes(userData.FechaPromesaEntrega.Month) + "</b>.";
 
                     else
-                        TextoPromesa = " y rec?belo el <b>" + userData.FechaPromesaEntrega.Day + " de " + Util.NombreMes(userData.FechaPromesaEntrega.Month) + "</b>.";
+                        TextoPromesa = " y recíbelo el <b>" + userData.FechaPromesaEntrega.Day + " de " + Util.NombreMes(userData.FechaPromesaEntrega.Month) + "</b>.";
                 }
             }
 
@@ -2961,7 +2961,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             pagoVisaModel.Amount = model.MontoDeudaConGastos;
 
-            #region Generar Sesi?n para el boton de pagos
+            #region Generar Sesion para el boton de pagos
 
             string urlCreateSessionTokenAPI = pagoVisaModel.UrlSessionBotonPagos + pagoVisaModel.MerchantId;
 
@@ -2992,7 +2992,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
-            #region Generar N?mero de Pedido
+            #region Generar Numero de Pedido
 
             string urlNextCounterAPI = pagoVisaModel.UrlGenerarNumeroPedido + pagoVisaModel.MerchantId + "/nextCounter";
             HttpWebRequest requestNumPedido;

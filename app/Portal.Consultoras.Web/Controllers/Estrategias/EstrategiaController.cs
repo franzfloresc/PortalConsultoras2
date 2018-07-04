@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
-    public class EstrategiaController : BaseEstrategiaController 
+    public class EstrategiaController : BaseEstrategiaController
     {
         public EstrategiaController()
         {
@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     || (revistaDigital.TieneRDC && revistaDigital.ActivoMdo) ?
                     Constantes.TipoEstrategiaCodigo.RevistaDigital : Constantes.TipoEstrategiaCodigo.OfertaParaTi;
 
-                var listModel = ConsultarEstrategiasHomePedido(codAgrupa);
+                var listModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasHomePedido(IsMobile(), userData.CodigoISO, userData.CampaniaID, codAgrupa);
 
                 model.CodigoEstrategia = _revistaDigitalProvider.GetCodigoEstrategia();
                 model.Consultora = userData.Sobrenombre;
@@ -87,7 +87,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
 
                 var listaPedido = _pedidoWebProvider.ObtenerPedidoWebDetalle(0);
-                
+
                 model.ListaLan = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listModel.Where(l => l.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), listaPedido, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
                 model.ListaModelo = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), listaPedido, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
             }
@@ -106,7 +106,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             {
                 var model = new EstrategiaOutModel();
 
-                var listModel = ConsultarMasVendidosModel();
+                var listModel = _ofertaPersonalizadaProvider.ConsultarMasVendidosModel(IsMobile(), userData.CodigoISO, userData.CampaniaID);
 
                 model.Lista = listModel;
 
@@ -181,14 +181,14 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 var campania = _ofertaPersonalizadaProvider.ConsultarOfertasCampania(model, tipoConsulta);
 
-                var listaFinal1 = ConsultarEstrategiasModel(campania, palanca);
+                var listaFinal1 = _ofertaPersonalizadaProvider.ConsultarEstrategiasModel(IsMobile(), userData.CodigoISO, userData.CampaniaID, campania, palanca);
 
                 var listPerdio = ConsultarOfertasListaPerdio(model, listaFinal1, tipoConsulta);
 
                 listaFinal1 = _ofertaPersonalizadaProvider.ConsultarOfertasFiltrar(model, listaFinal1, tipoConsulta);
 
                 var tipo = _ofertaPersonalizadaProvider.ConsultarOfertasTipoPerdio(model, tipoConsulta);
-                
+
                 var listaPedido = _pedidoWebProvider.ObtenerPedidoWebDetalle(0);
                 var listModel = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaFinal1, listaPedido, userData.CodigoISO, userData.CampaniaID, tipo, userData.esConsultoraLider, userData.Simbolo);
 
@@ -247,7 +247,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     }
                     else
                     {
-                        var listPerdio1 = ConsultarEstrategiasModel(campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+                        var listPerdio1 = _ofertaPersonalizadaProvider.ConsultarEstrategiasModel(IsMobile(), userData.CodigoISO, userData.CampaniaID, campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
                         listPerdio = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas && p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                     }
 
