@@ -179,7 +179,7 @@
 
 
     var _obtenerSetRelacionados = function () {
-        debugger;
+        
 
         var cuv = _config.cuv;
         var campaniaId = _config.campania;
@@ -231,7 +231,7 @@
 
 
     var _mostrarSetRelacionados = function () {
-        debugger;
+        
         $(_elementos.divSetsProductosRelacionados).fadeOut();
 
         var platform = !isMobile() ? 'desktop' : 'mobile';
@@ -401,8 +401,8 @@
         _bindingEvents();
         _crearReloj();
         _crearTabs();
-        _crearCarruseles();
-        _mostrarSetRelacionados();
+        //_crearCarruseles();
+       // _mostrarSetRelacionados();
     }
 
     return {
