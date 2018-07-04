@@ -18,6 +18,7 @@ body {
     height: 315px;
     position: absolute;
     width: 100%;
+    background-size: cover;
 }
 
 .contenedor_detalle {
@@ -129,6 +130,8 @@ body {
     height: 40px;
     letter-spacing: .1px;
     display: block;
+    position: relative;
+    left: -2px;
 }
 
     .clock_odd ul {
@@ -180,6 +183,7 @@ body {
 .contenedor_nombre_precio {
     display: inline-block;
     width: 100%;
+    margin-bottom: 30px;
 }
 
 .contenedor_izquierdo {
@@ -192,13 +196,15 @@ body {
     height: 21px;
     letter-spacing: .8px;
     line-height: 1.83;
+    text-transform: uppercase;
 }
 
 .descripcion {
     font-size: 20px;
     font-weight: 700;
     letter-spacing: .9px;
-    line-height: 22px;
+    line-height: 24px;
+    text-transform: uppercase;
 }
 
 .contenedor_derecho {
@@ -290,7 +296,7 @@ body {
 }
 
 .detalle_producto {
-    border-bottom: solid 1px #d8d8d8;
+    border-bottom: none !important;
     padding-bottom: 18px;
     margin-bottom: 10px;
 }
@@ -450,7 +456,7 @@ body {
 
 .contenedor_agregar {
     float: left;
-    padding-top: 23px;
+    padding-top: 40px;
     width: 100%;
 }
 
@@ -617,20 +623,20 @@ body {
         -webkit-border-radius: 50%;
     }
 
-    .dibujar_signo_exclamacion::before {
-        border-left: solid 1px #e81c36;
-        height: 38%;
-        left: 48%;
-        top: 25%;
-    }
+        .dibujar_signo_exclamacion::before {
+            border-left: solid 1px #e81c36;
+            height: 38%;
+            left: 48%;
+            top: 25%;
+        }
 
-    .dibujar_signo_exclamacion::after {
-        background-color: #e81c36;
-        height: 1%;
-        left: 46%;
-        top: 68%;
-        width: 1%;
-    }
+        .dibujar_signo_exclamacion::after {
+            background-color: #e81c36;
+            height: 1%;
+            left: 46%;
+            top: 68%;
+            width: 1%;
+        }
 
 .txt_limitacion {
     font-weight: 700;
@@ -907,7 +913,6 @@ body {
 }
 
 .contenedor_elige_tu_tono_carrusel {
-    
 }
 
 .txt_elige_tu_tono {
@@ -1346,4 +1351,30 @@ body {
 
 #carrusel_odd .dibujar_flecha_carrusel::before, #carrusel_odd .dibujar_flecha_carrusel::after {
     border-bottom: solid 3px #fff;
+}
+
+
+.contenedor_carrusel_odd {
+    float: left;
+    margin-top: 13px;
+    width: 813.75px;
+}
+
+#carrusel_odd .dibujar_flecha_carrusel::before, #carrusel_odd .dibujar_flecha_carrusel::after {
+    border-bottom: solid 3px #fff;
+}
+
+
+.etiqueta_nuevo {
+    clear: both;
+    padding-top: 10px;
+}
+
+.nombre_detalle_producto_tono {
+    font-weight: bold;
+    padding-bottom: 3px;
+}
+
+.descripcion_detalle_producto_tono {
+    margin-bottom: 30px;
 }
