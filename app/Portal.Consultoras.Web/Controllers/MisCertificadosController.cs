@@ -75,33 +75,22 @@ namespace Portal.Consultoras.Web.Controllers
         private MiCertificadoModel ObtenerCertificadoNoAdeudo()
         {
             var certificado = new MiCertificadoModel();
-            var mensajeError = "";
-
-            certificado.CertificadoId = 1;
-            certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPdf.cshtml";
-
+            certificado.MensajeError = "";
             switch (userData.PaisID)
             {
                 case Constantes.PaisID.Colombia:
                 case Constantes.PaisID.RepublicaDominicana:
                 case Constantes.PaisID.PuertoRico:
-                    certificado.Nombre = "Paz y Salvo";
-                    if (userData.MontoDeuda > 0)
-                    {
-                        mensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certficado de Paz y Salvo";
-                        break;
-                    }
-                    certificado.MensajeError = mensajeError;
-                    break;
                 case Constantes.PaisID.Ecuador:
                 case Constantes.PaisID.Peru:
-                    certificado.Nombre = (userData.PaisID == Constantes.PaisID.Peru) ? "Constancia No Adeudo" : "No Adeudo";
+                    certificado.Nombre = DevuelveNombreCertificadoNoAdeudo_PazySalvo(userData.PaisID);
                     if (userData.MontoDeuda > 0)
                     {
-                        mensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certificado de No Adeudo";
+                        certificado.MensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certificado de " + certificado.Nombre;
                         break;
                     }
-                    certificado.MensajeError = mensajeError;
+                    certificado.CertificadoId = 1;
+                    certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPdf.cshtml";
                     break;
                 default:
                     certificado = null;
@@ -117,7 +106,6 @@ namespace Portal.Consultoras.Web.Controllers
         private MiCertificadoModel ObtenerCertificadoComercial()
         {
             var certificado = new MiCertificadoModel();
-            var mensajeError = "";
             var cantidadCampaniaConsecutiva = "";
 
             short codigoTablaLogica = 140;
@@ -134,6 +122,8 @@ namespace Portal.Consultoras.Web.Controllers
                 tieneCampaniaConsecutivas = ps.TieneCampaniaConsecutivas(userData.PaisID, userData.CampaniaID, int.Parse(cantidadCampaniaConsecutiva), userData.ConsultoraID);
             }
 
+            certificado.MensajeError = "";
+
             switch (userData.PaisID)
             {
                 case Constantes.PaisID.Colombia:
@@ -142,16 +132,12 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.PaisID.RepublicaDominicana:
                 case Constantes.PaisID.PuertoRico:
                     certificado.Nombre = "Certificado Comercial";
-
-                    //if (!tieneCampaniaConsecutivas || userData.PromedioVenta < 0)
-                    if (userData.PromedioVenta < 0)
+                    if (!tieneCampaniaConsecutivas || userData.PromedioVenta < 0)
                     {
-                        mensajeError = "No has sido constante en las últimas " + cantidadCampaniaConsecutiva + " campañas, no es posible expedir un certificado comercial.";
+                        certificado.MensajeError = "No has sido constante en las últimas " + cantidadCampaniaConsecutiva + " campañas, no es posible expedir un certificado comercial.";
                         break;
                     }
-
                     certificado.CertificadoId = 2;
-                    certificado.MensajeError = mensajeError;
                     certificado.NombreVista = "~/Views/MisCertificados/ComercialPdf.cshtml";
                     break;
                 default:
@@ -189,6 +175,28 @@ namespace Portal.Consultoras.Web.Controllers
             return certificado;
         }
         #endregion
+
+        private string DevuelveNombreCertificadoNoAdeudo_PazySalvo(int pais)
+        {
+            var nombre = "";
+            switch (pais)
+            {
+                case Constantes.PaisID.Colombia:
+                case Constantes.PaisID.RepublicaDominicana:
+                case Constantes.PaisID.PuertoRico:
+                    nombre = "Paz y Salvo";
+                    break;
+                case Constantes.PaisID.Peru:
+                    nombre = "Constancia No Adeudo";
+                    break;
+                case Constantes.PaisID.Ecuador:
+                    nombre = "No Adeudo";
+                    break;
+                default:
+                    break;
+            }
+            return nombre;
+        }
 
         [ValidateInput(false)]
         public FileResult Export(int id)
