@@ -21,8 +21,11 @@
 
         {{#iff SoloUno}}
 
-        <div class="contenedor_palanca_odd">
+        <div class="contenedor_palanca_odd" data-item="">
             <div class="contenedor_odd">
+                <div style="display:none;"   data-item-campos="">
+                    <input data-estrategia="{{JSON2string prod}}" />
+                </div>
                 <div class="contenedor_detalle_producto_odd">
                     <div class="img_odd">
                         <img id="img-display-odd" src="{{ImgUrl prod.FotoProducto01}}" alt="" data-img-lazy="1" />
@@ -64,7 +67,11 @@
                                         </a>
                                     </div>
                                 </div>
-                                <a id="btnAgregalo" class="btn_agregalo btn_agregalo_odd" data-btn-agregar-sr="">AGRÉGALO</a>
+                                <a id="btnAgregalo"
+                                   class="btn_agregalo btn_agregalo_odd"
+                                   @*data-btn-agregar-sr=""*@
+                                   href="javascript:;"
+                                   onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, true, 1);">AGRÉGALO</a>
                             </div>
                             {{/iff}}
 

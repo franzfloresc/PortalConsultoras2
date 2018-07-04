@@ -22,22 +22,26 @@
     }
 
     var _obtenerEstrategia = function(cuv, campania, palanca) {
+        try {
+            var nombreKey = _obtenerKey(palanca, campania);
 
-        var nombreKey = _obtenerKey(palanca, campania);
+            if (IsNullOrEmpty(nombreKey)) throw "Palanca no tiene asignado key local storage.";
 
-        if (IsNullOrEmpty(nombreKey)) throw "Palanca no tiene asignado key local storage.";
+            var listaLocalStorage = JSON.parse(localStorage.getItem(nombreKey));
+            var arrayEstrategia;
 
-        var listaLocalStorage =  JSON.parse(localStorage.getItem(nombreKey));
-        var arrayEstrategia;
-        
-        if (palanca === _codigoPalanca.Lanzamiento) {
-            arrayEstrategia = (listaLocalStorage.response.listaLan || []).Find("CUV2", cuv) || new Array();
-        } else {
-            arrayEstrategia = (listaLocalStorage.response.lista || []).Find("CUV2", cuv) || new Array();
-        }
-        
-        if (arrayEstrategia.length > 0) return arrayEstrategia[0];
-        return null;
+            if (palanca === _codigoPalanca.Lanzamiento) {
+                arrayEstrategia = (listaLocalStorage.response.listaLan || []).Find("CUV2", cuv) || new Array();
+            } else {
+                arrayEstrategia = (listaLocalStorage.response.lista || []).Find("CUV2", cuv) || new Array();
+            }
+
+            if (arrayEstrategia.length > 0) return arrayEstrategia[0];
+            
+        } catch (e) {
+           console.error("error al cargar productos de local storage");
+        } 
+         return null;
     }
     
     return{
