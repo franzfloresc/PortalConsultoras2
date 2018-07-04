@@ -272,6 +272,7 @@
         window.videoKey = '@Model.CodigoVideo';
         var fichaModule;
         var carruselModule;
+
         $(document).ready(function() {
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",
@@ -287,7 +288,10 @@
             carruselModule = CarruselModule({
                 palanca: "@Model.Palanca",
                 campania: "@Model.Campania",
-                cuv: "@Model.Cuv"
+                cuv: "@Model.Cuv",
+                idPlantilla: "#producto-landing-template",
+                divCarrusel: "#divOfertaProductos",
+                divSetsProductosdata: "#set_relacionados"
             });
             carruselModule.Inicializar();
         });

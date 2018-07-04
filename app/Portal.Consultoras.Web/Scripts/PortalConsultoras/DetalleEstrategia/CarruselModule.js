@@ -6,58 +6,66 @@
         campania: config.campania || "",
         cuv: config.cuv || ""
     };
-   
-    var _elementos = {
-        idPlantillaProductoLanding: "#producto-landing-template",
-        divCarruselSetsProductosRelacionados: "#divOfertaProductos",
-        divSetsProductosRelacionados: "#set_relacionados"
-    };
-    
      
+    var _elementos = {
+        idPlantillaProductoLanding: config.idPlantilla,
+        divCarruselSetsProductosRelacionados: config.divCarrusel,
+        divSetsProductosRelacionados: config.divCarrusel
+    };
 
-    var _obtenerSetRelacionados = function () {
 
+
+    var _cargarDatos_Lanzamiento = function () {
+
+        var setRelacionados = [];
 
         var cuv = _config.cuv;
         var campaniaId = _config.campania;
-        var setRelacionados = [];
+
+        if (cuv == "" || campaniaId == "" || campaniaId == "0") {
+            return false;
+        }
+
+        var str = LocalStorageListado("LANLista" + campaniaId, '', 1) || '';
+
+        if (str === '') {
+            return false;
+        }
+
+        var lista = JSON.parse(str).response.listaLan;
+
+
+        var codigoProducto = '';
+        $.each(lista, function (index, lanzamiento) {
+            if (cuv === lanzamiento.CUV2) {
+                codigoProducto = lanzamiento.CodigoProducto;
+                return false;
+            }
+        });
+
+        $.each(lista, function (index, lanzamiento) {
+            if (cuv != lanzamiento.CUV2 && lanzamiento.CodigoProducto === codigoProducto) {
+                setRelacionados.push(lanzamiento);
+            }
+        });
+        if (setRelacionados.length == 0) {
+            return false;
+        }
+
+       return setRelacionados;
+
+    }
+
+
+
+    var _obtenerSetRelacionados = function () {
+     
         var data = {
             lista: []
         };
 
-
         if (_config.palanca == 'Lanzamiento') {
-            if (cuv == "" || campaniaId == "" || campaniaId == "0") {
-                return false;
-            }
-
-            var str = LocalStorageListado("LANLista" + campaniaId, '', 1) || '';
-
-            if (str === '') {
-                return false;
-            }
-
-            data.lista = JSON.parse(str).response.listaLan;
-
-
-            var codigoProducto = '';
-            $.each(data.lista, function (index, lanzamiento) {
-                if (cuv === lanzamiento.CUV2) {
-                    codigoProducto = lanzamiento.CodigoProducto;
-                    return false;
-                }
-            });
-
-            $.each(data.lista, function (index, lanzamiento) {
-                if (cuv != lanzamiento.CUV2 && lanzamiento.CodigoProducto === codigoProducto) {
-                    setRelacionados.push(lanzamiento);
-                }
-            });
-            if (setRelacionados.length == 0) {
-                return false;
-            }
-
-            data.lista = setRelacionados;
+            data.lista = _cargarDatos_Lanzamiento();
         }
 
         return data;
@@ -65,23 +73,11 @@
     }
 
 
+    var _mostrarSlicks = function () {
 
-    var _mostrarSetRelacionados = function () {
-
-        $(_elementos.divSetsProductosRelacionados).fadeOut();
 
         var platform = !isMobile() ? 'desktop' : 'mobile';
 
-
-        if (platform != 'mobile')
-            return false;
-
-        var data = _obtenerSetRelacionados();
-
-        if (!data)
-            return false;
-
-        SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
         EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
 
         var slickArrows = {
@@ -120,12 +116,32 @@
         });
 
         $(_elementos.divSetsProductosRelacionados).fadeIn();
-    };
-     
+    }
+
+
+    var _ocultarElementos = function () {
+
+        $(_elementos.divSetsProductosRelacionados).fadeOut();
+    }
+
+
+    var _mostrarCarrusel = function () {
+
+        var data = _obtenerSetRelacionados();
+
+        if (!data)
+            return false;
+
+        SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
+
+
+    };     
 
     function Inicializar() {
-
-        _mostrarSetRelacionados();
+     
+        _ocultarElementos();
+        _mostrarCarrusel();
+        _mostrarSlicks();
     }
 
     return {
