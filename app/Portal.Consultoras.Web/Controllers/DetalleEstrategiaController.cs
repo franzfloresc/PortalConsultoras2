@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Web.Controllers
             DetalleEstrategiaFichaModel modelo;
             if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
             {
-                var estrategiaPresonalizada = ObtenerEstrategiaPersonalizada(palanca, cuv, campaniaId);
+                var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
                 if (estrategiaPresonalizada == null) return RedirectToAction("Index", "Ofertas");
                 modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
             }
@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 modelo = new DetalleEstrategiaFichaModel();
             }
-            
+
             modelo.Origen = origen;
             modelo.Palanca = palanca;
             modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View("Ficha", modelo);
         }
 
-        public JsonResult ObtenerComponentes (string estrategiaId, string campania, string codigoVariante)
+        public JsonResult ObtenerComponentes(string estrategiaId, string campania, string codigoVariante)
         {
             try
             {
@@ -51,16 +51,16 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     esMultimarca,
-                    componentes 
+                    componentes
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {
                 return ErrorJson("Error al obtener los Componentes: " + e.Message, true);
             }
-           
+
         }
 
-       
+
     }
 }

@@ -208,7 +208,12 @@ namespace Portal.Consultoras.Web.SessionManager
         EstrategiaPersonalizadaProductoModel GetProductoTemporal();
 
         void SetEstrategiaSR(Models.Estrategia.ShowRoom.ConfigModel data);
+
         Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR();
+        
+        void SetBEEstrategia(string key, List<ServiceOferta.BEEstrategia> data);
+
+        List<ServiceOferta.BEEstrategia> GetBEEstrategia(string key);
 
         void SetPedidosFacturados(PedidoWebClientePrincipalMobilModel model);
 
