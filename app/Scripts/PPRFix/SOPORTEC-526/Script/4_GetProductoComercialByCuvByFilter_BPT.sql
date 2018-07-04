@@ -66,7 +66,7 @@ BEGIN
 		,op.TipoOfertaSisID
 		,NULL
 	FROM OfertaProducto op WITH (NOLOCK)
-	INNER JOIN ods.Campania c
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON op.CampaniaID = c.CampaniaID
 	WHERE
 		c.codigo = @CampaniaID
@@ -76,7 +76,7 @@ BEGIN
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
 		CUV
-	FROM dbo.ProductoFaltante NOLOCK
+	FROM dbo.ProductoFaltante WITH (NOLOCK)
 	WHERE
 		CampaniaID = @CampaniaID
 		AND Zonaid = @ZonaID
@@ -84,8 +84,8 @@ BEGIN
 	UNION ALL
 	SELECT DISTINCT
 		ltrim(rtrim(fa.CodigoVenta)) AS CUV
-	FROM ods.FaltanteAnunciado fa(NOLOCK)
-	INNER JOIN ods.Campania c(NOLOCK)
+	FROM ods.FaltanteAnunciado fa WITH (NOLOCK)
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,rtrim(fa.CodigoVenta))>0
@@ -95,7 +95,7 @@ BEGIN
 	-- Producto Sugerido
 	insert into @ProductoSugeridoTemp
 	select CUV
-	from dbo.ProductoSugerido
+	from dbo.ProductoSugerido WITH (NOLOCK)
 	where
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
@@ -130,7 +130,7 @@ BEGIN
 		AND p.CUV = pd.CUV
 	LEFT JOIN @ProductoFaltanteTemp pf
 		ON p.CUV = pf.CUV
-	LEFT JOIN ProductoComercialConfiguracion pcc
+	LEFT JOIN ProductoComercialConfiguracion pcc WITH (NOLOCK)
 		ON p.AnoCampania = pcc.CampaniaID
 		AND p.CUV = pcc.CUV
 	LEFT JOIN @OfertaProductoTemp op
@@ -188,7 +188,7 @@ BEGIN
 		te.Codigo as TipoEstrategiaCodigo,
 		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
-	left join Estrategia e
+	left join Estrategia e WITH (NOLOCK)
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
 		AND e.CUV2 = p.CUV
 		AND e.Activo = 1
@@ -198,7 +198,7 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
@@ -272,7 +272,7 @@ BEGIN
 		,op.TipoOfertaSisID
 		,NULL
 	FROM OfertaProducto op WITH (NOLOCK)
-	INNER JOIN ods.Campania c
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON op.CampaniaID = c.CampaniaID
 	WHERE
 		c.codigo = @CampaniaID
@@ -282,7 +282,7 @@ BEGIN
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
 		CUV
-	FROM dbo.ProductoFaltante NOLOCK
+	FROM dbo.ProductoFaltante WITH (NOLOCK)
 	WHERE
 		CampaniaID = @CampaniaID
 		AND Zonaid = @ZonaID
@@ -290,8 +290,8 @@ BEGIN
 	UNION ALL
 	SELECT DISTINCT
 		ltrim(rtrim(fa.CodigoVenta)) AS CUV
-	FROM ods.FaltanteAnunciado fa(NOLOCK)
-	INNER JOIN ods.Campania c(NOLOCK)
+	FROM ods.FaltanteAnunciado fa WITH (NOLOCK)
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,rtrim(fa.CodigoVenta))>0
@@ -301,7 +301,7 @@ BEGIN
 	-- Producto Sugerido
 	insert into @ProductoSugeridoTemp
 	select CUV
-	from dbo.ProductoSugerido
+	from dbo.ProductoSugerido WITH (NOLOCK)
 	where
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
@@ -336,7 +336,7 @@ BEGIN
 		AND p.CUV = pd.CUV
 	LEFT JOIN @ProductoFaltanteTemp pf
 		ON p.CUV = pf.CUV
-	LEFT JOIN ProductoComercialConfiguracion pcc
+	LEFT JOIN ProductoComercialConfiguracion pcc WITH (NOLOCK)
 		ON p.AnoCampania = pcc.CampaniaID
 		AND p.CUV = pcc.CUV
 	LEFT JOIN @OfertaProductoTemp op
@@ -394,7 +394,7 @@ BEGIN
 		te.Codigo as TipoEstrategiaCodigo,
 		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
-	left join Estrategia e
+	left join Estrategia e WITH (NOLOCK)
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
 		AND e.CUV2 = p.CUV
 		AND e.Activo = 1
@@ -404,7 +404,7 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
@@ -478,7 +478,7 @@ BEGIN
 		,op.TipoOfertaSisID
 		,NULL
 	FROM OfertaProducto op WITH (NOLOCK)
-	INNER JOIN ods.Campania c
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON op.CampaniaID = c.CampaniaID
 	WHERE
 		c.codigo = @CampaniaID
@@ -488,7 +488,7 @@ BEGIN
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
 		CUV
-	FROM dbo.ProductoFaltante NOLOCK
+	FROM dbo.ProductoFaltante WITH (NOLOCK)
 	WHERE
 		CampaniaID = @CampaniaID
 		AND Zonaid = @ZonaID
@@ -496,8 +496,8 @@ BEGIN
 	UNION ALL
 	SELECT DISTINCT
 		ltrim(rtrim(fa.CodigoVenta)) AS CUV
-	FROM ods.FaltanteAnunciado fa(NOLOCK)
-	INNER JOIN ods.Campania c(NOLOCK)
+	FROM ods.FaltanteAnunciado fa WITH (NOLOCK)
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,rtrim(fa.CodigoVenta))>0
@@ -507,7 +507,7 @@ BEGIN
 	-- Producto Sugerido
 	insert into @ProductoSugeridoTemp
 	select CUV
-	from dbo.ProductoSugerido
+	from dbo.ProductoSugerido WITH (NOLOCK)
 	where
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
@@ -542,7 +542,7 @@ BEGIN
 		AND p.CUV = pd.CUV
 	LEFT JOIN @ProductoFaltanteTemp pf
 		ON p.CUV = pf.CUV
-	LEFT JOIN ProductoComercialConfiguracion pcc
+	LEFT JOIN ProductoComercialConfiguracion pcc WITH (NOLOCK)
 		ON p.AnoCampania = pcc.CampaniaID
 		AND p.CUV = pcc.CUV
 	LEFT JOIN @OfertaProductoTemp op
@@ -600,7 +600,7 @@ BEGIN
 		te.Codigo as TipoEstrategiaCodigo,
 		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
-	left join Estrategia e
+	left join Estrategia e WITH (NOLOCK)
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
 		AND e.CUV2 = p.CUV
 		AND e.Activo = 1
@@ -610,7 +610,7 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
@@ -684,7 +684,7 @@ BEGIN
 		,op.TipoOfertaSisID
 		,NULL
 	FROM OfertaProducto op WITH (NOLOCK)
-	INNER JOIN ods.Campania c
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON op.CampaniaID = c.CampaniaID
 	WHERE
 		c.codigo = @CampaniaID
@@ -694,7 +694,7 @@ BEGIN
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
 		CUV
-	FROM dbo.ProductoFaltante NOLOCK
+	FROM dbo.ProductoFaltante WITH (NOLOCK)
 	WHERE
 		CampaniaID = @CampaniaID
 		AND Zonaid = @ZonaID
@@ -702,8 +702,8 @@ BEGIN
 	UNION ALL
 	SELECT DISTINCT
 		ltrim(rtrim(fa.CodigoVenta)) AS CUV
-	FROM ods.FaltanteAnunciado fa(NOLOCK)
-	INNER JOIN ods.Campania c(NOLOCK)
+	FROM ods.FaltanteAnunciado fa WITH (NOLOCK)
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,rtrim(fa.CodigoVenta))>0
@@ -713,7 +713,7 @@ BEGIN
 	-- Producto Sugerido
 	insert into @ProductoSugeridoTemp
 	select CUV
-	from dbo.ProductoSugerido
+	from dbo.ProductoSugerido WITH (NOLOCK)
 	where
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
@@ -748,7 +748,7 @@ BEGIN
 		AND p.CUV = pd.CUV
 	LEFT JOIN @ProductoFaltanteTemp pf
 		ON p.CUV = pf.CUV
-	LEFT JOIN ProductoComercialConfiguracion pcc
+	LEFT JOIN ProductoComercialConfiguracion pcc WITH (NOLOCK)
 		ON p.AnoCampania = pcc.CampaniaID
 		AND p.CUV = pcc.CUV
 	LEFT JOIN @OfertaProductoTemp op
@@ -806,7 +806,7 @@ BEGIN
 		te.Codigo as TipoEstrategiaCodigo,
 		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
-	left join Estrategia e
+	left join Estrategia e WITH (NOLOCK)
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
 		AND e.CUV2 = p.CUV
 		AND e.Activo = 1
@@ -816,7 +816,7 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
@@ -890,7 +890,7 @@ BEGIN
 		,op.TipoOfertaSisID
 		,NULL
 	FROM OfertaProducto op WITH (NOLOCK)
-	INNER JOIN ods.Campania c
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON op.CampaniaID = c.CampaniaID
 	WHERE
 		c.codigo = @CampaniaID
@@ -900,7 +900,7 @@ BEGIN
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
 		CUV
-	FROM dbo.ProductoFaltante NOLOCK
+	FROM dbo.ProductoFaltante WITH (NOLOCK)
 	WHERE
 		CampaniaID = @CampaniaID
 		AND Zonaid = @ZonaID
@@ -908,8 +908,8 @@ BEGIN
 	UNION ALL
 	SELECT DISTINCT
 		ltrim(rtrim(fa.CodigoVenta)) AS CUV
-	FROM ods.FaltanteAnunciado fa(NOLOCK)
-	INNER JOIN ods.Campania c(NOLOCK)
+	FROM ods.FaltanteAnunciado fa WITH (NOLOCK)
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,rtrim(fa.CodigoVenta))>0
@@ -919,7 +919,7 @@ BEGIN
 	-- Producto Sugerido
 	insert into @ProductoSugeridoTemp
 	select CUV
-	from dbo.ProductoSugerido
+	from dbo.ProductoSugerido WITH (NOLOCK)
 	where
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
@@ -954,7 +954,7 @@ BEGIN
 		AND p.CUV = pd.CUV
 	LEFT JOIN @ProductoFaltanteTemp pf
 		ON p.CUV = pf.CUV
-	LEFT JOIN ProductoComercialConfiguracion pcc
+	LEFT JOIN ProductoComercialConfiguracion pcc WITH (NOLOCK)
 		ON p.AnoCampania = pcc.CampaniaID
 		AND p.CUV = pcc.CUV
 	LEFT JOIN @OfertaProductoTemp op
@@ -1012,7 +1012,7 @@ BEGIN
 		te.Codigo as TipoEstrategiaCodigo,
 		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
-	left join Estrategia e
+	left join Estrategia e WITH (NOLOCK)
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
 		AND e.CUV2 = p.CUV
 		AND e.Activo = 1
@@ -1022,7 +1022,7 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
@@ -1096,7 +1096,7 @@ BEGIN
 		,op.TipoOfertaSisID
 		,NULL
 	FROM OfertaProducto op WITH (NOLOCK)
-	INNER JOIN ods.Campania c
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON op.CampaniaID = c.CampaniaID
 	WHERE
 		c.codigo = @CampaniaID
@@ -1106,7 +1106,7 @@ BEGIN
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
 		CUV
-	FROM dbo.ProductoFaltante NOLOCK
+	FROM dbo.ProductoFaltante WITH (NOLOCK)
 	WHERE
 		CampaniaID = @CampaniaID
 		AND Zonaid = @ZonaID
@@ -1114,8 +1114,8 @@ BEGIN
 	UNION ALL
 	SELECT DISTINCT
 		ltrim(rtrim(fa.CodigoVenta)) AS CUV
-	FROM ods.FaltanteAnunciado fa(NOLOCK)
-	INNER JOIN ods.Campania c(NOLOCK)
+	FROM ods.FaltanteAnunciado fa WITH (NOLOCK)
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,rtrim(fa.CodigoVenta))>0
@@ -1125,7 +1125,7 @@ BEGIN
 	-- Producto Sugerido
 	insert into @ProductoSugeridoTemp
 	select CUV
-	from dbo.ProductoSugerido
+	from dbo.ProductoSugerido WITH (NOLOCK)
 	where
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
@@ -1160,7 +1160,7 @@ BEGIN
 		AND p.CUV = pd.CUV
 	LEFT JOIN @ProductoFaltanteTemp pf
 		ON p.CUV = pf.CUV
-	LEFT JOIN ProductoComercialConfiguracion pcc
+	LEFT JOIN ProductoComercialConfiguracion pcc WITH (NOLOCK)
 		ON p.AnoCampania = pcc.CampaniaID
 		AND p.CUV = pcc.CUV
 	LEFT JOIN @OfertaProductoTemp op
@@ -1218,7 +1218,7 @@ BEGIN
 		te.Codigo as TipoEstrategiaCodigo,
 		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
-	left join Estrategia e
+	left join Estrategia e WITH (NOLOCK)
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
 		AND e.CUV2 = p.CUV
 		AND e.Activo = 1
@@ -1228,7 +1228,7 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
@@ -1302,7 +1302,7 @@ BEGIN
 		,op.TipoOfertaSisID
 		,NULL
 	FROM OfertaProducto op WITH (NOLOCK)
-	INNER JOIN ods.Campania c
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON op.CampaniaID = c.CampaniaID
 	WHERE
 		c.codigo = @CampaniaID
@@ -1312,7 +1312,7 @@ BEGIN
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
 		CUV
-	FROM dbo.ProductoFaltante NOLOCK
+	FROM dbo.ProductoFaltante WITH (NOLOCK)
 	WHERE
 		CampaniaID = @CampaniaID
 		AND Zonaid = @ZonaID
@@ -1320,8 +1320,8 @@ BEGIN
 	UNION ALL
 	SELECT DISTINCT
 		ltrim(rtrim(fa.CodigoVenta)) AS CUV
-	FROM ods.FaltanteAnunciado fa(NOLOCK)
-	INNER JOIN ods.Campania c(NOLOCK)
+	FROM ods.FaltanteAnunciado fa WITH (NOLOCK)
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,rtrim(fa.CodigoVenta))>0
@@ -1331,7 +1331,7 @@ BEGIN
 	-- Producto Sugerido
 	insert into @ProductoSugeridoTemp
 	select CUV
-	from dbo.ProductoSugerido
+	from dbo.ProductoSugerido WITH (NOLOCK)
 	where
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
@@ -1366,7 +1366,7 @@ BEGIN
 		AND p.CUV = pd.CUV
 	LEFT JOIN @ProductoFaltanteTemp pf
 		ON p.CUV = pf.CUV
-	LEFT JOIN ProductoComercialConfiguracion pcc
+	LEFT JOIN ProductoComercialConfiguracion pcc WITH (NOLOCK)
 		ON p.AnoCampania = pcc.CampaniaID
 		AND p.CUV = pcc.CUV
 	LEFT JOIN @OfertaProductoTemp op
@@ -1424,7 +1424,7 @@ BEGIN
 		te.Codigo as TipoEstrategiaCodigo,
 		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
-	left join Estrategia e
+	left join Estrategia e WITH (NOLOCK)
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
 		AND e.CUV2 = p.CUV
 		AND e.Activo = 1
@@ -1434,7 +1434,7 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
@@ -1508,7 +1508,7 @@ BEGIN
 		,op.TipoOfertaSisID
 		,NULL
 	FROM OfertaProducto op WITH (NOLOCK)
-	INNER JOIN ods.Campania c
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON op.CampaniaID = c.CampaniaID
 	WHERE
 		c.codigo = @CampaniaID
@@ -1518,7 +1518,7 @@ BEGIN
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
 		CUV
-	FROM dbo.ProductoFaltante NOLOCK
+	FROM dbo.ProductoFaltante WITH (NOLOCK)
 	WHERE
 		CampaniaID = @CampaniaID
 		AND Zonaid = @ZonaID
@@ -1526,8 +1526,8 @@ BEGIN
 	UNION ALL
 	SELECT DISTINCT
 		ltrim(rtrim(fa.CodigoVenta)) AS CUV
-	FROM ods.FaltanteAnunciado fa(NOLOCK)
-	INNER JOIN ods.Campania c(NOLOCK)
+	FROM ods.FaltanteAnunciado fa WITH (NOLOCK)
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,rtrim(fa.CodigoVenta))>0
@@ -1537,7 +1537,7 @@ BEGIN
 	-- Producto Sugerido
 	insert into @ProductoSugeridoTemp
 	select CUV
-	from dbo.ProductoSugerido
+	from dbo.ProductoSugerido WITH (NOLOCK)
 	where
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
@@ -1572,7 +1572,7 @@ BEGIN
 		AND p.CUV = pd.CUV
 	LEFT JOIN @ProductoFaltanteTemp pf
 		ON p.CUV = pf.CUV
-	LEFT JOIN ProductoComercialConfiguracion pcc
+	LEFT JOIN ProductoComercialConfiguracion pcc WITH (NOLOCK)
 		ON p.AnoCampania = pcc.CampaniaID
 		AND p.CUV = pcc.CUV
 	LEFT JOIN @OfertaProductoTemp op
@@ -1630,7 +1630,7 @@ BEGIN
 		te.Codigo as TipoEstrategiaCodigo,
 		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
-	left join Estrategia e
+	left join Estrategia e WITH (NOLOCK)
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
 		AND e.CUV2 = p.CUV
 		AND e.Activo = 1
@@ -1640,7 +1640,7 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
@@ -1714,7 +1714,7 @@ BEGIN
 		,op.TipoOfertaSisID
 		,NULL
 	FROM OfertaProducto op WITH (NOLOCK)
-	INNER JOIN ods.Campania c
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON op.CampaniaID = c.CampaniaID
 	WHERE
 		c.codigo = @CampaniaID
@@ -1724,7 +1724,7 @@ BEGIN
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
 		CUV
-	FROM dbo.ProductoFaltante NOLOCK
+	FROM dbo.ProductoFaltante WITH (NOLOCK)
 	WHERE
 		CampaniaID = @CampaniaID
 		AND Zonaid = @ZonaID
@@ -1732,8 +1732,8 @@ BEGIN
 	UNION ALL
 	SELECT DISTINCT
 		ltrim(rtrim(fa.CodigoVenta)) AS CUV
-	FROM ods.FaltanteAnunciado fa(NOLOCK)
-	INNER JOIN ods.Campania c(NOLOCK)
+	FROM ods.FaltanteAnunciado fa WITH (NOLOCK)
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,rtrim(fa.CodigoVenta))>0
@@ -1743,7 +1743,7 @@ BEGIN
 	-- Producto Sugerido
 	insert into @ProductoSugeridoTemp
 	select CUV
-	from dbo.ProductoSugerido
+	from dbo.ProductoSugerido WITH (NOLOCK)
 	where
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
@@ -1778,7 +1778,7 @@ BEGIN
 		AND p.CUV = pd.CUV
 	LEFT JOIN @ProductoFaltanteTemp pf
 		ON p.CUV = pf.CUV
-	LEFT JOIN ProductoComercialConfiguracion pcc
+	LEFT JOIN ProductoComercialConfiguracion pcc WITH (NOLOCK)
 		ON p.AnoCampania = pcc.CampaniaID
 		AND p.CUV = pcc.CUV
 	LEFT JOIN @OfertaProductoTemp op
@@ -1836,7 +1836,7 @@ BEGIN
 		te.Codigo as TipoEstrategiaCodigo,
 		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
-	left join Estrategia e
+	left join Estrategia e WITH (NOLOCK)
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
 		AND e.CUV2 = p.CUV
 		AND e.Activo = 1
@@ -1846,7 +1846,7 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
@@ -1920,7 +1920,7 @@ BEGIN
 		,op.TipoOfertaSisID
 		,NULL
 	FROM OfertaProducto op WITH (NOLOCK)
-	INNER JOIN ods.Campania c
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON op.CampaniaID = c.CampaniaID
 	WHERE
 		c.codigo = @CampaniaID
@@ -1930,7 +1930,7 @@ BEGIN
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
 		CUV
-	FROM dbo.ProductoFaltante NOLOCK
+	FROM dbo.ProductoFaltante WITH (NOLOCK)
 	WHERE
 		CampaniaID = @CampaniaID
 		AND Zonaid = @ZonaID
@@ -1938,8 +1938,8 @@ BEGIN
 	UNION ALL
 	SELECT DISTINCT
 		ltrim(rtrim(fa.CodigoVenta)) AS CUV
-	FROM ods.FaltanteAnunciado fa(NOLOCK)
-	INNER JOIN ods.Campania c(NOLOCK)
+	FROM ods.FaltanteAnunciado fa WITH (NOLOCK)
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,rtrim(fa.CodigoVenta))>0
@@ -1949,7 +1949,7 @@ BEGIN
 	-- Producto Sugerido
 	insert into @ProductoSugeridoTemp
 	select CUV
-	from dbo.ProductoSugerido
+	from dbo.ProductoSugerido WITH (NOLOCK)
 	where
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
@@ -1984,7 +1984,7 @@ BEGIN
 		AND p.CUV = pd.CUV
 	LEFT JOIN @ProductoFaltanteTemp pf
 		ON p.CUV = pf.CUV
-	LEFT JOIN ProductoComercialConfiguracion pcc
+	LEFT JOIN ProductoComercialConfiguracion pcc WITH (NOLOCK)
 		ON p.AnoCampania = pcc.CampaniaID
 		AND p.CUV = pcc.CUV
 	LEFT JOIN @OfertaProductoTemp op
@@ -2042,7 +2042,7 @@ BEGIN
 		te.Codigo as TipoEstrategiaCodigo,
 		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
-	left join Estrategia e
+	left join Estrategia e WITH (NOLOCK)
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
 		AND e.CUV2 = p.CUV
 		AND e.Activo = 1
@@ -2052,7 +2052,7 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
@@ -2126,7 +2126,7 @@ BEGIN
 		,op.TipoOfertaSisID
 		,NULL
 	FROM OfertaProducto op WITH (NOLOCK)
-	INNER JOIN ods.Campania c
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON op.CampaniaID = c.CampaniaID
 	WHERE
 		c.codigo = @CampaniaID
@@ -2136,7 +2136,7 @@ BEGIN
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
 		CUV
-	FROM dbo.ProductoFaltante NOLOCK
+	FROM dbo.ProductoFaltante WITH (NOLOCK)
 	WHERE
 		CampaniaID = @CampaniaID
 		AND Zonaid = @ZonaID
@@ -2144,8 +2144,8 @@ BEGIN
 	UNION ALL
 	SELECT DISTINCT
 		ltrim(rtrim(fa.CodigoVenta)) AS CUV
-	FROM ods.FaltanteAnunciado fa(NOLOCK)
-	INNER JOIN ods.Campania c(NOLOCK)
+	FROM ods.FaltanteAnunciado fa WITH (NOLOCK)
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,rtrim(fa.CodigoVenta))>0
@@ -2155,7 +2155,7 @@ BEGIN
 	-- Producto Sugerido
 	insert into @ProductoSugeridoTemp
 	select CUV
-	from dbo.ProductoSugerido
+	from dbo.ProductoSugerido WITH (NOLOCK)
 	where
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
@@ -2190,7 +2190,7 @@ BEGIN
 		AND p.CUV = pd.CUV
 	LEFT JOIN @ProductoFaltanteTemp pf
 		ON p.CUV = pf.CUV
-	LEFT JOIN ProductoComercialConfiguracion pcc
+	LEFT JOIN ProductoComercialConfiguracion pcc WITH (NOLOCK)
 		ON p.AnoCampania = pcc.CampaniaID
 		AND p.CUV = pcc.CUV
 	LEFT JOIN @OfertaProductoTemp op
@@ -2248,7 +2248,7 @@ BEGIN
 		te.Codigo as TipoEstrategiaCodigo,
 		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
-	left join Estrategia e
+	left join Estrategia e WITH (NOLOCK)
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
 		AND e.CUV2 = p.CUV
 		AND e.Activo = 1
@@ -2258,7 +2258,7 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
@@ -2332,7 +2332,7 @@ BEGIN
 		,op.TipoOfertaSisID
 		,NULL
 	FROM OfertaProducto op WITH (NOLOCK)
-	INNER JOIN ods.Campania c
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON op.CampaniaID = c.CampaniaID
 	WHERE
 		c.codigo = @CampaniaID
@@ -2342,7 +2342,7 @@ BEGIN
 	INSERT INTO @ProductoFaltanteTemp
 	SELECT DISTINCT
 		CUV
-	FROM dbo.ProductoFaltante NOLOCK
+	FROM dbo.ProductoFaltante WITH (NOLOCK)
 	WHERE
 		CampaniaID = @CampaniaID
 		AND Zonaid = @ZonaID
@@ -2350,8 +2350,8 @@ BEGIN
 	UNION ALL
 	SELECT DISTINCT
 		ltrim(rtrim(fa.CodigoVenta)) AS CUV
-	FROM ods.FaltanteAnunciado fa(NOLOCK)
-	INNER JOIN ods.Campania c(NOLOCK)
+	FROM ods.FaltanteAnunciado fa WITH (NOLOCK)
+	INNER JOIN ods.Campania c WITH (NOLOCK)
 		ON fa.CampaniaID = c.CampaniaID
 	WHERE c.Codigo = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,rtrim(fa.CodigoVenta))>0
@@ -2361,7 +2361,7 @@ BEGIN
 	-- Producto Sugerido
 	insert into @ProductoSugeridoTemp
 	select CUV
-	from dbo.ProductoSugerido
+	from dbo.ProductoSugerido WITH (NOLOCK)
 	where
 		CampaniaID = @CampaniaID
 		and CHARINDEX(@CodigoDescripcion,CUV)>0
@@ -2396,7 +2396,7 @@ BEGIN
 		AND p.CUV = pd.CUV
 	LEFT JOIN @ProductoFaltanteTemp pf
 		ON p.CUV = pf.CUV
-	LEFT JOIN ProductoComercialConfiguracion pcc
+	LEFT JOIN ProductoComercialConfiguracion pcc WITH (NOLOCK)
 		ON p.AnoCampania = pcc.CampaniaID
 		AND p.CUV = pcc.CUV
 	LEFT JOIN @OfertaProductoTemp op
@@ -2454,7 +2454,7 @@ BEGIN
 		te.Codigo as TipoEstrategiaCodigo,
 		case when te.MostrarImgOfertaIndependiente = 1 and e.EsOfertaIndependiente = 1 then 1 else 0 end as EsOfertaIndependiente
 	from @Producto p
-	left join Estrategia e
+	left join Estrategia e WITH (NOLOCK)
 		on p.CampaniaID BETWEEN e.CampaniaID AND CASE WHEN e.CampaniaIDFin = 0 THEN e.CampaniaID ELSE e.CampaniaIDFin END
 		AND e.CUV2 = p.CUV
 		AND e.Activo = 1
@@ -2464,7 +2464,7 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
 
 END
 GO
