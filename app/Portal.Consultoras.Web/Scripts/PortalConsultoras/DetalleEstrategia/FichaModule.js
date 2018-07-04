@@ -29,7 +29,14 @@
         dataChange: "[data-change]",
         dataSelected: "[data-select-area]"
     };
-  
+    var _seccionesFichaProducto = {
+        EtiquetaLanzamientos: "#EtiquetaLanzamientos",
+        ImagenDeFondo: "#ImagenDeFondo",
+        DescripcionAdicional: "#DescripcionAdicional",
+        ContenidoProducto: "#ContenidoProducto",
+        CarruselProducto: "#CarruselProducto",
+        EtiquetaOdd: "#EtiquetaOdd"
+    }
 
     var _getParamValueFromQueryString = function (queryStringName) {
         queryStringName = queryStringName || '';
@@ -329,6 +336,7 @@
         _actualizarVariedad(estrategia);
         
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
+        _ocultarSecciones(estrategia.CodigoEstrategia);
         return true;
         
     };
@@ -355,6 +363,30 @@
             }
         }
     });
+    var _actualizarVariedad = function (estrategia) {
+        if (estrategia.Hermanos.length == 1) {
+            if (estrategia.Hermanos[0].Hermanos) {
+                if (estrategia.Hermanos[0].Hermanos.length > 0) {
+                    estrategia.CodigoVariante = ConstantesModule.CodigoVariedad.IndividualVariable;
+                }
+            }
+        }
+    }
+
+    var _ocultarSecciones = function (CodigoEstrategia) {
+        if (ConstantesModule.ConstantesPalanca.HerramientasVenta == CodigoEstrategia
+            || ConstantesModule.ConstantesPalanca.OfertasParaMi == CodigoEstrategia
+            || ConstantesModule.ConstantesPalanca.OfertaParaTi == CodigoEstrategia
+            || ConstantesModule.ConstantesPalanca.GuiaDeNegocioDigitalizada == CodigoEstrategia) {
+
+            $(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
+            $(_seccionesFichaProducto.ImagenDeFondo).hide();
+            $(_seccionesFichaProducto.DescripcionAdicional).hide();
+            $(_seccionesFichaProducto.ContenidoProducto).hide();
+            $(_seccionesFichaProducto.CarruselProducto).hide();
+            $(_seccionesFichaProducto.EtiquetaOdd).hide();
+        }
+    }
     
     function Inicializar() {
         localStorageModule = LocalStorageModule();

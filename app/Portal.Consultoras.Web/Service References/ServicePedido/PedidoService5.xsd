@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
-  <xs:complexType name="ArrayOfBEPedidoObservacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoObservacion" nillable="true" type="tns:BEPedidoObservacion" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEPedidoObservacion" nillable="true" type="tns:ArrayOfBEPedidoObservacion" />
-  <xs:complexType name="BEPedidoObservacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Caso" type="xs:int" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Tipo" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEPedidoObservacion" nillable="true" type="tns:BEPedidoObservacion" />
   <xs:complexType name="BEResultadoReservaProl">
     <xs:sequence>
       <xs:element minOccurs="0" name="Aviso" type="xs:boolean" />
@@ -48,6 +33,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEResultadoReservaProl" nillable="true" type="tns:BEResultadoReservaProl" />
+  <xs:complexType name="ArrayOfBEPedidoObservacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoObservacion" nillable="true" type="tns:BEPedidoObservacion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPedidoObservacion" nillable="true" type="tns:ArrayOfBEPedidoObservacion" />
+  <xs:complexType name="BEPedidoObservacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Caso" type="xs:int" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tipo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPedidoObservacion" nillable="true" type="tns:BEPedidoObservacion" />
   <xs:complexType name="BEInputReservaProl">
     <xs:sequence>
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
