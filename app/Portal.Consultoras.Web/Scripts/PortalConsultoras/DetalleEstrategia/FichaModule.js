@@ -219,6 +219,12 @@
             return options.fn(this);
         }
     });
+
+    Handlebars.registerHelper('ifVerificarSlogan', function (CodigoEstrategia, Slogan, options) {
+        if (CodigoEstrategia == ConstantesModule.ConstantesPalanca.Lanzamiento && Slogan.length > 0) {
+            return options.fn(this);
+        }
+    });
     
     Handlebars.registerHelper('ifVerificarMarcaLast', function (marca, options) {
         if (_esMultimarca) {
