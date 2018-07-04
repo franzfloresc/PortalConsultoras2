@@ -1,6 +1,9 @@
 ﻿var FichaModule = (function (config) {
     'use strict';
     var localStorageModule;
+    var _primeraMarca = "";
+    var _ultimaMarca = "";
+    var _esMultimarca = false;
     
     var _config = {
         palanca: config.palanca || "",
@@ -287,16 +290,21 @@
                 campania: _config.campania,
                 codigoVariante: estrategia.CodigoVariante
             };
-            _promiseObternerComponentes(param).done(function (data) {
+            _promiseObternerComponentes(param).done(function(data) {
                 estrategia.Hermanos = data.componentes;
-                estrategia.EsMultimarca = data.EsMultimarca;
-            }).fail(function (data, error) {
+                estrategia.EsMultimarca = data.esMultimarca;
+                _esMultimarca = data.esMultimarca;
+            }).fail(function(data, error) {
                 estrategia.Hermanos = {};
                 estrategia.EsMultimarca = false;
             });
-            
+
             return true;
-        } else return false;
+        } else {
+            estrategia.Hermanos = {};
+            estrategia.EsMultimarca = false;
+            return false;
+        }
     }
     
     var _actualizarVariedad = function (estrategia) {
@@ -333,26 +341,28 @@
         
     };
 
-    Handlebars.registerHelper('agruparLista', function (componentes, IdMarca, options) {
-        var data = componentes;
-        var results = '';
-        data.forEach((item) => {
-            if (item.IdMarca == IdMarca) {
-                results += options.fn(item);
-            }
-        });
-        return results;
+    Handlebars.registerHelper('ifVerificarMarca', function (marca, options) {
+        if (_primeraMarca !== marca && _esMultimarca) {
+            _primeraMarca = marca;
+            return options.fn(this);
+        }
     });
-
-    Handlebars.registerHelper('ifVerificarMarca', function (componentes, IdMarca, options) {
-        var data = componentes;
-        var selected = false;
-
-        for (var i = 0; i < data.length; i++) {
-            var item = data[i];
-            if (item.IdMarca == IdMarca) {
+    
+    Handlebars.registerHelper('ifVerificarMarcaLast', function (marca, options) {
+        if (_esMultimarca) {
+            if (_ultimaMarca === "" || _ultimaMarca === marca) {
+                _ultimaMarca = marca;
+                return options.inverse(this);
+            } else {
+                _ultimaMarca = marca;
                 return options.fn(this);
             }
+        } else {
+            if (_ultimaMarca === "") {
+                _ultimaMarca = marca;
+                return options.inverse(this);
+            }
+            else  return options.fn(this);
         }
     });
     

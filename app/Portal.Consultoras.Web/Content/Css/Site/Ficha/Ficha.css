@@ -290,7 +290,7 @@ body {
 }
 
 .detalle_producto {
-    border-bottom: solid 1px #d8d8d8;
+    border-bottom: none !important;
     padding-bottom: 18px;
     margin-bottom: 10px;
 }
