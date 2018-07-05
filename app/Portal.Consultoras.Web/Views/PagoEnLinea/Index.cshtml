@@ -54,6 +54,10 @@
                                     <span>@Model.Simbolo </span>
                                     <span>@Model.MontoDeudaString</span>
                                 </div>
+                                <div class="fecha_vencimiento_monto_total">
+                                    <span>Vence</span>
+                                    <span>@Model.FechaVencimientoString</span>
+                                </div>
                             </div>
                             <div class="col_der">
                                 <div class="icono_flecha_despliegue">
@@ -62,18 +66,18 @@
                             </div>
                         </div>
                         <div class="opcion_pago_contenido_visible_al_desplegar w-100" style="display:none;">
-                            <div class="fecha_vencimiento_monto_total">
-                                <span>Vence</span>
-                                <span>@Model.FechaVencimientoString</span>
+                            <div class="opcion_pago_monto">
+                                <div class="w-53 text-left">Monto :</div>
+                                <div class="w-45 text-right">@Model.MontoDeudaString</div>
                             </div>
-                            <div>
-                                Monto: @Model.MontoDeudaString
+                            <div class="opcion_pago_gastos_administrativos">
+                                <div class="w-53 text-left">Gastos Adm. (@Model.PorcentajeGastosAdministrativos%) :</div>
+                                <div class="w-45 text-right">@Model.MontoGastosAdministrativosString</div>
                             </div>
-                            <div>
-                                Gastos Adm. (@Model.PorcentajeGastosAdministrativos%): @Model.MontoGastosAdministrativosString
-                            </div>
-                            <div>
-                                TOTAL POR PAGAR: @Model.MontoDeudaConGastosString
+                            <hr class="linea_separacion_montos_y_total w-100" />
+                            <div class="opcion_pago_total_a_pagar">
+                                <div class="w-53 text-left text-bold-black">TOTAL POR PAGAR :</div>
+                                <div class="w-45 text-right text-bold-black">@Model.MontoDeudaConGastosString</div>
                             </div>
                             <button type="button" class="cta_pago_en_linea btn_pago_tarjeta_credito default-background" id="btnPagoTotal">
                                 Continuar
@@ -101,14 +105,24 @@
                                 </div>
                             </div>
                             <div class="opcion_pago_contenido_visible_al_desplegar w-100" style="display:none;">
-                                <div>
-                                    Monto: <span id="spnMontoParcial">@Util.DecimalToStringFormat(0, Model.CodigoIso)</span>
+                                <div class="opcion_pago_monto">
+                                    <div class="w-53 text-left">Monto :</div>
+                                    <div class="w-45 text-right" id="spnMontoParcial">
+                                        @Util.DecimalToStringFormat(0, Model.CodigoIso)
+                                    </div>
                                 </div>
-                                <div>
-                                    Gastos Adm. (@Model.PorcentajeGastosAdministrativos%): <span id="spnMontoGastosAdministrativos">@Util.DecimalToStringFormat(0, Model.CodigoIso)</span>
+                                <div class="opcion_pago_gastos_administrativos">
+                                    <div class="w-53 text-left">Gastos Adm. (@Model.PorcentajeGastosAdministrativos%) :</div>
+                                    <div class="w-45 text-right" id="spnMontoGastosAdministrativos">
+                                        @Util.DecimalToStringFormat(0, Model.CodigoIso)
+                                    </div>
                                 </div>
-                                <div>
-                                    TOTAL POR PAGAR: <span id="spnMontoParcialConGastos">@Util.DecimalToStringFormat(0, Model.CodigoIso)</span>
+                                <hr class="linea_separacion_montos_y_total w-100" />
+                                <div class="opcion_pago_total_a_pagar">
+                                    <div class="w-53 text-left text-bold-black">TOTAL POR PAGAR :</div>
+                                    <div class="w-45 text-right text-bold-black" id="spnMontoParcialConGastos">
+                                        @Util.DecimalToStringFormat(0, Model.CodigoIso)
+                                    </div>
                                 </div>
                                 <button type="button" class="cta_pago_en_linea btn_pago_tarjeta_credito default-background" id="btnPagoParcial">
                                     Continuar

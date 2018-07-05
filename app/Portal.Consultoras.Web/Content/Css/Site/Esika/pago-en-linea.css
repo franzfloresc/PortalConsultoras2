@@ -24,6 +24,14 @@
     margin-top:27px;
 }
 
+.w-53{
+    width:53.6%;
+}
+
+.w-45{
+    width:42.4%;
+}
+
 .w-100{
     width:100%;
 }
@@ -34,6 +42,10 @@
 
 .text-right{
     text-align:right;
+}
+
+.text-bold-black{
+    font-weight:900;
 }
 
 /* FIN - HELPERS */
@@ -72,6 +84,10 @@
 .mensaje_pago_rechazado,
 .contenedor_btn_pagar_con_visa,
 .contenido_terminos_y_condiciones,
+.opcion_pago_monto,
+.opcion_pago_gastos_administrativos,
+.linea_separacion_montos_y_total,
+.opcion_pago_total_a_pagar,
 .icono_flecha_despliegue
 {
     display:block;
@@ -109,7 +125,11 @@
 .titulo_pago_rechazado span:last-child,
 .icono_pago_exitoso,
 .icono_pago_rechazado,
-.enlace_ir_a_notificaciones
+.enlace_ir_a_notificaciones,
+.opcion_pago_monto > div,
+.opcion_pago_gastos_administrativos > div,
+.opcion_pago_total_a_pagar > div,
+.texto_descripcion_tipo_pago
 {
     display:inline-block;
     vertical-align:middle;
@@ -298,6 +318,24 @@
     cursor:pointer;
 }
 
+.opcion_pago_contenido_visible_al_desplegar{
+    margin-top:10px;
+    font-size:15px;
+}
+
+.opcion_pago_total_a_pagar{
+    margin-bottom:12px;
+}
+
+.linea_separacion_montos_y_total{
+    margin-top:5px;
+    margin-bottom:5px;
+    padding-left:12px;
+    padding-right:12px;
+    height:1px;
+    background-color:#D8D8D8;
+}
+
 .seleccion_tipo_pago input[type="radio"]{
     display:none;
 }
@@ -370,12 +408,11 @@
 }
 
 .monto_total_a_pagar{
-    font-size:20px;
     color:#000;
 }
 
 .fecha_vencimiento_monto_total{
-    font-size:11px;
+    font-size:12px;
     color:#909090;
 }
 
@@ -387,7 +424,7 @@
 }
 
 .pagoTotal .icono_flecha_despliegue{
-    top: 10px;
+    top: 19px;
 }
 
 .pagoParcial .icono_flecha_despliegue{
@@ -413,7 +450,7 @@
 .titulo_pago_total,
 .titulo_pago_parcial
 {
-    font-size:14px;
+    font-size:15px;
     font-weight:400!important;
     color:#000;
     text-transform:uppercase;
@@ -421,6 +458,7 @@
     padding-top:6px;
 }
 
+.monto_total_a_pagar,
 .monto_editable_pago_en_linea,
 .monto_a_editar
 {
