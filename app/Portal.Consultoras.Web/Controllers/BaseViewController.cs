@@ -254,7 +254,8 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
                 modelo.Campania = campaniaId;
                 modelo.Cuv = cuv;
-
+                if (modelo.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
+                    modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
 
                 ViewBag.PaisAnalytics = userData.CodigoISO;
                 ViewBag.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();
