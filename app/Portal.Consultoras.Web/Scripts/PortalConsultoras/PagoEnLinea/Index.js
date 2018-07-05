@@ -39,9 +39,9 @@ $(document).ready(function () {
                 if (listaOpcionPago) {
                     var cantidad = listaOpcionPago.length;
 
-                    if (cantidad > 0) {
-                        $(listaOpcionPago)[0].click();
-                    }
+                    //if (cantidad > 0) {
+                    //    $(listaOpcionPago)[0].click();
+                    //}
                 }
             }
         },
@@ -60,10 +60,17 @@ $(document).ready(function () {
                 }
             },
             MostrarDetalleTipoPago: function () {
-                $('.opcion_pago').removeClass('mostrarContenidoDetalle');
-                $('.opcion_pago_contenido_visible_al_desplegar').slideUp(200);
-                $(this).toggleClass('mostrarContenidoDetalle');
-                $(this).find('.opcion_pago_contenido_visible_al_desplegar').slideToggle(200);
+                var siTipoPagoDetalleSeMuestra = $(this).is('.mostrarContenidoDetalle');
+
+                if (siTipoPagoDetalleSeMuestra) {
+                    $(this).removeClass('mostrarContenidoDetalle');
+                    $(this).find('.opcion_pago_contenido_visible_al_desplegar').slideUp(200);
+                } else {
+                    $('.opcion_pago').removeClass('mostrarContenidoDetalle');
+                    $('.opcion_pago_contenido_visible_al_desplegar').slideUp(200);
+                    $(this).addClass('mostrarContenidoDetalle');
+                    $(this).find('.opcion_pago_contenido_visible_al_desplegar').slideDown(200);
+                }
             },
             MostrarTooltipAceptarTerminosYCondiciones: function(){
                 if (!(me.globals.barraActivacion).is('.activado')) {

@@ -341,6 +341,7 @@
     -o-transition: all 0.2s ease;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
+    cursor:pointer;
 }
 
 .opcion_pago,
