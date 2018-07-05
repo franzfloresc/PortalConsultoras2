@@ -92,7 +92,8 @@ namespace Portal.Consultoras.Web.Controllers
                     certificado.CertificadoId = 1;
 
                     if (userData.PaisID == Constantes.PaisID.RepublicaDominicana) certificado.NombreVista = "~/Views/MisCertificados/DO_PazYSalvoPdf.cshtml";
-                    if (certificado.NombreVista == "") certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPdf.cshtml";
+                    if (userData.PaisID == Constantes.PaisID.PuertoRico) certificado.NombreVista = "~/Views/MisCertificados/PR_PazYSalvoPdf.cshtml";
+                    if (string.IsNullOrWhiteSpace(certificado.NombreVista)) certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPdf.cshtml";
 
                     break;
                 default:
@@ -143,7 +144,8 @@ namespace Portal.Consultoras.Web.Controllers
                     certificado.CertificadoId = 2;
                     
                     if (userData.PaisID == Constantes.PaisID.RepublicaDominicana) certificado.NombreVista = "~/Views/MisCertificados/DO_ComercialPdf.cshtml";
-                    if (certificado.NombreVista == "") certificado.NombreVista = "~/Views/MisCertificados/ComercialPdf.cshtml";
+                    if (userData.PaisID == Constantes.PaisID.PuertoRico) certificado.NombreVista = "~/Views/MisCertificados/PR_ComercialPdf.cshtml";
+                    if (string.IsNullOrWhiteSpace(certificado.NombreVista)) certificado.NombreVista = "~/Views/MisCertificados/ComercialPdf.cshtml";
                     break;
                 default:
                     certificado = null;
@@ -266,7 +268,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var fi = beMiCertificado.FechaIngresoConsultora;
                         var nombreMes2 = fi.ToString("MMMM", new CultureInfo("es-ES"));
                         var ff3 = fi.ToString("dd") + " de " + nombreMes2.ToUpper(1) + " de " + fi.ToString("yyyy");
-                        var ff4 = dt.ToString("dd") + " (" + letrasDias + ")" + " del mes de " + nombreMes1.ToUpper(1) + " de " + letrasAnio + " (" + dt.Year.ToString() + ").";
+                        var ff4 = letrasDias + " (" + dt.ToString("dd") + ")" + " del mes de " + nombreMes1.ToUpper(1) + " de " + letrasAnio + " (" + dt.Year.ToString() + ").";
 
                         model.FechaCreacion = ff1;
                         model.FechaCreacionTexto = ff2;
