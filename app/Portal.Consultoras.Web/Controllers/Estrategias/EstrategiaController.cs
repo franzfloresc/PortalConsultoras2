@@ -471,6 +471,38 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             return Json(listaProductoModel, JsonRequestBehavior.AllowGet);
         }
 
+
+        [HttpPost]
+        public JsonResult GetCarruselShowRoomExcepto(string CUVExcluido, string palanca)
+        {
+            try
+            {
+                var listaOfertasModel =  new List<EstrategiaPersonalizadaProductoModel>();
+
+                if (palanca == Constantes.NombrePalanca.ShowRoom)
+                    listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+                else if (palanca == Constantes.NombrePalanca.OfertaDelDia)
+                {
+                    var oddSession = sessionManager.OfertaDelDia.Estrategia;
+                    listaOfertasModel = oddSession.ListaOferta;
+                }
+
+                var  listaOferta = listaOfertasModel == null ? new List<EstrategiaPersonalizadaProductoModel>() : listaOfertasModel.Where(x => x.CUV2 != CUVExcluido).ToList();
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    data = listaOferta
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
+            }
+        }
+
         #region Metodos ShowRoom
 
 

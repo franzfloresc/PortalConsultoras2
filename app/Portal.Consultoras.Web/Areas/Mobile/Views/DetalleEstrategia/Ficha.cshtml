@@ -56,7 +56,8 @@
         </div>
         <div class="row marca_producto">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <h2> {{#if EsMultimarca}}</h2>
+                {{#if EsMultimarca}}
+                <h2></h2>
                 {{else}}
                 <h2>{{DescripcionMarca}}</h2>
                 {{/if}}
@@ -321,7 +322,7 @@
                 idPlantilla: "#producto-landing-template",
                 divCarrusel: "#divOfertaProductos",
                 divSetsProductosdata: "#set_relacionados",
-                urlDataCarrusel: '@Url.Action("GetCarruselShowRoomExcepto", "ShowRoom", new { Area = "" })'
+                urlDataCarrusel: '@Url.Action("GetCarruselShowRoomExcepto", "Estrategia", new { Area = "" })'
             });
             carruselModule.Inicializar();
         });
