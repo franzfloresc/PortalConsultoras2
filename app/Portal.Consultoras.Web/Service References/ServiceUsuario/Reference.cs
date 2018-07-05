@@ -1888,6 +1888,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int NivelLiderField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NivelProyectadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2096,6 +2099,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ZonaValidaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceUsuario.BEOfertaFinal _OfertaFinalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool esConsultoraLiderField;
@@ -3799,6 +3805,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NivelProyectado {
+            get {
+                return this.NivelProyectadoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NivelProyectadoField, value) != true)) {
+                    this.NivelProyectadoField = value;
+                    this.RaisePropertyChanged("NivelProyectado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Nombre {
             get {
                 return this.NombreField;
@@ -4709,6 +4728,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceUsuario.BEOfertaFinal _OfertaFinal {
+            get {
+                return this._OfertaFinalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this._OfertaFinalField, value) != true)) {
+                    this._OfertaFinalField = value;
+                    this.RaisePropertyChanged("_OfertaFinal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool esConsultoraLider {
             get {
                 return this.esConsultoraLiderField;
@@ -5148,6 +5180,67 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.TieneRDCRField.Equals(value) != true)) {
                     this.TieneRDCRField = value;
                     this.RaisePropertyChanged("TieneRDCR");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEOfertaFinal", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEOfertaFinal : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AlgoritmoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EstadoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Algoritmo {
+            get {
+                return this.AlgoritmoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AlgoritmoField, value) != true)) {
+                    this.AlgoritmoField = value;
+                    this.RaisePropertyChanged("Algoritmo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Estado {
+            get {
+                return this.EstadoField;
+            }
+            set {
+                if ((this.EstadoField.Equals(value) != true)) {
+                    this.EstadoField = value;
+                    this.RaisePropertyChanged("Estado");
                 }
             }
         }
