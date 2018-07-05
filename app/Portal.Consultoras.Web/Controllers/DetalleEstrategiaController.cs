@@ -11,7 +11,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
             return DEFicha(palanca, campaniaId, cuv, origen);
-            modelo.MensajeProductoBloqueado =  _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
 
         }
 

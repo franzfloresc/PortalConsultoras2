@@ -285,7 +285,11 @@
             _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
 
             $(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
-            $(_seccionesFichaProducto.ImagenDeFondo).hide();
+            if (!isMobile()) {
+                $(_seccionesFichaProducto.ImagenDeFondo).hide();
+            } else {
+                $(_seccionesFichaProducto.ImagenDeFondo).css("background-color","#ffffff");
+            }
             $(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             $(_seccionesFichaProducto.CarruselProducto).hide();
