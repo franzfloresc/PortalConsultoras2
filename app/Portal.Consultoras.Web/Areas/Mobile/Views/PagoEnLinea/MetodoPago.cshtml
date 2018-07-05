@@ -84,7 +84,7 @@
                                     Al presionar continuar aceptas los <a id="lnkAceptaTerminosCondiciones" class="ver_terminos_y_condiciones">términos y condiciones</a>
                                 </div>
                             </div>
-                            @*@if (Constantes.PagoEnLineaMetodoPago.PasarelaVisa == item.TipoPasarelaCodigoPlataforma)
+                            @if (Constantes.PagoEnLineaMetodoPago.PasarelaVisa == item.TipoPasarelaCodigoPlataforma)
                             {
                                 <form id="formBoton" action="@Url.Action("PagoVisaResultado", "PagoEnLinea")" method="post">
                                     <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
@@ -99,11 +99,11 @@
                                 </form>
                             }
                             else
-                            {*@
+                            {
                                 <button type="button" class="btn_pago_tarjeta_credito text-bold text-uppercase default-background w-100" data-metodopago="@item.TipoPasarelaCodigoPlataforma">
                                     Continuar
                                 </button>
-                            @*}*@
+                            }
                         </div>
                     </li>
                 }               
