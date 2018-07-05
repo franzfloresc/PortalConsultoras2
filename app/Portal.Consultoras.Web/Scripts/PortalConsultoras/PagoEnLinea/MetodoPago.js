@@ -14,11 +14,13 @@ $(document).ready(function () {
         var me = this;
 
         me.globals = {
-            barraActivacion: $('.barra_activacion')
+            barraActivacion: $('.barra_activacion'),
+            listaOpcionPago: $(".opcion_pago")
         },
             me.Funciones = {
                 InicializarEventos: function () {
                     //$(document).on('click', '.area_activa_barra_activacion', me.Eventos.AceptarTerminosYCondiciones);
+                    $(document).on('click', '.opcion_pago', me.Eventos.MostrarDetalleTipoPago);
                     $(document).on('click', 'button[data-metodopago]', me.Eventos.ContinuarPasarelaPago);
                     $(document).on('click', '#lnkAceptaTerminosCondiciones', me.Eventos.AbrirPopupTerminosYCondiciones);
                     $(document).on('click', '.cerrar_popup_terminos_y_condiciones', me.Eventos.CerrarPopupTerminosYCondiciones);
@@ -29,16 +31,30 @@ $(document).ready(function () {
 
                     if (boton) {
                         $(boton).css("background", colorBoton);
-                        $(boton).css("width", "100%");
-                        $(boton).css("font-family", "Lato");
-                        $(boton).css("border-radius", "0%");
-                        $(boton).css("letter-spacing", "0.5px");
+                        $(boton).addClass("btn_pago_tarjeta_credito");
+                        $(boton).addClass("w-100");
+                        $(boton).addClass("text-uppercase");
+                        $(boton).addClass("text-bold");
+                        //$(boton).css("width", "100%");
+                        //$(boton).css("font-family", "Lato");
+                        //$(boton).css("border-radius", "0%");
+                        //$(boton).css("letter-spacing", "0.5px");
 
-                        if (tipoOrigenPantalla == 1)
-                            $(boton).css("max-width", "308px");
+                        //if (tipoOrigenPantalla == 1)
+                        //    $(boton).css("max-width", "308px");
 
                         $(boton).html("PAGA CON VISA");
                     }
+
+                    var listaOpcionPago = me.globals.listaOpcionPago;
+                    if (listaOpcionPago) {
+                        var cantidad = listaOpcionPago.length;
+
+                        if (cantidad > 0) {
+                            $(listaOpcionPago)[0].click();
+                        }
+                    }
+
                 }
             },
             me.Eventos = {
@@ -50,6 +66,16 @@ $(document).ready(function () {
                         $("#divTooltipTerminosCondiciones").hide();
                     } else {
                         me.globals.barraActivacion.attr('data-estado', 0);
+                    }
+                },
+                MostrarDetalleTipoPago: function () {
+                    var siTipoPagoDetalleSeMuestra = $(this).find('.opcion_pago_contenido_visible_al_desplegar').css('display');
+
+                    if (siTipoPagoDetalleSeMuestra == 'block') {
+                        $(this).find('.opcion_pago_contenido_visible_al_desplegar').slideUp(200);
+                    } else {
+                        $('.opcion_pago_contenido_visible_al_desplegar').slideUp(200);
+                        $(this).find('.opcion_pago_contenido_visible_al_desplegar').slideDown(200);
                     }
                 },
                 AbrirPopupTerminosYCondiciones: function (e) {

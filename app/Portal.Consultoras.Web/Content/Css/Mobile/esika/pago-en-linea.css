@@ -20,12 +20,20 @@
     margin-right:0!important;
 }
 
+.mt-16{
+    margin-top:16px;
+}
+
 .mb-0{
     margin-bottom:0!important;
 }
 
 .mb-10{
     margin-bottom:10px;
+}
+
+.mb-23{
+    margin-bottom:23px;
 }
 
 .pb-11{
@@ -41,7 +49,7 @@
 }
 
 .w-100{
-    width:100%;
+    width:100%!important;
 }
 
 .text-bold{
@@ -151,7 +159,8 @@
 .enlace_ver_estado_de_cuenta span:last-child,
 .opcion_pago_monto > div,
 .opcion_pago_gastos_administrativos > div,
-.opcion_pago_total_a_pagar > div
+.opcion_pago_total_a_pagar > div,
+.texto_descripcion_tipo_pago
 {
     display:inline-block;
     vertical-align:middle;
@@ -409,6 +418,18 @@
     padding-right:12px;
 }
 
+.metodoPago{
+    margin-bottom:12px;
+}
+
+.metodoPago .titulo_monto_pago_total{
+    font-size:13px;
+}
+
+.metodoPago .opcion_pago_contenido_visible_sin_desplegar{
+    padding-top:11px!important;
+}
+
 .opcion_pago:first-child .opcion_pago_contenido_visible_sin_desplegar,
 .opcion_pago:last-child .opcion_pago_contenido_visible_sin_desplegar
 {
@@ -483,6 +504,13 @@
     font-size:20px;
 }
 
+.texto_descripcion_tipo_pago{
+    font-size:14px;
+    padding-bottom: 1px;
+    margin-right: 6px;
+    vertical-align:bottom;
+}
+
 .tipo_moneda_pais,
 .monto_moneda_pais
 {
@@ -521,6 +549,11 @@
 
 .titulo_monto_pago_total{
     margin-right:6px;
+}
+
+.titulo_monto_pago_total_paso_2{
+    position: relative;
+    top: 3px;
 }
 
 .monto_editable_pago_en_linea{
@@ -688,11 +721,13 @@
 }
 
 .descripcion_opcion_activacion{
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 400;
-    margin-bottom: 1.97px;
+    margin-bottom: 2px;
+    line-height:20px;
     letter-spacing: 0.2px;
     color: #000;
+    max-width:206px;
 }
 
 .ver_terminos_y_condiciones{
@@ -822,10 +857,12 @@
 }
 
 .btn_pago_tarjeta_credito{
-    height:45px;
-    line-height:45px;
-    color:#FFF;
-    font-size:14px;
+    font-family:'Lato', sans-serif!important;
+    height:45px!important;
+    line-height:43px;
+    color:#FFF!important;
+    font-size:14px!important;
+    letter-spacing:0.5px;
 }
 
 .btn_pagar{
@@ -965,6 +1002,10 @@
 .monto_saldo_pendiente
 {
     font-weight:bold;
+}
+
+.titulo_resumen_pago_exitoso{
+    margin-bottom:19.65px;
 }
 
 .resumen_pago{
