@@ -160,7 +160,7 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.DesktopShowRoomContenedor : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor;
                             break;
                         case Constantes.ConfiguracionPais.OfertaDelDia:
-                            var estrategiaODD = sessionManager.GetOfertasDelDia();
+                            var estrategiaODD = sessionManager.OfertaDelDia.Estrategia;
                             if (!estrategiaODD.TieneOfertaDelDia)
                                 continue;
 
