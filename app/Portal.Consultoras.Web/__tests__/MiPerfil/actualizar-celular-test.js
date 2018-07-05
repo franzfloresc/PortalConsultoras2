@@ -18,7 +18,7 @@ describe('Update Number Phone', () => {
         var result = mod.Funciones.ValidarCelular('');
 
         expect(result.Success).toBeFalsy();
-        expect(result.Message).toEqual('El número no puede estar vacío.');
+        expect(result.Message).toEqual('Debe ingresar celular.');
     });
 
     it('Invalid Number', () => {

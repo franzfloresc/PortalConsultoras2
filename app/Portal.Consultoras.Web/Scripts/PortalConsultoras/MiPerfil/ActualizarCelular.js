@@ -126,7 +126,7 @@
             if (!numero) {
                 return {
                     Success: false,
-                    Message: 'El número no puede estar vacío.'
+                    Message: 'Debe ingresar celular.'
                 };
             }
             
