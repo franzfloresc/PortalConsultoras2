@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Providers
     {
         public MenuContenedorModel GetMenuActivo(UsuarioModel userData, RevistaDigitalModel revistaDigital, HerramientasVentaModel herramientasVenta, HttpRequestBase Request, GuiaNegocioModel guiaNegocio, ISessionManager sessionManager, ConfiguracionManagerProvider _configuracionManagerProvider, EventoFestivoProvider _eventoFestivoProvider, ConfiguracionPaisProvider _configuracionPaisProvider, GuiaNegocioProvider _guiaNegocioProvider, bool esMobile)
         {
-            string Path = Request.Path;
+            var Path = Request.Path;
             var contenedorPath = GetContenedorRequestPath(Path);
 
             var menuActivo = CreateMenuContenedorActivo(userData.CampaniaID);
@@ -101,7 +101,7 @@ namespace Portal.Consultoras.Web.Providers
                         : Constantes.OrigenPantallaWeb.DShowRoom;
                     break;
                 case Constantes.UrlMenuContenedor.OptDetalle:
-                    string PathOrigen = GetOrigenFromQueryString(Request);
+                    var PathOrigen = GetOrigenFromQueryString(Request);
                     menuActivo.Codigo = GetMenuActivoOptCodigoSegunActivo(PathOrigen, revistaDigital, CodigoConsultora, CodigoISO);
                     if (menuActivo.Codigo == "")
                         menuActivo = sessionManager.GetMenuContenedorActivo();
@@ -169,6 +169,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 menuActivo.CampaniaId = campaniaid;
             }
+            
             return menuActivo;
         }
 
@@ -201,18 +202,29 @@ namespace Portal.Consultoras.Web.Providers
 
         public virtual string GetCampaniaIdFromQueryString(HttpRequestBase Request)
         {
-            string campaniaIdStr;
             const string qsCamapaniaId = "campaniaid";
-            campaniaIdStr = GetQueryStringValue(qsCamapaniaId, Request);
+            var campaniaIdStr = GetQueryStringValue(qsCamapaniaId, Request);
+            if (!campaniaIdStr.IsNullOrEmptyTrim()) return campaniaIdStr;
+            try
+            {
+                var listSegments =  Request.RawUrl.Split('/').ToList();
+                if (listSegments.Count > 0 && listSegments[1].ToLower().Equals("detalle"))
+                {
+                    campaniaIdStr = listSegments[3];
+                }
+            }
+            catch (Exception)
+            {
+                campaniaIdStr = "";
+            }
 
             return campaniaIdStr;
         }
 
         public virtual string GetOrigenFromQueryString(HttpRequestBase Request)
         {
-            string pathOrigen;
             const string qsOrigen = "origen";
-            pathOrigen = GetQueryStringValue(qsOrigen, Request);
+            var pathOrigen = GetQueryStringValue(qsOrigen, Request);
             return pathOrigen;
         }
 
