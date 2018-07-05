@@ -40,7 +40,7 @@ $(document).ready(function () {
                     var cantidad = listaOpcionPago.length;
 
                     if (cantidad > 0) {
-                        $(listaOpcionPago)[1].click();
+                        $(listaOpcionPago)[0].click();
                     }
                 }
             }
