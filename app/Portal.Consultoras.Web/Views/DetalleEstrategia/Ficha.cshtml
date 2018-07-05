@@ -124,7 +124,7 @@
                     <div class="content_tonos_maquillaje" data-tono-div="">
                         {{#each componente.Hermanos as |variedad|}}
                         <div style="display: none;">
-                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.MarcaID}}" />
+                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
                         </div>
                         <div id="fav_tono_{{variedad.Cuv}}" class="content_tono_detalle {{#iff variedad.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}"
@@ -205,7 +205,7 @@
                             </a>
                         </div>
                     </div>
-                    <a id="btnAgregalo" class="btn_agregalo {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
+                    <a id="btnAgregalo" class="btn_agregalo {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true, 0, true); ">AGRÉGALO</a>
                     <div id="ContenedorAgregado" class="contenedor_agregado" style="display:none;">
                         <div class="txt_agregado" data-txt_agregado="">
                             <span class="span_agregado">AGREGADO</span>
@@ -349,6 +349,7 @@
     </div>
 </div>
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
@@ -360,7 +361,8 @@
         var fichaModule;
         var tieneCarrusel = '@Model.TieneCarrusel';
 
-        $(document).ready(function() {
+        $(document).ready(function () {
+
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",
                 campania: "@Model.Campania",
@@ -380,6 +382,7 @@
                     idPlantilla: "#producto-landing-template",
                     divCarrusel: "#carrusel",
                     divSetsProductosdata: "#CarruselProducto"
+                urlDataCarrusel: '@Url.Action("GetCarruselShowRoomExcepto", "ShowRoom")'
                 });
                 carruselModule.Inicializar();
             }

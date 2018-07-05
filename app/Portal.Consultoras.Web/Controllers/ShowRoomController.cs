@@ -635,17 +635,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaOferta = new List<EstrategiaPersonalizadaProductoModel>();
-                // if (idOferta <= 0) return listaOferta;
+                var listaOferta = new List<EstrategiaPersonalizadaProductoModel>();            
 
                 var listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
-                // listaOferta = listaOfertasModel.Where(o => o.EstrategiaID != idOferta).ToList();
+                listaOferta = listaOfertasModel==null ? new List<EstrategiaPersonalizadaProductoModel>():listaOfertasModel.Where(x => x.CUV2 != CUVExcluido).ToList();
 
                 return Json(new
                 {
                     success = true,
                     message = "Ok",
-                    listaOferta
+                    data = listaOferta
                 });
             }
             catch (Exception ex)

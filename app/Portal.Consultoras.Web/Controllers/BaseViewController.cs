@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class BaseViewController : BaseEstrategiaController
+    public class BaseViewController : BaseController //BaseEstrategiaController
     {
         private readonly IssuuProvider _issuuProvider;
 
@@ -242,6 +242,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     modelo = new DetalleEstrategiaFichaModel();
                 }
+
+                modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
 
                 modelo.Origen = origen;
                 modelo.Palanca = palanca;

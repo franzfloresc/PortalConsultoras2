@@ -5,7 +5,7 @@
         palanca: config.palanca || "",
         campania: config.campania || "",
         cuv: config.cuv || "",
-        urlDataCarrusel: config.curlDataCarrusel || ""
+        urlDataCarrusel: config.urlDataCarrusel || ""
     };
      
     var _elementos = {
@@ -25,6 +25,7 @@
             async: false,
             cache: false,
             success: function (data) {
+                
                 dfd.resolve(data);
             },
             error: function (data, error) {
@@ -137,12 +138,14 @@
         }
         else if (_config.palanca == 'ShowRoom') {
 
+            var param = { CUVExcluido: _config.cuv }
             _promiseObternerDataCarrusel(param).done(function (response) {
+                
                 if (response)
                 {
                     if (response.success)
                     {
-                        data.lista = response;
+                        data.lista = response.data;
                         SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
                     }
                 }
