@@ -309,7 +309,22 @@
     @Html.Partial("~/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
 </div>
 <div class="fondo_gris content_belcorp" id="divRevistaDigital"></div>
-<div class="content_belcorp" id="divProductosShowRoom"></div>
+<div class="content_belcorp">
+    <div class="content-favclientes content_carrusel_agregado">
+        <div class="linea_separadora"></div>
+        <div class="banner_showroom_home" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index", "ShowRoom")'">
+            <img data-src="@Model.ShowRoomBannerUrl" alt="" data-lazy-seccion-showroom="" />
+        </div>
+        <div style="width:71%;float:left;">
+            <div class="clear"></div>
+            <div class="texto_filtros_fav"><span id="fav-home-total">Te mostramos <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos.</span><a class="btn_ver_todo_filtros" href="/ShowRoom">VER TODOS</a></div>
+            <hr class="clear">
+            <div class="contenedor_productos_showroom" id="divProductosShowRoom">
+            </div>
+        </div>
+        <hr class="clear">
+    </div>
+</div>
 @if (Model.CatalogoPersonalizadoDesktop != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
     <div class="content_belcorp">
