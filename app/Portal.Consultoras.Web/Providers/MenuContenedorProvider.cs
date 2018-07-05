@@ -45,6 +45,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public MenuContenedorModel UpdateCodigoCampaniaIdOrigenByContenedorPath(MenuContenedorModel menuActivo, string contenedorPath, RevistaDigitalModel revistaDigital, int CampaniaID, int NroCampanias, HttpRequestBase Request, string CodigoConsultora, string CodigoISO, ISessionManager sessionManager, bool esMobile)
         {
+            menuActivo.MostrarMenuFlotante = true;
             switch (contenedorPath)
             {
                 case Constantes.UrlMenuContenedor.Inicio:
@@ -129,6 +130,31 @@ namespace Portal.Consultoras.Web.Providers
                     menuActivo.OrigenPantalla = esMobile
                         ? Constantes.OrigenPantallaWeb.MHerramientaVenta
                         : Constantes.OrigenPantallaWeb.DHerramientaVenta;
+                    break;
+                case Constantes.UrlMenuContenedor.DetalleOfertaParaTi:
+                case Constantes.UrlMenuContenedor.DetalleOfertasParaMi:
+                    menuActivo.Codigo = revistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
+                    menuActivo.MostrarMenuFlotante = false; 
+                    break;
+                case Constantes.UrlMenuContenedor.DetalleLanzamiento:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.Lanzamiento;
+                    menuActivo.MostrarMenuFlotante = false;
+                    break;
+                case Constantes.UrlMenuContenedor.DetalleShowRoom:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
+                    menuActivo.MostrarMenuFlotante = false;
+                    break;
+                case Constantes.UrlMenuContenedor.DetalleOfertaDelDia:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.OfertaDelDia;
+                    menuActivo.MostrarMenuFlotante = false;
+                    break;
+                case Constantes.UrlMenuContenedor.DetalleGuiaDeNegocioDigitalizada:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada;
+                    menuActivo.MostrarMenuFlotante = false;
+                    break;
+                case Constantes.UrlMenuContenedor.DetalleHerramientasVenta:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.HerramientasVenta;
+                    menuActivo.MostrarMenuFlotante = false;
                     break;
             }
 

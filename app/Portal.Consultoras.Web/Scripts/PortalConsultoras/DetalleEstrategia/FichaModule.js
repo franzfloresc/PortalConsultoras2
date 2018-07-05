@@ -163,7 +163,7 @@
     };
 
     var _verificarVariedad = function (estrategia) {
-        if (!IsNullOrEmpty(estrategia.CodigoVariante) && estrategia.CodigoVariante !== ConstantesModule.CodigoVariedad.ComuestaFija) {
+        if (!IsNullOrEmpty(estrategia.CodigoVariante)) {// && estrategia.CodigoVariante !== ConstantesModule.CodigoVariedad.IndividualVariable
             var param = {
                 estrategiaId: estrategia.EstrategiaID,
                 campania: _config.campania,
