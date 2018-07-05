@@ -227,7 +227,7 @@ var EstrategiaAgregarModule = function () {
         AbrirLoad();
 
         var itemClone = estrategiaObtenerObjHtmlLanding($btnAgregar);
-        divAgregado = $(itemClone).find(".agregado.product-add");
+        var divAgregado = $(itemClone).find(".agregado.product-add");
 
         var cuvs = "";
         var codigoVariante = estrategia.CodigoVariante;
