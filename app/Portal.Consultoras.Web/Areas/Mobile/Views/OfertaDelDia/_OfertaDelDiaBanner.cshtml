@@ -34,6 +34,9 @@
     {
         estiloFondo = "background-color:" + (string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorFondo) ? Model.ColorFondo1 : Model.ConfiguracionContenedor.ColorFondo) + ";";
     }
+
+    var estiloBoton = "";
+    estiloBoton = string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorTexto) ? "" : "style=color:" + Model.ConfiguracionContenedor.ColorTexto + ";border-color:" + Model.ConfiguracionContenedor.ColorTexto + ";";
 }
 
 <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia bc_plantilla-banner" style="@estiloFondo" data-item="">
@@ -58,8 +61,11 @@
                     @Model.NombreOferta <br/>
                     <b class="precio_oferta_soloHoy">@ViewBag.Simbolo @Model.PrecioOfertaFormat</b>
                 </div>
-                <a class="btn_compralo_ahora btn_compralo_ahora_odd" href="#"
-                   @(string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorTexto) ? "" : "style=color:" + Model.ConfiguracionContenedor.ColorTexto + ";border-color:" + Model.ConfiguracionContenedor.ColorTexto + ";")>@Model.TextoVerDetalle</a>
+                <a class="btn_compralo_ahora btn_compralo_ahora_odd"
+                   @(estiloBoton)
+                   href="javascript:;" onclick="OnClickFichaDetalle($(this));">
+                    @Model.TextoVerDetalle
+                </a>
             </div>
 
             @*<hr class="clear" />
