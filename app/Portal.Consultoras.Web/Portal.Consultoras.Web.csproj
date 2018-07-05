@@ -5046,6 +5046,8 @@
     <Content Include="Views\Lanzamientos\Template_LanzamientosTonos.cshtml" />
     <Content Include="Views\MatrizCampania\ActualizarMatrizCampaniaNew.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpVariablesGeneralesPortal.cshtml" />
+    <Content Include="Views\MisCertificados\DO_PazYSalvoPdf.cshtml" />
+    <Content Include="Views\MisCertificados\DO_ComercialPdf.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -84,13 +84,16 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.PaisID.Ecuador:
                 case Constantes.PaisID.Peru:
                     certificado.Nombre = DevuelveNombreCertificadoNoAdeudo_PazySalvo(userData.PaisID);
-                    if (userData.MontoDeuda > 0)
-                    {
-                        certificado.MensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certificado de " + certificado.Nombre;
-                        break;
-                    }
+                    //if (userData.MontoDeuda > 0)
+                    //{
+                    //    certificado.MensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certificado de " + certificado.Nombre;
+                    //    break;
+                    //}
                     certificado.CertificadoId = 1;
-                    certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPdf.cshtml";
+
+                    if (userData.PaisID == Constantes.PaisID.RepublicaDominicana) certificado.NombreVista = "~/Views/MisCertificados/DO_PazYSalvoPdf.cshtml";
+                    if (certificado.NombreVista == "") certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPdf.cshtml";
+
                     break;
                 default:
                     certificado = null;
@@ -138,7 +141,9 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
                     certificado.CertificadoId = 2;
-                    certificado.NombreVista = "~/Views/MisCertificados/ComercialPdf.cshtml";
+                    
+                    if (userData.PaisID == Constantes.PaisID.RepublicaDominicana) certificado.NombreVista = "~/Views/MisCertificados/DO_ComercialPdf.cshtml";
+                    if (certificado.NombreVista == "") certificado.NombreVista = "~/Views/MisCertificados/ComercialPdf.cshtml";
                     break;
                 default:
                     certificado = null;
@@ -255,15 +260,18 @@ namespace Portal.Consultoras.Web.Controllers
                         var dt = DateTime.Now;
                         var nombreMes1 = dt.ToString("MMMM", new CultureInfo("es-ES"));
                         var letrasAnio = Conversores.NumeroALetras(dt.Year).ToLower();
+                        var letrasDias = Conversores.NumeroALetras(dt.Day).ToLower();
                         var ff1 = dt.ToString("dd") + " de " + nombreMes1.ToUpper(1) + " de " + dt.ToString("yyyy");
                         var ff2 = dt.ToString("dd") + " del mes de " + nombreMes1.ToUpper(1) + " de " + letrasAnio + " (" + dt.Year.ToString() + ").";
                         var fi = beMiCertificado.FechaIngresoConsultora;
                         var nombreMes2 = fi.ToString("MMMM", new CultureInfo("es-ES"));
                         var ff3 = fi.ToString("dd") + " de " + nombreMes2.ToUpper(1) + " de " + fi.ToString("yyyy");
+                        var ff4 = dt.ToString("dd") + " (" + letrasDias + ")" + " del mes de " + nombreMes1.ToUpper(1) + " de " + letrasAnio + " (" + dt.Year.ToString() + ").";
 
                         model.FechaCreacion = ff1;
                         model.FechaCreacionTexto = ff2;
                         model.FechaIngresoConsultora = ff3;
+                        model.FechaCreacionTextoFull = ff4;
                         model.Moneda = userData.Simbolo;
 
                         model.Anio = (dt.Year - 1).ToString();
