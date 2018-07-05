@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -89,7 +90,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
                 //ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-                ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
                 var dato = _ofertasViewProvider.ObtenerPerdioTitulo(userData.CampaniaID, IsMobile());
                 showRoomEventoModel.ProductosPerdio = dato.Estado;
@@ -261,8 +262,8 @@ namespace Portal.Consultoras.Web.Controllers
             //modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
             //modelo.TieneCompraXcompra = estrategiaSR.BeShowRoom.TieneCompraXcompra;
 
-            ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-            ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+            ViewBag.ImagenFondoProductPage = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+            ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
             return View("DetalleSet", modelo);
         }
@@ -627,6 +628,31 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.ShowRoom.BannerInferiorConfiguracion.Activo = false;
 
             return Json(ResultModel<bool>.BuildOk(true), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetCarruselShowRoomExcepto(string CUVExcluido)
+        {
+            try
+            {
+                var listaOferta = new List<EstrategiaPersonalizadaProductoModel>();
+                // if (idOferta <= 0) return listaOferta;
+
+                var listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+                // listaOferta = listaOfertasModel.Where(o => o.EstrategiaID != idOferta).ToList();
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    listaOferta
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
+            }
         }
 
         #region Metodos Privados
