@@ -4,7 +4,8 @@
     var _config = {
         palanca: config.palanca || "",
         campania: config.campania || "",
-        cuv: config.cuv || ""
+        cuv: config.cuv || "",
+        urlDataCarrusel: config.curlDataCarrusel || ""
     };
      
     var _elementos = {
@@ -76,35 +77,8 @@
 
     }
 
-    var _cargarDatos_ShowRoom = function () {
-
-    }
-
-
-    var _obtenerSetRelacionados = function () {
-     
-        var data = {
-            lista: []
-        };
-
-        if (_config.palanca == 'Lanzamiento') {
-            data.lista = _cargarDatos_Lanzamiento();
-        }
-       else if (_config.palanca == 'ShowRoom') {
-           data.lista = _cargarDatos_ShowRoom();
-        }
-       else if (_config.palanca == 'OfertaDelDia') {
-           data.lista = [];
-       }
-       else {
-           data.lista = [];
-       }
-
-        console.log(data.lista);
-        return data;
-
-    }
-
+ 
+ 
 
     var _mostrarSlicks = function () {
 
@@ -160,15 +134,38 @@
 
     var _mostrarCarrusel = function () {
         
-        var data = _obtenerSetRelacionados();
+        var data = {
+            lista: []
+        };
 
-        if (!data)
-            return false;
+        if (_config.palanca == 'Lanzamiento') {
 
-        SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
+            data.lista = _cargarDatos_Lanzamiento();
+            SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
+        }
+        else if (_config.palanca == 'ShowRoom') {
+
+            _promiseObternerDataCarrusel(param).done(function (response) {
+                if (response)
+                {
+                    if (response.success)
+                    {
+                        data.lista = response;
+                        SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
+                    }
+                }
+            });
+            
+        }
+        else if (_config.palanca == 'OfertaDelDia') {
+            data.lista = [];
+        }
+       
+      
     };     
 
     function Inicializar() {
+        
 
         _ocultarElementos();
         _mostrarCarrusel();
