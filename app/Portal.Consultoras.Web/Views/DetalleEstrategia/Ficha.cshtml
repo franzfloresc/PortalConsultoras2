@@ -1,5 +1,4 @@
 ﻿@model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
-@using Portal.Consultoras.Common
 
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
@@ -352,12 +351,15 @@
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
 @section scripts{
+    @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
     <script src="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" type="text/javascript"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js" type="text/javascript"></script>
+    @*<script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js" type="text/javascript"></script>*@
 
     <script>
         var fichaModule;
+        var tieneCarrusel = '@Model.TieneCarrusel';
+
         $(document).ready(function() {
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",
@@ -369,17 +371,20 @@
             });
             fichaModule.Inicializar();
 
-            carruselModule = CarruselModule({
-                palanca: "@Model.Palanca",
-                campania: "@Model.Campania",
-                cuv: "@Model.Cuv",
-                idPlantilla: "#producto-landing-template",
-                divCarrusel: "#carrusel",
-                divSetsProductosdata: "#CarruselProducto"
-            });
-            carruselModule.Inicializar();
+            if (tieneCarrusel)
+            {
+                carruselModule = CarruselModule({
+                    palanca: "@Model.Palanca",
+                    campania: "@Model.Campania",
+                    cuv: "@Model.Cuv",
+                    idPlantilla: "#producto-landing-template",
+                    divCarrusel: "#carrusel",
+                    divSetsProductosdata: "#CarruselProducto"
+                });
+                carruselModule.Inicializar();
+            }
         });
     </script>
 
-    @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
+    
 }

@@ -377,8 +377,8 @@ namespace Portal.Consultoras.Web.Controllers
                     lista = productosShowRoom,
                     campaniaId = userData.CampaniaID,
                     cantidadTotal = cantidadTotal,
-                    cantidad = cantidadTotal,
-                    //cantidadAMostrar = productosShowRoom.Count(),
+                    //cantidad = cantidadTotal,
+                    cantidadAMostrar = productosShowRoom.Count(),
                     codigo = Constantes.ConfiguracionPais.ShowRoom
                 });
             }

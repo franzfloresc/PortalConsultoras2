@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -18,6 +16,8 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneSession { get; set; }
         public int Campania { get; set; }
         public string Cuv { get; set; }
+        public bool TieneReloj { get; set; }
+        public bool TieneCarrusel { get; set; }
     }
     public class TituloDetalle
     {

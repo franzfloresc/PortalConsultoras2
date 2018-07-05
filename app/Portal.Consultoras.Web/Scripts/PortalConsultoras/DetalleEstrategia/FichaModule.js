@@ -213,7 +213,7 @@
  
         var estrategia;
         if (_config.tieneSession === "True") {
-            //revisar si se realiza con razor o handle bar para SW y ODD
+            //revisar si se realiza con razor o handlebar para SR y ODD
             estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
         } else {
             estrategia = localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
@@ -228,7 +228,7 @@
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
         _validarDesactivadoGeneral(estrategia);
-        if (estrategia.CodigoEstrategia == _constantePalanca.OfertaDelDia) {
+        if (estrategia.MostrarReloj) {
             _crearReloj();
         }
 

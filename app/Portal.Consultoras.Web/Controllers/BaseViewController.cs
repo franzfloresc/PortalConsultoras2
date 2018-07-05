@@ -6,7 +6,6 @@ using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -220,8 +219,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region ShowRoom
 
-
-
         #endregion
 
         #region Detalle Estrategia  - Ficha
@@ -230,7 +227,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-
                 if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv)) return RedirectToAction("Index", "Ofertas");
 
                 if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca)) return RedirectToAction("Index", "Ofertas");
@@ -252,13 +248,15 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
                 modelo.Campania = campaniaId;
                 modelo.Cuv = cuv;
-
+                modelo.TieneReloj = (Constantes.NombrePalanca.OfertaDelDia == palanca);
+                modelo.TieneCarrusel = (Constantes.NombrePalanca.Lanzamiento == palanca 
+                        || Constantes.NombrePalanca.ShowRoom == palanca 
+                        || Constantes.NombrePalanca.OfertaDelDia == palanca);
 
                 ViewBag.PaisAnalytics = userData.CodigoISO;
                 ViewBag.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();
 
                 return View(modelo);
-
             }
             catch (Exception ex)
             {

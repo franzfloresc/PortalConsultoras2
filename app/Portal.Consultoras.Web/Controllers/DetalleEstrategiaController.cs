@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using System;
 using System.Web.Mvc;
@@ -38,7 +37,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
         }
-
 
     }
 }

@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -157,7 +156,7 @@ namespace Portal.Consultoras.Web.Providers
                             if (seccion.UrlLandig == "")
                                 continue;
 
-                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.DesktopShowRoomContenedor : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor;
+                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileShowRoomContenedor : Constantes.OrigenPedidoWeb.DesktopShowRoomContenedor;
                             break;
                         case Constantes.ConfiguracionPais.OfertaDelDia:
                             var estrategiaODD = sessionManager.OfertaDelDia.Estrategia;
