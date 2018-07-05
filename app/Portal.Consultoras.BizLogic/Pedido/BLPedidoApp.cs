@@ -326,12 +326,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             try
             {
-                nombreServicio = "InsertKitInicio";
 
-                LogPerformance("Inicio");
                 //Informacion de usuario
                 usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
-                LogPerformance("EsConsultoraNueva");
 
                 if (!usuario.EsConsultoraNueva)
                 {
@@ -352,7 +349,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (usuario.DiaPROL && !EsHoraReserva(usuario, DateTime.Now.AddHours(usuario.ZonaHoraria))) return false;
 
                 var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas(usuario);
-                LogPerformance("GetConfiguracionProgramaNuevas");
+
                 if (obeConfiguracionProgramaNuevas == null) return false;
                 if (!flagkit && obeConfiguracionProgramaNuevas.IndProgObli != "1") return false;
 
@@ -368,12 +365,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 };
                 var PedidoID = 0;
                 var lstDetalle = ObtenerPedidoWebDetalle(bePedidoWebDetalleParametros, out PedidoID);
-                LogPerformance("ObtenerPedidoWebDetalle");
+
                 var det = lstDetalle.FirstOrDefault(d => d.CUV == obeConfiguracionProgramaNuevas.CUVKit) ?? new BEPedidoWebDetalle();
                 if (det.PedidoDetalleID > 0) return false;
 
                 var olstProducto = _productoBusinessLogic.SelectProductoToKitInicio(usuario.PaisID, usuario.CampaniaID, obeConfiguracionProgramaNuevas.CUVKit);
-                LogPerformance("SelectProductoToKitInicio");
+
                 var producto = olstProducto.FirstOrDefault();
                 if (producto != null)
                 {
@@ -399,7 +396,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     };
 
                     var result = PedidoInsertar(usuario, detalle, lstDetalle);
-                    LogPerformance("PedidoInsertar");
+
                     if (result != Constantes.PedidoAppValidacion.Code.SUCCESS) return false;
 
                     return true;

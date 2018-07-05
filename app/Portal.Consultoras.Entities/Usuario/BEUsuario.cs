@@ -1479,5 +1479,8 @@ namespace Portal.Consultoras.Entities
         }
         [DataMember]
         public string NivelProyectado { get; set; }
+        [Column("IndicadorConsultoraOficina")]
+        [DataMember]
+        public bool IndicadorConsultoraOficina { get; set; }
     }
 }
