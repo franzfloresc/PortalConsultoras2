@@ -52,7 +52,7 @@
         tipsVenta: "#div_ficha_tab3",
         beneficios: "#div_ficha_tab4",
         video: "#div_ficha_tab5",
-    }
+    };
 
     var _getParamValueFromQueryString = function (queryStringName) {
         queryStringName = queryStringName || '';
@@ -186,7 +186,7 @@
             estrategia.EsMultimarca = false;
             return false;
         }
-    }
+    };
     
     var _actualizarVariedad = function (estrategia) {
         if (estrategia.Hermanos.length == 1) {
@@ -268,11 +268,10 @@
 
     var _ocultarSecciones = function () {
         $(_seccionesFichaProducto.SloganLanzamiento).hide();
-
-        if (_codigoPalanca.HerramientasVenta === _config.palanca
-            || _codigoPalanca.OfertasParaMi === _config.palanca
-            || _codigoPalanca.OfertaParaTi === _config.palanca
-            || _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
+        if (_codigoPalanca.HerramientasVenta === _config.palanca || 
+            _codigoPalanca.OfertasParaMi === _config.palanca || 
+            _codigoPalanca.OfertaParaTi === _config.palanca || 
+            _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
 
             $(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
             $(_seccionesFichaProducto.ImagenDeFondo).hide();
@@ -297,7 +296,7 @@
         } else if (_codigoPalanca.OfertaDelDia == _config.palanca) {
             $(_seccionesFichaProducto.EtiquetaOdd).show();
         }
-    }
+    };
 
     var _ocultarTabs = function () {
         $(_tabsFichaProducto.detalleProducto).hide();
@@ -306,8 +305,8 @@
         $(_tabsFichaProducto.beneficios).hide();
         $(_tabsFichaProducto.video).hide();
 
-        if (_codigoPalanca.Lanzamiento === _config.palanca
-            || _codigoPalanca.ShowRoom === _config.palanca) {
+        if (_codigoPalanca.ShowRoom === _config.palanca || 
+            ConstantesModule.ConstantesPalanca.Lanzamiento === _config.palanca) {
             $(_tabsFichaProducto.tipsVenta).show();
         }
 
@@ -320,7 +319,7 @@
         if (estrategia.IsAgregado) {
             $("#ContenedorAgregado").show();
         }
-    }
+    };
     
     function Inicializar() {
         localStorageModule = LocalStorageModule();
