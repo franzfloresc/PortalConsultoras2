@@ -39,9 +39,9 @@ $(document).ready(function () {
                 if (listaOpcionPago) {
                     var cantidad = listaOpcionPago.length;
 
-                    //if (cantidad > 0) {
-                    //    $(listaOpcionPago)[0].click();
-                    //}
+                    if (cantidad > 0) {
+                        $(listaOpcionPago)[0].click();
+                    }
                 }
             }
         },
@@ -183,6 +183,7 @@ $(document).ready(function () {
             },
             PagoTotal: function (e) {
                 e.preventDefault();
+                e.stopPropagation();
 
                 var montoDeuda = $.trim($("#hdMontoDeuda").val());
 
@@ -199,6 +200,7 @@ $(document).ready(function () {
             },
             PagoParcial: function (e) {
                 e.preventDefault();
+                e.stopPropagation();
 
                 var montoDeuda = $.trim($("#txtMontoParcial").val());
 
