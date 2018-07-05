@@ -139,7 +139,7 @@
 
          }
         }
-
+        //Comentar esta cuando se cambie en mobile video
         if (!window.videoKey) {
             $("#tabVideo").hide();
         }

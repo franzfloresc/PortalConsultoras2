@@ -692,8 +692,11 @@ $(document).ready(function () {
             }
         } catch (e) {
             console.error(e);
-        } 
-        document.location.href = urlOfertaDelDiaMobile;
+        }
+        //Redirecciona a la nueva ficha.
+        OnClickFichaDetalle($(this));
+
+        //document.location.href = urlOfertaDelDiaMobile;
     });
 
     $(elements.ContenedorInternoSliderOfertaDelDiaMobile).click(function () {
