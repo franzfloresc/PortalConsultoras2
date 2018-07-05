@@ -18,7 +18,7 @@ $(document).ready(function () {
 
         me.Funciones = {
             InicializarEventos: function () {                
-                $(document).on('click', '.opcion_pago', me.Eventos.SeleccionarTipoPago);
+                $(document).on('click', '.opcion_pago', me.Eventos.MostrarDetalleTipoPago);
                 $(document).on('click', '.opcionPagoDesktop', me.Eventos.SeleccionarTipoPago);
                 $(document).on('click', '.area_activa_barra_activacion', me.Eventos.AceptarTerminosYCondiciones);
                 $(document).on('click', '.ver_terminos_y_condiciones', me.Eventos.AbrirPopupTerminosYCondiciones);
@@ -48,6 +48,10 @@ $(document).ready(function () {
                 } else {
                     $("#spnMontoGastosAdministrativos").html(DecimalToStringFormat(0));
                 }
+            },
+            MostrarDetalleTipoPago: function () {
+                $(this).toggleClass('mostrarContenidoDetalle');
+                $(this).find('.opcion_pago_contenido_visible_al_desplegar').slideToggle(200);
             },
             MostrarTooltipAceptarTerminosYCondiciones: function(){
                 if (!(me.globals.barraActivacion).is('.activado')) {

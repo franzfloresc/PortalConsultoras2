@@ -52,81 +52,97 @@
                 {
                     if (item.Codigo == Constantes.PagoEnLineaTipoPago.PagoTotal)
                     {
-                        <li class="opcion_pago">
-                            <div class="col_izq">
-                                <div class="contenedor_monto_pago_total">
-                                    <h4 class="titulo_monto_pago_total">
-                                        @item.Descripcion:
-                                    </h4>
-                                    <div class="monto_total_pago_en_linea">                                        
-                                        <span class="tipo_moneda_pais">@Model.Simbolo</span>
-                                        <span class="monto_moneda_pais">@Model.MontoDeudaString</span>
+                        <li class="opcion_pago pagoTotal">
+                            <div class="opcion_pago_contenido_visible_sin_desplegar w-100">
+                                <div class="col_izq">
+                                    <div class="contenedor_monto_pago_total">
+                                        <h4 class="titulo_monto_pago_total">
+                                            @item.Descripcion:
+                                        </h4>
+                                        <div class="monto_total_pago_en_linea">
+                                            <span class="tipo_moneda_pais">@Model.Simbolo</span>
+                                            <span class="monto_moneda_pais">@Model.MontoDeudaString</span>
+                                        </div>
+                                    </div>
+                                    <div class="fecha_vencimiento_pago_en_linea">
+                                        <span>Vence </span>
+                                        <span>@Model.FechaVencimientoString</span>
                                     </div>
                                 </div>
-                                <div class="fecha_vencimiento_pago_en_linea">
-                                    <span>Vence </span>
-                                    <span>@Model.FechaVencimientoString</span>
+                                <div class="col_der">
+                                    <div class="icono_flecha_despliegue">
+                                        <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido" />
+                                    </div>
                                 </div>
-                                <div>
-                                    Monto: @Model.MontoDeudaString
-                                </div>
-                                <div>
-                                    Gastos Adm. (@Model.PorcentajeGastosAdministrativos%): @Model.MontoGastosAdministrativosString
-                                </div>
-                                <div>
-                                    TOTAL POR PAGAR: @Model.MontoDeudaConGastosString
-                                </div>
-                                <button type="button" class="btn_pago_credito_visa" id="btnPagoTotal">
-                                    <span>
-                                        Continuar
-                                    </span>
-                                </button>
                             </div>
-                            <div class="col_der">
-                                <input type="radio" id="rbPagoTotal" name="opcionPago" value="1" checked />
-                                <label for="rbPagoTotal">
-                                    <span></span>
-                                </label>
+                            <div class="opcion_pago_contenido_visible_al_desplegar w-100" style="display:none;">
+                                <div class="opcion_pago_monto">
+                                    <div class="w-53 text-left">Monto :</div>
+                                    <div class="w-45 text-right">@Model.MontoDeudaString</div>
+                                </div>
+                                <div class="opcion_pago_gastos_administrativos">
+                                    <div class="w-53 text-left">Gastos Adm. (@Model.PorcentajeGastosAdministrativos%) :</div>
+                                    <div class="w-45 text-right">@Model.MontoGastosAdministrativosString</div>
+                                </div>
+                                <hr class="linea_separacion_montos_y_total" />
+                                <div class="opcion_pago_total_a_pagar">
+                                    <div class="w-53 text-left text-bold-black">TOTAL POR PAGAR :</div>
+                                    <div class="w-45 text-right text-bold-black">@Model.MontoDeudaConGastosString</div>
+                                </div>
+                                <button type="button" class="btn_pago_credito_visa text-uppercase default-background w-100" id="btnPagoTotal">
+                                    Continuar
+                                </button>
                             </div>
                         </li>
                     }
                     if (item.Codigo == Constantes.PagoEnLineaTipoPago.PagoParcial)
                     {
                         <li class="opcion_pago pagoParcial">
-                            <div class="col_izq">
-                                <h4 class="titulo_monto_pago_editable">
-                                    @item.Descripcion:
-                                </h4>
-                                <div class="monto_editable_pago_en_linea">
-                                    <span class="tipo_moneda_pais">@Model.Simbolo</span>
-                                    <input type="text" class="monto_a_editar" id="txtMontoParcial"
-                                           placeholder="@Util.DecimalToStringFormat(0, Model.CodigoIso)"
-                                           value="" onkeypress="return FuncionesGenerales.ValidarSoloDecimalPositivo(event, this, true);" />
+                            <div class="opcion_pago_contenido_visible_sin_desplegar w-100">
+                                <div class="col_izq">
+                                    <h4 class="titulo_monto_pago_editable">
+                                        @item.Descripcion:
+                                    </h4>
+                                    <div class="monto_editable_pago_en_linea">
+                                        <span class="tipo_moneda_pais">@Model.Simbolo</span>
+                                        <input type="text" class="monto_a_editar" id="txtMontoParcial"
+                                               placeholder="@Util.DecimalToStringFormat(0, Model.CodigoIso)"
+                                               value="" onkeypress="return FuncionesGenerales.ValidarSoloDecimalPositivo(event, this, true);" />
+                                    </div>
                                 </div>
-                                <div>
-                                    Monto: <span id="spnMontoParcial">@Util.DecimalToStringFormat(0, Model.CodigoIso)</span> 
+                                <div class="col_der">
+                                    <div class="icono_flecha_despliegue">
+                                        <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido" />
+                                    </div>
                                 </div>
-                                <div>
-                                    Gastos Adm. (@Model.PorcentajeGastosAdministrativos%): <span id="spnMontoGastosAdministrativos">@Util.DecimalToStringFormat(0, Model.CodigoIso)</span> 
-                                </div>
-                                <div>
-                                    TOTAL POR PAGAR: <span id="spnMontoParcialConGastos">@Util.DecimalToStringFormat(0, Model.CodigoIso)</span>
-                                </div>
-                                <button type="button" class="btn_pago_credito_visa" id="btnPagoParcial">
-                                    <span>
-                                        Continuar
-                                    </span>
-                                </button>
                             </div>
-                            <div class="col_der">
-                                <input type="radio" id="rbPagoParcial" name="opcionPago" value="2" />
-                                <label for="rbPagoParcial">
-                                    <span></span>
-                                </label>
+                            <div class="opcion_pago_contenido_visible_al_desplegar w-100" style="display:none;">
+                                <div class="opcion_pago_monto">
+                                    <div class="w-53 text-left">Monto :</div>
+                                    <div class="w-45 text-right" id="spnMontoParcial">
+                                        @Util.DecimalToStringFormat(0, Model.CodigoIso)
+                                    </div>
+                                </div>
+                                <div class="opcion_pago_gastos_administrativos">
+                                    <div class="w-53 text-left">Gastos Adm. (@Model.PorcentajeGastosAdministrativos%) :</div>
+                                    <div class="w-45 text-right" id="spnMontoGastosAdministrativos">
+                                        @Util.DecimalToStringFormat(0, Model.CodigoIso)
+                                    </div>
+                                </div>
+                                <hr class="linea_separacion_montos_y_total" />
+                                <div class="opcion_pago_total_a_pagar">
+                                    <div class="w-53 text-left text-bold-black">TOTAL POR PAGAR :</div>
+                                    <div class="w-45 text-right text-bold-black" id="spnMontoParcialConGastos">
+                                        @Util.DecimalToStringFormat(0, Model.CodigoIso)
+                                    </div>
+                                </div>
+                                <button type="button" class="btn_pago_credito_visa text-uppercase default-background w-100" id="btnPagoParcial">
+                                    Continuar
+                                </button>
                             </div>
                         </li>
                     }
-                }                
+                }
             </ul>
 
             <div>
