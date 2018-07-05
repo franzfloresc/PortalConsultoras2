@@ -39,7 +39,9 @@ namespace Portal.Consultoras.Web.Providers
 
         public ShowRoomProvider()
         {
-            //
+            _logManager = LogManager.LogManager.Instance;
+            sessionManager = SessionManager.SessionManager.Instance;
+            _configuracionManager = new ConfiguracionManagerProvider();
         }
 
         /// <summary>
