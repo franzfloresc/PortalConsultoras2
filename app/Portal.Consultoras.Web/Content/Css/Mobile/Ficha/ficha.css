@@ -5,28 +5,34 @@
     margin: 15px 0px;
 }
 
-ul.breadcumbs li { display: inline-block; }
+    ul.breadcumbs li {
+        display: inline-block;
+    }
 
-ul.breadcumbs li a {
-    display: block;
-    color: #808080;
-    font-size: 12px;
-}
+        ul.breadcumbs li a {
+            display: block;
+            color: #808080;
+            font-size: 12px;
+        }
 
-ul.breadcumbs li a::before {
-    content: '';
-    background: url(img/right-arrow.svg);
-    width: 9px;
-    height: 9px;
-    display: inline-block;
-    background-size: cover;
-    margin-right: 3px;
-    margin-left: 1px;
-}
+            ul.breadcumbs li a::before {
+                content: '';
+                background: url(/Content/Images/mobile/Esika/right-arrow.svg);
+                width: 9px;
+                height: 9px;
+                display: inline-block;
+                background-size: cover;
+                margin-right: 3px;
+                margin-left: 1px;
+            }
 
-ul.breadcumbs li:first-child a::before { display: none; }
+        ul.breadcumbs li:first-child a::before {
+            display: none;
+        }
 
-ul.breadcumbs li:last-child a { font-weight: bolder; }
+        ul.breadcumbs li:last-child a {
+            font-weight: bolder;
+        }
 
 .bg_imagen_producto {
     width: 100%;
@@ -34,22 +40,27 @@ ul.breadcumbs li:last-child a { font-weight: bolder; }
     background-color: #d8d8d8;
 }
 
-.bg_imagen_producto_subir { margin-top: -120px; }
+.bg_imagen_producto_subir {
+    margin-top: -120px;
+}
 
-.imagen_producto { margin-bottom: 15px; }
+.imagen_producto {
+    margin-bottom: 15px;
+}
 
-.imagen_producto img { width: 100%; }
+    .imagen_producto img {
+        width: 100%;
+    }
 
 .marca_producto h2 {
     font-size: 11px;
     font-weight: bold;
-    font-style: normal;
-    font-stretch: normal;
     line-height: 1.91;
     letter-spacing: 0.5px;
     color: #000000;
     margin-top: 11px;
     margin-bottom: 5px;
+    text-transform: uppercase;
 }
 
 .descripcion_producto {
@@ -60,8 +71,8 @@ ul.breadcumbs li:last-child a { font-weight: bolder; }
     line-height: 1.31;
     letter-spacing: normal;
     color: #000000;
-    margin-bottom: 13px;
     margin-bottom: 20px;
+    text-transform:uppercase;
 }
 
 .precio_producto p {
@@ -74,7 +85,9 @@ ul.breadcumbs li:last-child a { font-weight: bolder; }
     color: #000000;
 }
 
-.precio_producto span { text-decoration: line-through; }
+.precio_producto span {
+    text-decoration: line-through;
+}
 
 .gana_precio_producto p {
     font-size: 13px;
@@ -86,16 +99,13 @@ ul.breadcumbs li:last-child a { font-weight: bolder; }
     color: #e81c36;
 }
 
-.contenido_titulo span {
-    font-size: 12px;
+.contenido_titulo {
+    font-size: 13px;
     font-weight: bold;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.08;
     letter-spacing: 0.5px;
     color: #000000;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin: 12px 15px 14px 15px;
+    line-height: normal;
 }
 
 .contenido_agregado .box_agregado p.marca {
@@ -122,13 +132,15 @@ ul.breadcumbs li:last-child a { font-weight: bolder; }
     padding: 5px 0px;
 }
 
-.contenido_agregado .box_agregado span.prod_agregado:last-child {
-    border-bottom: .5px solid #00000052;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-}
+    .contenido_agregado .box_agregado span.prod_agregado:last-child {
+        border-bottom: .5px solid #00000052;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+    }
 
-.contenido_agregado .box_agregado span.sin_borde { border-bottom: none !important; }
+.contenido_agregado .box_agregado span.sin_borde {
+    border-bottom: none !important;
+}
 
 .contenido_agregado .box_agregado b.cant_agregado {
     font-size: 15px;
@@ -140,106 +152,76 @@ ul.breadcumbs li:last-child a { font-weight: bolder; }
     color: #000000;
 }
 
-.seleccion_tonos { margin-bottom: 15px; }
+.seleccion_tonos {
+    margin-bottom: 30px;
+}
 
 .tabs ul.tabs {
     padding: 0;
     margin: 0;
     list-style: none;
-    margin-top: 20px;
 }
 
-.tabs ul.tabs li a {
-    padding: 20px 0px;
-    display: block;
-    font-size: 12px;
-    font-weight: 500;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: 2.5px;
-    text-align: left;
-    color: #000000;
-    background: url(img/down-arrow.svg);
-    background-repeat: no-repeat;
-    background-position: center right;
-    background-size: 10px;
+ .tabs ul.tabs li a, .tab_title {
+        padding: 20px 0px;
+        display: block;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: 2.5px;
+        color: #000000;
+        background: url(/Content/Images/mobile/Esika/down-arrow.svg);
+        background-repeat: no-repeat;
+        background-position: center right;
+        background-size: 10px;
+        font-weight: 700;
+        cursor: pointer;
+ }
+
+        .tabs ul.tabs li a:hover {
+            text-decoration: none;
+        }
+
+    .tabs ul.tabs li, .tab_item {
+        width: 100%;
+        display: block;
+        border-bottom: 1px solid #ccc;
+    }
+
+        .tabs ul.tabs li:last-child {
+            border-top: none !important;
+        }
+
+        .tabs ul.tabs li ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            padding-bottom: 20px;
+            display: none;
+        }
+
+.carrusel {
+    padding: 30px 0px;
 }
 
-.tabs ul.tabs li a:hover { text-decoration: none; }
-
-.tabs ul.tabs li {
-    width: 100%;
-    display: block;
-    border-top: .5px solid #00000052;
-    border-bottom: .5px solid #00000052;
-}
-
-.tabs ul.tabs li:last-child { border-top: none !important; }
-
-.tabs ul.tabs li ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    padding-bottom: 20px;
-    display: none;
-}
-
-.carrusel { padding: 30px 0px; }
-
-.carrusel p {
-    font-weight: bold;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.38;
-    letter-spacing: 2.5px;
-    text-align: center;
-    color: #000000;
-    margin-bottom: 30px;
-}
+    .carrusel p {
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.38;
+        letter-spacing: 2.5px;
+        text-align: center;
+        color: #000000;
+        margin-bottom: 30px;
+    }
 
 .compartir_redes {
-    padding-top: 24px;
+    padding: 24px 0px 100px 0px;
+    border-top: 1px solid #ccc;
     text-align: center;
-    padding-bottom: 100px;
-}
-.compartir_redes_ficha {
-    border-top: .5px solid #00000052;
-    margin: 0 15px;
 }
 
-.compartir_redes p {
-    font-size: 13px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1;
-    letter-spacing: normal;
-    text-align: center;
-    color: #000000;
-    margin-bottom: 24px;
-}
-
-.compartir_redes a {
-    display: inline-block;
-    text-align: center;
-    width: 51px;
-    margin: 0 10px;
-    height: 54px;
-}
-.content_tonos_producto {
-    margin: 0 auto;
-    margin: 15px 0px 0px 0px;
-}
-.compartir_redes a img { width: 100%; }
-
-.ficha_redes {
-    padding: 24px 0px;
-}
-
-    .ficha_redes p {
-        display: block;
-        margin-bottom: 17px;
+    .compartir_redes p {
         font-size: 13px;
         font-weight: normal;
         font-style: normal;
@@ -248,31 +230,80 @@ ul.breadcumbs li:last-child a { font-weight: bolder; }
         letter-spacing: normal;
         text-align: center;
         color: #000000;
+        margin-bottom: 24px;
     }
 
-    .ficha_redes a img {
-        display: block;
-        width: 51.4px;
+    .compartir_redes a {
+        display: inline-block;
+        text-align: center;
+        width: 51px;
+        margin: 0 10px;
+        height: 54px;
     }
 
-    .ficha_redes a {
-        display: block;
-        float: left;
-        width: 50%;
-    }
+.compartir_redes a img {
+        width: 100%;
+}
 
-        .ficha_redes a img.fb {
-            float: left;
-            margin: 0px 18.85px;
-        }
+.panel-collapse {
+    margin-bottom: 20px;
+}
 
-        .ficha_redes a img.wsp {
-            float: right;
-            margin: 0px 18.85px;
-        }
+.tab_title:hover, .tab_title:focus {
+    text-decoration: none;
+    color: initial;
+}
 
-    .btn_desactivado_general {
-        background: #e5e5e5;
-        border: 1px solid #d2d2d2;
-        color: #b9b9b9;
-    }
+.border-top-tab {
+    border-top: .5px solid #ccc;
+}
+
+.share {
+   text-align:center;
+   margin-bottom: 30px;
+}
+
+.share a {
+    margin: 0px 6px;
+}
+
+.share a img {
+    width: 49px;
+    height: 49px;
+}
+
+.list_style_none {
+    padding: 0px;
+    margin: 0 0 10px 0;
+}
+
+.list_style_none li {
+    display: inline-block;
+}
+
+.precio li:first-child {
+    padding-right: 11px;
+    border-right: 1px solid #cacaca;
+}
+
+.precio li:last-child {
+    padding-left: 8px;
+}
+
+.precio li p {
+    margin-bottom: 0px;
+}
+
+.marca {
+    font-size: 11px;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+}
+
+.nombre_producto_opt{
+    margin-top: 2px;
+}
+
+.tabs li:nth-child(1) {
+    border-top: 1px solid #ccc;
+}

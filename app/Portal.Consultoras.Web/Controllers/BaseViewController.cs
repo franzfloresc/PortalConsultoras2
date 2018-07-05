@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
@@ -10,11 +11,12 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class BaseViewController : BaseEstrategiaController
+    public class BaseViewController : BaseController //BaseEstrategiaController
     {
         private readonly IssuuProvider _issuuProvider;
 
-        public BaseViewController() : base() {
+        public BaseViewController() : base()
+        {
             _issuuProvider = new IssuuProvider();
         }
 
@@ -219,6 +221,52 @@ namespace Portal.Consultoras.Web.Controllers
         #region ShowRoom
 
 
+
+        #endregion
+
+        #region Detalle Estrategia  - Ficha
+
+        public ActionResult DEFicha(string palanca, int campaniaId, string cuv, string origen, bool esMobile = false)
+        {
+            try
+            {
+
+                if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv)) return RedirectToAction("Index", "Ofertas");
+
+                if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca)) return RedirectToAction("Index", "Ofertas");
+
+                DetalleEstrategiaFichaModel modelo;
+                if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
+                {
+                    var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
+                    if (estrategiaPresonalizada == null) return RedirectToAction("Index", "Ofertas");
+                    modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
+                }
+                else
+                {
+                    modelo = new DetalleEstrategiaFichaModel();
+                }
+
+                modelo.Origen = origen;
+                modelo.Palanca = palanca;
+                modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
+                modelo.Campania = campaniaId;
+                modelo.Cuv = cuv;
+
+
+                ViewBag.PaisAnalytics = userData.CodigoISO;
+                ViewBag.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();
+
+                return View(modelo);
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Ofertas", new { area = esMobile ? "Mobile" : "" });
+        }
 
         #endregion
     }

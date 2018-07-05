@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -627,6 +628,30 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.ShowRoom.BannerInferiorConfiguracion.Activo = false;
 
             return Json(ResultModel<bool>.BuildOk(true), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetCarruselShowRoomExcepto(string CUVExcluido)
+        {
+            try
+            {
+                var listaOferta = new List<EstrategiaPersonalizadaProductoModel>();            
+
+                var listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+                listaOferta = listaOfertasModel==null ? new List<EstrategiaPersonalizadaProductoModel>():listaOfertasModel.Where(x => x.CUV2 != CUVExcluido).ToList();
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    data = listaOferta
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
+            }
         }
 
         #region Metodos Privados

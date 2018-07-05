@@ -38,13 +38,12 @@
         </div>
         <div id="EtiquetaLanzamientos" class="row label_producto">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <img src="img/label.jpg" alt="">
+                <img src="{{TipoEstrategiaDetalle.ImgFichaMobile}}" alt="" />
             </div>
         </div>
         <div class="row marca_producto">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                {{#if EsMultimarca}}
-                <h2></h2>
+                <h2> {{#if EsMultimarca}}</h2>
                 {{else}}
                 <h2>{{DescripcionMarca}}</h2>
                 {{/if}}
@@ -61,32 +60,29 @@
                 <p>Valorizado en <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-7 col-sm-7 col-xs-7 precio_producto">
-                <p>Precio para ti  <b>{{SimboloMoneda}} {{PrecioVenta}}</b></p>
-            </div>
-            <div class="col-md-5 col-sm-5 col-xs-5 gana_precio_producto">
-                <p>GANA {{SimboloMoneda}} {{GananciaString}}</p>
-            </div>
-        </div>
+
+        <ul class="list_style_none precio">
+            <li class="precio_producto">
+                <p>Precio para ti <b style="font-size: 14px;">{{SimboloMoneda}} {{PrecioVenta}}</b></p>
+            </li>
+            <li class="gana_precio_producto">
+                <p class="ganancia">GANA {{SimboloMoneda}} {{GananciaString}}</p>
+            </li>
+        </ul>
     </div>
     <div class="container">
+        <div id="SloganLanzamiento">
+            <span class="nombre_detalle_producto_tono"><strong>{{this.TipoEstrategiaDetalle.Slogan}}</strong></span>
+            <ul class="descripcion_detalle_producto_tono" style="list-style-type: none;">
+                {{#each this.ListaDescripcionDetalle}}
+                <li><span class="vineta">-</span><span class="txt-des">{{this}}</span></li>
+                {{/each}}
+            </ul>
+        </div>
         <div class="row seleccion_tonos">
-
             <div data-estrategia="{{CodigoVariante}}">
-
                 {{#iff CodigoVariante '==' '2001'}}
                 <div id="DescripcionAdicional">
-                    {{#ifVerificarSlogan this.CodigoEstrategia this.TipoEstrategiaDetalle.Slogan}}
-                    <div class="nombre_detalle_producto_tono">{{this.TipoEstrategiaDetalle.Slogan}}</div>
-                    <div class="descripcion_detalle_producto_tono">
-                        <ul>
-                            {{#each this.ListaDescripcionDetalle}}
-                            <li><span class="vineta">-</span><span class="txt-des">{{this}}</span></li>
-                            {{/each}}
-                        </ul>
-                    </div>
-                    {{/ifVerificarSlogan}}
                 </div>
                 {{#each this.Hermanos as |componente|}}
                 <div class="content_tonos_producto" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
@@ -113,7 +109,7 @@
                     <div data-tono-div="">
                         {{#each this.Hermanos as |variedad|}}
                         <div style="display: none;">
-                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.MarcaID}}" />
+                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
                         </div>
                         <div class="content_tono_detalle"
@@ -130,15 +126,15 @@
                 {{/iff}}
                 {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}
                 <div class="contenido_titulo">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <span>CONTENIDO</span>
+                    <div class="">
+                        <span>CONTENIDO:</span>
                     </div>
                 </div>
                 <div class="content_producto_compuesto">
                     {{#each this.Hermanos as |componente|}}
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         {{#ifVerificarMarcaLast componente.DescripcionMarca}}
-                        <div style="border-bottom: 1px solid #ccc; margin-top:15px;"></div>
+                        <div style="border-bottom: 1px solid #ccc; margin:14px 0px;"></div>
                         {{/ifVerificarMarcaLast}}
 
 
@@ -219,29 +215,29 @@
     <div class="row tabs">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <ul class="tabs ficha_tabs">
-                <li>
-                    <a>DETALLE DEL PACK</a>
-                    <ul>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
-                    </ul>
-                </li>
                 @*<li>
-                        <a>TIP DE VENTA</a>
-                        <ul>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis itaque nisi ratione sit excepturi. Porro nemo ipsam fugiat quidem accusamus, cumque temporibus atque! Voluptatum nesciunt odio consectetur eos, quibusdam sint?
-                        </ul>
-                    </li>*@
+            <a>DETALLE DEL PACK</a>
+            <ul>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
+            </ul>
+        </li>
+        <li>
+                <a>TIP DE VENTA</a>
+                <ul>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis itaque nisi ratione sit excepturi. Porro nemo ipsam fugiat quidem accusamus, cumque temporibus atque! Voluptatum nesciunt odio consectetur eos, quibusdam sint?
+                </ul>
+            </li>*@
                 <li id="tabVideo">
                     <a>VIDEO</a>
-                    <div class="video-visual">
-                        <div class="video-container">
-                            <div id="ytFicha"
-                                 data-youtube="{ height:'220', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}"
-                                 class="yt-video"></div>
+                    <ul>
+                        <div class="video-visual">
+                            <div class="video-container">
+                                <div id="ytFicha"
+                                     data-youtube="{ height:'220', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}"
+                                     class="yt-video"></div>
+                            </div>
                         </div>
-                    </div>
-
-
+                    </ul>
                 </li>
             </ul>
         </div>
@@ -270,7 +266,7 @@
         <hr>
     </div>
 
-    <div class="col-md-12 col-sm-12 col-xs-12 ficha_redes">
+    <div class="col-md-12 col-sm-12 col-xs-12 share">
         <p>Comparte el producto con tus clientes</p>
         <a href="javascript: void(0);" class="text-right"><img src="~/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp" data-compartir="WA"></a>
         <a href="javascript: void(0);"><img src="~/Content/Images/showroom/redes_facebook.png" alt="" class="fb" data-compartir="FB"></a>
@@ -290,11 +286,10 @@
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
 
 
-    <script>
+<script>
         window.videoKey = '@Model.CodigoVideo';
         var fichaModule;
         var carruselModule;
-        var EstrategiaAgregarModule;
 
         $(document).ready(function() {
             fichaModule = FichaModule({
@@ -307,24 +302,20 @@
             });
             fichaModule.Inicializar();
 
-
+            
             carruselModule = CarruselModule({
                 palanca: "@Model.Palanca",
                 campania: "@Model.Campania",
                 cuv: "@Model.Cuv",
                 idPlantilla: "#producto-landing-template",
                 divCarrusel: "#divOfertaProductos",
-                divSetsProductosdata: "#set_relacionados"
+                divSetsProductosdata: "#set_relacionados",
+                urlDataCarrusel: '@Url.Action("GetCarruselShowRoomExcepto", "ShowRoom", new { Area = "" })'
             });
             carruselModule.Inicializar();
-
-            EstrategiaAgregarModule = EstrategiaAgregarModule({
-                campania: "@Model.Campania",
-                esFicha: true
-            });
         });
 
-    </script>
+</script>
     @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
 
 }

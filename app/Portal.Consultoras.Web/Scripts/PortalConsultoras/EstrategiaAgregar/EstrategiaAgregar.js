@@ -385,7 +385,7 @@ var EstrategiaAgregarModule = (function () {
             ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.hv, params.CuvTonos || params.CUV, true);
             ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.lan, params.CuvTonos || params.CUV, true);
 
-            ProcesarActualizacionMostrarContenedorCupon();
+            //ProcesarActualizacionMostrarContenedorCupon();
 
             if (belcorp.estrategia.applyChanges)
                 belcorp.estrategia.applyChanges("onProductoAgregado", data);

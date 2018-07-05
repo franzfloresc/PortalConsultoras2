@@ -724,6 +724,7 @@
     </Compile>
     <Compile Include="Providers\CdrProvider.cs" />
     <Compile Include="Providers\ConfiguracionManagerProvider.cs" />
+    <Compile Include="Providers\ConfiguracionOfertasHomeProvider.cs" />
     <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
     <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
@@ -2974,6 +2975,7 @@
     <Content Include="Content\Images\mobile\Esika\catalogo_ws2.png" />
     <Content Include="Content\Images\mobile\Esika\cerrar_04.png" />
     <Content Include="Content\Images\mobile\Esika\cyzone_revista.png" />
+    <Content Include="Content\Images\mobile\Esika\down-arrow.svg" />
     <Content Include="Content\Images\mobile\Esika\esika_blog.png" />
     <Content Include="Content\Images\mobile\Esika\esika_revista.png" />
     <Content Include="Content\Images\mobile\Esika\facebook.png" />
@@ -3009,6 +3011,7 @@
     <Content Include="Content\Images\mobile\Esika\previous_ofertas_home.png" />
     <Content Include="Content\Images\mobile\Esika\previous_ofertas_home_white.png" />
     <Content Include="Content\Images\mobile\Esika\revista_c09.png" />
+    <Content Include="Content\Images\mobile\Esika\right-arrow.svg" />
     <Content Include="Content\Images\mobile\Esika\tarjeta.png" />
     <Content Include="Content\Images\mobile\Esika\triangulo.png" />
     <Content Include="Content\Images\mobile\Esika\user.jpg" />

@@ -9,7 +9,7 @@ using System.ServiceModel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class BaseShowRoomController : BaseEstrategiaController
+    public class BaseShowRoomController: BaseController // BaseEstrategiaController
     {
         protected string CodigoProceso
         {
@@ -280,6 +280,7 @@ namespace Portal.Consultoras.Web.Controllers
         public List<EstrategiaPersonalizadaProductoModel> GetOfertaListadoExcepto(int idOferta)
         {
             var listaOferta = new List<EstrategiaPersonalizadaProductoModel>();
+
             if (idOferta <= 0) return listaOferta;
 
             var listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);

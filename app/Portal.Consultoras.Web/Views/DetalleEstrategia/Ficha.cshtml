@@ -90,20 +90,16 @@
                         <div class="ganancia">GANA <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span></div>
                     </div>
                 </div>
-
-
+                <div id="SloganLanzamiento">
+                    <span class="nombre_detalle_producto_tono">{{this.TipoEstrategiaDetalle.Slogan}}</span>
+                    <ul class="descripcion_detalle_producto_tono">
+                        {{#each this.ListaDescripcionDetalle}}
+                        <li><span class="vineta">-</span><span class="txt-des">{{this}}</span></li>
+                        {{/each}}
+                    </ul>
+                </div>
                 {{#iff CodigoVariante '==' '2001'}}
                 <div id="DescripcionAdicional">
-                    {{#ifVerificarSlogan this.CodigoEstrategia this.TipoEstrategiaDetalle.Slogan}}
-                    <div class="nombre_detalle_producto_tono">{{this.TipoEstrategiaDetalle.Slogan}}</div>
-                    <div class="descripcion_detalle_producto_tono">
-                        <ul>
-                            {{#each this.ListaDescripcionDetalle}}
-                            <li><span class="vineta">-</span><span class="txt-des">{{this}}</span></li>
-                            {{/each}}
-                        </ul>
-                    </div>
-                    {{/ifVerificarSlogan}}
                 </div>
                 {{#each this.Hermanos as |componente|}}
                 <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
@@ -129,7 +125,7 @@
                     <div class="content_tonos_maquillaje" data-tono-div="">
                         {{#each componente.Hermanos as |variedad|}}
                         <div style="display: none;">
-                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.MarcaID}}" />
+                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
                         </div>
                         <div id="fav_tono_{{variedad.Cuv}}" class="content_tono_detalle {{#iff variedad.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}"
@@ -367,10 +363,10 @@
 
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",
-                origen: "@Model.Origen",
-                tieneSession: "@Model.TieneSession",
                 campania: "@Model.Campania",
                 cuv: "@Model.Cuv",
+                origen: "@Model.Origen",
+                tieneSession: "@Model.TieneSession",
                 urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia")'
             });
             fichaModule.Inicializar();
@@ -381,7 +377,8 @@
                 cuv: "@Model.Cuv",
                 idPlantilla: "#producto-landing-template",
                 divCarrusel: "#carrusel",
-                divSetsProductosdata: "#CarruselProducto"
+                divSetsProductosdata: "#CarruselProducto",
+                urlDataCarrusel: '@Url.Action("GetCarruselShowRoomExcepto", "ShowRoom")'
             });
             carruselModule.Inicializar();
         });
