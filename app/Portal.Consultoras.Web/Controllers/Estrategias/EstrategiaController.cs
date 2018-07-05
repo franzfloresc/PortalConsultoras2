@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
-    public class EstrategiaController : BaseEstrategiaController
+    public class EstrategiaController : BaseController // BaseEstrategiaController
     {
         public EstrategiaController()
         {
