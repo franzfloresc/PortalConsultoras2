@@ -17,6 +17,7 @@
 
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _codigoPalanca = ConstantesModule.CodigosPalanca;
+    var _constantePalanca = ConstantesModule.ConstantesPalanca;
     
     var _elementos = {
         idDataEstrategia: "#data-estrategia",
@@ -195,6 +196,7 @@
             }
         }
     };
+
     var _validarDesactivadoGeneral = function (estrategia) {
         $.each(estrategia.Hermanos, function (index, hermano) {
             if (hermano.Hermanos) {
@@ -225,12 +227,10 @@
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
         _validarDesactivadoGeneral(estrategia);
-        if (estrategia.CodigoEstrategia) {
+        if (estrategia.CodigoEstrategia == _constantePalanca.OfertaDelDia) {
             _crearReloj();
         }
-       
 
-        console.log(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
        
         if (!isMobile()) {
@@ -282,8 +282,8 @@
             $(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             $(_seccionesFichaProducto.CarruselProducto).hide();
-        } else if ( _codigoPalanca.ConstantesPalanca.Lanzamiento == CodigoEstrategia
-            || _codigoPalanca.ConstantesPalanca.ShowRoom == CodigoEstrategia) {
+        } else if (_codigoPalanca.Lanzamiento == _config.palanca
+            || _codigoPalanca.ShowRoom == _config.palanca) {
 
             $(_seccionesFichaProducto.EtiquetaLanzamientos).show();
             $(_seccionesFichaProducto.ImagenDeFondo).show();
@@ -291,7 +291,7 @@
             $(_seccionesFichaProducto.ContenidoProducto).show();
             $(_seccionesFichaProducto.CarruselProducto).show();
         }
-        else if (_codigoPalanca.OfertaDelDia == CodigoEstrategia) {
+        else if (_codigoPalanca.OfertaDelDia == _config.palanca) {
             $(_seccionesFichaProducto.EtiquetaOdd).show();
         }
     }
@@ -303,8 +303,8 @@
         $(_tabsFichaProducto.beneficios).hide();
         $(_tabsFichaProducto.video).hide();
 
-        if (_codigoPalanca.ShowRoom === _config.palanca
-            || ConstantesModule.ConstantesPalanca.Lanzamiento === _config.palanca) {
+        if (_codigoPalanca.Lanzamiento === _config.palanca
+            || _codigoPalanca.ShowRoom === _config.palanca) {
             $(_tabsFichaProducto.tipsVenta).show();
         }
 

@@ -365,10 +365,10 @@
         $(document).ready(function() {
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",
-                origen: "@Model.Origen",
-                tieneSession: "@Model.TieneSession",
                 campania: "@Model.Campania",
                 cuv: "@Model.Cuv",
+                origen: "@Model.Origen",
+                tieneSession: "@Model.TieneSession",
                 urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia")'
             });
             fichaModule.Inicializar();
