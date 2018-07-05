@@ -167,7 +167,9 @@
     <script type="text/javascript" id="js-ready-Catalogo">
 
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
-        var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
+        var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' +
+            '{img}' +
+            '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo';
         imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
         var codigoIso = '@ViewBag.CodigoISO';
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
@@ -182,6 +184,7 @@
         var urlBuscadorIssu = '@Constantes.CatalogoUrlIssu.Buscador';
         var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
         var _Pagina = 1;
+        var tipoOrigenEstrategia = 1;
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/MisCatalogosRevistas")
 }

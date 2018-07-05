@@ -206,7 +206,7 @@
                             </a>
                         </div>
                     </div>
-                    <a id="btnAgregalo" class="btn_agregalo {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
+                    <a id="btnAgregalo" class="btn_agregalo {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true, 0, true); ">AGRÉGALO</a>
                     <div id="ContenedorAgregado" class="contenedor_agregado" style="display:none;">
                         <div class="txt_agregado" data-txt_agregado="">
                             <span class="span_agregado">AGREGADO</span>
@@ -350,6 +350,7 @@
     </div>
 </div>
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
@@ -358,7 +359,8 @@
 
     <script>
         var fichaModule;
-        $(document).ready(function() {
+        $(document).ready(function () {
+
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",
                 campania: "@Model.Campania",
@@ -375,7 +377,8 @@
                 cuv: "@Model.Cuv",
                 idPlantilla: "#producto-landing-template",
                 divCarrusel: "#carrusel",
-                divSetsProductosdata: "#CarruselProducto"
+                divSetsProductosdata: "#CarruselProducto",
+                urlDataCarrusel: '@Url.Action("GetCarruselShowRoomExcepto", "ShowRoom")'
             });
             carruselModule.Inicializar();
         });

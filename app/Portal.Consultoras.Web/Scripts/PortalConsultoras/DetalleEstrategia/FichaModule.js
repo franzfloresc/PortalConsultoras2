@@ -139,7 +139,7 @@
 
          }
         }
-
+        //Comentar esta cuando se cambie en mobile video
         if (!window.videoKey) {
             $("#tabVideo").hide();
         }
@@ -201,6 +201,10 @@
                 if (estrategia.Hermanos[0].Hermanos.length > 0) {
                     estrategia.CodigoVariante = _codigoVariedad.IndividualVariable;
                 }
+            }
+        } else if (estrategia.Hermanos.length > 1) {
+            if (estrategia.codigoVariante == _codigoVariedad.IndividualVariable) {
+                estrategia.codigoVariante = _codigoVariedad.ComuestaFija;
             }
         }
     };
@@ -281,7 +285,11 @@
             _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
 
             $(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
-            $(_seccionesFichaProducto.ImagenDeFondo).hide();
+            if (!isMobile()) {
+                $(_seccionesFichaProducto.ImagenDeFondo).hide();
+            } else {
+                $(_seccionesFichaProducto.ImagenDeFondo).css("background-color","#ffffff");
+            }
             $(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             $(_seccionesFichaProducto.CarruselProducto).hide();
