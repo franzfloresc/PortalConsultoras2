@@ -972,6 +972,7 @@
 .enlace_ir_a_notificaciones{
     font-weight:bold;
     text-decoration:underline;
+    padding-bottom: 3px;
 }
 
 .info_num_operacion_pago{
