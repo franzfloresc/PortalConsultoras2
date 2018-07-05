@@ -44,7 +44,7 @@
         CarruselProducto: "#CarruselProducto",
         EtiquetaOdd: "#EtiquetaOdd",
         SloganLanzamiento: "#SloganLanzamiento"
-    }
+    };
 
     var _tabsFichaProducto = {
         detalleProducto: "#div_ficha_tab1",
