@@ -166,7 +166,6 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
         {
-
             try
             {
                 var estrategias = new List<BEEstrategia>();
@@ -205,6 +204,9 @@ namespace Portal.Consultoras.BizLogic
                         break;
                     case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
 
+                        // eliminar data de cache manager
+                        // se puede enviar un parametro para no validar si existe data en cache
+                        // crear un metodo en la BL que limpie cache x key (este metodo puede ser reutilizado por otro lado)
                         estrategias = (List<BEEstrategia>)CacheManager<BEEstrategia>.GetData(entidad.PaisID, ECacheItem.GNDEstrategia, entidad.CampaniaID.ToString());
                         if (estrategias == null || !estrategias.Any())
                         {
@@ -534,6 +536,29 @@ namespace Portal.Consultoras.BizLogic
             {
                 throw;
             }
+        }
+        
+        public bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia,string campaniaID)
+        {
+            try
+            {
+                switch (codigoTipoEstrategia)
+                {
+                    case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                        CacheManager<BEEstrategia>.RemoveData(paisID, ECacheItem.GNDEstrategia, campaniaID);
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                        CacheManager<BEEstrategia>.RemoveData(paisID, ECacheItem.HVEstrategia, campaniaID);
+                        break;
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+
         }
 
         public BEEstrategia GetEstrategiaProgramaNuevas(BEEstrategia entidad)

@@ -6,11 +6,13 @@
 }
 
 @section styles{
-<link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
-<link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
+    <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/ion.rangeSlider/normalize.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/ion.rangeSlider/ion.rangeSlider.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/ion.rangeSlider/ion.rangeSlider.skinHTML5.css")" rel="stylesheet" />
     <style>
-        body{
-            background:white;
+        body {
+            background: white;
         }
 
         .disabledbutton {
@@ -18,13 +20,13 @@
             opacity: 0.4;
         }
     </style>
-    
+
 }
 
-<div class="fondo_f9f9f9"  style="background:white;overflow: visible; height:116px;">
+<div class="fondo_f9f9f9" style="background:white;overflow: visible; height:116px;">
     <div class="content_belcorp content_belcorp_misPedidos">
         <div class="content_img_fav">
-            <img src="@ViewBag.UrlImagenFAVLanding" alt="favoritos"/>
+            <img src="@ViewBag.UrlImagenFAVLanding" alt="favoritos" />
         </div>
         <div class="texto_banner_seccion_fav">
             @ViewBag.NombreConsultoraFAV, estos son los
@@ -32,19 +34,19 @@
             <span class="clientes_fav_texto">DE TUS CLIENTES</span>
         </div>
         <div class="texto_complementario_fav">
-            Porque conocemos a tus clientes, seleccionamos 
+            Porque conocemos a tus clientes, seleccionamos
             los productos que podrás venderles fácilmente.
         </div>
         <div data-maq onclick="AbrirMaqueta(2)" style="display: none;"><span>Niveles</span></div>
         <div data-maq onclick="AbrirMaqueta(3)" style="display: none;"><span>Pack</span></div>
     </div>
     <hr class="clear" />
-   
+
 </div>
 <div id="cuerpo" class="catalogoPersonalizadoBloque" style="min-height:150px;">
     <div data-div="d">
         <div class="content_belcorp content_belcorp_misPedidos" id="contenidoGrilla">
-           
+
             <div class="clear"></div>
             <div class="content_filtros_left">
                 <span class="titulo_filtro_fav">FILTROS</span>
@@ -52,12 +54,12 @@
                 <div class="texto_fav_filtro" style="cursor:pointer;display:none;"> BORRAR FILTROS</div>
                 <div id="limiteFlt" class="linea_separadora"></div>
                 <span class="titulo_filtro_fav">CATEGORÍAS</span>
-                <hr class="clear" />              
+                <hr class="clear" />
                 <div id="div-filter-category">
 
                     @if (Model.FiltersByCategory != null)
                     {
-                        foreach(var item in Model.FiltersByCategory)
+                        foreach (var item in Model.FiltersByCategory)
                         {
                             <div data-value="@item.Codigo" class="seleccion_filtro_fav">@item.Descripcion</div>
                         }
@@ -78,7 +80,7 @@
 
                     @if (Model.FiltersByBrand != null)
                     {
-                        foreach(var item in Model.FiltersByBrand)
+                        foreach (var item in Model.FiltersByBrand)
                         {
                             <div data-value="@item.Codigo" class="seleccion_filtro_fav">@item.Descripcion</div>
                         }
@@ -89,16 +91,16 @@
                         <div class="seleccion_filtro_fav">L'BEL</div>
                         <div class="seleccion_filtro_fav">CYZONE</div>
                     }
-                                        
+
                 </div>
                 <div class="linea_separadora"></div>
                 <span class="titulo_filtro_fav">RANGO DE PRECIO</span>
                 <div class="content_filtro_range">
-                    <input class="range-slider" value="" style="width:100%; display:none;"/>
+                    <input class="range-slider" type="text" value="" style="display:none;" />
                 </div>
-                
+
                 <hr class="clear" />
-              
+
                 <div class="linea_separadora"></div>
                 <span class="titulo_filtro_fav">TIPO DE PUBLICACIÓN</span>
                 <hr class="clear" />
@@ -119,17 +121,18 @@
                 </div>
                 <hr class="clear" />
             </div>
-             <div class="content-left-item">
-                 <div id="divCantProductos" class="cantidad_productos_fav"></div>
-                 <div class="filtros_derecha">ORDENAR POR 
+            <div class="content-left-item">
+                <div id="divCantProductos" class="cantidad_productos_fav"></div>
+                <div class="filtros_derecha">
+                    ORDENAR POR
 
                     @if (Model.FiltersBySorting != null)
                     {
                         <select id="filter-sorting" class="select_filtros_fav" onchange="filterFAVDesktop()">
-                        @foreach (var item in Model.FiltersBySorting)
-                        {
-                            <option value="@item.Codigo">@item.Descripcion</option>
-                        }
+                            @foreach (var item in Model.FiltersBySorting)
+                            {
+                                <option value="@item.Codigo">@item.Descripcion</option>
+                            }
                         </select>
                     }
                     else
@@ -141,11 +144,11 @@
                         </select>
                     }
 
-                 </div>
-                 <hr class="clear" />
-                 <div id="divCatalogoPersonalizado"></div>
+                </div>
+                <hr class="clear" />
+                <div id="divCatalogoPersonalizado"></div>
             </div>
-           
+
             <div class="clear"></div>
         </div>
     </div>
@@ -161,12 +164,12 @@
             <div class="linea_encabezado_popupCatalogoPersonalizado"></div>
         </div>
         <div class="content_carrusel_pack">
-            <a class="flechas_carrusel" style="left:-10%;"><img src="@Url.Content("/Content/Images/Esika/previous_ofertas_home.png")" /></a> 
-            <a class="flechas_carrusel" style="right:-10%;"><img src="@Url.Content("/Content/Images/Esika/next.png")" /></a>            
+            <a class="flechas_carrusel" style="left:-10%;"><img src="@Url.Content("/Content/Images/Esika/previous_ofertas_home.png")" /></a>
+            <a class="flechas_carrusel" style="right:-10%;"><img src="@Url.Content("/Content/Images/Esika/next.png")" /></a>
             <div class="item_pack_personalizado ">
                 <div class="content_item_pack">
                     <div class="fondo_negro_pack">COMPRA 1X</div>
-                    <br/>
+                    <br />
                     <div class="img_principal_pack" style="margin-top:16px;">
                         <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201616/C/productos/PE_200069929.jpg" alt="">
                     </div>
@@ -344,7 +347,7 @@
                         <div class="pack_inter width_100">
                             <div class="titulo_pack" style="height:auto">Precio para ti S/ 10.00</div>
                             <div class="texto_ganancia_pack">GANA: S/ 10.00</div>
-                            
+
                             <div class="content_sub_items">
                                 <div class="sub_imagen_oferta"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201616/C/productos/PE_200069929.jpg" alt=""></div>
                                 <div class="sub_descripcion_oferta"><p><span>x2</span>&nbsp;Desodorante roll-on. Girlink</p></div>
@@ -381,8 +384,8 @@
                         <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
                     </div>
                 </div>
-            </div> 
-        </div>        
+            </div>
+        </div>
 
         <div class="row_40">
             <div class="sombra_oferta">
@@ -422,7 +425,7 @@
                 <input type="hidden" class="hdItemDescripcionMarca" value="{{DescripcionMarca}}" />
                 <input type="hidden" class="hdItemDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                 <input type="hidden" class="hdItemTipoOfertaRevista" value="{{TipoOfertaRevista}}" />
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.CatalogoPersonalizadoDesktop"/>
+                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.CatalogoPersonalizadoDesktop" />
                 <input type="hidden" class="hdItemEsMaquillaje" value="{{EsMaquillaje}}" />
             </div>
             <div class="producto_img_home mini" data-img="">
@@ -437,9 +440,9 @@
             {{/if}}
             <div class="producto_nombre_descripcion">
                 {{#IsNullOrEmpty DescripcionMarca '!='}}
-                    <h6>{{DescripcionMarca}}</h6>
+                <h6>{{DescripcionMarca}}</h6>
                 {{else}}
-                    <h6>&ensp;&nbsp;</h6>
+                <h6>&ensp;&nbsp;</h6>
                 {{/IsNullOrEmpty}}
                 <p class="nombre_producto">
                     <b>{{Descripcion}}</b>
@@ -449,9 +452,9 @@
                     <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioCatalogoString}}</b></span>
                 </div>
                 {{#if TieneOfertaEnRevista}}
-                    <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="width:auto; left:50%; margin-left:-52.5px;">
-                        <a title="AQUÍ" class="pop-ofertarevista">¡MIRA LA OFERTA!</a>
-                    </div>
+                <div class="seguir_pedido enlace_popupCatalogoPersonalizado" style="width:auto; left:50%; margin-left:-52.5px;">
+                    <a title="AQUÍ" class="pop-ofertarevista">¡MIRA LA OFERTA!</a>
+                </div>
                 {{/if}}
                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                     <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
@@ -646,13 +649,13 @@
                                 <div class="sub_imagen_oferta">
                                     {{#IsNullOrEmpty item.imagen_gratis '!='}}
                                     <img src="{{item.imagen_gratis}}" alt="" />
-                                    {{/IsNullOrEmpty}}     
+                                    {{/IsNullOrEmpty}}
 
                                     {{#IsNullOrEmpty item.imagen_gratis '=='}}
                                     <div style="margin: 0 auto; text-align: center;">
                                         <img src="@Url.Content(ViewBag.RutaImagenNoDisponible) " alt="" style="width: 55px; height: 55px; border: 0;" />
                                     </div>
-                                    {{/IsNullOrEmpty}}                         
+                                    {{/IsNullOrEmpty}}
                                 </div>
                                 <div class="sub_descripcion_oferta">
                                     <p><span>x{{item.cantidad}}</span>&nbsp;{{item.descripcion_gratis}}</p>
@@ -660,13 +663,13 @@
                                 </div>
                                 <hr class="clear">
                                 {{/if_eq}}
-                                {{/each}}            
+                                {{/each}}
                             </div>
                         </div>
                     </div>
                 </div>
                 {{/each}}
-            </div>            
+            </div>
         </div>
         <div class="texto_mencion">Elige la cantidad y el sistema te ofrecerá la mejor combinación</div>
         <div style="width:215px; margin:0 auto; margin-top:10px;">
@@ -778,13 +781,13 @@
                                 <div class="sub_imagen_oferta">
                                     {{#IsNullOrEmpty item.imagen_item_pack '!='}}
                                     <img src="{{item.imagen_item_pack}}" alt="" />
-                                    {{/IsNullOrEmpty}}    
-                                    
+                                    {{/IsNullOrEmpty}}
+
                                     {{#IsNullOrEmpty item.imagen_item_pack '=='}}
                                     <div style="margin: 0 auto; text-align: center;">
                                         <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
                                     </div>
-                                    {{/IsNullOrEmpty}}                                  
+                                    {{/IsNullOrEmpty}}
                                 </div>
                                 <div class="sub_descripcion_oferta">
                                     <p><span>x{{item.cantidad_item_pack}}</span>&nbsp;{{item.descripcion_item_pack}}</p>
@@ -806,7 +809,7 @@
                         </div>
                         <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}">AGRÉGALO</a>
                     </div>
-                </div>                
+                </div>
                 {{/each}}
             </div>
         </div>
@@ -872,7 +875,7 @@
             </div>
             <div class="compartir_redes_ficha" style="margin-left: -20px; padding-left: 0px;">
                 <div class="texto_compartelo">Compártelo con tus clientes</div>
-                <a class="btn_compartir_facebook_ficha"  href="javascript: void(0);" data-compartir="FB">
+                <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
                     <img src="@Url.Content("~/Content/Images/Esika/facebook.png")" />
                 </a>
                 <hr class="clear" />
@@ -918,13 +921,13 @@
     </div>
 </script>
 
-@section scripts{    
+@section scripts{
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var urlObtenerProductosCatalogoPersonalizado = '@Url.Action("ObtenerProductosCatalogoPersonalizado", "CatalogoPersonalizado", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var urlPedidoValidado = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
-        var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })'; 
+        var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })';
         var cantidadRegistros = 12;
         var offsetRegistros = 0;
         var cargandoRegistros = false;
@@ -934,7 +937,7 @@
         var precioMin = '@ViewBag.PrecioMin';
         var precioMax = '@ViewBag.PrecioMax';
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/ion.rangeSlider/ion.rangeSlider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
 }

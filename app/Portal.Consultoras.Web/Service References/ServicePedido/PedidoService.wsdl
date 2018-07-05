@@ -458,6 +458,12 @@
   <wsdl:message name="IPedidoService_DescargaPedidosCliente_OutputMessage">
     <wsdl:part name="parameters" element="tns:DescargaPedidosClienteResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_LimpiarCacheRedis_InputMessage">
+    <wsdl:part name="parameters" element="tns:LimpiarCacheRedis" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_LimpiarCacheRedis_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LimpiarCacheRedisResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetEstrategiaPremiosTippingPoint_InputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategiaPremiosTippingPoint" />
   </wsdl:message>
@@ -2793,6 +2799,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DescargaPedidosCliente" message="tns:IPedidoService_DescargaPedidosCliente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DescargaPedidosClienteResponse" message="tns:IPedidoService_DescargaPedidosCliente_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="LimpiarCacheRedis">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/LimpiarCacheRedis" message="tns:IPedidoService_LimpiarCacheRedis_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/LimpiarCacheRedisResponse" message="tns:IPedidoService_LimpiarCacheRedis_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetEstrategiaPremiosTippingPoint">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaPremiosTippingPoint" message="tns:IPedidoService_GetEstrategiaPremiosTippingPoint_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaPremiosTippingPointResponse" message="tns:IPedidoService_GetEstrategiaPremiosTippingPoint_OutputMessage" />
@@ -4782,6 +4792,15 @@
     </wsdl:operation>
     <wsdl:operation name="DescargaPedidosCliente">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/DescargaPedidosCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LimpiarCacheRedis">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/LimpiarCacheRedis" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8494,6 +8513,15 @@
     </wsdl:operation>
     <wsdl:operation name="DescargaPedidosCliente">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/DescargaPedidosCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LimpiarCacheRedis">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/LimpiarCacheRedis" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

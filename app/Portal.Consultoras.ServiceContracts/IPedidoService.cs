@@ -1243,6 +1243,8 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario);
         [OperationContract]
         List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario);
+        [OperationContract]
+        BEUsuario GetConfiguracionOfertaFinal(BEUsuario usuario);
         #endregion
 
         #region Pago en Linea
@@ -1299,7 +1301,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario);
-
+        
+        [OperationContract]
+        bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID);
+        
         [OperationContract]
         BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
         
