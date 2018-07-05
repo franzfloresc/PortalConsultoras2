@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using System;
 using System.Web.Mvc;
 
@@ -7,6 +8,13 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class OfertasController : BaseController
     {
+        protected ConfiguracionOfertasHomeProvider _confiOfertasHomeProvider;
+
+        public OfertasController()
+        {
+            _confiOfertasHomeProvider = new ConfiguracionOfertasHomeProvider();
+        }
+
         public ActionResult Index()
         {
             if (EsDispositivoMovil())
@@ -18,7 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
+                    ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile()),
                     MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile())
                 };
 
@@ -43,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
+                    ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile()),
                     MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile()),
                     MensajeProductoBloqueado2 = HVMensajeProductoBloqueado()
 
