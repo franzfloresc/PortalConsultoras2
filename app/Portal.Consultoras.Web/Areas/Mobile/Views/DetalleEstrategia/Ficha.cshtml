@@ -43,8 +43,7 @@
         </div>
         <div class="row marca_producto">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                {{#if EsMultimarca}}
-                <h2></h2>
+                <h2> {{#if EsMultimarca}}</h2>
                 {{else}}
                 <h2>{{DescripcionMarca}}</h2>
                 {{/if}}
@@ -61,14 +60,15 @@
                 <p>Valorizado en <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-7 col-sm-7 col-xs-7 precio_producto">
-                <p>Precio para ti  <b>{{SimboloMoneda}} {{PrecioVenta}}</b></p>
-            </div>
-            <div class="col-md-5 col-sm-5 col-xs-5 gana_precio_producto">
-                <p>GANA {{SimboloMoneda}} {{GananciaString}}</p>
-            </div>
-        </div>
+
+        <ul class="list_style_none precio">
+            <li class="precio_producto">
+                <p>Precio para ti <b style="font-size: 14px;">{{SimboloMoneda}} {{PrecioVenta}}</b></p>
+            </li>
+            <li class="gana_precio_producto">
+                <p class="ganancia">GANA {{SimboloMoneda}} {{GananciaString}}</p>
+            </li>
+        </ul>
     </div>
     <div class="container">
         <div id="SloganLanzamiento">
@@ -109,7 +109,7 @@
                     <div data-tono-div="">
                         {{#each this.Hermanos as |variedad|}}
                         <div style="display: none;">
-                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.MarcaID}}" />
+                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
                         </div>
                         <div class="content_tono_detalle"
@@ -126,15 +126,15 @@
                 {{/iff}}
                 {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}
                 <div class="contenido_titulo">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <span>CONTENIDO</span>
+                    <div class="">
+                        <span>CONTENIDO:</span>
                     </div>
                 </div>
                 <div class="content_producto_compuesto">
                     {{#each this.Hermanos as |componente|}}
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         {{#ifVerificarMarcaLast componente.DescripcionMarca}}
-                        <div style="border-bottom: 1px solid #ccc; margin-top:15px;"></div>
+                        <div style="border-bottom: 1px solid #ccc; margin:14px 0px;"></div>
                         {{/ifVerificarMarcaLast}}
 
 
@@ -227,15 +227,15 @@
                     </li>*@
                 <li id="tabVideo">
                     <a>VIDEO</a>
-                    <div class="video-visual">
-                        <div class="video-container">
-                            <div id="ytFicha"
-                                 data-youtube="{ height:'220', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}"
-                                 class="yt-video"></div>
+                    <ul>
+                        <div class="video-visual">
+                            <div class="video-container">
+                                <div id="ytFicha"
+                                     data-youtube="{ height:'220', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}"
+                                     class="yt-video"></div>
+                            </div>
                         </div>
-                    </div>
-
-
+                    </ul>
                 </li>
             </ul>
         </div>
@@ -264,7 +264,7 @@
         <hr>
     </div>
 
-    <div class="col-md-12 col-sm-12 col-xs-12 ficha_redes">
+    <div class="col-md-12 col-sm-12 col-xs-12 share">
         <p>Comparte el producto con tus clientes</p>
         <a href="javascript: void(0);" class="text-right"><img src="~/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp" data-compartir="WA"></a>
         <a href="javascript: void(0);"><img src="~/Content/Images/showroom/redes_facebook.png" alt="" class="fb" data-compartir="FB"></a>
