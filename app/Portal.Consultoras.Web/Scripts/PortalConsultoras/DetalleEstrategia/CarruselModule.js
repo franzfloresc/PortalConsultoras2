@@ -5,13 +5,14 @@
         palanca: config.palanca || "",
         campania: config.campania || "",
         cuv: config.cuv || "",
-        urlDataCarrusel: config.curlDataCarrusel || ""
+        urlDataCarrusel: config.urlDataCarrusel || ""
     };
      
     var _elementos = {
         idPlantillaProductoLanding: config.idPlantilla,
         divCarruselSetsProductosRelacionados: config.divCarrusel,
-        divSetsProductosRelacionados: config.divCarrusel
+        divSetsProductosRelacionados: config.divCarrusel,
+        idTituloCarrusel: config.idTituloCarrusel
     };
 
     var _promiseObternerDataCarrusel = function (params) {
@@ -25,6 +26,7 @@
             async: false,
             cache: false,
             success: function (data) {
+                
                 dfd.resolve(data);
             },
             error: function (data, error) {
@@ -34,6 +36,7 @@
 
         return dfd.promise();
     };
+
     var _cargarDatos_Lanzamiento = function () {
 
         var setRelacionados = [];
@@ -71,9 +74,7 @@
         }
 
        return setRelacionados;
-    }
-
- 
+    } 
  
     var _mostrarSlicks = function () {
 
@@ -124,43 +125,62 @@
         $(_elementos.divSetsProductosRelacionados).fadeOut();
     }
 
+    var _mostrarTitulo = function () {
+        
+        var titulo = '';
+
+        if (_config.palanca == 'Lanzamiento')
+        {
+            titulo='SET DONDE ENCUENTRAS EL PRODUCTO';
+        }
+        else if (_config.palanca == 'ShowRoom')
+        {
+            titulo = 'VER MÁS SETS EXCLUSIVOS PARA TI';
+        } else if (_config.palanca == 'OfertaDelDia')
+        {
+            titulo = 'VER MÁS OFERTAS ¡SOLO HOY!';
+        }
+
+        $(_elementos.idTituloCarrusel).html(titulo);
+    }
+
     var _mostrarCarrusel = function () {
         
         var data = {
             lista: []
         };
+     
 
         if (_config.palanca == 'Lanzamiento') {
-
             data.lista = _cargarDatos_Lanzamiento();
             SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
         }
-        else if (_config.palanca == 'ShowRoom') {
+        else if ((_config.palanca == 'ShowRoom') || (_config.palanca == 'OfertaDelDia')) {
+
+            var param = { CUVExcluido: _config.cuv, palanca: _config.palanca }
 
             _promiseObternerDataCarrusel(param).done(function (response) {
+                
                 if (response)
                 {
                     if (response.success)
                     {
-                        data.lista = response;
-                        SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
+                        data.lista = response.data;
+                        SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);                         
                     }
                 }
             });
             
         }
-        else if (_config.palanca == 'OfertaDelDia') {
-            data.lista = [];
-        }
-       
-      
     };     
 
     function Inicializar() {
         
         _ocultarElementos();
         _mostrarCarrusel();
+        _mostrarTitulo();
         _mostrarSlicks();
+       
     }
 
     return {

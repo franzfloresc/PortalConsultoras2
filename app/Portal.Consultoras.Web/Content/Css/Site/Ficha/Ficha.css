@@ -45,7 +45,7 @@ body {
     float: left;
     padding-top: 82px;
     text-align: center;
-    width: 48%;
+    width: 45%;
 }
 
 .contenedor_imagen {
@@ -107,7 +107,7 @@ body {
     background-color: #fff;
     float: right;
     padding: 32px;
-    width: 52%;
+    width: 55%;
 }
 
 .contenedor_ficha_etiquetas {
@@ -253,7 +253,6 @@ body {
 
 .contenedor_lista_tonos {
     float: left;
-    min-height: 126px;
     width: 100%;
 }
 
@@ -456,7 +455,6 @@ body {
 
 .contenedor_agregar {
     float: left;
-    padding-top: 40px;
     width: 100%;
 }
 
@@ -1377,4 +1375,12 @@ body {
 
 .descripcion_detalle_producto_tono {
     margin-bottom: 30px;
+}
+
+#DescripcionAdicional {
+    padding-bottom: 40px;
+}
+
+.content_tonos{
+    margin-bottom: 45px;
 }

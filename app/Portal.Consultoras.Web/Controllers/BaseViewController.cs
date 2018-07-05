@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class BaseViewController : BaseEstrategiaController
+    public class BaseViewController : BaseController //BaseEstrategiaController
     {
         private readonly IssuuProvider _issuuProvider;
 
@@ -247,12 +247,15 @@ namespace Portal.Consultoras.Web.Controllers
                     modelo = new DetalleEstrategiaFichaModel();
                 }
 
+                modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
+
                 modelo.Origen = origen;
                 modelo.Palanca = palanca;
                 modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
                 modelo.Campania = campaniaId;
                 modelo.Cuv = cuv;
-
+                if (modelo.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
+                    modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
 
                 ViewBag.PaisAnalytics = userData.CodigoISO;
                 ViewBag.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();

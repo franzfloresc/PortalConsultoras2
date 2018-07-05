@@ -53,6 +53,13 @@
         beneficios: "#div_ficha_tab4",
         video: "#div_ficha_tab5",
     };
+    var _seccionesFichaTabProducto = {
+        ContenidoProductoDetalleProducto: "#contenido_1",
+        ContenidoProductoDetallePack: "#contenido_2",
+        ContenidoProductoTipsVenta: "#contenido_3",
+        ContenidoProductoBeneficios: "#contenido_4",
+        ContenidoProductoVideo: "#contenido_5"
+    }
 
     var _getParamValueFromQueryString = function (queryStringName) {
         queryStringName = queryStringName || "";
@@ -96,13 +103,13 @@
         }
     };
     
-    var _crearReloj = function() {
+    var _crearReloj = function (estrategia) {
         $("#clock").each(function (index, elem) {
-            $(elem).FlipClock(50000,
+            $(elem).FlipClock(estrategia.TeQuedan,
                 {
                     countdown: true,
                     clockFace: "HourlyCounter",
-                    language: "es-es",
+                    language: "es-es"
                 });
         });
     };
@@ -132,7 +139,7 @@
 
          }
         }
-
+        //Comentar esta cuando se cambie en mobile video
         if (!window.videoKey) {
             $("#tabVideo").hide();
         }
@@ -195,6 +202,10 @@
                     estrategia.CodigoVariante = _codigoVariedad.IndividualVariable;
                 }
             }
+        } else if (estrategia.Hermanos.length > 1) {
+            if (estrategia.codigoVariante == _codigoVariedad.IndividualVariable) {
+                estrategia.codigoVariante = _codigoVariedad.ComuestaFija;
+            }
         }
     };
 
@@ -228,11 +239,10 @@
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
         _validarDesactivadoGeneral(estrategia);
-        if (estrategia.CodigoEstrategia == _constantePalanca.OfertaDelDia) {
-            _crearReloj();
-        }
-
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
+        if (estrategia.CodigoEstrategia === _constantePalanca.OfertaDelDia) {
+            _crearReloj(estrategia);
+        }
        
         if (!isMobile()) {
             _validarSiEsAgregado(estrategia);
@@ -274,7 +284,11 @@
             _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
 
             $(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
-            $(_seccionesFichaProducto.ImagenDeFondo).hide();
+            if (!isMobile()) {
+                $(_seccionesFichaProducto.ImagenDeFondo).hide();
+            } else {
+                $(_seccionesFichaProducto.ImagenDeFondo).css("background-color","#ffffff");
+            }
             $(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             $(_seccionesFichaProducto.CarruselProducto).hide();
@@ -304,6 +318,12 @@
         $(_tabsFichaProducto.tipsVenta).hide();
         $(_tabsFichaProducto.beneficios).hide();
         $(_tabsFichaProducto.video).hide();
+        $(_seccionesFichaTabProducto.ContenidoProductoDetalleProducto).hide();
+        $(_seccionesFichaTabProducto.ContenidoProductoDetallePack).hide();
+        $(_seccionesFichaTabProducto.ContenidoProductoTipsVenta).hide();
+        $(_seccionesFichaTabProducto.ContenidoProductoBeneficios).hide();
+        $(_seccionesFichaTabProducto.ContenidoProductoVideo).hide();
+
 
         if (_codigoPalanca.ShowRoom === _config.palanca || 
             ConstantesModule.ConstantesPalanca.Lanzamiento === _config.palanca) {
@@ -312,6 +332,7 @@
 
         if (_codigoPalanca.Lanzamiento === _config.palanca) {
             $(_tabsFichaProducto.video).show();
+            $(_seccionesFichaTabProducto.ContenidoProductoVideo).show();
         }
     };
 
@@ -322,6 +343,7 @@
     };
     
     function Inicializar() {
+        
         localStorageModule = LocalStorageModule();
         _construirSeccionEstrategia();
         _ocultarSecciones();
@@ -329,6 +351,7 @@
         //_crearReloj();
         _crearTabs();
         _ocultarTabs();
+        
     }
     
     return {

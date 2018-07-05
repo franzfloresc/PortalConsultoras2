@@ -2432,34 +2432,34 @@ namespace Portal.Consultoras.Web.Controllers
             return modelo;
         }
 
-        [Obsolete("No se usa")]
-        private OfertaDelDiaModel ConfiguracionPaisDatosOfertaDelDia(OfertaDelDiaModel modelo, List<BEConfiguracionPaisDatos> listaDatos)
-        {
-            try
-            {
-                modelo = modelo ?? new OfertaDelDiaModel();
-                if (listaDatos == null || !listaDatos.Any())
-                    return modelo;
+        //[Obsolete("No se usa")]
+        //private OfertaDelDiaModel ConfiguracionPaisDatosOfertaDelDia(OfertaDelDiaModel modelo, List<BEConfiguracionPaisDatos> listaDatos)
+        //{
+        //    try
+        //    {
+        //        modelo = modelo ?? new OfertaDelDiaModel();
+        //        if (listaDatos == null || !listaDatos.Any())
+        //            return modelo;
 
-                var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
-                if (value1 != null) modelo.BloqueoProductoDigital = value1.Valor1 == "1";
+        //        var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+        //        if (value1 != null) modelo.BloqueoProductoDigital = value1.Valor1 == "1";
 
-                listaDatos.RemoveAll(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+        //        listaDatos.RemoveAll(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
 
-                modelo.ConfiguracionPaisDatos =
-                    Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ??
-                    new List<ConfiguracionPaisDatosModel>();
+        //        modelo.ConfiguracionPaisDatos =
+        //            Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ??
+        //            new List<ConfiguracionPaisDatosModel>();
 
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
-                    "LoginController.ConfiguracionPaisDatosOfertaDelDia");
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
+        //            "LoginController.ConfiguracionPaisDatosOfertaDelDia");
+        //    }
 
-            return modelo;
+        //    return modelo;
 
-        }
+        //}
 
         private UsuarioModel ConfiguracionPaisDatosUsuario(UsuarioModel modelo, List<BEConfiguracionPaisDatos> listaDatos)
         {

@@ -9,7 +9,7 @@ using System.ServiceModel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class BaseShowRoomController : BaseEstrategiaController
+    public class BaseShowRoomController: BaseController // BaseEstrategiaController
     {
         protected string CodigoProceso
         {
