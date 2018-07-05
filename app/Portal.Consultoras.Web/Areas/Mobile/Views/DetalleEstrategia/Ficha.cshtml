@@ -252,8 +252,8 @@
             <div class="set_encuentras_producto" id="set_relacionados">
 
                 <div class="wrapper_resumen_mobile ficha_encuentraproducto">
-                    <p class="titulo_set">
-                        SET DONDE ENCUENTRAS EL PRODUCTO
+                    <p id="tituloCarrusel" class="titulo_set">
+                        
                     </p>
                     <div class="set_encuentras_producto_carrusel">
                         <div id="divOfertaProductos"></div>
@@ -311,7 +311,8 @@
                 idPlantilla: "#producto-landing-template",
                 divCarrusel: "#divOfertaProductos",
                 divSetsProductosdata: "#set_relacionados",
-                urlDataCarrusel: '@Url.Action("GetCarruselShowRoomExcepto", "Estrategia", new { Area = "" })'
+                urlDataCarrusel: '@Url.Action("GetCarruselShowRoomExcepto", "Estrategia", new { Area = "" })',
+                idTituloCarrusel: "#tituloCarrusel"
             });
             carruselModule.Inicializar();
         });

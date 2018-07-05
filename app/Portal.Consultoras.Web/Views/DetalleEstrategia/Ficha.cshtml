@@ -336,7 +336,7 @@
                 <div class="contenedor_linea_carrusel">
                     <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_izquierda"></div>
                 </div>
-                <div class="txt_titulo_carrusel">SET DONDE ENCUENTRAS EL PRODUCTO</div>
+                <div id="tituloCarrusel" class="txt_titulo_carrusel"></div>
                 <div class="contenedor_linea_carrusel">
                     <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_derecha"></div>
                 </div>
@@ -378,7 +378,8 @@
                 idPlantilla: "#producto-landing-template",
                 divCarrusel: "#carrusel",
                 divSetsProductosdata: "#CarruselProducto",
-                urlDataCarrusel: '@Url.Action("GetCarruselShowRoomExcepto", "Estrategia")'
+                urlDataCarrusel: '@Url.Action("GetCarruselShowRoomExcepto", "Estrategia")',
+                idTituloCarrusel: "#tituloCarrusel"
             });
             carruselModule.Inicializar();
         });

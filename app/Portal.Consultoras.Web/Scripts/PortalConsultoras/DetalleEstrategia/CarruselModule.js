@@ -11,7 +11,8 @@
     var _elementos = {
         idPlantillaProductoLanding: config.idPlantilla,
         divCarruselSetsProductosRelacionados: config.divCarrusel,
-        divSetsProductosRelacionados: config.divCarrusel
+        divSetsProductosRelacionados: config.divCarrusel,
+        idTituloCarrusel: config.idTituloCarrusel
     };
 
     var _promiseObternerDataCarrusel = function (params) {
@@ -124,14 +125,33 @@
         $(_elementos.divSetsProductosRelacionados).fadeOut();
     }
 
+    var _mostrarTitulo = function () {
+        
+        var titulo = '';
+
+        if (_config.palanca == 'Lanzamiento')
+        {
+            titulo='SET DONDE ENCUENTRAS EL PRODUCTO';
+        }
+        else if (_config.palanca == 'ShowRoom')
+        {
+            titulo = 'VER MÁS SETS EXCLUSIVOS PARA TI';
+        } else if (_config.palanca == 'OfertaDelDia')
+        {
+            titulo = 'VER MÁS OFERTAS ¡SOLO HOY!';
+        }
+
+        $(_elementos.idTituloCarrusel).html(titulo);
+    }
+
     var _mostrarCarrusel = function () {
         
         var data = {
             lista: []
         };
+     
 
         if (_config.palanca == 'Lanzamiento') {
-
             data.lista = _cargarDatos_Lanzamiento();
             SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
         }
@@ -146,22 +166,21 @@
                     if (response.success)
                     {
                         data.lista = response.data;
-                        SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
+                        SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);                         
                     }
                 }
             });
             
         }
-        
-       
-      
     };     
 
     function Inicializar() {
         
         _ocultarElementos();
         _mostrarCarrusel();
+        _mostrarTitulo();
         _mostrarSlicks();
+       
     }
 
     return {
