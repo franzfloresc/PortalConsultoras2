@@ -121,7 +121,8 @@
 .opcion_pago_monto,
 .opcion_pago_gastos_administrativos,
 .linea_separacion_montos_y_total,
-.opcion_pago_total_a_pagar
+.opcion_pago_total_a_pagar,
+.icono_flecha_despliegue
 {
     display:block;
 }

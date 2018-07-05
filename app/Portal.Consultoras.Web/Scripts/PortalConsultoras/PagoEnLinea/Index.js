@@ -20,7 +20,7 @@ $(document).ready(function () {
         me.Funciones = {
             InicializarEventos: function () {                
                 $(document).on('click', '.opcion_pago', me.Eventos.MostrarDetalleTipoPago);
-                $(document).on('click', '.opcionPagoDesktop', me.Eventos.SeleccionarTipoPago);
+                $(document).on('click', '.opcionPagoDesktop', me.Eventos.MostrarDetalleTipoPago);
                 $(document).on('click', '.area_activa_barra_activacion', me.Eventos.AceptarTerminosYCondiciones);
                 $(document).on('click', '.ver_terminos_y_condiciones', me.Eventos.AbrirPopupTerminosYCondiciones);
                 $(document).on('click', '.cerrar_popup_terminos_y_condiciones', me.Eventos.CerrarPopupTerminosYCondiciones);
