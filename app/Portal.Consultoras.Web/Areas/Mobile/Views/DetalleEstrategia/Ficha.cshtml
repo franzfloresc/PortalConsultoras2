@@ -71,9 +71,9 @@
         </div>
     </div>
     <div class="container">
-        <div id="SloganLanzamiento" class="nombre_detalle_producto_tono">{{this.TipoEstrategiaDetalle.Slogan}}</div>
-        <div class="descripcion_detalle_producto_tono">
-            <ul style="list-style-type: none;">
+        <div id="SloganLanzamiento">
+            <span class="nombre_detalle_producto_tono"><strong>{{this.TipoEstrategiaDetalle.Slogan}}</strong></span>
+            <ul class="descripcion_detalle_producto_tono" style="list-style-type: none;">
                 {{#each this.ListaDescripcionDetalle}}
                 <li><span class="vineta">-</span><span class="txt-des">{{this}}</span></li>
                 {{/each}}
