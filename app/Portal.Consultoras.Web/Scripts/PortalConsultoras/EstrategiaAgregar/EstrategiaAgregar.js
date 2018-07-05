@@ -13,8 +13,13 @@
 /// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 
-var EstrategiaAgregarModule = function () {
+var EstrategiaAgregarModule = (function () {
     "use strict";
+
+    var _config = {
+        CampaniaCodigo: "",
+        esFicha: false
+    };
 
     var dataProperties = {
         dataItem: "[data-item]",
@@ -84,7 +89,7 @@ var EstrategiaAgregarModule = function () {
 
         if ($btnAgregar.attr(dataProperties.dataBloqueada) === "") return false;
 
-        if (campaniaId === parseInt(campaniaCodigo)) return false;
+        if (campaniaId === parseInt(_config.CampaniaCodigo)) return false;
 
         return true;
     };
@@ -117,10 +122,10 @@ var EstrategiaAgregarModule = function () {
         return {
             getDivMsgProductoBloqueado: function () {
                 $divMsgProductoBloqueado = $(elementosDiv.divMensajeBloqueada);
-                if (estrategiaTmp.CodigoEstrategia === ConstantesModule.ConstantesPalanca.HerramientasVenta) {
-                    $divMsgProductoBloqueado = $(elementosDiv.divHVMensajeBloqueada);
-                    $divMsgProductoBloqueado.find(".cerrar_fichaProducto").data(elementosPopPup.popupClose.substring(1), elementosDiv.divHVMensajeBloqueada.substring(1));
-                }
+                //if (estrategiaTmp.CodigoEstrategia === ConstantesModule.ConstantesPalanca.HerramientasVenta) {
+                //    $divMsgProductoBloqueado = $(elementosDiv.divHVMensajeBloqueada);
+                //    $divMsgProductoBloqueado.find(".cerrar_fichaProducto").data(elementosPopPup.popupClose.substring(1), elementosDiv.divHVMensajeBloqueada.substring(1));
+                //}
 
                 return this;
             },
@@ -128,7 +133,7 @@ var EstrategiaAgregarModule = function () {
                 var itemClone = estrategiaObtenerObjHtmlLanding($btnAgregarTmp);
                 dataItemHtml = $divMsgProductoBloqueado.find(dataProperties.dataItemHtml);
 
-                if (estrategiaTmp.CodigoEstrategia !== ConstantesModule.ConstantesPalanca.Lanzamiento)
+                if (!_config.esFicha)
                     dataItemHtml.html(itemClone.html());
 
                 return this;
@@ -180,9 +185,12 @@ var EstrategiaAgregarModule = function () {
         }
     };
 
-    var estrategiaAgregar = function (event, popup, limite) {
+    var estrategiaAgregar = function (event, popup, limite, esFicha) {
         popup = popup || false;
         limite = limite || 0;
+
+        _config.esFicha = esFicha || _config.esFicha;
+        _config.CampaniaCodigo = $(elementosDiv.hdCampaniaCodigo).val() || _config.CampaniaCodigo;
 
         var $btnAgregar = $(event.target);
         var estrategia = getEstrategia($btnAgregar);
@@ -431,4 +439,4 @@ var EstrategiaAgregarModule = function () {
         AdicionarCantidad: adicionarCantidad,
         DisminuirCantidad: disminuirCantidad
     };
-}();
+})();

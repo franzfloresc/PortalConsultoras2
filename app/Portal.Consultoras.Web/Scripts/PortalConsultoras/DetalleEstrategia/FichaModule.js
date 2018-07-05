@@ -193,6 +193,10 @@
                     estrategia.CodigoVariante = _codigoVariedad.IndividualVariable;
                 }
             }
+        } else if (estrategia.Hermanos.length > 1) {
+            if (estrategia.codigoVariante == _codigoVariedad.IndividualVariable) {
+                estrategia.codigoVariante = _codigoVariedad.ComuestaFija;
+            }
         }
     };
     var _validarDesactivadoGeneral = function (estrategia) {

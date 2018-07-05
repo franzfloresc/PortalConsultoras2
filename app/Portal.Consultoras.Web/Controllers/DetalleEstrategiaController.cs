@@ -26,6 +26,8 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo = new DetalleEstrategiaFichaModel();
             }
 
+            modelo.MensajeProductoBloqueado =  _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
+
             modelo.Origen = origen;
             modelo.Palanca = palanca;
             modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);

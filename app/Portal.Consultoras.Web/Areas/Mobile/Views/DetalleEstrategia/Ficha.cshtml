@@ -12,7 +12,7 @@
 
 }
 
-<div class="container"  data-tag-html="@Model.Campania" >
+<div class="container" data-tag-html="@Model.Campania">
     <div class="row">
         <div class="col-md-12">
             <ul class="breadcumbs">
@@ -116,7 +116,7 @@
                             <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.MarcaID}}" />
                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
                         </div>
-                        <div class="content_tono_detalle" 
+                        <div class="content_tono_detalle"
                              data-tono-cuv="{{variedad.Cuv}}"
                              data-tono-change="2"
                              data-tono-nombre="{{variedad.NombreBulk}}">
@@ -196,21 +196,23 @@
     </div>
 
     <div id="seccion_ficha_handlebars"></div>
-
-    <div class="content_btn_agregar">
-        <div class="content_320">
-            <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
-                <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+    @if (Model.ClaseBloqueada == "")
+    {
+        <div class="content_btn_agregar">
+            <div class="content_320">
+                <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
+                    <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                    <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <a class="btn_agregar_ficha_producto @Model.ClaseBloqueada"
+                   id="btnAgregalo"
+                   data-bloqueada=""
+                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
+                <hr class="clear">
             </div>
-            <a class="btn_agregar_ficha_producto @Model.ClaseBloqueada"
-               id="btnAgregalo"
-               data-bloqueada=""
-               onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
-            <hr class="clear">
         </div>
-    </div>
+    }
 </div>
 
 <div class="container" id="ContenidoProducto">
@@ -224,11 +226,11 @@
                     </ul>
                 </li>
                 @*<li>
-                    <a>TIP DE VENTA</a>
-                    <ul>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis itaque nisi ratione sit excepturi. Porro nemo ipsam fugiat quidem accusamus, cumque temporibus atque! Voluptatum nesciunt odio consectetur eos, quibusdam sint?
-                    </ul>
-                </li>*@
+                        <a>TIP DE VENTA</a>
+                        <ul>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis itaque nisi ratione sit excepturi. Porro nemo ipsam fugiat quidem accusamus, cumque temporibus atque! Voluptatum nesciunt odio consectetur eos, quibusdam sint?
+                        </ul>
+                    </li>*@
                 <li id="tabVideo">
                     <a>VIDEO</a>
                     <div class="video-visual">
@@ -279,6 +281,10 @@
 </div>
 
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
+@if (Model.ClaseBloqueada != "")
+{
+    @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
+}
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
@@ -288,6 +294,7 @@
         window.videoKey = '@Model.CodigoVideo';
         var fichaModule;
         var carruselModule;
+        var EstrategiaAgregarModule;
 
         $(document).ready(function() {
             fichaModule = FichaModule({
@@ -310,6 +317,11 @@
                 divSetsProductosdata: "#set_relacionados"
             });
             carruselModule.Inicializar();
+
+            EstrategiaAgregarModule = EstrategiaAgregarModule({
+                campania: "@Model.Campania",
+                esFicha: true
+            });
         });
 
     </script>
