@@ -8,7 +8,7 @@
             paginaOrigenCupon: paginaOrigenCupon,
             esEmailActivo: esEmailActivo,
             baseUrl: baseUrl,
-            simboloMoneda: viewBagSimbolo,
+            simboloMoneda: variablesPortal.SimboloMoneda,
             campaniaActual: viewBagCampaniaActual,
             paisISO: paisISO,
             ambiente: viewBagAmbiente,

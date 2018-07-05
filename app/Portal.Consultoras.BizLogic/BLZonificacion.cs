@@ -77,16 +77,12 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BECampania> SelectCampanias(int paisID)
         {
-            IList<BECampania> campanias = (IList<BECampania>)CacheManager<BECampania>.GetData(paisID, ECacheItem.Campanias);
-            if (campanias == null)
-            {
-                campanias = new List<BECampania>();
+          
+            IList<BECampania>   campanias = new List<BECampania>();
                 var daZonificacion = new DAZonificacion(paisID);
                 using (IDataReader reader = daZonificacion.GetCampania())
                     while (reader.Read())
                         campanias.Add(new BECampania(reader));
-                CacheManager<BECampania>.AddData(paisID, ECacheItem.Campanias, campanias);
-            }
             return campanias;
         }
 
@@ -101,6 +97,7 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BEZona> SelectAllZonas(int paisID)
         {
+
             IList<BEZona> zonas = (IList<BEZona>)CacheManager<BEZona>.GetData(paisID, ECacheItem.Zonas);
             if (zonas == null)
             {
@@ -126,6 +123,7 @@ namespace Portal.Consultoras.BizLogic
                         regiones.Add(new BERegion(reader));
                 CacheManager<BERegion>.AddData(paisID, ECacheItem.Regiones, regiones);
             }
+
             return regiones;
         }
 

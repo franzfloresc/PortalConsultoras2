@@ -454,12 +454,6 @@
   <wsdl:message name="IContenidoService_ObtenerCorreoEmisor_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerCorreoEmisorResponse" />
   </wsdl:message>
-  <wsdl:message name="IContenidoService_GetVisaConfiguracion_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetVisaConfiguracion" />
-  </wsdl:message>
-  <wsdl:message name="IContenidoService_GetVisaConfiguracion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetVisaConfiguracionResponse" />
-  </wsdl:message>
   <wsdl:portType name="IContenidoService">
     <wsdl:operation name="SelectBanner">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/SelectBanner" message="tns:IContenidoService_SelectBanner_InputMessage" />
@@ -740,10 +734,6 @@
     <wsdl:operation name="ObtenerCorreoEmisor">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor" message="tns:IContenidoService_ObtenerCorreoEmisor_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/ObtenerCorreoEmisorResponse" message="tns:IContenidoService_ObtenerCorreoEmisor_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetVisaConfiguracion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetVisaConfiguracion" message="tns:IContenidoService_GetVisaConfiguracion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetVisaConfiguracionResponse" message="tns:IContenidoService_GetVisaConfiguracion_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IContenidoService" type="tns:IContenidoService">
@@ -1378,15 +1368,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetVisaConfiguracion">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetVisaConfiguracion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_IContenidoService" type="tns:IContenidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IContenidoService_policy" />
@@ -2014,15 +1995,6 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerCorreoEmisor">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetVisaConfiguracion">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetVisaConfiguracion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

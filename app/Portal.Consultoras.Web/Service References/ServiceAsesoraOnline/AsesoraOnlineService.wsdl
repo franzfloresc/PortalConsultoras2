@@ -32,6 +32,7 @@
       <xsd:import schemaLocation="http://localhost:41615/AsesoraOnlineService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.AsesoraOnline" />
       <xsd:import schemaLocation="http://localhost:41615/AsesoraOnlineService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
       <xsd:import schemaLocation="http://localhost:41615/AsesoraOnlineService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/AsesoraOnlineService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IAsesoraOnlineService_EnviarFormulario_InputMessage">

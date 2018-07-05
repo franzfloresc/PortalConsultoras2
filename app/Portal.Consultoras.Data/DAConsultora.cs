@@ -17,7 +17,13 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraCodigo");
             return Context.ExecuteReader(command);
         }
-
+        public IDataReader GetConsultoraCodigoPorCodigoYRowCount(string codigo, int rowCount)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraPorCodigoYRowCount");
+            Context.Database.AddInParameter(command, "@codigo", DbType.String, codigo);
+            Context.Database.AddInParameter(command, "@rowCount", DbType.Int16, rowCount);
+            return Context.ExecuteReader(command);
+        }
         public IDataReader GetConsultoraById(Int64 ConsultoraID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraById");

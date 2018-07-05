@@ -12709,7 +12709,7 @@ label.checkpop {
 }
 
 /*FIN Matriz Comercial*/
-/*<!--EPD1973*/
+
 .DescargaParams {
     float: left;
     width: 500px;
@@ -12913,7 +12913,6 @@ label.checkpop {
 #UltimaDescargaInfo tr:last-child td:last-child {
     border-bottom-right-radius: 6px;
 }
-/*EPD1973 -->*/
 
 .fontColorAdm {
     color: #702789;
@@ -13015,7 +13014,6 @@ label.checkpop {
             filter: alpha(opacity=70);
             opacity: .7;
         }
-/*EPD2031 -->*/
 
 .float-left {
     float: left;

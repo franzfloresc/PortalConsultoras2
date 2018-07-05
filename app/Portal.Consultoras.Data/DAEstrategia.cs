@@ -49,7 +49,6 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@CUV2", DbType.String, entidad.CUV2);
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
-
                 Context.Database.AddInParameter(command, "@AgregarEnMatriz", DbType.Boolean, entidad.AgregarEnMatriz);
                 Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.String, entidad.UsuarioRegistro);
                 	 
@@ -320,7 +319,7 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader GetMasVendidos(BEEstrategia entidad)
+        public IDataReader GetEstrategiaMasVendidos(BEEstrategia entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarOfertasMasVendidos"))
             {
@@ -371,7 +370,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteScalar(command).ToString();
         }
-
+        
         public int GetCantidadOfertasParaTi(int campaniaId, int tipoConfigurado, string codigoEstrategia)
         {
             int result;
@@ -423,13 +422,13 @@ namespace Portal.Consultoras.Data
 
             var command = new SqlCommand("dbo.InsertEstrategiaTemporal");
             command.CommandType = CommandType.StoredProcedure;
-            
+
             command.Parameters.Add(new SqlParameter("@EstrategiaTemporal", SqlDbType.Structured)
             {
                 TypeName = "dbo.EstrategiaTemporalType",
                 Value = new GenericDataReader<BEEstrategiaType>(listaTypes)
             });
-            
+
             command.Parameters.Add(new SqlParameter("@NumeroLoteAnt", SqlDbType.Int) { Value = nroLore });
             command.Parameters.Add(new SqlParameter("@NroLote", SqlDbType.Int) { Direction = ParameterDirection.Output, Value = 0 });
 
@@ -523,6 +522,7 @@ namespace Portal.Consultoras.Data
                     Context.Database.AddInParameter(command, "@FechaInicioFact", DbType.Date, fechaInicioFact);
                 return Context.ExecuteReader(command);
             }
+
         }
 
         public int ActivarDesactivarEstrategias(string UsuarioModificacion, string EstrategiasActivas, string EstrategiasDesactivas)
@@ -535,21 +535,6 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@EstrategiasDesactivas", DbType.String, EstrategiasDesactivas);
 
                 result = int.Parse(Context.ExecuteScalar(command).ToString());
-            }
-            return result;
-        }
-
-        public int ActualizarTonoEstrategia(int EstrategiaId, string CodigoEstrategia, int TieneVariedad)
-        {
-            int result;
-            using (var command = Context.Database.GetStoredProcCommand("dbo.ActualizarTonoEstrategias"))
-            {
-                Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, EstrategiaId);
-                Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, CodigoEstrategia);
-                Context.Database.AddInParameter(command, "@TieneVariedad", DbType.String, TieneVariedad);
-                Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 1000);
-                Context.ExecuteNonQuery(command);
-                result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
             }
             return result;
         }
@@ -667,8 +652,6 @@ namespace Portal.Consultoras.Data
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEstrategiaMasiva"))
             {
-                //byte[] tempBytes = System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(entidad.EstrategiaXML.ToString());
-                //string estrategiaXML = System.Text.Encoding.UTF8.GetString(tempBytes);
                 Context.Database.AddInParameter(command, "@EstrategiaXML", DbType.Xml, entidad.EstrategiaXML.ToString());
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
@@ -695,5 +678,130 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        #region Nuevo Masivo
+
+        public int GetCantidadOfertasPersonalizadas(int campaniaId, int tipoConfigurado, string codigoEstrategia)
+        {
+            int result;
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCantidadOfertasPersonalizadas"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
+                Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, codigoEstrategia);
+                command.CommandTimeout = 0;
+                result = int.Parse(Context.ExecuteScalar(command).ToString());
+            }
+            return result;
+        }
+
+        public IDataReader GetOfertasPersonalizadasByTipoConfigurado(int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetOfertasPersonalizadasByTipoConfigurado"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
+                Context.Database.AddInParameter(command, "@EstrategiaCodigo", DbType.String, estrategiaCodigo);
+                Context.Database.AddInParameter(command, "@Pagina", DbType.Int32, pagina);
+                Context.Database.AddInParameter(command, "@CantCuv", DbType.Int32, cantidadCuv);
+                command.CommandTimeout = 0;
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public int GetCantidadOfertasPersonalizadasTemporal(int nroLote, int tipoConfigurado)
+        {
+            int result;
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCantidadOfertasPersonalizadasTemporal"))
+            {
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
+
+                result = int.Parse(Context.ExecuteScalar(command).ToString());
+            }
+            return result;
+        }
+
+        public int EstrategiaTemporalDelete(int nroLote)
+        {
+            int result;
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalDelete"))
+            {
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                result = Context.ExecuteNonQuery(command);
+            }
+            return result;
+        }
+
+        public IDataReader GetOfertasPersonalizadasByTipoConfiguradoTemporal(int tipoConfigurado, int nroLote)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetOfertasPersonalizadasByTipoConfiguradoTemporal"))
+            {
+                Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetEstrategiaProgramaNuevas(BEEstrategia entidad)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEstrategiaProgramaNuevas"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV2);
+                Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
+                Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, entidad.CodigoEstrategia);
+
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public int EstrategiaTemporalInsertarMasivo(int campaniaId, string estrategiaCodigo, int pagina, int cantidadCuv, int nroLote)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalInsertarMasivo"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                Context.Database.AddInParameter(command, "@EstrategiaCodigo", DbType.String, estrategiaCodigo);
+                Context.Database.AddInParameter(command, "@Pagina", DbType.Int32, pagina);
+                Context.Database.AddInParameter(command, "@CantidadCuv", DbType.Int32, cantidadCuv);
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.Database.AddOutParameter(command, "@NroLoteFinal", DbType.Int32, 100000);
+                Context.ExecuteReader(command);
+                return Convert.ToInt32(command.Parameters["@NroLoteFinal"].Value);
+            }
+        }
+
+        public bool EstrategiaTemporalActualizarPrecioNivel(int nroLote, int pagina)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalActualizarPrecioNivel"))
+            {
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.Database.AddInParameter(command, "@Pagina", DbType.Int32, pagina);
+                Context.ExecuteReader(command);
+                return true;
+            }
+        }
+
+        public bool EstrategiaTemporalActualizarSetDetalle(int nroLote, int pagina)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalActualizarSetDetalle"))
+            {
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.Database.AddInParameter(command, "@Pagina", DbType.Int32, pagina);
+                Context.ExecuteReader(command);
+                return true;
+            }
+        }
+
+        public int EstrategiaTemporalInsertarEstrategiaMasivo(int nroLote)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.EstrategiaTemporalInsertarEstrategiaMasivo"))
+            {
+                Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+                Context.Database.AddOutParameter(command, "@NroLoteFinal", DbType.Int32, 100000);
+                Context.ExecuteReader(command);
+                return Convert.ToInt32(command.Parameters["@NroLoteFinal"].Value);
+            }
+        }
+        #endregion
     }
 }

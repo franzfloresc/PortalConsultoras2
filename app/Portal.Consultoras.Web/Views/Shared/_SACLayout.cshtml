@@ -20,6 +20,7 @@
     <link href="@Url.Content("~/Content/Css/Spectrum/spectrum.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/colorpicker/colorpicker.css")" rel="stylesheet" type="text/css" />
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
     <script type="text/javascript">
         var userData = {
             'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
@@ -33,6 +34,8 @@
         };
 
         window.urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+        window.urlLogElastic = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogElastic"]';
+        window.patternElastic = '@System.Configuration.ConfigurationManager.AppSettings["PatternElastic"]';
 
         // Seteando Controlador y Accion
         @{
@@ -42,7 +45,6 @@
         }
         window.controllerName = '@ctrl.ToLower()';
         window.actionName     = '@acti.ToLower()';
-        //console.log("controllerName:" + controllerName + " | actionName:" + actionName);
 
         window.history.forward();
         function noBack() { window.history.forward(); }
@@ -61,35 +63,10 @@
     @System.Web.Optimization.Scripts.Render("~/bundles/JsPluginsHeaderSAC")
     <script type="text/javascript" src="@Url.Content("~/Scripts/Spectrum/spectrum.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/colorpicker/colorpicker.js")"></script>
-    <!-- jquery library -->
-    <!--Cambios_Landing_Comunidad-->
     <script type="text/javascript" src="@Url.Content("~/Scripts/fuzescale-1.3.min.js")"></script>
 
-    <!--[if lt IE 9]>
-    <script src="~/Scripts/selectivizr-and-extra-selectors.min.js"></script>
-    <script src="~/Scripts/IE8.js"></script>
-    <![endif]-->
-    <!--Cambios_Landing_Comunidad-->
-    <!--[if gte IE 7]>
-        <style type="text/css">
-            #nav li:hover ul.subs {
-                display: block;
-                text-transform: none;
-                line-height: 20px;
-                font-size: 14px;
-                background-color: #e7ebe9;
-                left: -43%;
-                padding: 2%;
-                position: absolute;
-                top: 95px;
-                width: 139%;
-                z-index: 99;
-            }
-        </style>
-    <![endif]-->
 </head>
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="" style="height: 750px;">
-    <!-- Google Tag Manager -->
     <noscript>
         <iframe src="//www.googletagmanager.com/ns.html?id=GTM-KZBJ4J" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
@@ -111,8 +88,6 @@
             'rol': '@ViewBag.RolAnalytics'
         });
     </script>
-    <!-- End Google Tag Manager -->
-    <!-- Google Tag Manager -->
     <noscript>
         <iframe src="//www.googletagmanager.com/ns.html?id=GTM-NKXJR4" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
@@ -123,9 +98,6 @@
             var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-NKXJR4');
     </script>
-    <!-- End Google Tag Manager -->
-    <!-- CGI(GOT)-->
-    <!-- Google Tag Manager -->
     <noscript>
         <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
@@ -136,8 +108,6 @@
         })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
 
     </script>
-    <!-- End Google Tag Manager -->
-    <!--Inicio Cambios_Landing_Comunidad-->
     <div id="wrap_header_menu_background">
         <div id="wrap_header_menu" class="field100">
             <div id="logo_tsmv" class="field20">
@@ -181,7 +151,6 @@
     <div id="footer">
         @Html.Partial("_SACFooter")
     </div>
-    <!--Fin Cambios_Landing_Comunidad-->
     @System.Web.Optimization.Scripts.Render("~/bundles/JsPluginsFooterSAC")
     @RenderSection("scripts", required: false)
 

@@ -31,11 +31,11 @@
                         <div class="mobile-txt">
                             @if (Util.Trim(menuActivo.ConfiguracionPais.MobileTituloBanner) != "")
                             {
-                        <p>@menuActivo.ConfiguracionPais.MobileTituloBanner</p>
+                                <p>@menuActivo.ConfiguracionPais.MobileTituloBanner</p>
                             }
                             @if (Util.Trim(menuActivo.ConfiguracionPais.MobileSubTituloBanner) != "")
                             {
-                        <span>@menuActivo.ConfiguracionPais.MobileSubTituloBanner</span>
+                                <span>@menuActivo.ConfiguracionPais.MobileSubTituloBanner</span>
                             }
                         </div>
                     </div>
@@ -53,15 +53,21 @@
                                 <img src="@Url.Content("~/Content/Images/carrito-hover.png")" alt="" class="hover" style="display: none;">
                                 <img src="@Url.Content("~/Content/Images/carrito-hover.png")" alt="" class="click-menu" style="display: none;">
                                 <span>C-@menuActivo.CampaniaX0ConFormato</span>
-                            </a> </li>@if (!ViewBag.TieneRDI){<li class="menu_medio" data-campania="@menuActivo.CampaniaX1" data-codigo="2"
-                                onclick="menuModule.tabClick(this, '@Url.Action("Revisar", "Ofertas", new { area = "Mobile" })', '@menuActivo.NombreOrigenPantalla')">
-                            <a class="@classMenuX1">
-                                <img src="@Url.Content("~/Content/Images/ojito.png")" alt="" class="default">
-                                <img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="hover" style="display: none;">
-                                <img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="click-menu" style="display: none;">
-                                <span>V-@menuActivo.CampaniaX1ConFormato</span>
                             </a>
-                        </li>}<li data-campania="0" data-codigo="3"onclick="menuModule.tabClick(this, '@Url.Action("Informacion", "RevistaDigital", new {area = "Mobile"})', '@menuActivo.NombreOrigenPantalla')">
+                        </li>
+                        @if (!ViewBag.TieneRDI)
+                        {
+                            <li data-campania="@menuActivo.CampaniaX1" data-codigo="2"
+                                onclick="menuModule.tabClick(this, '@Url.Action("Revisar", "Ofertas", new { area = "Mobile" })', '@menuActivo.NombreOrigenPantalla')">
+                                <a class="@classMenuX1">
+                                    <img src="@Url.Content("~/Content/Images/ojito.png")" alt="" class="default">
+                                    <img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="hover" style="display: none;">
+                                    <img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="click-menu" style="display: none;">
+                                    <span>V-@menuActivo.CampaniaX1ConFormato</span>
+                                </a>
+                            </li>
+                        }
+                        <li data-campania="0" data-codigo="3" onclick="menuModule.tabClick(this, '@Url.Action("Informacion", "RevistaDigital", new {area = "Mobile"})', '@menuActivo.NombreOrigenPantalla')">
                             <a class="@classMenuInfo">
                                 <span>SABER MÁS</span>
                             </a>
@@ -74,7 +80,7 @@
         {
             <div data-layout-menu2="" class="slick-slider-fixed-mobile">
                 <div class="bc_para_ti-menu-opciones">
-                    <ul class="subnavegador" style="width: 100%; height: 45px; background: #fff;" data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()" data-es-activa="@ViewBag.EsActiva.ToString().ToLower()" >
+                    <ul class="subnavegador" style="width: 100%; height: 45px; background: #fff;" data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()" data-es-activa="@ViewBag.EsActiva.ToString().ToLower()">
                         @foreach (var menuhijo in menuList)
                         {
                             var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : string.Empty;
@@ -89,7 +95,7 @@
                                 <a href="javascript:;" class="@claseActivo" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu">
                                     @if (!string.IsNullOrEmpty(menuhijo.MobileLogoMenu))
                                     {
-                                      
+
                                         <span class="opcion_home_vistaOfertas">
                                             <img src="@menuhijo.MobileLogoMenu" alt="Inicio" class="icono-submenu-tabs icono-logo-submenu-tabs" style="display: inline !important" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu" />
                                         </span>
@@ -108,14 +114,3 @@
     </div>
 
 </div>
-<script>
-    var x = $(".bc_para_ti-menu ul li").size();
-
-    if (x > 2) {
-        $('.bc_para_ti-menu ul li').addClass('fix_menu_tabs_mobil_3');
-    }
-    else
-    {
-        $('.bc_para_ti-menu ul li').addClass('fix_menu_tabs_mobil_2');
-    }
-</script>

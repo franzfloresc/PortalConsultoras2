@@ -29,10 +29,12 @@ namespace Portal.Consultoras.Web.Controllers
         private int _ofertaId;
         private bool _blnRecibido;
         private readonly ISessionManager _sessionManager;
+        protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
 
         public ShowRoomController()
         {
             _sessionManager = SessionManager.SessionManager.Instance;
+            configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
         }
 
         public ActionResult Intriga()
@@ -54,7 +56,7 @@ namespace Portal.Consultoras.Web.Controllers
             var model = ObtenerPrimeraOfertaShowRoom(ofertasShowRoom);
             model.Simbolo = userData.Simbolo;
             model.CodigoISO = userData.CodigoISO;
-            model.Suscripcion = (userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora()).Suscripcion;
+            model.Suscripcion = (configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora()).Suscripcion;
             model.EMail = userData.EMail;
             model.EMailActivo = userData.EMailActivo;
             model.Celular = userData.Celular;
@@ -70,8 +72,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ViewBag.urlImagenPopupIntriga = string.Empty;
             ViewBag.urlTerminosyCondiciones = string.Empty;
-            userData.ListaShowRoomPersonalizacionConsultora = userData.ListaShowRoomPersonalizacionConsultora ?? new List<ShowRoomPersonalizacionModel>();
-            var personalizacionesDesktop = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
+            configEstrategiaSR.ListaPersonalizacionConsultora = configEstrategiaSR.ListaPersonalizacionConsultora ?? new List<ShowRoomPersonalizacionModel>();
+            var personalizacionesDesktop = configEstrategiaSR.ListaPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
             foreach (var item in personalizacionesDesktop)
             {
                 switch (item.Atributo)
@@ -165,6 +167,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+
+                //21-may-2018
+                var dato = ObtenerPerdio(userData.CampaniaID);
+                showRoomEventoModel.ProductosPerdio = dato.Estado;
+                showRoomEventoModel.PerdioTitulo = dato.Valor1;
+                showRoomEventoModel.PerdioSubTitulo = dato.Valor2;
+                showRoomEventoModel.MensajeProductoBloqueado = MensajeProductoBloqueado();
 
                 return View(showRoomEventoModel);
 
@@ -479,7 +488,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaShowRoomNivel = userData.ListaShowRoomNivel ?? new List<BEShowRoomNivel>();
+
+                var listaShowRoomNivel = configEstrategiaSR.ListaNivel ?? new List<BEShowRoomNivel>();
 
                 return Json(new
                 {
@@ -1254,7 +1264,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult PopupCerrar()
         {
-            if (userData.BeShowRoomConsultora == null)
+            if (configEstrategiaSR.BeShowRoomConsultora == null)
             {
                 return Json(new
                 {
@@ -1263,8 +1273,8 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
-            userData.BeShowRoomConsultora.MostrarPopup = false;
-            userData.BeShowRoomConsultora.MostrarPopupVenta = false;
+            configEstrategiaSR.BeShowRoomConsultora.MostrarPopup = false;
+            configEstrategiaSR.BeShowRoomConsultora.MostrarPopupVenta = false;
             return Json(new
             {
                 success = true,
@@ -1282,7 +1292,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.UpdateShowRoomConsultoraMostrarPopup(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, !noMostrarPopup);
                 }
 
-                userData.CargoEntidadesShowRoom = false;
+                configEstrategiaSR.CargoEntidadesShowRoom = false;
                 return Json(new
                 {
                     success = true,
@@ -1762,11 +1772,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
 
-
                 if (tipo == 1)
                 {
-
-
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
                         pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
@@ -1935,12 +1942,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<BEEstrategiaProducto> lst;
+                List<ServicePedido.BEEstrategiaProducto> lst;
                 var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = estrategiaId };
 
                 using (var sv = new PedidoServiceClient())
                 {
-                    lst = sv.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, BEEstrategia>(estrategiaX)).ToList();
+                    lst = sv.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, ServicePedido.BEEstrategia>(estrategiaX)).ToList();
                 }
 
                 var grid = new BEGrid
@@ -1951,7 +1958,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SortOrder = sord
                 };
 
-                IEnumerable<BEEstrategiaProducto> items = lst;
+                IEnumerable<ServicePedido.BEEstrategiaProducto> items = lst;
 
                 #region Sort Section
                 if (sord == "asc")
@@ -2068,18 +2075,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = Mapper.Map<EstrategiaProductoModel, BEEstrategiaProducto>(model);
+                var entidad = Mapper.Map<EstrategiaProductoModel, ServicePedido.BEEstrategiaProducto>(model);
 
                 entidad.PaisID = userData.PaisID;
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
                 entidad.ImagenProducto = GuardarImagenAmazon(model.ImagenProducto, model.ImagenAnterior, userData.PaisID);
 
-                List<BEEstrategiaProducto> lstProd;
+                List<ServicePedido.BEEstrategiaProducto> lstProd;
                 var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = model.EstrategiaID };
 
                 using (var sv = new PedidoServiceClient())
                 {
-                    lstProd = sv.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, BEEstrategia>(estrategiaX)).ToList();
+                    lstProd = sv.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, ServicePedido.BEEstrategia>(estrategiaX)).ToList();
                 }
 
                 var existe = false;
@@ -2091,7 +2098,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!existe)
                 {
-                    var entidadx = new BEEstrategia { CampaniaID = entidad.Campania, CUV2 = entidad.CUV2 };
+                    var entidadx = new ServicePedido.BEEstrategia { CampaniaID = entidad.Campania, CUV2 = entidad.CUV2 };
                     var respuestaServiceCdr = EstrategiaProductoObtenerServicio(entidadx);
 
                     if (respuestaServiceCdr.Any())
@@ -2155,7 +2162,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private List<RptProductoEstrategia> EstrategiaProductoObtenerServicio(BEEstrategia entidad)
+        private List<RptProductoEstrategia> EstrategiaProductoObtenerServicio(ServicePedido.BEEstrategia entidad)
         {
             var respuestaServiceCdr = new List<RptProductoEstrategia>();
             try
@@ -2250,7 +2257,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = Mapper.Map<EstrategiaProductoModel, BEEstrategiaProducto>(model);
+                var entidad = Mapper.Map<EstrategiaProductoModel, ServicePedido.BEEstrategiaProducto>(model);
 
                 entidad.PaisID = userData.PaisID;
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
@@ -2342,7 +2349,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = new BEEstrategiaProducto
+                var entidad = new ServicePedido.BEEstrategiaProducto
                 {
                     PaisID = userData.PaisID,
                     EstrategiaID = estrategiaId,
@@ -2555,7 +2562,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaPersonalizacion = userData.ListaShowRoomPersonalizacion.Where(
+                var listaPersonalizacionModel = configEstrategiaSR.ListaPersonalizacionConsultora.Where(
                         p => p.TipoPersonalizacion == Constantes.ShowRoomPersonalizacion.TipoPersonalizacion.Evento).ToList();
 
                 List<BEShowRoomPersonalizacionNivel> listaPersonalizacionNivel;
@@ -2564,8 +2571,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaPersonalizacionNivel = ps.GetShowRoomPersonalizacionNivel(userData.PaisID, eventoId, nivelId, 0).ToList();
                 }
-
-                var listaPersonalizacionModel = Mapper.Map<IList<BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(listaPersonalizacion);
 
                 foreach (var item in listaPersonalizacionModel)
                 {
@@ -2696,7 +2701,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 categoria = categoria ?? new BEShowRoomCategoria();
 
-                var listaPersonalizacion = userData.ListaShowRoomPersonalizacion.Where(
+                var listaPersonalizacionModel = configEstrategiaSR.ListaPersonalizacionConsultora.Where(
                         p => p.TipoPersonalizacion == Constantes.ShowRoomPersonalizacion.TipoPersonalizacion.Categoria).ToList();
 
                 List<BEShowRoomPersonalizacionNivel> listaPersonalizacionCategoria;
@@ -2705,8 +2710,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaPersonalizacionCategoria = ps.GetShowRoomPersonalizacionNivel(userData.PaisID, eventoId, 0, categoriaId).ToList();
                 }
-
-                var listaPersonalizacionModel = Mapper.Map<IList<BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(listaPersonalizacion);
 
                 foreach (var item in listaPersonalizacionModel)
                 {
@@ -2891,20 +2894,38 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DetalleOferta(int id)
         {
+            var FlagRevistaListaCompleta = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
+
+
             if (!ValidarIngresoShowRoom(false))
                 return RedirectToAction("Index", "Bienvenida");
 
+            var estrategiaSR = sessionManager.GetEstrategiaSR();
             var modelo = ViewDetalleOferta(id);
             modelo.EstrategiaId = id;
-            var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
-            modelo.ListaOfertaShowRoom = xList;
+
+
+            if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
+            {
+                modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
+            }
+            else if (!revistaDigital.ActivoMdo)
+            {
+                modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
+            }
+            else
+            {
+                modelo.ListaOfertaShowRoom = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+            }
+
+         
 
             bool esFacturacion = EsFacturacion();
 
-            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, userData.BeShowRoom.EventoID,
-                        userData.BeShowRoom.CampaniaID);
+            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, estrategiaSR.BeShowRoom.EventoID,
+                        estrategiaSR.BeShowRoom.CampaniaID);
             modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
-            modelo.TieneCompraXcompra = userData.BeShowRoom.TieneCompraXcompra;
+            modelo.TieneCompraXcompra = estrategiaSR.BeShowRoom.TieneCompraXcompra;
 
             ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
             ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
@@ -2919,16 +2940,34 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var FlagRevistaListaCompleta = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
+
                 if (!ValidarIngresoShowRoom(false))
                     return ErrorJson(string.Empty);
 
                 bool esFacturacion = EsFacturacion();
-                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion, false);
 
-                var urlCompartir = GetUrlCompartirFB();
-                productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);
+                var listaNoSubCampania = new List<ShowRoomOfertaModel>();
+                var listaNoSubCampaniaPerdio = new List<ShowRoomOfertaModel>();
 
-                var listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
+                if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
+                {
+                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+                    listaNoSubCampaniaPerdio = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
+                }
+                else if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
+                {
+                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
+                }
+                else if (!revistaDigital.ActivoMdo)
+                {
+                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
+                }
+                else
+                {
+                    listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+                }
                 var totalNoSubCampania = listaNoSubCampania.Count;
 
                 if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
@@ -2966,14 +3005,25 @@ namespace Portal.Consultoras.Web.Controllers
                             listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
                             break;
                     }
-
                 }
 
                 if (model.Limite > 0)
                     listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
 
-                var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania).ToList();
-                //listaSubCampania.ForEach(p => p.ProductoTonos = GetOfertaConDetalle(p.OfertaShowRoomID).ProductoTonos);
+
+                var listaSubCampania = new List<ShowRoomOfertaModel>();
+
+
+                if (revistaDigital.EsActiva && revistaDigital.ActivoMdo)
+                {
+                 
+                    listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
+                }
+                else if (!revistaDigital.ActivoMdo)
+                    listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania).ToList();
+                else
+                    listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+
                 listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
 
                 return Json(new
@@ -2982,7 +3032,8 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Ok",
                     listaNoSubCampania,
                     totalNoSubCampania,
-                    listaSubCampania
+                    listaSubCampania,
+                    listaNoSubCampaniaPerdio
                 });
             }
             catch (Exception ex)
@@ -2997,18 +3048,33 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var FlagRevistaListaCompleta = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
+
+             
+
                 if (!ValidarIngresoShowRoom(esIntriga: false))
                     return ErrorJson(string.Empty);
 
                 var esFacturacion = EsFacturacion();
-                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion, false);
+                productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
 
-                var urlCompartir = GetUrlCompartirFB();
-                productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);
+                var cantidadTotal = productosShowRoom.Count();
+                
+                if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
+                {
+                    productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania && FlagRevistaListaCompleta.Contains(x.FlagRevista)).ToList();
+                }
+                else if (!revistaDigital.ActivoMdo)
+                {
+                    productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania ).ToList();
+                }
+                else
+                    productosShowRoom = productosShowRoom.Where(x => x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
 
                 if (model.Limite > 0 && productosShowRoom.Count > 0)
                 {
-                    productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania).Take(model.Limite).ToList();
+                    productosShowRoom = productosShowRoom.Take(model.Limite).ToList();
                 }
 
                 var index = 0;
@@ -3023,6 +3089,8 @@ namespace Portal.Consultoras.Web.Controllers
                     success = true,
                     message = "Ok",
                     data = productosShowRoom,
+                    cantidadTotal = cantidadTotal,
+                    cantidadAMostrar = productosShowRoom.Count(),
                     codigo = Constantes.ConfiguracionPais.ShowRoom
                 });
             }
@@ -3041,7 +3109,7 @@ namespace Portal.Consultoras.Web.Controllers
                 const int SHOWROOM_ESTADO_INACTIVO = 0;
                 const string TIPO_APLICACION_DESKTOP = "Desktop";
 
-                var showRoom = userData.BeShowRoom ?? new BEShowRoomEvento();
+                var showRoom = configEstrategiaSR.BeShowRoom ?? new BEShowRoomEvento();
 
                 if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
                 {
@@ -3053,8 +3121,8 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var personalizacionImagenIntriga = userData
-                    .ListaShowRoomPersonalizacionConsultora
+                var personalizacionImagenIntriga = configEstrategiaSR
+                    .ListaPersonalizacionConsultora
                     .FirstOrDefault(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP &&
                         x.Atributo == "PopupImagenIntriga");
 
@@ -3113,7 +3181,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                if (!userData.CargoEntidadesShowRoom)
+                if (!configEstrategiaSR.CargoEntidadesShowRoom)
                 {
                     return Json(new
                     {
@@ -3123,7 +3191,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var showRoom = userData.BeShowRoom ?? new BEShowRoomEvento();
+                var showRoom = configEstrategiaSR.BeShowRoom ?? new BEShowRoomEvento();
 
                 if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
                 {
@@ -3135,7 +3203,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var showRoomConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+                var showRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
                 var mostrarPopupIntriga = showRoomConsultora.MostrarPopup;
                 var mostrarPopupVenta = showRoomConsultora.MostrarPopupVenta;
 
@@ -3147,8 +3215,8 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var personalizacionImagenIntriga = userData
-                    .ListaShowRoomPersonalizacionConsultora
+                var personalizacionImagenIntriga = configEstrategiaSR
+                    .ListaPersonalizacionConsultora
                     .FirstOrDefault(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP &&
                         x.Atributo == "PopupImagenIntriga");
 
@@ -3356,8 +3424,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (model.EnviarParametrosUTMs)
             {
-                var nombreEvento = userData.BeShowRoom != null && userData.BeShowRoom.Nombre != null ?
-                    userData.BeShowRoom.Nombre.Replace(" ", "") :
+                var nombreEvento = configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.Nombre != null ?
+                    configEstrategiaSR.BeShowRoom.Nombre.Replace(" ", "") :
                     string.Empty;
                 var utms = model.CadenaParametrosUTMs.Replace(UTM_NOMBRE_EVENTO, nombreEvento);
                 cadena = cadena.Replace(".aspx?", ".aspx?" + utms + "&");
@@ -3368,15 +3436,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void ProgramarAvisoShowRoom(MisDatosModel model)
         {
-            userData.BeShowRoomConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
-            userData.BeShowRoomConsultora.Suscripcion = true;
-            userData.BeShowRoomConsultora.CorreoEnvioAviso = model.EMail;
-            userData.BeShowRoomConsultora.CampaniaID = userData.CampaniaID;
-            userData.BeShowRoomConsultora.CodigoConsultora = userData.CodigoConsultora;
+            configEstrategiaSR.BeShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+            configEstrategiaSR.BeShowRoomConsultora.Suscripcion = true;
+            configEstrategiaSR.BeShowRoomConsultora.CorreoEnvioAviso = model.EMail;
+            configEstrategiaSR.BeShowRoomConsultora.CampaniaID = userData.CampaniaID;
+            configEstrategiaSR.BeShowRoomConsultora.CodigoConsultora = userData.CodigoConsultora;
 
             using (PedidoServiceClient sac = new PedidoServiceClient())
             {
-                sac.ShowRoomProgramarAviso(userData.PaisID, userData.BeShowRoomConsultora);
+                sac.ShowRoomProgramarAviso(userData.PaisID, configEstrategiaSR.BeShowRoomConsultora);
             }
         }
 

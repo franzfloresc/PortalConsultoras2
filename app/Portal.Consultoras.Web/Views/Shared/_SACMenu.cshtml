@@ -127,7 +127,6 @@
                         {
                             if (ViewBag.EsUsuarioComunidad == 0 && primerNivelMenu.Descripcion.Trim().ToUpper() == "MI COMUNIDAD")
                             {
-                            <!--RQ - 2507 (EGL)-->
                             <a href="javascript:;" onclick="AbrirModalRegistroComunidad()" target="@pageTarget" role="menu" region="Principal" parent="@primerNivelMenu.Descripcion" title="@primerNivelMenu.Descripcion" id="lnk-pri-@primerNivelMenu.DescripcionFormateada">
                                 @if (!string.IsNullOrEmpty(primerNivelMenu.UrlImagen))
                                 {
@@ -138,7 +137,6 @@
                             }
                             else
                             {
-                            <!--RQ - 2507 (EGL)-->
                             <a href="#" target="@pageTarget" role="menu" region="Principal" parent="@primerNivelMenu.Descripcion" title="@primerNivelMenu.Descripcion" id="lnk-pri-@primerNivelMenu.DescripcionFormateada">
                                 @if (!string.IsNullOrEmpty(primerNivelMenu.UrlImagen))
                                 {
@@ -151,7 +149,6 @@
                         {
                             if (ViewBag.EsUsuarioComunidad == 0 && primerNivelMenu.Descripcion.Trim().ToUpper() == "MI COMUNIDAD")
                             {
-                            <!--RQ - 2507 (EGL)-->
                             <a href="javascript:;" onclick="AbrirModalRegistroComunidad()" target="@pageTarget" role="menu" region="Principal" parent="@primerNivelMenu.Descripcion" title="@primerNivelMenu.Descripcion" id="lnk-pri-@primerNivelMenu.DescripcionFormateada">
                                 @if (!string.IsNullOrEmpty(primerNivelMenu.UrlImagen))
                                 {
@@ -162,8 +159,6 @@
                             }
                             else
                             {
-                                <!--Cambio link CGI(GOT)-->
-                                <!--RQ - 2507 (EGL)-->
                             <a href="javascript:;" onclick="return SetAnalyticsMenu('@primerNivelMenu.UrlItem.Split('/')[1]', '@primerNivelMenu.UrlItem.Split('/')[0]',@Convert.ToInt32(primerNivelMenu.PaginaNueva), '@primerNivelMenu.Descripcion',1, '@primerNivelMenu.RolId')" target="@pageTarget" role="menu" region="Principal" parent="@primerNivelMenu.Descripcion" title="@primerNivelMenu.Descripcion" id="lnk-pri-@primerNivelMenu.DescripcionFormateada">
                                 @if (!string.IsNullOrEmpty(primerNivelMenu.UrlImagen))
                                 {
@@ -175,8 +170,6 @@
                         }
                         else
                         {
-                             <!--Cambio link CGI(GOT)-->
-                            <!--RQ - 2507 (EGL)-->
                             <a href="javascript:;" onclick="return SetAnalyticsMenu('@primerNivelMenu.UrlItem', '',@Convert.ToInt32(primerNivelMenu.PaginaNueva), '@primerNivelMenu.Descripcion',1, '@primerNivelMenu.RolId')" target="@pageTarget" role="menu" region="Principal" parent="@primerNivelMenu.Descripcion" title="@primerNivelMenu.Descripcion" id="lnk-pri-@primerNivelMenu.DescripcionFormateada">
                                 @if (!string.IsNullOrEmpty(primerNivelMenu.UrlImagen))
                                 {
@@ -254,7 +247,6 @@
                                 }
                                 else if (!segundoNivelMenu.EsDireccionExterior)
                                 {
-                                     <!--Cambio link CGI(GOT)-->
                                     <a href="javascript:;" onclick="return SetAnalyticsMenu('@segundoNivelMenu.UrlItem.Split('/')[1]', '@segundoNivelMenu.UrlItem.Split('/')[0]',@Convert.ToInt32(segundoNivelMenu.PaginaNueva), '@segundoNivelMenu.Descripcion',1, '@segundoNivelMenu.RolId')" target="@pageTargetSegundoNivel" role ="menu" region="Principal" parent="@primerNivelMenu.Descripcion" title="@segundoNivelMenu.Descripcion">
                                         @segundoNivelMenu.Descripcion <br />
                                         @if (!string.IsNullOrEmpty(segundoNivelMenu.UrlImagen))
@@ -292,7 +284,6 @@
                                                 {
                                                     if (IndicadorPermisoFIC == 1)
                                                     {
-                                                         <!--Cambio link CGI(GOT)-->
                                                         <a href="javascript:;" onclick="return SetAnalyticsMenu('@tercerNivelMenu.UrlItem.Split('/')[1]', '@tercerNivelMenu.UrlItem.Split('/')[0]',@Convert.ToInt32(tercerNivelMenu.PaginaNueva), '@tercerNivelMenu.Descripcion',1, '@tercerNivelMenu.RolId')" target="@pageTargetTercerNivel" role="menu" region="Principal" parent ="@segundoNivelMenu.Descripcion" title="@tercerNivelMenu.Descripcion" id="lnk-pri-@tercerNivelMenu.DescripcionFormateada">
                                                             @tercerNivelMenu.Descripcion
                                                         </a>
@@ -304,8 +295,6 @@
                                                     {
                                                         if (IndicadorPermisoFlexipago)
                                                         { 
-                                                             <!--Cambio link CGI(GOT)-->
-                                                            <!--RQ - 2507 (EGL)-->
                                                             <a href="javascript:;" onclick="return SetAnalyticsMenu('@tercerNivelMenu.UrlItem.Split('/')[1]', '@tercerNivelMenu.UrlItem.Split('/')[0]',@Convert.ToInt32(tercerNivelMenu.PaginaNueva), '@tercerNivelMenu.Descripcion',1, '@tercerNivelMenu.RolId')" target="@pageTargetTercerNivel" role="menu" region="Principal" parent="@segundoNivelMenu.Descripcion" title="@tercerNivelMenu.Descripcion" id="lnk-pri-@tercerNivelMenu.DescripcionFormateada">
                                                                 @tercerNivelMenu.Descripcion
                                                             </a>
@@ -313,7 +302,6 @@
                                                     }
                                                     else
                                                     {
-                                                         <!--Cambio link CGI(GOT)-->
                                                         <a href="javascript:;" onclick="return SetAnalyticsMenu('@tercerNivelMenu.UrlItem.Split('/')[1]', '@tercerNivelMenu.UrlItem.Split('/')[0]',@Convert.ToInt32(tercerNivelMenu.PaginaNueva), '@tercerNivelMenu.Descripcion',1, '@tercerNivelMenu.RolId')" target="@pageTargetTercerNivel" role="menu" region="Principal" parent="@segundoNivelMenu.Descripcion" title="@tercerNivelMenu.Descripcion" id="lnk-pri-@tercerNivelMenu.DescripcionFormateada">
                                                             @tercerNivelMenu.Descripcion
                                                         </a>
@@ -332,7 +320,6 @@
                                                 {
                                                     if (IndicadorPermisoFIC == 1)
                                                     {
-                                                         <!--Cambio link CGI(GOT)-->
                                                         <a href="javascript:;" onclick="return SetAnalyticsMenu('@tercerNivelMenu.UrlItem', '',@Convert.ToInt32(tercerNivelMenu.PaginaNueva), '@tercerNivelMenu.Descripcion',1, '@tercerNivelMenu.RolId')" target="@pageTargetTercerNivel" role="menu" region="Principal" parent="@segundoNivelMenu.Descripcion" title="@tercerNivelMenu.Descripcion" id="lnk-pri-@tercerNivelMenu.DescripcionFormateada">
                                                             @tercerNivelMenu.Descripcion <br />
                                                         </a>
@@ -344,7 +331,6 @@
                                                     {
                                                         if (IndicadorPermisoFlexipago)
                                                         { 
-                                                             <!--Cambio link CGI(GOT)-->
                                                             <a href="javascript:;" onclick="return SetAnalyticsMenu('@tercerNivelMenu.UrlItem', '',@Convert.ToInt32(tercerNivelMenu.PaginaNueva), '@tercerNivelMenu.Descripcion',1, '@tercerNivelMenu.RolId')" target="@pageTargetTercerNivel" role="menu" region="Principal" parent="@segundoNivelMenu.Descripcion" title="@tercerNivelMenu.Descripcion" id="lnk-pri-@tercerNivelMenu.DescripcionFormateada">
                                                                 @tercerNivelMenu.Descripcion <br />
                                                             </a>
@@ -352,7 +338,6 @@
                                                     }
                                                     else
                                                     {
-                                                        <!--Cambio link CGI(GOT)-->
                                                         <a href="javascript:;" onclick="return SetAnalyticsMenu('@tercerNivelMenu.UrlItem', '',@Convert.ToInt32(tercerNivelMenu.PaginaNueva), '@tercerNivelMenu.Descripcion',1, '@tercerNivelMenu.RolId')" target="@pageTargetTercerNivel" role="menu" region="Principal" parent="@segundoNivelMenu.Descripcion" title="@tercerNivelMenu.Descripcion" id="lnk-pri-@tercerNivelMenu.DescripcionFormateada">
                                                             @tercerNivelMenu.Descripcion <br />
                                                         </a>

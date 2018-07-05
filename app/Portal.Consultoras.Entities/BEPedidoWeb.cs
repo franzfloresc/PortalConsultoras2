@@ -117,8 +117,7 @@ namespace Portal.Consultoras.Entities
         public bool ValidacionAbierta { get; set; }
 
 
-        public BEPedidoWeb()
-        { }
+        public BEPedidoWeb() { }
 
         public BEPedidoWeb(IDataRecord row)
         {

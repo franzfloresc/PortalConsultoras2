@@ -13,146 +13,148 @@
         </div>
     </div>
     {{else}}
-        {{#if EsLanzamiento}}
-        <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
-            <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-            <div class="content_item_home_bpt box_producto_mobile_fix content_item_carrusel_clubganamas content_item_carrusel_clubganamas_off" style="cursor:pointer; ">
-                 {{#iff TipoEstrategiaDetalle.ImgFichaMobile '!=' ''}}
-                    <img src="{{TipoEstrategiaDetalle.ImgFichaMobile}}" alt="" class="clubganamas_logo" />
-                {{/iff}}
-                {{#iff TipoEstrategiaDetalle.ImgHomeMobile '!=' ''}}
+    {{#if EsLanzamiento}}
+    <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
+        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+        <div class="content_item_home_bpt box_producto_mobile_fix content_item_carrusel_clubganamas content_item_carrusel_clubganamas_off" style="cursor:pointer; ">
+            {{#iff TipoEstrategiaDetalle.ImgFichaMobile '!=' ''}}
+                <img src="{{TipoEstrategiaDetalle.ImgFichaMobile}}" alt="" class="clubganamas_logo" />
+            {{/iff}}
+            {{#iff TipoEstrategiaDetalle.ImgHomeMobile '!=' ''}}
                 <img src="{{TipoEstrategiaDetalle.ImgHomeMobile}}" class="portada">
-                {{/iff}}
-                <div class="centrar-tercero">
-                    <div class="centrar-tercero-centro">
-                        <p class="tercero">
-                            Conoce {{DescripcionResumen}}
-                        </p>
-                    </div>
+            {{/iff}}
+            <div class="centrar-tercero">
+                <div class="centrar-tercero-centro">
+                    <p class="tercero">
+                        Conoce {{DescripcionResumen}}
+                    </p>
                 </div>
-                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')" class="portada portada_off">VER LANZAMIENTOS</a>
             </div>
+            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento, '@Constantes.ConfiguracionPais.Lanzamiento')" 
+               class="portada portada_off">VER LANZAMIENTOS</a>
         </div>
-        {{else}}
-        <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}} content_item_home_palanca">
-            <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-            <div class="content_item_home_bpt box_producto_mobile_fix">
-                <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
-                <div data-item-tag="verdetalle" {{#iff TieneVerDetalle }} onclick="javascript:VerDetalleEstrategia(event);" {{else}} onclick="javascript:VerPopupExpGanaMas();" {{/iff}}>
-                    <div {{#iff TieneVerDetalle }} style="cursor:pointer;" {{/iff}}>
-                        <div class="producto_img_mobile_bpt">
-                            <img data-src="{{FotoProductoSmall}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
-                        </div>
-                        {{#iff EsOfertaIndependiente '==' '1'}}
-                        {{#iff MostrarImgOfertaIndependiente '==' '1'}}
-                        <div class="etiqueta_producto" data-item-tag="etiqueta">
-                            <img src="{{ImagenOfertaIndependiente}}" alt="Etiqueta Producto" />
-                        </div>
-                        {{/iff}}
-                        {{else}}
-                        {{#iff ImagenURL '!=' ''}}
-                        <div class="etiqueta_producto" data-item-tag="etiqueta">
-                            <img data-src="{{ImagenURL}}" alt="Etiqueta Producto" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
-                        </div>
-                        {{/iff}}
-                        {{/iff}}
+    </div>
+    {{else}}
+    <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}} content_item_home_palanca">
+        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+        <div class="content_item_home_bpt box_producto_mobile_fix">
+            <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
+            <div data-item-tag="verdetalle"
+                {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
+                onclick="javascript:VerPopupExpGanaMas();"
+                {{else}}
+                onclick="javascript:VerDetalleEstrategia(event);"
+                {{/iff}}>
+                <div>
+                    <div class="producto_img_mobile_bpt">
+                        <img data-src="{{ImgSmall FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
                     </div>
-                    <div class="producto_nombre_descripcion">
-                        <div {{#iff TieneVerDetalle }} style="cursor:pointer;" {{/iff}}>
-                            {{#IsNullOrEmpty DescripcionMarca '!='}}
-                            <h6 {{#if this.ExperienciaGanaMas includeZero=true}} {{#unless TieneVerDetalle }} style="color:gray;" {{/unless}} {{/if}}>{{DescripcionMarca}}</h6>
-                            {{else}}
-                            <h6>&ensp;&nbsp;</h6>
-                            {{/IsNullOrEmpty}}
-                            {{#iff DescripcionCortada '!=' ''}}
-                            <p class="nombre_producto" style="cursor: pointer; height: 36px;">
-                                <b {{#if this.ExperienciaGanaMas includeZero=true}} {{#unless TieneVerDetalle }} style="color:gray;" {{/unless}} {{/if}}>{{DescripcionCortada}}</b>
-                            </p>
-                            {{/iff}}
+                    {{#iff ImagenURL '!=' ''}}
+                    <div class="etiqueta_producto" data-item-tag="etiqueta">
+                        <img data-src="{{ImagenURL}}" alt="Etiqueta Producto" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
+                    </div>
+                    {{/iff}}
+                </div>
+                <div class="producto_nombre_descripcion">
+                    <div>
+                        {{#IsNullOrEmpty DescripcionMarca '!='}}
+                        <h6 {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>{{DescripcionMarca}}</h6>
+                        {{else}}
+                        <h6>&ensp;&nbsp;</h6>
+                        {{/IsNullOrEmpty}}
+                        {{#iff DescripcionCortada '!=' ''}}
+                        <p class="nombre_producto" style="cursor: pointer; height: 36px;">
+                            <b class="text_descrition_prd_bpt" {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>{{DescripcionCortada}}</b>
+                        </p>
+                        {{/iff}}
 
-                            <div class="producto_precio" {{#if this.ExperienciaGanaMas includeZero=true}} {{#unless TieneVerDetalle }} style="color:gray;" {{/unless}} {{/if}}>
-                                {{#iff Precio '>' 0}}
-                                <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
-                                {{else}}
-                                <span class="producto_precio_normal" style="text-decoration: none;">&nbsp;</span>
-                                {{/iff}}
-                                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioVenta}}</b></span>
-                            </div>
+                        <div class="producto_precio" {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>
+                            {{#iff Precio '>' 0}}
+                            <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioTachado}}</span>
+                            {{else}}
+                            <span class="producto_precio_normal" style="text-decoration: none;">&nbsp;</span>
+                            {{/iff}}
+                            <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioVenta}}</b></span>
                         </div>
                     </div>
                 </div>
-                <div class="clear"></div>
-                {{#if this.ExperienciaGanaMas includeZero=true}}
-                {{else}}
-                    @if (ViewBag.TieneBotones)
-                    {
-                        <div>
-                        {{#iff TipoAccionAgregar '==' '1'}}
-                        <div class="texto_elige_tono">&nbsp;</div>
-                        <div class="producto_nombre_descripcion">
-                            <div class="liquidacion_rango_home">
-                                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" disabled="disabled" style="border: 1px solid #b0b0b0;width:100%!important" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
-                            </div>
-                            <div class="clear"></div>
-                            <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregar(event); ">
-                                AGR&Eacute;GALO
-                            </a>
+            </div>
+            <div class="clear"></div>
+            @if (ViewBag.TieneBotones)
+            {
+                <div>
+                    {{#iff TipoAccionAgregar '==' '1'}}
+                    <div class="texto_elige_tono">&nbsp;</div>
+                    <div class="producto_nombre_descripcion">
+                        <div class="liquidacion_rango_home">
+                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' disabled="disabled" 
+                                   class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" 
+                                   style="border: 1px solid #b0b0b0;width:100%!important" 
+                                   onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" 
+                                   {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
                         </div>
-                        {{/iff}}
-                        {{#iff TipoAccionAgregar '==' '2'}}
-                        <div class="texto_elige_tono">&nbsp;</div>
-                        <div class="producto_nombre_descripcion">
-                            <div class="liquidacion_rango_home">
-                                <a class="cantidad_menos_home" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{ClaseBloqueada}}" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
-                                <a class="cantidad_mas_home" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                            </div>
-                            <div class="clear"></div>
-                            <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregar(event); ">
-                                AGR&Eacute;GALO
-                            </a>
+                        <div class="clear"></div>
+                        <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregar(event); ">
+                            AGR&Eacute;GALO
+                        </a>
+                    </div>
+                    {{/iff}}
+                    {{#iff TipoAccionAgregar '==' '2'}}
+                    <div class="texto_elige_tono">&nbsp;</div>
+                    <div class="producto_nombre_descripcion">
+                        <div class="liquidacion_rango_home">
+                            <a class="cantidad_menos_home" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' 
+                                   class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{ClaseBloqueada}}" 
+                                   onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" 
+                                   {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
+                            <a class="cantidad_mas_home" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                         </div>
-                        {{/iff}}
-                        {{#iff TipoAccionAgregar '==' '3'}}
-                            <div class="texto_elige_tono">&nbsp;</div>
-                            <div class="clear"></div>
-                            <div class="texto_elige_tono" style="height: 55px;padding-top: 16px;">¡AHORA ELIGE TU TONO!</div>
-                            <div class="clear"></div>
-                            <div class="producto_nombre_descripcion">
-                                <a class="btn_elige_tono" data-item-tag="eligetuopcion" onclick="javascript:VerDetalleEstrategia(event);" href="javascript:;">
-                                    ELIGE TU OPCIÓN
-                                </a>
-                            </div>
-                        {{/iff}}
-                            <div class="producto_nombre_descripcion">
-                                <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
-                                    AGREGADO
-                                    <div class="icono"></div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div>
-                            {{#iff TipoAccionAgregar '==' '3'}}
-                            <div class="texto_elige_tono">¡AHORA ELIGE TU TONO!</div>
-                            {{else}}
-                            <div class="texto_elige_tono">&nbsp;</div>
-                            {{/iff}}
-                        </div>
-                    }
-                {{/if}}
-                    
-                @*<div style="display: block; padding: 0px 0px 10px;">
+                        <div class="clear"></div>
+                        <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregar(event); ">
+                            AGR&Eacute;GALO
+                        </a>
+                    </div>
+                    {{/iff}}
+                    {{#iff TipoAccionAgregar '==' '3'}}
+                    <div class="texto_elige_tono">&nbsp;</div>
+                    <div class="clear"></div>
+                    <div class="texto_elige_tono" style="height: 55px;padding-top: 16px;">¡AHORA ELIGE TU TONO!</div>
+                    <div class="clear"></div>
+                    <div class="producto_nombre_descripcion">
+                        <a class="btn_elige_tono" data-item-tag="eligetuopcion" onclick="javascript:VerDetalleEstrategia(event);" href="javascript:;">
+                            ELIGE TU OPCIÓN
+                        </a>
+                    </div>
+                    {{/iff}}
+                    <div class="producto_nombre_descripcion">
                         <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
                             AGREGADO
                             <div class="icono"></div>
                         </div>
-                    </div>*@
-             </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div>
+                    {{#iff TipoAccionAgregar '==' '3'}}
+                        <div class="texto_elige_tono">¡AHORA ELIGE TU TONO!</div>
+                    {{else}}
+                        <div class="texto_elige_tono">&nbsp;</div>
+                    {{/iff}}
+                </div>
+            }
+
+            @*<div style="display: block; padding: 0px 0px 10px;">
+                    <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                        AGREGADO
+                        <div class="icono"></div>
+                    </div>
+                </div>*@
         </div>
-        {{/if}}
+    </div>
+    {{/if}}
 
     {{/if}}
     {{/each}}

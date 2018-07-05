@@ -129,7 +129,7 @@ namespace Portal.Consultoras.ServiceContracts
         String AceptarContrato(BEUsuario usuario);
 
         [OperationContract]
-        int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora);
+        int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora, string origen);
 
         [OperationContract]
         BEUsuario GetSesionUsuarioLoginDD(int paisID, string codigoUsuario, string claveSecreta);
@@ -260,6 +260,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia);
+
+        [OperationContract]
+        BEValidaLoginSB2 GetValidarLoginJsonWebToken(int paisID, string documento);
 
         [OperationContract]
         BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor);

@@ -84,7 +84,7 @@ namespace Portal.Consultoras.BizLogic
             return productos;
         }
 
-        public IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int CampaniaID, int ZonaID, string cuv, string descripcion)
+        public IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int CampaniaID, int ZonaID, string cuv, string descripcion, string codCategoria, string codCatalogoRevista)
         {
             var productos = new List<BEProductoFaltante>();
             var daProductofaltante = new DAProductoFaltante(paisID);
@@ -92,7 +92,7 @@ namespace Portal.Consultoras.BizLogic
 
             if (!blPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
             {
-                using (IDataReader reader = daProductofaltante.GetProductoFaltanteByCampaniaAndZonaID(CampaniaID, ZonaID, cuv, descripcion))
+                using (IDataReader reader = daProductofaltante.GetProductoFaltanteByCampaniaAndZonaID(CampaniaID, ZonaID, cuv, descripcion, codCategoria , codCatalogoRevista))
                     while (reader.Read())
                     {
                         var prodfal = new BEProductoFaltante(reader);

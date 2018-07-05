@@ -103,15 +103,19 @@
                                                                 <span class="cantidad_producto_opt">x @producto.Cantidad </span>
                                                             }
                                                             <span class="product_name" data-tono-cuv-producto="@producto.CUV" data-tono-select-nombrecomercial="">@producto.NombreComercial</span>
-                                                            <span class="price">@producto.Descripcion</span>@*DescripcionComercial*@
+                                                            <span class="price">@producto.Descripcion</span>
                                                         </div>
                                                         <hr class="clear">
                                                         @if (producto.Digitable == 1)
                                                         {
                                                             <div class="content_tonos_producto">
                                                                 <div class="tono_select_opt">
-                                                                    <div class="content_tono_elegido texto_sin_tono" data-tono-showroom-change="1">
-                                                                        <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                                                    <div class="content_tono_elegido texto_sin_tono" 
+                                                                         data-tono-showroom-change="1"
+                                                                    >
+                                                                        <div class="tono_seleccionado" style="display: none;">
+                                                                            <img src="~/Content/Images/showroom/no_disponible.png" alt="">
+                                                                        </div>
                                                                         <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
                                                                         <hr class="clear" />
                                                                     </div>
@@ -119,7 +123,12 @@
                                                                         @foreach (var tono in producto.Hermanos)
                                                                         {
                                                                             btnDesabled = 1;
-                                                                            <div class="content_tono_elegido" data-tono-showroom-change="2" data-tono-cuv="@tono.CUV" data-tono-nombre="@tono.NombreBulk" data-tono-descripcion="@tono.NombreComercial">
+                                                                            <div class="content_tono_elegido" 
+                                                                                 data-tono-showroom-change="2" 
+                                                                                 data-tono-cuv="@tono.CUV" 
+                                                                                 data-tono-nombre="@tono.NombreBulk" 
+                                                                                 data-tono-descripcion="@tono.NombreComercial"
+                                                                            >
                                                                                 <div class="tono_seleccionado"><img src="@tono.ImagenBulk" alt=""></div>
                                                                                 <div class="texto_tono_seleccionado">@tono.NombreBulk</div>
                                                                                 <hr class="clear" />
@@ -351,9 +360,7 @@
         <div data-compartir-campos="" style="display: none;">
             <input type="hidden" class="CUV" value="@Model.CUV" />
             <input type="hidden" class="rsFBMensaje" value="@Model.FBMensaje" />
-            <input type="hidden" class="rsFBRuta" value="@Model.FBRuta" />
             <input type="hidden" class="rsWAMensaje" value="@Model.FBMensaje" />
-            <input type="hidden" class="rsWARuta" value="@Model.FBRuta" />
             <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProducto" />
             <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProducto" />
             <input type="hidden" class="Nombre" value="@Model.Descripcion" />
@@ -397,7 +404,7 @@
         {
             btnDesabledClass = "btn_desactivado_general";
         }
-        <a id="btnAgregalo" class="btn_agregar_ficha_producto @btnDesabledClass" @*data-btn-agregar-sr=""*@  onclick="javascript:EstrategiaAgregarShowRoom(event, true); ">AGRÉGALO</a>
+        <a id="btnAgregalo" class="btn_agregar_ficha_producto @btnDesabledClass" onclick="javascript:EstrategiaAgregarShowRoom(event, true); ">AGRÉGALO</a>
         <hr class="clear">
     </div>
 </div>

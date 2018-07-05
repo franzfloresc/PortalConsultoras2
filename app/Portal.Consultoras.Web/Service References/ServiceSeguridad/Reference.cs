@@ -763,6 +763,9 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -770,15 +773,6 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoMenuPadreField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoRegionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoSeccionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoZonaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionField;
@@ -793,6 +787,9 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
         private int PosicionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short RevistaDigitalSuscripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceSeguridad.BEMenuApp[] SubMenusField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -800,6 +797,9 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool VisibleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ZonaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int paisIdField;
@@ -811,6 +811,19 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CampaniaID {
+            get {
+                return this.CampaniaIDField;
+            }
+            set {
+                if ((this.CampaniaIDField.Equals(value) != true)) {
+                    this.CampaniaIDField = value;
+                    this.RaisePropertyChanged("CampaniaID");
+                }
             }
         }
         
@@ -849,45 +862,6 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
                 if ((object.ReferenceEquals(this.CodigoMenuPadreField, value) != true)) {
                     this.CodigoMenuPadreField = value;
                     this.RaisePropertyChanged("CodigoMenuPadre");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoRegion {
-            get {
-                return this.CodigoRegionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoRegionField, value) != true)) {
-                    this.CodigoRegionField = value;
-                    this.RaisePropertyChanged("CodigoRegion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoSeccion {
-            get {
-                return this.CodigoSeccionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoSeccionField, value) != true)) {
-                    this.CodigoSeccionField = value;
-                    this.RaisePropertyChanged("CodigoSeccion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoZona {
-            get {
-                return this.CodigoZonaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoZonaField, value) != true)) {
-                    this.CodigoZonaField = value;
-                    this.RaisePropertyChanged("CodigoZona");
                 }
             }
         }
@@ -945,6 +919,19 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public short RevistaDigitalSuscripcion {
+            get {
+                return this.RevistaDigitalSuscripcionField;
+            }
+            set {
+                if ((this.RevistaDigitalSuscripcionField.Equals(value) != true)) {
+                    this.RevistaDigitalSuscripcionField = value;
+                    this.RaisePropertyChanged("RevistaDigitalSuscripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public Portal.Consultoras.Web.ServiceSeguridad.BEMenuApp[] SubMenus {
             get {
                 return this.SubMenusField;
@@ -979,6 +966,19 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
                 if ((this.VisibleField.Equals(value) != true)) {
                     this.VisibleField = value;
                     this.RaisePropertyChanged("Visible");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ZonaID {
+            get {
+                return this.ZonaIDField;
+            }
+            set {
+                if ((this.ZonaIDField.Equals(value) != true)) {
+                    this.ZonaIDField = value;
+                    this.RaisePropertyChanged("ZonaID");
                 }
             }
         }

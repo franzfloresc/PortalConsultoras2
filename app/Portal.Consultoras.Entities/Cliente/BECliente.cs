@@ -11,72 +11,57 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BECliente
     {
-        private long miConsultoraID;
-        private int miClienteID;
-        private string msNombre;
-        private string msTelefono;
-        private string msCelular;
-        private string mseMail;
-        private bool mbActivo;
-        private int miPaisID;
-        private int mPagina;
-        private long miCodigoCliente;
-        private short miFavorito;
-        private short miTipoContactoFavorito;
-        private string msNombreCliente;
-        private string msApellidoCliente;
-
         public BECliente()
         {
-            msNombre = string.Empty;
-            mseMail = string.Empty;
-            msTelefono = string.Empty;
-            msCelular = string.Empty;
-            miCodigoCliente = 0;
-            miFavorito = 0;
-            miTipoContactoFavorito = 0;
+            Nombre = string.Empty;
+            eMail = string.Empty;
+            Telefono = string.Empty;
+            Celular = string.Empty;
+            CodigoCliente = 0;
+            Favorito = 0;
+            TipoContactoFavorito = 0;
 
-            msNombreCliente = string.Empty;
-            msApellidoCliente = string.Empty;
+            NombreCliente = string.Empty;
+            ApellidoCliente = string.Empty;
         }
 
         public BECliente(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "ConsultoraID"))
-                miConsultoraID = Convert.ToInt64(datarec["ConsultoraID"]);
+                ConsultoraID = Convert.ToInt64(datarec["ConsultoraID"]);
 
             if (DataRecord.HasColumn(datarec, "ClienteID"))
-                miClienteID = Convert.ToInt32(datarec["ClienteID"]);
+                ClienteID = Convert.ToInt32(datarec["ClienteID"]);
 
             if (DataRecord.HasColumn(datarec, "Nombre"))
-                msNombre = datarec["Nombre"].ToString();
+                Nombre = datarec["Nombre"].ToString();
 
             if (DataRecord.HasColumn(datarec, "eMail"))
-                mseMail = datarec["eMail"].ToString();
+                eMail = datarec["eMail"].ToString();
 
             if (DataRecord.HasColumn(datarec, "Activo"))
-                mbActivo = Convert.ToBoolean(datarec["Activo"]);
+                Activo = Convert.ToBoolean(datarec["Activo"]);
 
             if (DataRecord.HasColumn(datarec, "Telefono"))
-                msTelefono = datarec["Telefono"].ToString();
+                Telefono = datarec["Telefono"].ToString();
 
             if (DataRecord.HasColumn(datarec, "Celular"))
-                msCelular = datarec["Celular"].ToString();
+                Celular = datarec["Celular"].ToString();
 
             if (DataRecord.HasColumn(datarec, "CodigoCliente"))
-                miCodigoCliente = Convert.ToInt64(datarec["CodigoCliente"]);
+                CodigoCliente = Convert.ToInt64(datarec["CodigoCliente"]);
 
             if (DataRecord.HasColumn(datarec, "Favorito"))
-                miFavorito = Convert.ToInt16(datarec["Favorito"]);
+                Favorito = Convert.ToInt16(datarec["Favorito"]);
 
             if (DataRecord.HasColumn(datarec, "TipoContactoFavorito"))
-                miTipoContactoFavorito = Convert.ToInt16(datarec["TipoContactoFavorito"]);
+                TipoContactoFavorito = Convert.ToInt16(datarec["TipoContactoFavorito"]);
 
             if (DataRecord.HasColumn(datarec, "NombreCliente"))
-                msNombreCliente = datarec["NombreCliente"].ToString();
+                NombreCliente = datarec["NombreCliente"].ToString();
 
             if (DataRecord.HasColumn(datarec, "ApellidoCliente"))
-                msApellidoCliente = datarec["ApellidoCliente"].ToString();
+                ApellidoCliente = datarec["ApellidoCliente"].ToString();
 
             if (DataRecord.HasColumn(datarec, "Saldo"))
                 Saldo = Convert.ToDecimal(datarec["Saldo"]);
@@ -86,80 +71,38 @@ namespace Portal.Consultoras.Entities
         }
 
         [DataMember]
-        public string NombreCliente
-        {
-            get { return msNombreCliente; }
-            set { msNombreCliente = value; }
-        }
-        [DataMember]
-        public string ApellidoCliente
-        {
-            get { return msApellidoCliente; }
-            set { msApellidoCliente = value; }
-        }
+        public string NombreCliente { get; set; }
 
         [DataMember]
-        public int Pagina
-        {
-            get { return mPagina; }
-            set { mPagina = value; }
-        }
+        public string ApellidoCliente { get; set; }
 
         [DataMember]
-        public long ConsultoraID
-        {
-            get { return miConsultoraID; }
-            set { miConsultoraID = value; }
-        }
+        public int Pagina { get; set; }
+
+        [DataMember]
+        public long ConsultoraID { get; set; }
 
         [DataMember]
         [Column("ClienteID")]
-        public int ClienteID
-        {
-            get { return miClienteID; }
-            set { miClienteID = value; }
-        }
+        public int ClienteID { get; set; }
 
         [DataMember]
-        public string Nombre
-        {
-            get { return msNombre; }
-            set { msNombre = value; }
-        }
+        public string Nombre { get; set; }
 
         [DataMember]
-        public string eMail
-        {
-            get { return mseMail; }
-            set { mseMail = value; }
-        }
+        public string eMail { get; set; }
 
         [DataMember]
-        public bool Activo
-        {
-            get { return mbActivo; }
-            set { mbActivo = value; }
-        }
+        public bool Activo { get; set; }
 
         [DataMember]
-        public int PaisID
-        {
-            get { return miPaisID; }
-            set { miPaisID = value; }
-        }
-        [DataMember]
-        public string Telefono
-        {
-            get { return msTelefono; }
-            set { msTelefono = value; }
-        }
+        public int PaisID { get; set; }
 
         [DataMember]
-        public string Celular
-        {
-            get { return msCelular; }
-            set { msCelular = value; }
-        }
+        public string Telefono { get; set; }
+
+        [DataMember]
+        public string Celular { get; set; }
 
         [DataMember]
         public short TieneTelefono
@@ -177,26 +120,13 @@ namespace Portal.Consultoras.Entities
         }
 
         [DataMember]
-        public long CodigoCliente
-        {
-            get { return miCodigoCliente; }
-            set { miCodigoCliente = value; }
-        }
+        public long CodigoCliente { get; set; }
 
         [DataMember]
-        public short Favorito
-        {
-            get { return miFavorito; }
-            set { miFavorito = value; }
-        }
-
+        public short Favorito { get; set; }
 
         [DataMember]
-        public short TipoContactoFavorito
-        {
-            get { return miTipoContactoFavorito; }
-            set { miTipoContactoFavorito = value; }
-        }
+        public short TipoContactoFavorito { get; set; }
 
         [DataMember]
         [Column("Saldo")]

@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
@@ -9,8 +10,6 @@ using Portal.Consultoras.Web.ServicesCalculosPROL;
 using System;
 using System.Collections.Generic;
 using System.Web;
-using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
-using Portal.Consultoras.Web.Areas.Mobile.Models;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -116,14 +115,14 @@ namespace Portal.Consultoras.Web.SessionManager
             return mostrarShowRoomProductosExpiro != null && mostrarShowRoomProductosExpiro.ToString().Trim() == "1";
         }
 
-        void ISessionManager.SetTiposEstrategia(List<BETipoEstrategia> tiposEstrategia)
+        void ISessionManager.SetTiposEstrategia(List<ServicePedido.BETipoEstrategia> tiposEstrategia)
         {
             HttpContext.Current.Session["ListaTipoEstrategia"] = tiposEstrategia;
         }
 
-        List<BETipoEstrategia> ISessionManager.GetTiposEstrategia()
+        List<ServicePedido.BETipoEstrategia> ISessionManager.GetTiposEstrategia()
         {
-            return (List<BETipoEstrategia>)HttpContext.Current.Session["ListaTipoEstrategia"];
+            return (List<ServicePedido.BETipoEstrategia>)HttpContext.Current.Session["ListaTipoEstrategia"];
         }
 
         void ISessionManager.SetRevistaDigital(RevistaDigitalModel revistaDigital)
@@ -388,6 +387,27 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
         }
+
+        public void SetEstrategiaODD(Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel data)
+        {
+            HttpContext.Current.Session["EstrategiaODD"] = data;
+        }
+
+        public Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel GetEstrategiaODD()
+        {
+            return (Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel)HttpContext.Current.Session["EstrategiaODD"];
+        }
+
+        public void SetEstrategiaSR(Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel data)
+        {
+            HttpContext.Current.Session["ConfigEstrategiaSR"] = data;
+        }
+
+        public Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR()
+        {
+            return (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel)HttpContext.Current.Session["ConfigEstrategiaSR"];
+        }
+
         void ISessionManager.SetPedidosFacturados(PedidoWebClientePrincipalMobilModel model)
         {
             HttpContext.Current.Session[Constantes.ConstSession.PedidosFacturados] = model;
@@ -398,14 +418,37 @@ namespace Portal.Consultoras.Web.SessionManager
             return (PedidoWebClientePrincipalMobilModel)HttpContext.Current.Session[Constantes.ConstSession.PedidosFacturados];
         }
 
-        public void SetMiAcademia(int id) /* SOPORTEC-266 */
+        public void SetMiAcademia(int id)
         {
             HttpContext.Current.Session["MiAcademia"] = id;
         }
 
-        public int GetMiAcademia() /* SOPORTEC-266 */
+        public int GetMiAcademia()
         {
-            return (int) HttpContext.Current.Session["MiAcademia"];
+            return (int)HttpContext.Current.Session["MiAcademia"];
+        }
+
+        void ISessionManager.setBEUsuarioModel(List<ServiceUsuario.BEUsuario> model)
+        {
+            HttpContext.Current.Session["BEUsuarioModel"] = model;
+        }
+
+        List<ServiceUsuario.BEUsuario> ISessionManager.getBEUsuarioModel()
+        {
+            return (List<ServiceUsuario.BEUsuario>)HttpContext.Current.Session["BEUsuarioModel"];
+        }
+
+        EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
+        {
+            get
+            {
+                return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
+            }
+
+            set
+            {
+                HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = value;
+            }
         }
 
         void ISessionManager.SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
@@ -417,17 +460,16 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
         }
+        
 
-        //EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
-        //{
-        //    get
-        //    {
-        //        return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
-        //    }
-        //    set
-        //    {
-        //        HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = value;
-        //    }
-        //}
+        public void SetPedidoValidado(bool validado)
+        {
+            HttpContext.Current.Session["PedidoValidado"] = validado;
+        }
+
+        public bool GetPedidoValidado()
+        {
+            return Convert.ToBoolean(HttpContext.Current.Session["PedidoValidado"]);
+        }
     }
 }

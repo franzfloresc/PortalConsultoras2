@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
@@ -101,16 +101,25 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount, bool validarOpt)
         {
-            IList<BEProducto> productos = new List<BEProducto>();
-            var daProducto = new DAProducto(paisID);
+            var productos = new List<BEProducto>();
 
-            using (IDataReader reader = daProducto.GetProductoComercialByCampaniaBySearchRegionZona(campaniaID, rowCount, criterio, codigoDescripcion, RegionID, ZonaID, CodigoRegion, CodigoZona, validarOpt))
+
+            using (IDataReader reader = new DAProducto(paisID).GetProductoComercialByCampaniaBySearchRegionZona(campaniaID, rowCount, criterio, codigoDescripcion, RegionID, ZonaID, CodigoRegion, CodigoZona, validarOpt))
             {
                 while (reader.Read())
                 {
                     productos.Add(new BEProducto(reader));
                 }
             }
+
+            productos.Update(p =>
+            {
+                if (p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ShowRoom)
+                {
+                    p.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
+                    p.ConfiguracionOfertaID = 11;
+                }
+            });
 
             return (from producto in productos
                     orderby (criterio == 1 ? producto.CUV : producto.Descripcion)
@@ -279,10 +288,9 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv)
         {
-            IList<BEProducto> productos = new List<BEProducto>();
-            var daProducto = new DAProducto(paisID);
+            var productos = new List<BEProducto>();
 
-            using (IDataReader reader = daProducto.SelectProductoToKitInicio(campaniaID, cuv))
+            using (var reader = new DAProducto(paisID).SelectProductoToKitInicio(campaniaID, cuv))
             {
                 while (reader.Read())
                 {
@@ -358,7 +366,7 @@ namespace Portal.Consultoras.BizLogic
             var blTablaLogicaDatos = new BLTablaLogicaDatos();
             var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgramaNuevas.EncenderValidacion.TablaLogicaID);
             if (lstTabla.Count == 0) return false;
-            if(lstTabla.Where(a => a.Codigo == Constantes.ProgramaNuevas.EncenderValidacion.Activo).Select(b => b.Descripcion).FirstOrDefault() == "1") return true;
+            if (lstTabla.Where(a => a.Codigo == Constantes.ProgramaNuevas.EncenderValidacion.Activo).Select(b => b.Descripcion).FirstOrDefault() == "1") return true;
             return false;
         }
 
@@ -376,8 +384,8 @@ namespace Portal.Consultoras.BizLogic
         }
 
         public int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada)
-        {            
-            List <BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
+        {
+            List<BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
             if (lstProdcutos.Count == 0) return 0;
             lstProdcutos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
             if (lstProdcutos.Count == 0) return 0;
@@ -385,14 +393,14 @@ namespace Portal.Consultoras.BizLogic
             if (cantidadIngresada + cantidadEnPedido > CantidadMaxima) return CantidadMaxima;
             return 0;
         }
-        
+
         public bool ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido)
-        {            
-            List <BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
+        {
+            List<BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
             if (lstProdcutos == null || lstProdcutos.Count == 0) return false;
             lstProdcutos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
             if (lstProdcutos.Count == 0) return false;
-            var oCuv = lstProdcutos.Where(a => a.CodigoCupon == cuvIngresado).FirstOrDefault();
+            var oCuv = lstProdcutos.FirstOrDefault(a => a.CodigoCupon == cuvIngresado);
             if (oCuv.IndicadorCuponIndependiente) return false;
             List<BEProductoProgramaNuevas> lstElectivas = lstProdcutos.Where(a => !a.IndicadorCuponIndependiente && a.CodigoCupon != cuvIngresado).ToList();
             if (lstElectivas.Count == 0) return false;
@@ -478,7 +486,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
         private List<string> GetProductosExclusivos(int paisID, int campaniaID)
-        {            
+        {
             var daProducto = new DAProducto(paisID);
             List<string> lstProductos = new List<string>();
             using (IDataReader reader = daProducto.GetProductosExclusivos(campaniaID))
@@ -492,6 +500,39 @@ namespace Portal.Consultoras.BizLogic
         }
         #endregion
         #endregion
+
+        public string ValidarMatrizCampaniaMasivo(int paisID, string CUVs, int AnioCampania)
+        {
+            return new DAProductoDescripcion(paisID).ValidarMatrizCampaniaMasivo(CUVs, AnioCampania);
+        }
+
+        public string RegistrarProductoMasivo(int paisID, string data)
+        {
+            return new DAProductoDescripcion(paisID).RegistrarProductoMasivo(data);
+        }
+
+        public void UpdProductoDescripcionMasivo(int paisID, int campaniaID, IList<BEProductoDescripcion> productos, string codigoUsuario)
+        {
+
+            var daProductoDescripcion = new DAProductoDescripcion(paisID);
+
+            List<BEProductoDescripcion> lstFinal = new List<BEProductoDescripcion>();
+
+            //foreach (BEProductoDescripcion be in productos)
+            //{
+            //    BEProductoDescripcion item = new BEProductoDescripcion();
+            //    item.CampaniaID = campaniaID;
+            //    item.CUV  = be.CUV;
+            //    item.Descripcion  = be.Descripcion;
+            //    item.PrecioProducto = be.PrecioProducto;
+            //    item.FactorRepeticion = be.FactorRepeticion;
+            //    lstFinal.Add(item);
+            //}
+
+            // daProductoDescripcion.UpdProductoDescripcionMasivo(paisID,campaniaID, lstFinal, codigoUsuario);
+            daProductoDescripcion.UpdProductoDescripcionMasivo(paisID, campaniaID, productos, codigoUsuario);
+
+        }
 
     }
 }

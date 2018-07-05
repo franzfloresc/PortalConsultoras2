@@ -1,8 +1,10 @@
 ﻿using Portal.Consultoras.Common;
+
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Entities
 {
@@ -55,6 +57,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("DescripcionCUV2")]
         public string DescripcionCUV2 { get; set; }
+        [DataMember]
+        public string DescripcionCortaCUV2 { get; set; }
         [Column("Activo")]
         public bool activo { get; set; }
         private int _Activo;
@@ -165,10 +169,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public BETipoEstrategia TipoEstrategia { get; set; }
-
-        [DataMember]
-        public string URLCompartir { get; set; }
-
+        
         /// <summary>
         /// [Filtro] para la validacion del periodo de facturacion
         /// Si es true, verifica que la fecha actual sea mayor que la del inicio de facturacion
@@ -181,10 +182,6 @@ namespace Portal.Consultoras.Entities
         public int IdMatrizComercial { get; set; }
         [DataMember]
         public string FotoProducto01 { get; set; }
-        [DataMember]
-        public string FotoProductoSmall { get; set; }
-        [DataMember]
-        public string FotoProductoMedium { get; set; }
 
         #region EstrategiaDetalle
         [DataMember]
@@ -289,7 +286,16 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [NotMapped]
         public string UsuarioRegistro { get; set; }
- 
+
+        [DataMember]
+        public string EstrategiaProductoCodigoSAP { get; set; }
+        [DataMember]
+        public List<BEEstrategiaProducto> EstrategiaProducto { get; set; }
+        [DataMember]
+        public string FotoProductoSmall { get; set; }
+        [DataMember]
+        public string FotoProductoMedium { get; set; }
+
 
         public BEEstrategia()
         { }

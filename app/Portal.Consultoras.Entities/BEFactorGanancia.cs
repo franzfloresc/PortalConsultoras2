@@ -34,13 +34,13 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Nombre"))
                 PaisNombre = Convert.ToString(row["Nombre"]);
             if (DataRecord.HasColumn(row, "RangoMinimo"))
-                RangoMinimo = DbConvert.ToDecimal(row["RangoMinimo"]);
+                RangoMinimo = Convert.ToDecimal(row["RangoMinimo"]);
             if (DataRecord.HasColumn(row, "RangoMaximo"))
-                RangoMaximo = DbConvert.ToDecimal(row["RangoMaximo"]);
+                RangoMaximo = Convert.ToDecimal(row["RangoMaximo"]);
             if (DataRecord.HasColumn(row, "Porcentaje"))
-                Porcentaje = DbConvert.ToDecimal(row["Porcentaje"]);
+                Porcentaje = Convert.ToDecimal(row["Porcentaje"]);
             if (DataRecord.HasColumn(row, "Escala"))
-                Escala = DbConvert.ToInt32(row["Escala"]);
+                Escala = Convert.ToInt32(row["Escala"]);
         }
     }
 }

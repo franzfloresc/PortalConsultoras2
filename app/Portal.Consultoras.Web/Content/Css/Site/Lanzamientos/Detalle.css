@@ -10,7 +10,7 @@
 
     .revista_ficha .revista_ficha .rd_volver {
         font-size: 13px;
-        .detalle-prod .detalle-info .detalle-bloque-dos ul letter-spacing: .5px;
+        letter-spacing: .5px;
         position: absolute;
         top: -20px;
         transition: all .2s ease-in-out;
@@ -226,7 +226,6 @@
     background: white;
     width: 60%;
     padding: 36px;
-    /*box-shadow: 0px 1px 15px -2px #00000057;*/
 }
 
     .detalle-prod .detalle-info .label-nuevo {

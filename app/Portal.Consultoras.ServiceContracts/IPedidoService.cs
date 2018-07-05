@@ -665,9 +665,6 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad);
 
         [OperationContract]
-        List<BEEstrategia> GetMasVendidos(BEEstrategia entidad);
-
-        [OperationContract]
         List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad);
 
         [OperationContract]
@@ -982,7 +979,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEPedidoWeb> GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora);
 
         [OperationContract]
-        List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top );
+        List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top);
 
         [OperationContract]
         BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entidad);
@@ -1011,27 +1008,6 @@ namespace Portal.Consultoras.ServiceContracts
         void DeshacerUltimaDescargaPedido(int PaisID);
         [OperationContract]
         BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID);
-
-        [OperationContract]
-        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia);
-
-        [OperationContract]
-        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv);
-
-        [OperationContract]
-        int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLote);
-
-        [OperationContract]
-        int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado);
-
-        [OperationContract]
-        List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote);
-
-        [OperationContract]
-        int DeleteEstrategiaTemporal(int paisId, int campaniaId);
-
-        [OperationContract]
-        int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId);
 
         [OperationContract]
         List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
@@ -1262,9 +1238,13 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         Task<BEPedidoDetalleAppResult> DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
         [OperationContract]
-        BEPedidoDetalleAppResult ReservaPedidoDetalleApp(BEUsuario usuario);
+        Task<BEPedidoReservaAppResult> ReservaPedidoDetalleApp(BEUsuario usuario);
         [OperationContract]
         BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario);
+        [OperationContract]
+        List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario);
+        [OperationContract]
+        BEUsuario GetConfiguracionOfertaFinal(BEUsuario usuario);
         #endregion
 
         #region Pago en Linea
@@ -1305,5 +1285,20 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         DateTime? ObtenerFechaInicioSets(int paisId);
+
+        [OperationContract]
+        void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario);
+        
+        [OperationContract]
+        bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID);
+        
+        [OperationContract]
+        BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
+        
+        [OperationContract]
+        List<BEPedidoWebDetalle> ObtenerCuvSetDetalle(int paisID,int campaniaID, long consultoraID, int pedidoID, string ListaSet);
+
+        [OperationContract]
+        BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
     }
 }

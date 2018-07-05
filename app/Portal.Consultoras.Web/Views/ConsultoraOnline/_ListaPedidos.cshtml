@@ -113,12 +113,10 @@ Así como el precio, la fecha y dirección de entrega.
                         @if (string.IsNullOrEmpty(item.Estado))
                         {
                             <button type="button" class="boton_morado_2 margin_bottom_45 btnAceptar" data-id="@item.PedidoId" data-imgPane="@nroDivPanelPedido" >ACEPTAR</button><br />
-                            <!-- <button type="button" class="boton_linea_morado_2 btnRechazar" onclick="RechazarSolicitud(@item.PedidoId,@item.NumIteracion,'@item.CodigoUbigeo','@item.Campania','@item.MarcaID','@Html.Raw(String.Format("DivPanel{0}", nroDivPanelPedido))','@Html.Raw(String.Format("alertImage{0}", nroDivPanelPedido))','@Html.Raw(String.Format("telefonoDisplay{0}", nroDivPanelPedido))','@Html.Raw(String.Format("datosDisplay{0}", nroDivPanelPedido))');" >RECHAZAR</button>  
-                                -->
+                            
                             <button type="button" class="boton_linea_morado_2 btnRechazar" onclick="RechazarSolicitud(@item.PedidoId,@item.NumIteracion,'@item.CodigoUbigeo','@item.Campania','@item.MarcaID','@Html.Raw(String.Format("{0}", nroDivPanelPedido))');" >RECHAZAR</button> 
                             <p class="mensaje_notificacion font_size_11">
                                 Tienes hasta las @String.Format("{0:hh:mm tt}", item.FechaSolicitud) del @item.FechaSolicitud.AddDays(1).ToString("dd/MM")
-                                <!--06:00 pm -->
                                 para aceptar o rechazar el pedido
                             </p>
                         }

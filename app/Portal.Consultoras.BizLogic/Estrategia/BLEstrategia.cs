@@ -138,6 +138,7 @@ namespace Portal.Consultoras.BizLogic
             int result = daEstrategia.DeshabilitarEstrategia(entidad);
             return result;
         }
+
         public int EliminarEstrategia(BEEstrategia entidad)
         {
             try
@@ -148,6 +149,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception) { throw; }
         }
+
         public int EliminarTallaColor(BETallaColor entidad)
         {
             var daEstrategia = new DAEstrategia(entidad.PaisID);
@@ -164,7 +166,6 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
         {
-
             try
             {
                 var estrategias = new List<BEEstrategia>();
@@ -203,6 +204,9 @@ namespace Portal.Consultoras.BizLogic
                         break;
                     case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
 
+                        // eliminar data de cache manager
+                        // se puede enviar un parametro para no validar si existe data en cache
+                        // crear un metodo en la BL que limpie cache x key (este metodo puede ser reutilizado por otro lado)
                         estrategias = (List<BEEstrategia>)CacheManager<BEEstrategia>.GetData(entidad.PaisID, ECacheItem.GNDEstrategia, entidad.CampaniaID.ToString());
                         if (estrategias == null || !estrategias.Any())
                         {
@@ -230,6 +234,12 @@ namespace Portal.Consultoras.BizLogic
                             CacheManager<BEEstrategia>.AddData(entidad.PaisID, ECacheItem.HVEstrategia, entidad.CampaniaID.ToString(), estrategias);
                         }
                         break;
+                    case Constantes.TipoEstrategiaCodigo.LosMasVendidos:
+                        using (var reader = daEstrategia.GetEstrategiaMasVendidos(entidad))
+                        {
+                            while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                        }
+                        break;
                     default:
                         using (var reader = daEstrategia.GetEstrategiaPedido(entidad))
                         {
@@ -246,20 +256,6 @@ namespace Portal.Consultoras.BizLogic
                 LogManager.SaveLog(ex, entidad.ConsultoraID, entidad.PaisID.ToString());
                 return new List<BEEstrategia>();
             }
-        }
-
-        public List<BEEstrategia> GetMasVendidos(BEEstrategia entidad)
-        {
-            var estrategias = new List<BEEstrategia>();
-
-            var daEstrategia = new DAEstrategia(entidad.PaisID);
-            using (var reader = daEstrategia.GetMasVendidos(entidad))
-            {
-                while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
-            }
-
-            var estrategiasResult = EstrategiasPedidoLimpiar(estrategias, entidad);
-            return estrategiasResult;
         }
 
         private List<BEEstrategia> EstrategiasPedidoLimpiar(List<BEEstrategia> lista, BEEstrategia entidad)
@@ -323,10 +319,7 @@ namespace Portal.Consultoras.BizLogic
                 estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);
                 estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio, codigoIso);
                 estrategia.GananciaString = Util.DecimalToStringFormat(estrategia.Ganancia, codigoIso);
-                estrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
-                estrategia.FotoProductoSmall = Util.GenerarRutaImagenResize(estrategia.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
-                estrategia.FotoProductoMedium = Util.GenerarRutaImagenResize(estrategia.FotoProducto01, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium);
-                estrategia.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
+                //estrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
             });
             return estrategiasResult;
@@ -374,80 +367,7 @@ namespace Portal.Consultoras.BizLogic
 
             return daEstrategia.GetImagenOfertaPersonalizadaOF(campaniaID, cuv);
         }
-
-        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia)
-        {
-            var daEstrategia = new DAEstrategia(paisId);
-            int result = daEstrategia.GetCantidadOfertasParaTi(campaniaId, tipoConfigurado, codigoEstrategia);
-            return result;
-        }
-
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo, int pagina, int cantidadCuv)
-        {
-            var listaEstrategias = new List<BEEstrategia>();
-            try
-            {
-
-
-                var daEstrategia = new DAEstrategia(paisId);
-                using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfigurado(campaniaId, tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv))
-                {
-                    while (reader.Read())
-                    {
-                        listaEstrategias.Add(new BEEstrategia(reader, true));
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-                LogManager.SaveLog(ex, "", paisId);
-                listaEstrategias = new List<BEEstrategia>();
-            }
-            return listaEstrategias;
-        }
-
-        public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int nroLore)
-        {
-            var daEstrategia = new DAEstrategia(paisId);
-            return daEstrategia.InsertEstrategiaTemporal(lista, campaniaId, codigoUsuario, nroLore);
-        }
-
-        public int GetCantidadOfertasParaTiTemporal(int paisId, int campaniaId, int tipoConfigurado)
-        {
-            var daEstrategia = new DAEstrategia(paisId);
-            int result = daEstrategia.GetCantidadOfertasParaTiTemporal(campaniaId, tipoConfigurado);
-            return result;
-        }
-
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfiguradoTemporal(int paisId, int campaniaId, int tipoConfigurado, int nroLote)
-        {
-            List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
-
-            var daEstrategia = new DAEstrategia(paisId);
-            using (IDataReader reader = daEstrategia.GetOfertasParaTiByTipoConfiguradoTemporal(campaniaId, tipoConfigurado, nroLote))
-            {
-                while (reader.Read())
-                {
-                    listaEstrategias.Add(new BEEstrategia(reader));
-                }
-            }
-            return listaEstrategias;
-        }
-
-        public int DeleteEstrategiaTemporal(int paisId, int campaniaId)
-        {
-            var daEstrategia = new DAEstrategia(paisId);
-            int result = daEstrategia.DeleteEstrategiaTemporal(campaniaId);
-            return result;
-        }
-
-        public int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
-        {
-            var daEstrategia = new DAEstrategia(paisId);
-            return daEstrategia.InsertEstrategiaOfertaParaTi(lista, campaniaId, codigoUsuario, estrategiaId);
-        }
-
+        
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             var listaEstrategias = new List<BEEstrategia>();
@@ -466,8 +386,7 @@ namespace Portal.Consultoras.BizLogic
 
             listaEstrategias.ForEach(item =>
             {
-                item.FotoProducto01 = string.IsNullOrEmpty(item.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
-                item.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
+                item.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
             });
 
             return listaEstrategias;
@@ -590,7 +509,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
-        
+
         public List<int> InsertarEstrategiaMasiva(BEEstrategiaMasiva entidad)
         {
             try
@@ -618,5 +537,66 @@ namespace Portal.Consultoras.BizLogic
                 throw;
             }
         }
+        
+        public bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia,string campaniaID)
+        {
+            try
+            {
+                switch (codigoTipoEstrategia)
+                {
+                    case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                        CacheManager<BEEstrategia>.RemoveData(paisID, ECacheItem.GNDEstrategia, campaniaID);
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                        CacheManager<BEEstrategia>.RemoveData(paisID, ECacheItem.HVEstrategia, campaniaID);
+                        break;
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+
+        }
+
+        public BEEstrategia GetEstrategiaProgramaNuevas(BEEstrategia entidad)
+        {
+            BEEstrategia data = new BEEstrategia();
+            var da = new DAEstrategia(entidad.PaisID);
+            using (IDataReader reader = da.GetEstrategiaProgramaNuevas(entidad))
+                if (reader.Read())
+                    data = new BEEstrategia(reader);
+
+            return data;
+        }
+
+        public BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel)
+        {
+            BEEstrategia result = new BEEstrategia();
+            try
+            {
+                var da = new BLPremiosProgramaNuevas();
+                var entidad = new BEPremiosProgramaNuevas { PaisID = paisID, CodigoPrograma = codigoPrograma, CodigoNivel = codigoNivel, AnioCampana = anioCampana };
+                BEPremiosProgramaNuevas PremiosProgramaNuevas = da.GetPremiosProgramaNuevas(entidad);
+
+                BEEstrategia estrategia = new BEEstrategia
+                {
+                    PaisID = paisID,
+                    CodigoPrograma = PremiosProgramaNuevas == null ? "" : PremiosProgramaNuevas.CodigoPrograma,
+                    CampaniaID = PremiosProgramaNuevas == null ? 0 : PremiosProgramaNuevas.AnioCampana,
+                    CUV2 = PremiosProgramaNuevas == null ? "" : PremiosProgramaNuevas.CUV,
+                    CodigoEstrategia = Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas
+                };
+                result = GetEstrategiaProgramaNuevas(estrategia);
+            }
+            catch
+            {
+                result = new BEEstrategia();
+            }
+            return result;
+        }
+
     }
 }

@@ -3,154 +3,155 @@
 @using Portal.Consultoras.Web.Helpers
 @model Portal.Consultoras.Web.Models.MisReclamosModel
 @{
-	var layout = ViewContext.MobileLayout();
-	Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
-	MobileAppConfiguracionModel mobileConfiguracion = Html.MobileAppConfiguracion();
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    MobileAppConfiguracionModel mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
 @section styles
 {
-	@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
-	{
-		<link href="@Url.Content("~/Content/Css/Mobile/esika/cdr.css")" rel="stylesheet" />
-	}
-	else
-	{
-		<link href="@Url.Content("~/Content/Css/Mobile/lbel/cdr.css")" rel="stylesheet" />
-	}
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        <link href="@Url.Content("~/Content/Css/Mobile/esika/cdr.css")" rel="stylesheet" />
+    }
+    else
+    {
+        <link href="@Url.Content("~/Content/Css/Mobile/lbel/cdr.css")" rel="stylesheet" />
+    }
 }
 
 @{
-	if (!mobileConfiguracion.EsAppMobile)
-	{
-		<div class="titulo_mobile fijarTituloMobile">
-			<a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-			CAMBIOS Y DEVOLUCIONES
-		</div>
+    if (!mobileConfiguracion.EsAppMobile)
+    {
+        <div class="titulo_mobile fijarTituloMobile">
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+            CAMBIOS Y DEVOLUCIONES
+        </div>
 
-		<div class="pestana_esika"></div>
-		<div class="pestana_lbel"></div>
-	}
+        <div class="pestana_esika"></div>
+        <div class="pestana_lbel"></div>
+    }
 }
 
 <div class="wrapper_resumen_mobile pt-50">
-	@if (!string.IsNullOrEmpty(Model.MensajeGestionCdrInhabilitada) && Model.ListaCDRWeb.Count <= 0)
-	{
-		<div class="mensaje_vista_cdr">@Html.Raw(Model.MensajeGestionCdrInhabilitada)</div>
-	}
-	else
-	{
-		<div>
-			<span class="mensaje_vista_cdr tipografia_lato_bold">
-				Queremos verte siempre satisfecha con nuestros productos y servicio.
-			</span>
-			<span class="mensaje_vista_cdr tipografia_lato_regular">
-				Si tuviste inconvenientes con algún producto y estás dentro del <a href="@Model.UrlPoliticaCdr" class="plazo_permitido" title="Detalle de plazo permitido" target="_blank">plazo permitido</a> sigue estos pasos:
-			</span>
-			<input type="button" title="Registrar Solicitud" class="btn_registrar_solicitud_cdr tipografia_lato_bold" value="REGISTRAR SOLICITUD" id="IrPaso1">
-			@if (@Model.ListaCDRWeb.Count() > 1)
-			{
-				<span class="mensaje_vista_cdr tipografia_lato_regular">Actualmente tienes @Model.ListaCDRWeb.Count() solicitudes registradas :</span>
-			}
-			else
-			{
-				<span class="mensaje_vista_cdr tipografia_lato_regular">Actualmente tienes @Model.ListaCDRWeb.Count() solicitud registrada :</span>
-			}
-		</div>
-		<div class="grilla_registros_solicitud_cdr">
-			@foreach (var item in Model.ListaCDRWeb)
-			{
-				var claseEstado = item.Estado == Constantes.EstadoCDRWeb.Pendiente
-					? "estado_pendiente"
-					: item.Estado == Constantes.EstadoCDRWeb.Enviado
-						? "estado_rechazado"
-						: item.Estado == Constantes.EstadoCDRWeb.Aceptado
-							? "estado_aprobado"
-							: item.Estado == Constantes.EstadoCDRWeb.Observado //Rechazado
-								? "estado_observado"
-								: "";
+    @if (!string.IsNullOrEmpty(Model.MensajeGestionCdrInhabilitada) && Model.ListaCDRWeb.Count <= 0)
+    {
+        <div class="mensaje_vista_cdr">@Html.Raw(Model.MensajeGestionCdrInhabilitada)</div>
+    }
+    else
+    {
+        <div>
+            <span class="mensaje_vista_cdr tipografia_lato_bold">
+                Queremos verte siempre satisfecha con nuestros productos y servicio.
+            </span>
+            <span class="mensaje_vista_cdr tipografia_lato_regular">
+                Si tuviste inconvenientes con algún producto y estás dentro del <a href="@Model.UrlPoliticaCdr" class="plazo_permitido" title="Detalle de plazo permitido" target="_blank">plazo permitido</a> sigue estos pasos:
+            </span>
+            <input type="button" title="Registrar Solicitud" class="btn_registrar_solicitud_cdr tipografia_lato_bold" value="REGISTRAR SOLICITUD" id="IrPaso1">
+            @if (@Model.ListaCDRWeb.Count() > 1)
+            {
+                <span class="mensaje_vista_cdr tipografia_lato_regular">Actualmente tienes @Model.ListaCDRWeb.Count() solicitudes registradas :</span>
+            }
+            else
+            {
+                <span class="mensaje_vista_cdr tipografia_lato_regular">Actualmente tienes @Model.ListaCDRWeb.Count() solicitud registrada :</span>
+            }
+        </div>
+        <div class="grilla_registros_solicitud_cdr">
+            @foreach (var item in Model.ListaCDRWeb)
+            {
+                var claseEstado = item.Estado == Constantes.EstadoCDRWeb.Pendiente
+                    ? "estado_pendiente"
+                    : item.Estado == Constantes.EstadoCDRWeb.Enviado
+                        ? "estado_rechazado"
+                        : item.Estado == Constantes.EstadoCDRWeb.Aceptado
+                            ? "estado_aprobado"
+                            : item.Estado == Constantes.EstadoCDRWeb.Observado //Rechazado
+                                ? "estado_observado"
+                                : "";
 
-				var formatoHoraAtencion = "";
-				var formatoFechaAtencion = "";
-				if (item.FechaAtencion.HasValue)
-				{
-					var horaAtencion = item.FechaAtencion.Value.Hour > 12 ? item.FechaAtencion.Value.Hour - 12 : item.FechaAtencion.Value.Hour;
-					var minutoAtencion = item.FechaAtencion.Value.Minute.ToString().PadLeft(2, '0');
-					var formatoDiaAtencion = item.FechaAtencion.Value.Hour > 12 ? "pm" : "am";
-					formatoHoraAtencion = horaAtencion.ToString().PadLeft(2, '0') + ":" + minutoAtencion + " " + formatoDiaAtencion;
+                var formatoHoraAtencion = "";
+                var formatoFechaAtencion = "";
+                if (item.FechaAtencion.HasValue)
+                {
+                    var horaAtencion = item.FechaAtencion.Value.Hour > 12 ? item.FechaAtencion.Value.Hour - 12 : item.FechaAtencion.Value.Hour;
+                    var minutoAtencion = item.FechaAtencion.Value.Minute.ToString().PadLeft(2, '0');
+                    var formatoDiaAtencion = item.FechaAtencion.Value.Hour > 12 ? "pm" : "am";
+                    formatoHoraAtencion = horaAtencion.ToString().PadLeft(2, '0') + ":" + minutoAtencion + " " + formatoDiaAtencion;
 
-					formatoFechaAtencion = item.FechaAtencion.Value.Day.ToString().PadLeft(2, '0') + "/" +
-										   item.FechaAtencion.Value.Month.ToString().PadLeft(2, '0') + "/" + item.FechaAtencion.Value.Year;
-				}
+                    formatoFechaAtencion = item.FechaAtencion.Value.Day.ToString().PadLeft(2, '0') + "/" +
+                                           item.FechaAtencion.Value.Month.ToString().PadLeft(2, '0') + "/" + item.FechaAtencion.Value.Year;
+                }
 
-				var cantAprobados = "";
-				var cantRechazados = "";
-				if (item.CantidadAprobados != 0)
-				{
-					cantAprobados = item.CantidadAprobados == 1 ? item.CantidadAprobados + " producto aprobado," : item.CantidadAprobados + " productos aprobados,";
-				}
+                var cantAprobados = "";
+                var cantRechazados = "";
+                if (item.CantidadAprobados != 0)
+                {
+                    cantAprobados = item.CantidadAprobados == 1 ? item.CantidadAprobados + " producto aprobado," : item.CantidadAprobados + " productos aprobados,";
+                }
 
-				if (item.CantidadRechazados != 0)
-				{
-					cantRechazados = item.CantidadRechazados == 1 ? item.CantidadRechazados + " rechazado" : item.CantidadRechazados + " rechazados";
-				}
+                if (item.CantidadRechazados != 0)
+                {
+                    cantRechazados = item.CantidadRechazados == 1 ? item.CantidadRechazados + " rechazado" : item.CantidadRechazados + " rechazados";
+                }
 
-				var formatoFechaCulminado = "--/--/----";
-				if (item.FechaCulminado.HasValue)
-				{
-					formatoFechaCulminado = item.FechaCulminado.Value.Day.ToString().PadLeft(2, '0') + "/" +
-											item.FechaCulminado.Value.Month.ToString().PadLeft(2, '0') + "/" + item.FechaCulminado.Value.Year;
-				}
+                var formatoFechaCulminado = "--/--/----";
+                if (item.FechaCulminado.HasValue)
+                {
+                    formatoFechaCulminado = item.FechaCulminado.Value.Day.ToString().PadLeft(2, '0') + "/" +
+                                            item.FechaCulminado.Value.Month.ToString().PadLeft(2, '0') + "/" + item.FechaCulminado.Value.Year;
+                }
 
-				var formatoCampania = item.CampaniaID.ToString().Substring(0, 4) + "-" + item.CampaniaID.ToString().Substring(4, 2);
-				<div class="registro_solicitud_cdr">
-					<input type="hidden" class="cdrweb_id" value="@item.CDRWebID" />
-					<input type="hidden" class="cdrweb_pedidoid" value="@item.PedidoID" />
-					<input type="hidden" class="cdrweb_estado" value="@item.Estado" />
-					<input type="hidden" class="cdrweb_formatoFechaCulminado" value="@formatoFechaCulminado" />
-					<input type="hidden" class="cdrweb_formatocampania" value="@formatoCampania" />
-					<input type="hidden" class="cdrweb_CantidadAprobados" value="@item.CantidadAprobados" />
-					<input type="hidden" class="cdrweb_CantidadRechazados" value="@item.CantidadRechazados" />
+                var formatoCampania = item.CampaniaID.ToString().Substring(0, 4) + "-" + item.CampaniaID.ToString().Substring(4, 2);
+                <div class="registro_solicitud_cdr">
+                    <input type="hidden" class="cdrweb_id" value="@item.CDRWebID" />
+                    <input type="hidden" class="cdrweb_pedidoid" value="@item.PedidoID" />
+                    <input type="hidden" class="cdrweb_estado" value="@item.Estado" />
+                    <input type="hidden" class="cdrweb_formatoFechaCulminado" value="@formatoFechaCulminado" />
+                    <input type="hidden" class="cdrweb_formatocampania" value="@formatoCampania" />
+                    <input type="hidden" class="cdrweb_CantidadAprobados" value="@item.CantidadAprobados" />
+                    <input type="hidden" class="cdrweb_CantidadRechazados" value="@item.CantidadRechazados" />
 
-					<div class="datos_solicitud_cdr abrir_detallemb">
-						<div class="fecha_solicitud tipografia_lato_light">
-							@formatoFechaAtencion
-						</div>
-						<div class="num_campania tipografia_lato_bold numcampsubraya">
-							CAMPAÑA @formatoCampania
-						</div>
-						<div class="num_solicitud tipografia_lato_regular numsolsubraya">
-							SOLICITUD N° - <span>@item.CDRWebID</span>
-						</div>
-						<div class="resumen_resolucion tipografia_lato_light">
-							@if (item.CantidadAprobados != 0)
-							{
-								<span class="productos_aprobados">@cantAprobados</span>
-							}
-							@if (item.CantidadRechazados != 0)
-							{
-								<span class="productos_rechazados">@cantRechazados</span>
-							}
-						</div>
-					</div>
-					<!-- ESTADO SOLICITUD PENDIENTE -->
-					<div class="estado_registro_solicitud_cdr abrir_detallemb @claseEstado">
-						@item.EstadoDescripcion
-					</div>
-					<!-- FIN ESTADO SOLICITUD PENDIENTE -->
-					<div class="icono_busqueda abrir_detallemb">
-						<span title="Ver solicitud" class="enlace_ver_solicitud_cdr">
-							<img src="~/Content/Images/icono_lupa.png" alt="Ver solicitud" />
-						</span>
-					</div>
-				</div>
-			}
-		</div>
-	}
+                    <div class="datos_solicitud_cdr abrir_detallemb">
+                        <div class="fecha_solicitud tipografia_lato_light">
+                            @formatoFechaAtencion
+                        </div>
+                        <div class="num_campania tipografia_lato_bold numcampsubraya">
+                            CAMPAÑA @formatoCampania
+                        </div>
+                        <div class="num_solicitud tipografia_lato_regular numsolsubraya">
+                            SOLICITUD N° - <span>@item.CDRWebID</span>
+                        </div>
+                        <div class="resumen_resolucion tipografia_lato_light">
+                            @if (item.CantidadAprobados != 0)
+                            {
+                                <span class="productos_aprobados">@cantAprobados</span>
+                            }
+                            @if (item.CantidadRechazados != 0)
+                            {
+                                <span class="productos_rechazados">@cantRechazados</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="estado_registro_solicitud_cdr abrir_detallemb @claseEstado">
+                        @item.EstadoDescripcion
+                    </div>
+                    <div class="icono_busqueda abrir_detallemb">
+                        <span title="Ver solicitud" class="enlace_ver_solicitud_cdr">
+                            <img src="~/Content/Images/icono_lupa.png" alt="Ver solicitud" />
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+    }
 
 </div>
-@Scripts.Render("~/Scripts/MobileLayout")
-@Scripts.Render("~/bundles/JsMobile/CDRWeb")
+@section scripts{
+    @Scripts.Render("~/Scripts/MobileLayout")
+    @Scripts.Render("~/bundles/JsMobile/CDRWeb")
+}
+
 <script type="text/javascript">
     var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
     var urlReclamo = '@Url.Action("Reclamo", "MisReclamos", new { area = "Mobile" } )';

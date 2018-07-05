@@ -329,6 +329,13 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetValidarLoginJsonWebToken(string documento)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLoginJsonWebToken");
+            Context.Database.AddInParameter(command, "@Documento", DbType.AnsiString, documento);
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetValidarAutoLogin(string codigoUsuario, string proveedor)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarAutoLogin");
@@ -746,7 +753,7 @@ namespace Portal.Consultoras.Data
             }
             return usuarioChatemtelco;
         }
-        
+
         public int UpdUsuarioExterno(BEUsuarioExterno usuarioexterno)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioExterno");
@@ -811,7 +818,7 @@ namespace Portal.Consultoras.Data
 
         public string GetCodigoGenerado(BEUsuarioCorreo oUsuCorreo, string CodIngresado)
         {
-            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.GetCodigoGenerado"); ;
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCodigoGenerado");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsuCorreo.CodigoUsuario);
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsuCorreo.OrigenID);
             Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, oUsuCorreo.tipoEnvio);
@@ -822,8 +829,6 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetOpcionHabilitada(string CodigoUsuario, int OrigenID)
         {
-            var objFlag = new BEUsuarioCorreo();
-
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetHabilitaOpcion");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, OrigenID);
@@ -833,7 +838,7 @@ namespace Portal.Consultoras.Data
 
         public void UpdFlagAutenticacion(string CodigoUsuario)
         {
-            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.UpdFlagTieneAutenticacion");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdFlagTieneAutenticacion");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoUsuario);
 
             Context.ExecuteNonQuery(command);

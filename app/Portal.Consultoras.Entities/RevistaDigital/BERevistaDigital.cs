@@ -22,6 +22,7 @@ namespace Portal.Consultoras.Entities
 
         public bool BloqueoRevistaImpresa { get; set; }
         public int? BloquearRevistaImpresaGeneral { get; set; }
+        public bool ActivoMdo { get; set; }
 
         public bool BloqueoProductoDigital { get; set; }
 

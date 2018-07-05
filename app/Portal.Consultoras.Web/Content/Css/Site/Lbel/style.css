@@ -86,6 +86,7 @@ header {
     min-height: 61px;
     margin: 0 auto;
     max-width: 1189px;
+    position:relative;
 }
 
 .user-profile {
@@ -109,7 +110,7 @@ header {
 .menu_esika_b {
     height: 60px;
     float: right;
-    max-width: 28%;
+    max-width: 31%;
 }
 
 .campana {
@@ -3167,7 +3168,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     overflow: hidden;
     padding-top: 10px;
     box-sizing: border-box;
-    /*top: -115px;*/
 }
 
 .control_carousel_flechaArriba {
@@ -3789,7 +3789,8 @@ a.subir_carousel, a.bajar_carousel {
     overflow-x: hidden;
     overflow-y: auto;
     height: 100%;
-    max-height: 438px;
+    /*max-height: 438px;*/
+    max-height: 460px;
     padding-left: 10px;
     padding-right: 7px;
 }
@@ -26421,15 +26422,18 @@ input[type='checkbox']:checked + span:after {
 }
 
 .tippingPoint {
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 24px;
     margin: 0 auto;
-    background: url('../../../Images/tippingPoint.png') no-repeat;
+    background: url('../../../Images/tippingPointActivo.svg') no-repeat;
+    background-size:100%;
 }
 
     .tippingPoint.activo {
-        background: url('../../../Images/tippingPointActivo.png') no-repeat;
+        background: url('../../../Images/tippingPointActivo.svg') no-repeat;
+        background-size:100%;
     }
+
 /*PEDIDO VALIDADO*/
 .cod_venta_listado {
     width: 10%;
@@ -32594,24 +32598,6 @@ h1#penmostreo .campana {
 }
 
 @media screen and (max-width:1280px) {
-    .content_pop_oferta_dia {
-        margin-left: 12em !important;
-    }
-}
-
-.content_pop_oferta_dia {
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    position: relative;
-    margin-top: 0;
-    max-width: 1024px;
-    height: 490px;
-    margin: auto, auto;
-    padding: 10px 0;
-}
-
-@media screen and (max-width:1280px) {
     /*.content_estrategia_carrusel {
         margin-left: 12em !important;
     }*/
@@ -33096,6 +33082,35 @@ h1#penmostreo .campana {
     font-size: 14px;
     margin-top: 20px;
 }
+    .content_cuv section .filtroInput {
+        float: left;
+    }
+
+        .content_cuv section .filtroInput label {
+            display: block;
+            margin-left: 5px;
+        }
+
+        .content_cuv section .filtroInput select[id='ddlCategoriaProductoAgotado'] {
+            width: 170px;
+        }
+
+        .content_cuv section .filtroInput select[id='ddlCatalogoRevistaProductoAgotado'] {
+            width: 170px;
+        }
+
+        .content_cuv section .filtroInput input[id='producto-faltante-busqueda-cuv'] {
+            width: 80px;
+        }
+
+        .content_cuv section .filtroInput input[id='producto-faltante-busqueda-descripcion'] {
+            width: 170px;
+        }
+
+    .content_cuv section .filtroButton {
+        float: left;
+        margin-top: 23px;
+    }
 
 .buscar_icono {
     background: white url('../../../Images/Esika/lupa.png') no-repeat center right;
@@ -36183,8 +36198,6 @@ height:30px;
 /*SPRINT 19*/
 .content_new_showroom {
     width: 100%;
-    /*padding-left: 10%;*/
-    /*padding-right: 2%;*/
     padding-top: 35px;
     padding-left: 10px;
     padding-right: 10px;
@@ -36199,8 +36212,6 @@ height:30px;
     position: relative;
     float: left;
     min-width: 330px;
-    padding-left: 15px;
-    padding-right: 30px;
     font-family: 'LAto';
     font-size: 12px;
     font-weight: bold;
@@ -36213,22 +36224,38 @@ height:30px;
     background-position-y: 5px;
 }
 
-.content_detalle_filtro {
+.txt_filtrar_por_precio {
+    padding-left: 15px;
+    padding-right: 30px;
     width: 100%;
+}
+
+.content_detalle_filtro {
+    width: 350px;
     position: absolute;
     z-index: 20;
-    top: 33px;
     border: 1px solid #b8b8b8;
     border-top: 0;
-    left: 0;
     background: white;
     min-height: 100px;
 }
 
 .content_filtro_range_showroom {
     width: 70%;
-    margin: 0 auto;
-    margin-top: 50px;
+    margin: 15px auto 10px auto;
+}
+
+.irs-bar, .irs-slider {
+    background-color: #613c87 !important;
+    border-color: #613c87 !important;
+}
+
+    .irs-slider.state_hover, .irs-slider:hover {
+        background: #683b96 !important;
+    }
+
+.irs-from, .irs-to, .irs-single {
+    color: #613c87 !important;
 }
 
 .filtros_derecha_SHOWROOM {
@@ -36374,12 +36401,281 @@ height:30px;
 /* metodo para centrar todos los contenedores con productos en el landing RevistaDigital */
 
 .divOfertaProductosfix, .divOfertaProductosPerdiofix {
-    /*text-align: center;
-    max-width: 1000px;
-    margin: auto;
-    margin-left: 15%;*/
 }
 .divOfertaProductosfixNoDorado {
     max-width: 1189px;
     margin: 0 80px 0 180px;
 }
+
+/* HD-2513 - 50 AÑOS BELCORP */
+
+.wrapper_header_cincuenta_anios_belcorp{
+    width:100%!important;
+    min-width:1024px!important;
+    max-width:1366px!important;
+}
+
+.cincuenta_anios_belcorp{
+    display: block;
+    position: relative;
+    float: left;
+    left: 0;
+    width: 98px;
+    height: 61px;
+    overflow:hidden;
+}
+
+.cincuenta_anios_belcorp img{
+    width: auto;
+    height: 111%;
+}
+
+.cincuenta_anios_belcorp + .logo_esika{
+    margin-left:23px;
+}
+
+.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
+    width:632px!important;
+}
+
+.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
+    width:360px!important;
+}
+
+.color_cincuenta_anios_belcorp{
+    color:#A06219;
+}
+
+.boton_cincuenta_anios_belcorp{
+    background-color:#BA8B47;
+    border:2px solid #BA8B47;
+}
+
+    .boton_cincuenta_anios_belcorp:hover{
+        background-color:#BA8B47;
+        color:#BA8B47;
+    }
+
+@media screen and (max-width:1365px){
+
+    .wrapper_header_cincuenta_anios_belcorp{
+        max-width:none!important;
+    }
+
+}
+
+@media screen and (max-width:1212px){
+
+    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
+        width:350px!important;
+    }
+
+}
+
+@media screen and (min-width:1145px) and (max-width:1212px){
+
+    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
+        width: 628px!important;
+    }
+
+}
+
+@media screen and (min-width:1090px) and (max-width:1144px){
+
+    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika {
+        width: 626.7px!important;
+    }
+
+}
+
+@media screen and (min-width:1063px) and (max-width:1089px){
+
+    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika {
+        width: 592px!important;
+    }
+
+}
+
+@media screen and (max-width:1062px){
+
+    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
+        width: 553px!important;
+    }
+
+}
+
+/* FIN - HD-2513 - 50 AÑOS BELCORP */
+/* MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */
+
+.monto_meta_tippingPoint{
+    margin-top:2px;
+    font-size:12px;
+    color:#e81c36;
+}
+
+.contenedor_tippingPoint {
+    cursor: pointer;
+    position: relative;
+    -moz-animation: animacionTippingPoint 0.8s infinite ease-out;
+    -o-animation: animacionTippingPoint 0.8s infinite ease-out;
+    -webkit-animation: animacionTippingPoint 0.8s infinite ease-out;
+    animation: animacionTippingPoint 0.8s infinite ease-out;
+}
+
+@keyframes animacionTippingPoint {
+  0% {
+    top:0;
+  }
+
+  50% {
+    top:-7px;
+  }
+
+  100%{
+     top:0;
+  }
+}
+
+@-moz-keyframes animacionTippingPoint {
+  0% {
+    top:0;
+  }
+
+  50% {
+    top:-7px;
+  }
+
+  100%{
+     top:0;
+  }
+}
+
+@-o-keyframes animacionTippingPoint {
+  0% {
+    top:0;
+  }
+
+  50% {
+    top:-7px;
+  }
+
+  100%{
+     top:0;
+  }
+}
+
+@-webkit-keyframes animacionTippingPoint {
+  0% {
+    top:0;
+  }
+
+  50% {
+    top:-7px;
+  }
+
+  100%{
+     top:0;
+  }
+}
+
+    .contenedor_tippingPoint:hover .tooltip_regalo_meta_tippingPoint {
+        display: block;
+        -moz-animation: mostrarTooltip 0.2s ease;
+        -o-animation: mostrarTooltip 0.2s ease;
+        -webkit-animation: mostrarTooltip 0.2s ease;
+        animation: mostrarTooltip 0.2s ease;
+    }
+
+    @keyframes mostrarTooltip {
+      from {
+        opacity:0;
+      }
+
+      to {
+        opacity:1;
+      }
+    }
+
+    @-moz-keyframes mostrarTooltip {
+      from {
+        opacity:0;
+      }
+
+      to {
+        opacity:1;
+      }
+    }
+
+    @-o-keyframes mostrarTooltip {
+      from {
+        opacity:0;
+      }
+
+      to {
+        opacity:1;
+      }
+    }
+
+    @-webkit-keyframes mostrarTooltip {
+      from {
+        opacity:0;
+      }
+
+      to {
+        opacity:1;
+      }
+    }
+
+.tooltip_regalo_meta_tippingPoint {
+    display: none;
+    position: absolute;
+    padding: 13px 10px;
+    top: -58px;
+    right: -149px;
+    z-index: 102;
+    background-color: #FFF;
+    border-radius: 4px;
+    width: 161.15px;
+    min-height: 198px;
+    -moz-box-shadow: 0 7px 17px 3px rgba(0, 0, 0, 0.31);
+    -webkit-box-shadow: 0 7px 17px 3px rgba(0, 0, 0, 0.31);
+    box-shadow: 0 7px 17px 3px rgba(0, 0, 0, 0.31);
+}
+
+.tooltip_regalo_meta_tippingPoint:before {
+    right: 100%;
+    top: 32%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+    border-right-color: #FFF;
+    border-width: 11px;
+    margin-top: -11px;
+}
+
+.tooltip_producto_regalo_img{
+    height:127px;
+    text-align:center;
+    overflow:hidden;
+    margin-bottom:10px;
+}
+
+.tooltip_producto_regalo_img img{
+    width:auto;
+    height:100%;
+}
+
+.tooltip_producto_regalo_descripcion{
+    font-size:13px;
+    line-height:20px;
+}
+
+.tooltip_producto_regalo_descripcion strong{
+    font-weight:bold;
+}
+
+/* FIN - MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */

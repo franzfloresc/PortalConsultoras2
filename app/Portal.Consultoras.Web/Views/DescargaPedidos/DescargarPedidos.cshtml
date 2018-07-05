@@ -2,10 +2,15 @@
 @{
     ViewBag.Title = "Cronograma";
 }
+
 <script type="text/javascript">
+    var rutaImagenArchivoClientes = '@Url.Content("~/Content/Images/update.png")';
+    var rutaImagenCalendar = '@Url.Content("~/Content/Images/calendar.png")';
+
     jQuery(function () {
         IniFecha();
         fnGrilla();
+
         $("#btnDescargar").click(function () {
             RealizarDescarga();
         });
@@ -23,10 +28,9 @@
     });
 
     function IniFecha() {
-
         $("#txtFechaFacturacion").datepicker({
             showOn: "button",
-            buttonImage: '@Url.Content("~/Content/Images/calendar.png")',
+            buttonImage: rutaImagenCalendar,
             buttonImageOnly: true,
             dateFormat: 'dd/mm/yy'
         }).mask('99/99/9999');
@@ -332,17 +336,28 @@
             datatype: 'json',
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['Fecha/Hora Inicio', 'Fecha/Hora Fin', 'Estado', 'Mensaje', 'Número de pedidos', 'Tipo de proceso', 'Fecha Facturación', 'Desmarcado'],
+            colNames: ['Fecha/Hora Inicio', 'Fecha/Hora Fin', 'Estado', 'Mensaje', 'Número de pedidos', 'Tipo de proceso', 'Fecha Facturación', 'Desmarcado', 'Archivo Clientes', 'NroLote'],
             colModel: [
-                { name: 'FechaHoraInicio', index: 'FechaHoraInicio', width: 22, editable: false, resizable: false },
-                { name: 'FechaHoraFin', index: 'FechaHoraFin', width: 22, editable: false, resizable: false },
-                { name: 'Estado', index: 'Estado', width: 15, editable: false, resizable: true },
+                { name: 'FechaHoraInicio', index: 'FechaHoraInicio', width: 22, editable: false, resizable: false, align: "center" },
+                { name: 'FechaHoraFin', index: 'FechaHoraFin', width: 22, editable: false, resizable: false, align: "center" },
+                { name: 'Estado', index: 'Estado', width: 15, editable: false, resizable: true, align: "center" },
                 { name: 'Mensaje', index: 'Mensaje', width: 30, editable: false, resizable: true },
                 { name: 'NumeroPedidos', index: 'NumeroPedidos', width: 20, editable: true, resizable: false },
-                { name: 'TipoProceso', index: 'TipoProceso', width: 15, editable: true, resizable: false },
-                { name: 'FechaFacturacion', index: 'FechaFacturacion', width: 22, editable: false, resizable: false, hidden: false },
-                { name: 'Desmarcado', index: 'Desmarcado', width: 22, editable: false, resizable: false, hidden: false }
+                { name: 'TipoProceso', index: 'TipoProceso', width: 15, editable: true, resizable: false, align: "center" },
+                { name: 'FechaFacturacion', index: 'FechaFacturacion', width: 22, editable: false, resizable: false, hidden: false, align: "center" },
+                { name: 'Desmarcado', index: 'Desmarcado', width: 22, editable: false, resizable: false, hidden: false, align: "center" },
+                { name: 'ArchivoClientes', index: 'ArchivoClientes', width: 22, editable: false, resizable: false, hidden: false, align: "center", formatter: ShowActionsArchivoClientes },
+                { name: 'NroLote', index: 'NroLote', hidden: true,},
             ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false,
+                id: "NroLote"
+            },
             loadtext: 'Cargando datos...',
             emptyrecords: 'No hay resultados',
             height: 'auto',
@@ -354,7 +369,11 @@
             gridComplete: function () {
                 obtenerUltimaDescargaExitosa();
             },
-            cache: false
+            cache: false,
+            cmTemplate: { sortable: false },
+            onCellSelect: function (rowId, iCol, content, event) {
+                if (iCol == 8) ArchivoClientes(rowId);
+            }
         });
     }
 
@@ -383,6 +402,7 @@
             }
         });
     }
+
     function DeshacerUltimaDescargaPedidos() {
         var waiting = {
             message: 'Espere unos minutos, por favor...',
@@ -421,6 +441,39 @@
         });
     }
 
+    function ShowActionsArchivoClientes(cellvalue, options, rowObject) {
+        var Des = "<img src='" + rutaImagenArchivoClientes + "' alt='Generar Archivo Clientes' title='Generar Archivo Clientes' border='0' style='cursor:pointer' />";
+        return Des;
+    }
+
+    function ArchivoClientes(rowId) {
+        var waiting = {
+            message: 'Espere unos minutos, por favor...',
+            title: 'Ejecutando Proceso'
+        }
+        waitingDialog(waiting);
+
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'DescargaPedidos/DescargarArchivoCliente',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: "{nroLote: " + rowId + "}",
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert(data.mensaje);
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("Error del Sistema.");
+                }
+            }
+        });
+    }
 </script>
 
 <div class="wrap_cab">
@@ -507,7 +560,6 @@
                     Actualización de Datos: <a id="Ddetail1" href="#" onclick="DescargarDetalleAct()"></a>
                 </div>
             </div>
-            <!-- 2382 -->
             <div id="DivMensajeLideres" class="div-4" style="display: none">
                 <div id="DivMensajeNoti" class="noti3">
                     Archivo generado correctamente, se crearon <span id="spCantidad"></span> registros de Líderes.

@@ -27,9 +27,12 @@
         @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
     }
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
     <script type="text/javascript">
         var isEsika = '@ViewContext.EsPaisEsika().ToString().ToLower()';
         window.urlLogDynamo = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.UrlLogDynamo';
+        window.urlLogElastic = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.UrlLogElastic';
+        window.patternElastic = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.PatternElastic';
 
         // Seteando Controlador y Accion
         @{
@@ -39,7 +42,6 @@
         }
         window.controllerName = '@ctrl.ToLower()';
         window.actionName     = '@acti.ToLower()';
-        //console.log("controllerName:" + controllerName + " | actionName:" + actionName);
     </script>
 
     @RenderSection("styles", required: false)
@@ -50,7 +52,6 @@
     }
 </head>
 <body>
-	<!-- Google Tag Manager -->
 	<script type="text/javascript">
     dataLayer = [{
         'campana': '@ViewBag.AnalyticsCampania',
@@ -86,11 +87,9 @@
 			f.parentNode.insertBefore(j, f);
 		})(window, document, 'script', 'dataLayer', 'GTM-TTK6KS');
 	</script>
-	<!-- End Google Tag Manager -->
 
 	<input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
 
-	<!-- content -->
 	<section style="min-height: 380px;">
 		<div id="content" data-content="" style="margin-top: 0;">
 			@RenderBody()
@@ -133,20 +132,6 @@
 		</div>
 	</div>
 
-	@*<div id="popupInformacionValidado" class="MensajeAlertaMobile" style="display:none;">
-		<div class="content_mensajeAlerta">
-			<a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionValidado').hide();">
-				<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-			</a>
-			<hr class="clear">
-			<div class="icono_alerta exclamacion_icono_mobile"></div>
-			<div class="titulo_compartir"><b>LO SENTIMOS</b></div>
-			<div id="mensajeInformacionvalidado" class="mensaje_alerta"></div>
-			<a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
-		</div>
-	</div>*@
-
-	<!--POP MENSAJE IMPORTANTE-->
 	<div id="popupInformacionSB2Malo" class="MensajeAlertaMobile" style="display:none;">
 		<div class="content_mensajeAlerta">
 			<a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Malo').hide();">
@@ -159,8 +144,6 @@
 			<a href="javascript:;" onclick="$('#popupInformacionSB2Malo').hide();" class="btn_ok_mobile"><b>OK</b></a>
 		</div>
 	</div>
-	<!--FIN-->
-	<!--POP MENSAJE Error-->
 	<div id="popupInformacionSB2Error" class="MensajeAlertaMobile" style="display:none;">
 		<div class="content_mensajeAlerta">
 			<a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Error').hide();">
@@ -173,8 +156,6 @@
 			<a href="javascript:;" onclick="$('#popupInformacionSB2Error').hide();" class="btn_ok_mobile"><b>OK</b></a>
 		</div>
 	</div>
-	<!--FIN-->
-	<!--POP MENSAJE SESION FINALIZADA Error-->
 	<div id="popupInformacionSB2SesionFinalizada" class="MensajeAlertaMobile" style="display:none;">
 		<div class="content_mensajeAlerta">
 			<a class="cerrar_popMobile" href="javascript:;" onclick="window.location.href='@Url.Action("Index", "Login", new { area = "" })'">
@@ -187,8 +168,6 @@
 			<a href="javascript:;" onclick="window.location.href='/Login'" class="btn_ok_mobile"><b>OK</b></a>
 		</div>
 	</div>
-	<!--FIN-->
-	<!--POP MENSAJE LO LOGRASTE-->
 	<div id="popupInformacionSB2Bueno" class="MensajeAlertaMobile" style="display:none;">
 		<div class="content_mensajeAlerta">
 			<a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Bueno').hide();">
@@ -217,7 +196,6 @@
     var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new { area = "" })';
     var urlGetNotificacionesSinLeer = '@Url.Action("GetNotificacionesSinLeer", "Notificaciones", new { area = "" })';
     var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
-    var vbSimbolo = '@ViewBag.Simbolo';
     var ViewBagEsMobile = '@ViewBag.EsMobile';
     var urlChatbot = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.UrlChatBot';
     var ingresoExterno = '@ViewContext.GetUniqueSession("IngresoExterno")';
@@ -245,17 +223,13 @@
     var EstadoActivo = '@ViewBag.EstadoActivo';
     var ocultarBannerTop = '@Session["OcultarBannerTop"]';
 
+    var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
     var sesionEsShowRoom = '@Session["EsShowRoom"]';
 
     var fingerprintOk = '@ViewBag.FingerprintOk';
     var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
 
-
-   /// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            // IPN : Resuelve fix : urlPedidoValidado is not defined 
-  /// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
-  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     var userData = {
         'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
         'rol': '@(Constantes.LogDynamoDB.RolConsultora)',

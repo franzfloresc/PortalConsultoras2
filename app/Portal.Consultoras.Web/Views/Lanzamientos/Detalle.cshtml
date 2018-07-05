@@ -4,6 +4,7 @@
 
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
+    var vbSimbolo = ViewBag.Simbolo ?? "";
 }
 
 @section styles{
@@ -28,9 +29,7 @@
                 <div data-compartir-campos="" style="display:none;">
                     <input type="hidden" class="CUV" value="@Model.CUV2" />
                     <input type="hidden" class="rsFBMensaje" value="" />
-                    <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartir" />
                     <input type="hidden" class="rsWAMensaje" value="" />
-                    <input type="hidden" class="rsWARuta" value="@Model.UrlCompartir" />
                     <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
                     <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
                     <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
@@ -57,9 +56,9 @@
                             <h1>@Model.DescripcionResumen</h1>
                         </div>
                         <div class="bloque2">
-                            <span class="precio-tachado">@Model.Simbolo @Model.PrecioTachado</span>
-                            <span class="precio-para-ti">Precio para tí<b>@Model.Simbolo @Model.PrecioVenta</b></span>
-                            <span class="gana-rojo">GANA @Model.Simbolo @Model.GananciaString</span>
+                            <span class="precio-tachado">@vbSimbolo @Model.PrecioTachado</span>
+                            <span class="precio-para-ti">Precio para tí<b>@vbSimbolo @Model.PrecioVenta</b></span>
+                            <span class="gana-rojo">GANA @vbSimbolo @Model.GananciaString</span>
                         </div>
                         <div style="clear:both;"></div>
                     </div>
@@ -76,7 +75,7 @@
                     <div class="detalle-bloque-tres">
                         @Html.Partial("~/Views/Lanzamientos/Template_LanzamientosTonos.cshtml", Model)
                     </div>
-                    @if (Model.PuedeAgregarProducto)
+                    @if (Model.TipoAccionAgregar > 0)
                     {
 
                         <div class="input_agregar_cantidad">
@@ -119,7 +118,10 @@
         <div class="set_encuentras_producto_video" id="video_lanzamiento">
             <div class="content_belcorp">
                 <div class="revista_producto_video" style="width: 100%; position: relative;left: 7%;">
-                    <div id="player"></div>
+                    <div id="ytRevistaDigitalDetalle"
+                         data-youtube="{ height:'415', width:'100%', videoId:'@Model.TipoEstrategiaDetalle.UrlVideoDesktop', playerVars:{rel:0}}"
+                         data-extra="{'descripcionResumen':'@Model.DescripcionResumen'}"
+                         class="yt-video"></div>
                 </div>
             </div>
         </div>
@@ -135,16 +137,8 @@
     <script type="text/javascript">
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage';
         var tipoOrigenEstrategia = 172;
-        var videoId = "@Model.TipoEstrategiaDetalle.UrlVideoDesktop";
-        var descripcionResumen = "@Model.DescripcionResumen"
         $(document).ready(function () {
-            detalleLanzamiento.init({
-                videoId: videoId,
-                descripcionResumen: descripcionResumen
-            });
+            detalleLanzamiento.init();
         });
-        function onYouTubeIframeAPIReady() {
-            detalleLanzamiento.onYouTubeIframeAPIReady();
-        }
     </script>
 }

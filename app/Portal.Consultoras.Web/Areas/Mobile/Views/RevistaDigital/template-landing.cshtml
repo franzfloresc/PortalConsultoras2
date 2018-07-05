@@ -23,6 +23,14 @@
             border: 1px solid rgba(0, 0, 0, .21);
             float: left;
         }
+
+        #btn_init {
+            display: none !important;
+        }
+
+        #btn_open {
+            display: none !important;
+        }
     </style>
 }
 
@@ -83,8 +91,10 @@
             </div>
             @if (Model.ProductosPerdio)
             {
+            <hr class="clear" />
+            <div class="contenido_zona_dorada" data-seccion-perdio="">
 
-                if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+                @if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
                 {
                     <div id="block_inscribete" class="contenido_zona_dorada_contenedor_desktop">
                         <div class="logo-dorado-desktop"></div>
@@ -121,6 +131,7 @@
                      data-content-perdido="@Model.CampaniaID"
                      class="flex-container fix_zona_dorada_mobile " style="display: inline-flex;flex-wrap: wrap;justify-content: center;"></div>
                 <hr class="clear" />
+            </div>
             }
         </div>
 
@@ -129,10 +140,7 @@
     <div id="divOfertaProductosLoad" style="display: none;">Cargando Productos<br></div>
     <hr class="clear" />
 </div>
-<!--Fin seccion landing-->
 <hr class="clear" />
-<!-- termina zona dorada-->
-
 
 @Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 <div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"></div>

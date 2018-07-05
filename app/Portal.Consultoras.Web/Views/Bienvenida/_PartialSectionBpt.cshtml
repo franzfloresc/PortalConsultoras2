@@ -32,7 +32,7 @@
                     </div><div class="clubtxt">
                         <div class="centrar_vertical">
                             <div class="centrar_cont_club">
-                                <p>@Html.Raw(configuracionPaisDatosModel.Valor1)</p>
+                                <p style="color:white">@Html.Raw(configuracionPaisDatosModel.Valor1)</p>
                             </div>
                         </div>
                     </div><div class="club_btn">
@@ -100,7 +100,7 @@
                             <div class="centrar_cont_club">
                                 <div class="activar_boton_esika_no_animado bg_activar_boton_no_animado"
                                      style="cursor: pointer;"
-                                     onclick="RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')" >
+                                     onclick="RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion)" >
                                     <a href="javascript:;">VER MÁS OFERTAS</a>
                                 </div>
                             </div>
@@ -109,7 +109,6 @@
                     <div style="clear:both;"></div>
                 </div>
                 <div class="contenido_gana_mas">
-                    <!-- insertar carrusel aquí -->
                     @if (revistaDigital.EsActiva)
                     {
 
@@ -133,8 +132,6 @@
                 </div>
             </div>
         </div>
-        
-
     }
 }
 else if (revistaDigital.TieneRDI)

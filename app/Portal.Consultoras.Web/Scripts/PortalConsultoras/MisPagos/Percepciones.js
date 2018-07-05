@@ -44,7 +44,7 @@ function CargarEscalaPercepciones(page, rows) {
                 $('.js-paginador-percepciones').html(htmlPaginador);
 
                 $(".js-paginador-percepciones [data-paginacion='rows']").val(data.pageSize || 10);
-            };
+            }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -52,16 +52,16 @@ function CargarEscalaPercepciones(page, rows) {
             }
         }
     });
-};
+}
 function ArmarEscalaPercepciones(array) {
     return SetHandlebars("#producto-template", array);
-};
+}
 function ArmarPaginador(data) {
     return SetHandlebars("#paginador-percepciones-template", data);
-};
+}
 function ArmarDetallePercepcion(data) {
     return SetHandlebars("#popup-percepcion-template", data);
-};
+}
 function CambioPagina(obj) {
     var rpt = paginadorAccionGenerico(obj);
     if (rpt.page == undefined) {
@@ -70,7 +70,7 @@ function CambioPagina(obj) {
 
     CargarEscalaPercepciones(rpt.page, Number(rpt.rows));
     return true;
-};
+}
 function CargarDetallePercepcion(obj) {
     waitingDialog({});
     $.ajax({
@@ -100,10 +100,10 @@ function CargarDetallePercepcion(obj) {
                         closeWaitingDialog();
                     }
                 });
-            };
+            }
         }
     });
-};
+}
 function MostrarDetallePercepcion() {
     $("html").css({ "overflow": "hidden" });
     $(".contenedor_popup_percepciones").fadeIn(300);
@@ -112,15 +112,15 @@ function MostrarDetallePercepcion() {
         $(".contenedor_popup_percepciones").fadeOut(300);
         $("html").css({ "overflow": "auto" });
     });
-};
+}
 function ImprimirDetalle(RUCAgentePerceptor, NombreAgentePerceptor, NumeroComprobante, FechaEmision, ImportePercepcion) {
     waitingDialog({});
     dataLayer.push({
         'event': 'pageview',
         'virtualUrl': '/Percepciones/Imprimir'
     });
-    DownloadAttachPDF(RUCAgentePerceptor, NombreAgentePerceptor, NumeroComprobante, FechaEmision, ImportePercepcion)
-};
+    DownloadAttachPDF(RUCAgentePerceptor, NombreAgentePerceptor, NumeroComprobante, FechaEmision, ImportePercepcion);
+}
 function DownloadAttachPDF(RUCAgentePerceptor, NombreAgentePerceptor, NumeroComprobante, FechaEmision, ImportePercepcion) {
     var content = baseUrl + "MisPagos/ExportarPDFPercepcion?" +
             "vIdComprobantePercepcion=" + $('#hdIdComprobantePercepcion').val() +
@@ -129,7 +129,7 @@ function DownloadAttachPDF(RUCAgentePerceptor, NombreAgentePerceptor, NumeroComp
             "&vNumeroComprobanteSerie=" + NumeroComprobante +
             "&vFechaEmision=" + FechaEmision +
             "&vImportePercepcion=" + ImportePercepcion +
-            "&vSimbolo=" + ViewBagSimbolo;
+            "&vSimbolo=" + variablesPortal.SimboloMoneda;
 
     var iframe_ = document.createElement("iframe");
     iframe_.style.display = "none";
@@ -159,4 +159,4 @@ function DownloadAttachPDF(RUCAgentePerceptor, NombreAgentePerceptor, NumeroComp
         });
     }
     document.body.appendChild(iframe_);
-};
+}

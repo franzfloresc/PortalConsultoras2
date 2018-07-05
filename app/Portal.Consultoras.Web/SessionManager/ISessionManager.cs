@@ -37,9 +37,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetMostrarShowRoomProductosExpiro();
 
-        void SetTiposEstrategia(List<BETipoEstrategia> tiposEstrategia);
+        void SetTiposEstrategia(List<ServicePedido.BETipoEstrategia> tiposEstrategia);
 
-        List<BETipoEstrategia> GetTiposEstrategia();
+        List<ServicePedido.BETipoEstrategia> GetTiposEstrategia();
 
         void SetRevistaDigital(RevistaDigitalModel revistaDigital);
 
@@ -151,7 +151,12 @@ namespace Portal.Consultoras.Web.SessionManager
 
         EstrategiaPersonalizadaProductoModel GetProductoTemporal();
 
-        //EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
+        void SetEstrategiaODD(Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel data);
+
+        Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel GetEstrategiaODD();
+
+        void SetEstrategiaSR(Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel data);
+        Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR();
 
         void SetPedidosFacturados(PedidoWebClientePrincipalMobilModel model);
 
@@ -161,8 +166,18 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetDetallesPedidoSetAgrupado(List<BEPedidoWebDetalle> detallesPedidoWeb);
 
-        void SetMiAcademia(int id); /* SOPORTEC-266 */
+        void SetMiAcademia(int id);
 
-        int GetMiAcademia(); /* SOPORTEC-266 */
+        int GetMiAcademia();
+
+        void SetPedidoValidado(bool validado);
+
+        bool GetPedidoValidado();
+        
+        EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
+
+        void setBEUsuarioModel (List<ServiceUsuario.BEUsuario> model);
+
+        List<ServiceUsuario.BEUsuario> getBEUsuarioModel();
     }
 }

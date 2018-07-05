@@ -10,6 +10,18 @@
     if (ViewBag.MostrarOfertaDelDia == true) { ofertaDelDia = ViewBag.OfertaDelDia; }
 }
 
+@section styles{
+    <style type="text/css">
+        #btn_init {
+            display: none !important;
+        }
+
+        #btn_open {
+            display: none !important;
+        }
+    </style>
+}
+
 @if (ViewBag.MostrarOfertaDelDiaContenedor == true)
 {
     <div id="pop_oferta_mobile" class="content_pop_oferta_mobile">
@@ -53,9 +65,7 @@
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{oferta.CUV2}}" />
                 <input type="hidden" class="rsFBMensaje" value="" />
-                <input type="hidden" class="rsFBRuta" value="{{../FBRuta}}" />
                 <input type="hidden" class="rsWAMensaje" value="" />
-                <input type="hidden" class="rsWARuta" value="{{../FBRuta}}" />
                 <input type="hidden" class="rsFBRutaImagen" value="{{oferta.ImagenDisplay}}" />
                 <input type="hidden" class="rsWARutaImagen" value="{{oferta.ImagenDisplay}}" />
                 <input type="hidden" class="MarcaID" value="{{oferta.MarcaID}}" />
@@ -74,7 +84,7 @@
                 {{/iff}}
             </div>
             <div class="producto_img_mobile">
-                <img src="{{oferta.ImagenDisplay}}" alt="Solo Hoy" id="img-display-odd" data-img-lazy="1"/>
+                <img src="{{oferta.ImagenDisplay}}" alt="Solo Hoy" id="img-display-odd" data-img-lazy="1" />
             </div>
             <div class="nombre_set_display">{{oferta.NombreOferta}}</div>
             <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo {{oferta.PrecioCatalogoFormat}}</span></div>
@@ -86,7 +96,7 @@
             <div class="titulo_contenido">CONTENIDO</div>
             <div class="nombre_set_producto_hoy">{{{oferta.DescripcionOferta}}}</div>
             {{/IsNullOrEmpty}}
-            
+
             @if (mobileConfiguracion.MostrarHipervinculo)
             {
                 <div class="content_redes_ficha" data-item="">
@@ -95,7 +105,7 @@
                     <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
                 </div>
             }
-            
+
         </div>
         {{/each}}
     </script>

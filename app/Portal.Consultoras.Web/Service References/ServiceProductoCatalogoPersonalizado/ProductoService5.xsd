@@ -64,28 +64,11 @@
       <xs:element minOccurs="0" name="MontoEscala" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoMinimo" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TieneMDO" type="xs:boolean" />
       <xs:element minOccurs="0" name="TipoOfertaFinal" type="xs:int" />
       <xs:element minOccurs="0" name="TipoProductoMostrar" type="xs:int" />
       <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ListaParametroOfertaFinal" nillable="true" type="tns:ListaParametroOfertaFinal" />
-  <xs:complexType name="RegaloOfertaFinal">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CampaniaId" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
-      <xs:element minOccurs="0" name="Cuv" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="GapAgregar" type="xs:double" />
-      <xs:element minOccurs="0" name="GapMaximo" type="xs:double" />
-      <xs:element minOccurs="0" name="GapMinimo" type="xs:double" />
-      <xs:element minOccurs="0" name="MontoMeta" type="xs:double" />
-      <xs:element minOccurs="0" name="MontoPedido" type="xs:double" />
-      <xs:element minOccurs="0" name="RegaloDescripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="RegaloImagenUrl" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipoRango" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="RegaloOfertaFinal" nillable="true" type="tns:RegaloOfertaFinal" />
 </xs:schema>

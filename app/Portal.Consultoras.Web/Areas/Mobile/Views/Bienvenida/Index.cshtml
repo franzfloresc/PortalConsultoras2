@@ -14,6 +14,10 @@
     var nombreConsultora = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     var tipoUsuaio = ViewBag.TipoUsuario;
     ViewBag.SourcePage = 1;
+
+    Model.NombreConsultora = Util.SubStr(Model.NombreConsultora, 0).ToUpper();
+    var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
+
 }
 
 @section styles{
@@ -78,7 +82,6 @@
 
 <div class="wrapper_resumen_mobile">
     <div class="content_320" style="text-align:center; padding-bottom: 7px;">
-        <!--QUITAR CENTER CUANDO HAY FOTO-->
         <div class="content_foto">
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
@@ -88,31 +91,30 @@
             }
 
         </div>
-        <!--RESUMEN DATOS CONSULTORA Y CAMPAÑA-->
         <div class="content_resumen_dato_mobile" style="text-align:left">
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
             {
-                <div class="nombre_consultora_2018">
+                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡Feliz Aniversario @nombreConsultora
                 </div>
             }
             else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
             {
 
-                <div class="nombre_consultora_2018">
+                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡Feliz Cumpleaños @nombreConsultora
                 </div>
             }
             else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
             {
 
-                <div class="nombre_consultora_2018">
+                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡@ViewBag.SaludoFestivo @nombreConsultora
                 </div>
             }
             else if (Model.RevistaDigital.TieneRDC && Model.RevistaDigital.EsSuscrita && !Model.RevistaDigital.EsActiva)
             {
-                <div class="nombre_consultora_2018">
+                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a> @nombreConsultora
                 </div>
             }
@@ -123,13 +125,13 @@
 
                 if (CampaniaEfectiva.Equals(CampaniaActual))
                 {
-                    <div class="nombre_consultora_2018">
+                    <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                         ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a> @nombreConsultora
                     </div>
                 }
                 else
                 {
-                    <div class="nombre_consultora_2018">
+                    <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                         ¡Hola @nombreConsultora
                     </div>
                 }
@@ -137,7 +139,7 @@
             }
             else
             {
-                <div class="nombre_consultora_2018">
+                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡Hola @nombreConsultora
                 </div>
             }
@@ -162,7 +164,6 @@
                 <span><b>C@(Model.NumeroCampania) @(ViewBag.MensajeFechaPromesa)</b></span>
             </div>
             <a role="link" region="Central" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido" class="btn_seguirp_mobile seguimientoPedido2" href="/Mobile/SeguimientoPedido">SIGUE TU PEDIDO</a>
-            <!-- ENLACE PARA INGRESO DE PEDIDO FIC -->
             @if (ViewBag.IndicadorPermisoFIC == 1)
             {
                 <a href="@Url.Action("Index", "PedidoFIC", new { area = "Mobile" })" role="menu" region="Medio" parent="Ingreso Pedido Fic" id="lnk-ingresa-pedido-fic" class="enlace_ingresa_tu_pedido_fic text-uppercase" title="Ingresa tu pedido FIC">
@@ -170,14 +171,11 @@
                     Ingresa tu pedido Fic
                 </a>
             }
-            <!-- FIN - ENLACE PARA INGRESO DE PEDIDO FIC -->
         </div>
         <hr class="clear" />
-        <!--FIN RESUMEN-->
     </div>
     <div class="linea_separadora_mobile" style="margin-top: 16px; "></div>
 </div>
-<!--CONSULTORA ONLINE-->
 @if (ViewBag.CantPedidosPendientes > 0)
 {
     <div class="content_320" style="padding-top:0">
@@ -194,7 +192,6 @@
     </div>
 }
 
-<!--FIN-->
 <div class="fondo_faf5e6" style="display: none">
     @if (ViewBag.CantPedidosPendientes <= 0)
     {
@@ -217,7 +214,6 @@
 
 <div class="wrapper_resumen_mobile">
     <div class="content_320">
-        <!--ITEM 1-->
         <div class="item1_mobile">
             @{
                 string cabezaEscala = null, pieEscala = null;
@@ -260,11 +256,9 @@
             <div role="link" region="Central" parent="Ganancia Estimada Total" title="Pedido ingresado" class="texto_inferior" style="text-decoration:underline;"><a href="@Url.Action("Index", "Pedido")">Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></a></div>
 
         </div>
-        <!-- FIN ITEM 1-->
     </div>
     <div class="linea_separadora_mobile" style="margin-top:16px"></div>
     <div class="content_320">
-        <!--ITEM 2-->
         <div class="item1_mobile">
             <div class="icono_item item_2_home"></div>
             <div class="titulo_item_mobile">MI ESTADO DE CUENTA:</div>
@@ -276,16 +270,10 @@
             @if (Model.TienePagoEnLinea)
             {
                 <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index","PagoEnLinea")">
-                    @*<div class="logo_visa">
-                            <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
-                        </div>*@
                     <div class="texto_btn_pago_en_linea">
                         <span>PAGA EN LÍNEA</span>
                         <span>con Crédito Visa</span>
                     </div>
-                    @*<div class="logo_mastercard">
-                            <img src="@Url.Content("~/Content/Images/logo-mastercard.svg")" alt="Mastercard" />
-                        </div>*@
                 </a>
                 <p class="info_lugares_de_pago">
                     Lugares de pago <a href="" title="Lugares de pago">aquí</a>
@@ -310,13 +298,11 @@
                 }
             }
         </div>
-        <!--FIN ITEM 2-->
     </div>
     <div class="linea_separadora_mobile" style="margin-top:16px"></div>
 </div>
 
 <div class="wrapper_resumen_mobile">
-    <!--COMPARTIR CATÁLOGOS-->
     <div class="comartir_home_mobile">
         TUS CATÁLOGOS C@(Model.NumeroCampania)
         <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
@@ -328,23 +314,19 @@
     </a>
     <hr class="clear" />
     <div class="linea_separadora_mobile"></div>
-    <!--FIN COMPARTIR CATÁLOGOS-->
 </div>
 @if (Model.TieneMasVendidos == 1)
 {
     Html.RenderPartial("MasVendidos");
 }
 
-<!--INICIO CARRUSEL-->
 <div id="divListaEstrategias" style="display: none; padding-top: 22px;">
     @Html.Partial("~/Areas/Mobile/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
 </div>
-<!--FIN CARRUSEL-->
 
 @if (Model.ActivacionAppCatalogoWhastUp == 1)
 {
     <div class="wrapper_resumen_mobile">
-        <!--APP CATÁLOGOS-->
         <div class="comartir_home_mobile">
             HAZ CRECER TU NEGOCIO CON<br />
             EL APP DE CATÁLOGOS
@@ -398,75 +380,90 @@
         </a>
         <hr class="clear" />
         <div class="linea_separadora_mobile"></div>
-        <!--FIN APP CATÁLOGOS-->
     </div>
 }
-<!--LOS MAS VENDIDOS-->
 
-<div class="wrapper_resumen_mobile">
-    <div id="div-linea-OPT" class="linea_separadora_mobile" style="display: none;"></div> <!--SI TIENE OFERTAS PARA TI NO DEBERIA ESTAR ESTA LINEA-->
-    @if (Model.ShowRoomMostrarLista == 0)
-    {
-        <div class="nueva_seccion_fav" onclick="mostrarCatalogoPersonalizado();" style="cursor: pointer;">
-            <div class="content_banner_fav">
-                <div class="content_imagen_banner_fav">
-                    <img data-src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" data-lazy-seccion-banner-home="" />
-                </div>
-                <div class="texto_fav_banner">
-                    @ViewBag.NombreConsultoraFAV, estos son los
-                    <span class="favoritos_txt">FAVORITOS</span>
-                    <span class="texto_2_fav">DE TUS CLIENTES</span>
-                    <a class="btn_compralos_banner_fav" href="javascript:">CÓMPRALOS</a>
+    <div class="wrapper_resumen_mobile">
+        <div id="div-linea-OPT" class="linea_separadora_mobile" style="display: none;"></div>
+        @if (Model.ShowRoomMostrarLista == 0)
+        {
+            <div class="nueva_seccion_fav" onclick="mostrarCatalogoPersonalizado();" style="cursor: pointer;">
+                <div class="content_banner_fav">
+                    <div class="content_imagen_banner_fav">
+                        <img data-src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" data-lazy-seccion-banner-home="" />
+                    </div>
+                    <div class="texto_fav_banner">
+                        @ViewBag.NombreConsultoraFAV, estos son los
+                        <span class="favoritos_txt">FAVORITOS</span>
+                        <span class="texto_2_fav">DE TUS CLIENTES</span>
+                        <a class="btn_compralos_banner_fav" href="javascript:">CÓMPRALOS</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
 
 
-    <div class="linea_separadora_mobile" style="margin-top:-1px;"></div>
-    <!--VIDEOS-->
-    <div class="comartir_home_mobile">
-        APRENDE A VENDER MÁS
-        @if (tipoUsuaio == 2)
-        {
-            <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia"
-               class="btn_compartelos" href="#" onclick="return messageInfoPostulante();">ENTRA A “MI ACADEMIA”</a>
-        }
-        else
-        {
-            <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia"
-               class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">ENTRA A “MI ACADEMIA”</a>
-        }
-    </div>
-    <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">
-        <div class="imagen_catalogo video_esika">
-            <img data-src="@Model.UrlImagenMiAcademia" alt="-" data-lazy-seccion-banner-home="" />
-        </div>
-    </a>
-    <hr class="clear" />
-    <div class="linea_separadora_mobile"></div>
-    <!--FIN-->
-    <!--LIQUIDACIÓN-->
-    @if (Model.CodigoISO != Constantes.CodigosISOPais.Venezuela)
-    {
+        <div class="linea_separadora_mobile" style="margin-top:-1px;"></div>
         <div class="comartir_home_mobile">
-            LIQUIDACIÓN WEB
-            <a role="link" region="Central" parent="Oferta Liquidacion" title="Compártelos"
-               class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
+            APRENDE A VENDER MÁS
+            @if (tipoUsuaio == 2)
+            {
+                <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia"
+                   class="btn_compartelos" href="#" onclick="return messageInfoPostulante();">ENTRA A “MI ACADEMIA”</a>
+            }
+            else
+            {
+                <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia"
+                   class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">ENTRA A “MI ACADEMIA”</a>
+            }
         </div>
-        <div class="imagen_catalogo liquidacion_esika">
-            <a href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">
-                <img data-src="@Model.UrlImagenLiquidaciones" alt="-" data-lazy-seccion-banner-home="" />
-            </a>
-        </div>
+        <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">
+            <div class="imagen_catalogo video_esika">
+                <img data-src="@Model.UrlImagenMiAcademia" alt="-" data-lazy-seccion-banner-home="" />
+            </div>
+        </a>
         <hr class="clear" />
-        <div class="linea_separadora_mobile mg_bottom"></div>
-    }
-    <!--FIN-->
+        <div class="linea_separadora_mobile"></div>
+        @if (Model.CodigoISO != Constantes.CodigosISOPais.Venezuela)
+        {
+            <div class="comartir_home_mobile">
+                LIQUIDACIÓN WEB
+                <a role="link" region="Central" parent="Oferta Liquidacion" title="Compártelos"
+                   class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
+            </div>
+            <div class="imagen_catalogo liquidacion_esika">
+                <a href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">
+                    <img data-src="@Model.UrlImagenLiquidaciones" alt="-" data-lazy-seccion-banner-home="" />
+                </a>
+            </div>
+            <hr class="clear" />
+            <div class="linea_separadora_mobile mg_bottom"></div>
+        }
+        
+        <div id="dvExpoOferta" style="display: none;">
+            <div class="comartir_home_mobile">
+                EXPOFERTAS
+                <a role="link"
+                   region="Central"
+                   title="EXPOFERTAS"
+                   target="_blank"
+                   class="btn_compartelos" href="#"></a>
+            </div>
+            <div class="imagen_catalogo liquidacion_esika">
+                <a href="#" target="_blank">
+                    <img alt="Expo Oferta"
+                         data-lazy-seccion-banner-home=""
+                         style="margin-top:20px" />
+                </a>
+            </div>
+            <hr class="clear" />
+            <div class="linea_separadora_mobile mg_bottom"></div>
+        </div>
+
+    </div>
 </div>
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
 <input type="hidden" id="hdPosicion" value="0" />
-<!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
 <div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
     <div class="Content_modal_ZE texto-centrado" style="overflow: hidden;">
         <div style="position: absolute; width: 100%;">
@@ -509,14 +506,11 @@
         </table>
     </div>
 </div>
-<!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
 @if (Model.ShowRoomMostrarLista == 0)
 {
     <input type="hidden" id="flagCatalogoPersonalizado" />
 }
 <div class="disclaimer_b">@(pieEscala)</div>
-
-<!-- POPUP SUBIR FOTO -->
 
 <div class="contenedor_fondo_popup" id="popup_subirImagenPerfil" style="display: none;">
     <div class="popup_img_perfil">
@@ -541,9 +535,6 @@
     </div>
 </div>
 
-<!-- FIN POPUP SUBIR FOTO -->
-<!--POPUP PROCESO DE CARGA FOTO -->
-
 <div id="PopUpProcesoCargaFoto" class="CompartirCorreoPop contenedor_fondo_popup" style="display:none;">
     <div class="content_foto_cargada">
         <div class="btn_cerrar_actualizarMisDatos">
@@ -563,9 +554,6 @@
     </div>
 </div>
 
-<!--FIN POPUP PROCESO DE CARGA FOTO -->
-<!--POP UP FOTO CARGADA-->
-
 <div id="PopUpFotoCargada" class="CompartirCorreoPop contenedor_fondo_popup" style="display:none;">
     <div class="content_foto_cargada">
         <div class="btn_cerrar_actualizarMisDatos">
@@ -581,9 +569,6 @@
         <a class="btn_tomar_foto">TOMAR FOTO</a>
     </div>
 </div>
-
-<!--FIN-->
-<!-- POPUP IMAGEN PERFIL PROCESO RECORTE -->
 
 <div class="contenedor_fondo_popup" id="popup_imagenPerfilCorte" style="display: none;">
     <div class="popup_img_perfil">
@@ -608,9 +593,6 @@
     </div>
 </div>
 
-<!-- POPUP FIN IMAGEN PERFIL PROCESO RECORTE -->
-<!--POP UP FOTO ACTUALIZADA-->
-
 <div id="PopUpFotoActualizada" class="CompartirCorreoPop contenedor_fondo_popup" style="display:none;">
     <div class="content_foto_cargada">
         <div class="btn_cerrar_actualizarMisDatos">
@@ -628,7 +610,30 @@
     </div>
 </div>
 
-<!--FIN-->
+<!-- POPUP ACEPTACIÓN DE CONTRATO (COLOMBIA) -->
+<div id="fondoPopup_aceptacionTerminosYCondicionesContrato" class="contenedor_fondo_popup" style="display:none;">
+    <div id="popupAceptacionContrato" class="popup_aceptacionTerminosYCondicionesContrato">
+        <div class="contenido_popUp">
+            <div class="icono_contrato"></div>
+            <h1 class="titulo_aceptacionTerminosYCondicionesContrato">
+                TÉRMINOS Y CONDICIONES DE USO DE <b>SOMOSBELCORP.COM</b>
+            </h1>
+            <p class="mensaje_popUp_aceptacionTerminosYCondicionesContrato">
+                <b>Querida @(nombreConsultoraSin),</b>
+            </p>
+            <p class="mensaje_popUp_aceptacionTerminosYCondicionesContrato">
+                Al dar click en el botón, aceptas los términos y condiciones de la Solicitud de Crédito y Autorización de consulta y reporte de datos financieros.
+            </p>
+            <a href="javascript:;" onclick="return DownloadAttachPDF();" class="enlace_detalleTerminosYCondicionesContrato text-uppercase" title="Revisar términos y condiciones de uso">
+                >  CONOCE EL DETALLE AQUÍ
+            </a>
+            <button type="button" name="btn_aceptarTerminosYCondicionesContrato" class="btn_aceptarTerminosYCondicionesContrato" onclick="return AceptarContrato();">
+                <b>¡ACEPTO!</b> <br /> QUIERO EMPEZAR A USARLO
+            </button>
+        </div>
+    </div>
+</div>
+<!-- FIN - POPUP ACEPTACIÓN DE CONTRATO (COLOMBIA) -->
 <!-- POPUP DEMANDA ANTICIPADA -->
 <div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display: none;">
     <div class="popup_demandaAnticipada" id="popupDemandaAnticipada" style="display: none;">
@@ -682,19 +687,15 @@
         </div>
     </div>
 </div>
-<!-- FIN POPUP DEMANDA ANTICIPADA -->
-<div class="btn_agregarPedido">
+<div class="btn_agregarPedido boton_cincuenta_anios_belcorp">
     <form>
         <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />
     </form>
 </div>
 
-<!--POP UP VIDEO INTRODUCTORIO-->
 <div id="VideoIntroductorio" class="MensajeAlertaMobile" style="display:none">
     <div class="content_video_introductorio">
         <a class="cerrar_video" href="javascript:;" id="cerrarVideoIntroductorio"><img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Icono Check" /></a>
-
-        <!--div id="divPlayer"></div-->
 
         <div id="ytMobileBienvenidaIndex"
              data-youtube="{ width:'100%', enablejsapi:1, playerVars:{rel:0} }"
@@ -702,17 +703,13 @@
 
     </div>
 </div>
-<!-- FIN POPUP VIDEO INTRODUCTORIO -->
-<!--POP UP REVISTA DIGITAL-->
 @if (Model.RevistaDigital.TieneRDS == true)
 {
     @Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-popup-suscripcion.cshtml")
 }
-<!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml",  new ViewDataDictionary {{ "TieneBotones", true }})
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
 
-<!--SHOWROOM: modal popup -->
 <div class="modal fade" id="PopShowroom">
     <div class="modal-dialog modal-alert" style="width:265px; margin:0 auto; margin-top:50px !important;">
         <div class="modal-content" style="float: right;width: 225px;padding:0;">
@@ -745,7 +742,6 @@
         </div>
     </div>
 </div>
-<!--SHOWROOM: modal popup HOY -->
 <div class="modal fade" id="PopShowroomHoy">
     <div class="modal-dialog modal-alert" style="width:265px; margin:0 auto; margin-top:50px !important;">
         <div class="modal-content" style="float: right;width: 225px;padding:0;">
@@ -775,7 +771,6 @@
 
 <div class="PopMobile1" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 
-<!--POP UP CUPONES-->
 @{
     if (!Model.ConsultoraNuevaBannerAppMostrar)
     {
@@ -810,9 +805,8 @@
     </div>
 </div>
 
-<!--FIN-->
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
@@ -825,6 +819,13 @@
         var viewBagVioTutorial = '@Model.VioTutorial';
         var TipoPopUpMostrar = '@Model.TipoPopUpMostrar';
         var popupRevistaDigitalSuscripcion = '@Constantes.TipoPopUp.RevistaDigitalSuscripcion';
+
+        var popupAceptacionContrato = '@Constantes.TipoPopUp.AceptacionContrato';
+        var OrigenAceptacionContrato = '@Constantes.ClienteOrigen.OrigeMobile';
+
+        var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/41577-BELCORP-SolCre-CO-400073315-300916.pdf")';
+        var viewBagCambioClave = '@Model.CambioClave';
+
         var origenPagina = 1;
         var urlUpdatePopupShowRoom = '@Url.Action("UpdatePopupShowRoom", "ShowRoom", new { area = "" })';
         var urlMostrarShowRoomPopup = '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new { area = "" })';
@@ -843,7 +844,6 @@
         }
 
         var viewBagCampaniaActual = '@Model.CampaniaActual';
-        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
         var tieneCupon = '@Model.TieneCupon';
         var tieneMasVendidos = @Model.TieneMasVendidos;
         var tieneAsesoraOnline = '@Model.TieneAsesoraOnline';
@@ -861,8 +861,8 @@
         var consultoraNuevaBannerAppMostrar = '@Model.ConsultoraNuevaBannerAppMostrar';
         var mostrarPopupCuponGanaste = (@Model.TipoPopUpMostrar == 11) ? 'true' : 'false';
         var nombreAlias = '@Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!")';
-
-    </script>
+        var numeroCampania = '@Model.NumeroCampania';
+</script>
     @Scripts.Render("~/bundles/JsMobile/Bienvenida")
 
 }

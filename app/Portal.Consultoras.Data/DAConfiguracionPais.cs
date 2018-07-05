@@ -14,15 +14,17 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetList(BEConfiguracionPais entity)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionPais_GetAll");
-            Context.Database.AddInParameter(command, "DesdeCampania", DbType.Int32, entity.DesdeCampania);
-            Context.Database.AddInParameter(command, "Codigo", DbType.String, entity.Codigo);
-            Context.Database.AddInParameter(command, "CodigoRegion", DbType.String, entity.Detalle.CodigoRegion);
-            Context.Database.AddInParameter(command, "CodigoZona", DbType.String, entity.Detalle.CodigoZona);
-            Context.Database.AddInParameter(command, "CodigoSeccion", DbType.String, entity.Detalle.CodigoSeccion);
-            Context.Database.AddInParameter(command, "CodigoConsultora", DbType.String, entity.Detalle.CodigoConsultora);
+            using (var command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionPais_GetAll"))
+            {
+                Context.Database.AddInParameter(command, "DesdeCampania", DbType.Int32, entity.DesdeCampania);
+                Context.Database.AddInParameter(command, "Codigo", DbType.String, entity.Codigo);
+                Context.Database.AddInParameter(command, "CodigoRegion", DbType.String, entity.Detalle.CodigoRegion);
+                Context.Database.AddInParameter(command, "CodigoZona", DbType.String, entity.Detalle.CodigoZona);
+                Context.Database.AddInParameter(command, "CodigoSeccion", DbType.String, entity.Detalle.CodigoSeccion);
+                Context.Database.AddInParameter(command, "CodigoConsultora", DbType.String, entity.Detalle.CodigoConsultora);
 
-            return Context.ExecuteReader(command);
+                return Context.ExecuteReader(command);
+            }
         }
 
         public IDataReader GetList(bool tienePerfil)

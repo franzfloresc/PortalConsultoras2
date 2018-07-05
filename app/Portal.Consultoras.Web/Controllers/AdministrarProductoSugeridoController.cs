@@ -4,6 +4,7 @@ using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,33 @@ namespace Portal.Consultoras.Web.Controllers
                 lstCampania = new List<CampaniaModel>(),
                 lstPais = DropDowListPaises(),
                 PaisIDUser = userData.PaisID,
-                ExpValidacionNemotecnico = GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico)
+                ExpValidacionNemotecnico = GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico),
+                MostrarAgotado = MostrarCheckAgotado()
             };
             return View(model);
+        }
+
+        private int MostrarCheckAgotado()
+        {
+            var result = 0;
+            var TablaLogicaDatos = new List<BETablaLogicaDatos>();
+            short codigoTablaLogica = 141;
+
+            using (var tablaLogica = new SACServiceClient())
+            {
+                TablaLogicaDatos = tablaLogica.GetTablaLogicaDatos(userData.PaisID, codigoTablaLogica).ToList();
+            }
+
+            foreach (var item in TablaLogicaDatos)
+            {
+                if (Convert.ToInt32(item.Valor) == 1)
+                {
+                    result = 1;
+                    break;
+                }
+            }
+
+            return result;
         }
 
         private IEnumerable<PaisModel> DropDowListPaises()
@@ -87,7 +112,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.CUVSugerido,
                                 a.Orden.ToString(),
                                 a.ImagenProducto,
-                                a.Estado.ToString()
+                                a.Estado.ToString(),
+                                a.MostrarAgotado.ToString()
                             }
                        }
             };
@@ -204,8 +230,11 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
 
                 #region Imagen Resize 
+
+                if (string.IsNullOrEmpty(entidad.ImagenProducto)) return Json(new { success = false, message = "La información ingresada se encuentra incompleta. Por favor, revisar.\n- Debe de seleccionar una imagen.", extra = ""});
                 
                 string rutaImagen = entidad.ImagenProducto.Clone().ToString();
+
                 var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
 
                 ImagenesResizeProceso(entidad.ImagenProducto, rutaImagen.ToLower().Contains(valorAppCatalogo));

@@ -15,12 +15,6 @@
 
     if (revistaDigital.EsActiva)
     {
-        @*<style>
-            .slick-list {
-                height: 1580px !important;
-                overflow: hidden !important;
-            }
-        </style>*@
     }
     else
     {
@@ -83,7 +77,7 @@
                     <div class="logo_club"></div>
                     <p class="primer-texto"> @Html.Raw(configuracionPaisDatosModel.Valor1)</p> 
                     <p class="segundo-texto">@Html.Raw(configuracionPaisDatosModel.Valor2)<p>
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">VER OFERTAS</a>
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion)">VER MÁS OFERTAS</a>
                 </div>
 
                 @if (revistaDigital.EsActiva)
@@ -117,7 +111,6 @@
 }
 else if (revistaDigital.TieneRDI)
 {
-            <!-- PASE PEDIDO NO INSCRITAS C-11 -->
             <div class="banner_pedido_rd">
                 <div class="cabecera_pedido_rd">
                     <div class="rd_logo">
@@ -138,7 +131,6 @@ else if (revistaDigital.TieneRDI)
                 </div>
             </div>
             <div class="clear"></div>
-            <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
             @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
             new ViewDataDictionary {
                 { "Source", 2 },

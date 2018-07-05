@@ -26,6 +26,7 @@
     }
     <link href="@Url.Content("~/Content/Css/Site/calc.css")" rel="stylesheet" type="text/css" />
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))' == "True";
@@ -56,11 +57,15 @@
         var emt_first_name = '@ViewBag.NombreC';
         var emt_id = '@ViewBag.CodigoUsuario';
         var emt_type = '0';
+        var emt_device = ' ';
+        var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
         // New Chat -->
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
         var FechaActual = '@(DateTime.Now.ToString("dd/MM/yyyy"))';
 
         window.urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+        window.urlLogElastic = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogElastic"]';
+        window.patternElastic = '@System.Configuration.ConfigurationManager.AppSettings["PatternElastic"]';
 
         var userData = {
             'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
@@ -120,31 +125,7 @@
         }
     </script>
 
-    @*@if (ViewBag.Rol == Constantes.Rol.Consultora)
-        {
-            string nombre_pais = ViewBag.PaisAnalytics;
-
-            switch (nombre_pais)
-            {
-                case "EC":
-                case "CO":
-                case "BO":
-                case "CL":
-                case "MX":
-                case "PR":
-                case "DO":
-                case "PE":
-                case "PA":
-                case "CR":
-                case "SV":
-                case "GT":
-                    <div class="boton_ayuda"><span class="boton-home belcorpChat"><a href="#">¿Necesitas ayuda?</a> </span></div>
-                    break;
-            }
-        }*@
-    <!-- cabecera -->
     <header>
-        <!--BANNER -->
         @if (ViewBag.MostrarBannerPostulante == true)
         {
             @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBloqueMensajesPostulante.cshtml")
@@ -158,9 +139,11 @@
             <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none"></div>
         }
 
-        <!--END BANNER -->
         <div class="clear"></div>
-        <div class="wrapper_header">
+        <div class="wrapper_header wrapper_header_cincuenta_anios_belcorp">
+            <div class="cincuenta_anios_belcorp">
+                <img src="@Url.Content("~/Content/Images/cincuenta_anios_belcorp_cabecera.svg")" alt="" />
+            </div>
             <div class="logo_esika">
                 <a class="@ViewBag.ClaseLogoSB" href="@Url.Action("Index", "Bienvenida")"></a>
             </div>
@@ -174,8 +157,6 @@
     </header>
 
     <div class="fondo_oscuro"></div>
-    <!-- end cabecera -->
-    <!-- contenedor -->
     @{
         string controllerAction = this.ViewContext.RouteData.Values["controller"].ToString() + this.ViewContext.RouteData.Values["action"].ToString();
         controllerAction = controllerAction.ToLower();
@@ -211,14 +192,11 @@
             @Html.Partial("~/Views/ShowRoom/_BannerInferior.cshtml", (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.BannerInferiorConfiguracion)ViewBag.BannerInferior)
         }
 
-        <!-- footer -->
         <hr class="clear" />
         <footer class="footer_e">
             @Html.Partial("~/Views/Shared/_Footer.cshtml")
         </footer>
-        <!-- end footer -->
     </div>
-    <!-- end contenedor -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpFeDeErratas.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpRegistroComunidad.cshtml")
 
@@ -232,26 +210,20 @@
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
     <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
 
-    <!-- Div Banner Lateral ShowRoom -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBannerLateralShowRoom.cshtml")
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogMensajes.cshtml")
 
-    <!-- POPUP MENSAJE ERROR - exclamacion  -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogErrorMainLayout.cshtml")
 
-    <!-- POPUP SESIÓN FINALIZADA - exclamacion  -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogSesionMainLayout.cshtml")
 
-    <!-- POPUP MENSAJE USUARIO POSTULANTE -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogMensajePostulante.cshtml")
 
-    <!-- POPUP PEDIDO RESERVADO -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogPedidoReservado.cshtml")
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTemplateResumenCampania.cshtml")
 
-    <!--OFERTA DEL DIA -->
     <script id="ofertadeldia-template" type="text/x-handlebars-template">
         <div data-odd-tipoventana="baner">
             <div class="content_oferta_dia" id="banner-odd" data-item="">
@@ -287,7 +259,7 @@
                 </div>
                 <div class="precio_set_dia">
                     <div class="nombre_set_oferta">{{NombreOferta}}</div>
-                    <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span>
+                    <span>{{SimboloMoneda}} {{PrecioOfertaFormat}}</span>
                 </div>
                 <div style="float: left">
                     <input type="hidden" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
@@ -301,10 +273,8 @@
             <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia(this);">x</a>
         </div>
         <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia">
-            <!--AÑADIR LA CLASE "content_780_ODD" PARA REDIMENSIONAR EL TAMAÑO DEL DISPLAY EN 1 Ó 2-->
-            <!--CASO 1 CARRUSEL A 1024-->
             <div data-odd-tipoventana="detalle" style="display:none;">
-                <a class="regresar_carrusel" href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">REGRESAR</a> <!--SOLO SE MUESTRA CUANDO SE VA AL DETALLE DE UN PRODUCTO-->
+                <a class="regresar_carrusel" href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">REGRESAR</a>
                 <hr class="clear" />
                 <div class="content_90" style="margin-top: 20px;">
                     <div id="divOddCarruselDetalle">
@@ -329,9 +299,7 @@
                             <div data-compartir-campos="" style="display:none;">
                                 <input type="hidden" class="CUV" value="{{detalle.CUV2}}" />
                                 <input type="hidden" class="rsFBMensaje" value="" />
-                                <input type="hidden" class="rsFBRuta" value="{{../FBRuta}}" />
                                 <input type="hidden" class="rsWAMensaje" value="" />
-                                <input type="hidden" class="rsWARuta" value="{{../FBRuta}}" />
                                 <input type="hidden" class="rsFBRutaImagen" value="{{detalle.ImagenDisplay}}" />
                                 <input type="hidden" class="rsWARutaImagen" value="{{detalle.ImagenDisplay}}" />
                                 <input type="hidden" class="MarcaID" value="{{detalle.MarcaID}}" />
@@ -358,8 +326,8 @@
                                     <div class="height_min">
                                         <div class="titulo_set_ODD">{{detalle.NombreOferta}}</div>
                                         <div class="descripcion_set_ofertaDia">{{{detalle.DescripcionOferta}}}</div>
-                                        <div class="precio_valorizado_oferta">VALORIZADO EN <span>@ViewBag.Simbolo {{detalle.PrecioCatalogoFormat}}</span></div>
-                                        <div class="precio_ofertaDia">A SOLO <span>@ViewBag.Simbolo {{detalle.PrecioOfertaFormat}}</span></div>
+                                        <div class="precio_valorizado_oferta">VALORIZADO EN <span>{{SimboloMoneda}} {{detalle.PrecioCatalogoFormat}}</span></div>
+                                        <div class="precio_ofertaDia">A SOLO <span>{{SimboloMoneda}} {{detalle.PrecioOfertaFormat}}</span></div>
                                     </div>
                                     <div>
                                         <div class="liquidacion_rango_home js-no-popup">
@@ -382,7 +350,6 @@
                     </div>
                 </div>
             </div>
-            <!--CASO CARRUSEL DE 3 PRODUCTOS A MAS A 1024-->
             <div style="display:none;" data-odd-tipoventana="carrusel">
                 <div class="saludo_mas_productos" data-odd-texto="cliente" style="display:none;">{{UsuarioNombre}}, APROVECHA ESTAS OFERTAS ¡SOLO HOY!</div>
                 <div class="content_90">
@@ -411,9 +378,9 @@
                                     <a class="ver_detalle_carrusel" onclick="odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}}, 'Oferta del día - Banner');" style="top: 80px;">VER DETALLE</a>
                                     <div class="titulo_carrusel_ODD">{{detalle.NombreOferta}}</div>
                                     {{#iff detalle.PrecioCatalogo '>' 0}}
-                                    <div class="valorizado_carrusel_ODD">VALORIZADO EN <span>{{{../Simbolo}}} {{detalle.PrecioCatalogoFormat}}</span></div>
+                                    <div class="valorizado_carrusel_ODD">VALORIZADO EN <span>{{SimboloMoneda}} {{detalle.PrecioCatalogoFormat}}</span></div>
                                     {{/iff}}
-                                    <div class="precio_carrusel_ODD">{{{../Simbolo}}} {{detalle.PrecioOfertaFormat}}</div>
+                                    <div class="precio_carrusel_ODD">{{SimboloMoneda}} {{detalle.PrecioOfertaFormat}}</div>
                                 </div>
                                 <div style="text-align: center">
                                     <div class="liquidacion_rango_home js-no-popup">
@@ -429,14 +396,12 @@
                                     </div>
                                     <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" data-odd-accion-type="list" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
                                 </div>
-                                <!-- SE AÑADIO EL CHECK AGREGADO  -->
                                 <div style="padding-top:6px; height: 15px;">
                                     <div class="agregado product-add" style="text-align:right; display:{{detalle.Agregado}};">
                                         AGREGADO
                                         <div class="icono"></div>
                                     </div>
                                 </div>
-                                <!--FIN SE AÑADIO EL CHECK AGREGADO -->
                             </div>
                         </div>
                         {{/each}}
@@ -444,19 +409,13 @@
                 </div>
             </div>
 
-            <!--FIN-->
         </div>
     </script>
-    <!--OFERTA DEL DIA -->
-    <!--OFERTA DEL DIA STYLE -->
-    @*Html.Partial("_template-ofertadeldia-style")*@
-    <!-- FIN OFERTA DEL DIA STYLE -->
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
 
     <script type="text/javascript">
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
-        var vbSimbolo = '@ViewBag.Simbolo';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
         var viewBagRol = '@ViewBag.Rol';
         var usuarioNombre = '@ViewBag.UsuarioNombre';
@@ -476,6 +435,7 @@
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
         var codigoAnclaOdd = '@ViewBag.CodigoAnclaOdd';
         var OrigenDesktopODD = 0;
+        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';        
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script type='text/javascript'>
@@ -495,7 +455,7 @@
     <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">
     <link rel="stylesheet" href="@Url.Content("~/emt_chat/css/font-awesome.min.css")">
     <div class="CMXD-containment-wrapper"></div><div id="marca"> <div class="CMXD-btn-help"> <div id="btn_init" class="CMXD-help"></div><div id="btn_open" class="CMXD-open" style="display: none"></div></div><div class="container-movil"></div><div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none"> <div class="CMXD-header-chat"> <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA <div class="CMXD-icons"> <a class="display-a" id="btn_minimize" href=""> <i class="fa fa-minus" aria-hidden="true"></i> </a> <a class="display-a" id="btn_wClose" href="" style="display: none"> <i class="fa fa-times" aria-hidden="true"></i> </a> </div><hr class="CMXD-line"> </div><div id="chat"> <div id="interaction" class="CMXD-container-welcome" style="display: none"> <div class='chat-wrapper'> <div id="transcript" class='chat-message padding container-chat'></div></div><div id="slideDownTranscript" class="message-end CMXD-animate2"> <span class="fa fa-angle-double-down"></span> </div><div class="container-txt"> <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea> <a class="" href=""> <div class="send send2" id="btn_Send"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar </div></a> </div></div><div id="loading" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="loading_image" src="" alt=""> </div><div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div><div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div></div></div><div id="schedule" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="schedule_image" src="" alt="Imagen fuera de horario"> </div><div id="schedule_title" class="CMXD-welcome"> </div><div id="schedule_description" class="CMXD-description"> </div></div></div><div id="Error" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="Error_image" src="" alt=""> </div><div class="CMXD-welcome"> Error de conexión </div><div class="CMXD-description"> En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br /> <a href="" class="btn-no display-a" id="btn_mclose"> OK</a> </div></div></div><div id="alert" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="alert_image" src="" alt=""> </div><div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div><div class="CMXD-description"> <a href="" class="btn-yes display-a" id="btn_close"> Si</a> <a href="" class="btn-no display-a" id="btn_nwClose"> No</a> </div></div></div></div><div id="poll" class="pop-up"> <div class="CMXD-container-welcome"> <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div><div id="poll_description" class="CMXD-description"> </div></div></div></div></div>
-    <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")?v1"></script>
 
     @if (TempData.ContainsKey("PixelCodigoIso"))
     {

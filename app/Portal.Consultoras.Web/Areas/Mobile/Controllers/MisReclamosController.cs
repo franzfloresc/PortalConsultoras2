@@ -186,8 +186,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.CDR_ID = objCdr.CDRWebID;
                 ViewBag.ListaDetalle = objCdr.ListaDetalle;
             }
-
-            ViewBag.Simbolo = userData.Simbolo;
+            
             return View();
         }
 

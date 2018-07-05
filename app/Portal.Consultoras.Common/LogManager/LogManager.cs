@@ -78,6 +78,7 @@ namespace Portal.Consultoras.Common
 
                 RegistrarArchivoTexto(logError, pathFile);
                 RegistrarDynamoDB(logError);
+                RegistrarElastic(logError);
             }
             catch (Exception)
             {
@@ -130,14 +131,17 @@ namespace Portal.Consultoras.Common
             {
                 var urlRequest = string.Empty;
                 var browserRequest = string.Empty;
+                var ctrl = string.Empty;
+                var acti = string.Empty;
 
                 if (HttpContext.Current != null && HttpContext.Current.Request != null)
                 {
-                    if (HttpContext.Current.Request != null)
-                    {
-                        urlRequest = HttpContext.Current.Request.Url.ToString();
-                        browserRequest = HttpContext.Current.Request.UserAgent;
-                    }
+                    urlRequest = HttpContext.Current.Request.Url.ToString();
+                    browserRequest = HttpContext.Current.Request.UserAgent;
+
+                    var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+                    ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+                    acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
                 }
 
                 var exceptionMessage = string.Empty;
@@ -157,11 +161,7 @@ namespace Portal.Consultoras.Common
                         innerException = innerException.InnerException;
                     }
                 }
-
-                var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
-                string ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
-                string acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
-
+                
                 var data = new
                 {
                     Aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras,
@@ -210,6 +210,104 @@ namespace Portal.Consultoras.Common
 
                 RegistrarArchivoTexto(logError);
             }
+        }
+
+        private static void RegistrarElastic(LogError logError)
+        {
+            var urlApi = ConfigurationManager.AppSettings.Get("UrlLogElastic");
+
+            if (string.IsNullOrEmpty(urlApi)) return;
+
+            var dataString = string.Empty;
+            try
+            {
+                var urlRequest = string.Empty;
+                var browserRequest = string.Empty;
+
+                if (HttpContext.Current != null && HttpContext.Current.Request != null)
+                {
+                    if (HttpContext.Current.Request != null)
+                    {
+                        urlRequest = HttpContext.Current.Request.Url.ToString();
+                        browserRequest = HttpContext.Current.Request.UserAgent;
+                    }
+                }
+
+                var exceptionMessage = string.Empty;
+
+                if (logError.Exception != null)
+                {
+                    exceptionMessage = logError.Exception.Message;
+                }
+
+                string className;
+                string methodName;
+                string application;
+
+                if (logError.Origen.Equals("Servidor"))
+                {
+                    application = "WebService";
+                    
+                    StackTrace st = new StackTrace(logError.Exception, true);
+                    StackFrame frame = st.GetFrame(st.FrameCount - 1); 
+                    className = frame.GetMethod().DeclaringType.Name;
+                    methodName = frame.GetMethod().Name;
+                } else
+                {
+                    var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
+                    className = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+                    methodName = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+                    application = "Web";
+                }                
+
+                var data = new
+                {
+                    Date = DateTime.Now,
+                    HostName = Environment.MachineName,
+                    ThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId,
+                    Level = "ERROR",
+                    Class = className,
+                    Method = methodName,
+                    Message = exceptionMessage,
+                    Application = application,
+                    Pais = logError.IsoPais,
+                    User = logError.CodigoUsuario,
+                    Exception = JsonConvert.SerializeObject(logError.Exception),
+                    Url = urlRequest,
+                    Navigator = browserRequest,
+                    Trace = "LogManager"
+                };                
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.DefaultRequestHeaders.Accept.Clear();
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    dataString = JsonConvert.SerializeObject(data);
+
+                    HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = httpClient.PostAsync(GetUrl(urlApi), contentPost).GetAwaiter().GetResult();
+
+                    var result = response.IsSuccessStatusCode;
+                }
+            }
+            catch (Exception ex)
+            {
+                logError.Exception = ex;
+                logError.InformacionAdicional = dataString;
+                logError.Titulo = "Seguimiento de Errores Elastic";
+
+                RegistrarArchivoTexto(logError);
+            }
+        }
+
+        private static string GetUrl(string endpoint)
+        {
+            var pattern = ConfigurationManager.AppSettings.Get("PatternElastic");
+
+            string indexName = pattern + DateTime.Now.ToString("yyyy.MM.dd");
+            return endpoint + indexName + "/LogEvent";
         }
     }
 }

@@ -29,8 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index", "Bienvenida");
             }
-
-            ViewBag.Simbolo = userData.Simbolo;
+            
             ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
 
             if (Session["ListFiltersFAV"] != null)
@@ -624,16 +623,13 @@ namespace Portal.Consultoras.Web.Controllers
                 if (productoModel == null || !productoModel.EsMaquillaje || productoModel.Hermanos != null)
                 {
                     productoModel = productoModel ?? new ProductoModel();
-                    productoModel.UrlCompartirFB = GetUrlCompartirFB();
                     return Json(new
                     {
                         success = true,
                         data = productoModel
                     });
                 }
-
-                productoModel.UrlCompartirFB = GetUrlCompartirFB();
-
+                
                 List<ServiceODS.BEProducto> listaHermanos;
                 using (ODSServiceClient svc = new ODSServiceClient())
                 {
@@ -686,8 +682,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     productoModel.EsMaquillaje = false;
                 }
-
-                productoModel.FBRuta = GetUrlCompartirFB();
+                
                 return Json(new
                 {
                     success = true,

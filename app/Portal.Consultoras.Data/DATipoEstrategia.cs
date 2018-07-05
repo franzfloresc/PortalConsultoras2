@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetTipoEstrategia(BETipoEstrategia entidad)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarTipoEstrategia_SB2"))
+            using (var command = Context.Database.GetStoredProcCommand("dbo.ListarTipoEstrategia_SB2"))
             {
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
                 return Context.ExecuteReader(command);

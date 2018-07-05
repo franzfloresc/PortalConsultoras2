@@ -899,85 +899,41 @@ namespace Portal.Consultoras.BizLogic
 
         private void ConfigurarDTCargaWebDD(DataSet dsPedidosWeb, DataSet dsPedidosDD, DateTime fechaFacturacion, int nroLote, string usuario, string codigoPais)
         {
-            if (!ConfigurationManager.AppSettings["IsFOX"].Contains(codigoPais))
-            {
-                this.ConfigurarDTCargaHeader(dsPedidosWeb, fechaFacturacion, nroLote, "W", usuario);
-                this.ConfigurarDTCargaHeader(dsPedidosDD, fechaFacturacion, nroLote, "D", usuario);
-            }
-            else
-            {
-                this.ConfigurarDTCargaHeader(dsPedidosWeb, fechaFacturacion, nroLote, string.Empty, usuario);
-                this.ConfigurarDTCargaHeader(dsPedidosDD, fechaFacturacion, nroLote, string.Empty, usuario);
-            }
+            this.ConfigurarDTCargaHeader(dsPedidosWeb, fechaFacturacion, nroLote, "W", usuario);
+            this.ConfigurarDTCargaHeader(dsPedidosDD, fechaFacturacion, nroLote, "D", usuario);
         }
 
         private void ConfigurarDTCargaDetalle(DataSet dsPedidosDetalle, DateTime fechaFactura, int nroLote)
         {
-            if (dsPedidosDetalle != null)
-            {
-                var dtPedidosDetalle = dsPedidosDetalle.Tables[1];
+            if (dsPedidosDetalle == null) return;
 
-                if (dtPedidosDetalle.Rows.Count > 0)
-                {
-                    DataColumn col = new DataColumn("LogFechaFacturacion", typeof(System.DateTime))
-                    {
-                        DefaultValue = fechaFactura
-                    };
-                    dtPedidosDetalle.Columns.Add(col);
+            var dtPedidosDetalle = dsPedidosDetalle.Tables[1];
+            if (dtPedidosDetalle.Rows.Count == 0) return;
 
-                    col = new DataColumn("LogNroLote", typeof(System.Int32))
-                    {
-                        DefaultValue = nroLote
-                    };
-                    dtPedidosDetalle.Columns.Add(col);
-                }
-            }
+            AddDTColumn(dtPedidosDetalle, "LogFechaFacturacion", fechaFactura);
+            AddDTColumn(dtPedidosDetalle, "LogNroLote", nroLote);
         }
 
         private void ConfigurarDTCargaHeader(DataSet dsPedidos, DateTime fechaFactura, int nroLote, string origen, string usuario)
         {
-            if (dsPedidos != null)
-            {
-                var dtPedidosCabecera = dsPedidos.Tables[0];
+            if (dsPedidos == null) return;
 
-                if (dtPedidosCabecera.Rows.Count != 0)
-                {
-                    DataColumn col = new DataColumn("LogFechaFacturacion", typeof(System.DateTime))
-                    {
-                        DefaultValue = fechaFactura
-                    };
-                    dtPedidosCabecera.Columns.Add(col);
+            var dtPedidosCabecera = dsPedidos.Tables[0];
+            if (dtPedidosCabecera.Rows.Count == 0) return;
 
-                    col = new DataColumn("LogNroLote", typeof(System.Int32))
-                    {
-                        DefaultValue = nroLote
-                    };
-                    dtPedidosCabecera.Columns.Add(col);
+            AddDTColumn(dtPedidosCabecera, "LogFechaFacturacion", fechaFactura);
+            AddDTColumn(dtPedidosCabecera, "LogNroLote", nroLote);
+            AddDTColumn(dtPedidosCabecera, "LogCantidad", 0);
+            AddDTColumn(dtPedidosCabecera, "LogCodigoUsuarioProceso", usuario);
+            if (origen != string.Empty) AddDTColumn(dtPedidosCabecera, "Origen", origen);
+            if(!DataRecord.HasColumn(dtPedidosCabecera, "VersionProl")) AddDTColumn<byte>(dtPedidosCabecera, "VersionProl", 2);
 
-                    col = new DataColumn("LogCantidad", typeof(System.Int32))
-                    {
-                        DefaultValue = 0
-                    };
-                    dtPedidosCabecera.Columns.Add(col);
+            ConfigurarDTCargaDetalle(dsPedidos, fechaFactura, nroLote);
+        }
 
-                    if (origen != string.Empty)
-                    {
-                        col = new DataColumn("Origen", typeof(System.String))
-                        {
-                            DefaultValue = origen
-                        };
-                        dtPedidosCabecera.Columns.Add(col);
-                    }
-
-                    col = new DataColumn("LogCodigoUsuarioProceso", typeof(System.String))
-                    {
-                        DefaultValue = usuario
-                    };
-                    dtPedidosCabecera.Columns.Add(col);
-
-                    ConfigurarDTCargaDetalle(dsPedidos, fechaFactura, nroLote);
-                }
-            }
+        private void AddDTColumn<T>(DataTable dt, string columnName, T defaultValue)
+        {
+            dt.Columns.Add(new DataColumn(columnName, typeof(T)) { DefaultValue = defaultValue });
         }
 
         private string FormatFile(string codigoPais, string fileName, DateTime date, Guid fileGuid)
@@ -1749,9 +1705,7 @@ namespace Portal.Consultoras.BizLogic
 
         public int ValidarDesactivaRevistaGana(int paisID, int campaniaID, string codigoZona)
         {
-            var daPedidoWeb = new DAPedidoWeb(paisID);
-            int rslt = daPedidoWeb.ValidarDesactivaRevistaGana(campaniaID, codigoZona);
-            return rslt;
+            return new DAPedidoWeb(paisID).ValidarDesactivaRevistaGana(campaniaID, codigoZona);
         }
 
         public BECUVCredito ValidarCUVCreditoPorCUVRegular(int paisID, string codigoConsultora, string cuv, int campaniaID)
@@ -2128,66 +2082,65 @@ namespace Portal.Consultoras.BizLogic
 
         public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR = true, bool validarReservado = true, bool validarHorario = true, bool validarFacturado = true)
         {
+            BEUsuario usuario = null;
+            BEConfiguracionCampania configuracion = null;
+
             try
             {
-
-            BEUsuario usuario = null;
-            using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
-            {
-                if (reader.Read()) usuario = new BEUsuario(reader, true);
-            }
-
-            BEConfiguracionCampania configuracion = null;
-            if (usuario != null)
-            {
-                using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
+                using (var reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
                 {
-                    if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+                    if (reader.Read()) usuario = new BEUsuario(reader, true, true);
                 }
-            }
 
-            if (configuracion != null)
-            {
-                if (validarGPR && configuracion.IndicadorGPRSB == 1)
+                if (usuario != null)
                 {
-                    return new BEValidacionModificacionPedido
+                    using (var reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
                     {
-                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.GPR,
-                        Mensaje = string.Format("En este momento nos encontramos facturando tu pedido de C-{0}, inténtalo más tarde", campania.Substring(4, 2))
-                    };
+                          configuracion =  reader.MapToObject<BEConfiguracionCampania>(true); 
+                    }
                 }
-                if (validarReservado && configuracion.EstadoPedido == Constantes.EstadoPedido.Procesado && !configuracion.ModificaPedidoReservado && !configuracion.ValidacionAbierta)
+            
+                if (configuracion != null)
                 {
-                    return new BEValidacionModificacionPedido
+                    if (validarGPR && configuracion.IndicadorGPRSB == 1)
                     {
-                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Reservado,
-                        Mensaje = "Ya tienes un pedido reservado para esta campaña."
-                    };
+                        return new BEValidacionModificacionPedido
+                        {
+                            MotivoPedidoLock = Enumeradores.MotivoPedidoLock.GPR,
+                            Mensaje = string.Format("En este momento nos encontramos facturando tu pedido de C-{0}, inténtalo más tarde", campania.Substring(4, 2))
+                        };
+                    }
+                    if (validarFacturado && configuracion.IndicadorEnviado)
+                    {
+                        return new BEValidacionModificacionPedido
+                        {
+                            MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Facturado,
+                            Mensaje = "Estamos facturando tu pedido."
+                        };
+                    }
+                    if (validarReservado && configuracion.EstadoPedido == Constantes.EstadoPedido.Procesado && !configuracion.ModificaPedidoReservado && !configuracion.ValidacionAbierta)
+                    {
+                        return new BEValidacionModificacionPedido
+                        {
+                            MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Reservado,
+                            Mensaje = "Ya tienes un pedido reservado para esta campaña."
+                        };
+                    }
                 }
-                if (validarFacturado && configuracion.IndicadorEnviado)
+                if (validarHorario)
                 {
-                    return new BEValidacionModificacionPedido
-                    {
-                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Facturado,
-                        Mensaje = "Estamos facturando tu pedido."
-                    };
-                }
-            }
-            if (validarHorario)
-            {
-                string mensajeHorarioRestringido = this.ValidarHorarioRestringido(usuario, campania);
-                if (!string.IsNullOrEmpty(mensajeHorarioRestringido))
-                {
-                    return new BEValidacionModificacionPedido
-                    {
-                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.HorarioRestringido,
-                        Mensaje = mensajeHorarioRestringido
-                    };
-                }
-            }
-            return new BEValidacionModificacionPedido { MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Ninguno };
+                    var mensajeHorarioRestringido = this.ValidarHorarioRestringido(usuario, campania);
 
-
+                    if (!string.IsNullOrEmpty(mensajeHorarioRestringido))
+                    {
+                        return new BEValidacionModificacionPedido
+                        {
+                            MotivoPedidoLock = Enumeradores.MotivoPedidoLock.HorarioRestringido,
+                            Mensaje = mensajeHorarioRestringido
+                        };
+                    }
+                }
+                return new BEValidacionModificacionPedido { MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Ninguno };
             }
             catch (Exception ex)
             {
@@ -2198,19 +2151,19 @@ namespace Portal.Consultoras.BizLogic
 
         private string ValidarHorarioRestringido(BEUsuario usuario, int campania)
         {
-            DateTime fechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
+            var fechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
             if (!usuario.HabilitarRestriccionHoraria) return null;
             if (fechaHoraActual <= usuario.FechaInicioFacturacion || usuario.FechaFinFacturacion.AddDays(1) <= fechaHoraActual) return null;
 
-            TimeSpan horaActual = new TimeSpan(fechaHoraActual.Hour, fechaHoraActual.Minute, 0);
-            TimeSpan horaAdicional = TimeSpan.Parse(usuario.HorasDuracionRestriccion.ToString() + ":00");
+            var horaActual = new TimeSpan(fechaHoraActual.Hour, fechaHoraActual.Minute, 0);
+            var horaAdicional = TimeSpan.Parse(usuario.HorasDuracionRestriccion.ToString() + ":00");
 
-            bool enHorarioRestringido;
+            var enHorarioRestringido = false;
             if (usuario.EsZonaDemAnti != 0) enHorarioRestringido = (horaActual > usuario.HoraCierreZonaDemAnti);
             else enHorarioRestringido = (usuario.HoraCierreZonaNormal < horaActual && horaActual < usuario.HoraCierreZonaNormal + horaAdicional);
             if (!enHorarioRestringido) return null;
 
-            TimeSpan horaCierre = usuario.EsZonaDemAnti != 0 ? usuario.HoraCierreZonaDemAnti : usuario.HoraCierreZonaNormal;
+            var horaCierre = usuario.EsZonaDemAnti != 0 ? usuario.HoraCierreZonaDemAnti : usuario.HoraCierreZonaNormal;
             return string.Format("En este momento nos encontramos facturando tu pedido de C-{0}. Todos los códigos ingresados hasta las {1} horas han sido registrados en el sistema. Gracias!", campania.Substring(4, 2), horaCierre.ToString(@"hh\:mm"));
         }
 
@@ -2362,6 +2315,108 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
+
+        public void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario)
+        {
+            var lstPedidos = new List<BEDescargaPedidoCliente>();
+
+            try
+            {
+                //Obtener la informacion de pedidos del ultimo lote generado
+                using (var reader = new DAPedidoWeb(paisID).DescargaPedidosCliente(nroLote))
+                {
+                    lstPedidos = reader.MapToCollection<BEDescargaPedidoCliente>();
+                };
+                if (!lstPedidos.Any()) throw new BizLogicException("No existen pedidos para generar el archivo");
+
+                //Configuracion nombre archivo
+                var codigoPais = Common.Util.GetPaisISO(paisID);
+                var fechaFacturacion = lstPedidos.FirstOrDefault().FechaFacturacion;
+                var fileGuid = Guid.NewGuid();
+
+                var ftpSection = (FtpConfigurationSection)ConfigurationManager.GetSection("Belcorp.FtpConfiguration");
+                var key = string.Format("{0}-{1}", codigoPais, "DR");
+                var ftpElement = ftpSection.FtpConfigurations[key];
+
+                //Generar el archivo txt
+                var section = (DataAccessConfiguration)ConfigurationManager.GetSection("Belcorp.Configuration");
+                var element = section.Countries[paisID];
+                var clienteTemplate = ParseTemplate(WebConfig.GetByTagName(element.OrderClienteTemplate));
+                var clientFile = FormatFile(codigoPais, ftpElement.Client, fechaFacturacion, fileGuid);
+
+                using (var streamWriter = new StreamWriter(clientFile))
+                {
+                    foreach (var pedido in lstPedidos)
+                    {
+                        streamWriter.WriteLine(ClienteLine(clienteTemplate, pedido));
+                    }
+                }
+
+                //Envío FTP
+                if (WebConfig.OrderDownloadFtpUpload == "1")
+                {
+                    try
+                    {
+                        var ftpAddressFileName = string.Concat(ftpElement.Address, ftpElement.Client);
+                        BLFileManager.FtpUploadFile(ftpAddressFileName, clientFile, ftpElement.UserName, ftpElement.Password);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.SaveLog(ex, codigoUsuario, codigoPais);
+                        throw new BizLogicException("No se pudo subir los archivos de pedidos al destino FTP.", ex);
+                    }
+                }
+
+                //Envío S3
+                if (WebConfig.OrderDownloadS3 == "1")
+                {
+                    try
+                    {
+                        var carpetaPais = string.Concat(WebConfig.S3_Pedidos, codigoPais);
+                        if (!string.IsNullOrEmpty(clientFile)) ConfigS3.SetFileS3(clientFile, carpetaPais, Path.GetFileName(clientFile), false, false, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.SaveLog(ex, codigoUsuario, codigoPais);
+                        throw new BizLogicException("No se pudo subir los archivos de pedidos al destino S3.", ex);
+                    }
+                }
+            }
+            catch(BizLogicException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, paisID);
+                throw ex;
+            }
+        }
+
+        private string ClienteLine(TemplateField[] template, BEDescargaPedidoCliente row)
+        {
+            var line = string.Empty;
+            var item = string.Empty;
+
+            foreach (var field in template)
+            {
+                switch (field.FieldName)
+                {
+                    case "PAISISO": item = row.PaisISO; break;
+                    case "CAMPANIAID": item = row.CampaniaID.ToString(); break;
+                    case "CODIGOCONSULTORA": item = row.CodigoConsultora; break;
+                    case "FECHAFACTURACION": item = row.FechaFacturacion.ToString("ddMMyyyy"); break;
+                    case "CUV": item = row.CUV; break;
+                    case "CANTIDAD": item = row.Cantidad.ToString(); break;
+                    case "CODIGOCLIENTE": item = row.CodigoCliente.ToString(); break;
+                    default: item = string.Empty; break;
+                }
+
+                line = string.Concat(line, item.PadRight(field.Size));
+            }
+
+            return line;
+        }
     }
 
     internal class TemplateField

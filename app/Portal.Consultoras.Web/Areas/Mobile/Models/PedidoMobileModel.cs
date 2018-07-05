@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 
         public List<BEPedidoWebDetalle> ListaProductos { get; set; }
 
-        public List<BEPedidoFICDetalle> ListaProductosFIC { get; set; }   //PPC
+        public List<BEPedidoFICDetalle> ListaProductosFIC { get; set; }
 
         public int CantidadProductos { get; set; }
 

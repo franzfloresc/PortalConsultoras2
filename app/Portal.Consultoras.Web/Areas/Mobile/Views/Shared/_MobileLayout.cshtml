@@ -8,9 +8,8 @@
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
     if (ViewBag.MostrarShowRoomBannerLateral == true) { showRoomBannerLateral = ViewBag.ShowRoomBannerLateral; }
 
-    OfertaDelDiaModel ofertaDelDia = null;
-    if (ViewBag.MostrarOfertaDelDia == true) { ofertaDelDia = ViewBag.OfertaDelDia; }
-    ofertaDelDia = ofertaDelDia ?? new OfertaDelDiaModel();
+    OfertaDelDiaModel ofertaDelDia = ViewBag.MostrarOfertaDelDia == true ? ViewBag.OfertaDelDia ?? new OfertaDelDiaModel() : new OfertaDelDiaModel();
+    ofertaDelDia.ConfiguracionContenedor = ofertaDelDia.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
 
     bool esIngresoUnico = ViewContext.EsIngresoUnico();
 }
@@ -18,43 +17,44 @@
 <!DOCTYPE html>
 <html lang="es-PE">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="description" content="SomosBelcorp Web Mobile" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="SomosBelcorp Web Mobile" />
 
-	<title>Somos Belcorp</title>
+    <title>Somos Belcorp</title>
 
-	@Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
 
-	<link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
 
-	@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
-	{
-		<link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
-		@Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
-		@Styles.Render("~/Content/Css/Mobile/Esika/Contenedor")
-	}
-	else
-	{
-		<link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-		@Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
-		@Styles.Render("~/Content/Css/Mobile/Lbel/Contenedor")
-	}
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
+        @Styles.Render("~/Content/Css/Mobile/Esika/Contenedor")
+    }
+    else
+    {
+        <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
+        @Styles.Render("~/Content/Css/Mobile/Lbel/Contenedor")
+    }
 
-	<link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
         var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
     </script>
 
-	@RenderSection("styles", required: false)
+    @RenderSection("styles", required: false)
 
-	@if (TempData.ContainsKey("PixelCodigoIso"))
-	{
-		<noscript id="noscript-pixel-image"></noscript>
-	}
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        <noscript id="noscript-pixel-image"></noscript>
+    }
 </head>
 <body>
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
@@ -80,7 +80,6 @@
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
     <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
 
-    <!-- Menu icon -->
     <div class="menu">
         <div class="content_close">
             <div class="icon-close">
@@ -88,13 +87,6 @@
             </div>
         </div>
         <div class="foto_menu">
-            <!--
-            <div class="content_foto">
-                <div class="foto_usuaria_mobile">
-                    <img src="/Content/Images/mobile/Esika/user.jpg" alt="-">
-                </div>
-            </div>
-                -->
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
                 <div class="foto_usuaria_mobile">
@@ -105,10 +97,9 @@
         <br />
         <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
         @Html.Partial("_MobileMenuLateral")
-        <a  id="lnk-cerrar-sesion" role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
+        <a id="lnk-cerrar-sesion" role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
     </div>
 
-    <!-- alert-top -->
     <div id="divAlertaPedidosOnline" class="alert-top alert-success alert-top-conline" style="display: none;">
         <a href="@Url.Action("MisPedidos", "ConsultoraOnline", new { area = "Mobile" })">
             <span class="alert-icon"><i class="icon-notificaciones-belcorp"></i></span>
@@ -118,9 +109,7 @@
         <span class="alert-close"><i class="icon-close-belcorp"></i></span>
     </div>
 
-    <!-- header -->
     <header id="new-header">
-        <!--BANNER-->
         @if (ViewBag.mostrarBannerPostulante == true)
         {
             @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueMensajesPostulante.cshtml")
@@ -150,16 +139,14 @@
         }
         @if (ViewBag.MostrarBannerApp == true && !ViewBag.MostrarBannerRechazo == true)
         {
-            <!--BANNER APP-->
             <div class="banner_app"><div>X</div></div>
-            <!--END BANNER APP-->
         }
-        <!--END BANNER-->
 
-        <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
+        <div class="container-fluid agregarBackgroundCincuentaAniosBelcorp" style="padding-top:9px; padding-bottom:9px;">
             <div class="row">
-                <div class="col-xs-4">
-                    <img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />
+                <div class="col-xs-4 icono_menuMobile_cincuenta_anios_belcorp">
+                    @*<img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />*@
+                    <img src="@Url.Content("~/Content/Images/mobile/icono-menu-mobile.svg")" id="ic_menu" class="icon-menu" alt="Menú" />
                 </div>
                 <div class="col-xs-4 text-center">
                     <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
@@ -187,7 +174,6 @@
         </div>
     </header>
 
-    <!-- content -->
     <section style="min-height: 380px;">
         <div id="contentmobile" data-content="">
 
@@ -228,7 +214,6 @@
         </div>
     </section>
 
-    <!-- footer -->
     <footer class="footer-page">
         @Html.Partial("_MobileMenuFooter")
         <hr class="clear" />
@@ -274,9 +259,7 @@
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{oferta.CUV2}}" />
                 <input type="hidden" class="rsFBMensaje" value="" />
-                <input type="hidden" class="rsFBRuta" value="{{../FBRuta}}" />
                 <input type="hidden" class="rsWAMensaje" value="" />
-                <input type="hidden" class="rsWARuta" value="{{../FBRuta}}" />
                 <input type="hidden" class="rsFBRutaImagen" value="{{oferta.ImagenDisplay}}" />
                 <input type="hidden" class="rsWARutaImagen" value="{{oferta.ImagenDisplay}}" />
                 <input type="hidden" class="MarcaID" value="{{oferta.MarcaID}}" />
@@ -319,15 +302,9 @@
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
 
-    <!--POP MENSAJE POSTULANTE-->
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
-    <!--FIN-->
-    <!--POP COMUNIDAD-->
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")
-    <!--FIN-->
-    <!--POP MENSAJE SESION FINALIZADA Error-->
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")
-    <!--FIN-->
 
     <div style="display:none">
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
@@ -357,7 +334,6 @@
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
 
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
-        var vbSimbolo = '@ViewBag.Simbolo';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
 
@@ -389,7 +365,10 @@
         var emt_first_name = '@ViewBag.NombreC';
         var emt_id = '@ViewBag.CodigoUsuario';
         var emt_type = '0';
+        var emt_device = ' ';
+        var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
 
+        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';        
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
@@ -397,6 +376,8 @@
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
         var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl';
         window.urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+        window.urlLogElastic = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogElastic"]';
+        window.patternElastic = '@System.Configuration.ConfigurationManager.AppSettings["PatternElastic"]';
         var userData = {
             'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
             'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
@@ -418,8 +399,6 @@
 
         //BANNER APP
         var urlOcultarBannerApp = '@Url.Action("OcultarBannerApp", "Bienvenida", new { area = "Mobile" })';
-        var actionName = '@ViewContext.RouteData.GetRequiredString("action")';
-        var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
         var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
 
         // Seteando Controlador y Accion
@@ -441,7 +420,7 @@
                 window.OfertaDelDia.CargarODD();
 
                 $("div[id^='content_oferta_dia_mobile']").click(function () {
-                        document.location.href = urlOfertaDelDiaMobile;
+                    document.location.href = urlOfertaDelDiaMobile;
                 });
             });
         </script>
@@ -653,13 +632,13 @@
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}
 
-    @{ 
+    @{
         if (!esIngresoUnico)
         {
             <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">
             <link rel="stylesheet" href="@Url.Content("~/emt_chat/css/font-awesome.min.css")">
             <div class="CMXD-containment-wrapper"></div><div id="marca"> <div class="CMXD-btn-help"> <div id="btn_init" class="CMXD-help" style="display:none;"></div><div id="btn_open" class="CMXD-open" style="display: none"></div></div><div class="container-movil"></div><div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none"> <div class="CMXD-header-chat"> <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA <div class="CMXD-icons"> <a class="display-a" id="btn_minimize" href=""> <i class="fa fa-minus" aria-hidden="true"></i> </a> <a class="display-a" id="btn_wClose" href="" style="display: none"> <i class="fa fa-times" aria-hidden="true"></i> </a> </div><hr class="CMXD-line"> </div><div id="chat"> <div id="interaction" class="CMXD-container-welcome" style="display: none"> <div class='chat-wrapper'> <div id="transcript" class='chat-message padding container-chat'></div></div><div id="slideDownTranscript" class="message-end CMXD-animate2"> <span class="fa fa-angle-double-down"></span> </div><div class="container-txt"> <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea> <a class="" href=""> <div class="send send2" id="btn_Send"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar </div></a> </div></div><div id="loading" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="loading_image" src="" alt=""> </div><div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div><div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div></div></div><div id="schedule" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="schedule_image" src="" alt="Imagen fuera de horario"> </div><div id="schedule_title" class="CMXD-welcome"> </div><div id="schedule_description" class="CMXD-description"> </div></div></div><div id="Error" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="Error_image" src="" alt=""> </div><div class="CMXD-welcome"> Error de conexión </div><div class="CMXD-description"> En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br /> <a href="" class="btn-no display-a" id="btn_mclose"> OK</a> </div></div></div><div id="alert" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="alert_image" src="" alt=""> </div><div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div><div class="CMXD-description"> <a href="" class="btn-yes display-a" id="btn_close"> Si</a> <a href="" class="btn-no display-a" id="btn_nwClose"> No</a> </div></div></div></div><div id="poll" class="pop-up"> <div class="CMXD-container-welcome"> <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div><div id="poll_description" class="CMXD-description"> </div></div></div></div></div>
-            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")"></script>
+            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")?v1"></script>
         }
     }
 

@@ -102,10 +102,10 @@ namespace Portal.Consultoras.Service
             blUsuario.UpdateDatos(usuario, CorreoAnterior);
         }
 
-        public int UpdateDatosPrimeraVez(int paisID, string codigoUsuario, string email, string telefono, string telefonoTrabajo, string celular, string correoAnterior, bool aceptoContrato)
+        public int UpdateDatosPrimeraVez(int PaisID, string CodigoUsuario, string Email, string Telefono, string TelefonoTrabajo, string Celular, string CorreoAnterior, bool AceptoContrato)
         {
             var blUsuario = new BLUsuario();
-            return blUsuario.UpdateDatosPrimeraVez(paisID, codigoUsuario, email, telefono, telefonoTrabajo, celular, correoAnterior, aceptoContrato);
+            return blUsuario.UpdateDatosPrimeraVez(PaisID, CodigoUsuario, Email, Telefono, TelefonoTrabajo, Celular, CorreoAnterior, AceptoContrato);
         }
 
         public void UpdatePassword(int paisID, string codigoUsuario, string claveSecreta, bool cambioClave)
@@ -149,10 +149,10 @@ namespace Portal.Consultoras.Service
             return _usuarioBusinessLogic.GetSesionUsuarioWS(paisID, codigoUsuario);
         }
 
-        public string GetUsuarioAsociado(int paisID, string codigoUsuario)
+        public string GetUsuarioAsociado(int paisID, string CodigoConsultora)
         {
             var blUsuario = new BLUsuario();
-            return blUsuario.GetUsuarioAsociado(paisID, codigoUsuario);
+            return blUsuario.GetUsuarioAsociado(paisID, CodigoConsultora);
         }
 
         public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario, short rolID)
@@ -257,10 +257,10 @@ namespace Portal.Consultoras.Service
             blUsuario.InsLogIngresoPortal(paisID, CodigoConsultora, IPOrigen, Tipo, DetalleError, Canal);
         }
 
-        public int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora)
+        public int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora , string origen)
         {
             var blContratoAceptacion = new BLContratoAceptacion();
-            return blContratoAceptacion.AceptarContratoAceptacion(paisID, consultoraid, codigoConsultora);
+            return blContratoAceptacion.AceptarContratoAceptacion(paisID, consultoraid, codigoConsultora, origen);
         }
 
         public BEUsuario GetSesionUsuarioLoginDD(int paisID, string codigoUsuario, string claveSecreta)
@@ -458,12 +458,12 @@ namespace Portal.Consultoras.Service
             return oblUsuario.CancelarSubscripcion(paisId, email);
         }
 
-        public int ConfirmarSuscripcion(string PaisISO, string email)
+        public int ConfirmarSuscripcion(string PaisISO, string Email)
         {
             int paisId = GetPaisID(PaisISO);
 
             BLUsuario oblUsuario = new BLUsuario();
-            return oblUsuario.ConfirmarSuscripcion(paisId, email);
+            return oblUsuario.ConfirmarSuscripcion(paisId, Email);
         }
 
         public List<BEUsuario> GenerarReporteSuscripcionLideres(string PaisISO, string TipoReporte)
@@ -597,7 +597,13 @@ namespace Portal.Consultoras.Service
             var blUsuario = new BLUsuario();
             return blUsuario.GetValidarLoginSB2(paisID, codigoUsuario, contrasenia);
         }
-
+      
+        public BEValidaLoginSB2 GetValidarLoginJsonWebToken(int paisID, string documento)
+        {
+            var blUsuario = new BLUsuario();
+            return blUsuario.GetValidarLoginJsonWebToken(paisID, documento);
+        }
+        
         public BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor)
         {
             var blUsuario = new BLUsuario();
@@ -693,10 +699,10 @@ namespace Portal.Consultoras.Service
             return bl.ConfiguracionPaisComponenteDeshabilitar(entidad);
         }
 
-        public int ConfiguracionPaisDatosGuardar(int paisId, List<BEConfiguracionPaisDatos> listaEntidad)
+        public int ConfiguracionPaisDatosGuardar(int paisId, List<BEConfiguracionPaisDatos> entidad)
         {
             var bl = new BLConfiguracionPaisDatos();
-            return bl.ConfiguracionPaisDatosGuardar(paisId, listaEntidad);
+            return bl.ConfiguracionPaisDatosGuardar(paisId, entidad);
         }
 
         public int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad)
@@ -725,10 +731,10 @@ namespace Portal.Consultoras.Service
             return blUsuario.DelUsuarioPostulante(paisId, numeroDocumento);
         }
 
-        public BEUsuarioPostulante GetUsuarioPostulante(int paisID, string numeroDocumento)
+        public BEUsuarioPostulante GetUsuarioPostulante(int paisId, string numeroDocumento)
         {
             var blUsuario = new BLUsuario();
-            return blUsuario.GetUsuarioPostulante(paisID, numeroDocumento);
+            return blUsuario.GetUsuarioPostulante(paisId, numeroDocumento);
         }
 
         public int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno)

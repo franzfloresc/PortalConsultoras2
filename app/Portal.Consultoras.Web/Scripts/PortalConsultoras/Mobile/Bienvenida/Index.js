@@ -33,8 +33,7 @@ $(document).ready(function () {
     });
     $(".ver_video_introductorio").click(function () {
         $('#VideoIntroductorio').show();
-
-        //ConfigurarYoutube();
+        
         var player = oYTPlayers['ytMobileBienvenidaIndex'].instance;
         setTimeout(function () { playVideo(); }, 500);
 
@@ -45,11 +44,14 @@ $(document).ready(function () {
         stopVideo();
         $('#VideoIntroductorio').hide();
     });
-
     $("#imgProductoMobile").click(function () {
 
     });
-    
+
+    if ($('#fondoPopup_aceptacionTerminosYCondicionesContrato').is(':visible')) {
+        $("#fondoPopup_aceptacionTerminosYCondicionesContrato").hide();
+    }
+
     CargarCarouselEstrategias("");
 
     if (tieneMasVendidos === 1) {
@@ -81,6 +83,8 @@ $(document).ready(function () {
     }
     
     if (consultoraNuevaBannerAppMostrar == "False") CargarPopupsConsultora();
+    else MostrarPopupAceptacionContratoGet();
+
     TagManagerCatalogosPersonalizados();
     $(document).on('click', '.banner_inferior_mobile', function () {
         dataLayer.push({
@@ -100,10 +104,13 @@ $(document).ready(function () {
 
     if (consultoraNuevaBannerAppMostrar == "False") ObtenerComunicadosPopup();
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
+    bannerFunc.showExpoOferta();
 });
+
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
 });
+
 function CrearPopShow() {
 
     $("#btnCerrarPopShowroom").click(function () {
@@ -274,7 +281,7 @@ function stopVideo() {
             $divPlayer.attr("src", urlVideo);
         }
     }
-};
+}
 
 function playVideo() {
     var player = oYTPlayers['ytMobileBienvenidaIndex'].instance;
@@ -286,7 +293,7 @@ function playVideo() {
         }
 
     }
-};
+}
 
 function UpdateUsuarioTutorialMobile() {
     $.ajax({
@@ -302,7 +309,7 @@ function UpdateUsuarioTutorialMobile() {
         },
         error: function (data) { }
     });
-};
+}
 
 function RedirectPagaEnLineaAnalytics() {
 
@@ -312,7 +319,7 @@ function RedirectPagaEnLineaAnalytics() {
     else {
         window.open('https://www.belcorpchile.cl/BP_Servipag/PagoConsultora.aspx?c=' + ViewBagUrlChileEncriptada, "_blank");
     }
-};
+}
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
@@ -357,11 +364,12 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         }
     });
     return restringido;
-};
+}
 
 function CargarPopupsConsultora() {
 
     MostrarDemandaAnticipada();
+
     if (viewBagVioTutorial != '0' && noMostrarPopUpRevistaDig == 'False') {
         rdAnalyticsModule.MostrarPopup();
     }
@@ -372,7 +380,19 @@ function CargarPopupsConsultora() {
     else if (TipoPopUpMostrar == popupRevistaDigitalSuscripcion) {
         rdPopup.Mostrar();
     }
-};
+    else if (TipoPopUpMostrar == popupAceptacionContrato)
+    {
+        MostrarPopupAceptacionContratoGet();
+    }
+}
+
+function MostrarPopupAceptacionContratoGet()
+{
+    if (TipoPopUpMostrar == popupAceptacionContrato)
+    {
+        $("#fondoPopup_aceptacionTerminosYCondicionesContrato").show();
+    }
+}
 
 function MostrarDemandaAnticipada() {
     $.ajax({
@@ -405,15 +425,15 @@ function MostrarDemandaAnticipada() {
             }
         }
     });
-};
+}
 
 function AceptarDemandaAnticipada() {
     InsertarDemandaAnticipada(1);
-};
+}
 
 function CancelarDemandaAnticipada() {
     InsertarDemandaAnticipada(0);
-};
+}
 
 function InsertarDemandaAnticipada(tipo) {
     var params = { tipoConfiguracion: tipo };
@@ -444,7 +464,7 @@ function InsertarDemandaAnticipada(tipo) {
             }
         }
     });
-};
+}
 
 function TagManagerCatalogosPersonalizados() {
     if (!!document.getElementById("flagCatalogoPersonalizado")) {
@@ -462,7 +482,7 @@ function TagManagerCatalogosPersonalizados() {
             }
         });
     }
-};
+}
 
 $("#content_oferta_dia_mobile").click(function () {
     $('#PopOfertaDia').slideDown();
@@ -496,6 +516,7 @@ function mostrarCatalogoPersonalizado() {
 }
 
 var ComunicadoId = 0;
+
 function ObtenerComunicadosPopup() {
     if (primeraVezSession == 0) return;
 
@@ -676,7 +697,7 @@ function VerSeccionBienvenida(seccion) {
     switch (seccion) {
         case "Belcorp":
             id = ".content_belcorp";
-            break
+            break;
         case "MisOfertas":
             id = "#divListaEstrategias";
             break;
@@ -711,28 +732,141 @@ function VerTutorialMobile() {
 
     setTimeout(function () { $(window).resize(); }, 50);
 }
-/*
-function ConfigurarYoutube() {
-    if (tag == null) {
-        tag = document.createElement("script");
-        tag.src = "https://www.youtube.com/iframe_api";
 
-        firstScriptTag = document.getElementsByTagName("script")[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+var bannerFunc = (function () {
+    return {
+        getBanners: getBanners,
+        showExpoOferta: showExpoOferta,
+    };
+
+    function getBanners() {
+        return $.ajax({
+            type: 'POST',
+            url: baseUrl + 'Banner/ObtenerBannerPaginaPrincipal',
+            dataType: 'Json',
+        });
     }
+
+    function getExpoOferta() {
+        return getBanners().then(function (dataResult) {
+            if (!checkTimeout(dataResult)) {
+                return;
+            }
+
+            if (!dataResult.success) {
+                console.log('No se pudo cargar la configuración de Banners.');
+                return false;
+            }
+
+            var campaniaPrefix = 'C' + numeroCampania;
+            var keyExpoOferta = campaniaPrefix+ '_EXPOFERTAS_' + IsoPais;
+            var keyExpoOferta2 = campaniaPrefix + '_EXPOFERTA_' + IsoPais;
+            var len = dataResult.data.length;
+            for (var i = 0; i < len; i++) {
+                var objData = dataResult.data[i];
+
+                var group = objData.GrupoBannerID;
+                if (!(group == -5 ||
+                    group == -6 ||
+                    group == -7)) {
+                    continue;
+                }
+
+                var title = objData.Titulo;
+                if (!title) {
+                    continue;
+                }
+
+                title = title.toUpperCase();
+                if (title == keyExpoOferta || title == keyExpoOferta2) {
+                    return objData;
+                }
+            }
+
+            return null;
+        });
+    }
+
+    function showExpoOferta() {
+        getExpoOferta().then(function (banner) {
+            if (!banner) {
+                return;
+            }
+
+            var titleComment = banner.TituloComentario || 'APROVÉCHALAS';
+                
+            var dvExpoOferta = $('#dvExpoOferta');
+            var links = dvExpoOferta.find('a');
+
+            links.attr('href', banner.URL);
+            links.eq(0).text('¡' + titleComment.toUpperCase() + '!');
+            dvExpoOferta.find('img').attr('src', banner.Archivo);
+            dvExpoOferta.show();
+        });
+    }
+})();
+
+function AceptarContrato() {
+
+    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato };
+    ShowLoading({});
+
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "Bienvenida/AceptarContrato",
+        data: JSON.stringify(parameter),
+        contentType: 'application/json',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                if (!data.success) {
+                    alert(data.message);
+                    if (data.extra != "nocorreo") return;
+                }
+
+                $("#fondoPopup_aceptacionTerminosYCondicionesContrato").hide();
+                if (viewBagCambioClave == 0) {
+                    console.log("VERIFICAR SI ABRE ESTA PANTALLA popupActualizarMisDatos")
+                }
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                alert("Ocurrió un error inesperado al momento de registrar los datos. Consulte con su administrador del sistema para obtener mayor información");
+            }
+        }
+    });
 }
 
-function onYouTubeIframeAPIReady(playerId) {
-    var videoIdMostrar;
-    if (isEsika) {
-        videoIdMostrar = "jNoP8OoMmW4"; //Video Esika
+function DownloadAttachPDF() {
+    var iframe_ = document.createElement("iframe");
+    iframe_.style.display = "none";
+    var requestedFile = urlContratoCOpdf;
+    iframe_.setAttribute("src", baseUrl + 'WebPages/DownloadPDF.aspx?file=' + requestedFile);
+
+    if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+        iframe_.onreadystatechange = function () {
+            switch (this.readyState) {
+                case "loading":
+                    ShowLoading({});
+                    break;
+                case "complete":
+                case "interactive":
+                case "uninitialized":
+                    CloseLoading();
+                    break;
+                default:
+                    CloseLoading();
+                    break;
+            }
+        };
     }
     else {
-        videoIdMostrar = "djSn0tFcQ0w"; //Video Lbel
+        // Si es Firefox o Chrome
+        $(iframe_).ready(function () {
+            CloseLoading();
+        });
     }
-    player = new YT.Player("divPlayer", {
-        width: "100%",
-        videoId: videoIdMostrar,
-        playerVars: { rel: 0 }
-    });
-};*/
+    document.body.appendChild(iframe_);
+}

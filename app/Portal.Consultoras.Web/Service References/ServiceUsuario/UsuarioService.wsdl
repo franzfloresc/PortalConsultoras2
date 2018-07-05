@@ -47,6 +47,12 @@
   <wsdl:message name="IUsuarioService_GetValidarLoginSB2_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetValidarLoginSB2Response" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetValidarLoginJsonWebToken_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetValidarLoginJsonWebToken" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetValidarLoginJsonWebToken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetValidarLoginJsonWebTokenResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_GetValidarAutoLogin_InputMessage">
     <wsdl:part name="parameters" element="tns:GetValidarAutoLogin" />
   </wsdl:message>
@@ -776,6 +782,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarLoginSB2" message="tns:IUsuarioService_GetValidarLoginSB2_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarLoginSB2Response" message="tns:IUsuarioService_GetValidarLoginSB2_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetValidarLoginJsonWebToken">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarLoginJsonWebToken" message="tns:IUsuarioService_GetValidarLoginJsonWebToken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarLoginJsonWebTokenResponse" message="tns:IUsuarioService_GetValidarLoginJsonWebToken_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetValidarAutoLogin">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarAutoLogin" message="tns:IUsuarioService_GetValidarAutoLogin_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarAutoLoginResponse" message="tns:IUsuarioService_GetValidarAutoLogin_OutputMessage" />
@@ -1270,6 +1280,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetValidarLoginSB2">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarLoginSB2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetValidarLoginJsonWebToken">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarLoginJsonWebToken" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2372,6 +2391,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetValidarLoginSB2">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarLoginSB2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetValidarLoginJsonWebToken">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarLoginJsonWebToken" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -8,49 +8,23 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BEEtiqueta
     {
-        private int etiquetaID;
-        private string descripcion;
-        private string usuarioCreacion;
-        private string usuarioModificacion;
-        private int estado;
-        private int paisID;
+        [DataMember]
+        public int EtiquetaID { get; set; }
 
         [DataMember]
-        public int EtiquetaID
-        {
-            get { return etiquetaID; }
-            set { etiquetaID = value; }
-        }
+        public string Descripcion { get; set; }
+
         [DataMember]
-        public string Descripcion
-        {
-            get { return descripcion; }
-            set { descripcion = value; }
-        }
+        public string UsuarioCreacion { get; set; }
+
         [DataMember]
-        public string UsuarioCreacion
-        {
-            get { return usuarioCreacion; }
-            set { usuarioCreacion = value; }
-        }
+        public string UsuarioModificacion { get; set; }
+
         [DataMember]
-        public string UsuarioModificacion
-        {
-            get { return usuarioModificacion; }
-            set { usuarioModificacion = value; }
-        }
+        public int Estado { get; set; }
+
         [DataMember]
-        public int Estado
-        {
-            get { return estado; }
-            set { estado = value; }
-        }
-        [DataMember]
-        public int PaisID
-        {
-            get { return paisID; }
-            set { paisID = value; }
-        }
+        public int PaisID { get; set; }
 
         [DataMember]
         public int CodigoGeneral { get; set; }

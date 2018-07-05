@@ -121,14 +121,14 @@ function CargarOfertasLiquidacion() {
             }
         }
     });
-};
+}
 function ArmarCarouselLiquidaciones(data) {
     data = EstructurarDataCarouselLiquidaciones(data);
     var htmlDiv = SetHandlebars("#OfertasLiquidacionMobile-template", data);
     $('#liquidacionMobile').append(htmlDiv);
 
     EstablecerAccionLazyImagen("img[data-lazy-seccion-liquidacion]");
-};
+}
 function EstructurarDataCarouselLiquidaciones(array) {
     var contadorLq = 1;
     $.each(array, function (i, item) {
@@ -150,7 +150,7 @@ function EstructurarDataCarouselLiquidaciones(array) {
     });
 
     return array;
-};
+}
 function AgregarOfertaProducto(article) {
     var cantidad = $(article).find("#txtCantidad").val();
     var CUV = $(article).find(".valorCUV").val();

@@ -13,10 +13,12 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetMensajeMetaConsultora(BEMensajeMetaConsultora entidad)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMensajeMetaConsultoras_SB2");
-            Context.Database.AddInParameter(command, "@TipoMensaje", DbType.String, entidad.TipoMensaje);
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GetMensajeMetaConsultoras_SB2"))
+            {
+                Context.Database.AddInParameter(command, "@TipoMensaje", DbType.String, entidad.TipoMensaje);
 
-            return Context.ExecuteReader(command);
+                return Context.ExecuteReader(command);
+            }
         }
     }
 }

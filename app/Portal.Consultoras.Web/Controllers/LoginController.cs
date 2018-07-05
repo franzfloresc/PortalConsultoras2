@@ -137,6 +137,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.FBAppId = ConfigurationManager.AppSettings["FB_AppId"];
 
+
+
             return View(model);
         }
         [AllowAnonymous]
@@ -178,22 +180,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);
 
+
                 if (resultadoInicioSesion != null && resultadoInicioSesion.Result == USUARIO_VALIDO)
                 {
                     TempData["usuarioValidado"] = "1";
                     if (model.UsuarioExterno == null)
                         return await Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl);
 
-                    if (resultadoInicioSesion.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                    if (resultadoInicioSesion.TipoUsuario == Constantes.TipoUsuario.Postulante &&
+                        Request.IsAjaxRequest())
                     {
-                        if (Request.IsAjaxRequest())
+                        return Json(new
                         {
-                            return Json(new
-                            {
-                                success = false,
-                                message = "Por ahora no podemos asociar tu cuenta con Facebook."
-                            });
-                        }
+                            success = false,
+                            message = "Por ahora no podemos asociar tu cuenta con Facebook."
+                        });
                     }
 
                     var usuarioExterno = model.UsuarioExterno;
@@ -275,7 +276,6 @@ namespace Portal.Consultoras.Web.Controllers
                     success = true,
                     redirectTo = Url.Action("Index", "Login")
                 });
-                //return RedirectToAction("Index", "Login");
             }
             catch (FaultException ex)
             {
@@ -313,7 +313,6 @@ namespace Portal.Consultoras.Web.Controllers
                 success = true,
                 redirectTo = Url.Action("Index", "Login")
             });
-            //return RedirectToAction("Index", "Login");
         }
 
         [AllowAnonymous]
@@ -879,7 +878,7 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetIsOfertaPack(1);
 
             var usuarioModel = (UsuarioModel)null;
-
+            var estrategiaODD = (Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel)null;
             try
             {
                 if (paisId == 0)
@@ -920,6 +919,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.CambioClave = Convert.ToInt32(usuario.CambioClave);
                     usuarioModel.ConsultoraNueva = usuario.ConsultoraNueva;
                     usuarioModel.EsConsultoraNueva = usuario.EsConsultoraNueva;
+                    usuarioModel.EsConsultoraOficina = usuario.EsConsultoraOficina;
                     usuarioModel.Telefono = usuario.Telefono;
                     usuarioModel.TelefonoTrabajo = usuario.TelefonoTrabajo;
                     usuarioModel.Celular = usuario.Celular;
@@ -1118,7 +1118,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                             var ofertaFlexipago = ofertaFlexipagoTask.Result;
 
-                            usuarioModel.MontoMinimoFlexipago = ofertaFlexipago == null ? "0.00" : string.Format("{0:#,##0.00}", ofertaFlexipago.MontoMinimoFlexipago = ofertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : ofertaFlexipago.MontoMinimoFlexipago);
+                            if (ofertaFlexipago == null)
+                                usuarioModel.MontoMinimoFlexipago = "0.00";
+                            else
+                            {
+                                var montoMinimoFlexipago = ofertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : ofertaFlexipago.MontoMinimoFlexipago;
+                                usuarioModel.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", montoMinimoFlexipago);
+                            }
                         }
 
                         #endregion
@@ -1151,9 +1157,15 @@ namespace Portal.Consultoras.Web.Controllers
                         #endregion
 
                         #region ODD
+                        if (ofertaDelDiaTask.Result != null)
+                        {
+                            estrategiaODD = new Models.Estrategia.OfertaDelDia.DataModel
+                            {
+                                ListaDeOferta = ofertaDelDiaTask.Result
+                            };
+                        }
 
-                        usuarioModel.OfertasDelDia = ofertaDelDiaTask.Result;
-                        usuarioModel.TieneOfertaDelDia = usuarioModel.OfertasDelDia.Any();
+                        usuarioModel.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
 
                         #endregion
 
@@ -1242,6 +1254,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
+                    usuarioModel.MensajeChat = await GetMessageChat(usuarioModel.PaisID);
 
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
@@ -1256,6 +1269,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 sessionManager.SetUserData(usuarioModel);
+                sessionManager.SetEstrategiaODD(estrategiaODD);
             }
             catch (Exception ex)
             {
@@ -1268,6 +1282,23 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region metodos asincronos
+
+        private async Task<string> GetMessageChat(int paisId)
+        {
+            IEnumerable<BETablaLogicaDatos> datos;
+            using (var service = new SACServiceClient())
+            {
+                datos = await service.GetTablaLogicaDatosAsync(paisId, 142);
+            }
+
+            if (datos == null)
+            {
+                return string.Empty;
+            }
+
+            var result = datos.FirstOrDefault(r => r.TablaLogicaDatosID == 14201);
+            return result == null ? string.Empty : result.Valor;
+        }
 
         private async Task<bool> GetPermisoFlexipago(ServiceUsuario.BEUsuario usuario)
         {
@@ -1513,9 +1544,9 @@ namespace Portal.Consultoras.Web.Controllers
             return ofertasDelDiaModel;
         }
 
-        private async Task<List<BEEstrategia>> ObtenerOfertasDelDia(UsuarioModel model)
+        private async Task<List<ServicePedido.BEEstrategia>> ObtenerOfertasDelDia(UsuarioModel model)
         {
-            List<BEEstrategia> ofertasDelDia;
+            List<ServicePedido.BEEstrategia> ofertasDelDia;
 
             using (var svc = new PedidoServiceClient())
             {
@@ -1712,12 +1743,13 @@ namespace Portal.Consultoras.Web.Controllers
             using (var svc = new SACServiceClient())
             {
                 var lst = await svc.GetTablaLogicaDatosAsync(paisId, Constantes.TablaLogica.CodigoRevistaFisica);
-                tablaLogicaDatos = lst.ToList().FirstOrDefault();
+
+                tablaLogicaDatos = lst.FirstOrDefault();
             }
 
             if (tablaLogicaDatos != null)
             {
-                codigoRevista = tablaLogicaDatos.Codigo;
+                codigoRevista = Util.Trim(tablaLogicaDatos.Codigo);
             }
 
             return codigoRevista;
@@ -1826,7 +1858,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var revistaDigitalModel = new RevistaDigitalModel();
                 var ofertaFinalModel = new OfertaFinalModel();
                 var herramientasVentaModel = new HerramientasVentaModel();
-
+                var estrategiaODD = new Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel();
                 var configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
                 var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
                 if (configuracionesPaisModels.Any())
@@ -1880,9 +1912,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 guiaNegocio = ConfiguracionPaisDatosGuiaNegocio(configuracionPaisDatos);
                                 guiaNegocio.TieneGND = true;
                                 usuarioModel.TieneGND = true;
-                                break;
-                            case Constantes.ConfiguracionPais.OfertaDelDia:
-                                usuarioModel.OfertaDelDia = ConfiguracionPaisDatosOfertaDelDia(usuarioModel.OfertaDelDia, configuracionPaisDatos);
                                 break;
                             case Constantes.ConfiguracionPais.OfertasParaTi:
                                 usuarioModel = ConfiguracionPaisDatosUsuario(usuarioModel, configuracionPaisDatos);
@@ -2119,60 +2148,60 @@ namespace Portal.Consultoras.Web.Controllers
 
             revistaDigitalModel.EstadoSuscripcion = revistaDigitalModel.SuscripcionModel.EstadoRegistro;
             revistaDigitalModel.CampaniaActual = Util.SubStr(usuarioModel.CampaniaID.ToString(), 4, 2);
-            revistaDigitalModel.CampaniaFuturoActiva = Util.SubStr(
-                Util.AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva,
-                    usuarioModel.NroCampanias).ToString(), 4, 2);
 
-            revistaDigitalModel.CampaniaSuscripcion =
-                Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
+            int campaniaFuturoActiva =
+                revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva == 0
+                ? revistaDigitalModel.SuscripcionModel.CampaniaEfectiva == 0
+                    ? Util.AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias)
+                    : revistaDigitalModel.SuscripcionModel.CampaniaEfectiva > usuarioModel.CampaniaID
+                        ? revistaDigitalModel.SuscripcionModel.CampaniaEfectiva
+                        : Util.AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias)
+                : revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva > usuarioModel.CampaniaID
+                    ? revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva
+                    : Util.AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
 
-            if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-            {
-                var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
-                    revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+            revistaDigitalModel.CampaniaFuturoActiva = Util.SubStr(campaniaFuturoActiva.ToString(), 4, 2);
 
-                if (ca >= revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
-                    ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
+            revistaDigitalModel.CampaniaSuscripcion = Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
+            revistaDigitalModel.EsActiva = revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
 
-                revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
-                revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
+            //if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            //{
+            //    var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
+            //        revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+            //    if (ca >= revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
+            //        ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
+            //    revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
+            //    revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
+            //}
+            //else if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
+            //{
+            //    if (revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            //    {
+            //        var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID,
+            //            revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+            //        if (ca >= revistaDigitalModel.SuscripcionModel.CampaniaEfectiva)
+            //            ca = revistaDigitalModel.SuscripcionModel.CampaniaEfectiva;
+            //        revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
+            //        revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
+            //    }
+            //    else
+            //    {
+            //        revistaDigitalModel.CampaniaActiva = "";
+            //        revistaDigitalModel.EsActiva = false;
+            //    }
+            //}
+            //else
+            //{
+            //    var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
+            //        revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+            //    if (ca < revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
+            //        ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
+            //    revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
+            //    revistaDigitalModel.EsActiva = ca > usuarioModel.CampaniaID;
+            //}
 
-            }
-            else if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro ==
-                     Constantes.EstadoRDSuscripcion.SinRegistroDB)
-            {
-                if (revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-                {
-                    var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID,
-                        revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
-                    if (ca >= revistaDigitalModel.SuscripcionModel.CampaniaEfectiva)
-                        ca = revistaDigitalModel.SuscripcionModel.CampaniaEfectiva;
-
-                    revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
-                    revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
-                }
-                else
-                {
-                    revistaDigitalModel.CampaniaActiva = "";
-                    revistaDigitalModel.EsActiva = false;
-                }
-
-            }
-            else
-            {
-                var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
-                    revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
-
-                if (ca < revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
-                    ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
-
-                revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
-
-                revistaDigitalModel.EsActiva = ca > usuarioModel.CampaniaID;
-            }
-
-            revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro ==
-                                             Constantes.EstadoRDSuscripcion.Activo;
+            revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
 
             #endregion
 
@@ -2197,8 +2226,7 @@ namespace Portal.Consultoras.Web.Controllers
                     revistaDigitalModel.NoVolverMostrar = false;
                     break;
                 case Constantes.EstadoRDSuscripcion.NoPopUp:
-                    revistaDigitalModel.NoVolverMostrar =
-                        revistaDigitalModel.SuscripcionModel.CampaniaID == usuarioModel.CampaniaID;
+                    revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.CampaniaID == usuarioModel.CampaniaID;
                     break;
             }
 
@@ -2310,20 +2338,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (dato != null)
             {
                 result = ConfigS3.GetUrlFileRDS3(codigoIso, dato.Valor2);
-                configuracionesPaisDatos.RemoveAll(d => d.Codigo == codigo);
-            }
-
-            return result;
-        }
-
-        private string GetValor1WithS3AndDelete(List<BEConfiguracionPaisDatos> configuracionesPaisDatos, string codigo, string codigoIso)
-        {
-            var result = (string)null;
-
-            var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
-            if (dato != null)
-            {
-                result = ConfigS3.GetUrlFileRDS3(codigoIso, dato.Valor1);
                 configuracionesPaisDatos.RemoveAll(d => d.Codigo == codigo);
             }
 
@@ -2761,12 +2775,14 @@ namespace Portal.Consultoras.Web.Controllers
             var name = string.Empty;
             try
             {
-                var logonUserIdentity = ((System.Web.HttpRequestWrapper) Request).LogonUserIdentity;
+                var logonUserIdentity = ((System.Web.HttpRequestWrapper)Request).LogonUserIdentity;
                 if (logonUserIdentity != null)
                     name = logonUserIdentity.Name;
             }
-            catch
+            catch (Exception ex)
             {
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
+                   "LoginController.GetLogonUserIdentityName");
             }
             return name;
         }
@@ -2810,6 +2826,7 @@ namespace Portal.Consultoras.Web.Controllers
                 textoRecuperacion = !string.IsNullOrEmpty(textoRecuperacion) ? textoRecuperacion : Convert.ToString(TempData["CodigoUsuario"]);
 
                 BEUsuarioCorreo oUsuCorreo = DatosUsuarioCorreo(paisId, textoRecuperacion, nroOpcion);
+                ViewBag.HabilitarChatEmtelco = (oUsuCorreo == null) ? false : oUsuCorreo.HabilitarChatEmtelco;
 
                 return Json(new
                 {
@@ -2842,172 +2859,149 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                BEUsuarioCorreo oDatos = new BEUsuarioCorreo();
-                oDatos = GetTemData();
+                BEUsuarioCorreo datos = GetTemData();
 
-                if (nroOpcion == 1 || oDatos.Cantidad == 0)
+                if (nroOpcion == 1 || datos.Cantidad == 0)
                 {
                     using (var sv = new UsuarioServiceClient())
                     {
-                        oDatos = sv.GetRestaurarClaveByCodUsuario(textoRecuperacion, paisId);
+                        datos = sv.GetRestaurarClaveByCodUsuario(textoRecuperacion, paisId);
                     }
-
-                    if (oDatos != null)
-                        SetTemData(oDatos, paisId);
+                    if (datos != null)
+                        SetTemData(datos, paisId);
                 }
 
-                if (oDatos.Cantidad != 0)
+                if (datos == null) return datos;
+                if (datos.Cantidad == 0) return datos;
+
+                datos.resultado = "";
+                datos.EsMobile = EsDispositivoMovil();
+
+                if (nroOpcion == 1)
                 {
-                    oDatos.resultado = "";
-                    oDatos.EsMobile = EsDispositivoMovil();
+                    if (datos.Correo != "" && datos.Celular != "") datos.resultado = "prioridad1";
+                    else if (datos.Correo != "" && datos.Celular == "") datos.resultado = "prioridad1_correo";
+                    else if (datos.Correo == "" && datos.Celular != "") datos.resultado = "prioridad1_sms";
 
-                    if (nroOpcion == 1)
-                    {
-                        if (oDatos.Correo != "" && oDatos.Celular != "")
-                            oDatos.resultado = "prioridad1";
-                        else if (oDatos.Correo != "" && oDatos.Celular == "")
-                            oDatos.resultado = "prioridad1_correo";
-                        else if (oDatos.Correo == "" && oDatos.Celular != "")
-                            oDatos.resultado = "prioridad1_sms";
-
-                        if (oDatos.resultado == "")
-                            nroOpcion = 2;
-                    }
-
-                    if (nroOpcion == 2)
-                    {
-                        BEHorario horarioChat;
-                        using (SACServiceClient sv = new SACServiceClient())
-                        {
-                            horarioChat = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.ChatEmtelco, true);
-                        }
-
-                        bool mostrarChat = false;
-                        bool habilitarChat = false;
-
-                        if (horarioChat != null)
-                        {
-                            string paisISO = Util.GetPaisISO(paisId);
-                            mostrarChat = (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO);
-                            oDatos.descripcionHorario = horarioChat.Resumen;
-                            habilitarChat = horarioChat.EstaDisponible;
-                        }
-
-                        if (mostrarChat && habilitarChat)
-                            oDatos.resultado = "prioridad2_chat";
-
-                        if (oDatos.resultado == "")
-                            nroOpcion = 3;
-                    }
-
-                    if (nroOpcion == 3)
-                    {
-                        BEHorario horarioBResponde;
-                        bool habilitarBResponde = false;
-
-                        using (SACServiceClient sv = new SACServiceClient())
-                        {
-                            horarioBResponde = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.BelcorpResponde, true);
-                        }
-
-                        oDatos.descripcionHorario = horarioBResponde.Resumen;
-                        habilitarBResponde = horarioBResponde.EstaDisponible;
-
-                        if (habilitarBResponde)
-                        {
-                            switch (paisId)
-                            {
-                                case 2:
-                                    {
-                                        //BOLIVIA
-                                        oDatos.TelefonoCentral = "901-105678"; break;
-                                    };
-                                case 3:
-                                    {
-                                        //CHILE
-                                        oDatos.TelefonoCentral = "02-28762100"; break;
-                                    };
-                                case 4:
-                                    {
-                                        //COLOMBIA
-                                        oDatos.TelefonoCentral = "01-8000-9-37452,5948060"; break;
-                                    };
-                                case 5:
-                                    {
-                                        //COSTA RICA
-                                        oDatos.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
-                                    };
-                                case 6:
-                                    {
-                                        //ECUADOR
-                                        oDatos.TelefonoCentral = "1800-76667"; break;
-                                    };
-                                case 7:
-                                    {
-                                        //EL SALVADOR
-                                        oDatos.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
-                                    };
-                                case 8:
-                                    {
-                                        //GUATEMALA
-                                        oDatos.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
-                                    };
-                                case 9:
-                                    {
-                                        //MEXICO
-                                        oDatos.TelefonoCentral = "01-800-2352677"; break;
-                                    };
-                                case 10:
-                                    {
-                                        //PANAMA
-                                        oDatos.TelefonoCentral = "800-5235,377-9399"; break;
-                                    };
-                                case 11:
-                                    {
-                                        //PERU
-                                        oDatos.TelefonoCentral = "01-2113614,080-11-3030"; break;
-                                    };
-                                case 12:
-                                    {
-                                        //PUERTO RICO
-                                        oDatos.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
-                                    };
-                                case 13:
-                                    {
-                                        //REPUBLICA DOMINICANA
-                                        oDatos.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
-                                    };
-                                case 14:
-                                    {
-                                        //VENEZUELA
-                                        oDatos.TelefonoCentral = "0501-2352677"; break;
-                                    };
-                            }
-
-                            if (oDatos.TelefonoCentral.Length > 0)
-                                oDatos.resultado = "prioridad2_llamada";
-                        }
-
-                        if (oDatos.resultado == "")
-                            nroOpcion = 4;
-                    }
-
-                    if (nroOpcion == 4)
-                        oDatos.resultado = "prioridad3";
+                    if (datos.resultado == "") nroOpcion = 2;
                 }
 
-                return oDatos;
+                if (nroOpcion == 2)
+                {
+                    BEHorario horarioChat;
+                    using (SACServiceClient sv = new SACServiceClient())
+                    {
+                        horarioChat = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.ChatEmtelco, true);
+                    }
+
+                    bool mostrarChat = false;
+                    bool habilitarChat = false;
+
+                    if (horarioChat != null)
+                    {
+                        string paisISO = Util.GetPaisISO(paisId);
+                        mostrarChat = (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO);
+                        datos.descripcionHorario = horarioChat.Resumen;
+                        habilitarChat = horarioChat.EstaDisponible;
+                    }
+
+                    if (mostrarChat && habilitarChat)
+                        datos.resultado = "prioridad2_chat";
+
+                    if (datos.resultado == "") nroOpcion = 3;
+
+                    datos.HabilitarChatEmtelco = HabilitarChatEmtelco(paisId);
+                }
+
+                if (nroOpcion == 3)
+                {
+                    BEHorario horarioBResponde;
+                    bool habilitarBResponde = false;
+
+                    using (SACServiceClient sv = new SACServiceClient())
+                    {
+                        horarioBResponde = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.BelcorpResponde, true);
+                    }
+
+                    datos.descripcionHorario = horarioBResponde.Resumen;
+                    habilitarBResponde = horarioBResponde.EstaDisponible;
+
+                    if (habilitarBResponde)
+                    {
+                        switch (paisId)
+                        {
+                            case Constantes.PaisID.Bolivia:
+                                {
+                                    datos.TelefonoCentral = "901-105678"; break;
+                                }
+                            case Constantes.PaisID.Chile:
+                                {
+                                    datos.TelefonoCentral = "02-28762100"; break;
+                                }
+                            case Constantes.PaisID.Colombia:
+                                {
+                                    datos.TelefonoCentral = "01-8000-9-37452,5948060"; break;
+                                }
+                            case Constantes.PaisID.CostaRica:
+                                {
+                                    datos.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
+                                }
+                            case Constantes.PaisID.Ecuador:
+                                {
+                                    datos.TelefonoCentral = "1800-76667"; break;
+                                }
+                            case Constantes.PaisID.ElSalvador:
+                                {
+                                    datos.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
+                                }
+                            case Constantes.PaisID.Guatemala:
+                                {
+                                    datos.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
+                                }
+                            case Constantes.PaisID.Mexico:
+                                {
+                                    datos.TelefonoCentral = "01-800-2352677"; break;
+                                }
+                            case Constantes.PaisID.Panama:
+                                {
+                                    datos.TelefonoCentral = "800-5235,377-9399"; break;
+                                }
+                            case Constantes.PaisID.Peru:
+                                {
+                                    datos.TelefonoCentral = "01-2113614,080-11-3030"; break;
+                                }
+                            case Constantes.PaisID.PuertoRico:
+                                {
+                                    datos.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
+                                }
+                            case Constantes.PaisID.RepublicaDominicana:
+                                {
+                                    datos.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
+                                }
+                            case Constantes.PaisID.Venezuela:
+                                {
+                                    datos.TelefonoCentral = "0501-2352677"; break;
+                                }
+                        }
+                        if (datos.TelefonoCentral.Length > 0) datos.resultado = "prioridad2_llamada";
+                    }
+                    if (datos.resultado == "") nroOpcion = 4;
+                }
+
+                if (nroOpcion == 4) datos.resultado = "prioridad3";
+
+
+                return datos;
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, textoRecuperacion, Util.GetPaisISO(paisId));
-                return null;
             }
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, textoRecuperacion, Util.GetPaisISO(paisId), string.Empty);
-                return null;
             }
+            return null;
         }
 
         [AllowAnonymous]
@@ -3142,7 +3136,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string iguales = "";
                 string newUri = "";
                 bool igual = false;
-                
+
                 oUsuCorreo.OrigenID = OrigenID;
                 paisID = Convert.ToInt32(TempData["PaisID"]);
 
@@ -3182,7 +3176,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 TempData["FlagPin"] = true;
                                 return await Redireccionar(paisID, oUsuCorreo.CodigoUsuario);
-                            };
+                            }
                     }
                 }
 
@@ -3259,12 +3253,15 @@ namespace Portal.Consultoras.Web.Controllers
                         oPin = sv.GetPinAutenticidad(PaisID, CodigoUsuario);
                     }
 
-                    TempData["PaisID"] = PaisID;
-                    TempData["CodigoUsuario"] = oPin.CodigoUsuario;
-                    TempData["PrimerNombre"] = oPin.PrimerNombre;
-                    TempData["Email"] = oPin.Email;
-                    TempData["Celular"] = oPin.Celular;
-                    TempData["IdEstadoActividad"] = oPin.IdEstadoActividad;
+                    if (oPin != null)
+                    {
+                        TempData["PaisID"] = PaisID;
+                        TempData["CodigoUsuario"] = oPin.CodigoUsuario;
+                        TempData["PrimerNombre"] = oPin.PrimerNombre;
+                        TempData["Email"] = oPin.Email;
+                        TempData["Celular"] = oPin.Celular;
+                        TempData["IdEstadoActividad"] = oPin.IdEstadoActividad;
+                    }
                 }
             }
             catch (Exception ex)
@@ -3274,6 +3271,33 @@ namespace Portal.Consultoras.Web.Controllers
 
             return oPin;
         }
+
         #endregion
+
+        public bool HabilitarChatEmtelco(int paisId)
+        {
+            bool Mostrar = false;
+            BETablaLogicaDatos[] DataLogica;
+
+            using (var svc = new SACServiceClient())
+            {
+                DataLogica = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.HabilitarChatEmtelco);
+
+            }
+            if (DataLogica.Any())
+            {
+                if (EsDispositivoMovil())
+                {
+                    if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("02")).Valor == "1")
+                        Mostrar = true;
+                }
+                else
+                {
+                    if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("01")).Valor == "1")
+                        Mostrar = true;
+                }
+            }
+            return Mostrar;
+        }
     }
 }

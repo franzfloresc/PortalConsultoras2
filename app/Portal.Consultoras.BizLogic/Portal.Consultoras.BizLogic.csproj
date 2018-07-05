@@ -90,12 +90,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\IMenuAppBusinessLogic.cs" />
+    <Compile Include="BLCategoria.cs" />
+    <Compile Include="BLActivarPremioNuevas.cs" />
     <Compile Include="BLCuponesProgramaNuevas.cs" />
     <Compile Include="BLHorario.cs" />
     <Compile Include="BLAdministrarEstrategia.cs" />
     <Compile Include="BLConfiguracionOfertasHome.cs" />
     <Compile Include="BLAsesoraOnline.cs" />
     <Compile Include="BLCupon.cs" />
+    <Compile Include="BLPremiosProgramaNuevas.cs" />
     <Compile Include="Cache\BLCache.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="Cliente\IClienteBusinessLogic.cs" />
@@ -104,14 +107,16 @@
     <Compile Include="Configuracion\IConfiguracionPaisBusinessLogic.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisDatosBusinessLogic.cs" />
     <Compile Include="Cupon\ICuponConsultoraBusinessLogic.cs" />
-    <Compile Include="Estrategia\EstrategiaBusinessLogic.cs" />
     <Compile Include="Estrategia\IConfiguracionProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Estrategia\IEstrategiaBusinessLogic.cs" />
+    <Compile Include="Estrategia\IEstrategiaProductoBusinessLogic.cs" />
+    <Compile Include="Estrategia\ITipoEstrategiaBusinessLogic.cs" />
     <Compile Include="Estrategia\IUpSellingBusinessLogic.cs" />
     <Compile Include="Estrategia\IUpSellingMarcaCategoriaBusinessLogic.cs" />
     <Compile Include="Estrategia\UpSellingBusinessLogic.cs" />
     <Compile Include="Estrategia\UpsellingMarcaCategoriaBusinessLogic.cs" />
     <Compile Include="ICatalogoBusinessLogic.cs" />
+    <Compile Include="Consultora\IConsultoraLiderBusinessLogic.cs" />
     <Compile Include="Incentivo\BLConsultoraConcurso.cs" />
     <Compile Include="BLFichaProducto.cs" />
     <Compile Include="BLPalabraInvalida.cs" />
@@ -126,7 +131,7 @@
     <Compile Include="Pedido\IPedidoWebDetalleBusinessLogic.cs" />
     <Compile Include="ProgramaNuevas\IConsultorasProgramaNuevasBusinessLogic.cs" />
     <Compile Include="Reserva\BLReserva.cs" />
-    <Compile Include="BLEstrategiaProducto.cs" />
+    <Compile Include="Estrategia\BLEstrategiaProducto.cs" />
     <Compile Include="BizLogicException.cs" />
     <Compile Include="BLAfiliaClienteConsultora.cs" />
     <Compile Include="BLBanner.cs" />
@@ -149,7 +154,7 @@
     <Compile Include="BLConsultoraDigitales.cs" />
     <Compile Include="BLConsultoraCatalogo.cs" />
     <Compile Include="BLConsultoraFicticia.cs" />
-    <Compile Include="BLConsultoraLider.cs" />
+    <Compile Include="Consultora\BLConsultoraLider.cs" />
     <Compile Include="ProgramaNuevas\BLConsultorasProgramaNuevas.cs" />
     <Compile Include="BLContenidoDato.cs" />
     <Compile Include="BLContenidoRevista.cs" />
@@ -210,7 +215,8 @@
     <Compile Include="Pedido\IPedidoWebSetBusinessLogic.cs" />
     <Compile Include="Reserva\IReservaExternaBL.cs" />
     <Compile Include="Reserva\BLReservaProl2.cs" />
-    <Compile Include="Reserva\RestClient.cs" />
+    <Compile Include="Reserva\Rest\DictHttpClient.cs" />
+    <Compile Include="Reserva\Rest\RestClient.cs" />
     <Compile Include="Resources\IncentivoMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -251,7 +257,7 @@
     <Compile Include="BLSolicitudCredito.cs" />
     <Compile Include="BLSuenioNavidad.cs" />
     <Compile Include="TablaLogicaDatos\BLTablaLogicaDatos.cs" />
-    <Compile Include="BLTipoEstrategia.cs" />
+    <Compile Include="Estrategia\BLTipoEstrategia.cs" />
     <Compile Include="BLTipoMeta.cs" />
     <Compile Include="BLUbigeo.cs" />
     <Compile Include="BLValidacionAutomatica.cs" />

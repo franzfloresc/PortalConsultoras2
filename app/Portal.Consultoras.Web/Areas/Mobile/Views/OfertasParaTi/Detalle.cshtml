@@ -65,6 +65,8 @@
 @{
     var btnDesabled = 0;
     var btnDesabledClass = "";
+    var fotoMedium = Util.GenerarRutaImagenResizeMedium(Model.FotoProducto01);
+    var vbSimbolo = ViewBag.Simbolo ?? "";
 }
 <div style="height: 15px;"></div>
 <div data-item="" data-tipoestrategiaimagenmostrar="@Model.TipoEstrategiaImagenMostrar" data-estadoregistro="@ViewBag.EstadoSuscripcion">
@@ -82,25 +84,25 @@
             }
             
             <div class="content_imagen_ficha">
-                <img id="fav_imagen_prod" src="@Model.FotoProductoMedium" alt="PRODUCTO" class="imagen_producto">
+                <img id="fav_imagen_prod" src="@fotoMedium" alt="PRODUCTO" class="imagen_producto">
             </div>
             <div class="marca_oferta048">@Model.DescripcionMarca</div>
             <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.DescripcionCompleta</div>
 
             @if (Model.Precio > 0)
             {
-                <div class="precio_tachado_048"> Valorizado a: <span>@Model.Simbolo @Model.PrecioTachado</span></div>
+                <div class="precio_tachado_048"> Valorizado a: <span>@vbSimbolo @Model.PrecioTachado</span></div>
             }
             @if (Model.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
             {
                 if (String.IsNullOrEmpty(Model.PrecioNiveles))
                 {
-                    <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div> <div class="precio_para_ti_048_derecho"><b>@Model.Simbolo @Model.PrecioVenta</b></div>
+                    <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div> <div class="precio_para_ti_048_derecho"><b>@vbSimbolo @Model.PrecioVenta</b></div>
                 }
                 else
                 {
                     <div class="precio_para_ti_048">
-                        <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div><b>1x @Model.Simbolo @Model.PrecioVenta</b>
+                        <div class="precio_para_ti_048 precio_para_ti_048_izquierdo">Precio para ti:</div><b>1x @vbSimbolo @Model.PrecioVenta</b>
                     </div>
                     var PrecioNiveles = Model.PrecioNiveles.Split('|').ToList();
                     foreach (var item in PrecioNiveles)
@@ -113,18 +115,16 @@
             }
             else
             {
-                <div class="precio_para_ti_048">Precio para ti: <b>@Model.Simbolo @Model.PrecioVenta</b></div>
+                <div class="precio_para_ti_048">Precio para ti: <b>@vbSimbolo @Model.PrecioVenta</b></div>
             }
             @if (Model.Ganancia > 0)
             {
-                <div class="gana_048">Gana: @Model.Simbolo @Model.GananciaString</div>
+                <div class="gana_048">Gana: @vbSimbolo @Model.GananciaString</div>
             }
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="@Model.CUV2" />
                 <input type="hidden" class="rsFBMensaje" value="" />
-                <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartir" />
                 <input type="hidden" class="rsWAMensaje" value="" />
-                <input type="hidden" class="rsWARuta" value="@Model.UrlCompartir" />
                 <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
                 <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
                 <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
@@ -238,7 +238,6 @@
                     }
                 </div>
             }
-            <!--REDES-->
             @if (mobileConfiguracion.MostrarHipervinculo && Model.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.HerramientasVenta)
             {
                 <div>
@@ -250,7 +249,6 @@
                     <hr class="clear">
                 </div>
             }
-            <!--FIN REDES-->
 
             @if (Model.TextoLibre != "")
             {
@@ -262,7 +260,7 @@
 
     @if ((Model.ClaseBloqueada ?? "") == "")
     {
-        if (Model.PuedeAgregarProducto)
+        if (Model.TipoAccionAgregar > 0)
         {
         <div class="row">
             <div class="content_btn_agregar">

@@ -142,7 +142,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    && a.Codigo != Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas
                              select a);
 
-                return Mapper.Map<IEnumerable<BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista);
+                return Mapper.Map<IEnumerable<ServicePedido.BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista);
             }
 
             return null;
@@ -203,10 +203,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    List<BEEstrategia> lst;
+                    List<ServicePedido.BEEstrategia> lst;
                     if (Consulta == "1")
                     {
-                        var entidad = new BEEstrategia
+                        var entidad = new ServicePedido.BEEstrategia
                         {
                             PaisID = userData.PaisID,
                             TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
@@ -223,7 +223,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        lst = new List<BEEstrategia>();
+                        lst = new List<ServicePedido.BEEstrategia>();
                     }
 
                     var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
@@ -238,7 +238,7 @@ namespace Portal.Consultoras.Web.Controllers
                         SortColumn = sidx,
                         SortOrder = sord
                     };
-                    IEnumerable<BEEstrategia> items = lst;
+                    IEnumerable<ServicePedido.BEEstrategia> items = lst;
                     if (lst.Any())
                     {
                         if (sord == "asc")
@@ -521,8 +521,8 @@ namespace Portal.Consultoras.Web.Controllers
                 if (FlagRecoProduc == "1") tipo = 0;
                 if (FlagRecoPerfil == "1") tipo = 1;
 
-                List<BEEstrategia> lst;
-                var entidad = new BEEstrategia
+                List<ServicePedido.BEEstrategia> lst;
+                var entidad = new ServicePedido.BEEstrategia
                 {
                     PaisID = userData.PaisID,
                     CampaniaID = Convert.ToInt32(CampaniaID),
@@ -573,11 +573,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var beEstrategia = lst[0];
 
-                descripcion = lst[0].DescripcionCUV2;
+                descripcion = beEstrategia.DescripcionCUV2;
                 precio = (wspreciopack + ganancia).ToString("F2");
-                var codigoSap = lst[0].CodigoSAP;
-                var enMatrizComercial = lst[0].EnMatrizComercial.ToInt();
-                var idMatrizComercial = lst[0].IdMatrizComercial.ToInt();
+                var codigoSap = beEstrategia.CodigoSAP;
+                var enMatrizComercial = beEstrategia.EnMatrizComercial.ToInt();
+                var idMatrizComercial = beEstrategia.IdMatrizComercial.ToInt();
                 var wsprecio = wspreciopack.ToString("F2");
 
                 return Json(new
@@ -608,7 +608,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private List<RptProductoEstrategia> EstrategiaProductoObtenerServicio(BEEstrategia entidad)
+        private List<RptProductoEstrategia> EstrategiaProductoObtenerServicio(ServicePedido.BEEstrategia entidad)
         {
             var respuestaServiceCdr = new List<RptProductoEstrategia>();
             try
@@ -654,11 +654,11 @@ namespace Portal.Consultoras.Web.Controllers
             return tieneVariedad;
         }
 
-        private void EstrategiaProductoInsertar(List<RptProductoEstrategia> respuestaServiceCdr, BEEstrategia entidad)
+        private void EstrategiaProductoInsertar(List<RptProductoEstrategia> respuestaServiceCdr, ServicePedido.BEEstrategia entidad)
         {
             foreach (var producto in respuestaServiceCdr)
             {
-                var entidadPro = new BEEstrategiaProducto
+                var entidadPro = new ServicePedido.BEEstrategiaProducto
                 {
                     PaisID = userData.PaisID,
                     EstrategiaID = entidad.EstrategiaID,
@@ -698,7 +698,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (nroPedido.Contains(",")) model.NumeroPedido = "0";
 
-                BEEstrategia entidad = Mapper.Map<RegistrarEstrategiaModel, BEEstrategia>(model);
+                var entidad = Mapper.Map<RegistrarEstrategiaModel, ServicePedido.BEEstrategia>(model);
 
                 model.NumeroPedido = nroPedido == "" ? "0" : nroPedido;
                 nroPedido = model.NumeroPedido.Contains(",") ? nroPedido : "";
@@ -712,7 +712,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region codigo_estrategia y variedad
 
-                if (entidad.EstrategiaID == 0 && entidad.Activo == 1 && entidad.CodigoTipoEstrategia != null &&
+                if (entidad.Activo == 1 && entidad.CodigoTipoEstrategia != null &&
                     (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
@@ -734,7 +734,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 var numeroPedidosAsociados = model.NumeroPedido.Split(',').Select(int.Parse).ToList();
-                var estrategiaDetalle = new BEEstrategiaDetalle();
+                var estrategiaDetalle = new ServicePedido.BEEstrategiaDetalle();
 
                 foreach (var item in numeroPedidosAsociados)
                 {
@@ -746,7 +746,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             if (entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
                             {
-                                estrategiaDetalle = new BEEstrategiaDetalle();
+                                estrategiaDetalle = new ServicePedido.BEEstrategiaDetalle();
                                 if (entidad.EstrategiaID != 0)
                                     estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
 
@@ -853,7 +853,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = new BEEstrategia
+                var entidad = new ServicePedido.BEEstrategia
                 {
                     PaisID = userData.PaisID,
                     EstrategiaID = Convert.ToInt32(EstrategiaID),
@@ -864,7 +864,7 @@ namespace Portal.Consultoras.Web.Controllers
                      UsuarioRegistro = userData.CodigoConsultora
                 };
 
-                List<BEEstrategia> lst;
+                List<ServicePedido.BEEstrategia> lst;
                 using (var sv = new PedidoServiceClient())
                 {
                     lst = sv.FiltrarEstrategia(entidad).ToList();
@@ -911,7 +911,7 @@ namespace Portal.Consultoras.Web.Controllers
             string TipoEstrategiaID, int pagina)
         {
             List<BEMatrizComercialImagen> lst;
-            var estrategia = new BEEstrategia
+            var estrategia = new ServicePedido.BEEstrategia
             {
                 PaisID = paisID,
                 EstrategiaID = Convert.ToInt32(estragiaId),
@@ -957,9 +957,9 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult FiltrarEstrategiaPedido(string EstrategiaID, int FlagNueva = 0)
         {
-            List<BEEstrategia> lst;
+            List<ServicePedido.BEEstrategia> lst;
 
-            var entidad = new BEEstrategia
+            var entidad = new ServicePedido.BEEstrategia
             {
                 PaisID = userData.PaisID,
                 EstrategiaID = Convert.ToInt32(EstrategiaID),
@@ -996,7 +996,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = new BEEstrategia
+                var entidad = new ServicePedido.BEEstrategia
                 {
                     PaisID = userData.PaisID,
                     EstrategiaID = Convert.ToInt32(EstrategiaID),
@@ -1042,7 +1042,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = new BEEstrategia
+                var entidad = new ServicePedido.BEEstrategia
                 {
                     PaisID = userData.PaisID,
                     EstrategiaID = Convert.ToInt32(EstrategiaID)
@@ -1136,7 +1136,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 string mensaje;
-                var beEstrategia = new BEEstrategia
+                var beEstrategia = new ServicePedido.BEEstrategia
                 {
                     PaisID = userData.PaisID,
                     Cantidad = Convert.ToInt32(model.Cantidad),
@@ -1239,645 +1239,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-        public ActionResult ConsultarOfertasParaTi(string sidx, string sord, int page, int rows, string CampaniaID,
-            string CodigoEstrategia)
-        {
-            if (ModelState.IsValid)
-            {
-                int cantidadEstrategiasConfiguradas;
-                int cantidadEstrategiasSinConfigurar;
-
-                try
-                {
-                    using (var ps = new PedidoServiceClient())
-                    {
-                        cantidadEstrategiasConfiguradas = ps.GetCantidadOfertasParaTi(userData.PaisID,
-                            int.Parse(CampaniaID), 1, CodigoEstrategia);
-
-                        cantidadEstrategiasSinConfigurar =
-                            ps.GetCantidadOfertasParaTi(userData.PaisID, int.Parse(CampaniaID), 2, CodigoEstrategia);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    cantidadEstrategiasConfiguradas = 0;
-                    cantidadEstrategiasSinConfigurar = 0;
-                }
-
-                var lst = new List<ComunModel>();
-                lst.Add(new ComunModel
-                {
-                    Id = 1,
-                    Descripcion = CodigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta ? "CUVS encontrados en Producto Comercial" : "CUVS encontrados en ofertas personalizadas.",
-                    Valor = (cantidadEstrategiasConfiguradas + cantidadEstrategiasSinConfigurar).ToString(),
-                    ValorOpcional = "0"
-                });
-                lst.Add(new ComunModel
-                {
-                    Id = 2,
-                    Descripcion = "CUVS configurados en Zonas de Estrategias",
-                    Valor = cantidadEstrategiasConfiguradas.ToString(),
-                    ValorOpcional = "1"
-                });
-                lst.Add(new ComunModel
-                {
-                    Id = 3,
-                    Descripcion = "CUVS por configurar en Zonas de Estrategias",
-                    Valor = cantidadEstrategiasSinConfigurar.ToString(),
-                    ValorOpcional = "2"
-                });
-
-                var grid = new BEGrid
-                {
-                    PageSize = rows,
-                    CurrentPage = page,
-                    SortColumn = sidx,
-                    SortOrder = sord
-                };
-                IEnumerable<ComunModel> items = lst;
-
-                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-
-                var pag = Util.PaginadorGenerico(grid, lst);
-
-                var data = new
-                {
-                    total = pag.PageCount,
-                    page = pag.CurrentPage,
-                    records = pag.RecordCount,
-                    rows = from a in items
-                           select new
-                           {
-                               id = a.Id,
-                               cell = new string[]
-                               {
-                                    a.Id.ToString(),
-                                    a.Descripcion,
-                                    a.Valor,
-                                    a.ValorOpcional
-                               }
-                           }
-                };
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-            return RedirectToAction("Index", "AdministrarEstrategia");
-        }
-
-        public ActionResult ConsultarCuvTipoConfigurado(string sidx, string sord, int page, int rows, int campaniaId,
-            int tipoConfigurado, string estrategiaCodigo)
-        {
-            if (ModelState.IsValid)
-            {
-                List<BEEstrategia> lst;
-
-                try
-                {
-                    using (var ps = new PedidoServiceClient())
-                    {
-                        lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado,
-                            estrategiaCodigo, 1, 1000000).ToList();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    lst = new List<BEEstrategia>();
-                }
-
-                var grid = new BEGrid
-                {
-                    PageSize = rows,
-                    CurrentPage = page,
-                    SortColumn = sidx,
-                    SortOrder = sord
-                };
-                IEnumerable<BEEstrategia> items = lst;
-
-                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-
-                var pag = Util.PaginadorGenerico(grid, lst);
-
-                var data = new
-                {
-                    total = pag.PageCount,
-                    page = pag.CurrentPage,
-                    records = pag.RecordCount,
-                    rows = from a in items
-                           select new
-                           {
-                               id = a.CUV2,
-                               cell = new string[]
-                               {
-                            a.CUV2,
-                            a.DescripcionCUV2
-                               }
-                           }
-                };
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-            return RedirectToAction("Index", "AdministrarEstrategia");
-        }
-
-        public JsonResult InsertEstrategiaTemporal(int campaniaId, int tipoConfigurado, string estrategiaCodigo,
-            bool habilitarNemotecnico, int cantGuardadaTemporal, int cantTotal, int nroLote, int pagina, int cantidadOp)
-        {
-            try
-            {
-                List<BEEstrategia> listBeEstrategias;
-
-                #region PedidoService - GetOfertasParaTiByTipoConfigurado
-                try
-                {
-                    int cantidadCuv = ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.CantidadCuvMasivo_NuevoMasivo, true);
-                    if (cantidadCuv <= 0)
-                    {
-                        return Json(new
-                        {
-                            success = false,
-                            message = "No existen Estrategias para Insertar"
-                        }, JsonRequestBehavior.AllowGet);
-                    }
-
-                    pagina = Math.Max(pagina, 1);
-
-                    using (var ps = new PedidoServiceClient())
-                    {
-                        listBeEstrategias = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId,
-                            tipoConfigurado, estrategiaCodigo, pagina, cantidadCuv).ToList();
-                    }
-
-                    if (!listBeEstrategias.Any())
-                    {
-                        var cantTotalPagina = cantidadOp / cantidadCuv + (cantidadOp % cantidadCuv == 0 ? 0 : 1);
-                        if (cantTotalPagina <= pagina)
-                        {
-                            return Json(new
-                            {
-                                success = cantGuardadaTemporal > 0,
-                                message = cantGuardadaTemporal > 0 ? "" : "No existen Estrategias para Insertar"
-                            }, JsonRequestBehavior.AllowGet);
-                        }
-                    }
-
-                    #region foreach listBeEstrategias
-                    listBeEstrategias = InsertEstrategiaTemporalBucle(listBeEstrategias, campaniaId, estrategiaCodigo, habilitarNemotecnico);
-                    #endregion
-                }
-                catch (TimeoutException ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    return Json(new
-                    {
-                        success = false,
-                        message = "Tiempo agotado de espera durante la extracion de los productos."
-                    }, JsonRequestBehavior.AllowGet);
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    return Json(new
-                    {
-                        success = false,
-                        message = "No se encontraron productos en ods.productocomercial."
-                    }, JsonRequestBehavior.AllowGet);
-                }
-
-                #endregion
-
-                #region PedidoService - InsertEstrategiaTemporalService
-
-                nroLote = InsertEstrategiaTemporalService(listBeEstrategias, campaniaId, nroLote);
-
-                #endregion
-
-                return Json(new
-                {
-                    success = nroLote > 0,
-                    message = nroLote > 0 ? "Se insertaron en la tabla temporal de Estrategia." : "Error al insertar las estrategias",
-                    extra = "",
-                    pagina,
-                    cantGuardadaTemporal = listBeEstrategias.Count,
-                    NroLote = nroLote
-                }, JsonRequestBehavior.AllowGet);
-
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        private List<BEEstrategia> InsertEstrategiaTemporalBucle(List<BEEstrategia> listBeEstrategias, int campaniaId, string estrategiaCodigo, bool habilitarNemotecnico)
-        {
-            var listaBeEstrategias = new List<BEEstrategia>();
-
-            if (listBeEstrategias == null || !listBeEstrategias.Any())
-                return listaBeEstrategias;
-
-            var tono =
-                estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
-                estrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
-                estrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
-                estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
-                estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaDelDia ||
-                estrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos ||
-                estrategiaCodigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
-                estrategiaCodigo == Constantes.TipoEstrategiaCodigo.ShowRoom;
-
-            foreach (var optEstra in listBeEstrategias)
-            {
-                try
-                {
-                    optEstra.CampaniaID = campaniaId;
-
-                    var opt = InsertEstrategiaTemporalPrecio(optEstra);
-
-                    var productoEstrategias = new List<RptProductoEstrategia>();
-
-                    #region Estrategia Producto
-                    if (tono)
-                    {
-                        productoEstrategias = EstrategiaProductoObtenerServicio(opt);
-
-                        opt = InsertEstrategiaTemporalTono(productoEstrategias, opt);
-                    }
-
-                    #endregion
-
-                    #region habilitarNemotecnico
-
-                    if (habilitarNemotecnico)
-                    {
-                        opt = InsertEstrategiaTemporalNemotecnico(productoEstrategias, opt);
-                    }
-
-                    #endregion
-
-                    listaBeEstrategias.Add(opt);
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                }
-            }
-
-            return listaBeEstrategias;
-        }
-
-        private BEEstrategia InsertEstrategiaTemporalPrecio(BEEstrategia estra)
-        {
-            decimal precioOferta = 0;
-            decimal ganancia = 0;
-            string niveles = "";
-            try
-            {
-                using (var svs = new WsGestionWeb())
-                {
-                    var preciosEstrategia = svs.ObtenerPrecioEstrategia(estra.CUV2, userData.CodigoISO, estra.CampaniaID.ToString());
-                    if (preciosEstrategia != null)
-                    {
-                        precioOferta = preciosEstrategia.montotal;
-                        ganancia = preciosEstrategia.montoganacia;
-                        niveles = ObtenerTextoNiveles(preciosEstrategia.listaniveles);
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                precioOferta = 0;
-                ganancia = 0;
-            }
-
-            if (precioOferta > 0) estra.Precio2 = precioOferta;
-            if (ganancia > 0)
-            {
-                estra.Precio = precioOferta + ganancia;
-                estra.Ganancia = ganancia;
-            }
-            estra.Niveles = niveles;
-
-            return estra;
-        }
-
-        private BEEstrategia InsertEstrategiaTemporalTono(List<RptProductoEstrategia> productoEstrategias, BEEstrategia estra)
-        {
-            try
-            {
-                if (productoEstrategias.Any())
-                {
-                    estra.CodigoEstrategia = productoEstrategias[0].codigo_estrategia;
-                    estra.TieneVariedad = TieneVariedad(estra.CodigoEstrategia, estra.CUV2);
-                    EstrategiaProductoInsertar(productoEstrategias, estra);
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-            return estra;
-        }
-
-        private BEEstrategia InsertEstrategiaTemporalNemotecnico(List<RptProductoEstrategia> productoEstrategias, BEEstrategia estra)
-        {
-            try
-            {
-
-                var nemotecnicosLista = new List<string>();
-                var grupoPrevio = string.Empty;
-                foreach (var productoEstrategia in productoEstrategias)
-                {
-                    var tonoCodEst = productoEstrategia.codigo_estrategia == Constantes.TipoEstrategiaSet.IndividualConTonos
-                        || productoEstrategia.codigo_estrategia == Constantes.TipoEstrategiaSet.CompuestaFija
-                        || productoEstrategia.codigo_estrategia == Constantes.TipoEstrategiaSet.CompuestaVariable
-                            && grupoPrevio != productoEstrategia.grupo;
-
-                    if (!tonoCodEst) continue;
-
-                    grupoPrevio = productoEstrategia.grupo;
-                    var cantidad = productoEstrategia.cantidad.ToString().Length < 2
-                        ? "0" + productoEstrategia.cantidad
-                        : productoEstrategia.cantidad.ToString();
-                    nemotecnicosLista.Add(string.Format("{0}#{1}", productoEstrategia.codigo_sap,
-                        cantidad));
-
-                }
-
-                var nemoTecnicoBusqueda = nemotecnicosLista.Aggregate(string.Empty,
-                    (current, nemoTecnico) =>
-                        current + (current == string.Empty ? nemoTecnico : "&" + nemoTecnico));
-
-                using (var ps = new PedidoServiceClient())
-                {
-                    var lstImagenes = ps.GetImagenByNemotecnico(userData.PaisID, 0, null, null, 0, 0, 0,
-                        nemoTecnicoBusqueda, Constantes.TipoBusqueda.Exacta, 1, 1).ToList();
-                    estra.FotoProducto01 = lstImagenes.Any() ? lstImagenes[0].Foto : string.Empty;
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-            return estra;
-        }
-
-        private int InsertEstrategiaTemporalService(List<BEEstrategia> listaBeEstrategias, int campaniaId, int nroLote)
-        {
-            try
-            {
-                if (listaBeEstrategias.Any())
-                {
-                    using (var ps = new PedidoServiceClient())
-                    {
-                        nroLote = ps.InsertEstrategiaTemporal(userData.PaisID, listaBeEstrategias.ToArray(), campaniaId,
-                            userData.CodigoUsuario, nroLote);
-                    }
-                }
-                return nroLote;
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return 0;
-            }
-        }
-
-
-        public ActionResult ConsultarOfertasParaTiTemporal(string sidx, string sord, int page, int rows,
-            string CampaniaID)
-        {
-            if (ModelState.IsValid)
-            {
-                var lst = new List<ComunModel>();
-                int cantidadEstrategiasConfiguradas;
-                int cantidadEstrategiasSinConfigurar;
-
-                try
-                {
-                    using (var ps = new PedidoServiceClient())
-                    {
-                        cantidadEstrategiasConfiguradas =
-                            ps.GetCantidadOfertasParaTiTemporal(userData.PaisID, int.Parse(CampaniaID), 1);
-                        cantidadEstrategiasSinConfigurar =
-                            ps.GetCantidadOfertasParaTiTemporal(userData.PaisID, int.Parse(CampaniaID), 2);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    cantidadEstrategiasConfiguradas = 0;
-                    cantidadEstrategiasSinConfigurar = 0;
-                }
-
-                lst.Add(new ComunModel
-                {
-                    Id = 1,
-                    Descripcion = "CUVS pre cargados correctamente",
-                    Valor = cantidadEstrategiasConfiguradas.ToString(),
-                    ValorOpcional = "1"
-                });
-                lst.Add(new ComunModel
-                {
-                    Id = 2,
-                    Descripcion = "CUVS no pre cargados",
-                    Valor = cantidadEstrategiasSinConfigurar.ToString(),
-                    ValorOpcional = "2"
-                });
-
-                var grid = new BEGrid
-                {
-                    PageSize = rows,
-                    CurrentPage = page,
-                    SortColumn = sidx,
-                    SortOrder = sord
-                };
-                IEnumerable<ComunModel> items = lst;
-
-                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-
-                var pag = Util.PaginadorGenerico(grid, lst);
-
-                var data = new
-                {
-                    total = pag.PageCount,
-                    page = pag.CurrentPage,
-                    records = pag.RecordCount,
-                    rows = from a in items
-                           select new
-                           {
-                               id = a.Id,
-                               cell = new string[]
-                               {
-                            a.Id.ToString(),
-                            a.Descripcion,
-                            a.Valor,
-                            a.ValorOpcional
-                               }
-                           }
-                };
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-            return RedirectToAction("Index", "AdministrarEstrategia");
-        }
-
-        public ActionResult ConsultarCuvTipoConfiguradoTemporal(string sidx, string sord, int page, int rows,
-            int campaniaId, int tipoConfigurado, int nroLote)
-        {
-            if (ModelState.IsValid)
-            {
-                List<BEEstrategia> lst;
-
-                try
-                {
-                    using (var ps = new PedidoServiceClient())
-                    {
-                        lst = ps.GetOfertasParaTiByTipoConfiguradoTemporal(userData.PaisID, campaniaId, tipoConfigurado, nroLote)
-                            .ToList();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    lst = new List<BEEstrategia>();
-                }
-
-                var grid = new BEGrid
-                {
-                    PageSize = rows,
-                    CurrentPage = page,
-                    SortColumn = sidx,
-                    SortOrder = sord
-                };
-
-                IEnumerable<BEEstrategia> items = lst;
-
-                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-
-                var pag = Util.PaginadorGenerico(grid, lst);
-
-                var data = new
-                {
-                    total = pag.PageCount,
-                    page = pag.CurrentPage,
-                    records = pag.RecordCount,
-                    rows = from a in items
-                           select new
-                           {
-                               id = a.CUV2,
-                               cell = new string[]
-                               {
-                            a.CUV2,
-                            a.DescripcionCUV2
-                               }
-                           }
-                };
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-            return RedirectToAction("Index", "AdministrarEstrategia");
-        }
-
-        public JsonResult CancelarInsertEstrategiaTemporal(int campaniaId)
-        {
-            try
-            {
-                using (var ps = new PedidoServiceClient())
-                {
-                    ps.DeleteEstrategiaTemporal(userData.PaisID, campaniaId);
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                }, JsonRequestBehavior.AllowGet);
-            }
-
-            return Json(new
-            {
-                success = true,
-                message = "Se eliminaron las estrategias de la tabla temporal",
-                extra = ""
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult InsertEstrategiaOfertaParaTi(int campaniaId, int tipoConfigurado, int estrategiaId, int nroLote)
-        {
-            try
-            {
-                List<BEEstrategia> lst;
-
-                try
-                {
-                    using (var ps = new PedidoServiceClient())
-                    {
-                        lst = ps.GetOfertasParaTiByTipoConfiguradoTemporal(userData.PaisID, campaniaId, tipoConfigurado, nroLote)
-                            .ToList();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    lst = new List<BEEstrategia>();
-                }
-
-                if (lst.Count > 0)
-                {
-                    try
-                    {
-                        using (var ps = new PedidoServiceClient())
-                        {
-                            ps.InsertEstrategiaOfertaParaTi(userData.PaisID, lst.ToArray(), campaniaId,
-                                userData.CodigoUsuario, estrategiaId);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                        return Json(new
-                        {
-                            success = false,
-                            message = "Error al insertar las estrategias"
-                        }, JsonRequestBehavior.AllowGet);
-                    }
-
-                    return Json(new
-                    {
-                        success = true,
-                        message = "Se insertaron las Estrategias.",
-                        extra = ""
-                    }, JsonRequestBehavior.AllowGet);
-                }
-
-                return Json(new
-                {
-                    success = false,
-                    message = "No existen Estrategias para Insertar"
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
+        
         public static byte[] ReadFully(Stream input)
         {
             var buffer = new byte[16 * 1024];
@@ -1892,7 +1254,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public BEEstrategia VerficarArchivos(BEEstrategia estrategia, BEEstrategiaDetalle estrategiaDetalle)
+        public ServicePedido.BEEstrategia VerficarArchivos(ServicePedido.BEEstrategia estrategia, ServicePedido.BEEstrategiaDetalle estrategiaDetalle)
         {
             if (!string.IsNullOrEmpty(estrategia.ImgFondoDesktop) &&
                 (string.IsNullOrEmpty(estrategiaDetalle.ImgFondoDesktop) ||
@@ -1962,7 +1324,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var tipoEstrategias = GetTipoEstrategias();
                 var oTipoEstrategia =
                     tipoEstrategias.FirstOrDefault(x =>
-                        x.Codigo == Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas) ?? new BETipoEstrategia();
+                        x.Codigo == Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas) ?? new ServicePedido.BETipoEstrategia();
                 ViewBag.hdnTipoEstrategiaID = oTipoEstrategia.TipoEstrategiaID;
             }
             catch (Exception ex)
@@ -1982,7 +1344,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (string.IsNullOrEmpty(CampaniaID))
                     return RedirectToAction("ProgramaNuevas", "AdministrarEstrategia");
 
-                var entidad = new BEEstrategia()
+                var entidad = new ServicePedido.BEEstrategia()
                 {
                     PaisID = userData.PaisID,
                     TipoEstrategiaID = TipoEstrategiaID,
@@ -1993,7 +1355,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoPrograma = CodigoPrograma
                 };
 
-                List<BEEstrategia> lst;
+                List<ServicePedido.BEEstrategia> lst;
                 using (var sv = new PedidoServiceClient())
                 {
                     lst = sv.GetEstrategias(entidad).ToList();
@@ -2258,7 +1620,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var tipoEstrategias = GetTipoEstrategias();
                 var oTipoEstrategia =
                     tipoEstrategias.FirstOrDefault(x => x.Codigo == Constantes.TipoEstrategiaCodigo.Incentivos) ??
-                    new BETipoEstrategia();
+                    new ServicePedido.BETipoEstrategia();
                 ViewBag.hdnTipoEstrategiaID = oTipoEstrategia.TipoEstrategiaID;
             }
             catch (Exception ex)
@@ -2277,7 +1639,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (string.IsNullOrEmpty(CampaniaID)) return RedirectToAction("Incentivos", "AdministrarEstrategia");
 
-                var entidad = new BEEstrategia()
+                var entidad = new ServicePedido.BEEstrategia()
                 {
                     PaisID = userData.PaisID,
                     TipoEstrategiaID = TipoEstrategiaID,
@@ -2288,7 +1650,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoConcurso = CodigoConcurso
                 };
 
-                List<BEEstrategia> lst;
+                List<ServicePedido.BEEstrategia> lst;
                 using (var sv = new PedidoServiceClient())
                 {
                     lst = sv.GetEstrategias(entidad).ToList();
@@ -2444,7 +1806,7 @@ namespace Portal.Consultoras.Web.Controllers
             int line = 0;
             try
             {
-                List<BEEstrategia> strategyEntityList = new List<BEEstrategia>();
+                List<ServicePedido.BEEstrategia> strategyEntityList = new List<ServicePedido.BEEstrategia>();
                 StreamReader streamReader = new StreamReader(model.Documento.InputStream, Encoding.Default);
                 string readLine = streamReader.ReadLine();
                 if (model.Documento == null || model.Documento.ContentLength <= 0) throw new ArgumentException("El archivo esta vacío.");
@@ -2510,7 +1872,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 throw new ArgumentException(string.Format("Verificar la información del archivo (datos incompletos). <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
                             line++;
-                            strategyEntityList.Add(new BEEstrategia
+                            strategyEntityList.Add(new ServicePedido.BEEstrategia
                             {
                                 CUV2 = arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd(),
                                 Precio = decimal.Parse(arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.NormalPrice]),
@@ -2532,14 +1894,14 @@ namespace Portal.Consultoras.Web.Controllers
                             strategyEntityList.Update(strategy => strategy.Precio2 = productPriceList.FirstOrDefault(prol => prol.cuv == strategy.CUV2).precio_producto);
                         }
                     }
-                    BEEstrategia productPriceZero = strategyEntityList.FirstOrDefault(p => p.Precio == 0);
+                    var productPriceZero = strategyEntityList.FirstOrDefault(p => p.Precio == 0);
                     if (productPriceZero != null)
                     {
                         string messageErrorPriceZero = string.Format("No se realizó ninguna operación (actualización/inserción) a ningunos de los registros que estaban dentro del archivo (CSV), porque el producto {0} tiene precio cero", productPriceZero.CUV2);
                         LogManager.LogManager.LogErrorWebServicesPortal(new FaultException(), "ERROR: CARGA PRODUCTO SHOWROOM", string.Format("CUV: {0} con precio CERO", productPriceZero.CUV2));
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, messageErrorPriceZero);
                     }
-                    BEEstrategia productPriceOfferZero = strategyEntityList.FirstOrDefault(p => p.Precio2 == 0);
+                    var productPriceOfferZero = strategyEntityList.FirstOrDefault(p => p.Precio2 == 0);
                     if (productPriceOfferZero != null)
                     {
                         string messageErrorPriceZero = string.Format("No se actualizó el stock de ninguno de los productos que estaban dentro del archivo (CSV), porque el producto {0} tiene precio oferta Cero", productPriceOfferZero.CUV2);
@@ -2599,7 +1961,7 @@ namespace Portal.Consultoras.Web.Controllers
             int line = 0;
             try
             {
-                List<BEEstrategiaProducto> strategyEntityList = new List<BEEstrategiaProducto>();
+                var strategyEntityList = new List<ServicePedido.BEEstrategiaProducto>();
                 StreamReader streamReader = new StreamReader(model.Documento.InputStream, Encoding.Default);
                 string readLine = streamReader.ReadLine();
                 if (model.Documento == null || model.Documento.ContentLength <= 0) throw new ArgumentException("El archivo esta vacío.");
@@ -2668,7 +2030,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 throw new ArgumentException(string.Format("El valor del campo 'Marca de Producto' no es númerico. <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
                             line++;
-                            strategyEntityList.Add(new BEEstrategiaProducto
+                            strategyEntityList.Add(new ServicePedido.BEEstrategiaProducto
                             {
                                 CUV = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.CUV].ToString().TrimEnd(),
                                 NombreProducto = arrayRows[(int)Constantes.ColumnsProductStrategyShowroom.Position.ProductName].ToString().TrimEnd(),
@@ -2721,51 +2083,6 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
-            }
-        }
-
-        public ActionResult ActualizarTono(string CampaniaID, string TipoEstrategiaID, string CUV)
-        {
-            try
-            {
-                List<BEEstrategia> listEstrategia;
-                var entidad = new BEEstrategia
-                {
-                    PaisID = userData.PaisID,
-                    TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
-                    CUV2 = CUV != "" ? CUV : "0",
-                    CampaniaID = Convert.ToInt32(CampaniaID),
-                    Activo = -1,
-                    Imagen = -1
-                };
-
-                using (var sv = new PedidoServiceClient())
-                {
-                    listEstrategia = sv.GetEstrategias(entidad).ToList();
-                }
-                foreach (var estrategia in listEstrategia)
-                {
-                    var productoEstrategias = EstrategiaProductoObtenerServicio(estrategia);
-
-                    if (!productoEstrategias.Any()) continue;
-
-                    estrategia.CodigoEstrategia = productoEstrategias[0].codigo_estrategia;
-                    estrategia.TieneVariedad = TieneVariedad(estrategia.CodigoEstrategia, estrategia.CUV2);
-                    EstrategiaProductoInsertar(productoEstrategias, estrategia);
-                    using (var sv = new SACServiceClient())
-                    {
-                        sv.ActualizarTonoEstrategia(userData.PaisID, estrategia.EstrategiaID, estrategia.CodigoEstrategia, estrategia.TieneVariedad);
-                    }
-                }
-                return Json(new
-                {
-                    listActualizado = listEstrategia.Where(x => x.TieneVariedad == 1),
-                    message = "CUVS con tonos actualizados satisfactoriamente."
-                });
-            }
-            catch (Exception ex)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
             }
         }

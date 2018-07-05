@@ -1,4 +1,6 @@
-﻿namespace Portal.Consultoras.Web.Areas.Mobile.Models
+﻿using System.Collections.Generic;
+
+namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
     public class PedidoDetalleMobileDetalleModel
     {
@@ -18,6 +20,7 @@
         public int ConfiguracionOfertaID { get; set; }
         public bool IndicadorOfertaCUV { get; set; }
         public int TipoObservacion { get; set; }
+        public List<string> ListObservacionProl { get; set; }
         public bool EsBackOrder { get; set; }
         public bool AceptoBackOrder { get; set; }
     }

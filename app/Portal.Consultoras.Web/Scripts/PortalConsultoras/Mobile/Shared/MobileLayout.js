@@ -5,7 +5,7 @@
         menuModule.Resize();
     }
 
-    var ventanaChat = null;
+
     OcultarChatEmtelco();
 
     SetFormatDecimalPais(formatDecimalPaisMain);
@@ -139,8 +139,18 @@
         var connected = localStorage.getItem('connected');
         var idBtn = connected ? '#btn_open' : '#btn_init';
         $(idBtn).trigger("click");
-        
+
         return false;
+    });
+
+    $("body").on('click', '#btn_init', function () {
+        var data = {
+            'event': 'virtualEvent',
+            'category': controllerName,
+            'action': 'Clic en Chat',
+            'label': '¿Quieres ayuda?'
+        };
+        dataLayer.push(data);
     });
 
     $("#btn_cerrar_oferta_mobile").click(function () {
@@ -172,16 +182,9 @@
     if (MostrarBannerPL20) {
         loadBannerLP20();
     }
-    if (EstadoActivo === '1') {
-        var URLactual = window.location.href;
-        var urlBienvenida = URLactual.indexOf("Bienvenida");
-    }
-    else {
-        var URLactual = window.location.href;
-    }
 
-    var URLactual = window.location.href;
-    var urlIntriga = URLactual.indexOf("Intriga");
+    var urlactual = window.location.href;
+    var urlIntriga = urlactual.indexOf("Intriga");
 
     if (urlIntriga > 0) {
         $("#OfertaDelDia").css('display', 'none');
@@ -194,15 +197,12 @@
         LayoutHeader();
     }
 
-    var URLactual = window.location.href;
-    var urlBienvenida = URLactual.indexOf("Bienvenida");
-
     $(".bannersi").on("click", function () {
 
         var eventId = $("#hdEventoIDShowRoom").val();
         var nombre = $("#hdNombreEventoShowRoom").val();
         var tema = $("#hdTemaEventoShowRoom").val();
-        var eventName = nombre + ' ' + tema + ' - Entérate'
+        var eventName = nombre + ' ' + tema + ' - Entérate';
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -345,7 +345,7 @@ function loadBannerLP20() {
             animation: "fade",
             pauseOnAction: false,
             animationSpeed: 1600
-        });                
+        });
     }
 }
 
@@ -367,8 +367,10 @@ function OcultarChatEmtelco() {
         $(".CMXD-help").hide();
     }
 
+    if (habilitarChatEmtelco == 'False') {
+        $(".CMXD-help").hide();
+    }
 }
-
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
@@ -412,7 +414,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     });
 
     return restringido;
-};
+}
 
 function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
 
@@ -438,7 +440,7 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
             }
         }
     });
-};
+}
 
 function ValidarCorreoComunidad(tipo) {
     $.ajaxSetup({
@@ -461,11 +463,8 @@ function ValidarCorreoComunidad(tipo) {
             $('#ErrorUsuario').html("Debe ingresar un apodo.");
             CloseLoading();
             result = false;
-        } else {
-            if ($('#ErrorUsuario').html() != "Este apodo ya existe.") {
-
-            }
         }
+
 
 
         if ($('#txtNuevoCorreoComunidad').val() == 'Correo electrónico') {
@@ -481,11 +480,8 @@ function ValidarCorreoComunidad(tipo) {
                 $('#ErrorCorreo').css({ "color": "red" });
                 CloseLoading();
                 result = false;
-            } else {
-                if ($('#ErrorCorreo').html() != "Este correo ya existe.") {
-
-                }
             }
+
         }
 
         if (result) {
@@ -582,16 +578,15 @@ function ValidarCorreoComunidad(tipo) {
             if ($('#ErrorCorreo').html() != '')
                 return;
 
-            var params = {
-                correo: $("#txtCorreoComunidad").val()
-            };
 
             jQuery.ajax({
                 type: 'POST',
                 url: urlValidarCorreoComunidad,
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(params),
+                data: JSON.stringify({
+                    correo: $("#txtCorreoComunidad").val()
+                }),
                 async: true,
                 success: function (data) {
 
@@ -648,7 +643,7 @@ function ValidarCorreoComunidad(tipo) {
 }
 
 function ValidarCorreo(correo) {
-    expr = /^([a-zA-Z0-9_\.\-])+\@@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    var expr = /^([a-zA-Z0-9_\.\-])+\@@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return expr.test(correo);
 }
 
@@ -815,11 +810,10 @@ function messageInfoError(message, fnAceptar) {
     $('#popupInformacionSB2Error .btn_ok_mobile').on('click', function () {
         $('#popupInformacionSB2Error').hide();
     });
-    if ((typeof titulo != "undefined") && (titulo != "") && (titulo != null))
-    {
+    if ((typeof titulo != "undefined") && (titulo != "") && (titulo != null)) {
         $(".titulo_compartir").html("<b>" + titulo + "</b>")
     }
- 
+
 }
 
 function messageInfoValidado(message, fnAceptar) {
@@ -842,7 +836,7 @@ function messageConfirmacion(message, fnAceptar) {
 
 function CargarCantidadProductosPedidos(noMostrarEfecto) {
     noMostrarEfecto = noMostrarEfecto || false;
-
+    var montoWebAcumulado = "";
     jQuery.ajax({
         type: 'POST',
         url: urlGetCantidadProductos,
@@ -932,14 +926,14 @@ function SeparadorMiles(pnumero) {
 
     if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-    for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
+    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
         resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
     if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
 
     if (numero[0] == "-") return "-" + resultado;
     else return resultado;
-};
+}
 
 function TrackingJetloreAdd(cantidad, campania, cuv) {
     var esJetlore = esPaisTrackingJetlore == "1";
@@ -1080,8 +1074,18 @@ function BannerApp() {
 function VerificarVistaBannerApp() {
     for (var row = 0; row < oBannerApp.Vistas.length; row++) {
         var oVista = oBannerApp.Vistas[row];
-        if (oVista.NombreControlador != controllerName) continue;
-        if (oVista.NombreVista == null || oVista.NombreVista == actionName) return true;
+
+        var nombreControlador = "";
+        if (oVista.NombreControlador != undefined && oVista.NombreControlador != null) {
+            nombreControlador = oVista.NombreControlador.toLowerCase();
+        }
+        var nombreVista = "";
+        if (oVista.NombreVista != undefined && oVista.NombreVista != null) {
+            nombreVista = oVista.NombreVista.toLowerCase();
+        }
+
+        if (nombreControlador != controllerName) continue;
+        if (nombreVista == "" || nombreVista == actionName) return true;
     }
     return false;
 }

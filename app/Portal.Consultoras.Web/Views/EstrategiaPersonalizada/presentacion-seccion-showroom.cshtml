@@ -32,13 +32,12 @@
                     <div class="@seccionTituloClass">
                         <span>@Model.Titulo</span>
                     </div>
-                    <div class="cantidad">
-                        <span>Mostrando @Model.CantidadMostrar de @Model.CantidadProductos</span>
+                    <div class="cantidad" tyle="display:none;" data-productos-info="">
+                        <span>Mostrando <span data-productos-mostrar="">@Model.CantidadMostrar</span> de <span data-productos-total="">@Model.CantidadProductos</span></span>
                     </div>
 
                     @if (Model.VerMas)
                     {
-                        
                         <div class="ir">
                             <a class="@vermasClass" href="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.TituloBtnAnalytics')">VER MÁS OFERTAS</a>
                         </div>
@@ -117,13 +116,13 @@
                                     </div>
                                     <div class="producto_nombre_descripcion" data-item-tag="precio">
                                         <div>
-                                            <span class="producto_precio_normal">{{Simbolo}} {{FormatoPrecioValorizado}}</span>
-                                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
+                                            <span class="producto_precio_normal">{{SimboloMoneda}} {{FormatoPrecioValorizado}}</span>
+                                            <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{FormatoPrecioOferta}}</b></span>
                                         </div>
                                     </div>
                                     <div class="clear"></div>
                                     <div class="producto_nombre_descripcion" data-item-tag="agregar">
-                                        {{#iff TipoAccionAgregar '==' '0'}}
+                                        {{#iff TipoAccionAgregar '==' '2'}}
                                         <div class="texto_elige_tono"></div>
                                         <div class="clear"></div>
                                         <div class="liquidacion_rango_home" data-cantidad-contenedor="">
@@ -138,7 +137,7 @@
                                         </div>
                                         <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
                                         {{/iff}}
-                                        {{#iff TipoAccionAgregar '==' '1'}}
+                                        {{#iff TipoAccionAgregar '==' '3'}}
                                         <div class="texto_elige_tono"></div>
                                         <div class="clear"></div>
                                         <a class="btn_elige_tono" href="{{UrlDetalle}}">

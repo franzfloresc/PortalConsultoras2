@@ -622,7 +622,7 @@ function AnalizarOperacion(id) {
         $("[data-tipo-confirma='canje']").hide();
         $("[data-tipo-confirma=cambio]").show();
 
-        $("#spnSimboloMonedaReclamo").html(vbSimbolo);
+        $("#spnSimboloMonedaReclamo").html(variablesPortal.SimboloMoneda);
 
         var precioUnidad = $("#txtPrecioUnidad").val();
         var cantidad = $("#txtCantidad").val();

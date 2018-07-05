@@ -421,15 +421,15 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "EsConsecutivoNueva")) EsConsecutivoNueva = Convert.ToBoolean(row["EsConsecutivoNueva"]);
 
             if (DataRecord.HasColumn(row, "FechaInicioFacturacion"))
-                FechaInicioFacturacion = DbConvert.ToDateTime(row["FechaInicioFacturacion"]);
+                FechaInicioFacturacion = Convert.ToDateTime(row["FechaInicioFacturacion"]);
             if (DataRecord.HasColumn(row, "FechaFinFacturacion"))
-                FechaFinFacturacion = DbConvert.ToDateTime(row["FechaFinFacturacion"]);
+                FechaFinFacturacion = Convert.ToDateTime(row["FechaFinFacturacion"]);
             if (DataRecord.HasColumn(row, "HoraInicio"))
                 HoraInicio = DbConvert.ToTimeSpan(row["HoraInicio"]);
             if (DataRecord.HasColumn(row, "HoraFin"))
                 HoraFin = DbConvert.ToTimeSpan(row["HoraFin"]);
             if (DataRecord.HasColumn(row, "DiasAntes"))
-                DiasAntes = DbConvert.ToByte(row["DiasAntes"]);
+                DiasAntes = Convert.ToByte(row["DiasAntes"]);
             if (DataRecord.HasColumn(row, "ZonaValida"))
                 ZonaValida = Convert.ToInt32(row["ZonaValida"]) != -1;
             if (DataRecord.HasColumn(row, "HoraInicioNoFacturable"))
@@ -441,31 +441,31 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "HoraCierreZonaDemAnti"))
                 HoraCierreZonaDemAnti = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAnti"]);
             if (DataRecord.HasColumn(row, "ZonaHoraria"))
-                ZonaHoraria = DbConvert.ToDouble(row["ZonaHoraria"]);
+                ZonaHoraria = Convert.ToDouble(row["ZonaHoraria"]);
             if (DataRecord.HasColumn(row, "EsZonaDemAnti"))
-                EsZonaDemAnti = DbConvert.ToInt32(row["EsZonaDemAnti"]);
+                EsZonaDemAnti = Convert.ToInt32(row["EsZonaDemAnti"]);
             if (DataRecord.HasColumn(row, "DiasDuracionCronograma"))
-                DiasDuracionCronograma = DbConvert.ToByte(row["DiasDuracionCronograma"]);
+                DiasDuracionCronograma = Convert.ToByte(row["DiasDuracionCronograma"]);
             if (DataRecord.HasColumn(row, "HabilitarRestriccionHoraria"))
-                HabilitarRestriccionHoraria = DbConvert.ToBoolean(row["HabilitarRestriccionHoraria"]);
+                HabilitarRestriccionHoraria = Convert.ToBoolean(row["HabilitarRestriccionHoraria"]);
             if (DataRecord.HasColumn(row, "HorasDuracionRestriccion"))
-                HorasDuracionRestriccion = DbConvert.ToInt32(row["HorasDuracionRestriccion"]);
+                HorasDuracionRestriccion = Convert.ToInt32(row["HorasDuracionRestriccion"]);
             if (DataRecord.HasColumn(row, "PROLSinStock"))
                 PROLSinStock = Convert.ToBoolean(row["PROLSinStock"]);
 
             if (DataRecord.HasColumn(row, "NuevoPROL"))
-                NuevoPROL = DbConvert.ToBoolean(row["NuevoPROL"]);
+                NuevoPROL = Convert.ToBoolean(row["NuevoPROL"]);
 
             if (DataRecord.HasColumn(row, "ZonaNuevoPROL"))
-                ZonaNuevoPROL = DbConvert.ToBoolean(row["ZonaNuevoPROL"]);
+                ZonaNuevoPROL = Convert.ToBoolean(row["ZonaNuevoPROL"]);
 
             if (DataRecord.HasColumn(row, "HoraCierreZonaDemAntiCierre"))
                 HoraCierreZonaDemAntiCierre = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAntiCierre"]);
 
             if (DataRecord.HasColumn(row, "ValidacionInteractiva"))
-                ValidacionInteractiva = DbConvert.ToBoolean(row["ValidacionInteractiva"]);
+                ValidacionInteractiva = Convert.ToBoolean(row["ValidacionInteractiva"]);
             if (DataRecord.HasColumn(row, "MensajeValidacionInteractiva"))
-                MensajeValidacionInteractiva = DbConvert.ToString(row["MensajeValidacionInteractiva"]);
+                MensajeValidacionInteractiva = Convert.ToString(row["MensajeValidacionInteractiva"]);
 
             if (DataRecord.HasColumn(row, "EstadoPedido"))
                 EstadoPedido = Convert.ToInt32(row["EstadoPedido"]);
@@ -508,6 +508,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "IvaTotal"))
                 IvaTotal = Convert.ToDouble(row["IvaTotal"]);
+
+            if (DataRecord.HasColumn(row, "IndicadorConsultoraOficina"))
+                EsConsultoraOficina = Convert.ToInt32(row["IndicadorConsultoraOficina"]) == 1;
         }
 
         [Column("ConsultoraAsociadoID")]
@@ -1132,9 +1135,11 @@ namespace Portal.Consultoras.Entities
         public bool EsquemaDAConsultora { get; set; }
 
         [DataMember]
+        [Column("OfertaFinal")]
         public int OfertaFinal { get; set; }
-
+        
         [DataMember]
+        [Column("EsOfertaFinalZonaValida")]
         public bool EsOfertaFinalZonaValida { get; set; }
 
         [DataMember]
@@ -1443,16 +1448,36 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigosRevistaImpresa { get; set; }
         [DataMember]
-        public bool OptBloqueoProductoDigital { get; set; }
-        [DataMember]
         public BEOfertaDelDia OfertaDelDiaModel { get; set; }
         [DataMember]
         public BEGuiaNegocio GuiaNegocio { get; set; }
+        [DataMember]
+        public bool OptBloqueoProductoDigital { get; set; }
         [DataMember]
         public bool TieneValidacionMontoMaximo { get; set; }
         [DataMember]
         public bool EsShowRoom { get; set; }
         [DataMember]
         public bool MostrarBotonValidar { get; set; }
+        [DataMember]
+        public BEOfertaFinal _OfertaFinal { get; set; }
+        [DataMember]
+        public bool EsConsultoraOficina { get; set; }
+
+        public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
+        {
+            if (DataRecord.HasColumn(row, "ConsultoraID")) miConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
+            if (DataRecord.HasColumn(row, "ConsultoraAsociadoID")) consultoraAsociadoID = Convert.ToInt64(row["ConsultoraAsociadoID"]);
+            if (DataRecord.HasColumn(row, "ZonaHoraria")) ZonaHoraria = Convert.ToDouble(row["ZonaHoraria"]);
+            if (DataRecord.HasColumn(row, "HabilitarRestriccionHoraria")) HabilitarRestriccionHoraria = Convert.ToBoolean(row["HabilitarRestriccionHoraria"]);
+            if (DataRecord.HasColumn(row, "FechaInicioFacturacion")) FechaInicioFacturacion = Convert.ToDateTime(row["FechaInicioFacturacion"]);
+            if (DataRecord.HasColumn(row, "FechaFinFacturacion")) FechaFinFacturacion = Convert.ToDateTime(row["FechaFinFacturacion"]);
+            if (DataRecord.HasColumn(row, "HorasDuracionRestriccion")) HorasDuracionRestriccion = Convert.ToInt32(row["HorasDuracionRestriccion"]);
+            if (DataRecord.HasColumn(row, "EsZonaDemAnti")) EsZonaDemAnti = Convert.ToInt32(row["EsZonaDemAnti"]);
+            if (DataRecord.HasColumn(row, "HoraCierreZonaDemAnti")) HoraCierreZonaDemAnti = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAnti"]);
+            if (DataRecord.HasColumn(row, "HoraCierreZonaNormal")) HoraCierreZonaNormal = DbConvert.ToTimeSpan(row["HoraCierreZonaNormal"]);
+        }
+        [DataMember]
+        public string NivelProyectado { get; set; }
     }
 }

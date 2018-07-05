@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseUtilities.cs" />
+    <Compile Include="LogManager\CustomTraceException.cs" />
     <Compile Include="ExcelCellHeader.cs" />
     <Compile Include="ExcelColumn.cs" />
     <Compile Include="ExcelExportHelper.cs" />
@@ -194,6 +195,9 @@
     <Compile Include="PagoEnLinea\JsonHelper.cs" />
     <Compile Include="PagoEnLinea\RespuestaAutorizacionVisa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reader\DefaultStreamReader.cs" />
+    <Compile Include="Reader\IReaderTransformer.cs" />
+    <Compile Include="Reader\IStreamReader.cs" />
     <Compile Include="RegexUtilities.cs" />
     <Compile Include="Settings\ServiceSettings.cs" />
     <Compile Include="Util.cs" />

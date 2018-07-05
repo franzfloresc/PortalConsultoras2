@@ -16,43 +16,37 @@
             display: none;
             margin-bottom: 54px;
         }
+
+        #btn_init{
+            display: none !important; 
+        }
+
+        #btn_open{
+            display: none !important;
+        }
     </style>
 
 }
 
-<!-- TÍTULO -->
 <div class="cabecera_vista_pago_en_linea">
     <a id="linkRegresar" href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
     PAGO EN LÍNEA
 </div>
-<!-- FIN TÍTULO -->
 
 <div class="content_belcorp">
     <div class="pestana_lbel"></div>
 
-    <!-- VISTA PROCESO DE PAGO EN LÍNEA -->
-
     <div class="proceso_de_pago_en_linea">
-
-        <!-- CANTIDAD PASOS PROCESO DE PAGO -->
 
         <div class="cantidad_pasos_proceso_pago">
 
-            <!-- CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
-            <!--  Cuando el paso esté en proceso, agregar la clase paso_activo, cuando esté el paso completado agregar la clase paso_completado también -->
             <span class="paso_proceso_pago_en_linea paso_activo paso_completado">1</span>
             <span class="paso_proceso_pago_en_linea paso_activo mr-0">2</span>
-
-            <!-- FIN - CANTIDAD DE PASOS PROCESO PAGO EN LÍNEA -->
 
             <div class="linea_conectora_pasos">
                 <span class="fondo_pasos_proceso_pago_avance"></span>
             </div>
         </div>
-
-        <!-- FIN - CANTIDAD PASOS PROCESO DE PAGO -->
-
-        <!-- VISTA CONFIRMACIÓN PAGO -->
 
         <div class="confirmacion_pago">
             <h3 class="titulo_resumen_pago_exitoso">
@@ -74,10 +68,6 @@
             </div>
         </div>
 
-        <!-- FIN - VISTA CONFIRMACIÓN PAGO -->
-
-        <!-- INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA -->
-
         <div class="contenedor_info_pago_seguro_y_ctas" style="margin-bottom:10px;">
 
             <div class="info_pago_seguro_con_tarjetas">
@@ -95,8 +85,6 @@
 
         </div>
 
-        <!-- FIN - INFORMACIÓN DE PAGO SEGURO CON TARJETA DE CRÉDITO VISA -->
-
         <div class="contenedor_btn_pagar_con_visa">
             <form id="formBoton" action="@Url.Action("PagoVisaResultado","PagoEnLinea")" method="post">
                 <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
@@ -112,8 +100,6 @@
         </div>        
 
     </div>
-
-    <!-- FIN - VISTA PROCESO DE PAGO EN LÍNEA -->
 
 </div>
 
