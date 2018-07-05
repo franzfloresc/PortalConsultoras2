@@ -7,7 +7,7 @@
 
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/Ficha/Ficha.css")" rel="stylesheet" />
-    
+
 }
 <!--prueba-->
 <div id="ImagenDeFondo" class="imagen_fondo_detalle" style="background-image: url('https://S3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_Desktop_Fondo_del_ShowRoom_en_el_Contenedor_Ofertas_Venta 50A_2018630811_01_ytmwyupjny.jpg');"></div>
@@ -17,30 +17,30 @@
             <div id="data-estrategia" data-estrategia="@Json.Encode(Model)"></div>
         </div>
         <div class="contenedor_ficha_producto" id="seccion_ficha_handlebars"></div>
-    <script id="detalle_ficha_template" type="text/x-handlebars-template">
+        <script id="detalle_ficha_template" type="text/x-handlebars-template">
             <div class="ficha_producto">
                 <div class="contenedor_imagen">
                     <img class="contenedor_img" src="{{ImgUrl FotoProducto01}}" alt="">
                 </div>
                 @*<div class="texto_referencial">
-                    <span data-texto_referencial="">* Foto Referencial</span>
-                </div>
-                <div class="contenedor_carrusel_tonos">
-                    <div id="carrusel_tonos" style="display:none;">
-                        <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                            <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                        </div>
-                        <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                            <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                        </div>
-                        <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                            <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                        </div>
-                        <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                            <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                        </div>
+                        <span data-texto_referencial="">* Foto Referencial</span>
                     </div>
-                </div>*@
+                    <div class="contenedor_carrusel_tonos">
+                        <div id="carrusel_tonos" style="display:none;">
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                        </div>
+                    </div>*@
                 <div class="ficha_redes_sociales">
                     <div data-compartir-campos="" style="display:none;">
                         <input type="hidden" class="CUV" value="{{CUV2}}" />
@@ -94,8 +94,7 @@
 
                 {{#iff CodigoVariante '==' '2001'}}
                 <div id="DescripcionAdicional">
-                    {{#ifVerificarSlogan this.CodigoEstrategia this.TipoEstrategiaDetalle.Slogan}}
-                    <div class="nombre_detalle_producto_tono">{{this.TipoEstrategiaDetalle.Slogan}}</div>
+                    <div id="SloganLanzamiento" class="nombre_detalle_producto_tono">{{this.TipoEstrategiaDetalle.Slogan}}</div>
                     <div class="descripcion_detalle_producto_tono">
                         <ul>
                             {{#each this.ListaDescripcionDetalle}}
@@ -103,7 +102,6 @@
                             {{/each}}
                         </ul>
                     </div>
-                    {{/ifVerificarSlogan}}
                 </div>
                 {{#each this.Hermanos as |componente|}}
                 <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
@@ -232,25 +230,25 @@
                             <label for="ficha_tab_1" class="label_tab">DETALLE DEL PRODUCTO</label>
                         </div>
                     </div>
-                    <div class="cell_ficha_tab"  id="div_ficha_tab2">
+                    <div class="cell_ficha_tab" id="div_ficha_tab2">
                         <div class="contents_ficha_tab">
                             <input id="ficha_tab_2" class="imput_tab_clean imput_tab" type="radio" data-numTab="2" name="tabs">
                             <label for="ficha_tab_2" class="label_tab">DETALLE DEL PACK</label>
                         </div>
                     </div>
-                    <div class="cell_ficha_tab"  id="div_ficha_tab3">
+                    <div class="cell_ficha_tab" id="div_ficha_tab3">
                         <div class="contents_ficha_tab">
                             <input id="ficha_tab_3" class="imput_tab_clean imput_tab" type="radio" data-numTab="3" name="tabs">
                             <label for="ficha_tab_3" class="label_tab">TIPS DE VENTA</label>
                         </div>
                     </div>
-                    <div class="cell_ficha_tab"  id="div_ficha_tab4">
+                    <div class="cell_ficha_tab" id="div_ficha_tab4">
                         <div class="contents_ficha_tab">
                             <input id="ficha_tab_4" class="imput_tab_clean imput_tab" type="radio" data-numTab="4" name="tabs">
                             <label for="ficha_tab_4" class="label_tab">BENEFICIOS</label>
                         </div>
                     </div>
-                    <div class="cell_ficha_tab"  id="div_ficha_tab5">
+                    <div class="cell_ficha_tab" id="div_ficha_tab5">
                         <div class="contents_ficha_tab">
                             <input id="ficha_tab_5" class="imput_tab_clean imput_tab" type="radio" data-numTab="5" name="tabs">
                             <label for="ficha_tab_5" class="label_tab">VIDEO</label>
@@ -347,7 +345,7 @@
             </div>
             <div class="contenedor_carrusel">
                 <div id="carrusel">
-                   
+
                 </div>
             </div>
         </div>

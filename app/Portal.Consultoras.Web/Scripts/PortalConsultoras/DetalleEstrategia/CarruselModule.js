@@ -13,6 +13,26 @@
         divSetsProductosRelacionados: config.divCarrusel
     };
 
+    var _promiseObternerDataCarrusel = function (params) {
+        var dfd = $.Deferred();
+        $.ajax({
+            type: "POST",
+            url: _config.urlDataCarrusel,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(params),
+            async: false,
+            cache: false,
+            success: function (data) {
+                dfd.resolve(data);
+            },
+            error: function (data, error) {
+                dfd.reject(data, error);
+            }
+        });
+
+        return dfd.promise();
+    };
     var _cargarDatos_Lanzamiento = function () {
 
         var setRelacionados = [];
@@ -52,6 +72,9 @@
        return setRelacionados;
     }
 
+    var _cargarDatos_ShowRoom = function () {
+
+    }
     var _obtenerSetRelacionados = function () {
      
         var data = {
@@ -62,7 +85,7 @@
             data.lista = _cargarDatos_Lanzamiento();
         }
        else if (_config.palanca == 'ShowRoom') {
-            data.lista = [];
+           data.lista = _cargarDatos_ShowRoom();
         }
        else if (_config.palanca == 'OfertaDelDia') {
            data.lista = [];
@@ -126,6 +149,7 @@
     }
 
     var _mostrarCarrusel = function () {
+        
         var data = _obtenerSetRelacionados();
 
         if (!data)

@@ -42,7 +42,8 @@
         DescripcionAdicional: "#DescripcionAdicional",
         ContenidoProducto: "#ContenidoProducto",
         CarruselProducto: "#CarruselProducto",
-        EtiquetaOdd: "#EtiquetaOdd"
+        EtiquetaOdd: "#EtiquetaOdd",
+        SloganLanzamiento: "#SloganLanzamiento"
     }
 
     var _tabsFichaProducto = {
@@ -247,12 +248,6 @@
         }
     });
 
-    Handlebars.registerHelper('ifVerificarSlogan', function (CodigoEstrategia, Slogan, options) {
-        if (CodigoEstrategia == ConstantesModule.ConstantesPalanca.Lanzamiento && Slogan.length > 0) {
-            return options.fn(this);
-        }
-    });
-    
     Handlebars.registerHelper('ifVerificarMarcaLast', function (marca, options) {
         if (_esMultimarca) {
             if (_ultimaMarca === "" || _ultimaMarca === marca) {
@@ -272,6 +267,8 @@
     });
 
     var _ocultarSecciones = function () {
+        $(_seccionesFichaProducto.SloganLanzamiento).hide();
+
         if (_codigoPalanca.HerramientasVenta === _config.palanca
             || _codigoPalanca.OfertasParaMi === _config.palanca
             || _codigoPalanca.OfertaParaTi === _config.palanca
@@ -282,16 +279,22 @@
             $(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             $(_seccionesFichaProducto.CarruselProducto).hide();
-        } else if (_codigoPalanca.Lanzamiento == _config.palanca
-            || _codigoPalanca.ShowRoom == _config.palanca) {
+        } else if (_codigoPalanca.Lanzamiento == _config.palanca) {
 
             $(_seccionesFichaProducto.EtiquetaLanzamientos).show();
             $(_seccionesFichaProducto.ImagenDeFondo).show();
             $(_seccionesFichaProducto.DescripcionAdicional).show();
             $(_seccionesFichaProducto.ContenidoProducto).show();
             $(_seccionesFichaProducto.CarruselProducto).show();
-        }
-        else if (_codigoPalanca.OfertaDelDia == _config.palanca) {
+            $(_seccionesFichaProducto.SloganLanzamiento).show();
+        } else if (_codigoPalanca.ShowRoom == _config.palanca) {
+
+            $(_seccionesFichaProducto.EtiquetaLanzamientos).show();
+            $(_seccionesFichaProducto.ImagenDeFondo).show();
+            $(_seccionesFichaProducto.DescripcionAdicional).show();
+            $(_seccionesFichaProducto.ContenidoProducto).show();
+            $(_seccionesFichaProducto.CarruselProducto).show();
+        } else if (_codigoPalanca.OfertaDelDia == _config.palanca) {
             $(_seccionesFichaProducto.EtiquetaOdd).show();
         }
     }

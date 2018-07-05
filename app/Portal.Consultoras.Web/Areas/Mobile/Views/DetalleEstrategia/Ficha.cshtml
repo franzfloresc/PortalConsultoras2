@@ -12,7 +12,7 @@
 
 }
 
-<div class="container"  data-tag-html="@Model.Campania" >
+<div class="container" data-tag-html="@Model.Campania">
     <div class="row">
         <div class="col-md-12">
             <ul class="breadcumbs">
@@ -71,22 +71,18 @@
         </div>
     </div>
     <div class="container">
+        <div id="SloganLanzamiento" class="nombre_detalle_producto_tono">{{this.TipoEstrategiaDetalle.Slogan}}</div>
+        <div class="descripcion_detalle_producto_tono">
+            <ul style="list-style-type: none;">
+                {{#each this.ListaDescripcionDetalle}}
+                <li><span class="vineta">-</span><span class="txt-des">{{this}}</span></li>
+                {{/each}}
+            </ul>
+        </div>
         <div class="row seleccion_tonos">
-
             <div data-estrategia="{{CodigoVariante}}">
-
                 {{#iff CodigoVariante '==' '2001'}}
                 <div id="DescripcionAdicional">
-                    {{#ifVerificarSlogan this.CodigoEstrategia this.TipoEstrategiaDetalle.Slogan}}
-                    <div class="nombre_detalle_producto_tono">{{this.TipoEstrategiaDetalle.Slogan}}</div>
-                    <div class="descripcion_detalle_producto_tono">
-                        <ul>
-                            {{#each this.ListaDescripcionDetalle}}
-                            <li><span class="vineta">-</span><span class="txt-des">{{this}}</span></li>
-                            {{/each}}
-                        </ul>
-                    </div>
-                    {{/ifVerificarSlogan}}
                 </div>
                 {{#each this.Hermanos as |componente|}}
                 <div class="content_tonos_producto" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
@@ -116,7 +112,7 @@
                             <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.MarcaID}}" />
                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
                         </div>
-                        <div class="content_tono_detalle" 
+                        <div class="content_tono_detalle"
                              data-tono-cuv="{{variedad.Cuv}}"
                              data-tono-change="2"
                              data-tono-nombre="{{variedad.NombreBulk}}">
@@ -224,11 +220,11 @@
                     </ul>
                 </li>
                 @*<li>
-                    <a>TIP DE VENTA</a>
-                    <ul>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis itaque nisi ratione sit excepturi. Porro nemo ipsam fugiat quidem accusamus, cumque temporibus atque! Voluptatum nesciunt odio consectetur eos, quibusdam sint?
-                    </ul>
-                </li>*@
+                        <a>TIP DE VENTA</a>
+                        <ul>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis itaque nisi ratione sit excepturi. Porro nemo ipsam fugiat quidem accusamus, cumque temporibus atque! Voluptatum nesciunt odio consectetur eos, quibusdam sint?
+                        </ul>
+                    </li>*@
                 <li id="tabVideo">
                     <a>VIDEO</a>
                     <div class="video-visual">

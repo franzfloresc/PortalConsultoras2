@@ -6,33 +6,11 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class DetalleEstrategiaController : BaseEstrategiaController
+    public class DetalleEstrategiaController : BaseViewController // : BaseEstrategiaController
     {
         public ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
-            if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv)) return RedirectToAction("Index", "Ofertas");
-
-            if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca)) return RedirectToAction("Index", "Ofertas");
-
-            DetalleEstrategiaFichaModel modelo;
-            if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
-            {
-                var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
-                if (estrategiaPresonalizada == null) return RedirectToAction("Index", "Ofertas");
-                modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
-            }
-            else
-            {
-                modelo = new DetalleEstrategiaFichaModel();
-            }
-
-            modelo.Origen = origen;
-            modelo.Palanca = palanca;
-            modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
-            modelo.Campania = campaniaId;
-            modelo.Cuv = cuv;
-
-            return View("Ficha", modelo);
+            return DEFicha(palanca, campaniaId, cuv, origen);
         }
 
         public JsonResult ObtenerComponentes(string estrategiaId, string campania, string codigoVariante)
