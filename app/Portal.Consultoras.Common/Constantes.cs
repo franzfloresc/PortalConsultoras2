@@ -10,7 +10,6 @@ namespace Portal.Consultoras.Common
             public const int Capedevi = 302;
             public const int Terminos = 303;
         }
-
 		
         public static class Marca
         {
@@ -19,14 +18,12 @@ namespace Portal.Consultoras.Common
             public const int Cyzone = 3;
             public const int Finart = 4;
         }
-
 		
         public static class TipoCronograma
         {
             public const int Regular = 1;
             public const int Anticipado = 2;
         }
-
 		
         public static class TipoUsuario
         {
@@ -34,7 +31,6 @@ namespace Portal.Consultoras.Common
             public const int Postulante = 2;
             public const int Admin = 3;
         }
-
 		
         public static class Rol
         {
