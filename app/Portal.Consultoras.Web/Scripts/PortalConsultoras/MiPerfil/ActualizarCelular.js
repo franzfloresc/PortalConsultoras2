@@ -122,44 +122,91 @@
             };
         }
 
+        function getValidators() {
+            var success = {
+                Success: true
+            };
+
+            var equalsNumber = function (numero) {
+                if (localData.CelularActual === numero) {
+                    return {
+                        Success: false,
+                        Message: 'El número no puede ser el mismo.'
+                    };
+                }
+
+                return success;
+            }
+
+            var onlyNumbers = function (numero) {
+                var pattern = /^\d+$/;
+                if (!pattern.test(numero)) {
+                    return {
+                        Success: false,
+                        Message: 'El número no cumple con el formato.'
+                    };
+                }
+
+                return success;
+            }
+
+            var byCountryLength = function (numero) {
+                var result = validarPhonePais(localData.IsoPais, numero);
+                if (!result.valid) {
+                    return {
+                        Success: false,
+                        Message: 'El número debe tener ' + result.length + ' digitos.'
+                    };
+                }
+
+                return success;
+            }
+
+            var byCountryFormat = function (numero) {
+                if (localData.InicialNumero) {
+                    if (numero.charAt(0) !== localData.InicialNumero) {
+                        return {
+                            Success: false,
+                            Message: 'El número debe empezar con ' + localData.InicialNumero + '.'
+                        }
+                    }                
+                }
+
+                return success;
+            }
+
+            return [
+                equalsNumber,
+                onlyNumbers,
+                byCountryLength,
+                byCountryFormat
+            ];
+        }
+
         function validarCelular(numero) {
             if (!numero) {
                 return {
                     Success: false,
-                    Message: 'Debe ingresar celular.'
-                };
-            }
-            
-            if (localData.CelularActual === numero) {
-                return {
-                    Success: false,
-                    Message: 'El número no puede ser el mismo.'
+                    Messages: ['Debe ingresar celular.']
                 };
             }
 
-            var pattern = /^\d+$/;
-            if (!pattern.test(numero)) {
-                return {
-                    Success: false,
-                    Message: 'El número no cumple con el formato.'
-                };
+            var validators = getValidators();
+            var messages = [];
+
+            for (var i = 0; i < validators.length; i++) {
+                var validator = validators[i];
+                var result = validator(numero);
+                if (!result.Success) {
+                    messages.push(result.Message);
+                }
             }
 
-            var result = validarPhonePais(localData.IsoPais, numero);
-            if (!result.valid) {
+            if (messages.length > 0) {
                 return {
                     Success: false,
-                    Message: 'El número debe tener ' + result.length + ' digitos.'
-                };
-            }
-
-            if (localData.InicialNumero) {
-                if (numero.charAt(0) !== localData.InicialNumero) {
-                    return {
-                        Success: false,
-                        Message: 'El número debe empezar con ' + localData.InicialNumero + '.'
-                    }
-                }                
+                    Messages: messages
+                }
             }
 
             return { Success: true };
@@ -243,7 +290,7 @@
         }
 
         function showError(text) {
-            me.Elements.getErrorText().text(text);
+            me.Elements.getErrorText().html(text);
         }
 
         function verifySmsCode(code) {
@@ -315,12 +362,13 @@
 
     })();
     me.Eventos = (function() {
+
         function continuar() {
             var nuevoCelular = me.Elements.getInputCelular().val();
 
             var result = me.Funciones.ValidarCelular(nuevoCelular);
             if (!result.Success) {
-                me.Funciones.ShowError(result.Message);
+                me.Funciones.ShowError(result.Messages.join('<br>'));
                 return;
             }
 
