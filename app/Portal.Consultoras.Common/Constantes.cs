@@ -1793,7 +1793,7 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
             public const string HerramientasVentaComprar = "/herramientasventa/comprar";
 
-            public const string DetalleHerramientasVenta = "/detalle/HerramientasVenta";
+            public const string DetalleHerramientasVenta = "/detalle/herramientasventa";
             public const string DetalleLanzamiento = "/detalle/lanzamiento";
             public const string DetalleOfertaParaTi = "/detalle/ofertaparati";
             public const string DetalleOfertasParaMi = "/detalle/ofertasparami";
