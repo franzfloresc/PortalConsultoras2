@@ -14,7 +14,7 @@ $(document).ready(function () {
 
         me.globals = {
             barraActivacion: $('.barra_activacion'),
-            listaOpcionPago: $(".opcionPagoMobile"),
+            listaOpcionPagoMobile: $(".opcionPagoMobile"),
             listaOpcionPagoDesktop: $(".opcionPagoDesktop")
         },
 
@@ -39,7 +39,7 @@ $(document).ready(function () {
                 var esPagoEnLineaMobile = window.matchMedia("(max-width:991px)").matches;
 
                 if (esPagoEnLineaMobile) {
-                    var listaOpcionPago = me.globals.listaOpcionPago;
+                    var listaOpcionPago = me.globals.listaOpcionPagoMobile;
                 } else {
                     var listaOpcionPago = me.globals.listaOpcionPagoDesktop;
                 }
