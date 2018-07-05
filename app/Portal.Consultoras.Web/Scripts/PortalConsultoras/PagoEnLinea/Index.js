@@ -60,15 +60,12 @@ $(document).ready(function () {
                 }
             },
             MostrarDetalleTipoPago: function () {
-                var siTipoPagoDetalleSeMuestra = $(this).is('.mostrarContenidoDetalle');
+                var siTipoPagoDetalleSeMuestra = $(this).find('.opcion_pago_contenido_visible_al_desplegar').css('display');
 
-                if (siTipoPagoDetalleSeMuestra) {
-                    $(this).removeClass('mostrarContenidoDetalle');
+                if (siTipoPagoDetalleSeMuestra == 'block') {
                     $(this).find('.opcion_pago_contenido_visible_al_desplegar').slideUp(200);
                 } else {
-                    $('.opcion_pago').removeClass('mostrarContenidoDetalle');
                     $('.opcion_pago_contenido_visible_al_desplegar').slideUp(200);
-                    $(this).addClass('mostrarContenidoDetalle');
                     $(this).find('.opcion_pago_contenido_visible_al_desplegar').slideDown(200);
                 }
             },

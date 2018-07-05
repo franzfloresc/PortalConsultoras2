@@ -33,11 +33,11 @@
 }
 
 .w-53{
-    width:53%;
+    width:53.6%;
 }
 
 .w-45{
-    width:45%;
+    width:42.4%;
 }
 
 .w-100{
@@ -64,6 +64,8 @@
 .proceso_de_pago_en_linea,
 .cantidad_pasos_proceso_pago,
 .linea_conectora_pasos,
+.opcion_pago_contenido_visible_sin_desplegar,
+.opcion_pago_contenido_visible_al_desplegar,
 .fondo_pasos_proceso_pago_avance,
 .seleccion_monto_a_pagar,
 .campo_seleccion_monto_a_pagar,
@@ -117,8 +119,6 @@
 }
 
 .paso_proceso_pago_en_linea,
-.opcion_pago_contenido_visible_sin_desplegar,
-.opcion_pago_contenido_visible_al_desplegar,
 .col_izq,
 .col_der,
 .titulo_monto_pago_total,
@@ -336,7 +336,6 @@
 .opcion_pago {
     border: 2px solid #7E7E7E;
     padding-bottom:12px;
-    overflow: hidden;
     -moz-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
     -webkit-transition: all 0.2s ease;
@@ -352,24 +351,6 @@
 
 .pagoTotal{
     margin-bottom:16px;
-    height:70px;
-}
-
-.mostrarContenidoDetalle{
-    overflow:initial;
-}
-
-.pagoTotal.mostrarContenidoDetalle{
-    height:273px;
-}
-
-.pagoParcial{
-    margin-bottom:0;
-    height:86px;
-}
-
-.pagoParcial.mostrarContenidoDetalle{
-    height:266px;
 }
 
 .opcion_pago input[type="radio"]{
@@ -431,7 +412,7 @@
 .opcion_pago:first-child .opcion_pago_contenido_visible_sin_desplegar,
 .opcion_pago:last-child .opcion_pago_contenido_visible_sin_desplegar
 {
-    padding-bottom:15px;
+    padding-bottom:3px;
 }
 
 .opcion_pago:first-child .opcion_pago_contenido_visible_sin_desplegar{
