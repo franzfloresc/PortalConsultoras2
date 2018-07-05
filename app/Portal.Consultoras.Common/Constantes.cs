@@ -1790,6 +1790,14 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVentaIndex = "/herramientasventa/index";
             public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
             public const string HerramientasVentaComprar = "/herramientasventa/comprar";
+
+            public const string DetalleHerramientasVenta = "/detalle/HerramientasVenta";
+            public const string DetalleLanzamiento = "/detalle/lanzamiento";
+            public const string DetalleOfertaParaTi = "/detalle/ofertaparati";
+            public const string DetalleOfertasParaMi = "/detalle/ofertasparami";
+            public const string DetalleGuiaDeNegocioDigitalizada = "/detalle/guiadenegociodigitalizada";
+            public const string DetalleShowRoom = "/detalle/showroom";
+            public const string DetalleOfertaDelDia = "/detalle/ofertadeldia";
         }
 
         public static class TipoVistaEstrategia

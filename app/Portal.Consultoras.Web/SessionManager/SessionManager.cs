@@ -514,7 +514,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         public Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR()
         {
-            return (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel)HttpContext.Current.Session["ConfigEstrategiaSR"];
+            return (Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel)HttpContext.Current.Session["ConfigEstrategiaSR"] ?? new Models.Estrategia.ShowRoom.ConfigModel();
         }
         
         public void SetBEEstrategia(string key, List<ServiceOferta.BEEstrategia> data)
@@ -564,7 +564,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         OfertaDelDiaModel ISessionManager.GetOfertasDelDia()
         {
-            return (OfertaDelDiaModel)HttpContext.Current.Session["ListaOfertasDelDia"];
+            return (OfertaDelDiaModel)HttpContext.Current.Session["ListaOfertasDelDia"] ?? new OfertaDelDiaModel();
         }
 
         void ISessionManager.SetFlagOfertaDelDia(int ofertasDelDia)
