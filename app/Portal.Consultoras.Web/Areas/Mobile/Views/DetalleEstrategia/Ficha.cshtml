@@ -27,7 +27,7 @@
 
 
 <script id="detalle_ficha_template" type="text/x-handlebars-template">
-    <div id="" class="bg_imagen_producto" style='background: url(""); background-color: #efefef !important;'
+    <div id="ImagenDeFondo" class="bg_imagen_producto" style='background: url(""); background-color: #efefef !important;'
          data-estadoregistro="">
     </div>
     <div class="container">
@@ -43,7 +43,8 @@
         </div>
         <div class="row marca_producto">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <h2> {{#if EsMultimarca}}</h2>
+                {{#if EsMultimarca}}
+                <h2></h2>
                 {{else}}
                 <h2>{{DescripcionMarca}}</h2>
                 {{/if}}
@@ -192,21 +193,23 @@
     </div>
 
     <div id="seccion_ficha_handlebars"></div>
-
-    <div class="content_btn_agregar">
-        <div class="content_320">
-            <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
-                <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+    @if (Model.ClaseBloqueada == "")
+    {
+        <div class="content_btn_agregar">
+            <div class="content_320">
+                <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
+                    <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                    <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <a class="btn_agregar_ficha_producto @Model.ClaseBloqueada"
+                   id="btnAgregalo"
+                   data-bloqueada=""
+                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
+                <hr class="clear">
             </div>
-            <a class="btn_agregar_ficha_producto @Model.ClaseBloqueada"
-               id="btnAgregalo"
-               data-bloqueada=""
-               onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
-            <hr class="clear">
         </div>
-    </div>
+    }
 </div>
 
 <div class="container" id="ContenidoProducto">
@@ -275,6 +278,10 @@
 </div>
 
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
+@if (Model.ClaseBloqueada != "")
+{
+    @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
+}
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
