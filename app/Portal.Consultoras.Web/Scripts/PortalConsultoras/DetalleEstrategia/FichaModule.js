@@ -1,5 +1,5 @@
 ﻿var FichaModule = (function (config) {
-    'use strict';
+    "use strict";
     var localStorageModule;
     var _primeraMarca = "";
     var _ultimaMarca = "";
@@ -55,14 +55,14 @@
     };
 
     var _getParamValueFromQueryString = function (queryStringName) {
-        queryStringName = queryStringName || '';
+        queryStringName = queryStringName || "";
         queryStringName = queryStringName.toLowerCase();
-        var queryStringValue = '';
-        var stringUrlParameters = location.href.toLowerCase().split('?');
-        if (stringUrlParameters.length > 1 && queryStringName != '') {
-            var arrParameterString = stringUrlParameters[1].split('&');
+        var queryStringValue = "";
+        var stringUrlParameters = location.href.toLowerCase().split("?");
+        if (stringUrlParameters.length > 1 && queryStringName != "") {
+            var arrParameterString = stringUrlParameters[1].split("&");
             $.each(arrParameterString, function (index, stringParameter) {
-                var items = stringParameter.split('=');
+                var items = stringParameter.split("=");
                 var parameterName = $.trim(items[0]);
                 var parameterValue = $.trim(items[1]);
                 if (parameterName == queryStringName) {
@@ -101,8 +101,8 @@
             $(elem).FlipClock(50000,
                 {
                     countdown: true,
-                    clockFace: 'HourlyCounter',
-                    language: 'es-es',
+                    clockFace: "HourlyCounter",
+                    language: "es-es",
                 });
         });
     };
@@ -121,7 +121,7 @@
                 }
 
                 FichaTabElement.onclick = function (event) {
-                var numID = event.target.getAttribute('data-numTab');
+                var numID = event.target.getAttribute("data-numTab");
 
                 for (var j = 1; j <= 5; j++) {
                     document.getElementById("contenido_" + j.toString()).style.display = "none";
@@ -134,11 +134,11 @@
         }
 
         if (!window.videoKey) {
-            $('#tabVideo').hide();
+            $("#tabVideo").hide();
         }
 
-        $('ul.ficha_tabs li').click(function () {
-            $(this).children('ul').slideToggle();
+        $("ul.ficha_tabs li").click(function () {
+            $(this).children("ul").slideToggle();
         });
     };
     
@@ -241,14 +241,14 @@
         return true;
     };
 
-    Handlebars.registerHelper('ifVerificarMarca', function (marca, options) {
+    Handlebars.registerHelper("ifVerificarMarca", function (marca, options) {
         if (_primeraMarca !== marca && _esMultimarca) {
             _primeraMarca = marca;
             return options.fn(this);
         }
     });
 
-    Handlebars.registerHelper('ifVerificarMarcaLast', function (marca, options) {
+    Handlebars.registerHelper("ifVerificarMarcaLast", function (marca, options) {
         if (_esMultimarca) {
             if (_ultimaMarca === "" || _ultimaMarca === marca) {
                 _ultimaMarca = marca;
