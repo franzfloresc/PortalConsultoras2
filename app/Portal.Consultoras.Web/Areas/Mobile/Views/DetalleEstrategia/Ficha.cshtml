@@ -30,6 +30,19 @@
     <div id="ImagenDeFondo" class="bg_imagen_producto" style='background: url(""); background-color: #efefef !important;'
          data-estadoregistro="">
     </div>
+    <div data-compartir-campos="" style="display:none;">
+        <input type="hidden" class="CUV" value="{{CUV2}}" />
+        <input type="hidden" class="rsFBMensaje" value="" />
+        <input type="hidden" class="rsWAMensaje" value="" />
+        <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
+        <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
+        <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+        <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+        <input type="hidden" class="Nombre" value="{{DescripcionResumen}}" />
+        <input type="hidden" class="ProductoDescripcion" value="{{DescripcionDetalle}}" />
+        <input type="hidden" class="Volumen" value="" />
+        <input type="hidden" class="Palanca" value="LAN" />
+    </div>
     <div class="container">
         <div class="row imagen_producto bg_imagen_producto_subir">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -192,7 +205,7 @@
     </div>
 
     <div id="seccion_ficha_handlebars"></div>
-    @if (Model.ClaseBloqueada == "")
+    @if (ViewBag.CampaniaCodigo == Model.Campania)
     {
         <div class="content_btn_agregar">
             <div class="content_320">
@@ -271,13 +284,11 @@
         <a href="javascript: void(0);" class="text-right"><img src="~/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp" data-compartir="WA"></a>
         <a href="javascript: void(0);"><img src="~/Content/Images/showroom/redes_facebook.png" alt="" class="fb" data-compartir="FB"></a>
         <div class="clearfix"></div>
-
-
     </div>
 </div>
 
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
-@if (Model.ClaseBloqueada != "")
+@if (ViewBag.CampaniaCodigo != Model.Campania)
 {
     @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
 }
