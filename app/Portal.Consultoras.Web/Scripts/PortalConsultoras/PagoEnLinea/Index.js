@@ -13,7 +13,8 @@ $(document).ready(function () {
         var me = this;
 
         me.globals = {
-            barraActivacion : $('.barra_activacion')
+            barraActivacion: $('.barra_activacion'),
+            listaOpcionPago: $(".opcion_pago")
         },
 
         me.Funciones = {
@@ -33,6 +34,15 @@ $(document).ready(function () {
             InicializarAcciones: function () {
                 me.globals.barraActivacion.toggleClass('activado');
                 me.globals.barraActivacion.attr('data-estado', 1);
+
+                var listaOpcionPago = me.globals.listaOpcionPago;
+                if (listaOpcionPago) {
+                    var cantidad = listaOpcionPago.length;
+
+                    if (cantidad > 0) {
+                        $(listaOpcionPago)[1].click();
+                    }
+                }
             }
         },
         me.Eventos = {
