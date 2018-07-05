@@ -60,6 +60,8 @@ $(document).ready(function () {
                 }
             },
             MostrarDetalleTipoPago: function () {
+                $('.opcion_pago').removeClass('mostrarContenidoDetalle');
+                $('.opcion_pago_contenido_visible_al_desplegar').slideUp(200);
                 $(this).toggleClass('mostrarContenidoDetalle');
                 $(this).find('.opcion_pago_contenido_visible_al_desplegar').slideToggle(200);
             },
