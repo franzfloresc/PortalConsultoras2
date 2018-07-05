@@ -136,7 +136,6 @@
 
 
     var _mostrarCarrusel = function () {
-        debugger;
         var data = _obtenerSetRelacionados();
 
         if (!data)
