@@ -25,10 +25,9 @@
     </div>
 </div>
 
-<div id="seccion_ficha_handlebars"></div>
 
 <script id="detalle_ficha_template" type="text/x-handlebars-template">
-    <div class="bg_imagen_producto" style='background: url(""); background-color: #efefef !important;'
+    <div id="" class="bg_imagen_producto" style='background: url(""); background-color: #efefef !important;'
          data-estadoregistro="">
     </div>
     <div class="container">
@@ -37,7 +36,7 @@
                 <img src="{{ImgSmall FotoProducto01}}" />
             </div>
         </div>
-        <div class="row label_producto">
+        <div id="EtiquetaLanzamientos" class="row label_producto">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <img src="img/label.jpg" alt="">
             </div>
@@ -191,10 +190,12 @@
     </div>
 </script>
 
-<div class="row" data-item="" data-OrigenPedidoWeb="@Model.Origen">
+<div data-item="" data-OrigenPedidoWeb="@Model.Origen">
     <div style="display: none;">
         <div id="data-estrategia" data-estrategia="@Json.Encode(Model)"></div>
     </div>
+
+    <div id="seccion_ficha_handlebars"></div>
 
     <div class="content_btn_agregar">
         <div class="content_320">
@@ -204,7 +205,7 @@
                 <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
             </div>
             <a class="btn_agregar_ficha_producto @Model.ClaseBloqueada"
-               id="btnAgregarProducto"
+               id="btnAgregalo"
                data-bloqueada=""
                onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
             <hr class="clear">
@@ -212,7 +213,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container" id="ContenidoProducto">
     <div class="row tabs">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <ul class="tabs ficha_tabs">
@@ -245,7 +246,7 @@
     </div>
 </div>
 
-<div class="container">
+<div id="CarruselProducto" class="container">
     <div class="row carrusel">
         <div>
 
