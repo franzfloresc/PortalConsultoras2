@@ -36,12 +36,13 @@ $(document).ready(function () {
                 me.globals.barraActivacion.toggleClass('activado');
                 me.globals.barraActivacion.attr('data-estado', 1);
 
-                var esPagoEnLineaMobile = window.matchMedia("(max-width:991px)").matches;
+                var esPagoEnLineaMobile = tipoOrigenPantalla == 2;
 
+                var listaOpcionPago;
                 if (esPagoEnLineaMobile) {
-                    var listaOpcionPago = me.globals.listaOpcionPagoMobile;
+                    listaOpcionPago = me.globals.listaOpcionPagoMobile;
                 } else {
-                    var listaOpcionPago = me.globals.listaOpcionPagoDesktop;
+                    listaOpcionPago = me.globals.listaOpcionPagoDesktop;
                 }
                 
                 if (listaOpcionPago) {
