@@ -30,7 +30,7 @@
     <div id="EtiquetaOdd">
         <div id="clock" class="clock_odd"></div>
     </div>
-    <div id="ImagenDeFondo" class="bg_imagen_producto" style='background: url(""); background-color: #efefef !important;'
+    <div id="ImagenDeFondo" class="bg_imagen_producto" style='background: url("{{TipoEstrategiaDetalle.ImgFichaFondoMobile}}"); background-color: #efefef !important;'
          data-estadoregistro="">
     </div>
     <div data-compartir-campos="" style="display:none;">
@@ -209,6 +209,14 @@
     </div>
 
     <div id="seccion_ficha_handlebars"></div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 share">
+        <p>Comparte el producto con tus clientes</p>
+        <a href="javascript: void(0);" class="text-right"><img src="~/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp" data-compartir="WA"></a>
+        <a href="javascript: void(0);"><img src="~/Content/Images/showroom/redes_facebook.png" alt="" class="fb" data-compartir="FB"></a>
+        <div class="clearfix"></div>
+    </div>
+
     @if (ViewBag.CampaniaCodigo == Model.Campania)
     {
         <div class="content_btn_agregar">
@@ -302,16 +310,10 @@
     <div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
         <hr>
     </div>
-
-    <div class="col-md-12 col-sm-12 col-xs-12 share">
-        <p>Comparte el producto con tus clientes</p>
-        <a href="javascript: void(0);" class="text-right"><img src="~/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp" data-compartir="WA"></a>
-        <a href="javascript: void(0);"><img src="~/Content/Images/showroom/redes_facebook.png" alt="" class="fb" data-compartir="FB"></a>
-        <div class="clearfix"></div>
-    </div>
 </div>
 
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
+
 @if (ViewBag.CampaniaCodigo != Model.Campania)
 {
     @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
@@ -320,11 +322,12 @@
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
 
-
-    <script>
+<script>
         window.videoKey = '@Model.CodigoVideo';
         var fichaModule;
-        var carruselModule;
+        //var carruselModule;
+
+        var tieneCarrusel = '@Model.TieneCarrusel';
 
         $(document).ready(function() {
             fichaModule = FichaModule({
@@ -337,21 +340,22 @@
             });
             fichaModule.Inicializar();
 
-
-            carruselModule = CarruselModule({
-                palanca: "@Model.Palanca",
-                campania: "@Model.Campania",
-                cuv: "@Model.Cuv",
-                idPlantilla: "#producto-landing-template",
-                divCarrusel: "#divOfertaProductos",
-                divSetsProductosdata: "#set_relacionados",
-                urlDataCarrusel: '@Url.Action("GetCarruselShowRoomExcepto", "Estrategia", new { Area = "" })',
-                idTituloCarrusel: "#tituloCarrusel"
-            });
-            carruselModule.Inicializar();
+            if (tieneCarrusel) {
+                carruselModule = CarruselModule({
+                    palanca: "@Model.Palanca",
+                    campania: "@Model.Campania",
+                    cuv: "@Model.Cuv",
+                    idPlantilla: "#producto-landing-template",
+                    divCarrusel: "#divOfertaProductos",
+                    divSetsProductosdata: "#set_relacionados",
+                    urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new { Area = "" })',
+                    idTituloCarrusel: "#tituloCarrusel"
+                });
+                carruselModule.Inicializar();
+            }
         });
 
-    </script>
+</script>
     @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
 
 }

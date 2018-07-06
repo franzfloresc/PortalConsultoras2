@@ -4162,7 +4162,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var listSp = tono.Split(';');
                     estrategia.CUV2 = listSp.Length > 0 ? listSp[0] : estrategia.CUV2;
-                    estrategia.MarcaID = listSp.Length > 1 ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
+                    estrategia.MarcaID = (listSp.Length > 1  && ! string.IsNullOrEmpty(listSp[1]))  ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
                     estrategia.Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
 
                     respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, model, false);
