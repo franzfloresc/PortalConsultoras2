@@ -699,24 +699,24 @@ $(document).ready(function () {
     //    //document.location.href = urlOfertaDelDiaMobile;
     //});
 
-    $(elements.ContenedorInternoSliderOfertaDelDiaMobile).click(function () {
-        dataLayer.push({
-            'event': "promotionClick",
-            'ecommerce': {
-                'promoClick': {
-                    'promotions': [
-                    {
-                        'id': "002",
-                        'name': "Oferta del dia",
-                        'position': controllerName + " - Banner superior",
-                        'creative': "Banner"
-                    }]
-                }
-            }
-        });
+    //$(elements.ContenedorInternoSliderOfertaDelDiaMobile).click(function () {
+    //    dataLayer.push({
+    //        'event': "promotionClick",
+    //        'ecommerce': {
+    //            'promoClick': {
+    //                'promotions': [
+    //                {
+    //                    'id': "002",
+    //                    'name': "Oferta del dia",
+    //                    'position': controllerName + " - Banner superior",
+    //                    'creative': "Banner"
+    //                }]
+    //            }
+    //        }
+    //    });
 
-        document.location.href = urlOfertaDelDiaMobile;
-    });
+    //    document.location.href = urlOfertaDelDiaMobile;
+    //});
 
     $("body").on("click", elements.BtnAgregarMobile, function (e) {
         var accion = $(this).attr("data-odd-accion").toUpperCase();
