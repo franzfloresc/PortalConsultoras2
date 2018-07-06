@@ -14,13 +14,13 @@ $(document).ready(function () {
 
         me.globals = {
             barraActivacion: $('.barra_activacion'),
-            listaOpcionPago: $(".opcion_pago"),
+            listaOpcionPagoMobile: $(".opcionPagoMobile"),
             listaOpcionPagoDesktop: $(".opcionPagoDesktop")
         },
 
         me.Funciones = {
             InicializarEventos: function () {                
-                $(document).on('click', '.opcion_pago', me.Eventos.MostrarDetalleTipoPago);
+                $(document).on('click', '.opcionPagoMobile', me.Eventos.MostrarDetalleTipoPago);
                 $(document).on('click', '.opcionPagoDesktop', me.Eventos.MostrarDetalleTipoPago);
                 $(document).on('click', '.area_activa_barra_activacion', me.Eventos.AceptarTerminosYCondiciones);
                 $(document).on('click', '.ver_terminos_y_condiciones', me.Eventos.AbrirPopupTerminosYCondiciones);
@@ -36,28 +36,21 @@ $(document).ready(function () {
                 me.globals.barraActivacion.toggleClass('activado');
                 me.globals.barraActivacion.attr('data-estado', 1);
 
-                //Desktop
-                if (tipoOrigenPantalla == 1) {
-                    var listaOpcionPagoDesktop = me.globals.listaOpcionPagoDesktop;
-                    if (listaOpcionPagoDesktop) {
-                        var cantidad = listaOpcionPagoDesktop.length;
+                var esPagoEnLineaMobile = window.matchMedia("(max-width:991px)").matches;
 
-                        if (cantidad > 0) {
-                            $(listaOpcionPagoDesktop)[0].click();
-                        }
-                    }
-                }
-                if (tipoOrigenPantalla == 2) {
-                    var listaOpcionPago = me.globals.listaOpcionPago;
-                    if (listaOpcionPago) {
-                        var cantidad = listaOpcionPago.length;
-
-                        if (cantidad > 0) {
-                            $(listaOpcionPago)[0].click();
-                        }
-                    }
+                if (esPagoEnLineaMobile) {
+                    var listaOpcionPago = me.globals.listaOpcionPagoMobile;
+                } else {
+                    var listaOpcionPago = me.globals.listaOpcionPagoDesktop;
                 }
                 
+                if (listaOpcionPago) {
+                    var cantidad = listaOpcionPago.length;
+
+                    if (cantidad > 0) {
+                        $(listaOpcionPago)[0].click();
+                    }
+                }
             }
         },
         me.Eventos = {
@@ -75,13 +68,13 @@ $(document).ready(function () {
                 }
             },
             MostrarDetalleTipoPago: function () {
-                var siTipoPagoDetalleSeMuestra = $(this).find('.opcion_pago_contenido_visible_al_desplegar').css('display');
+                var siTipoPagoDetalleSeMuestra = $(this).next().css('display');
 
                 if (siTipoPagoDetalleSeMuestra == 'block') {
-                    $(this).find('.opcion_pago_contenido_visible_al_desplegar').slideUp(200);
+                    $(this).next().slideUp(200);
                 } else {
                     $('.opcion_pago_contenido_visible_al_desplegar').slideUp(200);
-                    $(this).find('.opcion_pago_contenido_visible_al_desplegar').slideDown(200);
+                    $(this).next().slideDown(200);
                 }
             },
             MostrarTooltipAceptarTerminosYCondiciones: function(){
