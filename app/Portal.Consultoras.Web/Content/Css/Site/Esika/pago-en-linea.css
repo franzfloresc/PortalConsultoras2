@@ -67,6 +67,7 @@
 .aceptar_terminos_y_condiciones,
 .contenedor_info_pago_seguro_y_ctas,
 .info_pago_seguro_con_tarjetas,
+.lista_tarjetas_permitidas_para_pago,
 .vista_confirmacion_pago,
 .titulo_seleccion_monto_a_pagar,
 .texto_pago_seguro,
@@ -88,7 +89,8 @@
 .opcion_pago_gastos_administrativos,
 .linea_separacion_montos_y_total,
 .opcion_pago_total_a_pagar,
-.icono_flecha_despliegue
+.icono_flecha_despliegue,
+.info_requerimiento_tarjeta_habilitada
 {
     display:block;
 }
@@ -215,7 +217,7 @@
 }
 
 .wrapper_tipo_de_pago{
-    margin:0 auto;
+    margin:0 auto 82px auto;
     max-width:720px;
 }
 
@@ -282,9 +284,24 @@
     top:11px;
 }
 
+.info_pago_seguro_con_tarjetas{
+    margin:0 auto;
+    max-width:405px;
+}
+
 .icono_marca_tarjeta{
-    margin-top:4px;
+    width: auto;
+    height: 20px;
     margin-right:14px;
+}
+
+.icono_marca_tarjeta:last-child{
+    margin-right:0;
+}
+
+.icono_marca_tarjeta img{
+    width:auto;
+    height:100%;
 }
 
 .marca_tarjeta{
@@ -315,7 +332,7 @@
 
 .opcion_pago_contenido_visible_sin_desplegar{
     cursor:pointer;
-    padding-top:8px;
+    padding-top:6px;
 }
 
 .opcion_pago_contenido_visible_sin_desplegar,
@@ -425,7 +442,8 @@
 .fecha_vencimiento_monto_total{
     font-size:12px;
     color:#909090;
-    margin-bottom:6px;
+    margin-top:-4px;
+    margin-bottom:10px;
 }
 
 .icono_flecha_despliegue{
@@ -467,7 +485,7 @@
     color:#000;
     text-transform:uppercase;
     margin-bottom:0;
-    padding-top:6px;
+    padding-top:4px;
 }
 
 .monto_total_a_pagar,
@@ -676,11 +694,24 @@
     margin-right:6px;
 }
 
+.info_requerimiento_tarjeta_habilitada {
+    font-weight:300;
+    line-height:15px;
+    margin-top:10px;
+}
+
 .texto_pago_seguro{
     font-size:10px;
     font-weight:300;
     letter-spacing:0.2px;
     text-transform:uppercase;
+    margin-bottom:8px;
+}
+
+.info_requerimiento_tarjeta_habilitada,
+.texto_pago_seguro
+{
+    color: #808080;
 }
 
 .icono_marca_visa{

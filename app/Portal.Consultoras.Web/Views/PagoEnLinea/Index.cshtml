@@ -45,45 +45,45 @@
                 {
                     if (item.Codigo == Constantes.PagoEnLineaTipoPago.PagoTotal)
                     {
-                    <div class="monto_total_pago_en_linea pagoTotal">
-                        <div class="opcion_pago_contenido_visible_sin_desplegar opcionPagoDesktop w-100">
-                            <div class="col_izq text-left">
-                                <h4 class="titulo_pago_total">@item.Descripcion:</h4>
-                                <div class="monto_total_a_pagar">
+                        <div class="monto_total_pago_en_linea pagoTotal">
+                            <div class="opcion_pago_contenido_visible_sin_desplegar opcionPagoDesktop w-100">
+                                <div class="col_izq text-left">
+                                    <h4 class="titulo_pago_total">@item.Descripcion:</h4>
+                                    <div class="monto_total_a_pagar">
 
-                                    <span>@Model.Simbolo </span>
-                                    <span>@Model.MontoDeudaString</span>
+                                        <span>@Model.Simbolo </span>
+                                        <span>@Model.MontoDeudaString</span>
+                                    </div>
+                                    <div class="fecha_vencimiento_monto_total">
+                                        <span>Vence</span>
+                                        <span>@Model.FechaVencimientoString</span>
+                                    </div>
                                 </div>
-                                <div class="fecha_vencimiento_monto_total">
-                                    <span>Vence</span>
-                                    <span>@Model.FechaVencimientoString</span>
+                                <div class="col_der">
+                                    <div class="icono_flecha_despliegue">
+                                        <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col_der">
-                                <div class="icono_flecha_despliegue">
-                                    <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido" />
+                            <div class="opcion_pago_contenido_visible_al_desplegar w-100" style="display:none;">
+                                <div class="opcion_pago_monto">
+                                    <div class="w-53 text-left">Monto :</div>
+                                    <div class="w-45 text-right">@Model.MontoDeudaString</div>
                                 </div>
+                                <div class="opcion_pago_gastos_administrativos">
+                                    <div class="w-53 text-left">Gastos Adm. (@Model.PorcentajeGastosAdministrativos%) :</div>
+                                    <div class="w-45 text-right">@Model.MontoGastosAdministrativosString</div>
+                                </div>
+                                <hr class="linea_separacion_montos_y_total w-100" />
+                                <div class="opcion_pago_total_a_pagar">
+                                    <div class="w-53 text-left text-bold-black">TOTAL POR PAGAR :</div>
+                                    <div class="w-45 text-right text-bold-black">@Model.MontoDeudaConGastosString</div>
+                                </div>
+                                <button type="button" class="cta_pago_en_linea btn_pago_tarjeta_credito default-background" id="btnPagoTotal">
+                                    Continuar
+                                </button>
                             </div>
                         </div>
-                        <div class="opcion_pago_contenido_visible_al_desplegar w-100" style="display:none;">
-                            <div class="opcion_pago_monto">
-                                <div class="w-53 text-left">Monto :</div>
-                                <div class="w-45 text-right">@Model.MontoDeudaString</div>
-                            </div>
-                            <div class="opcion_pago_gastos_administrativos">
-                                <div class="w-53 text-left">Gastos Adm. (@Model.PorcentajeGastosAdministrativos%) :</div>
-                                <div class="w-45 text-right">@Model.MontoGastosAdministrativosString</div>
-                            </div>
-                            <hr class="linea_separacion_montos_y_total w-100" />
-                            <div class="opcion_pago_total_a_pagar">
-                                <div class="w-53 text-left text-bold-black">TOTAL POR PAGAR :</div>
-                                <div class="w-45 text-right text-bold-black">@Model.MontoDeudaConGastosString</div>
-                            </div>
-                            <button type="button" class="cta_pago_en_linea btn_pago_tarjeta_credito default-background" id="btnPagoTotal">
-                                Continuar
-                            </button>
-                        </div>
-                    </div>
                     }
                     if (item.Codigo == Constantes.PagoEnLineaTipoPago.PagoParcial)
                     {
@@ -133,23 +133,36 @@
                 }
             </div>
         </div>
-
-        <div>
-            PAGA SEGURO CON
-            @foreach (var itemMedioPago in Model.ListaMedioPago)
-            {
-            <div style="width: 40px; height:20px;">
-                <img src="@itemMedioPago.RutaIcono" alt="" style="width: 100%;" />
+        <div class="info_pago_seguro_con_tarjetas text-center">
+            <div class="lista_tarjetas_permitidas_para_pago">
+                <div class="texto_pago_seguro text-uppercase">Pago seguro con</div>
+                @foreach (var itemMedioPago in Model.ListaMedioPago)
+                {
+                    <div class="icono_marca_tarjeta">
+                        <img src="@itemMedioPago.RutaIcono" alt="" />
+                    </div>
+                }
             </div>
-            }
-            <br />
-            Recuerda habilitar tu tarjeta para Pagos por Internet.
+            <p class="info_requerimiento_tarjeta_habilitada">
+                Recuerda habilitar tu tarjeta<br/>para pagos por internet.
+            </p>
         </div>
+        @*<div>
+                PAGA SEGURO CON
+                @foreach (var itemMedioPago in Model.ListaMedioPago)
+                {
+                <div style="width: 40px; height:20px;">
+                    <img src="@itemMedioPago.RutaIcono" alt="" style="width: 100%;" />
+                </div>
+                }
+                <br />
+                Recuerda habilitar tu tarjeta para Pagos por Internet.
+            </div>*@
     </div>
 </div>
 
 @section scripts{
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")"></script>    
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")"></script>
 
     <script type="text/javascript">
         var rutaGuardarDatosPago = '@Url.Action("GuardarDatosPago", "PagoEnLinea")';

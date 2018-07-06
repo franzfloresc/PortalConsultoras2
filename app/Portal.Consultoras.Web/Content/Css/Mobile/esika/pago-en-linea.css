@@ -345,7 +345,6 @@
 
 .opcion_pago {
     border: 2px solid #7E7E7E;
-    padding-bottom:12px;
     -moz-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
     -webkit-transition: all 0.2s ease;
@@ -412,11 +411,18 @@
     background:#e81c36;
 }
 
-.opcion_pago,
+.opcion_pago_contenido_visible_sin_desplegar,
+.opcion_pago_contenido_visible_al_desplegar,
 .linea_separacion_montos_y_total
 {
     padding-left:12px;
     padding-right:12px;
+}
+
+.opcion_pago_contenido_visible_sin_desplegar,
+.opcion_pago_contenido_visible_al_desplegar
+{
+    padding-bottom:12px;
 }
 
 .metodoPago{
@@ -429,12 +435,7 @@
 
 .metodoPago .opcion_pago_contenido_visible_sin_desplegar{
     padding-top:11px!important;
-}
-
-.opcion_pago:first-child .opcion_pago_contenido_visible_sin_desplegar,
-.opcion_pago:last-child .opcion_pago_contenido_visible_sin_desplegar
-{
-    padding-bottom:3px;
+    padding-bottom:16px!important;
 }
 
 .opcion_pago:first-child .opcion_pago_contenido_visible_sin_desplegar{
@@ -446,7 +447,7 @@
 }
 
 .opcion_pago:first-child .opcion_pago_contenido_visible_al_desplegar{
-    margin-top: 13px;
+    margin-top: 20px;
 }
 
 .opcion_pago:first-child .opcion_pago_total_a_pagar{
