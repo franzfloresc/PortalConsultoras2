@@ -11,7 +11,16 @@ namespace Portal.Consultoras.Data
 
         }
 
-        public int AceptarContratoAceptacion(long consultoraid, string codigoconsultora, string origen, string direccionIP, string InformacionSOMobile)
+        public int AceptarContratoAceptacion(long consultoraid, string codigoconsultora, string origen)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsContrato");
+            Context.Database.AddInParameter(command, "@consultoraid", DbType.Int32, consultoraid);
+            Context.Database.AddInParameter(command, "@codigoconsultora", DbType.AnsiString, codigoconsultora);
+            Context.Database.AddInParameter(command, "@origen", DbType.String, origen);
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public int AceptarContratoAceptacionColombia(long consultoraid, string codigoconsultora, string origen, string direccionIP, string InformacionSOMobile)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsContrato");
             Context.Database.AddInParameter(command, "@consultoraid", DbType.Int32, consultoraid);

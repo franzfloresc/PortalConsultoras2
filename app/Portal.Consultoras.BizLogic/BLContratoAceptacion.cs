@@ -7,7 +7,10 @@ namespace Portal.Consultoras.BizLogic
         public int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora, string origen, string direccionIP, string InformacionSOMobile)
         {
             var daContratoAceptacion = new DAContratoAceptacion(paisID);
-            return daContratoAceptacion.AceptarContratoAceptacion(consultoraid, codigoConsultora, origen, direccionIP, InformacionSOMobile);
+            if (paisID == 4)
+                return daContratoAceptacion.AceptarContratoAceptacionColombia(consultoraid, codigoConsultora, origen, direccionIP, InformacionSOMobile);
+            else
+                return daContratoAceptacion.AceptarContratoAceptacion(consultoraid, codigoConsultora, origen);
         }
     }
 }
