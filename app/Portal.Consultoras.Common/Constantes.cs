@@ -235,6 +235,11 @@ namespace Portal.Consultoras.Common
             public const string NotParticipaProgramaNuevas = "0";
         }
 
+        public static class EstadoRespuestaServicio {
+            public const string Success = "OK";
+            public const string Error = "ERROR";
+        }
+
         public static class ConstSession
         {
             public const string IngresoPortalLideres = "IngresoPortalLideres";

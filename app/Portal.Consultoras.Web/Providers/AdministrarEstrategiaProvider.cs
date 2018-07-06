@@ -248,7 +248,7 @@ namespace Portal.Consultoras.Web.Providers
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
-            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
                 throw new Exception(respuesta.Message);
             }
@@ -265,7 +265,7 @@ namespace Portal.Consultoras.Web.Providers
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
-            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
                 throw new Exception(respuesta.Message);
             }
@@ -349,7 +349,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
                 throw new Exception(respuesta.Message);
             }
@@ -386,7 +386,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
                 throw new Exception(respuesta.Message);
 
             if (respuesta.Result != null)
@@ -418,7 +418,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            if (respuesta.Message.Equals("OK"))
+            if (respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
                 List<Dictionary<string, object>> resultDictionary = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(respuesta.Result.ToString());
 
@@ -444,7 +444,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
                 throw new Exception(respuesta.Message);
         }
 
@@ -460,7 +460,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
                 throw new Exception(respuesta.Message);
         }
 
