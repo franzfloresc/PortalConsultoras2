@@ -115,6 +115,7 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
 
+        [HttpPost]
         public ActionResult ConsultarCuvTipoConfigurado(string sidx, string sord, int page, int rows, int campaniaId,
             int tipoConfigurado, string estrategiaCodigo, string estrategiaMIds)
         {
@@ -317,6 +318,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public ActionResult ConsultarCuvTipoConfiguradoTemporal(string sidx, string sord, int page, int rows, int tipoConfigurado, int nroLote, int campaniaId, string codigoEstrategia, string estrategiaMIds)
         {
             if (ModelState.IsValid)
@@ -578,7 +580,8 @@ namespace Portal.Consultoras.Web.Controllers
             return rpta;
         }
         #endregion
-        
+
+        [HttpPost]
         public JsonResult EstrategiaOfertasPersonalizadasInsert(int campaniaId, int nroLote, string codigoEstrategia, string estrategiaMIds)
         {
             try
