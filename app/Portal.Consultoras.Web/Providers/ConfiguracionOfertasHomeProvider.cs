@@ -272,7 +272,7 @@ namespace Portal.Consultoras.Web.Providers
             if (!sessionManager.GetMostrarShowRoomProductos())
             {
 
-                seccion.UrlLandig = (seccion.IsMobile ? "/Mobile/" : "/") + "ShowRoom/Intriga";
+                seccion.UrlLandig = (esMobile ? "/Mobile/" : "/") + "ShowRoom/Intriga";
                 seccion.UrlObtenerProductos = "ShowRoom/GetDataShowRoomIntriga";
 
                 if (!esMobile)
@@ -290,8 +290,8 @@ namespace Portal.Consultoras.Web.Providers
             }
             else
             {
-                seccion.UrlLandig = (seccion.IsMobile ? "/Mobile/" : "/") + "ShowRoom";
-                seccion.UrlObtenerProductos = seccion.IsMobile ? "" : "ShowRoom/CargarProductosShowRoomOferta";
+                seccion.UrlLandig = (esMobile ? "/Mobile/" : "/") + "ShowRoom";
+                seccion.UrlObtenerProductos = esMobile ? "" : "ShowRoom/CargarProductosShowRoomOferta";
                 if (!esMobile)
                 {
                     seccion.ImagenFondo =

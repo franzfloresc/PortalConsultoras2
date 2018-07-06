@@ -55,6 +55,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 UrlCompartir = Util.GetUrlCompartirFB(CodigoISO),
                 ExtensionImgSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall,
+                ExtensionImgMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium,
                 ImgUrlBase = ConfigS3.GetUrlFileS3Base(carpetaPais),
                 SimboloMoneda = Simbolo
             };

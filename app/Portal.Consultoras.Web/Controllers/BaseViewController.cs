@@ -257,6 +257,15 @@ namespace Portal.Consultoras.Web.Controllers
                 if (modelo.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
                     modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
 
+                if (Constantes.NombrePalanca.OfertaDelDia == palanca)
+                {
+                    var sessionODD = sessionManager.OfertaDelDia.Estrategia;
+                    if (sessionODD != null)
+                    {
+                        modelo.ColorFondo1 = sessionODD.ColorFondo1;
+                        modelo.ConfiguracionContenedor = sessionODD.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
+                    }
+                }
 
                 ViewBag.PaisAnalytics = userData.CodigoISO;
                 ViewBag.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();

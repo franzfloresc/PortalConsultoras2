@@ -19,7 +19,8 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneReloj { get; set; }
         public bool TieneCarrusel { get; set; }
         public double TeQuedan { get; set; }
-
+        public string ColorFondo1 { get; set; }
+        public ConfiguracionSeccionHomeModel ConfiguracionContenedor { get; set; }
     }
     public class TituloDetalle
     {
