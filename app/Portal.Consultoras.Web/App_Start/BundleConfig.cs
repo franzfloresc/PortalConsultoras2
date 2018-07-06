@@ -640,7 +640,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js",
-                "~/Scripts/PortalConsultoras/DetalleEstrategia/EstrategiaUrls.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                   "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js"
           ));
             #endregion
