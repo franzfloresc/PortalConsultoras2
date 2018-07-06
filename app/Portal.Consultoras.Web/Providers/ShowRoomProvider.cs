@@ -212,9 +212,8 @@ namespace Portal.Consultoras.Web.Providers
                 if (configEstrategiaSR.BeShowRoom != null &&
                     configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
                 {
-                    ActualizarValorPersonalizacionesShowRoom(model, configEstrategiaSR.ListaPersonalizacionConsultora);
+                    ActualizarValorPersonalizacionesShowRoom(model, configEstrategiaSR);
                 }
-
 
                 if (configEstrategiaSR.BeShowRoom != null &&
                     configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO &&
@@ -337,14 +336,16 @@ namespace Portal.Consultoras.Web.Providers
             return model;
         }
         
-        private void ActualizarValorPersonalizacionesShowRoom(UsuarioModel model, IEnumerable<ShowRoomPersonalizacionModel> personalizaciones)
+        private void ActualizarValorPersonalizacionesShowRoom(UsuarioModel model, ConfigModel configEstrategiaSR)
         {
-            var configEstrategiaSR = sessionManager.GetEstrategiaSR();
+            //var configEstrategiaSR = sessionManager.GetEstrategiaSR();
 
             var personalizacionesNivel = GetShowRoomPersonalizacionNivel(model,
                                     configEstrategiaSR.BeShowRoom.EventoID,
                                     configEstrategiaSR.ShowRoomNivelId,
                                     0);
+
+            var personalizaciones = configEstrategiaSR.ListaPersonalizacionConsultora;
 
             if (personalizacionesNivel == null || !personalizacionesNivel.Any()) return;
 

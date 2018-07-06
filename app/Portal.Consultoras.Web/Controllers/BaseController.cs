@@ -1102,7 +1102,6 @@ namespace Portal.Consultoras.Web.Controllers
             return resultado;
         }
 
-
         public BarraConsultoraModel GetDataBarra(bool inEscala = true, bool inMensaje = false, bool Agrupado = false)
         {
             var objR = new BarraConsultoraModel

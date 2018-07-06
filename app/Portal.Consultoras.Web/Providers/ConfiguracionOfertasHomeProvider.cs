@@ -199,9 +199,9 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.CantidadMostrar = 0;
                             break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.ShowRoom:
-                            seccion.TemplatePresentacion = "seccion-simple-centrado";
+                            seccion.TemplatePresentacion = isMobile ? "seccion-showroom" : "seccion-simple-centrado";
                             //seccion.TemplateProducto = "#template-showroom";
-                            seccion.TemplateProducto = "#producto-landing-template";
+                            seccion.TemplateProducto = isMobile ? "" : "#producto-landing-template";
                             break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.OfertaDelDia:
                             seccion.TemplatePresentacion = "seccion-oferta-del-dia";
@@ -291,7 +291,7 @@ namespace Portal.Consultoras.Web.Providers
             else
             {
                 seccion.UrlLandig = (seccion.IsMobile ? "/Mobile/" : "/") + "ShowRoom";
-                seccion.UrlObtenerProductos = "ShowRoom/CargarProductosShowRoomOferta";
+                seccion.UrlObtenerProductos = seccion.IsMobile ? "" : "ShowRoom/CargarProductosShowRoomOferta";
                 if (!esMobile)
                 {
                     seccion.ImagenFondo =
