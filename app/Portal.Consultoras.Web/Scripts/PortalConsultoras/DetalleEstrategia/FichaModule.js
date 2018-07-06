@@ -306,10 +306,10 @@
             $(_seccionesFichaProducto.SloganLanzamiento).show();
         } else if (_codigoPalanca.ShowRoom == _config.palanca) {
 
-            $(_seccionesFichaProducto.EtiquetaLanzamientos).show();
-            $(_seccionesFichaProducto.ImagenDeFondo).show();
-            $(_seccionesFichaProducto.DescripcionAdicional).show();
-            $(_seccionesFichaProducto.ContenidoProducto).show();
+            $(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
+            $(_seccionesFichaProducto.ImagenDeFondo).hide();
+            $(_seccionesFichaProducto.DescripcionAdicional).hide();
+            $(_seccionesFichaProducto.ContenidoProducto).hide();
             $(_seccionesFichaProducto.CarruselProducto).show();
         } else if (_codigoPalanca.OfertaDelDia == _config.palanca) {
             $(_seccionesFichaProducto.EtiquetaOdd).show();
