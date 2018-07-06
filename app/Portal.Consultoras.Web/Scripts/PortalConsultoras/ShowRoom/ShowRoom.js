@@ -63,7 +63,7 @@ $(document).ready(function () {
         });
         //marca google analytics*******************************
         var divs = $(".content_ficha_compra").find("[data-campos]");
-        var array_impresions_tactica_desktop = new Array();
+        var array_impresions_tactica_desktop = [];
 
         $(divs).each(function (index, value) {
             var existe = false;
@@ -71,7 +71,7 @@ $(document).ready(function () {
             $(array_impresions_tactica_desktop).each(function (ind, val) {
                 if (val.id == id)
                     existe = true;
-            })
+            });
 
             if (!existe) {
                 array_impresions_tactica_desktop.push({
@@ -174,7 +174,7 @@ $(document).ready(function () {
         });
         //marca google analytics*******************************
         var divs = $(".content_pop_compra").find("[data-campos]");
-        var array_impresions_tactica_desktop = new Array();
+        var array_impresions_tactica_desktop =[];
 
         $(divs).each(function (index, value) {
             var existe = false;
@@ -182,7 +182,7 @@ $(document).ready(function () {
             $(array_impresions_tactica_desktop).each(function (ind, val) {
                 if (val.id == id)
                     existe = true;
-            })
+            });
 
             if (!existe) {
                 array_impresions_tactica_desktop.push({
@@ -249,7 +249,7 @@ $(document).ready(function () {
         //var options = { direction: $('.mySelect').val() };
         var options = { direction: 'down' };
         // Set the duration (default: 400 milliseconds)
-        var duration = 500; agregarSetEspecial
+        var duration = 500; //agregarSetEspecial
         $('.content_display_set_suboferta').toggle(effect, options, duration);
         $('#agregarSetEspecial').slideDown();
         $("div.content_btn_agregar").find("#txtCantidad").val(1);
@@ -583,7 +583,7 @@ function CargarProductosShowRoomPromise(busquedaModel) {
     });
     promise.done(function (response) {
         d.resolve(response);
-    })
+    });
     promise.fail(d.reject);
     return d.promise();
 }
@@ -593,17 +593,17 @@ function recortarPalabra(palabra, tamanio) {
 }
 
 function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel) {
-    var objData = new Object();
+    var objData = {};
     if (response.success) {
         if (aplicarFiltrosSubCampanias) {
             if (response.listaSubCampania !== 'undefined') {
                 if (response.listaSubCampania.length > 0) {
-                    //response.listaSubCampania = validarUnidadesPermitidas(response.listaSubCampania);
+                    debugger;
                     $.each(response.listaSubCampania,
                         function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(35, true); });
 
-                    //SetHandlebars("#template-showroom-subcampania", response.listaSubCampania, "#contenedor-showroom-subcampanias");
                     objData.lista = response.listaSubCampania;
+                    SetHandlebars("#banner-sub-campania-template", objData.lista[0], "#banner-sub-campania");
                     SetHandlebars("#producto-landing-template", objData, "#contenedor-showroom-subcampanias");
                     $('#divContentSubCampania').show();
 
@@ -674,7 +674,7 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
             value.UrlDetalle = urlDetalleShowRoom + '/' + value.EstrategiaID;
         });
 
-        var objData = new Object();
+        var objData = {};
         objData.lista = response.listaOfertas;
         //SetHandlebars("#template-showroom", response.listaOfertas, '#divProductosShowRoom');
         SetHandlebars("#producto-landing-template", objData, '#divProductosShowRoom');
