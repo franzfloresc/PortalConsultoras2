@@ -14,7 +14,8 @@ $(document).ready(function () {
 
         me.globals = {
             barraActivacion: $('.barra_activacion'),
-            listaOpcionPago: $(".opcion_pago")
+            listaOpcionPago: $(".opcion_pago"),
+            listaOpcionPagoDesktop: $(".opcionPagoDesktop")
         },
 
         me.Funciones = {
@@ -35,14 +36,28 @@ $(document).ready(function () {
                 me.globals.barraActivacion.toggleClass('activado');
                 me.globals.barraActivacion.attr('data-estado', 1);
 
-                var listaOpcionPago = me.globals.listaOpcionPago;
-                if (listaOpcionPago) {
-                    var cantidad = listaOpcionPago.length;
+                //Desktop
+                if (tipoOrigenPantalla == 1) {
+                    var listaOpcionPagoDesktop = me.globals.listaOpcionPagoDesktop;
+                    if (listaOpcionPagoDesktop) {
+                        var cantidad = listaOpcionPagoDesktop.length;
 
-                    if (cantidad > 0) {
-                        $(listaOpcionPago)[0].click();
+                        if (cantidad > 0) {
+                            $(listaOpcionPagoDesktop)[0].click();
+                        }
                     }
                 }
+                if (tipoOrigenPantalla == 2) {
+                    var listaOpcionPago = me.globals.listaOpcionPago;
+                    if (listaOpcionPago) {
+                        var cantidad = listaOpcionPago.length;
+
+                        if (cantidad > 0) {
+                            $(listaOpcionPago)[0].click();
+                        }
+                    }
+                }
+                
             }
         },
         me.Eventos = {
