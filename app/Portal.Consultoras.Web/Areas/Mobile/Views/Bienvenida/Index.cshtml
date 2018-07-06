@@ -267,7 +267,7 @@
                 @Model.Simbolo <span>@Util.DecimalToStringFormat(Model.MontoDeuda, Model.CodigoISO)</span>
             </div>
             <div class="texto_inferior js-div-vencimiento">Vencimiento: <span>@Model.FechaVencimiento</span></div>
-            @if (Model.TienePagoEnLinea)
+            @if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
             {
                 <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index","PagoEnLinea")">
                     <div class="texto_btn_pago_en_linea">
