@@ -49,7 +49,7 @@
         return localStorage.getItem(nombreKey) !== null || localStorage.hasOwnProperty(nombreKey);
     }
 
-    var _buscarEstrategiaPorCuv = function (palanca, listaLocalStorage) {
+    var _buscarEstrategiaPorCuv = function (cuv, palanca, listaLocalStorage) {
         var arrayEstrategia;
 
         if (palanca === _codigoPalanca.Lanzamiento) {
@@ -125,7 +125,7 @@
 
             var listaLocalStorage = JSON.parse(localStorage.getItem(nombreKey));
 
-            return _buscarEstrategiaPorCuv(palanca, listaLocalStorage);
+            return _buscarEstrategiaPorCuv(cuv, palanca, listaLocalStorage);
             
         } catch (e) {
            console.error("error al cargar productos de local storage : " + e);

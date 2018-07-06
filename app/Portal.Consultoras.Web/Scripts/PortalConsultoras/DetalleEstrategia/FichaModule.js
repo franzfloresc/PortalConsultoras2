@@ -359,7 +359,7 @@
     };
     
     function Inicializar() {
-        
+        debugger;
         localStorageModule = LocalStorageModule();
         _construirSeccionEstrategia();
         _ocultarSecciones();
