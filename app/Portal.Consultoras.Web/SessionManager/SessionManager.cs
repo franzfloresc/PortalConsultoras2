@@ -557,17 +557,6 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<ServiceUsuario.BEUsuario>)HttpContext.Current.Session["BEUsuarioModel"];
         }
 
-        void ISessionManager.SetFlagOfertaDelDia(int ofertasDelDia)
-        {
-            HttpContext.Current.Session["FlagOfertaDelDia"] = ofertasDelDia;
-        }
-
-        bool ISessionManager.GetFlagOfertaDelDia()
-        {
-            var value = HttpContext.Current.Session["FlagOfertaDelDia"];
-            return value == null ? true : Convert.ToBoolean(value);
-        }
-
         EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
         {
             get

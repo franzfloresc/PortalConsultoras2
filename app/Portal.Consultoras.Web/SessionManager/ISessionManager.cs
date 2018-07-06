@@ -195,10 +195,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         PagoEnLineaModel GetDatosPagoVisa();
 
-        void SetFlagOfertaDelDia(int ofertasDelDia);
-
-        bool GetFlagOfertaDelDia();
-
         void SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo);
 
         EstrategiaPersonalizadaProductoModel GetProductoTemporal();
