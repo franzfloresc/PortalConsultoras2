@@ -141,9 +141,9 @@ BEGIN
 		AND NOT EXISTS (
 			select ep.CUV
 			from EstrategiaProducto ep WITH (NOLOCK)
-			where ep.EstrategiaId = EST.EstrategiaID
-				and ep.Campania = p.AnoCampania
+			where ep.Campania = p.AnoCampania
 				and ep.CUV = p.CUV
+				and ep.CUV2 != p.CUV
 				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
 		)
 END
@@ -293,9 +293,9 @@ BEGIN
 		AND NOT EXISTS (
 			select ep.CUV
 			from EstrategiaProducto ep WITH (NOLOCK)
-			where ep.EstrategiaId = EST.EstrategiaID
-				and ep.Campania = p.AnoCampania
+			where ep.Campania = p.AnoCampania
 				and ep.CUV = p.CUV
+				and ep.CUV2 != p.CUV
 				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
 		)
 END
@@ -445,9 +445,9 @@ BEGIN
 		AND NOT EXISTS (
 			select ep.CUV
 			from EstrategiaProducto ep WITH (NOLOCK)
-			where ep.EstrategiaId = EST.EstrategiaID
-				and ep.Campania = p.AnoCampania
+			where ep.Campania = p.AnoCampania
 				and ep.CUV = p.CUV
+				and ep.CUV2 != p.CUV
 				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
 		)
 END
@@ -597,9 +597,9 @@ BEGIN
 		AND NOT EXISTS (
 			select ep.CUV
 			from EstrategiaProducto ep WITH (NOLOCK)
-			where ep.EstrategiaId = EST.EstrategiaID
-				and ep.Campania = p.AnoCampania
+			where ep.Campania = p.AnoCampania
 				and ep.CUV = p.CUV
+				and ep.CUV2 != p.CUV
 				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
 		)
 END
@@ -749,9 +749,9 @@ BEGIN
 		AND NOT EXISTS (
 			select ep.CUV
 			from EstrategiaProducto ep WITH (NOLOCK)
-			where ep.EstrategiaId = EST.EstrategiaID
-				and ep.Campania = p.AnoCampania
+			where ep.Campania = p.AnoCampania
 				and ep.CUV = p.CUV
+				and ep.CUV2 != p.CUV
 				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
 		)
 END
@@ -901,9 +901,9 @@ BEGIN
 		AND NOT EXISTS (
 			select ep.CUV
 			from EstrategiaProducto ep WITH (NOLOCK)
-			where ep.EstrategiaId = EST.EstrategiaID
-				and ep.Campania = p.AnoCampania
+			where ep.Campania = p.AnoCampania
 				and ep.CUV = p.CUV
+				and ep.CUV2 != p.CUV
 				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
 		)
 END
@@ -1053,9 +1053,9 @@ BEGIN
 		AND NOT EXISTS (
 			select ep.CUV
 			from EstrategiaProducto ep WITH (NOLOCK)
-			where ep.EstrategiaId = EST.EstrategiaID
-				and ep.Campania = p.AnoCampania
+			where ep.Campania = p.AnoCampania
 				and ep.CUV = p.CUV
+				and ep.CUV2 != p.CUV
 				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
 		)
 END
@@ -1205,9 +1205,9 @@ BEGIN
 		AND NOT EXISTS (
 			select ep.CUV
 			from EstrategiaProducto ep WITH (NOLOCK)
-			where ep.EstrategiaId = EST.EstrategiaID
-				and ep.Campania = p.AnoCampania
+			where ep.Campania = p.AnoCampania
 				and ep.CUV = p.CUV
+				and ep.CUV2 != p.CUV
 				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
 		)
 END
@@ -1357,9 +1357,9 @@ BEGIN
 		AND NOT EXISTS (
 			select ep.CUV
 			from EstrategiaProducto ep WITH (NOLOCK)
-			where ep.EstrategiaId = EST.EstrategiaID
-				and ep.Campania = p.AnoCampania
+			where ep.Campania = p.AnoCampania
 				and ep.CUV = p.CUV
+				and ep.CUV2 != p.CUV
 				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
 		)
 END
@@ -1509,9 +1509,9 @@ BEGIN
 		AND NOT EXISTS (
 			select ep.CUV
 			from EstrategiaProducto ep WITH (NOLOCK)
-			where ep.EstrategiaId = EST.EstrategiaID
-				and ep.Campania = p.AnoCampania
+			where ep.Campania = p.AnoCampania
 				and ep.CUV = p.CUV
+				and ep.CUV2 != p.CUV
 				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
 		)
 END
@@ -1661,9 +1661,9 @@ BEGIN
 		AND NOT EXISTS (
 			select ep.CUV
 			from EstrategiaProducto ep WITH (NOLOCK)
-			where ep.EstrategiaId = EST.EstrategiaID
-				and ep.Campania = p.AnoCampania
+			where ep.Campania = p.AnoCampania
 				and ep.CUV = p.CUV
+				and ep.CUV2 != p.CUV
 				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
 		)
 END
@@ -1813,9 +1813,9 @@ BEGIN
 		AND NOT EXISTS (
 			select ep.CUV
 			from EstrategiaProducto ep WITH (NOLOCK)
-			where ep.EstrategiaId = EST.EstrategiaID
-				and ep.Campania = p.AnoCampania
+			where ep.Campania = p.AnoCampania
 				and ep.CUV = p.CUV
+				and ep.CUV2 != p.CUV
 				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
 		)
 END

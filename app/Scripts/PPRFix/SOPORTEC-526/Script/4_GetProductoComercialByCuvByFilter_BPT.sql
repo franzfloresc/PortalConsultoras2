@@ -1,7 +1,6 @@
 ﻿GO
 USE BelcorpPeru
 GO
-
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -202,20 +201,18 @@ BEGIN
 	where NOT EXISTS (
 		select ep.CUV
 		from EstrategiaProducto ep WITH (NOLOCK)
-		where ep.EstrategiaId = e.EstrategiaID
-			and ep.Campania = p.CampaniaID
+		where ep.Campania = p.CampaniaID
 			and ep.CUV = p.CUV
+			and ep.CUV2 != p.CUV
 			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
 	)
 
 END
 GO
-
 
 GO
 USE BelcorpMexico
 GO
-
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -416,20 +413,18 @@ BEGIN
 	where NOT EXISTS (
 		select ep.CUV
 		from EstrategiaProducto ep WITH (NOLOCK)
-		where ep.EstrategiaId = e.EstrategiaID
-			and ep.Campania = p.CampaniaID
+		where ep.Campania = p.CampaniaID
 			and ep.CUV = p.CUV
+			and ep.CUV2 != p.CUV
 			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
 	)
 
 END
 GO
-
 
 GO
 USE BelcorpColombia
 GO
-
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -630,20 +625,18 @@ BEGIN
 	where NOT EXISTS (
 		select ep.CUV
 		from EstrategiaProducto ep WITH (NOLOCK)
-		where ep.EstrategiaId = e.EstrategiaID
-			and ep.Campania = p.CampaniaID
+		where ep.Campania = p.CampaniaID
 			and ep.CUV = p.CUV
+			and ep.CUV2 != p.CUV
 			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
 	)
 
 END
 GO
-
 
 GO
 USE BelcorpSalvador
 GO
-
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -844,20 +837,18 @@ BEGIN
 	where NOT EXISTS (
 		select ep.CUV
 		from EstrategiaProducto ep WITH (NOLOCK)
-		where ep.EstrategiaId = e.EstrategiaID
-			and ep.Campania = p.CampaniaID
+		where ep.Campania = p.CampaniaID
 			and ep.CUV = p.CUV
+			and ep.CUV2 != p.CUV
 			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
 	)
 
 END
 GO
-
 
 GO
 USE BelcorpPuertoRico
 GO
-
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -1058,20 +1049,18 @@ BEGIN
 	where NOT EXISTS (
 		select ep.CUV
 		from EstrategiaProducto ep WITH (NOLOCK)
-		where ep.EstrategiaId = e.EstrategiaID
-			and ep.Campania = p.CampaniaID
+		where ep.Campania = p.CampaniaID
 			and ep.CUV = p.CUV
+			and ep.CUV2 != p.CUV
 			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
 	)
 
 END
 GO
-
 
 GO
 USE BelcorpPanama
 GO
-
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -1272,20 +1261,18 @@ BEGIN
 	where NOT EXISTS (
 		select ep.CUV
 		from EstrategiaProducto ep WITH (NOLOCK)
-		where ep.EstrategiaId = e.EstrategiaID
-			and ep.Campania = p.CampaniaID
+		where ep.Campania = p.CampaniaID
 			and ep.CUV = p.CUV
+			and ep.CUV2 != p.CUV
 			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
 	)
 
 END
 GO
-
 
 GO
 USE BelcorpGuatemala
 GO
-
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -1486,20 +1473,18 @@ BEGIN
 	where NOT EXISTS (
 		select ep.CUV
 		from EstrategiaProducto ep WITH (NOLOCK)
-		where ep.EstrategiaId = e.EstrategiaID
-			and ep.Campania = p.CampaniaID
+		where ep.Campania = p.CampaniaID
 			and ep.CUV = p.CUV
+			and ep.CUV2 != p.CUV
 			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
 	)
 
 END
 GO
-
 
 GO
 USE BelcorpEcuador
 GO
-
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -1700,20 +1685,18 @@ BEGIN
 	where NOT EXISTS (
 		select ep.CUV
 		from EstrategiaProducto ep WITH (NOLOCK)
-		where ep.EstrategiaId = e.EstrategiaID
-			and ep.Campania = p.CampaniaID
+		where ep.Campania = p.CampaniaID
 			and ep.CUV = p.CUV
+			and ep.CUV2 != p.CUV
 			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
 	)
 
 END
 GO
-
 
 GO
 USE BelcorpDominicana
 GO
-
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -1914,20 +1897,18 @@ BEGIN
 	where NOT EXISTS (
 		select ep.CUV
 		from EstrategiaProducto ep WITH (NOLOCK)
-		where ep.EstrategiaId = e.EstrategiaID
-			and ep.Campania = p.CampaniaID
+		where ep.Campania = p.CampaniaID
 			and ep.CUV = p.CUV
+			and ep.CUV2 != p.CUV
 			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
 	)
 
 END
 GO
-
 
 GO
 USE BelcorpCostaRica
 GO
-
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -2128,20 +2109,18 @@ BEGIN
 	where NOT EXISTS (
 		select ep.CUV
 		from EstrategiaProducto ep WITH (NOLOCK)
-		where ep.EstrategiaId = e.EstrategiaID
-			and ep.Campania = p.CampaniaID
+		where ep.Campania = p.CampaniaID
 			and ep.CUV = p.CUV
+			and ep.CUV2 != p.CUV
 			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
 	)
 
 END
 GO
-
 
 GO
 USE BelcorpChile
 GO
-
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -2342,20 +2321,18 @@ BEGIN
 	where NOT EXISTS (
 		select ep.CUV
 		from EstrategiaProducto ep WITH (NOLOCK)
-		where ep.EstrategiaId = e.EstrategiaID
-			and ep.Campania = p.CampaniaID
+		where ep.Campania = p.CampaniaID
 			and ep.CUV = p.CUV
+			and ep.CUV2 != p.CUV
 			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
 	)
 
 END
 GO
-
 
 GO
 USE BelcorpBolivia
 GO
-
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -2556,14 +2533,13 @@ BEGIN
 	where NOT EXISTS (
 		select ep.CUV
 		from EstrategiaProducto ep WITH (NOLOCK)
-		where ep.EstrategiaId = e.EstrategiaID
-			and ep.Campania = p.CampaniaID
+		where ep.Campania = p.CampaniaID
 			and ep.CUV = p.CUV
+			and ep.CUV2 != p.CUV
 			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
 	)
 
 END
 GO
-
 
 GO
