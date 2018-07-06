@@ -19,17 +19,17 @@
     <div class="linea_separadora" style="margin-top:-1px"></div>
 </div>
 
-<a id="linkRegresar" class="btn_paso_anterior_pago_en_linea" href="@Url.Action("Index", "PagoEnLinea")">REGRESAR</a>
-
 <div class="content_belcorp">
     <div class="pestana_lbel"></div>
 
     <div class="proceso_de_pago_en_linea">
+        <a id="linkRegresar" class="btn_paso_anterior_pago_en_linea" href="@Url.Action("Index", "PagoEnLinea")">VOLVER</a>
+        <div class="clear"></div>
         <div class="cantidad_pasos_proceso_pago">
 
             <span class="paso_proceso_pago_en_linea paso_activo paso_completado">1</span>
             <span class="paso_proceso_pago_en_linea paso_activo">2</span>
-            <span class="paso_proceso_pago_en_linea paso_activo mr-0">3</span>
+            <span class="paso_proceso_pago_en_linea mr-0">3</span>
 
             <div class="linea_conectora_pasos">
                 <span class="fondo_pasos_proceso_pago_avance"></span>
@@ -37,58 +37,60 @@
         </div>
 
         <div class="vista_confirmacion_pago">
-            <h3 class="titulo_seleccion_monto_a_pagar">Elige el método de pago</h3>
+            <h3 class="titulo_seleccion_monto_a_pagar w-100 text-center">Elige el método de pago</h3>
 
             @foreach (var item in Model.ListaMetodoPago)
             {
-            <div class="monto_total_pago_en_linea opcionPagoDesktop">
-                <div class="col_izq">
-                    <h4 class="titulo_pago_total">
-                        <img src="@item.RutaIcono" alt="" style="width: 40px;" />@item.Descripcion
-                    </h4>
-                    <br />
-                    <div class="monto_total_a_pagar">
-
-                        <span>@Model.Simbolo </span>
-                        <span>@Model.MontoDeudaConGastosString</span>
+            <div class="metodo_pago_seleccion_tarjeta metodoPago text-center">
+                <div class="opcion_pago_contenido_visible_sin_desplegar opcionPagoDesktop w-100">
+                    <div class="col_izq text-left">
+                        <div class="icono_marca_tarjeta">
+                            <img src="@item.RutaIcono" alt="" />
+                        </div>
+                        <h4 class="titulo_pago_total titulo_pago_total_paso_2">
+                            @item.Descripcion
+                        </h4>
                     </div>
-                    <div class="aceptar_terminos_y_condiciones">
-                        <input type="hidden" value="@item.TerminosCondiciones" data-terminos/>
-                        <div class="descripcion_opcion_activacion">
-                            Al presionar continuar aceptas los <a id="lnkAceptaTerminosCondiciones" style="text-decoration: underline;">términos y condiciones</a>
+                    <div class="col_der">
+                        <div class="icono_flecha_despliegue">
+                            <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido" />
                         </div>
                     </div>
-
+                </div>
+                <div class="opcion_pago_contenido_visible_al_desplegar w-100" style="display:none;">
+                    <div class="monto_total_a_pagar mt-12 mb-14">
+                        <span class="texto_descripcion_tipo_pago text-uppercase">Pago Total :</span>
+                        <span class="tipo_moneda_pais">@Model.Simbolo</span>
+                        <span class="monto_moneda_pais">@Model.MontoDeudaConGastosString</span>
+                    </div>
+                    <div class="aceptar_terminos_y_condiciones">
+                        <input type="hidden" value="@item.TerminosCondiciones" data-terminos />
+                        <div class="descripcion_opcion_activacion">
+                            Al presionar continuar aceptas los <a id="lnkAceptaTerminosCondiciones" class="ver_terminos_y_condiciones">términos y condiciones</a>
+                        </div>
+                    </div>
                     @if (Constantes.PagoEnLineaMetodoPago.PasarelaVisa == item.TipoPasarelaCodigoPlataforma)
                     {
-                        <div class="contenedor_btn_pagar_con_visa">                            
+                        <div class="contenedor_btn_pagar_con_visa">
                             <form id="formBoton" action="@Url.Action("PagoVisaResultado", "PagoEnLinea")" method="post">
                                 <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
-                                        data-sessiontoken="@Model.PagoVisaModel.SessionToken"
-                                        data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"
-                                        data-formbuttoncolor="@Model.PagoVisaModel.FormButtonColor" data-purchasenumber="@Model.PagoVisaModel.PurchaseNumber"
-                                        data-amount="@Model.PagoVisaModel.Amount" data-recurrence="@Model.PagoVisaModel.Recurrence"
-                                        data-recurrencetype="@Model.PagoVisaModel.RecurrenceType" data-recurrencefrequency="@Model.PagoVisaModel.RecurrenceFrequency"
-                                        data-recurrenceamount="@Model.PagoVisaModel.RecurrenceAmount"
-                                        data-usertoken="@Model.PagoVisaModel.TokenTarjetaGuardada"
-                                        data-buttonsize="LARGE"></script>
+                                    data-sessiontoken="@Model.PagoVisaModel.SessionToken"
+                                    data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"
+                                    data-formbuttoncolor="@Model.PagoVisaModel.FormButtonColor" data-purchasenumber="@Model.PagoVisaModel.PurchaseNumber"
+                                    data-amount="@Model.PagoVisaModel.Amount" data-recurrence="@Model.PagoVisaModel.Recurrence"
+                                    data-recurrencetype="@Model.PagoVisaModel.RecurrenceType" data-recurrencefrequency="@Model.PagoVisaModel.RecurrenceFrequency"
+                                    data-recurrenceamount="@Model.PagoVisaModel.RecurrenceAmount"
+                                    data-usertoken="@Model.PagoVisaModel.TokenTarjetaGuardada"
+                                    data-buttonsize="LARGE"></script>
                             </form>
                         </div>
                     }
                     else
                     {
-                        <button type="button" class="cta_pago_en_linea btn_pago_credito_visa" data-metodopago="@item.TipoPasarelaCodigoPlataforma">
-                            <span>
-                                Continuar
-                            </span>
+                        <button type="button" class="cta_pago_en_linea btn_pago_tarjeta_credito default-background" data-metodopago="@item.TipoPasarelaCodigoPlataforma">
+                            Continuar
                         </button>
                     }
-                </div>
-                <div class="col_der">
-                    <input type="radio" id="rbPagoTotal" name="opcionPago" value="1" checked />
-                    <label for="rbPagoTotal">
-                        <span></span>
-                    </label>
                 </div>
             </div>
             }

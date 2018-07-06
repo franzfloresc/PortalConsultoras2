@@ -20,8 +20,16 @@
     margin-right:0!important;
 }
 
+.mt-12{
+    margin-top:12px;
+}
+
 .mt-27{
     margin-top:27px;
+}
+
+.mb-14{
+    margin-bottom:16px;
 }
 
 .w-53{
@@ -33,7 +41,7 @@
 }
 
 .w-100{
-    width:100%;
+    width:100%!important;
 }
 
 .text-left{
@@ -61,6 +69,7 @@
 .titulo_seleccion_tipo_pago,
 .seleccion_tipo_pago label,
 .monto_total_pago_en_linea,
+.metodo_pago_seleccion_tarjeta,
 .monto_parcial_pago_en_linea,
 .fecha_vencimiento_monto_total,
 .info_cargo_gastos_administrativos,
@@ -109,6 +118,7 @@
 .monto_editable_pago_en_linea span,
 .monto_a_editar,
 .tipo_moneda_pais,
+.monto_moneda_pais,
 .monto_comision_pago_en_linea,
 .area_activa_barra_activacion,
 .descripcion_opcion_activacion,
@@ -139,7 +149,7 @@
 
 .proceso_de_pago_en_linea{
     width:100%;
-    max-width:869px;
+    max-width:720px;
     min-height:445px;
     margin:0 auto;
     padding:40px 0 27px 0;
@@ -310,6 +320,7 @@
 }
 
 .monto_total_pago_en_linea,
+.metodo_pago_seleccion_tarjeta,
 .monto_parcial_pago_en_linea
 {
     margin:0 auto;
@@ -319,15 +330,34 @@
     box-sizing:border-box;
 }
 
-.monto_total_pago_en_linea{
+.monto_total_pago_en_linea,
+.metodo_pago_seleccion_tarjeta{
     margin-bottom:14px;
 }
 
+.metodo_pago_seleccion_tarjeta:last-child{
+    margin-bottom:112px;
+}
+
 .monto_total_pago_en_linea,
+.metodo_pago_seleccion_tarjeta,
 .monto_parcial_pago_en_linea,
 .btn_pago_tarjeta_credito
 {
     border-radius:4px;
+}
+
+.metodoPago{
+    margin-bottom:12px;
+}
+
+.metodoPago .titulo_pago_total{
+    font-size:13px;
+}
+
+.metodoPago .opcion_pago_contenido_visible_sin_desplegar{
+    padding-top:14px!important;
+    padding-bottom:14px!important;
 }
 
 .opcion_pago_contenido_visible_sin_desplegar{
@@ -473,6 +503,11 @@
     margin-right:25px;
 }
 
+.titulo_pago_total_paso_2{
+    position: relative;
+    top: -3px;
+}
+
 .titulo_pago_parcial{
     margin-right:10px;
 }
@@ -493,6 +528,13 @@
 .monto_a_editar
 {
     font-size:22px;
+}
+
+.texto_descripcion_tipo_pago{
+    font-size:14px;
+    padding-bottom: 3px;
+    margin-right: 6px;
+    vertical-align:bottom;
 }
 
 .monto_editable_pago_en_linea{
@@ -549,6 +591,7 @@
 .aceptar_terminos_y_condiciones{
     text-align:center;
     margin-bottom:8px;
+    position:relative;
 }
 
 .area_activa_barra_activacion,
@@ -615,11 +658,13 @@
 }
 
 .descripcion_opcion_activacion{
-    font-size:13px;
+    font-size:14px;
     font-weight:400;
     margin-top:0.2px;
+    line-height:20px;
     letter-spacing:0.2px;
     color:#000;
+    max-width:193px;
 }
 
 .ver_terminos_y_condiciones{
@@ -761,7 +806,10 @@
 }
 
 .btn_pago_tarjeta_credito{
+    font-family:'Lato', sans-serif!important;
     margin-top:0;
+    font-size:14px!important;
+    letter-spacing:0.5px;
 }
 
 .redireccion_proveedor_de_pago{
@@ -1209,10 +1257,11 @@
     font-family: 'Lato';
     font-size: 13px;
     font-weight: 700;
-    margin-top: 10px;
+    margin-top: 0;
+    margin-bottom: 10px;
     height: 30px;
     line-height: 30px;
     padding-left: 20px;
-    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/zFJxJW4h2OAqKmU/group-9.png') no-repeat;
+    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/zFJxJW4h2OAqKmU/group-9.png) no-repeat;
     background-position: 0 8px;
 }
