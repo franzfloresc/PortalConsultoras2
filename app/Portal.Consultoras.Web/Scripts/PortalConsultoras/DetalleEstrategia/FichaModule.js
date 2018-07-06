@@ -26,7 +26,8 @@
         dataSelected: "[data-select-area]",
         idPlantillaProductoLanding: "#producto-landing-template",
         divCarruselSetsProductosRelacionados: "#divOfertaProductos",
-        divSetsProductosRelacionados: "#set_relacionados"
+        divSetsProductosRelacionados: "#set_relacionados",
+        footerPage: ".footer-page"
     };
 
     var _atributos = {
@@ -284,6 +285,9 @@
     });
 
     var _ocultarSecciones = function () {
+        if (isMobile()) {
+            $(_elementos.footerPage).hide();
+        }
         $(_seccionesFichaProducto.SloganLanzamiento).hide();
         $(_seccionesFichaProducto.EtiquetaOdd).hide();
         $(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
