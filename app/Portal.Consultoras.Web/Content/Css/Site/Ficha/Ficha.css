@@ -25,7 +25,7 @@ body {
     display: flex;
     font-size: 13px;
     margin: 0 auto;
-    max-width: 1189px;
+    max-width: 1105px;
     padding: 25px 0;
     position: relative;
 }
@@ -43,14 +43,13 @@ body {
 
 .ficha_producto {
     float: left;
-    padding-top: 82px;
+    padding-top: 43px;
     text-align: center;
     width: 45%;
 }
 
 .contenedor_imagen {
     display: inline-block;
-    margin: 0 24%;
     min-height: 203px;
     min-width: 203px;
 }
@@ -60,8 +59,8 @@ body {
 }
 
 .contenedor_img {
+    max-width: 460px !important;
     height: auto;
-    width: 100%;
 }
 
 .texto_referencial {
