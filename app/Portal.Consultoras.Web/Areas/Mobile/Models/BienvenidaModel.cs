@@ -60,5 +60,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public bool ConsultoraNuevaBannerAppMostrar { get; set; }
         public bool TienePagoEnLinea { get; set; }
         public int CambioClave { get; set; }
+        public bool MostrarPagoEnLinea { get; set; }
     }
 }
