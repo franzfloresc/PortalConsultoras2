@@ -71,19 +71,17 @@
                     </div>
                     @if (Constantes.PagoEnLineaMetodoPago.PasarelaVisa == item.TipoPasarelaCodigoPlataforma)
                     {
-                        <div class="contenedor_btn_pagar_con_visa">
-                            <form id="formBoton" action="@Url.Action("PagoVisaResultado", "PagoEnLinea")" method="post">
-                                <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
-                                    data-sessiontoken="@Model.PagoVisaModel.SessionToken"
-                                    data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"
-                                    data-formbuttoncolor="@Model.PagoVisaModel.FormButtonColor" data-purchasenumber="@Model.PagoVisaModel.PurchaseNumber"
-                                    data-amount="@Model.PagoVisaModel.Amount" data-recurrence="@Model.PagoVisaModel.Recurrence"
-                                    data-recurrencetype="@Model.PagoVisaModel.RecurrenceType" data-recurrencefrequency="@Model.PagoVisaModel.RecurrenceFrequency"
-                                    data-recurrenceamount="@Model.PagoVisaModel.RecurrenceAmount"
-                                    data-usertoken="@Model.PagoVisaModel.TokenTarjetaGuardada"
-                                    data-buttonsize="LARGE"></script>
-                            </form>
-                        </div>
+                        <form id="formBoton" action="@Url.Action("PagoVisaResultado", "PagoEnLinea")" method="post">
+                            <script id="javascriptBoton" src="@Model.PagoVisaModel.UrlLibreriaPagoVisa"
+                                data-sessiontoken="@Model.PagoVisaModel.SessionToken"
+                                data-merchantid="@Model.PagoVisaModel.MerchantId" data-merchantlogo="@Model.PagoVisaModel.MerchantLogo"
+                                data-formbuttoncolor="@Model.PagoVisaModel.FormButtonColor" data-purchasenumber="@Model.PagoVisaModel.PurchaseNumber"
+                                data-amount="@Model.PagoVisaModel.Amount" data-recurrence="@Model.PagoVisaModel.Recurrence"
+                                data-recurrencetype="@Model.PagoVisaModel.RecurrenceType" data-recurrencefrequency="@Model.PagoVisaModel.RecurrenceFrequency"
+                                data-recurrenceamount="@Model.PagoVisaModel.RecurrenceAmount"
+                                data-usertoken="@Model.PagoVisaModel.TokenTarjetaGuardada"
+                                data-buttonsize="LARGE"></script>
+                        </form>
                     }
                     else
                     {

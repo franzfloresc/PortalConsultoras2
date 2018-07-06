@@ -157,30 +157,29 @@
 
 .cantidad_pasos_proceso_pago{
     margin:0 auto;
-    max-width:170px;
+    max-width:218px;
     position:relative;
     margin-bottom:36px;
 }
 
 .paso_proceso_pago_en_linea{
-    width:29px;
-    height:29px;
-    background-color:#FFF;
-    border:0.5px solid #000;
-    border-radius:100%;
-    color:#000;
-    text-align:center;
-    font-size:14px;
-    font-weight:400;
-    letter-spacing:0.4px;
-    line-height:27px;
-    margin-right:39px;
-    position:relative;
-    z-index:2;
+    width: 45px;
+    height: 45px;
+    background-color: #FFF;
+    border: 0.5px solid #000;
+    border-radius: 100%;
+    color: #000;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.4px;
+    line-height: 43px;
+    margin-right: 39px;
+    position: relative;
+    z-index: 2;
 }
 
 .paso_proceso_pago_en_linea:nth-child(2){
-    line-height: 27px;
     padding-left: 1.1px;
 }
 
@@ -194,8 +193,8 @@
     color: #e81c36;
     font-family: 'somos-belcorp-iconos';
     font-weight: 400;
-    font-size: 12px;
-    padding:1px 6px;
+    font-size: 16px;
+    padding: 1px 12px;
 }
 
 .paso_completado:before{
@@ -786,18 +785,6 @@
     letter-spacing: 0.37px;
     border: none;
     opacity:1;
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
-}
-
-.cta_pago_en_linea:hover,
-.cta_pago_en_linea:focus,
-.cta_pago_en_linea:active
-{
-    background-color: rgba(232,28,54,0.9);
 }
 
 .cta_pago_en_linea .tipo_moneda_pais{
@@ -810,6 +797,18 @@
     margin-top:0;
     font-size:14px!important;
     letter-spacing:0.5px;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+
+.btn_pago_tarjeta_credito:hover,
+.btn_pago_tarjeta_credito:focus,
+.btn_pago_tarjeta_credito:active
+{
+    background-color: rgba(232,28,54,0.9)!important;
 }
 
 .redireccion_proveedor_de_pago{
