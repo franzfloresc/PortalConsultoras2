@@ -103,13 +103,13 @@
         }
     };
     
-    var _crearReloj = function() {
+    var _crearReloj = function (estrategia) {
         $("#clock").each(function (index, elem) {
-            $(elem).FlipClock(50000,
+            $(elem).FlipClock(estrategia.TeQuedan,
                 {
                     countdown: true,
                     clockFace: "HourlyCounter",
-                    language: "es-es",
+                    language: "es-es"
                 });
         });
     };
@@ -202,6 +202,10 @@
                     estrategia.CodigoVariante = _codigoVariedad.IndividualVariable;
                 }
             }
+        } else if (estrategia.Hermanos.length > 1) {
+            if (estrategia.codigoVariante == _codigoVariedad.IndividualVariable) {
+                estrategia.codigoVariante = _codigoVariedad.ComuestaFija;
+            }
         }
     };
 
@@ -220,7 +224,7 @@
  
         var estrategia;
         if (_config.tieneSession === "True") {
-            //revisar si se realiza con razor o handle bar para SW y ODD
+            //revisar si se realiza con razor o handlebar para SR y ODD
             estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
         } else {
             estrategia = localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
@@ -235,11 +239,14 @@
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
         _validarDesactivadoGeneral(estrategia);
-        if (estrategia.CodigoEstrategia == _constantePalanca.OfertaDelDia) {
+        if (estrategia.MostrarReloj) {
             _crearReloj();
         }
 
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
+        if (estrategia.CodigoEstrategia === _constantePalanca.OfertaDelDia) {
+            _crearReloj(estrategia);
+        }
        
         if (!isMobile()) {
             _validarSiEsAgregado(estrategia);
@@ -281,7 +288,11 @@
             _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
 
             $(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
-            $(_seccionesFichaProducto.ImagenDeFondo).hide();
+            if (!isMobile()) {
+                $(_seccionesFichaProducto.ImagenDeFondo).hide();
+            } else {
+                $(_seccionesFichaProducto.ImagenDeFondo).css("background-color","#ffffff");
+            }
             $(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             $(_seccionesFichaProducto.CarruselProducto).hide();

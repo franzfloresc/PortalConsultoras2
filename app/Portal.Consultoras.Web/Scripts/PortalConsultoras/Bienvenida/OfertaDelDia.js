@@ -685,38 +685,38 @@ $(document).ready(function () {
         return listaOfertasConClases;
     }
 
-    $(elements.ContenedorInternoSliderOfertaDelDiaMobileHome).click(function () {
-        try {
-            if (typeof rdAnalyticsModule !== "undefined") {
-                rdAnalyticsModule.ContendorSection("Solo por Hoy");
-            }
-        } catch (e) {
-            console.error(e);
-        }
-        //Redirecciona a la nueva ficha.
-        OnClickFichaDetalle($(this));
+    //$(elements.ContenedorInternoSliderOfertaDelDiaMobileHome).click(function () {
+    //    try {
+    //        if (typeof rdAnalyticsModule !== "undefined") {
+    //            rdAnalyticsModule.ContendorSection("Solo por Hoy");
+    //        }
+    //    } catch (e) {
+    //        console.error(e);
+    //    }
+    //    //Redirecciona a la nueva ficha.
+    //    OnClickFichaDetalle($(this));
 
-        //document.location.href = urlOfertaDelDiaMobile;
-    });
+    //    //document.location.href = urlOfertaDelDiaMobile;
+    //});
 
-    $(elements.ContenedorInternoSliderOfertaDelDiaMobile).click(function () {
-        dataLayer.push({
-            'event': "promotionClick",
-            'ecommerce': {
-                'promoClick': {
-                    'promotions': [
-                    {
-                        'id': "002",
-                        'name': "Oferta del dia",
-                        'position': controllerName + " - Banner superior",
-                        'creative': "Banner"
-                    }]
-                }
-            }
-        });
+    //$(elements.ContenedorInternoSliderOfertaDelDiaMobile).click(function () {
+    //    dataLayer.push({
+    //        'event': "promotionClick",
+    //        'ecommerce': {
+    //            'promoClick': {
+    //                'promotions': [
+    //                {
+    //                    'id': "002",
+    //                    'name': "Oferta del dia",
+    //                    'position': controllerName + " - Banner superior",
+    //                    'creative': "Banner"
+    //                }]
+    //            }
+    //        }
+    //    });
 
-        document.location.href = urlOfertaDelDiaMobile;
-    });
+    //    document.location.href = urlOfertaDelDiaMobile;
+    //});
 
     $("body").on("click", elements.BtnAgregarMobile, function (e) {
         var accion = $(this).attr("data-odd-accion").toUpperCase();

@@ -27,8 +27,24 @@
 
 
 <script id="detalle_ficha_template" type="text/x-handlebars-template">
-    <div id="" class="bg_imagen_producto" style='background: url(""); background-color: #efefef !important;'
+    <div id="EtiquetaOdd">
+        <div id="clock" class="clock_odd"></div>
+    </div>
+    <div id="ImagenDeFondo" class="bg_imagen_producto" style='background: url(""); background-color: #efefef !important;'
          data-estadoregistro="">
+    </div>
+    <div data-compartir-campos="" style="display:none;">
+        <input type="hidden" class="CUV" value="{{CUV2}}" />
+        <input type="hidden" class="rsFBMensaje" value="" />
+        <input type="hidden" class="rsWAMensaje" value="" />
+        <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
+        <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
+        <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+        <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+        <input type="hidden" class="Nombre" value="{{DescripcionResumen}}" />
+        <input type="hidden" class="ProductoDescripcion" value="{{DescripcionDetalle}}" />
+        <input type="hidden" class="Volumen" value="" />
+        <input type="hidden" class="Palanca" value="LAN" />
     </div>
     <div class="container">
         <div class="row imagen_producto bg_imagen_producto_subir">
@@ -43,7 +59,8 @@
         </div>
         <div class="row marca_producto">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <h2> {{#if EsMultimarca}}</h2>
+                {{#if EsMultimarca}}
+                <h2></h2>
                 {{else}}
                 <h2>{{DescripcionMarca}}</h2>
                 {{/if}}
@@ -192,39 +209,53 @@
     </div>
 
     <div id="seccion_ficha_handlebars"></div>
-
-    <div class="content_btn_agregar">
-        <div class="content_320">
-            <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
-                <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+    @if (ViewBag.CampaniaCodigo == Model.Campania)
+    {
+        <div class="content_btn_agregar">
+            <div class="content_320">
+                <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
+                    <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                    <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <a class="btn_agregar_ficha_producto @Model.ClaseBloqueada"
+                   id="btnAgregalo"
+                   data-bloqueada=""
+                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
+                <hr class="clear">
             </div>
-            <a class="btn_agregar_ficha_producto @Model.ClaseBloqueada"
-               id="btnAgregalo"
-               data-bloqueada=""
-               onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
-            <hr class="clear">
         </div>
-    </div>
+    }
 </div>
 
 <div class="container" id="ContenidoProducto">
     <div class="row tabs">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <ul class="tabs ficha_tabs">
-                @*<li>
-            <a>DETALLE DEL PACK</a>
-            <ul>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
-            </ul>
-        </li>
-        <li>
-                <a>TIP DE VENTA</a>
-                <ul>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis itaque nisi ratione sit excepturi. Porro nemo ipsam fugiat quidem accusamus, cumque temporibus atque! Voluptatum nesciunt odio consectetur eos, quibusdam sint?
-                </ul>
-            </li>*@
+                <li id="div_ficha_tab1">
+                    <a>DETALLE DEL PRODUCTO</a>
+                    <ul>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
+                    </ul>
+                </li>
+                <li id="div_ficha_tab2">
+                    <a>DETALLE DEL PACK</a>
+                    <ul>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
+                    </ul>
+                </li>
+                <li id="div_ficha_tab3">
+                    <a>TIPS DE VENTA</a>
+                    <ul>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
+                    </ul>
+                </li>
+                <li id="div_ficha_tab4">
+                    <a>BENEFICIOS</a>
+                    <ul>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
+                    </ul>
+                </li>
                 <li id="tabVideo">
                     <a>VIDEO</a>
                     <ul>
@@ -237,6 +268,14 @@
                         </div>
                     </ul>
                 </li>
+                @*<li id="div_ficha_tab5">
+                    <a>VIDEO</a>
+                    <div class="video-visual">
+                        <div class="video-container">
+                            <div id="ytFicha" data-youtube="{ height:'220', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}" class="yt-video"></div>
+                        </div>
+                    </div>
+                </li>*@
             </ul>
         </div>
     </div>
@@ -249,8 +288,8 @@
             <div class="set_encuentras_producto" id="set_relacionados">
 
                 <div class="wrapper_resumen_mobile ficha_encuentraproducto">
-                    <p class="titulo_set">
-                        SET DONDE ENCUENTRAS EL PRODUCTO
+                    <p id="tituloCarrusel" class="titulo_set">
+
                     </p>
                     <div class="set_encuentras_producto_carrusel">
                         <div id="divOfertaProductos"></div>
@@ -269,18 +308,20 @@
         <a href="javascript: void(0);" class="text-right"><img src="~/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp" data-compartir="WA"></a>
         <a href="javascript: void(0);"><img src="~/Content/Images/showroom/redes_facebook.png" alt="" class="fb" data-compartir="FB"></a>
         <div class="clearfix"></div>
-
-
     </div>
 </div>
 
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
+@if (ViewBag.CampaniaCodigo != Model.Campania)
+{
+    @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
+}
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
 
 
-<script>
+    <script>
         window.videoKey = '@Model.CodigoVideo';
         var fichaModule;
         var carruselModule;
@@ -296,7 +337,7 @@
             });
             fichaModule.Inicializar();
 
-            
+
             carruselModule = CarruselModule({
                 palanca: "@Model.Palanca",
                 campania: "@Model.Campania",
@@ -304,12 +345,13 @@
                 idPlantilla: "#producto-landing-template",
                 divCarrusel: "#divOfertaProductos",
                 divSetsProductosdata: "#set_relacionados",
-                urlDataCarrusel: '@Url.Action("GetCarruselShowRoomExcepto", "ShowRoom", new { Area = "" })'
+                urlDataCarrusel: '@Url.Action("GetCarruselShowRoomExcepto", "Estrategia", new { Area = "" })',
+                idTituloCarrusel: "#tituloCarrusel"
             });
             carruselModule.Inicializar();
         });
 
-</script>
+    </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
 
 }

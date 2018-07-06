@@ -1,8 +1,13 @@
-﻿@using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
+﻿@using Portal.Consultoras.Web.Models
+@using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 @{
 
     DataModel Model = ViewBag.MostrarOfertaDelDia == true ? ViewBag.OfertaDelDia ?? new DataModel() : new DataModel();
-
+    var prod = new EstrategiaPersonalizadaProductoModel();
+    if (Model.ListaOferta.Count > 0)
+    {
+        prod = Model.ListaOferta.First();
+    }
 }
 <style>
     .flip-clock-wrapper .flip{
@@ -13,26 +18,31 @@
         background-color: @Model.ColorFondo1 !important;
     }
 </style>
-<div class="BloqueOfertaDiaHeader" style="background-color:@Model.ColorFondo1">
-    <div class="row_contador" style="padding:0;">
-        <div class="float_left" style="margin-left:16px;">
-            <div class="solo_hoy_mobile2"><img src="@Model.ImagenSoloHoy" alt="" /></div>
+<div data-item="">
+    <div style="display:none;" data-item-campos="" >
+        <input data-estrategia="@Json.Encode(prod)" />
+    </div>
+    <div class="BloqueOfertaDiaHeader" style="background-color: @Model.ColorFondo1" href="javascript:;" onclick="OnClickFichaDetalle($(this));">
+        <div class="row_contador" style="padding: 0;">
+            <div class="float_left" style="margin-left: 16px;">
+                <div class="solo_hoy_mobile2"><img src="@Model.ImagenSoloHoy" alt="" /></div>
 
-            <div class="clock" data-total-seconds="@Model.TeQuedan.TotalSeconds" style="top:2px; left:115px;"></div>
+                <div class="clock" data-total-seconds="@Model.TeQuedan.TotalSeconds" style="top: 2px; left: 115px;"></div>
+            </div>
+            <a class="btn_compralo_ahora cabecera-no-home" href="javascript:;" >@Model.TextoVerDetalle</a>
+            <div class="imagen_set_oferta_mobile2">
+                <img src="@Model.ImagenBanner" alt="" />
+            </div>
+            @*<hr class="clear" />
+            <input type="hidden" id="tipoestrategia-id-odd" value="@Model.TipoEstrategiaID" />
+            <input type="hidden" id="marca-id-odd" value="@Model.MarcaID" />
+            <input type="hidden" id="cuv2-odd" value="@Model.CUV2" />
+            <input type="hidden" id="limite-venta-odd" value="@Model.LimiteVenta" />
+            <input type="hidden" id="flagnueva-odd" value="@Model.FlagNueva" />
+            <input type="hidden" id="precio-odd" value="@Model.PrecioOferta" />
+            <input type="hidden" id="nombre-odd" value="@Model.NombreOferta" />
+            <input type="hidden" id="indmonto-min-odd" value="@Model.IndicadorMontoMinimo" />
+            <input type="hidden" id="teimagenmostrar-odd" value="@Model.TipoEstrategiaImagenMostrar" />*@
         </div>
-        <a class="btn_compralo_ahora cabecera-no-home" href="#">@Model.TextoVerDetalle</a>
-        <div class="imagen_set_oferta_mobile2">
-            <img src="@Model.ImagenBanner" alt="" />
-        </div>
-        @*<hr class="clear" />
-        <input type="hidden" id="tipoestrategia-id-odd" value="@Model.TipoEstrategiaID" />
-        <input type="hidden" id="marca-id-odd" value="@Model.MarcaID" />
-        <input type="hidden" id="cuv2-odd" value="@Model.CUV2" />
-        <input type="hidden" id="limite-venta-odd" value="@Model.LimiteVenta" />
-        <input type="hidden" id="flagnueva-odd" value="@Model.FlagNueva" />
-        <input type="hidden" id="precio-odd" value="@Model.PrecioOferta" />
-        <input type="hidden" id="nombre-odd" value="@Model.NombreOferta" />
-        <input type="hidden" id="indmonto-min-odd" value="@Model.IndicadorMontoMinimo" />
-        <input type="hidden" id="teimagenmostrar-odd" value="@Model.TipoEstrategiaImagenMostrar" />*@
     </div>
 </div>

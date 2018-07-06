@@ -608,12 +608,14 @@ namespace Portal.Consultoras.Common
             public const int DesktopShowRoomBienvenida = 1541;
             public const int DesktopShowRoomSubCampanias = 1524;
             public const int DesktopShowRoomContenedor = 1871;
-            public const int MobileShowRoomSubCampanias = 2524;
+
             public const int MobileShowRoomLandingIntriga = 2511;
             public const int MobileShowRoomLandingCompraTactica = 2522;
             public const int MobileShowRoomProductPage = 2531;
             public const int MobileShowRoomProductPageCarrusel = 2532;
             public const int MobileShowRoomProductPageTactica = 2533;
+            public const int MobileShowRoomSubCampanias = 2524;
+            public const int MobileShowRoomContenedor = 2871;
             public const int MobileShowRoom = 2571;
             #endregion
 
@@ -1791,7 +1793,7 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
             public const string HerramientasVentaComprar = "/herramientasventa/comprar";
 
-            public const string DetalleHerramientasVenta = "/detalle/HerramientasVenta";
+            public const string DetalleHerramientasVenta = "/detalle/herramientasventa";
             public const string DetalleLanzamiento = "/detalle/lanzamiento";
             public const string DetalleOfertaParaTi = "/detalle/ofertaparati";
             public const string DetalleOfertasParaMi = "/detalle/ofertasparami";

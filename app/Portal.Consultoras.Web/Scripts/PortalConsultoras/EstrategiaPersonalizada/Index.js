@@ -258,6 +258,7 @@ function SeccionMostrarProductos(data) {
             else {
                 $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(data.cantidadAMostrar);
                 $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal);
+                $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
             }
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         } else {

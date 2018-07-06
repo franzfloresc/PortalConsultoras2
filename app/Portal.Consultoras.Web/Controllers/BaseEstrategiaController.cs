@@ -1,12 +1,6 @@
-﻿//using AutoMapper;
-//using Portal.Consultoras.Common;
-//using Portal.Consultoras.Web.LogManager;
+﻿//using Portal.Consultoras.Web.LogManager;
 //using Portal.Consultoras.Web.Models;
-//using Portal.Consultoras.Web.ServiceOferta;
 //using Portal.Consultoras.Web.SessionManager;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
 
 //namespace Portal.Consultoras.Web.Controllers
 //{

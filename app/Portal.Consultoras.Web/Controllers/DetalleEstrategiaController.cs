@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using System;
 using System.Web.Mvc;
@@ -11,6 +10,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
             return DEFicha(palanca, campaniaId, cuv, origen);
+
         }
 
         public JsonResult ObtenerComponentes(string estrategiaId, string campania, string codigoVariante)
@@ -38,7 +38,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
         }
-
 
     }
 }

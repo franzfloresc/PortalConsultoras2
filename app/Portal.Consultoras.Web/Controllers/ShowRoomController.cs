@@ -377,8 +377,8 @@ namespace Portal.Consultoras.Web.Controllers
                     lista = productosShowRoom,
                     campaniaId = userData.CampaniaID,
                     cantidadTotal = cantidadTotal,
-                    cantidad = cantidadTotal,
-                    //cantidadAMostrar = productosShowRoom.Count(),
+                    //cantidad = cantidadTotal,
+                    cantidadAMostrar = productosShowRoom.Count(),
                     codigo = Constantes.ConfiguracionPais.ShowRoom
                 });
             }
@@ -630,29 +630,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(ResultModel<bool>.BuildOk(true), JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public JsonResult GetCarruselShowRoomExcepto(string CUVExcluido)
-        {
-            try
-            {
-                var listaOferta = new List<EstrategiaPersonalizadaProductoModel>();            
 
-                var listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
-                listaOferta = listaOfertasModel==null ? new List<EstrategiaPersonalizadaProductoModel>():listaOfertasModel.Where(x => x.CUV2 != CUVExcluido).ToList();
-
-                return Json(new
-                {
-                    success = true,
-                    message = "Ok",
-                    data = listaOferta
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
-            }
-        }
 
         #region Metodos Privados
 

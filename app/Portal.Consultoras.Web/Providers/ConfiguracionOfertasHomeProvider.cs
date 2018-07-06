@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -157,7 +156,7 @@ namespace Portal.Consultoras.Web.Providers
                             if (seccion.UrlLandig == "")
                                 continue;
 
-                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.DesktopShowRoomContenedor : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor;
+                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileShowRoomContenedor : Constantes.OrigenPedidoWeb.DesktopShowRoomContenedor;
                             break;
                         case Constantes.ConfiguracionPais.OfertaDelDia:
                             var estrategiaODD = sessionManager.OfertaDelDia.Estrategia;
@@ -200,9 +199,9 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.CantidadMostrar = 0;
                             break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.ShowRoom:
-                            seccion.TemplatePresentacion = "seccion-simple-centrado";
+                            seccion.TemplatePresentacion = isMobile ? "seccion-showroom" : "seccion-simple-centrado";
                             //seccion.TemplateProducto = "#template-showroom";
-                            seccion.TemplateProducto = "#producto-landing-template";
+                            seccion.TemplateProducto = isMobile ? "" : "#producto-landing-template";
                             break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.OfertaDelDia:
                             seccion.TemplatePresentacion = "seccion-oferta-del-dia";
@@ -292,7 +291,7 @@ namespace Portal.Consultoras.Web.Providers
             else
             {
                 seccion.UrlLandig = (seccion.IsMobile ? "/Mobile/" : "/") + "ShowRoom";
-                seccion.UrlObtenerProductos = "ShowRoom/CargarProductosShowRoomOferta";
+                seccion.UrlObtenerProductos = seccion.IsMobile ? "" : "ShowRoom/CargarProductosShowRoomOferta";
                 if (!esMobile)
                 {
                     seccion.ImagenFondo =

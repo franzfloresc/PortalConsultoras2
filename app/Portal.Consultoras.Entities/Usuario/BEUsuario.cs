@@ -1460,7 +1460,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool MostrarBotonValidar { get; set; }
         [DataMember]
-        public BEOfertaFinal _OfertaFinal { get; set; }
+        public BEOfertaFinal beOfertaFinal { get; set; }
         [DataMember]
         public bool EsConsultoraOficina { get; set; }
 

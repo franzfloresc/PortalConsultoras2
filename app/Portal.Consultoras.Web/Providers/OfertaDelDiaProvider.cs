@@ -242,7 +242,7 @@ namespace Portal.Consultoras.Web.Providers
             var result = false;
             if (!NoMostrarBannerODD(controlador))
             {
-                var tieneOfertaDelDia = sessionManager.GetFlagOfertaDelDia();
+                var tieneOfertaDelDia = sessionManager.OfertaDelDia.Estrategia.TieneOfertaDelDia;
                 result = (!tieneOfertaDelDia ||
                           (!usuario.ValidacionAbierta && usuario.EstadoPedido == 202 && usuario.IndicadorGPRSB == 2 || usuario.IndicadorGPRSB == 0)
                           && !usuario.CloseOfertaDelDia) && tieneOfertaDelDia;

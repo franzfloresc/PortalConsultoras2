@@ -2476,7 +2476,7 @@ namespace Portal.Consultoras.BizLogic
                             usuario.OfertaFinal = 1;
                             usuario.EsOfertaFinalZonaValida = true;
                         }
-                        usuario._OfertaFinal = ofertaFinalModel;
+                        usuario.beOfertaFinal = ofertaFinalModel;
                         break;
                 }
             }
