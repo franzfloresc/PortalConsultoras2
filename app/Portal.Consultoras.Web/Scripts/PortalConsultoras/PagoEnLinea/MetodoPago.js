@@ -15,12 +15,14 @@ $(document).ready(function () {
 
         me.globals = {
             barraActivacion: $('.barra_activacion'),
-            listaOpcionPago: $(".opcion_pago")
+            listaOpcionPagoMobile: $(".opcionPagoMobile"),
+            listaOpcionPagoDesktop: $(".opcionPagoDesktop")
         },
             me.Funciones = {
                 InicializarEventos: function () {
                     //$(document).on('click', '.area_activa_barra_activacion', me.Eventos.AceptarTerminosYCondiciones);
-                    $(document).on('click', '.opcion_pago', me.Eventos.MostrarDetalleTipoPago);
+                    $(document).on('click', '.opcionPagoMobile', me.Eventos.MostrarDetalleTipoPago);
+                    $(document).on('click', '.opcionPagoDesktop', me.Eventos.MostrarDetalleTipoPago);
                     $(document).on('click', 'button[data-metodopago]', me.Eventos.ContinuarPasarelaPago);
                     $(document).on('click', '#lnkAceptaTerminosCondiciones', me.Eventos.AbrirPopupTerminosYCondiciones);
                     $(document).on('click', '.cerrar_popup_terminos_y_condiciones', me.Eventos.CerrarPopupTerminosYCondiciones);
@@ -46,7 +48,14 @@ $(document).ready(function () {
                         $(boton).html("PAGA CON VISA");
                     }
 
-                    var listaOpcionPago = me.globals.listaOpcionPago;
+                    var esPagoEnLineaMobile = window.matchMedia("(max-width:991px)").matches;
+
+                    if (esPagoEnLineaMobile) {
+                        var listaOpcionPago = me.globals.listaOpcionPagoMobile;
+                    } else {
+                        var listaOpcionPago = me.globals.listaOpcionPagoDesktop;
+                    }
+
                     if (listaOpcionPago) {
                         var cantidad = listaOpcionPago.length;
 
@@ -69,13 +78,13 @@ $(document).ready(function () {
                     }
                 },
                 MostrarDetalleTipoPago: function () {
-                    var siTipoPagoDetalleSeMuestra = $(this).find('.opcion_pago_contenido_visible_al_desplegar').css('display');
+                    var siTipoPagoDetalleSeMuestra = $(this).next().css('display');
 
                     if (siTipoPagoDetalleSeMuestra == 'block') {
-                        $(this).find('.opcion_pago_contenido_visible_al_desplegar').slideUp(200);
+                        $(this).next().slideUp(200);
                     } else {
                         $('.opcion_pago_contenido_visible_al_desplegar').slideUp(200);
-                        $(this).find('.opcion_pago_contenido_visible_al_desplegar').slideDown(200);
+                        $(this).next().slideDown(200);
                     }
                 },
                 AbrirPopupTerminosYCondiciones: function (e) {
