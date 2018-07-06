@@ -9,10 +9,13 @@
 
 @section styles{
     <link href="@Url.Content("~/Content/Css/Mobile/Ficha/ficha.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Mobile/Ficha/Carrusel.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Mobile/Ficha/RedesSociales.css")" rel="stylesheet" />
+    <style id="styleRelojOdd"></style>
 
 }
 
-<div class="container" data-tag-html="@Model.Campania">
+<div class="container" data-tag-html="@Model.Campania" id="div-container-breadcubs" style="display: none;">
     <div class="row">
         <div class="col-md-12">
             <ul class="breadcumbs">
@@ -277,13 +280,13 @@
                     </ul>
                 </li>
                 @*<li id="div_ficha_tab5">
-                    <a>VIDEO</a>
-                    <div class="video-visual">
-                        <div class="video-container">
-                            <div id="ytFicha" data-youtube="{ height:'220', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}" class="yt-video"></div>
+                        <a>VIDEO</a>
+                        <div class="video-visual">
+                            <div class="video-container">
+                                <div id="ytFicha" data-youtube="{ height:'220', width:'100%', enablejsapi:1, fs:0, showinfo:0, modestbranding:1, loop:1, playerVars:{autoplay:1,rel:0}}" class="yt-video"></div>
+                            </div>
                         </div>
-                    </div>
-                </li>*@
+                    </li>*@
             </ul>
         </div>
     </div>
@@ -319,10 +322,12 @@
     @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
 }
 
+@Html.Partial("_template-ofertadeldia-style")
+
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
 
-<script>
+    <script>
         window.videoKey = '@Model.CodigoVideo';
         var fichaModule;
         //var carruselModule;
@@ -355,7 +360,7 @@
             }
         });
 
-</script>
+    </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
 
 }

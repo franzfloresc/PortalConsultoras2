@@ -86,8 +86,8 @@
 
         var slickArrows = {
             'mobile': {
-                prev: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-left: 0%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
-                next: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-right:0%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>'
+                prev: '<a class="carrusel_fechaprev_mobile" href="javascript:void(0);"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
+                next: '<a class="carrusel_fechanext_mobile" href="javascript:void(0);"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>'
             },
             'desktop': {
                 prev: '<a class="previous_ofertas" style="left:-5%; text-align:left;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',

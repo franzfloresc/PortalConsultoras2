@@ -231,9 +231,7 @@ $(document).ready(function () {
                 var _data = response.data;
 
                 RenderOfertaDelDia(_data, contenedorOfertas);
-
                 MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
-
 
                 var setColorFondo = _data.ColorFondo1;
                 var setColorTexto = "";
@@ -245,7 +243,6 @@ $(document).ready(function () {
                 if (_data.ConfiguracionContenedor.ColorTexto !== "") {
                     setColorTexto = _data.ConfiguracionContenedor.ColorTexto;
                 }
-
 
                 var url = window.location.href.toLowerCase() + "/";
                 url = url.replace("#", "/");
