@@ -171,47 +171,12 @@
 
     @if (Model.TieneSubCampania)
     {
-        //var listaSubCampania = Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList();
-
-        //if (listaSubCampania != null && listaSubCampania.Count > 0)
-        //{
-        //    var precioOferta = listaSubCampania[0].FormatoPrecioOferta;
-        //    var descripcion = listaSubCampania[0].Descripcion;
-        //    if (descripcion != null && descripcion.Length > 41)
-        //    {
-        //        descripcion = descripcion.Substring(0, 40) + " ...";
-        //    }
-
-            <div id="divContentSubCampania" class="banner_especial_showroom" style="background: @Model.ColorFondoContenidoOfertaSubCampania;display:none;" >
-                <div class="promocion_especial_header">
-                    <div class="titulo_promocion_showroom" style="background: url(@Model.ImagenFondoTituloOfertaSubCampania) no-repeat right top">
-                        <div class="content_titulo" style="color: @Model.ColorTextoInicialOfertaSubCampania">
-                            @Model.TextoInicialOfertaSubCampania
-                            <span class="titulo_banner_showroom" style="color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
-                        </div>
-                    </div>
-                    <div class="content_set_especial_header" id="content_set_especial_header">
-                        <div class="content_imagen_promocion">
-                            @*<img src="@listaSubCampania[0].ImagenMini">*@
-                        </div>
-                        <div class="content_set_precio_especial">
-                            @*<span style="font-size: 12px;">@descripcion</span>*@
-                            <br />
-                            @*A SÓLO <span class="precio_set_especial">@Model.Simbolo @precioOferta</span>*@
-                        </div>
-                        <div style="float:right; right: 0;">
-                            <a href="#" class="btn_descubre_set_especial" id="VerOfertaEspecial"><span>@Model.TextoBotonVerMasOfertaSubCampania</span></a>
-                        </div>
-                    </div>
-                    <a href="#" class="btn_descubre_set_especial info_desplegable" id="BajarOfertaEspecial"></a>
-
-                </div>
-
-                <div class="content_set_oferta_especial" style="max-width: 1024px; padding: 0 0% 0 6%;">
-                    <div class="content_carrusel_oferta_especial" id="contenedor-showroom-subcampanias"></div>
-                </div>
+        <div id="divContentSubCampania" class="banner_especial_showroom" style="background: @Model.ColorFondoContenidoOfertaSubCampania;display:none;" >
+            <div class="promocion_especial_header" id="banner-sub-campania"></div>
+            <div class="content_set_oferta_especial" style="max-width: 1024px; padding: 0 0% 0 6%;">
+                <div class="content_carrusel_oferta_especial" id="contenedor-showroom-subcampanias"></div>
             </div>
-        //}
+        </div>
     }
     else
     {
@@ -360,6 +325,29 @@
 <div id="loadingScreen"></div>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+
+<script id="banner-sub-campania-template" type="text/x-handlebars-template">
+    <div class="titulo_promocion_showroom" style="background: url(@Model.ImagenFondoTituloOfertaSubCampania) no-repeat right top">
+        <div class="content_titulo" style="color: @Model.ColorTextoInicialOfertaSubCampania">
+            @Model.TextoInicialOfertaSubCampania
+            <span class="titulo_banner_showroom" style="color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
+        </div>
+    </div>
+    <div class="content_set_especial_header" id="content_set_especial_header">
+        <div class="content_imagen_promocion">
+            <img src="{{ImgUrl FotoProducto01}}" />
+        </div>
+        <div class="content_set_precio_especial">
+            <span style="font-size: 12px;">{{DescripcionCortada}}</span>
+            <br />
+            A SÓLO <span class="precio_set_especial">@Model.Simbolo {{PrecioVenta}}</span>
+        </div>
+        <div style="float:right; right: 0;">
+            <a href="#" class="btn_descubre_set_especial" id="VerOfertaEspecial"><span>@Model.TextoBotonVerMasOfertaSubCampania</span></a>
+        </div>
+    </div>
+    <a href="#" class="btn_descubre_set_especial info_desplegable" id="BajarOfertaEspecial"></a>
+</script>
 
 @*<script id="template-showroom" type="text/x-handlebars-template">
     {{#each this as |item|}}
