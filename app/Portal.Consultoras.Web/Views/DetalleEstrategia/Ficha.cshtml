@@ -6,13 +6,15 @@
 
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/Ficha/Ficha.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/Ficha/Carrusel.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/Ficha/RedesSociales.css")" rel="stylesheet" />
 
 }
 <!--prueba-->
 <div id="ImagenDeFondo" class="imagen_fondo_detalle" style="background-image: url('https://S3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_Desktop_Fondo_del_ShowRoom_en_el_Contenedor_Ofertas_Venta 50A_2018630811_01_ytmwyupjny.jpg');"></div>
-<div class="contenedor_detalle texto_font" >
+<div class="contenedor_detalle texto_font">
     <div class="contenedor_fichas">
-        <div class="contenedor_ficha_producto"  data-item="" data-tag-html="@ViewBag.Campania" data-OrigenPedidoWeb="@Model.Origen">
+        <div class="contenedor_ficha_producto" data-item="" data-tag-html="@ViewBag.Campania" data-OrigenPedidoWeb="@Model.Origen">
             <div style="display:none;">
                 <div id="data-estrategia" data-estrategia="@Json.Encode(Model)"></div>
             </div>
@@ -29,22 +31,22 @@
                     <span data-texto_referencial="">* Foto Referencial</span>
                 </div>
                 @*
-        <div class="contenedor_carrusel_tonos">
-            <div id="carrusel_tonos" style="display:none;">
-                <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                    <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                </div>
-                <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                    <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                </div>
-                <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                    <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                </div>
-                <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
-                    <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
-                </div>
-            </div>
-        </div>*@
+                    <div class="contenedor_carrusel_tonos">
+                        <div id="carrusel_tonos" style="display:none;">
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                        </div>
+                    </div>*@
                 <div class="ficha_redes_sociales">
                     <div data-compartir-campos="" style="display:none;">
                         <input type="hidden" class="CUV" value="{{CUV2}}" />
@@ -331,7 +333,7 @@
             <section id="contenido_5" class="seccion_tab">
                 <div class="contenedor_iframe_seccion_tab">
                     @*<iframe class="iframe_seccion_tab"
-                            src="https://www.youtube.com/embed/Ib8S28KNZeU"></iframe>*@
+                        src="https://www.youtube.com/embed/Ib8S28KNZeU"></iframe>*@
                 </div>
             </section>
         </div>
