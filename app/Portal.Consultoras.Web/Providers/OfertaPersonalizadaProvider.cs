@@ -902,6 +902,16 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.NombrePalanca.OfertaDelDia:
                     return sessionManager.OfertaDelDia.Estrategia.ListaOferta
                         .FirstOrDefault(x => x.CUV2 == cuv);
+                case Constantes.NombrePalanca.PackNuevas:
+                    var varSession = Constantes.ConstSession.ListaEstrategia + Constantes.TipoEstrategiaCodigo.PackNuevas;
+                    var listaEstrategia = sessionManager.GetBEEstrategia(varSession);
+                    if (listaEstrategia.Any())
+                    {
+                        var userData = sessionManager.GetUserData();
+                        var listaOfertasModel = ConsultarEstrategiasModelFormato(listaEstrategia, userData.CodigoISO, userData.CampaniaID, 2, userData.esConsultoraLider, userData.Simbolo);
+                        return listaOfertasModel.FirstOrDefault(x => x.CUV2 == cuv);
+                    }
+                    return null;
                 default:
                     return null;
             }
@@ -1004,7 +1014,8 @@ namespace Portal.Consultoras.Web.Providers
         public bool PalancasConSesion(string palanca)
         {
             return palanca.Equals(Constantes.NombrePalanca.ShowRoom) ||
-                   palanca.Equals(Constantes.NombrePalanca.OfertaDelDia);
+                   palanca.Equals(Constantes.NombrePalanca.OfertaDelDia) ||
+                   palanca.Equals(Constantes.NombrePalanca.PackNuevas);
         }
 
         //Falta revisar las casuiticas por palanca
@@ -1015,6 +1026,8 @@ namespace Portal.Consultoras.Web.Providers
             switch (palanca)
             {
                 case Constantes.NombrePalanca.RevistaDigital:
+                case Constantes.NombrePalanca.PackNuevas:
+                case Constantes.NombrePalanca.OfertasParaMi:
                     tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.RevistaDigital); break;
                 case Constantes.NombrePalanca.Lanzamiento:
                     tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.Lanzamiento); break;
@@ -1030,8 +1043,6 @@ namespace Portal.Consultoras.Web.Providers
                     tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.OfertaDelDia); break;
                 case Constantes.NombrePalanca.OfertaParaTi:
                     tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.OfertasParaTi); break;
-                case Constantes.NombrePalanca.OfertasParaMi:
-                    tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.RevistaDigital); break;
                 default:
                     tienePalanca = false; break;
             }

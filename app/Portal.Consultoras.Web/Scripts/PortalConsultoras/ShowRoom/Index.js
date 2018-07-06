@@ -2,7 +2,7 @@
 var rangoPrecios = 0;
 
 $(document).ready(function () {
-    $("#VerOfertaEspecial").on("click", function () {
+    $("body").on("click", "#VerOfertaEspecial", function () {
         $('#PopupBannerEspecial').css('display', 'block');
         $('div.banner_especial_showroom').css('z-index', 1000);
 
@@ -29,16 +29,16 @@ $(document).ready(function () {
 
         $('#contenedor-showroom-subcampanias').slick('slickGoTo', 1);
     });
-    $("#BajarOfertaEspecial").on("click", function () {
-        $('#PopupBannerEspecial').css('display', 'none');
-        $('div.banner_especial_showroom').css('z-index', 150);
+    $("body").on("click", "#BajarOfertaEspecial", function() {
+            $('#PopupBannerEspecial').css('display', 'none');
+            $('div.banner_especial_showroom').css('z-index', 150);
 
-        $('#content_set_especial_header').show();
-        $('#BajarOfertaEspecial').hide();
+            $('#content_set_especial_header').show();
+            $('#BajarOfertaEspecial').hide();
 
-        $('.content_set_oferta_especial').slideUp();
+            $('.content_set_oferta_especial').slideUp();
 
-    });
+        });
     var stilo;
     $("#CerrarOfertaEspecial").on("click", function () {
         $('.banner_especial_showroom').hide();
