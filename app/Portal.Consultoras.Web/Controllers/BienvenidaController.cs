@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -746,9 +747,11 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
+                string ip = GetIpCliente();
+
                 using (var svr = new UsuarioServiceClient())
                 {
-                  svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora , origenAceptacion);
+                  svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora , origenAceptacion, ip, "");
                 }
 
                 userData.IndicadorContrato = 1;
@@ -2338,6 +2341,23 @@ namespace Portal.Consultoras.Web.Controllers
 
             partial.ConfiguracionPaisDatos = partial.ConfiguracionPaisDatos ?? new ConfiguracionPaisDatosModel();
             return partial;
+        }
+
+        protected virtual string GetIpCliente()
+        {
+            var ip = string.Empty;
+
+            try
+            {
+                var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
+                ip = request.ClientIPFromRequest(skipPrivate: true);
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "BienvenidaController.GetIpCliente");
+            }
+
+            return ip;
         }
     }
 }

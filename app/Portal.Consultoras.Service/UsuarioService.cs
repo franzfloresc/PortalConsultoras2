@@ -257,10 +257,10 @@ namespace Portal.Consultoras.Service
             blUsuario.InsLogIngresoPortal(paisID, CodigoConsultora, IPOrigen, Tipo, DetalleError, Canal);
         }
 
-        public int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora , string origen)
+        public int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora , string origen, string direccionIP, string InformacionSOMobile)
         {
             var blContratoAceptacion = new BLContratoAceptacion();
-            return blContratoAceptacion.AceptarContratoAceptacion(paisID, consultoraid, codigoConsultora, origen);
+            return blContratoAceptacion.AceptarContratoAceptacion(paisID, consultoraid, codigoConsultora, origen, direccionIP, InformacionSOMobile);
         }
 
         public BEUsuario GetSesionUsuarioLoginDD(int paisID, string codigoUsuario, string claveSecreta)

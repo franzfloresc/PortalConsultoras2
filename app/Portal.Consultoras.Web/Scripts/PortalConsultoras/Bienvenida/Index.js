@@ -151,9 +151,6 @@ $(document).ready(function () {
             if ($('#popupInvitaionFlexipago').is(':visible')) {
                 PopupCerrar('popupInvitaionFlexipago');
             }
-            if ($('#popupAceptacionContrato').is(':visible')) {
-                PopupCerrar('popupAceptacionContrato');
-            }
             if ($('#popupDemandaAnticipada').is(':visible')) {
                 PopupCerrar('popupDemandaAnticipada');
             }
@@ -2197,9 +2194,6 @@ function AceptarContrato() {
                 }
 
                 PopupCerrar('popupAceptacionContrato');
-                if (viewBagCambioClave == 0) {
-                    PopupMostrar('popupActualizarMisDatos');
-                }
             }
         },
         error: function (data, error) {

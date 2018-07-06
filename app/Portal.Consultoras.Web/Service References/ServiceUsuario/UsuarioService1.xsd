@@ -1199,6 +1199,8 @@
         <xs:element minOccurs="0" name="consultoraid" type="xs:long" />
         <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="origen" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="direccionIP" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="InformacionSOMobile" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
