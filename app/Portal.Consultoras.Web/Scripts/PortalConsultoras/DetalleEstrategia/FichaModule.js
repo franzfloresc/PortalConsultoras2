@@ -251,7 +251,29 @@
         if (!isMobile()) {
             _validarSiEsAgregado(estrategia);
         }
-        
+
+        //Handlers bars para el detalle de los tabs de fichas
+        _construirSeccionDetalleFichas(estrategia);
+        return true;
+    };
+
+    var _construirSeccionDetalleFichas = function (estrategia) {
+
+        if (estrategia === null || typeof (estrategia) === "undefined" ) {
+            return false;
+        }
+
+        if (estrategia.CodigoEstrategia === _constantePalanca.Lanzamiento) {
+            //Construir sección ficha - Video 
+            debugger;
+            estrategia.VideoKey = '70YPRFp-tWA';
+            SetHandlebars("#template-fichadetallevideo", estrategia, "#contenedor-tab-video");
+        }
+
+        //if (!isMobile()) {
+        //    _validarSiEsAgregado(estrategia);
+        //}
+
         return true;
     };
 
