@@ -1,6 +1,7 @@
 ﻿GO
 USE BelcorpPeru
 GO
+
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -198,7 +199,14 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (
+		select ep.CUV
+		from EstrategiaProducto ep WITH (NOLOCK)
+		where ep.EstrategiaId = e.EstrategiaID
+			and ep.Campania = p.CampaniaID
+			and ep.CUV = p.CUV
+			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
+	)
 
 END
 GO
@@ -207,6 +215,7 @@ GO
 GO
 USE BelcorpMexico
 GO
+
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -404,7 +413,14 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (
+		select ep.CUV
+		from EstrategiaProducto ep WITH (NOLOCK)
+		where ep.EstrategiaId = e.EstrategiaID
+			and ep.Campania = p.CampaniaID
+			and ep.CUV = p.CUV
+			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
+	)
 
 END
 GO
@@ -413,6 +429,7 @@ GO
 GO
 USE BelcorpColombia
 GO
+
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -610,7 +627,14 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (
+		select ep.CUV
+		from EstrategiaProducto ep WITH (NOLOCK)
+		where ep.EstrategiaId = e.EstrategiaID
+			and ep.Campania = p.CampaniaID
+			and ep.CUV = p.CUV
+			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
+	)
 
 END
 GO
@@ -619,6 +643,7 @@ GO
 GO
 USE BelcorpSalvador
 GO
+
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -816,7 +841,14 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (
+		select ep.CUV
+		from EstrategiaProducto ep WITH (NOLOCK)
+		where ep.EstrategiaId = e.EstrategiaID
+			and ep.Campania = p.CampaniaID
+			and ep.CUV = p.CUV
+			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
+	)
 
 END
 GO
@@ -825,6 +857,7 @@ GO
 GO
 USE BelcorpPuertoRico
 GO
+
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -1022,7 +1055,14 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (
+		select ep.CUV
+		from EstrategiaProducto ep WITH (NOLOCK)
+		where ep.EstrategiaId = e.EstrategiaID
+			and ep.Campania = p.CampaniaID
+			and ep.CUV = p.CUV
+			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
+	)
 
 END
 GO
@@ -1031,6 +1071,7 @@ GO
 GO
 USE BelcorpPanama
 GO
+
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -1228,7 +1269,14 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (
+		select ep.CUV
+		from EstrategiaProducto ep WITH (NOLOCK)
+		where ep.EstrategiaId = e.EstrategiaID
+			and ep.Campania = p.CampaniaID
+			and ep.CUV = p.CUV
+			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
+	)
 
 END
 GO
@@ -1237,6 +1285,7 @@ GO
 GO
 USE BelcorpGuatemala
 GO
+
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -1434,7 +1483,14 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (
+		select ep.CUV
+		from EstrategiaProducto ep WITH (NOLOCK)
+		where ep.EstrategiaId = e.EstrategiaID
+			and ep.Campania = p.CampaniaID
+			and ep.CUV = p.CUV
+			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
+	)
 
 END
 GO
@@ -1443,6 +1499,7 @@ GO
 GO
 USE BelcorpEcuador
 GO
+
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -1640,7 +1697,14 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (
+		select ep.CUV
+		from EstrategiaProducto ep WITH (NOLOCK)
+		where ep.EstrategiaId = e.EstrategiaID
+			and ep.Campania = p.CampaniaID
+			and ep.CUV = p.CUV
+			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
+	)
 
 END
 GO
@@ -1649,6 +1713,7 @@ GO
 GO
 USE BelcorpDominicana
 GO
+
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -1846,7 +1911,14 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (
+		select ep.CUV
+		from EstrategiaProducto ep WITH (NOLOCK)
+		where ep.EstrategiaId = e.EstrategiaID
+			and ep.Campania = p.CampaniaID
+			and ep.CUV = p.CUV
+			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
+	)
 
 END
 GO
@@ -1855,6 +1927,7 @@ GO
 GO
 USE BelcorpCostaRica
 GO
+
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -2052,7 +2125,14 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (
+		select ep.CUV
+		from EstrategiaProducto ep WITH (NOLOCK)
+		where ep.EstrategiaId = e.EstrategiaID
+			and ep.Campania = p.CampaniaID
+			and ep.CUV = p.CUV
+			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
+	)
 
 END
 GO
@@ -2061,6 +2141,7 @@ GO
 GO
 USE BelcorpChile
 GO
+
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -2258,7 +2339,14 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (
+		select ep.CUV
+		from EstrategiaProducto ep WITH (NOLOCK)
+		where ep.EstrategiaId = e.EstrategiaID
+			and ep.Campania = p.CampaniaID
+			and ep.CUV = p.CUV
+			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
+	)
 
 END
 GO
@@ -2267,6 +2355,7 @@ GO
 GO
 USE BelcorpBolivia
 GO
+
 GO
 ALTER PROCEDURE [dbo].GetProductoComercialByCuvByFilter
 (
@@ -2464,7 +2553,14 @@ BEGIN
 	LEFT JOIN @ProductoSugeridoTemp pst on
 		p.CUV = pst.CUV
 	LEFT JOIN ProductoSugeridoPadre psp WITH (NOLOCK) ON p.CUV = psp.CUV and p.CampaniaID = psp.CampaniaID
-	where NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.CampaniaID and ep.CUV = p.CUV)
+	where NOT EXISTS (
+		select ep.CUV
+		from EstrategiaProducto ep WITH (NOLOCK)
+		where ep.EstrategiaId = e.EstrategiaID
+			and ep.Campania = p.CampaniaID
+			and ep.CUV = p.CUV
+			and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = e.TipoEstrategiaID and tex.Codigo = '011')
+	)
 
 END
 GO

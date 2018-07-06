@@ -138,8 +138,14 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
-		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
-
+		AND NOT EXISTS (
+			select ep.CUV
+			from EstrategiaProducto ep WITH (NOLOCK)
+			where ep.EstrategiaId = EST.EstrategiaID
+				and ep.Campania = p.AnoCampania
+				and ep.CUV = p.CUV
+				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
+		)
 END
 GO
 
@@ -284,8 +290,14 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
-		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
-
+		AND NOT EXISTS (
+			select ep.CUV
+			from EstrategiaProducto ep WITH (NOLOCK)
+			where ep.EstrategiaId = EST.EstrategiaID
+				and ep.Campania = p.AnoCampania
+				and ep.CUV = p.CUV
+				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
+		)
 END
 GO
 
@@ -430,8 +442,14 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
-		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
-
+		AND NOT EXISTS (
+			select ep.CUV
+			from EstrategiaProducto ep WITH (NOLOCK)
+			where ep.EstrategiaId = EST.EstrategiaID
+				and ep.Campania = p.AnoCampania
+				and ep.CUV = p.CUV
+				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
+		)
 END
 GO
 
@@ -576,8 +594,14 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
-		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
-
+		AND NOT EXISTS (
+			select ep.CUV
+			from EstrategiaProducto ep WITH (NOLOCK)
+			where ep.EstrategiaId = EST.EstrategiaID
+				and ep.Campania = p.AnoCampania
+				and ep.CUV = p.CUV
+				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
+		)
 END
 GO
 
@@ -722,8 +746,14 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
-		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
-
+		AND NOT EXISTS (
+			select ep.CUV
+			from EstrategiaProducto ep WITH (NOLOCK)
+			where ep.EstrategiaId = EST.EstrategiaID
+				and ep.Campania = p.AnoCampania
+				and ep.CUV = p.CUV
+				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
+		)
 END
 GO
 
@@ -868,8 +898,14 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
-		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
-
+		AND NOT EXISTS (
+			select ep.CUV
+			from EstrategiaProducto ep WITH (NOLOCK)
+			where ep.EstrategiaId = EST.EstrategiaID
+				and ep.Campania = p.AnoCampania
+				and ep.CUV = p.CUV
+				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
+		)
 END
 GO
 
@@ -1014,8 +1050,14 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
-		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
-
+		AND NOT EXISTS (
+			select ep.CUV
+			from EstrategiaProducto ep WITH (NOLOCK)
+			where ep.EstrategiaId = EST.EstrategiaID
+				and ep.Campania = p.AnoCampania
+				and ep.CUV = p.CUV
+				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
+		)
 END
 GO
 
@@ -1160,8 +1202,14 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
-		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
-
+		AND NOT EXISTS (
+			select ep.CUV
+			from EstrategiaProducto ep WITH (NOLOCK)
+			where ep.EstrategiaId = EST.EstrategiaID
+				and ep.Campania = p.AnoCampania
+				and ep.CUV = p.CUV
+				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
+		)
 END
 GO
 
@@ -1306,8 +1354,14 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
-		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
-
+		AND NOT EXISTS (
+			select ep.CUV
+			from EstrategiaProducto ep WITH (NOLOCK)
+			where ep.EstrategiaId = EST.EstrategiaID
+				and ep.Campania = p.AnoCampania
+				and ep.CUV = p.CUV
+				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
+		)
 END
 GO
 
@@ -1452,8 +1506,14 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
-		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
-
+		AND NOT EXISTS (
+			select ep.CUV
+			from EstrategiaProducto ep WITH (NOLOCK)
+			where ep.EstrategiaId = EST.EstrategiaID
+				and ep.Campania = p.AnoCampania
+				and ep.CUV = p.CUV
+				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
+		)
 END
 GO
 
@@ -1598,8 +1658,14 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
-		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
-
+		AND NOT EXISTS (
+			select ep.CUV
+			from EstrategiaProducto ep WITH (NOLOCK)
+			where ep.EstrategiaId = EST.EstrategiaID
+				and ep.Campania = p.AnoCampania
+				and ep.CUV = p.CUV
+				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
+		)
 END
 GO
 
@@ -1744,8 +1810,14 @@ BEGIN
 	WHERE p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion, coalesce(est.descripcioncuv2, op.Descripcion, pd.Descripcion, p.Descripcion)) > 0
-		AND NOT EXISTS (select ep.CUV from EstrategiaProducto ep WITH (NOLOCK) where ep.Campania = p.AnoCampania and ep.CUV = p.CUV)
-
+		AND NOT EXISTS (
+			select ep.CUV
+			from EstrategiaProducto ep WITH (NOLOCK)
+			where ep.EstrategiaId = EST.EstrategiaID
+				and ep.Campania = p.AnoCampania
+				and ep.CUV = p.CUV
+				and NOT EXISTS (select tex.Codigo from TipoEstrategia tex where tex.TipoEstrategiaID = EST.TipoEstrategiaID and tex.Codigo = '011')
+		)
 END
 GO
 
