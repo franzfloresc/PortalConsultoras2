@@ -254,7 +254,7 @@
             hidegrid: false,
             datatype: "json",
             postData: (parametros),
-            mtype: "GET",
+            mtype: "POST",
             contentType: "application/json; charset=utf-8",
             colNames: ["CUV", "Descripción"],
             colModel: [
@@ -324,7 +324,7 @@
             hidegrid: false,
             datatype: "json",
             postData: (parametros),
-            mtype: "GET",
+            mtype: "POST",
             contentType: "application/json; charset=utf-8",
             colNames: ["CUV", "Descripción"],
             colModel: [

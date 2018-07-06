@@ -2132,8 +2132,8 @@ namespace Portal.Consultoras.Common
             //api/Estrategia/desactivar/{pais}?Usuario=
             public const string UrlDesactivarEstrategias = "api/estrategia/desactivar/{0}?Usuario={1}";
 
-            //api/Estrategia/actualizar/{pais}
-            public const string UrlUploadCsv = "api/estrategia/actualizar/{0}/{1}";
+            //api/Estrategia/actualizar/{pais}/{tipo}/{campania}
+            public const string UrlUploadCsv = "api/estrategia/actualizar/{0}/{1}/{2}";
                                                 
             //api/Estrategia/cuv/{pais}/{tipo}/{campania}/{cuv}
             public const string UrlEstrategiaCuv = "api/estrategia/cuv/{0}/{1}/{2}/{3}";
