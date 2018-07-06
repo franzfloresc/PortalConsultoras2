@@ -61,12 +61,21 @@ var ConstantesModule = (function () {
         lan: "lan"
     }
 
+    var _urlObtenerEstrategia = {
+        OfertaParaTi: "/Estrategia/ConsultarEstrategiasOPT",
+        OfertasParaMi: "/Estrategia/RDObtenerProductos",
+        Lanzamiento: "/Estrategia/RDObtenerProductosLan",
+        GuiaDeNegocioDigitalizada: "/Estrategia/GNDObtenerProductos",
+        HerrameintasVenta: "/Estrategia/HVObtenerProductos"
+    }
+    
     return {
         CodigosPalanca: _codigosPalanca,
-        KeysLocalStorage: _keysLocalStorage,
+        KeysLocalStorage: _keysLocalStorage, 
         CodigoVariedad: _codigoVariedad,
         ConstantesPalanca: _constantesPalanca,
-        TipoEstrategia: _tipoEstrategia
+        TipoEstrategia: _tipoEstrategia,
+        UrlObtenerEstrategia: _urlObtenerEstrategia
     }
     
 })();
