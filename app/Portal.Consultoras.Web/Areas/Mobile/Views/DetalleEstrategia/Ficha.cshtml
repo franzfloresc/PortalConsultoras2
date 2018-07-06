@@ -72,6 +72,14 @@
                 {{DescripcionCompleta}}
             </div>
         </div>
+        <div id="SloganLanzamiento">
+            <span class="nombre_detalle_producto_tono"><strong>{{this.TipoEstrategiaDetalle.Slogan}}</strong></span>
+            <ul class="descripcion_detalle_producto_tono" style="list-style-type: none;">
+                {{#each this.ListaDescripcionDetalle}}
+                <li><span class="vineta">-</span><span class="txt-des">{{this}}</span></li>
+                {{/each}}
+            </ul>
+        </div>
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 precio_producto">
                 <p>Valorizado en <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
@@ -88,14 +96,6 @@
         </ul>
     </div>
     <div class="container">
-        <div id="SloganLanzamiento">
-            <span class="nombre_detalle_producto_tono"><strong>{{this.TipoEstrategiaDetalle.Slogan}}</strong></span>
-            <ul class="descripcion_detalle_producto_tono" style="list-style-type: none;">
-                {{#each this.ListaDescripcionDetalle}}
-                <li><span class="vineta">-</span><span class="txt-des">{{this}}</span></li>
-                {{/each}}
-            </ul>
-        </div>
         <div class="row seleccion_tonos">
             <div data-estrategia="{{CodigoVariante}}">
                 {{#iff CodigoVariante '==' '2001'}}
@@ -312,7 +312,8 @@
     </div>
 </div>
 
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", true } })
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
+
 @if (ViewBag.CampaniaCodigo != Model.Campania)
 {
     @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
@@ -321,11 +322,12 @@
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
 
-
-    <script>
+<script>
         window.videoKey = '@Model.CodigoVideo';
         var fichaModule;
-        var carruselModule;
+        //var carruselModule;
+
+        var tieneCarrusel = '@Model.TieneCarrusel';
 
         $(document).ready(function() {
             fichaModule = FichaModule({
@@ -338,21 +340,22 @@
             });
             fichaModule.Inicializar();
 
-
-            carruselModule = CarruselModule({
-                palanca: "@Model.Palanca",
-                campania: "@Model.Campania",
-                cuv: "@Model.Cuv",
-                idPlantilla: "#producto-landing-template",
-                divCarrusel: "#divOfertaProductos",
-                divSetsProductosdata: "#set_relacionados",
-                urlDataCarrusel: '@Url.Action("GetCarruselShowRoomExcepto", "Estrategia", new { Area = "" })',
-                idTituloCarrusel: "#tituloCarrusel"
-            });
-            carruselModule.Inicializar();
+            if (tieneCarrusel) {
+                carruselModule = CarruselModule({
+                    palanca: "@Model.Palanca",
+                    campania: "@Model.Campania",
+                    cuv: "@Model.Cuv",
+                    idPlantilla: "#producto-landing-template",
+                    divCarrusel: "#divOfertaProductos",
+                    divSetsProductosdata: "#set_relacionados",
+                    urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new { Area = "" })',
+                    idTituloCarrusel: "#tituloCarrusel"
+                });
+                carruselModule.Inicializar();
+            }
         });
 
-    </script>
+</script>
     @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
 
 }
