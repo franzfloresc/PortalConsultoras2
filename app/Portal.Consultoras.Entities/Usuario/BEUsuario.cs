@@ -1137,7 +1137,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("OfertaFinal")]
         public int OfertaFinal { get; set; }
-        
+
         [DataMember]
         [Column("EsOfertaFinalZonaValida")]
         public bool EsOfertaFinalZonaValida { get; set; }
@@ -1462,6 +1462,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public BEOfertaFinal _OfertaFinal { get; set; }
         [DataMember]
+        [Column("IndicadorConsultoraOficina")]
         public bool EsConsultoraOficina { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
@@ -1479,5 +1480,6 @@ namespace Portal.Consultoras.Entities
         }
         [DataMember]
         public string NivelProyectado { get; set; }
+  
     }
 }
