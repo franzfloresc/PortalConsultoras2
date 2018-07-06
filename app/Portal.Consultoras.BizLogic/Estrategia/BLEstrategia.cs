@@ -563,7 +563,7 @@ namespace Portal.Consultoras.BizLogic
 
         public BEEstrategia GetEstrategiaProgramaNuevas(BEEstrategia entidad)
         {
-            BEEstrategia data = new BEEstrategia();
+            BEEstrategia data = null;
             var da = new DAEstrategia(entidad.PaisID);
             using (IDataReader reader = da.GetEstrategiaProgramaNuevas(entidad))
                 if (reader.Read())
@@ -574,7 +574,7 @@ namespace Portal.Consultoras.BizLogic
 
         public BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel)
         {
-            BEEstrategia result = new BEEstrategia();
+            BEEstrategia result = null;
             try
             {
                 var da = new BLPremiosProgramaNuevas();
@@ -593,7 +593,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch
             {
-                result = new BEEstrategia();
+                result = null;
             }
             return result;
         }
