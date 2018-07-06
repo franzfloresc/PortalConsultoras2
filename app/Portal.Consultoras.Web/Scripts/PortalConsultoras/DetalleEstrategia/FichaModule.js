@@ -103,13 +103,13 @@
         }
     };
     
-    var _crearReloj = function() {
+    var _crearReloj = function (estrategia) {
         $("#clock").each(function (index, elem) {
-            $(elem).FlipClock(50000,
+            $(elem).FlipClock(estrategia.TeQuedan,
                 {
                     countdown: true,
                     clockFace: "HourlyCounter",
-                    language: "es-es",
+                    language: "es-es"
                 });
         });
     };
@@ -244,6 +244,9 @@
         }
 
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
+        if (estrategia.CodigoEstrategia === _constantePalanca.OfertaDelDia) {
+            _crearReloj(estrategia);
+        }
        
         if (!isMobile()) {
             _validarSiEsAgregado(estrategia);

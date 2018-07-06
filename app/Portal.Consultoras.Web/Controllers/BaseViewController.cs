@@ -254,6 +254,9 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.TieneCarrusel = (Constantes.NombrePalanca.Lanzamiento == palanca 
                         || Constantes.NombrePalanca.ShowRoom == palanca 
                         || Constantes.NombrePalanca.OfertaDelDia == palanca);
+                if (modelo.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
+                    modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
+
 
                 ViewBag.PaisAnalytics = userData.CodigoISO;
                 ViewBag.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();

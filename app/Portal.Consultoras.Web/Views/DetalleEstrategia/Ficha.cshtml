@@ -223,7 +223,7 @@
                 <div class="row_ficha_tab">
                     <div class="cell_ficha_tab" id="div_ficha_tab1">
                         <div class="contents_ficha_tab">
-                            <input id="ficha_tab_1" class="imput_tab_clean imput_tab" type="radio" name="tabs" data-numTab="1" checked>
+                            <input id="ficha_tab_1" class="imput_tab_clean imput_tab" type="radio" name="tabs" data-numTab="1">
                             <label for="ficha_tab_1" class="label_tab">DETALLE DEL PRODUCTO</label>
                         </div>
                     </div>
@@ -335,7 +335,7 @@
                 <div class="contenedor_linea_carrusel">
                     <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_izquierda"></div>
                 </div>
-                <div class="txt_titulo_carrusel">SET DONDE ENCUENTRAS EL PRODUCTO</div>
+                <div id="tituloCarrusel" class="txt_titulo_carrusel"></div>
                 <div class="contenedor_linea_carrusel">
                     <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_derecha"></div>
                 </div>
@@ -382,7 +382,8 @@
                     idPlantilla: "#producto-landing-template",
                     divCarrusel: "#carrusel",
                     divSetsProductosdata: "#CarruselProducto"
-                urlDataCarrusel: '@Url.Action("GetCarruselShowRoomExcepto", "ShowRoom")'
+                urlDataCarrusel: '@Url.Action("GetCarruselShowRoomExcepto", "Estrategia")',
+                idTituloCarrusel: "#tituloCarrusel"
                 });
                 carruselModule.Inicializar();
             }

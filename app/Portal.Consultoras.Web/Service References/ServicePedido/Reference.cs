@@ -6131,7 +6131,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool ZonaValidaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Web.ServicePedido.BEOfertaFinal _OfertaFinalField;
+        private Portal.Consultoras.Web.ServicePedido.BEOfertaFinal beOfertaFinalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool esConsultoraLiderField;
@@ -8693,14 +8693,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Web.ServicePedido.BEOfertaFinal _OfertaFinal {
+        public Portal.Consultoras.Web.ServicePedido.BEOfertaFinal beOfertaFinal {
             get {
-                return this._OfertaFinalField;
+                return this.beOfertaFinalField;
             }
             set {
-                if ((object.ReferenceEquals(this._OfertaFinalField, value) != true)) {
-                    this._OfertaFinalField = value;
-                    this.RaisePropertyChanged("_OfertaFinal");
+                if ((object.ReferenceEquals(this.beOfertaFinalField, value) != true)) {
+                    this.beOfertaFinalField = value;
+                    this.RaisePropertyChanged("beOfertaFinal");
                 }
             }
         }
