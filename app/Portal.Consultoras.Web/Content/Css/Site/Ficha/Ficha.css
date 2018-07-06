@@ -268,6 +268,7 @@ body {
     float: left;
     min-height: 186px;
     width: 100%;
+    margin-bottom:45px;
 }
 
 .texto_contenido {
@@ -280,8 +281,8 @@ body {
 
 .detalle_producto {
     border-bottom: none !important;
-    padding-bottom: 18px;
-    margin-bottom: 10px;
+    padding: 0px;
+    margin: 0px;
 }
 
     .detalle_producto:last-child {
@@ -292,7 +293,7 @@ body {
 .marca_cantidad_descripcion_detalle {
     float: left;
     margin-right: 2%;
-    width: 58%;
+    width: 53%;
 }
 
 .marca_detalle_producto {
@@ -309,6 +310,7 @@ body {
     line-height: 1.27;
     padding-bottom: 11px;
     width: 100%;
+    padding-top: 5px;
 }
 
     .cantidad_descripcion_detalle:last-child {
