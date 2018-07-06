@@ -247,6 +247,7 @@
 
         if (estrategia.CodigoEstrategia === _constantePalanca.OfertaDelDia) {
             _crearReloj(estrategia);
+            SetHandlebars("#ofertadeldia-template-style", estrategia, "#styleRelojOdd");
         }
 
         $(_seccionesFichaProducto.ContenedoFotoReferencial).hide();

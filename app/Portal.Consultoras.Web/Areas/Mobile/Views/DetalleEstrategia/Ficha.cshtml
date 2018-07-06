@@ -9,10 +9,10 @@
 
 @section styles{
     <link href="@Url.Content("~/Content/Css/Mobile/Ficha/ficha.css")" rel="stylesheet" />
-
+    <style id="styleRelojOdd"></style>
 }
 
-<div class="container" data-tag-html="@Model.Campania">
+<div class="container" data-tag-html="@Model.Campania" id="div-container-breadcubs" style="display: none;">
     <div class="row">
         <div class="col-md-12">
             <ul class="breadcumbs">
@@ -318,6 +318,8 @@
 {
     @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
 }
+
+@Html.Partial("_template-ofertadeldia-style")
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
