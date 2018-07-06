@@ -270,8 +270,6 @@
 
         if (estrategia.CodigoEstrategia === _constantePalanca.Lanzamiento) {
             //Construir sección ficha - Video 
-            debugger;
-            estrategia.VideoKey = '70YPRFp-tWA';
             SetHandlebars("#template-fichadetallevideo", estrategia, "#contenedor-tab-video");
         }
 
