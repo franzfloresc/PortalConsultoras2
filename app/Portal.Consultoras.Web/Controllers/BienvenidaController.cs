@@ -733,7 +733,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { success = true, message = "La imagen se subió exitosamente", imagen = Url.Content(rutaImagen) });
         }
 
-        public JsonResult AceptarContrato(bool checkAceptar , string origenAceptacion)
+        public JsonResult AceptarContrato(bool checkAceptar , string origenAceptacion, string AppVersion)
         {
             try
             {
@@ -747,11 +747,17 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                string ip = GetIpCliente();
+                string ip = null;
+                if (!Request.Browser.IsMobileDevice)
+                {
+                    ip = GetIpCliente();
+                    ip = string.IsNullOrEmpty(ip) ? "" : ip;
+                    AppVersion = null;
+                }
 
                 using (var svr = new UsuarioServiceClient())
                 {
-                  svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora , origenAceptacion, ip, "");
+                  svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora , origenAceptacion, ip, AppVersion);
                 }
 
                 userData.IndicadorContrato = 1;

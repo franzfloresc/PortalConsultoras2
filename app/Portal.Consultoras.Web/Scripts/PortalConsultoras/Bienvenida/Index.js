@@ -2177,7 +2177,7 @@ function AbrirAceptacionContrato() {
 
 function AceptarContrato() {
    
-    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato};
+    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato, AppVersion: "" };
     waitingDialog({});
 
     $.ajax({

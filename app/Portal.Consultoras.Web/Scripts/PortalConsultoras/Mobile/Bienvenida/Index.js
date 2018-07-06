@@ -807,10 +807,9 @@ var bannerFunc = (function () {
 })();
 
 function AceptarContrato() { 
-
     appVersion = appVersion == undefined ? "" : appVersion;
 
-    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato, appVersion: appVersion };
+    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato, AppVersion: appVersion };
     ShowLoading({});
 
     $.ajax({
