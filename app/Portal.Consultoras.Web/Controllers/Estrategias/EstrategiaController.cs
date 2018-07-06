@@ -18,6 +18,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         {
         }
 
+        #region Metodos Por Palanca
+
         [HttpPost]
         public JsonResult RDObtenerProductos(BusquedaProductoModel model)
         {
@@ -119,39 +121,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             {
                 return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
             }
-        }
-
-        //[HttpGet]
-        //public JsonResult ConsultarEstrategiaCuv(string cuv)
-        //{
-        //    var modelo = EstrategiaGetDetalle(0, cuv) ?? new EstrategiaPersonalizadaProductoModel();
-        //    return Json(modelo.Hermanos, JsonRequestBehavior.AllowGet);
-        //}
-
-        [HttpPost]
-        public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
-        {
-            if (modelo != null)
-            {
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                modelo.ClaseBloqueada = Util.Trim(modelo.ClaseBloqueada);
-                modelo.ClaseEstrategia = Util.Trim(modelo.ClaseEstrategia);
-                modelo.CodigoEstrategia = Util.Trim(modelo.CodigoEstrategia);
-                modelo.DescripcionResumen = Util.Trim(modelo.DescripcionResumen);
-                modelo.DescripcionDetalle = Util.Trim(modelo.DescripcionDetalle);
-                modelo.DescripcionCompleta = Util.Trim(modelo.DescripcionCompleta);
-                modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
-                modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
-                modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
-                modelo.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, modelo.FotoProducto01);
-            }
-
-            sessionManager.SetProductoTemporal(modelo);
-
-            return Json(new
-            {
-                success = true
-            }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -266,6 +235,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             return listPerdioFormato;
         }
 
+        #region Oferta Final
+
         public JsonResult ObtenerProductosOfertaFinal(int tipoOfertaFinal)
         {
             try
@@ -367,6 +338,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
             return listaProductoModel;
         }
+
+        #endregion
 
         public ActionResult ObtenerProductosSugeridos(string CUV)
         {
@@ -471,23 +444,70 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             return Json(listaProductoModel, JsonRequestBehavior.AllowGet);
         }
 
+        #endregion
+
+        //[HttpGet]
+        //public JsonResult ConsultarEstrategiaCuv(string cuv)
+        //{
+        //    var modelo = EstrategiaGetDetalle(0, cuv) ?? new EstrategiaPersonalizadaProductoModel();
+        //    return Json(modelo.Hermanos, JsonRequestBehavior.AllowGet);
+        //}
 
         [HttpPost]
-        public JsonResult GetCarruselShowRoomExcepto(string CUVExcluido, string palanca)
+        public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
+        {
+            if (modelo != null)
+            {
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                modelo.ClaseBloqueada = Util.Trim(modelo.ClaseBloqueada);
+                modelo.ClaseEstrategia = Util.Trim(modelo.ClaseEstrategia);
+                modelo.CodigoEstrategia = Util.Trim(modelo.CodigoEstrategia);
+                modelo.DescripcionResumen = Util.Trim(modelo.DescripcionResumen);
+                modelo.DescripcionDetalle = Util.Trim(modelo.DescripcionDetalle);
+                modelo.DescripcionCompleta = Util.Trim(modelo.DescripcionCompleta);
+                modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
+                modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
+                modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
+                modelo.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, modelo.FotoProducto01);
+            }
+
+            sessionManager.SetProductoTemporal(modelo);
+
+            return Json(new
+            {
+                success = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+        
+        #region Carrusel Ficha
+        
+        [HttpPost]
+        public JsonResult FichaObtenerProductosCarrusel(string cuvExcluido, string palanca)
         {
             try
             {
-                var listaOfertasModel =  new List<EstrategiaPersonalizadaProductoModel>();
+                var listaOfertasModel = new List<EstrategiaPersonalizadaProductoModel>();
 
                 if (palanca == Constantes.NombrePalanca.ShowRoom)
+                {
                     listaOfertasModel = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+                }
                 else if (palanca == Constantes.NombrePalanca.OfertaDelDia)
                 {
                     var oddSession = sessionManager.OfertaDelDia.Estrategia;
                     listaOfertasModel = oddSession.ListaOferta;
                 }
-
-                var  listaOferta = listaOfertasModel == null ? new List<EstrategiaPersonalizadaProductoModel>() : listaOfertasModel.Where(x => x.CUV2 != CUVExcluido).ToList();
+                else if (palanca == Constantes.NombrePalanca.PackNuevas)
+                {
+                    var varSession = Constantes.ConstSession.ListaEstrategia + Constantes.TipoEstrategiaCodigo.PackNuevas;
+                    var listaEstrategia = sessionManager.GetBEEstrategia(varSession);
+                    if (listaEstrategia.Any())
+                    {
+                        listaOfertasModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasModelFormato(listaEstrategia, userData.CodigoISO, userData.CampaniaID, 2, userData.esConsultoraLider, userData.Simbolo);
+                    }
+                }
+                
+                var listaOferta = listaOfertasModel == null ? new List<EstrategiaPersonalizadaProductoModel>() : listaOfertasModel.Where(x => x.CUV2 != cuvExcluido).ToList();
 
                 return Json(new
                 {
@@ -502,10 +522,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
             }
         }
-
-        #region Metodos ShowRoom
-
-
+        
         #endregion
 
     }

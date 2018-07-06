@@ -331,10 +331,10 @@ jQuery(document).ready(function () {
             });
 
             // por si en un futuro se puede utilizar
-            //Handlebars.registerHelper('ImgMedium', function (imgOriginal) {
-            //    var urlRender = ImgUrlRender(imgOriginal, variablesPortal.ExtensionImgMedium);
-            //    return new Handlebars.SafeString(urlRender);
-            //});
+            Handlebars.registerHelper('ImgMedium', function (imgOriginal) {                
+                var urlRender = ImgUrlRender(imgOriginal, variablesPortal.ExtensionImgMedium);
+                return new Handlebars.SafeString(urlRender);
+            });
             
             Handlebars.registerHelper('ImgUrl', function (imgOriginal) {
                 var urlRender = ImgUrlRender(imgOriginal);
