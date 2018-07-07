@@ -189,11 +189,6 @@ namespace Portal.Consultoras.Common
             public const int Reactivada = 8;
         }
 
-        public static class ConsecutivoNuevaConsultora
-        {
-            public const int Consecutivo3 = 2;
-        }
-
         public static class TipoEstrategia
         {
             public const int CrossSelling = 1;
@@ -241,6 +236,7 @@ namespace Portal.Consultoras.Common
             public const string TippingPoint_MontoVentaExigido = "TippingPoint_MontoVentaExigido";
             public const string MensajeMetaConsultora = "MensajeMetaConsultora";
             public const string ActualizarDatosConsultora = "ActualizarDatosConsultora";
+            public const string ConfProgNuevas = "ConfiguracionProgramaNuevas";
 
             // prol
             public const string PROL_CalculoMontosProl = "PROL_CalculoMontosProl";

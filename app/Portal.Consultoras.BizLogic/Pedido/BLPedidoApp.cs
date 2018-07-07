@@ -318,39 +318,20 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         public bool InsertKitInicio(BEUsuario usuario)
         {
-            var flagkit = false;
-
             try
             {
                 nombreServicio = "InsertKitInicio";
 
+                if (usuario.EsConsultoraOficina) return false;
+                if (usuario.DiaPROL && !EsHoraReserva(usuario, DateTime.Now.AddHours(usuario.ZonaHoraria))) return false;
                 LogPerformance("Inicio");
                 //Informacion de usuario
                 usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
                 LogPerformance("EsConsultoraNueva");
-
-                if (!usuario.EsConsultoraNueva)
-                {
-                    //Kit de nuevas para segundo y tercer pedido
-                    if (usuario.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
-                        usuario.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
-                        usuario.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
-                    {
-                        var PaisesFraccionKit = WebConfig.PaisesFraccionKitNuevas;
-                        if (!PaisesFraccionKit.Contains(usuario.CodigoISO)) return false;
-                        flagkit = true;
-                    }
-
-                    if (!flagkit) return false;
-                }
-
-                if (usuario.EsConsultoraOficina) return false;
-                if (usuario.DiaPROL && !EsHoraReserva(usuario, DateTime.Now.AddHours(usuario.ZonaHoraria))) return false;
-
-                var obeConfiguracionProgramaNuevas = _configuracionProgramaNuevasBusinessLogic.Get(usuario);
+                
+                var confProgNuevas = _configuracionProgramaNuevasBusinessLogic.Get(usuario);
                 LogPerformance("GetConfiguracionProgramaNuevas");
-                if (obeConfiguracionProgramaNuevas == null) return false;
-                if (!flagkit && obeConfiguracionProgramaNuevas.IndProgObli != "1") return false;
+                if (confProgNuevas.IndProgObli != "1") return false;
 
                 //Obtener Detalle
                 var bePedidoWebDetalleParametros = new BEPedidoAppBuscar
@@ -365,10 +346,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var PedidoID = 0;
                 var lstDetalle = ObtenerPedidoWebDetalle(bePedidoWebDetalleParametros, out PedidoID);
                 LogPerformance("ObtenerPedidoWebDetalle");
-                var det = lstDetalle.FirstOrDefault(d => d.CUV == obeConfiguracionProgramaNuevas.CUVKit) ?? new BEPedidoWebDetalle();
+                var det = lstDetalle.FirstOrDefault(d => d.CUV == confProgNuevas.CUVKit) ?? new BEPedidoWebDetalle();
                 if (det.PedidoDetalleID > 0) return false;
 
-                var olstProducto = _productoBusinessLogic.SelectProductoToKitInicio(usuario.PaisID, usuario.CampaniaID, obeConfiguracionProgramaNuevas.CUVKit);
+                var olstProducto = _productoBusinessLogic.SelectProductoToKitInicio(usuario.PaisID, usuario.CampaniaID, confProgNuevas.CUVKit);
                 LogPerformance("SelectProductoToKitInicio");
                 var producto = olstProducto.FirstOrDefault();
                 if (producto != null)
@@ -382,7 +363,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         Cantidad = 1,
                         Producto = new BEProducto()
                         {
-                            CUV = obeConfiguracionProgramaNuevas.CUVKit,
+                            CUV = confProgNuevas.CUVKit,
                             PrecioCatalogo = producto.PrecioCatalogo,
                             TipoEstrategiaID = tipoEstrategiaID.ToString(),
                             TipoOfertaSisID = 0,

@@ -526,12 +526,10 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var objValidad = InsertarMensajeValidarDatos(model.ClienteID);
-                if (objValidad != null)
-                    return Json(objValidad);
+                if (objValidad != null) return Json(objValidad);
 
                 objValidad = InsertarValidarKitInicio(model.CUV);
-                if (objValidad != null)
-                    return Json(objValidad);
+                if (objValidad != null) return Json(objValidad);
 
                 #region Administrador Pedido
                 var obePedidoWebDetalle = new BEPedidoWebDetalle
@@ -660,24 +658,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         private object InsertarValidarKitInicio(string cuv)
         {
-            if (userData.EsConsultoraNueva)
+            var confProgNuevas = GetConfiguracionProgramaNuevas(Constantes.ConstSession.ConfProgNuevas);
+            if (confProgNuevas.IndProgObli == "1" && confProgNuevas.CUVKit == cuv)
             {
-                var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-                var detCuv = olstPedidoWebDetalle.FirstOrDefault(d => d.CUV == cuv) ?? new BEPedidoWebDetalle();
-                detCuv.CUV = Util.Trim(detCuv.CUV);
-                if (detCuv.CUV != "")
+                return new
                 {
-                    var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
-                    if (obeConfiguracionProgramaNuevas.IndProgObli == "1" && obeConfiguracionProgramaNuevas.CUVKit == detCuv.CUV)
-                    {
-                        return new
-                        {
-                            success = false,
-                            message = "Ocurrió un error al ejecutar la operación.",
-                            errorInsertarProducto = "1"
-                        };
-                    }
-                }
+                    success = false,
+                    message = "Ocurrió un error al ejecutar la operación.",
+                    errorInsertarProducto = "1"
+                };
             }
             return null;
         }
@@ -3557,90 +3546,44 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void AgregarKitNuevas()
         {
-
             try
             {
-                bool flagkit = false;
-
-                if (Session["ConfiguracionProgramaNuevas"] != null) return;
-
-                if (!userData.EsConsultoraNueva)
-                {
-                    /* Kit de nuevas para segundo y tercer pedido*/
-                    if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
-                        userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
-                        userData.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
-                    {
-                        var PaisesFraccionKit = WebConfigurationManager.AppSettings["PaisesFraccionKitNuevas"];
-
-                        if (PaisesFraccionKit != null && userData.CodigoISO != null && !PaisesFraccionKit.Contains(userData.CodigoISO))
-                        {
-                            Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
-                            return;
-                        }
-
-                        flagkit = true;
-                    }
-
-                    if (!flagkit)
-                    {
-                        Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
-                        return;
-                    }
-                }
-
+                if (Session[Constantes.ConstSession.ConfProgNuevas] != null) return;
                 if (userData.EsConsultoraOficina) return;
                 if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
-
-                var obeConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
-
-                if (obeConfiguracionProgramaNuevas == null)
-                {
-                    Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
-                    return;
-                }
-
-                // flagkit => Kit en 2 y 3 pedido
-                if (!flagkit && obeConfiguracionProgramaNuevas.IndProgObli != "1")
-                    return;
-
-                var listaTempListado = ObtenerPedidoWebDetalle();
-
-                var det = listaTempListado.FirstOrDefault(d => d.CUV == obeConfiguracionProgramaNuevas.CUVKit) ?? new BEPedidoWebDetalle();
-
-                if (det.PedidoDetalleID > 0) return;
+                
+                var configuracionProgNuevas = GetConfiguracionProgramaNuevas(Constantes.ConstSession.ConfProgNuevas);                
+                if (configuracionProgNuevas.IndProgObli != "1") return;                
+                if (ObtenerPedidoWebDetalle().Any(d => d.CUV == configuracionProgNuevas.CUVKit && d.PedidoDetalleID > 0)) return;
 
                 List<ServiceODS.BEProducto> olstProducto;
                 using (var svOds = new ODSServiceClient())
                 {
-                    olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, obeConfiguracionProgramaNuevas.CUVKit).ToList();
+                    olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, configuracionProgNuevas.CUVKit).ToList();
                 }
-
-                if (olstProducto.Count > 0)
-                {
-                    var producto = olstProducto[0];
-                    int outVal;
-                    var model = new PedidoCrudModel
-                    {
-                        CUV = obeConfiguracionProgramaNuevas.CUVKit,
-                        Cantidad = "1",
-                        PrecioUnidad = producto.PrecioCatalogo,
-                        TipoEstrategiaID = Int32.TryParse(producto.TipoEstrategiaID, out outVal) ? Int32.Parse(producto.TipoEstrategiaID) : 0,
-                        MarcaID = producto.MarcaID,
-                        DescripcionProd = producto.Descripcion,
-                        TipoOfertaSisID = 0,
-                        IndicadorMontoMinimo = producto.IndicadorMontoMinimo.ToString(),
-                        ConfiguracionOfertaID = 0,
-                        EsKitNueva = true
-                    };
-
-                    PedidoInsertar(model);
-                }
+                if (olstProducto.Count > 0) PedidoInsertar(CreatePedidoCrudModelKitInicio(olstProducto[0]));
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
+        }
+
+        private PedidoCrudModel CreatePedidoCrudModelKitInicio(ServiceODS.BEProducto producto)
+        {
+            return new PedidoCrudModel
+            {
+                CUV = producto.CUV,
+                Cantidad = "1",
+                PrecioUnidad = producto.PrecioCatalogo,
+                TipoEstrategiaID = producto.TipoEstrategiaID.ToInt32Secure(),
+                MarcaID = producto.MarcaID,
+                DescripcionProd = producto.Descripcion,
+                TipoOfertaSisID = 0,
+                IndicadorMontoMinimo = producto.IndicadorMontoMinimo.ToString(),
+                ConfiguracionOfertaID = 0,
+                EsKitNueva = true
+            };
         }
 
         [HttpPost]

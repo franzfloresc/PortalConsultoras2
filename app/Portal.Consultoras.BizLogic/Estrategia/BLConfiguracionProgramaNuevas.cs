@@ -11,32 +11,33 @@ namespace Portal.Consultoras.BizLogic
     {
         public BEConfiguracionProgramaNuevas Get(BEUsuario usuario)
         {
-            var obeConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas()
+            var configuracion = new BEConfiguracionProgramaNuevas()
             {
-                CampaniaInicio = usuario.CampaniaID.ToString(),
+                Campania = usuario.CampaniaID.ToString(),
                 CodigoConsultora = usuario.CodigoConsultora
             };
 
-            if (usuario.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
-                usuario.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
-                usuario.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
+            if (usuario.EsConsultoraNueva) configuracion.CodigoNivel = "01";
+            else if (new List<int> { 1, 2 }.Contains(usuario.ConsecutivoNueva) && WebConfig.PaisesFraccionKitNuevas.Contains(usuario.CodigoISO))
             {
-                if (WebConfig.PaisesFraccionKitNuevas.Contains(usuario.CodigoISO))
+                configuracion.CodigoNivel = "0" + (usuario.ConsecutivoNueva + 1);
+            }
+
+            if (!string.IsNullOrEmpty(configuracion.CodigoNivel))
+            {
+                using (var reader = new DAConfiguracionProgramaNuevas(usuario.PaisID).Get(configuracion))
                 {
-                    obeConfiguracionProgramaNuevas.CodigoNivel = usuario.ConsecutivoNueva == 1 ? "02" : usuario.ConsecutivoNueva == 2 ? "03" : string.Empty;
-                    obeConfiguracionProgramaNuevas = GetDespuesPrimerPedido(usuario.PaisID, obeConfiguracionProgramaNuevas);
+                    configuracion = reader.MapToObject<BEConfiguracionProgramaNuevas>(true);
                 }
             }
-            else obeConfiguracionProgramaNuevas = GetPrimerPedido(usuario.PaisID, obeConfiguracionProgramaNuevas);
-
-            return obeConfiguracionProgramaNuevas ?? new BEConfiguracionProgramaNuevas();
+            return configuracion ?? new BEConfiguracionProgramaNuevas();
         }
 
         private BEConfiguracionProgramaNuevas GetPrimerPedido(int paisID, BEConfiguracionProgramaNuevas entidad)
         {
             //if (!new BLPais().EsPaisHana(paisID))
             //{
-                using (var reader = new DAConfiguracionProgramaNuevas(paisID).GetConfiguracionProgramaNuevas(entidad))
+                using (var reader = new DAConfiguracionProgramaNuevas(paisID).Get(entidad))
                 {
                     return reader.MapToObject<BEConfiguracionProgramaNuevas>(true);
                 }
@@ -45,14 +46,6 @@ namespace Portal.Consultoras.BizLogic
             //{
             //    return new DAHConfiguracionProgramaNuevas().GetConfiguracionProgramaNuevas(paisID, entidad);
             //}
-        }
-
-        private BEConfiguracionProgramaNuevas GetDespuesPrimerPedido(int paisID, BEConfiguracionProgramaNuevas entidad)
-        {
-            using (var reader = new DAConfiguracionProgramaNuevas(paisID).GetConfiguracionProgramaDespuesPrimerPedido(entidad))
-            {
-                return reader.MapToObject<BEConfiguracionProgramaNuevas>(true);
-            }
         }
 
         #region ConfiguracionApp

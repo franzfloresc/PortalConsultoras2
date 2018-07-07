@@ -1,10 +1,14 @@
 GO
-ALTER PROCEDURE dbo.GetConfiguracionProgramaNuevas_2y3PedidoSB2
+IF OBJECT_ID('dbo.GetConfiguracionProgramaNuevas_SB2') IS NOT NULL
+BEGIN
+	drop procedure dbo.GetConfiguracionProgramaNuevas_SB2
+END
+GO
+CREATE PROCEDURE dbo.GetConfiguracionProgramaNuevas_SB2
 (
-@Campania varchar(50),
-@CodigoRegion varchar(50),
-@CodigoZona varchar(50),
-@CodigoNivel varchar(2)
+	@Campania varchar(50)
+	,@CodigoRegion varchar(50)
+	,@CodigoZona varchar(50)
 )
 AS
 BEGIN
@@ -13,7 +17,7 @@ BEGIN
 	,@CodigoZonax varchar(50) = ''
 	,@ExisteRegistro int = 0
 	,@CodigoPrograma varchar(50) = ''
-	,@add bit = 1
+	, @add bit = 1
 
 	
 	select @ExisteRegistro = COUNT(1)
@@ -27,13 +31,11 @@ BEGIN
 			set @CodigoPrograma = ''
 
 			select @CodigoPrograma = isnull(c.CodigoPrograma, '')
-			from  ods.premiosprogramanuevas c
+			from  ods.configuracionProgramaNuevas c
 				inner join ods.ConfiguracionProgramaNuevasUA cua 
 					on cua.CodigoPrograma = c.CodigoPrograma
 			where cua.CodigoRegion = @CodigoRegion
-				and c.AnoCampana = @Campania
-				and c.CodigoNivel = @CodigoNivel
-				and c.PrecioUnitario > 0
+				and c.CampanaCarga = @Campania
 
 			set @CodigoPrograma = LTRIM(RTRIM(isnull(@CodigoPrograma, '')))
 
@@ -78,12 +80,17 @@ BEGIN
 
 			select 
 					 CodigoPrograma
-					,CUV as CUVKit
-			from  ods.premiosprogramanuevas
-			where AnoCampana = @Campania and CodigoNivel = @CodigoNivel
-				and PrecioUnitario > 0
+					,CampaniaInicio
+					,CampaniaFin
+					,IndExigVent
+					,IndProgObli
+					,CuponKit
+					,CUVKit
+					, @CodigoRegionx as CodigoRegion
+					, @CodigoZonax as CodigoZona
+			from  ods.configuracionProgramaNuevas
+			where CampanaCarga = @Campania
 				and (CodigoPrograma = @CodigoPrograma or @CodigoPrograma = '')
-
 
 	end
 
