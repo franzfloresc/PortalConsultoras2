@@ -144,11 +144,7 @@
 
             }
         }
-        //Comentar esta cuando se cambie en mobile video
-        if (!window.videoKey) {
-            $("#tabVideo").hide();
-        }
-
+        
         $("ul.ficha_tabs li").click(function () {
             $(this).children("ul").slideToggle();
         });
@@ -274,18 +270,18 @@
 
         if (estrategia.CodigoEstrategia === _constantePalanca.Lanzamiento) {
             //Construir sección ficha - Video
-            //estrategia.VideoKey = '70YPRFp-tWA';
+            if (isMobile())
+                estrategia.TipoEstrategiaDetalle.UrlVideo = estrategia.TipoEstrategiaDetalle.UrlVideoMobile;
+            else
+                estrategia.TipoEstrategiaDetalle.UrlVideo = estrategia.TipoEstrategiaDetalle.UrlVideoDesktop;
+
             SetHandlebars("#template-fichadetallevideo", estrategia, "#contenedor-tab-video");
+            delete estrategia.TipoEstrategiaDetalle.UrlVideo;
+
             if (youtubeModule) {
                 youtubeModule.Inicializar();
-                //window.onYouTubeIframeAPIReady();
             }
         }
-
-        //if (!isMobile()) {
-        //    _validarSiEsAgregado(estrategia);
-        //}
-
         return true;
     };
 
