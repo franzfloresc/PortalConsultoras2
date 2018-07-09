@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (revistaDigital == null)
+                if(revistaDigital == null)
                 {
                     throw new Exception("revistaDigital no puede ser nulo.");
                 }
@@ -70,7 +70,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (modelo.Hermanos != null && modelo.Hermanos.Any())
                     {
-                        if (modelo.Hermanos.Any(h => h.Digitable == 1))
+                        if (modelo.Hermanos[0].Digitable == 1 && modelo.Hermanos[0].Hermanos.Any())
                         {
                             modelo.ClaseBloqueada = "btn_desactivado_general";
                         }
