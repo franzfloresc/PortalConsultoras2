@@ -365,7 +365,7 @@
         var etiquetaOddEstaOculta = $(_seccionesFichaProducto.EtiquetaOdd).is(":hidden");
         var etiquetaLanzamientosEstaOculta = $(_seccionesFichaProducto.EtiquetaLanzamientos).is(":hidden");
         if (etiquetaOddEstaOculta && etiquetaLanzamientosEstaOculta)
-            $(_seccionesFichaProducto.ContenedoFichaEtiquetas).hide();
+            //$(_seccionesFichaProducto.ContenedoFichaEtiquetas).hide();
         else
             $(_seccionesFichaProducto.ContenedoFichaEtiquetas).show();
     };
