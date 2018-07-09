@@ -30,8 +30,8 @@ namespace Portal.Consultoras.Web.Providers
 
             try
             {
-                if (revistaDigital == null)
-                    throw new ArgumentNullException("revistaDigital", "no puede ser nulo");
+                if (userData == null || revistaDigital == null)
+                    return modelo;
 
                 var menuActivo = sessionManager.GetMenuContenedorActivo();
 
