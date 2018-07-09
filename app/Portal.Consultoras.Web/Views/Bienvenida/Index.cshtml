@@ -43,7 +43,7 @@
         <div class="contenedor_img_perfil" style="display:none;">
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
-                <a href="#" id="hrefActualizarDatos" title="Actualizar datos" class="actualizar_datos default-background"></a>
+                <a href="@Url.Action("Index", "MiPerfil")" id="hrefActualizarDatos" title="Actualizar datos" class="actualizar_datos default-background"></a>
                 <div class="tooltip_info_revision_correo" style="display:none;">
                     <div class="icono_info_alerta"></div>
                     <div class="tooltip_texto">
@@ -1040,7 +1040,7 @@
     <!-- POPUP VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE -->
     <div class="popup_correo_pendiente_de_confirmar text-center" id="popupVerificacionCorreoElectronicoPendiente" style="display:none;">
         <div class="btn_cerrar_actualizarMisDatos">
-            <a href="#" id="cerrarPopupMisDatos" title="Cerrar">
+            <a href="#" id="cerrarPopupActualizacionEmail" title="Cerrar">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" id="imgCerrarSvg" />
                 <span class="texto_btn_cerrar">CERRAR</span>
             </a>
@@ -2118,6 +2118,7 @@
         var popupCupon = '@Constantes.TipoPopUp.Cupon';
         var popupCuponForzado = '@Constantes.TipoPopUp.CuponForzado';
         var popupAsesoraOnline = '@Constantes.TipoPopUp.AsesoraOnline';
+        var popupActualizarCorreo = '@Constantes.TipoPopUp.ActualizarCorreo';
         var mostrarPopupActualizarDatosXPais = '@Model.MostrarPopupActualizarDatosXPais';
         var mensajeFechaDA = '@Model.MensajeFechaDA';
         var origenPagina = 1;

@@ -850,6 +850,8 @@ namespace Portal.Consultoras.Common
             public const int Cupon = 10;
             public const int CuponForzado = 11;
             public const int AsesoraOnline = 12;
+            public const int ActualizarCorreo = 13; // OMGC
+
         }
 
         public static class GPRMotivoRechazo

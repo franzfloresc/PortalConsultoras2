@@ -388,7 +388,6 @@ namespace Portal.Consultoras.Web.Controllers
                             tipoPopUpMostrar = Constantes.TipoPopUp.AceptacionContrato;
                         }
                         break;
-
                     case Constantes.TipoPopUp.Showroom:
                         if (ValidarMostrarShowroomPopUp())
                             tipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
@@ -478,7 +477,13 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                         break;
-
+                    case Constantes.TipoPopUp.ActualizarCorreo:
+                        var result = ObtenerActualizacionEmail();
+                        if (result.Split('|')[0] == "1")
+                        {
+                            tipoPopUpMostrar = Constantes.TipoPopUp.ActualizarCorreo;
+                        }
+                        break;
                 }
 
                 if (tipoPopUpMostrar > 0)

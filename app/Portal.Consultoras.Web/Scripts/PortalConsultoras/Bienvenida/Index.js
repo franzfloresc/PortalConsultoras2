@@ -300,6 +300,11 @@ $(document).ready(function () {
         PopupCerrar('popupMisDatos');
         return false;
     });
+    $("#cerrarPopupActualizacionEmail").click(function () {
+        PopupCerrar('popupVerificacionCorreoElectronicoPendiente');
+        return false;
+    });
+
     $('#hrefTerminos').click(function () {
         DownloadAttachPDFTerminos();
     });
@@ -461,11 +466,10 @@ $(document).ready(function () {
     MostrarBarra(null, '1');
 
     LayoutMenu();
-
     ConsultarEmailPendiente();
-    ConsultarActualizaEmail();
-    IrPaginaActualizacionDatos();
 });
+
+
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
 });
@@ -3278,6 +3282,9 @@ function MostrarPopupInicial() {
         case popupAsesoraOnline:
             if (popupInicialCerrado == 0) asesoraOnlineObj.mostrar();
             break;
+        case popupActualizarCorreo: 
+            PopupMostrar('popupVerificacionCorreoElectronicoPendiente');       
+            break;
     }
 }
 
@@ -3323,40 +3330,6 @@ function dataLayerVC(action, label) {
     });
 }
 
-function ConsultarActualizaEmail() {
-    document.getElementById('hrefActualizarDatos').onclick = function (e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: baseUrl + 'Bienvenida/ObtenerActualizacionEmail',
-                dataType: 'Text',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    if (checkTimeout(data)) {
-
-                        if (data.split('|')[0] == '1') {
-                            document.getElementById('spnEmail').innerHTML = data.split('|')[1];
-                            document.getElementById('fondoComunPopUp').style.display = 'block';
-                            document.getElementById('popupVerificacionCorreoElectronicoPendiente').style.display = 'block';
-                        }
-                        else {
-                            location.href = baseUrl + 'MiPerfil/Index';
-                        }
-                    }
-                },
-                error: function (data, error) {
-                    alert(error);
-                }
-            });
-    }
-}
-
-function IrPaginaActualizacionDatos() {
-    document.getElementById('imgCerrarSvg').onclick = function () {
-        location.href = baseUrl + 'MiPerfil/Index';
-    }
-}
-
 function ConsultarEmailPendiente() {
     $.ajax({
         type: 'POST',
@@ -3366,6 +3339,7 @@ function ConsultarEmailPendiente() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.split('|')[0] == '1') {
+                    document.getElementById('spnEmail').innerHTML = data.split('|')[1];
                     document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
                 }
             }
