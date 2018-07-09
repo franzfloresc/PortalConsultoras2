@@ -159,6 +159,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         EstrategiaPersonalizadaProductoModel GetProductoTemporal();
 
+        void SetEstrategiaODD(Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel data);
+
+        Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel GetEstrategiaODD();
+
         void SetEstrategiaSR(Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel data);
         Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR();
 
@@ -177,7 +181,7 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetPedidoValidado(bool validado);
 
         bool GetPedidoValidado();
-
+        
         EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
 
         void setBEUsuarioModel (List<ServiceUsuario.BEUsuario> model);

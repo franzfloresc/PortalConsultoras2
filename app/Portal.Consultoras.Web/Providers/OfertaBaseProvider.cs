@@ -94,7 +94,6 @@ namespace Portal.Consultoras.Web.Providers
                 descripcionOdd = descripcionOdd.Replace("\\", "");
                 descripcionOdd = descripcionOdd.Replace("(GRATIS)", "<b>GRATIS</b>");
             }
-
             return descripcionOdd;
         }
 
@@ -106,7 +105,6 @@ namespace Portal.Consultoras.Web.Providers
             {
                 nombreOferta = descripcionCuv2.Split('|').First();
             }
-
             return nombreOferta;
         }
     }

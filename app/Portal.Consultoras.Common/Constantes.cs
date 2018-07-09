@@ -11,7 +11,6 @@ namespace Portal.Consultoras.Common
             public const int Terminos = 303;
         }
 
-		
         public static class Marca
         {
             public const int LBel = 1;
@@ -20,14 +19,12 @@ namespace Portal.Consultoras.Common
             public const int Finart = 4;
         }
 
-		
         public static class TipoCronograma
         {
             public const int Regular = 1;
             public const int Anticipado = 2;
         }
 
-		
         public static class TipoUsuario
         {
             public const int Consultora = 1;
@@ -35,7 +32,6 @@ namespace Portal.Consultoras.Common
             public const int Admin = 3;
         }
 
-		
         public static class Rol
         {
             public const int Consultora = 1;
@@ -146,7 +142,7 @@ namespace Portal.Consultoras.Common
             public const int BusquedaNemotecnicoProductoSugerido = 9853;
             public const int BusquedaNemotecnicoZonaEstrategia = 9854;
             public const int Tonos = 9802;
-
+            
             public const int ValoresImagenesResizeWitdhMaxSmall = 12101;
             public const int ValoresImagenesResizeHeightSmall = 12102;
             public const int ValoresImagenesResizeWitdhMaxMedium = 12103;
@@ -1625,6 +1621,9 @@ namespace Portal.Consultoras.Common
         {
             public const string Desktop = "SOMOS_BELCORP_DESKTOP";
             public const string Mobile = "SOMOS_BELCORP_MOBILE";
+
+            public const string OrigenDesktop = "Desktop";
+            public const string OrigeMobile = "Mobile";
         }
         #endregion
 
@@ -1835,7 +1834,7 @@ namespace Portal.Consultoras.Common
             public class EncenderValidacion
             {
                 public const short TablaLogicaID = 7;
-                public const string Activo = "Activo";
+                public const string Activo = "Activo"; 
             }
 
             public class Rango
@@ -2037,6 +2036,14 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public class PedidoDetalleApp
+        {
+            public const string DescripcionKitInicio = "KIT DE INICIO";
+            public const string OfertaNiveles = "OFERTA POR NIVELES (*)";
+            public const int idHerramientaVenta = 3028;
+        }
+
+
         public static class PedidoAccion
         {
             public const string INSERT = "I";
@@ -2051,7 +2058,7 @@ namespace Portal.Consultoras.Common
             public const int Valor2 = 2;
             public const int Valor3 = 3;
         }
-
+        
         public class ProlCodigoRechazo
         {
             public const string MontoMinimo = "XXXXX";
@@ -2065,7 +2072,7 @@ namespace Portal.Consultoras.Common
             public const string MontoMinFact = "MontoMinFact";
             public const string MontoMinVentaDesc = "MontoMinVentaDesc";
             public const string MontoMinFactDesc = "MontoMinFactDesc";
-            public const string MontoMaximo = "MontoMaximo";
+            public const string MontoMaximo  = "MontoMaximo";
             public const string LimiteVenta0 = "LimiteVenta0";
             public const string LimiteVenta = "LimiteVenta";
             public const string Promocion2003 = "Promocion2003";

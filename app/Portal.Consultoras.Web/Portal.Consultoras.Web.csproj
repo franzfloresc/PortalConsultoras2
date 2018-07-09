@@ -1282,6 +1282,13 @@
     <Content Include="Content\Css\Site\Esika\unsubscribe.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
+    <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.css" />
+    <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.skinFlat.css" />
+    <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.skinHTML5.css" />
+    <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.skinModern.css" />
+    <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.skinNice.css" />
+    <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.skinSimple.css" />
+    <Content Include="Content\Css\Site\ion.rangeSlider\normalize.css" />
     <Content Include="Content\Css\Site\Landing\producto.landing.css" />
     <Content Include="Content\Css\Site\Lbel\unsubscribe.css" />
     <Content Include="Content\Css\Site\Lanzamientos\Detalle.css" />
@@ -1425,6 +1432,7 @@
     <Content Include="Content\Images\dateTimePicker\cal_minus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_plus.gif" />
     <Content Include="Content\Images\dateTimePicker\cal_reverse.gif" />
+    <Content Include="Content\Images\Esika\icono_contrato.svg" />
     <Content Include="Content\Images\flecha-campo-select.svg" />
     <Content Include="Content\Images\icono-calendario.svg" />
     <Content Include="Content\Images\Lbel\icono_check_lbel.png" />
@@ -3624,6 +3632,8 @@
     <Content Include="Scripts\ImageHelper\xzoom.js" />
     <Content Include="Scripts\ImageHelper\xzoom.min.js" />
     <Content Include="Scripts\ImageHelper\xzoomSetup.js" />
+    <Content Include="Scripts\ion.rangeSlider\ion.rangeSlider.js" />
+    <Content Include="Scripts\ion.rangeSlider\ion.rangeSlider.min.js" />
     <Content Include="Scripts\jquery-1.11.2.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
     <Content Include="Scripts\jquery-labelauty.js" />
@@ -4496,6 +4506,15 @@
     <None Include="Service References\ServiceSeguridad\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceUsuario\configuration91.svcinfo" />
+    <None Include="Service References\ServiceUsuario\configuration.svcinfo" />
+    <None Include="Service References\ServiceUsuario\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService4.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuario\UsuarioService.wsdl" />
     <None Include="Service References\ServiceUsuario\UsuarioService.xsd">

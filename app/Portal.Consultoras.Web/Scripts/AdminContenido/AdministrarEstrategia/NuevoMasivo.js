@@ -59,6 +59,7 @@
         return text;
     }
     var _showActionsVer2 = function (cellvalue, options, rowObject) {
+        
         var cantidad = rowObject[2];
         var tipo = rowObject[3];
 
@@ -66,10 +67,8 @@
             _variables.cantidadPrecargar2 = parseInt(cantidad);
             $("#spnCantidadConfigurar3").html(parseInt(cantidad));
         }
-        if (tipo == "2") {
+        if (tipo == "2")
             $("#spnCantidadNoConfigurar3").html(parseInt(cantidad));
-        }
-
 
         var text;
         if (cantidad != "0")
