@@ -202,7 +202,7 @@ namespace Portal.Consultoras.Web.Providers
             var pedObs = pedido;
             List<string> listaCUVsAEvaluar;
             var txtBuil = new StringBuilder();
-            var nuevasObservaciones = new List<ObservacionModel>();
+            //var nuevasObservaciones = new List<ObservacionModel>();
 
             List<BEPedidoWebDetalle> cuvHijos = TraerHijosFaltantesEnObsPROL(pedido, paisId, campaniaId, consultoraId, pedidoId);
 

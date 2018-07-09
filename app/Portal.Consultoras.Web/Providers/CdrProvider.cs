@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class CdrProvider
     {
-        protected ISessionManager sessionManager;
+        protected readonly ISessionManager sessionManager;
         
         public CdrProvider()
         {

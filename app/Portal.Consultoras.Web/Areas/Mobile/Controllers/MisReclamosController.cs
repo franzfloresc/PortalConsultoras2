@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class MisReclamosController : BaseMobileController
     {
-        private CdrProvider _cdrProvider;
+        readonly CdrProvider _cdrProvider;
 
         public MisReclamosController()
         {
@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            if (userData.TieneCDR == 0) return RedirectToAction("Index", "Bienvenida",new { area = "Mobile" });
+            if (userData.TieneCDR == 0) return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
             MisReclamosModel model = new MisReclamosModel();
             List<CDRWebModel> listaCdrWebModel;
             var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.MensajeGestionCdrInhabilitada = _cdrProvider.MensajeGestionCdrInhabilitadaYChatEnLinea(userData.EsCDRWebZonaValida, userData.IndicadorBloqueoCDR, userData.FechaInicioCampania, userData.ZonaHoraria, userData.PaisID, userData.CampaniaID, userData.ConsultoraID, mobileConfiguracion.EsAppMobile);
 
             if (!string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return View(model);
-            if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo","MisReclamos",new { area = "Mobile" });
+            if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo", "MisReclamos", new { area = "Mobile" });
             return View(model);
         }
 
@@ -62,16 +62,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 PedidoID = pedidoId,
                 MensajeGestionCdrInhabilitada = _cdrProvider.MensajeGestionCdrInhabilitadaYChatEnLinea(userData.EsCDRWebZonaValida, userData.IndicadorBloqueoCDR, userData.FechaInicioCampania, userData.ZonaHoraria, userData.PaisID, userData.CampaniaID, userData.ConsultoraID, mobileConfiguracion.EsAppMobile)
             };
-            if (pedidoId == 0 && !string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return RedirectToAction("Index","MisReclamos", new { area = "Mobile" });
+            if (pedidoId == 0 && !string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return RedirectToAction("Index", "MisReclamos", new { area = "Mobile" });
 
             _cdrProvider.CargarInformacion(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
             model.ListaCampania = (List<CampaniaModel>)Session[Constantes.ConstSession.CDRCampanias];
-            if (model.ListaCampania.Count <= 1) return RedirectToAction("Index","MisReclamos", new { area = "Mobile" });
+            if (model.ListaCampania.Count <= 1) return RedirectToAction("Index", "MisReclamos", new { area = "Mobile" });
 
             if (pedidoId != 0)
             {
                 var listaCdr = _cdrProvider.CargarBECDRWeb(new MisReclamosModel { PedidoID = pedidoId }, userData.PaisID, userData.ConsultoraID);
-                if (listaCdr.Count == 0) return RedirectToAction("Index","MisReclamos", new { area = "Mobile" });
+                if (listaCdr.Count == 0) return RedirectToAction("Index", "MisReclamos", new { area = "Mobile" });
 
                 if (listaCdr.Count == 1)
                 {
@@ -129,7 +129,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.CantidadRechazados = listaCdrWebDetalle.Count(f => f.Estado == Constantes.EstadoCDRWeb.Observado);
 
             Session["ListaCDRDetalle"] = model;
-            return RedirectToAction("Detalle","MisReclamos", new { area = "Mobile" });
+            return RedirectToAction("Detalle", "MisReclamos", new { area = "Mobile" });
         }
 
         public ActionResult DetalleCDR(long solicitudId)
@@ -194,7 +194,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.CDR_ID = objCdr.CDRWebID;
                 ViewBag.ListaDetalle = objCdr.ListaDetalle;
             }
-            
+
             return View();
         }
 

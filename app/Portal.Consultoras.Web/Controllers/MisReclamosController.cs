@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class MisReclamosController : BaseController
     {
-        private CdrProvider _cdrProvider;
+        readonly CdrProvider _cdrProvider;
 
         public MisReclamosController()
         {

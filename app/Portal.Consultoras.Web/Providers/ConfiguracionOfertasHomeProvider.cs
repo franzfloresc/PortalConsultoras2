@@ -307,7 +307,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 var listaShowRoom = sessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPersonalizadaProductoModel>();
                 //seccion.CantidadProductos = listaShowRoom.Count(x => !x.EsSubCampania);
-                seccion.CantidadProductos = listaShowRoom.Count();
+                seccion.CantidadProductos = listaShowRoom.Count;
                 seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }
         }
