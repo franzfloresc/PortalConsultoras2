@@ -188,12 +188,16 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetStartSession(DateTime StartSession);
 
         DateTime GetStartSession();
+        
+        IShowRoom ShowRoom { get; }
 
         void SetDatosPagoVisa(PagoEnLineaModel model);
 
-        IShowRoom ShowRoom { get; }
-
         PagoEnLineaModel GetDatosPagoVisa();
+        
+        void SetListadoEstadoCuenta(List<EstadoCuentaModel> model);
+
+        List<EstadoCuentaModel> GetListadoEstadoCuenta();
 
         void SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo);
 

@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
             CronogramaFICModel model = new CronogramaFICModel
             {
                 listaPaises = DropDowListPaises(),
-                listaZonas = DropDownListZonas(UserData().PaisID),
+                listaZonas = _baseProvider.DropDownListZonas(userData.PaisID),
                 DropDownListCampania = CargarCampania()
             };
             return View(model);

@@ -85,12 +85,19 @@ function SeccionObtenerSeccion(seccion) {
 }
 
 function SeccionCargarProductos(objConsulta) {
+ 
     objConsulta = objConsulta || {};
     objConsulta.UrlObtenerProductos = $.trim(objConsulta.UrlObtenerProductos);
     var mob = isMobile();
     if (mob && objConsulta.Codigo === CONS_CODIGO_SECCION.ODD) {
         $("#ODD").find(".seccion-loading-contenedor").fadeOut();
         $("#ODD").find(".seccion-content-contenedor").fadeIn();
+    }
+    else if (mob && objConsulta.Codigo === CONS_CODIGO_SECCION.SR) {
+     
+        $("#SR").find(".seccion-loading-contenedor").fadeOut();
+        $("#SR").find(".seccion-content-contenedor").fadeIn();
+
     }
 
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.DES) {
@@ -102,6 +109,8 @@ function SeccionCargarProductos(objConsulta) {
         $("#" + objConsulta.Codigo).find(".seccion-loading-contenedor").fadeOut();
         $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
     }
+
+
 
     if (objConsulta.UrlObtenerProductos === "")
         return false;

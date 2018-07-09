@@ -506,6 +506,16 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
         }
+        
+        void ISessionManager.SetListadoEstadoCuenta(List<EstadoCuentaModel> model)
+        {
+            HttpContext.Current.Session["ListadoEstadoCuenta"] = model;
+        }
+
+        List<EstadoCuentaModel> ISessionManager.GetListadoEstadoCuenta()
+        {
+            return (List<EstadoCuentaModel>)HttpContext.Current.Session["ListadoEstadoCuenta"];
+        }
 
         public void SetEstrategiaSR(Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel data)
         {
