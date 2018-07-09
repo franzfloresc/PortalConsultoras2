@@ -3798,6 +3798,10 @@ namespace Portal.Consultoras.Web.Controllers
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.DesktopShowRoomContenedor : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor;
                             break;
                         case Constantes.ConfiguracionPais.OfertaDelDia:
+                            if (!sessionManager.GetFlagOfertaDelDia())
+                            {
+                                continue;
+                            }
                             break;
                         case Constantes.ConfiguracionPais.HerramientasVenta:
                             seccion.UrlObtenerProductos = "HerramientasVenta/HVObtenerProductos";
@@ -4362,6 +4366,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                         break;
                     case Constantes.ConfiguracionPais.OfertaDelDia:
+                        if (!sessionManager.GetFlagOfertaDelDia())
+                        {
+                            continue;
+                        }
                         config.UrlMenu = "#";
                         break;
                     case Constantes.ConfiguracionPais.Lanzamiento:

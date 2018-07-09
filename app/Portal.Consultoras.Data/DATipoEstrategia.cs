@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Entities;
-using System;
 using System.Data;
 using System.Data.Common;
 
@@ -24,7 +23,7 @@ namespace Portal.Consultoras.Data
         public int Insert(BETipoEstrategia entidad)
         {
             int result;
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarTipoEstrategia_SB2_tmp"))// retirar _tmp, para pruebas agregar _tmp
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarTipoEstrategia_SB2"))
             {
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
                 Context.Database.AddInParameter(command, "@DescripcionEstrategia", DbType.String, entidad.DescripcionEstrategia);
@@ -44,9 +43,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@Codigo", DbType.String, entidad.Codigo);
                 Context.Database.AddInParameter(command, "@FlagValidarImagen", DbType.Int32, entidad.FlagValidarImagen);
                 Context.Database.AddInParameter(command, "@PesoMaximoImagen", DbType.Int32, entidad.PesoMaximoImagen);
-                Context.Database.AddOutParameter(command, "@TipoEstrategiaIdOut", DbType.Int32,4);
-                Context.ExecuteNonQuery(command);
-                result = Convert.ToInt32(Context.Database.GetParameterValue(command, "@TipoEstrategiaIdOut").ToString());//Context.ExecuteNonQuery(command);
+                result = Context.ExecuteNonQuery(command);
             }
             return result;
         }

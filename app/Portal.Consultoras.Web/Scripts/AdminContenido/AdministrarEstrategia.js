@@ -104,8 +104,8 @@
 
     var _paginador = Paginador({
         elementId: "matriz-" +
-            "imagen" +
-            "es-paginacion",
+        "imagen" +
+        "es-paginacion",
         elementClick: _paginadorClick
     });
 
@@ -329,6 +329,7 @@
             TipoEstrategiaID: data.TipoEstrategiaID,
             CodigoSAP: 0,
             CampaniaID: data.CampaniaID,
+            IdMatrizComercial: 0,
             paisID: $("#ddlPais").val(),
             imagenes: [],
             imagen: _obtenerImagenGrilla(id),

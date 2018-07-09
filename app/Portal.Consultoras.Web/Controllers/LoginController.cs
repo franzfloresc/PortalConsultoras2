@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
@@ -43,6 +44,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
         protected ILogManager logManager = LogManager.LogManager.Instance;
+
+        public bool UsarMsPer(string TipoEstrategiaCodigo,string CodigoISO)
+        {
+            bool paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(CodigoISO);
+            bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(TipoEstrategiaCodigo);
+            return paisHabilitado && tipoEstrategiaHabilitado;
+        }
 
         #region Constructor
 
@@ -1166,7 +1174,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
 
                         usuarioModel.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
-
+                        sessionManager.SetFlagOfertaDelDia(usuarioModel.TieneOfertaDelDia?1:0);
                         #endregion
 
 
@@ -1546,12 +1554,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         private async Task<List<ServicePedido.BEEstrategia>> ObtenerOfertasDelDia(UsuarioModel model)
         {
-            List<ServicePedido.BEEstrategia> ofertasDelDia;
-
-            using (var svc = new PedidoServiceClient())
+            List<ServicePedido.BEEstrategia> ofertasDelDia = null;
+            if (UsarMsPer("009",model.CodigoISO))
             {
-                var lst = await svc.GetEstrategiaODDAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date);
-                ofertasDelDia = lst.ToList();
+                var ofertaDelDiaProvider = new OfertaDelDiaProvider();
+                var lst = ofertaDelDiaProvider.ObtenerOfertasDesdeApi(model.CodigoISO,"ODD",model.CampaniaID,model.CodigoConsultora,DateTime.Compare(model.FechaInicioCampania.Date,DateTime.Now.Date));
+                return lst.Result;
+                //ofertasDelDia = lst;
+            }
+            else
+            {
+                using (var svc = new PedidoServiceClient())
+                {
+                    var lst = await svc.GetEstrategiaODDAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date);
+                    ofertasDelDia = lst.ToList();
+                }
             }
 
             return ofertasDelDia;
