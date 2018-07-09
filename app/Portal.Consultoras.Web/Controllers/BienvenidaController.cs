@@ -9,10 +9,8 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -750,7 +748,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string ip = null;
                 if (!Request.Browser.IsMobileDevice)
                 {
-                    ip = GetIpCliente();
+                    ip = GetIPCliente();
                     ip = string.IsNullOrEmpty(ip) ? "" : ip;
                     AppVersion = null;
                 }
@@ -2347,23 +2345,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             partial.ConfiguracionPaisDatos = partial.ConfiguracionPaisDatos ?? new ConfiguracionPaisDatosModel();
             return partial;
-        }
-
-        protected virtual string GetIpCliente()
-        {
-            var ip = string.Empty;
-
-            try
-            {
-                var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
-                ip = request.ClientIPFromRequest(skipPrivate: true);
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "BienvenidaController.GetIpCliente");
-            }
-
-            return ip;
         }
     }
 }
