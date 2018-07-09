@@ -598,7 +598,6 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
         if (aplicarFiltrosSubCampanias) {
             if (response.listaSubCampania !== 'undefined') {
                 if (response.listaSubCampania.length > 0) {
-                    debugger;
                     $.each(response.listaSubCampania,
                         function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(35, true); });
 
@@ -636,6 +635,8 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
 
         $("#spnCantidadFiltro").html(response.listaOfertas.length);
         $("#spnCantidadTotal").html(response.totalOfertas);
+
+        EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
     }
     else {
         messageInfoError(response.message);
@@ -711,6 +712,8 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
                 EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias-mobile'));
             }
         }
+
+        EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
     }
     else {
         messageInfoError(response.message);
