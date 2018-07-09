@@ -46,7 +46,9 @@
         EtiquetaOdd: "#EtiquetaOdd",
         SloganLanzamiento: "#SloganLanzamiento",
         ContenedoFotoReferencial: "#contenedor_foto_referencial",
-        ContenedoFichaEtiquetas: "#contenedor_ficha_etiquetas"
+        ContenedoFichaEtiquetas: "#contenedor_ficha_etiquetas",
+        Contenedor_redes_sociales: "#Contenedor_redes_sociales",
+        EtiquetaPackNuevas: "#EtiquetaPackNuevas"
     };
 
     var _tabsFichaProducto = {
@@ -316,8 +318,10 @@
         $(_seccionesFichaProducto.SloganLanzamiento).hide();
         $(_seccionesFichaProducto.EtiquetaOdd).hide();
         $(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
-        if (_codigoPalanca.HerramientasVenta === _config.palanca ||
-            _codigoPalanca.OfertasParaMi === _config.palanca ||
+        $(_seccionesFichaProducto.EtiquetaPackNuevas).hide();
+
+        if (_codigoPalanca.HerramientasVenta === _config.palanca || 
+            _codigoPalanca.OfertasParaMi === _config.palanca || 
             _codigoPalanca.OfertaParaTi === _config.palanca ||
             _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
             if (!isMobile()) {
@@ -344,7 +348,17 @@
             $(_seccionesFichaProducto.CarruselProducto).show();
         } else if (_codigoPalanca.OfertaDelDia == _config.palanca) {
             $(_seccionesFichaProducto.EtiquetaOdd).show();
+        } else if (_codigoPalanca.PackNuevas == _config.palanca) {
+            $(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
+            $(_seccionesFichaProducto.ImagenDeFondo).hide();
+            $(_seccionesFichaProducto.DescripcionAdicional).hide();
+            $(_seccionesFichaProducto.ContenidoProducto).hide();
+            $(_seccionesFichaProducto.CarruselProducto).hide();
+            $(_seccionesFichaProducto.SloganLanzamiento).hide();
+            $(_seccionesFichaProducto.EtiquetaPackNuevas).show();
+            $(_seccionesFichaProducto.Contenedor_redes_sociales).hide();
         }
+
         var etiquetaOddEstaOculta = $(_seccionesFichaProducto.EtiquetaOdd).is(":hidden");
         var etiquetaLanzamientosEstaOculta = $(_seccionesFichaProducto.EtiquetaLanzamientos).is(":hidden");
         if (etiquetaOddEstaOculta && etiquetaLanzamientosEstaOculta)

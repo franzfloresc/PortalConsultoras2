@@ -38,6 +38,8 @@
     width: 100%;
     height: 150px;
     background-color: #d8d8d8;
+    background-size: cover !important;
+    background-position: center center !important;
 }
 
 .bg_imagen_producto_subir {
@@ -261,4 +263,8 @@
 
 .tabs li:nth-child(1) {
     border-top: 1px solid #ccc;
+}
+
+.producto_img_mobile_bpt img {
+    margin: 0 auto !important;
 }

@@ -621,17 +621,12 @@ namespace Portal.Consultoras.Common
 
             #region OfertaDelDia 
             // no tulizan estas variables, todos estos estan en la logica en ofertaDelDia.js
-            public const int DesktopOfertaDelDiaHomeBanner = 1191;
-            //public const int DesktopOfertaDelDiaHomeDisplay = 1192;
-            public const int DesktopOfertaDelDiaPedidoBanner = 1291;
-            //public const int DesktopOfertaDelDiaPedidoDisplay = 1292;
-            public const int DesktopOfertaDelDiaGeneralBanner = 1991;
-            //public const int DesktopOfertaDelDiaGeneralDisplay = 1992;
-
-            public const int DesktopOfertaDelDiaContenedor = 1891;
-            public const int MobileOfertaDelDiaHomeBanner = 2191;
-            public const int MobileOfertaDelDiaContenedor = 2891;
-
+            public const int OfertaDelDiaDesktopHomeBanner = 1191;
+            public const int OfertaDelDiaDesktopHomeDisplay = 1192;
+            public const int OfertaDelDiaDesktopPedidoBanner = 1291;
+            public const int OfertaDelDiaDesktopPedidoDisplay = 1292;
+            public const int OfertaDelDiaDesktopGeneralBanner = 1991;
+            public const int OfertaDelDiaDesktopGeneralDisplay = 1992;
             #endregion
 
             #region RevistaDigital

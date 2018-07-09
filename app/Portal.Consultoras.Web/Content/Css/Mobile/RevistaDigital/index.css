@@ -214,6 +214,7 @@
         width: auto;
         height: 100%;
         max-width: 100% !important;
+        margin: 0 auto;
     }
 
 .producto_nombre_descripcion_bpt {
