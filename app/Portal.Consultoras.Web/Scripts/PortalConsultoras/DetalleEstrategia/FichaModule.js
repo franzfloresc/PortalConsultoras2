@@ -368,6 +368,8 @@
     };
 
     var _ocultarTabs = function () {
+        var estrategia = localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+
         $(_tabsFichaProducto.detalleProducto).hide();
         $(_tabsFichaProducto.detallePack).hide();
         $(_tabsFichaProducto.tipsVenta).hide();
@@ -386,8 +388,14 @@
         }
 
         if (_codigoPalanca.Lanzamiento === _config.palanca) {
-            $(_tabsFichaProducto.video).show();
-            $(_seccionesFichaTabProducto.ContenidoProductoVideo).show();
+            if (estrategia.TipoEstrategiaDetalle.UrlVideoDesktop && !isMobile()) {
+                $(_tabsFichaProducto.video).show();
+                $(_seccionesFichaTabProducto.ContenidoProductoVideo).show();
+            }
+            if (estrategia.TipoEstrategiaDetalle.UrlVideoMobile && isMobile()) {
+                $(_tabsFichaProducto.video).show();
+                $(_seccionesFichaTabProducto.ContenidoProductoVideo).show();
+            }
         }
     };
 
