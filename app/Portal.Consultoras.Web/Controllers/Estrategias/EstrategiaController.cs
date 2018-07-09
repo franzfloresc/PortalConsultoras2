@@ -53,7 +53,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string tipoOrigenEstrategia = "")
         {
-
             var model = new EstrategiaOutModel();
             try
             {
