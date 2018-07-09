@@ -630,7 +630,7 @@ namespace Portal.Consultoras.Common
 
             public const int DesktopOfertaDelDiaContenedor = 1891;
             public const int MobileOfertaDelDiaHomeBanner = 2191;
-            public const int MobileOfertaDelDiaContenedor = 2191;
+            public const int MobileOfertaDelDiaContenedor = 2891;
             #endregion
 
             #region RevistaDigital
