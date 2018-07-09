@@ -53,7 +53,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string tipoOrigenEstrategia = "")
         {
-
             var model = new EstrategiaOutModel();
             try
             {
@@ -506,14 +505,26 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                         listaOfertasModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasModelFormato(listaEstrategia, userData.CodigoISO, userData.CampaniaID, 2, userData.esConsultoraLider, userData.Simbolo);
                     }
                 }
-                
-                var listaOferta = listaOfertasModel == null ? new List<EstrategiaPersonalizadaProductoModel>() : listaOfertasModel.Where(x => x.CUV2 != cuvExcluido).ToList();
 
+                if (listaOfertasModel != null)
+                {
+                    if (listaOfertasModel.Any())
+                    {
+                        var listaPedido = _pedidoWebProvider.ObtenerPedidoWebDetalle(0);
+                        listaOfertasModel.Update(x =>
+                        {
+                            x.IsAgregado = listaPedido.Any(p => p.CUV == x.CUV2);
+                        });
+                    }
+                }
+                else
+                    listaOfertasModel = new List<EstrategiaPersonalizadaProductoModel>();
+             
                 return Json(new
                 {
                     success = true,
                     message = "Ok",
-                    data = listaOferta
+                    data = listaOfertasModel.Where(x => x.CUV2 != cuvExcluido).ToList()
                 });
             }
             catch (Exception ex)

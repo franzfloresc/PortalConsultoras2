@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </div>*@
-                <div class="ficha_redes_sociales">
+                <div id="Contenedor_redes_sociales" class="ficha_redes_sociales">
                     <div data-compartir-campos="" style="display:none;">
                         <input type="hidden" class="CUV" value="{{CUV2}}" />
                         <input type="hidden" class="rsFBMensaje" value="" />
@@ -76,6 +76,12 @@
                         <div class="triangulo_etiqueta_nuevo"></div>
                         <div class="etiqueta_nuevo">
                             <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" />
+                        </div>
+                    </div>
+                    <div id="EtiquetaPackNuevas" class="contenedor_etiqueta_nuevo">
+                        <div class="triangulo_etiqueta_nuevo"></div>
+                        <div class="etiqueta_nuevo">
+                            <img src="{{ImagenURL}}" alt="" />
                         </div>
                     </div>
                 </div>
@@ -369,6 +375,7 @@
 
     <script>
         var fichaModule;
+        var carruselModule;
         var tieneCarrusel = '@Model.TieneCarrusel';
         
         $(document).ready(function () {

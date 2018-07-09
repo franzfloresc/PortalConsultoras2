@@ -12,7 +12,6 @@
     <link href="@Url.Content("~/Content/Css/Mobile/Ficha/Carrusel.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Mobile/Ficha/RedesSociales.css")" rel="stylesheet" />
     <style id="styleRelojOdd"></style>
-
 }
 
 <div class="container" data-tag-html="@Model.Campania" id="div-container-breadcubs" style="display: none;">
@@ -58,6 +57,11 @@
         <div id="EtiquetaLanzamientos" class="row label_producto">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <img src="{{TipoEstrategiaDetalle.ImgFichaMobile}}" alt="" />
+            </div>
+        </div>
+        <div id="EtiquetaPackNuevas" class="row label_producto">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <img src="{{ImagenURL}}" alt="" />
             </div>
         </div>
         <div class="row marca_producto">
@@ -213,7 +217,7 @@
 
     <div id="seccion_ficha_handlebars"></div>
 
-    <div class="col-md-12 col-sm-12 col-xs-12 share">
+    <div id="Contenedor_redes_sociales" class="col-md-12 col-sm-12 col-xs-12 share">
         <p>Comparte el producto con tus clientes</p>
         <a href="javascript: void(0);" class="text-right"><img src="~/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp" data-compartir="WA"></a>
         <a href="javascript: void(0);"><img src="~/Content/Images/showroom/redes_facebook.png" alt="" class="fb" data-compartir="FB"></a>

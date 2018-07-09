@@ -59,7 +59,7 @@
 }
 
 .txt_te_quedan {
-    color: #fff;
+    /*color: #fff;*/
     float: left;
     font-size: 13px;
     line-height: 1.38;
@@ -118,7 +118,7 @@
         }
 
         .clock_palanca_detalle_odd .flip-clock-divider .flip-clock-label {
-            color: #fff !important;
+            /*color: #fff !important;*/
             display: block !important;
             left: 10px !important;
             right: initial !important;
@@ -133,17 +133,17 @@
         left: 12px !important;
     }
 
-    .clock_palanca_detalle_odd .flip {
+    /*.clock_palanca_detalle_odd .flip {
         box-shadow: 0 2px 5px #fff !important;
-    }
+    }*/
 
     .clock_palanca_detalle_odd ul li a div div.inn {
-        background-color: #fff !important;
-        color: #000 !important;
+        /*background-color: #fff !important;*/
+        /*color: #000 !important;*/
         font-size: 40px !important;
         font-weight: 700 !important;
         letter-spacing: .7px !important;
-        text-shadow: 0 1px 2px #fff !important;
+        /*text-shadow: 0 1px 2px #fff !important;*/
     }
 
 .nombre_marca {
@@ -155,14 +155,14 @@
 }
 
 .marca_odd {
-    color: #fff;
+    /*color: #fff;*/
     float: left;
     margin-top: 25px;
     width: 100%;
 }
 
 .nombre_oferta_odd {
-    color: #fff;
+    /*color: #fff;*/
     float: left;
     font-size: 30px;
     font-weight: 700;
@@ -170,7 +170,7 @@
 }
 
 .precios_odd {
-    color: #fff;
+    /*color: #fff;*/
     float: left;
     width: 100%;
 }
