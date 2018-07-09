@@ -324,7 +324,6 @@ namespace Portal.Consultoras.Web.Controllers
                     ConfigS3.SetFileS3(path, carpetaPais, newfilename);
                     entidad.ImagenOfertaIndependiente = newfilename;
                 }
-                
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {

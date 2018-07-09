@@ -82,11 +82,9 @@ namespace Portal.Consultoras.Web.Controllers
                     OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
-                    var tieneOfertaDelDia = sessionManager.GetFlagOfertaDelDia();
-
                     ViewBag.MostrarOfertaDelDia =
                         !userData.CloseOfertaDelDia
-                        && tieneOfertaDelDia 
+                        && userData.TieneOfertaDelDia
                         && ofertaDelDia != null
                         && ofertaDelDia.TeQuedan.TotalSeconds > 0;
 

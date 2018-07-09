@@ -61,7 +61,8 @@ namespace Portal.Consultoras.Web.Controllers
         protected string estrategiaWebApiDisponibilidadTipo;
         protected string paisesMicroservicioPersonalizacion;
               protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
-
+        protected Models.Estrategia.OfertaDelDia.DataModel estrategiaODD;
+        protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
         #endregion
 
         #region Constructor
@@ -74,6 +75,7 @@ namespace Portal.Consultoras.Web.Controllers
             _tablaLogicaProvider = new TablaLogicaProvider();
             administrarEstrategiaProvider = new AdministrarEstrategiaProvider();
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
+            estrategiaODD = sessionManager.GetEstrategiaODD() ?? new Models.Estrategia.OfertaDelDia.DataModel();
             configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
             ofertaDelDiaProvider = new OfertaDelDiaProvider();
         }
@@ -119,8 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
                 revistaDigital = sessionManager.GetRevistaDigital();
                 herramientasVenta = sessionManager.GetHerramientasVenta();
                 guiaNegocio = sessionManager.GetGuiaNegocio();
-                
-
+                estrategiaODD = sessionManager.GetEstrategiaODD();
                 if (Request.IsAjaxRequest())
                 {
                     base.OnActionExecuting(filterContext);
@@ -1161,11 +1162,9 @@ namespace Portal.Consultoras.Web.Controllers
             var result = false;
             if (!NoMostrarBannerODD())
             {
-                var tieneOfertaDelDia = sessionManager.GetFlagOfertaDelDia();
-
-                result = (!tieneOfertaDelDia ||
+                result = (!userData.TieneOfertaDelDia ||
                           (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2 || userData.IndicadorGPRSB == 0)
-                          && !userData.CloseOfertaDelDia) && tieneOfertaDelDia;
+                          && !userData.CloseOfertaDelDia) && userData.TieneOfertaDelDia;
             }
 
             return result;
@@ -3802,6 +3801,8 @@ namespace Portal.Consultoras.Web.Controllers
                             seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.DesktopShowRoomContenedor : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor;
                             break;
                         case Constantes.ConfiguracionPais.OfertaDelDia:
+                            if (!userData.TieneOfertaDelDia)
+                                continue;
                             break;
                         case Constantes.ConfiguracionPais.HerramientasVenta:
                             seccion.UrlObtenerProductos = "HerramientasVenta/HVObtenerProductos";
@@ -4366,6 +4367,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                         break;
                     case Constantes.ConfiguracionPais.OfertaDelDia:
+                        if (!userData.TieneOfertaDelDia)
+                            continue;
+
                         config.UrlMenu = "#";
                         break;
                     case Constantes.ConfiguracionPais.Lanzamiento:
@@ -5126,7 +5130,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.GPRBannerUrl = userData.GPRBannerUrl;
 
                 ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia();
-                ViewBag.MostrarOfertaDelDiaContenedor = sessionManager.GetFlagOfertaDelDia();
+                ViewBag.MostrarOfertaDelDiaContenedor = userData.TieneOfertaDelDia;
 
                 var configuracionPaisOdd = sessionManager.GetConfiguracionesPaisModel().FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
                 configuracionPaisOdd = configuracionPaisOdd ?? new ConfiguracionPaisModel();

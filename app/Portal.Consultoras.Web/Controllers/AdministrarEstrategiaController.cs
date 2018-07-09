@@ -412,7 +412,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se grabï¿½ con ï¿½xito.",
+                    message = "Se grabó con éxito.",
                     extra = ""
                 });
             }
@@ -457,7 +457,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se eliminï¿½ con ï¿½xito.",
+                    message = "Se eliminó con éxito.",
                     extra = ""
                 });
             }
@@ -516,7 +516,7 @@ namespace Portal.Consultoras.Web.Controllers
                         new
                         {
                             success = false,
-                            message = "El tamaï¿½o de imagen excede el mï¿½ximo permitido. (Ancho: 62px - Alto: 62px)."
+                            message = "El tamaño de imagen excede el máximo permitido. (Ancho: 62px - Alto: 62px)."
                         }, "text/html");
                 }
                 image.Dispose();
@@ -602,7 +602,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (tipo != 1 && resultado == 0)
                     {
-                        if (FlagRecoProduc == "1") mensaje = "El CUV2 no estÃ¡ asociado a ningÃºn otro.";
+                        if (FlagRecoProduc == "1") mensaje = "El CUV2 no está asociado a ningún otro.";
                         return Json(new
                         {
                             success = false,
@@ -856,7 +856,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se grabï¿½ con ï¿½xito la estrategia. " + mensajeErrorImagenResize,
+                    message = "Se grabó con éxito la estrategia. " + mensajeErrorImagenResize,
                     extra = ""
                 });
             }
@@ -958,7 +958,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "El CUV2 ingresado no estÃ¡ configurado en la matriz comercial",
+                        message = "El CUV2 ingresado no está configurado en la matriz comercial",
                         extra = ""
                     }, JsonRequestBehavior.AllowGet);
 
@@ -972,7 +972,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurriï¿½ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -982,7 +982,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurriï¿½ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1101,7 +1101,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se deshabilitÃ³ la estrategia correctamente.",
+                    message = "Se deshabilitó la estrategia correctamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1111,7 +1111,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1121,7 +1121,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1154,7 +1154,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurriï¿½ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1164,7 +1164,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurriï¿½ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1216,7 +1216,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = resultado > 0
-                        ? "No se activaron algunas estrategias por no contar con los requisitos de lÃ­mite de venta o imagen"
+                        ? "No se activaron algunas estrategias por no contar con los requisitos de límite de venta o imagen"
                         : "Se actualizaron las estrategias correctamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
@@ -1227,7 +1227,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurriï¿½ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1237,7 +1237,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurriï¿½ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1531,7 +1531,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No se enviï¿½ el codigo de programa",
+                        message = "No se envió el codigo de programa",
                         data = lst
                     }, JsonRequestBehavior.AllowGet);
                 }
@@ -1562,7 +1562,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurriï¿½ un problema al intentar obtener los datos",
+                    message = "Ocurrió un problema al intentar obtener los datos",
                     data = lst
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1585,7 +1585,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = resultado,
-                    message = resultado ? "Se grabï¿½ con ï¿½xito los datos." : "Ocurriï¿½ un problema al intentar registrar los datos"
+                    message = resultado ? "Se grabó con éxito los datos." : "Ocurrió un problema al intentar registrar los datos"
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1595,7 +1595,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ocurriï¿½ un problema al intentar registrar los datos"
+                    message = "Ocurrió un problema al intentar registrar los datos"
                 }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -1650,7 +1650,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = result,
-                    extra = result ? ConfigS3.GetUrlFileS3(carpetaPais, newfilename) : "Ocurriï¿½ un problema al intentar registrar los datos"
+                    extra = result ? ConfigS3.GetUrlFileS3(carpetaPais, newfilename) : "Ocurrió un problema al intentar registrar los datos"
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -2019,14 +2019,14 @@ namespace Portal.Consultoras.Web.Controllers
                     var productPriceZero = strategyEntityList.FirstOrDefault(p => p.Precio == 0);
                     if (productPriceZero != null)
                     {
-                        string messageErrorPriceZero = string.Format("No se realizï¿½ ninguna operaciï¿½n (actualizaciï¿½n/inserciï¿½n) a ningunos de los registros que estaban dentro del archivo (CSV), porque el producto {0} tiene precio cero", productPriceZero.CUV2);
+                        string messageErrorPriceZero = string.Format("No se realizó ninguna operación (actualización/inserción) a ningunos de los registros que estaban dentro del archivo (CSV), porque el producto {0} tiene precio cero", productPriceZero.CUV2);
                         LogManager.LogManager.LogErrorWebServicesPortal(new FaultException(), "ERROR: CARGA PRODUCTO SHOWROOM", string.Format("CUV: {0} con precio CERO", productPriceZero.CUV2));
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, messageErrorPriceZero);
                     }
                     var productPriceOfferZero = strategyEntityList.FirstOrDefault(p => p.Precio2 == 0);
                     if (productPriceOfferZero != null)
                     {
-                        string messageErrorPriceZero = string.Format("No se actualizï¿½ el stock de ninguno de los productos que estaban dentro del archivo (CSV), porque el producto {0} tiene precio oferta Cero", productPriceOfferZero.CUV2);
+                        string messageErrorPriceZero = string.Format("No se actualizó el stock de ninguno de los productos que estaban dentro del archivo (CSV), porque el producto {0} tiene precio oferta Cero", productPriceOfferZero.CUV2);
                         LogManager.LogManager.LogErrorWebServicesPortal(new FaultException(), "ERROR: CARGA PRODUCTO SHOWROOM", string.Format("CUV: {0} con precio CERO", productPriceOfferZero.CUV2));
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, messageErrorPriceZero);
                     }
@@ -2067,7 +2067,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FormatException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, string.Format("{0} <br /> Referencia: La observaciï¿½n se encontrï¿½ en la registro '{1}'", ex.Message, line));
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, string.Format("{0} <br /> Referencia: La observación se encontró en la registro '{1}'", ex.Message, line));
             }
             catch (Exception ex)
             {
@@ -2200,7 +2200,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FormatException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, string.Format("{0} <br /> Referencia: La observaciï¿½n se encontrï¿½ en la registro '{1}'", ex.Message, line));
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, string.Format("{0} <br /> Referencia: La observación se encontró en la registro '{1}'", ex.Message, line));
             }
             catch (Exception ex)
             {

@@ -1169,7 +1169,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                         #endregion
 
-
                         #region RegaloPN
 
                         usuarioModel.ConsultoraRegaloProgramaNuevas = regaloProgramaNuevas.Result;
@@ -1270,6 +1269,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 sessionManager.SetUserData(usuarioModel);
+                sessionManager.SetEstrategiaODD(estrategiaODD);
             }
             catch (Exception ex)
             {
@@ -1592,7 +1592,6 @@ namespace Portal.Consultoras.Web.Controllers
             var t2 = (d2 - hoy);
             return t2;
         }
-
 
         private async Task<ConsultoraRegaloProgramaNuevasModel> GetConsultoraRegaloProgramaNuevas(UsuarioModel model)
         {
@@ -2565,6 +2564,7 @@ namespace Portal.Consultoras.Web.Controllers
             imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
             return imgSh;
         }
+
         private void SetTempDataAnalyticsLogin(UsuarioModel usuario, bool hizoLoginExterno)
         {
             var listAnalytics = GetLoginAnalyticsModel();

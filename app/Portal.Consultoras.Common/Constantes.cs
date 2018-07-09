@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Common
             public const int Capedevi = 302;
             public const int Terminos = 303;
         }
-		
+
         public static class Marca
         {
             public const int LBel = 1;
@@ -18,20 +18,20 @@ namespace Portal.Consultoras.Common
             public const int Cyzone = 3;
             public const int Finart = 4;
         }
-		
+
         public static class TipoCronograma
         {
             public const int Regular = 1;
             public const int Anticipado = 2;
         }
-		
+
         public static class TipoUsuario
         {
             public const int Consultora = 1;
             public const int Postulante = 2;
             public const int Admin = 3;
         }
-		
+
         public static class Rol
         {
             public const int Consultora = 1;
@@ -142,7 +142,7 @@ namespace Portal.Consultoras.Common
             public const int BusquedaNemotecnicoProductoSugerido = 9853;
             public const int BusquedaNemotecnicoZonaEstrategia = 9854;
             public const int Tonos = 9802;
-
+            
             public const int ValoresImagenesResizeWitdhMaxSmall = 12101;
             public const int ValoresImagenesResizeHeightSmall = 12102;
             public const int ValoresImagenesResizeWitdhMaxMedium = 12103;
@@ -1829,7 +1829,7 @@ namespace Portal.Consultoras.Common
             public class EncenderValidacion
             {
                 public const short TablaLogicaID = 7;
-                public const string Activo = "Activo";
+                public const string Activo = "Activo"; 
             }
 
             public class Rango
@@ -2053,7 +2053,7 @@ namespace Portal.Consultoras.Common
             public const int Valor2 = 2;
             public const int Valor3 = 3;
         }
-
+        
         public class ProlCodigoRechazo
         {
             public const string MontoMinimo = "XXXXX";
@@ -2067,7 +2067,7 @@ namespace Portal.Consultoras.Common
             public const string MontoMinFact = "MontoMinFact";
             public const string MontoMinVentaDesc = "MontoMinVentaDesc";
             public const string MontoMinFactDesc = "MontoMinFactDesc";
-            public const string MontoMaximo = "MontoMaximo";
+            public const string MontoMaximo  = "MontoMaximo";
             public const string LimiteVenta0 = "LimiteVenta0";
             public const string LimiteVenta = "LimiteVenta";
             public const string Promocion2003 = "Promocion2003";
