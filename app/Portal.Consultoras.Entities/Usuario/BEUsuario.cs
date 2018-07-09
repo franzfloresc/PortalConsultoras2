@@ -117,6 +117,7 @@ namespace Portal.Consultoras.Entities
             miTipoUsuario = Convert.ToInt16(row["TipoUsuario"]);
             mbCambioClave = Convert.ToBoolean(row["CambioClave"]);
 
+
             if (DataRecord.HasColumn(row, "TelefonoTrabajo"))
                 msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);
             if (DataRecord.HasColumn(row, "AceptoContrato"))
@@ -160,9 +161,12 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "TieneCDRExpress"))
                 TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
+
             if (DataRecord.HasColumn(row, "EsConsecutivoNueva"))
                 EsConsecutivoNueva = Convert.ToBoolean(row["EsConsecutivoNueva"]);
 
+            if (DataRecord.HasColumn(row, "indicadorconsultoradigital"))
+                IndicadorConsultoraDigital = Convert.ToInt32(row["IndicadorConsultoraDigital"]);
         }
 
         [Obsolete("Use MapUtil.MapToCollection")]
@@ -1135,9 +1139,11 @@ namespace Portal.Consultoras.Entities
         public bool EsquemaDAConsultora { get; set; }
 
         [DataMember]
+        [Column("OfertaFinal")]
         public int OfertaFinal { get; set; }
-
+        
         [DataMember]
+        [Column("EsOfertaFinalZonaValida")]
         public bool EsOfertaFinalZonaValida { get; set; }
 
         [DataMember]
@@ -1466,7 +1472,13 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool FotoPerfilAncha { get; set; }
         [DataMember]
+        public BEOfertaFinal _OfertaFinal { get; set; }
+        [DataMember]
         public bool EsConsultoraOficina { get; set; }
+        [DataMember]
+        public int IndicadorConsultoraDigital { get; set; }
+        [DataMember]
+        public string NivelProyectado { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {

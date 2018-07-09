@@ -7,7 +7,7 @@ global.actualizaCelularData = {
     iniciaNumero: 9,
     urlProvider: {}
 };
-global.IsoPais = ''; 
+global.IsoPais = 'PE'; 
 
 require('../../Scripts/PortalConsultoras/MiPerfil/ActualizarCelular');
 
@@ -18,21 +18,26 @@ describe('Update Number Phone', () => {
         var result = mod.Funciones.ValidarCelular('');
 
         expect(result.Success).toBeFalsy();
-        expect(result.Message).toEqual('El número no puede estar vacío.');
+        expect(result.Messages.length).toEqual(1);
+        expect(result.Messages).toContain('Debe ingresar celular.');
     });
 
     it('Invalid Number', () => {
         var result = mod.Funciones.ValidarCelular('XX22');
 
         expect(result.Success).toBeFalsy();
-        expect(result.Message).toEqual('El número no cumple con el formato.');
+        expect(result.Messages.length).toEqual(3);
+        expect(result.Messages).toContain('El número no cumple con el formato.');
+        expect(result.Messages).toContain('El número debe tener 9 digitos.');
+        expect(result.Messages).toContain('El número debe empezar con 9.');
     });
 
     it('Same number', () => {
         var result = mod.Funciones.ValidarCelular('987654321');
 
         expect(result.Success).toBeFalsy();
-        expect(result.Message).toEqual('El número no puede ser el mismo.');
+        expect(result.Messages.length).toEqual(1);
+        expect(result.Messages).toContain('El número no puede ser el mismo.');
     });
 
     it('Invalid Length Number PE', () => {
@@ -40,7 +45,8 @@ describe('Update Number Phone', () => {
         var result = mod.Funciones.ValidarCelular('9121212');
 
         expect(result.Success).toBeFalsy();
-        expect(result.Message).toEqual('El número debe tener 9 digitos.');
+        expect(result.Messages.length).toEqual(1);
+        expect(result.Messages).toContain('El número debe tener 9 digitos.');
     });
 
     it('Valid Format and Length Number PE', () => {
@@ -50,17 +56,20 @@ describe('Update Number Phone', () => {
         expect(result.Success).toBeTruthy();
     });
 
-    it('Invalid Length Number CL', () => {
+    it('Invalid Number CL', () => {
         mod.Funciones.SetIsoPais('CL');
         var result = mod.Funciones.ValidarCelular('123456');
 
         expect(result.Success).toBeFalsy();
-        expect(result.Message).toEqual('El número debe tener 9 digitos.');
+        expect(result.Messages.length).toEqual(2);
+        expect(result.Messages).toContain('El número debe tener 9 digitos.');
+        expect(result.Messages).toContain('El número debe empezar con 9.');
     });
 
-    it('Valid Length Number CL', () => {
+    it('Valid Number CL', () => {
+        global.actualizaCelularData.iniciaNumero = -1;
         mod.Funciones.SetIsoPais('CL');
-        var result = mod.Funciones.ValidarCelular('123456789');
+        var result = mod.Funciones.ValidarCelular('923456789');
 
         expect(result.Success).toBeTruthy();
     });

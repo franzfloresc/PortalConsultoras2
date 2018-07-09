@@ -52,8 +52,6 @@ $(document).ready(function () {
         $(this).toggleClass('check_intriga');
     });
 
-   // $('.contenedor_img_perfil').on('click', CargarCamara);
-
     $('#salvavidaTutorial').show();
 
     $("#salvavidaTutorial").click(function () {
@@ -501,93 +499,6 @@ function limitarMinimo(contenido, caracteres, a) {
         return false;
     }
     return true;
-}
-
-function CargarCamara() {
-    Webcam.set({
-        width: 300,
-        height: 300,
-        crop_width: 300,
-        crop_height: 300,
-        image_format: 'jpeg',
-        jpeg_quality: 90,
-        flip_horiz: true
-    });
-    Webcam.attach('#my_camera');
-
-    PopupMostrar('CamaraIntroductoria');
-}
-
-function CerrarCamara() {
-    Webcam.reset();
-    $('#imgFotoTomada').attr('src', '');
-    $('#demo').removeClass('croppie-container').html('');
-
-    PopupCerrar('CamaraIntroductoria');
-}
-
-function CortarFoto() {
-    $('#demo').croppie('result', {
-        type: 'canvas',
-        format: 'png'
-    }).then(function (resp) {
-        waitingDialog();
-        $.ajax({
-            type: 'POST',
-            url: baseUrl + 'Bienvenida/SubirImagen',
-            data: JSON.stringify({ data: resp }),
-            dataType: 'Json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                if (checkTimeout(data)) {
-                    alert_msg(data.message);
-                    if (data.success) {
-                        $('#imgFotoUsuario').show();
-                        $('#imgFotoUsuarioDefault').hide();
-                        $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
-                    }
-                }
-            },
-            error: function (data, error) { },
-            complete: closeWaitingDialog
-        });
-    });
-}
-
-function TomarFoto() {
-    Webcam.snap(function (data_uri) {
-        $('#imgFotoTomada').attr('src', data_uri);
-        $('#demo').croppie({
-            viewport: {
-                width: 150,
-                height: 150,
-                type: 'circle'
-            },
-            url: data_uri
-        });
-    });
-}
-function SubirFoto() {
-    waitingDialog();
-    $.ajax({
-        type: 'POST',
-        url: baseUrl + 'Bienvenida/SubirImagen',
-        data: JSON.stringify({ data: $('#imgFotoTomada').attr('src') }),
-        dataType: 'Json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            if (checkTimeout(data)) {
-                alert_msg(data.message);
-                if (data.success) {
-                    $('#imgFotoUsuario').show();
-                    $('#imgFotoUsuarioDefault').hide();
-                    $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
-                }
-            }
-        },
-        error: function (data, error) { },
-        complete: closeWaitingDialog
-    });
 }
 
 function animacionFlechaScroll() {
@@ -2185,12 +2096,16 @@ function AbrirAceptacionContrato() {
         }
     }
 }
+
 function AceptarContrato() {
+   
+    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato};
     waitingDialog({});
+
     $.ajax({
         type: "POST",
         url: baseUrl + "Bienvenida/AceptarContrato",
-        data: JSON.stringify({ checkAceptar: 1 }),
+        data: JSON.stringify(parameter),
         contentType: 'application/json',
         success: function (data) {
             if (checkTimeout(data)) {
@@ -2214,6 +2129,7 @@ function AceptarContrato() {
         }
     });
 }
+
 function DownloadAttachPDF() {
     var iframe_ = document.createElement("iframe");
     iframe_.style.display = "none";

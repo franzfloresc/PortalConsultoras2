@@ -20,5 +20,6 @@ namespace Portal.Consultoras.Web.Models
         public string CampaniaX1 { get; set; }
         public bool MostrarCancelarSuscripcion { get; set; }
         public bool CancelarSuscripcion { get; set; }
+        public bool EsSuscripcionInmediata { get; set; }
     }
 }

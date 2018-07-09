@@ -35,5 +35,6 @@
         public bool ActualizaDatos { get; set; }
         public int PaisID { get; set; }
         public int IniciaNumeroCelular { get; set; }
+        public int IndicadorConsultoraDigital { get; set; }
     }
 }

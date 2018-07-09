@@ -2417,18 +2417,6 @@ h1, h2, h3, h4, h5, h6 {
         width: 100%;
     }
 
-.nombre_usuario_facebook {
-    float: right;
-    width: -moz-calc(100% -55px);
-    width: calc(100% - 55px);
-    width: -webkit-calc(100% - 55px);
-    width: -webkit-calc(~'100% - 55px');
-    font-family: 'LAto';
-    font-size: 13px;
-    margin-top: 15px;
-    color: black;
-}
-
 .ayuda_usuario_facebook:hover .mensaje_ayuda_usuario {
     display: block;
 }
@@ -2449,30 +2437,38 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 30;
 }
 
-    .mensaje_ayuda_usuario:after, .mensaje_ayuda_usuario:before {
-        right: 100%;
-        top: 24px;
-        border: solid transparent;
-        content: ' ';
-        height: 0;
-        width: 0;
-        position: absolute;
-        pointer-events: none;
-    }
+.mensaje_ayuda_usuario:after, .mensaje_ayuda_usuario:before {
+    right: 100%;
+    top: 24px;
+    border: solid transparent;
+    content: ' ';
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+.nombre_usuario_facebook {
+    float: right;
+    width: calc(100% - 55px);
+    font-family: 'LAto';
+    font-size: 13px;
+    margin-top: 15px;
+    color: black;
+}
 
-    .mensaje_ayuda_usuario:after {
-        border-color: rgba(255, 255, 255, 0);
-        border-right-color: #ffffff;
-        border-width: 9px;
-        margin-top: -9px;
-    }
+.mensaje_ayuda_usuario:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-right-color: #ffffff;
+    border-width: 9px;
+    margin-top: -9px;
+}
 
-    .mensaje_ayuda_usuario:before {
-        border-color: rgba(0, 0, 0, 0);
-        border-right-color: #000000;
-        border-width: 10px;
-        margin-top: -10px;
-    }
+.mensaje_ayuda_usuario:before {
+    border-color: rgba(0, 0, 0, 0);
+    border-right-color: #000000;
+    border-width: 10px;
+    margin-top: -10px;
+}
 
 .ayuda_usuario_facebook {
     top: 3px;
@@ -2683,12 +2679,8 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     font-family: 'icomoon';
 }
-
 .select_pais_facebook {
-    width: -moz-calc(100% - 21px);
     width: calc(100% - 21px);
-    width: -webkit-calc(100% - 21px);
-    width: -webkit-calc(~'100% - 21px');
     float: right;
     border: 0;
     height: 28px;
@@ -3400,7 +3392,7 @@ h1, h2, h3, h4, h5, h6 {
             margin-top: 5px;
         }
 
-    .texto_disculpa
+    .texto_disculpa,
     .icono_reloj_2{
         display:block;
     }

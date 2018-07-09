@@ -761,7 +761,9 @@
             </form>
         </div>
     </div>
-    <div class="popup_aceptacionContrato" id="popupAceptacionContrato" style="display: none;">
+    <!-- FIN POPUP ACTUALIZACIÓN DATOS -->
+    <!-- POPUP ACEPTACIÓN DE CONTRATO -->
+    <div class="popup_aceptacionContrato" id="popupAceptacionContrato_backup" style="display: none;">
         <div class="btn_cerrar_aceptacionContrato">
             <a href="javascript:;" id="cerrarAceptacionContrato" title="Cerrar">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
@@ -782,6 +784,30 @@
             </button>
         </div>
     </div>
+    <!-- FIN POPUP ACEPTACIÓN DE CONTRATO -->
+    <!-- POPUP ACEPTACIÓN DE CONTRATO (COLOMBIA) -->
+    <div id="popupAceptacionContrato"  class="popup_aceptacionTerminosYCondicionesContrato" style="display:none;">
+        <div class="contenido_popUp">
+            <div class="icono_contrato"></div>
+            <h1 class="titulo_aceptacionTerminosYCondicionesContrato">
+                TÉRMINOS Y CONDICIONES DE USO DE<br /><b>SOMOSBELCORP.COM</b>
+            </h1>
+            <p class="mensaje_popUp_aceptacionTerminosYCondicionesContrato">
+                <b>Querida @(nombreConsultoraSin),</b>
+            </p>
+            <p class="mensaje_popUp_aceptacionTerminosYCondicionesContrato">
+                Al dar click en el botón, aceptas los términos y condiciones de la Solicitud de Crédito y Autorización de consulta y reporte de datos financieros.
+            </p>
+            <a href="javascript:;" onclick="return DownloadAttachPDF();" class="enlace_detalleTerminosYCondicionesContrato text-uppercase" title="Revisar términos y condiciones de uso">
+                >  CONOCE EL DETALLE AQUÍ
+            </a>
+            <button type="button" name="btn_aceptarTerminosYCondicionesContrato" class="btn_aceptarTerminosYCondicionesContrato" onclick="return AceptarContrato();">
+                <b>¡ACEPTO!</b> <br /> QUIERO EMPEZAR A USARLO
+            </button>
+        </div>
+    </div>
+    <!-- FIN - POPUP ACEPTACIÓN DE CONTRATO (COLOMBIA) -->
+    <!-- POPUP DEMANDA ANTICIPADA -->
     <div class="popup_demandaAnticipada" id="popupDemandaAnticipada" style="display: none;">
         <div class="contenido_popUp">
             <h1 class="titulo_demandaAnticipada">
@@ -1098,98 +1124,6 @@
     <div id="popupComunicados" style="display:none;"></div>
 </div>
 
-<div class="popup_actualizarMisDatos" id="CamaraIntroductoria" style="display: none;">
-    <div class="btn_cerrar_actualizarMisDatos">
-        <a href="javascript:CerrarCamara();" title="Cerrar">
-            <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-            <span class="texto_btn_cerrar">CERRAR</span>
-        </a>
-    </div>
-    <div class="contenido_popUp">
-        <style type="text/css">
-            #btnTomarFoto, #btnSubirFoto {
-                margin-top: 15px;
-                margin-right: 15px;
-            }
-
-            .results {
-                margin: 20px;
-                padding: 20px;
-                border: 1px solid;
-                background: #ccc;
-            }
-        </style>
-
-        <div id="my_camera"></div>
-        <input type="button" value="Tomar Foto" onclick="TomarFoto()">
-        <div class="results"><img id="imgFotoTomada" /></div>
-        <div class="results"><div id="demo"></div></div>
-        <input type="button" value="Cortar Foto" onclick="CortarFoto()">
-    </div>
-</div>
-<div id="PopUpFotoCargada" class="CompartirCorreoPop" style="display:none">
-    <div class="content_foto_cargada">
-        <a class="cerrar_compartir" href="javascript:;" onclick="javascript: $('#PopUpFotoCargada').hide();">
-            <img src="/Content/Images/cerrar_04.png" alt=" alternate text">
-        </a>
-        <div class="titulo_pop_foto">MI <b>FOTO</b></div>
-        <div class="content_foto_usuario">
-            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
-        </div>
-        <a class="btn_tomar_foto">TOMAR FOTO</a>
-    </div>
-</div>
-<div id="PopUpFotoActualizada" class="CompartirCorreoPop" style="display:none">
-    <div class="content_foto_cargada">
-        <a class="cerrar_compartir" href="javascript:;" onclick="javascript: $('#PopUpFotoActualizada').hide();">
-            <img src="/Content/Images/cerrar_04.png" alt=" alternate text">
-        </a>
-        <div class="titulo_pop_foto">MI <b>FOTO</b></div>
-        <div class="content_foto_usuario">
-            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
-        </div>
-        <div class="text_actualizada">¡FELICITACIONES!</div>
-        <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
-    </div>
-</div>
-<div class="contenedor_fondo_popup contenedor_fondo_popup_oscuro" id="PopUpFotoActualizada2" style="display: none;">
-    <div class="popup_img_perfil">
-        <h1>MI <b>FOTO</b></h1>
-        <div class="imgPerfil">
-
-        </div>
-        <div class="btn_acciones">
-            <button class="boton_cancelarImagen" type="button" name="btnCancelarImg">
-                CANCELAR
-            </button>
-            <button class="boton_guardarImagen" type="button" name="btnGuardarImg">
-                GUARDAR
-            </button>
-        </div>
-    </div>
-    <div class="content_foto_cargada">
-        <a class="cerrar_compartir" href="javascript:;" onclick="javascript: $('#PopUpFotoActualizada').hide();">
-            <img src="/Content/Images/cerrar_04.png" alt=" alternate text">
-        </a>
-        <div class="titulo_pop_foto">MI <b>FOTO</b></div>
-        <div class="content_foto_usuario">
-            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
-        </div>
-        <div class="text_actualizada">¡FELICITACIONES!</div>
-        <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
-    </div>
-    <div class="content_foto_cargada">
-        <a class="cerrar_compartir" href="javascript:;" onclick="javascript: $('#PopUpFotoActualizada').hide();">
-            <img src="/Content/Images/cerrar_04.png" alt=" alternate text">
-        </a>
-        <div class="titulo_pop_foto">MI <b>FOTO</b></div>
-        <div class="content_foto_usuario">
-            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
-        </div>
-        <div class="text_actualizada">¡FELICITACIONES!</div>
-        <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
-    </div>
-</div>
 <div data-oferta=""></div>
 <div id="DialogoMensajeBannerShowRoom" class="fondo_popupShowRoom" style="display: none;">
     <div style="background: white; overflow: inherit; position: relative; top: 50%; margin: -240px auto 0 auto; width: 821px; height: 480px; padding: 0; z-index: 1100; ">
@@ -2109,7 +2043,10 @@
         var popupVideoIntroductorio = '@Constantes.TipoPopUp.VideoIntroductorio';
         var popupGPR = '@Constantes.TipoPopUp.GPR';
         var popupDemandaAnticipada = '@Constantes.TipoPopUp.DemandaAnticipada';
+
         var popupAceptacionContrato = '@Constantes.TipoPopUp.AceptacionContrato';
+        var OrigenAceptacionContrato = '@Constantes.ClienteOrigen.OrigenDesktop';
+
         var popupShowRoom = '@Constantes.TipoPopUp.Showroom';
         var popupActualizarDatos = '@Constantes.TipoPopUp.ActualizarDatos';
         var popupFlexipago = '@Constantes.TipoPopUp.Flexipago';
@@ -2172,6 +2109,8 @@
         var OrigenDesktopODD = 1;
         var nombreAlias = '@Util.SubStr(Model.NombreConsultora, 0)';
         var viewBagTieneHV = '@((ViewBag.TieneHV ??  false).ToString().ToLower())' == 'true';
+        var urlActionMiPerfil = '@Url.Action("ObtenerActualizacionEmail", "Bienvenida", new { area = "" })';
+        var urlLocationMiPerfil = '@Url.Action("Index", "MiPerfil", new { area = "" })';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Portal.Consultoras.Web.SessionManager.SessionManager.Instance.SetIsContrato(0); }

@@ -32,13 +32,12 @@
                     <div class="@seccionTituloClass">
                         <span>@Model.Titulo</span>
                     </div>
-                    <div class="cantidad">
-                        <span>Mostrando @Model.CantidadMostrar de @Model.CantidadProductos</span>
+                    <div class="cantidad" tyle="display:none;" data-productos-info="">
+                        <span>Mostrando <span data-productos-mostrar="">@Model.CantidadMostrar</span> de <span data-productos-total="">@Model.CantidadProductos</span></span>
                     </div>
 
                     @if (Model.VerMas)
                     {
-                        
                         <div class="ir">
                             <a class="@vermasClass" href="javascript: menuModule.sectionClick('@Model.UrlLandig', '@Model.TituloBtnAnalytics')">VER MÁS OFERTAS</a>
                         </div>

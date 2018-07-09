@@ -712,32 +712,7 @@ namespace Portal.Consultoras.Web.Controllers
             SetUserData(userData);
         }
 
-        public JsonResult SubirImagen(string data)
-        {
-            if (string.IsNullOrEmpty(data)) return Json(new { success = false, message = "Imagen inválida" });
-            var dataPartes = data.Split(',');
-            if (dataPartes.Length <= 1) return Json(new { success = false, message = "Imagen inválida" });
-            var image = dataPartes[1];
-
-            string rutaImagen;
-            try
-            {
-                var base64EncodedBytes = Convert.FromBase64String(image);
-                var fileName = userData.CodigoISO + "-" + userData.CodigoConsultora + ".png";
-                var pathFile = Server.MapPath("~/Content/Images/temp/" + fileName);
-                System.IO.File.WriteAllBytes(pathFile, base64EncodedBytes);
-                ConfigS3.SetFileS3(pathFile, "ConsultoraImagen", fileName, true, true, true);
-                rutaImagen = ConfigS3.GetUrlFileS3("ConsultoraImagen", fileName);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-                return Json(new { success = false, message = "Hubo un problema con el servicio, intente nuevamente" });
-            }
-            return Json(new { success = true, message = "La imagen se subió exitosamente", imagen = Url.Content(rutaImagen) });
-        }
-
-        public JsonResult AceptarContrato(bool checkAceptar)
+        public JsonResult AceptarContrato(bool checkAceptar , string origenAceptacion)
         {
             try
             {
@@ -753,7 +728,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var svr = new UsuarioServiceClient())
                 {
-                    svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora);
+                  svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora , origenAceptacion);
                 }
 
                 userData.IndicadorContrato = 1;
@@ -1833,7 +1808,16 @@ namespace Portal.Consultoras.Web.Controllers
                     rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
                 }
 
-                var lstPersonalizacion = configEstrategiaSR.ListaPersonalizacionConsultora.Where(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP).ToList();
+                List<ShowRoomPersonalizacionModel> lstPersonalizacion;
+                if (configEstrategiaSR.ListaPersonalizacionConsultora == null)
+                {
+                    lstPersonalizacion = new List<ShowRoomPersonalizacionModel>();
+                }
+                else
+                {
+                    lstPersonalizacion = configEstrategiaSR.ListaPersonalizacionConsultora.Where(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP).ToList();
+                }
+                
 
                 return Json(new
                 {
