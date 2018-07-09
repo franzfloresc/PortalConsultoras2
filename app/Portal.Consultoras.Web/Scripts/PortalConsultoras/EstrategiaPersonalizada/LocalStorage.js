@@ -106,7 +106,7 @@
             localStorageItem.response = data;
             localStorageItem.UrlCargarProductos = urlEstrategia;
             localStorageItem.VarListaStorage = nombreKey;
-            localStorage.setItem(nombreKey, localStorageItem);
+            localStorage.setItem(nombreKey, JSON.stringify(localStorageItem));
         }).fail(function (data, error) {
             localStorageItem.response = {};
         });
@@ -121,7 +121,7 @@
 
             if (IsNullOrEmpty(nombreKey)) throw "Palanca no tiene asignado key local storage.";
 
-            if (!_existeItem(nombreKey)) _cargarEstrategias();
+            if (!_existeItem(nombreKey)) _cargarEstrategias(campania, palanca, nombreKey);
 
             var listaLocalStorage = JSON.parse(localStorage.getItem(nombreKey));
 
