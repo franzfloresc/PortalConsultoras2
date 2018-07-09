@@ -25,7 +25,7 @@ body {
     display: flex;
     font-size: 13px;
     margin: 0 auto;
-    max-width: 1189px;
+    max-width: 1105px;
     padding: 25px 0;
     position: relative;
 }
@@ -43,14 +43,13 @@ body {
 
 .ficha_producto {
     float: left;
-    padding-top: 82px;
+    padding-top: 43px;
     text-align: center;
     width: 45%;
 }
 
 .contenedor_imagen {
     display: inline-block;
-    margin: 0 24%;
     min-height: 203px;
     min-width: 203px;
 }
@@ -60,8 +59,8 @@ body {
 }
 
 .contenedor_img {
+    max-width: 460px !important;
     height: auto;
-    width: 100%;
 }
 
 .texto_referencial {
@@ -268,6 +267,7 @@ body {
     float: left;
     min-height: 186px;
     width: 100%;
+    margin-bottom:45px;
 }
 
 .texto_contenido {
@@ -280,8 +280,8 @@ body {
 
 .detalle_producto {
     border-bottom: none !important;
-    padding-bottom: 18px;
-    margin-bottom: 10px;
+    padding: 0px;
+    margin: 0px;
 }
 
     .detalle_producto:last-child {
@@ -292,7 +292,7 @@ body {
 .marca_cantidad_descripcion_detalle {
     float: left;
     margin-right: 2%;
-    width: 58%;
+    width: 53%;
 }
 
 .marca_detalle_producto {
@@ -309,6 +309,7 @@ body {
     line-height: 1.27;
     padding-bottom: 11px;
     width: 100%;
+    padding-top: 5px;
 }
 
     .cantidad_descripcion_detalle:last-child {
@@ -781,4 +782,60 @@ body {
     border: solid 1px #d8d8d8;
     color: #d8d8d8;
     pointer-events: none;
+}
+
+
+.tono_select_opt {
+    height: auto;
+    margin-bottom: 0px;
+    background: url('/Content/Images/mobile/Esika/down-arrow.svg');
+    background-position: right 15px center;
+    background-repeat: no-repeat;
+    background-size: 14px;
+}
+
+.texto_tono_seleccionado {
+    padding: 13px 15px 13px 15px !important; 
+    height: auto;
+    margin: 0;
+}
+
+.tono_seleccionado {
+    width: 45px;
+    height: 43px;
+}
+
+.content_tonos_select {
+    max-height: 220px;
+    width: 100.8% !important;
+    border: 1px solid #000;
+    left: -1px;
+    border-top: 0px;
+    padding: 10px 15px 25px 15px;
+    top: 43px;
+}
+
+.content_tonos_select > div:last-child{
+    margin-bottom:15px;
+
+}
+
+.content_tonos_select .content_tono_elegido {
+    border-bottom: 0;
+}
+
+.tono_escogido {
+    border: 1px solid #000;
+}
+
+.content_tonos .tono_select_opt{
+    width: 270px;
+}
+
+.content_tonos {
+margin-bottom: 45px;
+}
+
+.borde_seleccion_tono {
+    border: 0;
 }
