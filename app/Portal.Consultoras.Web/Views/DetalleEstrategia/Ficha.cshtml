@@ -150,7 +150,7 @@
                 <div class="contenedor_lista_detalle">
                     {{#each this.Hermanos as |componente|}}
                     {{#ifVerificarMarcaLast componente.DescripcionMarca}}
-                    <div style="border-bottom: 1px solid #ccc; margin-top:15px;"></div>
+                    <div style="border-bottom: 1px solid #ccc; margin:15px 0px;"></div>
                     {{/ifVerificarMarcaLast}}
                     <div class="content_producto_tono detalle_producto" data-tono="" data-tono-select="{{componente.CUVSelect}}" data-tono-digitable="{{componente.Digitable}}" style="border-bottom: {{../Linea}};">
                         <div style="display: none;">
@@ -172,7 +172,7 @@
                         </div>
 
                         {{#iff componente.Digitable '==' '1'}}
-                        <div class="content_right_ficha" style="width:40%;">
+                        <div class="content_right_ficha" style="width:43%;">
                             <div class="tono_select_opt">
                                 <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
                                     <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
@@ -194,9 +194,9 @@
                             </div>
                         </div>
                         {{/iff}}
-
+                        <hr class="clear">
                     </div>
-                    <hr class="clear">
+                    
                     {{/each}}
                 </div>
                 {{/iff}}
