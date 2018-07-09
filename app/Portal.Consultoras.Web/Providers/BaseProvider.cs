@@ -1,8 +1,12 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.SessionManager;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -56,7 +60,28 @@ namespace Portal.Consultoras.Web.Providers
 
             return ruta;
         }
-        
+
+        #region Zonificacion
+        public IEnumerable<RegionModel> DropDownListRegiones(int paisId)
+        {
+            IList<BERegion> lst;
+            using (var sv = new ZonificacionServiceClient())
+            {
+                lst = sv.SelectAllRegiones(paisId);
+            }
+            return Mapper.Map<IList<BERegion>, IEnumerable<RegionModel>>(lst.OrderBy(zona => zona.Codigo).ToList());
+        }
+
+        public IEnumerable<ZonaModel> DropDownListZonas(int paisId)
+        {
+            IList<BEZona> lst;
+            using (var sv = new ZonificacionServiceClient())
+            {
+                lst = sv.SelectAllZonas(paisId);
+            }
+            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
+        }
+        #endregion
     }
 
 }
