@@ -400,6 +400,25 @@
         }
     };
 
+    var _fijarFooterCampaniaSiguiente = function () {
+        $(window).scroll(function () {
+            if (isMobile()) {
+                var $elemento = $(".content_inscribirte");
+                var scrollPosition = $(window).height() + $(window).scrollTop();
+
+                if (documentHeight == scrollPosition) {
+                    if ($elemento.css('position').toLowerCase() != '') {
+                        $elemento.css("position", "");
+                    }
+                } else if (scrollPosition < documentHeight) {
+                    if ($elemento.css('position').toLowerCase() != 'fixed') {
+                        $elemento.css("position", "fixed");
+                    }
+                }
+            }
+        });
+    }
+
     function Inicializar() {
 
         localStorageModule = LocalStorageModule();
@@ -408,7 +427,7 @@
         _bindingEvents();
         _crearTabs();
         _ocultarTabs();
-
+        _fijarFooterCampaniaSiguiente();
     }
 
     return {
