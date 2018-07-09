@@ -133,6 +133,7 @@ namespace Portal.Consultoras.Web.Providers
                     break;
                 case Constantes.UrlMenuContenedor.DetalleOfertaParaTi:
                 case Constantes.UrlMenuContenedor.DetalleOfertasParaMi:
+                case Constantes.UrlMenuContenedor.DetallePackNuevas:
                     menuActivo.Codigo = revistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
                     menuActivo.MostrarMenuFlotante = false; 
                     break;

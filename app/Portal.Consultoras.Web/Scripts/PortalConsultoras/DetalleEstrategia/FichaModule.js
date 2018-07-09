@@ -180,7 +180,8 @@
             var param = {
                 estrategiaId: estrategia.EstrategiaID,
                 campania: _config.campania,
-                codigoVariante: estrategia.CodigoVariante
+                codigoVariante: estrategia.CodigoVariante,
+                codigoEstrategia: estrategia.CodigoEstrategia
             };
             _promiseObternerComponentes(param).done(function (data) {
                 estrategia.Hermanos = data.componentes;
