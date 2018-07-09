@@ -8,6 +8,12 @@
     {
         prod = Model.ListaOferta.First();
     }
+    var controllerName = this.ViewContext.RouteData.Values["controller"].ToString().ToLower();
+    var origenPedidoWeb = Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileOfertaDelDiaHomeBanner;
+    if (controllerName.Equals("ofertas"))
+    {
+        origenPedidoWeb = Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileOfertaDelDiaContenedor;
+    }
 }
 <style>
     .flip-clock-wrapper .flip{
@@ -39,11 +45,13 @@
     estiloBoton = string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorTexto) ? "" : "style=color:" + Model.ConfiguracionContenedor.ColorTexto + ";border-color:" + Model.ConfiguracionContenedor.ColorTexto + ";";
 }
 
-<div id="BloqueMobileOfertaDia" class="BloqueOfertaDia bc_plantilla-banner" style="@estiloFondo" data-item="">
-    <div style="display:none;"   data-item-campos="">
-        <input data-estrategia="@Json.Encode(prod)" />
-    </div>
-    <div class="centerElementos">
+<div id="BloqueMobileOfertaDia" class="BloqueOfertaDia bc_plantilla-banner" 
+     style="@estiloFondo" 
+     data-OrigenPedidoWeb="@origenPedidoWeb">
+    <div class="centerElementos" data-item="">
+        <div style="display:none;"   data-item-campos="">
+            <input data-estrategia="@Json.Encode(prod)" />
+        </div>
         <div class="content_oferta_dia_mobile" id="content_oferta_dia_mobile">
 
             <div class="solo_hoy_mobile">

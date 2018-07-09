@@ -79,11 +79,19 @@
                 {{DescripcionCompleta}}
             </div>
         </div>
-        <div id="SloganLanzamiento">
+        <div id="SloganLanzamientos">
             <span class="nombre_detalle_producto_tono"><strong>{{this.TipoEstrategiaDetalle.Slogan}}</strong></span>
             <ul class="descripcion_detalle_producto_tono" style="list-style-type: none;">
                 {{#each this.ListaDescripcionDetalle}}
                 <li><span class="vineta">-</span><span class="txt-des">{{this}}</span></li>
+                {{/each}}
+            </ul>
+        </div>
+        <div id="SloganPackNuevas">
+            <span class="nombre_detalle_producto_tono"><strong>Contenido del Set:</strong></span>
+            <ul class="descripcion_detalle_producto_tono">
+                {{#each this.ArrayContenidoSet}}
+                <li><span class="txt-des">{{this}}</span></li>
                 {{/each}}
             </ul>
         </div>
@@ -362,6 +370,25 @@
                 });
                 carruselModule.Inicializar();
             }
+
+            //$(window).scroll(function () {
+            //    if (isMobile()) {
+            //        var $elemento = $(".content_inscribirte");
+            //        var scrollHeight = $(document).height();
+            //        var scrollPosition = $(window).height() + $(window).scrollTop();
+
+            //        if (scrollHeight == scrollPosition) {
+            //            if ($elemento.css('position').toLowerCase() != '') {
+
+            //            }
+            //        } else {
+            //            if ($elemento.css('position').toLowerCase() != 'fixed') {
+            //                $elemento.css("position", "fixed");
+            //            }
+            //        }
+            //    } 
+            //});
+
         });
 
     </script>
