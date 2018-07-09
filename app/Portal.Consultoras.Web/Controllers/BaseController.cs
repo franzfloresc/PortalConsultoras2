@@ -60,9 +60,8 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly ShowRoomProvider _showRoomProvider;
         protected string estrategiaWebApiDisponibilidadTipo;
         protected string paisesMicroservicioPersonalizacion;
-              protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
-        protected Models.Estrategia.OfertaDelDia.DataModel estrategiaODD;
         protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
+        protected Models.Estrategia.OfertaDelDia.DataModel estrategiaODD;
         #endregion
 
         #region Constructor

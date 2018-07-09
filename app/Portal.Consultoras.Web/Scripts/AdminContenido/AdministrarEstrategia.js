@@ -1144,6 +1144,7 @@
         }
         return true;
     }
+
     var _fnGrilla = function () {
         $("#divSeccionProductos").show();
         $("#list").jqGrid("GridUnload");
@@ -1256,52 +1257,6 @@
                 },
                 { name: "ImagenURL", index: "ImagenURL", hidden: true },
                 {
-                    name: "Activo",
-                    index: "Activo",
-                    width: 0,
-                    editable: false,
-                    hidden: true,
-                    sortable: false
-                },
-                {
-                    name: "EsOfertaIndependiente",
-                    index: "EsOfertaIndependiente",
-                    width: 0,
-                    editable: false,
-                    hidden: true
-                },
-                {
-                    name: "FlagValidarImagen",
-                    index: "FlagValidarImagen",
-                    width: 0,
-                    editable: false,
-                    hidden: true
-                },
-                {
-                    name: "PesoMaximoImagen",
-                    index: "PesoMaximoImagen",
-                    width: 0,
-                    editable: false,
-                    hidden: true,
-                    sortable: false
-                },
-                {
-                    name: "_id",
-                    index: "_id",
-                    width: 0,
-                    editable: false,
-                    hidden: true,
-                    sortable: false
-                },
-                {
-                    name: "CodigoTipoEstrategia",
-                    index: "CodigoTipoEstrategia",
-                    width: 0,
-                    editable: false,
-                    hidden: true,
-                    sortable: false
-                },
-                {
                     name: "ImagenProducto",
                     index: "ImagenProducto",
                     width: 70,
@@ -1341,15 +1296,15 @@
                 }
             ],
             jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: true,
-                cell: "cell",
-                id: "id"
-            },
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+                },
             pager: jQuery("#pager"),
             loadtext: "Cargando datos...",
             recordtext: "{0} - {1} de {2} Registros",
