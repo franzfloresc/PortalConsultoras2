@@ -178,6 +178,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetPedidoValidado();
 
+
         EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
 
         void setBEUsuarioModel (List<ServiceUsuario.BEUsuario> model);

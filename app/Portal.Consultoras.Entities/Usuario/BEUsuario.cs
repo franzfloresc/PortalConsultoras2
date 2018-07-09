@@ -1135,9 +1135,11 @@ namespace Portal.Consultoras.Entities
         public bool EsquemaDAConsultora { get; set; }
 
         [DataMember]
+        [Column("OfertaFinal")]
         public int OfertaFinal { get; set; }
-
+        
         [DataMember]
+        [Column("EsOfertaFinalZonaValida")]
         public bool EsOfertaFinalZonaValida { get; set; }
 
         [DataMember]
@@ -1458,7 +1460,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool MostrarBotonValidar { get; set; }
         [DataMember]
+        public BEOfertaFinal _OfertaFinal { get; set; }
+        [DataMember]
         public bool EsConsultoraOficina { get; set; }
+
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
             if (DataRecord.HasColumn(row, "ConsultoraID")) miConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
@@ -1471,8 +1476,8 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "EsZonaDemAnti")) EsZonaDemAnti = Convert.ToInt32(row["EsZonaDemAnti"]);
             if (DataRecord.HasColumn(row, "HoraCierreZonaDemAnti")) HoraCierreZonaDemAnti = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAnti"]);
             if (DataRecord.HasColumn(row, "HoraCierreZonaNormal")) HoraCierreZonaNormal = DbConvert.ToTimeSpan(row["HoraCierreZonaNormal"]);
-
-
         }
+        [DataMember]
+        public string NivelProyectado { get; set; }
     }
 }
