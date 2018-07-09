@@ -122,7 +122,9 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
                 {
-                    componenteModel.NombreComercial = string.Concat(Util.Trim(beEstrategiaProducto.NombreProducto), " ", beEstrategiaProducto.Descripcion1);
+                    componenteModel.NombreComercial = string.IsNullOrEmpty(beEstrategiaProducto.NombreProducto)
+                        ? componenteModel.NombreComercial
+                        : string.Concat(Util.Trim(beEstrategiaProducto.NombreProducto), " ", componenteModel.Volumen);
                 }
 
                 if (!string.IsNullOrEmpty(beEstrategiaProducto.ImagenProducto))

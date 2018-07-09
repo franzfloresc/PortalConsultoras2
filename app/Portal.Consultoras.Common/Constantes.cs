@@ -1804,6 +1804,7 @@ namespace Portal.Consultoras.Common
             public const string DetalleGuiaDeNegocioDigitalizada = "/detalle/guiadenegociodigitalizada";
             public const string DetalleShowRoom = "/detalle/showroom";
             public const string DetalleOfertaDelDia = "/detalle/ofertadeldia";
+            public const string DetallePackNuevas = "/detalle/packnuevas";
         }
 
         public static class TipoVistaEstrategia

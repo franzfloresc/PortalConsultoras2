@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Web.Controllers
             return DEFicha(palanca, campaniaId, cuv, origen);
         }
 
-        public JsonResult ObtenerComponentes(string estrategiaId, string campania, string codigoVariante)
+        public JsonResult ObtenerComponentes(string estrategiaId, string campania, string codigoVariante, string codigoEstrategia = "")
         {
             try
             {
@@ -22,8 +22,9 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaID = campania.ToInt(),
                     CodigoVariante = codigoVariante
                 };
+
                 bool esMultimarca = false;
-                var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, "", out esMultimarca);
+                var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca);
 
                 return Json(new
                 {

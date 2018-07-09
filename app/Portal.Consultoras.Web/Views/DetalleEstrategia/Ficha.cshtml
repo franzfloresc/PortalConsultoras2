@@ -102,11 +102,19 @@
                         <div class="ganancia">GANA <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span></div>
                     </div>
                 </div>
-                <div id="SloganLanzamiento">
+                <div id="SloganLanzamientos">
                     <span class="nombre_detalle_producto_tono">{{this.TipoEstrategiaDetalle.Slogan}}</span>
                     <ul class="descripcion_detalle_producto_tono">
                         {{#each this.ListaDescripcionDetalle}}
                         <li><span class="vineta">-</span><span class="txt-des">{{this}}</span></li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div id="SloganPackNuevas">
+                    <span class="nombre_detalle_producto_tono"><strong>Contenido del Set:</strong></span>
+                    <ul class="descripcion_detalle_producto_tono">
+                        {{#each this.ArrayContenidoSet}}
+                        <li><span class="txt-des">{{this}}</span></li>
                         {{/each}}
                     </ul>
                 </div>
@@ -202,7 +210,7 @@
                         {{/iff}}
                         <hr class="clear">
                     </div>
-                    
+
                     {{/each}}
                 </div>
                 {{/iff}}
