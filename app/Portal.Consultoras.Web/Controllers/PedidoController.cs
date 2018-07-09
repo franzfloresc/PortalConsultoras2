@@ -658,7 +658,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private object InsertarValidarKitInicio(string cuv)
         {
-            var confProgNuevas = GetConfiguracionProgramaNuevas(Constantes.ConstSession.ConfProgNuevas);
+            var confProgNuevas = GetConfiguracionProgramaNuevas();
             if (confProgNuevas.IndProgObli == "1" && confProgNuevas.CUVKit == cuv)
             {
                 return new
@@ -2259,7 +2259,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ActualizarEsDiaPROLyMostrarBotonValidarPedido(userData);
                 var input = Mapper.Map<BEInputReservaProl>(userData);
                 input.EnviarCorreo = false;
-                input.CodigosConcursos = userData.CodigosConcursos;
                 input.EsOpt = EsOpt();
 
                 BEResultadoReservaProl resultado;
@@ -3548,11 +3547,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session[Constantes.ConstSession.ConfProgNuevas] != null) return;
+                if (sessionManager.ConfiguracionProgramaNuevas != null) return;
                 if (userData.EsConsultoraOficina) return;
                 if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
                 
-                var configuracionProgNuevas = GetConfiguracionProgramaNuevas(Constantes.ConstSession.ConfProgNuevas);                
+                var configuracionProgNuevas = GetConfiguracionProgramaNuevas();                
                 if (configuracionProgNuevas.IndProgObli != "1") return;                
                 if (ObtenerPedidoWebDetalle().Any(d => d.CUV == configuracionProgNuevas.CUVKit && d.PedidoDetalleID > 0)) return;
 

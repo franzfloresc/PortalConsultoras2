@@ -232,11 +232,9 @@ namespace Portal.Consultoras.Common
             public const string IngresoPortalConsultoras = "IngresoPortalConsultoras";
             public const string ListaEscalaDescuento = "ListaEscalaDescuento";
             public const string ClientesByConsultora = "ClientesByConsultora";
-            public const string TippingPoint = "TippingPoint";
             public const string TippingPoint_MontoVentaExigido = "TippingPoint_MontoVentaExigido";
             public const string MensajeMetaConsultora = "MensajeMetaConsultora";
             public const string ActualizarDatosConsultora = "ActualizarDatosConsultora";
-            public const string ConfProgNuevas = "ConfiguracionProgramaNuevas";
 
             // prol
             public const string PROL_CalculoMontosProl = "PROL_CalculoMontosProl";

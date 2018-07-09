@@ -1784,27 +1784,24 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(string constSession)
+        protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas()
         {
-            constSession = (constSession ?? "").Trim();
-            if (constSession == "") return new BEConfiguracionProgramaNuevas();
-            if (Session[constSession] != null) return (BEConfiguracionProgramaNuevas)Session[constSession];
+            if (sessionManager.ConfiguracionProgramaNuevas != null) return sessionManager.ConfiguracionProgramaNuevas;
 
             try
             {
                 var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
-                    Session[constSession] = sv.GetConfiguracionProgramaNuevas(usuario) ?? new BEConfiguracionProgramaNuevas();
+                    sessionManager.ConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(usuario) ?? new BEConfiguracionProgramaNuevas();
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                Session[constSession] = new BEConfiguracionProgramaNuevas();
+                sessionManager.ConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
             }
-
-            return (BEConfiguracionProgramaNuevas)Session[constSession];
+            return sessionManager.ConfiguracionProgramaNuevas;
         }
 
         protected Converter<decimal, string> CreateConverterDecimalToString(int paisId)
@@ -1949,16 +1946,14 @@ namespace Portal.Consultoras.Web.Controllers
                 objR.TippingPoint = 0;
                 if (userData.MontoMaximo > 0)
                 {
-                    var tp = GetConfiguracionProgramaNuevas(Constantes.ConstSession.TippingPoint);
-                    if (tp.IndExigVent == "1")
+                    var tippingPoint = GetConfiguracionProgramaNuevas();
+                    if (tippingPoint.IndExigVent == "1")
                     {
-                        var obeConsultorasProgramaNuevas = GetConsultorasProgramaNuevas(Constantes.ConstSession.TippingPoint_MontoVentaExigido, tp.CodigoPrograma);
+                        var obeConsultorasProgramaNuevas = GetConsultorasProgramaNuevas(Constantes.ConstSession.TippingPoint_MontoVentaExigido, tippingPoint.CodigoPrograma);
                         objR.TippingPoint = obeConsultorasProgramaNuevas.MontoVentaExigido;
                         objR.TippingPointStr = Util.DecimalToStringFormat(objR.TippingPoint, userData.CodigoISO);
                         // si el MontoVentaExigido es mayor a 0 entonces pertenece al programa de nuevas y se muestra el Tipping Point validacion a nivel de js y a nivel de cs
-                        if (objR.TippingPoint > 0)
-                            objR.TippingPointBarra = GetTippingPoint(obeConsultorasProgramaNuevas.Participa, objR.TippingPointStr);
-
+                        if (objR.TippingPoint > 0) objR.TippingPointBarra = GetTippingPoint(obeConsultorasProgramaNuevas.Participa, objR.TippingPointStr);
                     }
                 }
 
