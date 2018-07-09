@@ -633,7 +633,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.IndicadorMontoMinimo, f => f.MapFrom(c => c.IndicadorMontoMinimo))
                 .ForMember(t => t.TipoEstrategiaImagenMostrar, f => f.MapFrom(c => c.TipoEstrategiaImagenMostrar))
                 .ForMember(t => t.ImagenBanner, f => f.MapFrom(c => c.FotoProducto01))
-                .ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.FotoProducto01))
+                .ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.ImagenURL))
                 .ForMember(t => t.NombreOferta, f => f.MapFrom(c => c.DescripcionCUV2))
                 .ForMember(t => t.DescripcionOferta, f => f.MapFrom(c => c.DescripcionCUV2))
                 .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.Precio2))
