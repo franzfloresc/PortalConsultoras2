@@ -1,5 +1,4 @@
-﻿
-var formatDecimalPais = formatDecimalPais || new Object();
+﻿var formatDecimalPais = formatDecimalPais || new Object();
 var finishLoadCuponContenedorInfo = false;
 var belcorp = belcorp || {};
 belcorp.settings = belcorp.settings || {}
@@ -7,7 +6,7 @@ belcorp.settings.uniquePrefix = "/g/";
 
 jQuery(document).ready(function () {
     CreateLoading();
-    
+
 
     $("header").resize(function () {
         LayoutMenu();
@@ -36,6 +35,7 @@ jQuery(document).ready(function () {
         }
     }
 });
+
 (function ($) {
     $.fn.Readonly = function (val) {
         if (val != undefined || val != null) {
@@ -322,7 +322,7 @@ jQuery(document).ready(function () {
                     return "Fomato Incorrecto";
                 }
             });
-            
+
             Handlebars.registerHelper('ImgSmall', function (imgOriginal) {
                 var urlRender = ImgUrlRender(imgOriginal, variablesPortal.ExtensionImgSmall);
                 return new Handlebars.SafeString(urlRender);
@@ -333,12 +333,12 @@ jQuery(document).ready(function () {
             //    var urlRender = ImgUrlRender(imgOriginal, variablesPortal.ExtensionImgMedium);
             //    return new Handlebars.SafeString(urlRender);
             //});
-            
+
             Handlebars.registerHelper('ImgUrl', function (imgOriginal) {
                 var urlRender = ImgUrlRender(imgOriginal);
                 return new Handlebars.SafeString(urlRender);
             });
-            
+
             Handlebars.registerHelper('SimboloMoneda', function () {
                 var simbMon = variablesPortal.SimboloMoneda || "";
                 return new Handlebars.SafeString(simbMon);
@@ -353,7 +353,7 @@ jQuery(document).ready(function () {
         if ($.trim(urlTemplate) == "" || $.trim(idHtml) == "") {
             return false;
         }
-        
+
         jQuery.get(urlTemplate, function (dataTemplate) {
             dataTemplate = $.trim(dataTemplate);
 
@@ -379,7 +379,7 @@ jQuery(document).ready(function () {
         return "";
 
     }
-    SetHandlebars = function (idTemplate, data, idHtml) {                                               
+    SetHandlebars = function (idTemplate, data, idHtml) {
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
 
@@ -428,7 +428,7 @@ jQuery(document).ready(function () {
         formatDecimalPais = formatDecimalPais || new Object();
         noDecimal = noDecimal || false;
         var decimal = formatDecimalPais.decimal || ".";
-        var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0 );
+        var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0);
         var miles = formatDecimalPais.miles || ",";
 
         monto = monto || 0;
@@ -543,7 +543,6 @@ function CreateLoading() {
     });
     $("#loadingScreen").parent().find(".ui-dialog-titlebar").hide();
 }
-
 
 function printElement(selector) {
     var element = document.querySelector(selector);
@@ -969,9 +968,97 @@ FuncionesGenerales = {
         if (myInput) {
             myInput.onpaste = function (e) { e.preventDefault(); }
             myInput.oncopy = function (e) { e.preventDefault(); }
-        }        
+        }
+    },
+    AutoCompletarEmailAPartirDeArroba: function (input) {
+        var dominios = ["@gmail.com", "@hotmail.com", "@outlook.com", "@yahoo.com"];
+        autoCompleteByCharacters(input, dominios, '@');
     }
 };
+
+function autoCompleteByCharacters(inp, arr, car) {
+    var currentFocus;
+
+    inp.addEventListener("input", function (e) {
+        var a, b, i, val = this.value;
+        closeAllLists();
+        if (!val) { return false; }
+
+        var search = val.indexOf(car);
+        var longi = val.length;
+
+        if (longi <= 1) { return false; }
+        if (search == -1) { return false; }
+
+        var splited = val.split(car);
+        var sizeAfterAt = splited[1].length + 1;
+        var valueInput = splited[0];
+
+        currentFocus = -1;
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        this.parentNode.appendChild(a);
+
+        for (i = 0; i < arr.length; i++) {
+            if (arr[i].substr(0, sizeAfterAt).toUpperCase() == val.substr(search, val.length).toUpperCase()) {
+                b = document.createElement("DIV");
+                b.innerHTML = "<strong>" + valueInput + arr[i].substr(0, sizeAfterAt) + "</strong>";
+                b.innerHTML += arr[i].substr(sizeAfterAt);
+                b.innerHTML += "<input type='hidden' value='" + valueInput + arr[i] + "'>";
+                b.addEventListener("click", function (e) {
+                    inp.value = this.getElementsByTagName("input")[0].value;
+                    closeAllLists();
+                });
+                a.appendChild(b);
+            }
+        }
+    });
+
+    inp.addEventListener("keydown", function (e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+            currentFocus++;
+            addActive(x);
+        } else if (e.keyCode == 38) {
+            currentFocus--;
+            addActive(x);
+        } else if (e.keyCode == 13) {
+            e.preventDefault();
+            if (currentFocus > -1) {
+                if (x) x[currentFocus].click();
+            }
+        }
+    });
+
+    function addActive(x) {
+        if (!x) return false;
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = (x.length - 1);
+        x[currentFocus].classList.add("autocomplete-active");
+    }
+
+    function removeActive(x) {
+        for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("autocomplete-active");
+        }
+    }
+
+    function closeAllLists(elmnt) {
+        var x = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+                x[i].parentNode.removeChild(x[i]);
+            }
+        }
+    }
+
+    document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+    });
+}
 
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
     var dataNueva = {
@@ -1182,7 +1269,7 @@ function ResizeMensajeEstadoPedido() {
 function cerrarMensajeEstadoPedido() {
     $.ajax({
         type: 'Post',
-        url: baseUrl + 'Bienvenida/CerrarMensajeEstadoPedido',        
+        url: baseUrl + 'Bienvenida/CerrarMensajeEstadoPedido',
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -1386,12 +1473,12 @@ function odd_desktop_google_analytics_promotion_click() {
             'ecommerce': {
                 'promoClick': {
                     'promotions': [
-                    {
-                        'id': id,
-                        'name': name,
-                        'position': 'Banner Superior Home - 1',
-                        'creative': creative
-                    }]
+                        {
+                            'id': id,
+                            'name': name,
+                            'position': 'Banner Superior Home - 1',
+                            'creative': creative
+                        }]
                 }
             }
         });
@@ -1413,12 +1500,12 @@ function odd_desktop_google_analytics_promotion_click_verofertas() {
             'ecommerce': {
                 'promoClick': {
                     'promotions': [
-                    {
-                        'id': id,
-                        'name': name,
-                        'position': positionName,
-                        'creative': creative
-                    }]
+                        {
+                            'id': id,
+                            'name': name,
+                            'position': positionName,
+                            'creative': creative
+                        }]
                 }
             }
         });
@@ -1457,7 +1544,7 @@ function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
         });
     }
     if (detalle.length > 0 && detalle.is(":visible")) {
-         div1 = $(detalle).find("[data-item-position = 0]");
+        div1 = $(detalle).find("[data-item-position = 0]");
         if (div1 != null) { divs.push(div1); }
         $(divs).each(function (index, div) {
             impresions.push({
@@ -1632,22 +1719,22 @@ function odd_google_analytics_product_click(name, id, price, brand, variant, pos
     dataLayer.push({
         'event': 'productClick',
         'ecommerce':
-        {
-            'click':
             {
-                'actionField': { 'list': listName },
-                'products':
-                [{
-                    'name': name,
-                    'id': id,
-                    'price': price,
-                    'brand': brand,
-                    'category': 'No disponible',
-                    'variant': variant,
-                    'position': position
-                }]
+                'click':
+                    {
+                        'actionField': { 'list': listName },
+                        'products':
+                            [{
+                                'name': name,
+                                'id': id,
+                                'price': price,
+                                'brand': brand,
+                                'category': 'No disponible',
+                                'variant': variant,
+                                'position': position
+                            }]
+                    }
             }
-        }
     });
 }
 
@@ -1797,6 +1884,7 @@ Object.defineProperty(Object.prototype, "in", {
     enumerable: false,
     writable: true
 });
+
 var registerEvent = function (eventName) {
     var self = this;
     self[eventName] = self[eventName] || {};
@@ -1806,7 +1894,7 @@ var registerEvent = function (eventName) {
             self[eventName].callBacks.push(cb);
             return;
         }
-        
+
     }
 
     self[eventName].emit = function (args) {
