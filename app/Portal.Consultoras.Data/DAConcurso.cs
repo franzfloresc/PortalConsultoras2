@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Data
 
         public void ActualizarInsertarPuntosConcurso(string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcurso, string PuntosExigidosConcurso)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ActualizarInsertarPuntosConcurso_Prol3");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ActualizarInsertarPuntosConcurso");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
             Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, CodigoCampania);
             Context.Database.AddInParameter(command, "@CodigoConcurso", DbType.String, CodigoConcursos);
