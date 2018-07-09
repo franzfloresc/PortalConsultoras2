@@ -489,6 +489,10 @@ namespace Portal.Consultoras.Web.Providers
         public bool EsCampaniaFalsa(int campaniaId)
         {
             var userData = sessionManager.GetUserData();
+            if (userData == null)
+            {
+                return true;
+            }
             return (campaniaId < userData.CampaniaID || campaniaId > Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias));
         }
 
