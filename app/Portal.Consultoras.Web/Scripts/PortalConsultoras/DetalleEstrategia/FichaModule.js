@@ -398,29 +398,13 @@
     };
 
     var _fijarFooterCampaniaSiguiente = function () {
-        $(window).scroll(function () {
-            if (isMobile()) {
-                var $elemento = $(".content_inscribirte");
-                var scrollPosition = $(window).height() + $(window).scrollTop();
-
-                if (documentHeight == scrollPosition) {
-                    if ($elemento.css('position').toLowerCase() != '') {
-                        $elemento.css("opacity", "0");
-                        $(".content_inscribirte").animate({ opacity: '1' }, 400);
-                        $elemento.css("position", "initial");
-                        $elemento.css("margin", "0 0");
-
-                    }
-                } else if (scrollPosition < documentHeight) {
-                    if ($elemento.css('position').toLowerCase() != 'fixed') {
-                        $elemento.css("opacity", "0");
-                        $(".content_inscribirte").animate({ opacity: '1' }, 400);
-                        $elemento.css("position", "fixed");
-                        $elemento.css("margin", "0 14px");
-                    }
-                }
+        if (isMobile()) {
+            var $elemento = $(".content_inscribirte");
+            if ($elemento.length != 0) {
+                var $redesSociales = $((_seccionesFichaProducto.Contenedor_redes_sociales));
+                $redesSociales.find(".share").css("margin-bottom", "200px");
             }
-        });
+        }
     }
 
     var _cargarDataCompartir = function (estrategia) {
