@@ -154,9 +154,6 @@
     color: #000000;
 }
 
-.seleccion_tonos {
-    margin-bottom: 30px;
-}
 
 .tabs ul.tabs {
     padding: 0;
@@ -268,3 +265,45 @@
 .producto_img_mobile_bpt img {
     margin: 0 auto !important;
 }
+
+
+/*Seleccionar tono*/
+
+.seleccion_tonos {
+    margin-bottom: 30px;
+}
+
+.tono_select_opt {
+    border: 1px solid black;
+    height: auto;
+    background: url('/Content/Images/mobile/Esika/down-arrow.svg');
+    background-position: right 15px center;
+    background-repeat: no-repeat;
+    background-size: 14px;
+    cursor: pointer;
+}
+
+.texto_tono_seleccionado {
+    padding: 13px 15px 13px 15px !important;
+    height: auto;
+    margin: 0;
+}
+
+.content_tonos_select {
+    max-height: 220px;
+    width: 100.8% !important;
+    border: 1px solid #000;
+    left: -1px;
+    border-top: 0px;
+    padding: 10px 15px 25px 15px;
+}
+
+.content_tonos_select .content_tono_elegido {
+    border-bottom: 0;
+}
+
+    .content_tonos_select > div:last-child {
+        margin-bottom: 15px;
+    }
+
+/* Fin Seleccionar tono*/
