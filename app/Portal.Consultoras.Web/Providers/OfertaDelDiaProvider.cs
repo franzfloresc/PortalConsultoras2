@@ -64,10 +64,10 @@ namespace Portal.Consultoras.Web.Providers
                     ofertasDelDia = osc.GetEstrategiaODD(entidad, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
                 }
 
-                if (ofertasDelDia.Any())
-                {
-                    ofertasDelDia.RemoveRange(1, ofertasDelDia.Count() - 1);
-                }
+                //if (ofertasDelDia.Any())
+                //{
+                //    ofertasDelDia.RemoveRange(1, ofertasDelDia.Count() - 1);
+                //}
 
             }
             catch (Exception ex)
