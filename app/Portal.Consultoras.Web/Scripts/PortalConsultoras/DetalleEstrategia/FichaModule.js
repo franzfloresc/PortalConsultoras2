@@ -408,11 +408,19 @@
 
                 if (documentHeight == scrollPosition) {
                     if ($elemento.css('position').toLowerCase() != '') {
-                        $elemento.css("position", "");
+                        $elemento.css("opacity", "0");
+                        $(".content_inscribirte").animate({ opacity: '1' }, 400);
+                        $elemento.css("position", "initial");
+                        $elemento.css("margin", "0 0");
+                        
+
                     }
                 } else if (scrollPosition < documentHeight) {
                     if ($elemento.css('position').toLowerCase() != 'fixed') {
+                        $elemento.css("opacity", "0");
+                        $(".content_inscribirte").animate({ opacity: '1' }, 400);
                         $elemento.css("position", "fixed");
+                        $elemento.css("margin", "0 14px");
                     }
                 }
             }
