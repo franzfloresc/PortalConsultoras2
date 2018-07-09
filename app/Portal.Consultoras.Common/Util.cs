@@ -1090,12 +1090,11 @@ namespace Portal.Consultoras.Common
             string connectionString = string.Empty;
             List<V> list = null;
 
-            try
-            {
+            try {
                 string extension = System.IO.Path.GetExtension(@filepath).ToLower();
                 string csXls = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties=\"Excel 8.0;IMEX=1;HDR=YES;\"";
                 string csXlsx = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=\"Excel 12.0;IMEX=1;HDR=YES;\"";
-
+                
                 // para lectura de archivos 97-2003
                 if (extension.Equals(".xls")) connectionString = string.Format(csXls, filepath);
                 // else
@@ -1130,11 +1129,11 @@ namespace Portal.Consultoras.Common
                             using (OleDbDataReader reader = select.ExecuteReader())
                             {
                                 if (reader == null) continue;
-
+                                
                                 reader.GetSchemaTable();
 
                                 if (!reader.HasRows) continue;
-
+                                
                                 list = new List<V>();
                                 while (reader.Read())
                                 {
@@ -1301,7 +1300,7 @@ namespace Portal.Consultoras.Common
                             }
 
                             if (isTime)
-                                ws.Cell(row, col).Style.DateFormat.Format = !string.IsNullOrWhiteSpace(dateFormat) ? dateFormat : "dd/MM/yyyy";
+                                ws.Cell(row, col).Style.DateFormat.Format = !string.IsNullOrWhiteSpace(dateFormat)? dateFormat: "dd/MM/yyyy";
                             else
                                 ws.Cell(row, col).Style.NumberFormat.Format = "@";
                             ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
@@ -2042,20 +2041,17 @@ namespace Portal.Consultoras.Common
             else if ((value == 200) || (value == 300) || (value == 400) || (value == 600) || (value == 800)) num2Text = ToText(value / 100) + "CIENTOS";
             else if (value < 1000) num2Text = ToText(value / 100 * 100) + " " + ToText(value % 100);
             else if (value < 2000) num2Text = "MIL " + ToText(value % 1000);
-            else if (value < 1000000)
-            {
+            else if (value < 1000000) {
                 num2Text = ToText(value / 1000) + " MIL";
                 if (value % 1000 > 0) num2Text = num2Text + " " + ToText(value % 1000);
             }
             else if (value < 2000000) num2Text = "UN MILLON " + ToText(value % 1000000);
-            else if (value < 1000000000000)
-            {
+            else if (value < 1000000000000) {
                 num2Text = ToText(value / 1000000) + " MILLONES";
                 if (value % 1000000 > 0) num2Text = num2Text + " " + ToText(value % 1000000);
             }
             else if (value < 2000000000000) num2Text = "UN BILLON " + ToText(value % 1000000000000);
-            else
-            {
+            else {
                 num2Text = ToText(value / 1000000000000) + " BILLONES";
                 if (value % 1000000000000 > 0) num2Text = num2Text + " " + ToText(value % 1000000000000);
             }
@@ -3265,14 +3261,13 @@ namespace Portal.Consultoras.Common
 
         /// <summary>
         /// Obtiene el valor de la fila convirtiendo a un tipo, verificar primero si existe con HasColumn
-        /// Puede utilizar el metodo GetColumn, internamente ya verifica con HasColumn
         /// </summary>
         /// <typeparam name="T">Data Row</typeparam>
-        /// <param name="lector">Fila</param>
+        /// <param name="row">Fila</param>
         /// <param name="name">Nombre de la columna</param>
         /// <exception cref="ArgumentNullException">ArgumentNullException cuando name es enviado vacio o nulo</exception>
         /// <returns>Valor convertido</returns>
-        public static T GetValue<T>(this IDataRecord lector, string name)
+        public static T GetValue<T>(this IDataRecord row, string name)
         {
             try
             {
@@ -3281,54 +3276,14 @@ namespace Portal.Consultoras.Common
                     throw new ArgumentNullException("nombre enviado es nulo o vacio");
                 }
 
-                return (T)lector.GetValue(lector.GetOrdinal(name));
+                return (T)row.GetValue(row.GetOrdinal(name));
             }
             catch (Exception ex)
             {
-                var value = lector.GetValue(lector.GetOrdinal(name));
+                var value = row.GetValue(row.GetOrdinal(name));
                 throw new InvalidCastException("campo: " + name + " no se puede convertir de " + value.GetType() + " a " + typeof(T), ex);
             }
         }
-
-        public static string GetColumnStr(this IDataRecord lector, string name)
-        {
-            try
-            {
-                name = name ?? "";
-                name = name.Trim();
-                if (HasColumn(lector, name))
-                    return Convert.ToString(lector[name]);
-                return default(string);
-            }
-            catch (Exception)
-            {
-                return default(string);
-            }
-        }
-
-
-        /// <summary>
-        ///  Obtiene el valor de la fila convirtiendo a Int, internamente utiliza HasColumn
-        ///  Ejemplo: EstrategiaIDSicc = [variable de IDataRecord].GetColumnInt("EstrategiaIDSicc");
-        /// </summary>
-        /// <param name="lector">Fila</param>
-        /// <param name="name">Nombre de la Columna</param>
-        /// <returns>valor convertido a Int o Int32</returns>
-        public static int GetColumnInt(this IDataRecord lector, string name)
-        {
-            try
-            {
-                name = (name ?? "").Trim();
-                if (HasColumn(lector, name))
-                    return Convert.ToInt32(lector[name]);
-                return default(int);
-            }
-            catch (Exception)
-            {
-                return default(int);
-            }
-        }
-
     }
 
     public static class LinqExtensions
