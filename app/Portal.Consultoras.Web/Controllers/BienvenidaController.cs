@@ -9,7 +9,6 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -732,7 +731,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { success = true, message = "La imagen se subió exitosamente", imagen = Url.Content(rutaImagen) });
         }
 
-        public JsonResult AceptarContrato(bool checkAceptar , string origenAceptacion)
+        public JsonResult AceptarContrato(bool checkAceptar , string origenAceptacion, string AppVersion)
         {
             try
             {
@@ -746,9 +745,17 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
+                string ip = null;
+                if (!Request.Browser.IsMobileDevice)
+                {
+                    ip = GetIPCliente();
+                    ip = string.IsNullOrEmpty(ip) ? "" : ip;
+                    AppVersion = null;
+                }
+
                 using (var svr = new UsuarioServiceClient())
                 {
-                  svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora , origenAceptacion);
+                  svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora , origenAceptacion, ip, AppVersion);
                 }
 
                 userData.IndicadorContrato = 1;
