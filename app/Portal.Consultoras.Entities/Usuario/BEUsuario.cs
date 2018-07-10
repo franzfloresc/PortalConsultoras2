@@ -143,15 +143,19 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "SegmentoConstancia"))
                 SegmentoConstancia = Convert.ToString(row["SegmentoConstancia"]);
+
             if (DataRecord.HasColumn(row, "Seccion"))
                 SeccionAnalytics = Convert.ToString(row["Seccion"]);
+
             if (DataRecord.HasColumn(row, "DescripcionNivel"))
                 DescripcionNivel = Convert.ToString(row["DescripcionNivel"]);
+
             if (DataRecord.HasColumn(row, "esConsultoraLider"))
                 esConsultoraLider = Convert.ToBoolean(row["esConsultoraLider"]);
 
             if (DataRecord.HasColumn(row, "EstadoSimplificacionCUV"))
                 bEstadoSimplificacionCUV = Convert.ToBoolean(row["EstadoSimplificacionCUV"]);
+
             if (DataRecord.HasColumn(row, "EsquemaDAConsultora"))
                 bEsquemaDAConsultora = Convert.ToBoolean(row["EsquemaDAConsultora"]);
 
@@ -160,9 +164,12 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "TieneCDRExpress"))
                 TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
+
             if (DataRecord.HasColumn(row, "EsConsecutivoNueva"))
                 EsConsecutivoNueva = Convert.ToBoolean(row["EsConsecutivoNueva"]);
 
+            if (DataRecord.HasColumn(row, "indicadorconsultoradigital"))
+                IndicadorConsultoraDigital = Convert.ToInt32(row["IndicadorConsultoraDigital"]);
         }
 
         [Obsolete("Use MapUtil.MapToCollection")]
@@ -1464,6 +1471,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("IndicadorConsultoraOficina")]
         public bool EsConsultoraOficina { get; set; }
+        [DataMember]
+        public int IndicadorConsultoraDigital { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
