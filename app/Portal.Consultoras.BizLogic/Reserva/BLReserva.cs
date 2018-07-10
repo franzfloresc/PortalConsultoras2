@@ -179,7 +179,6 @@ namespace Portal.Consultoras.BizLogic.Reserva
                     CodigoZona = usuario.CodigoZona,
                     FechaInicioCampania = usuario.FechaInicioFacturacion,
                     ZonaHoraria = usuario.ZonaHoraria,
-                    PROLSinStock = usuario.PROLSinStock,
                     ConsultoraNueva = usuario.ConsultoraNueva,
                     FechaHoraReserva = usuario.DiaPROL && usuario.EsHoraReserva,
                     ZonaValida = usuario.ZonaValida,
@@ -432,7 +431,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             {
                 pedidoWeb.CodigoUsuarioModificacion = input.CodigoUsuario;
                 pedidoWeb.MontoTotalProl = resultado.MontoTotalProl;
-                pedidoWeb.EstadoPedido = input.PROLSinStock ? Constantes.EstadoPedido.Pendiente : Constantes.EstadoPedido.Procesado;
+                pedidoWeb.EstadoPedido = Constantes.EstadoPedido.Procesado;
                 pedidoWeb.VersionProl = input.VersionProl;
 
                 gananciaEstimada = CalcularGananciaEstimada(input.PaisID, input.CampaniaID, input.PedidoID, listPedidoWebDetalle.Sum(p => p.ImporteTotal));
@@ -496,7 +495,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         private void EjecutarReservaPortal(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoReserva, List<BEPedidoWebDetalle> listPedidoWebDetalle, decimal montoTotalProl = 0, decimal descuentoProl = 0)
         {
             var bLPedidoWebDetalle = new BLPedidoWebDetalle();
-            var estadoPedido = input.PROLSinStock ? Constantes.EstadoPedido.Pendiente : Constantes.EstadoPedido.Procesado;
+            var estadoPedido = Constantes.EstadoPedido.Procesado;
             bLPedidoWebDetalle.InsPedidoWebDetallePROL(input.PaisID, input.CampaniaID, input.PedidoID, estadoPedido, listPedidoReserva, 0, input.CodigoUsuario, montoTotalProl, descuentoProl);
 
             decimal totalPedido = listPedidoWebDetalle.Sum(p => p.ImporteTotal);

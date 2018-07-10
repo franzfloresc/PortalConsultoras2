@@ -28,5 +28,6 @@
 
         }
         public string VerCambiarClave { get; set; }
+        public int IndicadorConsultoraDigital { get; set; }
     }
 }

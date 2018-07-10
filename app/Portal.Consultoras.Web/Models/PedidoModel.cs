@@ -78,7 +78,6 @@ namespace Portal.Consultoras.Web.Models
         public List<ObservacionModel> ListaObservacionesPROL { get; set; }
         public List<PedidoActualizaModel> ListaPedidoActualizaModel { get; set; }
         public List<ServiceCliente.BECliente> DropDownListCliente { get; set; }
-        public bool PROLSinStock { get; set; }
         public int SubTipoOfertaSisID { get; set; }
         public int ModificacionPedidoProl { get; set; }
         public string DescripcionEstrategia { get; set; }
@@ -86,7 +85,6 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionLarga { get; set; }
         public int FlagNueva { get; set; }
         public string MensajeError { get; set; }
-        public bool ZonaNuevoPROLM { get; set; }
 
         public bool ValidacionInteractiva { get; set; }
         public string MensajeValidacionInteractiva { get; set; }

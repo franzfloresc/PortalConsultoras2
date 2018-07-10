@@ -118,7 +118,6 @@
     </div>
 </div>
 
-<input id="hdfPROLSinStock" type="hidden" value="0" />
 <input id="hdfModificaPedido" type="hidden" value="0" />
 <input type="hidden" id="hdfTotal" value="@Model.Total" />
 
@@ -631,9 +630,7 @@
 @section Scripts{
 
     <script type="text/javascript">
-
         var codigoIsoPais = '@Model.CodigoISO';
-        var mensajeGuardarCO = '@Model.MensajeGuardarCO';
         var menuNotificaciones = '@ViewBag.MenuNotificaciones';
         var falgValidacionPedido = '@Model.FlagValidacionPedido';
         var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
