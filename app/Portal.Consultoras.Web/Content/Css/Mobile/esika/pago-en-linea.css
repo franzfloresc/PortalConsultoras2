@@ -1178,7 +1178,7 @@
 .descripcion_terminos_y_condiciones p{
     font-size:14.64px;
     text-align:justify;
-    line-height:19px;
+    line-height:21px;
 }
 
 @media screen and (min-width:524px) and (max-width:991px){
