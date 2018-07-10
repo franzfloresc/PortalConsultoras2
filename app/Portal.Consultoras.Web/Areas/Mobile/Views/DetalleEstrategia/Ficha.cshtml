@@ -97,6 +97,7 @@
             </li>
         </ul>
     </div>
+
     <div class="container">
         <div class="seleccion_tonos">
             <div data-estrategia="{{CodigoVariante}}">
@@ -107,7 +108,7 @@
                 <div class="content_tonos_producto" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
                     <div class="tono_select_opt">
                         <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                            <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" /></div>
+                            <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" /></div>
                             <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
                             <hr class="clear" />
                         </div>
@@ -175,7 +176,7 @@
                             <div class="content_tonos_producto">
                                 <div class="tono_select_opt">
                                     <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                                        <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                        <div class="tono_seleccionado" style="display: none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
                                         <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
                                         <hr class="clear" />
                                     </div>
@@ -304,6 +305,7 @@
     </div>
 </div>
 
+<!--compartir-->
 <div id="Contenedor_redes_sociales" data-item="">
     <div data-compartir-campos="" style="display:none;">
         <input type="hidden" class="CUV" value="" />
@@ -325,6 +327,7 @@
         <div class="clearfix"></div>
     </div>
 </div>
+
 
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
 @Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")

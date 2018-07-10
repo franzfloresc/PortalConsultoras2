@@ -59,6 +59,7 @@
         beneficios: "#div_ficha_tab4",
         video: "#div_ficha_tab5",
     };
+
     var _seccionesFichaTabProducto = {
         ContenidoProductoDetalleProducto: "#contenido_1",
         ContenidoProductoDetallePack: "#contenido_2",
@@ -419,8 +420,8 @@
         if (isMobile()) {
             var $redesSociales = $((_seccionesFichaProducto.Contenedor_redes_sociales));
             $redesSociales.find(".CUV").val(estrategia.CUV2);
-            $redesSociales.find(".rsFBRutaImagen").val(estrategia.FotoProducto01);
-            $redesSociales.find(".rsWARutaImagen").val(estrategia.FotoProducto01);
+            $redesSociales.find(".rsFBRutaImagen").val(variablesPortal.ImgUrlBase + estrategia.FotoProducto01);
+            $redesSociales.find(".rsWARutaImagen").val(variablesPortal.ImgUrlBase + estrategia.FotoProducto01);
             $redesSociales.find(".MarcaID").val(estrategia.MarcaID);
             $redesSociales.find(".MarcaNombre").val(estrategia.DescripcionMarca);
             $redesSociales.find(".Nombre").val(estrategia.DescripcionResumen);

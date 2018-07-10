@@ -153,7 +153,6 @@
             lista: []
         };
 
-
         if (_config.palanca == ConstantesModule.CodigosPalanca.Lanzamiento) {
             data.lista = _cargarDatos();
         }
@@ -173,7 +172,6 @@
                     }
                 }
             });
-
         }
 
         if (data.lista.length > 0) {
