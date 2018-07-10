@@ -1919,7 +1919,7 @@ namespace Portal.Consultoras.Web.Controllers
                          );
              */
             string urlExtension = string.Format("{0}/{1}", GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""), userData.CodigoISO ?? "");
-            string url = ConfigS3.GetUrlFileS3(urlExtension, noImagen ?? "");
+            string url = ConfigCdn.GetUrlFileCdn(urlExtension, noImagen ?? "");
             return url;
         }
 
