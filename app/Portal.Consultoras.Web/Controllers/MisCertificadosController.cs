@@ -136,7 +136,7 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.PaisID.RepublicaDominicana:
                 case Constantes.PaisID.PuertoRico:
                     certificado.Nombre = "Certificado Comercial";
-                    if (!tieneCampaniaConsecutivas || userData.PromedioVenta < 0)
+                    if (!tieneCampaniaConsecutivas || userData.PromedioVenta <= 0)
                     {
                         certificado.MensajeError = "No has sido constante en las últimas " + cantidadCampaniaConsecutiva + " campañas, no es posible expedir un certificado comercial.";
                         break;
