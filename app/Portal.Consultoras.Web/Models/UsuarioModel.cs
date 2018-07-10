@@ -48,7 +48,6 @@ namespace Portal.Consultoras.Web.Models
             this.PortalLideres = false;
             this.LogoLideres = string.Empty;
             this.IndicadorContrato = 0;
-            this.PROLSinStock = false;
             this.ValidacionAbierta = false;
             this.MenuNotificaciones = 0;
             this.TieneNotificaciones = 0;
@@ -250,7 +249,6 @@ namespace Portal.Consultoras.Web.Models
             }
             return false;
         }
-        public bool PROLSinStock { get; set; }
         public DateTime FechaPromesaEntrega { get; set; }
         public bool EsUsuarioComunidad { get; set; }
         public string SegmentoConstancia { get; set; }

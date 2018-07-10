@@ -37,8 +37,6 @@ namespace Portal.Consultoras.Entities.ReservaProl
         [DataMember]
         public double ZonaHoraria { get; set; }
         [DataMember]
-        public bool PROLSinStock { get; set; }
-        [DataMember]
         public decimal MontoMinimo { get; set; }
         [DataMember]
         public decimal MontoMaximo { get; set; }
