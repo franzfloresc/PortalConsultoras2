@@ -12,7 +12,8 @@
         idPlantillaProductoLanding: config.idPlantilla,
         divCarruselSetsProductosRelacionados: config.divCarrusel,
         divProductosRelacionados: config.divCarrusel,
-        idTituloCarrusel: config.idTituloCarrusel
+        idTituloCarrusel: config.idTituloCarrusel,
+        divCarruselContenedor: config.divSetsProductosdata
     };
 
     var _variable = {
@@ -153,7 +154,6 @@
             lista: []
         };
 
-
         if (_config.palanca == ConstantesModule.CodigosPalanca.Lanzamiento) {
             data.lista = _cargarDatos();
         }
@@ -173,7 +173,6 @@
                     }
                 }
             });
-
         }
 
         if (data.lista.length > 0) {
@@ -182,8 +181,16 @@
             _mostrarTitulo();
             _mostrarSlicks();
         }
+        _ocultarCarrusel(data);
     };
-
+    var _ocultarCarrusel = function (data) {
+        if (typeof data != "undefined")
+            if (Array.isArray(data.lista) && data.lista.length > 0) {
+                $(_elementos.divCarruselContenedor).show();
+                return;
+            }
+            $(_elementos.divCarruselContenedor).hide();
+    }
     function Inicializar() {
 
         _ocultarElementos();

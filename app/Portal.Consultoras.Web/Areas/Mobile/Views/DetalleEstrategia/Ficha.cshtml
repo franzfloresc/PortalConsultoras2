@@ -35,7 +35,7 @@
     <div id="ImagenDeFondo" class="bg_imagen_producto" style='background: url("{{TipoEstrategiaDetalle.ImgFichaFondoMobile}}"); background-color: #efefef !important;'
          data-estadoregistro="">
     </div>
-    <div class="container">
+    <div class="container box-container">
         <div class="row imagen_producto ">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <img src="{{ImgMedium FotoProducto01}}" />
@@ -97,7 +97,9 @@
             </li>
         </ul>
     </div>
+
     <div class="container">
+        <div class="row">
         <div class="seleccion_tonos">
             <div data-estrategia="{{CodigoVariante}}">
                 {{#iff CodigoVariante '==' '2001'}}
@@ -107,7 +109,7 @@
                 <div class="content_tonos_producto" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
                     <div class="tono_select_opt">
                         <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                            <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" /></div>
+                            <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" /></div>
                             <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
                             <hr class="clear" />
                         </div>
@@ -170,11 +172,12 @@
                                 <span class="cantidad_producto_opt">x {{componente.Cantidad}}</span>
                                 <span>{{componente.NombreComercial}}</span>
                             </div>
+                            <div class="clear"></div>
                             {{#iff componente.Digitable '==' '1'}}
                             <div class="content_tonos_producto">
                                 <div class="tono_select_opt">
                                     <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                                        <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                        <div class="tono_seleccionado" style="display: none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
                                         <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
                                         <hr class="clear" />
                                     </div>
@@ -202,8 +205,8 @@
                 {{/iff}}
             </div>
         </div>
+        </div>
     </div>
-    <input type="hidden"  id="imgFotoProducto01"  value="{{ImgUrl FotoProducto01}}" />
 </script>
 
 <div data-item="" data-OrigenPedidoWeb="@Model.Origen">
@@ -237,25 +240,25 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <ul class="tabs ficha_tabs">
                 <li id="div_ficha_tab1">
-                    <a>DETALLE DEL PRODUCTO</a>
+                    <a class="tab-link">DETALLE DEL PRODUCTO</a>
                     <ul>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
                     </ul>
                 </li>
                 <li id="div_ficha_tab2">
-                    <a>DETALLE DEL PACK</a>
+                    <a class="tab-link">DETALLE DEL PACK</a>
                     <ul>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
                     </ul>
                 </li>
                 <li id="div_ficha_tab3">
-                    <a>TIPS DE VENTA</a>
+                    <a class="tab-link">TIPS DE VENTA</a>
                     <ul>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
                     </ul>
                 </li>
                 <li id="div_ficha_tab4">
-                    <a>BENEFICIOS</a>
+                    <a class="tab-link" >BENEFICIOS</a>
                     <ul>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
                     </ul>
@@ -304,6 +307,7 @@
     </div>
 </div>
 
+<!--compartir-->
 <div id="Contenedor_redes_sociales" data-item="">
     <div data-compartir-campos="" style="display:none;">
         <input type="hidden" class="CUV" value="" />
@@ -326,6 +330,7 @@
     </div>
 </div>
 
+
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
 @Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")
 
@@ -346,7 +351,19 @@
 
         var tieneCarrusel = '@Model.TieneCarrusel';
 
-        $(document).ready(function() {
+        $(document).ready(function () {
+
+            $(".ficha_tabs li a").click(function () {
+                //var divpadre = $(this).parent();
+                //var clase = $(".ficha_tabs li a").attr("class");
+                var clase = $(this).attr("class");
+                if (clase == "active") {
+                    $(this).attr("class", "tab-link");
+                } else {
+                    $(this).attr("class", "active");
+                }
+            });
+
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",
                 origen: "@Model.Origen",
@@ -374,6 +391,7 @@
         });
 
     </script>
+
     @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
 
 }

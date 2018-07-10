@@ -59,6 +59,7 @@
         beneficios: "#div_ficha_tab4",
         video: "#div_ficha_tab5",
     };
+
     var _seccionesFichaTabProducto = {
         ContenidoProductoDetalleProducto: "#contenido_1",
         ContenidoProductoDetallePack: "#contenido_2",
@@ -324,14 +325,13 @@
             _codigoPalanca.OfertasParaMi === _config.palanca || 
             _codigoPalanca.OfertaParaTi === _config.palanca ||
             _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
-            if (!isMobile()) {
-                $(_seccionesFichaProducto.ImagenDeFondo).hide();
-            } else {
-                $(_seccionesFichaProducto.ImagenDeFondo).css("background-color", "#ffffff");
-            }
+            $(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
             $(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             $(_seccionesFichaProducto.CarruselProducto).hide();
+            if (_codigoPalanca.HerramientasVenta === _config.palanca) {
+                $(_seccionesFichaProducto.Contenedor_redes_sociales).hide();
+            }
         } else if (_codigoPalanca.Lanzamiento == _config.palanca) {
             $(_seccionesFichaProducto.EtiquetaLanzamientos).show();
             $(_seccionesFichaProducto.ImagenDeFondo).show();
@@ -341,7 +341,7 @@
             $(_seccionesFichaProducto.SloganLanzamientos).show();
         } else if (_codigoPalanca.ShowRoom == _config.palanca) {
             $(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
-            $(_seccionesFichaProducto.ImagenDeFondo).hide();
+            $(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
             $(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             $(_seccionesFichaProducto.CarruselProducto).show();
@@ -349,7 +349,7 @@
             $(_seccionesFichaProducto.EtiquetaOdd).show();
         } else if (_codigoPalanca.PackNuevas == _config.palanca) {
             $(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
-            $(_seccionesFichaProducto.ImagenDeFondo).hide();
+            $(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
             $(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             $(_seccionesFichaProducto.CarruselProducto).hide();
@@ -419,8 +419,8 @@
         if (isMobile()) {
             var $redesSociales = $((_seccionesFichaProducto.Contenedor_redes_sociales));
             $redesSociales.find(".CUV").val(estrategia.CUV2);
-            $redesSociales.find(".rsFBRutaImagen").val($('#imgFotoProducto01').val());
-            $redesSociales.find(".rsWARutaImagen").val($('#imgFotoProducto01').val());
+            $redesSociales.find(".rsFBRutaImagen").val(variablesPortal.ImgUrlBase + estrategia.FotoProducto01);
+            $redesSociales.find(".rsWARutaImagen").val(variablesPortal.ImgUrlBase + estrategia.FotoProducto01);
             $redesSociales.find(".MarcaID").val(estrategia.MarcaID);
             $redesSociales.find(".MarcaNombre").val(estrategia.DescripcionMarca);
             $redesSociales.find(".Nombre").val(estrategia.DescripcionCompleta);

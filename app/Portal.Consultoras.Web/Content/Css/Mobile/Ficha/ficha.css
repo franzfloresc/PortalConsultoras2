@@ -37,7 +37,6 @@
 .bg_imagen_producto {
     width: 100%;
     height: 150px;
-    background-color: #d8d8d8;
     background-size: cover !important;
     background-position: center center !important;
 }
@@ -155,50 +154,6 @@
 }
 
 
-.tabs ul.tabs {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
-
- .tabs ul.tabs li a, .tab_title {
-        padding: 20px 0px;
-        display: block;
-        font-size: 12px;
-        font-weight: 500;
-        line-height: normal;
-        letter-spacing: 2.5px;
-        color: #000000;
-        background: url(/Content/Images/mobile/Esika/down-arrow.svg);
-        background-repeat: no-repeat;
-        background-position: center right;
-        background-size: 10px;
-        font-weight: 700;
-        cursor: pointer;
- }
-
-        .tabs ul.tabs li a:hover {
-            text-decoration: none;
-        }
-
-    .tabs ul.tabs li, .tab_item {
-        width: 100%;
-        display: block;
-        border-bottom: 1px solid #ccc;
-    }
-
-        .tabs ul.tabs li:last-child {
-            border-top: none !important;
-        }
-
-        .tabs ul.tabs li ul {
-            padding: 0;
-            margin: 0;
-            list-style: none;
-            padding-bottom: 20px;
-            display: none;
-        }
-
 .panel-collapse {
     margin-bottom: 20px;
 }
@@ -258,9 +213,6 @@
     margin-top: 2px;
 }
 
-.tabs li:nth-child(1) {
-    border-top: 1px solid #ccc;
-}
 
 .producto_img_mobile_bpt img {
     margin: 0 auto !important;
@@ -279,8 +231,15 @@
     background: url('/Content/Images/mobile/Esika/down-arrow.svg');
     background-position: right 15px center;
     background-repeat: no-repeat;
-    background-size: 14px;
+    background-size: 13px;
     cursor: pointer;
+}
+
+.tono_por_elegir {
+    background: url('/Content/Images/mobile/Esika/top-arrow.svg');
+    background-position: right 15px center;
+    background-repeat: no-repeat;
+    background-size: 13px;
 }
 
 .texto_tono_seleccionado {
@@ -302,8 +261,80 @@
     border-bottom: 0;
 }
 
-    .content_tonos_select > div:last-child {
-        margin-bottom: 15px;
-    }
+.content_tonos_select > div:last-child {
+    margin-bottom: 15px;
+}
+
+.content_tono_detalle{
+    height: auto;
+    cursor: pointer
+}
 
 /* Fin Seleccionar tono*/
+
+/* Tabs */
+.tabs ul.tabs {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.tabs ul.tabs li a, .tab_title {
+    padding: 20px 0px;
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: normal;
+    letter-spacing: 2.5px;
+    color: #000000;
+    background: url(/Content/Images/mobile/Esika/down-arrow.svg);
+    background-repeat: no-repeat;
+    background-position: center right 10px;
+    background-size: 11px;
+    cursor: pointer;
+}
+
+.tabs ul.tabs li .active {
+    background: url(/Content/Images/mobile/Esika/top-arrow.svg);
+    background-repeat: no-repeat;
+    background-position: center right 10px;
+    background-size: 11px;
+}
+
+.tabs ul.tabs li a:hover {
+    text-decoration: none;
+}
+
+.tabs ul.tabs li, .tab_item {
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid #ccc;
+}
+
+.tabs ul.tabs li:last-child {
+    border-top: none !important;
+}
+
+.tabs ul.tabs li ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    padding-bottom: 20px;
+    display: none;
+}
+
+.tabs li:nth-child(1) {
+    border-top: 1px solid #ccc;
+}
+
+/* fin Tabs */
+
+.content_producto_compuesto::after{
+    content:"";
+    clear:both;
+    display: block;
+}
+
+.box-container {
+    margin-top: -110px;
+}
