@@ -95,13 +95,11 @@ $(document).ready(function () {
 
                     $('#divContenidoTerminosCondiciones').html(htmlTerminosCondiciones);
 
-                    $('body').css({ "overflow-y": "hidden" });
-                    $('.fondo_modal').fadeIn(300);
+                    $('.popup_terminos_y_condiciones').fadeIn(300);
                 },
                 CerrarPopupTerminosYCondiciones: function (e) {
                     e.preventDefault();
-                    $('body').css({ "overflow-y": "auto" });
-                    $('.fondo_modal').fadeOut(300);
+                    $(this).parents('.popup_terminos_y_condiciones').fadeOut();
                 },
                 ContinuarPasarelaPago: function (e) {
                     e.preventDefault();
