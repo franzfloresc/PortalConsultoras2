@@ -1495,11 +1495,6 @@ namespace Portal.Consultoras.Service
 
         #endregion
 
-        public BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible)
-        {
-            return new BLHorario().GetHorarioByCodigo(paisID, codigo, loadEstaDisponible);
-        }
-
         public List<string> GetListEnumStringCache()
         {
             return new BLCache().GetListEnumString();

@@ -15,9 +15,7 @@ namespace Portal.Consultoras.Web.Models
         public string ErrorInsertarProducto { get; set; }
 
         public List<BEEstrategia> ListaEstrategias { get; set; }
-
-        public bool ZonaNuevoProlM { get; set; }
-
+        
         public int IndicadorFlexiPago { get; set; }
 
         public decimal LineaCredito { get; set; }
@@ -131,8 +129,6 @@ namespace Portal.Consultoras.Web.Models
 
         public string ProlTooltip { get; set; }
 
-        public string MensajeGuardarColombia { get; set; }
-
         public string Registros { get; set; }
 
         public string RegistrosDe { get; set; }
@@ -183,8 +179,6 @@ namespace Portal.Consultoras.Web.Models
         public bool EsModificacion { get; set; }
 
         public bool EsDiaProl { get; set; }
-
-        public bool ProlSinStock { get; set; }
 
         #endregion
 

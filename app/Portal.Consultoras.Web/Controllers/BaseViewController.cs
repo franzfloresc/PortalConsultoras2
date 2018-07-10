@@ -229,6 +229,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv)) return RedirectToAction("Index", "Ofertas");
 
+                palanca = IdentificarPalanca(palanca, campaniaId);
+
                 if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca)) return RedirectToAction("Index", "Ofertas");
 
                 DetalleEstrategiaFichaModel modelo;
@@ -281,5 +283,40 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
+
+        public string IdentificarPalanca(string palanca, int campaniaId)
+        {
+            var RevistaDigital = sessionManager.GetRevistaDigital();
+            switch (palanca)
+            {
+                case Constantes.NombrePalanca.OfertaParaTi:
+                    if (RevistaDigital.ActivoMdo)
+                    {
+                        palanca = Constantes.NombrePalanca.OfertasParaMi;
+                    }
+                    else
+                    {
+                        if (revistaDigital.TieneRDC || revistaDigital.TieneRDCR)
+                        {
+                            if (revistaDigital.EsActiva)
+                            {
+                                palanca = Constantes.NombrePalanca.OfertasParaMi;
+                            }
+                            else
+                            {
+                                palanca = campaniaId == userData.CampaniaID ?  Constantes.NombrePalanca.OfertaParaTi : Constantes.NombrePalanca.OfertasParaMi;
+                            }
+                        }
+                        else
+                        {
+                            palanca = Constantes.NombrePalanca.OfertaParaTi;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return palanca;
+        }
     }
 }

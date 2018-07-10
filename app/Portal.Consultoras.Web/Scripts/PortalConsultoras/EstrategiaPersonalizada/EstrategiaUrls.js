@@ -6,7 +6,7 @@ function OnClickFichaDetalle(e) {
     //el objeto e debe ser establecido con target  (e.target)
     var infoItem = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
     
-    EstrategiaGuardarTemporal(infoItem);
+    //EstrategiaGuardarTemporal(infoItem);
     var codigoEstrategia = $.trim(infoItem.CodigoEstrategia);
     var codigoCampania   = $.trim(infoItem.CampaniaID);
     var codigoCuv        = $.trim(infoItem.CUV2);
@@ -47,13 +47,13 @@ function GetPalanca(codigoEstrategia) {
                 url += ConstantesModule.CodigosPalanca.Lanzamiento + "/";
                 break;
             case ConstantesModule.ConstantesPalanca.OfertasParaMi:
-                url += ConstantesModule.CodigosPalanca.OfertasParaMi + "/";
+                url += ConstantesModule.CodigosPalanca.OfertaParaTi + "/";
                 break;
             case ConstantesModule.ConstantesPalanca.PackAltoDesembolso:
-                url += ConstantesModule.CodigosPalanca.PackAltoDesembolso + "/";
+                url += ConstantesModule.CodigosPalanca.OfertaParaTi + "/";
                 break;
             case ConstantesModule.ConstantesPalanca.RevistaDigital:
-                url += ConstantesModule.CodigosPalanca.RevistaDigital + "/";
+                url += ConstantesModule.CodigosPalanca.OfertaParaTi + "/";
                 break;
             case ConstantesModule.ConstantesPalanca.LosMasVendidos:
                 url += ConstantesModule.CodigosPalanca.LosMasVendidos + "/";

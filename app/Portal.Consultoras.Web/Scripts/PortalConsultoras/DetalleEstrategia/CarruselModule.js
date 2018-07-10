@@ -12,7 +12,12 @@
         idPlantillaProductoLanding: config.idPlantilla,
         divCarruselSetsProductosRelacionados: config.divCarrusel,
         divProductosRelacionados: config.divCarrusel,
-        idTituloCarrusel: config.idTituloCarrusel
+        idTituloCarrusel: config.idTituloCarrusel,
+        divCarruselContenedor: config.divSetsProductosdata
+    };
+
+    var _variable = {
+        cantidadProdCarrusel: 0
     };
 
     var _promiseObternerDataCarrusel = function (params) {
@@ -45,13 +50,13 @@
         var campaniaId = _config.campania;
 
         if (cuv == "" || campaniaId == "" || campaniaId == "0") {
-            return false;
+            return setRelacionados;
         }
 
         var str = LocalStorageListado("LANLista" + campaniaId, "", 1) || "";
 
         if (str === '') {
-            return false;
+            return setRelacionados;
         }
 
         var lista = JSON.parse(str).response.listaLan;
@@ -66,14 +71,9 @@
 
         $.each(lista, function (index, lanzamiento) {
             if (cuv != lanzamiento.CUV2 && lanzamiento.CodigoProducto === codigoProducto) {
-
                 setRelacionados.push(lanzamiento);
             }
         });
-
-        if (setRelacionados.length == 0) {
-            return false;
-        }
 
         return setRelacionados;
     }
@@ -97,29 +97,33 @@
 
         var widthDimamico = !isMobile();
 
-        $(_elementos.divCarruselSetsProductosRelacionados + '.slick-initialized').slick('unslick');
-        $(_elementos.divCarruselSetsProductosRelacionados).not('.slick-initialized').slick({
-            dots: false,
-            infinite: true,
-            speed: 260,
-            slidesToShow: 2,
-            slidesToScroll: 1,
-            variableWidth: widthDimamico,
-            prevArrow: slickArrows[platform].prev,
-            nextArrow: slickArrows[platform].next,
-            responsive: [
-                {
-                    breakpoint: 480,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                        infinite: true
-                    }
-                }
-            ]
-        });
-
         $(_elementos.divProductosRelacionados).fadeIn();
+
+        if ((widthDimamico && _variable.cantidadProdCarrusel > 2) || !widthDimamico) {
+
+            $(_elementos.divCarruselSetsProductosRelacionados + '.slick-initialized').slick('unslick');
+            $(_elementos.divCarruselSetsProductosRelacionados).not('.slick-initialized').slick({
+                dots: false,
+                infinite: true,
+                speed: 260,
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                variableWidth: widthDimamico,
+                prevArrow: slickArrows[platform].prev,
+                nextArrow: slickArrows[platform].next,
+                //centerMode: true,
+                responsive: [
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            infinite: true
+                        }
+                    }
+                ]
+            });
+        }
     }
 
     var _ocultarElementos = function () {
@@ -153,7 +157,6 @@
 
         if (_config.palanca == ConstantesModule.CodigosPalanca.Lanzamiento) {
             data.lista = _cargarDatos();
-            SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
         }
         else if (
             (_config.palanca == ConstantesModule.CodigosPalanca.ShowRoom)
@@ -168,20 +171,32 @@
                 if (response) {
                     if (response.success) {
                         data.lista = response.data;
-                        SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
                     }
                 }
             });
 
         }
-    };
 
+        if (data.lista.length > 0) {
+            _variable.cantidadProdCarrusel = data.lista.length;
+            SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
+            _mostrarTitulo();
+            _mostrarSlicks();
+        }
+        _ocultarCarrusel(data);
+    };
+    var _ocultarCarrusel = function (data) {
+        if (typeof data != "undefined")
+            if (Array.isArray(data.lista) && data.lista.length > 0) {
+                $(_elementos.divCarruselContenedor).show();
+                return;
+            }
+            $(_elementos.divCarruselContenedor).hide();
+    }
     function Inicializar() {
 
         _ocultarElementos();
         _mostrarCarrusel();
-        _mostrarTitulo();
-        _mostrarSlicks();
 
     }
 
