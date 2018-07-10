@@ -691,7 +691,6 @@ namespace Portal.Consultoras.Web.Controllers
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.RevistaDigital)] = null;
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, string.Empty)] = null;// OPT
             Session[Constantes.ConstSession.ListaProductoShowRoom] = null;//
-            sessionManager.SetEstrategiaODD(null);
             //Limpia cache de Redis
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
