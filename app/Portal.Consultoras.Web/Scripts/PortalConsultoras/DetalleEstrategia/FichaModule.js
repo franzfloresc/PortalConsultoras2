@@ -328,6 +328,9 @@
             $(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             $(_seccionesFichaProducto.CarruselProducto).hide();
+            if (_codigoPalanca.HerramientasVenta === _config.palanca) {
+                $(_seccionesFichaProducto.Contenedor_redes_sociales).hide();
+            }
         } else if (_codigoPalanca.Lanzamiento == _config.palanca) {
             $(_seccionesFichaProducto.EtiquetaLanzamientos).show();
             $(_seccionesFichaProducto.ImagenDeFondo).show();
