@@ -19,6 +19,7 @@
       <xs:enumeration value="NoReservadoMontoMaximo" />
       <xs:enumeration value="ReservaNoDisponible" />
       <xs:enumeration value="NoReservadoDeuda" />
+      <xs:enumeration value="NoReservadoMontoPermitido" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Enumeradores.ResultadoReserva" nillable="true" type="tns:Enumeradores.ResultadoReserva" />
