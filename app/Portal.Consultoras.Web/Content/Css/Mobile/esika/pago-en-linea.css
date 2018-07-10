@@ -1124,29 +1124,27 @@
     bottom:0;
     left:0;
     right:0;
-    overflow:auto;
+    /*overflow:auto;*/
 }
 
 .popup_terminos_y_condiciones{
-    width: 90%;
-    max-width: 400px;
-    height: auto;
+    width: 100%;
+    height: 100vh;
     background-color: #FFF;
     margin: 0 auto 25px auto;
-    top: 9%;
+    top: 0;
+    left: 0;
     position: relative;
-    padding: 33px 24px 26px 24px;
+    padding: 59px 24px 26px 32px;
 }
 
 .cerrar_popup_terminos_y_condiciones{
     font-family: 'somos-belcorp-iconos';
-    color: #FFF;
-    font-size: 24px;
+    color: #000;
+    font-size: 21px;
     position: absolute;
-    top: -37px;
-    right: -7px;
-    width: 45px;
-    height: 45px;
+    top: 11px;
+    right: 11px;
     text-align: center;
 }
 
@@ -1155,7 +1153,8 @@
 }
 
 .titulo_terminos_y_condiciones{
-    font-size:20px;
+    font-size:22.53px;
+    line-height:26px;
     margin-top:0;
     margin-bottom:26px;
 }
@@ -1171,13 +1170,23 @@
     font-size: 13px;
     line-height: 17px;
     margin-bottom: 13px;
-    height: 277px;
+    height: calc(100vh - 169px);
     overflow: auto;
+    padding-right: 14px;
 }
 
 .descripcion_terminos_y_condiciones p{
-    font-size:12px;
+    font-size:14.64px;
     text-align:justify;
+    line-height:19px;
+}
+
+@media screen and (min-width:524px) and (max-width:991px){
+
+    .descripcion_terminos_y_condiciones{
+        padding-right:4px;
+    }
+
 }
 
 /* FIN - POPUP TÉRMINOS Y CONDICIONES */
