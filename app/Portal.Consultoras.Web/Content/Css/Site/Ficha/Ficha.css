@@ -139,6 +139,7 @@ body {
             left: 7px;
             right: initial;
             top: 30px;
+            font-size: 8px;
         }
 
     .clock_odd .minutes .flip-clock-label {

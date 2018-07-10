@@ -244,15 +244,28 @@
         _validarDesactivadoGeneral(estrategia);
 
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
+        if (!isMobile()) {
+            estrategia.TipoEstrategiaDetalle.ImgFichaFondoDesktop = estrategia.TipoEstrategiaDetalle.ImgFichaFondoDesktop || "";
+            if (estrategia.TipoEstrategiaDetalle.ImgFichaFondoDesktop != "") {
+                $(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "url('" + estrategia.TipoEstrategiaDetalle.ImgFichaFondoDesktop + "')");
+                $(_seccionesFichaProducto.ImagenDeFondo).show();
+            }
+        }
+
         _cargarDataCompartir(estrategia);
 
         if (estrategia.CodigoEstrategia === _constantePalanca.OfertaDelDia) {
             _crearReloj(estrategia);
+            estrategia.ConfiguracionContenedor = estrategia.ConfiguracionContenedor || {};
+            estrategia.ConfiguracionContenedor.ColorFondo = "#fff";
+            estrategia.ConfiguracionContenedor.ColorTexto = "#000";
+            estrategia.ColorFondo1 = "";
             SetHandlebars("#ofertadeldia-template-style", estrategia, "#styleRelojOdd");
         }
 
         $(_seccionesFichaProducto.ContenedoFotoReferencial).hide();
-        if (estrategia.Hermanos.length > 0) $(_seccionesFichaProducto.ContenedoFotoReferencial).show();
+        if (estrategia.Hermanos.length > 0)
+            $(_seccionesFichaProducto.ContenedoFotoReferencial).show();
 
         if (!isMobile()) {
             _validarSiEsAgregado(estrategia);
@@ -325,7 +338,7 @@
             _codigoPalanca.OfertasParaMi === _config.palanca || 
             _codigoPalanca.OfertaParaTi === _config.palanca ||
             _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
-            $(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
+            //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
             $(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             $(_seccionesFichaProducto.CarruselProducto).hide();
@@ -334,14 +347,14 @@
             }
         } else if (_codigoPalanca.Lanzamiento == _config.palanca) {
             $(_seccionesFichaProducto.EtiquetaLanzamientos).show();
-            $(_seccionesFichaProducto.ImagenDeFondo).show();
+            //$(_seccionesFichaProducto.ImagenDeFondo).show();
             $(_seccionesFichaProducto.DescripcionAdicional).show();
             $(_seccionesFichaProducto.ContenidoProducto).show();
             $(_seccionesFichaProducto.CarruselProducto).show();
             $(_seccionesFichaProducto.SloganLanzamientos).show();
         } else if (_codigoPalanca.ShowRoom == _config.palanca) {
             $(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
-            $(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
+            //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
             $(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             $(_seccionesFichaProducto.CarruselProducto).show();
@@ -349,7 +362,7 @@
             $(_seccionesFichaProducto.EtiquetaOdd).show();
         } else if (_codigoPalanca.PackNuevas == _config.palanca) {
             $(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
-            $(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
+            //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
             $(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             $(_seccionesFichaProducto.CarruselProducto).hide();

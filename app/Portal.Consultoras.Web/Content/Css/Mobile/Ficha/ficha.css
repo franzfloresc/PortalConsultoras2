@@ -34,6 +34,34 @@
             font-weight: bolder;
         }
 
+
+.clock_odd {
+    height: 35px;
+    padding-top: 25px;
+    padding-bottom: 15px;
+}
+
+    .clock_odd .flip-clock-divider .flip-clock-label {
+        display: block;
+        left: 7px;
+        right: initial;
+        top: 30px;
+        /*color: #000;*/
+        margin-top: 5px;
+        font-size: 8px;
+    }
+
+    .clock_odd .hours .flip-clock-label {
+        width: 0;
+        left: 0;
+    }
+
+    .clock_odd .minutes .flip-clock-label {
+    }
+
+    .clock_odd .seconds .flip-clock-label {
+    }
+
 .bg_imagen_producto {
     width: 100%;
     height: 150px;
