@@ -268,7 +268,8 @@
             NoReservadoMontoMinimo = 4,
             NoReservadoMontoMaximo = 5,
             ReservaNoDisponible = 6,
-            NoReservadoDeuda = 7
+            NoReservadoDeuda = 7,
+            NoReservadoMontoPermitido = 8
         }
 
         public enum TipoProductoComentario

@@ -1,7 +1,5 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Helpers
-@using Portal.Consultoras.Web.Models
-
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
 
 @{
@@ -36,6 +34,7 @@
             position: relative;
             top: -2px;
         }
+
     </style>
     @Styles.Render("~/bundles/Css/Mobile/Site/OfertaParaTi-Detalle")
 }
@@ -85,7 +84,7 @@
                     }
                 </div>
             }
-
+            
             <div class="content_imagen_ficha">
                 <img id="fav_imagen_prod" src="@fotoMedium" alt="PRODUCTO" class="imagen_producto">
             </div>
@@ -110,9 +109,9 @@
                     var PrecioNiveles = Model.PrecioNiveles.Split('|').ToList();
                     foreach (var item in PrecioNiveles)
                     {
-
+                        
                         <div class="precio_para_ti_portantos"><div class="precio_para_ti_048"><b>@item</b></div></div>
-
+                        
                     }
                 }
             }
@@ -180,8 +179,7 @@
                                 <hr class="clear">
                             </div>
                         }
-                    }
-                    else if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                    }                    else if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
                     {
                         var claseItem = Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija ? "content_producto_individual" : "";
                         var claseItem3 = Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
@@ -266,24 +264,24 @@
     {
         if (Model.TipoAccionAgregar > 0)
         {
-            <div class="row">
-                <div class="content_btn_agregar">
-                    <div class="content_320">
-                        @if (btnDesabled == 1)
-                        {
-                            btnDesabledClass = "btn_desactivado_general";
-                        }
-                        <div class="content_cantidad_ficha_producto">
-                            <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                            <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                        </div>
-                        <a class="@btnDesabledClass btn_agregar_ficha_producto" id="tbnAgregarProducto"
-                           onclick="javascript:EstrategiaAgregar(event, true); ">AGRÉGALO</a>
-                        <hr class="clear">
+        <div class="row">
+            <div class="content_btn_agregar">
+                <div class="content_320">
+                    @if (btnDesabled == 1)
+                    {
+                        btnDesabledClass = "btn_desactivado_general";
+                    }
+                    <div class="content_cantidad_ficha_producto">
+                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
+                    <a class="@btnDesabledClass btn_agregar_ficha_producto" id="tbnAgregarProducto"
+                       onclick="javascript:EstrategiaAgregar(event, true); ">AGRÉGALO</a>
+                    <hr class="clear">
                 </div>
             </div>
+        </div>
         }
     }
 </div>
