@@ -95,19 +95,19 @@ z-index: 99;
                             <li id="menu_micomunidad" class="field33">
                                 <div class="menu_border_right">
                                     <a href="#">
-                                        <img class="vertical_align_text" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/comunidad.png" alt="SomosBelcorp" />Comunidad Somos Belcorp</a>
+                                        <img class="vertical_align_text" src="https://d1y60eoca8fkyl.cloudfront.net/Menu/comunidad.png" alt="SomosBelcorp" />Comunidad Somos Belcorp</a>
                                 </div>
                             </li>
                             <li id="menu_mismarcas" class="field33">
                                 <div id="m_marcas_b" class=" menu_border_right">
                                     <a href="#">
-                                        <img class="vertical_align_text" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/marcas.png" alt="SomosBelcorp" />Nuestras Marcas</a>
+                                        <img class="vertical_align_text" src="https://d1y60eoca8fkyl.cloudfront.net/Menu/marcas.png" alt="SomosBelcorp" />Nuestras Marcas</a>
                                 </div>
                             </li>
                             <li id="menu_unetebelcorp" class="field34">
                                 <div class="menu_border_right no_border">
                                     <a href="#">
-                                        <img class="vertical_align_text" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/unete.png" alt="SomosBelcorp" />Únete a Belcorp</a>
+                                        <img class="vertical_align_text" src="https://d1y60eoca8fkyl.cloudfront.net/Menu/unete.png" alt="SomosBelcorp" />Únete a Belcorp</a>
                                 </div>
                             </li>
                         </ul>
@@ -115,7 +115,7 @@ z-index: 99;
                             <ul>
                                 <li class="field33"><a href="#">Temas de Conversación
                                     <br />
-                                    <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/foros.jpg" alt="Temas de Conversación" /></a>
+                                    <img class="menu_image_description" src="https://d1y60eoca8fkyl.cloudfront.net/Menu/foros.jpg" alt="Temas de Conversación" /></a>
                                     <ul>
                                         <li><a href="http://comunidad.somosbelcorp.com/">Entrar a la Comunidad</a></li>
                                         <li><a href="http://comunidad.somosbelcorp.com/?estadistica=1">Ver mi perfil de Comunidad</a></li>
@@ -146,28 +146,28 @@ z-index: 99;
                             <ul>
                                 <li class="field25"><a href="#">
                                     <img src="https://www.somosbelcorp.com/Content/Images/comunidad/esika_gray.png" style="margin-top: -5px" alt="Ésika" /><br />
-                                    <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/mismarcas_esika.jpg" alt="Esika" /></a>
+                                    <img class="menu_image_description" src="https://d1y60eoca8fkyl.cloudfront.net/Menu/mismarcas_esika.jpg" alt="Esika" /></a>
                                     <ul>
                                         <li><a href="http://www.esika.biz/" target="_blank">Ir a Esika.biz &gt;</a></li>
                                     </ul>
                                 </li>
                                 <li class="field25"><a href="#">
                                     <img src="https://www.somosbelcorp.com/Content/Images/comunidad/cyzone_gray.png" style="margin-top: -5px" alt="Cyzone" /><br />
-                                    <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/mismarcas_cyzone.jpg" alt="Cyzone" /></a>
+                                    <img class="menu_image_description" src="https://d1y60eoca8fkyl.cloudfront.net/Menu/mismarcas_cyzone.jpg" alt="Cyzone" /></a>
                                     <ul>
                                         <li><a href="https://www.cyzone.com/" target="_blank">Ir a Cyzone.com &gt;</a></li>
                                     </ul>
                                 </li>
                                 <li class="field25"><a href="#">
                                     <img src="https://www.somosbelcorp.com/Content/Images/comunidad/lbel_gray.png" style="margin-top: -5px" alt="L'BEL" /><br />
-                                    <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/mismarcas_lbel.jpg" alt="Lbel" /></a>
+                                    <img class="menu_image_description" src="https://d1y60eoca8fkyl.cloudfront.net/Menu/mismarcas_lbel.jpg" alt="Lbel" /></a>
                                     <ul>
                                         <li><a href="http://www.lbel.com/" target="_blank">Ir a Lbel.com &gt;</a></li>
                                     </ul>
                                 </li>
                                 <li class="field25"><a href="#">Catálogos
                                     <br />
-                                    <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/catalogos.jpg" alt="Catalogos" /></a>
+                                    <img class="menu_image_description" src="https://d1y60eoca8fkyl.cloudfront.net/Menu/catalogos.jpg" alt="Catalogos" /></a>
                                     <ul>
                                         <li><a href="http://www.catalogosbelcorp.com/" target="_blank">Ver catálogos &gt;</a></li>
                                     </ul>
@@ -179,7 +179,7 @@ z-index: 99;
                             <ul>
                                 <li class="field33"><a href="#">Un Equipo Triunfador
                                     <br />
-                                    <img class="menu_image_description" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/unete.jpg" alt="Unete" /></a>
+                                    <img class="menu_image_description" src="https://d1y60eoca8fkyl.cloudfront.net/Menu/unete.jpg" alt="Unete" /></a>
                                     <ul>
                                         <li><a href="http://uneteabelcorp.com/" target="_blank">Quiero ser consultora</a></li>
                                         <li><a href="http://uneteabelcorp.com/peru/quienes-somos.html" target="_blank">Quiero saber más de Belcorp</a></li>

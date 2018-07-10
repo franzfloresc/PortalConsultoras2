@@ -53,9 +53,9 @@ namespace Portal.Consultoras.Web.WebPages
                     sb.Append("<table width='630' align='center' cellpadding='0' cellspacing='0' id='Table_01' style='border-top: solid; border-bottom: solid; border-right: solid; border-left: solid; border-width: 1px; border-color: #425363;'>");
                     sb.Append("<tr>");
                     sb.Append("<td style='vertical-align: top; padding-top: 25px; padding-left: 20px;'>");
-                    sb.Append("<img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_menulat_02.gif' width='198' height='73' alt=''></td>");
+                    sb.Append("<img src='https://d1y60eoca8fkyl.cloudfront.net/Comunidad/mail_menulat_02.gif' width='198' height='73' alt=''></td>");
                     sb.Append("<td style='vertical-align: top; text-align: right;'>");
-                    sb.Append("<img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_menulat_01.gif' height='100' alt=''></td>");
+                    sb.Append("<img src='https://d1y60eoca8fkyl.cloudfront.net/Comunidad/mail_menulat_01.gif' height='100' alt=''></td>");
                     sb.Append("</tr>");
                     sb.Append("<tr>");
                     sb.Append("<td colspan='2'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 14px; color: #425363; line-height: 1.2;'>&nbsp;</font></td></tr>");

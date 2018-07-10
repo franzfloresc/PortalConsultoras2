@@ -367,7 +367,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
-                    usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
+                    usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
 
 
             }
@@ -513,7 +513,7 @@ namespace Portal.Consultoras.BizLogic
                                 nivelProyectado);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
-                    usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
+                    usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
 
                 usuario.AceptaTerminosCondiciones = (terminosCondicionesTask.Result != null && terminosCondicionesTask.Result.Aceptado);
                 usuario.AceptaPoliticaPrivacidad = (politicaPrivacidadTask.Result != null && politicaPrivacidadTask.Result.Aceptado);
@@ -823,9 +823,9 @@ namespace Portal.Consultoras.BizLogic
 
                 var carpetaPais = string.Format(Constantes.GanaMas.Banner.CarpetaPais, usuario.CodigoISO);
                 if ((resultado == Constantes.GanaMas.PaisConRD_SuscritaActiva || resultado == Constantes.GanaMas.PaisConRD_SuscritaNoActiva) && !string.IsNullOrEmpty(extensionSuscrita))
-                    UrlBannerGanaMas = ConfigS3.GetUrlFileS3(carpetaPais, string.Format("{0}.{1}", Constantes.GanaMas.Banner.ImagenSuscrita, extensionSuscrita));
+                    UrlBannerGanaMas = ConfigCdn.GetUrlFileCdn(carpetaPais, string.Format("{0}.{1}", Constantes.GanaMas.Banner.ImagenSuscrita, extensionSuscrita));
                 else if ((resultado == Constantes.GanaMas.PaisConRD_NoSuscritaActiva || resultado == Constantes.GanaMas.PaisConRD_NoSuscritaNoActiva) && !string.IsNullOrEmpty(extensionNoSuscrita))
-                    UrlBannerGanaMas = ConfigS3.GetUrlFileS3(carpetaPais, string.Format("{0}.{1}", Constantes.GanaMas.Banner.ImagenNoSuscrita, extensionNoSuscrita));
+                    UrlBannerGanaMas = ConfigCdn.GetUrlFileCdn(carpetaPais, string.Format("{0}.{1}", Constantes.GanaMas.Banner.ImagenNoSuscrita, extensionNoSuscrita));
 
                 lst.Add(UrlBannerGanaMas);
 
@@ -1129,7 +1129,7 @@ namespace Portal.Consultoras.BizLogic
                                     }
                                     else
                                     {
-                                        //Para bolivia (FOX) se hace la validación del campo AutorizaPedido
+                                        //Para bolivia (FOX) se hace la validaciï¿½n del campo AutorizaPedido
                                         if (paisID == 2)
                                         {
                                             if (autorizaPedido == "N")
@@ -1151,7 +1151,7 @@ namespace Portal.Consultoras.BizLogic
                                     {
                                         if (paisID == 3)
                                         {
-                                            //Se valida las campañas que no ha ingresado
+                                            //Se valida las campaï¿½as que no ha ingresado
                                             if (ultimaCampania != 0 && campaniaActual.ToString().Length == 6 && ultimaCampania.ToString().Length == 6)
                                             {
                                                 string ca = campaniaActual.ToString().Substring(0, 4);
@@ -1244,7 +1244,7 @@ namespace Portal.Consultoras.BizLogic
                                     }
                                     else
                                     {
-                                        //Se valida las campañas que no ha ingresado
+                                        //Se valida las campaï¿½as que no ha ingresado
                                         //Validamos el Autoriza Pedido
                                         if (autorizaPedido == "N")
                                         {
@@ -1364,7 +1364,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     if (paisID == 3)
                     {
-                        //Se valida las campañas que no ha ingresado
+                        //Se valida las campaï¿½as que no ha ingresado
                         int campaniaSinIngresar = 0;
                         if (campaniaActual.ToString().Length == 6 && ultimaCampania.ToString().Length == 6)
                         {
@@ -1716,7 +1716,7 @@ namespace Portal.Consultoras.BizLogic
 
                     if (cantidad > 0)
                     {
-                        resultado = string.Format("{0}|{1}|{2}|{3}", "0", "1", "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.", cantidad);
+                        resultado = string.Format("{0}|{1}|{2}|{3}", "0", "1", "La direcciï¿½n de correo electrï¿½nico ingresada ya pertenece a otra Consultora.", cantidad);
                     }
                     else
                     {
@@ -1726,7 +1726,7 @@ namespace Portal.Consultoras.BizLogic
                         {
                             string emailFrom = "no-responder@somosbelcorp.com";
                             string emailTo = usuario.EMail;
-                            string titulo = "Confirmación de Correo";
+                            string titulo = "Confirmaciï¿½n de Correo";
                             string displayname = usuario.Nombre;
                             string url = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
                             string nomconsultora = (string.IsNullOrEmpty(usuario.Sobrenombre) ? usuario.PrimerNombre : usuario.Sobrenombre);
@@ -1735,12 +1735,12 @@ namespace Portal.Consultoras.BizLogic
                             string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
                             LogManager.SaveLog(new Exception(), usuario.CodigoUsuario, usuario.CodigoISO, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
                             bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);
-                            string logo = (esEsika ? "http://www.genesis-peru.com/mailing-belcorp/logo.png" : "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png");
+                            string logo = (esEsika ? Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png" : Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png");
                             string fondo = (esEsika ? "e81c36" : "642f80");
 
                             MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, logo, nomconsultora, url, fondo, paramQuerystring);
 
-                            resultado = string.Format("{0}|{1}|{2}|0", "1", "2", "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.");
+                            resultado = string.Format("{0}|{1}|{2}|0", "1", "2", "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrï¿½nico de verificaciï¿½n a la direcciï¿½n ingresada.");
                         }
                         else
                         {
@@ -1751,7 +1751,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al acceder al servicio, intente nuevamente.");
+                resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurriï¿½ un error al acceder al servicio, intente nuevamente.");
                 LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
             }
 
@@ -1769,7 +1769,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al acceder al servicio, intente nuevamente.");
+                resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurriï¿½ un error al acceder al servicio, intente nuevamente.");
                 LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
             }
 
@@ -2471,7 +2471,7 @@ namespace Portal.Consultoras.BizLogic
                 var newUri = Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisID, oUsu.Correo, paisiso, codigousuario, fechasolicitud, nombre);
                 string emailFrom = "no-responder@somosbelcorp.com";
                 string emailTo = oUsu.Correo; ;
-                string titulo = "(" + paisISO + ") Cambio de contraseña de Somosbelcorp";
+                string titulo = "(" + paisISO + ") Cambio de contraseï¿½a de Somosbelcorp";
                 string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
                 string fondo = (esEsika ? "e81c36" : "642f80");
                 string displayname = "Somos Belcorp";
@@ -2684,7 +2684,7 @@ namespace Portal.Consultoras.BizLogic
                 var esEsika = paisesEsika.Contains(paisISO);
                 string emailFrom = "no-responder@somosbelcorp.com";
                 string emailTo = oUsu.Correo;
-                string titulo = "(" + paisISO + ") Verificación de Autenticidad de Somosbelcorp";
+                string titulo = "(" + paisISO + ") Verificaciï¿½n de Autenticidad de Somosbelcorp";
                 string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
                 string nombrecorreo = oUsu.PrimerNombre.Trim();
                 string fondo = (esEsika ? "e81c36" : "642f80");
