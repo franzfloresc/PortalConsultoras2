@@ -101,10 +101,6 @@
         <div id="iconoPopupMobile" class="icono_alerta exclamacion_icono_mobile"></div>
         <div class="titulo_compartir"><b>IMPORTANTE</b></div>
         <div class="mensaje_alerta" id="modal-prol-contenido"></div>
-        <div id="modal-prol-botonesAceptarCancelar" style="display: none;">
-            <a href="javascript:;" onclick="AceptarObsInformativas();" class="btn_ok_mobile"><b>OK</b></a>
-            <a href="javascript:;" onclick="CancelarObsInformativas();" class="btn_ok_mobile"><b>CANCELAR</b></a>
-        </div>
         <div id="modal-prol-botoneAceptar">
             <a href="javascript:;" onclick="$('#popup-observaciones-prol').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
@@ -164,7 +160,6 @@
     </div>
 </div>
 
-<input id="hdfPROLSinStock" type="hidden" value="0" />
 <input id="hdfModificaPedido" type="hidden" value="0" />
 <input type="hidden" id="hdfTotal" value="@Model.Total" />
 
@@ -827,7 +822,7 @@
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                         <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
-                        <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" href="javascript:;" data-popup-verdetalle="{{ID}}"
+                        <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" href="javascript:;" data-popup-verdetalle="{{id}}"
                            onclick="of_google_analytics_addtocar('mobile','detail',{{ID}},'{{TipoMeta}}')">AGRÉGALO</a>
                     <hr class="clear">
                 </div>
@@ -843,9 +838,7 @@
 @section Scripts{
 
     <script type="text/javascript">
-
         var codigoIsoPais = '@Model.CodigoISO';
-        var mensajeGuardarCO = '@Model.MensajeGuardarCO';
         var menuNotificaciones = '@ViewBag.MenuNotificaciones';
         var falgValidacionPedido = '@Model.FlagValidacionPedido';
         var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
@@ -902,6 +895,8 @@
         var nombreConsultora = '@ViewBag.NombreConsultora';
         var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
         var mensajePedidoVacio = '@Constantes.MensajesError.Reserva_SinDetalle';
+        var mensajeErrorReserva = '@Constantes.MensajesError.Reserva_Error';
+        var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/PedidoDetalle")
 

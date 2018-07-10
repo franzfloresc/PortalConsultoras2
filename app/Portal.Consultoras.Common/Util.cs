@@ -4,6 +4,7 @@ using MaxMind.Db;
 using MaxMind.Util;
 using Microsoft.IdentityModel.Protocols.WSIdentity;
 using Microsoft.IdentityModel.Protocols.WSTrust;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,6 +16,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Mail;
 using System.Net.Mime;
 using System.Reflection;
@@ -376,6 +379,7 @@ namespace Portal.Consultoras.Common
             string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
 
             MailMessage objMail = new MailMessage();
+            objMail.SubjectEncoding = System.Text.Encoding.UTF8;
             SmtpClient objClient = new SmtpClient(strServidor);
 
             AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);
@@ -3306,17 +3310,8 @@ namespace Portal.Consultoras.Common
 
         public static string GenerarCodigoRandom()
         {
-            try
-            {
-                Random rnd = new Random();
-                string NroGenrado = Convert.ToString(rnd.Next(111111, 999999));
-
-                return NroGenrado;
-            }
-            catch (Exception)
-            {
-                return "";
-            }
+            Random rnd = new Random();
+            return Convert.ToString(rnd.Next(111111, 999999));
         }
 
         public static string ColorFormato(string colorStr, string defecto = "")
@@ -3343,6 +3338,33 @@ namespace Portal.Consultoras.Common
             #endregion
 
             return colorStr == "" ? defecto : colorStr;
+        }
+
+        public static string EnmascararCorreo(string correo)
+        {
+            if (string.IsNullOrEmpty(correo.Trim())) return "";
+            string[] separada = correo.Split('@');
+            int inicio = 2;
+            int final = 1;
+            int longitud;
+            if (separada[0].Length > inicio + final)
+                longitud = separada[0].Length - final - inicio;
+            else
+                longitud = 1;
+            separada[0] = separada[0].Remove(inicio, longitud).Insert(inicio, new string('*', longitud));
+            return correo = String.Join("@", separada);
+        }
+
+        public static string EnmascararCelular(string celular)
+        {
+            if (string.IsNullOrEmpty(celular.Trim())) return "";
+            int inicio = 1; 
+            int final = 2;
+            int longitud = celular.Length;
+            string strOcultar = celular.Substring(inicio, longitud - final - inicio);
+            int longitudOcultar = strOcultar.Length;
+            string caracter = "*".PadLeft(longitudOcultar,'*');
+            return celular.Replace(strOcultar, caracter);        
         }
 
         public static string GetDescripcionMarca(int marcaId)

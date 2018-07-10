@@ -6,9 +6,7 @@ var posicionInicial = 0;
 var posicionFinalPantalla = 2;
 var posicionTotal = 0;
 var salto = 3;
-var analyticsGuardarValidarEnviado = false;
 
-var esPedidoValidado = false;
 var arrayOfertasParaTi = [];
 var array_odd = [];
 var arrayProductosSugeridos = [];
@@ -19,7 +17,6 @@ var origenPedidoWebEstrategia = origenPedidoWebEstrategia || 0;
 var tipoOfertaFinal_Log = "";
 var gap_Log = 0;
 var tipoOrigen = '1';
-var FlagEnviarCorreo = false;
 var dataBarra = dataBarra || {};
 var listaEscalaDescuento = listaEscalaDescuento || {};
 var listaMensajeMeta = listaMensajeMeta;
@@ -64,8 +61,6 @@ $(document).ready(function () {
                 HideDialog("divObservacionesPROL");
             if ($('#divReservaSatisfactoria').is(':visible'))
                 HideDialog("divReservaSatisfactoria");
-            if ($('#divReservaSatisfactoriaCO').is(':visible'))
-                HideDialog("divReservaSatisfactoriaCO");
             if ($('#divReservaSatisfactoria3').is(':visible'))
                 HideDialog("divReservaSatisfactoria3");
         }
@@ -434,9 +429,7 @@ $(document).ready(function () {
         CargarProductoAgotados(0);
     });
    
-    $(document).on('click', '#idImagenCerrar', function (e) {
-        $(this).parent().remove();
-    });
+    $(document).on('click', '#idImagenCerrar', function (e) { $(this).parent().hide(); });
 
     CrearDialogs();
     MostrarBarra();
@@ -686,26 +679,6 @@ function CrearDialogs() {
         closeOnEscape: false,
         width: 400,
         draggable: true
-    });
-
-    $('#divReservaSatisfactoriaVE').dialog({
-        autoOpen: false,
-        resizable: false,
-        modal: true,
-        closeOnEscape: false,
-        width: 550,
-        height: 230,
-        draggable: true,
-    });
-
-    $('#divReservaSatisfactoriaCO').dialog({
-        autoOpen: false,
-        resizable: false,
-        modal: true,
-        closeOnEscape: true,
-        width: 550,
-        height: 230,
-        draggable: true,
     });
 
     $('#divVistaPrevia').dialog({
@@ -1790,11 +1763,6 @@ function CargarAutocomplete() {
 function CalcularTotal() {
     $('#sSimbolo').html($('#hdfSimbolo').val());
     $('#sSimbolo_minimo').html($('#hdfSimbolo').val());
-
-    $("#divListadoPedido").find('a[class="imgIndicadorCUV"]').tooltip({
-        content: "<img src='" + baseUrl + "Content/Images/aviso.png" + "' />",
-        position: { my: "left bottom", at: "left top-20%", collision: "flipfit" }
-    });
 }
 
 function MostrarProductoAgregado(imagen, descripcion, cantidad, total) {
@@ -2069,275 +2037,173 @@ function EsValidoMontoTotalReserva() {
     var total = parseFloat($('#hdfTotal').val());
     if (total != 0) return true;
 
-    CrearPopupAvisoReserva(mensajePedidoVacio);
-    ShowPopupObservacionesReserva(true);
+    MostrarPopupErrorReserva(mensajePedidoVacio, true);
     if ($('#hdfEstadoPedido').val() == 1) EliminarPedido();
     return false;
 }
 
 function EjecutarServicioPROL() {
-    analyticsGuardarValidarEnviado = false;
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/EjecutarServicioPROL',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            if (!checkTimeout(response)) return false;
-            
-            RespuestaEjecutarServicioPROL(response);
-
-            var montoEscala = response.data.MontoEscala;
-            var montoPedido = response.data.Total - response.data.MontoDescuento;
-            var codigoMensajeProl = response.data.CodigoMensajeProl;
-            var cumpleOferta, tipoMensaje ="";
-
-            if (response.data.Reserva == true) {
-                if (response.data.ZonaValida == true) {
-                    cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
-                    if (cumpleOferta.resultado) {
-                        esPedidoValidado = response.data.ProlSinStock != true;
-                        FlagEnviarCorreo = true;
-                    }
-                    else {
-                        if (response.data.ProlSinStock == true) {
-                            showDialog("divReservaSatisfactoria3");
-                            CargarDetallePedido();
-                        } else {
-                            $('#dialog_divReservaSatisfactoria').show();
-                            AnalyticsGuardarValidar(response);
-                            AnalyticsPedidoValidado(response);
-                            setTimeout(function () {
-                                location.href = baseUrl + 'Pedido/PedidoValidado';
-                            }, 3000);
-
-                            if (!FlagEnviarCorreo && response.flagCorreo == '1')
-                                EnviarCorreoPedidoReservado();
-
-                            return false;
-                        }
-                    }
-                } else {
-                    cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
-                    if (!cumpleOferta.resultado) {
-                        if (viewBagNombrePais == 'Venezuela') showDialog("divReservaSatisfactoriaVE");
-                        else if (viewBagNombrePais == 'Colombia') showDialog("divReservaSatisfactoriaCO");
-                        else showDialog("divReservaSatisfactoria3");
-                    }
-                    CargarDetallePedido();
-                }
-            } else {
-                tipoMensaje = codigoMensajeProl == "00" ? 1 : 2;
-                cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoMensaje, codigoMensajeProl, response.data.ListaObservacionesProl);
-                if (!cumpleOferta.resultado) ShowPopupObservacionesReserva(true);
-                CargarDetallePedido();
+            CerrarSplash();
+            if (!checkTimeout(response)) return;
+            if (!response.success) {
+                MostrarPopupErrorReserva(mensajeErrorReserva, false);
+                return;
             }
 
-            AnalyticsGuardarValidar(response);
-            analyticsGuardarValidarEnviado = true;
-            CerrarSplash();            
+            if (RespuestaEjecutarServicioPROL(response.data)) return;
+            MostrarMensajeProl(response, function () { return CumpleOfertaFinalMostrar(response); });
         },
         error: function (data, error) {
             CerrarSplash();
+            MostrarPopupErrorReserva(mensajeSinConexionReserva, true);
         }
     });
 }
 
 function EjecutarServicioPROLSinOfertaFinal() {
     AbrirSplash();
-    analyticsGuardarValidarEnviado = false;
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/EjecutarServicioPROL',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            if (checkTimeout(response)) {
-                if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
-                RespuestaEjecutarServicioPROL(response, false);
-                MostrarMensajeProl(response);
+            CerrarSplash();
+            if (!checkTimeout(response)) return;
+            if (!response.success) {
+                MostrarPopupErrorReserva(mensajeErrorReserva, false);
+                return;
             }
+
+            if (RespuestaEjecutarServicioPROL(response.data, false)) return;
+            MostrarMensajeProl(response, function () { return false; });
         },
         error: function (data, error) {
             CerrarSplash();
+            MostrarPopupErrorReserva(mensajeSinConexionReserva, true);
         }
     });
 }
 
-function RespuestaEjecutarServicioPROL(response, inicio) {
-    CerrarSplash();
-    inicio = inicio == null || inicio == undefined ? true : inicio;
-    $("#hdfAccionPROL").val(response.data.Prol);
-    $("#hdfReserva").val(response.data.Reserva);
-    $("#hdfModificaPedido").val(response.data.EsModificacion);
-    $("#hdfZonaValida").val(response.data.ZonaValida);
-    $("#hdfPROLSinStock").val(response.data.ProlSinStock);
-    $("#hdMontoAhorroCatalogo").val(response.data.MontoAhorroCatalogo);
-    $("#hdMontoAhorroRevista").val(response.data.MontoAhorroRevista);
-    $("#hdMontoDescuento").val(response.data.MontoDescuento);
-    $("#hdMontoEscala").val(response.data.MontoEscala);
-    $("#divMensajeObservacionesPROL").html("");
+function RespuestaEjecutarServicioPROL(data, inicio) {
+    if (data.ErrorProl) {
+        MostrarPopupErrorReserva(data.ListaObservacionesProl[0].Descripcion, data.AvisoProl);
+        return true;
+    }
+    var mensajeBloqueante = true;
 
-    var mensajePedido = "";
-
-    if (!response.data.ErrorProl) {
-        if (inicio) {
-            if (!response.data.ValidacionInteractiva) {
-
-                html = '<div id="divContendor" style="border-radius: 10px;padding: 5px;border: 1px solid #ccc;background-color: #efefef;margin-bottom: 5px;">';
-                html += '<img src="/Content/Images/icons/warning.png">';
-                html += '<span id="idmensajeProl" style="padding-left:5px;"> ' + response.data.MensajeValidacionInteractiva + '</span>';
-                html += '<img id="idImagenCerrar" src="/Content/Images/icons/close.png" style="padding-left: 35px;">'
-                html += '</div>';
-                $("#divContendorPrincipal").after(html);
-                return false;
-            }
-        }
-
-        if (!response.data.ObservacionRestrictiva) {
-            mensajePedido += "Tu pedido se guardó con éxito";
-
-            if (response.data.ProlSinStock) {
-                $("#divTituloObservacionesPROL").html("¡Lo lograste! Tu pedido fue guardado con éxito");
-            }
-            else {
-                $("#divTituloObservacionesPROL").html("¡Lo lograste! Tu pedido fue guardado con éxito");
-                if (response.data.ZonaNuevoProlM == false) {
-                    $("#divMensajeObservacionesPROL").html("Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.");
-                }
-            }
-        }
-        else {
-            $("#divTituloObservacionesPROL").html(response.data.EsDiaProl ? "Importante" : "Aviso");
-
-            var html = "<ul>";
-            var msgDefault = "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
-            var msgDefaultCont = 0;
-            if (response.data.ListaObservacionesProl.length == 0) {
-                html += msgDefault;
-                mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
-            }
-            else {
-                $.each(response.data.ListaObservacionesProl, function (index, item) {
-                    if (response.data.CodigoIso == "BO" || response.data.CodigoIso == "MX") {
-                        if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
-                            item.Caso = 105;
-                        }
-                    }
-
-                    if (item.Caso == 95 || item.Caso == 105 || (item.Caso == 0 && inicio)) {
-                        html += "<li>" + item.Descripcion + "</li>";
-
-                        mensajePedido += item.Caso + " " + item.Descripcion + " ";
-                        return;
-                    }
-                                        
-                    if (msgDefaultCont == 0) html += html == "" ? msgDefault : html == msgDefault ? "" : msgDefault;
-                    msgDefaultCont++;
-                    mensajePedido += "-1" + " " + "Tu pedido tiene observaciones, por favor revísalo." + " ";
-                });
-            }
-            html += "</ul>";
-
-            $("#divMensajeObservacionesPROL").html(html);
-        }
-        mensajePedido = "-1 " + mensajePedido;
+    if (!data.ZonaValida) showDialog("divReservaSatisfactoria3");
+    else if (!data.ValidacionInteractiva) {
+        var objDiv = $('#divNoValInteractiva');
+        objDiv.find('.spnMensajeNoValInteractiva').html(data.MensajeValidacionInteractiva);
+        objDiv.show();
     }
     else {
-        mensajePedido = response.data.ListaObservacionesProl[0].Descripcion;
-        if (response.data.AvisoProl) CrearPopupAvisoReserva(mensajePedido);
-        else CrearPopupErrorReserva(mensajePedido);
+        mensajeBloqueante = false;
+
+        if (data.ObservacionRestrictiva) CrearPopupObservaciones(data, inicio);
+        else ArmarPopupObsReserva('¡Lo lograste! Tu pedido fue guardado con éxito', '');
     }
-    $("#hdfMensajePedido").val(mensajePedido);
-
-    var montoAhorro = parseFloat(response.data.MontoAhorroCatalogo) + parseFloat(response.data.MontoAhorroRevista);
-
-    $("#spnMontoGanancia").html(DecimalToStringFormat(montoAhorro));
-
-    var montoDescuento = parseFloat(response.data.MontoDescuento);
-    if (montoDescuento > 0) {
-        var htmlTexto = "";
-        htmlTexto += '<p class="monto_descuento">';
-        htmlTexto += '<span class="display: inline-block;">DESCUENTO</span><span class="icon-advertencia"></span>:';
-        htmlTexto += '</p>';
-        htmlTexto += '<p class="monto_montodescuento">';
-        htmlTexto += 'MONTO DESCUENTO :';
-        htmlTexto += '</p>';
-
-        $("#divMontosEscalaDescuentoTexto").html("");
-        $("#divMontosEscalaDescuentoTexto").html(htmlTexto);
-        $("#divMontosEscalaDescuentoTexto").css("display", "block");
-
-        var htmlMontos = "";
-        htmlMontos += '<p class="monto_descuento">';
-        htmlMontos += '<b>';
-        htmlMontos += variablesPortal.SimboloMoneda + ' <span class="num" id="spnMontoDescuento"></span>';
-        htmlMontos += '</b>';
-        htmlMontos += '</p>';
-        htmlMontos += '<p class="monto_montodescuento">';
-        htmlMontos += '<b>';
-        htmlMontos += variablesPortal.SimboloMoneda + '<span class="num" id="spnMontoEscala"></span>';
-        htmlMontos += '</b>';
-        htmlMontos += '</p>';
-
-        $("#divMontosEscalaDescuento").html("");
-        $("#divMontosEscalaDescuento").html(htmlMontos);
-
-        var totalConDescuento = Number($("#hdfTotal").val()) - montoDescuento;
-
-        $("#spnMontoDescuento").html(DecimalToStringFormat(montoDescuento));
-        $("#spnMontoEscala").html(" " + DecimalToStringFormat(totalConDescuento));
-        $("#divMontosEscalaDescuento").css("display", "block");
-    }
-    else {
-        $("#divMontosEscalaDescuentoTexto").html("");
-        $("#divMontosEscalaDescuento").html("");
-
-        $("#divMontosEscalaDescuentoTexto").css("display", "none");
-        $("#divMontosEscalaDescuento").css("display", "none");
-    }
-
-    $('#btnValidarPROL').val(response.data.Prol);
-    var tooltips = response.data.ProlTooltip.split('|');
-    $('.tooltip_importanteGuardarPedido')[0].children[0].innerHTML = tooltips[0];
-    $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
+    
+    CargarDetallePedido();
+    AlmacenarRespuestaReservaEnHidden(data);
+    ActualizarObjMontosTotales(data);
+    ActualizarBtnGuardar(data);
+    return mensajeBloqueante;
 }
 
-function MostrarMensajeProl(response) {
-    var data = response.data;
-
-    if (!analyticsGuardarValidarEnviado)
-        AnalyticsGuardarValidar(response);
-
-    if (data.Reserva) {
-        if (data.ZonaValida) {
-            if (data.ProlSinStock) {
-                showDialog("divReservaSatisfactoria3");
-                CargarDetallePedido();
-            } else {
-                $('#dialog_divReservaSatisfactoria').show(); //EPD-2278
-                AnalyticsPedidoValidado(response);
-                setTimeout(function () {
-                    location.href = baseUrl + 'Pedido/PedidoValidado';
-                }, 3000);
-            }
-        } else {
-            if (viewBagNombrePais == 'Venezuela') {
-                showDialog("divReservaSatisfactoriaVE");
-            } else {
-                if (viewBagNombrePais == 'Colombia') {
-                    showDialog("divReservaSatisfactoriaCO");
-                } else {
-                    showDialog("divReservaSatisfactoria3");
+function CrearPopupObservaciones(data, inicio) {
+    inicio = inicio == null || inicio == undefined ? true : inicio;
+    var html = "<ul>";
+    var msgDefault = "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
+    var msgDefaultCont = 0;
+    
+    if (data.ListaObservacionesProl.length == 0) html += msgDefault;
+    else {
+        $.each(data.ListaObservacionesProl, function (index, item) {
+            if (data.CodigoIso == "BO" || data.CodigoIso == "MX") {
+                if (item.Caso == 6 || item.Caso == 8 || item.Caso == 9 || item.Caso == 10) {
+                    item.Caso = 105;
                 }
             }
 
-            CargarDetallePedido();
-        }
-    } else {
-        ShowPopupObservacionesReserva(true);
-        CargarDetallePedido();
+            if (item.Caso == 95 || item.Caso == 105 || (item.Caso == 0 && inicio)) {
+                html += "<li>" + item.Descripcion + "</li>";
+                return;
+            }
+
+            if (msgDefaultCont == 0) html += html == msgDefault ? "" : msgDefault;
+            msgDefaultCont++;
+        });
     }
+    html += "</ul>";
+
+    ArmarPopupObsReserva(data.EsDiaProl ? 'Importante' : 'Aviso', html)
+}
+function AlmacenarRespuestaReservaEnHidden(data) {
+    $("#hdfAccionPROL").val(data.Prol);
+    $("#hdfReserva").val(data.Reserva);
+    $("#hdfModificaPedido").val(data.EsModificacion);
+    $("#hdfZonaValida").val(data.ZonaValida);
+    $("#hdMontoAhorroCatalogo").val(data.MontoAhorroCatalogo);
+    $("#hdMontoAhorroRevista").val(data.MontoAhorroRevista);
+    $("#hdMontoDescuento").val(data.MontoDescuento);
+    $("#hdMontoEscala").val(data.MontoEscala);
+}
+function ActualizarObjMontosTotales(data) {
+    $("#spnMontoGanancia").html(data.FormatoMontoGanancia);
+    if (parseFloat(data.MontoDescuento) > 0) {
+        $("#divMontosEscalaDescuentoTexto").html(
+            '<p class="monto_descuento">\
+                <span class="display: inline-block;">DESCUENTO</span><span class="icon-advertencia"></span>:\
+            </p>\
+            <p class="monto_montodescuento">MONTO DESCUENTO :</p>'
+        ).show();               
+
+        $("#divMontosEscalaDescuento").html(
+            '<p class="monto_descuento">\
+                <b>' + variablesPortal.SimboloMoneda + ' <span class="num" id="spnMontoDescuento">' + data.FormatoMontoDescuento + '</span></b>\
+            </p>\
+            <p class="monto_montodescuento">\
+                <b>' + variablesPortal.SimboloMoneda + ' <span class="num" id="spnMontoEscala">' + data.FormatoTotalConDescuento + '</span></b>\
+            </p>'
+        ).show();
+    }
+    else {
+        $("#divMontosEscalaDescuentoTexto").html('').hide();
+        $("#divMontosEscalaDescuento").html('').hide();
+    }
+}
+function ActualizarBtnGuardar(data) {
+    var tooltips = data.ProlTooltip.split('|');
+    $('.tooltip_importanteGuardarPedido')[0].children[0].innerHTML = tooltips[0];
+    $('.tooltip_importanteGuardarPedido')[0].children[1].innerHTML = tooltips[1];
+    $('#btnValidarPROL').val(data.Prol);
+}
+
+function MostrarMensajeProl(response, fnOfertaFinal) {
+    AnalyticsGuardarValidar(response);
+    var cumpleOferta = fnOfertaFinal(response);
+    if (cumpleOferta) return;
+
+    if (!response.data.Reserva) {
+        ShowPopupObservacionesReserva();
+        return;
+    }
+
+    EjecutarAccionesReservaExitosa(response);
+}
+function EjecutarAccionesReservaExitosa(response) {
+    if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
+    AnalyticsPedidoValidado(response);
+    $('#dialog_divReservaSatisfactoria').show();
+    RedirigirPedidoValidado();
 }
 
 function EliminarPedido() {
@@ -2433,26 +2299,17 @@ function AceptarObsInformativas() {
         contentType: 'application/json; charset=utf-8',
         async: true,
         success: function (data) {
-            if (checkTimeout(data)) {
-                if (data.success == true) {
-                    if ($('#hdfPROLSinStock').val() == 'True') {
-                        $('#divObservacionesPROL').dialog('close');
-                        showDialog("divReservaSatisfactoria3");
-                        $("#divReservaSatisfactoria3").siblings(".ui-dialog-titlebar").hide();
-                        CargarDetallePedido();
-                    } else
-                        location.href = baseUrl + 'Pedido/PedidoValidado';
-                } else {
-                    AbrirMensaje(data.message);
-                }
-            }
             CerrarSplash();
+            if (!checkTimeout(data)) return;
+
+            if (data.success) location.href = baseUrl + 'Pedido/PedidoValidado';
+            else AbrirMensaje(data.message);
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                CerrarSplash();
-                AbrirMensaje("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
-            }
+            CerrarSplash();
+            if (!checkTimeout(data)) return;
+
+            AbrirMensaje("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
         }
     });
 }
@@ -3648,21 +3505,27 @@ function ProcesarActualizacionMostrarContenedorCupon() {
     }
 }
 
-function CrearPopupErrorReserva(mensajePedido) {
-    $("#divTituloObservacionesPROL").html("Error");
-    $("#divMensajeObservacionesPROL").html("ERROR: " + mensajePedido);
+function ArmarPopupObsReserva(titulo, mensaje) {
+    $("#divTituloObservacionesPROL").html(titulo);
+    $("#divMensajeObservacionesPROL").html(mensaje);
+}
+function MostrarPopupErrorReserva(mensajePedido, esAviso) {
+    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
+
+    if (esAviso) ArmarPopupObsReserva('Aviso', mensajePedido);
+    else ArmarPopupObsReserva('Error', 'ERROR: ' + mensajePedido);
+
+    ShowPopupObservacionesReserva();
 }
 
-function CrearPopupAvisoReserva(mensajePedido) {
-    $("#divTituloObservacionesPROL").html("Aviso");
-    $("#divMensajeObservacionesPROL").html(mensajePedido);
-}
-
-function ShowPopupObservacionesReserva(mostrarBoton) {
-    $('#DivObsBut').css({ "display": (mostrarBoton ? "block" : "none") });
-    $('#DivObsInfBut').css({ "display": (!mostrarBoton ? "block" : "none") });
-
+function ShowPopupObservacionesReserva() {
     showDialog("divObservacionesPROL");
     $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
 }
 
+function RedirigirPedidoValidado() {
+    setTimeout(function () {
+        AbrirSplash();
+        location.href = baseUrl + 'Pedido/PedidoValidado';
+    }, 3000);
+}

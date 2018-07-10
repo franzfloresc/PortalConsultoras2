@@ -7,7 +7,7 @@ namespace Portal.Consultoras.BizLogic
     {
         public BLHorario() { }
 
-        public BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible)
+        public BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible = true)
         {
             var dAHorario = new DAHorario(paisID);
             var horario = dAHorario.GetHorarioByCodigo(codigo);
