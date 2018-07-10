@@ -1870,10 +1870,14 @@ namespace Portal.Consultoras.Web.Controllers
                         // verifica si esta activado el tooltip
                         if (TippingPoint.ActiveTooltip == true)
                         {
-                            var estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID,
+                            ServicePedido.BEEstrategia estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID,
                                                                                Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo,
                                                                                userData.CampaniaID,
                                                                                nivel);
+
+                            TippingPoint.ActiveTooltip = estrategia == null ? false : TippingPoint.ActiveTooltip;
+                            TippingPoint.ActiveMonto = estrategia == null ? false : TippingPoint.ActiveMonto;
+                            TippingPoint.Active = estrategia == null ? false : TippingPoint.Active;
 
                             TippingPoint.CampaniaID = estrategia == null ? default(int) : estrategia.CampaniaID;
                             TippingPoint.CampaniaIDFin = estrategia == null ? default(int) : estrategia.CampaniaIDFin;
@@ -1886,7 +1890,7 @@ namespace Portal.Consultoras.Web.Controllers
                             TippingPoint.Precio2 = estrategia == null ? default(decimal) : estrategia.Precio2;
                             TippingPoint.PrecioPublico = estrategia == null ? default(decimal) : estrategia.PrecioPublico;
                             TippingPoint.PrecioUnitario = estrategia == null ? default(decimal) : estrategia.PrecioUnitario;
-                            TippingPoint.LinkURL = estrategia == null ? default(string) : getUrlTippingPoint(estrategia.ImagenURL);
+                            TippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
                         }
                     }
                 }
@@ -1904,7 +1908,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string getUrlTippingPoint(string noImagen)
         {
-            string url = string.Format
+            /*
+              string url = string.Format
                         ("{0}/{1}/{2}/{3}/{4}/{5}",
                             GetConfiguracionManager(Constantes.ConfiguracionManager.URL_S3),
                             GetConfiguracionManager(Constantes.ConfiguracionManager.BUCKET_NAME),
@@ -1913,6 +1918,9 @@ namespace Portal.Consultoras.Web.Controllers
                             userData.CodigoISO ?? "",
                             noImagen ?? ""
                          );
+             */
+            string urlExtension = string.Format("{0}/{1}", GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""), userData.CodigoISO ?? "");
+            string url = ConfigS3.GetUrlFileS3(urlExtension, noImagen ?? "");
             return url;
         }
 
@@ -1945,7 +1953,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return resultado;
         }
-
 
         public BarraConsultoraModel GetDataBarra(bool inEscala = true, bool inMensaje = false, bool Agrupado = false)
         {
