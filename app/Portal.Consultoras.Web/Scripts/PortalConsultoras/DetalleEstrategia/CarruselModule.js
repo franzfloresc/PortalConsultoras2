@@ -15,6 +15,10 @@
         idTituloCarrusel: config.idTituloCarrusel
     };
 
+    var _variable = {
+        cantidadProdCarrusel: 0
+    };
+
     var _promiseObternerDataCarrusel = function (params) {
         var dfd = $.Deferred();
         $.ajax({
@@ -71,6 +75,7 @@
             }
         });
 
+        _variable.cantidadProdCarrusel = setRelacionados.length;
         if (setRelacionados.length == 0) {
             return false;
         }
@@ -96,29 +101,32 @@
         };
 
         var widthDimamico = !isMobile();
+        
+        if ((widthDimamico && _variable.cantidadProdCarrusel > 2) || !widthDimamico) {
 
-        $(_elementos.divCarruselSetsProductosRelacionados + '.slick-initialized').slick('unslick');
-        $(_elementos.divCarruselSetsProductosRelacionados).not('.slick-initialized').slick({
-            dots: false,
-            infinite: true,
-            speed: 260,
-            slidesToShow: 2,
-            slidesToScroll: 1,
-            variableWidth: widthDimamico,
-            prevArrow: slickArrows[platform].prev,
-            nextArrow: slickArrows[platform].next,
-            responsive: [
-                {
-                    breakpoint: 480,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                        infinite: true
+            $(_elementos.divCarruselSetsProductosRelacionados + '.slick-initialized').slick('unslick');
+            $(_elementos.divCarruselSetsProductosRelacionados).not('.slick-initialized').slick({
+                dots: false,
+                infinite: true,
+                speed: 260,
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                variableWidth: widthDimamico,
+                prevArrow: slickArrows[platform].prev,
+                nextArrow: slickArrows[platform].next,
+                //centerMode: true,
+                responsive: [
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            infinite: true
+                        }
                     }
-                }
-            ]
-        });
-
+                ]
+            });
+        }
         $(_elementos.divProductosRelacionados).fadeIn();
     }
 
