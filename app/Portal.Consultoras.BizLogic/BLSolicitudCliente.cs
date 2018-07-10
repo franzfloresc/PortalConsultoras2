@@ -47,15 +47,15 @@ namespace Portal.Consultoras.BizLogic
 
                     string fechaFormato = String.Format("{0} {1} de {2} - {3}", dia, fechaMaxima.ToString("dd"), mes, fechaMaxima.ToString("hh:mm tt"));
                     string carpetaPais = "Correo/CCC";
-                    string spacerGif = ConfigS3.GetUrlFileS3(carpetaPais, "spacer.gif", string.Empty);
+                    string spacerGif = ConfigCdn.GetUrlFileCdn(carpetaPais, "spacer.gif");
 
                     mensajeCorreo.AppendLine("<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"20\" align=\"center\" bgcolor=\"#f6f7f9\" style=\"font-family:Arial, sans-serif;\">");
                     mensajeCorreo.AppendLine("<tr>");
                     mensajeCorreo.AppendLine("<td style=\"text-align:center;\">");
                     mensajeCorreo.AppendLine("<table id=\"Table_01\" width=\"682\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" bgcolor=\"#ffffff\" style=\"color:#768ea3;\">");
-                    mensajeCorreo.AppendLine(String.Format("<tr><td colspan=\"7\"><img src=\"{0}\" width=\"682\" height=\"117\" alt=\"\"></td><tr>", ConfigS3.GetUrlFileS3(carpetaPais, "1-Mailing_01.png", string.Empty)));
+                    mensajeCorreo.AppendLine(String.Format("<tr><td colspan=\"7\"><img src=\"{0}\" width=\"682\" height=\"117\" alt=\"\"></td><tr>", ConfigCdn.GetUrlFileCdn(carpetaPais, "1-Mailing_01.png")));
                     mensajeCorreo.AppendLine("<tr>");
-                    mensajeCorreo.AppendLine(String.Format("<td><img src=\"{0}\" width=\"54\" height=\"148\" alt=\"\"></td>", ConfigS3.GetUrlFileS3(carpetaPais, "1-Mailing_03.png", string.Empty)));
+                    mensajeCorreo.AppendLine(String.Format("<td><img src=\"{0}\" width=\"54\" height=\"148\" alt=\"\"></td>", ConfigCdn.GetUrlFileCdn(carpetaPais, "1-Mailing_03.png")));
                     mensajeCorreo.AppendLine("<td colspan=\"3\" style=\"text-align:left; padding-top:50px; padding-bottom:20px; font-size:18px;\">");
                     mensajeCorreo.AppendLine(String.Format("Hola, {0}<br/><br/>", consultoraSolicitudCliente.Nombre));
                     mensajeCorreo.AppendLine("¡Un nuevo cliente te ha elegido como su Consultora para");
@@ -67,21 +67,20 @@ namespace Portal.Consultoras.BizLogic
                     mensajeCorreo.AppendLine("Atiende su pedido y conviértete en su Consultora, ¡crear");
                     mensajeCorreo.AppendLine("una excelente relación depende de ti!");
                     mensajeCorreo.AppendLine("</td>");
-                    mensajeCorreo.AppendLine(String.Format("<td colspan=\"3\"><img src=\"{0}\" width=\"71\" height=\"148\" alt=\"\"></td>", ConfigS3.GetUrlFileS3(carpetaPais, "1-Mailing_05.png", string.Empty)));
+                    mensajeCorreo.AppendLine(String.Format("<td colspan=\"3\"><img src=\"{0}\" width=\"71\" height=\"148\" alt=\"\"></td>", ConfigCdn.GetUrlFileCdn(carpetaPais, "1-Mailing_05.png")));
                     mensajeCorreo.AppendLine("</tr>");
                     mensajeCorreo.AppendLine("<tr>");
-                    mensajeCorreo.AppendLine("<td colspan=\"7\" style=\"text-align:center; padding-top:30px; padding-bottom:50px\">");
-
-                    mensajeCorreo.AppendLine(String.Format("			<a href=\"{0}Pedido/Index?lanzarTabConsultoraOnline=true\" target=\"_blank\"><img src=\"{1}\" width=\"201\" height=\"38\" border=\"0\" alt=\"Ver pedido\"></a>", contextoBase, ConfigS3.GetUrlFileS3(carpetaPais, "7-Mailing_03.png", string.Empty)));
+                    mensajeCorreo.AppendLine("<td colspan=\"7\" style=\"text-align:center; padding-top:30px; padding-bottom:50px\">");                    
+                    mensajeCorreo.AppendLine(String.Format("			<a href=\"{0}Pedido/Index?lanzarTabConsultoraOnline=true\" target=\"_blank\"><img src=\"{1}\" width=\"201\" height=\"38\" border=\"0\" alt=\"Ver pedido\"></a>", contextoBase, ConfigCdn.GetUrlFileCdn(carpetaPais, "7-Mailing_03.png")));
                     mensajeCorreo.AppendLine("</td>");
                     mensajeCorreo.AppendLine("</tr>");
                     mensajeCorreo.AppendLine("<tr>");
                     mensajeCorreo.AppendLine("<td colspan=\"7\" style=\"background-color:#acbbc9;\">");
-                    mensajeCorreo.AppendLine(String.Format("<img src=\"{0}\" width=\"611\" height=\"30\" alt=\"\" align=\"left\">", ConfigS3.GetUrlFileS3(carpetaPais, "1-Mailing_12.png", string.Empty)));
+                    mensajeCorreo.AppendLine(String.Format("<img src=\"{0}\" width=\"611\" height=\"30\" alt=\"\" align=\"left\">", ConfigCdn.GetUrlFileCdn(carpetaPais, "1-Mailing_12.png")));
                     mensajeCorreo.AppendLine("<a href=\"http://www.facebook.com/SomosBelcorpOficial\" target=\"_blank\">");
-                    mensajeCorreo.AppendLine(String.Format("<img src=\"{0}\" width=\"26\" height=\"30\" border=\"0\" alt=\"Facebook\" align=\"left\"></a>", ConfigS3.GetUrlFileS3(carpetaPais, "Facebook.png", string.Empty)));
+                    mensajeCorreo.AppendLine(String.Format("<img src=\"{0}\" width=\"26\" height=\"30\" border=\"0\" alt=\"Facebook\" align=\"left\"></a>", ConfigCdn.GetUrlFileCdn(carpetaPais, "Facebook.png")));
                     mensajeCorreo.AppendLine("<a href=\"https://www.youtube.com/user/somosbelcorp\" target=\"_blank\">");
-                    mensajeCorreo.AppendLine(String.Format("<img src=\"{0}\" width=\"27\" height=\"30\" border=\"0\" alt=\"Youtube\" align=\"left\"></a>", ConfigS3.GetUrlFileS3(carpetaPais, "Youtube.png", string.Empty)));
+                    mensajeCorreo.AppendLine(String.Format("<img src=\"{0}\" width=\"27\" height=\"30\" border=\"0\" alt=\"Youtube\" align=\"left\"></a>", ConfigCdn.GetUrlFileCdn(carpetaPais, "Youtube.png")));
                     mensajeCorreo.AppendLine("</td>");
                     mensajeCorreo.AppendLine("</tr>");
                     mensajeCorreo.AppendLine("<tr>");

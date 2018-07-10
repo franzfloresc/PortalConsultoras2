@@ -49,6 +49,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.UsuarioPrueba = userData.UsuarioPrueba;
                 model.CodigoUsuarioReal = userData.CodigoUsuario;
                 model.NombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
+                model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
 
                 BEZona[] bezona;
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())

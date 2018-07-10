@@ -1,4 +1,4 @@
-USE BelcorpBolivia
+﻿USE BelcorpBolivia
 GO
 ALTER PROCEDURE dbo.ActualizarInsertarPuntosConcurso
 @CodigoConsultora VARCHAR(15),
