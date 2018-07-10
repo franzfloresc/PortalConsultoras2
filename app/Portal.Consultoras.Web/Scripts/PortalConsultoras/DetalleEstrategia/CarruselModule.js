@@ -49,13 +49,13 @@
         var campaniaId = _config.campania;
 
         if (cuv == "" || campaniaId == "" || campaniaId == "0") {
-            return false;
+            return setRelacionados;
         }
 
         var str = LocalStorageListado("LANLista" + campaniaId, "", 1) || "";
 
         if (str === '') {
-            return false;
+            return setRelacionados;
         }
 
         var lista = JSON.parse(str).response.listaLan;
@@ -70,15 +70,9 @@
 
         $.each(lista, function (index, lanzamiento) {
             if (cuv != lanzamiento.CUV2 && lanzamiento.CodigoProducto === codigoProducto) {
-
                 setRelacionados.push(lanzamiento);
             }
         });
-
-        _variable.cantidadProdCarrusel = setRelacionados.length;
-        if (setRelacionados.length == 0) {
-            return false;
-        }
 
         return setRelacionados;
     }
@@ -101,7 +95,9 @@
         };
 
         var widthDimamico = !isMobile();
-        
+
+        $(_elementos.divProductosRelacionados).fadeIn();
+
         if ((widthDimamico && _variable.cantidadProdCarrusel > 2) || !widthDimamico) {
 
             $(_elementos.divCarruselSetsProductosRelacionados + '.slick-initialized').slick('unslick');
@@ -127,7 +123,6 @@
                 ]
             });
         }
-        $(_elementos.divProductosRelacionados).fadeIn();
     }
 
     var _ocultarElementos = function () {
@@ -161,7 +156,6 @@
 
         if (_config.palanca == ConstantesModule.CodigosPalanca.Lanzamiento) {
             data.lista = _cargarDatos();
-            SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
         }
         else if (
             (_config.palanca == ConstantesModule.CodigosPalanca.ShowRoom)
@@ -176,11 +170,17 @@
                 if (response) {
                     if (response.success) {
                         data.lista = response.data;
-                        SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
                     }
                 }
             });
 
+        }
+
+        if (data.lista.length > 0) {
+            _variable.cantidadProdCarrusel = data.lista.length;
+            SetHandlebars(_elementos.idPlantillaProductoLanding, data, _elementos.divCarruselSetsProductosRelacionados);
+            _mostrarTitulo();
+            _mostrarSlicks();
         }
     };
 
@@ -188,8 +188,6 @@
 
         _ocultarElementos();
         _mostrarCarrusel();
-        _mostrarTitulo();
-        _mostrarSlicks();
 
     }
 
