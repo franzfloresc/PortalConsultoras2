@@ -45,8 +45,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 
         public string BotonPROL { get; set; }
 
-        public string MensajeGuardarCO { get; set; }
-
         public int EstadoPedido { get; set; }
 
         public int CantidadProductos { get; set; }
