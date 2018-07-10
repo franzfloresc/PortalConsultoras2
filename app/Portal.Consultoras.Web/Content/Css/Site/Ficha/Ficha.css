@@ -265,7 +265,6 @@ body {
 
 .contenedor_lista_detalle {
     float: left;
-    min-height: 186px;
     width: 100%;
     margin-bottom:45px;
 }
@@ -791,7 +790,15 @@ body {
     background: url('/Content/Images/mobile/Esika/down-arrow.svg');
     background-position: right 15px center;
     background-repeat: no-repeat;
-    background-size: 14px;
+    background-size: 13px;
+    cursor: pointer;
+}
+
+.tono_por_elegir {
+    background: url('/Content/Images/mobile/Esika/top-arrow.svg');
+    background-position: right 15px center;
+    background-repeat: no-repeat;
+    background-size: 13px;
 }
 
 .texto_tono_seleccionado {
@@ -815,9 +822,12 @@ body {
     top: 43px;
 }
 
-.content_tonos_select > div:last-child{
-    margin-bottom:15px;
+.content_tono_detalle{
+    cursor: pointer;
+}
 
+.content_tonos_select > div:last-child {
+    margin-bottom: 15px;
 }
 
 .content_tonos_select .content_tono_elegido {
@@ -838,4 +848,8 @@ margin-bottom: 45px;
 
 .borde_seleccion_tono {
     border: 0;
+}
+
+#SloganLanzamientos, #SloganPackNuevas{
+    margin-bottom: 45px;
 }
