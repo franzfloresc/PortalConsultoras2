@@ -1,0 +1,864 @@
+﻿/* ICONOS ICOMOON */
+
+@font-face {
+    font-family: 'icomoon';
+    src: url('../fonts/icomoon/icomoon.eot?ur7cdc');
+    src: url('../fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'),
+        url('../fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'),
+        url('../fonts/icomoon/icomoon.woff?ur7cdc') format('woff'),
+        url('../fonts/icomoon/icomoon.svg?ur7cdc#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^='icon-'], [class*=' icon-'] {
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* FIN - ICONOS ICOMOON */
+
+/* HELPERS */
+
+a{
+    cursor:pointer;
+}
+
+input:focus{
+    outline:0;
+}
+
+fieldset{
+    border:none!important;
+}
+
+.clear{
+    clear:both;
+}
+
+.text-uppercase{
+    text-transform:uppercase;
+}
+
+.text-left{
+    text-align:left;
+}
+
+.text-right{
+    text-align:right;
+}
+
+.text-center{
+    text-align:center;
+}
+
+.text-bold{
+    font-weight:bold;
+}
+
+.mt-23{
+    margin-top:23px;
+}
+
+.mt-31{
+    margin-top:31px;
+}
+
+.mb-7{
+    margin-bottom:7px;
+}
+
+.mb-10{
+    margin-bottom:10px;
+}
+
+.mb-13{
+    margin-bottom:13px;
+}
+
+.mb-20{
+    margin-bottom:20px;
+}
+
+.mb-31{
+    margin-bottom:31px;
+}
+
+.mb-35{
+    margin-bottom:35px;
+}
+
+.mb-45{
+    margin-bottom:45px;
+}
+
+.mb-50{
+    margin-bottom:50px;
+}
+
+.mb-61{
+    margin-bottom:61px!important;
+}
+
+.w-18{
+    width:18%;
+}
+
+.w-50{
+    width:50%;
+    margin-right:-2px;
+}
+
+.w-82{
+    width:82%;
+}
+
+.w-100{
+    width:100%;
+}
+
+.block{
+    display:block;
+}
+
+.inline-block{
+    display:inline-block;
+}
+
+.v-alignMiddle{
+    vertical-align:middle!important;
+}
+
+.v-alignBottom{
+    vertical-align:bottom;
+}
+
+.center-block{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.font-size-17{
+    font-size:17px;
+}
+
+/* FIN - HELPERS */
+
+/* RESTABLECE TU CONTRASEÑA, VERIFICA TU AUTENTICIDAD */
+
+header,
+footer,
+.SubHeader,
+.showroom_banner_inferior
+{
+    display:none;
+}
+
+html,
+body
+{
+    height:auto;
+    box-sizing:border-box;
+    font-family:'Lato', sans-serif;
+    margin:0;
+}
+
+a{
+    color:#000;
+    text-decoration:none;
+}
+
+#contentmain{
+    margin-top:31px!important;
+}
+
+.fondo_f9f9f9 {
+    background: #FFF;
+    width: 100%;
+    overflow: initial;
+}
+
+.content_belcorp {
+    max-width: 1189px;
+    margin: 0 auto;
+    height: auto;
+    position: relative;
+    font-family: 'Lato';
+}
+
+.fondo_negro_lateral {
+    display:none;
+    height: 50px;
+    position: absolute;
+    left: -45%;
+    background: black;
+    z-index: -0;
+    width: 50%;
+}
+
+.titulo_interiores {
+    padding-right: 50px;
+    float: left;
+    background: none;
+    background-position: right top;
+    height: 50px;
+    font-family: 'lato';
+    font-size: 13pt;
+    font-weight: 300;
+    color: #000;
+    line-height: 50px;
+    letter-spacing: .5px;
+    position: relative;
+    z-index: 5;
+}
+
+.pestana_lbel {
+    background: white url(../../../Images/Lbel/pestana_lbel.png) no-repeat left bottom;
+    background-size: cover;
+    width: 30px;
+    height: 20px;
+    margin-left: 23px;
+    margin-top: 0;
+    margin-bottom: 0;
+    position: absolute;
+    left: 0;
+    bottom: -18px;
+}
+
+.linea_separadora {
+    width: 100%;
+    height: 1px;
+    background: black;
+}
+
+.w-18,
+.w-82
+{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.vista_flujo_restablecer_contrasenia{
+    background-color:#FFF;
+    padding:37px;
+    font-size:14px;
+    height:auto;
+}
+
+.wrapper_content_restablecer_contrasenia,
+.wrapper_content_verificacion_autenticidad
+{
+    width:520px;
+    height:auto;
+}
+
+.enlace_volver_a_mi_perfil{
+    width:100%;
+    margin-bottom:11px;
+}
+
+    .enlace_volver_a_mi_perfil .enlace_texto{
+        margin-top:-6px;
+        font-size:13px;
+    }
+
+.icono_back_arrow{
+    width:18px;
+    height:21px;
+    margin-top:1px;
+    margin-right:8.5px;
+}
+
+.icono_back_arrow img{
+    width:100%;
+    height:auto;
+}
+
+.enlace_texto:hover{
+    text-decoration:underline;
+}
+
+.form_completar_datos,
+.opciones_verificacion_autenticidad,
+.revisa_tu_correo,
+.revisa_tu_celular,
+.celular_validado,
+.correo_validado,
+.no_te_saltes_este_paso
+{
+    background-color:#FFF;
+    min-height:355px;
+}
+
+.form_completar_datos,
+.revisa_tu_celular,
+.celular_validado,
+.revisa_tu_correo,
+.correo_validado,
+.no_te_saltes_este_paso
+{
+    padding:45px 115px 48px;
+}
+
+.completar_datos_texto{
+    margin-bottom:33px;
+}
+
+.grupo_form_cambio_datos{
+    margin-bottom:15px;
+    position:relative;
+    height:64px;
+}
+    
+    .grupo_form_cambio_datos label{
+        cursor:default;
+        position:absolute;
+        top:22px;
+        left:27px;
+        font-size:15px;
+    }
+
+    .grupo_form_cambio_datos label,
+    .campo_con_datos label,
+    .grupo_form_cambio_datos select + label
+    {
+        color:rgba(0,0,0,0.4);
+    }
+
+    .grupo_form_cambio_datos label,
+    .grupo_form_cambio_datos input,
+    .grupo_form_cambio_datos select
+    {
+        font-family:'Lato', sans-serif;
+        -moz-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+    }
+
+    .grupo_form_cambio_datos input,
+    .grupo_form_cambio_datos select
+    {
+        background-color:transparent;
+        margin-top:18px;
+        font-size: 15px;
+        font-weight: 400;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        color: #000;
+        border-bottom: 1px solid rgba(0,0,0,0.4);
+        padding-top: 8px;
+        padding-bottom: 9px;
+        padding-right:40px;
+        position:relative;
+        z-index:2;
+    }
+
+    .grupo_form_cambio_datos input:focus + label,
+    .campo_con_datos + label,
+    .grupo_form_cambio_datos select + label
+    {
+        top:-3px;
+        left:0;
+        font-size:12px;
+    }
+
+    .grupo_form_cambio_datos input:focus + label,
+    .grupo_form_cambio_datos select:focus + label
+    {
+        color:rgba(0,0,0,1);
+    }
+
+    .grupo_form_cambio_datos input:focus,
+    .grupo_form_cambio_datos select:focus
+    {
+        border-bottom:1px solid rgba(0,0,0,1);
+    }
+
+.campo_codigo_consultora_o_dni,
+.campo_lista_paises
+{
+    padding-left:27px;
+}
+
+.campo_lista_paises{
+    background:url('../../../Images/Login2/Banderas/PE.png') left center no-repeat, url('../../../Images/Login2/Icons/arrow-select.svg') right 16px no-repeat;
+    -webkit-appearance:none;
+}
+
+.icono_user{
+    position:absolute;
+    bottom:15px;
+    left:0;
+    width:22px;
+}
+
+.icono_user:before{
+    font-family: 'icomoon';
+    content: '\e903';
+    font-size: 20px;
+    color: #949494;
+    font-weight:600;
+}
+
+.enlace_cancelar{
+    text-decoration: underline;
+    padding-top: 27px;
+    width: 72px;
+    font-size:12.5px;
+}
+
+.btn_continuar{
+    width:153px;
+}
+
+.btn_continuar,
+.enlace_ir_a_somos_belcorp,
+.enlace_continuar_verificacion
+{
+    height: 45px;
+    color: #FFF;
+    border: none;
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.9px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    cursor:pointer;
+}
+
+    .btn_continuar:hover,
+    .enlace_ir_a_somos_belcorp:hover,
+    .enlace_continuar_verificacion:hover
+    {
+        background-color: rgba(100, 47, 128, 0.8);
+    }
+
+.opciones_verificacion_autenticidad{
+    padding:45px 70px 48px;
+}
+
+.texto_verificacion_datos{
+    margin-bottom:4px;
+}
+
+.texto_verificacion_datos:last-child{
+    margin-top:15px;
+}
+
+.lista_opciones_verificacion_autenticidad{
+    margin-top:29.5px;
+    margin-bottom:54px;
+    width:318px;
+}
+
+.opcion_verificacion_autenticidad {
+    background-color:#FFF;
+    border: 1px solid #E7E1E1;
+    padding: 15px 24px;
+    min-height: 38px;
+    -moz-box-shadow: 0 8px 11px -7px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 8px 11px -7px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 11px -7px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    cursor:pointer;
+}
+
+    .opcion_verificacion_autenticidad:hover,
+    .opcion_verificacion_autenticidad:focus,
+    .opcion_verificacion_autenticidad:active
+    {
+        background-color:#fbfbfb;
+        text-decoration:none;
+        color:#000;
+        -moz-box-shadow: 0 4px 11px -7px rgba(0, 0, 0, 0.9);
+        -webkit-box-shadow: 0 4px 11px -7px rgba(0, 0, 0, 0.9);
+        box-shadow: 0 4px 11px -7px rgba(0, 0, 0, 0.9);
+    }
+
+    .opcion_verificacion_autenticidad:first-child{
+        margin-bottom:27px;
+    }
+
+.datos_verificacion_autenticidad > div:first-child,
+.texto_alternativa_call_center
+{
+    font-size:12px;
+}
+
+.datos_verificacion_autenticidad > div:last-child{
+    font-size:14px;
+}
+
+.icono_opcion_verificacion_autenticidad{
+    margin-right:8px;
+}
+
+.icono_opcion_correo{
+    width: 48px;
+    height: 29px;
+    background-image: url(../../../Images/Login2/Icons/icono-mail-lbel.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50px;
+}
+
+.icono_opcion_sms{
+    width: 47px;
+    height: 39px;
+    background-image: url(../../../Images/Login2/Icons/icono-mensaje-sms-lbel.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 45px;
+}
+
+.enlace_call_center,
+.enlace_actualizar_contrasenia,
+.enlace_no_deseo_ingresar
+{
+    text-decoration:underline;
+}
+
+.titulo_revisa_tu_celular,
+.titulo_celular_validado,
+.titulo_revisa_tu_correo,
+.titulo_correo_validado
+{
+    font-family:'Lato', sans-serif;
+    color:#000;
+    font-weight:300!important;
+}
+
+.titulo_revisa_tu_celular{
+    font-size:21px;
+}
+
+.icono_correo_sobre,
+.icono_mensaje_sms
+{
+    margin-bottom:13.5px;
+    background-size:100%;
+}
+
+.icono_mensaje_sms{
+    width:71px;
+    height:50px;
+    background-image:url('../../../Images/Lbel/icono_sms.svg');
+}
+
+.envio_instrucciones_info,
+.mensaje_celular_validado,
+.mensaje_correo_validado
+{
+    font-size:14px;
+    line-height:18px;
+    margin-top:0;
+    margin-left:0;
+    margin-right:0;
+    padding:0;
+}
+
+.texto_ingreso_codigo{
+    font-size:14px;
+}
+
+.campos_ingreso_codigo_sms{
+    margin-bottom:15px;
+    position:relative;
+    width:248px;
+}
+
+.campo_ingreso_codigo_sms{
+    width:35px;
+    height:37px;
+    font-family:'Lato', sans-serif;
+    font-size:24px;
+    font-weight:400;
+    color:#000;
+    border-top:none;
+    border-left:none;
+    border-right:none;
+    border-bottom:2px solid #000;
+    margin-right:4px;
+}
+
+    .campo_ingreso_codigo_sms:last-child{
+        margin-right:0;
+    }
+
+.codigo_sms_caducidad{
+    margin-bottom:8.4px;
+}
+
+.icono_validacion_codigo_sms{
+    display:none;
+    width:24px;
+    height:24px;
+    border-radius:100%;
+    border-width:1.5px;
+    border-style:solid;
+    position:absolute;
+    bottom:8px;
+    right:-20px;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+.validacion_erronea{
+    border-color:#e81c36;
+    background-image:url("../../../Images/icono_validacion_codigo_sms_erroneo.svg");
+    background-position:6px 6px;
+}
+
+.validacion_exitosa{
+    border-color:#66A231;
+    background-image:url("../../../Images/icono_validacion_codigo_sms_correcto.svg");
+}
+
+.enlace_reenviar_instrucciones,
+.enlace_cambiar_correo
+{
+    text-decoration:underline;
+}
+
+.enlace_reenviar_instrucciones{
+    font-size:13px;
+}
+
+.cambiar_correo_info{
+    margin-bottom:0;
+    font-size:12px;
+}
+
+.enlace_cambiar_correo{
+    margin-left:5px;
+}
+
+.titulo_celular_validado,
+.titulo_revisa_tu_correo,
+.titulo_correo_validado
+{
+    font-size:24px;
+}
+
+.titulo_celular_validado,
+.titulo_correo_validado
+{
+    margin-bottom:30px;
+}
+
+.icono_validacion_celular_exitosa,
+.icono_validacion_correo_exitoso
+{
+    width:50px;
+    height:50px;
+    margin-bottom:15px;
+    background-image:url("../../../Images/Lbel/icono_check_lbel.svg");
+    background-size:100%;
+}
+
+.enlace_ir_a_somos_belcorp,
+.enlace_continuar_verificacion
+{
+    line-height:45px;
+}
+
+.enlace_ir_a_somos_belcorp{
+    width:194px;
+}
+
+.enlace_continuar_verificacion{
+    width:231px;
+}
+
+.enlace_actualizar_contrasenia,
+.enlace_no_deseo_ingresar
+{
+    font-size:13px;
+}
+
+.icono_correo_sobre{
+    width:78px;
+    height:46px;
+    background-image:url('../../../Images/Lbel/icono_envelope.svg');
+}
+
+.enlace_volver_mobile{
+    display:none;
+}
+
+@media screen and (max-width:991px){
+
+    /* HELPERS MOBILE */
+
+    .mb-15-mobile{
+        margin-bottom:15px;
+    }
+
+    .mb-20-mobile{
+        margin-bottom:20px;
+    }
+
+    .mb-33-mobile{
+        margin-bottom:33px;
+    }
+
+    .mt-15-mobile{
+        margin-top:15px;
+    }
+
+    .mt-20-mobile{
+        margin-top:20px;
+    }
+
+    .mt-40-mobile{
+        margin-top:40px;
+    }
+
+    .w-40-mobile{
+        width:40%;
+    }
+
+    .w-60-mobile{
+        width:60%;
+    }
+
+    .w-85-mobile{
+        width:85%;
+    }
+
+    /* FIN - HELPERS MOBILE */
+
+    body,
+    .vista_flujo_restablecer_contrasenia
+    {
+        background-color:#FFF;
+    }
+
+    #contentmain{
+        margin-top:0!important;
+    }
+
+    .fondo_f9f9f9{
+        background:#000;
+    }
+
+    .titulo_interiores{
+        width: 100%;
+        height:54px;
+        padding-left: 15px;
+        padding-right:15px;
+        background: transparent;
+        font-weight:700;
+    }
+
+    .titulo_interiores,
+    .titulo_interiores span{
+        font-size:15px;
+    }
+
+    .enlace_volver_a_mi_perfil,
+    .CMXD-btn-help
+    {
+        display:none;
+    }
+
+    .vista_flujo_restablecer_contrasenia{
+        height:auto;
+        padding:0;
+    }
+
+    .wrapper_content_restablecer_contrasenia,
+    .wrapper_content_verificacion_autenticidad
+    {
+        width:85%;
+    }
+
+    .form_completar_datos,
+    .revisa_tu_celular,
+    .celular_validado,
+    .revisa_tu_correo,
+    .correo_validado,
+    .opciones_verificacion_autenticidad
+    {
+        padding:20px 0;
+    }
+
+    .enlace_cancelar{
+        padding-top:0;
+    }
+
+    .btn_continuar {
+        margin-top:0;
+    }
+
+    .lista_opciones_verificacion_autenticidad{
+        width:auto;
+        margin-bottom:27px;
+    }
+
+    .opcion_verificacion_autenticidad{
+        padding:15px;
+    }
+
+    .texto_alternativa_call_center{
+        text-align:center;
+        width:200px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    .codigo_sms_caducidad{
+        margin-bottom:0;
+    }
+
+    .enlace_volver_mobile{
+        display:inline-block;
+        width:18px;
+        height:21px;
+        text-decoration:none;
+        margin-right:6px;
+    }
+
+        .enlace_volver_mobile:hover{
+            text-decoration:none;
+        }
+
+        .enlace_volver_mobile img{
+            width: 100%;
+            height: auto;
+            position: relative;
+            top: -12px;
+        }
+
+}
+
+.deshabilitar_opciones {
+    cursor: default;
+    opacity: 0.45;
+}
+
+.deshabilitar_opciones .icono_mail:before {
+    color: #5a5a5a;
+}
+
+.agotasteIntentos {
+    box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
+    margin-top: 20px;
+}
+
+/* FIN - RESTABLECE TU CONTRASEÑA, VERIFICACIÓN DE AUTENTICIDAD */

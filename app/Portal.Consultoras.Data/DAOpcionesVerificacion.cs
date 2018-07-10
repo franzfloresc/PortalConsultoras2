@@ -8,7 +8,7 @@ namespace Portal.Consultoras.Data
     {
         public DAOpcionesVerificacion(int paisID)
             : base(paisID, EDbSource.Portal)
-        { }
+        {}
 
         public IDataReader GetOpcionesVerificacion(int origenID)
         {
@@ -17,10 +17,11 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetZonasOpcionesVerificacion(int origenID)
+        public IDataReader GetZonasOpcionesVerificacion(int regionID, int zonaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetZonasOpcionesVerificacion");
-            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, origenID);
+            Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, regionID);
+            Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, zonaID);
             return Context.ExecuteReader(command);
         }
 

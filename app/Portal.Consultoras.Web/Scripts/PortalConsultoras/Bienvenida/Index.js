@@ -1466,6 +1466,11 @@ function CargarMisDatos() {
                 $('#codigoUsurioMD').html(temp.CodigoUsuario);
                 $('#nombresUsuarioMD').html(temp.NombreCompleto);
                 $('#nombreGerenteZonal').html($.trim(temp.NombreGerenteZonal));
+                if ($.trim(temp.IndicadorConsultoraDigital) == "0") {
+                    $('#GerenteZona').show();
+                } else {
+                    $('#GerenteZona').hide();
+                }
                 $('#txtSobrenombreMD').val(temp.Sobrenombre);
                 $('#txtEMailMD').val(temp.EMail);
                 $('#txtTelefonoMD').val(temp.Telefono);
@@ -1480,6 +1485,22 @@ function CargarMisDatos() {
         error: function (data, error) { }
     });
 }
+///
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+///
 function CambiarContrasenia() {
     var oldPassword = $("#txtContraseniaAnterior").val();
     var newPassword01 = $("#txtNuevaContrasenia01").val();
@@ -1544,6 +1565,12 @@ function CambiarContrasenia() {
                             $(".campos_actualizarDatos").delay(200);
                             $(".campos_actualizarDatos").fadeIn(200);
                             alert("Se cambió satisfactoriamente la contraseña.");
+                            //var reqRedirect = getUrlParameter('verCambioClave');
+                            //if (reqRedirect != null) {
+                            //    setTimeout(function () { CerrarSesion(); }, 2000);
+                            //} else {
+                            //    setTimeout(function () { CerrarSesion(); }, 2000);
+                            //}
                         }
                         return false;
                     }
@@ -1563,13 +1590,14 @@ function ActualizarMD() {
 
     if (viewBagPaisID != 4) {
 
-        if (jQuery.trim($('#txtEMailMD').val()) == "") {
+        if (jQuery.trim($('#txtEMail').val()) == ""  ) {
+                      
             $('#txtEMailMD').focus();
             alert("Debe ingresar EMail.\n");
             return false;
         }
 
-        if (!validateEmail(jQuery.trim($('#txtEMailMD').val()))) {
+        if (!validateEmail(jQuery.trim($('#txtEMail').val()))) {
             $('#txtEMailMD').focus();
             alert("El formato del correo electrónico ingresado no es correcto.\n");
             return false;

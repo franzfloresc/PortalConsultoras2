@@ -30,10 +30,14 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public List<BEZonasOpcionesVerificacion> lstZonas { get; set; }
         [DataMember]
+        public bool TieneZonas { get; set; }
+        [DataMember]
+        public BEZonasOpcionesVerificacion oZona { get; set; }
+        [DataMember]
         public List<BEFiltrosOpcionesVerificacion> lstFiltros { get; set; }
 
         public BEOpcionesVerificacion()
-        { }
+        {}
 
         public BEOpcionesVerificacion(IDataRecord row)
         {
@@ -53,6 +57,8 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
                 IncluyeFiltros = Convert.ToBoolean(row["IncluyeFiltros"]);
             if (DataRecord.HasColumn(row, "TieneAlcanse") && row["TieneAlcanse"] != DBNull.Value)
                 TieneAlcanse = Convert.ToBoolean(row["TieneAlcanse"]);
+            if (DataRecord.HasColumn(row, "TieneZonas") && row["TieneZonas"] != DBNull.Value)
+                TieneZonas = Convert.ToBoolean(row["TieneZonas"]);
             if (DataRecord.HasColumn(row, "Activo") && row["Activo"] != DBNull.Value)
                 Activo = Convert.ToBoolean(row["Activo"]);
         }
@@ -76,9 +82,9 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public string Correo { get; set; }
         [DataMember]
+        public int RegionID { get; set; }
+        [DataMember]
         public int ZonaID { get; set; }
-
-
         [DataMember]
         public int OrigenID { get; set; }
         [DataMember]
@@ -100,6 +106,10 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public string OpcionSmsActiva { get; set; }
         [DataMember]
+        public string OpcionCorreoDesabilitado { get; set; }
+        [DataMember]
+        public string OpcionSmsDesabilitado { get; set; }
+        [DataMember]
         public int HoraRestanteCorreo { get; set; }
         [DataMember]
         public int HoraRestanteSms { get; set; }
@@ -109,12 +119,22 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         public string CodigoIso { get; set; }
         [DataMember]
         public bool opcionHabilitar { get { return true; } set { } }
+        [DataMember]
+        public bool OpcionDesabilitado { get; set; }
+        [DataMember]
+        public string DescripcionHorario { get; set; }
+        [DataMember]
+        public bool OpcionChat { get; set; }
 
         public BEUsuarioDatos()
         { }
 
         public BEUsuarioDatos(IDataRecord row)
         {
+            if (DataRecord.HasColumn(row, "CodigoUsuario") && row["CodigoUsuario"] != DBNull.Value)
+                CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
+            if (DataRecord.HasColumn(row, "CodigoConsultora") && row["CodigoConsultora"] != DBNull.Value)
+                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
             if (DataRecord.HasColumn(row, "Cantidad") && row["Cantidad"] != DBNull.Value)
                 Cantidad = Convert.ToInt32(row["Cantidad"]);
             if (DataRecord.HasColumn(row, "PrimerNombre") && row["PrimerNombre"] != DBNull.Value)
@@ -127,6 +147,8 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
                 Correo = Convert.ToString(row["Correo"]);
             if (DataRecord.HasColumn(row, "ZonaID") && row["ZonaID"] != DBNull.Value)
                 ZonaID = Convert.ToInt32(row["ZonaID"]);
+            if (DataRecord.HasColumn(row, "RegionID") && row["RegionID"] != DBNull.Value)
+                RegionID = Convert.ToInt32(row["RegionID"]);
         }
     }
 }

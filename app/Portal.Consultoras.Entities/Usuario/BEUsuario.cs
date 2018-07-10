@@ -144,15 +144,19 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "SegmentoConstancia"))
                 SegmentoConstancia = Convert.ToString(row["SegmentoConstancia"]);
+
             if (DataRecord.HasColumn(row, "Seccion"))
                 SeccionAnalytics = Convert.ToString(row["Seccion"]);
+
             if (DataRecord.HasColumn(row, "DescripcionNivel"))
                 DescripcionNivel = Convert.ToString(row["DescripcionNivel"]);
+
             if (DataRecord.HasColumn(row, "esConsultoraLider"))
                 esConsultoraLider = Convert.ToBoolean(row["esConsultoraLider"]);
 
             if (DataRecord.HasColumn(row, "EstadoSimplificacionCUV"))
                 bEstadoSimplificacionCUV = Convert.ToBoolean(row["EstadoSimplificacionCUV"]);
+
             if (DataRecord.HasColumn(row, "EsquemaDAConsultora"))
                 bEsquemaDAConsultora = Convert.ToBoolean(row["EsquemaDAConsultora"]);
 

@@ -44,6 +44,10 @@ namespace Portal.Consultoras.BizLogic
         ProductoProgramaNuevas,
         ProductosExclusivos,
         OpcionesVerificacion,
+        DatosRestaurarClave,
+        DatosPinAutenticacion,
+        HorarioChat,
+        HorarioBelcorpResponde,
         CredencialesSMS,
     }
 
