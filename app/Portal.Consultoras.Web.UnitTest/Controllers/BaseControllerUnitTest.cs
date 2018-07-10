@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             {
                 public BaseControllerStub01(ISessionManager sessionManager) : base(sessionManager)
                 {
-                    _configuracionManagerProvider = new Mock<ConfiguracionManagerProvider>().Object;
+                    //_configuracionManagerProvider = new Mock<ConfiguracionManagerProvider>().Object;
                 }
 
                 protected override List<MenuMobileModel> GetMenuMobileModel(int paisID)

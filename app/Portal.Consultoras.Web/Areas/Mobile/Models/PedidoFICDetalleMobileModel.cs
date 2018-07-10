@@ -45,7 +45,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public bool OfertaWeb { get; set; }
 
         public int MatrizOW { get; set; }
-        public bool ObservacionRestrictiva { get; set; }
         public bool ObservacionInformativa { get; set; }
         public bool ErrorPROL { get; set; }
         public bool Reserva { get; set; }

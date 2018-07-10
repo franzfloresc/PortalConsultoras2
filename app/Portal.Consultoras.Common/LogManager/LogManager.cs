@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Web;
+using System.Web.Routing;
 
 namespace Portal.Consultoras.Common
 {
@@ -223,18 +224,16 @@ namespace Portal.Consultoras.Common
             {
                 var urlRequest = string.Empty;
                 var browserRequest = string.Empty;
+                RouteValueDictionary routeValues = null;
 
                 if (HttpContext.Current != null && HttpContext.Current.Request != null)
                 {
-                    if (HttpContext.Current.Request != null)
-                    {
-                        urlRequest = HttpContext.Current.Request.Url.ToString();
-                        browserRequest = HttpContext.Current.Request.UserAgent;
-                    }
+                    urlRequest = HttpContext.Current.Request.Url.ToString();
+                    browserRequest = HttpContext.Current.Request.UserAgent;
+                    routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
                 }
 
                 var exceptionMessage = string.Empty;
-
                 if (logError.Exception != null)
                 {
                     exceptionMessage = logError.Exception.Message;
@@ -252,11 +251,19 @@ namespace Portal.Consultoras.Common
                     StackFrame frame = st.GetFrame(st.FrameCount - 1); 
                     className = frame.GetMethod().DeclaringType.Name;
                     methodName = frame.GetMethod().Name;
-                } else
+                }
+                else
                 {
-                    var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
-                    className = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
-                    methodName = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+                    if (routeValues != null)
+                    {
+                        className = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
+                        methodName = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
+                    }
+                    else
+                    {
+                        className = "";
+                        methodName = "";
+                    }
                     application = "Web";
                 }                
 

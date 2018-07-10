@@ -257,21 +257,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             model.PaisID = userData.PaisID;
 
-            //Se desactiva dado que el mensaje de Guardar por MM no va en países SICC
-            if (userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
-            {
-                BETablaLogicaDatos[] tablaLogicaDatos;
-                using (var sac = new SACServiceClient())
-                {
-                    tablaLogicaDatos = sac.GetTablaLogicaDatos(userData.PaisID, 27);
-                }
-
-                if (tablaLogicaDatos != null && tablaLogicaDatos.Length != 0)
-                {
-                    model.MensajeGuardarCO = tablaLogicaDatos[0].Descripcion;
-                }
-            }
-
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
             bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
             model.EsFacturacion = esFacturacion;

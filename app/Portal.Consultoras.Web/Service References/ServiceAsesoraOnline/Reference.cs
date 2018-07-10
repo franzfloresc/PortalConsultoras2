@@ -500,6 +500,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private int IndicadorBloqueoCDRField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IndicadorConsultoraDigitalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IndicadorContratoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -779,7 +782,7 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private bool ZonaValidaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Web.ServiceAsesoraOnline.BEOfertaFinal _OfertaFinalField;
+        private Portal.Consultoras.Web.ServiceAsesoraOnline.BEOfertaFinal beOfertaFinalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool esConsultoraLiderField;
@@ -2132,6 +2135,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IndicadorConsultoraDigital {
+            get {
+                return this.IndicadorConsultoraDigitalField;
+            }
+            set {
+                if ((this.IndicadorConsultoraDigitalField.Equals(value) != true)) {
+                    this.IndicadorConsultoraDigitalField = value;
+                    this.RaisePropertyChanged("IndicadorConsultoraDigital");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int IndicadorContrato {
             get {
                 return this.IndicadorContratoField;
@@ -3341,14 +3357,14 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Web.ServiceAsesoraOnline.BEOfertaFinal _OfertaFinal {
+        public Portal.Consultoras.Web.ServiceAsesoraOnline.BEOfertaFinal beOfertaFinal {
             get {
-                return this._OfertaFinalField;
+                return this.beOfertaFinalField;
             }
             set {
-                if ((object.ReferenceEquals(this._OfertaFinalField, value) != true)) {
-                    this._OfertaFinalField = value;
-                    this.RaisePropertyChanged("_OfertaFinal");
+                if ((object.ReferenceEquals(this.beOfertaFinalField, value) != true)) {
+                    this.beOfertaFinalField = value;
+                    this.RaisePropertyChanged("beOfertaFinal");
                 }
             }
         }

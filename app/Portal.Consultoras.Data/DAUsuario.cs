@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.OpcionesVerificacion;
 using System;
 using System.Data;
 using System.Data.Common;
@@ -782,8 +783,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteNonQuery(command);
         }
-
-        #region Restaurar Contraseña
+        
         public IDataReader GetRestaurarClaveUsuario(string CampoRestablecer, int PaisID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarValorRestauracionClave");
@@ -792,56 +792,67 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        #endregion
-
-        #region Pin Autenticidad
-        public IDataReader GetPinAutenticidad(string CodigoUsuario)
+        #region OLVIDE CONTRASENIA
+        public IDataReader GetUsuarioOlvideContrasenia(string CampoRestablecer, int PaisID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPinAutenticacion");
-            Context.Database.AddInParameter(command, "@CodgioUsuario", DbType.AnsiString, CodigoUsuario);
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioOlvideContrasenia");
+            Context.Database.AddInParameter(command, "@ValorIngresado", DbType.AnsiString, CampoRestablecer);
+            Context.Database.AddInParameter(command, "@PaisID", DbType.AnsiString, PaisID);
 
             return Context.ExecuteReader(command);
         }
 
-        public int InsCodigoGenerado(BEUsuarioCorreo oUsuCorreo)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsCodigoGenerado");
-            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsuCorreo.OrigenID);
-            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.Int32, oUsuCorreo.tipoEnvio);
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsuCorreo.CodigoUsuario);
-            Context.Database.AddInParameter(command, "@CodigoGenerado", DbType.AnsiString, oUsuCorreo.codigoGenerado);
-            Context.Database.AddInParameter(command, "@EsMobile", DbType.Boolean, oUsuCorreo.EsMobile);
-            Context.Database.AddInParameter(command, "@OpcionHabilitada", DbType.Boolean, oUsuCorreo.opcionHabilitar);
-
-            return Context.ExecuteNonQuery(command);
-        }
-
-        public string GetCodigoGenerado(BEUsuarioCorreo oUsuCorreo, string CodIngresado)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCodigoGenerado");
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsuCorreo.CodigoUsuario);
-            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsuCorreo.OrigenID);
-            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, oUsuCorreo.tipoEnvio);
-            Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, CodIngresado);
-
-            return Convert.ToString(Context.ExecuteScalar(command));
-        }
-
         public IDataReader GetOpcionHabilitada(string CodigoUsuario, int OrigenID)
         {
+            var objFlag = new BEUsuarioCorreo();
+
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetHabilitaOpcion");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, OrigenID);
 
             return (Context.ExecuteReader(command));
-        }
+        }        
 
-        public void UpdFlagAutenticacion(string CodigoUsuario)
+        public bool VerificarIgualdadCodigoIngresado(BEUsuarioDatos oUsu, string codigoIngresado)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdFlagTieneAutenticacion");
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoUsuario);
+            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.GetVerificarCodigo"); ;
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsu.CodigoUsuario);
+            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsu.OrigenID);
+            Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, codigoIngresado);
+            Context.Database.AddInParameter(command, "@IdEstadoActividad", DbType.Int32, oUsu.IdEstadoActividad);
+            return Convert.ToBoolean(Context.ExecuteScalar(command));
+        }
+        #endregion
+
+        #region SMS
+        public void InsCodigoGenerado(BEUsuarioDatos oUsu, string tipoEnvio, string codigoGenerado = "")
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsCodigoGenerado");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsu.CodigoUsuario);
+            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsu.OrigenID);
+            Context.Database.AddInParameter(command, "@OrigenDescripcion", DbType.AnsiString, oUsu.OrigenDescripcion);
+            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, tipoEnvio);
+            Context.Database.AddInParameter(command, "@CodigoGenerado", DbType.AnsiString, codigoGenerado);
+            Context.Database.AddInParameter(command, "@OpcionDesabilitado", DbType.Boolean, oUsu.OpcionDesabilitado);
 
             Context.ExecuteNonQuery(command);
+        }
+
+        #endregion
+        #region Verificacion Autenticidad
+        public IDataReader GetUsuarioVerificacionAutenticidad(int paisID, string CodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioVerificacionAutenticidad");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, paisID);
+            return Context.ExecuteReader(command);
+        }
+
+        public bool GetAlcanseVerificacionAutenticidad(int zonaID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("GetAlcanseVerificacionAutenticidad");
+            Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, zonaID);
+            return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
         #endregion
 

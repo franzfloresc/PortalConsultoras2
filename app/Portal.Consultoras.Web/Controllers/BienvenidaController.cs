@@ -28,9 +28,9 @@ namespace Portal.Consultoras.Web.Controllers
             this.logManager = logManager;
         }
 
-        public ActionResult Index(bool showPopupMisDatos = false, string verSeccion = "", string opcionCambiaClave = "")
+        public ActionResult Index(bool showPopupMisDatos = false, string verSeccion = "", string verCambioClave = "")
         {
-            var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos, OpcionCambiaClave = opcionCambiaClave };
+            var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos, OpcionCambiaClave = verCambioClave };
 
             if (userData.RolID != Constantes.Rol.Consultora)
                 if (userData.RolID == 0)
@@ -902,6 +902,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.AceptoContrato = beusuario.AceptoContrato;
                 model.UsuarioPrueba = userData.UsuarioPrueba;
                 model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
+                model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
 
                 BEZona[] bezona;
                 using (var sv = new ZonificacionServiceClient())
@@ -2138,6 +2139,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ActualizarContrasenia()
         {
+            ViewBag.NombreConsultora = userData.PrimerNombre;
             return View();
         }
 
