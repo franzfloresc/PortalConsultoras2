@@ -119,7 +119,8 @@
             
             var nombreKey = _obtenerKey(palanca, campania);
 
-            if (IsNullOrEmpty(nombreKey)) throw "Palanca no tiene asignado key local storage.";
+            if (IsNullOrEmpty(nombreKey)) // throw "Palanca no tiene asignado key local storage.";
+                return null;
 
             if (!_existeItem(nombreKey)) _cargarEstrategias(campania, palanca, nombreKey);
 
