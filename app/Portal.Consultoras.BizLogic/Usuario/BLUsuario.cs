@@ -2684,8 +2684,8 @@ namespace Portal.Consultoras.BizLogic
                 var esEsika = paisesEsika.Contains(paisISO);
                 string emailFrom = "no-responder@somosbelcorp.com";
                 string emailTo = oUsu.Correo;
-                string titulo = "(" + paisISO + ") Verificación de Autenticidad de Somosbelcorp";
-                string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
+                string titulo = "(" + paisISO + ") Verificación de Autenticidad de Somosbelcorp";                
+                string logo = (esEsika ? Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png" : Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png");
                 string nombrecorreo = oUsu.PrimerNombre.Trim();
                 string fondo = (esEsika ? "e81c36" : "642f80");
                 string displayname = "Somos Belcorp";
