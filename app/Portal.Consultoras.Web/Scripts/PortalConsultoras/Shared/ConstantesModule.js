@@ -5,17 +5,17 @@ var ConstantesModule = (function () {
         OfertaParaTi: "OfertaParaTi",
         PackNuevas: "PackNuevas", // Oferta Nueva Esika
         OfertaWeb: "OfertaWeb",
-        Lanzamiento: "Lanzamiento",
+        Lanzamiento: "LoNuevoNuevo",
         OfertasParaMi: "OfertasParaMi",
         PackAltoDesembolso: "PackAltoDesembolso",
         RevistaDigital: "RevistaDigital", // No tiene referecia con BD, es un grupo de estrategias
         LosMasVendidos: "LosMasVendidos",
         IncentivosProgramaNuevas: "IncentivosProgramaNuevas",
-        OfertaDelDia: "OfertaDelDia",
-        GuiaDeNegocioDigitalizada: "GuiaDeNegocioDigitalizada",
+        OfertaDelDia: "SoloHoy",
+        GuiaDeNegocioDigitalizada: "GuiadeNegocio",
         Incentivos: "Incentivos",
-        ShowRoom: "ShowRoom",
-        HerramientasVenta: "HerramientasVenta",
+        ShowRoom: "Especiales",
+        HerramientasVenta: "Demostradores",
         ProgramaNuevasRegalo: "ProgramaNuevasRegalo",
         ParticipaProgramaNuevas: "ParticipaProgramaNuevas",
         NotParticipaProgramaNuevas: "NotParticipaProgramaNuevas"
