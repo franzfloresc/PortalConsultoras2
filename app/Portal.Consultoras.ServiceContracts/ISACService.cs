@@ -684,13 +684,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEConfiguracionPaisDatos GetConfiguracionPaisDatos(BEConfiguracionPaisDatos configuracionPaisDatos);
         #endregion
-
-        #region Horario
-
-        [OperationContract]
-        BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible);
-
-        #endregion
+        
 
         #region ConfiguracionOfertasHome
         [OperationContract]

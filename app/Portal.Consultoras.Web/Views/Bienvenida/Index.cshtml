@@ -912,7 +912,7 @@
                             <span>Tu Nombre completo:</span>
                             <span id="nombresUsuarioMD"></span>
                         </div>
-                        <div class="datos_nombre_usuario">
+                        <div class="datos_nombre_usuario" id="GerenteZona">
                             <span>Tu Gerente de zona es:</span>
                             <span id="nombreGerenteZonal"></span>
                         </div>
@@ -2114,4 +2114,10 @@
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Portal.Consultoras.Web.SessionManager.SessionManager.Instance.SetIsContrato(0); }
+
+<script src="~/Scripts/PortalConsultoras/Bienvenida/PopusJS.js?v=4.2"></script> 
+<script>
+        MostrarPopusEnOrden('@Model.TipoPopUpMostrar', '@Model.VioVideoBienvenidaModel', '@Model.VioTutorialDesktop','@Model.CambioClave');
+</script>
+
 }

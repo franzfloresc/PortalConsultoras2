@@ -32,7 +32,8 @@
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
-      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.OpcionesVerificacion" />
+      <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IUsuarioService_UpdNotificacionPagoEnLineaVisualizacion_InputMessage">
@@ -245,41 +246,35 @@
   <wsdl:message name="IUsuarioService_RecuperarContrasenia_OutputMessage">
     <wsdl:part name="parameters" element="tns:RecuperarContraseniaResponse" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetRestaurarClaveByCodUsuario_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetRestaurarClaveByCodUsuario" />
+  <wsdl:message name="IUsuarioService_GetRestaurarClaveByValor_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRestaurarClaveByValor" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetRestaurarClaveByCodUsuario_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetRestaurarClaveByCodUsuarioResponse" />
+  <wsdl:message name="IUsuarioService_GetRestaurarClaveByValor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRestaurarClaveByValorResponse" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_EnviarEmail_InputMessage">
-    <wsdl:part name="parameters" element="tns:EnviarEmail" />
+  <wsdl:message name="IUsuarioService_ProcesaEnvioEmail_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnvioEmail" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_EnviarEmail_OutputMessage">
-    <wsdl:part name="parameters" element="tns:EnviarEmailResponse" />
+  <wsdl:message name="IUsuarioService_ProcesaEnvioEmail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnvioEmailResponse" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetPinAutenticidad_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPinAutenticidad" />
+  <wsdl:message name="IUsuarioService_ProcesaEnvioSms_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnvioSms" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetPinAutenticidad_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPinAutenticidadResponse" />
+  <wsdl:message name="IUsuarioService_ProcesaEnvioSms_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnvioSmsResponse" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetCodigoGenerado_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetCodigoGenerado" />
+  <wsdl:message name="IUsuarioService_VerificarIgualdadCodigoIngresado_InputMessage">
+    <wsdl:part name="parameters" element="tns:VerificarIgualdadCodigoIngresado" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetCodigoGenerado_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetCodigoGeneradoResponse" />
+  <wsdl:message name="IUsuarioService_VerificarIgualdadCodigoIngresado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VerificarIgualdadCodigoIngresadoResponse" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetOpcionHabilitada_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetOpcionHabilitada" />
+  <wsdl:message name="IUsuarioService_GetVerificacionAutenticidad_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetVerificacionAutenticidad" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetOpcionHabilitada_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetOpcionHabilitadaResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdFlagAutenticacion_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdFlagAutenticacion" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_UpdFlagAutenticacion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdFlagAutenticacionResponse" />
+  <wsdl:message name="IUsuarioService_GetVerificacionAutenticidad_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetVerificacionAutenticidadResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_GetConsultoraParticipaEnPrograma_InputMessage">
     <wsdl:part name="parameters" element="tns:GetConsultoraParticipaEnPrograma" />
@@ -950,29 +945,25 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/RecuperarContrasenia" message="tns:IUsuarioService_RecuperarContrasenia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/RecuperarContraseniaResponse" message="tns:IUsuarioService_RecuperarContrasenia_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetRestaurarClaveByCodUsuario">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuario" message="tns:IUsuarioService_GetRestaurarClaveByCodUsuario_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuarioResponse" message="tns:IUsuarioService_GetRestaurarClaveByCodUsuario_OutputMessage" />
+    <wsdl:operation name="GetRestaurarClaveByValor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetRestaurarClaveByValor" message="tns:IUsuarioService_GetRestaurarClaveByValor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetRestaurarClaveByValorResponse" message="tns:IUsuarioService_GetRestaurarClaveByValor_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="EnviarEmail">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/EnviarEmail" message="tns:IUsuarioService_EnviarEmail_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/EnviarEmailResponse" message="tns:IUsuarioService_EnviarEmail_OutputMessage" />
+    <wsdl:operation name="ProcesaEnvioEmail">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmail" message="tns:IUsuarioService_ProcesaEnvioEmail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailResponse" message="tns:IUsuarioService_ProcesaEnvioEmail_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetPinAutenticidad">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetPinAutenticidad" message="tns:IUsuarioService_GetPinAutenticidad_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetPinAutenticidadResponse" message="tns:IUsuarioService_GetPinAutenticidad_OutputMessage" />
+    <wsdl:operation name="ProcesaEnvioSms">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnvioSms" message="tns:IUsuarioService_ProcesaEnvioSms_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnvioSmsResponse" message="tns:IUsuarioService_ProcesaEnvioSms_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetCodigoGenerado">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetCodigoGenerado" message="tns:IUsuarioService_GetCodigoGenerado_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetCodigoGeneradoResponse" message="tns:IUsuarioService_GetCodigoGenerado_OutputMessage" />
+    <wsdl:operation name="VerificarIgualdadCodigoIngresado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresado" message="tns:IUsuarioService_VerificarIgualdadCodigoIngresado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresadoResponse" message="tns:IUsuarioService_VerificarIgualdadCodigoIngresado_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetOpcionHabilitada">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetOpcionHabilitada" message="tns:IUsuarioService_GetOpcionHabilitada_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetOpcionHabilitadaResponse" message="tns:IUsuarioService_GetOpcionHabilitada_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdFlagAutenticacion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdFlagAutenticacion" message="tns:IUsuarioService_UpdFlagAutenticacion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdFlagAutenticacionResponse" message="tns:IUsuarioService_UpdFlagAutenticacion_OutputMessage" />
+    <wsdl:operation name="GetVerificacionAutenticidad">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad" message="tns:IUsuarioService_GetVerificacionAutenticidad_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidadResponse" message="tns:IUsuarioService_GetVerificacionAutenticidad_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetConsultoraParticipaEnPrograma">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConsultoraParticipaEnPrograma" message="tns:IUsuarioService_GetConsultoraParticipaEnPrograma_InputMessage" />
@@ -1644,8 +1635,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetRestaurarClaveByCodUsuario">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuario" style="document" />
+    <wsdl:operation name="GetRestaurarClaveByValor">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetRestaurarClaveByValor" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1653,8 +1644,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="EnviarEmail">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/EnviarEmail" style="document" />
+    <wsdl:operation name="ProcesaEnvioEmail">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmail" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1662,8 +1653,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetPinAutenticidad">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetPinAutenticidad" style="document" />
+    <wsdl:operation name="ProcesaEnvioSms">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnvioSms" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1671,8 +1662,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCodigoGenerado">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetCodigoGenerado" style="document" />
+    <wsdl:operation name="VerificarIgualdadCodigoIngresado">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1680,17 +1671,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetOpcionHabilitada">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetOpcionHabilitada" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdFlagAutenticacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdFlagAutenticacion" style="document" />
+    <wsdl:operation name="GetVerificacionAutenticidad">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2809,8 +2791,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetRestaurarClaveByCodUsuario">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuario" style="document" />
+    <wsdl:operation name="GetRestaurarClaveByValor">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetRestaurarClaveByValor" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2818,8 +2800,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="EnviarEmail">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/EnviarEmail" style="document" />
+    <wsdl:operation name="ProcesaEnvioEmail">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmail" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2827,8 +2809,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetPinAutenticidad">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetPinAutenticidad" style="document" />
+    <wsdl:operation name="ProcesaEnvioSms">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnvioSms" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2836,8 +2818,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCodigoGenerado">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetCodigoGenerado" style="document" />
+    <wsdl:operation name="VerificarIgualdadCodigoIngresado">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/VerificarIgualdadCodigoIngresado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2845,17 +2827,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetOpcionHabilitada">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetOpcionHabilitada" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdFlagAutenticacion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdFlagAutenticacion" style="document" />
+    <wsdl:operation name="GetVerificacionAutenticidad">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

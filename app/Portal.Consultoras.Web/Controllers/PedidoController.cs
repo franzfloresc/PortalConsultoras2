@@ -188,27 +188,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                #region Mensaje Guardar Colombia
-
-                if (userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
-                {
-                    List<BETablaLogicaDatos> tabla;
-                    using (var sac = new SACServiceClient())
-                    {
-                        tabla = sac.GetTablaLogicaDatos(userData.PaisID, 27).ToList();
-                    }
-
-                    model.MensajeGuardarColombia = tabla.Count != 0
-                        ? tabla[0].Descripcion
-                        : string.Empty;
-                }
-                else
-                {
-                    model.MensajeGuardarColombia = string.Empty;
-                }
-
-                #endregion
-
                 #region Banners
 
                 var urlCarpeta = WebConfigurationManager.AppSettings["Banners"] + "/IngresoPedido/" + userData.CodigoISO;
@@ -233,7 +212,6 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV;
                 model.ErrorInsertarProducto = "";
                 model.ListaEstrategias = new List<ServicePedido.BEEstrategia>();
-                model.ZonaNuevoProlM = true;
                 model.NombreConsultora = userData.NombreConsultora;
                 model.PaisID = userData.PaisID;
                 model.Simbolo = userData.Simbolo;
@@ -2014,7 +1992,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                listaProductoModel = null;
+                listaProductoModel = new List<ProductoModel>();
             }
 
             return Json(listaProductoModel, JsonRequestBehavior.AllowGet);
@@ -2263,13 +2241,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         [HttpPost]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public JsonResult EjecutarServicioPROL()
+        public JsonResult EjecutarServicioPROL(bool enviarCorreo = false)
         {
             try
             {
                 ActualizarEsDiaPROLyMostrarBotonValidarPedido(userData);
                 var input = Mapper.Map<BEInputReservaProl>(userData);
-                input.EnviarCorreo = false;
+                input.EnviarCorreo = enviarCorreo;
                 input.CodigosConcursos = userData.CodigosConcursos;
                 input.EsOpt = EsOpt();
 
@@ -2323,15 +2301,21 @@ namespace Portal.Consultoras.Web.Controllers
                     MontoEscala = resultado.MontoEscala,
                     Total = listPedidoWebDetalle.Sum(d => d.ImporteTotal),
                     EsDiaProl = userData.DiaPROL,
-                    ProlSinStock = userData.PROLSinStock,
-                    ZonaNuevoProlM = true,
                     CodigoIso = userData.CodigoISO,
                     CodigoMensajeProl = resultado.CodigoMensaje
                 };
+                model.TotalConDescuento = model.Total - model.MontoDescuento;
                 SetMensajesBotonesProl(model, resultado.Reserva);
+
+                var listPermiteOfertaFinal = new List<Enumeradores.ResultadoReserva> {
+                    Enumeradores.ResultadoReserva.Reservado,
+                    Enumeradores.ResultadoReserva.ReservadoObservaciones,
+                    Enumeradores.ResultadoReserva.NoReservadoMontoMinimo
+                };
 
                 return Json(new
                 {
+                    success = true,
                     data = model,
                     mensajeAnalytics = ObtenerMensajePROLAnalytics(listObservacionModel),
                     pedidoDetalle = from item in listPedidoWebDetalle
@@ -2344,7 +2328,8 @@ namespace Portal.Consultoras.Web.Controllers
                                         variant = !string.IsNullOrEmpty(item.DescripcionOferta) ? item.DescripcionOferta.Replace("]", "").Replace("[", "").Trim() : "",
                                         quantity = item.Cantidad
                                     },
-                    flagCorreo = resultado.EnviarCorreo ? "1" : ""
+                    flagCorreo = resultado.EnviarCorreo ? "1" : "",
+                    permiteOfertaFinal = listPermiteOfertaFinal.Contains(resultado.ResultadoReservaEnum)
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

@@ -69,7 +69,6 @@
       <xs:element minOccurs="0" name="MontoMaximo" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoMinimo" type="xs:decimal" />
       <xs:element minOccurs="0" name="NombreConsultora" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PROLSinStock" type="xs:boolean" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="PaisISO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />

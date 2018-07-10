@@ -443,8 +443,7 @@ function CancelarAtualizacionEmail() {
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     if (checkTimeout(data)) {
-                        if (data == '1') {
-                            alert('Revisar tu correo Pendiente para cambiar de cuenta');
+                        if (data == '1') {                    
                             document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'None';
                         }
                     }
