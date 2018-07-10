@@ -419,11 +419,11 @@
         if (isMobile()) {
             var $redesSociales = $((_seccionesFichaProducto.Contenedor_redes_sociales));
             $redesSociales.find(".CUV").val(estrategia.CUV2);
-            $redesSociales.find(".rsFBRutaImagen").val(estrategia.FotoProducto01);
-            $redesSociales.find(".rsWARutaImagen").val(estrategia.FotoProducto01);
+            $redesSociales.find(".rsFBRutaImagen").val($('#imgFotoProducto01').val());
+            $redesSociales.find(".rsWARutaImagen").val($('#imgFotoProducto01').val());
             $redesSociales.find(".MarcaID").val(estrategia.MarcaID);
             $redesSociales.find(".MarcaNombre").val(estrategia.DescripcionMarca);
-            $redesSociales.find(".Nombre").val(estrategia.DescripcionResumen);
+            $redesSociales.find(".Nombre").val(estrategia.DescripcionCompleta);
             $redesSociales.find(".ProductoDescripcion").val(estrategia.DescripcionDetalle);
             $redesSociales.find(".Palanca").val(_config.palanca);
         }
