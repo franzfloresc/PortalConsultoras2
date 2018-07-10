@@ -226,7 +226,7 @@ namespace Portal.Consultoras.Web.Providers
             contador += listaComponentesCyzone.Any() ? 1 : 0;
             contador += listaComponentesEzika.Any() ? 1 : 0;
             contador += listaComponentesLbel.Any() ? 1 : 0;
-            esMultimarca = contador > 1 ? true : false;
+            esMultimarca = contador > 1;
             listaComponentesOrdenados.AddRange(listaComponentesCyzone);
             listaComponentesOrdenados.AddRange(listaComponentesEzika);
             listaComponentesOrdenados.AddRange(listaComponentesLbel);

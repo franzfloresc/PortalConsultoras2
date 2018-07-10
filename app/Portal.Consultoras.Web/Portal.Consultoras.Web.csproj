@@ -736,6 +736,7 @@
     <Compile Include="Providers\OfertaDelDiaProvider.cs" />
     <Compile Include="Providers\OfertaPersonalizadaProvider.cs" />
     <Compile Include="Providers\OfertaViewProvider.cs" />
+    <Compile Include="Providers\PagoEnLineaProvider.cs" />
     <Compile Include="Providers\PedidoSetProvider.cs" />
     <Compile Include="Providers\PedidoWebProvider.cs" />
     <Compile Include="Providers\RenderImgProvider.cs" />

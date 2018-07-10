@@ -173,17 +173,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return urlChile;
         }
 
-        private BEConfiguracionCampania ObtenerConfiguracionCampania()
-        {
-            BEConfiguracionCampania configuracionCampania;
+        //private BEConfiguracionCampania ObtenerConfiguracionCampania()
+        //{
+        //    BEConfiguracionCampania configuracionCampania;
 
-            using (var sv = new PedidoServiceClient())
-            {
-                configuracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
-            }
+        //    using (var sv = new PedidoServiceClient())
+        //    {
+        //        configuracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+        //    }
 
-            return configuracionCampania ?? new BEConfiguracionCampania();
-        }
+        //    return configuracionCampania ?? new BEConfiguracionCampania();
+        //}
 
         private string ObtenerFechaVencimiento()
         {

@@ -57,6 +57,11 @@ namespace Portal.Consultoras.Web.Providers
             var userData = sessionManager.GetUserData();
             try
             {
+                if (userData == null)
+                {
+                    return new List<BEPedidoWebDetalle>();
+                }
+
                 detallesPedidoWeb = sessionManager.GetDetallesPedido();
 
                 if (detallesPedidoWeb == null)
@@ -85,7 +90,7 @@ namespace Portal.Consultoras.Web.Providers
                     item.DescripcionOferta = ObtenerDescripcionOferta(item);
                 }
                 var observacionesProl = sessionManager.GetObservacionesProl();
-                if (detallesPedidoWeb.Count > 0 && observacionesProl != null)
+                if (observacionesProl != null && detallesPedidoWeb.Count > 0)
                 {
                     detallesPedidoWeb = PedidoConObservaciones(detallesPedidoWeb, observacionesProl);
                 }
@@ -197,7 +202,7 @@ namespace Portal.Consultoras.Web.Providers
             var pedObs = pedido;
             List<string> listaCUVsAEvaluar;
             var txtBuil = new StringBuilder();
-            var nuevasObservaciones = new List<ObservacionModel>();
+            //var nuevasObservaciones = new List<ObservacionModel>();
 
             List<BEPedidoWebDetalle> cuvHijos = TraerHijosFaltantesEnObsPROL(pedido, paisId, campaniaId, consultoraId, pedidoId);
 

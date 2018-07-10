@@ -30,8 +30,8 @@ namespace Portal.Consultoras.Web.Providers
 
             try
             {
-                if (revistaDigital == null)
-                    throw new ArgumentNullException("revistaDigital", "no puede ser nulo");
+                if (userData == null || revistaDigital == null)
+                    return modelo;
 
                 var menuActivo = sessionManager.GetMenuContenedorActivo();
 
@@ -307,7 +307,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 var listaShowRoom = sessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPersonalizadaProductoModel>();
                 //seccion.CantidadProductos = listaShowRoom.Count(x => !x.EsSubCampania);
-                seccion.CantidadProductos = listaShowRoom.Count();
+                seccion.CantidadProductos = listaShowRoom.Count;
                 seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }
         }

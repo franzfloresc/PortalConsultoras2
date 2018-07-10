@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class MisReclamosController : BaseController
     {
-        private CdrProvider _cdrProvider;
+        readonly CdrProvider _cdrProvider;
 
         public MisReclamosController()
         {
@@ -939,8 +939,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaPaises = DropDowListPaises(),
                 lista = DropDowListCampanias(paisId),
-                listaRegiones = DropDownListRegiones(paisId),
-                listaZonas = DropDownListZonas(paisId),
+                listaRegiones = _baseProvider.DropDownListRegiones(paisId),
+                listaZonas = _baseProvider.DropDownListZonas(paisId),
                 PaisID = paisId,
                 CampaniaID = campaniaIdActual
             };
@@ -1341,8 +1341,8 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
-            IEnumerable<ZonaModel> lstZonas = DropDownListZonas(PaisID);
-            IEnumerable<RegionModel> lstRegiones = DropDownListRegiones(PaisID);
+            IEnumerable<ZonaModel> lstZonas = _baseProvider.DropDownListZonas(PaisID);
+            IEnumerable<RegionModel> lstRegiones = _baseProvider.DropDownListRegiones(PaisID);
 
             return Json(new
             {
