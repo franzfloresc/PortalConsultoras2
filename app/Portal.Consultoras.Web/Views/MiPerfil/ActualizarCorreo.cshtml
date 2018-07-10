@@ -44,11 +44,11 @@ else
                 else
                 {
                     <span>
-                        Aún no has registrado un correo electrónico.<br/>
+                        Aún no has registrado un correo electrónico.<br />
                         Llena el siguiente campo para añadirlo.
                     </span>
-                }                
-            </div>            
+                }
+            </div>
             <fieldset class="grupo_form_cambio_datos text-uppercase">
                 <div class="w-100">
                     <input id="NuevoCorreo" name="NuevoCorreo" class="w-100" type="text" value="" />
@@ -101,6 +101,9 @@ else
                 MensajeReenvioExitoso: '@Html.Raw(Constantes.MensajesExito.UpdCorreoConsultora_Reenvio)',
             }).Inicializar();
         });
+
+        var inputEmail = document.getElementById("NuevoCorreo");
+        FuncionesGenerales.AutoCompletarEmailAPartirDeArroba(inputEmail);
     </script>
 }
 

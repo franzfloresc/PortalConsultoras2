@@ -101,5 +101,8 @@ else
                 MensajeReenvioExitoso: '@Html.Raw(Constantes.MensajesExito.UpdCorreoConsultora_Reenvio)'
             }).Inicializar();
         });
+
+        var inputEmail = document.getElementById("NuevoCorreo");
+        FuncionesGenerales.AutoCompletarEmailAPartirDeArroba(inputEmail);
     </script>
 }

@@ -80,6 +80,8 @@ var MiPerfil_ActualizarCorreo = function (_config) {
 
         $('#btnReenviameInstruciones').on('click', function () { actualizarEnviarCorreo(function () { showSuccess(config.MensajeReenvioExitoso); }); });
         $('#btnActualizarCorreo').on('click', function () { actualizarEnviarCorreo(function (data) { irVista2(data.correoNuevo); }); });
+
+        FuncionesGenerales.AvoidingCopyingAndPasting('NuevoCorreo');
     };
 
     return {
