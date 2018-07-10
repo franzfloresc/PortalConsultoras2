@@ -99,6 +99,7 @@
     </div>
 
     <div class="container">
+        <div class="row">
         <div class="seleccion_tonos">
             <div data-estrategia="{{CodigoVariante}}">
                 {{#iff CodigoVariante '==' '2001'}}
@@ -204,6 +205,7 @@
                 {{/iff}}
             </div>
         </div>
+        </div>
     </div>
 </script>
 
@@ -238,25 +240,25 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <ul class="tabs ficha_tabs">
                 <li id="div_ficha_tab1">
-                    <a>DETALLE DEL PRODUCTO</a>
+                    <a class="tab-link">DETALLE DEL PRODUCTO</a>
                     <ul>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
                     </ul>
                 </li>
                 <li id="div_ficha_tab2">
-                    <a>DETALLE DEL PACK</a>
+                    <a class="tab-link">DETALLE DEL PACK</a>
                     <ul>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
                     </ul>
                 </li>
                 <li id="div_ficha_tab3">
-                    <a>TIPS DE VENTA</a>
+                    <a class="tab-link">TIPS DE VENTA</a>
                     <ul>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
                     </ul>
                 </li>
                 <li id="div_ficha_tab4">
-                    <a>BENEFICIOS</a>
+                    <a class="tab-link" >BENEFICIOS</a>
                     <ul>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim porro dolorum dolor blanditiis omnis sunt aut totam iste, aliquam provident excepturi laborum quo optio! Omnis, ab? Fuga odio eum iure?
                     </ul>
@@ -349,7 +351,19 @@
 
         var tieneCarrusel = '@Model.TieneCarrusel';
 
-        $(document).ready(function() {
+        $(document).ready(function () {
+
+            $(".ficha_tabs li a").click(function () {
+                //var divpadre = $(this).parent();
+                //var clase = $(".ficha_tabs li a").attr("class");
+                var clase = $(this).attr("class");
+                if (clase == "active") {
+                    $(this).attr("class", "tab-link");
+                } else {
+                    $(this).attr("class", "active");
+                }
+            });
+
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",
                 origen: "@Model.Origen",
@@ -377,6 +391,7 @@
         });
 
     </script>
+
     @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
 
 }
