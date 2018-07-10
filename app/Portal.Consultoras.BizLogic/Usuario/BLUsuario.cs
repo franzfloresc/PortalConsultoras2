@@ -2726,7 +2726,7 @@ namespace Portal.Consultoras.BizLogic
                 var newUri = Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisID, oUsu.Correo, paisiso, codigousuario, fechasolicitud, nombre);
                 string emailFrom = "no-responder@somosbelcorp.com";
                 string emailTo = oUsu.Correo; ;
-                string titulo = "(" + paisISO + ") Cambio de contrase�a de Somosbelcorp";
+                string titulo = "(" + paisISO + ") Cambio de contraseña de Somosbelcorp";
                 string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
                 string fondo = (esEsika ? "e81c36" : "642f80");
                 string displayname = "Somos Belcorp";
@@ -2934,7 +2934,7 @@ namespace Portal.Consultoras.BizLogic
                 var esEsika = paisesEsika.Contains(paisISO);
                 string emailFrom = "no-responder@somosbelcorp.com";
                 string emailTo = oUsu.Correo;
-                string titulo = "(" + paisISO + ") Verificaci�n de Autenticidad de Somosbelcorp";
+                string titulo = "(" + paisISO + ") Verificación de Autenticidad de Somosbelcorp";
                 string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
                 string nombrecorreo = oUsu.PrimerNombre.Trim();
                 string fondo = (esEsika ? "e81c36" : "642f80");
