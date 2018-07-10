@@ -444,7 +444,7 @@ function CancelarAtualizacionEmail() {
                 success: function (data) {
                     if (checkTimeout(data)) {
                         if (data == '1') {
-                            alert('Revisar tu correo Pendiente para cambiar de cuenta');
+                    
                             document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'None';
                         }
                     }
