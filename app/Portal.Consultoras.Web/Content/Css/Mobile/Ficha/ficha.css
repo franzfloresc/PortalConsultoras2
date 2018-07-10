@@ -335,8 +335,6 @@
     display: block;
 }
 
-.box-container{
-    position: relative;
-    top: -110px;
-
+.box-container {
+    margin-top: -110px;
 }
