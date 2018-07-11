@@ -43,7 +43,7 @@ body {
 
 .ficha_producto {
     float: left;
-    padding-top: 32px;
+    padding-top: 75px;
     text-align: center;
     width: 45%;
 }
@@ -59,7 +59,7 @@ body {
 }
 
 .contenedor_img {
-    max-width: 460px !important;
+    max-width: 380px !important;
     height: auto;
 }
 
@@ -871,5 +871,14 @@ margin-bottom: 45px;
 }
 
 .vineta {
-    margin-right: 5px;
+    margin-right: 7px;
 }
+
+.etiqueta_nuevo{
+    height: 50%;
+}
+
+.etiqueta_nuevo img {
+    height: 100%;
+}
+
