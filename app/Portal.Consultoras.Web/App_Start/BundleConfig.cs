@@ -628,7 +628,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
-                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js"
             ));
 
             #region DetalleEstrategia

@@ -279,7 +279,7 @@
         //Handlers bars para el detalle de los tabs de fichas
         _construirSeccionDetalleFichas(estrategia);
         // Se envía la información del producto a Google Analytics.
-        AnalyticsPortal.fcEnviarProducto("Moneda", estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, "Categoria", _config.palanca);
+        //AnalyticsPortal.fcEnviarProducto("Moneda", estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, "Categoria", _config.palanca);
         return true;
     };
 
