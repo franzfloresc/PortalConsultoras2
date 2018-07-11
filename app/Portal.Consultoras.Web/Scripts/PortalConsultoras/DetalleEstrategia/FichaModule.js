@@ -45,7 +45,7 @@
         CarruselProducto: "#CarruselProducto",
         EtiquetaOdd: "#EtiquetaOdd",
         //SloganLanzamientos: "#SloganLanzamientos",
-        ContenedoFotoReferencial: "#contenedor_foto_referencial",
+        //ContenedoFotoReferencial: "#contenedor_foto_referencial",
         ContenedoFichaEtiquetas: "#contenedor_ficha_etiquetas",
         Contenedor_redes_sociales: "#Contenedor_redes_sociales"
         //EtiquetaPackNuevas: "#EtiquetaPackNuevas"
@@ -268,9 +268,9 @@
             SetHandlebars("#ofertadeldia-template-style", estrategia, "#styleRelojOdd");
         }
 
-        $(_seccionesFichaProducto.ContenedoFotoReferencial).hide();
-        if (estrategia.Hermanos.length > 0)
-            $(_seccionesFichaProducto.ContenedoFotoReferencial).show();
+        //$(_seccionesFichaProducto.ContenedoFotoReferencial).hide();
+        //if (estrategia.Hermanos.length > 0)
+        //    $(_seccionesFichaProducto.ContenedoFotoReferencial).show();
 
         if (!isMobile()) {
             _validarSiEsAgregado(estrategia);

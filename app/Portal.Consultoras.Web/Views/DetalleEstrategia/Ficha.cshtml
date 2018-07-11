@@ -27,9 +27,11 @@
                 <div class="contenedor_imagen">
                     <img class="contenedor_img" src="{{ImgUrl FotoProducto01}}" alt="">
                 </div>
-                <div id="contenedor_foto_referencial" class="texto_referencial" style="display:none;">
+                {{#iff CodigoVariante '==' '2003'}}
+                <div id="contenedor_foto_referencial" class="texto_referencial">
                     <span data-texto_referencial="">* Foto Referencial</span>
                 </div>
+                {{/iff}}
                 @*
                     <div class="contenedor_carrusel_tonos">
                         <div id="carrusel_tonos" style="display:none;">
