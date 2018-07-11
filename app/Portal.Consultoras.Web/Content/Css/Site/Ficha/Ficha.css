@@ -43,7 +43,7 @@ body {
 
 .ficha_producto {
     float: left;
-    padding-top: 43px;
+    padding-top: 32px;
     text-align: center;
     width: 45%;
 }
@@ -263,6 +263,16 @@ body {
 .contenedor_item_tono_imagen_seleccionado {
     border: solid 1px #000;
 }
+
+.contenido_titulo {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    color: #000000;
+    margin: 12px 0;
+    line-height: normal;
+}
+
 
 .contenedor_lista_detalle {
     float: left;
@@ -852,10 +862,14 @@ margin-bottom: 45px;
 }
 
 #SloganLanzamientos, #SloganPackNuevas{
-    margin-bottom: 45px;
+    margin-bottom: 29px;
 }
 .nombre_detalle_producto_tono {
     font-weight: bold;
     padding-bottom: 10px;
     display: inline-block;
+}
+
+.vineta {
+    margin-right: 5px;
 }

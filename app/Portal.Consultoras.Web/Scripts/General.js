@@ -260,7 +260,7 @@ jQuery(document).ready(function () {
                 switch (operator) {
                     case '==':
                         if (typeof a == "object") {
-                            if (typeof {}.length != "undefined") {
+                            if (typeof a.length != "undefined") {
                                 bool = a.length == 0;
                             }
                         }
@@ -270,7 +270,7 @@ jQuery(document).ready(function () {
                         break;
                     case '!=':
                         if (typeof a == "object") {
-                            if (typeof {}.length != "undefined") {
+                            if (typeof a.length != "undefined") {
                                 bool = a.length > 0;
                             }
                         }

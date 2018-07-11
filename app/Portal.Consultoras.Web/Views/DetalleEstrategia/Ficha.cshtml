@@ -109,10 +109,11 @@
                     <span class="nombre_detalle_producto_tono"><strong>{{this.TipoEstrategiaDetalle.Slogan}}</strong></span>
                     <ul class="descripcion_detalle_producto_tono">
                         {{#each this.ListaDescripcionDetalle}}
-                        <li><span class="vineta">-</span><span class="txt-des">{{this}}</span></li>
+                        <li><span class="vineta">-</span><span class="txt-des">{{Trim this}}</span></li>
                         {{/each}}
                     </ul>
                 </div>
+                <hr class="clear">
                 {{/IsNullOrEmpty}}
                 @*<div id="SloganPackNuevas">
                     <span class="nombre_detalle_producto_tono"><strong>Contenido del Set:</strong></span>
@@ -165,6 +166,11 @@
                 {{/each}}
                 {{/iff}}
                 {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}
+                <div class="contenido_titulo">
+                    <div class="">
+                        <span>CONTENIDO:</span>
+                    </div>
+                </div>
                 <div class="contenedor_lista_detalle">
                     {{#each this.Hermanos as |componente|}}
                     {{#ifVerificarMarcaLast componente.DescripcionMarca}}
