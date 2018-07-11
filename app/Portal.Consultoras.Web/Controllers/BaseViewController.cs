@@ -251,32 +251,21 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
-
                 modelo.OrigenUrl = origen;
                 modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
                 modelo.Palanca = palanca;
                 modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
                 modelo.Campania = campaniaId;
                 modelo.Cuv = cuv;
-                modelo.TieneReloj = (Constantes.NombrePalanca.OfertaDelDia == palanca);
-                modelo.TieneCarrusel = (Constantes.NombrePalanca.Lanzamiento == palanca 
-                        || Constantes.NombrePalanca.ShowRoom == palanca 
-                        || Constantes.NombrePalanca.OfertaDelDia == palanca);
-                if (modelo.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
-                    modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
+                //modelo.CodigoIsoConsultora = userData.CodigoISO;
+                //modelo.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();
 
-                if (Constantes.NombrePalanca.OfertaDelDia == palanca)
-                {
-                    var sessionODD = sessionManager.OfertaDelDia.Estrategia;
-                    if (sessionODD != null)
-                    {
-                        modelo.ColorFondo1 = sessionODD.ColorFondo1;
-                        modelo.ConfiguracionContenedor = sessionODD.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
-                    }
-                }
-
-                ViewBag.PaisAnalytics = userData.CodigoISO;
-                ViewBag.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();
+                if (modelo.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.OfertaDelDia) return View(modelo);
+                modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
+                var sessionODD = sessionManager.OfertaDelDia.Estrategia;
+                if (sessionODD == null) return View(modelo);
+                modelo.ColorFondo1 = sessionODD.ColorFondo1;
+                modelo.ConfiguracionContenedor = sessionODD.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
 
                 return View(modelo);
             }
