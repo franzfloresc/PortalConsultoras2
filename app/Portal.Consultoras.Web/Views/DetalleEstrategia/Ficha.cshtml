@@ -10,7 +10,7 @@
     <link href="@Url.Content("~/Content/Css/Site/Ficha/RedesSociales.css")" rel="stylesheet" />
 
 }
-<!--prueba-->
+
 <div id="ImagenDeFondo" class="imagen_fondo_detalle" style="display:none;"></div>
 <div class="contenedor_detalle texto_font">
     <div class="contenedor_fichas">
@@ -47,6 +47,8 @@
                             </div>
                         </div>
                     </div>*@
+
+                <!--compartir-->
                 <div id="Contenedor_redes_sociales" class="ficha_redes_sociales">
                     <div data-compartir-campos="" style="display:none;">
                         <input type="hidden" class="CUV" value="{{CUV2}}" />
@@ -358,7 +360,8 @@
                     <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_derecha"></div>
                 </div>
             </div>
-            <div class="contenedor_carrusel">
+            <!--carrusel-->
+            <div class="contenedor_carrusel" data-OrigenPedidoWeb="@Model.Origen">
                 <div id="carrusel" style="text-align:center;">
 
                 </div>
