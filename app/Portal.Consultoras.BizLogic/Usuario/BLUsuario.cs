@@ -6,7 +6,6 @@ using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.Cupon;
-using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.PublicService.Cryptography;
 using System;
@@ -20,8 +19,6 @@ using System.Threading.Tasks;
 using System.Transactions;
 using Newtonsoft.Json;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using JWT;
 
 namespace Portal.Consultoras.BizLogic
@@ -39,7 +36,6 @@ namespace Portal.Consultoras.BizLogic
         private readonly IConfiguracionPaisDatosBusinessLogic _configuracionPaisDatosBusinessLogic;
         private readonly IPedidoRechazadoBusinessLogic _pedidoRechazadoBusinessLogic;
         private readonly IResumenCampaniaBusinessLogic _resumenCampaniaBusinessLogic;
-        private readonly IShowRoomEventoBusinessLogic _showRoomEventoBusinessLogic;
         private readonly IConsultoraLiderBusinessLogic _consultoraLiderBusinessLogic;
 
 
@@ -51,7 +47,6 @@ namespace Portal.Consultoras.BizLogic
                                     new BLConfiguracionPaisDatos(),
                                     new BLPedidoRechazado(),
                                     new BLResumenCampania(),
-                                    new BLShowRoomEvento(),
                                     new BLConsultoraLider())
         { }
 
@@ -63,7 +58,6 @@ namespace Portal.Consultoras.BizLogic
                         IConfiguracionPaisDatosBusinessLogic configuracionPaisDatosBusinessLogic,
                         IPedidoRechazadoBusinessLogic pedidoRechazadoBusinessLogic,
                         IResumenCampaniaBusinessLogic resumenCampaniaBusinessLogic,
-                        IShowRoomEventoBusinessLogic showRoomEventoBusinessLogic,
                         IConsultoraLiderBusinessLogic consultoraLiderBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
@@ -74,7 +68,6 @@ namespace Portal.Consultoras.BizLogic
             _configuracionPaisDatosBusinessLogic = configuracionPaisDatosBusinessLogic;
             _pedidoRechazadoBusinessLogic = pedidoRechazadoBusinessLogic;
             _resumenCampaniaBusinessLogic = resumenCampaniaBusinessLogic;
-            _showRoomEventoBusinessLogic = showRoomEventoBusinessLogic;
             _consultoraLiderBusinessLogic = consultoraLiderBusinessLogic;
         }
 
@@ -218,7 +211,7 @@ namespace Portal.Consultoras.BizLogic
                 using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
                 {
                     BEValidacionDatos validacionDato;
-                    using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.ValidacionDatosTipoEnvio.Email, codigoUsuario))
+                    using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoUsuario))
                     {
                         validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);
                     }
@@ -1794,7 +1787,7 @@ namespace Portal.Consultoras.BizLogic
                 using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
                 {
                     BEValidacionDatos validacionDato;
-                    using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.ValidacionDatosTipoEnvio.Email, usuario.CodigoUsuario))
+                    using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.TipoEnvioEmailSms.EnviarPorEmail, usuario.CodigoUsuario))
                     {
                         validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);
                     }
@@ -1803,7 +1796,7 @@ namespace Portal.Consultoras.BizLogic
                     {
                         dAValidacionDatos.InsValidacionDatos(new BEValidacionDatos
                         {
-                            TipoEnvio = Constantes.ValidacionDatosTipoEnvio.Email,
+                            TipoEnvio = Constantes.TipoEnvioEmailSms.EnviarPorEmail,
                             DatoAntiguo = usuario.EMail,
                             DatoNuevo = correoNuevo,
                             CodigoUsuario = usuario.CodigoUsuario,
@@ -1879,7 +1872,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     BEValidacionDatos validacionDato;
                     using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(
-                                            Constantes.ValidacionDatosTipoEnvio.Sms,
+                                            Constantes.TipoEnvioEmailSms.EnviarPorSms,
                                             codigoUsuario)
                     )
                     {
@@ -1891,7 +1884,7 @@ namespace Portal.Consultoras.BizLogic
                     {
                         validacionDato = new BEValidacionDatos
                         {
-                            TipoEnvio = Constantes.ValidacionDatosTipoEnvio.Sms,
+                            TipoEnvio = Constantes.TipoEnvioEmailSms.EnviarPorSms,
                             DatoAntiguo = celularActual,
                             DatoNuevo = celularNuevo,
                             CodigoUsuario = codigoUsuario,
@@ -1912,14 +1905,12 @@ namespace Portal.Consultoras.BizLogic
                     }
 
                     var code = Common.Util.GenerarCodigoRandom();
-                    dAUsuario.InsActualizarCodigoGenerado(new BEUsuarioCorreo {
-                        OrigenID = Constantes.EnviarCorreoYSms.OrigenActualizarCelular,
-                        Descripcion = Constantes.EnviarCorreoYSms.OrigenDescripcion,
-                        tipoEnvio = Constantes.ValidacionDatosTipoEnvio.Sms,
+                    dAUsuario.InsCodigoGenerado(new BEUsuarioDatos
+                    {
                         CodigoUsuario = codigoUsuario,
-                        opcionHabilitar = true,
-                        codigoGenerado = code
-                    });
+                        OrigenID = Constantes.EnviarCorreoYSms.OrigenActualizarCelular,
+                        OrigenDescripcion = Constantes.EnviarCorreoYSms.OrigenDescripcion,
+                    }, Constantes.TipoEnvioEmailSms.EnviarPorSms, code);
 
                     //EnviarSms(celularNuevo, code);
                     transScope.Complete();
@@ -1950,7 +1941,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     CodigoUsuario = codigoUsuario,
                     OrigenID = Constantes.EnviarCorreoYSms.OrigenActualizarCelular,
-                    tipoEnvio = Constantes.ValidacionDatosTipoEnvio.Sms,
+                    tipoEnvio = Constantes.TipoEnvioEmailSms.EnviarPorSms,
                     codigoGenerado = codigoSms
                 });
 
@@ -2001,7 +1992,7 @@ namespace Portal.Consultoras.BizLogic
 
         private BERespuestaServicio GetSmsValidacionDatos(string codigoUsuario, int campania, DAValidacionDatos daValidacionDatos, out BEValidacionDatos validacionDato)
         {
-            using (var reader = daValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.ValidacionDatosTipoEnvio.Sms, codigoUsuario))
+            using (var reader = daValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.TipoEnvioEmailSms.EnviarPorSms, codigoUsuario))
             {
                 validacionDato = reader.MapToObject<BEValidacionDatos>();
             }

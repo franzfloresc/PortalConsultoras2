@@ -2256,11 +2256,6 @@ namespace Portal.Consultoras.Common
         }
         #endregion  
 
-        public static class ValidacionDatosTipoEnvio
-        {
-            public const string Email = "email";
-            public const string Sms = "sms";
-        }
         public static class ValidacionDatosEstado
         {
             public const string Pendiente = "P";
