@@ -29,6 +29,7 @@
     height: 270px;
     float: left;
     position: relative;
+    min-width: 100px;
 }
 
     .img_odd img {

@@ -315,6 +315,8 @@
 </div>
 
 <!--compartir-->
+@if (Model.TieneCompartir)
+{
 <div id="Contenedor_redes_sociales" data-item="">
     <div data-compartir-campos="" style="display:none;">
         <input type="hidden" class="CUV" value="" />
@@ -331,11 +333,16 @@
     </div>
     <div class="col-md-12 col-sm-12 col-xs-12 share">
         <p>Comparte el producto con tus clientes</p>
-        <a href="javascript: void(0);" class="text-right"><img src="~/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp" data-compartir="WA"></a>
-        <a href="javascript: void(0);"><img src="~/Content/Images/showroom/redes_facebook.png" alt="" class="fb" data-compartir="FB"></a>
+        <a href="javascript: void(0);" class="text-right">
+            <img src="~/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp" data-compartir="WA">
+        </a>
+        <a href="javascript: void(0);">
+            <img src="~/Content/Images/showroom/redes_facebook.png" alt="" class="fb" data-compartir="FB">
+        </a>
         <div class="clearfix"></div>
     </div>
 </div>
+}
 
 
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })

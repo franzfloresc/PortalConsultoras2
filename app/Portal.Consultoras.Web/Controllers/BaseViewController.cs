@@ -265,6 +265,9 @@ namespace Portal.Consultoras.Web.Controllers
                         || Constantes.NombrePalanca.ShowRoom == palanca
                         || Constantes.NombrePalanca.OfertaDelDia == palanca);
 
+                modelo.TieneCompartir = !(Constantes.NombrePalanca.HerramientasVenta == palanca
+                    || Constantes.NombrePalanca.PackNuevas == palanca);
+
                 if (modelo.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
                 {
                     modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;

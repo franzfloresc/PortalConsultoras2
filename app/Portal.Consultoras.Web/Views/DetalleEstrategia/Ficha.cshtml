@@ -51,6 +51,7 @@
                     </div>*@
 
                 <!--compartir-->
+                {{#if TieneCompartir}}
                 <div id="Contenedor_redes_sociales" class="ficha_redes_sociales">
                     <div data-compartir-campos="" style="display:none;">
                         <input type="hidden" class="CUV" value="{{CUV2}}" />
@@ -70,6 +71,8 @@
                         <img class="contenedor_img" src="/Content/Images/Esika/facebook.png">
                     </a>
                 </div>
+                {{/if}}
+                <!--fin compartir-->
             </div>
             <div class="ficha_detalle">
                 <div id="contenedor_ficha_etiquetas" class="contenedor_ficha_etiquetas">
