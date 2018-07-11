@@ -1308,7 +1308,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 sessionManager.SetUserData(usuarioModel);
-                sessionManager.SetEstrategiaODD(estrategiaODD);
             }
             catch (Exception ex)
             {
@@ -1589,9 +1588,9 @@ namespace Portal.Consultoras.Web.Controllers
             if (UsarMsPer("009",model.CodigoISO))
             {
                 var ofertaDelDiaProvider = new OfertaDelDiaProvider();
-                var lst = ofertaDelDiaProvider.ObtenerOfertasDesdeApi(model.CodigoISO,"ODD",model.CampaniaID,model.CodigoConsultora,DateTime.Compare(model.FechaInicioCampania.Date,DateTime.Now.Date));
+                TimeSpan fechaInicio = (DateTime)DateTime.Now - (DateTime)model.FechaInicioCampania.Date;
+                var lst = ofertaDelDiaProvider.ObtenerOfertasDesdeApi(model.CodigoISO, Constantes.ConfiguracionPais.OfertaDelDia, model.CampaniaID, model.CodigoConsultora, fechaInicio.Days);
                 return lst.Result;
-                //ofertasDelDia = lst;
             }
             else
             {
