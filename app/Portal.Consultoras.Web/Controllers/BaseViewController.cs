@@ -257,15 +257,31 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
                 modelo.Campania = campaniaId;
                 modelo.Cuv = cuv;
+
                 //modelo.CodigoIsoConsultora = userData.CodigoISO;
                 //modelo.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();
 
-                if (modelo.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.OfertaDelDia) return View(modelo);
-                modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
-                var sessionODD = sessionManager.OfertaDelDia.Estrategia;
-                if (sessionODD == null) return View(modelo);
-                modelo.ColorFondo1 = sessionODD.ColorFondo1;
-                modelo.ConfiguracionContenedor = sessionODD.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
+                modelo.TieneCarrusel = (Constantes.NombrePalanca.Lanzamiento == palanca
+                        || Constantes.NombrePalanca.ShowRoom == palanca
+                        || Constantes.NombrePalanca.OfertaDelDia == palanca);
+
+                if (modelo.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
+                {
+                    modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
+                    modelo.TieneReloj = true;
+
+                    var sessionODD = sessionManager.OfertaDelDia.Estrategia;
+                    if (sessionODD != null)
+                    {
+                        modelo.ColorFondo1 = sessionODD.ColorFondo1;
+                        modelo.ConfiguracionContenedor = sessionODD.ConfiguracionContenedor;
+                    }
+
+                    modelo.ConfiguracionContenedor = modelo.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
+                    modelo.ConfiguracionContenedor.ColorFondo = "#fff";
+                    modelo.ConfiguracionContenedor.ColorTexto = "#000";
+                    modelo.ColorFondo1 = "";
+                }
 
                 return View(modelo);
             }

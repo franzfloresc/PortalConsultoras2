@@ -19,19 +19,10 @@ namespace Portal.Consultoras.Web.Models
         public int Campania { get; set; }
         public string Cuv { get; set; }
 
-        public bool TieneReloj
-        {
-            get { return (Constantes.NombrePalanca.OfertaDelDia == Palanca); }
-        }
+        public bool TieneReloj { get; set; }
 
-        public bool TieneCarrusel {
-            get
-            {
-                return (Constantes.NombrePalanca.Lanzamiento == Palanca
-                        || Constantes.NombrePalanca.ShowRoom == Palanca
-                        || Constantes.NombrePalanca.OfertaDelDia == Palanca);
-            }
-        }
+        public bool TieneCarrusel { get; set; }
+
         public double TeQuedan { get; set; }
         public string ColorFondo1 { get; set; }
         public ConfiguracionSeccionHomeModel ConfiguracionContenedor { get; set; }

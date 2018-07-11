@@ -73,9 +73,11 @@
             </div>
             <div class="ficha_detalle">
                 <div id="contenedor_ficha_etiquetas" class="contenedor_ficha_etiquetas">
+                    {{#if TieneReloj}}
                     <div id="EtiquetaOdd" class="contenedor_etiqueta_odd">
                         <div id="clock" class="clock_odd"></div>
                     </div>
+                    {{/if}}
                     @*<div id="EtiquetaLanzamientos" class="contenedor_etiqueta_nuevo">
                         <div class="triangulo_etiqueta_nuevo"></div>
                         <div class="etiqueta_nuevo">

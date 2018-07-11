@@ -43,7 +43,7 @@
         DescripcionAdicional: "#DescripcionAdicional",
         ContenidoProducto: "#ContenidoProducto",
         CarruselProducto: "#CarruselProducto",
-        EtiquetaOdd: "#EtiquetaOdd",
+        //EtiquetaOdd: "#EtiquetaOdd",
         //SloganLanzamientos: "#SloganLanzamientos",
         //ContenedoFotoReferencial: "#contenedor_foto_referencial",
         ContenedoFichaEtiquetas: "#contenedor_ficha_etiquetas",
@@ -258,13 +258,10 @@
         }
 
         _cargarDataCompartir(estrategia);
-
-        if (estrategia.CodigoEstrategia === _constantePalanca.OfertaDelDia) {
+        
+        if (estrategia.TieneReloj) {
             _crearReloj(estrategia);
             estrategia.ConfiguracionContenedor = estrategia.ConfiguracionContenedor || {};
-            estrategia.ConfiguracionContenedor.ColorFondo = "#fff";
-            estrategia.ConfiguracionContenedor.ColorTexto = "#000";
-            estrategia.ColorFondo1 = "";
             SetHandlebars("#ofertadeldia-template-style", estrategia, "#styleRelojOdd");
         }
 
@@ -336,7 +333,7 @@
             $(_elementos.footerPage).hide();
         }
         //$(_seccionesFichaProducto.SloganLanzamientos).hide();
-        $(_seccionesFichaProducto.EtiquetaOdd).hide();
+        //$(_seccionesFichaProducto.EtiquetaOdd).hide();
         //$(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
         //$(_seccionesFichaProducto.EtiquetaPackNuevas).hide();
         //$(_seccionesFichaProducto.SloganPackNuevas).hide();
@@ -366,7 +363,7 @@
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             $(_seccionesFichaProducto.CarruselProducto).show();
         } else if (_codigoPalanca.OfertaDelDia == _config.palanca) {
-            $(_seccionesFichaProducto.EtiquetaOdd).show();
+            //$(_seccionesFichaProducto.EtiquetaOdd).show();
         } else if (_codigoPalanca.PackNuevas == _config.palanca) {
             //$(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
             //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
@@ -379,12 +376,12 @@
             //$(_seccionesFichaProducto.SloganPackNuevas).show();
         }
 
-        var etiquetaOddEstaOculta = $(_seccionesFichaProducto.EtiquetaOdd).is(":hidden");
-        var etiquetaLanzamientosEstaOculta = $(_seccionesFichaProducto.EtiquetaLanzamientos).is(":hidden");
-        if (etiquetaOddEstaOculta && etiquetaLanzamientosEstaOculta)
-            $(_seccionesFichaProducto.ContenedoFichaEtiquetas).show();
-        else
-            $(_seccionesFichaProducto.ContenedoFichaEtiquetas).show();
+        //var etiquetaOddEstaOculta = $(_seccionesFichaProducto.EtiquetaOdd).is(":hidden");
+        //var etiquetaLanzamientosEstaOculta = $(_seccionesFichaProducto.EtiquetaLanzamientos).is(":hidden");
+        //if (etiquetaOddEstaOculta && etiquetaLanzamientosEstaOculta)
+            //$(_seccionesFichaProducto.ContenedoFichaEtiquetas).show();
+        //else
+            //$(_seccionesFichaProducto.ContenedoFichaEtiquetas).show();
     };
 
     var _ocultarTabs = function () {

@@ -28,9 +28,11 @@
 </div>
 
 <script id="detalle_ficha_template" type="text/x-handlebars-template">
+    {{#if TieneReloj}}
     <div id="EtiquetaOdd">
         <div id="clock" class="clock_odd"></div>
     </div>
+    {{/if}}
     <div id="ImagenDeFondo" class="bg_imagen_producto" data-estadoregistro=""></div>
     <div class="container box-container">
         <div class="row imagen_producto ">
