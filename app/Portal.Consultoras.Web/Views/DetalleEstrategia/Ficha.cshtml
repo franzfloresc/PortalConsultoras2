@@ -27,9 +27,11 @@
                 <div class="contenedor_imagen">
                     <img class="contenedor_img" src="{{ImgUrl FotoProducto01}}" alt="">
                 </div>
-                <div id="contenedor_foto_referencial" class="texto_referencial" style="display:none;">
+                {{#iff CodigoVariante '==' '2003'}}
+                <div id="contenedor_foto_referencial" class="texto_referencial">
                     <span data-texto_referencial="">* Foto Referencial</span>
                 </div>
+                {{/iff}}
                 @*
                     <div class="contenedor_carrusel_tonos">
                         <div id="carrusel_tonos" style="display:none;">
@@ -71,19 +73,23 @@
             </div>
             <div class="ficha_detalle">
                 <div id="contenedor_ficha_etiquetas" class="contenedor_ficha_etiquetas">
+                    {{#if TieneReloj}}
                     <div id="EtiquetaOdd" class="contenedor_etiqueta_odd">
                         <div id="clock" class="clock_odd"></div>
                     </div>
-                    <div id="EtiquetaLanzamientos" class="contenedor_etiqueta_nuevo">
+                    {{/if}}
+                    @*<div id="EtiquetaLanzamientos" class="contenedor_etiqueta_nuevo">
                         <div class="triangulo_etiqueta_nuevo"></div>
                         <div class="etiqueta_nuevo">
                             <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" />
                         </div>
-                    </div>
+                    </div>*@
                     <div id="EtiquetaPackNuevas" class="contenedor_etiqueta_nuevo">
-                        <div class="triangulo_etiqueta_nuevo"></div>
+                        @*<div class="triangulo_etiqueta_nuevo"></div>*@
                         <div class="etiqueta_nuevo">
+                            {{#IsNullOrEmpty ImagenURL '!='}}
                             <img src="{{ImagenURL}}" alt="" />
+                            {{/IsNullOrEmpty}}
                         </div>
                     </div>
                 </div>

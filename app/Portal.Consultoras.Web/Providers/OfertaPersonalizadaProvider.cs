@@ -703,6 +703,8 @@ namespace Portal.Consultoras.Web.Providers
                     }
                     estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCortada, 40);
 
+                    estrategia.ImagenURL = estrategia.EstrategiaDetalle.ImgFichaDesktop;
+
                     #endregion
                 }
                 else if (estrategia.FlagNueva == 1)
@@ -833,6 +835,8 @@ namespace Portal.Consultoras.Web.Providers
                     prodModel.TipoEstrategiaDetalle.Slogan = estrategia.EstrategiaDetalle.Slogan.IsNullOrEmptyTrim() ? "" : estrategia.EstrategiaDetalle.Slogan.First().ToString().ToUpper() + estrategia.EstrategiaDetalle.Slogan.Substring(1).ToLower();
                     prodModel.TipoEstrategiaDetalle.FlagIndividual = estrategia.EstrategiaDetalle.FlagIndividual;
                     prodModel.CodigoProducto = estrategia.CodigoProducto;
+
+                    prodModel.ImagenURL = prodModel.TipoEstrategiaDetalle.ImgFichaDesktop;
                 }
                 else if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
                 {

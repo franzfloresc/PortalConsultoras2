@@ -28,27 +28,35 @@
 </div>
 
 <script id="detalle_ficha_template" type="text/x-handlebars-template">
+    {{#if TieneReloj}}
     <div id="EtiquetaOdd">
         <div id="clock" class="clock_odd"></div>
     </div>
-    <div id="ImagenDeFondo" class="bg_imagen_producto" data-estadoregistro="">
-    </div>
+    {{/if}}
+    <div id="ImagenDeFondo" class="bg_imagen_producto" data-estadoregistro=""></div>
     <div class="container box-container">
         <div class="row imagen_producto ">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <img src="{{ImgMedium FotoProducto01}}" />
             </div>
         </div>
-        <div id="EtiquetaLanzamientos" class="row label_producto">
+        @*<div id="EtiquetaLanzamientos" class="row label_producto">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <img src="{{TipoEstrategiaDetalle.ImgFichaMobile}}" alt="" />
             </div>
-        </div>
+        </div>*@
+        {{#IsNullOrEmpty ImagenURL '!='}}
         <div id="EtiquetaPackNuevas" class="row label_producto">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <img src="{{ImagenURL}}" alt="" />
             </div>
         </div>
+        {{/IsNullOrEmpty}}
+        {{#iff CodigoVariante '==' '2003'}}
+        <div id="contenedor_foto_referencial" class="texto_referencial">
+            <span data-texto_referencial="">* Foto Referencial</span>
+        </div>
+        {{/iff}}
         <div class="row marca_producto">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 {{#if EsMultimarca}}
