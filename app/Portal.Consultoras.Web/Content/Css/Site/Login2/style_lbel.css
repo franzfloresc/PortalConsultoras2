@@ -2500,7 +2500,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
     .loginBtn--facebook:before {
-        background: url('https://d1y60eoca8fkyl.cloudfront.net/ImagenesPortal/Iconos/facebook_login.png') 22px 13px no-repeat;
+        background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/facebook_login.png') 22px 13px no-repeat;
     }
 
     .loginBtn--facebook:hover,
@@ -2651,7 +2651,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .loginBtn--facebook:before {
-    background: url('https://d1y60eoca8fkyl.cloudfront.net/ImagenesPortal/Iconos/facebook_login.png') 22px 13px no-repeat;
+    background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/facebook_login.png') 22px 13px no-repeat;
 }
 
 .loginBtn:before {
