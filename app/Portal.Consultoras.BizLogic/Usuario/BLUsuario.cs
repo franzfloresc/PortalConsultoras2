@@ -1937,13 +1937,11 @@ namespace Portal.Consultoras.BizLogic
                 var daValidacionDatos = new DAValidacionDatos(paisId);
                 var daUsuario = new DAUsuario(paisId);
 
-                var valid = daUsuario.ValidarCodigoIngresado(new BEUsuarioCorreo
+                var valid = daUsuario.ValidarCodigoIngresado(new BEUsuarioDatos
                 {
                     CodigoUsuario = codigoUsuario,
-                    OrigenID = Constantes.EnviarCorreoYSms.OrigenActualizarCelular,
-                    tipoEnvio = Constantes.TipoEnvioEmailSms.EnviarPorSms,
-                    codigoGenerado = codigoSms
-                });
+                    OrigenID = Constantes.EnviarCorreoYSms.OrigenActualizarCelular
+                }, Constantes.TipoEnvioEmailSms.EnviarPorSms, codigoSms);
 
                 if (!valid)
                 {

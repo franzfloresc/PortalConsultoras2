@@ -876,13 +876,13 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public bool ValidarCodigoIngresado(BEUsuarioCorreo oUsu)
+        public bool ValidarCodigoIngresado(BEUsuarioDatos oUsu, string tipoEnvio, string codigoSms)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarCodigoIngresado"); ;
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsu.CodigoUsuario);
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsu.OrigenID);
-            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, oUsu.tipoEnvio);
-            Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, oUsu.codigoGenerado);
+            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, tipoEnvio);
+            Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, codigoSms);
 
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
