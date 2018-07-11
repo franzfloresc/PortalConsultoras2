@@ -1852,7 +1852,14 @@ namespace Portal.Consultoras.BizLogic
             MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, logo, nomconsultora, url, fondo, paramQuerystring);
         }
         
-        public BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string celularActual, string celularNuevo)
+        public BERespuestaServicio RegistrarEnvioSms(
+            int paisId,
+            string codigoUsuario,
+            string codigoConsultora,
+            int campaniaId,
+            bool esMobile,
+            string celularActual,
+            string celularNuevo)
         {
             if (string.IsNullOrEmpty(celularNuevo))
             {
@@ -1862,7 +1869,15 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 var dAValidacionDatos = new DAValidacionDatos(paisId);
-                var dAUsuario = new DAUsuario(paisId);
+
+                BEValidacionDatos validacionDato;
+                using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(
+                    Constantes.TipoEnvioEmailSms.EnviarPorSms,
+                    codigoUsuario)
+                )
+                {
+                    validacionDato = reader.MapToObject<BEValidacionDatos>();
+                }
 
                 var transOptions = new TransactionOptions
                 {
@@ -1870,15 +1885,6 @@ namespace Portal.Consultoras.BizLogic
                 };
                 using (var transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
                 {
-                    BEValidacionDatos validacionDato;
-                    using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(
-                                            Constantes.TipoEnvioEmailSms.EnviarPorSms,
-                                            codigoUsuario)
-                    )
-                    {
-                        validacionDato = reader.MapToObject<BEValidacionDatos>();
-                    }
-
                     if (validacionDato == null ||
                         string.IsNullOrEmpty(validacionDato.TipoEnvio))
                     {
@@ -1907,13 +1913,13 @@ namespace Portal.Consultoras.BizLogic
                     ProcesaEnvioSms(paisId, new BEUsuarioDatos
                     {
                         CodigoUsuario = codigoUsuario,
-                        CodigoConsultora = "",
+                        CodigoConsultora = codigoConsultora,
                         OrigenID = Constantes.EnviarCorreoYSms.OrigenActualizarCelular,
                         OrigenDescripcion = Constantes.EnviarCorreoYSms.OrigenDescripcion,
-                        campaniaID = 1,
+                        campaniaID = campaniaId,
                         Celular = celularNuevo,
                         CodigoIso = Common.Util.GetPaisISO(paisId),
-                        EsMobile = false
+                        EsMobile = esMobile
                     }, 1);
 
                     transScope.Complete();

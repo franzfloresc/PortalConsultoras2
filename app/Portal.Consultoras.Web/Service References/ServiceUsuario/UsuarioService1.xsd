@@ -296,6 +296,9 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="paisId" type="xs:int" />
         <xs:element minOccurs="0" name="codigoUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
+        <xs:element minOccurs="0" name="esMobile" type="xs:boolean" />
         <xs:element minOccurs="0" name="celularActual" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="celularNuevo" nillable="true" type="xs:string" />
       </xs:sequence>

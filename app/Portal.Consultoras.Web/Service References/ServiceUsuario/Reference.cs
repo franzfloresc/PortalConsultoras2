@@ -10511,10 +10511,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ActualizarEmailAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/RegistrarEnvioSms", ReplyAction="http://tempuri.org/IUsuarioService/RegistrarEnvioSmsResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string celularActual, string celularNuevo);
+        Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string codigoConsultora, int campaniaId, bool esMobile, string celularActual, string celularNuevo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/RegistrarEnvioSms", ReplyAction="http://tempuri.org/IUsuarioService/RegistrarEnvioSmsResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> RegistrarEnvioSmsAsync(int paisId, string codigoUsuario, string celularActual, string celularNuevo);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> RegistrarEnvioSmsAsync(int paisId, string codigoUsuario, string codigoConsultora, int campaniaId, bool esMobile, string celularActual, string celularNuevo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ConfirmarCelularPorCodigoSms", ReplyAction="http://tempuri.org/IUsuarioService/ConfirmarCelularPorCodigoSmsResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania);
@@ -11362,12 +11362,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.ActualizarEmailAsync(usuario, correoNuevo);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string celularActual, string celularNuevo) {
-            return base.Channel.RegistrarEnvioSms(paisId, codigoUsuario, celularActual, celularNuevo);
+        public Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string codigoConsultora, int campaniaId, bool esMobile, string celularActual, string celularNuevo) {
+            return base.Channel.RegistrarEnvioSms(paisId, codigoUsuario, codigoConsultora, campaniaId, esMobile, celularActual, celularNuevo);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> RegistrarEnvioSmsAsync(int paisId, string codigoUsuario, string celularActual, string celularNuevo) {
-            return base.Channel.RegistrarEnvioSmsAsync(paisId, codigoUsuario, celularActual, celularNuevo);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> RegistrarEnvioSmsAsync(int paisId, string codigoUsuario, string codigoConsultora, int campaniaId, bool esMobile, string celularActual, string celularNuevo) {
+            return base.Channel.RegistrarEnvioSmsAsync(paisId, codigoUsuario, codigoConsultora, campaniaId, esMobile, celularActual, celularNuevo);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania) {

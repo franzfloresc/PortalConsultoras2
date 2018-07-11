@@ -8,6 +8,7 @@ namespace Portal.Consultoras.Web.Infraestructure.Sms
     public class SmsProcess: ISmsSender, ISmsConfirm
     {
         public UsuarioModel User { get; set; }
+        public bool Mobile { get; set; }
 
         public async Task<SimpleResult> Send(string celular)
         {
@@ -16,6 +17,9 @@ namespace Portal.Consultoras.Web.Infraestructure.Sms
                 var response = await sv.RegistrarEnvioSmsAsync(
                     User.PaisID,
                     User.CodigoUsuario,
+                    User.CodigoConsultora,
+                    User.CampaniaID,
+                    Mobile,
                     User.Celular,
                     celular);
 

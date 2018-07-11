@@ -331,7 +331,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             ISmsSender sender = new SmsProcess
             {
-                User = userData
+                User = userData,
+                Mobile = EsDispositivoMovil()
             };
 
             result = await sender.Send(celular);

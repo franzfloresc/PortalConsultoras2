@@ -81,7 +81,7 @@ namespace Portal.Consultoras.BizLogic
         void UpdUsuarioDigitador(BEUsuario usuario);
         int UpdUsuarioLider(int PaisID, string CodigoUsuario, string Telefono, string Celular, string Email);
         int UpdUsuarioRechazarInvitacion(int PaisID, string CodigoUsuario);
-        BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string celularActual, string celularNuevo);
+        BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string codigoConsultora, int campaniaId, bool esMobile, string celularActual, string celularNuevo);
         BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania);
         int ValidarEmailConsultora(int PaisID, string Email, string CodigoUsuario);
         int ValidarEnvioCatalogo(int paisID, string CodigoConsultora, int CampaniaActual, int Cantidad);

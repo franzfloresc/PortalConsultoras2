@@ -729,9 +729,16 @@ namespace Portal.Consultoras.Service
             return new BLUsuario().ActualizarEmail(usuario, correoNuevo);
         }
 
-        public BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string celularActual, string celularNuevo)
+        public BERespuestaServicio RegistrarEnvioSms(
+            int paisId,
+            string codigoUsuario,
+            string codigoConsultora,
+            int campaniaId,
+            bool esMobile,
+            string celularActual,
+            string celularNuevo)
         {
-            return _usuarioBusinessLogic.RegistrarEnvioSms(paisId, codigoUsuario, celularActual, celularNuevo);
+            return _usuarioBusinessLogic.RegistrarEnvioSms(paisId, codigoUsuario, codigoConsultora, campaniaId, esMobile, celularActual, celularNuevo);
         }
 
         public BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania)
