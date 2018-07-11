@@ -803,6 +803,12 @@ body {
     background-repeat: no-repeat;
     background-size: 13px;
     cursor: pointer;
+    border: none;
+    
+}
+
+.texto_sin_tono {
+    border: 1px solid black;
 }
 
 .tono_por_elegir {
@@ -813,24 +819,28 @@ body {
 }
 
 .texto_tono_seleccionado {
-    padding: 13px 15px 13px 15px !important; 
+    padding: 13px 15px 13px 14px !important; 
     height: auto;
     margin: 0;
 }
 
 .tono_seleccionado {
-    width: 45px;
-    height: 43px;
+    margin-top: 2px !important;
+    height: 41px;
+}
+
+.texto_sin_tono .tono_seleccionado {
+    margin: 1px 9px;
 }
 
 .content_tonos_select {
-    max-height: 220px;
-    width: 100.8% !important;
+    height: auto;
+    width: 100% !important;
     border: 1px solid #000;
-    left: -1px;
-    border-top: 0px;
-    padding: 10px 15px 25px 15px;
-    top: 43px;
+    padding: 10px 10px 0px 10px;
+    border-top: 1px solid #ccc !important;
+    top: 46px;
+    left: 0px;
 }
 
 .content_tono_detalle{
@@ -846,7 +856,7 @@ body {
 }
 
 .tono_escogido {
-    border: 1px solid #000;
+    border: none;
 }
 
 .content_tonos .tono_select_opt{
