@@ -1640,7 +1640,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEConsultoraRegaloProgramaNuevas entidad;
                 using (var svc = new PedidoServiceClient())
                 {
-                    entidad = await svc.GetConsultoraRegaloProgramaNuevasAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.CodigorRegion, model.CodigoZona);
+                    entidad = await svc.GetConsultoraRegaloProgramaNuevasAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.ConsecutivoNueva);
                 }
 
                 if (entidad != null)

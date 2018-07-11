@@ -6,7 +6,7 @@ END
 GO
 CREATE PROCEDURE [dbo].[GetRegaloProgramaNuevas]
 	@CodigoPrograma varchar(3),
-	@CampaniaId char(6),
+	@Campania char(6),
 	@CodigoNivel char(2)
 AS
 BEGIN
@@ -19,7 +19,7 @@ BEGIN
 	inner join ods.ProductoComercial PC on PC.AnoCampania = PPN.AnoCampana and PC.CUV = PPN.CUV
 	left join ProductoDescripcion PD ON PD.CampaniaID = PC.AnoCampania and PD.CUV = PC.CUV
 	where
-		PPN.CodigoPrograma = @CodigoPrograma and PPN.AnoCampana = @CampaniaId and PPN.CodigoNivel = @CodigoNivel and
+		PPN.CodigoPrograma = @CodigoPrograma and PPN.AnoCampana = @Campania and PPN.CodigoNivel = @CodigoNivel and
 		isnull(PPN.PrecioUnitario,0) = 0 and isnull(PC.PrecioCatalogo,0) = 0;
 END
 GO

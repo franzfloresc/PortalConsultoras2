@@ -466,7 +466,7 @@ namespace Portal.Consultoras.Web.SessionManager
         }
         bool ISessionManager.ProcesoKitNuevas
         {
-            get { return (bool)HttpContext.Current.Session["ProcesoKitNuevas"]; }
+            get { return (bool)(HttpContext.Current.Session["ProcesoKitNuevas"] ?? false); }
             set { HttpContext.Current.Session["ProcesoKitNuevas"] = value; }
         }
         string ISessionManager.CuvKitNuevas

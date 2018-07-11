@@ -501,13 +501,21 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult PedidoInsertar(PedidoCrudModel model)
         {
+            return Json(PedidoInsertarGenerico(model, false));
+        }
+
+        private object PedidoInsertarGenerico(PedidoCrudModel model, bool esKitNuevaAuto)
+        {
             try
             {
                 var objValidad = InsertarMensajeValidarDatos(model.ClienteID);
-                if (objValidad != null) return Json(objValidad);
+                if (objValidad != null) return objValidad;
 
-                objValidad = InsertarValidarKitInicio(model.CUV);
-                if (objValidad != null) return Json(objValidad);
+                if (!esKitNuevaAuto)
+                {
+                    objValidad = InsertarValidarKitInicio(model.CUV);
+                    if (objValidad != null) return objValidad;
+                }
 
                 #region Administrador Pedido
                 var obePedidoWebDetalle = new BEPedidoWebDetalle
@@ -572,7 +580,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                return Json(new
+                return new
                 {
                     success = !errorServer,
                     message = !errorServer ? "OK"
@@ -587,13 +595,12 @@ namespace Portal.Consultoras.Web.Controllers
                     modificoBackOrder,
                     DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),
                     cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(dp => dp.Cantidad)
-                });
-
+                };
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
+                return new
                 {
                     success = false,
                     message = ex.Message,
@@ -603,7 +610,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listaCliente = "",
                     errorInsertarProducto = "0",
                     tipo = ""
-                });
+                };
             }
         }
 
@@ -3555,7 +3562,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, cuvKitNuevas).ToList();
             }
-            if (olstProducto.Count > 0) PedidoInsertar(CreatePedidoCrudModelKitInicio(olstProducto[0]));
+            if (olstProducto.Count > 0) PedidoInsertarGenerico(CreatePedidoCrudModelKitInicio(olstProducto[0]), true);
         }
 
         private PedidoCrudModel CreatePedidoCrudModelKitInicio(ServiceODS.BEProducto producto)

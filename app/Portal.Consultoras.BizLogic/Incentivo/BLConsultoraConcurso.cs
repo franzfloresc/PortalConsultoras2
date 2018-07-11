@@ -43,6 +43,7 @@ namespace Portal.Consultoras.BizLogic
                     CodigoNivelProgramaNuevas = iBlConfiguracionProgramaNuevas.GetCodigoNivel(usuario),
                     TipoConcurso = Incentivos.CalculoProgramaNuevas
                 };
+                Concursos.Add(incentivoNuevas);
                 DAConcurso.DelInsProgramaNuevasXConsultora(usuario.CodigoConsultora, incentivoNuevas);
             }
 

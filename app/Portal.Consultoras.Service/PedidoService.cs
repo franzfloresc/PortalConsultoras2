@@ -2014,9 +2014,9 @@ namespace Portal.Consultoras.Service
             return new BLOfertaProducto().UpdMatrizComercialDescripcionComercial(entity);
         }
 
-        public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
+        public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva)
         {
-            return new BLConfiguracionProgramaNuevas().GetConsultoraRegaloProgramaNuevas(paisID, campaniaId, codigoConsultora);
+            return new BLConfiguracionProgramaNuevas().GetConsultoraRegaloProgramaNuevas(paisID, campaniaId, codigoConsultora, consecutivoNueva);
         }
 
         #region Cupon

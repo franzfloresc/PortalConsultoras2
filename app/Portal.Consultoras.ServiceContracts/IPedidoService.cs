@@ -1052,7 +1052,7 @@ namespace Portal.Consultoras.ServiceContracts
         int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad);
 
         [OperationContract]
-        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
+        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva);
 
         [OperationContract]
         Task<BEResultadoReservaProl> CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);

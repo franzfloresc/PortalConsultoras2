@@ -39375,10 +39375,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<int> InsIndicadorPedidoAutenticoAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEIndicadorPedidoAutentico entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConsultoraRegaloProgramaNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetConsultoraRegaloProgramaNuevasResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
+        Portal.Consultoras.Web.ServicePedido.BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConsultoraRegaloProgramaNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetConsultoraRegaloProgramaNuevasResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraRegaloProgramaNuevas> GetConsultoraRegaloProgramaNuevasAsync(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraRegaloProgramaNuevas> GetConsultoraRegaloProgramaNuevasAsync(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProl", ReplyAction="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProlResponse")]
         Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
@@ -42176,12 +42176,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.InsIndicadorPedidoAutenticoAsync(paisID, entidad);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona) {
-            return base.Channel.GetConsultoraRegaloProgramaNuevas(paisID, campaniaId, codigoConsultora, codigoRegion, codigoZona);
+        public Portal.Consultoras.Web.ServicePedido.BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva) {
+            return base.Channel.GetConsultoraRegaloProgramaNuevas(paisID, campaniaId, codigoConsultora, consecutivoNueva);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraRegaloProgramaNuevas> GetConsultoraRegaloProgramaNuevasAsync(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona) {
-            return base.Channel.GetConsultoraRegaloProgramaNuevasAsync(paisID, campaniaId, codigoConsultora, codigoRegion, codigoZona);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraRegaloProgramaNuevas> GetConsultoraRegaloProgramaNuevasAsync(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva) {
+            return base.Channel.GetConsultoraRegaloProgramaNuevasAsync(paisID, campaniaId, codigoConsultora, consecutivoNueva);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo) {

@@ -222,7 +222,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (esOfertaNueva) AgregarProductoZE(usuario, pedidoDetalle, lstDetalle);
                 LogPerformance("AgregarProductoZE");
 
-                var codeResult = PedidoInsertar(usuario, pedidoDetalle, lstDetalle);
+                var codeResult = PedidoInsertar(usuario, pedidoDetalle, lstDetalle, false);
                 LogPerformance("PedidoInsertar");
                 if (codeResult != Constantes.PedidoAppValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(codeResult);
 
@@ -369,7 +369,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         EsKitNueva = true
                     };
 
-                    var result = PedidoInsertar(usuario, detalle, lstDetalle);
+                    var result = PedidoInsertar(usuario, detalle, lstDetalle, true);
                     LogPerformance("PedidoInsertar");
                     if (result != Constantes.PedidoAppValidacion.Code.SUCCESS) return false;
 
@@ -827,10 +827,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return mensaje == "OK" ? string.Empty : mensaje;
         }
 
-        private string PedidoInsertar(BEUsuario usuario, BEPedidoDetalleApp pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle)
+        private string PedidoInsertar(BEUsuario usuario, BEPedidoDetalleApp pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle, bool esKitNuevaAuto)
         {
-            var result = InsertarValidarKitInicio(usuario, pedidoDetalle, lstDetalle);
-            if (!result) return Constantes.PedidoAppValidacion.Code.ERROR_KIT_INICIO;
+            bool result;
+            if(esKitNuevaAuto)
+            {
+                result = InsertarValidarKitInicio(usuario, pedidoDetalle, lstDetalle);
+                if (!result) return Constantes.PedidoAppValidacion.Code.ERROR_KIT_INICIO;
+            }
 
             var tipoEstrategiaID = 0;
             int.TryParse(pedidoDetalle.Producto.TipoEstrategiaID, out tipoEstrategiaID);

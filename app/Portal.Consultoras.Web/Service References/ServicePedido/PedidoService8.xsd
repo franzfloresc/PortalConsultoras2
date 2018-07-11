@@ -2253,8 +2253,7 @@
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
         <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="codigoRegion" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="codigoZona" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="consecutivoNueva" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

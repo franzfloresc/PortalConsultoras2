@@ -9,7 +9,7 @@ namespace Portal.Consultoras.BizLogic
         BEConfiguracionProgramaNuevas Get(BEUsuario usuario);
         string GetCuvKitNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas);
         BEConsultoraRegaloProgramaNuevas GetRegaloProgramaNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas);
-        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora);
+        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva);
         string GetCodigoNivel(BEUsuario usuario);
 
         #region ConfiguracionApp
