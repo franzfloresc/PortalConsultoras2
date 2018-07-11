@@ -250,7 +250,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (var sv = new UsuarioServiceClient())
                     {
-                        var upd = sv.UpdUsuarioFotoPerfil(userData.PaisID, userData.CodigoConsultora, nameImage);
+                        var upd = sv.UpdUsuarioFotoPerfil(userData.PaisID, userData.CodigoUsuario, nameImage);
                     }
 
                     if (!Util.IsUrl(userData.FotoOriginalSinModificar) && !string.IsNullOrEmpty(userData.FotoOriginalSinModificar))
