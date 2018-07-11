@@ -42,7 +42,7 @@
 //    }
 //};
 
-var rdAnalyticsModule = (function () {
+var AnalyticsPortal = (function () {
     var _evento = {
         virtualEvent: "virtualEvent",
         productDetails: "productDetails"
