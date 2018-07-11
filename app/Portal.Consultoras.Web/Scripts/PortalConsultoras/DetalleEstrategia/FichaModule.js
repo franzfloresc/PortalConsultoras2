@@ -40,13 +40,13 @@
     var _seccionesFichaProducto = {
         //EtiquetaLanzamientos: "#EtiquetaLanzamientos",
         ImagenDeFondo: "#ImagenDeFondo",
-        DescripcionAdicional: "#DescripcionAdicional",
+        //DescripcionAdicional: "#DescripcionAdicional",
         ContenidoProducto: "#ContenidoProducto",
         //CarruselProducto: "#CarruselProducto",
         //EtiquetaOdd: "#EtiquetaOdd",
         //SloganLanzamientos: "#SloganLanzamientos",
         //ContenedoFotoReferencial: "#contenedor_foto_referencial",
-        ContenedoFichaEtiquetas: "#contenedor_ficha_etiquetas",
+        //ContenedoFichaEtiquetas: "#contenedor_ficha_etiquetas",
         Contenedor_redes_sociales: "#Contenedor_redes_sociales"
         //EtiquetaPackNuevas: "#EtiquetaPackNuevas"
         //SloganPackNuevas: "#SloganPackNuevas"
@@ -345,7 +345,7 @@
             _codigoPalanca.OfertaParaTi === _config.palanca ||
             _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
             //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
-            $(_seccionesFichaProducto.DescripcionAdicional).hide();
+            //$(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             //$(_seccionesFichaProducto.CarruselProducto).hide();
             //if (_codigoPalanca.HerramientasVenta === _config.palanca) {
@@ -354,14 +354,14 @@
         } else if (_codigoPalanca.Lanzamiento == _config.palanca) {
             //$(_seccionesFichaProducto.EtiquetaLanzamientos).show();
             //$(_seccionesFichaProducto.ImagenDeFondo).show();
-            $(_seccionesFichaProducto.DescripcionAdicional).show();
+            //$(_seccionesFichaProducto.DescripcionAdicional).show();
             $(_seccionesFichaProducto.ContenidoProducto).show();
             //$(_seccionesFichaProducto.CarruselProducto).show();
             //$(_seccionesFichaProducto.SloganLanzamientos).show();
         } else if (_codigoPalanca.ShowRoom == _config.palanca) {
             //$(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
             //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
-            $(_seccionesFichaProducto.DescripcionAdicional).hide();
+            //$(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             //$(_seccionesFichaProducto.CarruselProducto).show();
         } else if (_codigoPalanca.OfertaDelDia == _config.palanca) {
@@ -369,7 +369,7 @@
         } else if (_codigoPalanca.PackNuevas == _config.palanca) {
             //$(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
             //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
-            $(_seccionesFichaProducto.DescripcionAdicional).hide();
+            //$(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             //$(_seccionesFichaProducto.CarruselProducto).hide();
             //$(_seccionesFichaProducto.SloganLanzamientos).hide();
