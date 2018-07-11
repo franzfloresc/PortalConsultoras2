@@ -292,9 +292,18 @@ var EstrategiaAgregarModule = (function () {
             AbrirLoad();
 
             if (divAgregado != null) {
+
                 $(divAgregado).show();
-                $("#ContenedorAgregado").show();
+
+                if ($btnAgregar[0])
+                {
+                    var contenedorAgregado = $($btnAgregar).parent().find('#ContenedorAgregado')[0];
+                    if (contenedorAgregado) {
+                        $(contenedorAgregado).show();
+                    }
+                }
             }
+
             if (isMobile()) {
                 ActualizarGanancia(data.DataBarra);
                 microefectoPedidoGuardado();

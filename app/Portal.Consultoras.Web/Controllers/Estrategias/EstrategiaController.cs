@@ -506,25 +506,13 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     }
                 }
 
-                if (listaOfertasModel != null)
-                {
-                    if (listaOfertasModel.Any())
-                    {
-                        var listaPedido = _pedidoWebProvider.ObtenerPedidoWebDetalle(0);
-                        listaOfertasModel.Update(x =>
-                        {
-                            x.IsAgregado = listaPedido.Any(p => p.CUV == x.CUV2);
-                        });
-                    }
-                }
-                else
-                    listaOfertasModel = new List<EstrategiaPersonalizadaProductoModel>();
-             
+                listaOfertasModel = RevisarCheckAgregado(listaOfertasModel);
+
                 return Json(new
                 {
                     success = true,
                     message = "Ok",
-                    data = listaOfertasModel.Where(x => x.CUV2 != cuvExcluido).ToList()
+                    data = listaOfertasModel==null?new List<EstrategiaPersonalizadaProductoModel>(): listaOfertasModel.Where(x => x.CUV2 != cuvExcluido).ToList()
                 });
             }
             catch (Exception ex)
@@ -533,7 +521,9 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
             }
         }
-        
+
+     
+
         #endregion
 
     }
