@@ -1181,7 +1181,8 @@
             multiselectWidth: 35,
             colNames: [
                 "EstrategiaID", "Orden", "#", "Pedido Asociado", "Precio", "CUV2", "Descripción", "Limite Venta", "Código SAP", "ImagenURL",
-                "Foto", colNameActions, "Productos", "EsOfertaIndependiente"
+                "Activo", "EsOfertaIndependiente", "FlagValidarImagen", "PesoMaximoImagen", "_id"
+                , "CodigoTipoEstrategia", "Foto", colNameActions, "Productos"
             ],
             colModel: [
                 {
@@ -1257,6 +1258,52 @@
                 },
                 { name: "ImagenURL", index: "ImagenURL", hidden: true },
                 {
+                    name: "Activo",
+                    index: "Activo",
+                    width: 0,
+                    editable: false,
+                    hidden: true,
+                    sortable: false
+                },
+                {
+                    name: "EsOfertaIndependiente",
+                    index: "EsOfertaIndependiente",
+                    width: 0,
+                    editable: false,
+                    hidden: true
+                },
+                {
+                    name: "FlagValidarImagen",
+                    index: "FlagValidarImagen",
+                    width: 0,
+                    editable: false,
+                    hidden: true
+                },
+                {
+                    name: "PesoMaximoImagen",
+                    index: "PesoMaximoImagen",
+                    width: 0,
+                    editable: false,
+                    hidden: true,
+                    sortable: false
+                },
+                {
+                    name: "_id",
+                    index: "_id",
+                    width: 0,
+                    editable: false,
+                    hidden: true,
+                    sortable: false
+                },
+                {
+                    name: "CodigoTipoEstrategia",
+                    index: "CodigoTipoEstrategia",
+                    width: 0,
+                    editable: false,
+                    hidden: true,
+                    sortable: false
+                },
+                {
                     name: "ImagenProducto",
                     index: "ImagenProducto",
                     width: 70,
@@ -1267,8 +1314,8 @@
                     formatter: _showImage
                 },
                 {
-                    name: "Activo",
-                    index: "Activo",
+                    name: "Accion_1",
+                    index: "Accion_1",
                     width: 60,
                     align: "center",
                     editable: true,
@@ -1277,8 +1324,8 @@
                     formatter: _showActions
                 },
                 {
-                    name: "Activo",
-                    index: "Activo",
+                    name: "Productos",
+                    index: "Productos",
                     width: 60,
                     align: "center",
                     editable: true,
@@ -1286,13 +1333,6 @@
                     sortable: false,
                     hidden: hideColProducts,
                     formatter: _showActionsProductos
-                },
-                {
-                    name: "EsOfertaIndependiente",
-                    index: "EsOfertaIndependiente",
-                    width: 0,
-                    editable: true,
-                    hidden: true
                 }
             ],
             jsonReader:
@@ -2431,6 +2471,8 @@
                     var EstrategiaID = 0;
                     if (!_variables.isNuevo)
                         EstrategiaID = $("#hdEstrategiaID").val();
+                    var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
+                    var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
 
                     var TipoEstrategiaID = $("#hdTipoEstrategiaID").val();
                     var CampaniaID = $("#hdCampania").val();
@@ -2481,6 +2523,16 @@
                     var EsSubCampania = ($("#chkEsSubCampania").attr("checked")) ? true : false;
                     var niveles = $("#hdNiveles").val() || "";
                     var flagIndividual = $("#chkFlagIndividual").is(":checked");
+                    var _idVal = $("#_id").val();
+
+                    var CodigoEstrategiaVal = $('#CodigoEstrategia').val();
+                    var ImagenVal = $('#flagImagenUrl').val();
+                    var DescripcionEstrategiaVal = $('#spanTipoEstrategia').val();
+                    var MarcaIDVal = $('#MarcaID').val();
+                    var DescripcionMarcaVal = $('#MarcaDescripcion').val();
+                    var CodigoProductoVal = $('#hdnCodigoSAP').val();
+                    var IdMatrizComercial = $('#hdnIdMatrizComercial').val();
+                    var CodigoSAPVal = $('#hdnCodigoSAP').val();
                     var slogan = $("#txtSlogan").val() || "";
 
                     var params = {
@@ -2529,8 +2581,19 @@
                         ImagenMiniaturaURLAnterior: $("#hdImagenMiniaturaURLAnterior").val(),
                         EsSubCampania: EsSubCampania,
                         Niveles: niveles,
+                        CodigoEstrategia: CodigoEstrategiaVal,
+                        Imagen: ImagenVal,
+                        DescripcionEstrategia: DescripcionEstrategiaVal,
+                        MarcaID: MarcaIDVal,
+                        DescripcionMarca: DescripcionMarcaVal,
+                        CodigoProducto: CodigoProductoVal,
+                        CodigoSAP: CodigoSAPVal,
+                        IdMatrizComercial: IdMatrizComercial,
+                        _id: _idVal,
                         FlagIndividual: flagIndividual,
-                        Slogan: slogan
+                        Slogan: slogan,
+                        _flagRecoProduc: flagRecoProduc,
+                        _flagRecoPerfil: flagRecoPerfil
                     };
                     jQuery.ajax({
                         type: "POST",
