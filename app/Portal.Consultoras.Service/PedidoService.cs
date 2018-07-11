@@ -1788,6 +1788,11 @@ namespace Portal.Consultoras.Service
             return BLConfiguracionProgramaNuevas.Get(usuario);
         }
 
+        public string GetCuvKitNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas)
+        {
+            return BLConfiguracionProgramaNuevas.GetCuvKitNuevas(usuario, confProgNuevas);
+        }        
+
         #endregion
 
         public void UpdateMontosPedidoWeb(BEPedidoWeb bePedidoWeb)
@@ -2011,7 +2016,7 @@ namespace Portal.Consultoras.Service
 
         public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
         {
-            return new BLPedidoWeb().GetConsultoraRegaloProgramaNuevas(paisID, campaniaId, codigoConsultora, codigoRegion, codigoZona);
+            return new BLConfiguracionProgramaNuevas().GetConsultoraRegaloProgramaNuevas(paisID, campaniaId, codigoConsultora);
         }
 
         #region Cupon
@@ -2126,9 +2131,9 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Incentivos
-        public List<BEIncentivoConcurso> ObtenerConcursosXConsultora(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoRegion, string CodigoZona)
+        public List<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEUsuario usuario)
         {
-            return _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(PaisID, CodigoCampania, CodigoConsultora, CodigoRegion, CodigoZona).ToList();
+            return _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario).ToList();
         }
 
         public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso)

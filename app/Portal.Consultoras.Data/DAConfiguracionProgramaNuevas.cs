@@ -19,6 +19,29 @@ namespace Portal.Consultoras.Data
             {
                 Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.Campania);
                 Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.CodigoConsultora);
+
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public string GetCuvPremioKitNuevas(BEConfiguracionProgramaNuevas entidad)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GetCuvPremioKitNuevas"))
+            {
+                Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
+                Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.Campania);
+                Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, entidad.CodigoNivel);
+
+                return (string)Context.ExecuteScalar(command);
+            }
+        }
+
+        public IDataReader GetRegaloProgramaNuevas(BEConfiguracionProgramaNuevas entidad)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GetRegaloProgramaNuevas"))
+            {
+                Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
+                Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.Campania);
                 Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, entidad.CodigoNivel);
 
                 return Context.ExecuteReader(command);

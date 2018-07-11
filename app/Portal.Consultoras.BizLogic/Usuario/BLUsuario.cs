@@ -479,6 +479,13 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
+                var programaNuevas = GetProgramaNuevas(usuario);;
+                if (programaNuevas != null)
+                {
+                    usuario.ConsecutivoNueva = programaNuevas.ConsecutivoNueva;
+                    usuario.CodigoPrograma = programaNuevas.CodigoPrograma ?? string.Empty;
+                }
+
                 var terminosCondicionesTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppTerminosCondiciones));
                 var politicaPrivacidadTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppPoliticaPrivacidad));
                 var destinatariosFeedBack = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.CorreoFeedbackAppConsultora));
@@ -489,7 +496,6 @@ namespace Portal.Consultoras.BizLogic
                 var incentivosConcursosTask = Task.Run(() => GetIncentivosConcursos(usuario));
                 var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
                 var cuponTask = Task.Run(() => GetCupon(usuario));
-                var programaNuevasTask = Task.Run(() => GetProgramaNuevas(usuario));
                 var nivelProyectado = Task.Run(() => GetNivelProyectado(paisID,usuario.ConsultoraID,usuario.CampaniaID));
 
                 Task.WaitAll(
@@ -503,7 +509,6 @@ namespace Portal.Consultoras.BizLogic
                                 incentivosConcursosTask,
                                 revistaDigitalSuscripcionTask,
                                 cuponTask,
-                                programaNuevasTask,
                                 nivelProyectado);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
@@ -537,13 +542,6 @@ namespace Portal.Consultoras.BizLogic
                 usuario.CuponPctDescuento = cuponTask.Result.ValorAsociado;
                 usuario.CuponMontoMaxDscto = cuponTask.Result.MontoMaximoDescuento;
                 usuario.CuponTipoCondicion = cuponTask.Result.TipoCondicion;
-
-                var programaNuevas = programaNuevasTask.Result;
-                if (programaNuevas != null)
-                {
-                    usuario.ConsecutivoNueva = programaNuevas.ConsecutivoNueva;
-                    usuario.CodigoPrograma = programaNuevas.CodigoPrograma ?? string.Empty;
-                }
 
                 usuario.NivelProyectado = nivelProyectado.Result;
 
@@ -733,7 +731,7 @@ namespace Portal.Consultoras.BizLogic
                 var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
                 var arrCalculoProgramaNuevas = Constantes.Incentivo.CalculoProgramaNuevas.Split(';');
 
-                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario.PaisID, usuario.CampaniaDescripcion, usuario.CodigoConsultora, usuario.CodigorRegion, usuario.CodigoZona);
+                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario);
 
                 if (result.Any())
                 {

@@ -62,7 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
                 sessionManager.SetPedidoWeb(null);
                 sessionManager.SetDetallesPedido(null);
                 sessionManager.SetDetallesPedidoSetAgrupado(null);
-                AgregarKitNuevas();
+                ValidarAgregarKitNuevas();
 
                 #region Flexipago
                 if (PaisTieneFlexiPago(userData.CodigoISO))
@@ -636,17 +636,18 @@ namespace Portal.Consultoras.Web.Controllers
 
         private object InsertarValidarKitInicio(string cuv)
         {
-            var confProgNuevas = GetConfiguracionProgramaNuevas();
-            if (confProgNuevas.IndProgObli == "1" && confProgNuevas.CUVKit == cuv)
+            if (GetConfiguracionProgramaNuevas().IndProgObli != "1") return null;
+
+            string cuvKitNuevas = GetCuvKitNuevas();
+            if (string.IsNullOrEmpty(cuvKitNuevas)) return null;
+            if (cuvKitNuevas != cuv) return null;
+
+            return new
             {
-                return new
-                {
-                    success = false,
-                    message = "Ocurrió un error al ejecutar la operación.",
-                    errorInsertarProducto = "1"
-                };
-            }
-            return null;
+                success = false,
+                message = "Ocurrió un error al ejecutar la operación.",
+                errorInsertarProducto = "1"
+            };
         }
 
         private List<BECliente> ListarClienteSegunPedido(string clienteId, List<BEPedidoWebDetalle> listaPedido)
@@ -3516,10 +3517,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ValidarKitNuevas()
         {
-            try
-            {
-                AgregarKitNuevas();
-            }
+            try { ValidarAgregarKitNuevas(); }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
@@ -3528,29 +3526,36 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { success = true });
         }
 
-        private void AgregarKitNuevas()
+        private void ValidarAgregarKitNuevas()
         {
             try
             {
-                if (sessionManager.ConfiguracionProgramaNuevas != null) return;
-                if (userData.EsConsultoraOficina) return;
-                if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
-                
-                var configuracionProgNuevas = GetConfiguracionProgramaNuevas();                
-                if (configuracionProgNuevas.IndProgObli != "1") return;                
-                if (ObtenerPedidoWebDetalle().Any(d => d.CUV == configuracionProgNuevas.CUVKit && d.PedidoDetalleID > 0)) return;
-
-                List<ServiceODS.BEProducto> olstProducto;
-                using (var svOds = new ODSServiceClient())
-                {
-                    olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, configuracionProgNuevas.CUVKit).ToList();
-                }
-                if (olstProducto.Count > 0) PedidoInsertar(CreatePedidoCrudModelKitInicio(olstProducto[0]));
+                if (sessionManager.ProcesoKitNuevas) return;
+                AgregarKitNuevas();
+                sessionManager.ProcesoKitNuevas = true;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
+        }
+
+        private void AgregarKitNuevas()
+        {
+            if (userData.EsConsultoraOficina) return;
+            if (userData.DiaPROL && !EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
+            if (GetConfiguracionProgramaNuevas().IndProgObli != "1") return;
+
+            string cuvKitNuevas = GetCuvKitNuevas();
+            if (string.IsNullOrEmpty(cuvKitNuevas)) return;
+            if (ObtenerPedidoWebDetalle().Any(d => d.CUV == cuvKitNuevas && d.PedidoDetalleID > 0)) return;
+
+            List<ServiceODS.BEProducto> olstProducto;
+            using (var svOds = new ODSServiceClient())
+            {
+                olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, cuvKitNuevas).ToList();
+            }
+            if (olstProducto.Count > 0) PedidoInsertar(CreatePedidoCrudModelKitInicio(olstProducto[0]));
         }
 
         private PedidoCrudModel CreatePedidoCrudModelKitInicio(ServiceODS.BEProducto producto)

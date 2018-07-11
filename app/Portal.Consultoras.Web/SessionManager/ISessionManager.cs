@@ -179,5 +179,7 @@ namespace Portal.Consultoras.Web.SessionManager
         List<ServiceUsuario.BEUsuario> getBEUsuarioModel();
 
         BEConfiguracionProgramaNuevas ConfiguracionProgramaNuevas { get; set; }
+        bool ProcesoKitNuevas { get; set; }
+        string CuvKitNuevas { get; set; }
     }
 }

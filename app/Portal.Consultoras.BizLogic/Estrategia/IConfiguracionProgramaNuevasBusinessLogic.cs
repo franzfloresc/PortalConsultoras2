@@ -7,6 +7,10 @@ namespace Portal.Consultoras.BizLogic
     public interface IConfiguracionProgramaNuevasBusinessLogic
     {
         BEConfiguracionProgramaNuevas Get(BEUsuario usuario);
+        string GetCuvKitNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas);
+        BEConsultoraRegaloProgramaNuevas GetRegaloProgramaNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas);
+        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora);
+        string GetCodigoNivel(BEUsuario usuario);
 
         #region ConfiguracionApp
         List<BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(BEConfiguracionProgramaNuevasApp entidad);

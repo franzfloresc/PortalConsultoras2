@@ -1787,7 +1787,6 @@ namespace Portal.Consultoras.Web.Controllers
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas()
         {
             if (sessionManager.ConfiguracionProgramaNuevas != null) return sessionManager.ConfiguracionProgramaNuevas;
-
             try
             {
                 var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
@@ -1802,6 +1801,25 @@ namespace Portal.Consultoras.Web.Controllers
                 sessionManager.ConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
             }
             return sessionManager.ConfiguracionProgramaNuevas;
+        }
+
+        protected string GetCuvKitNuevas()
+        {
+            if (sessionManager.CuvKitNuevas != null) return sessionManager.CuvKitNuevas;
+            try
+            {
+                var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
+                using (var sv = new PedidoServiceClient())
+                {
+                    sessionManager.CuvKitNuevas = sv.GetCuvKitNuevas(usuario, GetConfiguracionProgramaNuevas()) ?? "";
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                sessionManager.CuvKitNuevas = "";
+            }
+            return sessionManager.CuvKitNuevas;
         }
 
         protected Converter<decimal, string> CreateConverterDecimalToString(int paisId)
@@ -1824,56 +1842,36 @@ namespace Portal.Consultoras.Web.Controllers
             return displayTiempo;
         }
 
-        private BarraTippingPoint GetTippingPoint(string TippingPointParticipa, string TippingPointStr)
+        private BarraTippingPoint GetTippingPoint(string TippingPointStr)
         {
-            BarraTippingPoint TippingPoint = new BarraTippingPoint { ActiveTooltip = false, ActiveMonto = false };
+            BarraTippingPoint tippingPoint = new BarraTippingPoint();
             string nivel = Convert.ToString(userData.ConsecutivoNueva + 1).PadLeft(2, '0');
-            string FlagParticipa = getValidaConsultoraProgramaNueva(TippingPointParticipa);
+
             try
             {
-                // verifica si participa al programa de nuevas.
-                if (FlagParticipa == Constantes.TipoEstrategiaCodigo.ParticipaProgramaNuevas)
+                using (var sv = new PedidoServiceClient())
                 {
-                    using (var sv = new PedidoServiceClient())
+                    BEActivarPremioNuevas beActive = sv.GetActivarPremioNuevas(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);                    
+                    if (beActive != null) tippingPoint = Mapper.Map(beActive, tippingPoint);
+                    tippingPoint.TippingPointMontoStr = TippingPointStr;
+                    
+                    if (tippingPoint.ActiveTooltip)
                     {
-                        BEActivarPremioNuevas beActive = sv.GetActivarPremioNuevas(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);
-                        TippingPoint.ActiveTooltip = beActive == null ? false : beActive.ActiveTooltip;
-                        TippingPoint.ActiveMonto = beActive == null ? false : beActive.ActiveMontoTooltip;
-                        TippingPoint.Active = beActive == null ? false : beActive.Active;
-                        TippingPoint.TippingPointMontoStr = TippingPointStr;
-                        // verifica si esta activado el tooltip
-                        if (TippingPoint.ActiveTooltip == true)
+                        var estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);
+                        if (estrategia != null)
                         {
-                            var estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID,
-                                                                               Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo,
-                                                                               userData.CampaniaID,
-                                                                               nivel);
-
-                            TippingPoint.CampaniaID = estrategia == null ? default(int) : estrategia.CampaniaID;
-                            TippingPoint.CampaniaIDFin = estrategia == null ? default(int) : estrategia.CampaniaIDFin;
-                            TippingPoint.CUV1 = estrategia == null ? default(string) : estrategia.CUV1;
-                            TippingPoint.CUV2 = estrategia == null ? default(string) : estrategia.CUV2;
-                            TippingPoint.ImagenURL = estrategia == null ? default(string) : estrategia.ImagenURL;
-                            TippingPoint.DescripcionCUV2 = estrategia == null ? default(string) : estrategia.DescripcionCUV2;
-                            TippingPoint.Ganancia = estrategia == null ? default(decimal) : estrategia.Ganancia;
-                            TippingPoint.Precio = estrategia == null ? default(decimal) : estrategia.Precio;
-                            TippingPoint.Precio2 = estrategia == null ? default(decimal) : estrategia.Precio2;
-                            TippingPoint.PrecioPublico = estrategia == null ? default(decimal) : estrategia.PrecioPublico;
-                            TippingPoint.PrecioUnitario = estrategia == null ? default(decimal) : estrategia.PrecioUnitario;
-                            TippingPoint.LinkURL = estrategia == null ? default(string) : getUrlTippingPoint(estrategia.ImagenURL);
+                            tippingPoint = Mapper.Map(estrategia, tippingPoint);
+                            tippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
                         }
                     }
-                }
-                else
-                {
-                    TippingPoint = new BarraTippingPoint { ActiveTooltip = false, ActiveMonto = false };
                 }
             }
             catch (Exception ex)
             {
-                TippingPoint = new BarraTippingPoint { ActiveTooltip = false, ActiveMonto = false };
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                tippingPoint = new BarraTippingPoint();
             }
-            return TippingPoint;
+            return tippingPoint;
         }
 
         private string getUrlTippingPoint(string noImagen)
@@ -1889,37 +1887,6 @@ namespace Portal.Consultoras.Web.Controllers
                          );
             return url;
         }
-
-        private string getValidaConsultoraProgramaNueva(string participa)
-        {
-            string resultado = string.Empty;
-            // si el idestadoActividad es mayor a 1 o diferente a  1 entonces significa que el usuario pertenece al programa de nuevas[campo ConsecutivoNueva]
-            int ConsecutivoNueva = userData.ConsecutivoNueva;
-            // este es el campo IdEstadoActividad en bd
-            int ConsultoraNueva = userData.ConsultoraNueva;
-            try
-            {
-                resultado = participa == null ? "" : participa.Trim();
-
-                /*
-                if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
-                        userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Reactivada ||
-                        userData.ConsecutivoNueva == Constantes.ConsecutivoNuevaConsultora.Consecutivo3)
-                {
-                    resultado = participa == null ? "" : participa.Trim();
-                }
-                else
-
-                    resultado = Constantes.TipoEstrategiaCodigo.NotParticipaProgramaNuevas;
-                    */
-            }
-            catch
-            {
-                resultado = string.Empty;
-            }
-            return resultado;
-        }
-
 
         public BarraConsultoraModel GetDataBarra(bool inEscala = true, bool inMensaje = false, bool Agrupado = false)
         {
@@ -1949,11 +1916,9 @@ namespace Portal.Consultoras.Web.Controllers
                     var tippingPoint = GetConfiguracionProgramaNuevas();
                     if (tippingPoint.IndExigVent == "1")
                     {
-                        var obeConsultorasProgramaNuevas = GetConsultorasProgramaNuevas(Constantes.ConstSession.TippingPoint_MontoVentaExigido, tippingPoint.CodigoPrograma);
-                        objR.TippingPoint = obeConsultorasProgramaNuevas.MontoVentaExigido;
+                        objR.TippingPoint = tippingPoint.MontoVentaExigido;
                         objR.TippingPointStr = Util.DecimalToStringFormat(objR.TippingPoint, userData.CodigoISO);
-                        // si el MontoVentaExigido es mayor a 0 entonces pertenece al programa de nuevas y se muestra el Tipping Point validacion a nivel de js y a nivel de cs
-                        if (objR.TippingPoint > 0) objR.TippingPointBarra = GetTippingPoint(obeConsultorasProgramaNuevas.Participa, objR.TippingPointStr);
+                        if (objR.TippingPoint > 0) objR.TippingPointBarra = GetTippingPoint(objR.TippingPointStr);
                     }
                 }
 

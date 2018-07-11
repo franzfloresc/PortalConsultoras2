@@ -464,5 +464,15 @@ namespace Portal.Consultoras.Web.SessionManager
             get { return (BEConfiguracionProgramaNuevas)HttpContext.Current.Session["ConfiguracionProgramaNuevas"]; }
             set { HttpContext.Current.Session["ConfiguracionProgramaNuevas"] = value; }
         }
+        bool ISessionManager.ProcesoKitNuevas
+        {
+            get { return (bool)HttpContext.Current.Session["ProcesoKitNuevas"]; }
+            set { HttpContext.Current.Session["ProcesoKitNuevas"] = value; }
+        }
+        string ISessionManager.CuvKitNuevas
+        {
+            get { return (string)HttpContext.Current.Session["CuvKitNuevas"]; }
+            set { HttpContext.Current.Session["CuvKitNuevas"] = value; }
+        }
     }
 }

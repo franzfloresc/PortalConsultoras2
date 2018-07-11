@@ -958,6 +958,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(BEUsuario usuario);
 
+        [OperationContract]
+        string GetCuvKitNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas);
+
         #endregion
 
         [OperationContract]
@@ -1141,7 +1144,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Incentivos
         [OperationContract]
-        List<BEIncentivoConcurso> ObtenerConcursosXConsultora(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoRegion, string CodigoZona);
+        List<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEUsuario usuario);
 
         [OperationContract]
         void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso);

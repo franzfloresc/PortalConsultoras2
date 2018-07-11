@@ -18,6 +18,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("CUVKit")]
         public string CUVKit { get; set; }
+        [DataMember]
+        [Column("MontoVentaExigido")]
+        public decimal MontoVentaExigido { get; set; }
 
         public string Campania { get; set; }
         public string CodigoConsultora { get; set; }

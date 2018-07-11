@@ -17,35 +17,61 @@ namespace Portal.Consultoras.BizLogic
                 CodigoConsultora = usuario.CodigoConsultora
             };
 
-            if (usuario.EsConsultoraNueva) configuracion.CodigoNivel = "01";
-            else if (new List<int> { 1, 2 }.Contains(usuario.ConsecutivoNueva) && WebConfig.PaisesFraccionKitNuevas.Contains(usuario.CodigoISO))
-            {
-                configuracion.CodigoNivel = "0" + (usuario.ConsecutivoNueva + 1);
-            }
-
-            if (!string.IsNullOrEmpty(configuracion.CodigoNivel))
-            {
-                using (var reader = new DAConfiguracionProgramaNuevas(usuario.PaisID).Get(configuracion))
-                {
-                    configuracion = reader.MapToObject<BEConfiguracionProgramaNuevas>(true);
-                }
-            }
-            return configuracion ?? new BEConfiguracionProgramaNuevas();
-        }
-
-        private BEConfiguracionProgramaNuevas GetPrimerPedido(int paisID, BEConfiguracionProgramaNuevas entidad)
-        {
             //if (!new BLPais().EsPaisHana(paisID))
             //{
-                using (var reader = new DAConfiguracionProgramaNuevas(paisID).Get(entidad))
-                {
-                    return reader.MapToObject<BEConfiguracionProgramaNuevas>(true);
-                }
+            using (var reader = new DAConfiguracionProgramaNuevas(usuario.PaisID).Get(configuracion))
+            {
+                configuracion = reader.MapToObject<BEConfiguracionProgramaNuevas>(true);
+            }
             //}
             //else
             //{
-            //    return new DAHConfiguracionProgramaNuevas().GetConfiguracionProgramaNuevas(paisID, entidad);
+            //return new DAHConfiguracionProgramaNuevas().GetConfiguracionProgramaNuevas(paisID, entidad);
             //}
+            
+            return configuracion ?? new BEConfiguracionProgramaNuevas();
+        }
+
+        public string GetCuvKitNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas)
+        {
+            if (usuario.EsConsultoraNueva) return confProgNuevas.CUVKit;
+            if (new List<int> { 1, 2 }.Contains(usuario.ConsecutivoNueva) && WebConfig.PaisesFraccionKitNuevas.Contains(usuario.CodigoISO))
+            {
+                confProgNuevas.Campania = usuario.Campania;
+                confProgNuevas.CodigoNivel = GetCodigoNivel(usuario);
+                return new DAConfiguracionProgramaNuevas(usuario.PaisID).GetCuvPremioKitNuevas(confProgNuevas);
+            }
+            return "";
+        }
+
+        public BEConsultoraRegaloProgramaNuevas GetRegaloProgramaNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas)
+        {
+            confProgNuevas.Campania = usuario.Campania;
+            confProgNuevas.CodigoNivel = GetCodigoNivel(usuario);
+
+            using (var reader = new DAConfiguracionProgramaNuevas(usuario.PaisID).GetRegaloProgramaNuevas(confProgNuevas))
+            {
+                return reader.MapToObject<BEConsultoraRegaloProgramaNuevas>(true);
+            }
+        }
+
+        public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora)
+        {
+            var usuario = new BEUsuario { PaisID = paisID, CampaniaID = campaniaId, CodigoConsultora = codigoConsultora };
+            var configuracion = Get(usuario);
+            if (configuracion.IndExigVent != "1") return null;
+
+            var regalo = GetRegaloProgramaNuevas(usuario, configuracion);
+            if (regalo == null) return null;
+
+            regalo.CodigoNivel = GetCodigoNivel(usuario);
+            regalo.TippingPoint = configuracion.MontoVentaExigido;
+            return regalo;
+        }
+
+        public string GetCodigoNivel(BEUsuario usuario)
+        {
+            return "0" + (usuario.ConsecutivoNueva + 1);
         }
 
         #region ConfiguracionApp

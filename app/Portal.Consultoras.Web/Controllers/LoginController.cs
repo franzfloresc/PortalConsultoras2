@@ -1841,9 +1841,10 @@ namespace Portal.Consultoras.Web.Controllers
             var lst = new List<BEIncentivoConcurso>();
             try
             {
+                var usuario = Mapper.Map<ServicePedido.BEUsuario>(usuarioModel);
                 using (var sv = new PedidoServiceClient())
                 {
-                    var result = await sv.ObtenerConcursosXConsultoraAsync(usuarioModel.PaisID, usuarioModel.CampaniaID.ToString(), usuarioModel.CodigoConsultora, usuarioModel.CodigorRegion, usuarioModel.CodigoZona);
+                    var result = await sv.ObtenerConcursosXConsultoraAsync(usuario);
                     lst = result.ToList();
                 }
             }
