@@ -1904,15 +1904,18 @@ namespace Portal.Consultoras.BizLogic
                         dAValidacionDatos.UpdValidacionDatos(validacionDato);
                     }
 
-                    var code = Common.Util.GenerarCodigoRandom();
-                    dAUsuario.InsCodigoGenerado(new BEUsuarioDatos
+                    ProcesaEnvioSms(paisId, new BEUsuarioDatos
                     {
                         CodigoUsuario = codigoUsuario,
+                        CodigoConsultora = "",
                         OrigenID = Constantes.EnviarCorreoYSms.OrigenActualizarCelular,
                         OrigenDescripcion = Constantes.EnviarCorreoYSms.OrigenDescripcion,
-                    }, Constantes.TipoEnvioEmailSms.EnviarPorSms, code);
+                        campaniaID = 1,
+                        Celular = celularNuevo,
+                        CodigoIso = Common.Util.GetPaisISO(paisId),
+                        EsMobile = false
+                    }, 1);
 
-                    //EnviarSms(celularNuevo, code);
                     transScope.Complete();
                 }
             }
