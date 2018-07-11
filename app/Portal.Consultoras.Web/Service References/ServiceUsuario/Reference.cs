@@ -7826,13 +7826,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int CantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CantidadEnviosField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CelularField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CelularEnmascaradoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ClaveField;
@@ -7850,46 +7844,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string CorreoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CorreoEnmascaradoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionHorarioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool EsMobileField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool HabilitarChatEmtelcoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int HoraRestanteCorreoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int HoraRestanteSmsField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IdEstadoActividadField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MensajeSaludoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MostrarOpcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreCompletoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string OpcionCorreoActivaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string OpcionSmsActivaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int OrigenIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PrimerNombreField;
@@ -7905,18 +7872,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ZonaIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int campaniaIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string codigoGeneradoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool opcionHabilitarField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string tipoEnvioField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -7942,19 +7897,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CantidadEnvios {
-            get {
-                return this.CantidadEnviosField;
-            }
-            set {
-                if ((this.CantidadEnviosField.Equals(value) != true)) {
-                    this.CantidadEnviosField = value;
-                    this.RaisePropertyChanged("CantidadEnvios");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Celular {
             get {
                 return this.CelularField;
@@ -7963,19 +7905,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.CelularField, value) != true)) {
                     this.CelularField = value;
                     this.RaisePropertyChanged("Celular");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CelularEnmascarado {
-            get {
-                return this.CelularEnmascaradoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CelularEnmascaradoField, value) != true)) {
-                    this.CelularEnmascaradoField = value;
-                    this.RaisePropertyChanged("CelularEnmascarado");
                 }
             }
         }
@@ -8046,19 +7975,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CorreoEnmascarado {
-            get {
-                return this.CorreoEnmascaradoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CorreoEnmascaradoField, value) != true)) {
-                    this.CorreoEnmascaradoField = value;
-                    this.RaisePropertyChanged("CorreoEnmascarado");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Descripcion {
             get {
                 return this.DescripcionField;
@@ -8085,58 +8001,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool EsMobile {
-            get {
-                return this.EsMobileField;
-            }
-            set {
-                if ((this.EsMobileField.Equals(value) != true)) {
-                    this.EsMobileField = value;
-                    this.RaisePropertyChanged("EsMobile");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool HabilitarChatEmtelco {
-            get {
-                return this.HabilitarChatEmtelcoField;
-            }
-            set {
-                if ((this.HabilitarChatEmtelcoField.Equals(value) != true)) {
-                    this.HabilitarChatEmtelcoField = value;
-                    this.RaisePropertyChanged("HabilitarChatEmtelco");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int HoraRestanteCorreo {
-            get {
-                return this.HoraRestanteCorreoField;
-            }
-            set {
-                if ((this.HoraRestanteCorreoField.Equals(value) != true)) {
-                    this.HoraRestanteCorreoField = value;
-                    this.RaisePropertyChanged("HoraRestanteCorreo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int HoraRestanteSms {
-            get {
-                return this.HoraRestanteSmsField;
-            }
-            set {
-                if ((this.HoraRestanteSmsField.Equals(value) != true)) {
-                    this.HoraRestanteSmsField = value;
-                    this.RaisePropertyChanged("HoraRestanteSms");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int IdEstadoActividad {
             get {
                 return this.IdEstadoActividadField;
@@ -8145,19 +8009,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.IdEstadoActividadField.Equals(value) != true)) {
                     this.IdEstadoActividadField = value;
                     this.RaisePropertyChanged("IdEstadoActividad");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MensajeSaludo {
-            get {
-                return this.MensajeSaludoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MensajeSaludoField, value) != true)) {
-                    this.MensajeSaludoField = value;
-                    this.RaisePropertyChanged("MensajeSaludo");
                 }
             }
         }
@@ -8184,45 +8035,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.NombreCompletoField, value) != true)) {
                     this.NombreCompletoField = value;
                     this.RaisePropertyChanged("NombreCompleto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string OpcionCorreoActiva {
-            get {
-                return this.OpcionCorreoActivaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.OpcionCorreoActivaField, value) != true)) {
-                    this.OpcionCorreoActivaField = value;
-                    this.RaisePropertyChanged("OpcionCorreoActiva");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string OpcionSmsActiva {
-            get {
-                return this.OpcionSmsActivaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.OpcionSmsActivaField, value) != true)) {
-                    this.OpcionSmsActivaField = value;
-                    this.RaisePropertyChanged("OpcionSmsActiva");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int OrigenID {
-            get {
-                return this.OrigenIDField;
-            }
-            set {
-                if ((this.OrigenIDField.Equals(value) != true)) {
-                    this.OrigenIDField = value;
-                    this.RaisePropertyChanged("OrigenID");
                 }
             }
         }
@@ -8288,58 +8100,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.ZonaIDField.Equals(value) != true)) {
                     this.ZonaIDField = value;
                     this.RaisePropertyChanged("ZonaID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int campaniaID {
-            get {
-                return this.campaniaIDField;
-            }
-            set {
-                if ((this.campaniaIDField.Equals(value) != true)) {
-                    this.campaniaIDField = value;
-                    this.RaisePropertyChanged("campaniaID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string codigoGenerado {
-            get {
-                return this.codigoGeneradoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.codigoGeneradoField, value) != true)) {
-                    this.codigoGeneradoField = value;
-                    this.RaisePropertyChanged("codigoGenerado");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool opcionHabilitar {
-            get {
-                return this.opcionHabilitarField;
-            }
-            set {
-                if ((this.opcionHabilitarField.Equals(value) != true)) {
-                    this.opcionHabilitarField = value;
-                    this.RaisePropertyChanged("opcionHabilitar");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string tipoEnvio {
-            get {
-                return this.tipoEnvioField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.tipoEnvioField, value) != true)) {
-                    this.tipoEnvioField = value;
-                    this.RaisePropertyChanged("tipoEnvio");
                 }
             }
         }

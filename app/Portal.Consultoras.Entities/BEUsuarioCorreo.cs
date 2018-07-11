@@ -35,45 +35,13 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int ZonaID { get; set; }
         [DataMember]
-        public int campaniaID { get; set; }
-
-        [DataMember]
-        public string OpcionCorreoActiva { get; set; }
-        [DataMember]
-        public string OpcionSmsActiva { get; set; }
-        [DataMember]
-        public int HoraRestanteCorreo { get; set; }
-        [DataMember]
-        public int HoraRestanteSms { get; set; }
-        [DataMember]
-        public string CorreoEnmascarado { get; set; }
-        [DataMember]
-        public string CelularEnmascarado { get; set; }
-        [DataMember]
         public int MostrarOpcion { get; set; }
         [DataMember]
         public string DescripcionHorario { get; set; }
         [DataMember]
-        public string tipoEnvio { get; set; }
-        [DataMember]
         public string TelefonoCentral { get; set; }
         [DataMember]
         public string CodigoISO { get; set; }
-        [DataMember]
-        public int OrigenID { get; set; }
-        [DataMember]
-        public string codigoGenerado { get; set; }
-        [DataMember]
-        public bool opcionHabilitar { get { return true; } set { } }
-        [DataMember]
-        public int CantidadEnvios { get; set; }
-        [DataMember]
-        public bool EsMobile { get; set; }
-        [DataMember]
-        public string MensajeSaludo { get; set; }
-
-        [DataMember]
-        public bool HabilitarChatEmtelco { get; set; }
 
         public BEUsuarioCorreo()
         { }
