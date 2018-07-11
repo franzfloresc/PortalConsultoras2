@@ -26,7 +26,7 @@ $(document).ready(function () {
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {
         dataBarra = JSON.parse(hdDataBarra);
-        listaMensajeMeta = dataBarra.ListaMensajeMeta || new Array();
+        listaMensajeMeta = dataBarra.ListaMensajeMeta || [];
     }
 
     var hdListaEscalaDescuento = $("#hdListaEscala").val();
@@ -328,7 +328,7 @@ $(document).ready(function () {
                     }]
                 }
             }
-        })
+        });
 
         $("#divProductoAgotadoFinal").hide();
 
@@ -499,7 +499,7 @@ function CargarDetallePedido(page, rows) {
                 $("#ddlClientes").append(htmlCliente);
                 $("#ddlClientes").val(clienteId);
 
-                data.ListaDetalleModel = data.ListaDetalleModel || new Array();
+                data.ListaDetalleModel = data.ListaDetalleModel || [];
                 $.each(data.ListaDetalleModel, function (ind, item) {
                     item.EstadoSimplificacionCuv = data.EstadoSimplificacionCuv;
                 });
@@ -1416,7 +1416,7 @@ function ObtenerProductosSugeridos(CUV) {
                     var posicionPrimerActivo = $($("#divCarruselSugerido").find(".slick-active")[0]).find(".hdPosicionSugerido").val();
                     posicionEstrategia = posicionPrimerActivo == 1 ? arrayProductosSugeridos.length - 1 : posicionPrimerActivo - 2;
                     recomendado = arrayProductosSugeridos[posicionEstrategia];
-                    arraySugerido = new Array();
+                    arraySugerido = [];
 
                     var impresionSugerido = {
                         'name': recomendado.Descripcion,
@@ -1447,7 +1447,7 @@ function ObtenerProductosSugeridos(CUV) {
                     var posicionUltimoActivo = $($("#divCarruselSugerido").find(".slick-active").slice(-1)[0]).find(".hdPosicionSugerido").val();
                     posicionEstrategia = arrayProductosSugeridos.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
                      recomendado = arrayProductosSugeridos[posicionEstrategia];
-                     arraySugerido = new Array();
+                     arraySugerido = [];
 
                     var impresionSugerido = {
                         'name': recomendado.Descripcion,
@@ -1526,7 +1526,7 @@ function TagManagerCarruselSugeridosInicio(data) {
         'ecommerce': {
             'impressions': arraySugeridos
         }
-    })
+    });
 }
 
 function CambiarCliente(elem) {
@@ -1813,7 +1813,7 @@ function ConfirmarEliminarRegaloGenerico(campaniaId, pedidoId, pedidoDetalleId, 
 
 function ContinuarEliminacion() {
     var popup = $("#divAvisoEliminarRegaloGenerico");
-    DeletePedido(popup.attr("data-campaniaId"), popup.attr("data-pedidoId"), popup.attr("data-pedidoDetalleId"), popup.attr("data-tipoOfertaSisId"), popup.attr("data-cuv"), popup.attr("data-cantidad"), popup.attr("data-clienteId"), popup.attr("data-cuvReco"), popup.attr("data-esBackOrder"), popup.attr("data-setId"))
+    DeletePedido(popup.attr("data-campaniaId"), popup.attr("data-pedidoId"), popup.attr("data-pedidoDetalleId"), popup.attr("data-tipoOfertaSisId"), popup.attr("data-cuv"), popup.attr("data-cantidad"), popup.attr("data-clienteId"), popup.attr("data-cuvReco"), popup.attr("data-esBackOrder"), popup.attr("data-setId"));
 }
 
 function CerrarAvisoEliminarRegalo() {
@@ -2043,12 +2043,9 @@ function EsValidoMontoTotalReserva() {
 }
 
 function EjecutarServicioPROL() {
-    jQuery.ajax({
-        type: "POST",
-        url: baseUrl + "Pedido/EjecutarServicioPROL",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (response) {
+    PedidoProvider
+        .PedidoEjecutarServicioProlPromise()
+        .done(function (response) {
             CerrarSplash();
             if (!checkTimeout(response)) return;
             if (!response.success) {
@@ -2058,12 +2055,11 @@ function EjecutarServicioPROL() {
 
             if (RespuestaEjecutarServicioPROL(response.data)) return;
             MostrarMensajeProl(response, function () { return CumpleOfertaFinalMostrar(response); });
-        },
-        error: function (data, error) {
+        })
+        .fail(function(data, error) {
             CerrarSplash();
             MostrarPopupErrorReserva(mensajeSinConexionReserva, true);
-        }
-    });
+        });
 }
 
 function EjecutarServicioPROLSinOfertaFinal() {
@@ -2144,7 +2140,7 @@ function CrearPopupObservaciones(data, inicio) {
     }
     html += "</ul>";
 
-    ArmarPopupObsReserva(data.EsDiaProl ? "Importante" : "Aviso", html)
+    ArmarPopupObsReserva(data.EsDiaProl ? "Importante" : "Aviso", html);
 }
 function AlmacenarRespuestaReservaEnHidden(data) {
     $("#hdfAccionPROL").val(data.Prol);
@@ -2213,7 +2209,7 @@ function EliminarPedido() {
         return;
     }
 
-    var listaDetallePedido = new Array();
+    var listaDetallePedido = [];
     var campania = $("#hdCampaniaCodigo").val();
 
     $.each($("#tbobyDetallePedido > .contenido_ingresoPedido"), function (index, value) {
@@ -3040,7 +3036,7 @@ function InfoCommerceGoogleProductoRecomendados() {
     }
 
     var listaRecomendados = JSON.parse(cadListaRecomendados);
-    var arrayEstrategiaRecomendado = new Array();
+    var arrayEstrategiaRecomendado = [];
     if (parseInt(cantProductosLoad) < parseInt(cantidadProductosRecomendado)) {
         var posProductoEstrategia = 0;
         var variantcadEstrategia = "";
@@ -3162,7 +3158,7 @@ function AgregarProducto(url, model, divDialog, cerrarSplash, asyncX) {
 
     divDialog = $.trim(divDialog);
 
-    var retorno = new Object();
+    var retorno = {};
 
     jQuery.ajax({
         type: "POST",
@@ -3231,7 +3227,7 @@ function CargarProductoAgotados(identificador) {
         descripcion : $("#producto-faltante-busqueda-descripcion").val(), 
         categoria   : $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
         revista     : $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text() 
-    }
+    };
 
     AbrirSplash();
     jQuery.ajax({
@@ -3363,7 +3359,7 @@ function AnalyticsGuardarValidar(response) {
     var arrayEstrategiasAnalytics = [];
     var accion = $("#hdAccionBotonProl").val();
 
-    response.pedidoDetalle = response.pedidoDetalle || new Array();
+    response.pedidoDetalle = response.pedidoDetalle || [];
     $.each(response.pedidoDetalle, function (index, value) {
         var estrategia = {
             'name': value.name,
@@ -3395,7 +3391,7 @@ function AnalyticsGuardarValidar(response) {
 function AnalyticsPedidoValidado(response) {
     var arrayEstrategiasAnalytics = [];
 
-    response.pedidoDetalle = response.pedidoDetalle || new Array();
+    response.pedidoDetalle = response.pedidoDetalle || [];
     $.each(response.pedidoDetalle, function (index, value) {
         var estrategia = {
             'name': value.name,
@@ -3529,3 +3525,30 @@ function RedirigirPedidoValidado() {
         location.href = baseUrl + "Pedido/PedidoValidado";
     }, 3000);
 }
+
+var PedidoProvider = function () {
+    "use strict";
+    var _pedidoEjecutarServicioProlPromise = function() {
+        var dfd = jQuery.Deferred();
+
+        jQuery.ajax({
+            type: "POST",
+            url: baseUrl + "Pedido/EjecutarServicioPROL",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            async: true,
+            cache: false,
+            success: function (data) {
+                dfd.resolve(data);
+            },
+            error: function (data, error) {
+                dfd.reject(data, error);
+            }
+        });
+
+        return dfd.promise();
+    };
+    return {
+        PedidoEjecutarServicioProlPromise: _pedidoEjecutarServicioProlPromise
+    };
+}();
