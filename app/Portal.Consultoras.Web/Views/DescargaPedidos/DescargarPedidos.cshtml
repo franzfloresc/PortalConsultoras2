@@ -3,6 +3,20 @@
     ViewBag.Title = "Cronograma";
 }
 
+<style>
+   
+
+
+    .disabled {
+        background: none repeat scroll 0 0 burlyWood;
+        cursor: default !important;
+    }
+</style>
+
+
+
+
+
 <script type="text/javascript">
     var rutaImagenArchivoClientes = '@Url.Content("~/Content/Images/update.png")';
     var rutaImagenCalendar = '@Url.Content("~/Content/Images/calendar.png")';
@@ -12,6 +26,8 @@
         fnGrilla();
 
         $("#btnDescargar").click(function () {
+
+            $(this).addClass('disabled');
             RealizarDescarga();
         });
 
@@ -98,6 +114,10 @@
                             $("#hdnfileDetailAct").val(data.rutae);
                             $("#DivDescargas").show();
                         }
+                    }, complete: function () {
+                        $('#btnDescargar').removeClass('disabled');
+                    
+                        // Handle the complete event
                     },
                     error: function (data, error) {
                         if (checkTimeout(data)) {
@@ -521,7 +541,7 @@
                 <div class="celda">
                      <span ></span>
                      <div class="input_add_alert_left">
-                        <input type="button" name="" id="btnDescargar" value="Descargar" />
+                        <input type="button" name="" id="btnDescargar" value="Descargar"  />
                     </div>
                 </div>               
             </div>
