@@ -9,10 +9,10 @@
         prod = Model.ListaOferta.First();
     }
     var controllerName = this.ViewContext.RouteData.Values["controller"].ToString().ToLower();
-    var origenPedidoWeb = Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileOfertaDelDiaHomeBanner;
+    var origenPedidoWeb = Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.OfertaDelDiaMobileHomeBanner;
     if (controllerName.Equals("ofertas"))
     {
-        origenPedidoWeb = Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileOfertaDelDiaContenedor;
+        origenPedidoWeb = Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.OfertaDelDiaMobileContenedor;
     }
 }
 <style>

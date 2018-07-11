@@ -11,7 +11,8 @@ namespace Portal.Consultoras.Web.Models
         public List<TipVenta> TipsVentas { get; set; } //Pestana Tips Ventas de la ficha detalle del CUV
         public List<TituloDetalle> Beneficios { get; set; } //Pestana beneficios
         public String CodigoVideo { get; set; } //Por defecto 1 video
-        public string Origen { get; set; }
+        public string OrigenUrl { get; set; }
+        public int OrigenAgregar { get; set; }
         public string Palanca { get; set; }
         public bool TieneSession { get; set; }
         public int Campania { get; set; }

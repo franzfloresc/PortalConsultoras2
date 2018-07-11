@@ -183,6 +183,7 @@
         }
         _ocultarCarrusel(data);
     };
+
     var _ocultarCarrusel = function (data) {
         if (typeof data != "undefined")
             if (Array.isArray(data.lista) && data.lista.length > 0) {
@@ -191,6 +192,7 @@
             }
             $(_elementos.divCarruselContenedor).hide();
     }
+
     function Inicializar() {
 
         _ocultarElementos();

@@ -149,7 +149,7 @@
     <div class="contenedor_productos_liquidacion content_showroom" style="position: relative;">
         <div id="divProductosShowRoom"
              style="display: inline-flex; flex-wrap: wrap; justify-content: center;"
-             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileShowRoomLandingCompraTactica">
+             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.ShowRoomMobileLandingCompra">
         </div>
     </div>
 </div>
@@ -476,8 +476,8 @@ else
         var precioMax = '@Model.PrecioMaxFiltro';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom", new {area = "Mobile"})';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-        var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileShowRoomLandingCompraTactica';
-        var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.MobileShowRoomSubCampanias';
+        var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.ShowRoomMobileLandingCompra';
+        var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.ShowRoomMobileSubCampania';
         var tieneCompraXCompra = '@Model.TieneCompraXcompra';
         var tieneSubCampania = '@Model.TieneSubCampania';
     </script>

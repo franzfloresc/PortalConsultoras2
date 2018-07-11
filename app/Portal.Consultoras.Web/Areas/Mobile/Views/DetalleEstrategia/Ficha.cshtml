@@ -27,7 +27,6 @@
     </div>
 </div>
 
-
 <script id="detalle_ficha_template" type="text/x-handlebars-template">
     <div id="EtiquetaOdd">
         <div id="clock" class="clock_odd"></div>
@@ -210,7 +209,7 @@
     </div>
 </script>
 
-<div data-item="" data-OrigenPedidoWeb="@Model.Origen">
+<div data-item="" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
     <div style="display: none;">
         <div id="data-estrategia" data-estrategia="@Json.Encode(Model)"></div>
     </div>
@@ -294,7 +293,7 @@
                     <p id="tituloCarrusel" class="titulo_set">
 
                     </p>
-                    <div class="set_encuentras_producto_carrusel" data-OrigenPedidoWeb="@Model.Origen">
+                    <div class="set_encuentras_producto_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
                         <div id="divOfertaProductos"></div>
                     </div>
                 </div>
@@ -342,6 +341,7 @@
 @Html.Partial("_template-ofertadeldia-style")
 
 @section scripts{
+    @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
 
     <script>
@@ -366,7 +366,7 @@
 
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",
-                origen: "@Model.Origen",
+                origen: "@Model.OrigenUrl",
                 tieneSession: "@Model.TieneSession",
                 campania: "@Model.Campania",
                 cuv: "@Model.Cuv",
@@ -387,11 +387,10 @@
                 });
                 carruselModule.Inicializar();
             }
-
         });
 
     </script>
 
-    @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
+    
 
 }
