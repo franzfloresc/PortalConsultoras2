@@ -125,7 +125,7 @@
     font-stretch: normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #e81c36;
+    color: #AD1F78;
 }
 
 .contenido_titulo {
@@ -365,4 +365,9 @@
 
 .box-container {
     margin-top: -110px;
+}
+.nombre_detalle_producto_tono {
+    font-weight:bold;
+    padding-bottom: 10px;
+    display: inline-block;
 }

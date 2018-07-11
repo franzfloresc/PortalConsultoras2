@@ -32,11 +32,8 @@
     <div id="EtiquetaOdd">
         <div id="clock" class="clock_odd"></div>
     </div>
-    {{#iff (Trim TipoEstrategiaDetalle.ImgFichaFondoMobile) '!=' ''}}
-    <div id="ImagenDeFondo" class="bg_imagen_producto" style='background: url("{{TipoEstrategiaDetalle.ImgFichaFondoMobile}}"); background-color: #efefef !important;'
-         data-estadoregistro="">
+    <div id="ImagenDeFondo" class="bg_imagen_producto" data-estadoregistro="">
     </div>
-    {{/iff}}
     <div class="container box-container">
         <div class="row imagen_producto ">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -289,14 +286,13 @@
 <div id="CarruselProducto" class="container">
     <div class="row carrusel">
         <div>
-
             <div class="set_encuentras_producto" id="set_relacionados">
 
                 <div class="wrapper_resumen_mobile ficha_encuentraproducto">
                     <p id="tituloCarrusel" class="titulo_set">
 
                     </p>
-                    <div class="set_encuentras_producto_carrusel">
+                    <div class="set_encuentras_producto_carrusel" data-OrigenPedidoWeb="@Model.Origen">
                         <div id="divOfertaProductos"></div>
                     </div>
                 </div>
