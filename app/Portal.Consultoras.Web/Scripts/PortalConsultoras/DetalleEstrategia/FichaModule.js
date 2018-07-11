@@ -42,7 +42,7 @@
         ImagenDeFondo: "#ImagenDeFondo",
         DescripcionAdicional: "#DescripcionAdicional",
         ContenidoProducto: "#ContenidoProducto",
-        CarruselProducto: "#CarruselProducto",
+        //CarruselProducto: "#CarruselProducto",
         //EtiquetaOdd: "#EtiquetaOdd",
         //SloganLanzamientos: "#SloganLanzamientos",
         //ContenedoFotoReferencial: "#contenedor_foto_referencial",
@@ -347,7 +347,7 @@
             //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
             $(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
-            $(_seccionesFichaProducto.CarruselProducto).hide();
+            //$(_seccionesFichaProducto.CarruselProducto).hide();
             //if (_codigoPalanca.HerramientasVenta === _config.palanca) {
             //    $(_seccionesFichaProducto.Contenedor_redes_sociales).hide();
             //}
@@ -356,14 +356,14 @@
             //$(_seccionesFichaProducto.ImagenDeFondo).show();
             $(_seccionesFichaProducto.DescripcionAdicional).show();
             $(_seccionesFichaProducto.ContenidoProducto).show();
-            $(_seccionesFichaProducto.CarruselProducto).show();
+            //$(_seccionesFichaProducto.CarruselProducto).show();
             //$(_seccionesFichaProducto.SloganLanzamientos).show();
         } else if (_codigoPalanca.ShowRoom == _config.palanca) {
             //$(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
             //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
             $(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
-            $(_seccionesFichaProducto.CarruselProducto).show();
+            //$(_seccionesFichaProducto.CarruselProducto).show();
         } else if (_codigoPalanca.OfertaDelDia == _config.palanca) {
             //$(_seccionesFichaProducto.EtiquetaOdd).show();
         } else if (_codigoPalanca.PackNuevas == _config.palanca) {
@@ -371,7 +371,7 @@
             //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
             $(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
-            $(_seccionesFichaProducto.CarruselProducto).hide();
+            //$(_seccionesFichaProducto.CarruselProducto).hide();
             //$(_seccionesFichaProducto.SloganLanzamientos).hide();
             //$(_seccionesFichaProducto.EtiquetaPackNuevas).show();
             //$(_seccionesFichaProducto.Contenedor_redes_sociales).hide();

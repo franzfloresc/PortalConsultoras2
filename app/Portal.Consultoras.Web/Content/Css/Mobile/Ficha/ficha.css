@@ -118,6 +118,10 @@
     text-decoration: none;
 }
 
+.gana_precio_producto {
+    border-left: 1px solid #cacaca;
+}
+
 .gana_precio_producto p {
     font-size: 13px;
     font-weight: normal;
@@ -227,7 +231,7 @@
 
 .precio li:first-child {
     padding-right: 11px;
-    border-right: 1px solid #cacaca;
+    /*border-right: 1px solid #cacaca;*/
 }
 
 .precio li:last-child {

@@ -90,19 +90,24 @@
                 {{/each}}
             </ul>
         </div>*@
+
+        {{#iff Precio '>' 0}}
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 precio_producto">
                 <p>Valorizado en <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
             </div>
         </div>
+        {{/iff}}
 
         <ul class="list_style_none precio">
             <li class="precio_producto">
                 <p>Precio para ti <b style="font-size: 14px;">{{SimboloMoneda}} {{PrecioVenta}}</b></p>
             </li>
+            {{#iff Ganancia '>' 0}}
             <li class="gana_precio_producto">
                 <p class="ganancia">GANA {{SimboloMoneda}} {{GananciaString}}</p>
             </li>
+            {{/iff}}
         </ul>
     </div>
 
@@ -291,16 +296,15 @@
         </div>
     </div>
 </div>
-
+@if (Model.TieneCarrusel)
+{
 <div id="CarruselProducto" class="container">
     <div class="row carrusel">
         <div>
             <div class="set_encuentras_producto" id="set_relacionados">
 
                 <div class="wrapper_resumen_mobile ficha_encuentraproducto">
-                    <p id="tituloCarrusel" class="titulo_set">
-
-                    </p>
+                    <p id="tituloCarrusel" class="titulo_set"></p>
                     <div class="set_encuentras_producto_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
                         <div id="divOfertaProductos"></div>
                     </div>
@@ -313,6 +317,7 @@
         <hr>
     </div>
 </div>
+}
 
 <!--compartir-->
 @if (Model.TieneCompartir)
