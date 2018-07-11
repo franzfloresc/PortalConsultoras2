@@ -7,7 +7,7 @@ belcorp.settings.uniquePrefix = "/g/";
 
 jQuery(document).ready(function () {
     CreateLoading();
-    
+
 
     $("header").resize(function () {
         LayoutMenu();
@@ -259,10 +259,24 @@ jQuery(document).ready(function () {
                 opts = optsx;
                 switch (operator) {
                     case '==':
-                        bool = $.trim(a) == "";
+                        if (typeof a == "object") {
+                            if (typeof {}.length != "undefined") {
+                                bool = a.length == 0;
+                            }
+                        }
+                        else {
+                            bool = $.trim(a) == "";
+                        }
                         break;
                     case '!=':
-                        bool = $.trim(a) != "";
+                        if (typeof a == "object") {
+                            if (typeof {}.length != "undefined") {
+                                bool = a.length > 0;
+                            }
+                        }
+                        else {
+                            bool = $.trim(a) != "";
+                        }
                         break;
                     default:
                         throw "Unknown operator " + operator;
@@ -324,23 +338,23 @@ jQuery(document).ready(function () {
                     return "Fomato Incorrecto";
                 }
             });
-            
+
             Handlebars.registerHelper('ImgSmall', function (imgOriginal) {
                 var urlRender = ImgUrlRender(imgOriginal, variablesPortal.ExtensionImgSmall);
                 return new Handlebars.SafeString(urlRender);
             });
 
             // por si en un futuro se puede utilizar
-            Handlebars.registerHelper('ImgMedium', function (imgOriginal) {                
+            Handlebars.registerHelper('ImgMedium', function (imgOriginal) {
                 var urlRender = ImgUrlRender(imgOriginal, variablesPortal.ExtensionImgMedium);
                 return new Handlebars.SafeString(urlRender);
             });
-            
+
             Handlebars.registerHelper('ImgUrl', function (imgOriginal) {
                 var urlRender = ImgUrlRender(imgOriginal);
                 return new Handlebars.SafeString(urlRender);
             });
-            
+
             Handlebars.registerHelper('SimboloMoneda', function () {
                 var simbMon = variablesPortal.SimboloMoneda || "";
                 return new Handlebars.SafeString(simbMon);
@@ -355,7 +369,7 @@ jQuery(document).ready(function () {
         if ($.trim(urlTemplate) == "" || $.trim(idHtml) == "") {
             return false;
         }
-        
+
         jQuery.get(urlTemplate, function (dataTemplate) {
             dataTemplate = $.trim(dataTemplate);
 
@@ -381,7 +395,7 @@ jQuery(document).ready(function () {
         return "";
 
     }
-    SetHandlebars = function (idTemplate, data, idHtml) {                                               
+    SetHandlebars = function (idTemplate, data, idHtml) {
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
 
@@ -430,7 +444,7 @@ jQuery(document).ready(function () {
         formatDecimalPais = formatDecimalPais || new Object();
         noDecimal = noDecimal || false;
         var decimal = formatDecimalPais.decimal || ".";
-        var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0 );
+        var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0);
         var miles = formatDecimalPais.miles || ",";
 
         monto = monto || 0;
@@ -1166,7 +1180,7 @@ function ResizeMensajeEstadoPedido() {
 function cerrarMensajeEstadoPedido() {
     $.ajax({
         type: 'Post',
-        url: baseUrl + 'Bienvenida/CerrarMensajeEstadoPedido',        
+        url: baseUrl + 'Bienvenida/CerrarMensajeEstadoPedido',
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -1370,12 +1384,12 @@ function odd_desktop_google_analytics_promotion_click() {
             'ecommerce': {
                 'promoClick': {
                     'promotions': [
-                    {
-                        'id': id,
-                        'name': name,
-                        'position': 'Banner Superior Home - 1',
-                        'creative': creative
-                    }]
+                        {
+                            'id': id,
+                            'name': name,
+                            'position': 'Banner Superior Home - 1',
+                            'creative': creative
+                        }]
                 }
             }
         });
@@ -1397,12 +1411,12 @@ function odd_desktop_google_analytics_promotion_click_verofertas() {
             'ecommerce': {
                 'promoClick': {
                     'promotions': [
-                    {
-                        'id': id,
-                        'name': name,
-                        'position': positionName,
-                        'creative': creative
-                    }]
+                        {
+                            'id': id,
+                            'name': name,
+                            'position': positionName,
+                            'creative': creative
+                        }]
                 }
             }
         });
@@ -1441,7 +1455,7 @@ function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
         });
     }
     if (detalle.length > 0 && detalle.is(":visible")) {
-         div1 = $(detalle).find("[data-item-position = 0]");
+        div1 = $(detalle).find("[data-item-position = 0]");
         if (div1 != null) { divs.push(div1); }
         $(divs).each(function (index, div) {
             impresions.push({
@@ -1787,7 +1801,7 @@ var registerEvent = function (eventName) {
             self[eventName].callBacks.push(cb);
             return;
         }
-        
+
     }
 
     self[eventName].emit = function (args) {

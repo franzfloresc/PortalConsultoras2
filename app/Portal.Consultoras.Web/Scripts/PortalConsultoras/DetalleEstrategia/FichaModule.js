@@ -44,12 +44,12 @@
         ContenidoProducto: "#ContenidoProducto",
         CarruselProducto: "#CarruselProducto",
         EtiquetaOdd: "#EtiquetaOdd",
-        SloganLanzamientos: "#SloganLanzamientos",
+        //SloganLanzamientos: "#SloganLanzamientos",
         ContenedoFotoReferencial: "#contenedor_foto_referencial",
         ContenedoFichaEtiquetas: "#contenedor_ficha_etiquetas",
         Contenedor_redes_sociales: "#Contenedor_redes_sociales",
-        EtiquetaPackNuevas: "#EtiquetaPackNuevas",
-        SloganPackNuevas: "#SloganPackNuevas"
+        EtiquetaPackNuevas: "#EtiquetaPackNuevas"
+        //SloganPackNuevas: "#SloganPackNuevas"
     };
 
     var _tabsFichaProducto = {
@@ -332,11 +332,11 @@
         if (isMobile()) {
             $(_elementos.footerPage).hide();
         }
-        $(_seccionesFichaProducto.SloganLanzamientos).hide();
+        //$(_seccionesFichaProducto.SloganLanzamientos).hide();
         $(_seccionesFichaProducto.EtiquetaOdd).hide();
         $(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
         $(_seccionesFichaProducto.EtiquetaPackNuevas).hide();
-        $(_seccionesFichaProducto.SloganPackNuevas).hide();
+        //$(_seccionesFichaProducto.SloganPackNuevas).hide();
 
         if (_codigoPalanca.HerramientasVenta === _config.palanca || 
             _codigoPalanca.OfertasParaMi === _config.palanca || 
@@ -355,7 +355,7 @@
             $(_seccionesFichaProducto.DescripcionAdicional).show();
             $(_seccionesFichaProducto.ContenidoProducto).show();
             $(_seccionesFichaProducto.CarruselProducto).show();
-            $(_seccionesFichaProducto.SloganLanzamientos).show();
+            //$(_seccionesFichaProducto.SloganLanzamientos).show();
         } else if (_codigoPalanca.ShowRoom == _config.palanca) {
             $(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
             //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
@@ -370,10 +370,10 @@
             $(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             $(_seccionesFichaProducto.CarruselProducto).hide();
-            $(_seccionesFichaProducto.SloganLanzamientos).hide();
+            //$(_seccionesFichaProducto.SloganLanzamientos).hide();
             $(_seccionesFichaProducto.EtiquetaPackNuevas).show();
             $(_seccionesFichaProducto.Contenedor_redes_sociales).hide();
-            $(_seccionesFichaProducto.SloganPackNuevas).show();
+            //$(_seccionesFichaProducto.SloganPackNuevas).show();
         }
 
         var etiquetaOddEstaOculta = $(_seccionesFichaProducto.EtiquetaOdd).is(":hidden");
