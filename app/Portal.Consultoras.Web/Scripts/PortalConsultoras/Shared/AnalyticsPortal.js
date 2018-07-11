@@ -9,7 +9,7 @@
         estandar: "Estándar"
     },
 
-    fcEnviarProducto: function (tipoMoneda, producto, cuv, precio, marca, categoria, variante = _texto.estandar, palanca) {
+    fcEnviarProducto: function (tipoMoneda, producto, cuv, precio, marca, categoria, variante, palanca) {
         try {
             dataLayer.push({
                 "event": _evento.productDetails,

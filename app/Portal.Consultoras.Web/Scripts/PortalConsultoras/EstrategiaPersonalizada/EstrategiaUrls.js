@@ -1,8 +1,5 @@
 ﻿
-
-
 function OnClickFichaDetalle(e) {
-    
     //el objeto e debe ser establecido con target  (e.target)
     var infoItem = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
     
@@ -11,7 +8,7 @@ function OnClickFichaDetalle(e) {
     var codigoCampania   = $.trim(infoItem.CampaniaID);
     var codigoCuv        = $.trim(infoItem.CUV2);
     var UrlDetalle = GetPalanca(codigoEstrategia);
-    var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e));
+    var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), true);
 
     if (OrigenPedidoWeb == "" || OrigenPedidoWeb === "undefined" || OrigenPedidoWeb == null)
         OrigenPedidoWeb = "";

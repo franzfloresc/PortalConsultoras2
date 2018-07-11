@@ -599,38 +599,41 @@ namespace Portal.Consultoras.Common
             public const int MobilePedidoOfertaFinal = 2261;
 
             #region ShowRoom
-            public const int DesktopShowRoomLandingIntriga = 1511;
-            public const int DesktopShowRoomLandingCompra = 1521;
-            public const int DesktopShowRoomLandingCompraTactica = 1522;
-            public const int DesktopShowRoomProductPage = 1531;
-            public const int DesktopShowRoomProductPageCarrusel = 1532;
-            public const int DesktopShowRoomProductPageTactica = 1533;
-            public const int DesktopShowRoomBienvenida = 1541;
-            public const int DesktopShowRoomSubCampanias = 1524;
-            public const int DesktopShowRoomContenedor = 1871;
+            public const int ShowRoomDesktopLandingIntriga = 1511;
+            public const int ShowRoomDesktopLandingCompra = 1521;
+            public const int ShowRoomDesktopLandingCompraTactica = 1522;
+            public const int ShowRoomDesktopProductPage = 1531;
+            //public const int ShowRoomDesktopProductPageCarrusel = 1532;
+            //public const int ShowRoomDesktopProductPageTactica = 1533;
+            public const int ShowRoomDesktopHome = 1541;
+            public const int ShowRoomDesktopSubCampania = 1524;
+            public const int ShowRoomDesktopContenedor = 1871;
 
-            public const int MobileShowRoomLandingIntriga = 2511;
-            public const int MobileShowRoomLandingCompraTactica = 2522;
-            public const int MobileShowRoomProductPage = 2531;
-            public const int MobileShowRoomProductPageCarrusel = 2532;
-            public const int MobileShowRoomProductPageTactica = 2533;
-            public const int MobileShowRoomSubCampanias = 2524;
-            public const int MobileShowRoomContenedor = 2871;
-            public const int MobileShowRoom = 2571;
+            public const int ShowRoomMobileLandingIntriga = 2511;
+            public const int ShowRoomMobileLandingCompra = 2521;
+            //public const int ShowRoomMobileLandingCompraTactica = 2522;   // revisar
+            public const int ShowRoomMobileProductPage = 2531;
+            //public const int ShowRoomMobileProductPageCarrusel = 2532;
+            //public const int ShowRoomMobileProductPageTactica = 2533;
+            public const int ShowRoomMobileSubCampania = 2524;
+            public const int ShowRoomMobileContenedor = 2871;
+            //public const int MobileShowRoom = 2571;
             #endregion
 
             #region OfertaDelDia 
             // no tulizan estas variables, todos estos estan en la logica en ofertaDelDia.js
-            public const int DesktopOfertaDelDiaHomeBanner = 1191;
+            public const int OfertaDelDiaDesktopHomeBanner = 1191;
             //public const int DesktopOfertaDelDiaHomeDisplay = 1192;
-            public const int DesktopOfertaDelDiaPedidoBanner = 1291;
+            public const int OfertaDelDiaDesktopPedidoBanner = 1291;
             //public const int DesktopOfertaDelDiaPedidoDisplay = 1292;
-            public const int DesktopOfertaDelDiaGeneralBanner = 1991;
+            public const int OfertaDelDiaDesktopGeneralBanner = 1991;
             //public const int DesktopOfertaDelDiaGeneralDisplay = 1992;
+            public const int OfertaDelDiaDesktopContenedor = 1891;
+            public const int OfertaDelDiaDesktopFicha = 1491;
 
-            public const int DesktopOfertaDelDiaContenedor = 1891;
-            public const int MobileOfertaDelDiaHomeBanner = 2191;
-            public const int MobileOfertaDelDiaContenedor = 2891;
+            public const int OfertaDelDiaMobileHomeBanner = 2191;
+            public const int OfertaDelDiaMobileContenedor = 2891;
+            public const int OfertaDelDiaMobileFicha = 2491;
             #endregion
 
             #region RevistaDigital
@@ -1795,13 +1798,13 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
             public const string HerramientasVentaComprar = "/herramientasventa/comprar";
 
-            public const string DetalleHerramientasVenta = "/detalle/herramientasventa";
-            public const string DetalleLanzamiento = "/detalle/lanzamiento";
+            public const string DetalleHerramientasVenta = "/detalle/demostradores";
+            public const string DetalleLanzamiento = "/detalle/lonuevonuevo";
             public const string DetalleOfertaParaTi = "/detalle/ofertaparati";
             public const string DetalleOfertasParaMi = "/detalle/ofertasparami";
-            public const string DetalleGuiaDeNegocioDigitalizada = "/detalle/guiadenegociodigitalizada";
-            public const string DetalleShowRoom = "/detalle/showroom";
-            public const string DetalleOfertaDelDia = "/detalle/ofertadeldia";
+            public const string DetalleGuiaDeNegocioDigitalizada = "/detalle/guiadenegocio";
+            public const string DetalleShowRoom = "/detalle/especiales";
+            public const string DetalleOfertaDelDia = "/detalle/solohoy";
             public const string DetallePackNuevas = "/detalle/packnuevas";
         }
 
