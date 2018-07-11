@@ -1798,13 +1798,13 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
             public const string HerramientasVentaComprar = "/herramientasventa/comprar";
 
-            public const string DetalleHerramientasVenta = "/detalle/herramientasventa";
-            public const string DetalleLanzamiento = "/detalle/lanzamiento";
+            public const string DetalleHerramientasVenta = "/detalle/demostradores";
+            public const string DetalleLanzamiento = "/detalle/lonuevonuevo";
             public const string DetalleOfertaParaTi = "/detalle/ofertaparati";
             public const string DetalleOfertasParaMi = "/detalle/ofertasparami";
-            public const string DetalleGuiaDeNegocioDigitalizada = "/detalle/guiadenegociodigitalizada";
-            public const string DetalleShowRoom = "/detalle/showroom";
-            public const string DetalleOfertaDelDia = "/detalle/ofertadeldia";
+            public const string DetalleGuiaDeNegocioDigitalizada = "/detalle/guiadenegocio";
+            public const string DetalleShowRoom = "/detalle/especiales";
+            public const string DetalleOfertaDelDia = "/detalle/solohoy";
             public const string DetallePackNuevas = "/detalle/packnuevas";
         }
 

@@ -3263,5 +3263,24 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return ControllerContext.RouteData.Values["controller"].ToString();
         }
+
+        protected List<EstrategiaPersonalizadaProductoModel> RevisarCheckAgregado(List<EstrategiaPersonalizadaProductoModel> revisarLista)
+        {
+            if (revisarLista != null)
+            {
+                if (revisarLista.Any())
+                {
+                    var listaPedido = _pedidoWebProvider.ObtenerPedidoWebDetalle(0);
+                    revisarLista.Update(x =>
+                    {
+                        x.IsAgregado = listaPedido.Any(p => p.CUV == x.CUV2);
+                    });
+                }
+            }
+            else
+                revisarLista = new List<EstrategiaPersonalizadaProductoModel>();
+
+            return revisarLista;
+        }
     }
 }
