@@ -247,7 +247,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
 
-                modelo.Origen = origen;
+                modelo.OrigenUrl = origen;
+                modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
                 modelo.Palanca = palanca;
                 modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
                 modelo.Campania = campaniaId;
@@ -282,6 +283,126 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Ofertas", new { area = esMobile ? "Mobile" : "" });
         }
 
+        public int GetOrigenPedidoWebDetalle(string origen)
+        {
+            origen = Util.Trim(origen);
+            if (origen == "")
+            {
+                return 0;
+            }
+
+            int intOrigen = Convert.ToInt32(origen);
+            var result = 0;
+
+            switch (intOrigen)
+            {
+                //OPT
+                case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome:
+                    result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHomePopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido:
+                    result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedidoPopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedor:
+                    result = Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedorPopup;
+                    break;
+                    //Mobile
+                case Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome:
+                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileHomePopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido:
+                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedidoPopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor:
+                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedorPopup;
+                    break;
+                // RD
+                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion:
+                    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomePopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion:
+                    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoPopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding:
+                    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento:
+                    result = Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage;
+                    break;
+                    //Mobile
+                case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
+                    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomePopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion:
+                    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoPopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding:
+                    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingPopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento:
+                    result = Constantes.OrigenPedidoWeb.LanzamientoMobileHomePopup;
+                    break;
+                //LAN
+                case Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedor:
+                    result = Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedorPopup;
+                    break;
+                case Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage:
+                    result = Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage;
+                    break;
+                    //Mobile
+                case Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor:
+                    result = Constantes.OrigenPedidoWeb.LanzamientoMobileContenedorPopup;
+                    break;
+                case Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage:
+                    result = Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage;
+                    break;
+                //GND
+                case Constantes.OrigenPedidoWeb.GNDMobileLanding:
+                    result = Constantes.OrigenPedidoWeb.GNDMobileLandingPopup;
+                    break;
+                case Constantes.OrigenPedidoWeb.GNDDesktopLanding:
+                    result = Constantes.OrigenPedidoWeb.GNDDesktopLandingPopUp;
+                    break;
+                //HV
+                case Constantes.OrigenPedidoWeb.HVMobileLanding:
+                    result = Constantes.OrigenPedidoWeb.HVMobileLandingPopup;
+                    break;
+                case Constantes.OrigenPedidoWeb.HVDesktopLanding:
+                    result = Constantes.OrigenPedidoWeb.HVDesktopLandingPopUp;
+                    break;
+                //SR
+                case Constantes.OrigenPedidoWeb.ShowRoomDesktopHome:
+                case Constantes.OrigenPedidoWeb.ShowRoomDesktopContenedor:
+                case Constantes.OrigenPedidoWeb.ShowRoomDesktopLandingCompra:
+                case Constantes.OrigenPedidoWeb.ShowRoomDesktopLandingIntriga:
+                case Constantes.OrigenPedidoWeb.ShowRoomDesktopSubCampania:
+                    result = Constantes.OrigenPedidoWeb.ShowRoomDesktopProductPage;
+                    break;
+                    //Mobile
+                case Constantes.OrigenPedidoWeb.ShowRoomMobileContenedor:
+                case Constantes.OrigenPedidoWeb.ShowRoomMobileLandingCompra:
+                case Constantes.OrigenPedidoWeb.ShowRoomMobileLandingIntriga:
+                case Constantes.OrigenPedidoWeb.ShowRoomMobileSubCampania:
+                    result = Constantes.OrigenPedidoWeb.ShowRoomMobileProductPage;
+                    break;
+                //ODD
+                case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopHomeBanner:
+                case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopPedidoBanner:
+                case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopGeneralBanner:
+                case Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopContenedor:
+                    result = Constantes.OrigenPedidoWeb.OfertaDelDiaDesktopFicha;
+                    break;
+                    //Mobile
+                case Constantes.OrigenPedidoWeb.OfertaDelDiaMobileHomeBanner:
+                case Constantes.OrigenPedidoWeb.OfertaDelDiaMobileContenedor:
+                    result = Constantes.OrigenPedidoWeb.OfertaDelDiaMobileFicha;
+                    break;
+            }
+
+            //result = result == 0 ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileDetalle : result;
+
+            return result;
+        }
         #endregion
 
         public string IdentificarPalanca(string palanca, int campaniaId)

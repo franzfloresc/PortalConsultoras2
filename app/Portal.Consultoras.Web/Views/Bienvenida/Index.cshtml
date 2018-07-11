@@ -319,7 +319,7 @@
             <div class="clear"></div>
             <div class="texto_filtros_fav"><span id="fav-home-total">Te mostramos <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos.</span><a class="btn_ver_todo_filtros" href="/ShowRoom">VER TODOS</a></div>
             <hr class="clear">
-            <div class="contenedor_productos_showroom" id="divProductosShowRoom" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.DesktopShowRoomBienvenida">
+            <div class="contenedor_productos_showroom" id="divProductosShowRoom" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.ShowRoomDesktopHome">
             </div>
         </div>
         <hr class="clear">
@@ -2153,7 +2153,7 @@
         var urlRevistaDigitalInformacion = '@Url.Action("Informacion", "RevistaDigital")';
         var urlDetalleRevistaDigital = '@Url.Action("Detalle", "RevistaDigital")';
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
-        var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.DesktopShowRoomBienvenida';
+        var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.ShowRoomDesktopHome';
         var DesktopHomeLiquidacion = @Constantes.OrigenPedidoWeb.DesktopHomeLiquidacion;
         var tipoOrigenPantalla = 1;
         var vbFotoPerfil = '@ViewBag.FotoPerfil';

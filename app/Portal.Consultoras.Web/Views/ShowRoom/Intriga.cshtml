@@ -9,7 +9,7 @@
 <div class="content_belcorp" style="text-align:center;">
     <div class="content_set_intriga">
 
-        <input type="hidden" id="hdOfertaShowRoomID" value="@Model.OfertaShowRoomID" />
+        @*<input type="hidden" id="hdOfertaShowRoomID" value="@Model.OfertaShowRoomID" />*@
         <input type="hidden" class="valorCuv" value="@Model.CUV" />
         <input type="hidden" class="claseMarcaID" value="@Model.MarcaID" />
         <input type="hidden" class="clasePrecioUnidad" value="@Model.PrecioOferta" />
@@ -113,7 +113,7 @@
     <script type="text/javascript">
         var emailOriginal = $.trim('@Model.EMail').toLowerCase();
         var emailActivo = $.trim('@Model.EMailActivo');
-        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.DesktopShowRoomLandingIntriga';
+        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.ShowRoomDesktopLandingIntriga';
 
         var celularOriginal = $.trim('@Model.Celular').toLowerCase();
         var suscrito = $.trim('@Model.Suscripcion');

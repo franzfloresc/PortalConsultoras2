@@ -14,7 +14,7 @@
 <div id="ImagenDeFondo" class="imagen_fondo_detalle" style="display:none;"></div>
 <div class="contenedor_detalle texto_font">
     <div class="contenedor_fichas">
-        <div class="contenedor_ficha_producto" data-item="" data-tag-html="@ViewBag.Campania" data-OrigenPedidoWeb="@Model.Origen">
+        <div class="contenedor_ficha_producto" data-item="" data-tag-html="@ViewBag.Campania" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
             <div style="display:none;">
                 <div id="data-estrategia" data-estrategia="@Json.Encode(Model)"></div>
             </div>
@@ -361,7 +361,7 @@
                 </div>
             </div>
             <!--carrusel-->
-            <div class="contenedor_carrusel" data-OrigenPedidoWeb="@Model.Origen">
+            <div class="contenedor_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
                 <div id="carrusel" style="text-align:center;">
 
                 </div>
@@ -392,7 +392,7 @@
                 palanca: "@Model.Palanca",
                 campania: "@Model.Campania",
                 cuv: "@Model.Cuv",
-                origen: "@Model.Origen",
+                origen: "@Model.OrigenUrl",
                 tieneSession: "@Model.TieneSession",
                 urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia")'
             });

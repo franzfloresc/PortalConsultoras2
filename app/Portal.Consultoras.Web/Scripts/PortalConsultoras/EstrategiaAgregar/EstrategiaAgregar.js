@@ -108,8 +108,13 @@ var EstrategiaAgregarModule = (function () {
         }
     };
 
-    var getOrigenPedidoWeb = function ($btnAgregar) {
-        var origenPedidoWeb = $btnAgregar.parents(dataProperties.dataOrigenPedidoWeb).data("origenpedidoweb") || 0;
+    var getOrigenPedidoWeb = function ($btnAgregar, esUrl) {
+        var origenPedidoWeb = (esUrl) ? $btnAgregar.parents(dataProperties.dataOrigenPedidoWeb).data("origenpedidoweb")
+            : (
+                $btnAgregar.parents(dataProperties.dataOrigenPedidoWeb).data("origenpedidowebagregar")
+                || $btnAgregar.parents(dataProperties.dataOrigenPedidoWeb).data("origenpedidoweb")
+            );
+        origenPedidoWeb = origenPedidoWeb || 0;
         return origenPedidoWeb.toString();
     };
 
