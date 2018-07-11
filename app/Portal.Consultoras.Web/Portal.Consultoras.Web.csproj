@@ -311,6 +311,8 @@
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="Infraestructure\Reader\ColumnCsvTransform.cs" />
     <Compile Include="Models\AdministrarEstrategia\AdministrarEstrategiaMasivoModel.cs" />
+    <Compile Include="Models\DetalleEstrategia\BreadCrumbModel.cs" />
+    <Compile Include="Models\DetalleEstrategia\DetalleEstrategiaBreadCrumbsModel.cs" />
     <Compile Include="Models\EstrategiaComponenteModel.cs" />
     <Compile Include="Models\EstrategiaFichaPersonalizadaProductoModel.cs" />
     <Compile Include="Models\Estrategia\OfertaDelDia\DataModel.cs" />
