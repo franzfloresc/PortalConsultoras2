@@ -244,12 +244,16 @@
         _validarDesactivadoGeneral(estrategia);
 
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
-        if (!isMobile()) {
-            estrategia.TipoEstrategiaDetalle.ImgFichaFondoDesktop = estrategia.TipoEstrategiaDetalle.ImgFichaFondoDesktop || "";
-            if (estrategia.TipoEstrategiaDetalle.ImgFichaFondoDesktop != "") {
-                $(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "url('" + estrategia.TipoEstrategiaDetalle.ImgFichaFondoDesktop + "')");
-                $(_seccionesFichaProducto.ImagenDeFondo).show();
-            }
+        var imgFondo = "";
+        if (isMobile()) {
+            imgFondo = estrategia.TipoEstrategiaDetalle.ImgFichaFondoMobile || "";
+        }
+        else {
+            imgFondo = estrategia.TipoEstrategiaDetalle.ImgFichaFondoDesktop || "";
+        }
+        if (imgFondo != "") {
+            $(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "url('" + imgFondo + "')");
+            $(_seccionesFichaProducto.ImagenDeFondo).show();
         }
 
         _cargarDataCompartir(estrategia);
