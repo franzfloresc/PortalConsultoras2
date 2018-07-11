@@ -74,16 +74,18 @@
                     <div id="EtiquetaOdd" class="contenedor_etiqueta_odd">
                         <div id="clock" class="clock_odd"></div>
                     </div>
-                    <div id="EtiquetaLanzamientos" class="contenedor_etiqueta_nuevo">
+                    @*<div id="EtiquetaLanzamientos" class="contenedor_etiqueta_nuevo">
                         <div class="triangulo_etiqueta_nuevo"></div>
                         <div class="etiqueta_nuevo">
                             <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" />
                         </div>
-                    </div>
+                    </div>*@
                     <div id="EtiquetaPackNuevas" class="contenedor_etiqueta_nuevo">
-                        <div class="triangulo_etiqueta_nuevo"></div>
+                        @*<div class="triangulo_etiqueta_nuevo"></div>*@
                         <div class="etiqueta_nuevo">
+                            {{#IsNullOrEmpty ImagenURL '!='}}
                             <img src="{{ImagenURL}}" alt="" />
+                            {{/IsNullOrEmpty}}
                         </div>
                     </div>
                 </div>
