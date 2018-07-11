@@ -1844,34 +1844,29 @@ namespace Portal.Consultoras.Web.Controllers
 
         private BarraTippingPoint GetTippingPoint(string TippingPointStr)
         {
-            BarraTippingPoint tippingPoint = new BarraTippingPoint();
             string nivel = Convert.ToString(userData.ConsecutivoNueva + 1).PadLeft(2, '0');
-
             try
             {
+                ServicePedido.BEEstrategia estrategia;
                 using (var sv = new PedidoServiceClient())
                 {
-                    BEActivarPremioNuevas beActive = sv.GetActivarPremioNuevas(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);                    
-                    if (beActive != null) tippingPoint = Mapper.Map(beActive, tippingPoint);
-                    tippingPoint.TippingPointMontoStr = TippingPointStr;
-                    
-                    if (tippingPoint.ActiveTooltip)
-                    {
-                        var estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);
-                        if (estrategia != null)
-                        {
-                            tippingPoint = Mapper.Map(estrategia, tippingPoint);
-                            tippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
-                        }
-                    }
+                    BEActivarPremioNuevas beActive = sv.GetActivarPremioNuevas(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);
+                    if (beActive == null || !beActive.ActiveTooltip) return new BarraTippingPoint();
+
+                    estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);                    
                 }
+                if (estrategia == null) return new BarraTippingPoint();
+
+                var tippingPoint = Mapper.Map<BarraTippingPoint>(estrategia);
+                tippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
+                tippingPoint.TippingPointMontoStr = TippingPointStr;
+                return tippingPoint;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                tippingPoint = new BarraTippingPoint();
+                return new BarraTippingPoint();
             }
-            return tippingPoint;
         }
 
         private string getUrlTippingPoint(string noImagen)
