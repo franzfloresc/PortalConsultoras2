@@ -532,10 +532,6 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEPedidoWebSetDetalle, PedidoWebSetDetalleModel>()
                 .ForMember(t => t.CUV, f => f.MapFrom(c => c.CuvProducto))
                 .ForMember(t => t.TipoOfertaSisId, f => f.MapFrom(c => c.TipoOfertaSisId));
-
-            Mapper.CreateMap<BEPedidoWebSetDetalle, PedidoWebSetDetalleModel>()
-                .ForMember(t => t.CUV, f => f.MapFrom(c => c.CuvProducto))
-                .ForMember(t => t.TipoOfertaSisId, f => f.MapFrom(c => c.TipoOfertaSisId));
             
             Mapper.CreateMap<ServicePedido.BEEstrategia, BarraTippingPoint>()
                 .ForMember(t => t.LinkURL, f => f.Ignore())
