@@ -243,7 +243,7 @@
         _actualizarVariedad(estrategia);
         _validarDesactivadoGeneral(estrategia);
 
-        //console.log(estrategia);
+        console.log(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
 
         var imgFondo = "";

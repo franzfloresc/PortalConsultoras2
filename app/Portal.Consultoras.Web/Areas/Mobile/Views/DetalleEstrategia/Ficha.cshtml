@@ -52,7 +52,7 @@
             </div>
         </div>
         {{/IsNullOrEmpty}}
-        {{#iff CodigoVariante '==' '2003'}}
+        {{#iff CodigoVariante 'ContainsArray' '[2001,2003]'}}
         <div id="contenedor_foto_referencial" class="texto_referencial">
             <span data-texto_referencial="">* Foto Referencial</span>
         </div>
