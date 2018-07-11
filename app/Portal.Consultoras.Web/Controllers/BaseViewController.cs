@@ -239,6 +239,11 @@ namespace Portal.Consultoras.Web.Controllers
                     var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
                     if (estrategiaPresonalizada == null) return RedirectToAction("Index", "Ofertas");
                     modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
+                    if (palanca == Constantes.NombrePalanca.PackNuevas)
+                    {
+                        modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
+                        modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
+                    }
                 }
                 else
                 {

@@ -48,8 +48,11 @@ namespace Portal.Consultoras.Web.Models
         public bool IsAgregado { get; set; }
         public string CodigoEstrategia { get; set; }
         public string CodigoVariante { get; set; }
+
+        // Mejorar para solo utilizar un solo array de string
         public List<string> ArrayContenidoSet { get; set; }
         public List<string> ListaDescripcionDetalle { get; set; }
+        
         public string TextoLibre { get; set; }
 
         public int MarcaID { get; set; }

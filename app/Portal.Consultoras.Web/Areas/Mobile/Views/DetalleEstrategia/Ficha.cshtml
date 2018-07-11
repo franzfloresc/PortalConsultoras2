@@ -65,6 +65,7 @@
                 {{DescripcionCompleta}}
             </div>
         </div>
+        {{#IsNullOrEmpty this.ListaDescripcionDetalle '!='}}
         <div id="SloganLanzamientos">
             <span class="nombre_detalle_producto_tono"><strong>{{this.TipoEstrategiaDetalle.Slogan}}</strong></span>
             <ul class="descripcion_detalle_producto_tono" style="list-style-type: none;">
@@ -73,14 +74,15 @@
                 {{/each}}
             </ul>
         </div>
-        <div id="SloganPackNuevas">
+        {{/IsNullOrEmpty}}
+        @*<div id="SloganPackNuevas">
             <span class="nombre_detalle_producto_tono"><strong>Contenido del Set:</strong></span>
             <ul class="descripcion_detalle_producto_tono" style="list-style-type: none;">
                 {{#each this.ArrayContenidoSet}}
                 <li><span class="txt-des">{{this}}</span></li>
                 {{/each}}
             </ul>
-        </div>
+        </div>*@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 precio_producto">
                 <p>Valorizado en <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
@@ -227,7 +229,7 @@
                 <a class="btn_agregar_ficha_producto @Model.ClaseBloqueada"
                    id="btnAgregalo"
                    data-bloqueada=""
-                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
+                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
                 <hr class="clear">
             </div>
         </div>
@@ -286,14 +288,13 @@
 <div id="CarruselProducto" class="container">
     <div class="row carrusel">
         <div>
-
             <div class="set_encuentras_producto" id="set_relacionados">
 
                 <div class="wrapper_resumen_mobile ficha_encuentraproducto">
                     <p id="tituloCarrusel" class="titulo_set">
 
                     </p>
-                    <div class="set_encuentras_producto_carrusel">
+                    <div class="set_encuentras_producto_carrusel" data-OrigenPedidoWeb="@Model.Origen">
                         <div id="divOfertaProductos"></div>
                     </div>
                 </div>

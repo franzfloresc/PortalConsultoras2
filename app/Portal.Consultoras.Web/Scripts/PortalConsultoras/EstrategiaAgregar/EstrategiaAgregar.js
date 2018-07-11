@@ -33,14 +33,14 @@ var EstrategiaAgregarModule = (function () {
         dataItemTagFondo: "[data-item-tag=\"fotofondo\"]",
         dataItemTagVerDetalle: "[data-item-tag=\"verdetalle\"]",
         dataItemAccionVerDetalle: "[data-item-accion=\"verdetalle\"]",
-        dataItemTagContenido : "[data-item-tag=\"contenido\"]",
+        dataItemTagContenido: "[data-item-tag=\"contenido\"]",
         dataTono: "[data-tono]",
         dataTonoSelect: "[data-tono-select]",
         dataItemHtml: "[data-item-html]"
     };
 
     var constantes = {
-        undefined: function(){
+        undefined: function () {
             return "undefined";
         }
     };
@@ -153,7 +153,7 @@ var EstrategiaAgregarModule = (function () {
                 dataItemHtml.find(dataProperties.dataItemTagContenido).css("position", "initial");
                 dataItemHtml.find(dataProperties.dataItemTagContenido).attr("class", "");
                 //
-                $(elementosPopPup.contenedorPopupDetalleCarousel.replace("#",".")).hide();
+                $(elementosPopPup.contenedorPopupDetalleCarousel.replace("#", ".")).hide();
                 //
                 return this;
             },
@@ -292,14 +292,23 @@ var EstrategiaAgregarModule = (function () {
             AbrirLoad();
 
             if (divAgregado != null) {
+
                 $(divAgregado).show();
-                $("#ContenedorAgregado").show();
+
+                if ($btnAgregar[0])
+                {
+                    var contenedorAgregado = $($btnAgregar).parent().find('#ContenedorAgregado')[0];
+                    if (contenedorAgregado) {
+                        $(contenedorAgregado).show();
+                    }
+                }
             }
+
             if (isMobile()) {
                 ActualizarGanancia(data.DataBarra);
                 microefectoPedidoGuardado();
                 if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.ShowRoom)
-                CargarCantidadProductosPedidos();
+                    CargarCantidadProductosPedidos();
             } else {
                 CargarResumenCampaniaHeader(true);
             }
@@ -374,12 +383,6 @@ var EstrategiaAgregarModule = (function () {
                 console.log(e);
             }
 
-            CerrarLoad();
-            if (popup) {
-                CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
-                $(elementosPopPup.popupDetalleCarouselPackNuevas).hide();
-            }
-
             ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.rd, params.CuvTonos || params.CUV, true);
             ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.gn, params.CuvTonos || params.CUV, true);
             ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.hv, params.CuvTonos || params.CUV, true);
@@ -389,6 +392,18 @@ var EstrategiaAgregarModule = (function () {
 
             if (belcorp.estrategia.applyChanges)
                 belcorp.estrategia.applyChanges("onProductoAgregado", data);
+
+            if (popup) {
+                CerrarLoad();
+                CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
+                $(elementosPopPup.popupDetalleCarouselPackNuevas).hide();
+            } else {
+                if (_config.esFicha) {
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000);
+                }
+            }
 
             return false;
         }).fail(function (data, error) {

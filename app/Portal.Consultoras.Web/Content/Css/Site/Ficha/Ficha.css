@@ -209,7 +209,7 @@ body {
     }
 
 .ganancia {
-    color: #e81c36;
+    color: #AD1F78;
     margin-top: 5px;
 }
 
@@ -853,4 +853,9 @@ margin-bottom: 45px;
 
 #SloganLanzamientos, #SloganPackNuevas{
     margin-bottom: 45px;
+}
+.nombre_detalle_producto_tono {
+    font-weight: bold;
+    padding-bottom: 10px;
+    display: inline-block;
 }
