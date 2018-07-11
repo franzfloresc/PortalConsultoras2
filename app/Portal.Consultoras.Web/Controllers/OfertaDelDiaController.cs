@@ -12,6 +12,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var oddModel = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);// GetOfertaDelDiaModel();
 
+                if (oddModel != null)
+                {
+                    oddModel.ListaOferta = RevisarCheckAgregado(oddModel.ListaOferta);
+                }
+
                 return Json(new
                 {
                     success = oddModel != null,
