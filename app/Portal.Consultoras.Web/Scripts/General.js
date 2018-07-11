@@ -259,7 +259,7 @@ jQuery(document).ready(function () {
                 opts = optsx;
                 switch (operator) {
                     case '==':
-                        if (typeof a == "object") {
+                        if (typeof a == "object" && a != null) {
                             if (typeof a.length != "undefined") {
                                 bool = a.length == 0;
                             }
@@ -269,7 +269,7 @@ jQuery(document).ready(function () {
                         }
                         break;
                     case '!=':
-                        if (typeof a == "object") {
+                        if (typeof a == "object" && a != null) {
                             if (typeof a.length != "undefined") {
                                 bool = a.length > 0;
                             }

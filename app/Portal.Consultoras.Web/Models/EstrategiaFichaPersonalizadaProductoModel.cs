@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -17,11 +18,16 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneSession { get; set; }
         public int Campania { get; set; }
         public string Cuv { get; set; }
+
         public bool TieneReloj { get; set; }
+        public bool TieneCompartir { get; set; }
         public bool TieneCarrusel { get; set; }
+
         public double TeQuedan { get; set; }
         public string ColorFondo1 { get; set; }
         public ConfiguracionSeccionHomeModel ConfiguracionContenedor { get; set; }
+        public string CodigoIsoConsultora { get; set; }
+        public bool TieneRevistaDigital { get; set; }
     }
     public class TituloDetalle
     {

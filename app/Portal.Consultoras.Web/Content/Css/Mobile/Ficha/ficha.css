@@ -118,6 +118,10 @@
     text-decoration: none;
 }
 
+.gana_precio_producto {
+    border-left: 1px solid #cacaca;
+}
+
 .gana_precio_producto p {
     font-size: 13px;
     font-weight: normal;
@@ -135,6 +139,13 @@
     color: #000000;
     margin: 12px 15px 14px 15px;
     line-height: normal;
+}
+
+.texto_referencial {
+    font-weight: 700;
+    height: 19px;
+    margin-top: 24px;
+    text-align: center;
 }
 
 .contenido_agregado .box_agregado p.marca {
@@ -220,7 +231,7 @@
 
 .precio li:first-child {
     padding-right: 11px;
-    border-right: 1px solid #cacaca;
+    /*border-right: 1px solid #cacaca;*/
 }
 
 .precio li:last-child {

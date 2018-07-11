@@ -251,32 +251,40 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
-
                 modelo.OrigenUrl = origen;
                 modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
                 modelo.Palanca = palanca;
                 modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
                 modelo.Campania = campaniaId;
                 modelo.Cuv = cuv;
-                modelo.TieneReloj = (Constantes.NombrePalanca.OfertaDelDia == palanca);
-                modelo.TieneCarrusel = (Constantes.NombrePalanca.Lanzamiento == palanca 
-                        || Constantes.NombrePalanca.ShowRoom == palanca 
-                        || Constantes.NombrePalanca.OfertaDelDia == palanca);
-                if (modelo.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
-                    modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
 
-                if (Constantes.NombrePalanca.OfertaDelDia == palanca)
+                //modelo.CodigoIsoConsultora = userData.CodigoISO;
+                //modelo.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();
+
+                modelo.TieneCarrusel = (Constantes.NombrePalanca.Lanzamiento == palanca
+                        || Constantes.NombrePalanca.ShowRoom == palanca
+                        || Constantes.NombrePalanca.OfertaDelDia == palanca);
+
+                modelo.TieneCompartir = !(Constantes.NombrePalanca.HerramientasVenta == palanca
+                    || Constantes.NombrePalanca.PackNuevas == palanca);
+
+                if (modelo.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
                 {
+                    modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
+                    modelo.TieneReloj = true;
+
                     var sessionODD = sessionManager.OfertaDelDia.Estrategia;
                     if (sessionODD != null)
                     {
                         modelo.ColorFondo1 = sessionODD.ColorFondo1;
-                        modelo.ConfiguracionContenedor = sessionODD.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
+                        modelo.ConfiguracionContenedor = sessionODD.ConfiguracionContenedor;
                     }
-                }
 
-                ViewBag.PaisAnalytics = userData.CodigoISO;
-                ViewBag.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();
+                    modelo.ConfiguracionContenedor = modelo.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
+                    modelo.ConfiguracionContenedor.ColorFondo = "#fff";
+                    modelo.ConfiguracionContenedor.ColorTexto = "#000";
+                    modelo.ColorFondo1 = "";
+                }
 
                 return View(modelo);
             }
