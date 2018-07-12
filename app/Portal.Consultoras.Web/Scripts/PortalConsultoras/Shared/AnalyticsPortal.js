@@ -107,24 +107,24 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    var marcarAgregaProductoCarro = function (producto, tono) {
+    var marcarAgregaProductoCarro = function (tipoMoneda, producto, precio, marca, cuv, categoria, variante, cantidad, palanca) {
         try {
             dataLayer.push({
                 "event": _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': 'PEN',
-                    'add': {
-                        'products': [
+                "ecommerce": {
+                    "currencyCode": tipoMoneda,
+                    "add": {
+                        "products": [
                             {
-                                'name': 'Labial Color HD Alta Definición',
-                                'price': '19.90',
-                                'brand': 'Esika',
-                                'id': '13223',
-                                'category': 'Maquillaje > Cuerpo',
-                                'variant': 'Fucsia Vibrante',
-                                'quantity': 2,
-                                'dimension11': '{nombre_palanca}',
-                                'dimension12': 'Ficha de producto'
+                                "name": producto,
+                                "price": precio,
+                                "brand": marca,
+                                "id": cuv,
+                                "category": categoria || "",
+                                "variant": variante,
+                                "quantity": cantidad,
+                                "dimension11": palanca,
+                                "dimension12": _texto.fichaProducto
                             }
                         ]
                     }
