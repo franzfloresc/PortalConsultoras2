@@ -2245,14 +2245,14 @@ namespace Portal.Consultoras.Common
             //public const string UrlActivarEstrategia = "api/estrategia/activar/{0}/{1}?Usuario={2}";
 
             //api/Estrategia/activar/{pais}?Usuario=
-            public const string UrlActivarEstrategias = "api/estrategia/activar/{0}?usuario={1}";
+            //public const string UrlActivarEstrategias = "api/estrategia/activar/{0}?usuario={1}";
 
 
             //api/Estrategia/deshabilitar/{pais}/{id}?Usuario=           
             public const string UrlDesactivarWebApi = "api/estrategia/deshabilitar/{0}/{1}?Usuario={2}";
 
-            //api/Estrategia/desactivar/{pais}?Usuario=
-            public const string UrlDesactivarEstrategias = "api/estrategia/desactivar/{0}?Usuario={1}";
+            //api/Estrategia/desactivar/{pais}/{tipo}
+            public const string UrlActivarDesactivarEstrategias = "api/estrategia/activardesactivar/{0}/{1}";
 
             //api/Estrategia/descripcion/{pais}/{tipo}/{campania}
             public const string UrlUploadCsv = "api/estrategia/descripcion/{0}/{1}/{2}";

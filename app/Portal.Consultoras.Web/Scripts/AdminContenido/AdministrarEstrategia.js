@@ -820,10 +820,9 @@
                 success: function (data) {
                     var objPreview, objChkImagen, idImagen, dataImagen;
                     $("#mensajeErrorCUV").val("");
-
+                    
                     if (data.message == "OK") {
                         $("#txtDescripcion").val(data.descripcion);
-
                         if (data.wsprecio > 0) {
                             $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
                             $("#txtPrecio").val(data.precio);
