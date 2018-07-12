@@ -422,5 +422,31 @@
 }
 
 .vineta {
-    margin-right: 5px;
+    display: block;
+    float: left;
+}
+
+.txt-des {
+    display: block;
+    float: left;
+    width: 95%;
+    padding-left: 8px;
+    padding-bottom: 5px;
+}
+
+.descripcion_detalle_producto_tono li {
+    clear: both;
+    padding-bottom: 3px;
+}
+.descripcion_detalle_producto_tono li::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+.ficha_lineaencuentraproducto hr {
+    border-color: #000 !important;
+}
+
+.ficha_tabs {
+    border-top: 1px solid #ccc;
 }

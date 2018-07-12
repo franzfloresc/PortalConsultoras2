@@ -4,6 +4,7 @@
     var _primeraMarca = "";
     var _ultimaMarca = "";
     var _esMultimarca = false;
+    var _descripcionProducto = "";
 
     var _config = {
         palanca: config.palanca || "",
@@ -12,7 +13,6 @@
         campania: config.campania || "",
         cuv: config.cuv || "",
         urlObtenerComponentes: config.urlObtenerComponentes
-
     };
 
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
@@ -28,6 +28,7 @@
         divCarruselSetsProductosRelacionados: "#divOfertaProductos",
         divSetsProductosRelacionados: "#set_relacionados",
         footerPage: ".footer-page",
+        estrategiaBreadcrumb: "#estrategia-breadcrumb",
         marca: "#marca"
     };
 
@@ -47,10 +48,11 @@
         //EtiquetaOdd: "#EtiquetaOdd",
         //SloganLanzamientos: "#SloganLanzamientos",
         //ContenedoFotoReferencial: "#contenedor_foto_referencial",
-        //ContenedoFichaEtiquetas: "#contenedor_ficha_etiquetas",
-        Contenedor_redes_sociales: "#Contenedor_redes_sociales"
+        ContenedoFichaEtiquetas: "#contenedor_ficha_etiquetas",
+        Contenedor_redes_sociales: "#Contenedor_redes_sociales",
         //EtiquetaPackNuevas: "#EtiquetaPackNuevas"
-        //SloganPackNuevas: "#SloganPackNuevas"
+        //SloganPackNuevas: "#SloganPackNuevas",
+        ImagenProducto: "#FichaImagenProducto"
     };
 
     var _tabsFichaProducto = {
@@ -146,13 +148,14 @@
 
             }
         }
-        
+
         $("ul.ficha_tabs li a").click(function () {
             $(this).parent().children("ul").slideToggle();
             var clase = $(this).attr("class");
             if (clase == "active") {
                 $(this).attr("class", "tab-link");
-            } else {
+            }
+            else {
                 $(this).attr("class", "active");
             }
         });
@@ -198,7 +201,8 @@
             });
 
             return true;
-        } else {
+        }
+        else {
             estrategia.Hermanos = {};
             estrategia.EsMultimarca = false;
             return false;
@@ -213,7 +217,8 @@
                     estrategia.CodigoVariante = _codigoVariedad.IndividualVariable;
                 }
             }
-        } else if (estrategia.Hermanos.length > 1) {
+        }
+        else if (estrategia.Hermanos.length > 1) {
             if (estrategia.codigoVariante == _codigoVariedad.IndividualVariable) {
                 estrategia.codigoVariante = _codigoVariedad.ComuestaFija;
             }
@@ -237,7 +242,8 @@
         if (_config.tieneSession === "True") {
             //revisar si se realiza con razor o handlebar para SR y ODD
             estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
-        } else {
+        }
+        else {
             estrategia = localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
             $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
         }
@@ -246,6 +252,10 @@
             window.location = baseUrl + (isMobile() ? "/Mobile/" : "") + "Ofertas";
             return false;
         }
+        if (estrategia.DescripcionCompleta.length < 40)
+            $(_elementos.estrategiaBreadcrumb).text(estrategia.DescripcionCompleta + " ...");
+        else
+            $(_elementos.estrategiaBreadcrumb).text(estrategia.DescripcionCompleta.substring(1, 40) + " ...");
 
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
@@ -260,14 +270,21 @@
         }
         else {
             imgFondo = estrategia.TipoEstrategiaDetalle.ImgFichaFondoDesktop || "";
+
+            if (imgFondo != "") {
+                $(_seccionesFichaProducto.ContenedoFichaEtiquetas).addClass("contenedor_ficha_etiquetas_Confondo");
+            }
+
+            setTimeout(_RedenderImg(), 10000);
         }
+
         if (imgFondo != "") {
             $(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "url('" + imgFondo + "')");
             $(_seccionesFichaProducto.ImagenDeFondo).show();
         }
 
         _cargarDataCompartir(estrategia);
-        
+
         if (estrategia.TieneReloj) {
             _crearReloj(estrategia);
             estrategia.ConfiguracionContenedor = estrategia.ConfiguracionContenedor || {};
@@ -284,10 +301,11 @@
 
         //Handlers bars para el detalle de los tabs de fichas
         _construirSeccionDetalleFichas(estrategia);
-        // Se envía la información del producto a Google Analytics.
-        var tipoMoneda = AnalyticsPortal.fcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
-        var categoria = estrategia.CodigoCategoria || "";
-        AnalyticsPortal.fcEnviarInformacionProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, categoria, estrategia.CodigoVariante, _config.palanca);
+
+        // Se realiza la marcación en analytics de la información de la ficha de un producto.
+        var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
+        AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, null, estrategia.CodigoVariante, _config.palanca);
+        _descripcionProducto = estrategia.DescripcionCompleta;
         return true;
     };
 
@@ -318,6 +336,30 @@
         return true;
     };
 
+    var _RedenderImg = function () {
+
+        $(document).ajaxStop(function () {
+            var proObj = $(_seccionesFichaProducto.ImagenProducto);
+            var proObjH = proObj.innerHeight();
+
+            var proImg = proObj.find("img");
+            var proH = proImg.innerHeight();
+
+            if (proH > proObjH) {
+                proH = proObjH / proH;
+                $(proImg).css("height", proObjH + "px");
+                var proW = proImg.innerWidth();
+                $(proImg).css("width", (proW * proH) + "px");
+            }
+        });
+
+        //$("header").resize(function () {
+
+        //});
+
+
+    };
+
     Handlebars.registerHelper("ifVerificarMarca", function (marca, options) {
         if (_primeraMarca !== marca && _esMultimarca) {
             _primeraMarca = marca;
@@ -330,11 +372,13 @@
             if (_ultimaMarca === "" || _ultimaMarca === marca) {
                 _ultimaMarca = marca;
                 return options.inverse(this);
-            } else {
+            }
+            else {
                 _ultimaMarca = marca;
                 return options.fn(this);
             }
-        } else {
+        }
+        else {
             if (_ultimaMarca === "") {
                 _ultimaMarca = marca;
                 return options.inverse(this);
@@ -354,8 +398,8 @@
         //$(_seccionesFichaProducto.EtiquetaPackNuevas).hide();
         //$(_seccionesFichaProducto.SloganPackNuevas).hide();
 
-        if (_codigoPalanca.HerramientasVenta === _config.palanca || 
-            _codigoPalanca.OfertasParaMi === _config.palanca || 
+        if (_codigoPalanca.HerramientasVenta === _config.palanca ||
+            _codigoPalanca.OfertasParaMi === _config.palanca ||
             _codigoPalanca.OfertaParaTi === _config.palanca ||
             _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
             //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
@@ -365,22 +409,26 @@
             //if (_codigoPalanca.HerramientasVenta === _config.palanca) {
             //    $(_seccionesFichaProducto.Contenedor_redes_sociales).hide();
             //}
-        } else if (_codigoPalanca.Lanzamiento == _config.palanca) {
+        }
+        else if (_codigoPalanca.Lanzamiento == _config.palanca) {
             //$(_seccionesFichaProducto.EtiquetaLanzamientos).show();
             //$(_seccionesFichaProducto.ImagenDeFondo).show();
             //$(_seccionesFichaProducto.DescripcionAdicional).show();
             $(_seccionesFichaProducto.ContenidoProducto).show();
             //$(_seccionesFichaProducto.CarruselProducto).show();
             //$(_seccionesFichaProducto.SloganLanzamientos).show();
-        } else if (_codigoPalanca.ShowRoom == _config.palanca) {
+        }
+        else if (_codigoPalanca.ShowRoom == _config.palanca) {
             //$(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
             //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
             //$(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             //$(_seccionesFichaProducto.CarruselProducto).show();
-        } else if (_codigoPalanca.OfertaDelDia == _config.palanca) {
+        }
+        else if (_codigoPalanca.OfertaDelDia == _config.palanca) {
             //$(_seccionesFichaProducto.EtiquetaOdd).show();
-        } else if (_codigoPalanca.PackNuevas == _config.palanca) {
+        }
+        else if (_codigoPalanca.PackNuevas == _config.palanca) {
             //$(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
             //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
             //$(_seccionesFichaProducto.DescripcionAdicional).hide();
@@ -395,9 +443,9 @@
         //var etiquetaOddEstaOculta = $(_seccionesFichaProducto.EtiquetaOdd).is(":hidden");
         //var etiquetaLanzamientosEstaOculta = $(_seccionesFichaProducto.EtiquetaLanzamientos).is(":hidden");
         //if (etiquetaOddEstaOculta && etiquetaLanzamientosEstaOculta)
-            //$(_seccionesFichaProducto.ContenedoFichaEtiquetas).show();
+        //$(_seccionesFichaProducto.ContenedoFichaEtiquetas).show();
         //else
-            //$(_seccionesFichaProducto.ContenedoFichaEtiquetas).show();
+        //$(_seccionesFichaProducto.ContenedoFichaEtiquetas).show();
     };
 
     var _ocultarTabs = function () {
@@ -464,6 +512,30 @@
         }
     }
 
+    // Método que realiza la marcación en analytics de tonos en el combo de seleccion de tonos.
+    var _marcarCambiaColorCombo = function () {
+        var producto = _descripcionProducto;
+        var contenedorTonos = $(".content_tonos_select").children(".content_tono_elegido");
+        $(contenedorTonos).each(function (index, element) {
+            $(this).click(function () {
+                var tono = $(this).attr("data-tono-nombre");
+                AnalyticsPortalModule.MarcarCambiaColorCombo(producto, tono);
+            });
+        });
+    }
+
+    // Método que realiza la marcación en analytics de tonos en el cuadrado de seleccion de tonos.
+    var _marcarCambiaColorCuadro = function () {
+        var producto = _descripcionProducto;
+        var contenedorTonos = $(".content_tonos_maquillaje").children(".content_tono_detalle");
+        $(contenedorTonos).each(function (index, element) {
+            $(this).click(function () {
+                var tono = $(this).attr("data-tono-nombre");
+                AnalyticsPortalModule.MarcarCambiaColorCuadro(producto, tono);
+            });
+        });
+    }
+
     function Inicializar() {
 
         localStorageModule = LocalStorageModule();
@@ -473,6 +545,8 @@
         _crearTabs();
         _ocultarTabs();
         _fijarFooterCampaniaSiguiente();
+        _marcarCambiaColorCombo();
+        _marcarCambiaColorCuadro();
     }
 
     return {

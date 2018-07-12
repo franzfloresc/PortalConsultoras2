@@ -5184,6 +5184,7 @@
     <Content Include="Views\OfertaDelDia\ofertadeldia-banner-template.cshtml" />
     <Content Include="Views\OfertaDelDia\ofertadeldia-contenedor-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\template-ficha-detalle-video.cshtml" />
+    <Content Include="Views\DetalleEstrategia\_BreadCrumb.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -18,13 +18,14 @@
             <div style="display:none;">
                 <div id="data-estrategia" data-estrategia="@Json.Encode(Model)"></div>
             </div>
+            @Html.Partial("_BreadCrumb", Model.BreadCrumbs)
             <div id="seccion_ficha_handlebars">
 
             </div>
         </div>
         <script id="detalle_ficha_template" type="text/x-handlebars-template">
             <div class="ficha_producto">
-                <div class="contenedor_imagen">
+                <div id="FichaImagenProducto" class="contenedor_imagen">
                     <img class="contenedor_img" src="{{ImgUrl FotoProducto01}}" alt="">
                 </div>
                 {{#iff CodigoVariante 'ContainsArray' '[2001,2003]'}}
@@ -52,28 +53,29 @@
                     </div>*@
 
                 <!--compartir-->
-                {{#if TieneCompartir}}
-                <hr class="clear">
-                <div id="Contenedor_redes_sociales" class="ficha_redes_sociales">
-                    <div data-compartir-campos="" style="display:none;">
-                        <input type="hidden" class="CUV" value="{{CUV2}}" />
-                        <input type="hidden" class="rsFBMensaje" value="" />
-                        <input type="hidden" class="rsWAMensaje" value="" />
-                        <input type="hidden" class="rsFBRutaImagen" value="{{ImgUrl FotoProducto01}}" />
-                        <input type="hidden" class="rsWARutaImagen" value="{{ImgUrl FotoProducto01}}" />
-                        <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
-                        <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
-                        <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
-                        <input type="hidden" class="ProductoDescripcion" value="" />
-                        <input type="hidden" class="Volumen" value="" />
-                        <input type="hidden" class="Palanca" value="@Model.Palanca" />
+                @if (Model.TieneCompartir)
+                {
+                    <hr class="clear">
+                    <div id="Contenedor_redes_sociales" class="ficha_redes_sociales">
+                        <div data-compartir-campos="" style="display:none;">
+                            <input type="hidden" class="CUV" value="{{CUV2}}" />
+                            <input type="hidden" class="rsFBMensaje" value="" />
+                            <input type="hidden" class="rsWAMensaje" value="" />
+                            <input type="hidden" class="rsFBRutaImagen" value="{{ImgUrl FotoProducto01}}" />
+                            <input type="hidden" class="rsWARutaImagen" value="{{ImgUrl FotoProducto01}}" />
+                            <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+                            <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+                            <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
+                            <input type="hidden" class="ProductoDescripcion" value="" />
+                            <input type="hidden" class="Volumen" value="" />
+                            <input type="hidden" class="Palanca" value="@Model.Palanca" />
+                        </div>
+                        <div class="texto_redes_sociales">Comparte este producto con tus clientes</div>
+                        <a class="btn_compartir_facebook" href="javascript:;" data-compartir="FB">
+                            <img class="contenedor_img" src="/Content/Images/Esika/facebook.png">
+                        </a>
                     </div>
-                    <div class="texto_redes_sociales">Comparte este producto con tus clientes</div>
-                    <a class="btn_compartir_facebook" href="javascript:;" data-compartir="FB">
-                        <img class="contenedor_img" src="/Content/Images/Esika/facebook.png">
-                    </a>
-                </div>
-                {{/if}}
+                }
                 <!--fin compartir-->
             </div>
             <div class="ficha_detalle">
@@ -84,11 +86,11 @@
                     </div>
                     {{/if}}
                     @*<div id="EtiquetaLanzamientos" class="contenedor_etiqueta_nuevo">
-                        <div class="triangulo_etiqueta_nuevo"></div>
-                        <div class="etiqueta_nuevo">
-                            <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" />
-                        </div>
-                    </div>*@
+                            <div class="triangulo_etiqueta_nuevo"></div>
+                            <div class="etiqueta_nuevo">
+                                <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" />
+                            </div>
+                        </div>*@
                     <div id="EtiquetaPackNuevas" class="contenedor_etiqueta_nuevo">
                         @*<div class="triangulo_etiqueta_nuevo"></div>*@
                         <div class="etiqueta_nuevo">
@@ -134,13 +136,13 @@
                     <hr class="clear">
                     {{/IsNullOrEmpty}}
                     @*<div id="SloganPackNuevas">
-                        <span class="nombre_detalle_producto_tono"><strong>Contenido del Set:</strong></span>
-                        <ul class="descripcion_detalle_producto_tono">
-                            {{#each this.ArrayContenidoSet}}
-                            <li><span class="txt-des">{{this}}</span></li>
-                            {{/each}}
-                        </ul>
-                    </div>*@
+                            <span class="nombre_detalle_producto_tono"><strong>Contenido del Set:</strong></span>
+                            <ul class="descripcion_detalle_producto_tono">
+                                {{#each this.ArrayContenidoSet}}
+                                <li><span class="txt-des">{{this}}</span></li>
+                                {{/each}}
+                            </ul>
+                        </div>*@
                     <div data-codigovariante="{{CodigoVariante}}">
                         {{#iff CodigoVariante '==' '2001'}}
                         @*<div id="DescripcionAdicional"></div>*@
@@ -381,23 +383,23 @@
         </div>
         @if (Model.TieneCarrusel)
         {
-        <div id="CarruselProducto" class="contenedor_ficha_carrusel">
-            <div class="contenedor_titulo_carrusel">
-                <div class="contenedor_linea_carrusel">
-                    <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_izquierda"></div>
+            <div id="CarruselProducto" class="contenedor_ficha_carrusel">
+                <div class="contenedor_titulo_carrusel">
+                    <div class="contenedor_linea_carrusel">
+                        <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_izquierda"></div>
+                    </div>
+                    <div id="tituloCarrusel" class="txt_titulo_carrusel"></div>
+                    <div class="contenedor_linea_carrusel">
+                        <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_derecha"></div>
+                    </div>
                 </div>
-                <div id="tituloCarrusel" class="txt_titulo_carrusel"></div>
-                <div class="contenedor_linea_carrusel">
-                    <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_derecha"></div>
-                </div>
-            </div>
-            <!--carrusel-->
-            <div class="contenedor_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
-                <div id="carrusel" style="text-align:center;">
+                <!--carrusel-->
+                <div class="contenedor_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
+                    <div id="carrusel" style="text-align:center;">
 
+                    </div>
                 </div>
             </div>
-        </div>
         }
     </div>
 </div>
@@ -406,18 +408,17 @@
 @Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")
 
 @section scripts{
-    
 
-    @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
+
     @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
     <script src="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" type="text/javascript"></script>
-    @*<script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js" type="text/javascript"></script>*@
+    @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
 
     <script>
         var fichaModule;
         var carruselModule;
         var tieneCarrusel = '@Model.TieneCarrusel';
-        
+
         $(document).ready(function () {
 
             fichaModule = FichaModule({

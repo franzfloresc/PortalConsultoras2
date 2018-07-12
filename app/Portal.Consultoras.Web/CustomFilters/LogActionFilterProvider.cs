@@ -5,7 +5,7 @@ namespace Portal.Consultoras.Web.CustomFilters
 {
     public class LogActionFilterProvider : IFilterProvider
     {
-        private IList<ControllerAction> actions = new List<ControllerAction>();
+        readonly IList<ControllerAction> actions = new List<ControllerAction>();
 
         public void Add(string controllerName, string actionName)
         {
