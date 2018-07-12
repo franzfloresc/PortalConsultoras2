@@ -142,7 +142,7 @@ namespace Portal.Consultoras.Common
             public const int BusquedaNemotecnicoProductoSugerido = 9853;
             public const int BusquedaNemotecnicoZonaEstrategia = 9854;
             public const int Tonos = 9802;
-            
+
             public const int ValoresImagenesResizeWitdhMaxSmall = 12101;
             public const int ValoresImagenesResizeHeightSmall = 12102;
             public const int ValoresImagenesResizeWitdhMaxMedium = 12103;
@@ -229,6 +229,11 @@ namespace Portal.Consultoras.Common
             public const string ProgramaNuevasRegalo = "044";
             public const string ParticipaProgramaNuevas = "1";
             public const string NotParticipaProgramaNuevas = "0";
+        }
+
+        public static class EstadoRespuestaServicio {
+            public const string Success = "OK";
+            public const string Error = "ERROR";
         }
 
         public static class ConstSession
@@ -433,7 +438,6 @@ namespace Portal.Consultoras.Common
             public const string SubGuion = "_";
             public const string estrategiaWebApiDisponibilidadTipo = "EstrategiaDisponibleMicroservicioPersonalizacion";
             public const string paisesMicroservicioPersonalizacion = "PaisesMicroservicioPersonalizacion";
-
             public const string EnabledRemoveCache = "EnabledRemoveCache";
             public const string UrlServiceSicc = "UrlServiceSicc";
             public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
@@ -1130,6 +1134,7 @@ namespace Portal.Consultoras.Common
             public const string RecuperarContrasenia = "Error en la respuesta del servicio de Recuperar Contraseña.";
             public const string SinConexion_LoginChatbot = "Necesitas internet para acceder a esta opción.";
             public const string SinConexion_CatalogoRevistaIssu = "Necesitas internet para acceder a esta opción.";
+            public const string SinConexion_Reserva = "Necesita tener conexion a internet para poder reservar.";
             public const string ReportePedidoDDWeb_DescargaCabecera = "Ocurrió un error al intentar descargar sus pedidos. Inténtelo más tarde.";
             public const string ReportePedidoDDWeb_DescargaDetalle = "Ocurrió un error al intentar descargar los detalles de sus pedidos. Inténtelo más tarde.";
             public const string LimiteDescargaSobrepasado = "El archivo no se puede descargar debido a que se sobrepaso el máximo de items ({0}).";
@@ -1139,6 +1144,8 @@ namespace Portal.Consultoras.Common
             public const string Reserva_SinDetalle = "No tiene productos que reservar esta campaña.";
             public const string DeleteAllPedido_Error = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
             public const string Reserva_ObsHuerfanas = "Reserva_ObsHuerfanas: Se obtuvieron observaciones al reservar que no se encuentran en el detalle.";
+            public const string Reserva_Prol2 = "Reserva_Prol2: El servicio externo de reserva de Prol2 retornó vacio.";
+            public const string Reserva_Prol3 = "Reserva_Prol3: El servicio externo de reserva de Sicc retornó vacio o error.";
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
         }
 
@@ -1673,11 +1680,6 @@ namespace Portal.Consultoras.Common
             public const string CalculoPuntos = "X;K";
             public const string CalculoProgramaNuevas = "P";
         }
-        public struct CodigoHorario
-        {
-            public const string ChatEmtelco = "ChatEmtelco";
-            public const string BelcorpResponde = "BelcorpResponde";
-        }
 
         public static class ComunicadoTipoDispositivo
         {
@@ -1829,7 +1831,7 @@ namespace Portal.Consultoras.Common
             public class EncenderValidacion
             {
                 public const short TablaLogicaID = 7;
-                public const string Activo = "Activo"; 
+                public const string Activo = "Activo";
             }
 
             public class Rango
@@ -2053,7 +2055,7 @@ namespace Portal.Consultoras.Common
             public const int Valor2 = 2;
             public const int Valor3 = 3;
         }
-        
+
         public class ProlCodigoRechazo
         {
             public const string MontoMinimo = "XXXXX";
@@ -2067,7 +2069,7 @@ namespace Portal.Consultoras.Common
             public const string MontoMinFact = "MontoMinFact";
             public const string MontoMinVentaDesc = "MontoMinVentaDesc";
             public const string MontoMinFactDesc = "MontoMinFactDesc";
-            public const string MontoMaximo  = "MontoMaximo";
+            public const string MontoMaximo = "MontoMaximo";
             public const string LimiteVenta0 = "LimiteVenta0";
             public const string LimiteVenta = "LimiteVenta";
             public const string Promocion2003 = "Promocion2003";
@@ -2095,16 +2097,125 @@ namespace Portal.Consultoras.Common
             public const string Stock = "{stock}";
         }
 
-        #region Pin Autenticidad
-        public class EnviarCorreoYSms
+        public class OpcionesDeVerificacion
         {
-            public const string Activo = "Activo";
-            public const string IdEstadoActividad = "IdEstadoActividad";
+            public const int OrigenOlvideContrasenia = 1;
+            public const int OrigenVericacionAutenticidad = 2;
+            public const int OrigenActulizarDatos = 3;            
+        }
 
-            public const int RecuperarClave = 1;
-            public const int Autenticacion = 2;
-            public const int EnviarPorEmail = 1;
-            public const int EnviarPorSms = 2;
+        #region Olvide Contrasenia
+        public class OlvideContrasenia
+        {
+            public const int Origen = 1;
+            public const string OrigenDescripcion = "Olvide Contraseña";
+
+            public class TablaLogica
+            {
+                public const short TablaLogicaID = 8;
+                public const string MostarTodasOpciones = "MostarTodasOpciones";
+                public const string OpcionEmail = "OpcionEmail";
+                public const string OpcionSms = "OpcionSms";
+                public const string OpcionChat = "OpcionChat";
+                public const string OpcionBelcorpResponde = "OpcionBelcorpResponde";
+            }
+
+            public class CodigoOpciones
+            {
+                public const string ChatEmtelco = "ChatEmtelco";
+                public const string BelcorpResponde = "BelcorpResponde";
+            }
+
+            public class NombreOpcion
+            {
+                public const int MostrarEmailyCelular = 1;
+                public const int MostrarEmail = 2;
+                public const int MostrarCelular = 3;
+                public const int MostrarChat = 4;
+                public const int MostrarBelcorpResponde = 5;
+                public const int MostrarMensajeFueraHorario = 6;
+
+            }
+
+            public class Mensajes
+            {
+                public const string ErrorPais = "No se ha encontrado el País.";
+                public const string ErrorValor = "No se ha encontrado el valor ingresado.";
+                //public const string CorreoNoIdentificado = "Correo electrónico no identificado.";
+                //public const string ErrorEnviarCorreo = "Error al realizar el envío del correo, inténtelo mas tarde.";
+                //public const string ErrorEnviarSms = "Error al realizar el envío del mensaje de texto, inténtelo mas tarde.";
+                //public const string ExcedeCantidad = "Ha excedido la cantidad de envios.";
+                //public const string OrigenEnvioDesconocido = "Origen de envío desconocido.";
+                //public const string EnvioCorreoExitoso = "Te hemos enviado un enlace a tu correo, para restaurar tu clave.";
+                //public const string EnvioSmsExitoso = "Mensaje de texto enviado correctamente";
+            }            
+        }
+        #endregion
+
+        #region Verificar Pin Autenticidad
+        public class VerificacionAutenticidad
+        {
+            public const string OrigenDescripcion = "Verificacion de Autenticidad";
+
+            public class TablaLogica
+            {
+                public const short TablaLogicaID = 139;
+                public const string Activar = "Activar";
+                public const string TieneZona = "TieneZona";
+                public const string OpcionEmail = "OpcionEmail";
+                public const string OpcionSms = "OpcionSms";
+                public const string IdEstadoActividad = "IdEstadoActividad";
+            }
+
+            public class NombreOpcion
+            {
+                public const int MostrarEmailyCelular = 1;
+                public const int MostrarEmail = 2;
+                public const int MostrarCelular = 3;
+                public const int MostrarChat = 4;
+
+                public const int SinOpcion = 5;
+            }           
+            
+            public const int Origen = 2;
+        }
+
+        public class EnviarSMS
+        {
+            public class CredencialesProvedoresSMS
+            {
+                public const short TablaLogicaID = 133;
+                public class Bolivia
+                {
+                    public const string USUARIO = "USUARIO";
+                    public const string CLAVE = "CLAVE";
+                    public const string URL = "URL";
+                    public const string RECURSO = "RECURSO";
+                    public const string MENSAJE = "MENSAJE";
+                }
+            }
+
+            public class SmsConsultoraWs
+            {
+                public const string urlKey = "SmsConsultorasWS";
+                public const string RecursoApi = "Api/EnviarSms";
+            }
+
+            public class Mensaje
+            {
+                public const string NoEnviaSMS = "Mensaje de texto no enviado, inténtelo mas tarde.";
+            }
+        }
+
+        public class EnviarEmail
+        {
+            public const string NoEnvioEmail = "Email no se ha enviado, inténtelo mas tarde.";
+        }
+
+        public class TipoEnvioEmailSms
+        {
+            public const string EnviarPorEmail = "Email";
+            public const string EnviarPorSms = "SMS";
         }
         #endregion  
 
@@ -2131,20 +2242,20 @@ namespace Portal.Consultoras.Common
 
 
             //api/Estrategia/activar/{pais}/{id}?Usuario=
-            public const string UrlActivarEstrategia = "api/estrategia/activar/{0}/{1}?Usuario={2}";
+            //public const string UrlActivarEstrategia = "api/estrategia/activar/{0}/{1}?Usuario={2}";
 
             //api/Estrategia/activar/{pais}?Usuario=
-            public const string UrlActivarEstrategias = "api/estrategia/activar/{0}?usuario={1}";
+            //public const string UrlActivarEstrategias = "api/estrategia/activar/{0}?usuario={1}";
 
 
-            //api/Estrategia/desactivar/{pais}/{id}?Usuario=           
-            public const string UrlDesactivarWebApi = "api/estrategia/desactivar/{0}/{1}?Usuario={2}";
+            //api/Estrategia/deshabilitar/{pais}/{id}?Usuario=           
+            public const string UrlDesactivarWebApi = "api/estrategia/deshabilitar/{0}/{1}?Usuario={2}";
 
-            //api/Estrategia/desactivar/{pais}?Usuario=
-            public const string UrlDesactivarEstrategias = "api/estrategia/desactivar/{0}?Usuario={1}";
+            //api/Estrategia/desactivar/{pais}/{tipo}
+            public const string UrlActivarDesactivarEstrategias = "api/estrategia/activardesactivar/{0}/{1}";
 
-            //api/Estrategia/actualizar/{pais}/{tipo}/{campania}
-            public const string UrlUploadCsv = "api/estrategia/actualizar/{0}/{1}/{2}";
+            //api/Estrategia/descripcion/{pais}/{tipo}/{campania}
+            public const string UrlUploadCsv = "api/estrategia/descripcion/{0}/{1}/{2}";
                                                 
             //api/Estrategia/cuv/{pais}/{tipo}/{campania}/{cuv}
             public const string UrlEstrategiaCuv = "api/estrategia/cuv/{0}/{1}/{2}/{3}";
@@ -2165,6 +2276,10 @@ namespace Portal.Consultoras.Common
             #region Oferta
             //api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{diaInicio}
             public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
+
+            ///api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}
+            public const string UrlObtenerRevistaDigital = "api/Oferta/{0}/{1}/{2}/{3}/{4}/{5}";
+
             #endregion
         }
     }

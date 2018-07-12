@@ -52,7 +52,6 @@ $(document).ready(function () {
     };
 
     self.CargarODD = function () {
-        debugger;
         if (props.EsPaginaIntriga) {
             return false;
         }

@@ -1194,8 +1194,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
 
-                    bool bResultado = administrarEstrategiaProvider.ActivarDesactivarEstrategias(estrategiasActivasList, estrategiasInactivasList, userData.UsuarioNombre, userData.CodigoISO);
-                    resultado = bResultado ? 1 : 0;
+                    bool bResultado = administrarEstrategiaProvider.ActivarDesactivarEstrategias(estrategiasActivasList, estrategiasInactivasList, userData.UsuarioNombre, userData.CodigoISO, tipoEstrategiaCod);
+                    resultado = !bResultado ? 1 : 0;
                 }
                 else
                 {

@@ -1,0 +1,264 @@
+﻿@using System.Web.Optimization;
+@{
+    Layout = null;
+    ViewBag.Title = "Verifica Tu Autenticidad";
+}
+
+<!DOCTYPE html>
+<html lang="es" class="no-js">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=10,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="Portal de consultoras" />
+    <meta name="author" content="Belcorp" />
+    <title>Somos Belcorp ::: Verificación de Autenticidad</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900" rel="stylesheet" type="text/css">
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+    {
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/styleDefault.css")">
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/verificacion-pin.css")">
+    }
+    else
+    {
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/styleDefault.css")">
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/verificacion-pin.css")">
+    }
+    @Styles.Render("~/Content/Css/Login")    
+</head>
+<body>
+    <div class="fondo_f9f9f9">
+        <div class="content_belcorp">
+            <div class="fondo_negro_lateral"></div>
+            <div class="titulo_interiores">
+                <div class="pestana_lbel"></div>
+                <a href="#" title="Volver" class="v-alignMiddle enlace_volver_mobile">
+                    <img src="@Url.Content("~/Content/Images/icono_volver_mobile.svg")" alt="" />
+                </a>
+                <div class="inline-block v-alignMiddle">
+                    <span class="text-bold">VERIFICA</span> TU AUTENTICIDAD
+                </div>
+            </div>
+        </div>
+        <hr class="clear" />
+        <div class="linea_separadora" style="margin-top:-10px"></div>
+    </div>
+    @{ 
+        var OpcionSms = true;
+        var OpcionEmail = true;
+        if (Model.MostrarOpcion == 2) { OpcionSms = false; }
+        if (Model.MostrarOpcion == 3) { OpcionEmail = false; }
+    }
+
+    <section class="block vista_flujo_restablecer_contrasenia">
+        <div class="block center-block wrapper_content_verificacion_autenticidad">
+            <div class="block">
+                <a id="divVolver" title="Volver" class="block enlace_volver_a_mi_perfil text-uppercase text-bold">
+                    <span class="inline-block v-alignMiddle icono_back_arrow">
+                        <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Volver" />
+                    </span>
+                    <span class="inline-block v-alignMiddle enlace_texto">Volver</span>
+                </a>
+                <!-- OPCIONES DE VERIFICACIÓN DE AUTENTICIDAD -->
+                <div id="divPaso1" class="block opciones_verificacion_autenticidad">
+                    <div class="block mt-20-mobile">
+                        <p class="block texto_verificacion_datos">
+                            <span class="block">¡Bienvenida @Model.PrimerNombre! </span>
+                            <span class="block" style="display:none;">¡Nos alegra que hayas vuelto!</span>
+                        </p>
+                        <p class="block texto_verificacion_datos">
+                            <span class="block">@Model.MensajeSaludo</span>
+                            @*<span class="block" style="display:none;">Como hace tiempo que no sabíamos de ti, por tu seguridad vamos a verificar tus datos.</span>*@
+                        </p>
+                        <p class="block texto_verificacion_datos">
+                            <span class="block">Elige la opción que desees:</span>
+                        </p>
+                    </div>
+                    <div class="block center-block lista_opciones_verificacion_autenticidad">
+                        @{
+                            if (OpcionSms)
+                            {
+                                <a title="Opción Sms" class="block opcion_verificacion_autenticidad RecuperarPorSms">
+                                    <div class="inline-block v-alignMiddle icono_opcion_verificacion_autenticidad icono_opcion_sms"></div>
+                                    <div class="inline-block v-alignMiddle datos_verificacion_autenticidad">
+                                        <div class="block text-uppercase">Mensaje de texto (sms)</div>
+                                        <div class="block text-bold">@Model.CelularEnmascarado</div>
+                                    </div>
+                                    <div class="divTiempoRestanteSms" style="display:none; margin-top: 15px; font-size: 12px; text-align:center;">@ViewBag.MensajeOpcionCelular</div>
+                                </a>
+                            }
+                            if (OpcionEmail)
+                            {
+                                <a title="Opción Correo" class="block opcion_verificacion_autenticidad RecuperarPorCorreo">
+                                    <div class="inline-block v-alignMiddle icono_opcion_verificacion_autenticidad icono_opcion_correo"></div>
+                                    <div class="inline-block v-alignMiddle datos_verificacion_autenticidad">
+                                        <div class="block text-uppercase">Correo Electrónico</div>
+                                        <div class="block text-bold">@Model.CorreoEnmascarado</div>
+                                    </div>
+                                    <div class="divTiempoRestanteCorreo" style="display:none; margin-top: 15px; font-size: 12px; text-align:center;">@ViewBag.MensajeOpcionCorreo</div>
+                                </a>
+                            }
+                        }
+                    </div>
+                    @{ if (Model.OpcionChat)
+                        {
+                            <div class="block">
+                                <p class="texto_alternativa_call_center block">
+                                    <span class="inline-block v-alignMiddle">
+                                        Si no reconoces tu celular o correo, comunícate con nuestro
+                                        <a title="Chat" id="aChatearConNosotros" class="inline-block v-alignBottom enlace_call_center text-bold">Chat</a>
+                                    </span>
+                                </p>
+                            </div>
+                        }
+                    }
+
+                </div>
+                <!-- FIN - OPCIONES DE VERIFICACIÓN DE AUTENTICIDAD -->
+                <!-- VERIFICACIÓN POR CÓDIGO SMS -->
+                <div id="divPaso2sms" class="block revisa_tu_celular text-center" style="display:none;">
+                    <h1 class="block center-block mt-20-mobile titulo_revisa_tu_celular text-uppercase mb-13">
+                        Revisa <span class="text-bold">tu celular</span>
+                    </h1>
+                    <div class="block center-block icono_mensaje_sms"></div>
+                    <p class="w-100 envio_instrucciones_info block mb-35">
+                        <span class="w-100 block mb-7">Te hemos enviado un código SMS al:</span>
+                        <span class="w-100 block text-bold font-size-17">@Model.CelularEnmascarado</span>
+                    </p>
+                    <div class="area_ingreso_codigo_sms block mb-35 mb-20-mobile">
+                        <div class="block texto_ingreso_codigo text-uppercase text-bold">Ingresa el código aquí</div>
+                        <fieldset class="block center-block campos_ingreso_codigo_sms">
+                            <input id="1sDigito" data-tipo="1" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="2sDigito" data-tipo="1" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="3sDigito" data-tipo="1" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="4sDigito" data-tipo="1" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="5sDigito" data-tipo="1" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="6sDigito" data-tipo="1" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <div class="IconoError block icono_validacion_codigo_sms validacion_erronea"></div>
+                        </fieldset>
+                        <div class="block codigo_sms_caducidad text-uppercase">El código caduca en <span class="spnMin default-color">03</span>:<span class="spnSeg default-color">00</span></div>
+                        <div class="reenvios agotasteIntentos" style="display:none;"><b>Agotaste tus dos intentos de reenvío</b></div>
+                    </div>
+                    <p class="w-100 envio_instrucciones_info block mb-35 mb-20-mobile">
+                        <span class="w-100 block mb-13">¿Aún no recibes el mensaje de texto?</span>
+                        <a id="linkRenviarSms" title="Reenvíenme el código" class="block enlace_reenviar_instrucciones w-100 mb-10 text-uppercase text-bold RecuperarPorSms" style="cursor:pointer;">
+                            Reenvíenme el código
+                        </a>
+                        <a title="Escoger otra opción" style="display:none;color:red;cursor:pointer;" class="block escogeOtraOpcion default-color enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
+                            Escoger otra opción
+                        </a>
+                    </p>
+                </div>
+                <div id="divPaso3sms" class="block celular_validado text-center" style="display:none;">
+                    <div class="block center-block mt-20-mobile icono_validacion_celular_exitosa"></div>
+                    <h1 class="block center-block titulo_celular_validado text-uppercase">
+                        ¡Validamos<br /><span class="text-bold">tu celular</span>!
+                    </h1>
+                    <p class="block mensaje_celular_validado">
+                        Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.
+                    </p>
+                    <p class="block mensaje_celular_validado mb-45 mb-33-mobile">
+                        Te recomendamos además actualizar tu contraseña por tu seguridad.
+                    </p>
+                    <a  class="block center-block mb-20-mobile enlace_ir_a_somos_belcorp text-uppercase text-bold default-background-color mb-31 ContinuarBienvenida">Ir a somos belcorp</a>
+                    <a  title="Actualizar contraseña" class="block enlace_actualizar_contrasenia text-bold VerCambioClave">Actualizar contraseña</a>
+                </div>
+                <!-- FIN - VERIFICACIÓN POR CÓDIGO SMS -->
+                <!-- VERIFICACIÓN POR CORREO ELECTRÓNICO -->
+                <div id="divPaso2Email" class="revisa_tu_correo block text-center" style="display:none;">
+                    <h1 class="titulo_revisa_tu_correo mt-20-mobile text-uppercase block center-block mb-13">
+                        Revisa <span class="text-bold">tu correo</span>
+                    </h1>
+                    <div class="block center-block icono_correo_sobre"></div>
+                    <p class="w-100 block envio_instrucciones_info mb-50">
+                        <span class="w-100 block mb-7">Te hemos enviado las instrucciones a:</span>
+                        <span class="w-100 block text-bold font-size-17">@Model.CorreoEnmascarado</span>
+                    </p>
+                    <div class="area_ingreso_codigo_sms block mb-35 mb-20-mobile">
+                        <div class="block texto_ingreso_codigo text-uppercase text-bold">Ingresa el código aquí</div>
+                        <fieldset class="block center-block campos_ingreso_codigo_sms">
+                            <input id="1cDigito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="2cDigito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="3cDigito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="4cDigito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="5cDigito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <input id="6cDigito" class="inline-block v-alignBottom campo_ingreso_codigo_sms text-center" type="text" maxlength="1" />
+                            <div class="IconoError block icono_validacion_codigo_sms validacion_erronea"></div>
+                        </fieldset>
+                        <div class="block codigo_sms_caducidad text-uppercase">El código caduca en <span class="spnMin default-color">03</span>:<span class="spnSeg default-color">00</span></div>
+                        <div class="reenvios agotasteIntentos" style="display:none;"><b>Agotaste tus dos intentos de reenvío</b></div>
+                    </div>
+                    <p class="w-100 block envio_instrucciones_info mb-50">                        
+                        <span class="w-100 block mb-13">¿Aún no recibes nuestro correo?</span>
+                        <a id="linkRenviarCorreo" title="Reenvíenme las instrucciones" class="block enlace_reenviar_instrucciones w-100 text-uppercase text-bold RecuperarPorCorreo">
+                            Reenvíenme el código
+                        </a>
+                        <a title="Escoger otra opción" style="display:none;color:red;cursor:pointer;" class="block escogeOtraOpcion default-color enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
+                            Escoger otra opción
+                        </a>
+                    </p>
+                </div>
+                <div id="divPaso3Email" class="correo_validado block text-center" style="display:none;">
+                    <div class="icono_validacion_correo_exitoso block center-block mt-20-mobile"></div>
+                    <h1 class="titulo_correo_validado text-uppercase block center-block">
+                        ¡Validamos<br /><span class="text-bold">tu correo</span>!
+                    </h1>
+                    <p class="mensaje_correo_validado block">
+                        Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.
+                    </p>
+                    <p class="mensaje_correo_validado block mb-45 mb-33-mobile">
+                        Te recomendamos además actualizar tu contraseña por tu seguridad.
+                    </p>
+                    <a class="block center-block mb-20-mobile enlace_ir_a_somos_belcorp text-uppercase text-bold default-background-color mb-31 ContinuarBienvenida">Ir a somos belcorp</a>
+                    <a title="Actualizar contraseña" class="block enlace_actualizar_contrasenia text-bold VerCambioClave">Actualizar contraseña</a>
+                </div>
+                <!-- FIN - VERIFICACIÓN POR CORREO ELECTRÓNICO -->
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+<script type="text/javascript">
+    var urlProcesaEnvioCorreo = '@Url.Action("ProcesaEnvioCorreo", "Login")';
+    var urlProcesaEnvioSms = '@Url.Action("ProcesaEnvioSms", "Login")';
+    var urlVerificarCodigoGenerado = '@Url.Action("VerificarCodigoGenerado", "Login")';
+    var urlContinuarLogin = '@Url.Action("ContinuarLogin", "Login")';
+    var EmailDesabilitado = '@Model.OpcionCorreoDesabilitado';
+    var SmsDesabilitado = '@Model.OpcionSmsDesabilitado';
+    var HoraRestanteCorreo = '@Model.HoraRestanteCorreo';
+    var HoraRestanteSms = '@Model.HoraRestanteSms';
+    var CorreoEnmascarado = '@Model.CorreoEnmascarado';
+    var CelularEnmascarado = '@Model.CelularEnmascarado';
+    var emt_client_type = '@Model.IdEstadoActividad';
+    var emt_country = '@Model.CodigoIso';
+    var emt_email_address = '@Model.Correo';
+    var emt_first_name = '@Model.PrimerNombre';
+    var emt_id = '@Model.CodigoUsuario';
+    var emt_type = '1';
+    var emt_device = '';
+    var UrlLogin = '@Url.Action("Index", "Login")';
+    var EsMobile = '@Model.EsMobile';
+    var VerCambioClaveMobile = '@Url.Action("Index", "MisDatos", new { area = "Mobile" })';
+</script>
+
+@*@Scripts.Render("~/bundles/JQueryJs")*@
+@Scripts.Render("~/bundles/JS-Login-VerificaAutenticidad")
+
+@{
+    if (Request.Browser.IsMobileDevice)
+    {
+        <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">
+        <link rel="stylesheet" href="@Url.Content("~/emt_chat/css/font-awesome.min.css")">
+        <div class="CMXD-containment-wrapper"></div><div id="marca"> <div class="CMXD-btn-help"> <div id="btn_init" class="CMXD-help_rc" style="display:none;"></div><div id="btn_open" class="CMXD-open" style="display: none"></div></div><div class="container-movil"></div><div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none"> <div class="CMXD-header-chat"> <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA <div class="CMXD-icons"> <a class="display-a" id="btn_minimize" href=""> <i class="fa fa-minus" aria-hidden="true"></i> </a> <a class="display-a" id="btn_wClose" href="" style="display: none"> <i class="fa fa-times" aria-hidden="true"></i> </a> </div><hr class="CMXD-line"> </div><div id="chat"> <div id="interaction" class="CMXD-container-welcome" style="display: none"> <div class='chat-wrapper'> <div id="transcript" class='chat-message padding container-chat'></div></div><div id="slideDownTranscript" class="message-end CMXD-animate2"> <span class="fa fa-angle-double-down"></span> </div><div class="container-txt"> <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea> <a class="" href=""> <div class="send send2" id="btn_Send"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar </div></a> </div></div><div id="loading" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="loading_image" src="" alt=""> </div><div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div><div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div></div></div><div id="schedule" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="schedule_image" src="" alt="Imagen fuera de horario"> </div><div id="schedule_title" class="CMXD-welcome"> </div><div id="schedule_description" class="CMXD-description"> </div></div></div><div id="Error" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="Error_image" src="" alt=""> </div><div class="CMXD-welcome"> Error de conexión </div><div class="CMXD-description"> En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br /> <a href="" class="btn-no display-a" id="btn_mclose"> OK</a> </div></div></div><div id="alert" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="alert_image" src="" alt=""> </div><div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div><div class="CMXD-description"> <a href="" class="btn-yes display-a" id="btn_close"> Si</a> <a href="" class="btn-no display-a" id="btn_nwClose"> No</a> </div></div></div></div><div id="poll" class="pop-up"> <div class="CMXD-container-welcome"> <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div><div id="poll_description" class="CMXD-description"> </div></div></div></div></div>
+            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")"></script>
+    }
+    else
+    {
+        <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">
+        <link rel="stylesheet" href="@Url.Content("~/emt_chat/css/font-awesome.min.css")">
+        <div class="CMXD-containment-wrapper"></div><div id="marca"> <div class="CMXD-btn-help"> <div id="btn_init" class="CMXD-help_rc" style="display:none;"></div><div id="btn_open" class="CMXD-open" style="display: none"></div></div><div class="container-movil"></div><div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none"> <div class="CMXD-header-chat"> <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA <div class="CMXD-icons"> <a class="display-a" id="btn_minimize" href=""> <i class="fa fa-minus" aria-hidden="true"></i> </a> <a class="display-a" id="btn_wClose" href="" style="display: none"> <i class="fa fa-times" aria-hidden="true"></i> </a> </div><hr class="CMXD-line"> </div><div id="chat"> <div id="interaction" class="CMXD-container-welcome" style="display: none"> <div class='chat-wrapper'> <div id="transcript" class='chat-message padding container-chat'></div></div><div class="container-txt"> <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea> <a class="" href=""> <div class="send send2" id="btn_Send"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i><br>Enviar </div></a> </div></div><div id="loading" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="loading_image" src="" alt=""> </div><div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div><div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div></div></div><div id="schedule" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="schedule_image" src="" alt="Imagen fuera de horario"> </div><div id="schedule_title" class="CMXD-welcome"> </div><div id="schedule_description" class="CMXD-description"> </div></div></div><div id="Error" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="Error_image" src="" alt=""> </div><div class="CMXD-welcome"> Error de conexión </div><div class="CMXD-description"> En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br /> <a href="" class="btn-no display-a" id="btn_mclose"> OK</a> </div></div></div><div id="alert" class="pop-up"> <div class="CMXD-container-welcome"> <div class="CMXD-img-welcome"> <img id="alert_image" src="" alt=""> </div><div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div><div class="CMXD-description"> <a href="" class="btn-yes display-a" id="btn_close"> Si</a> <a href="" class="btn-no display-a" id="btn_nwClose"> No</a> </div></div></div></div><div id="poll" class="pop-up"> <div class="CMXD-container-welcome"> <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div><div id="poll_description" class="CMXD-description"> </div></div></div></div></div>
+            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")"></script>
+    }
+}
+
+

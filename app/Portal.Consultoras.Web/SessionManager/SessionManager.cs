@@ -388,16 +388,6 @@ namespace Portal.Consultoras.Web.SessionManager
             return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
         }
 
-        public void SetEstrategiaODD(Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel data)
-        {
-            HttpContext.Current.Session["EstrategiaODD"] = data;
-        }
-
-        public Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel GetEstrategiaODD()
-        {
-            return (Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel)HttpContext.Current.Session["EstrategiaODD"];
-        }
-
         public void SetEstrategiaSR(Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel data)
         {
             HttpContext.Current.Session["ConfigEstrategiaSR"] = data;
