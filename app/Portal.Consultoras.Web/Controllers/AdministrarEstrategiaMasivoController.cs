@@ -596,6 +596,7 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategiaMidsList.AddRange(estrategiaMIds.Split(',').ToList());
                     if (estrategiaMidsList.Any())
                     {
+                        
                         var estado = administrarEstrategiaProvider.CargarEstrategia(estrategiaMidsList, userData.CodigoISO);
                         lote = estado["CUVOK"].Count;
                         foreach (var item in estado["CUVOK"])
