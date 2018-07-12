@@ -199,6 +199,7 @@
     };
 
     var _actualizarVariedad = function (estrategia) {
+        estrategia.Hermanos = estrategia.Hermanos || [];
         if (estrategia.Hermanos.length == 1) {
             if (estrategia.Hermanos[0].Hermanos) {
                 if (estrategia.Hermanos[0].Hermanos.length > 0) {

@@ -711,6 +711,16 @@ namespace Portal.Consultoras.Web.Providers
                     estrategia.DescripcionCortada = estrategia.DescripcionCUV2.Split('|')[0];
                     estrategia.DescripcionDetalle = estrategia.DescripcionCUV2.Contains("|") ? estrategia.DescripcionCUV2.Split('|')[1] : string.Empty;
                 }
+                else if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
+                {
+                    var listadescr = estrategia.DescripcionCUV2.Split('|');
+                    estrategia.DescripcionCortada = listadescr.Length > 0 ? listadescr[0] : "";
+                    if (listadescr.Length > 1)
+                    {
+                        estrategia.ListaDescripcionDetalle = new List<string>(listadescr.Skip(1));
+                    }
+                    estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCortada, 40);
+                }
                 else
                 {
                     estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCUV2, 40);
