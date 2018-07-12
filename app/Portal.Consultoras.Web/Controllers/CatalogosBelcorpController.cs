@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class CatalogosBelcorpController : BaseController
     {
-        MisCatalogosRevistasModel CatalogosRevistas = new MisCatalogosRevistasModel();
+        readonly MisCatalogosRevistasModel CatalogosRevistas = new MisCatalogosRevistasModel();
 
         private readonly IssuuProvider _issuuProvider;
 
