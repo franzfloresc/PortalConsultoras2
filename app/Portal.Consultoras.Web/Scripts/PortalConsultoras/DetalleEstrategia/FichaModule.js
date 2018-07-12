@@ -28,6 +28,7 @@
         divCarruselSetsProductosRelacionados: "#divOfertaProductos",
         divSetsProductosRelacionados: "#set_relacionados",
         footerPage: ".footer-page",
+        estrategiaBreadcrumb: "#estrategia-breadcrumb",
         marca: "#marca"
     };
 
@@ -247,6 +248,10 @@
             window.location = baseUrl + (isMobile() ? "/Mobile/" : "") + "Ofertas";
             return false;
         }
+        if (estrategia.DescripcionCompleta.length < 40)
+            $(_elementos.estrategiaBreadcrumb).text(estrategia.DescripcionCompleta + " ...");
+        else
+            $(_elementos.estrategiaBreadcrumb).text(estrategia.DescripcionCompleta.substring(1, 40) + " ...");
 
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
