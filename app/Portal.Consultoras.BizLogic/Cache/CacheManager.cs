@@ -42,7 +42,13 @@ namespace Portal.Consultoras.BizLogic
         TablaLogicaDatos,
         CuponesProgramaNuevas,
         ProductoProgramaNuevas,
-        ProductosExclusivos
+        ProductosExclusivos,
+        OpcionesVerificacion,
+        DatosRestaurarClave,
+        DatosPinAutenticacion,
+        HorarioChat,
+        HorarioBelcorpResponde,
+        CredencialesSMS,
     }
 
     internal class CacheManager<T>

@@ -94,6 +94,7 @@
     <Compile Include="DABotmakerApiLog.cs" />
     <Compile Include="DAConcurso.cs" />
     <Compile Include="DAConfiguracionPaisDatos.cs" />
+    <Compile Include="DAOpcionesVerificacion.cs" />
     <Compile Include="DAPedidoWebDetalleExplotado.cs" />
     <Compile Include="DAFichaProducto.cs" />
     <Compile Include="DAConfiguracionOfertasHome.cs" />
