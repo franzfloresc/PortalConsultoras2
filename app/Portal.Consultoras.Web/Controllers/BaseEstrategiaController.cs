@@ -123,9 +123,16 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString();
                 }
 
-                using (PedidoServiceClient sv = new PedidoServiceClient())
+                if (UsarMsPer(tipo))
                 {
-                    listEstrategia = sv.GetEstrategiasPedido(entidad).ToList();
+                    listEstrategia = revistaDigitalProvider.ObtenerOfertas();
+                }
+                else
+                {
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        listEstrategia = sv.GetEstrategiasPedido(entidad).ToList();
+                    }
                 }
 
                 if (campaniaId == userData.CampaniaID)

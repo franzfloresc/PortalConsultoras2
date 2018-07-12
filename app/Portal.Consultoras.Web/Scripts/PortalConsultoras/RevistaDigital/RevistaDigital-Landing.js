@@ -228,8 +228,17 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
         }
     }
 
-    var valLocalStorage = LocalStorageListado(busquedaModel.VarListaStorage + busquedaModel.CampaniaID, null, 1);
+    var valLocalStorage = null;
+    var paisHabilitado = variableEstrategia.PaisHabilitado.includes(IsoPais);
+    var tipoEstrategiaHabilitado = variableEstrategia.TipoEstrategiaHabilitado.includes(busquedaModel.codigoEstrategia);
+
+    if (!(paisHabilitado && tipoEstrategiaHabilitado)) {
+        valLocalStorage = LocalStorageListado(busquedaModel.VarListaStorage + busquedaModel.CampaniaID, null, 1);
+        console.log('va a LocalStorage');
+    }
+    
     if (valLocalStorage != null) {
+        console.log('va a LocalStorage: ' + busquedaModel.codigoEstrategia);
         filtroCampania[codPalancaCampania] = JSON.parse(valLocalStorage);
         jQuery.extend(filtroCampania[codPalancaCampania], Clone(busquedaModel));
         filtroCampania[codPalancaCampania].response = filtroCampania[codPalancaCampania].response || {};

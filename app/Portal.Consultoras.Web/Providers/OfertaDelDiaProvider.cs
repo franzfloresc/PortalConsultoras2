@@ -37,7 +37,8 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     var diaInicio = DateTime.Now.Date.Subtract(userData.FechaInicioCampania.Date).Days;
 
-                    var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(userData.CodigoISO, Constantes.ConfiguracionPais.OfertaDelDia, userData.CampaniaID, userData.CodigoConsultora, diaInicio));
+                    string pathOfertaDelDia = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasDelDia, userData.CodigoISO, Constantes.ConfiguracionPais.OfertaDelDia, userData.CampaniaID, userData.CodigoConsultora, diaInicio);
+                    var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathOfertaDelDia));
 
                     Task.WhenAll(taskApi);
 

@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.Providers;
@@ -58,6 +59,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
         protected readonly OfertaDelDiaProvider ofertaDelDiaProvider;
         private readonly ShowRoomProvider _showRoomProvider;
+        protected readonly RevistaDigitalProvider revistaDigitalProvider;
         protected string estrategiaWebApiDisponibilidadTipo;
         protected string paisesMicroservicioPersonalizacion;
         protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
@@ -76,6 +78,7 @@ namespace Portal.Consultoras.Web.Controllers
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
             configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
             ofertaDelDiaProvider = new OfertaDelDiaProvider();
+            revistaDigitalProvider = new RevistaDigitalProvider();
         }
 
         public bool UsarMsPer(string TipoEstrategiaCodigo)
@@ -6091,5 +6094,15 @@ namespace Portal.Consultoras.Web.Controllers
             return false;
         }
         #endregion
+
+        public VariablesGeneralEstrategiaModel GetVariableEstrategia()
+        {
+            var variableEstrategia = new VariablesGeneralEstrategiaModel
+            {
+                PaisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion,
+                TipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion
+            };
+            return variableEstrategia; ;
+        }
     }
 }

@@ -1585,11 +1585,12 @@ namespace Portal.Consultoras.Web.Controllers
         private async Task<List<ServicePedido.BEEstrategia>> ObtenerOfertasDelDia(UsuarioModel model)
         {
             List<ServicePedido.BEEstrategia> ofertasDelDia = null;
-            if (UsarMsPer("009",model.CodigoISO))
+            if (UsarMsPer(Constantes.TipoEstrategiaCodigo.OfertaDelDia, model.CodigoISO))
             {
                 var ofertaDelDiaProvider = new OfertaDelDiaProvider();
                 TimeSpan fechaInicio = (DateTime)DateTime.Now - (DateTime)model.FechaInicioCampania.Date;
-                var lst = ofertaDelDiaProvider.ObtenerOfertasDesdeApi(model.CodigoISO, Constantes.ConfiguracionPais.OfertaDelDia, model.CampaniaID, model.CodigoConsultora, fechaInicio.Days);
+                string pathOfertaDelDia = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasDelDia, model.CodigoISO, Constantes.ConfiguracionPais.OfertaDelDia, model.CampaniaID, model.CodigoConsultora, fechaInicio.Days);
+                var lst = ofertaDelDiaProvider.ObtenerOfertasDesdeApi(pathOfertaDelDia);
                 return lst.Result;
             }
             else
