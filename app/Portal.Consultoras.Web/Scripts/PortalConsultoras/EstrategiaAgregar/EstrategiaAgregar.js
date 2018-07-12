@@ -300,8 +300,7 @@ var EstrategiaAgregarModule = (function () {
 
                 $(divAgregado).show();
 
-                if ($btnAgregar[0])
-                {
+                if ($btnAgregar[0]) {
                     var contenedorAgregado = $($btnAgregar).parent().find('#ContenedorAgregado')[0];
                     if (contenedorAgregado) {
                         $(contenedorAgregado).show();
@@ -395,24 +394,28 @@ var EstrategiaAgregarModule = (function () {
 
             //ProcesarActualizacionMostrarContenedorCupon();
 
-            if (belcorp.estrategia.applyChanges)
+            if (belcorp.estrategia.applyChanges) {
                 belcorp.estrategia.applyChanges("onProductoAgregado", data);
+            }
 
             if (popup) {
                 CerrarLoad();
                 CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
                 $(elementosPopPup.popupDetalleCarouselPackNuevas).hide();
-            } else {
+            }
+            else {
                 if (_config.esFicha) {
                     setTimeout(function () {
                         location.reload();
                     }, 3000);
-                } else {
+                }
+                else {
                     CerrarLoad();
                 }
             }
 
             return false;
+
         }).fail(function (data, error) {
             CerrarLoad();
         });
@@ -424,8 +427,8 @@ var EstrategiaAgregarModule = (function () {
         e.stopPropagation();
 
         var $this = $(e.target);
-        if($this.data("bloqueada"))
-        if ($this.data("bloqueada") !== "") return false;
+        if ($this.data("bloqueada"))
+            if ($this.data("bloqueada") !== "") return false;
         var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
         var cantidad = parseInt($inputCantidad.val());
 
@@ -441,8 +444,8 @@ var EstrategiaAgregarModule = (function () {
         e.stopPropagation();
 
         var $this = $(e.target);
-        if($this.data("bloqueada"))
-        if ($this.data("bloqueada") !== "") return false;
+        if ($this.data("bloqueada"))
+            if ($this.data("bloqueada") !== "") return false;
         var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
         var cantidad = parseInt($inputCantidad.val());
 

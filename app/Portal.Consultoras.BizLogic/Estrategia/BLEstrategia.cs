@@ -546,7 +546,7 @@ namespace Portal.Consultoras.BizLogic
 
         public BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel)
         {
-            BEEstrategia result = new BEEstrategia();
+            BEEstrategia result;
             try
             {
                 var da = new BLPremiosProgramaNuevas();

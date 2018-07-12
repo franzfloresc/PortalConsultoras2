@@ -474,13 +474,13 @@ namespace Portal.Consultoras.BizLogic
 
         private bool EsProductoExclusivo(int paisID, int campaniaID, string cuv)
         {
-            var lstProductos = GetProductosExclusivosCache(paisID, campaniaID, cuv);
+            var lstProductos = GetProductosExclusivosCache(paisID, campaniaID);
             if (lstProductos == null) return false;
             if (lstProductos.Any(a => a.Any(b => lstProductos.Contains(cuv)))) return true;
             return false;
         }
 
-        private List<string> GetProductosExclusivosCache(int paisID, int campaniaID, string cuv)
+        private List<string> GetProductosExclusivosCache(int paisID, int campaniaID)
         {
             return CacheManager<List<string>>.ValidateDataElement(paisID, ECacheItem.ProductosExclusivos, campaniaID.ToString(), () => GetProductosExclusivos(paisID, campaniaID));
         }
@@ -516,7 +516,7 @@ namespace Portal.Consultoras.BizLogic
 
             var daProductoDescripcion = new DAProductoDescripcion(paisID);
 
-            List<BEProductoDescripcion> lstFinal = new List<BEProductoDescripcion>();
+            //List<BEProductoDescripcion> lstFinal = new List<BEProductoDescripcion>();
 
             //foreach (BEProductoDescripcion be in productos)
             //{

@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (oddModel != null)
                 {
-                    oddModel.ListaOferta = RevisarCheckAgregado(oddModel.ListaOferta);
+                    oddModel.ListaOferta = _ofertaPersonalizadaProvider.RevisarCamposParaMostrar(oddModel.ListaOferta);
                 }
 
                 return Json(new

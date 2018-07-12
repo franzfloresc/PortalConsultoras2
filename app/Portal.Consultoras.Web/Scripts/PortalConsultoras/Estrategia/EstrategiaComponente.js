@@ -105,7 +105,7 @@
             prod.find("[data-tono-select-nombrecomercial]").html($(this).attr("data-tono-descripcion"));
             prod.attr("data-tono-select", cuv);
             prod.find("[data-tono-div]").find("[data-tono-cuv]").removeClass("borde_seleccion_tono");
-            var estrategia = prod.parents("[data-estrategia='2001']").length;
+            var estrategia = prod.parents("[data-codigovariante='2001']").length;
             if (estrategia > 0) {
                 prod.find("[data-tono-div]").find("[data-tono-cuv='" + cuv + "']").addClass("borde_seleccion_tono");
             }

@@ -7,9 +7,9 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class DetalleEstrategiaController : BaseViewController // : BaseEstrategiaController
     {
-        public ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
+        public override ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
-            return DEFicha(palanca, campaniaId, cuv, origen);
+            return base.Ficha(palanca, campaniaId, cuv, origen);
         }
 
         public JsonResult ObtenerComponentes(string estrategiaId, string campania, string codigoVariante, string codigoEstrategia = "")

@@ -758,7 +758,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var existe = false;
                 if (lstProd.Any())
                 {
-                    var objx = lstProd.Where(x => x.CUV == model.CUV && x.Activo == 1).FirstOrDefault();
+                    var objx = lstProd.FirstOrDefault(x => x.CUV == model.CUV && x.Activo == 1);
                     existe = objx != null;
                 }
 
@@ -769,7 +769,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (respuestaServiceCdr.Any())
                     {
-                        var objProd = respuestaServiceCdr.Where(x => x.cuv == entidad.CUV).FirstOrDefault();
+                        var objProd = respuestaServiceCdr.FirstOrDefault(x => x.cuv == entidad.CUV);
                         if (objProd != null)
                         {
                             entidad.CodigoEstrategia = objProd.codigo_estrategia;

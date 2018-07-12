@@ -71,6 +71,7 @@
 
         $.each(lista, function (index, lanzamiento) {
             if (cuv != lanzamiento.CUV2 && lanzamiento.CodigoProducto === codigoProducto) {
+                lanzamiento.ImagenURL = "";
                 setRelacionados.push(lanzamiento);
             }
         });
@@ -172,6 +173,7 @@
                         data.lista = response.data;
                     }
                 }
+
             });
         }
 
@@ -190,7 +192,7 @@
                 $(_elementos.divCarruselContenedor).show();
                 return;
             }
-            $(_elementos.divCarruselContenedor).hide();
+        $(_elementos.divCarruselContenedor).hide();
     }
 
     function Inicializar() {

@@ -14,18 +14,7 @@
     <style id="styleRelojOdd"></style>
 }
 
-<div class="container" data-tag-html="@Model.Campania" id="div-container-breadcubs" style="display: none;">
-    <div class="row">
-        <div class="col-md-12">
-            <ul class="breadcumbs">
-                <li><a href="">Inicio</a></li>
-                <li><a href="">Club Gana+</a></li>
-                <li><a href="">Ofertas para tí</a></li>
-                <li><a href="">Nuevo</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
+@Html.Partial("_BreadCrumb",Model.BreadCrumbs)
 
 <script id="detalle_ficha_template" type="text/x-handlebars-template">
     {{#if TieneReloj}}
@@ -114,7 +103,7 @@
     <div class="container">
         <div class="row">
         <div class="seleccion_tonos">
-            <div data-estrategia="{{CodigoVariante}}">
+            <div data-codigovariante="{{CodigoVariante}}">
                 {{#iff CodigoVariante '==' '2001'}}
                 @*<div id="DescripcionAdicional">
                 </div>*@
@@ -130,7 +119,7 @@
                             {{#each this.Hermanos as |variedad|}}
                             <div class="content_tono_elegido" data-tono-change="2"
                                  data-tono-cuv="{{variedad.Cuv}}" d
-                                 ata-tono-nombre="{{variedad.NombreBulk}}"
+                                 data-tono-nombre="{{variedad.NombreBulk}}"
                                  data-tono-descripcion="{{variedad.NombreComercial}}">
                                 <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt=""></div>
                                 <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
@@ -373,16 +362,16 @@
 
         $(document).ready(function () {
 
-            $(".ficha_tabs li a").click(function () {
-                //var divpadre = $(this).parent();
-                //var clase = $(".ficha_tabs li a").attr("class");
-                var clase = $(this).attr("class");
-                if (clase == "active") {
-                    $(this).attr("class", "tab-link");
-                } else {
-                    $(this).attr("class", "active");
-                }
-            });
+            //$(".ficha_tabs li a").click(function () {
+            //    //var divpadre = $(this).parent();
+            //    //var clase = $(".ficha_tabs li a").attr("class");
+            //    var clase = $(this).attr("class");
+            //    if (clase == "active") {
+            //        $(this).attr("class", "tab-link");
+            //    } else {
+            //        $(this).attr("class", "active");
+            //    }
+            //});
 
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",
