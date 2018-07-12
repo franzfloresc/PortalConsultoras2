@@ -39,7 +39,14 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <img src="{{ImgMedium FotoProducto01}}" />
             </div>
+            {{#iff CodigoVariante 'ContainsArray' '[2001,2003]'}}
+            <hr class="clear">
+            <div id="contenedor_foto_referencial" class="texto_referencial">
+                <span data-texto_referencial="">* Foto Referencial</span>
+            </div>
+            {{/iff}}
         </div>
+        <hr class="clear">
         @*<div id="EtiquetaLanzamientos" class="row label_producto">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <img src="{{TipoEstrategiaDetalle.ImgFichaMobile}}" alt="" />
@@ -52,11 +59,6 @@
             </div>
         </div>
         {{/IsNullOrEmpty}}
-        {{#iff CodigoVariante 'ContainsArray' '[2001,2003]'}}
-        <div id="contenedor_foto_referencial" class="texto_referencial">
-            <span data-texto_referencial="">* Foto Referencial</span>
-        </div>
-        {{/iff}}
         <div class="row marca_producto">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 {{#if EsMultimarca}}
@@ -110,9 +112,9 @@
             {{/iff}}
         </ul>
     </div>
-
+    {{#iff CodigoVariante 'ContainsArray' '[2001,2002,2003]'}}
     <div class="container">
-        <div class="row">
+        <div class="">
         <div class="seleccion_tonos">
             <div data-codigovariante="{{CodigoVariante}}">
                 {{#iff CodigoVariante '==' '2001'}}
@@ -220,6 +222,7 @@
         </div>
         </div>
     </div>
+    {{/iff}}
 </script>
 
 <div data-item="" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
@@ -313,11 +316,12 @@
 
         </div>
     </div>
-    <div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
-        <hr>
-    </div>
 </div>
 }
+
+<div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
+    <hr>
+</div>
 
 <!--compartir-->
 @if (Model.TieneCompartir)

@@ -43,7 +43,7 @@ body {
 
 .ficha_producto {
     float: left;
-    padding-top: 75px;
+    padding-top: 45px;
     text-align: center;
     width: 45%;
 }
@@ -89,14 +89,14 @@ body {
 .ficha_detalle {
     background-color: #fff;
     float: right;
-    padding: 32px;
+    padding: 0 32px 32px 32px;
     width: 55%;
 }
 
 .contenedor_ficha_etiquetas {
     float: left;
-    padding-bottom: 10px;
-    min-height: 50px;
+    /*padding-bottom: 10px;*/
+    min-height: 45px;
     position: relative;
     width: 100%;
 }
@@ -881,7 +881,7 @@ margin-bottom: 45px;
 }
 
 .etiqueta_nuevo{
-    height: 50%;
+    height: 32px;
 }
 
 .etiqueta_nuevo img {
