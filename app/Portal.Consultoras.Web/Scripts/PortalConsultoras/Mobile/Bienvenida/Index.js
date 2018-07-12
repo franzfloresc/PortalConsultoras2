@@ -102,7 +102,7 @@ $(document).ready(function () {
         });
     });
 
-    if (consultoraNuevaBannerAppMostrar == "False") ObtenerComunicadosPopup();
+    ObtenerComunicadosPopup();
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
     bannerFunc.showExpoOferta();
 });
