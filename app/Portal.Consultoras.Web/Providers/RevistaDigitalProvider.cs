@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Providers
             modelo.EsSuscripcionInmediata = EsSuscripcionInmediata();
             return modelo;
         }
-        
+
         public string GetVideoInformativo(bool esMobile)
         {
             var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.InformativoVideo) ?? new ConfiguracionPaisDatosModel();
@@ -80,13 +80,11 @@ namespace Portal.Consultoras.Web.Providers
 
             if (origen.Equals(Constantes.RevistaDigitalOrigen.Unete))
             {
-                if (_configuracionManager.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.PaisesCancelarSuscripcionRDUnete, pais))
-                    return true;
+                return _configuracionManager.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.PaisesCancelarSuscripcionRDUnete, pais);
             }
             else if (origen.Equals(Constantes.RevistaDigitalOrigen.Nueva))
             {
-                if (_configuracionManager.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.PaisesCancelarSuscripcionRDNuevas, pais))
-                    return true;
+                return _configuracionManager.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.PaisesCancelarSuscripcionRDNuevas, pais);
             }
 
             return false;
@@ -94,19 +92,22 @@ namespace Portal.Consultoras.Web.Providers
 
         public bool EsSuscripcionInmediata()
         {
-            return revistaDigital.TieneRDC && revistaDigital.SuscripcionModel != null ?
-             (
-                 revistaDigital.SuscripcionEfectiva.CampaniaEfectiva == revistaDigital.SuscripcionModel.CampaniaID
-                 && revistaDigital.SuscripcionModel.CampaniaID > 0
-             ) || (
-                 revistaDigital.SuscripcionModel.CampaniaID == 0
-                 && revistaDigital.CantidadCampaniaEfectiva == 0
-             ) || (
-                revistaDigital.SuscripcionEfectiva.CampaniaEfectiva < userData.CampaniaID
-                && revistaDigital.CantidadCampaniaEfectiva == 0
-             )
+            if (revistaDigital.TieneRDC && revistaDigital.SuscripcionModel != null)
+            {
+                return
+                    (
+                        revistaDigital.SuscripcionEfectiva.CampaniaEfectiva == revistaDigital.SuscripcionModel.CampaniaID
+                        && revistaDigital.SuscripcionModel.CampaniaID > 0
+                    ) || (
+                        revistaDigital.SuscripcionModel.CampaniaID == 0
+                        && revistaDigital.CantidadCampaniaEfectiva == 0
+                    ) || (
+                        revistaDigital.SuscripcionEfectiva.CampaniaEfectiva < userData.CampaniaID
+                        && revistaDigital.CantidadCampaniaEfectiva == 0
+                    );
+            }
 
-             : false;
+            return false;
         }
 
         public string GetUrlTerminosCondicionesDatosUsuario(string codigoIso)

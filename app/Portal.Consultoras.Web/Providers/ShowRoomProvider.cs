@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return new BannerInferiorConfiguracion
             {
-                Activo = enabledObject != null ? bool.Parse(enabledObject.Valor) : false,
+                Activo = enabledObject != null && bool.Parse(enabledObject.Valor),
                 UrlImagen = imageUrlObject != null ? imageUrlObject.Valor : string.Empty,
                 UrlRedireccion = redirectUrlObject != null ? redirectUrlObject.Valor : string.Empty,
                 RutasParcialesExcluidas = NoUrlPermitidasObject != null ? NoUrlPermitidasObject.Valor.Split(';') : new string[0]

@@ -1015,12 +1015,12 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var sv = new PedidoServiceClient())
                     {
                         var beActive = sv.GetActivarPremioNuevas(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);
-                        TippingPoint.ActiveTooltip = beActive == null ? false : beActive.ActiveTooltip;
-                        TippingPoint.ActiveMonto = beActive == null ? false : beActive.ActiveMontoTooltip;
-                        TippingPoint.Active = beActive == null ? false : beActive.Active;
+                        TippingPoint.ActiveTooltip = beActive != null && beActive.ActiveTooltip;
+                        TippingPoint.ActiveMonto = beActive != null && beActive.ActiveMontoTooltip;
+                        TippingPoint.Active = beActive != null && beActive.Active;
                         TippingPoint.TippingPointMontoStr = TippingPointStr;
                         // verifica si esta activado el tooltip
-                        if (TippingPoint.ActiveTooltip == true)
+                        if (TippingPoint.ActiveTooltip)
                         {
                             var estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID,
                                                                                Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo,
@@ -1049,6 +1049,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 TippingPoint = new BarraTippingPoint { ActiveTooltip = false, ActiveMonto = false };
             }
             return TippingPoint;
@@ -1070,14 +1071,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string getValidaConsultoraProgramaNueva(string participa)
         {
-            string resultado = string.Empty;
+            //string resultado = string.Empty;
             // si el idestadoActividad es mayor a 1 o diferente a  1 entonces significa que el usuario pertenece al programa de nuevas[campo ConsecutivoNueva]
-            int ConsecutivoNueva = userData.ConsecutivoNueva;
+            //int ConsecutivoNueva = userData.ConsecutivoNueva;
             // este es el campo IdEstadoActividad en bd
-            int ConsultoraNueva = userData.ConsultoraNueva;
-            try
-            {
-                resultado = participa == null ? "" : participa.Trim();
+            //int ConsultoraNueva = userData.ConsultoraNueva;
+            //try
+            //{
+            string resultado = Util.Trim(participa);
 
                 /*
                 if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
@@ -1090,11 +1091,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                     resultado = Constantes.TipoEstrategiaCodigo.NotParticipaProgramaNuevas;
                     */
-            }
-            catch
-            {
-                resultado = string.Empty;
-            }
+            //}
+            //catch
+            //{
+            //    resultado = string.Empty;
+            //}
             return resultado;
         }
 
@@ -1550,7 +1551,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var paisesAdmitidos = new List<BETablaLogicaDatos>();
+                List<BETablaLogicaDatos> paisesAdmitidos;
                 short codigoTablaLogica = 138;
 
                 using (var tablaLogica = new SACServiceClient())

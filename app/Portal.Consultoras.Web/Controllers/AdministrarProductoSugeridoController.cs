@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
         private int MostrarCheckAgotado()
         {
             var result = 0;
-            var TablaLogicaDatos = new List<BETablaLogicaDatos>();
+            List<BETablaLogicaDatos> TablaLogicaDatos;
             short codigoTablaLogica = 141;
 
             using (var tablaLogica = new SACServiceClient())

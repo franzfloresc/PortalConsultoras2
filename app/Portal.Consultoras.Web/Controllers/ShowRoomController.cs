@@ -355,7 +355,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var productosShowRoom = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
                 //productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
-                var cantidadTotal = productosShowRoom.Count();
+                var cantidadTotal = productosShowRoom.Count;
 
                 if (model.Limite > 0 && productosShowRoom.Count > 0)
                 {
@@ -377,7 +377,7 @@ namespace Portal.Consultoras.Web.Controllers
                     campaniaId = userData.CampaniaID,
                     cantidadTotal = cantidadTotal,
                     //cantidad = cantidadTotal,
-                    cantidadAMostrar = productosShowRoom.Count(),
+                    cantidadAMostrar = productosShowRoom.Count,
                     codigo = Constantes.ConfiguracionPais.ShowRoom
                 });
             }
