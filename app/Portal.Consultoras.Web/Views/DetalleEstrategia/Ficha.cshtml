@@ -57,7 +57,8 @@
                     </div>*@
 
                 <!--compartir-->
-                {{#if TieneCompartir}}
+                @if (Model.TieneCompartir)
+                {
                 <hr class="clear">
                 <div id="Contenedor_redes_sociales" class="ficha_redes_sociales">
                     <div data-compartir-campos="" style="display:none;">
@@ -78,7 +79,7 @@
                         <img class="contenedor_img" src="/Content/Images/Esika/facebook.png">
                     </a>
                 </div>
-                {{/if}}
+                }
                 <!--fin compartir-->
             </div>
             <div class="ficha_detalle">
