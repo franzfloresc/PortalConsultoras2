@@ -9,10 +9,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
     public class DetalleEstrategiaController : BaseViewController //: BaseEstrategiaController
     {
-        public ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
+        public override ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
-            return DEFicha(palanca, campaniaId, cuv, origen, IsMobile());
+            return base.Ficha(palanca, campaniaId, cuv, origen);
         }
-
     }
 }

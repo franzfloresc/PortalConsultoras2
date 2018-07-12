@@ -223,7 +223,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Detalle Estrategia  - Ficha
 
-        public ActionResult DEFicha(string palanca, int campaniaId, string cuv, string origen, bool esMobile = false)
+        public virtual ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
             try
             {
@@ -293,7 +293,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return RedirectToAction("Index", "Ofertas", new { area = esMobile ? "Mobile" : "" });
+            return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
         }
 
         public int GetOrigenPedidoWebDetalle(string origen)
