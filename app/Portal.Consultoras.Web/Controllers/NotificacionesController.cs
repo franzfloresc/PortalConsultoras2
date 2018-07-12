@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class NotificacionesController : BaseController
     {
-        private CdrProvider _cdrProvider;
+        readonly CdrProvider _cdrProvider;
 
         public NotificacionesController()
         {

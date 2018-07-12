@@ -338,19 +338,21 @@ namespace Portal.Consultoras.Web.Controllers
         public async Task<ActionResult> Redireccionar(int paisId, string codigoUsuario, string returnUrl = null,
             bool hizoLoginExterno = false)
         {
-            if (!Convert.ToBoolean(TempData["FlagPin"]))
-                if (TieneVerificacionAutenticidad(paisId, codigoUsuario))
+            if (!Convert.ToBoolean(TempData["FlagPin"]) && TieneVerificacionAutenticidad(paisId, codigoUsuario))
+            {
+                //if (TieneVerificacionAutenticidad(paisId, codigoUsuario))
+                //{
+                if (Request.IsAjaxRequest())
                 {
-                    if (Request.IsAjaxRequest())
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            success = true,
-                            redirectTo = Url.Action("VerificaAutenticidad", "Login")
-                        });
-                    }
-                    return RedirectToAction("VerificaAutenticidad", "Login");
+                        success = true,
+                        redirectTo = Url.Action("VerificaAutenticidad", "Login")
+                    });
                 }
+                return RedirectToAction("VerificaAutenticidad", "Login");
+                //}
+            }
 
             Session["DatosUsuario"] = null;
 
@@ -2045,7 +2047,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             revistaDigitalModel.EstadoSuscripcion = revistaDigitalModel.SuscripcionModel.EstadoRegistro;
             revistaDigitalModel.CampaniaActual = Util.SubStr(usuarioModel.CampaniaID.ToString(), 4, 2);
-            
+
             int campaniaFuturoActiva =
                 revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva == 0
                 ? revistaDigitalModel.SuscripcionModel.CampaniaEfectiva == 0
@@ -2728,7 +2730,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ProcesaEnvioSms(int cantidadEnvios)
         {
             var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
-            if(oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
+            if (oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             try
             {
@@ -2823,10 +2825,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var oVerificacion = new BEUsuarioDatos();
+                BEUsuarioDatos oVerificacion;
                 using (var sv = new UsuarioServiceClient())
+                {
                     oVerificacion = sv.GetVerificacionAutenticidad(paisID, codigoUsuario);
+                }
+
                 if (oVerificacion == null) return false;
+
                 Session["DatosUsuario"] = oVerificacion;
                 TempData["PaisID"] = paisID;
                 return true;

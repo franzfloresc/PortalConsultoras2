@@ -131,25 +131,25 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return configuracionCampania;
         }
 
-        private bool GetSeInsertoProductoAutomaticos(UsuarioModel userDataParam)
-        {
-            bool seInsertoProductosAutomaticos;
+        //private bool GetSeInsertoProductoAutomaticos(UsuarioModel userDataParam)
+        //{
+        //    bool seInsertoProductosAutomaticos;
 
-            var bePedidoWeb = new BEPedidoWeb
-            {
-                CampaniaID = userDataParam.CampaniaID,
-                ConsultoraID = userDataParam.ConsultoraID,
-                PaisID = userDataParam.PaisID,
-                IPUsuario = userDataParam.IPUsuario,
-                CodigoUsuarioCreacion = userDataParam.CodigoUsuario
-            };
-            using (var sv = new PedidoServiceClient())
-            {
-                seInsertoProductosAutomaticos = sv.GetProductoCUVsAutomaticosToInsert(bePedidoWeb) > 0;
-            }
+        //    var bePedidoWeb = new BEPedidoWeb
+        //    {
+        //        CampaniaID = userDataParam.CampaniaID,
+        //        ConsultoraID = userDataParam.ConsultoraID,
+        //        PaisID = userDataParam.PaisID,
+        //        IPUsuario = userDataParam.IPUsuario,
+        //        CodigoUsuarioCreacion = userDataParam.CodigoUsuario
+        //    };
+        //    using (var sv = new PedidoServiceClient())
+        //    {
+        //        seInsertoProductosAutomaticos = sv.GetProductoCUVsAutomaticosToInsert(bePedidoWeb) > 0;
+        //    }
 
-            return seInsertoProductosAutomaticos;
-        }
+        //    return seInsertoProductosAutomaticos;
+        //}
 
         private List<BECliente> GetClientesByConsultora(UsuarioModel userDataParam)
         {
@@ -672,7 +672,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             bool errorServer;
-            AdministradorPedido(obe, "D", false, out errorServer);
+            AdministradorPedido(obe, "D", out errorServer);
             if (errorServer)
             {
                 return Json(new
@@ -724,7 +724,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         }
 
-        private List<BEPedidoFICDetalle> AdministradorPedido(BEPedidoFICDetalle obePedidoFicDetalle, string tipoAdm, bool reservado, out bool errorServer)
+        private List<BEPedidoFICDetalle> AdministradorPedido(BEPedidoFICDetalle obePedidoFicDetalle, string tipoAdm, out bool errorServer)
         {
             errorServer = false;
             List<BEPedidoFICDetalle> olstTempListado = new List<BEPedidoFICDetalle>();
@@ -874,6 +874,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return olstTempListado;
         }
+
         private int CalcularTotalCliente(List<BEPedidoFICDetalle> pedido, BEPedidoFICDetalle itemPedido, short pedidoDetalleId, string adm)
         {
             List<BEPedidoFICDetalle> temp = new List<BEPedidoFICDetalle>(pedido);
@@ -972,7 +973,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             obePedidoFicDetalle.Nombre = obePedidoFicDetalle.ClienteID == 0 ? userData.NombreConsultora : model.ClienteDescripcion;
 
             bool errorServer;
-            AdministradorPedido(obePedidoFicDetalle, "I", false, out errorServer);
+            AdministradorPedido(obePedidoFicDetalle, "I", out errorServer);
             if (errorServer)
             {
                 return Json(new
@@ -1012,7 +1013,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             obePedidoFicDetalle.ImporteTotal = obePedidoFicDetalle.Cantidad * obePedidoFicDetalle.PrecioUnidad;
             obePedidoFicDetalle.Nombre = obePedidoFicDetalle.ClienteID == 0 ? userData.NombreConsultora : model.ClienteDescripcion;
             bool errorServer;
-            var olstPedidoWebDetalle = AdministradorPedido(obePedidoFicDetalle, "U", false, out errorServer);
+            var olstPedidoWebDetalle = AdministradorPedido(obePedidoFicDetalle, "U", out errorServer);
 
             decimal total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
             string formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);

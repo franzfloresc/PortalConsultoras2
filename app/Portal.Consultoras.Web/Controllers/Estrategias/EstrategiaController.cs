@@ -200,7 +200,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             var listPerdioFormato = new List<EstrategiaPersonalizadaProductoModel>();
             try
             {
-                var listPerdio = new List<EstrategiaPedidoModel>();
+                List<EstrategiaPedidoModel> listPerdio;
                 if (_ofertaPersonalizadaProvider.TieneProductosPerdio(campaniaId))
                 {
                     var mdo0 = revistaDigital.ActivoMdo && !revistaDigital.EsActiva;

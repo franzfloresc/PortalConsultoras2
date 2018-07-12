@@ -429,10 +429,10 @@ namespace Portal.Consultoras.Web.Controllers
             // si todo este proceso esta en MasivoEstrategiaTemporalInsertar, puede salir timed out
             // se divide el proceso para evitar timed out
             string rpta = "";
-            bool rptaService = false;
+            //bool rptaService = false;
             try
             {
-                rptaService = MasivoEstrategiaTemporalPrecio(entidadMasivo);
+                bool rptaService = MasivoEstrategiaTemporalPrecio(entidadMasivo);
                 if (rptaService)
                 {
                     rptaService = MasivoEstrategiaTemporalSetDetalle(entidadMasivo);
@@ -446,9 +446,10 @@ namespace Portal.Consultoras.Web.Controllers
                     rpta = "Error al cargar precios.";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                rptaService = false;
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                //rptaService = false;
             }
             return rpta;
         }
@@ -460,7 +461,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var svc = new SACServiceClient())
                 {
-                    rpta = svc.EstrategiaTemporalActualizarPrecioNivel(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
+                    svc.EstrategiaTemporalActualizarPrecioNivel(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
                 }
                 rpta = true;
             }
@@ -484,7 +485,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var svc = new SACServiceClient())
                 {
-                    rpta = svc.EstrategiaTemporalActualizarSetDetalle(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
+                    svc.EstrategiaTemporalActualizarSetDetalle(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
                 }
                 rpta = true;
             }
