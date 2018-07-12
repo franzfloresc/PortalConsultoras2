@@ -50,12 +50,15 @@ body {
 
 .contenedor_imagen {
     display: inline-block;
-    min-height: 300px;
+    height: 300px;
+}
+.contenedor_imagen img {
+    height: 100%;
 }
 
-.contenedor_imagen_ancho_mayor {
+/*.contenedor_imagen_ancho_mayor {
     margin: 0 12%;
-}
+}*/
 
 .texto_referencial {
     font-weight: 700;
@@ -99,6 +102,8 @@ body {
     float: left;
     width: 100%;
 }
+
+/* Reloj */ 
 
 .clock_odd {
     float: left;
@@ -153,9 +158,15 @@ body {
         text-shadow: 0 1px 2px #fff;
     }
 
+/* FIN Reloj */ 
+
 .contenedor_etiquetas {
     float: left;
     width: 100%;
+}
+
+.ficha_detalle_cuerpo {
+    min-height: 340px;
 }
 
 .contenedor_nombre_precio {

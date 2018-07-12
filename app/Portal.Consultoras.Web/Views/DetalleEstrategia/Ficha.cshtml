@@ -28,6 +28,7 @@
                     <img class="contenedor_img" src="{{ImgUrl FotoProducto01}}" alt="">
                 </div>
                 {{#iff CodigoVariante 'ContainsArray' '[2001,2003]'}}
+                <hr class="clear">
                 <div id="contenedor_foto_referencial" class="texto_referencial">
                     <span data-texto_referencial="">* Foto Referencial</span>
                 </div>
@@ -52,6 +53,7 @@
 
                 <!--compartir-->
                 {{#if TieneCompartir}}
+                <hr class="clear">
                 <div id="Contenedor_redes_sociales" class="ficha_redes_sociales">
                     <div data-compartir-campos="" style="display:none;">
                         <input type="hidden" class="CUV" value="{{CUV2}}" />
@@ -97,150 +99,152 @@
                     </div>
                 </div>
                 <hr class="clear">
-                <div class="contenedor_nombre_precio">
-                    <div class="contenedor_izquierdo">
-                        <div class="nombre_marca">
-                            {{#if EsMultimarca}}
-                            <span data-nombre_marca=""></span>
-                            {{else}}
-                            <span data-nombre_marca="">{{DescripcionMarca}}</span>
-                            {{/if}}
-                        </div>
-                        <div class="descripcion" data-descripcion="">{{DescripcionCompleta}}</div>
-                    </div>
-                    <div class="contenedor_derecho">
-                        {{#iff Precio '>' 0}}
-                        <div class="precio_valorizado">Valorizado en <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
-                        {{/iff}}
-                        <div class="precio_venta_oferta">Precio para ti <b><span data-precio_venta_oferta="">{{SimboloMoneda}} {{PrecioVenta}}</span></b></div>
-                        {{#iff Ganancia '>' 0}}
-                        <div class="ganancia">GANA <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span></div>
-                        {{/iff}}
-                    </div>
-                </div>
-                {{#IsNullOrEmpty this.ListaDescripcionDetalle '!='}}
-                <div id="SloganLanzamientos">
-                    <span class="nombre_detalle_producto_tono"><strong>{{this.TipoEstrategiaDetalle.Slogan}}</strong></span>
-                    <ul class="descripcion_detalle_producto_tono">
-                        {{#each this.ListaDescripcionDetalle}}
-                        <li><span class="vineta">-</span><span class="txt-des">{{Trim this}}</span></li>
-                        {{/each}}
-                    </ul>
-                </div>
-                <hr class="clear">
-                {{/IsNullOrEmpty}}
-                @*<div id="SloganPackNuevas">
-                    <span class="nombre_detalle_producto_tono"><strong>Contenido del Set:</strong></span>
-                    <ul class="descripcion_detalle_producto_tono">
-                        {{#each this.ArrayContenidoSet}}
-                        <li><span class="txt-des">{{this}}</span></li>
-                        {{/each}}
-                    </ul>
-                </div>*@
-                <div data-codigovariante="{{CodigoVariante}}">
-                    {{#iff CodigoVariante '==' '2001'}}
-                    @*<div id="DescripcionAdicional">
-        </div>*@
-                    {{#each this.Hermanos as |componente|}}
-                    <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
-                        <div class="tono_select_opt">
-                            <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                                <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
-                                <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
-                                <hr class="clear">
+                <div class="ficha_detalle_cuerpo">
+
+                    <div class="contenedor_nombre_precio">
+                        <div class="contenedor_izquierdo">
+                            <div class="nombre_marca">
+                                {{#if EsMultimarca}}
+                                <span data-nombre_marca=""></span>
+                                {{else}}
+                                <span data-nombre_marca="">{{DescripcionMarca}}</span>
+                                {{/if}}
                             </div>
-                            <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
+                            <div class="descripcion" data-descripcion="">{{DescripcionCompleta}}</div>
+                        </div>
+                        <div class="contenedor_derecho">
+                            {{#iff Precio '>' 0}}
+                            <div class="precio_valorizado">Valorizado en <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
+                            {{/iff}}
+                            <div class="precio_venta_oferta">Precio para ti <b><span data-precio_venta_oferta="">{{SimboloMoneda}} {{PrecioVenta}}</span></b></div>
+                            {{#iff Ganancia '>' 0}}
+                            <div class="ganancia">GANA <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span></div>
+                            {{/iff}}
+                        </div>
+                    </div>
+                    {{#IsNullOrEmpty this.ListaDescripcionDetalle '!='}}
+                    <div id="SloganLanzamientos">
+                        <span class="nombre_detalle_producto_tono"><strong>{{this.TipoEstrategiaDetalle.Slogan}}</strong></span>
+                        <ul class="descripcion_detalle_producto_tono">
+                            {{#each this.ListaDescripcionDetalle}}
+                            <li><span class="vineta">-</span><span class="txt-des">{{Trim this}}</span></li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                    <hr class="clear">
+                    {{/IsNullOrEmpty}}
+                    @*<div id="SloganPackNuevas">
+                        <span class="nombre_detalle_producto_tono"><strong>Contenido del Set:</strong></span>
+                        <ul class="descripcion_detalle_producto_tono">
+                            {{#each this.ArrayContenidoSet}}
+                            <li><span class="txt-des">{{this}}</span></li>
+                            {{/each}}
+                        </ul>
+                    </div>*@
+                    <div data-codigovariante="{{CodigoVariante}}">
+                        {{#iff CodigoVariante '==' '2001'}}
+                        @*<div id="DescripcionAdicional"></div>*@
+                        {{#each this.Hermanos as |componente|}}
+                        <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
+                            <div class="tono_select_opt">
+                                <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                    <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                    <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
+                                    <hr class="clear">
+                                </div>
+                                <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
+                                    {{#each componente.Hermanos as |variedad|}}
+                                    <div class="content_tono_elegido" data-tono-change="2"
+                                         data-tono-cuv="{{variedad.Cuv}}"
+                                         data-tono-nombre="{{variedad.NombreBulk}}"
+                                         data-tono-descripcion="{{variedad.NombreComercial}}">
+                                        <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt=""></div>
+                                        <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
+                                        <hr class="clear" />
+                                    </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                            <div class="content_tonos_maquillaje" data-tono-div="">
                                 {{#each componente.Hermanos as |variedad|}}
-                                <div class="content_tono_elegido" data-tono-change="2"
+                                <div style="display: none;">
+                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
+                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
+                                </div>
+                                <div id="fav_tono_{{variedad.Cuv}}" class="content_tono_detalle"
                                      data-tono-cuv="{{variedad.Cuv}}"
+                                     data-tono-change="2"
                                      data-tono-nombre="{{variedad.NombreBulk}}"
                                      data-tono-descripcion="{{variedad.NombreComercial}}">
-                                    <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt=""></div>
-                                    <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
-                                    <hr class="clear" />
+                                    <img src="{{variedad.ImagenBulk}}" alt="">
                                 </div>
                                 {{/each}}
                             </div>
                         </div>
-                        <div class="content_tonos_maquillaje" data-tono-div="">
-                            {{#each componente.Hermanos as |variedad|}}
-                            <div style="display: none;">
-                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
-                                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
+                        {{/each}}
+                        {{/iff}}
+                        {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}
+                        <div class="contenido_titulo">
+                            <div class="">
+                                <span>CONTENIDO:</span>
                             </div>
-                            <div id="fav_tono_{{variedad.Cuv}}" class="content_tono_detalle"
-                                 data-tono-cuv="{{variedad.Cuv}}"
-                                 data-tono-change="2"
-                                 data-tono-nombre="{{variedad.NombreBulk}}"
-                                 data-tono-descripcion="{{variedad.NombreComercial}}">
-                                <img src="{{variedad.ImagenBulk}}" alt="">
-                            </div>
-                            {{/each}}
                         </div>
-                    </div>
-                    {{/each}}
-                    {{/iff}}
-                    {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}
-                    <div class="contenido_titulo">
-                        <div class="">
-                            <span>CONTENIDO:</span>
-                        </div>
-                    </div>
-                    <div class="contenedor_lista_detalle">
-                        {{#each this.Hermanos as |componente|}}
-                        {{#ifVerificarMarcaLast componente.DescripcionMarca}}
-                        <div style="border-bottom: 1px solid #ccc; margin:15px 0px;"></div>
-                        {{/ifVerificarMarcaLast}}
-                        <div class="content_producto_tono detalle_producto" data-tono="" data-tono-select="{{componente.CUVSelect}}" data-tono-digitable="{{componente.Digitable}}" style="border-bottom: {{../Linea}};">
-                            <div style="display: none;">
-                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
-                                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
-                            </div>
-                            <div class="marca_cantidad_descripcion_detalle" data-tono-visible="">
-                                {{#ifVerificarMarca componente.DescripcionMarca}}
-                                <div class="marca_detalle_producto">
-                                    <span data-marca_detalle_producto>{{componente.DescripcionMarca}}</span>
+                        <div class="contenedor_lista_detalle">
+                            {{#each this.Hermanos as |componente|}}
+                            {{#ifVerificarMarcaLast componente.DescripcionMarca}}
+                            <div style="border-bottom: 1px solid #ccc; margin:15px 0px;"></div>
+                            {{/ifVerificarMarcaLast}}
+                            <div class="content_producto_tono detalle_producto" data-tono="" data-tono-select="{{componente.CUVSelect}}" data-tono-digitable="{{componente.Digitable}}" style="border-bottom: {{../Linea}};">
+                                <div style="display: none;">
+                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
+                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
                                 </div>
-                                {{/ifVerificarMarca}}
-                                <div class="cantidad_descripcion_detalle">
-                                    <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x {{componente.Cantidad}}</span>
-                                    <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="">
-                                        {{componente.NombreComercial}}
-                                    </span>
-                                </div>
-                            </div>
-
-                            {{#iff componente.Digitable '==' '1'}}
-                            <div class="content_right_ficha" style="width:43%;">
-                                <div class="tono_select_opt">
-                                    <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                                        <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
-                                        <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
-                                        <hr class="clear">
+                                <div class="marca_cantidad_descripcion_detalle" data-tono-visible="">
+                                    {{#ifVerificarMarca componente.DescripcionMarca}}
+                                    <div class="marca_detalle_producto">
+                                        <span data-marca_detalle_producto>{{componente.DescripcionMarca}}</span>
                                     </div>
-                                    <div class="content_tonos_select" style="width:102%;" data-tono-select-area="1">
-                                        {{#each componente.Hermanos as |variedad|}}
-                                        <div class="content_tono_elegido" data-tono-change="2"
-                                             data-tono-cuv="{{variedad.Cuv}}"
-                                             data-tono-nombre="{{variedad.NombreBulk}}"
-                                             data-tono-descripcion="{{variedad.NombreComercial}}">
-                                            <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt="PRODUCTO"></div>
-                                            <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
+                                    {{/ifVerificarMarca}}
+                                    <div class="cantidad_descripcion_detalle">
+                                        <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x {{componente.Cantidad}}</span>
+                                        <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="">
+                                            {{componente.NombreComercial}}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {{#iff componente.Digitable '==' '1'}}
+                                <div class="content_right_ficha" style="width:43%;">
+                                    <div class="tono_select_opt">
+                                        <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                            <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                            <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
                                             <hr class="clear">
                                         </div>
-                                        {{/each}}
+                                        <div class="content_tonos_select" style="width:102%;" data-tono-select-area="1">
+                                            {{#each componente.Hermanos as |variedad|}}
+                                            <div class="content_tono_elegido" data-tono-change="2"
+                                                 data-tono-cuv="{{variedad.Cuv}}"
+                                                 data-tono-nombre="{{variedad.NombreBulk}}"
+                                                 data-tono-descripcion="{{variedad.NombreComercial}}">
+                                                <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt="PRODUCTO"></div>
+                                                <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
+                                                <hr class="clear">
+                                            </div>
+                                            {{/each}}
+                                        </div>
                                     </div>
                                 </div>
+                                {{/iff}}
+                                <hr class="clear">
                             </div>
-                            {{/iff}}
-                            <hr class="clear">
-                        </div>
 
-                        {{/each}}
+                            {{/each}}
+                        </div>
+                        {{/iff}}
                     </div>
-                    {{/iff}}
+
                 </div>
-                
                 <div class="contenedor_agregar">
                     <div class="contenedor_rangos" data-cantidad-contenedor="">
                         <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
