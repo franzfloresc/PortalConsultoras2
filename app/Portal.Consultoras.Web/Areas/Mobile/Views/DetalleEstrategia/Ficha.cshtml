@@ -114,7 +114,7 @@
     <div class="container">
         <div class="row">
         <div class="seleccion_tonos">
-            <div data-estrategia="{{CodigoVariante}}">
+            <div data-codigovariante="{{CodigoVariante}}">
                 {{#iff CodigoVariante '==' '2001'}}
                 @*<div id="DescripcionAdicional">
                 </div>*@
@@ -130,7 +130,7 @@
                             {{#each this.Hermanos as |variedad|}}
                             <div class="content_tono_elegido" data-tono-change="2"
                                  data-tono-cuv="{{variedad.Cuv}}" d
-                                 ata-tono-nombre="{{variedad.NombreBulk}}"
+                                 data-tono-nombre="{{variedad.NombreBulk}}"
                                  data-tono-descripcion="{{variedad.NombreComercial}}">
                                 <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt=""></div>
                                 <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
