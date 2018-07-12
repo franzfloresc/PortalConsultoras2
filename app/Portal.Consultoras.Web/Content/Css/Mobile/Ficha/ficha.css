@@ -37,7 +37,7 @@
 
 .clock_odd {
     height: 35px;
-    padding-top: 25px;
+    padding-top: 15px;
     padding-bottom: 15px;
 }
 
@@ -77,8 +77,12 @@
     margin-bottom: 15px;
 }
 
+.imagen_producto > div{
+    text-align: center;
+}
+
     .imagen_producto img {
-        width: 100%;
+        width: 85%;
     }
 
 .marca_producto h2 {
@@ -409,7 +413,7 @@
 }
 
 .box-container {
-    margin-top: -110px;
+    margin-top: -125px;
 }
 .nombre_detalle_producto_tono {
     font-weight:bold;

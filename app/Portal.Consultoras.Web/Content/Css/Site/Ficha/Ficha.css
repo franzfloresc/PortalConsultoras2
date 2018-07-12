@@ -43,25 +43,22 @@ body {
 
 .ficha_producto {
     float: left;
-    padding-top: 75px;
+    padding-top: 45px;
     text-align: center;
     width: 45%;
 }
 
 .contenedor_imagen {
     display: inline-block;
-    min-height: 203px;
-    min-width: 203px;
+    height: 300px;
+}
+.contenedor_imagen img {
+    height: 100%;
 }
 
-.contenedor_imagen_ancho_mayor {
+/*.contenedor_imagen_ancho_mayor {
     margin: 0 12%;
-}
-
-.contenedor_img {
-    max-width: 380px !important;
-    height: auto;
-}
+}*/
 
 .texto_referencial {
     font-weight: 700;
@@ -89,14 +86,14 @@ body {
 .ficha_detalle {
     background-color: #fff;
     float: right;
-    padding: 32px;
+    padding: 0 32px 32px 32px;
     width: 55%;
 }
 
 .contenedor_ficha_etiquetas {
     float: left;
-    padding-bottom: 10px;
-    min-height: 50px;
+    /*padding-bottom: 10px;*/
+    min-height: 45px;
     position: relative;
     width: 100%;
 }
@@ -105,6 +102,8 @@ body {
     float: left;
     width: 100%;
 }
+
+/* Reloj */ 
 
 .clock_odd {
     float: left;
@@ -159,9 +158,15 @@ body {
         text-shadow: 0 1px 2px #fff;
     }
 
+/* FIN Reloj */ 
+
 .contenedor_etiquetas {
     float: left;
     width: 100%;
+}
+
+.ficha_detalle_cuerpo {
+    min-height: 340px;
 }
 
 .contenedor_nombre_precio {
@@ -892,7 +897,7 @@ margin-bottom: 45px;
 }
 
 .etiqueta_nuevo{
-    height: 50%;
+    height: 32px;
 }
 
 .etiqueta_nuevo img {
