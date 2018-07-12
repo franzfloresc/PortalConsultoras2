@@ -280,7 +280,7 @@
         // Se envía la información del producto a Google Analytics.
         var tipoMoneda = AnalyticsPortal.fcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
         var categoria = estrategia.CodigoCategoria || "";
-        AnalyticsPortal.fcEnviarProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, categoria, estrategia.CodigoVariante, _config.palanca);
+        AnalyticsPortal.fcEnviarInformacionProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, categoria, estrategia.CodigoVariante, _config.palanca);
         return true;
     };
 
@@ -301,6 +301,7 @@
 
             if (youtubeModule) {
                 youtubeModule.Inicializar();
+                //AnalyticsPortal.fcEnviarInformacionVideo(estrategia.DescripcionCompleta.trim());
             }
         }
         return true;
