@@ -8,8 +8,11 @@
                 <ul class="breadcumbs">
                     <li><a href="@Model.Inicio.Url">@Model.Inicio.Texto</a></li>
                     <li><a href="@Model.Ofertas.Url">@Model.Ofertas.Texto</a></li>
-                    <li><a href="@Model.Palanca.Url">@Model.Palanca.Texto</a></li>
-                    <li><a href="@Model.Producto.Texto">@Model.Producto.Texto</a></li>
+                    @if (!string.IsNullOrWhiteSpace(Model.Palanca.Texto))
+                    {
+                        <li><a href="@Model.Palanca.Url">@Model.Palanca.Texto</a></li>
+                    }
+                    <li><a href="@Model.Producto.Texto" id="estrategia-breadcrumb" >@Model.Producto.Texto</a></li>
                 </ul>
             </div>
         </div>
