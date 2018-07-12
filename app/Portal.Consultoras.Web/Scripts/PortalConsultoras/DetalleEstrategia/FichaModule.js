@@ -27,7 +27,8 @@
         idPlantillaProductoLanding: "#producto-landing-template",
         divCarruselSetsProductosRelacionados: "#divOfertaProductos",
         divSetsProductosRelacionados: "#set_relacionados",
-        footerPage: ".footer-page"
+        footerPage: ".footer-page",
+        marca: "#marca"
     };
 
     var _atributos = {
@@ -344,6 +345,7 @@
     var _ocultarSecciones = function () {
         if (isMobile()) {
             $(_elementos.footerPage).hide();
+            $(_elementos.marca).hide();
         }
         //$(_seccionesFichaProducto.SloganLanzamientos).hide();
         //$(_seccionesFichaProducto.EtiquetaOdd).hide();
