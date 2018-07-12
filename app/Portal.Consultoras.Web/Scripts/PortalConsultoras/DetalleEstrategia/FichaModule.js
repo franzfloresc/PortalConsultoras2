@@ -27,7 +27,8 @@
         idPlantillaProductoLanding: "#producto-landing-template",
         divCarruselSetsProductosRelacionados: "#divOfertaProductos",
         divSetsProductosRelacionados: "#set_relacionados",
-        footerPage: ".footer-page"
+        footerPage: ".footer-page",
+        marca: "#marca"
     };
 
     var _atributos = {
@@ -286,7 +287,7 @@
         // Se envía la información del producto a Google Analytics.
         var tipoMoneda = AnalyticsPortal.fcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
         var categoria = estrategia.CodigoCategoria || "";
-        AnalyticsPortal.fcEnviarProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, categoria, estrategia.CodigoVariante, _config.palanca);
+        AnalyticsPortal.fcEnviarInformacionProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, categoria, estrategia.CodigoVariante, _config.palanca);
         return true;
     };
 
@@ -311,6 +312,7 @@
 
             if (youtubeModule) {
                 youtubeModule.Inicializar();
+                //AnalyticsPortal.fcEnviarInformacionVideo(estrategia.DescripcionCompleta.trim());
             }
         }
         return true;
@@ -344,6 +346,7 @@
     var _ocultarSecciones = function () {
         if (isMobile()) {
             $(_elementos.footerPage).hide();
+            $(_elementos.marca).hide();
         }
         //$(_seccionesFichaProducto.SloganLanzamientos).hide();
         //$(_seccionesFichaProducto.EtiquetaOdd).hide();

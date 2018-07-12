@@ -13,7 +13,9 @@ var _evento = {
 
 var _texto = {
     excepcion: "Excepción en AnalyticsPortal.js > ",
-    estandar: "Estándar"
+    estandar: "Estándar",
+    fichaProducto: "Ficha de Producto",
+    iniciarVideo: "Iniciar Video"
 };
 
 var _constantes = {
@@ -22,7 +24,7 @@ var _constantes = {
 };
 
 var AnalyticsPortal = {
-    fcEnviarProducto: function (tipoMoneda, producto, cuv, precio, marca, categoria, variante, palanca) {
+    fcEnviarInformacionProducto: function (tipoMoneda, producto, cuv, precio, marca, categoria, variante, palanca) {
         try {
             dataLayer.push({
                 "event": _evento.productDetails,
@@ -58,5 +60,18 @@ var AnalyticsPortal = {
             console.log(_texto.excepcion + e);
         }
         return tipoMoneda;
+    },
+
+    fcEnviarInformacionVideo: function (producto) {
+        try {
+            dataLayer.push({
+                "event": _evento.virtualEvent,
+                "category": _texto.fichaProducto,
+                "action": _texto.iniciarVideo,
+                "label": producto
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
     }
 };
