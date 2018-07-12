@@ -104,11 +104,13 @@ var AnalyticsPortalModule = (function () {
             });
         } catch (e) {
             console.log(_texto.excepcion + e);
+        }
+    }
 
     var marcarAgregaProductoCarro = function (producto, tono) {
         try {
             dataLayer.push({
-                'event': _evento.addToCart,
+                "event": _evento.addToCart,
                 'ecommerce': {
                     'currencyCode': 'PEN',
                     'add': {
@@ -203,7 +205,6 @@ var AnalyticsPortalModule = (function () {
             });
         } catch (e) {
             console.log(_texto.exception + e);
->>>>>>> 408ce44f7a80f37abcc04742de0372efff29ee47
         }
     }
 
@@ -212,15 +213,10 @@ var AnalyticsPortalModule = (function () {
         FcVerificarTipoMoneda: fcVerificarTipoMoneda,
         MarcarIniciarPlayVideo: marcarIniciarPlayVideo,
         MarcarCambiaColorCombo: marcarCambiaColorCombo,
-<<<<<<< HEAD
-        MarcarCambiaColorCuadro: marcarCambiaColorCuadro
-=======
-
         MarcarCambiaColorCuadro: marcarCambiaColorCuadro,
         MarcarAgregaProductoCarro: marcarAgregaProductoCarro,
         MarcarComparteRedesSociales: marcarComparteRedesSociales,
         MarcarSlideCarruselProducto: marcarSlideCarruselProducto,
         MarcarClicSetProductos: marcarClicSetProductos
->>>>>>> 408ce44f7a80f37abcc04742de0372efff29ee47
     }
 })();
