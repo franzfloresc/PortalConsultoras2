@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Models.DetalleEstrategia;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -249,17 +250,19 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     modelo = new DetalleEstrategiaFichaModel();
                 }
-
+                
                 modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile());
                 modelo.OrigenUrl = origen;
                 modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
+                modelo.BreadCrumbs = GetDetalleEstrategiaBreadCrumbs(revistaDigital.TieneRevistaDigital(),
+                    userData.CampaniaID == campaniaId,
+                    modelo.OrigenAgregar);
                 modelo.Palanca = palanca;
                 modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
                 modelo.Campania = campaniaId;
                 modelo.Cuv = cuv;
-
+                //modelo.TieneRevistaDigital = ;
                 //modelo.CodigoIsoConsultora = userData.CodigoISO;
-                //modelo.TieneRevistaDigital = revistaDigital.TieneRevistaDigital();
 
                 modelo.TieneCarrusel = (Constantes.NombrePalanca.Lanzamiento == palanca
                         || Constantes.NombrePalanca.ShowRoom == palanca
@@ -294,6 +297,24 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+        }
+
+        private DetalleEstrategiaBreadCrumbsModel GetDetalleEstrategiaBreadCrumbs(
+            bool tieneRevistaDigital,
+            bool productoPerteneceACampaniaActual,
+            int origenPedidoWeb)
+        {
+            var breadCrumbs = new DetalleEstrategiaBreadCrumbsModel();
+            var area = IsMobile() ? "mobile" : string.Empty;
+            //
+            breadCrumbs.Inicio.Texto = "Inicio";
+            breadCrumbs.Inicio.Url = Url.Action("Index", new { controller = "Bienvenida", area });
+            //
+            breadCrumbs.Ofertas.Texto = tieneRevistaDigital ? "Club Gana +" : "Ofertas";
+            var action = productoPerteneceACampaniaActual ? "Index" : "Revisar";
+            breadCrumbs.Ofertas.Url = Url.Action(action, new { controller = "Ofertas", area });
+            //
+            return breadCrumbs;
         }
 
         public int GetOrigenPedidoWebDetalle(string origen)

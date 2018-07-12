@@ -14,18 +14,7 @@
     <style id="styleRelojOdd"></style>
 }
 
-<div class="container" data-tag-html="@Model.Campania" id="div-container-breadcubs" style="display: none;">
-    <div class="row">
-        <div class="col-md-12">
-            <ul class="breadcumbs">
-                <li><a href="">Inicio</a></li>
-                <li><a href="">Club Gana+</a></li>
-                <li><a href="">Ofertas para tí</a></li>
-                <li><a href="">Nuevo</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
+@Html.Partial("_BreadCrumb",Model.BreadCrumbs)
 
 <script id="detalle_ficha_template" type="text/x-handlebars-template">
     {{#if TieneReloj}}

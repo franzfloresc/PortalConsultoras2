@@ -50,17 +50,11 @@ body {
 
 .contenedor_imagen {
     display: inline-block;
-    min-height: 203px;
-    min-width: 203px;
+    min-height: 300px;
 }
 
 .contenedor_imagen_ancho_mayor {
     margin: 0 12%;
-}
-
-.contenedor_img {
-    max-width: 380px !important;
-    height: auto;
 }
 
 .texto_referencial {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models.DetalleEstrategia;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -28,6 +29,7 @@ namespace Portal.Consultoras.Web.Models
         public ConfiguracionSeccionHomeModel ConfiguracionContenedor { get; set; }
         public string CodigoIsoConsultora { get; set; }
         public bool TieneRevistaDigital { get; set; }
+        public DetalleEstrategiaBreadCrumbsModel BreadCrumbs { get; set; }
     }
     public class TituloDetalle
     {

@@ -167,6 +167,10 @@ var YoutubeModule = (function (config) {
                     },
                     // when video ends
                     'onStateChange': function onPlayerStateChange(event) {
+                        if (event.data == YT.PlayerState.UNSTARTED) {
+                            AnalyticsPortal.fcEnviarInformacionVideo(ytExtra);
+                        }
+
                         if (typeof estaSuscrita == "undefined")
                             return false;
 
