@@ -161,6 +161,12 @@ var AnalyticsPortalModule = (function () {
         MarcarVerFichaProducto: marcarVerFichaProducto,
         FcVerificarTipoMoneda: fcVerificarTipoMoneda,
         MarcarIniciarPlayVideo: marcarIniciarPlayVideo,
-        MarcarCambiaColorCombo: marcarCambiaColorCombo
+        MarcarCambiaColorCombo: marcarCambiaColorCombo,
+
+        MarcarCambiaColorCuadro: marcarCambiaColorCuadro,
+        MarcarAgregaProductoCarro: marcarAgregaProductoCarro,
+        MarcarComparteRedesSociales: marcarComparteRedesSociales,
+        MarcarSlideCarruselProducto: marcarSlideCarruselProducto,
+        MarcarClicSetProductos: marcarClicSetProductos
     }
 })();
