@@ -90,6 +90,73 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
+    //jnizama (borrar este comentario despues q se unifique)
+    
+    var marcarCambiaColorCuadro = function (producto, tono) {
+        try {
+            dataLayer.push({
+                "event": _evento.virtualEvent,
+                "category": _texto.fichaProducto,
+                "action": _texto.seleccionTonoCombo,
+                "label": producto + " - " + tono
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+
+    var marcarAgregaProductoCarro = function (producto, tono) {
+        try {
+            dataLayer.push({
+                "event": _evento.virtualEvent,
+                "category": _texto.fichaProducto,
+                "action": _texto.seleccionTonoCombo,
+                "label": producto + " - " + tono
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+
+    var marcarComparteRedesSociales = function (producto, tono) {
+        try {
+            dataLayer.push({
+                "event": _evento.virtualEvent,
+                "category": _texto.fichaProducto,
+                "action": _texto.seleccionTonoCombo,
+                "label": producto + " - " + tono
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+
+    var marcarSlideCarruselProducto = function (producto, tono) {
+        try {
+            dataLayer.push({
+                "event": _evento.virtualEvent,
+                "category": _texto.fichaProducto,
+                "action": _texto.seleccionTonoCombo,
+                "label": producto + " - " + tono
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+
+    var marcarClicSetProductos = function (producto, tono) {
+        try {
+            dataLayer.push({
+                "event": _evento.virtualEvent,
+                "category": _texto.fichaProducto,
+                "action": _texto.seleccionTonoCombo,
+                "label": producto + " - " + tono
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+
     return {
         MarcarVerFichaProducto: marcarVerFichaProducto,
         FcVerificarTipoMoneda: fcVerificarTipoMoneda,
