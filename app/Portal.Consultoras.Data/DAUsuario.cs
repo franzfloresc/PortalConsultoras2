@@ -815,7 +815,7 @@ namespace Portal.Consultoras.Data
 
         public bool VerificarIgualdadCodigoIngresado(BEUsuarioDatos oUsu, string codigoIngresado)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetVerificarCodigo"); ;
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetVerificarCodigo");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsu.CodigoUsuario);
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsu.OrigenID);
             Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, codigoIngresado);

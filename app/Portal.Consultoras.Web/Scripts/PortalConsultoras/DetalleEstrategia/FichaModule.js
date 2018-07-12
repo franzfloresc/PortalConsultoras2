@@ -47,10 +47,11 @@
         //EtiquetaOdd: "#EtiquetaOdd",
         //SloganLanzamientos: "#SloganLanzamientos",
         //ContenedoFotoReferencial: "#contenedor_foto_referencial",
-        //ContenedoFichaEtiquetas: "#contenedor_ficha_etiquetas",
-        Contenedor_redes_sociales: "#Contenedor_redes_sociales"
+        ContenedoFichaEtiquetas: "#contenedor_ficha_etiquetas",
+        Contenedor_redes_sociales: "#Contenedor_redes_sociales",
         //EtiquetaPackNuevas: "#EtiquetaPackNuevas"
-        //SloganPackNuevas: "#SloganPackNuevas"
+        //SloganPackNuevas: "#SloganPackNuevas",
+        ImagenProducto: "#FichaImagenProducto"
     };
 
     var _tabsFichaProducto = {
@@ -146,7 +147,7 @@
 
             }
         }
-        
+
         $("ul.ficha_tabs li a").click(function () {
             $(this).parent().children("ul").slideToggle();
             var clase = $(this).attr("class");
@@ -260,14 +261,21 @@
         }
         else {
             imgFondo = estrategia.TipoEstrategiaDetalle.ImgFichaFondoDesktop || "";
+
+            if (imgFondo != "") {
+                $(_seccionesFichaProducto.ContenedoFichaEtiquetas).addClass("contenedor_ficha_etiquetas_Confondo");
+            }
+
+            setTimeout(_RedenderImg(), 10000);
         }
+
         if (imgFondo != "") {
             $(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "url('" + imgFondo + "')");
             $(_seccionesFichaProducto.ImagenDeFondo).show();
         }
 
         _cargarDataCompartir(estrategia);
-        
+
         if (estrategia.TieneReloj) {
             _crearReloj(estrategia);
             estrategia.ConfiguracionContenedor = estrategia.ConfiguracionContenedor || {};
@@ -320,6 +328,30 @@
         return true;
     };
 
+    var _RedenderImg = function () {
+
+        $(document).ajaxStop(function () {
+            var proObj = $(_seccionesFichaProducto.ImagenProducto);
+            var proObjH = proObj.innerHeight();
+
+            var proImg = proObj.find("img");
+            var proH = proImg.innerHeight();
+
+            if (proH > proObjH) {
+                proH = proObjH / proH;
+                $(proImg).css("height", proObjH + "px");
+                var proW = proImg.innerWidth();
+                $(proImg).css("width", (proW * proH) + "px");
+            }
+        });
+
+        //$("header").resize(function () {
+
+        //});
+
+
+    };
+
     Handlebars.registerHelper("ifVerificarMarca", function (marca, options) {
         if (_primeraMarca !== marca && _esMultimarca) {
             _primeraMarca = marca;
@@ -356,8 +388,8 @@
         //$(_seccionesFichaProducto.EtiquetaPackNuevas).hide();
         //$(_seccionesFichaProducto.SloganPackNuevas).hide();
 
-        if (_codigoPalanca.HerramientasVenta === _config.palanca || 
-            _codigoPalanca.OfertasParaMi === _config.palanca || 
+        if (_codigoPalanca.HerramientasVenta === _config.palanca ||
+            _codigoPalanca.OfertasParaMi === _config.palanca ||
             _codigoPalanca.OfertaParaTi === _config.palanca ||
             _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
             //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
@@ -397,9 +429,9 @@
         //var etiquetaOddEstaOculta = $(_seccionesFichaProducto.EtiquetaOdd).is(":hidden");
         //var etiquetaLanzamientosEstaOculta = $(_seccionesFichaProducto.EtiquetaLanzamientos).is(":hidden");
         //if (etiquetaOddEstaOculta && etiquetaLanzamientosEstaOculta)
-            //$(_seccionesFichaProducto.ContenedoFichaEtiquetas).show();
+        //$(_seccionesFichaProducto.ContenedoFichaEtiquetas).show();
         //else
-            //$(_seccionesFichaProducto.ContenedoFichaEtiquetas).show();
+        //$(_seccionesFichaProducto.ContenedoFichaEtiquetas).show();
     };
 
     var _ocultarTabs = function () {

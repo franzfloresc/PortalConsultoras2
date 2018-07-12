@@ -297,7 +297,8 @@ namespace Portal.Consultoras.Web.Controllers
                         producto.ErrorCargaMasiva = "El CUV ingresado no se encuentra registrado para la campaña seleccionada, verifique.";
                     }
 
-                };
+                }
+
                 if (!isError)
                 {
                     ViewBag.succesRow = cant;
