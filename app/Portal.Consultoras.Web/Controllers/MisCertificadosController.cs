@@ -268,7 +268,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var fi = beMiCertificado.FechaIngresoConsultora;
                         var nombreMes2 = fi.ToString("MMMM", new CultureInfo("es-ES"));
                         var ff3 = fi.ToString("dd") + " de " + nombreMes2.ToUpper(1) + " de " + fi.ToString("yyyy");
-                        var ff4 = letrasDias + " (" + dt.ToString("dd") + ")" + " del mes de " + nombreMes1.ToUpper(1) + " de " + letrasAnio + " (" + dt.Year.ToString() + ").";
+                        var ff4 = letrasDias + " (" + dt.ToString("dd") + ") días " + " del mes de " + nombreMes1.ToUpper(1) + " del año " + letrasAnio + " (" + dt.Year.ToString() + ").";
 
                         model.FechaCreacion = ff1;
                         model.FechaCreacionTexto = ff2;
