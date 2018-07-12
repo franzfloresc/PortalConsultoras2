@@ -146,8 +146,14 @@
             }
         }
         
-        $("ul.ficha_tabs li").click(function () {
-            $(this).children("ul").slideToggle();
+        $("ul.ficha_tabs li a").click(function () {
+            $(this).parent().children("ul").slideToggle();
+            var clase = $(this).attr("class");
+            if (clase == "active") {
+                $(this).attr("class", "tab-link");
+            } else {
+                $(this).attr("class", "active");
+            }
         });
     };
 
@@ -292,10 +298,14 @@
 
         if (estrategia.CodigoEstrategia === _constantePalanca.Lanzamiento) {
             //Construir sección ficha - Video
-            if (isMobile())
+            if (isMobile()) {
+                estrategia.VideoHeight = 218;
                 estrategia.TipoEstrategiaDetalle.UrlVideo = estrategia.TipoEstrategiaDetalle.UrlVideoMobile;
-            else
+            }
+            else {
+                estrategia.VideoHeight = 415;
                 estrategia.TipoEstrategiaDetalle.UrlVideo = estrategia.TipoEstrategiaDetalle.UrlVideoDesktop;
+            }
 
             SetHandlebars("#template-fichadetallevideo", estrategia, "#contenedor-tab-video");
 
