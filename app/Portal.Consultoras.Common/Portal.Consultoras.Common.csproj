@@ -135,6 +135,7 @@
     <Compile Include="BETuplaEditable.cs" />
     <Compile Include="BEGrid.cs" />
     <Compile Include="BEPager.cs" />
+    <Compile Include="ConfigCdn.cs" />
     <Compile Include="ConfigS3.cs" />
     <Compile Include="Constantes.cs" />
     <Compile Include="Conversores.cs" />

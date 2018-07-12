@@ -1,4 +1,4 @@
-USE BelcorpBolivia
+﻿USE BelcorpBolivia
 GO
 IF OBJECT_ID('dbo.ActualizarInsertarPuntosConcurso_Prol3') IS NOT NULL
 BEGIN
