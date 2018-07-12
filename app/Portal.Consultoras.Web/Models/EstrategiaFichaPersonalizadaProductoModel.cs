@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Models
         public string Cuv { get; set; }
 
         public bool TieneReloj { get; set; }
-
+        public bool TieneCompartir { get; set; }
         public bool TieneCarrusel { get; set; }
 
         public double TeQuedan { get; set; }

@@ -1,59 +1,28 @@
 ﻿
-//if (!jQuery) { throw new Error("felix.js requires jQuery"); }
+if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
 
-//+function ($) {
-//    "use strict";
++function ($) {
+    "use strict";
 
-//}(window.jQuery);
+}(window.jQuery);
 
-//var AnalyticsPortal = {
-//    _evento: {
-//        virtualEvent: "virtualEvent",
-//        productDetails: "productDetails"
-//    },
+var _evento = {
+    virtualEvent: "virtualEvent",
+    productDetails: "productDetails"
+};
 
-//    _texto: {
-//        excepcion: "Excepción en AnalyticsPortal.js > ",
-//        estandar: "Estándar"
-//    },
+var _texto = {
+    excepcion: "Excepción en AnalyticsPortal.js > ",
+    estandar: "Estándar"
+};
 
-//    fcEnviarProducto: function (tipoMoneda, producto, cuv, precio, marca, categoria, variante = _texto.estandar, palanca) {
-//        try {
-//            dataLayer.push({
-//                "event": _evento.productDetails,
-//                "ecommerce": {
-//                    "currencyCode": tipoMoneda,
-//                    "detail": {
-//                        "products": [{
-//                            "name": producto,
-//                            "id": cuv,
-//                            "price": precio,
-//                            "brand": marca,
-//                            "category": categoria,
-//                            "variant": variante || _texto.estandar,
-//                            "dimension11": palanca
-//                        }]
-//                    }
-//                }
-//            });
-//        } catch (e) {
-//            console.log(_texto.excepcion + e);
-//        }
-//    }
-//};
+var _constantes = {
+    simboloSolPeru: "S/.",
+    solPeru: "PEN"
+};
 
-var AnalyticsPortal = (function () {
-    var _evento = {
-        virtualEvent: "virtualEvent",
-        productDetails: "productDetails"
-    };
-
-    var _texto = {
-        excepcion: "Excepción en AnalyticsPortal.js > ",
-        estandar: "Estándar"
-    };
-
-    fcEnviarProducto = function (tipoMoneda, producto, cuv, precio, marca, categoria, variante, palanca) {
+var AnalyticsPortal = {
+    fcEnviarProducto: function (tipoMoneda, producto, cuv, precio, marca, categoria, variante, palanca) {
         try {
             dataLayer.push({
                 "event": _evento.productDetails,
@@ -66,7 +35,7 @@ var AnalyticsPortal = (function () {
                             "price": precio,
                             "brand": marca,
                             "category": categoria,
-                            "variant": variante || _texto.estandar,
+                            "variant": variante == "" ? _texto.estandar : variante,
                             "dimension11": palanca
                         }]
                     }
@@ -75,5 +44,19 @@ var AnalyticsPortal = (function () {
         } catch (e) {
             console.log(_texto.excepcion + e);
         }
-    };
-});
+    },
+
+    fcVerificarTipoMoneda: function (simboloMoneda) {
+        var tipoMoneda = "";
+        try {
+            switch (simboloMoneda) {
+                case _constantes.simboloSolPeru:
+                    tipoMoneda = _constantes.solPeru;
+                    break;
+            }
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+        return tipoMoneda;
+    }
+};

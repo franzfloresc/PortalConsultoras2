@@ -27,7 +27,7 @@
                 <div class="contenedor_imagen">
                     <img class="contenedor_img" src="{{ImgUrl FotoProducto01}}" alt="">
                 </div>
-                {{#iff CodigoVariante '==' '2003'}}
+                {{#iff CodigoVariante 'ContainsArray' '[2001,2003]'}}
                 <div id="contenedor_foto_referencial" class="texto_referencial">
                     <span data-texto_referencial="">* Foto Referencial</span>
                 </div>
@@ -51,6 +51,7 @@
                     </div>*@
 
                 <!--compartir-->
+                {{#if TieneCompartir}}
                 <div id="Contenedor_redes_sociales" class="ficha_redes_sociales">
                     <div data-compartir-campos="" style="display:none;">
                         <input type="hidden" class="CUV" value="{{CUV2}}" />
@@ -70,6 +71,8 @@
                         <img class="contenedor_img" src="/Content/Images/Esika/facebook.png">
                     </a>
                 </div>
+                {{/if}}
+                <!--fin compartir-->
             </div>
             <div class="ficha_detalle">
                 <div id="contenedor_ficha_etiquetas" class="contenedor_ficha_etiquetas">
@@ -105,9 +108,13 @@
                         <div class="descripcion" data-descripcion="">{{DescripcionCompleta}}</div>
                     </div>
                     <div class="contenedor_derecho">
+                        {{#iff Precio '>' 0}}
                         <div class="precio_valorizado">Valorizado en <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
+                        {{/iff}}
                         <div class="precio_venta_oferta">Precio para ti <b><span data-precio_venta_oferta="">{{SimboloMoneda}} {{PrecioVenta}}</span></b></div>
+                        {{#iff Ganancia '>' 0}}
                         <div class="ganancia">GANA <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span></div>
+                        {{/iff}}
                     </div>
                 </div>
                 {{#IsNullOrEmpty this.ListaDescripcionDetalle '!='}}
@@ -130,8 +137,8 @@
                     </ul>
                 </div>*@
                 {{#iff CodigoVariante '==' '2001'}}
-                <div id="DescripcionAdicional">
-                </div>
+                @*<div id="DescripcionAdicional">
+                </div>*@
                 {{#each this.Hermanos as |componente|}}
                 <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
                     <div class="tono_select_opt">
@@ -364,6 +371,8 @@
                 <div class="contenedor_iframe_seccion_tab" id="contenedor-tab-video"></div>
             </section>
         </div>
+        @if (Model.TieneCarrusel)
+        {
         <div id="CarruselProducto" class="contenedor_ficha_carrusel">
             <div class="contenedor_titulo_carrusel">
                 <div class="contenedor_linea_carrusel">
@@ -381,6 +390,7 @@
                 </div>
             </div>
         </div>
+        }
     </div>
 </div>
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")

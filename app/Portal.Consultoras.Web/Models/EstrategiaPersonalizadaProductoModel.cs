@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionMarca { get; set; }
         public string DescripcionResumen { get; set; } // Puede ser el nombre de un set, o la descripcion simple
         public string DescripcionCortada { get; set; } // Es la descripcion extendida solo con 40 caracteres
-        public string DescripcionDetalle { get; set; } // Es la descripcion extendida 
+        public string DescripcionDetalle { get; set; } // Es la descripcion extendida, ya no se utiliza, revisar 
         public string DescripcionCompleta { get; set; }
         public decimal Precio { get; set; }
         public decimal Precio2 { get; set; }

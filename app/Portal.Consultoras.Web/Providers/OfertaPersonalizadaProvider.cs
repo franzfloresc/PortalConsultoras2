@@ -329,18 +329,16 @@ namespace Portal.Consultoras.Web.Providers
 
                 listEstrategia = sessionManager.GetBEEstrategia(varSession);
 
-                if (listEstrategia != null && campaniaId == userData.CampaniaID)
+                if (listEstrategia != null && campaniaId == userData.CampaniaID && listEstrategia.Any())
                 {
                     //listEstrategia = (List<ServiceOferta.BEEstrategia>)Session[varSession];
-                    if (listEstrategia.Any())
+                   
+                    if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas)
                     {
-                        if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas && listEstrategia.Any())
-                        {
-                            listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(listEstrategia);
-                        }
-
-                        return listEstrategia;
+                        listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(listEstrategia);
                     }
+
+                    return listEstrategia;
                 }
 
                 var entidad = new ServiceOferta.BEEstrategia
@@ -713,6 +711,16 @@ namespace Portal.Consultoras.Web.Providers
                     estrategia.DescripcionCortada = estrategia.DescripcionCUV2.Split('|')[0];
                     estrategia.DescripcionDetalle = estrategia.DescripcionCUV2.Contains("|") ? estrategia.DescripcionCUV2.Split('|')[1] : string.Empty;
                 }
+                else if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
+                {
+                    var listadescr = estrategia.DescripcionCUV2.Split('|');
+                    estrategia.DescripcionCortada = listadescr.Length > 0 ? listadescr[0] : "";
+                    if (listadescr.Length > 1)
+                    {
+                        estrategia.ListaDescripcionDetalle = new List<string>(listadescr.Skip(1));
+                    }
+                    estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCortada, 40);
+                }
                 else
                 {
                     estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCUV2, 40);
@@ -979,8 +987,8 @@ namespace Portal.Consultoras.Web.Providers
         private void SetShowRoomOfertasInSession(List<EstrategiaPedidoModel> listaProductoModel, UsuarioModel userData)
         {
             var flagRevistaTodos = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
-            var listaOfertas = new List<EstrategiaPedidoModel>();
-            var listaSubCampania = new List<EstrategiaPedidoModel>();
+            List<EstrategiaPedidoModel> listaOfertas;
+            List<EstrategiaPedidoModel> listaSubCampania;
             var listaOfertasPerdio = new List<EstrategiaPedidoModel>();
 
             if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)

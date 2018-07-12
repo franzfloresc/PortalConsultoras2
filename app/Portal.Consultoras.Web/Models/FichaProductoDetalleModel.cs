@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
+    // Modelo de VC
+
     [Serializable]
     public class FichaProductoDetalleModel
     {

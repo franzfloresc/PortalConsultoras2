@@ -118,6 +118,10 @@
     text-decoration: none;
 }
 
+.gana_precio_producto {
+    border-left: 1px solid #cacaca;
+}
+
 .gana_precio_producto p {
     font-size: 13px;
     font-weight: normal;
@@ -227,7 +231,7 @@
 
 .precio li:first-child {
     padding-right: 11px;
-    border-right: 1px solid #cacaca;
+    /*border-right: 1px solid #cacaca;*/
 }
 
 .precio li:last-child {
@@ -261,13 +265,19 @@
 }
 
 .tono_select_opt {
-    border: 1px solid black;
+    border: none;
     height: auto;
     background: url('/Content/Images/mobile/Esika/down-arrow.svg');
     background-position: right 15px center;
     background-repeat: no-repeat;
     background-size: 13px;
     cursor: pointer;
+
+}
+
+.tono_seleccionado {
+    margin-top: 2px !important;
+    height: 41px;
 }
 
 .tono_por_elegir {
@@ -275,6 +285,11 @@
     background-position: right 15px center;
     background-repeat: no-repeat;
     background-size: 13px;
+    border: none;
+}
+
+.texto_sin_tono {
+    border: 1px solid #000;
 }
 
 .texto_tono_seleccionado {
@@ -285,11 +300,22 @@
 
 .content_tonos_select {
     max-height: 220px;
-    width: 100.8% !important;
+    width: 100% !important;
     border: 1px solid #000;
-    left: -1px;
-    border-top: 0px;
-    padding: 10px 15px 25px 15px;
+    padding: 10px 10px 0px 10px;
+    border-top: 1px solid #ccc !important;
+    top: 45px;
+    left: 0px;
+}
+
+.texto_sin_tono .tono_seleccionado {
+    margin: 1px 9px;
+    margin-top: 1px;
+}
+
+.tono_seleccionado {
+    margin-top: 2px !important;
+    height: 41px;
 }
 
 .content_tonos_select .content_tono_elegido {

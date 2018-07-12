@@ -298,7 +298,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                 };
-                if (isError == false)
+                if (!isError)
                 {
                     ViewBag.succesRow = cant;
                 }
@@ -369,7 +369,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ListaCUVs = ConsultarDescripcionMasivo(lista.ToList(), campaniaId.ToString(), paisId.ToString(), ref isError);
                 Session["errores"] = ListaCUVs;
-                if (isCorrect && lista != null && isError == false)
+                if (isCorrect && lista != null && !isError)
                 {
                     var lst = Mapper.Map<IList<MatrizCampaniaModel>, IEnumerable<BEProductoDescripcion>>(lista);
 
@@ -739,7 +739,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CamposNovalidos.Append("¬");
                 }
 
-                if (FlagCampoValido == true)
+                if (FlagCampoValido)
                 {
                     CampoValidos.Append(registros[j].Split('¦')[0]);
                     CampoValidos.Append("¬");

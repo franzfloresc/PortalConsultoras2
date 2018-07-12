@@ -52,7 +52,7 @@
             </div>
         </div>
         {{/IsNullOrEmpty}}
-        {{#iff CodigoVariante '==' '2003'}}
+        {{#iff CodigoVariante 'ContainsArray' '[2001,2003]'}}
         <div id="contenedor_foto_referencial" class="texto_referencial">
             <span data-texto_referencial="">* Foto Referencial</span>
         </div>
@@ -90,19 +90,24 @@
                 {{/each}}
             </ul>
         </div>*@
+
+        {{#iff Precio '>' 0}}
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 precio_producto">
                 <p>Valorizado en <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
             </div>
         </div>
+        {{/iff}}
 
         <ul class="list_style_none precio">
             <li class="precio_producto">
                 <p>Precio para ti <b style="font-size: 14px;">{{SimboloMoneda}} {{PrecioVenta}}</b></p>
             </li>
+            {{#iff Ganancia '>' 0}}
             <li class="gana_precio_producto">
                 <p class="ganancia">GANA {{SimboloMoneda}} {{GananciaString}}</p>
             </li>
+            {{/iff}}
         </ul>
     </div>
 
@@ -111,8 +116,8 @@
         <div class="seleccion_tonos">
             <div data-estrategia="{{CodigoVariante}}">
                 {{#iff CodigoVariante '==' '2001'}}
-                <div id="DescripcionAdicional">
-                </div>
+                @*<div id="DescripcionAdicional">
+                </div>*@
                 {{#each this.Hermanos as |componente|}}
                 <div class="content_tonos_producto" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
                     <div class="tono_select_opt">
@@ -291,16 +296,15 @@
         </div>
     </div>
 </div>
-
+@if (Model.TieneCarrusel)
+{
 <div id="CarruselProducto" class="container">
     <div class="row carrusel">
         <div>
             <div class="set_encuentras_producto" id="set_relacionados">
 
                 <div class="wrapper_resumen_mobile ficha_encuentraproducto">
-                    <p id="tituloCarrusel" class="titulo_set">
-
-                    </p>
+                    <p id="tituloCarrusel" class="titulo_set"></p>
                     <div class="set_encuentras_producto_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
                         <div id="divOfertaProductos"></div>
                     </div>
@@ -313,8 +317,11 @@
         <hr>
     </div>
 </div>
+}
 
 <!--compartir-->
+@if (Model.TieneCompartir)
+{
 <div id="Contenedor_redes_sociales" data-item="">
     <div data-compartir-campos="" style="display:none;">
         <input type="hidden" class="CUV" value="" />
@@ -331,11 +338,16 @@
     </div>
     <div class="col-md-12 col-sm-12 col-xs-12 share">
         <p>Comparte el producto con tus clientes</p>
-        <a href="javascript: void(0);" class="text-right"><img src="~/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp" data-compartir="WA"></a>
-        <a href="javascript: void(0);"><img src="~/Content/Images/showroom/redes_facebook.png" alt="" class="fb" data-compartir="FB"></a>
+        <a href="javascript: void(0);" class="text-right">
+            <img src="~/Content/Images/showroom/redes_whatsapp.png" alt="" class="wsp" data-compartir="WA">
+        </a>
+        <a href="javascript: void(0);">
+            <img src="~/Content/Images/showroom/redes_facebook.png" alt="" class="fb" data-compartir="FB">
+        </a>
         <div class="clearfix"></div>
     </div>
 </div>
+}
 
 
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
