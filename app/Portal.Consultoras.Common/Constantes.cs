@@ -2229,6 +2229,7 @@ namespace Portal.Consultoras.Common
                     public const string URL = "URL";
                     public const string RECURSO = "RECURSO";
                     public const string MENSAJE = "MENSAJE";
+                    public const string MENSAJE_OPTIN = "MENSAJE_OPTIN";
                 }
             }
 
