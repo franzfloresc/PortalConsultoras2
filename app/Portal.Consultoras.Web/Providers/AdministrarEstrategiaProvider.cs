@@ -371,7 +371,7 @@ namespace Portal.Consultoras.Web.Providers
             var taskApi = Task.Run(() => RespSBMicroservicios(parametros, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
-            bool result = !string.IsNullOrEmpty(content) && content.Equals(Constantes.EstadoRespuestaServicio.Success);
+            bool result = !string.IsNullOrEmpty(content) && content.Contains(Constantes.EstadoRespuestaServicio.Success);
 
             return result;
         }
