@@ -1920,7 +1920,7 @@ namespace Portal.Consultoras.BizLogic
                         Celular = celularNuevo,
                         CodigoIso = Common.Util.GetPaisISO(paisId),
                         EsMobile = esMobile
-                    }, 1);
+                    }, 1, Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.MENSAJE_OPTIN);
 
                     transScope.Complete();
                 }
@@ -2754,6 +2754,7 @@ namespace Portal.Consultoras.BizLogic
             objCreden.RequestUrl = lstTabla.Where(a => a.Codigo == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.URL).Select(b => b.Valor).FirstOrDefault();
             objCreden.RecursoApi = lstTabla.Where(a => a.Codigo == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.RECURSO).Select(b => b.Valor).FirstOrDefault();
             objCreden.Mensaje = lstTabla.Where(a => a.Codigo == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.MENSAJE).Select(b => b.Valor).FirstOrDefault();
+            objCreden.MensajeOptin = lstTabla.Where(a => a.Codigo == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.MENSAJE_OPTIN).Select(b => b.Valor).FirstOrDefault();
             return objCreden;
         }
 
@@ -2762,14 +2763,18 @@ namespace Portal.Consultoras.BizLogic
             return CacheManager<BEEnviarSms>.ValidateDataElement(paisID, ECacheItem.CredencialesSMS, paisID.ToString(), () => GetCredencialesSms(paisID));
         }
 
-        public bool ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios)
+        public bool ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios, string tipoMensaje = "")
         {
             if (oUsu.Celular == "") return false;
             try
             {
                 BEEnviarSms oCredencial = GetCredencialesSmsCache(paisID);
                 string codGenerado = Common.Util.GenerarCodigoRandom();
-                oCredencial.Mensaje = string.Format(oCredencial.Mensaje, codGenerado);
+                oCredencial.Mensaje = string.Format(
+                    tipoMensaje == Constantes.EnviarSMS.CredencialesProvedoresSMS.Bolivia.MENSAJE_OPTIN
+                        ? oCredencial.MensajeOptin
+                        : oCredencial.Mensaje,
+                    codGenerado);
 
                 var data = new
                 {
