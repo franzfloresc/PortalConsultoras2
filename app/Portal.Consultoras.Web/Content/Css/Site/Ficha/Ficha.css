@@ -909,3 +909,40 @@ margin-bottom: 45px;
     height: 100%;
 }
 
+/*breadcumbs*/
+ul.breadcumbs {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    margin: 0px;
+    position: absolute;
+    left: 0;
+    top: -10px;
+}
+
+ul.breadcumbs li {
+    display: inline-block;
+}
+
+ul.breadcumbs li a {
+    display: block;
+    color: #808080;
+    font-size: 12px;
+}
+
+ul.breadcumbs li:first-child a::before{
+    background: none;
+}
+
+ul.breadcumbs li a::before {
+    content: '';
+    background: url(/Content/Images/mobile/Esika/right-arrow.svg);
+    width: 9px;
+    height: 9px;
+    display: inline-block;
+    background-size: cover;
+    margin-right: 3px;
+    margin-left: 1px;
+}
+/* fin breadcumbs*/
+
