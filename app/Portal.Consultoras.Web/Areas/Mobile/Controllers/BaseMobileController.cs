@@ -81,11 +81,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
-                    var tieneOfertaDelDia = sessionManager.GetFlagOfertaDelDia();
-
                     ViewBag.MostrarOfertaDelDia =
                             !(userData.IndicadorGPRSB == 1 || userData.CloseOfertaDelDia)
-                            && tieneOfertaDelDia
+                            && userData.TieneOfertaDelDia
                             && ofertaDelDia != null
                             && ofertaDelDia.TeQuedan.TotalSeconds > 0;
 

@@ -40,6 +40,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Scripts/PortalConsultoras/ShowRoom/ShowRoomJs").Include(
                 "~/Scripts/PortalConsultoras/ShowRoom/Index.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js"
                 ));
 
@@ -331,6 +332,13 @@ namespace Portal.Consultoras.Web
             ));
             bundles.Add(new ScriptBundle("~/bundles/JS-Login-Header").Include(
                "~/Scripts/PortalConsultoras/Login/Analytics.js"
+            ));
+
+            bundles.Add(new ScriptBundle("~/bundles/JS-Login-VerificaAutenticidad").Include(
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-ui-1.9.2.custom.js",
+                "~/Scripts/General.js",
+                "~/Scripts/PortalConsultoras/Login/VerificaAutenticidad.js"
             ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Login").Include(

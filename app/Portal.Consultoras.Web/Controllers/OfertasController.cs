@@ -30,6 +30,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
                 ViewBag.xlistaProductoSR = listaShowRoom.Count(x => !x.EsSubCampania);
 
+                ViewBag.variableEstrategia = GetVariableEstrategia();
+
                 return View(modelo);
             }
             catch (Exception ex)

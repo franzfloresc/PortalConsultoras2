@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Data
 
         public void ActualizarInsertarPuntosConcurso(string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcurso, string PuntosExigidosConcurso)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ActualizarInsertarPuntosConcurso_Prol3");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ActualizarInsertarPuntosConcurso");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
             Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, CodigoCampania);
             Context.Database.AddInParameter(command, "@CodigoConcurso", DbType.String, CodigoConcursos);
@@ -76,11 +76,13 @@ namespace Portal.Consultoras.Data
 
         public IDataReader ObtenerIncentivosProgramaNuevasConsultora(string CodigoConsultora, int CodigoCampania, long ConsultoraID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerIncentivosProgramaNuevasConsultora");
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
-            Context.Database.AddInParameter(command, "@CodigoCampania", DbType.Int32, CodigoCampania);
-            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
-            return Context.ExecuteReader(command);
+            using (var command = Context.Database.GetStoredProcCommand("dbo.ObtenerIncentivosProgramaNuevasConsultora"))
+            {
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
+                Context.Database.AddInParameter(command, "@CodigoCampania", DbType.Int32, CodigoCampania);
+                Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+                return Context.ExecuteReader(command);
+            }
         }
 
         public IDataReader ObtenerIncentivosConsultoraEstrategia(string CodigoConsultora, int CodigoCampania)

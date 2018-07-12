@@ -742,7 +742,7 @@ belcorp.estrategias.upselling.initialize = function (config) {
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
             multiselect: false,
-            colNames: ["Campaña", "Cod Consultora", "Nombre de Consultora", "CUV Regalo", "Nombre Regalo", "Monto Inicial", "Rango Inicial", "Rango Final", "Monto a Agregar", "Monto Meta", "Monto Ganador", "Fecha Registro"],
+            colNames: ["Campaña", "Cod Consultora", "Nombre de Consultora", "CUV Regalo", "Nombre Regalo", "Monto Inicial", "Rango Inicial", "Rango Final", "Monto a Agregar", "Monto Meta", "Monto Ganador", "Monto Real", "Fecha Registro"],
             colModel: [
                  { name: "Campania", index: "Campania", width: 40, sortable: false, align: "center" },
                  { name: "Codigo", index: "Codigo", width: 40, sortable: false, align: "center" },
@@ -755,8 +755,8 @@ belcorp.estrategias.upselling.initialize = function (config) {
                  { name: "MontoAgregar", index: "MontoAgregar", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
                  { name: "MontoMeta", index: "MontoMeta", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
                  { name: "MontoGanador", index: "MontoGanador", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
-                 { name: "FechaRegistro", index: "FechaRegistro", width: 130, sortable: false, align: "center" },
-
+                   { name: "ImporteReal", index: "ImporteReal", width: 40, sortable: false, align: "right", formatter: 'number', formatoptions: { decimalPlaces: 2 } },
+                 { name: "FechaRegistro", index: "FechaRegistro", width: 130, sortable: false, align: "center" },                  
             ],
             pager: jQuery("#pagerListaRegalos"),
             loadtext: "Cargando datos...",

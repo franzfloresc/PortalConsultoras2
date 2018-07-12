@@ -48,6 +48,9 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\Binaries\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="JWT">
+      <HintPath>..\packages\JWT.1.3.4\lib\3.5\JWT.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching">
       <HintPath>..\Binaries\Microsoft.Practices.EnterpriseLibrary.Caching.dll</HintPath>
@@ -98,6 +101,7 @@
     <Compile Include="BLConfiguracionOfertasHome.cs" />
     <Compile Include="BLAsesoraOnline.cs" />
     <Compile Include="BLCupon.cs" />
+    <Compile Include="BLOpcionesVerificacion.cs" />
     <Compile Include="BLPremiosProgramaNuevas.cs" />
     <Compile Include="Cache\BLCache.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
@@ -116,6 +120,7 @@
     <Compile Include="Estrategia\UpSellingBusinessLogic.cs" />
     <Compile Include="Estrategia\UpsellingMarcaCategoriaBusinessLogic.cs" />
     <Compile Include="ICatalogoBusinessLogic.cs" />
+    <Compile Include="Consultora\IConsultoraLiderBusinessLogic.cs" />
     <Compile Include="Incentivo\BLConsultoraConcurso.cs" />
     <Compile Include="BLFichaProducto.cs" />
     <Compile Include="BLPalabraInvalida.cs" />
@@ -153,7 +158,7 @@
     <Compile Include="BLConsultoraDigitales.cs" />
     <Compile Include="BLConsultoraCatalogo.cs" />
     <Compile Include="BLConsultoraFicticia.cs" />
-    <Compile Include="BLConsultoraLider.cs" />
+    <Compile Include="Consultora\BLConsultoraLider.cs" />
     <Compile Include="ProgramaNuevas\BLConsultorasProgramaNuevas.cs" />
     <Compile Include="BLContenidoDato.cs" />
     <Compile Include="BLContenidoRevista.cs" />

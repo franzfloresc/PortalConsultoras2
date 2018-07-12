@@ -248,7 +248,7 @@ namespace Portal.Consultoras.Web.Providers
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
-            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
                 throw new Exception(respuesta.Message);
             }
@@ -265,7 +265,7 @@ namespace Portal.Consultoras.Web.Providers
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
-            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
                 throw new Exception(respuesta.Message);
             }
@@ -349,30 +349,31 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
                 throw new Exception(respuesta.Message);
             }
         }
 
-        public bool ActivarDesactivarEstrategias(List<string> estrategiasActivas, List<string> estrategiasInactivas, string usuario, string pais)
+        public bool ActivarDesactivarEstrategias(List<string> estrategiasActivas, List<string> estrategiasInactivas, string usuario, string pais, string tipo)
         {
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParametersActivas = JsonConvert.SerializeObject(estrategiasActivas);
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlActivarEstrategias, pais, usuario);
-            var taskApi = Task.Run(() => RespSBMicroservicios(jsonParametersActivas, requestUrl, "put", userData));
-            Task.WhenAll(taskApi);
-            string content = taskApi.Result;
-            bool activarResponse = !string.IsNullOrEmpty(content) && content.Equals("true");
+            //string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlActivarEstrategias, pais, usuario);
+            //var taskApi = Task.Run(() => RespSBMicroservicios(jsonParametersActivas, requestUrl, "put", userData));
+            //Task.WhenAll(taskApi);
+            //string content = taskApi.Result;
+            //bool activarResponse = !string.IsNullOrEmpty(content) && content.Equals("true");
 
             string jsonParametersInactivas = JsonConvert.SerializeObject(estrategiasInactivas);
-            string requestUrlInactivar = string.Format(Constantes.PersonalizacionOfertasService.UrlDesactivarEstrategias, pais, usuario);
-            taskApi = Task.Run(() => RespSBMicroservicios(jsonParametersInactivas, requestUrlInactivar, "put", userData));
+            string parametros = "{activar:" + jsonParametersActivas + ", desactivar:" +jsonParametersInactivas+ ", usuario: \"" + usuario + "\"}";
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlActivarDesactivarEstrategias, pais,tipo);
+            var taskApi = Task.Run(() => RespSBMicroservicios(parametros, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
-            content = taskApi.Result;
-            bool inactivarResponse = !string.IsNullOrEmpty(content) && content.Equals("true");
+            string content = taskApi.Result;
+            bool result = !string.IsNullOrEmpty(content) && content.Equals(Constantes.EstadoRespuestaServicio.Success);
 
-            return activarResponse || inactivarResponse;
+            return result;
         }
 
         public ServicePedido.BEEstrategia ObtenerEstrategiaCuv(string cuv, string campania, string tipoEstrategia, string pais, string prod, string perfil)
@@ -386,7 +387,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
                 throw new Exception(respuesta.Message);
 
             if (respuesta.Result != null)
@@ -399,7 +400,7 @@ namespace Portal.Consultoras.Web.Providers
             return null;
         }
 
-        public List<DescripcionEstrategiaModel> UploadCsv(List<BEDescripcionEstrategia> descripcionEstrategiaLista, string pais, string campaniaId)
+        public List<DescripcionEstrategiaModel> UploadCsv(List<BEDescripcionEstrategia> descripcionEstrategiaLista, string pais, string tipoCodigo, string campaniaId)
         {
             var descripcionEstrategiaListaWA = descripcionEstrategiaLista.Select(d => new
             {
@@ -410,7 +411,7 @@ namespace Portal.Consultoras.Web.Providers
 
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParameters = JsonConvert.SerializeObject(descripcionEstrategiaListaWA);
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlUploadCsv, pais, campaniaId);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlUploadCsv, pais, tipoCodigo, campaniaId);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -418,7 +419,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            if (respuesta.Message.Equals("OK"))
+            if (respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
                 List<Dictionary<string, object>> resultDictionary = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(respuesta.Result.ToString());
 
@@ -444,7 +445,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
                 throw new Exception(respuesta.Message);
         }
 
@@ -460,7 +461,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            if (!respuesta.Success || !respuesta.Message.Equals("OK"))
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
                 throw new Exception(respuesta.Message);
         }
 

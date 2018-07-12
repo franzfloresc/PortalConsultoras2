@@ -188,27 +188,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                #region Mensaje Guardar Colombia
-
-                if (userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
-                {
-                    List<BETablaLogicaDatos> tabla;
-                    using (var sac = new SACServiceClient())
-                    {
-                        tabla = sac.GetTablaLogicaDatos(userData.PaisID, 27).ToList();
-                    }
-
-                    model.MensajeGuardarColombia = tabla.Count != 0
-                        ? tabla[0].Descripcion
-                        : string.Empty;
-                }
-                else
-                {
-                    model.MensajeGuardarColombia = string.Empty;
-                }
-
-                #endregion
-
                 #region Banners
 
                 var urlCarpeta = WebConfigurationManager.AppSettings["Banners"] + "/IngresoPedido/" + userData.CodigoISO;
@@ -233,7 +212,6 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV;
                 model.ErrorInsertarProducto = "";
                 model.ListaEstrategias = new List<ServicePedido.BEEstrategia>();
-                model.ZonaNuevoProlM = true;
                 model.NombreConsultora = userData.NombreConsultora;
                 model.PaisID = userData.PaisID;
                 model.Simbolo = userData.Simbolo;
@@ -482,6 +460,43 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region CRUD
+
+
+        [HttpPost]
+        public JsonResult PedidoInsertarOF(PedidoCrudModel model)
+        {
+            try
+            {
+                var respuesta = PedidoInsertar(model);
+
+                if (respuesta.Data.ToString().Contains("success = True"))
+                {
+                    using (var pedidoServiceClient = new PedidoServiceClient())
+                    {
+                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
+                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
+                    }
+                }
+
+                return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = "",
+                    total = "",
+                    formatoTotal = "",
+                    listaCliente = "",
+                    errorInsertarProducto = "0",
+                    tipo = ""
+                });
+            }
+        }
 
         [HttpPost]
         public JsonResult PedidoInsertar(PedidoCrudModel model)
@@ -1618,7 +1633,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         productosModel.Add(GetProductoNoExiste());
                     }
-                    
+
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
@@ -1977,7 +1992,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                listaProductoModel = null;
+                listaProductoModel = new List<ProductoModel>();
             }
 
             return Json(listaProductoModel, JsonRequestBehavior.AllowGet);
@@ -2226,13 +2241,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         [HttpPost]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public JsonResult EjecutarServicioPROL()
+        public JsonResult EjecutarServicioPROL(bool enviarCorreo = false)
         {
             try
             {
                 ActualizarEsDiaPROLyMostrarBotonValidarPedido(userData);
                 var input = Mapper.Map<BEInputReservaProl>(userData);
-                input.EnviarCorreo = false;
+                input.EnviarCorreo = enviarCorreo;
                 input.CodigosConcursos = userData.CodigosConcursos;
                 input.EsOpt = EsOpt();
 
@@ -2286,15 +2301,21 @@ namespace Portal.Consultoras.Web.Controllers
                     MontoEscala = resultado.MontoEscala,
                     Total = listPedidoWebDetalle.Sum(d => d.ImporteTotal),
                     EsDiaProl = userData.DiaPROL,
-                    ProlSinStock = userData.PROLSinStock,
-                    ZonaNuevoProlM = true,
                     CodigoIso = userData.CodigoISO,
                     CodigoMensajeProl = resultado.CodigoMensaje
                 };
+                model.TotalConDescuento = model.Total - model.MontoDescuento;
                 SetMensajesBotonesProl(model, resultado.Reserva);
+
+                var listPermiteOfertaFinal = new List<Enumeradores.ResultadoReserva> {
+                    Enumeradores.ResultadoReserva.Reservado,
+                    Enumeradores.ResultadoReserva.ReservadoObservaciones,
+                    Enumeradores.ResultadoReserva.NoReservadoMontoMinimo
+                };
 
                 return Json(new
                 {
+                    success = true,
                     data = model,
                     mensajeAnalytics = ObtenerMensajePROLAnalytics(listObservacionModel),
                     pedidoDetalle = from item in listPedidoWebDetalle
@@ -2307,7 +2328,8 @@ namespace Portal.Consultoras.Web.Controllers
                                         variant = !string.IsNullOrEmpty(item.DescripcionOferta) ? item.DescripcionOferta.Replace("]", "").Replace("[", "").Trim() : "",
                                         quantity = item.Cantidad
                                     },
-                    flagCorreo = resultado.EnviarCorreo ? "1" : ""
+                    flagCorreo = resultado.EnviarCorreo ? "1" : "",
+                    permiteOfertaFinal = listPermiteOfertaFinal.Contains(resultado.ResultadoReservaEnum)
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -4258,6 +4280,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Nuevo AgregarProducto
 
+
         public JsonResult PedidoAgregarProducto(PedidoCrudModel model)
         {
             try
@@ -4275,7 +4298,6 @@ namespace Portal.Consultoras.Web.Controllers
                         message = mensaje,
                         urlRedireccionar
                     }, JsonRequestBehavior.AllowGet);
-
                 }
                 #endregion
 
@@ -4334,7 +4356,6 @@ namespace Portal.Consultoras.Web.Controllers
                             success = false,
                             message = mensaje
                         }, JsonRequestBehavior.AllowGet);
-
                     }
                 }
                 else
@@ -4348,9 +4369,7 @@ namespace Portal.Consultoras.Web.Controllers
                             message = mensaje
                         }, JsonRequestBehavior.AllowGet);
                     }
-
                 }
-
 
                 var listCuvTonos = Util.Trim(model.CuvTonos);
                 if (listCuvTonos == "")
@@ -4368,12 +4387,9 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategia.MarcaID = listSp.Length > 1 ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
                     estrategia.Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
 
-
-
                     respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, model, false);
                     ListaCuvsTemporal.Add(listSp.Length > 0 ? listSp[0] : estrategia.CUV2);
                 }
-
 
                 if (respuesta.Data.ToString().Contains("success = True"))
                 {
@@ -4386,16 +4402,12 @@ namespace Portal.Consultoras.Web.Controllers
                         });
                     }
 
-
-
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
                         pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), CuvSet
                             , userData.ConsultoraID, "", strCuvs, estrategia.EstrategiaID);
                     }
                 }
-
-
 
                 return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
 

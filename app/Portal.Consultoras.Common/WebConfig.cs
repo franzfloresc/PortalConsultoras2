@@ -120,7 +120,6 @@ namespace Portal.Consultoras.Common
                 return ConfigurationManager.AppSettings["S3_Pedidos"] ?? string.Empty;
             }
         }
-
         #endregion
 
         public static string GetByTagName(string tagName)

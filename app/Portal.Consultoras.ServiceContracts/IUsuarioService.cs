@@ -1,4 +1,6 @@
-﻿using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.OpcionesVerificacion;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
@@ -129,7 +131,7 @@ namespace Portal.Consultoras.ServiceContracts
         String AceptarContrato(BEUsuario usuario);
 
         [OperationContract]
-        int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora);
+        int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora, string origen);
 
         [OperationContract]
         BEUsuario GetSesionUsuarioLoginDD(int paisID, string codigoUsuario, string claveSecreta);
@@ -354,26 +356,23 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         string RecuperarContrasenia(int paisId, string textoRecuperacion);
 
-        #region Restaurar Contraseña
+        #region OLVIDE CONTRASENIA
         [OperationContract]
-        BEUsuarioCorreo GetRestaurarClaveByCodUsuario(string ValorRestauracion, int PaisID);
+        BEUsuarioDatos GetRestaurarClaveByValor(int paisID, string valorIngresado, int prioridad);
 
         [OperationContract]
-        bool EnviarEmail(int paisID, BEUsuarioCorreo objEmail);
+        bool ProcesaEnvioEmail(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios);
+
+        [OperationContract]
+        bool ProcesaEnvioSms(int paisID, BEUsuarioDatos oUsu, int CantidadEnvios);
+
+        [OperationContract]
+        bool VerificarIgualdadCodigoIngresado(int paisID, BEUsuarioDatos oUsu, string codigoIngresado);
         #endregion
 
         #region Pin Autenticidad
         [OperationContract]
-        BEPinAutenticacion GetPinAutenticidad(int paisID, string CodigoUsuario);
-
-        [OperationContract]
-        string GetCodigoGenerado(int PaisID, BEUsuarioCorreo oUsuCorreo, string CodGenerado);
-
-        [OperationContract]
-        BEUsuarioCorreo GetOpcionHabilitada(int PaisID, BEUsuarioCorreo oUsuCorreo);
-
-        [OperationContract]
-        void UpdFlagAutenticacion(int paisID, string CodigoUsuario);
+        BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario);
         #endregion
 
         [OperationContract]

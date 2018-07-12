@@ -143,15 +143,19 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "SegmentoConstancia"))
                 SegmentoConstancia = Convert.ToString(row["SegmentoConstancia"]);
+
             if (DataRecord.HasColumn(row, "Seccion"))
                 SeccionAnalytics = Convert.ToString(row["Seccion"]);
+
             if (DataRecord.HasColumn(row, "DescripcionNivel"))
                 DescripcionNivel = Convert.ToString(row["DescripcionNivel"]);
+
             if (DataRecord.HasColumn(row, "esConsultoraLider"))
                 esConsultoraLider = Convert.ToBoolean(row["esConsultoraLider"]);
 
             if (DataRecord.HasColumn(row, "EstadoSimplificacionCUV"))
                 bEstadoSimplificacionCUV = Convert.ToBoolean(row["EstadoSimplificacionCUV"]);
+
             if (DataRecord.HasColumn(row, "EsquemaDAConsultora"))
                 bEsquemaDAConsultora = Convert.ToBoolean(row["EsquemaDAConsultora"]);
 
@@ -160,9 +164,12 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "TieneCDRExpress"))
                 TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
+
             if (DataRecord.HasColumn(row, "EsConsecutivoNueva"))
                 EsConsecutivoNueva = Convert.ToBoolean(row["EsConsecutivoNueva"]);
 
+            if (DataRecord.HasColumn(row, "indicadorconsultoradigital"))
+                IndicadorConsultoraDigital = Convert.ToInt32(row["IndicadorConsultoraDigital"]);
         }
 
         [Obsolete("Use MapUtil.MapToCollection")]
@@ -1135,9 +1142,11 @@ namespace Portal.Consultoras.Entities
         public bool EsquemaDAConsultora { get; set; }
 
         [DataMember]
+        [Column("OfertaFinal")]
         public int OfertaFinal { get; set; }
-
+        
         [DataMember]
+        [Column("EsOfertaFinalZonaValida")]
         public bool EsOfertaFinalZonaValida { get; set; }
 
         [DataMember]
@@ -1458,7 +1467,12 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool MostrarBotonValidar { get; set; }
         [DataMember]
+        public BEOfertaFinal _OfertaFinal { get; set; }
+        [DataMember]
         public bool EsConsultoraOficina { get; set; }
+        [DataMember]
+        public int IndicadorConsultoraDigital { get; set; }
+
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
             if (DataRecord.HasColumn(row, "ConsultoraID")) miConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
@@ -1471,8 +1485,8 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "EsZonaDemAnti")) EsZonaDemAnti = Convert.ToInt32(row["EsZonaDemAnti"]);
             if (DataRecord.HasColumn(row, "HoraCierreZonaDemAnti")) HoraCierreZonaDemAnti = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAnti"]);
             if (DataRecord.HasColumn(row, "HoraCierreZonaNormal")) HoraCierreZonaNormal = DbConvert.ToTimeSpan(row["HoraCierreZonaNormal"]);
-
-
         }
+        [DataMember]
+        public string NivelProyectado { get; set; }
     }
 }

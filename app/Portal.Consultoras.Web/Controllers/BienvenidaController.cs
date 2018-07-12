@@ -28,9 +28,9 @@ namespace Portal.Consultoras.Web.Controllers
             this.logManager = logManager;
         }
 
-        public ActionResult Index(bool showPopupMisDatos = false, string verSeccion = "", string opcionCambiaClave = "")
+        public ActionResult Index(bool showPopupMisDatos = false, string verSeccion = "", string verCambioClave = "")
         {
-            var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos, OpcionCambiaClave = opcionCambiaClave };
+            var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos, OpcionCambiaClave = verCambioClave };
 
             if (userData.RolID != Constantes.Rol.Consultora)
                 if (userData.RolID == 0)
@@ -732,7 +732,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { success = true, message = "La imagen se subió exitosamente", imagen = Url.Content(rutaImagen) });
         }
 
-        public JsonResult AceptarContrato(bool checkAceptar)
+        public JsonResult AceptarContrato(bool checkAceptar , string origenAceptacion)
         {
             try
             {
@@ -748,7 +748,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var svr = new UsuarioServiceClient())
                 {
-                    svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora);
+                  svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora , origenAceptacion);
                 }
 
                 userData.IndicadorContrato = 1;
@@ -902,6 +902,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.AceptoContrato = beusuario.AceptoContrato;
                 model.UsuarioPrueba = userData.UsuarioPrueba;
                 model.NombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
+                model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
 
                 BEZona[] bezona;
                 using (var sv = new ZonificacionServiceClient())
@@ -1827,7 +1828,16 @@ namespace Portal.Consultoras.Web.Controllers
                     rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
                 }
 
-                var lstPersonalizacion = configEstrategiaSR.ListaPersonalizacionConsultora.Where(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP).ToList();
+                List<ShowRoomPersonalizacionModel> lstPersonalizacion;
+                if (configEstrategiaSR.ListaPersonalizacionConsultora == null)
+                {
+                    lstPersonalizacion = new List<ShowRoomPersonalizacionModel>();
+                }
+                else
+                {
+                    lstPersonalizacion = configEstrategiaSR.ListaPersonalizacionConsultora.Where(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP).ToList();
+                }
+                
 
                 return Json(new
                 {
@@ -2129,6 +2139,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ActualizarContrasenia()
         {
+            ViewBag.NombreConsultora = userData.PrimerNombre;
             return View();
         }
 

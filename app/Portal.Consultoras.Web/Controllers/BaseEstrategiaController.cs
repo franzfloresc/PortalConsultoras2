@@ -63,6 +63,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.Lanzamiento, campaniaId));
                     break;
                 case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                    // cache de amazaon en la capa BL
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada, campaniaId));
                     break;
                 case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
@@ -122,9 +123,16 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString();
                 }
 
-                using (PedidoServiceClient sv = new PedidoServiceClient())
+                if (UsarMsPer(tipo))
                 {
-                    listEstrategia = sv.GetEstrategiasPedido(entidad).ToList();
+                    listEstrategia = revistaDigitalProvider.ObtenerOfertas();
+                }
+                else
+                {
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        listEstrategia = sv.GetEstrategiasPedido(entidad).ToList();
+                    }
                 }
 
                 if (campaniaId == userData.CampaniaID)
@@ -762,13 +770,5 @@ namespace Portal.Consultoras.Web.Controllers
             return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
         }
 
-        public bool TieneProductosPerdio(int campaniaId)
-        {
-            if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&
-                campaniaId == userData.CampaniaID)
-                return true;
-
-            return false;
-        }
     }
 }

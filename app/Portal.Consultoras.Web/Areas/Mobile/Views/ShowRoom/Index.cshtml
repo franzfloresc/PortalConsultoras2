@@ -6,7 +6,13 @@
 @using Newtonsoft.Json
 @using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.Models
+
+
 @model Portal.Consultoras.Web.Models.ShowRoomEventoModel
+@{
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
+}
 
 @section styles{
     <style type="text/css">
@@ -29,8 +35,8 @@
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css")" rel="stylesheet" />
 }
-    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
-    }
+@{ var mobileConfiguracion = Html.MobileAppConfiguracion();
+}
 <div class="wrapper_resumen_mobile">
     <div id="orderby-filter">
         <div id="content-orderby" style="margin-top: 15px;">
@@ -147,14 +153,59 @@
         </div>
     </div>
 </div>
+@if (Model.ProductosPerdio)
+{
+    <hr class="clear" />
+    <div id="contenido_zona_dorada" class="contenido_zona_dorada" data-seccion-perdio="" style="display: none;">
+        @if (!revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+        {
+        <div id="block_inscribete" class="contenido_zona_dorada_contenedor_desktop" style="display: none;">
+            <div class="logo-dorado-desktop"></div>
+            <div class="fix-zona-dorada">
+                <p>@Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b></p>
+                <a href="@Url.Action("Informacion", "RevistaDigital")">SUSCRÍBETE GRATIS</a>
+            </div>
+        </div>
+        }
+        else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+        {
+        <div id="block_inscribete" class="contenido_zona_dorada_contenedor_desktop" style="display: none;">
+            <div class="logo-dorado-desktop"></div>
+            <div class="fix-zona-dorada">
+                <p>@Model.PerdioTitulo <b>@Model.PerdioSubTitulo</b></p>
 
+            </div>
+        </div>
+        }
+        else
+        {
+        <div id="block_inscribete" class="wrapper_resumen_mobile" style="padding: 20px 0; display: none;">
+            <div class="content_belcorp">
+                <div class="block_inscribete_predio">
+                    <span class="hblock_title_perdio">@Model.PerdioTitulo</span>
+                    <span class="hblock_title_perdio2">@Model.PerdioSubTitulo</span>
+                </div>
+            </div>
+        </div>
+        }
+
+        <hr class="clear" />
+        <div id="divOfertaProductosPerdio" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"
+             data-content-perdido="@Model.CampaniaID"
+             class="flex-container fix_zona_dorada_mobile " style="display: inline-flex !important;flex-wrap: wrap;justify-content: center; display: none;"></div>
+        <hr class="clear" />
+    </div>
+}
+
+<hr class="clear" />
+<div id="divOfertaProductosLoad" style="display: none;">Cargando Productos<br></div>
 <hr class="clear" />
 
 <div class="titulo_showroom_mobile">
     @if (mobileConfiguracion.MostrarHipervinculo)
     {
         <a onclick=" SetMarcaGoogleAnalyticsTermino(); " href="@Model.UrlTerminosCondiciones" target="_blank">
-            T&eacute;rminos y condiciones de la @Model.Nombre<br/>
+            T&eacute;rminos y condiciones de la @Model.Nombre<br />
             @Model.Tema
         </a>
     }
@@ -168,16 +219,9 @@
             <div class="pestana_promocion" id="AbrirBannerCompra">PROMOCIÓN</div>
             <div class="content_desplegable_banner" id="BannerCompra">
                 <div class="content_carrusel_intriga" style="background: white;" id="LlamarPopCompra"
-                     data-promotion-impresion-id ="@Model.ListaShowRoomCompraPorCompra[0].CUV"
-                      @{
-                          var _descripcion = Model.ListaShowRoomCompraPorCompra[0].Descripcion;
-                          if (_descripcion != null && _descripcion.Length > 41)
-                          {
-                              _descripcion = _descripcion.Substring(0, 40) + " ...";
-                          }
-                          _descripcion = "Showroom - " + _descripcion + " A SÓLO " + Model.ListaShowRoomCompraPorCompra[0].Simbolo + " " + Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioOferta;
-                      }
-                     data-promotion-impresion-name ="@_descripcion">
+                     data-promotion-impresion-id="@Model.ListaShowRoomCompraPorCompra[0].CUV"
+                     @{ var _descripcion = Model.ListaShowRoomCompraPorCompra[0].Descripcion; if (_descripcion != null && _descripcion.Length > 41) { _descripcion = _descripcion.Substring(0, 40) + " ..."; } _descripcion = "Showroom - " + _descripcion + " A SÓLO " + Model.ListaShowRoomCompraPorCompra[0].Simbolo + " " + Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioOferta; }
+                     data-promotion-impresion-name="@_descripcion">
                     <div class="content_banner_img">
                         <img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto" />
                     </div>
@@ -225,7 +269,7 @@
             <div class="content_titulo_sub_oferta">
                 <hr class="clear" />
                 <div class="content_titulo_texto_sw" style="color: @Model.ColorTextoInicialOfertaSubCampania">
-                    <span style="font-size: 12px;">@Model.TextoInicialOfertaSubCampania</span> 
+                    <span style="font-size: 12px;">@Model.TextoInicialOfertaSubCampania</span>
                     <span class="titulo_banner_showroom" style="font-size=11px;color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
                 </div>
                 <a href="#" class="btn_descubre_set_especial" id="btn_descubre_mobile"></a>
@@ -303,7 +347,7 @@ else
                                     }
                                     else
                                     {
-                                        <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1"/>
+                                        <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1" />
                                     }
                                 </div>
                                 <div style="height: 130px;">
@@ -329,19 +373,19 @@ else
                             }
                         }
                     </div>
-                                }
-                            }
+                }
+            }
             <div class="legal_footer_compra">
                 @Model.TextoDescripcionLegalCpc
             </div>
         </div>
     </div>
-                            }
+}
 
 <script id="template-showroom" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div class="revistadigital-landing content_item_home_palanca">
-        <div class="content_item_home_bpt box_producto_mobile_fix" data-posicion="{{Posicion}}">
+        <div class="content_item_home_bpt box_producto_mobile_fix" data-posicion="{{Posicion}}" data-TipoAccionAgregar="{{TipoAccionAgregar}}"   {{#iff  TipoAccionAgregar 'ContainsArray' '[4,5]'}} href="javascript:;" onclick="javascript:VerPopupExpGanaMas();" {{/iff}}>
             <div style="display:none;">
                 <input type="hidden" id="hdswventaID" value="{{OfertaShowRoomID}}" />
                 <input type="hidden" id="hdswventaDescripcion" value="{{Descripcion}}" />
@@ -350,15 +394,15 @@ else
                 <input type="hidden" id="hdswventamarca" value="{{DescripcionMarca}}" />
             </div>
             <div class="producto_img_mobile_bpt swproddetcompra">
-                <a class="btnVerDetalleOfertaShowRoom swproddetcompraimg" href="{{UrlDetalle}}">
+                <a class="btnVerDetalleOfertaShowRoom swproddetcompraimg" {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}} href="{{UrlDetalle}}" {{/iff}}>
                     {{#IsNullOrEmpty ImagenProducto '=='}}
                     <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" data-lazy-seccion-showroom="" />
                     {{else}}
-                    <img data-src="{{ImagenProducto}}" alt="" onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}')" data-lazy-seccion-showroom="" />
+                    <img data-src="{{ImagenProducto}}" alt="" {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}} onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}');" {{/iff}} data-lazy-seccion-showroom="" />
                     {{/IsNullOrEmpty}}
                 </a>
             </div>
-            
+
             <div class="producto_nombre_descripcion">
                 <h6>&ensp;&nbsp;</h6>
                 <p class="nombre_producto" style="cursor: pointer; height: 36px;">
@@ -419,7 +463,7 @@ else
         </div>
         <div class="set_oferta_content">
             <div class="producto_img_mobile" data-img="">
-                <img src="{{oferta.ImagenProducto}}" alt="Solo Hoy" id="img-display-odd" data-img-lazy="1"/>
+                <img src="{{oferta.ImagenProducto}}" alt="Solo Hoy" id="img-display-odd" data-img-lazy="1" />
             </div>
             <div class="nombre_set_display">{{oferta.Descripcion}}</div>
             <div class="precio_valorizado_mobile">VALORIZADO EN <span>{{SimboloMoneda}} {{oferta.FormatoPrecioValorizado}}</span></div>
@@ -435,16 +479,19 @@ else
                     <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
                     <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
                 }
-             </div>
+            </div>
         </div>
     </div>
     {{/each}}
 </script>
 
+@Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
+
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ShowRoom/Index.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>    
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
     <script type="text/javascript">
         var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
         var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "ShowRoom", new { area = "" })';

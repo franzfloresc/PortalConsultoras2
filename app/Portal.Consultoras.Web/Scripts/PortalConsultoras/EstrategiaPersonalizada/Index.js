@@ -112,7 +112,7 @@ function SeccionCargarProductos(objConsulta) {
         || objConsulta.Codigo === CONS_CODIGO_SECCION.RD) {
         if (!varContenedor.CargoRevista) {
             varContenedor.CargoRevista = true;
-            OfertaCargarProductos({ VarListaStorage: "ListaRD", UrlCargarProductos: urlOfertaCargarProductos }, false, objConsulta);
+            OfertaCargarProductos({ VarListaStorage: "ListaRD", UrlCargarProductos: urlOfertaCargarProductos, codigoEstrategia: '101' }, false, objConsulta);
         }
         return false;
     }
@@ -120,7 +120,7 @@ function SeccionCargarProductos(objConsulta) {
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.HV) {
         if (!varContenedor.CargoHv) {
             varContenedor.CargoHv = true;
-            OfertaCargarProductos({ VarListaStorage: "HVLista", UrlCargarProductos: urlCargarProductosHv }, false, objConsulta);
+            OfertaCargarProductos({ VarListaStorage: "HVLista", UrlCargarProductos: urlCargarProductosHv, codigoEstrategia: '011' }, false, objConsulta);
         }
         return false;
     }
@@ -128,7 +128,7 @@ function SeccionCargarProductos(objConsulta) {
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.LAN) {
         if (!varContenedor.CargoLan) {
             varContenedor.CargoLan = true;
-            OfertaCargarProductos({ VarListaStorage: listaLAN , UrlCargarProductos: baseUrl + objConsulta.UrlObtenerProductos }, false, objConsulta);
+            OfertaCargarProductos({ VarListaStorage: listaLAN, UrlCargarProductos: baseUrl + objConsulta.UrlObtenerProductos, codigoEstrategia: '005' }, false, objConsulta);
         }
         return false;
     }
@@ -254,6 +254,10 @@ function SeccionMostrarProductos(data) {
             if (data.data.length == 0) {
                 $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor .bloque-titulo .cantidad > span").hide();
             }
+            else {
+                $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(data.cantidadAMostrar);
+                $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal);
+            }
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         } else {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
@@ -263,7 +267,7 @@ function SeccionMostrarProductos(data) {
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
             var cantidadAMostrar = parseInt($("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html());
             if (data.cantidadTotal < cantidadAMostrar) {
-                $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(data.cantidadTotal)
+                $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-mostrar]").html(data.cantidadTotal);
             }
             $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.cantidadTotal);
             $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
