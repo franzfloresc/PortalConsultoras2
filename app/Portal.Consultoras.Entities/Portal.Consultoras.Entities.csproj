@@ -64,6 +64,7 @@
     <Compile Include="BEAdministracionOfertaProducto.cs" />
     <Compile Include="BEAfiliaClienteConsultora.cs" />
     <Compile Include="BEAPISB2Response.cs" />
+    <Compile Include="BEEnviarSms.cs" />
     <Compile Include="BECategoria.cs" />
     <Compile Include="BEHorario.cs" />
     <Compile Include="BEConfiguracionPaisDatos.cs" />
@@ -72,7 +73,6 @@
     <Compile Include="BEGPRBanner.cs" />
     <Compile Include="BEGPRUsuario.cs" />
     <Compile Include="BEParametrosLider.cs" />
-    <Compile Include="BEPinAutenticacion.cs" />
     <Compile Include="BEPremiosProgramaNuevas.cs" />
     <Compile Include="CargaMasiva\BECargaMasivaImagenes.cs" />
     <Compile Include="BEMiCertificado.cs" />
@@ -82,9 +82,12 @@
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
     <Compile Include="DENativeType.cs" />
     <Compile Include="Externos\ReservaSicc\BEIncentivoSicc.cs" />
+    <Compile Include="OpcionesVerificacion\BEOpcionesVerificacion.cs" />
+    <Compile Include="OpcionesVerificacion\BEFiltrosOpcionesVerificacion.cs" />
     <Compile Include="Oferta\BEGuiaNegocio.cs" />
     <Compile Include="Oferta\BEOfertaDelDia.cs" />
     <Compile Include="Oferta\BEOfertaFinal.cs" />
+    <Compile Include="OpcionesVerificacion\BEZonasOpcionesVerificacion.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaMedioPago.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaTipoPago.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaMedioPagoDetalle.cs" />

@@ -233,3 +233,14 @@
     position: absolute;
     margin-left: 83px;
 }
+
+.divNoValInteractiva {
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    background-color: #efefef;
+    margin-bottom: 5px;
+}
+    .divNoValInteractiva .spnMensajeNoValInteractiva {
+        padding-left: 5px;
+    }
