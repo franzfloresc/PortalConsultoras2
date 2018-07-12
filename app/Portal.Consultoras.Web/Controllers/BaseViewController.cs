@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.Models.DetalleEstrategia;
 
@@ -255,8 +256,8 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.OrigenUrl = origen;
                 modelo.OrigenAgregar = GetOrigenPedidoWebDetalle(origen);
                 modelo.BreadCrumbs = GetDetalleEstrategiaBreadCrumbs(revistaDigital.TieneRevistaDigital(),
-                    userData.CampaniaID == campaniaId,
-                    modelo.OrigenAgregar);
+                   userData.CampaniaID == campaniaId,
+                   palanca);
                 modelo.Palanca = palanca;
                 modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
                 modelo.Campania = campaniaId;
@@ -299,10 +300,8 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
         }
 
-        private DetalleEstrategiaBreadCrumbsModel GetDetalleEstrategiaBreadCrumbs(
-            bool tieneRevistaDigital,
-            bool productoPerteneceACampaniaActual,
-            int origenPedidoWeb)
+        private DetalleEstrategiaBreadCrumbsModel GetDetalleEstrategiaBreadCrumbs(bool tieneRevistaDigital,
+            bool productoPerteneceACampaniaActual, string palanca)
         {
             var breadCrumbs = new DetalleEstrategiaBreadCrumbsModel();
             var area = IsMobile() ? "mobile" : string.Empty;
@@ -311,10 +310,70 @@ namespace Portal.Consultoras.Web.Controllers
             breadCrumbs.Inicio.Url = Url.Action("Index", new { controller = "Bienvenida", area });
             //
             breadCrumbs.Ofertas.Texto = tieneRevistaDigital ? "Club Gana +" : "Ofertas";
-            var action = productoPerteneceACampaniaActual ? "Index" : "Revisar";
-            breadCrumbs.Ofertas.Url = Url.Action(action, new { controller = "Ofertas", area });
+            var actionOfertas = productoPerteneceACampaniaActual ? "Index" : "Revisar";
+            breadCrumbs.Ofertas.Url = Url.Action(actionOfertas, new { controller = "Ofertas", area });
+            //
+            breadCrumbs.Palanca.Texto = GetNombresPalancas().ContainsKey(palanca)? GetNombresPalancas()[palanca]: string.Empty;
+            breadCrumbs.Palanca.Url = "#";
+            if (!string.IsNullOrWhiteSpace(breadCrumbs.Palanca.Texto))
+            {
+                breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area });
+                if (palanca== Constantes.NombrePalanca.ShowRoom)
+                    breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "ShowRoom", area });
+                if (palanca == Constantes.NombrePalanca.Lanzamiento)
+                {
+                    var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
+                    breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area });
+                }
+                if (palanca == Constantes.NombrePalanca.OfertaParaTi ||
+                    palanca == Constantes.NombrePalanca.OfertasParaMi ||
+                    palanca == Constantes.NombrePalanca.RevistaDigital)
+                {
+                    var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
+                    breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "RevistaDigital", area });
+                }
+                if (palanca == Constantes.NombrePalanca.OfertaDelDia)
+                    breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area });
+                if (palanca == Constantes.NombrePalanca.GuiaDeNegocioDigitalizada)
+                {
+                    var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
+                    breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "GuiaNegocio", area });
+                }
+                if (palanca == Constantes.NombrePalanca.HerramientasVenta)
+                {
+                    var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
+                    breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "HerramientasVenta", area });
+                }
+            }
+            //
+            breadCrumbs.Producto.Url = "#";
             //
             return breadCrumbs;
+        }
+
+        private  Dictionary<string, string> GetNombresPalancas()
+        {
+            var NombrePalancas = new Dictionary<string, string>();
+
+            NombrePalancas.Add(Constantes.NombrePalanca.ShowRoom, "Especiales");
+            NombrePalancas.Add(Constantes.NombrePalanca.Lanzamiento, "Lo nuevo Nuevo");
+            NombrePalancas.Add(Constantes.NombrePalanca.OfertaParaTi, "Oferta para ti");
+            NombrePalancas.Add(Constantes.NombrePalanca.OfertasParaMi, "Ofertas Para ti");
+            NombrePalancas.Add(Constantes.NombrePalanca.RevistaDigital, "Revista Digital");
+            NombrePalancas.Add(Constantes.NombrePalanca.OfertaDelDia, "Sólo Hoy");
+            NombrePalancas.Add(Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, "Guía De Negocio");
+            NombrePalancas.Add(Constantes.NombrePalanca.HerramientasVenta, "Demostradores");
+
+            //NombrePalancas.Add(Constantes.NombrePalanca.PackNuevas, "Pack de Nuevas");
+            //NombrePalancas.Add(Constantes.NombrePalanca.OfertaWeb, "Oferta Web");
+            //NombrePalancas.Add(Constantes.NombrePalanca.OfertasParaMi, "Ofertas Para Mi");
+            //NombrePalancas.Add(Constantes.NombrePalanca.PackAltoDesembolso, "Pack de Alto Desembolso");
+            
+            //NombrePalancas.Add(Constantes.NombrePalanca.LosMasVendidos, "Los Más Vendidos");
+            //NombrePalancas.Add(Constantes.NombrePalanca.IncentivosProgramaNuevas, "Incentivos Programa de Nuevas");
+            //NombrePalancas.Add(Constantes.NombrePalanca.Incentivos, "Incentivos");
+            //NombrePalancas.Add(Constantes.NombrePalanca.ProgramaNuevasRegalo, "Oferta Del Día");
+            return NombrePalancas;
         }
 
         public int GetOrigenPedidoWebDetalle(string origen)
