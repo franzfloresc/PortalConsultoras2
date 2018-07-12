@@ -5895,8 +5895,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string GenerarAutorizacionBotonPagos(string sessionToken, string merchantId, string transactionToken, string accessKeyId, string secretAccessKey)
         {
-            var listaConfiguracion = ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
-            string urlAutorizacionBotonPago = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlAutorizacionBotonPago);
+            var tipoPasarelaVisa = Constantes.PagoEnLineaMetodoPago.PasarelaVisa;
+            var listaPasarelaVisa = ObtenerPagoEnLineaTipoPasarela(tipoPasarelaVisa);
+            string urlAutorizacionBotonPago = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaVisa.UrlAutorizacionBotonPago);
 
             string urlAuthorize = urlAutorizacionBotonPago + merchantId;
             string credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(accessKeyId + ":" + secretAccessKey));
