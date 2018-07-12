@@ -71,5 +71,6 @@ namespace Portal.Consultoras.Web.Models
         public string ImagenProductoMini { get; set; }  // se usa para ShowRoom
 
         public bool esMultimarca { get; set; }
+        public bool esSubcampania { get; set; }
     }
 }
