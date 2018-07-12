@@ -18,7 +18,7 @@ var AnalyticsPortalModule = (function () {
         fichaProducto: "Ficha de Producto",
         iniciarVideo: "Iniciar Video",
         seleccionTonoCombo: "Selección Tono - ComboBox",
-        selectionTonoCuadro: "Selección Tono - Cuadro"
+        seleccionTonoCuadro: "Selección Tono - Cuadrados"
     };
 
     var _constantes = {
@@ -38,7 +38,7 @@ var AnalyticsPortalModule = (function () {
                             "id": cuv,
                             "price": precio,
                             "brand": marca,
-                            "category": categoria,
+                            "category": categoria || "",
                             "variant": variante == "" ? _texto.estandar : variante,
                             "dimension11": palanca
                         }]
@@ -90,10 +90,24 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
+    var marcarCambiaColorCuadro = function (producto, tono) {
+        try {
+            dataLayer.push({
+                "event": _evento.virtualEvent,
+                "category": _texto.fichaProducto,
+                "action": _texto.seleccionTonoCuadro,
+                "label": producto + " - " + tono
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
     return {
         MarcarVerFichaProducto: marcarVerFichaProducto,
         FcVerificarTipoMoneda: fcVerificarTipoMoneda,
         MarcarIniciarPlayVideo: marcarIniciarPlayVideo,
-        MarcarCambiaColorCombo: marcarCambiaColorCombo
+        MarcarCambiaColorCombo: marcarCambiaColorCombo,
+        MarcarCambiaColorCuadro: marcarCambiaColorCuadro
     }
 })();

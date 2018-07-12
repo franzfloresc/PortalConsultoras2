@@ -295,8 +295,7 @@
 
         // Se realiza la marcación en analytics de la información de la ficha de un producto.
         var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
-        var categoria = estrategia.CodigoCategoria || "";
-        AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, categoria, estrategia.CodigoVariante, _config.palanca);
+        AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, null, estrategia.CodigoVariante, _config.palanca);
         _descripcionProducto = estrategia.DescripcionCompleta;
         return true;
     };
@@ -510,6 +509,18 @@
         });
     }
 
+    // Método que realiza la marcación en analytics de tonos en el cuadrado de seleccion de tonos.
+    var _marcarCambiaColorCuadro = function () {
+        var producto = _descripcionProducto;
+        var contenedorTonos = $(".content_tonos_maquillaje").children(".content_tono_detalle");
+        $(contenedorTonos).each(function (index, element) {
+            $(this).click(function () {
+                var tono = $(this).attr("data-tono-nombre");
+                AnalyticsPortalModule.MarcarCambiaColorCuadro(producto, tono);
+            });
+        });
+    }
+
     function Inicializar() {
 
         localStorageModule = LocalStorageModule();
@@ -520,6 +531,7 @@
         _ocultarTabs();
         _fijarFooterCampaniaSiguiente();
         _marcarCambiaColorCombo();
+        _marcarCambiaColorCuadro();
     }
 
     return {
