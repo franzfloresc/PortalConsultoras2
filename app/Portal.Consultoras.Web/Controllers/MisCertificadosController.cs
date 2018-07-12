@@ -133,7 +133,7 @@ namespace Portal.Consultoras.Web.Controllers
             var cantidadCampaniaConsecutiva = "";// ConfigurationManager.AppSettings["cantCampaniaConsecutivaCertComercial"] ?? "5";
 
             short codigoTablaLogica = 140;
-            var CampaniaConsecutiva = new List<BETablaLogicaDatos>();
+            List<BETablaLogicaDatos> CampaniaConsecutiva;
             using (var tablaLogica = new SACServiceClient())
             {
                 CampaniaConsecutiva = tablaLogica.GetTablaLogicaDatos(userData.PaisID, codigoTablaLogica).ToList();
@@ -297,7 +297,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.CodigoIso = userData.CodigoISO;
 
                         short codigoTablaLogica = 140;
-                        var CampaniaConsecutiva = new List<BETablaLogicaDatos>();
+                        List<BETablaLogicaDatos> CampaniaConsecutiva;
                         using (var tablaLogica = new SACServiceClient())
                         {
                             CampaniaConsecutiva = tablaLogica.GetTablaLogicaDatos(userData.PaisID, codigoTablaLogica).ToList();

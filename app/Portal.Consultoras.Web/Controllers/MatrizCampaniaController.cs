@@ -263,7 +263,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 int cant = 0;
                 List<BEProductoDescripcion> productos2;
-                JsonResult result = new JsonResult();
+                //JsonResult result = new JsonResult();
 
                 foreach (var producto in productos)
                 {
@@ -330,7 +330,7 @@ namespace Portal.Consultoras.Web.Controllers
             int campaniaId = Convert.ToInt32(model.CampaniaID);
             try
             {
-                List<MatrizCampaniaModel> listaErrores = Session["errores"] as List<MatrizCampaniaModel> ?? new List<MatrizCampaniaModel>();
+                //List<MatrizCampaniaModel> listaErrores = Session["errores"] as List<MatrizCampaniaModel> ?? new List<MatrizCampaniaModel>();
                 if (uplArchivo == null)
                 {
                     return "El archivo especificado no existe.";
@@ -447,7 +447,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-
         [HttpPost]
         public async Task<string> leerArchivoExcel(string pais, string AnioCampania)
         {
@@ -460,8 +459,8 @@ namespace Portal.Consultoras.Web.Controllers
                 await Task.Run(() =>
                 {
                     string contenido = "";
-                    StringBuilder sb = new StringBuilder();
-                    string contenidoFila = "";
+                    //StringBuilder sb = new StringBuilder();
+                    //string contenidoFila = "";
                     int nRegistros = 0;
                     List<string> hojas = new List<string>();
                     List<XmlDocument> docs = new List<XmlDocument>();
@@ -488,6 +487,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
+
                     if (docs.Count > 0)
                     {
                         //Leer el archivo xml donde se guardan los datos de tipo cadena
@@ -505,13 +505,16 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
+
                         pos = nombres.IndexOf("workbook.xml");
                         if (pos > -1)
                         {
                             XmlDocument xdLibro = docs[pos];
                             XmlElement nodoRaizHojas = xdLibro.DocumentElement;
                             XmlNodeList nodosHojas = nodoRaizHojas.GetElementsByTagName("sheet");
-                            string id, hoja;
+                            string id;
+                            string hoja;
+
                             if (nodosHojas != null)
                             {
                                 contenido = "";
@@ -555,43 +558,61 @@ namespace Portal.Consultoras.Web.Controllers
                                                     else
                                                     {
                                                         cc = 0;
-                                                        contenidoFila = "";
+                                                        //contenidoFila = "";
                                                         nRegistros = columnas.Count;
+
+                                                        var contenidoFilaBuild = new StringBuilder();
+
                                                         for (int i = 0; i < nRegistros; i++)
                                                         {
                                                             valor = "";
                                                             nodoCelda = nodoCeldas[cc];
-                                                            if (cc > 0) contenidoFila += "¦";
-                                                            if (nodoCelda != null)
+                                                            //if (cc > 0) contenidoFila += "¦";
+                                                            if (cc > 0) contenidoFilaBuild.Append("¦");
+
+                                                            if (nodoCelda == null)
                                                             {
-                                                                if (columnas[i] == nodoCelda.Attributes["r"].Value.Replace(nodoFila.Attributes["r"].Value, ""))
-                                                                {
-                                                                    celda = nodoCelda.Attributes["r"].Value;
-                                                                    tipoString = nodoCelda.Attributes["t"];
-                                                                    valor = "";
-                                                                    if (tipoString != null)
-                                                                    {
-                                                                        if (valores != null && valores.Count > 0)
-                                                                        {
-                                                                            indice = int.Parse(nodoCelda.FirstChild.FirstChild.Value);
-                                                                            valor = valores[indice];
-                                                                            contenidoFila += valor;
-                                                                        }
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        if (nodoCelda.FirstChild != null && nodoCelda.FirstChild.FirstChild != null)
-                                                                        {
-                                                                            valor = nodoCelda.FirstChild.FirstChild.Value;
-                                                                            contenidoFila += valor;
-                                                                        }
-                                                                    }
-                                                                    cc++;
-                                                                }
+                                                                continue;
                                                             }
+
+                                                            //if (nodoCelda != null)
+                                                            //{
+                                                            if (columnas[i] == nodoCelda.Attributes["r"].Value.Replace(nodoFila.Attributes["r"].Value, ""))
+                                                            {
+                                                                celda = nodoCelda.Attributes["r"].Value;
+                                                                tipoString = nodoCelda.Attributes["t"];
+                                                                valor = "";
+                                                                if (tipoString != null)
+                                                                {
+                                                                    if (valores != null && valores.Count > 0)
+                                                                    {
+                                                                        indice = int.Parse(nodoCelda.FirstChild.FirstChild.Value);
+                                                                        valor = valores[indice];
+                                                                        //contenidoFila += valor;
+                                                                        contenidoFilaBuild.Append(valor);
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (nodoCelda.FirstChild != null && nodoCelda.FirstChild.FirstChild != null)
+                                                                    {
+                                                                        valor = nodoCelda.FirstChild.FirstChild.Value;
+                                                                        //contenidoFila += valor;
+                                                                        contenidoFilaBuild.Append(valor);
+                                                                    }
+                                                                }
+                                                                cc++;
+                                                            }
+                                                            //}
                                                         }
-                                                        if (cf < nodosFilas.Count - 1) contenidoFila += "¬";
-                                                        contenido += contenidoFila;
+
+
+                                                        if (cf < nodosFilas.Count - 1)
+                                                        {
+                                                            //contenidoFila += "¬";
+                                                            contenidoFilaBuild.Append("¬");
+                                                        }
+                                                        contenido += contenidoFilaBuild.ToString();
                                                     }
                                                 }
                                                 cf++;
@@ -604,6 +625,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     break;
                                 }
                             }
+
                         }
                     }
 
@@ -647,11 +669,11 @@ namespace Portal.Consultoras.Web.Controllers
                 //    continue;
                 //}
 
-                if (registros[j].Split('¦').Length>0)
+                if (registros[j].Split('¦').Length > 0)
                 {
                     campo = registros[j].Split('¦')[0];
-                    CUV += registros[j].Split('¦')[0];
-                    CUV += '¬';
+                    CUV += registros[j].Split('¦')[0] + '¬';
+                    //CUV += '¬';
                     resultado = uint.TryParse(campo, out numero);
                     longCUV = campo.Trim().Length;
                     if (!resultado || campo.Trim().Length != 5)
@@ -710,14 +732,14 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        if (numero==0)
+                        if (numero == 0)
                         {
                             FlagCampoValido = false;
                             rpta.Append(" -Factor Repetición no válido ");
                         }
                     }
                 }
-                if (longCUV==0 && longDes==0 && longPrecioProducto ==0 && longFactorRepeticion ==0)
+                if (longCUV == 0 && longDes == 0 && longPrecioProducto == 0 && longFactorRepeticion == 0)
                 {
                     FlagCampoValido = true;
                     rpta.Clear();

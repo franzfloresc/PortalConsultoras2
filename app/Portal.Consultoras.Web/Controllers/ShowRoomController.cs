@@ -249,7 +249,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!ValidarIngresoShowRoom(false))
                 return RedirectToAction("Index", "Bienvenida");
 
-            var estrategiaSR = sessionManager.GetEstrategiaSR();
+            //var estrategiaSR = sessionManager.GetEstrategiaSR();
             var modelo = ViewDetalleOferta(id);
             modelo.EstrategiaID = id;
 

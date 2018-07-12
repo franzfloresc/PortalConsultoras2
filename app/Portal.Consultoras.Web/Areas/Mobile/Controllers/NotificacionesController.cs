@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class NotificacionesController : BaseMobileController
     {
-        private CdrProvider _cdrProvider;
+        readonly CdrProvider _cdrProvider;
 
         public NotificacionesController()
         {
