@@ -25,6 +25,11 @@ namespace Portal.Consultoras.Web.Controllers
         // GET: PagoEnLinea
         public ActionResult Index()
         {
+            if (EsDispositivoMovil())
+            {
+                return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
+            }
+
             if (!userData.TienePagoEnLinea)
                 return RedirectToAction("Index", "Bienvenida");
 

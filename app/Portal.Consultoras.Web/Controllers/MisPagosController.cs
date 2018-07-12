@@ -21,6 +21,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(string pestanhaInicial)
         {
+            if (EsDispositivoMovil())
+            {
+                return RedirectToAction("Index", "EstadoCuenta", new { area = "Mobile" });
+            }
+
             Session["ListadoEstadoCuenta"] = null;
 
             string fechaVencimiento;

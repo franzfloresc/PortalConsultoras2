@@ -23,6 +23,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult OfertasLiquidacion()
         {
+            if (EsDispositivoMovil())
+            {
+                return RedirectToAction("Index", "OfertaLiquidacion", new { area = "Mobile" });
+            }
+
             if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                 return RedirectToAction("Index", "Bienvenida");
             try

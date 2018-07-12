@@ -19,6 +19,11 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
+            if (EsDispositivoMovil())
+            {
+                return RedirectToAction("Index", "Notificaciones", new { area = "Mobile" });
+            }
+
             Session["fechaGetNotificacionesSinLeer"] = null;
             Session["cantidadGetNotificacionesSinLeer"] = null;
 

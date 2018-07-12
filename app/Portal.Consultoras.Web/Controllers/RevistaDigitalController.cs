@@ -62,6 +62,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Comprar()
         {
+
+            if (EsDispositivoMovil())
+            {
+                return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile" });
+            }
+            
             try
             {
                 return ViewLanding(1);

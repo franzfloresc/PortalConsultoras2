@@ -19,6 +19,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
+            if (EsDispositivoMovil())
+            {
+                return RedirectToAction("Index", "Cliente", new { area = "Mobile" });
+            }
+            
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Cliente/Index"))
                 return RedirectToAction("Index", "Bienvenida");
 

@@ -9,6 +9,11 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
+            if (EsDispositivoMovil())
+            { 
+                return RedirectToAction("Index", "SeguimientoPedido", new { area = "Mobile" });
+            }
+
             BEUsuario usuario;
 
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
