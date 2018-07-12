@@ -275,7 +275,7 @@
                 $(_seccionesFichaProducto.ContenedoFichaEtiquetas).addClass("contenedor_ficha_etiquetas_Confondo");
             }
 
-            setTimeout(_RedenderImg(), 10000);
+            setTimeout(_RenderImg(), 1000);
         }
 
         if (imgFondo != "") {
@@ -336,20 +336,27 @@
         return true;
     };
 
-    var _RedenderImg = function () {
+    var _RenderImg = function () {
 
         $(document).ajaxStop(function () {
             var proObj = $(_seccionesFichaProducto.ImagenProducto);
-            var proObjH = proObj.innerHeight();
-
             var proImg = proObj.find("img");
-            var proH = proImg.innerHeight();
 
-            if (proH > proObjH) {
-                proH = proObjH / proH;
-                $(proImg).css("height", proObjH + "px");
-                var proW = proImg.innerWidth();
-                $(proImg).css("width", (proW * proH) + "px");
+            // medida segun alto
+            var proM = proImg.innerHeight();
+            var proObjM = proObj.innerHeight();
+
+            if (proM > proObjM) {
+                $(proImg).css("height", proObjM + "px");
+                $(proImg).css("width", "auto");
+            }
+
+            // medida segun ancho
+            proM = proImg.innerWidth();
+            proObjM = proObj.innerWidth();
+            if (proM > proObjM) {
+                proM = proObjM / proM;
+                $(proImg).css("width", proObjM + "px");
             }
         });
 
