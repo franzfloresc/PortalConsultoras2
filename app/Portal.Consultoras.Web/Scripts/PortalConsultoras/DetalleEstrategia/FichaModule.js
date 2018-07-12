@@ -28,6 +28,7 @@
         divCarruselSetsProductosRelacionados: "#divOfertaProductos",
         divSetsProductosRelacionados: "#set_relacionados",
         footerPage: ".footer-page",
+        estrategiaBreadcrumb: "#estrategia-breadcrumb",
         marca: "#marca"
     };
 
@@ -153,7 +154,8 @@
             var clase = $(this).attr("class");
             if (clase == "active") {
                 $(this).attr("class", "tab-link");
-            } else {
+            }
+            else {
                 $(this).attr("class", "active");
             }
         });
@@ -199,7 +201,8 @@
             });
 
             return true;
-        } else {
+        }
+        else {
             estrategia.Hermanos = {};
             estrategia.EsMultimarca = false;
             return false;
@@ -214,7 +217,8 @@
                     estrategia.CodigoVariante = _codigoVariedad.IndividualVariable;
                 }
             }
-        } else if (estrategia.Hermanos.length > 1) {
+        }
+        else if (estrategia.Hermanos.length > 1) {
             if (estrategia.codigoVariante == _codigoVariedad.IndividualVariable) {
                 estrategia.codigoVariante = _codigoVariedad.ComuestaFija;
             }
@@ -238,7 +242,8 @@
         if (_config.tieneSession === "True") {
             //revisar si se realiza con razor o handlebar para SR y ODD
             estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
-        } else {
+        }
+        else {
             estrategia = localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
             $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
         }
@@ -247,6 +252,10 @@
             window.location = baseUrl + (isMobile() ? "/Mobile/" : "") + "Ofertas";
             return false;
         }
+        if (estrategia.DescripcionCompleta.length < 40)
+            $(_elementos.estrategiaBreadcrumb).text(estrategia.DescripcionCompleta + " ...");
+        else
+            $(_elementos.estrategiaBreadcrumb).text(estrategia.DescripcionCompleta.substring(1, 40) + " ...");
 
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
@@ -363,11 +372,13 @@
             if (_ultimaMarca === "" || _ultimaMarca === marca) {
                 _ultimaMarca = marca;
                 return options.inverse(this);
-            } else {
+            }
+            else {
                 _ultimaMarca = marca;
                 return options.fn(this);
             }
-        } else {
+        }
+        else {
             if (_ultimaMarca === "") {
                 _ultimaMarca = marca;
                 return options.inverse(this);
@@ -398,22 +409,26 @@
             //if (_codigoPalanca.HerramientasVenta === _config.palanca) {
             //    $(_seccionesFichaProducto.Contenedor_redes_sociales).hide();
             //}
-        } else if (_codigoPalanca.Lanzamiento == _config.palanca) {
+        }
+        else if (_codigoPalanca.Lanzamiento == _config.palanca) {
             //$(_seccionesFichaProducto.EtiquetaLanzamientos).show();
             //$(_seccionesFichaProducto.ImagenDeFondo).show();
             //$(_seccionesFichaProducto.DescripcionAdicional).show();
             $(_seccionesFichaProducto.ContenidoProducto).show();
             //$(_seccionesFichaProducto.CarruselProducto).show();
             //$(_seccionesFichaProducto.SloganLanzamientos).show();
-        } else if (_codigoPalanca.ShowRoom == _config.palanca) {
+        }
+        else if (_codigoPalanca.ShowRoom == _config.palanca) {
             //$(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
             //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
             //$(_seccionesFichaProducto.DescripcionAdicional).hide();
             $(_seccionesFichaProducto.ContenidoProducto).hide();
             //$(_seccionesFichaProducto.CarruselProducto).show();
-        } else if (_codigoPalanca.OfertaDelDia == _config.palanca) {
+        }
+        else if (_codigoPalanca.OfertaDelDia == _config.palanca) {
             //$(_seccionesFichaProducto.EtiquetaOdd).show();
-        } else if (_codigoPalanca.PackNuevas == _config.palanca) {
+        }
+        else if (_codigoPalanca.PackNuevas == _config.palanca) {
             //$(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
             //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
             //$(_seccionesFichaProducto.DescripcionAdicional).hide();

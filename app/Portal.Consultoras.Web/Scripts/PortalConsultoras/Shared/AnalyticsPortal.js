@@ -9,7 +9,11 @@ if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
 var AnalyticsPortalModule = (function () {
     var _evento = {
         virtualEvent: "virtualEvent",
-        productDetails: "productDetails"
+        productDetails: "productDetails",
+        productClick: "productClick",
+        productImpression: "productImpression",
+        socialEvent: "socialEvent",
+        addToCart: "addToCart"
     };
 
     var _texto = {
@@ -100,6 +104,106 @@ var AnalyticsPortalModule = (function () {
             });
         } catch (e) {
             console.log(_texto.excepcion + e);
+
+    var marcarAgregaProductoCarro = function (producto, tono) {
+        try {
+            dataLayer.push({
+                'event': _evento.addToCart,
+                'ecommerce': {
+                    'currencyCode': 'PEN',
+                    'add': {
+                        'products': [
+                            {
+                                'name': 'Labial Color HD Alta Definición',
+                                'price': '19.90',
+                                'brand': 'Esika',
+                                'id': '13223',
+                                'category': 'Maquillaje > Cuerpo',
+                                'variant': 'Fucsia Vibrante',
+                                'quantity': 2,
+                                'dimension11': '{nombre_palanca}',
+                                'dimension12': 'Ficha de producto'
+                            }
+                        ]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+
+    var marcarComparteRedesSociales = function (producto, tono) {
+        try {
+            dataLayer.push({
+                'event': _evento.socialEvent,
+                'socialNetwork': '{red_social}',
+                'socialAction': 'Share',
+                'socialTarget': '{url_producto}'
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+
+    var marcarSlideCarruselProducto = function (producto, tono) {
+        try {
+            dataLayer.push({
+                'event': _evento.productImpression,
+                'ecommerce': {
+                    'currencyCode': 'PEN',
+                    'impressions': [
+                        {
+                            'name': 'Giulia Free EDP',
+                            'id': '873654577',
+                            'price': '44.90',
+                            'brand': 'Cyzone',
+                            'category': 'Maquillaje > Cuerpo',
+                            'variant': 'Estándar',
+                            'list': '{nombre_producto} - Set productos',
+                            'position': 1
+                        },
+                        {
+                            'name': 'Blazer Taylor',
+                            'id': '873274577',
+                            'price': '89.90',
+                            'brand': 'Cyzone',
+                            'category': 'Moda',
+                            'variant': 'Estándar',
+                            'list': '{nombre_producto} - Set productos',
+                            'position': 2
+                        }]
+                }
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+
+    var marcarClicSetProductos = function (producto, tono) {
+        try {
+            dataLayer.push({
+                'event': _evento.productClick,
+                'ecommerce': {
+                    'currencyCode': 'PEN',
+                    'click': {
+                        'actionField': {
+                            'list': '{nombre_producto} – Set productos'},
+                            'products': [{
+                              'name': 'LABIAL COLORFIX XP',
+                              'id': '8648756835',
+                              'price': '56.00',
+                              'brand': 'Cyzone',
+                              'category': 'Maquillaje > Cuerpo',
+                              'variant': 'Estándar',
+                                'position': 1
+                            }]
+                            }
+                            }
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+>>>>>>> 408ce44f7a80f37abcc04742de0372efff29ee47
         }
     }
 
@@ -108,6 +212,15 @@ var AnalyticsPortalModule = (function () {
         FcVerificarTipoMoneda: fcVerificarTipoMoneda,
         MarcarIniciarPlayVideo: marcarIniciarPlayVideo,
         MarcarCambiaColorCombo: marcarCambiaColorCombo,
+<<<<<<< HEAD
         MarcarCambiaColorCuadro: marcarCambiaColorCuadro
+=======
+
+        MarcarCambiaColorCuadro: marcarCambiaColorCuadro,
+        MarcarAgregaProductoCarro: marcarAgregaProductoCarro,
+        MarcarComparteRedesSociales: marcarComparteRedesSociales,
+        MarcarSlideCarruselProducto: marcarSlideCarruselProducto,
+        MarcarClicSetProductos: marcarClicSetProductos
+>>>>>>> 408ce44f7a80f37abcc04742de0372efff29ee47
     }
 })();
