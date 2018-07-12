@@ -14,6 +14,14 @@ else
     <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/mi-perfil.css")">
 }
 
+@section styles{
+    <style type="text/css">
+        .asteriscos {
+            color: #e81c36;
+        }
+    </style>
+}
+
 <div class="fondo_f9f9f9">
     <a href="@Url.Action("Index", "Bienvenida", new { area = "" })" style="display: none;" id="volverBienvenida">Volver</a>
     <div class="content_belcorp">
@@ -91,7 +99,7 @@ else
         <fieldset class="grupo_form_cambio_datos text-uppercase">
             <div class="w-82">
                 <input id="txtEMailMD" name="txtEMailMD" class="w-100" type="text" value="@Model.EMail" readonly />
-                <label for="txtEMailMD" class="w-100">Correo Electrónico</label>
+                <label for="txtEMailMD" class="w-100">Correo Electrónico <span class="asteriscos">*</span></label>
             </div>
             <a id="btnCambiarEmail" href="@Url.Action("ActualizarCorreo", "MiPerfil", new {area = ""})" title="Cambiar" class="enlace_cambiar_dato w-18 text-right">
                 <span class="icono_cambiar_dato"></span>
@@ -112,7 +120,7 @@ else
         <fieldset class="grupo_form_cambio_datos text-uppercase">
             <div class="w-82">
                 <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event)" maxlength="@Model.limiteMaximoTelef" />
-                <label for="txtCelularMD" class="w-100">Celular</label>
+                <label for="txtCelularMD" class="w-100">Celular <span class="asteriscos">*</span></label>
             </div>
             <a id="btnCambiarCelular" href="@Url.Action("ActualizarCelular", "MiPerfil", new {area = ""})" title="Cambiar" class="enlace_cambiar_dato w-18 text-right">
                 <span class="icono_cambiar_dato"></span>
@@ -122,7 +130,7 @@ else
         <fieldset class="grupo_form_cambio_datos text-uppercase">
             <div class="w-82">
                 <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="text" value="@Model.Telefono" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event)" maxlength="@Model.limiteMaximoTelef" />
-                <label for="txtTelefonoMD" class="w-100">Número fijo</label>
+                <label for="txtTelefonoMD" class="w-100">Número fijo <span class="asteriscos">*</span></label>
             </div>
         </fieldset>
         <fieldset class="grupo_form_cambio_datos text-uppercase mb-61">
