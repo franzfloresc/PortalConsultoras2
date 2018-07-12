@@ -130,54 +130,74 @@ function EnlaceTerminosCondiciones() {
 }
 
 function actualizarDatos() {
-    if (jQuery.trim($('#txtEMailMD').val()) == "") {
-        $('#txtEMailMD').focus();
+    var hdn_CaracterMaximo = $("#hdn_CaracterMaximo").val();
+    var hdn_CaracterMinimo = $("#hdn_CaracterMinimo").val();
+    var hdn_iniciaNumero = $('#hdn_iniciaNumero').val();
+    var txtCelularMD = jQuery.trim($('#txtCelularMD').val());
+    var txtTelefonoMD = jQuery.trim($("#txtTelefonoMD").val());
+    var txtTelefonoTrabajoMD = jQuery.trim($("#txtTelefonoTrabajoMD").val());
+    var txtEMailMD = jQuery.trim($('#txtEMailMD').val());
+
+    if (txtEMailMD == "") {
         alert("Debe ingresar EMail.\n");
         return false;
     }
 
-    if (!validateEmail(jQuery.trim($('#txtEMailMD').val()))) {
-        $('#txtEMailMD').focus();
+    if (!validateEmail(txtEMailMD)) {
         alert("El formato del correo electrónico ingresado no es correcto.\n");
         return false;
     }
 
-    if (($('#txtTelefonoMD').val() == null || $.trim($('#txtTelefonoMD').val()) == "") &&
-        ($('#txtCelularMD').val() == null || $.trim($('#txtCelularMD').val()) == "")) {
-        $('#txtTelefonoMD').focus();
+    if ((txtTelefonoMD == null || txtTelefonoMD == "") &&
+        (txtCelularMD == null || txtCelularMD == "")) {
         alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
         return false;
     }
 
-    if (jQuery.trim($('#txtCelularMD').val()) != "") {
-        if (!ValidarTelefono($("#txtCelularMD").val())) {
+    if (txtCelularMD != "") {
+        if (txtCelularMD.length != hdn_CaracterMaximo) {
+            alert('El formato del celular no es correcto');
+            return false;
+        }
+    }
+    
+    if (hdn_iniciaNumero > 0) {
+        if (txtCelularMD != null || txtCelularMD != "") {
+            if (hdn_iniciaNumero != txtCelularMD.charAt(0)) {
+                alert('Su número de celular debe empezar con ' + hdn_iniciaNumero + '.');
+                return false;
+            }
+        }
+    }
+
+    if (txtCelularMD != "") {
+        if (!ValidarTelefono(txtCelularMD)) {
             alert('El celular que está ingresando ya se encuenta registrado.');
             return false;
         }
     }
 
-    var MinCaracterCelular = limitarMinimo($('#txtCelularMD').val(), $("#hdn_CaracterMinimo").val(), 2);
-    if (!MinCaracterCelular) {
-        $('#txtCelularMD').focus();
-        //alert('El formato del celular no es correcto.');
-        return false;
-    }
+    if (txtTelefonoMD != "") {
+        if (txtTelefonoMD.length < hdn_CaracterMinimo) {
+            alert('El número de teléfono debe tener como mínimo ' + hdn_CaracterMinimo + ' números.');
+            return false;
+        }
 
-    if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
-        var MinCaracterOtroTelefono = limitarMinimo($('#txtTelefonoTrabajoMD').val(), $("#hdn_CaracterMinimo").val(), 3);
-        if (!MinCaracterOtroTelefono) {
+        if (txtTelefonoMD.length > hdn_CaracterMaximo) {
+            alert('El número de teléfono debe tener como máximo ' + hdn_CaracterMaximo + ' números.');
             return false;
         }
     }
 
-    var celularDigitado = $.trim($('#txtCelularMD').val());
-    var iniciaNumero = $('#hdn_iniciaNumero').val();
-    if (iniciaNumero > 0) {
-        if (celularDigitado != null || celularDigitado != "") {
-            if (iniciaNumero != celularDigitado.charAt(0)) {
-                alert('Su número de celular debe empezar con ' + iniciaNumero + '.');
-                return false;
-            }
+    if (txtTelefonoTrabajoMD != "") {
+        if (txtTelefonoTrabajoMD.length < hdn_CaracterMinimo) {
+            alert('El número adicional debe tener como mínimo ' + hdn_CaracterMinimo + ' números.');
+            return false;
+        }
+
+        if (txtTelefonoTrabajoMD.length > hdn_CaracterMaximo) {
+            alert('El número adicional debe tener como máximo ' + hdn_CaracterMaximo + ' números.');
+            return false;
         }
     }
 

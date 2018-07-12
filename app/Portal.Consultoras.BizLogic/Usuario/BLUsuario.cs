@@ -297,7 +297,7 @@ namespace Portal.Consultoras.BizLogic
                     usuario.FotoPerfilAncha = (imagenConsultada.Width > imagenConsultada.Height ? true : false);
                 }
 
-                if (string.IsNullOrEmpty(usuario.FotoPerfil) || !Common.Util.ExisteUrlRemota(usuario.FotoPerfil))
+                if (string.IsNullOrEmpty(usuario.FotoPerfil))
                 {
                     usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
                     usuario.FotoOriginalSinModificar = null;

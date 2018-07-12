@@ -3193,48 +3193,48 @@ namespace Portal.Consultoras.Common
             switch (paisId)
             {
                 case Constantes.PaisID.Peru:
-                    limiteMinimoTelef = 9;
+                    limiteMinimoTelef = 7;
                     limiteMaximoTelef = 9;
                     break;
                 case Constantes.PaisID.Mexico:
-                    limiteMinimoTelef = 10;
+                    limiteMinimoTelef = 5;
                     limiteMaximoTelef = 10;
                     break;
                 case Constantes.PaisID.Ecuador:
-                    limiteMinimoTelef = 10;
+                    limiteMinimoTelef = 5;
                     limiteMaximoTelef = 10;
                     break;
                 case Constantes.PaisID.Chile:
-                    limiteMinimoTelef = 9;
+                    limiteMinimoTelef = 5;
                     limiteMaximoTelef = 9;
                     break;
                 case Constantes.PaisID.RepublicaDominicana:
                 case Constantes.PaisID.Colombia:
-                    limiteMinimoTelef = 10;
+                    limiteMinimoTelef = 5;
                     limiteMaximoTelef = 10;
                     break;
                 case Constantes.PaisID.Bolivia:
-                    limiteMinimoTelef = 8;
+                    limiteMinimoTelef = 5;
                     limiteMaximoTelef = 8;
                     break;
                 case Constantes.PaisID.Guatemala:
-                    limiteMinimoTelef = 7;
+                    limiteMinimoTelef = 5;
                     limiteMaximoTelef = 8;
                     break;
                 case Constantes.PaisID.ElSalvador:
-                    limiteMinimoTelef = 8;
+                    limiteMinimoTelef = 5;
                     limiteMaximoTelef = 8;
                     break;
                 case Constantes.PaisID.Panama:
-                    limiteMinimoTelef = 8;
+                    limiteMinimoTelef = 5;
                     limiteMaximoTelef = 8;
                     break;
                 case Constantes.PaisID.CostaRica:
-                    limiteMinimoTelef = 8;
+                    limiteMinimoTelef = 5;
                     limiteMaximoTelef = 8;
                     break;
                 default:
-                    limiteMinimoTelef = 0;
+                    limiteMinimoTelef = 5;
                     limiteMaximoTelef = 15;
                     break;
             }
