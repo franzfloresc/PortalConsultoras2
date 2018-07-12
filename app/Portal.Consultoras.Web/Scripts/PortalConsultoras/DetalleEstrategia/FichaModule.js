@@ -4,6 +4,7 @@
     var _primeraMarca = "";
     var _ultimaMarca = "";
     var _esMultimarca = false;
+    var _descripcionProducto = "";
 
     var _config = {
         palanca: config.palanca || "",
@@ -12,7 +13,6 @@
         campania: config.campania || "",
         cuv: config.cuv || "",
         urlObtenerComponentes: config.urlObtenerComponentes
-
     };
 
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
@@ -284,10 +284,12 @@
 
         //Handlers bars para el detalle de los tabs de fichas
         _construirSeccionDetalleFichas(estrategia);
-        // Se envía la información del producto a Google Analytics.
-        var tipoMoneda = AnalyticsPortal.fcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
+
+        // Se realiza la marcación en analytics de la información de la ficha de un producto.
+        var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
         var categoria = estrategia.CodigoCategoria || "";
-        AnalyticsPortal.fcEnviarInformacionProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, categoria, estrategia.CodigoVariante, _config.palanca);
+        AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, categoria, estrategia.CodigoVariante, _config.palanca);
+        _descripcionProducto = estrategia.DescripcionCompleta;
         return true;
     };
 
@@ -464,6 +466,18 @@
         }
     }
 
+    // Método que realiza la marcación en analytics de tonos en el combo de seleccion de tonos.
+    var _marcarCambiaColorCombo = function () {
+        var producto = _descripcionProducto;
+        var contenedorTonos = $(".content_tonos_select").children(".content_tono_elegido");
+        $(contenedorTonos).each(function (index, element) {
+            $(this).click(function () {
+                var tono = $(this).attr("data-tono-nombre");
+                AnalyticsPortalModule.MarcarCambiaColorCombo(producto, tono);
+            });
+        });
+    }
+
     function Inicializar() {
 
         localStorageModule = LocalStorageModule();
@@ -473,6 +487,7 @@
         _crearTabs();
         _ocultarTabs();
         _fijarFooterCampaniaSiguiente();
+        _marcarCambiaColorCombo();
     }
 
     return {

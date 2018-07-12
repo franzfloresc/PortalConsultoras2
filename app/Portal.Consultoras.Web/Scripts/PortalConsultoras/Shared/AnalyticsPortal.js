@@ -6,25 +6,27 @@ if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
 
 }(window.jQuery);
 
-var _evento = {
-    virtualEvent: "virtualEvent",
-    productDetails: "productDetails"
-};
+var AnalyticsPortalModule = (function () {
+    var _evento = {
+        virtualEvent: "virtualEvent",
+        productDetails: "productDetails"
+    };
 
-var _texto = {
-    excepcion: "Excepción en AnalyticsPortal.js > ",
-    estandar: "Estándar",
-    fichaProducto: "Ficha de Producto",
-    iniciarVideo: "Iniciar Video"
-};
+    var _texto = {
+        excepcion: "Excepción en AnalyticsPortal.js > ",
+        estandar: "Estándar",
+        fichaProducto: "Ficha de Producto",
+        iniciarVideo: "Iniciar Video",
+        seleccionTonoCombo: "Selección Tono - ComboBox",
+        selectionTonoCuadro: "Selección Tono - Cuadro"
+    };
 
-var _constantes = {
-    simboloSolPeru: "S/.",
-    solPeru: "PEN"
-};
+    var _constantes = {
+        simboloSolPeru: "S/.",
+        solPeru: "PEN"
+    };
 
-var AnalyticsPortal = {
-    fcEnviarInformacionProducto: function (tipoMoneda, producto, cuv, precio, marca, categoria, variante, palanca) {
+    var marcarVerFichaProducto = function (tipoMoneda, producto, cuv, precio, marca, categoria, variante, palanca) {
         try {
             dataLayer.push({
                 "event": _evento.productDetails,
@@ -46,10 +48,10 @@ var AnalyticsPortal = {
         } catch (e) {
             console.log(_texto.excepcion + e);
         }
-    },
+    }
 
-    fcVerificarTipoMoneda: function (simboloMoneda) {
-        var tipoMoneda = "";
+    var fcVerificarTipoMoneda = function (simboloMoneda) {
+        tipoMoneda = "";
         try {
             switch (simboloMoneda) {
                 case _constantes.simboloSolPeru:
@@ -60,9 +62,9 @@ var AnalyticsPortal = {
             console.log(_texto.excepcion + e);
         }
         return tipoMoneda;
-    },
+    }
 
-    fcEnviarInformacionVideo: function (producto) {
+    var marcarIniciarPlayVideo = function (producto) {
         try {
             dataLayer.push({
                 "event": _evento.virtualEvent,
@@ -74,4 +76,24 @@ var AnalyticsPortal = {
             console.log(_texto.exception + e);
         }
     }
-};
+
+    var marcarCambiaColorCombo = function (producto, tono) {
+        try {
+            dataLayer.push({
+                "event": _evento.virtualEvent,
+                "category": _texto.fichaProducto,
+                "action": _texto.seleccionTonoCombo,
+                "label": producto + " - " + tono
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+
+    return {
+        MarcarVerFichaProducto: marcarVerFichaProducto,
+        FcVerificarTipoMoneda: fcVerificarTipoMoneda,
+        MarcarIniciarPlayVideo: marcarIniciarPlayVideo,
+        MarcarCambiaColorCombo: marcarCambiaColorCombo
+    }
+})();
