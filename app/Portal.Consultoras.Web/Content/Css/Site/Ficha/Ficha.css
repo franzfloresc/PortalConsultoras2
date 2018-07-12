@@ -807,6 +807,17 @@ body {
     
 }
 
+.tono_no_seleccionado {
+    background: black url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png') no-repeat;
+    background-position: 97% 19px;
+    color: white;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+}
+
 .texto_sin_tono {
     border: 1px solid black;
 }
