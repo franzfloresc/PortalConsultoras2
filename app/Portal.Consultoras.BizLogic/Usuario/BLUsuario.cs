@@ -2714,39 +2714,42 @@ namespace Portal.Consultoras.BizLogic
                 var configuraciones = GetConfiguracionPais(usuario);
 
                 var lstCodigo = codigoConfiguracionPais.Split('|');
-                var configuracion = configuraciones.Where(x => lstCodigo.Any(y => y == x.Codigo)).FirstOrDefault();
+                var lstConfig = configuraciones.Where(x => lstCodigo.Any(y => y == x.Codigo));
 
-                if (configuracion == null) return usuario;
-
-                switch (configuracion.Codigo)
+                foreach (var configuracion in lstConfig)
                 {
-                    case Constantes.ConfiguracionPais.RevistaDigital:
-                        var revistaDigitalModel = new BERevistaDigital();
-                        var configuracionPaisDatosAll = GetConfiguracionPaisDatos(usuario);
-                        var configuracionPaisDatos = configuracionPaisDatosAll.Where(d => d.ConfiguracionPaisID == configuracion.ConfiguracionPaisID).ToList();
-                        revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, configuracionPaisDatos, usuario.CodigoISO);
-                        revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuario);
-                        revistaDigitalModel.BloqueoRevistaImpresa = configuracion.BloqueoRevistaImpresa;
-                        usuario.RevistaDigital = revistaDigitalModel;
-                        break;
-                    case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
-                        usuario.TieneValidacionMontoMaximo = configuracion.Estado;
-                        break;
-                    case Constantes.ConfiguracionPais.OfertaFinalTradicional:
-                    case Constantes.ConfiguracionPais.OfertaFinalCrossSelling:
-                    case Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa:
-                        var ofertaFinalModel = new BEOfertaFinal()
-                        {
-                            Algoritmo = configuracion.Codigo,
-                            Estado = configuracion.Estado
-                        };
-                        if (configuracion.Estado)
-                        {
-                            usuario.OfertaFinal = 1;
-                            usuario.EsOfertaFinalZonaValida = true;
-                        }
-                        usuario.beOfertaFinal = ofertaFinalModel;
-                        break;
+                    if (configuracion == null) return usuario;
+
+                    switch (configuracion.Codigo)
+                    {
+                        case Constantes.ConfiguracionPais.RevistaDigital:
+                            var revistaDigitalModel = new BERevistaDigital();
+                            var configuracionPaisDatosAll = GetConfiguracionPaisDatos(usuario);
+                            var configuracionPaisDatos = configuracionPaisDatosAll.Where(d => d.ConfiguracionPaisID == configuracion.ConfiguracionPaisID).ToList();
+                            revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, configuracionPaisDatos, usuario.CodigoISO);
+                            revistaDigitalModel = ConfiguracionPaisRevistaDigital(revistaDigitalModel, usuario);
+                            revistaDigitalModel.BloqueoRevistaImpresa = configuracion.BloqueoRevistaImpresa;
+                            usuario.RevistaDigital = revistaDigitalModel;
+                            break;
+                        case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
+                            usuario.TieneValidacionMontoMaximo = configuracion.Estado;
+                            break;
+                        case Constantes.ConfiguracionPais.OfertaFinalTradicional:
+                        case Constantes.ConfiguracionPais.OfertaFinalCrossSelling:
+                        case Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa:
+                            var ofertaFinalModel = new BEOfertaFinal()
+                            {
+                                Algoritmo = configuracion.Codigo,
+                                Estado = configuracion.Estado
+                            };
+                            if (configuracion.Estado)
+                            {
+                                usuario.OfertaFinal = 1;
+                                usuario.EsOfertaFinalZonaValida = true;
+                            }
+                            usuario.beOfertaFinal = ofertaFinalModel;
+                            break;
+                    }
                 }
             }
             catch (Exception ex)
