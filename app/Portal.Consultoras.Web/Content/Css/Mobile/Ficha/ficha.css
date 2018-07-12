@@ -77,8 +77,12 @@
     margin-bottom: 15px;
 }
 
+.imagen_producto > div{
+    text-align: center;
+}
+
     .imagen_producto img {
-        width: 100%;
+        width: 85%;
     }
 
 .marca_producto h2 {
