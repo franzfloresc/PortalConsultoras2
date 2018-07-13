@@ -276,11 +276,13 @@
     background-repeat: no-repeat;
     background-size: 13px;
     cursor: pointer;
-
 }
 
 .tono_no_seleccionado {
     background: url('/Content/Images/mobile/Esika/down-arrow.svg');
+    background-repeat: no-repeat;
+    background-size: 13px;
+    background-color: #000;
     background-position: right 15px center;
     color: white;
     transition: all .3s ease;
