@@ -54,15 +54,15 @@ _ReSharper*/
 .vs/
 #Nuget packages folder
 packages/
-app/Portal.Consultoras.ServiceHost/bin
-app/Portal.Consultoras.Web/bin
-app/Portal.Consultoras.Web/obj
-/app/Portal.Consultoras.Web/node_modules
+
+# Sonar
+.sonarqube/
+.scannerwork/
+app/.axoCover
+
+# Npm
+node_modules/
 
 # Cakebuild
 /app/tools/**
 !/app/tools/packages.config
-
-.sonarqube/
-.scannerwork/
-app/.axoCover

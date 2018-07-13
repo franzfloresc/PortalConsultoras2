@@ -202,6 +202,8 @@
     <Compile Include="RegexUtilities.cs" />
     <Compile Include="Settings\ServiceSettings.cs" />
     <Compile Include="Util.cs" />
+    <Compile Include="Validator\IPhoneValidator.cs" />
+    <Compile Include="Validator\SimpleResult.cs" />
     <Compile Include="WebConfig.cs" />
     <Compile Include="WebConfigKeys.cs" />
   </ItemGroup>

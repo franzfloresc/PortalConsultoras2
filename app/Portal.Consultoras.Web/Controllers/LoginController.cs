@@ -1290,6 +1290,10 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
                     usuarioModel.MensajeChat = await GetMessageChat(usuarioModel.PaisID);
 
+                    usuarioModel.PuedeActualizar = usuario.PuedeActualizar;
+                    usuarioModel.PuedeEnviarSMS = usuario.PuedeEnviarSMS;
+                    usuarioModel.FotoPerfilAncha = usuario.FotoPerfilAncha;
+
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
                     sessionManager.SetTieneLanX1(true);
@@ -1300,6 +1304,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneHvX1(true);
 
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
+                    usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
                 }
 
                 sessionManager.SetUserData(usuarioModel);

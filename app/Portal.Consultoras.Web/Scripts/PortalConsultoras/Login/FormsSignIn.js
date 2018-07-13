@@ -978,8 +978,6 @@ function RecuperarContrasenia() {
 
                 $("#spnNombreConsultora").append(nomConsultora);
 
-                correoRecuperar = Enmascarar_Correo(email);
-
                 $("#linkvolverInicio").hide();  
                 $("#vermasopciones1").hide();
 
