@@ -333,6 +333,7 @@
 
             if (youtubeModule) {
                 youtubeModule.Inicializar();
+                //AnalyticsPortal.fcEnviarInformacionVideo(estrategia.DescripcionCompleta.trim());
             }
         }
         return true;
