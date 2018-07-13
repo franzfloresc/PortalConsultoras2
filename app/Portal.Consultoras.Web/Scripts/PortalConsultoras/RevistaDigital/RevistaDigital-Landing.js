@@ -20,7 +20,8 @@ var filtroIni = {
     IsLoad: false,
     Completo: 0,
     UrlCargarProductos: "",
-    Palanca: ""
+    Palanca: "",
+    guardaEnLocalStorage: true
 };
 
 $(document).ready(function () {
@@ -52,7 +53,7 @@ $(document).ready(function () {
 });
 
 function OfertaObtenerProductos(filtro, clear) {
-    var busquedaModel = OfertaObtenerFiltro(filtro, clear);
+     var busquedaModel = OfertaObtenerFiltro(filtro, clear);
     if (busquedaModel.CampaniaID > 0) {
         OfertaCargarProductos(busquedaModel, clear);
     }
@@ -228,17 +229,8 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
         }
     }
 
-    var valLocalStorage = null;
-    var paisHabilitado = variableEstrategia.PaisHabilitado.includes(IsoPais);
-    var tipoEstrategiaHabilitado = variableEstrategia.TipoEstrategiaHabilitado.includes(busquedaModel.codigoEstrategia);
-
-    if (!(paisHabilitado && tipoEstrategiaHabilitado)) {
-        valLocalStorage = LocalStorageListado(busquedaModel.VarListaStorage + busquedaModel.CampaniaID, null, 1);
-        console.log('va a LocalStorage');
-    }
-    
+    var valLocalStorage = LocalStorageListado(busquedaModel.VarListaStorage + busquedaModel.CampaniaID, null, 1);
     if (valLocalStorage != null) {
-        console.log('va a LocalStorage: ' + busquedaModel.codigoEstrategia);
         filtroCampania[codPalancaCampania] = JSON.parse(valLocalStorage);
         jQuery.extend(filtroCampania[codPalancaCampania], Clone(busquedaModel));
         filtroCampania[codPalancaCampania].response = filtroCampania[codPalancaCampania].response || {};
@@ -261,9 +253,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
         data: JSON.stringify(busquedaModel),
         async: true,
         success: function (response) {
-
             OfertaCargarProductoRespuesta(response, clear, busquedaModel);
-
         },
         error: function (response, error) {
             divProd.find("#divOfertaProductosLoad").hide();
@@ -276,7 +266,6 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
 
 function OfertaCargarProductoRespuesta(response, clear, busquedaModel) {
     CerrarLoad();
-
     var divProd = $("[data-listado-campania=" + response.campaniaId + "]");
     if (divProd.length > 0) {
         divProd.find("#divOfertaProductosLoad").hide();
@@ -288,11 +277,13 @@ function OfertaCargarProductoRespuesta(response, clear, busquedaModel) {
     if (response.success !== true) return false;
     
     divProd.find('[data-listado-content]').show();
+
     OfertaObtenerIndLocal(response.campaniaId);
     if (clear || false) {
         divProd.find('#divOfertaProductos').html("");
         filtroCampania[busquedaModel.VarListaStorage + indCampania].CantMostrados = 0;
     }
+
     filtroCampania[busquedaModel.VarListaStorage + indCampania].response = response;
     filtroCampania[busquedaModel.VarListaStorage + indCampania].IsLoad = false;
     OfertaArmarEstrategias(response, busquedaModel);

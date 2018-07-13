@@ -198,6 +198,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var listPerdio = ListaPerdio(model.CampaniaID, listaFinal1);
 
+                bool guarda = true;
+                if (UsarMsPer(Constantes.TipoEstrategiaCodigo.RevistaDigital))
+                {
+                    guarda = false;
+                }
+
                 return Json(new
                 {
                     success = true,
@@ -205,7 +211,8 @@ namespace Portal.Consultoras.Web.Controllers
                     listaPerdio = listPerdio,
                     cantidadTotal = cantidadTotal,
                     cantidad = cantidadTotal,
-                    campaniaId = model.CampaniaID
+                    campaniaId = model.CampaniaID,
+                    guardaEnLocalStorage = guarda
                 });
             }
             catch (Exception ex)

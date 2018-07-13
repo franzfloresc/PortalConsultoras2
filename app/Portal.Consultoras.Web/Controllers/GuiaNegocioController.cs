@@ -64,7 +64,8 @@ namespace Portal.Consultoras.Web.Controllers
                     lista = listModel,
                     campaniaId = model.CampaniaID,
                     cantidadTotal = cantidadTotal,
-                    cantidad = cantidadTotal
+                    cantidad = cantidadTotal,
+                    guardaEnLocalStorage = true
                 });
             }
             catch (Exception ex)
