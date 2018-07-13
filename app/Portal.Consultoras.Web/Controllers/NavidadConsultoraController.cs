@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 var carpetaPais = Globals.UrlNavidadConsultora;
                 var registro = resultado.FirstOrDefault() ?? new BENavidadConsultora();
-                modelo.UrlImagen = ConfigS3.GetUrlFileS3(carpetaPais, registro.NombreImg);
+                modelo.UrlImagen = ConfigCdn.GetUrlFileCdn(carpetaPais, registro.NombreImg);
                 var parametroComparte = Convert.ToString(registro.ImagenId) + "-" + Convert.ToString(registro.PaisId);
                 if (Request.Url != null)
                     modelo.UrlComparte = Request.Url.Scheme + "://" + Request.Url.Authority +
@@ -73,7 +73,7 @@ namespace Portal.Consultoras.Web.Controllers
             var carpetaPais = Globals.UrlNavidadConsultora;
 
             if (resultado.Count > 0)
-                resultado.Update(x => x.NombreImg = ConfigS3.GetUrlFileS3(carpetaPais, x.NombreImg));
+                resultado.Update(x => x.NombreImg = ConfigCdn.GetUrlFileCdn(carpetaPais, x.NombreImg));
 
             var data = new
             {

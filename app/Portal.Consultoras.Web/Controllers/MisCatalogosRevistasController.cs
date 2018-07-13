@@ -242,15 +242,15 @@ namespace Portal.Consultoras.Web.Controllers
                 string ffechaFact = fdf + " de " + char.ToUpper(fmf[0]) + fmf.Substring(1);
                 string urlIssuCatalogo = string.Empty;
 
-                string urlImagenLogo = "http://www.genesis-peru.com/mailing-belcorp/logo.png";
-                string urlIconEmail = "http://www.genesis-peru.com/mailing-belcorp/mensaje_mail.png";
-                string urlIconTelefono = "http://www.genesis-peru.com/mailing-belcorp/celu_mail.png";
+                string urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png";
+                string urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail.png";
+                string urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail.png";
 
                 if (!GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
                 {
-                    urlImagenLogo = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png";
-                    urlIconEmail = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/SWR2zWZftNbE4mn/mensaje_mail.png";
-                    urlIconTelefono = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1YI6wJJKvX90WZk/celu_mail.png";
+                    urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png";
+                    urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail_lbel.png";
+                    urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail_lbel.png";
                 }
 
                 var txtBuil = new StringBuilder();
@@ -396,21 +396,21 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<tbody>";
                     mailBody += "<tr>";
                     mailBody += "<td style=\"width:11%; text-align:left; vertical-align:top;\">";
-                    mailBody += "<img src=\"http://www.genesis-peru.com/mailing-belcorp/logo-belcorp.png\" alt=\"Logo Belcorp\" />";
+                    mailBody += "<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-belcorp.png\" alt=\"Logo Belcorp\" />";
                     mailBody += "</td>";
                     mailBody += "<td style=\"width:8%; text-align:left;\">";
                     mailBody += "<a href=\"http://www.esika.biz\" style=\"width:100%; display:block;\">";
-                    mailBody += "<img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/G9GQryrWRTreo75/logo-esika.png\" alt=\"Logo Esika\" />";
+                    mailBody += "<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-esika.png\" alt=\"Logo Esika\" />";
                     mailBody += "</a>";
                     mailBody += "</td>";
                     mailBody += "<td style=\"width:8%; text-align:left;\">";
                     mailBody += "<a href=\"http://www.lbel.com\" style=\"width:100%; display:block;\">";
-                    mailBody += "<img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/T3o8rSPUKtKpe4g/logo-lbel.png\" alt=\"Logo L'bel\" />";
+                    mailBody += "<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-lbel.png\" alt=\"Logo L'bel\" />";
                     mailBody += "</a>";
                     mailBody += "</td>";
                     mailBody += "<td style=\"width:15%; text-align:left;border-right:1px solid #FFF;\">";
                     mailBody += "<a href=\"http://www.cyzone.com\" style=\"width:100%; display:block;\">";
-                    mailBody += "<img src=\"https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Correo/logo-cyzone.png\" alt=\"Logo Cyzone\" />";
+                    mailBody += "<img src=\"" + Globals.RutaCdn + "/Correo/logo-cyzone.png\" alt=\"Logo Cyzone\" />";
                     mailBody += "</a>";
                     mailBody += "</td>";
                     mailBody += "<td style=\"width:15%; font-family:'Calibri'; font-weight:400; font-size:13px; color:#FFF; vertical-align:middle;\">";
@@ -420,7 +420,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<td style=\"text-align: right; font-family:'Calibri'; font-weight:400; font-size:13px; vertical-align: middle; width: 69%; color:white;\">S&Iacute;GUENOS</td>";
                     mailBody += "<td style=\"text-align: right; position: relative; top: 2px; left: 10px; width: 20%; vertical-align: top;\">";
                     mailBody += "<a href=\"https://es-la.facebook.com/SomosBelcorpOficial\" style=\"width:100%; display:block;\">";
-                    mailBody += "<img src=\"http://www.genesis-peru.com/mailing-belcorp/logo-facebook.png\" alt=\"Logo Facebook\" /></td>";
+                    mailBody += "<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-facebook.png\" alt=\"Logo Facebook\" /></td>";
                     mailBody += "</a>";
                     mailBody += "</tr>";
                     mailBody += "</tbody>";
