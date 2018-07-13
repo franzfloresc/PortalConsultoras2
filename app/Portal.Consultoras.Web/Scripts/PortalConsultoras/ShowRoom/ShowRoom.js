@@ -717,6 +717,12 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
                 $('#divContentSubCampania').show();
 
                 EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias-mobile'));
+
+                if (!$(objData.lista).filter(function (a, b) {
+                      return b.Hermanos.length > 0
+                })[0]) {
+                    $('.sub_campania_info_adicional').remove();
+                }
             }
         }
 

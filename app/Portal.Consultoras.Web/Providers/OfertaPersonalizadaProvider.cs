@@ -1020,50 +1020,8 @@ namespace Portal.Consultoras.Web.Providers
             else
                 listaSubCampania = listaProductoModel.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
 
+            listaSubCampania = obtenerListaHermanos(listaSubCampania);
 
-            if (listaSubCampania != null)
-            {
-                bool esMultimarca;
-
-
-                if (listaSubCampania.Any())
-                {
-                    var listaEstrategiaProductos = new List<ServicePedido.BEEstrategiaProducto>();
-                    var strJoinIds = string.Join(",", listaSubCampania.Select(x=>x.EstrategiaID).ToList());
-                    using (var svc = new PedidoServiceClient())
-                    {
-                        listaEstrategiaProductos = svc.GetEstrategiaProductoList(userData.PaisID, strJoinIds).ToList().ToList();
-                        listaEstrategiaProductos = (listaEstrategiaProductos == null ? new List<ServicePedido.BEEstrategiaProducto>() : listaEstrategiaProductos);
-                    }
-
-                    if (listaEstrategiaProductos.Any())
-                    {
-                        listaSubCampania.ForEach(item => {
-                            var lineasPorCaja = 2;
-
-                            var componentesRelacinados = listaEstrategiaProductos.Where(x => x.EstrategiaID == item.EstrategiaID).ToList();
-
-                            if (componentesRelacinados!=null)
-                            {
-                                item.Hermanos = new List<EstrategiaComponenteModel>();
-                                componentesRelacinados.ForEach(componente=> {                                   
-
-                                    if (componente.CUV != item.CUV2 && lineasPorCaja>0 && !string.IsNullOrEmpty(componente.NombreProducto))
-                                    {
-                                        item.Hermanos.Add(new EstrategiaComponenteModel()
-                                        {
-                                            NombreComercial = string.Format("{0}{1}", componente.NombreProducto, item.Hermanos.Count == 1 ? "..." : string.Empty)
-                                        });
-                                    }
-                                    lineasPorCaja--;
-                                });
-                            }                            
-                        });
-                    }
-                } 
-            }
-
- 
             var listaPedido = _pedidoWeb.ObtenerPedidoWebDetalle(0);
             //configEstrategiaSR.ListaCategoria = new List<ShowRoomCategoriaModel>();
             sessionManager.ShowRoom.CargoOfertas = "1";
@@ -1072,6 +1030,57 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager.ShowRoom.OfertasPerdio = FormatearModelo1ToPersonalizado(listaOfertasPerdio, listaPedido, userData.CodigoISO, userData.CampaniaID, 1, userData.esConsultoraLider, userData.Simbolo);
         }
 
+        private List<EstrategiaPedidoModel> obtenerListaHermanos(List<EstrategiaPedidoModel> listaSubCampania)
+        {
+            var userData = sessionManager.GetUserData();
+            if (listaSubCampania != null)
+            {
+                bool esMultimarca;
+
+
+                if (listaSubCampania.Any())
+                {
+                    var listaEstrategiaProductos = new List<ServicePedido.BEEstrategiaProducto>();
+                    var strJoinIds = string.Join(",", listaSubCampania.Select(x => x.EstrategiaID).ToList());
+                    using (var svc = new PedidoServiceClient())
+                    {
+                        listaEstrategiaProductos = svc.GetEstrategiaProductoList(userData.PaisID, strJoinIds).ToList().ToList();
+                        listaEstrategiaProductos = (listaEstrategiaProductos == null ? new List<ServicePedido.BEEstrategiaProducto>() : listaEstrategiaProductos);
+                    }
+
+                    if (listaEstrategiaProductos.Any())
+                    {
+                        listaSubCampania.ForEach(item =>
+                        {
+                            var lineasPorCaja = 3;
+
+                            var componentesRelacinados = listaEstrategiaProductos.Where(x => x.EstrategiaID == item.EstrategiaID).ToList();
+
+                            if (componentesRelacinados != null)
+                            {
+                                item.Hermanos = new List<EstrategiaComponenteModel>();
+                                componentesRelacinados.ForEach(componente =>
+                                {
+
+                                    if (componente.CUV != item.CUV2 && lineasPorCaja > 0 && !string.IsNullOrEmpty(componente.NombreProducto))
+                                    {
+                                        item.Hermanos.Add(new EstrategiaComponenteModel()
+                                        {
+                                            NombreComercial = string.Format("{0}{1}", componente.NombreProducto, item.Hermanos.Count == 1 ? "..." : string.Empty)
+                                        });
+                                    }
+                                    lineasPorCaja--;
+                                });
+                            }
+                        });
+                    }
+                }
+            }
+            else
+                listaSubCampania = new List<EstrategiaPedidoModel>();
+
+                return listaSubCampania;
+        }
         public bool EnviaronParametrosValidos(string palanca, int campaniaId, string cuv)
         {
             return !string.IsNullOrEmpty(palanca) &&
