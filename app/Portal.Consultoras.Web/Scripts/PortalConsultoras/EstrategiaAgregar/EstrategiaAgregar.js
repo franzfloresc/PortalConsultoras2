@@ -244,7 +244,7 @@ var EstrategiaAgregarModule = (function () {
 
         var cuvs = "";
         var codigoVariante = estrategia.CodigoVariante;
-        if ((ConstantesModule.CodigoVariedad.IndividualVariable == codigoVariante || ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante) && popup) {
+        if ((ConstantesModule.CodigoVariedad.IndividualVariable == codigoVariante || ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante)) {
             var listaCuvs = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataTono.concat(dataProperties.dataTonoSelect));
             if (listaCuvs.length > 0) {
                 $.each(listaCuvs,
@@ -398,19 +398,31 @@ var EstrategiaAgregarModule = (function () {
                 belcorp.estrategia.applyChanges("onProductoAgregado", data);
             }
 
+            CerrarLoad();
             if (popup) {
-                CerrarLoad();
                 CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
                 $(elementosPopPup.popupDetalleCarouselPackNuevas).hide();
             }
             else {
                 if (_config.esFicha) {
-                    setTimeout(function () {
-                        location.reload();
-                    }, 3000);
-                }
-                else {
-                    CerrarLoad();
+                    if (params.CuvTonos != "") {
+                        var listaCuvs = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataTono.concat(dataProperties.dataTonoSelect));
+                        if (listaCuvs.length > 0) {
+                            $(".texto_sin_tono").find(".tono_seleccionado").hide();
+                            $(".texto_sin_tono").find(".texto_tono_seleccionado").html("ELIGE TU TONO");
+                            var $ContentTonoDetalle = $(".content_tono_detalle");
+                            if ($ContentTonoDetalle.length > 0) {
+                                $ContentTonoDetalle.removeClass("borde_seleccion_tono");
+                            }
+                            $btnAgregar.addClass("btn_desactivado_general");
+
+                            $.each(listaCuvs,
+                                function (i, item) {
+                                    var cuv = $(item).attr("data-tono-select", "");
+                                });
+                        }
+                        
+                    }
                 }
             }
 

@@ -1121,6 +1121,30 @@ namespace Portal.Consultoras.Web.Providers
             return tienePalanca;
         }
         #endregion
+
+        public List<EstrategiaPersonalizadaProductoModel> RevisarCamposParaMostrar(List<EstrategiaPersonalizadaProductoModel> revisarLista, bool ficha = false)
+        {
+            if (revisarLista != null)
+            {
+                if (revisarLista.Any())
+                {
+                    var listaPedido = _pedidoWeb.ObtenerPedidoWebDetalle(0);
+                    revisarLista.Update(x =>
+                    {
+                        x.IsAgregado = listaPedido.Any(p => p.CUV == x.CUV2);
+                        if (ficha)
+                        {
+                            x.ImagenURL = "";// no mostrar en el carrusel de la ficha
+                        }
+                       
+                    });
+                }
+            }
+            else
+                revisarLista = new List<EstrategiaPersonalizadaProductoModel>();
+
+            return revisarLista;
+        }
     }
 
 }

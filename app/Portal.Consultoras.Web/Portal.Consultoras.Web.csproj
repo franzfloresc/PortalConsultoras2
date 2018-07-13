@@ -3819,7 +3819,6 @@
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Suscripcion.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-DataLayer.js" />
-    <Content Include="Scripts\PortalConsultoras\Shared\AnalyticsPortal.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\ConstantesModule.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\General\RedesSociales.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
@@ -4179,6 +4178,7 @@
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
     <Content Include="Content\Css\Site\Contenedor\producto.simple.css" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\Ficha.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\_BreadCrumb.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -5183,6 +5183,7 @@
     <Content Include="Views\OfertaDelDia\ofertadeldia-banner-template.cshtml" />
     <Content Include="Views\OfertaDelDia\ofertadeldia-contenedor-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\template-ficha-detalle-video.cshtml" />
+    <Content Include="Views\DetalleEstrategia\_BreadCrumb.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

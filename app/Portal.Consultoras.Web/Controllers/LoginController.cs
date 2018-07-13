@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using ClosedXML.Excel;
-using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
@@ -19,10 +18,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.ServiceModel;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
@@ -881,10 +877,10 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        private JsonResult ErrorJson(string message, bool allowGet = false)
-        {
-            return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
-        }
+        //private JsonResult ErrorJson(string message, bool allowGet = false)
+        //{
+        //    return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
+        //}
 
         private JsonResult SuccessJson(string message, bool allowGet = false)
         {
@@ -2798,7 +2794,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 TempData["FlagPin"] = true;
                                 break;
-                            };
+                            }
                     }
                 }
 

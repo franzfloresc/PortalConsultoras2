@@ -86,9 +86,9 @@ $(document).ready(function () {
     };
 
     var elements = {
-        ContenedorOfertaDelDia: "#OfertaDelDia",
-        ContenedorOfertaDelDiaMobile: "#OfertasDiaMobile",
-        ContenedorOfertaDelDiaOfertas: "#OfertasDelDiaOfertas",
+        ContenedorOfertaDelDia: "#OfertaDelDia",    // desktop
+        ContenedorOfertaDelDiaMobile: "#OfertasDiaMobile",  // mobile (ya no se usa)
+        ContenedorOfertaDelDiaOfertas: "#OfertasDelDiaOfertas", // contenedor de ofertas
         ContenedorEstrategiaTemplateCarrusel: "#estrategia-template_carrusel",
         ContenedorInternoSliderOfertaDelDiaMobileHome: "#content_oferta_dia_mobile",
         ContenedorInternoSliderOfertaDelDiaMobile: ".BloqueOfertaDiaHeader",
@@ -111,9 +111,7 @@ $(document).ready(function () {
         }
     };
 
-
     self.CargarODDMobile = function () {
-        
         MostrarRelojOfertaDelDia($(".clock").data("total-seconds"));
 
         var contenedorOfertas = elements.ContenedorOfertaDelDiaMobile;
@@ -141,7 +139,8 @@ $(document).ready(function () {
                     }
                 });
                 return false;
-            }).fail(function(data, error) {
+            })
+            .fail(function (data, error) {
                 checkTimeout(data);
             });
     };
@@ -210,7 +209,7 @@ $(document).ready(function () {
     var seAtacharonEventosOdd = false;
     self.CargarODDEscritorio = function (tipoOrigenPantallaODD) {
         var contenedorOfertas = "";
-
+        
         if (tipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_HOME)
             contenedorOfertas = elements.ContenedorOfertaDelDia;
 

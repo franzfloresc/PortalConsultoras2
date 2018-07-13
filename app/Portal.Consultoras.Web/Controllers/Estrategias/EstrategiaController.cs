@@ -506,7 +506,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     }
                 }
 
-                listaOfertasModel = RevisarCheckAgregado(listaOfertasModel);
+                listaOfertasModel = _ofertaPersonalizadaProvider.RevisarCamposParaMostrar(listaOfertasModel, true);
 
                 return Json(new
                 {
