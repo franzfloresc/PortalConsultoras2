@@ -600,13 +600,20 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
                 if (response.listaSubCampania.length > 0) {
                     $.each(response.listaSubCampania,
                         function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(35, true); });
-
                     objData.lista = response.listaSubCampania;
                     SetHandlebars("#banner-sub-campania-template", objData.lista[0], "#banner-sub-campania");
                     SetHandlebars("#producto-landing-template", objData, "#contenedor-showroom-subcampanias");
                     $('#divContentSubCampania').show();
 
                     EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias'));
+
+                    if (!$(objData.lista).filter(function (a, b) {
+                        return b.Hermanos.length > 0
+                    })[0])
+                    {
+                        $('.sub_campania_info_adicional').remove();
+                    }
+
                 }
             }
         }

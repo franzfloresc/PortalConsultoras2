@@ -891,6 +891,14 @@ namespace Portal.Consultoras.Web.Providers
                     prodModel.PrecioNiveles = estrategia.Niveles ?? string.Empty;
                 }
 
+                if (estrategia.Hermanos!=null)
+                {
+                    prodModel.Hermanos = new List<EstrategiaComponenteModel>();
+                    if (estrategia.Hermanos.Any())
+                    {
+                        prodModel.Hermanos.AddRange(estrategia.Hermanos);
+                    }
+                }
 
                 listaRetorno.Add(prodModel);
             });
@@ -1031,6 +1039,8 @@ namespace Portal.Consultoras.Web.Providers
                     if (listaEstrategiaProductos.Any())
                     {
                         listaSubCampania.ForEach(item => {
+                            var lineasPorCaja = 2;
+
                             var componentesRelacinados = listaEstrategiaProductos.Where(x => x.EstrategiaID == item.EstrategiaID).ToList();
 
                             if (componentesRelacinados!=null)
@@ -1038,10 +1048,13 @@ namespace Portal.Consultoras.Web.Providers
                                 item.Hermanos = new List<EstrategiaComponenteModel>();
                                 componentesRelacinados.ForEach(componente=> {
 
-                                    if (componente.CUV != item.CUV2)
+                                    lineasPorCaja--;
+
+                                    if (componente.CUV != item.CUV2 && lineasPorCaja>0 && !string.IsNullOrEmpty(componente.NombreProducto))
                                     {
-                                        item.Hermanos.Add(new EstrategiaComponenteModel() {
-                                            NombreComercial = componente.NombreProducto
+                                        item.Hermanos.Add(new EstrategiaComponenteModel()
+                                        {
+                                            NombreComercial = string.Format("{0}{1}", componente.NombreProducto, lineasPorCaja == 1 ? "..." : string.Empty)
                                         });
                                     }
                                 });
