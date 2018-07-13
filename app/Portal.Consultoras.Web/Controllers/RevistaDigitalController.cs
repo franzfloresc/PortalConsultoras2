@@ -103,7 +103,7 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
                 modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
                 modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
-                modelo.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, modelo.FotoProducto01);
+                modelo.FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, modelo.FotoProducto01);
             }
 
             sessionManager.SetProductoTemporal(modelo);
@@ -521,8 +521,8 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                modelo.ImagenEtiqueta = ConfigS3.GetUrlFileS3(carpetaPais, modelo.ImagenEtiqueta, String.Empty);
-                modelo.ImagenPublicidad = ConfigS3.GetUrlFileS3(carpetaPais, modelo.ImagenPublicidad, String.Empty);
+                modelo.ImagenEtiqueta = ConfigCdn.GetUrlFileCdn(carpetaPais, modelo.ImagenEtiqueta);
+                modelo.ImagenPublicidad = ConfigCdn.GetUrlFileCdn(carpetaPais, modelo.ImagenPublicidad);
 
                 var transparent = "transparent";
                 modelo.MensajeColor = Util.ColorFormato(modelo.MensajeColor, transparent);
@@ -691,7 +691,7 @@ namespace Portal.Consultoras.Web.Controllers
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.RevistaDigital)] = null;
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, string.Empty)] = null;// OPT
             Session[Constantes.ConstSession.ListaProductoShowRoom] = null;//
-            sessionManager.SetEstrategiaODD(null);
+            //sessionManager.SetEstrategiaODD(null);    // no poner la session en null, ODD no tiene la funcionalidad de flagrevista aun
             //Limpia cache de Redis
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {

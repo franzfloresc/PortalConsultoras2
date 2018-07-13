@@ -9,7 +9,6 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -87,7 +86,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var carpetaPais = GetConfiguracionManager(Constantes.ConfiguracionManager.CarpetaImagenCompartirCatalogo) + userData.CodigoISO;
                 var nombreImagenCatalogo = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreImagenCompartirCatalogo);
-                model.UrlImagenCompartirCatalogo = ConfigS3.GetUrlFileS3(carpetaPais, nombreImagenCatalogo, String.Empty);
+                model.UrlImagenCompartirCatalogo = ConfigCdn.GetUrlFileCdn(carpetaPais, nombreImagenCatalogo);
                 model.PrimeraVez = userData.CambioClave;
                 model.Simbolo = userData.Simbolo;
                 model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
@@ -164,7 +163,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ValidaDatosActualizados = 0;
                 }
 
-                model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png");
+                model.ImagenUsuario = ConfigCdn.GetUrlFileCdn("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png");
 
                 model.VisualizoComunicado = 1;
                 model.VisualizoComunicadoConfigurable = 1;
@@ -723,7 +722,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var pathFile = Server.MapPath("~/Content/Images/temp/" + fileName);
                 System.IO.File.WriteAllBytes(pathFile, base64EncodedBytes);
                 ConfigS3.SetFileS3(pathFile, "ConsultoraImagen", fileName, true, true, true);
-                rutaImagen = ConfigS3.GetUrlFileS3("ConsultoraImagen", fileName);
+                rutaImagen = ConfigCdn.GetUrlFileCdn("ConsultoraImagen", fileName);
             }
             catch (Exception ex)
             {
@@ -733,7 +732,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { success = true, message = "La imagen se subió exitosamente", imagen = Url.Content(rutaImagen) });
         }
 
-        public JsonResult AceptarContrato(bool checkAceptar , string origenAceptacion)
+        public JsonResult AceptarContrato(bool checkAceptar , string origenAceptacion, string AppVersion)
         {
             try
             {
@@ -747,9 +746,17 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
+                string ip = null;
+                if (!Request.Browser.IsMobileDevice)
+                {
+                    ip = GetIPCliente();
+                    ip = string.IsNullOrEmpty(ip) ? "" : ip;
+                    AppVersion = null;
+                }
+
                 using (var svr = new UsuarioServiceClient())
                 {
-                  svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora , origenAceptacion);
+                  svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora , origenAceptacion, ip, AppVersion);
                 }
 
                 userData.IndicadorContrato = 1;
@@ -1029,7 +1036,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("function MM_preloadImages() { var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array(); var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++) if (a[i].indexOf('#')!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}}");
                         sb.Append("function MM_findObj(n, d) { var p,i,x;  if(!d) d=document; if((p=n.indexOf('?'))>0&&parent.frames.length) { d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);} if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n]; for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document); if(!x && d.getElementById) x=d.getElementById(n); return x;}");
                         sb.Append("function MM_swapImage() { var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3) if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];} } </script></head>");
-                        sb.Append("<body bgcolor='#FFFFFF' leftmargin='0' topmargin='0' marginwidth='0' marginheight='0' onLoad=\"MM_preloadImages('https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/hazclick_on.png')\">");
+                        sb.Append("<body bgcolor='#FFFFFF' leftmargin='0' topmargin='0' marginwidth='0' marginheight='0' onLoad=\"MM_preloadImages('" + Globals.RutaCdn + "/Comunidad/hazclick_on.png')\">");
                         sb.Append("<table width='800' height='521' border='0' align='center' cellpadding='0' cellspacing='0' id='Table_01'>");
                         sb.Append("<tr>");
                         sb.Append("<td width='17px' bgcolor='#F6F6F6'></td>");
@@ -1042,10 +1049,10 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<tr>");
                         sb.Append("<td width='198'><table id='Table_4' width='198' height='419' border='0' cellpadding='0' cellspacing='0'>");
                         sb.Append("<tr>");
-                        sb.Append("<td width='198' height='119'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_menulat_01.gif' width='198' height='119' alt=''></td>");
+                        sb.Append("<td width='198' height='119'><img src='" + Globals.RutaCdn + "/Comunidad/mail_menulat_01.gif' width='198' height='119' alt=''></td>");
                         sb.Append("</tr>");
                         sb.Append("<tr>");
-                        sb.Append("<td width='198' height='73'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_menulat_02.gif' width='198' height='73' alt=''></td>");
+                        sb.Append("<td width='198' height='73'><img src='" + Globals.RutaCdn + "/Comunidad/mail_menulat_02.gif' width='198' height='73' alt=''></td>");
                         sb.Append("</tr>");
                         sb.Append("<tr>");
                         sb.Append("<td width='198' height='139'><table id='Table_5' width='198' height='139' border='0' cellpadding='0' cellspacing='0'>");
@@ -1055,7 +1062,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<tr>");
                         sb.Append("<td><table width='180' border='0' cellspacing='0' cellpadding='0'>");
                         sb.Append("<tr>");
-                        sb.Append("<td width='20' height='28'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/ico_com.gif' width='20' height='20'></td>");
+                        sb.Append("<td width='20' height='28'><img src='" + Globals.RutaCdn + "/Comunidad/ico_com.gif' width='20' height='20'></td>");
                         sb.Append("<td width='5'></td>");
                         sb.Append("<td width='155'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 9.5px; text-transform: uppercase;'><a href='#'><font color='#b03695'><span style='text-decoration:none;text-underline:none'>Bienvenida a tu comunidad</span></font></a></font></td>");
                         sb.Append("</tr>");
@@ -1064,7 +1071,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<tr>");
                         sb.Append("<td><table width='180' border='0' cellspacing='0' cellpadding='0'>");
                         sb.Append("<tr>");
-                        sb.Append("<td width='20' height='28'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/ico_logra.gif' width='20' height='20'></td>");
+                        sb.Append("<td width='20' height='28'><img src='" + Globals.RutaCdn + "/Comunidad/ico_logra.gif' width='20' height='20'></td>");
                         sb.Append("<td width='5'></td>");
                         sb.Append("<td width='155'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 9.5px; text-transform: uppercase;'><a href='#'><font color='#569898'><span style='text-decoration:none;text-underline:none'>Logra con tu belleza</span></font></a></font></td>");
                         sb.Append("</tr>");
@@ -1073,7 +1080,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<tr>");
                         sb.Append("<td><table width='180' border='0' cellspacing='0' cellpadding='0'>");
                         sb.Append("<tr>");
-                        sb.Append("<td width='20' height='28'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/ico_neg.gif' width='20' height='20'></td>");
+                        sb.Append("<td width='20' height='28'><img src='" + Globals.RutaCdn + "/Comunidad/ico_neg.gif' width='20' height='20'></td>");
                         sb.Append("<td width='5'></td>");
                         sb.Append("<td width='155'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 9.5px; text-transform: uppercase;'><a href='#'><font color='#a8cb30'><span style='text-decoration:none;text-underline:none'>Tu negocio</span></font></a></font></td>");
                         sb.Append("</tr>");
@@ -1082,7 +1089,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<tr>");
                         sb.Append("<td><table width='180' border='0' cellspacing='0' cellpadding='0'>");
                         sb.Append("<tr>");
-                        sb.Append("<td width='20' height='28'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/ico_tusmarcas.gif' width='20' height='20'></td>");
+                        sb.Append("<td width='20' height='28'><img src='" + Globals.RutaCdn + "/Comunidad/ico_tusmarcas.gif' width='20' height='20'></td>");
                         sb.Append("<td width='5'></td>");
                         sb.Append("<td width='155'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 9.5px; text-transform: uppercase;'><a href='#'><font color='#570064'><span style='text-decoration:none;text-underline:none'>Tus marcas y tus productos</span></font></a></font></td>");
                         sb.Append("</tr>");
@@ -1091,7 +1098,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<tr>");
                         sb.Append("<td><table width='180' border='0' cellspacing='0' cellpadding='0'>");
                         sb.Append("<tr>");
-                        sb.Append("<td width='20' height='27'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/ico_cosas.gif' width='20' height='20'></td>");
+                        sb.Append("<td width='20' height='27'><img src='" + Globals.RutaCdn + "/Comunidad/ico_cosas.gif' width='20' height='20'></td>");
                         sb.Append("<td width='5'></td>");
                         sb.Append("<td width='155' height='27'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 9.5px; text-transform: uppercase;'><a href='#'><font color='#666696'><span style='text-decoration:none;text-underline:none'>Cosas de mujeres</span></font></a></font></td>");
                         sb.Append("</tr>");
@@ -1107,10 +1114,10 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("</table></td>");
                         sb.Append("<td width='568'><table id='Table_3' width='568' height='419' border='0' cellpadding='0' cellspacing='0'>");
                         sb.Append("<tr>");
-                        sb.Append(string.Format("<td width='568' height='197'><a href='{0}'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_derecho_01.jpg' width='568' height='197'></a></td>", paginaConfirmacion));
+                        sb.Append(string.Format("<td width='568' height='197'><a href='{0}'><img src='" + Globals.RutaCdn + "/Comunidad/mail_derecho_01.jpg' width='568' height='197'></a></td>", paginaConfirmacion));
                         sb.Append("</tr>");
                         sb.Append("<tr>");
-                        sb.Append("<td width='568' height='222' background='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/bgmail01.jpg'><table width='568' border='0' cellspacing='0' cellpadding='0'>");
+                        sb.Append("<td width='568' height='222' background='" + Globals.RutaCdn + "/Comunidad/bgmail01.jpg'><table width='568' border='0' cellspacing='0' cellpadding='0'>");
                         sb.Append("<tr>");
                         sb.Append("<td height='106'><table width='568' border='0' cellspacing='0' cellpadding='0'>");
                         sb.Append("<tr>");
@@ -1145,9 +1152,9 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<tr>");
                         sb.Append("<td width='581' height='29'></td>");
                         sb.Append("<td width='91'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 11px; color:#FFF; text-transform: uppercase;'>Siguenos en:</font></td>");
-                        sb.Append("<td width='24'><a href='https://www.facebook.com/SomosBelcorpOficial?fref=ts' target='_blank'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/socialbar_03.gif' width='24' height='29' alt=''></a></td>");
+                        sb.Append("<td width='24'><a href='https://www.facebook.com/SomosBelcorpOficial?fref=ts' target='_blank'><img src='" + Globals.RutaCdn + "/Comunidad/socialbar_03.gif' width='24' height='29' alt=''></a></td>");
                         sb.Append("<td width='3'></td>");
-                        sb.Append("<td width='23'><a href='https://www.youtube.com/user/somosbelcorp' target='_blank'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/socialbar_05.gif' width='23' height='29' alt=''></a></td>");
+                        sb.Append("<td width='23'><a href='https://www.youtube.com/user/somosbelcorp' target='_blank'><img src='" + Globals.RutaCdn + "/Comunidad/socialbar_05.gif' width='23' height='29' alt=''></a></td>");
                         sb.Append("<td width='44'></td>");
                         sb.Append("</tr>");
                         sb.Append("</table></td>");
@@ -1160,7 +1167,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<td width='18'></td>");
                         sb.Append("<td width='373'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 11px; color:#768591;'>¿No deseas recibir correos electrónicos de la Comunidad Somos Belcorp?</font></td>");
                         sb.Append("<td width='8'></td>");
-                        sb.Append("<td width='101'><a href='#' onMouseOut='MM_swapImgRestore()' onMouseOver=\"MM_swapImage('Haz click','','https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/hazclick_on.png',1)\"><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/hazclick_off.png' width='101' height='21' id='Haz click'></a></td>");
+                        sb.Append("<td width='101'><a href='#' onMouseOut='MM_swapImgRestore()' onMouseOver=\"MM_swapImage('Haz click','','" + Globals.RutaCdn + "/Comunidad/hazclick_on.png',1)\"><img src='" + Globals.RutaCdn + "/Comunidad/hazclick_off.png' width='101' height='21' id='Haz click'></a></td>");
                         sb.Append("<td width='266'></td>");
                         sb.Append("</tr>");
                         sb.Append("</table></td>");
@@ -1302,12 +1309,12 @@ namespace Portal.Consultoras.Web.Controllers
                     sb.Append("<html><head><title>mail_inscripcion</title><meta http-equiv='Content-Type' content='text/html; charset=utf-8'></head>");
                     sb.Append("<body bgcolor='#FFFFFF' leftmargin='0' topmargin='0' marginwidth='0' marginheight='0'>");
                     sb.Append("<table width='766' height='665' border='0' align='center' cellpadding='0' cellspacing='0' id='Table_01'>");
-                    sb.Append("<tr><td><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_verificacion_01.jpg' width='766' height='240' alt=''></td></tr>");
-                    sb.Append("<tr><td><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_verificacion_02.gif' width='766' height='142' alt=''></td></tr>");
-                    sb.Append("<tr><td><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_verificacion_03.jpg' width='766' height='153' alt=''></td></tr>");
+                    sb.Append("<tr><td><img src='" + Globals.RutaCdn + "/Comunidad/mail_verificacion_01.jpg' width='766' height='240' alt=''></td></tr>");
+                    sb.Append("<tr><td><img src='" + Globals.RutaCdn + "/Comunidad/mail_verificacion_02.gif' width='766' height='142' alt=''></td></tr>");
+                    sb.Append("<tr><td><img src='" + Globals.RutaCdn + "/Comunidad/mail_verificacion_03.jpg' width='766' height='153' alt=''></td></tr>");
                     sb.Append("<tr><td width='766' height='28'>&nbsp;</td></tr>");
                     sb.Append("<tr><td><table id='Table_' width='766' height='46' border='0' cellpadding='0' cellspacing='0'><tr><td width='259'>&nbsp;</td>");
-                    sb.Append(string.Format("<td width='249'><a href='{0}'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/bot_verifica.gif' width='249' height='46' alt=''></a></td>", paginaConfirmacion));
+                    sb.Append(string.Format("<td width='249'><a href='{0}'><img src='" + Globals.RutaCdn + "/Comunidad/bot_verifica.gif' width='249' height='46' alt=''></a></td>", paginaConfirmacion));
                     sb.Append("<td width='258'>&nbsp;</td></tr></table></td></tr>");
                     sb.Append("<tr><td width='766' height='56'>&nbsp;</td></tr></table></body></html>");
 
