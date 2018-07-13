@@ -45,7 +45,6 @@
         var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
     </script>
 
-    <style id="styleRelojOdd"></style>
     @RenderSection("styles", required: false)
 
     @if (TempData.ContainsKey("PixelCodigoIso"))
@@ -298,7 +297,6 @@
     </script>*@
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
-
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")
