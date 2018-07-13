@@ -1957,6 +1957,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_ACTUALIZAR = "2106";
                 public const string ERROR_ELIMINAR = "2107";
                 public const string ERROR_ELIMINAR_TODO = "2108";
+                public const string ERROR_CANTIDAD_LIMITE = "2109";
 
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
@@ -2003,6 +2004,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_ACTUALIZAR, "Ocurrió un error al actualizar el pedido." },
                         {Code.ERROR_ELIMINAR, "Ocurrió un error al eliminar el detalle de pedido." },
                         {Code.ERROR_ELIMINAR_TODO, "Ocurrió un error al eliminar el pedido." },
+                        {Code.ERROR_CANTIDAD_LIMITE, "La cantidad no debe ser mayor que la cantidad limite ( {0} )." },
 
                         {Code.ERROR_RESERVA_NINGUNO, "El pedido no se reservó." },
                         {Code.SUCCESS_RESERVA, "Pedido reservado." },

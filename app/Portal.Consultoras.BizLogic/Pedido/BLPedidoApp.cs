@@ -618,7 +618,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 else code = (enumReserva + 2020).ToString();
 
                 var obsPedido = ObtenerMensajePROLAnalytics(resultadoReserva.ListPedidoObservacion);
-                //var obsByCuv = ObtenerMensajePROLByCuv(resultadoReserva.ListPedidoObservacion);
 
                 return PedidoReservaRespuesta(code, obsPedido, resultadoReserva);
             }
@@ -695,6 +694,44 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
 
             return lstEstrategia ?? new List<BEEstrategia>();
+        }
+
+        public BEPedidoDetalleAppResult InsertEstrategiaCarrusel(BEPedidoDetalleApp pedidoDetalle)
+        {
+            try
+            {
+                var usuario = pedidoDetalle.Usuario;
+
+                //Validacion reserva u horario restringido
+                var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(pedidoDetalle.PaisID,
+                                                                    usuario.ConsultoraID,
+                                                                    usuario.CampaniaID,
+                                                                    usuario.UsuarioPrueba == 1,
+                                                                    usuario.AceptacionConsultoraDA);
+                if (validacionHorario.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno)
+                    return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, validacionHorario.Mensaje);
+
+                //Filtrar Estrategia Pedido
+                var indFlagNueva = 0;
+                int.TryParse(string.IsNullOrEmpty(pedidoDetalle.Producto.FlagNueva) ? "0" : pedidoDetalle.Producto.FlagNueva, out indFlagNueva);
+                var estrategia = FiltrarEstrategiaPedido(pedidoDetalle.PaisID, pedidoDetalle.Producto.EstrategiaID, indFlagNueva);
+
+                estrategia.Cantidad = pedidoDetalle.Cantidad;
+                if (estrategia.Cantidad > estrategia.LimiteVenta)
+                {
+                    var mensaje = string.Format(Constantes.PedidoAppValidacion.Message[Constantes.PedidoAppValidacion.Code.ERROR_CANTIDAD_LIMITE], estrategia.LimiteVenta);
+                    return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_CANTIDAD_LIMITE, mensaje);
+                }
+
+                EstrategiaAgregarProducto(pedidoDetalle, estrategia);
+
+                return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.SUCCESS);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, pedidoDetalle.Usuario.CodigoUsuario, pedidoDetalle.PaisID);
+                return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_INTERNO, ex.Message);
+            }
         }
 
         public BEUsuario GetConfiguracionOfertaFinal(BEUsuario usuario)
@@ -1368,12 +1405,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return string.Empty;
         }
 
-        private List<BEPedidoObservacion> ObtenerMensajePROLByCuv(List<BEPedidoObservacion> lista)
-        {
-            var result = lista.Where(x => Regex.IsMatch(Util.SubStr(x.CUV, 0), @"^\d+$")).ToList();
-            return result.Any() ? result : null;
-        }
-
         private BEPedidoReservaAppResult PedidoReservaRespuesta(string codigoRespuesta, string mensajeRespuesta = null,
             BEResultadoReservaProl resultadoReserva = null)
         {
@@ -1582,6 +1613,48 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 codigoSap = codigoSap.Substring(separador.Length, codigoSap.Length - separador.Length * 2);
 
             return listaProducto;
+        }
+        #endregion
+
+        #region InsertEstrategiaCarrusel
+        private BEEstrategia FiltrarEstrategiaPedido(int paisID,int estrategiaID, int flagNueva = 0)
+        {
+            var entidad = new BEEstrategia
+            {
+                PaisID = paisID,
+                EstrategiaID = estrategiaID,
+                FlagNueva = flagNueva
+            };
+
+            var lst = _estrategiaBusinessLogic.FiltrarEstrategiaPedido(entidad);
+
+            return lst.FirstOrDefault() ?? new BEEstrategia();
+        }
+
+        private void EstrategiaAgregarProducto(BEPedidoDetalleApp pedidoDetalle, BEEstrategia estrategia)
+        {
+            //Validar Stock Estrategia
+            var ofertas = estrategia.DescripcionCUV2.Split('|');
+            var descripcion = ofertas[0];
+            if (estrategia.FlagNueva == 1) estrategia.Cantidad = estrategia.LimiteVenta;
+            else descripcion = estrategia.DescripcionCUV2;
+
+            //Obtener Detalle
+            var usuario = pedidoDetalle.Usuario;
+            var pedidoDetalleBuscar = new BEPedidoAppBuscar()
+            {
+                PaisID = usuario.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.ConsultoraID,
+                NombreConsultora = usuario.Nombre,
+                CodigoPrograma = usuario.CodigoPrograma,
+                ConsecutivoNueva = usuario.ConsecutivoNueva
+            };
+            var pedidoID = 0;
+            var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+            pedidoDetalle.PedidoID = pedidoID;
+
+            //ValidarMontoMaximo(usuario, pedidoDetalle, lstDetalle);
         }
         #endregion
     }
