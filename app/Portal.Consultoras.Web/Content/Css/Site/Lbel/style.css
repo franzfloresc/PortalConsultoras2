@@ -4787,7 +4787,7 @@ a.subir_carousel, a.bajar_carousel {
 }
 
 .icono_terminar_pedido {
-    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/eFrB5kIPNXTjyJd/icono-reserva.png') no-repeat;
+    background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/icono-reserva.png') no-repeat;
     background-size: 25px;
     padding-left: 40px;
     background-position: 10px 14px;
@@ -31004,7 +31004,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 14px;
     padding-left: 50px;
-    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/83Cw11qENt0ifAk/selector_reclamo.png') no-repeat;
+    background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/selector_reclamo.png') no-repeat;
     background-position: 20px 14px;
     border-bottom: 1px solid #d1d1d1;
     cursor: pointer;
@@ -31018,13 +31018,13 @@ h1#penmostreo .campana {
 
     .reclamo_motivo_select:hover {
         color: #613c87;
-        background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/O53gKrnU7dHnWiB/selector_reclamo_lbel.png') no-repeat;
+        background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/selector_reclamo_lbel.png') no-repeat;
         background-position: 20px 14px;
     }
 
 .reclamo_motivo_select_click {
     color: #613c87;
-    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/O53gKrnU7dHnWiB/selector_reclamo_lbel.png') no-repeat;
+    background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/selector_reclamo_lbel.png') no-repeat;
     background-position: 20px 14px;
 }
 
@@ -31110,7 +31110,7 @@ h1#penmostreo .campana {
     height: 30px;
     line-height: 30px;
     padding-left: 20px;
-    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/zFJxJW4h2OAqKmU/group-9.png') no-repeat;
+    background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/group-9.png') no-repeat;
     background-position: 0 8px;
 }
 
@@ -32019,7 +32019,7 @@ h1#penmostreo .campana {
     margin: 0 auto;
     margin-top: 20px;
     margin-bottom: 20px;
-    background: url('http://www.genesis-peru.com/mailing-belcorp/logo_lbel.png') no-repeat center center;
+    background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/logo_lbel.png') no-repeat center center;
 }
 
 .content_datos_cdr {
@@ -33507,7 +33507,7 @@ height:30px;
     position: relative;
     width: 100%;
     margin-top: 20px;
-    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/LUlPmmzPLc7VpSr/page-1.png') no-repeat left bottom;
+    background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/page-1.png') no-repeat left bottom;
     padding-left: 12%;
 }
 
@@ -34111,7 +34111,7 @@ height:30px;
 }
 
 .etiqueta_showroom {
-    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/JmqkvgJXcyHcBZR/etiqueta_lbel.png') no-repeat;
+    background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/etiqueta_lbel.png') no-repeat;
     padding-left: 19px;
 }
 
@@ -34489,7 +34489,7 @@ height:30px;
         }
 
 .tono_no_seleccionado {
-    background: black url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png') no-repeat;
+    background: black url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/flecha_tono_white.png') no-repeat;
     background-position: 97% 19px;
     color: white;
     transition: all .3s ease;
@@ -34500,7 +34500,7 @@ height:30px;
 }
 
 .tono_por_elegir {
-    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1HAjgYt9lPnsBjk/tono_por_elegir.png') no-repeat;
+    background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/tono_por_elegir.png') no-repeat;
     background-position: 97% 17px;
 }
 

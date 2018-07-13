@@ -1,6 +1,8 @@
 ﻿
 @using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.Models
+
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
 
 @{
@@ -9,6 +11,8 @@
     var mobileConfiguracion = Html.MobileAppConfiguracion();
     var fotoSmall = Util.GenerarRutaImagenResizeSmall(Model.FotoProducto01);
     var vbSimbolo = ViewBag.Simbolo ?? "";
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
+    var campaniaActual = ViewBag.CampaniaCodigo ?? 0;
 }
 
 @section styles{
@@ -61,7 +65,7 @@
     </div>
     <div style="clear:both;"></div>
 
-    @if (Model.ClaseBloqueada == "")
+    @if (Model.ClaseBloqueada == "" || (revistaDigital.EsActiva && Model.CampaniaID == campaniaActual))
     {
         <div class="row">
             <div class="content_btn_agregar">
@@ -149,7 +153,7 @@
 </div>
 
 
-@if (Model.ClaseBloqueada != "")
+@if (Model.ClaseBloqueada != "" && !(revistaDigital.EsActiva && Model.CampaniaID == campaniaActual))
 {
     @Html.Action("RDMensajeBloqueadoDetalle", "RevistaDigital")
 }

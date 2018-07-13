@@ -861,9 +861,10 @@ var bannerFunc = (function () {
     }
 })();
 
-function AceptarContrato() {
+function AceptarContrato() { 
+    appVersion = appVersion == undefined ? "" : appVersion;
 
-    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato };
+    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato, AppVersion: appVersion };
     ShowLoading({});
 
     $.ajax({
@@ -880,9 +881,6 @@ function AceptarContrato() {
                 }
 
                 $("#fondoPopup_aceptacionTerminosYCondicionesContrato").hide();
-                if (viewBagCambioClave == 0) {
-                    console.log("VERIFICAR SI ABRE ESTA PANTALLA popupActualizarMisDatos")
-                }
             }
         },
         error: function (data, error) {
