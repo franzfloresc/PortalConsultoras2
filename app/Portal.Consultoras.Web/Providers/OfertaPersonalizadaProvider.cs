@@ -1035,9 +1035,6 @@ namespace Portal.Consultoras.Web.Providers
             var userData = sessionManager.GetUserData();
             if (listaSubCampania != null)
             {
-                bool esMultimarca;
-
-
                 if (listaSubCampania.Any())
                 {
                     var listaEstrategiaProductos = new List<ServicePedido.BEEstrategiaProducto>();
