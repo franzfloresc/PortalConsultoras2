@@ -14,18 +14,7 @@
     <style id="styleRelojOdd"></style>
 }
 
-<div class="container" data-tag-html="@Model.Campania" id="div-container-breadcubs" style="display: none;">
-    <div class="row">
-        <div class="col-md-12">
-            <ul class="breadcumbs">
-                <li><a href="">Inicio</a></li>
-                <li><a href="">Club Gana+</a></li>
-                <li><a href="">Ofertas para tí</a></li>
-                <li><a href="">Nuevo</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
+@Html.Partial("_BreadCrumb",Model.BreadCrumbs)
 
 <script id="detalle_ficha_template" type="text/x-handlebars-template">
     {{#if TieneReloj}}
@@ -39,7 +28,14 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <img src="{{ImgMedium FotoProducto01}}" />
             </div>
+            {{#iff CodigoVariante 'ContainsArray' '[2001,2003]'}}
+            <hr class="clear">
+            <div id="contenedor_foto_referencial" class="texto_referencial">
+                <span data-texto_referencial="">* Foto Referencial</span>
+            </div>
+            {{/iff}}
         </div>
+        <hr class="clear">
         @*<div id="EtiquetaLanzamientos" class="row label_producto">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <img src="{{TipoEstrategiaDetalle.ImgFichaMobile}}" alt="" />
@@ -52,11 +48,6 @@
             </div>
         </div>
         {{/IsNullOrEmpty}}
-        {{#iff CodigoVariante 'ContainsArray' '[2001,2003]'}}
-        <div id="contenedor_foto_referencial" class="texto_referencial">
-            <span data-texto_referencial="">* Foto Referencial</span>
-        </div>
-        {{/iff}}
         <div class="row marca_producto">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 {{#if EsMultimarca}}
@@ -110,11 +101,11 @@
             {{/iff}}
         </ul>
     </div>
-
+    {{#iff CodigoVariante 'ContainsArray' '[2001,2002,2003]'}}
     <div class="container">
-        <div class="row">
+        <div class="">
         <div class="seleccion_tonos">
-            <div data-estrategia="{{CodigoVariante}}">
+            <div data-codigovariante="{{CodigoVariante}}">
                 {{#iff CodigoVariante '==' '2001'}}
                 @*<div id="DescripcionAdicional">
                 </div>*@
@@ -130,7 +121,7 @@
                             {{#each this.Hermanos as |variedad|}}
                             <div class="content_tono_elegido" data-tono-change="2"
                                  data-tono-cuv="{{variedad.Cuv}}" d
-                                 ata-tono-nombre="{{variedad.NombreBulk}}"
+                                 data-tono-nombre="{{variedad.NombreBulk}}"
                                  data-tono-descripcion="{{variedad.NombreComercial}}">
                                 <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt=""></div>
                                 <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
@@ -220,6 +211,7 @@
         </div>
         </div>
     </div>
+    {{/iff}}
 </script>
 
 <div data-item="" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
@@ -277,7 +269,7 @@
                     </ul>
                 </li>
                 <li id="div_ficha_tab5">
-                    <a>VIDEO</a>
+                    <a class="active">VIDEO</a>
                     <ul style="display: block;">
                         <div class="video-visual" id="contenido_5">
                             <div class="contenedor_iframe_seccion_tab" id="contenedor-tab-video"></div>
@@ -313,11 +305,12 @@
 
         </div>
     </div>
-    <div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
-        <hr>
-    </div>
 </div>
 }
+
+<div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
+    <hr>
+</div>
 
 <!--compartir-->
 @if (Model.TieneCompartir)
@@ -373,16 +366,16 @@
 
         $(document).ready(function () {
 
-            $(".ficha_tabs li a").click(function () {
-                //var divpadre = $(this).parent();
-                //var clase = $(".ficha_tabs li a").attr("class");
-                var clase = $(this).attr("class");
-                if (clase == "active") {
-                    $(this).attr("class", "tab-link");
-                } else {
-                    $(this).attr("class", "active");
-                }
-            });
+            //$(".ficha_tabs li a").click(function () {
+            //    //var divpadre = $(this).parent();
+            //    //var clase = $(".ficha_tabs li a").attr("class");
+            //    var clase = $(this).attr("class");
+            //    if (clase == "active") {
+            //        $(this).attr("class", "tab-link");
+            //    } else {
+            //        $(this).attr("class", "active");
+            //    }
+            //});
 
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",

@@ -37,7 +37,7 @@
 
 .clock_odd {
     height: 35px;
-    padding-top: 25px;
+    padding-top: 15px;
     padding-bottom: 15px;
 }
 
@@ -77,8 +77,12 @@
     margin-bottom: 15px;
 }
 
+.imagen_producto > div{
+    text-align: center;
+}
+
     .imagen_producto img {
-        width: 100%;
+        width: 85%;
     }
 
 .marca_producto h2 {
@@ -275,6 +279,18 @@
 
 }
 
+.tono_no_seleccionado {
+    background: black url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png') no-repeat;
+    background-position: 95% 19px;
+    color: white;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+}
+
+
 .tono_seleccionado {
     margin-top: 2px !important;
     height: 41px;
@@ -397,7 +413,7 @@
 }
 
 .box-container {
-    margin-top: -110px;
+    margin-top: -125px;
 }
 .nombre_detalle_producto_tono {
     font-weight:bold;
@@ -406,5 +422,31 @@
 }
 
 .vineta {
-    margin-right: 5px;
+    display: block;
+    float: left;
+}
+
+.txt-des {
+    display: block;
+    float: left;
+    width: 95%;
+    padding-left: 8px;
+    padding-bottom: 5px;
+}
+
+.descripcion_detalle_producto_tono li {
+    clear: both;
+    padding-bottom: 3px;
+}
+.descripcion_detalle_producto_tono li::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+.ficha_lineaencuentraproducto hr {
+    border-color: #000 !important;
+}
+
+.ficha_tabs {
+    border-top: 1px solid #ccc;
 }

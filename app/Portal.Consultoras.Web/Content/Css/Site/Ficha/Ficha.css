@@ -43,25 +43,23 @@ body {
 
 .ficha_producto {
     float: left;
-    padding-top: 75px;
+    padding-top: 45px;
     text-align: center;
     width: 45%;
 }
 
 .contenedor_imagen {
     display: inline-block;
-    min-height: 203px;
-    min-width: 203px;
+    height: 300px;
 }
 
-.contenedor_imagen_ancho_mayor {
+    .contenedor_imagen .contenedor_img {
+        width: 100%;
+    }
+
+/*.contenedor_imagen_ancho_mayor {
     margin: 0 12%;
-}
-
-.contenedor_img {
-    max-width: 380px !important;
-    height: auto;
-}
+}*/
 
 .texto_referencial {
     font-weight: 700;
@@ -89,22 +87,28 @@ body {
 .ficha_detalle {
     background-color: #fff;
     float: right;
-    padding: 32px;
+    padding: 0 32px 32px 32px;
     width: 55%;
 }
 
 .contenedor_ficha_etiquetas {
     float: left;
     padding-bottom: 10px;
-    min-height: 50px;
+    min-height: 45px;
     position: relative;
     width: 100%;
+}
+
+.contenedor_ficha_etiquetas_Confondo {
+    padding-top: 32px;
 }
 
 .contenedor_etiqueta_odd {
     float: left;
     width: 100%;
 }
+
+/* Reloj */ 
 
 .clock_odd {
     float: left;
@@ -159,9 +163,15 @@ body {
         text-shadow: 0 1px 2px #fff;
     }
 
+/* FIN Reloj */ 
+
 .contenedor_etiquetas {
     float: left;
     width: 100%;
+}
+
+.ficha_detalle_cuerpo {
+    min-height: 340px;
 }
 
 .contenedor_nombre_precio {
@@ -807,6 +817,17 @@ body {
     
 }
 
+.tono_no_seleccionado {
+    background: black url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png') no-repeat;
+    background-position: 97% 19px;
+    color: white;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+}
+
 .texto_sin_tono {
     border: 1px solid black;
 }
@@ -867,10 +888,6 @@ body {
 margin-bottom: 45px;
 }
 
-.borde_seleccion_tono {
-    border: 0;
-}
-
 #SloganLanzamientos, #SloganPackNuevas{
     margin-bottom: 29px;
 }
@@ -885,10 +902,47 @@ margin-bottom: 45px;
 }
 
 .etiqueta_nuevo{
-    height: 50%;
+    height: 32px;
 }
 
 .etiqueta_nuevo img {
     height: 100%;
 }
+
+/*breadcumbs*/
+ul.breadcumbs {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    margin: 0px;
+    position: absolute;
+    left: 0;
+    top: -10px;
+}
+
+ul.breadcumbs li {
+    display: inline-block;
+}
+
+ul.breadcumbs li a {
+    display: block;
+    color: #808080;
+    font-size: 12px;
+}
+
+ul.breadcumbs li:first-child a::before{
+    background: none;
+}
+
+ul.breadcumbs li a::before {
+    content: '';
+    background: url(/Content/Images/mobile/Esika/right-arrow.svg);
+    width: 9px;
+    height: 9px;
+    display: inline-block;
+    background-size: cover;
+    margin-right: 3px;
+    margin-left: 1px;
+}
+/* fin breadcumbs*/
 

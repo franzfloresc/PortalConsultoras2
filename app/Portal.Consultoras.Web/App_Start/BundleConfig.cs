@@ -648,8 +648,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
-                  "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js",
-                  "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js"
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js"
           ));
             #endregion
 

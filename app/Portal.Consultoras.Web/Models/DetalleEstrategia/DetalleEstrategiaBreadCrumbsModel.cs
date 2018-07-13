@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Portal.Consultoras.Web.Models.DetalleEstrategia
+﻿namespace Portal.Consultoras.Web.Models.DetalleEstrategia
 {
     public class DetalleEstrategiaBreadCrumbsModel
     {
@@ -15,21 +10,17 @@ namespace Portal.Consultoras.Web.Models.DetalleEstrategia
             Producto = new BreadCrumbModel();
         }
 
-        public bool Visible {
+        public bool Visible
+        {
             get
             {
-#if DEBUG
                 return true;
-#endif
-#if !DEBUG
-                return false;
-#endif
             }
-        } 
+        }
 
         public BreadCrumbModel Inicio { get; set; }
         public BreadCrumbModel Ofertas { get; set; }
-        public BreadCrumbModel Palanca{ get; set; }
-        public BreadCrumbModel Producto{ get; set; }
+        public BreadCrumbModel Palanca { get; set; }
+        public BreadCrumbModel Producto { get; set; }
     }
 }
