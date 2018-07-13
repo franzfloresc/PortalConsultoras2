@@ -402,7 +402,6 @@
             $('#hdnIdMatrizComercial').val(data.IdMatrizComercial);
             
             $("#hdSimbolo").val(data.Simbolo);
-
             if (data.Activo == "1") $("#chkHabilitarOferta").attr("checked", true);
             else $("#chkHabilitarOferta").attr("checked", false);
 
@@ -541,7 +540,7 @@
             _editData.imagen = _obtenerImagenGrilla(id);
 
             if (data.FlagEstrella == "1") $("#chkOfertaUltimoMinuto").attr("checked", true);
-            else $("#chkEstrella").attr("checked", false);
+            else $("#chkOfertaUltimoMinuto").attr("checked", false);
             $(".checksPedidosAsociados")
                 .append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' +
                 data.NumeroPedido +
