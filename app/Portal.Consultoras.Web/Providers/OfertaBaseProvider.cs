@@ -38,6 +38,7 @@ namespace Portal.Consultoras.Web.Providers
 
                     BEEstrategia estrategia = new BEEstrategia
                     {
+                        CampaniaID= item.codigoCampania,
                         CodigoEstrategia = item.codigoEstrategia,
                         CodigoProducto = item.codigoProducto,
                         CUV2 = item.cuV2,

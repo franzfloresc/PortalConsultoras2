@@ -54,6 +54,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 };
 
+                ViewBag.variableEstrategia = GetVariableEstrategia();
+
                 return View("Index", modelo);
             }
             catch (Exception ex)

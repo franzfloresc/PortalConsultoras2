@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (UsarMsPer(tipo))
                 {
-                    listEstrategia = revistaDigitalProvider.ObtenerOfertas();
+                    listEstrategia = revistaDigitalProvider.ObtenerOfertas(campaniaId);
                 }
                 else
                 {

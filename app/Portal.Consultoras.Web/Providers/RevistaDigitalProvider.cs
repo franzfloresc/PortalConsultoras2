@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Providers
         private readonly ILogManager logManager = LogManager.LogManager.Instance;
         private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
 
-        public List<BEEstrategia> ObtenerOfertas()
+        public List<BEEstrategia> ObtenerOfertas(int CampaniaId)
         {
             List<BEEstrategia> model = null;
 
@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Providers
                 if (userData.TipoUsuario != Constantes.TipoUsuario.Consultora)
                     return null;
 
-                string pathRevistaDigital = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerRevistaDigital, userData.CodigoISO, Constantes.ConfiguracionPais.RevistaDigital, userData.CampaniaID, userData.CodigoConsultora, userData.CodigorRegion, userData.ZonaID);
+                string pathRevistaDigital = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerRevistaDigital, userData.CodigoISO, Constantes.ConfiguracionPais.RevistaDigital, CampaniaId, userData.CodigoConsultora, userData.CodigorRegion, userData.ZonaID);
                 var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathRevistaDigital));
 
                 Task.WhenAll(taskApi);
