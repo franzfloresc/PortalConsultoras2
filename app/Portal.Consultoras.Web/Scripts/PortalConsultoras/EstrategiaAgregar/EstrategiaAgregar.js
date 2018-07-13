@@ -410,9 +410,9 @@ var EstrategiaAgregarModule = (function () {
                         if (listaCuvs.length > 0) {
                             $(".texto_sin_tono").find(".tono_seleccionado").hide();
                             $(".texto_sin_tono").find(".texto_tono_seleccionado").html("ELIGE TU TONO");
-                            $ContentTonoDetalle = $(".content_tono_detalle");
+                            var $ContentTonoDetalle = $(".content_tono_detalle");
                             if ($ContentTonoDetalle.length > 0) {
-                                removeClass("borde_seleccion_tono");
+                                $ContentTonoDetalle.removeClass("borde_seleccion_tono");
                             }
                             $btnAgregar.addClass("btn_desactivado_general");
 
