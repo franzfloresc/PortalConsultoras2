@@ -584,7 +584,7 @@ namespace Portal.Consultoras.Web.Controllers
                     errorInsertarProducto = !errorServer ? "0" : "1",
                     tipo,
                     modificoBackOrder,
-                    DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),
+                    DataBarra = !errorServer ? GetDataBarra(true,false,true) : new BarraConsultoraModel(),
                     cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(dp => dp.Cantidad)
                 });
 
