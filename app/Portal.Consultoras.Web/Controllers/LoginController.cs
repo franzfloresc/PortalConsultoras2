@@ -1983,22 +1983,22 @@ namespace Portal.Consultoras.Web.Controllers
                 var confPaisDatoTmp = listaDatos.FirstOrDefault(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoMenuOfertas);
                 if (confPaisDatoTmp != null)
-                    revistaDigital.LogoMenuOfertasNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor1);
+                    revistaDigital.LogoMenuOfertasNoActiva = ConfigCdn.GetUrlFileRDCdn(paisIso, confPaisDatoTmp.Valor1);
 
                 confPaisDatoTmp =
                     listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoComercial);
                 if (confPaisDatoTmp != null)
                 {
-                    revistaDigital.DLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor1);
-                    revistaDigital.MLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor2);
+                    revistaDigital.DLogoComercialNoActiva = ConfigCdn.GetUrlFileRDCdn(paisIso, confPaisDatoTmp.Valor1);
+                    revistaDigital.MLogoComercialNoActiva = ConfigCdn.GetUrlFileRDCdn(paisIso, confPaisDatoTmp.Valor2);
                 }
 
                 confPaisDatoTmp = listaDatos.FirstOrDefault(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoComercialFondo);
                 if (confPaisDatoTmp != null)
                 {
-                    revistaDigital.DLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor1);
-                    revistaDigital.MLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor2);
+                    revistaDigital.DLogoComercialFondoNoActiva = ConfigCdn.GetUrlFileRDCdn(paisIso, confPaisDatoTmp.Valor1);
+                    revistaDigital.MLogoComercialFondoNoActiva = ConfigCdn.GetUrlFileRDCdn(paisIso, confPaisDatoTmp.Valor2);
                 }
 
                 confPaisDatoTmp =
@@ -2220,7 +2220,7 @@ namespace Portal.Consultoras.Web.Controllers
             var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
             if (dato != null)
             {
-                result = ConfigS3.GetUrlFileRDS3(codigoIso, dato.Valor1);
+                result = ConfigCdn.GetUrlFileRDCdn(codigoIso, dato.Valor1);
             }
 
             return result;
@@ -2232,7 +2232,7 @@ namespace Portal.Consultoras.Web.Controllers
             var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
             if (dato != null)
             {
-                result = ConfigS3.GetUrlFileRDS3(codigoIso, dato.Valor2);
+                result = ConfigCdn.GetUrlFileRDCdn(codigoIso, dato.Valor2);
                 configuracionesPaisDatos.RemoveAll(d => d.Codigo == codigo);
             }
 

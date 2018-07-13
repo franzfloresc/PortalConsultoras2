@@ -206,7 +206,7 @@ namespace Portal.Consultoras.BizLogic.OfertaPersonalizada
                     estrategia.Precio = Convert.ToDecimal(0.0);
 
                 estrategia.CampaniaID = entidad.CampaniaID;
-                estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenURL, carpetaPais);
+                estrategia.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetaPais, estrategia.ImagenURL);
                 estrategia.Simbolo = entidad.Simbolo;
                 estrategia.TieneStockProl = true;
                 estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);

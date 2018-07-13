@@ -63,7 +63,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var carpetaPais = Globals.UrlLugaresPago + "/" + UserData().CodigoISO;
-                if (lst.Count > 0) { lst.Update(x => x.ArchivoLogo = ConfigS3.GetUrlFileS3(carpetaPais, x.ArchivoLogo, Globals.RutaImagenesLugaresPago + "/" + UserData().CodigoISO)); }
+                if (lst.Count > 0) { lst.Update(x => x.ArchivoLogo = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ArchivoLogo)); }
 
                 BEGrid grid = new BEGrid
                 {

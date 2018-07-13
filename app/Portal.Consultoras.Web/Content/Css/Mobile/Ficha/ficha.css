@@ -276,12 +276,14 @@
     background-repeat: no-repeat;
     background-size: 13px;
     cursor: pointer;
-
 }
 
 .tono_no_seleccionado {
-    background: black url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png') no-repeat;
-    background-position: 95% 19px;
+    background: url('/Content/Images/mobile/Esika/down-arrow.svg');
+    background-repeat: no-repeat;
+    background-size: 13px;
+    background-color: #000;
+    background-position: right 15px center;
     color: white;
     transition: all .3s ease;
     -moz-transition: all .3s ease;

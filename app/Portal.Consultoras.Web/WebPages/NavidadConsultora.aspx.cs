@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.WebPages
                 var registro = resultado.FirstOrDefault();
                 if (registro != null)
                 {
-                    modelo.UrlImagen = ConfigS3.GetUrlFileS3(carpetaPais, registro.NombreImg);
+                    modelo.UrlImagen = ConfigCdn.GetUrlFileCdn(carpetaPais, registro.NombreImg);
                     modelo.ImagenId = registro.ImagenId;
                 }
 
