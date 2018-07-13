@@ -1,51 +1,56 @@
 ﻿<script id="ofertadeldia-template-style" type="text/x-handlebars-template">
-    {{#if ConfiguracionContenedor.ColorFondo}}
-    .flip-clock-wrapper .flip{
-    box-shadow: 0 2px 5px {{ConfiguracionContenedor.ColorFondo}} !important;
-    }
-    .flip-clock-wrapper ul li a div div.inn {
-    text-shadow: 0 1px 2px {{ConfiguracionContenedor.ColorFondo}}  !important;
-    background-color: {{ConfiguracionContenedor.ColorFondo}}  !important;
-    {{#if ConfiguracionContenedor.ColorTexto}}
-    color: {{ConfiguracionContenedor.ColorTexto}} !important;
-    {{/if}}
-    }
-    {{#if ConfiguracionContenedor.ColorTexto}}
-    .flip-clock-dot {
-    background: {{ConfiguracionContenedor.ColorTexto}} !important;
-    }
-    {{/if}}
-    {{else}}
-    .flip-clock-wrapper .flip{
-    box-shadow: 0 2px 5px {{ColorFondo1}} !important;
-    }
-    .flip-clock-wrapper ul li a div div.inn {
-    text-shadow: 0 1px 2px {{ColorFondo1}}  !important;
-    background-color: {{ColorFondo1}}  !important;
-    {{#if ConfiguracionContenedor.ColorTexto}}
-    color: {{ConfiguracionContenedor.ColorTexto}} !important;
-    {{/if}}
-    }
-    {{#if ConfiguracionContenedor.ColorTexto}}
-    .flip-clock-dot {
-    background: {{ConfiguracionContenedor.ColorTexto}} !important;
-    }
-    {{/if}}
-    {{/if}}
+    {{#IsNullOrEmpty ConfiguracionContenedor.ColorFondo '!='}}
+        .flip-clock-wrapper .flip{
+            box-shadow: 0 2px 5px {{ConfiguracionContenedor.ColorFondo}} !important;
+        }
+        .flip-clock-wrapper ul li a div div.inn {
+            text-shadow: 0 1px 2px {{ConfiguracionContenedor.ColorFondo}}  !important;
+            background-color: {{ConfiguracionContenedor.ColorFondo}}  !important;
+            {{#if ConfiguracionContenedor.ColorTexto}}
+            color: {{ConfiguracionContenedor.ColorTexto}} !important;
+            {{/if}}
+        }
+
+        {{#if ConfiguracionContenedor.ColorTexto}}
+        .flip-clock-dot {
+            background: {{ConfiguracionContenedor.ColorTexto}} !important;
+        }
+        {{/if}}
+    {{/IsNullOrEmpty}}
+
+    {{#IsNullOrEmpty ConfiguracionContenedor.ColorFondo '=='}}
+        .flip-clock-wrapper .flip{
+            box-shadow: 0 2px 5px {{ColorFondo1}} !important;
+        }
+        .flip-clock-wrapper ul li a div div.inn {
+            text-shadow: 0 1px 2px {{ColorFondo1}}  !important;
+            background-color: {{ColorFondo1}}  !important;
+            {{#if ConfiguracionContenedor.ColorTexto}}
+            color: {{ConfiguracionContenedor.ColorTexto}} !important;
+            {{/if}}
+        }
+
+        {{#if ConfiguracionContenedor.ColorTexto}}
+        .flip-clock-dot {
+            background: {{ConfiguracionContenedor.ColorTexto}} !important;
+        }
+        {{/if}}
+    {{/IsNullOrEmpty}}
 
     .txt_te_quedan {
-    color: {{ConfiguracionContenedor.ColorTexto}};
+        color: {{ConfiguracionContenedor.ColorTexto}};
     }
     .flip-clock-divider .flip-clock-label {
-    color: {{ConfiguracionContenedor.ColorTexto}};
+        color: {{ConfiguracionContenedor.ColorTexto}};
     }
     .marca_odd {
-    color: {{ConfiguracionContenedor.ColorTexto}};
+        color: {{ConfiguracionContenedor.ColorTexto}};
     }
     .nombre_oferta_odd {
-    color: {{ConfiguracionContenedor.ColorTexto}};
+        color: {{ConfiguracionContenedor.ColorTexto}};
     }
     .precios_odd {
-    color: {{ConfiguracionContenedor.ColorTexto}};
+        color: {{ConfiguracionContenedor.ColorTexto}};
     }
+
 </script>
