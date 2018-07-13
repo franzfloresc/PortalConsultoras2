@@ -112,7 +112,6 @@ $(document).ready(function () {
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
     bannerFunc.showExpoOferta();
     ConsultarEmailPendiente();
-    ConsultarActualizaEmail();
 });
 
 $(window).load(function () {
@@ -388,10 +387,16 @@ function CargarPopupsConsultora() {
     else if (TipoPopUpMostrar == popupRevistaDigitalSuscripcion) {
         rdPopup.Mostrar();
     }
-    else if (TipoPopUpMostrar == popupAceptacionContrato)
-    {
+    else if (TipoPopUpMostrar == popupAceptacionContrato) {
         MostrarPopupAceptacionContratoGet();
     }
+    else if (TipoPopUpMostrar == popupActualizarCorreo) {
+        MostrarPopupActualizarCorreo();
+    }
+}
+
+function MostrarPopupActualizarCorreo() {
+    $("#popupVerificacionCorreoElectronicoPendiente").show();
 }
 
 function MostrarPopupAceptacionContratoGet()
@@ -741,34 +746,6 @@ function VerTutorialMobile() {
     setTimeout(function () { $(window).resize(); }, 50);
 }
 
-function ConsultarActualizaEmail() {
-    document.getElementById('hrefActualizarDatos').onclick = function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: urlActionMiPerfil,
-            dataType: 'Text',
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                if (checkTimeout(data)) {
-
-                    if (data.split('|')[0] == '1') {
-                        document.getElementById('spnEmail').innerHTML = data.split('|')[1];
-                        document.getElementById('fondoComunPopUp').style.display = 'block';
-                        document.getElementById('popupVerificacionCorreoElectronicoPendiente').style.display = 'block';
-                    }
-                    else {
-                        location.href = urlLocationMiPerfil;
-                    }
-                }
-            },
-            error: function (data, error) {
-                alert(error);
-            }
-        });
-    }
-}
-
 function ConsultarEmailPendiente() {
     $.ajax({
         type: 'POST',
@@ -778,6 +755,7 @@ function ConsultarEmailPendiente() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.split('|')[0] == '1') {
+                    document.getElementById('spnEmail').innerHTML = data.split('|')[1];
                     document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
                 }
             }

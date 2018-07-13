@@ -85,7 +85,7 @@
         <div class="content_foto">
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
-                <a id="hrefActualizarDatos" title="Actualizar datos" class="subir_foto_mobile default-background"></a>
+                <a href="@Url.Action("Index", "MiPerfil")"  id="hrefActualizarDatos" title="Actualizar datos" class="subir_foto_mobile default-background"></a>
                 <div class="tooltip_info_revision_correo" style="display:none;">
                     <div class="icono_info_alerta"></div>
                     <div class="tooltip_texto">
@@ -845,6 +845,7 @@
 
         var popupAceptacionContrato = '@Constantes.TipoPopUp.AceptacionContrato';
         var OrigenAceptacionContrato = '@Constantes.ClienteOrigen.OrigeMobile';
+        var popupActualizarCorreo = '@Constantes.TipoPopUp.ActualizarCorreo';
 
         var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/41577-BELCORP-SolCre-CO-400073315-300916.pdf")';
         var viewBagCambioClave = '@Model.CambioClave';
