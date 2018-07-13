@@ -84,11 +84,11 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.PaisID.Ecuador:
                 case Constantes.PaisID.Peru:
                     certificado.Nombre = DevuelveNombreCertificadoNoAdeudo_PazySalvo(userData.PaisID);
-                    //if (userData.MontoDeuda > 0)
-                    //{
-                    //    certificado.MensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certificado de " + certificado.Nombre;
-                    //    break;
-                    //}
+                    if (userData.MontoDeuda > 0)
+                    {
+                        certificado.MensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certificado de " + certificado.Nombre;
+                        break;
+                    }
                     certificado.CertificadoId = 1;
 
                     if (userData.PaisID == Constantes.PaisID.RepublicaDominicana) certificado.NombreVista = "~/Views/MisCertificados/DO_PazYSalvoPdf.cshtml";

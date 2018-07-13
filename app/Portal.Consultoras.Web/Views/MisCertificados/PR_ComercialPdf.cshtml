@@ -43,7 +43,7 @@
     </p>
     <p style="margin-top:0pt; margin-bottom:10pt; text-align:justify; line-height:115%; font-size:12pt">
         <span style="font-family: Arial">
-            La señora @Model.NombreCompleto.Trim() identificada con número de c&eacute;dula @Model.NumeroDocumento.Trim(),
+            La señora @Model.NombreCompleto.Trim() identificada con número de identificaci&oacute;n  @Model.NumeroDocumento.Trim(),
             es compradora de esta Compañía desde el día @Model.FechaIngresoConsultora y a la fecha cuenta con un
             promedio de compra de nuestros productos de las últimas @Model.CantidadConsecutivaNueva campañas igual a @Model.Moneda @Model.PromedioVentasFormato.
         </span>
@@ -74,8 +74,11 @@
     <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt">
         <strong><span style="font-family:Arial; ">&#xa0;</span></strong>
     </p>
+    <div style="display: block; float: right; clear: both;">
+        <img style="display:block; width:150px;" src="@Model.DocumentoResponsable" alt="" />
+    </div>
     <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt">
-        <img src="http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/DO/FirmaGiselleHernandez.JPG" alt="" width="266" height="64" />
+        <img src="@Model.UrlFirma" alt="" width="266" height="64" />
     </p>
     <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt">
         <span style="font-family:Arial">___________________________</span>
