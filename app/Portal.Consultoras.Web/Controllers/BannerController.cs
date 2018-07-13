@@ -350,8 +350,12 @@ namespace Portal.Consultoras.Web.Controllers
                         lstPais = svc.SelectPaises().OrderBy(x => x.PaisID).ToList();
                     }
 
-                    var carpetaPais = Globals.UrlBanner;
-                    if (lst.Count > 0) lst.Update(x => x.Archivo = ConfigS3.GetUrlFileS3(carpetaPais, x.Archivo, Globals.RutaImagenesBanners));
+                    
+                    if (lst != null && lst.Count > 0)
+                    {
+                        var carpetaPais = Globals.UrlBanner;
+                        lst.Update(x => x.Archivo = ConfigCdn.GetUrlFileCdn(carpetaPais, x.Archivo));
+                    }                        
 
                     BEGrid grid = new BEGrid
                     {
@@ -657,7 +661,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             if (lstFinalInfo.Any())
-                lstFinalInfo.ForEach(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));
+                lstFinalInfo.ForEach(x => x.Archivo = ConfigCdn.GetUrlFileCdn(Globals.UrlBanner, x.Archivo));
 
             var lstFinalModel = Mapper.Map<List<BannerInfoModel>>(lstFinalInfo);
 
@@ -958,9 +962,9 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                     lstBannerInfo = new List<BEBannerInfo>();
 
-                if (lstBannerInfo.Count > 0)
+                if (lstBannerInfo != null && lstBannerInfo.Count > 0)
                 {
-                    lstBannerInfo.Update(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));
+                    lstBannerInfo.Update(x => x.Archivo = ConfigCdn.GetUrlFileCdn(Globals.UrlBanner, x.Archivo));
                 }
 
                 issuccess = true;
