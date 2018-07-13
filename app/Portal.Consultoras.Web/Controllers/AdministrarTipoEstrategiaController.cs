@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return View(model);
         }
@@ -38,12 +38,11 @@ namespace Portal.Consultoras.Web.Controllers
                 var lst = Consulta == "1" ? GetTipoEstrategias() : new List<BETipoEstrategia>();
                 lst = lst ?? new List<BETipoEstrategia>();
 
-                string carpetapais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-
-                if (lst.Count > 0)
+                if (lst != null && lst.Count > 0)
                 {
-                    lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenEstrategia, carpetapais));
-                    lst.Update(x => x.ImagenOfertaIndependiente = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenOfertaIndependiente, carpetapais));
+                    string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                    lst.Update(x => x.ImagenEstrategia = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenEstrategia));
+                    lst.Update(x => x.ImagenOfertaIndependiente = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenOfertaIndependiente));
                 }
 
                 BEGrid grid = new BEGrid
@@ -129,7 +128,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEOferta> lst;
                 BEOferta entidad = new BEOferta
                 {
-                    PaisID = UserData().PaisID,
+                    PaisID = userData.PaisID,
                     TipoEstrategiaID = Convert.ToInt32(id)
                 };
 
@@ -195,11 +194,11 @@ namespace Portal.Consultoras.Web.Controllers
                 BEOferta entidad = new BEOferta
                 {
                     OfertaID = Convert.ToInt32(OfertaID),
-                    PaisID = UserData().PaisID,
+                    PaisID = userData.PaisID,
                     CodigoOferta = CodigoOferta,
                     DescripcionOferta = DescripcionOferta,
-                    UsuarioRegistro = UserData().CodigoUsuario,
-                    UsuarioModificacion = UserData().CodigoUsuario,
+                    UsuarioRegistro = userData.CodigoUsuario,
+                    UsuarioModificacion = userData.CodigoUsuario,
                     CodigoPrograma = CodigoPrograma
                 };
 
@@ -240,7 +239,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEOferta entidad = new BEOferta
                 {
                     OfertaID = Convert.ToInt32(OfertaID),
-                    PaisID = UserData().PaisID
+                    PaisID = userData.PaisID
                 };
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -306,9 +305,9 @@ namespace Portal.Consultoras.Web.Controllers
                 if (ImagenEstrategia != "" && imagenAnterior != ImagenEstrategia)
                 {
                     var path = Path.Combine(Globals.RutaTemporales, ImagenEstrategia);
-                    var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                    var newfilename = UserData().CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
+                    var newfilename = userData.CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
                     if (imagenAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, imagenAnterior);
                     ConfigS3.SetFileS3(path, carpetaPais, newfilename);
                     entidad.ImagenEstrategia = newfilename;
@@ -317,9 +316,9 @@ namespace Portal.Consultoras.Web.Controllers
                 if (ImagenOfertaIndependiente != "" && ImagenOfertaIndependienteAnterior != ImagenOfertaIndependiente)
                 {
                     var path = Path.Combine(Globals.RutaTemporales, ImagenOfertaIndependiente);
-                    var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                    var newfilename = UserData().CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
+                    var newfilename = userData.CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
                     if (ImagenOfertaIndependienteAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, ImagenOfertaIndependienteAnterior);
                     ConfigS3.SetFileS3(path, carpetaPais, newfilename);
                     entidad.ImagenOfertaIndependiente = newfilename;
@@ -344,7 +343,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -354,7 +353,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -372,7 +371,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var entidad = new BETipoEstrategia
                 {
-                    PaisID = UserData().PaisID,
+                    PaisID = userData.PaisID,
                     TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID)
                 };
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -389,7 +388,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -399,7 +398,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
