@@ -1046,17 +1046,16 @@ namespace Portal.Consultoras.Web.Providers
                             if (componentesRelacinados!=null)
                             {
                                 item.Hermanos = new List<EstrategiaComponenteModel>();
-                                componentesRelacinados.ForEach(componente=> {
-
-                                    lineasPorCaja--;
+                                componentesRelacinados.ForEach(componente=> {                                   
 
                                     if (componente.CUV != item.CUV2 && lineasPorCaja>0 && !string.IsNullOrEmpty(componente.NombreProducto))
                                     {
                                         item.Hermanos.Add(new EstrategiaComponenteModel()
                                         {
-                                            NombreComercial = string.Format("{0}{1}", componente.NombreProducto, lineasPorCaja == 1 ? "..." : string.Empty)
+                                            NombreComercial = string.Format("{0}{1}", componente.NombreProducto, item.Hermanos.Count == 1 ? "..." : string.Empty)
                                         });
                                     }
+                                    lineasPorCaja--;
                                 });
                             }                            
                         });

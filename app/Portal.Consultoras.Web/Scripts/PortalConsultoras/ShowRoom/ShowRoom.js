@@ -606,7 +606,7 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
                     $('#divContentSubCampania').show();
 
                     EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias'));
-
+                    
                     if (!$(objData.lista).filter(function (a, b) {
                         return b.Hermanos.length > 0
                     })[0])

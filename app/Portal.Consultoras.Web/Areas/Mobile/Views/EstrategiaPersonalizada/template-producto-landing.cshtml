@@ -35,17 +35,17 @@
         </div>
     </div>
     {{else}}
-    <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}} content_item_home_palanca">
+    <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}} content_item_home_palanca" >
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <div class="content_item_home_bpt box_producto_mobile_fix">
+        <div class="content_item_home_bpt box_producto_mobile_fix"  {{#iff esSubcampania '==' true}}style="padding-bottom: 30px;" {{/iff}}>
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
             <div data-item-tag="verdetalle"
-                 {{#iff esSubcampania '==' 'false'}}
+                 {{#iff esSubcampania '==' false}}
                      {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
                      onclick="javascript:VerPopupExpGanaMas();"
                      {{else}}
                      onclick="javascript:OnClickFichaDetalle(this);"
-                     {{/iff}}>
+                     {{/iff}}
                 {{/iff}}>
                 <div>
                     <div class="producto_img_mobile_bpt">
@@ -69,7 +69,13 @@
                             <b class="text_descrition_prd_bpt" {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>{{DescripcionCortada}}</b>
                         </p>
                         {{/iff}}
-
+                        {{#iff esSubcampania '==' true}}
+                        <div class="sub_campania_info_adicional" style="min-height:50px;">
+                            {{#each item.Hermanos as |itemHermano|}}
+                            <label style="margin-left:20px; cursor:initial">{{itemHermano.NombreComercial}}</label><br />
+                            {{/each}}
+                        </div>
+                        {{/iff}}
                         <div class="producto_precio" {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>
                             {{#iff Precio '>' 0}}
                             <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioTachado}}</span>
