@@ -66,7 +66,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
             Dictionary<string, List<string>> irespuesta = new Dictionary<string, List<string>>();
             string jsonParameters = JsonConvert.SerializeObject(estrategiasIds);
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlCargarWebApi, pais);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlCargarWebApi, pais,userData.UsuarioNombre);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -371,7 +371,7 @@ namespace Portal.Consultoras.Web.Providers
             var taskApi = Task.Run(() => RespSBMicroservicios(parametros, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
-            bool result = !string.IsNullOrEmpty(content) && content.Equals(Constantes.EstadoRespuestaServicio.Success);
+            bool result = !string.IsNullOrEmpty(content) && content.Contains(Constantes.EstadoRespuestaServicio.Success);
 
             return result;
         }
