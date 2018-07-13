@@ -2186,7 +2186,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoMensajeProl = resultado.CodigoMensaje
                 };
                 model.TotalConDescuento = model.Total - model.MontoDescuento;
-                SetMensajesBotonesProl(model, resultado.Reserva);
+                SetMensajesBotonesProl(model);
 
                 var listPermiteOfertaFinal = new List<Enumeradores.ResultadoReserva> {
                     Enumeradores.ResultadoReserva.Reservado,
@@ -2247,7 +2247,7 @@ namespace Portal.Consultoras.Web.Controllers
             return ErrorJson("Ocurrió un problema al tratar de enviar el correo a la consultora, intente nuevamente.", true);
         }
 
-        private void SetMensajesBotonesProl(PedidoSb2Model model, bool reservaProl)
+        private void SetMensajesBotonesProl(PedidoSb2Model model)
         {
             var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month);
             var horaCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
@@ -4097,7 +4097,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }, JsonRequestBehavior.AllowGet);
                     }
 
-                    return AgregarProductoVC(model.CuvTonos, model.FlagNueva, model.Cantidad, model.OrigenPedidoWeb.ToString(), model.ClienteID_);
+                    return AgregarProductoVC(model.CuvTonos, model.Cantidad, model.OrigenPedidoWeb.ToString(), model.ClienteID_);
                 }
                 #endregion
 
@@ -4351,7 +4351,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        private JsonResult AgregarProductoVC(string listaCuvTonos, string FlagNueva, string Cantidad, string OrigenPedidoWeb, string ClienteID_ = "")
+        private JsonResult AgregarProductoVC(string listaCuvTonos, string Cantidad, string OrigenPedidoWeb, string ClienteID_ = "")
         {
             try
             {
