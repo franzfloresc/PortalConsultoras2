@@ -2232,7 +2232,7 @@ namespace Portal.Consultoras.Common
             public const string UrlPreCargarWebApi = "api/estrategia/precargar/{0}/{1}/{2}";
 
             //api/Estrategia/cargar/{pais}
-            public const string UrlCargarWebApi = "api/estrategia/cargar/{0}";
+            public const string UrlCargarWebApi = "api/estrategia/cargar/{0}?usuario={1}";
 
             //api/Estrategia/{pais}/{id} --REVISAR
             public const string UrlFiltrarEstrategia = "api/estrategia/{0}/{1}";
