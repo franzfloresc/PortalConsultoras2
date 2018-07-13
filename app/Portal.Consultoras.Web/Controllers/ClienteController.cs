@@ -402,14 +402,14 @@ namespace Portal.Consultoras.Web.Controllers
             };
 
 
-            string[] arrTotal = { "Total a Pagar:", userData.Simbolo + " #Cargo" };
+            //string[] arrTotal = { "Total a Pagar:", userData.Simbolo + " #Cargo" };
 
-            ExportToExcelMisClientes("MisClientes", lst, dicCabeceras, dic, arrTotal, 0, 100);
+            ExportToExcelMisClientes("MisClientes", lst, dicCabeceras, dic);
             return new EmptyResult();
         }
 
         private void ExportToExcelMisClientes(string filename, List<BECliente> sourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
-           Dictionary<string, string> columnDetailDefinition, string[] arrTotal, decimal cargoTotal, decimal abonoTotal)
+           Dictionary<string, string> columnDetailDefinition)
         {
             try
             {
