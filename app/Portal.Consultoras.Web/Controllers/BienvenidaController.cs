@@ -711,31 +711,6 @@ namespace Portal.Consultoras.Web.Controllers
             SetUserData(userData);
         }
 
-        public JsonResult SubirImagen(string data)
-        {
-            if (string.IsNullOrEmpty(data)) return Json(new { success = false, message = "Imagen inválida" });
-            var dataPartes = data.Split(',');
-            if (dataPartes.Length <= 1) return Json(new { success = false, message = "Imagen inválida" });
-            var image = dataPartes[1];
-
-            string rutaImagen;
-            try
-            {
-                var base64EncodedBytes = Convert.FromBase64String(image);
-                var fileName = userData.CodigoISO + "-" + userData.CodigoConsultora + ".png";
-                var pathFile = Server.MapPath("~/Content/Images/temp/" + fileName);
-                System.IO.File.WriteAllBytes(pathFile, base64EncodedBytes);
-                ConfigS3.SetFileS3(pathFile, "ConsultoraImagen", fileName, true, true, true);
-                rutaImagen = ConfigCdn.GetUrlFileCdn("ConsultoraImagen", fileName);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-                return Json(new { success = false, message = "Hubo un problema con el servicio, intente nuevamente" });
-            }
-            return Json(new { success = true, message = "La imagen se subió exitosamente", imagen = Url.Content(rutaImagen) });
-        }
-
         public JsonResult AceptarContrato(bool checkAceptar , string origenAceptacion, string AppVersion)
         {
             try
