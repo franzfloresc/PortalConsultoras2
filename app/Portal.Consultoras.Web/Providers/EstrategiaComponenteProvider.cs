@@ -41,6 +41,36 @@ namespace Portal.Consultoras.Web.Providers
             return listaComponentesPorOrdenar;
         }
 
+        public List<BEEstrategiaProducto> GetEstrategiaProductosList(EstrategiaPersonalizadaProductoModel estrategiaModelo, out string codigoSap)
+        {
+            codigoSap = "";
+            const string separador = "|";
+            var txtBuil = new StringBuilder();
+            txtBuil.Append(separador);
+
+            var listaProducto = new List<BEEstrategiaProducto>();
+            if (!string.IsNullOrEmpty(estrategiaModelo.CodigoVariante))
+            {
+
+                var estrategiaX = new BEEstrategia { PaisID = _paisId, EstrategiaID = estrategiaModelo.EstrategiaID };
+                using (var svc = new PedidoServiceClient())
+                {
+                    listaProducto = svc.GetEstrategiaProducto(estrategiaX).ToList();
+                }
+
+                foreach (var item in listaProducto)
+                {
+                    item.SAP = Util.Trim(item.SAP);
+                    if (item.SAP != "" && !txtBuil.ToString().Contains(separador + item.SAP + separador))
+                        txtBuil.Append(item.SAP + separador);
+                }
+            }
+
+            
+            return listaProducto;
+        }
+
+
         private List<BEEstrategiaProducto> GetEstrategiaProductos(EstrategiaPersonalizadaProductoModel estrategiaModelo, out string codigoSap)
         {
             codigoSap = "";

@@ -40,10 +40,12 @@
         <div class="content_item_home_bpt box_producto_mobile_fix">
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
             <div data-item-tag="verdetalle"
-                {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
-                onclick="javascript:VerPopupExpGanaMas();"
-                {{else}}
-                onclick="javascript:OnClickFichaDetalle(this);"
+                 {{#iff esSubcampania '==' 'false'}}
+                     {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
+                     onclick="javascript:VerPopupExpGanaMas();"
+                     {{else}}
+                     onclick="javascript:OnClickFichaDetalle(this);"
+                     {{/iff}}>
                 {{/iff}}>
                 <div>
                     <div class="producto_img_mobile_bpt">
@@ -63,7 +65,7 @@
                         <h6>&ensp;&nbsp;</h6>
                         {{/IsNullOrEmpty}}
                         {{#iff DescripcionCortada '!=' ''}}
-                        <p class="nombre_producto" style="cursor: pointer; height: 36px;">
+                        <p class="nombre_producto" style=" {{#iff esSubcampania '==' 'false'}}cursor: pointer;{{/iff}} height: 36px;">
                             <b class="text_descrition_prd_bpt" {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>{{DescripcionCortada}}</b>
                         </p>
                         {{/iff}}

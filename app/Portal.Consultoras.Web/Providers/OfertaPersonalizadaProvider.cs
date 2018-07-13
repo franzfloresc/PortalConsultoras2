@@ -21,6 +21,7 @@ namespace Portal.Consultoras.Web.Providers
         protected RevistaDigitalModel revistaDigital;
         protected ConfiguracionManagerProvider _configuracionManager;
         protected readonly PedidoWebProvider _pedidoWeb;
+        protected readonly EstrategiaComponenteProvider _estrategiaComponenteProvider;
 
         public OfertaPersonalizadaProvider()
         {
@@ -1010,7 +1011,47 @@ namespace Portal.Consultoras.Web.Providers
                 listaSubCampania = listaProductoModel.Where(x => x.EsSubCampania).ToList();
             else
                 listaSubCampania = listaProductoModel.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-            
+
+
+            if (listaSubCampania != null)
+            {
+                bool esMultimarca;
+
+
+                if (listaSubCampania.Any())
+                {
+                    var listaEstrategiaProductos = new List<ServicePedido.BEEstrategiaProducto>();
+                    var strJoinIds = string.Join(",", listaSubCampania.Select(x=>x.EstrategiaID).ToList());
+                    using (var svc = new PedidoServiceClient())
+                    {
+                        listaEstrategiaProductos = svc.GetEstrategiaProductoList(userData.PaisID, strJoinIds).ToList().ToList();
+                        listaEstrategiaProductos = (listaEstrategiaProductos == null ? new List<ServicePedido.BEEstrategiaProducto>() : listaEstrategiaProductos);
+                    }
+
+                    if (listaEstrategiaProductos.Any())
+                    {
+                        listaSubCampania.ForEach(item => {
+                            var componentesRelacinados = listaEstrategiaProductos.Where(x => x.EstrategiaID == item.EstrategiaID).ToList();
+
+                            if (componentesRelacinados!=null)
+                            {
+                                item.Hermanos = new List<EstrategiaComponenteModel>();
+                                componentesRelacinados.ForEach(componente=> {
+
+                                    if (componente.CUV != item.CUV2)
+                                    {
+                                        item.Hermanos.Add(new EstrategiaComponenteModel() {
+                                            NombreComercial = componente.NombreProducto
+                                        });
+                                    }
+                                });
+                            }                            
+                        });
+                    }
+                } 
+            }
+
+ 
             var listaPedido = _pedidoWeb.ObtenerPedidoWebDetalle(0);
             //configEstrategiaSR.ListaCategoria = new List<ShowRoomCategoriaModel>();
             sessionManager.ShowRoom.CargoOfertas = "1";

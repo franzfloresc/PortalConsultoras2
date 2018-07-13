@@ -31,19 +31,24 @@
     {{else}}
     <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <div data-item-tag="body" class="content_item_carrusel" {{#iff TipoAccionAgregar '!=' '4' }} style="cursor:pointer;" {{/iff}}>
+        <div data-item-tag="body" class="content_item_carrusel"  {{#iff esSubcampania '==' false}}{{#iff TipoAccionAgregar '!=' '4' }} style="cursor:pointer;" {{/iff}}{{/iff}}>
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
             <div data-item-tag="contenido"
-                 {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
-                    onclick="javascript:VerPopupExpGanaMas();"
-                 {{else}}
-                    onclick="javascript:OnClickFichaDetalle(event.target);"
-                 {{/iff}}>
+                  {{#iff esSubcampania '==' false}}
+                         {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
+                            onclick="javascript:VerPopupExpGanaMas();"
+                         {{else}}
+                            onclick="javascript:OnClickFichaDetalle(event.target);"
+                         {{/iff}}>
+                    {{/iff}}                
                 <div class="producto_img_home" data-item-tag="foto">
                     <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{ImgUrl FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
-                    {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}}
-                    <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
+                    {{#iff esSubcampania '==' false}}
+                        {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}}
+                        <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
+                        {{/iff}}
                     {{/iff}}
+
                 </div>
                 {{#iff ImagenURL '!=' ''}}
                     <div class="etiqueta_producto" data-item-tag="etiqueta">
@@ -58,6 +63,16 @@
                     {{/IsNullOrEmpty}}
                     {{#iff DescripcionCortada '!=' ''}}
                         <p class="nombre_producto"><b>{{DescripcionCortada}}</b></p>
+                    {{/iff}}
+                </div>
+                <div class="clasesub">
+                    {{item.Hermanos}}
+                    {{#iff esSubcampania '==' true}}
+
+                    {{#each item.Hermanos as |itemHermano|}}
+                    <p class="nombre_producto">NombreComercial</p>
+                    {{/each}}
+
                     {{/iff}}
                 </div>
                 <div class="producto_nombre_descripcion" data-item-tag="precio">

@@ -1241,5 +1241,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
 
+        [OperationContract]
+        List<BEEstrategiaProducto> GetEstrategiaProductoList(int PaisID, string idList);
+
     }
 }
