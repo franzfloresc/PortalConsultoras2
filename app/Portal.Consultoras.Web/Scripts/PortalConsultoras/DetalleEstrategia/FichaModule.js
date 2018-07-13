@@ -4,7 +4,7 @@
     var _primeraMarca = "";
     var _ultimaMarca = "";
     var _esMultimarca = false;
-    var _descripcionProducto = "";
+    var _estrategia;
 
     var _config = {
         palanca: config.palanca || "",
@@ -308,7 +308,7 @@
         // Se realiza la marcación en analytics de la información de la ficha de un producto.
         var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
         AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, null, estrategia.CodigoVariante, _config.palanca);
-        _descripcionProducto = estrategia.DescripcionCompleta;
+        _estrategia = estrategia;
         return true;
     };
 
@@ -333,7 +333,6 @@
 
             if (youtubeModule) {
                 youtubeModule.Inicializar();
-                //AnalyticsPortal.fcEnviarInformacionVideo(estrategia.DescripcionCompleta.trim());
             }
         }
         return true;
@@ -524,7 +523,7 @@
 
     // Método que realiza la marcación en analytics de tonos en el combo de seleccion de tonos.
     var _marcarCambiaColorCombo = function () {
-        var producto = _descripcionProducto;
+        var producto = _estrategia.DescripcionCompleta;
         var contenedorTonos = $(".content_tonos_select").children(".content_tono_elegido");
         $(contenedorTonos).each(function (index, element) {
             $(this).click(function () {
@@ -536,13 +535,23 @@
 
     // Método que realiza la marcación en analytics de tonos en el cuadrado de seleccion de tonos.
     var _marcarCambiaColorCuadro = function () {
-        var producto = _descripcionProducto;
+        var producto = _estrategia.DescripcionCompleta;
         var contenedorTonos = $(".content_tonos_maquillaje").children(".content_tono_detalle");
         $(contenedorTonos).each(function (index, element) {
             $(this).click(function () {
                 var tono = $(this).attr("data-tono-nombre");
                 AnalyticsPortalModule.MarcarCambiaColorCuadro(producto, tono);
             });
+        });
+    }
+
+    // Método que realiza la marcación en analytics de un producto al presionar el boton agregar.
+    var _marcarAgregaProductoCarro = function () {
+        $("#btnAgregalo").click(function () {
+            var cantidad = $(".txt_cantidad_pedido").val() || "";
+            cantidad = cantidad == "" ? 0 : parseInt(cantidad);
+            var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
+            AnalyticsPortalModule.MarcarAgregaProductoCarro(tipoMoneda, _estrategia.DescripcionCompleta.trim(), _estrategia.PrecioVenta, _estrategia.DescripcionMarca, _estrategia.CUV2.trim(), null, _estrategia.CodigoVariante, cantidad, _config.palanca);
         });
     }
 
@@ -557,6 +566,7 @@
         _fijarFooterCampaniaSiguiente();
         _marcarCambiaColorCombo();
         _marcarCambiaColorCuadro();
+        _marcarAgregaProductoCarro();
     }
 
     return {
