@@ -8131,7 +8131,16 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string sordField;
-        
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoConsultoraField;
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int? PDigitalField;
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int? PTradicionalField;
+
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -8349,7 +8358,58 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 }
             }
         }
-        
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoConsultora
+        {
+            get
+            {
+                return this.CodigoConsultoraField;
+            }
+            set
+            {
+                if ((object.ReferenceEquals(this.CodigoConsultoraField, value) != true))
+                {
+                    this.CodigoConsultoraField = value;
+                    this.RaisePropertyChanged("CodigoConsultora");
+                }
+            }
+        }
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int? PDigital
+        {
+            get
+            {
+                return this.PDigitalField;
+            }
+            set
+            {
+                if ((this.PDigitalField.Equals(value) != true))
+                {
+                    this.PDigitalField = value;
+                    this.RaisePropertyChanged("PDigital");
+                }
+            }
+        }
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int? PTradicional
+        {
+            get
+            {
+                return this.PTradicionalField;
+            }
+            set
+            {
+                if ((this.PTradicionalField.Equals(value) != true))
+                {
+                    this.PTradicionalField = value;
+                    this.RaisePropertyChanged("PTradicional");
+                }
+            }
+        }
+
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
