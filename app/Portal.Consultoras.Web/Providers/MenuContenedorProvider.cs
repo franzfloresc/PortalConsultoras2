@@ -338,10 +338,10 @@ namespace Portal.Consultoras.Web.Providers
                 var config = confiModel;
                 config.Codigo = Util.Trim(config.Codigo).ToUpper();
                 config.CampaniaId = userData.CampaniaID;
-                config.DesktopFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, config.DesktopFondoBanner);
-                config.DesktopLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, config.DesktopLogoBanner);
-                config.MobileFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, config.MobileFondoBanner);
-                config.MobileLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, config.MobileLogoBanner);
+                config.DesktopFondoBanner = ConfigCdn.GetUrlFileCdn(carpetaPais, config.DesktopFondoBanner);
+                config.DesktopLogoBanner = ConfigCdn.GetUrlFileCdn(carpetaPais, config.DesktopLogoBanner);
+                config.MobileFondoBanner = ConfigCdn.GetUrlFileCdn(carpetaPais, config.MobileFondoBanner);
+                config.MobileLogoBanner = ConfigCdn.GetUrlFileCdn(carpetaPais, config.MobileLogoBanner);
 
                 if (revistaDigital.TieneRDI)
                 {

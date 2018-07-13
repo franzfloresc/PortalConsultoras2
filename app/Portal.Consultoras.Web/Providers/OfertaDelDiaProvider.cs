@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Web.Providers
                         return oddSession;
 
                     oddSession.TeQuedan = CountdownOdd(usuario);
-                    oddSession.ImagenBanner = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + usuario.CodigoISO, oddSession.ImagenBanner);
+                    oddSession.ImagenBanner = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + usuario.CodigoISO, oddSession.ImagenBanner);
                     return oddSession;
                 }
 

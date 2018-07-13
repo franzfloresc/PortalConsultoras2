@@ -118,7 +118,7 @@ namespace Portal.Consultoras.Web.Providers
                     };
 
                     seccion.TituloBtnAnalytics = seccion.Titulo.Replace("'", "");
-                    seccion.ImagenFondo = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, seccion.ImagenFondo);
+                    seccion.ImagenFondo = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, seccion.ImagenFondo);
 
                     #region ConfiguracionPais.Codigo
 

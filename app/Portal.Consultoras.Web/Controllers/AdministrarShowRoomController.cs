@@ -34,20 +34,13 @@ namespace Portal.Consultoras.Web.Controllers
                     var iso = Util.GetPaisISO(paisId);
                     var carpetaPais = Globals.UrlMatriz + "/" + iso;
 
-                    showRoomEvento.Imagen1 = string.IsNullOrEmpty(showRoomEvento.Imagen1)
-                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, showRoomEvento.Imagen1, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    showRoomEvento.Imagen2 = string.IsNullOrEmpty(showRoomEvento.Imagen2)
-                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, showRoomEvento.Imagen2, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    showRoomEvento.ImagenCabeceraProducto = string.IsNullOrEmpty(showRoomEvento.ImagenCabeceraProducto)
-                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, showRoomEvento.ImagenCabeceraProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    showRoomEvento.ImagenVentaSetPopup = string.IsNullOrEmpty(showRoomEvento.ImagenVentaSetPopup)
-                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, showRoomEvento.ImagenVentaSetPopup, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    showRoomEvento.ImagenVentaTagLateral = string.IsNullOrEmpty(showRoomEvento.ImagenVentaTagLateral)
-                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, showRoomEvento.ImagenVentaTagLateral, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    showRoomEvento.ImagenPestaniaShowRoom = string.IsNullOrEmpty(showRoomEvento.ImagenPestaniaShowRoom)
-                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, showRoomEvento.ImagenPestaniaShowRoom, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    showRoomEvento.ImagenPreventaDigital = string.IsNullOrEmpty(showRoomEvento.ImagenPreventaDigital)
-                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, showRoomEvento.ImagenPreventaDigital, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    showRoomEvento.Imagen1 = ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.Imagen1);
+                    showRoomEvento.Imagen2 = ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.Imagen2);
+                    showRoomEvento.ImagenCabeceraProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.ImagenCabeceraProducto);
+                    showRoomEvento.ImagenVentaSetPopup = ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.ImagenVentaSetPopup);
+                    showRoomEvento.ImagenVentaTagLateral = ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.ImagenVentaTagLateral);
+                    showRoomEvento.ImagenPestaniaShowRoom = ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.ImagenPestaniaShowRoom);
+                    showRoomEvento.ImagenPreventaDigital = ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.ImagenPreventaDigital);
 
                     listaShowRoomEvento.Add(showRoomEvento);
                 }
@@ -162,7 +155,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         [HttpPost]
         public JsonResult GetShowRoomNiveles()
         {
@@ -327,7 +320,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         [HttpPost]
         public string CargarProductoCpc(HttpPostedFileBase flCargarProductoCpc, int hdCargarProductoCpcEventoId,
             int hdCargarProductoCpcCampaniaId)
@@ -431,7 +424,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return message;
         }
-        
+
         [HttpPost]
         public JsonResult GetShowRoomPersonalizacionNivel(int eventoId, int nivelId)
         {
@@ -463,8 +456,7 @@ namespace Portal.Consultoras.Web.Controllers
                             string iso = Util.GetPaisISO(userData.PaisID);
                             var carpetaPais = Globals.UrlMatriz + "/" + iso;
 
-                            item.Valor = string.IsNullOrEmpty(item.Valor)
-                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, item.Valor, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                            item.Valor = ConfigCdn.GetUrlFileCdn(carpetaPais, item.Valor);
                         }
                     }
                     else
@@ -492,7 +484,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         [HttpPost]
         public JsonResult GuardarPersonalizacionNivelShowRoom(List<ShowRoomPersonalizacionNivelModel> lista)
         {
@@ -562,7 +554,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         public ActionResult ConsultarOfertaShowRoomDetalleNew(string sidx, string sord, int page, int rows, int estrategiaId)
         {
             if (ModelState.IsValid)
@@ -618,7 +610,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string iso = Util.GetPaisISO(userData.PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + iso;
 
-                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + iso));
+                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
 
                 var data = new
                 {
@@ -649,7 +641,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
-        
+
         [HttpPost]
         public JsonResult EliminarOfertaShowRoomDetalleAllNew(int estrategiaId)
         {
@@ -872,7 +864,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         private string GuardarImagenAmazon(string nombreImagen, string nombreImagenAnterior, int paisId, bool keepFile = false)
         {
             string nombreImagenFinal;
@@ -896,7 +888,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return nombreImagenFinal;
         }
-        
+
         private List<RptProductoEstrategia> EstrategiaProductoObtenerServicio(ServicePedido.BEEstrategia entidad)
         {
             var respuestaServiceCdr = new List<RptProductoEstrategia>();

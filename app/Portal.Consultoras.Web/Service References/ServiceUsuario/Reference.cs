@@ -10868,10 +10868,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<string> AceptarContratoAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/AceptarContratoAceptacion", ReplyAction="http://tempuri.org/IUsuarioService/AceptarContratoAceptacionResponse")]
-        int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora, string origen);
+        int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora, string origen, string direccionIP, string InformacionSOMobile);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/AceptarContratoAceptacion", ReplyAction="http://tempuri.org/IUsuarioService/AceptarContratoAceptacionResponse")]
-        System.Threading.Tasks.Task<int> AceptarContratoAceptacionAsync(int paisID, long consultoraid, string codigoConsultora, string origen);
+        System.Threading.Tasks.Task<int> AceptarContratoAceptacionAsync(int paisID, long consultoraid, string codigoConsultora, string origen, string direccionIP, string InformacionSOMobile);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetSesionUsuarioLoginDD", ReplyAction="http://tempuri.org/IUsuarioService/GetSesionUsuarioLoginDDResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario GetSesionUsuarioLoginDD(int paisID, string codigoUsuario, string claveSecreta);
@@ -11801,12 +11801,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.AceptarContratoAsync(usuario);
         }
         
-        public int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora, string origen) {
-            return base.Channel.AceptarContratoAceptacion(paisID, consultoraid, codigoConsultora, origen);
+        public int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora, string origen, string direccionIP, string InformacionSOMobile) {
+            return base.Channel.AceptarContratoAceptacion(paisID, consultoraid, codigoConsultora, origen, direccionIP, InformacionSOMobile);
         }
         
-        public System.Threading.Tasks.Task<int> AceptarContratoAceptacionAsync(int paisID, long consultoraid, string codigoConsultora, string origen) {
-            return base.Channel.AceptarContratoAceptacionAsync(paisID, consultoraid, codigoConsultora, origen);
+        public System.Threading.Tasks.Task<int> AceptarContratoAceptacionAsync(int paisID, long consultoraid, string codigoConsultora, string origen, string direccionIP, string InformacionSOMobile) {
+            return base.Channel.AceptarContratoAceptacionAsync(paisID, consultoraid, codigoConsultora, origen, direccionIP, InformacionSOMobile);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario GetSesionUsuarioLoginDD(int paisID, string codigoUsuario, string claveSecreta) {
