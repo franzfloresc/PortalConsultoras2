@@ -406,18 +406,17 @@ var EstrategiaAgregarModule = (function () {
             else {
                 if (_config.esFicha) {
                     if (params.CuvTonos != "") {
-                        $(".tono_seleccionado").hide();
-                        $(".texto_tono_seleccionado").html("ELIGE TU TONO");
+                        $(".texto_sin_tono").find(".tono_seleccionado").hide();
+                        $(".texto_sin_tono").find(".texto_tono_seleccionado").html("ELIGE TU TONO");
 
                         if ((ConstantesModule.CodigoVariedad.IndividualVariable == codigoVariante || ConstantesModule.CodigoVariedad.CompuestaVariable == codigoVariante)) {
+                            $(".content_tono_detalle").removeClass("borde_seleccion_tono");
                             var listaCuvs = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataTono.concat(dataProperties.dataTonoSelect));
                             if (listaCuvs.length > 0) {
                                 $btnAgregar.addClass("btn_desactivado_general");
                                 $.each(listaCuvs,
                                     function (i, item) {
                                         var cuv = $(item).attr("data-tono-select", "");
-                                        $(item).find(elementosDiv.EstrategiaHdMarcaID).val("");
-                                        $(item).find(elementosDiv.EstrategiaHdPrecioCatalogo).val("");
                                     });
                             }
                         }
