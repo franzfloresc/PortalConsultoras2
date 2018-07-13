@@ -1,7 +1,6 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models;
 @using Portal.Consultoras.Web.Areas.Mobile.Helpers
-@using Newtonsoft.Json;
 @using Portal.Consultoras.Web.Helpers
 
 @{
@@ -46,6 +45,7 @@
         var revistaDigital = @Html.Raw(Json.Encode(ViewBag.revistaDigital));
     </script>
 
+    <style id="styleRelojOdd"></style>
     @RenderSection("styles", required: false)
 
     @if (TempData.ContainsKey("PixelCodigoIso"))
@@ -506,7 +506,6 @@
                 }
             }
         }
-
 
         function CargarShowRoom() {
             AgregarTagManagerShowRoomAnalytics();

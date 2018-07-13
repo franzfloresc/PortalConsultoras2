@@ -1,7 +1,7 @@
 ﻿@using Portal.Consultoras.Web.Models
 @using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
-@{
 
+@{
     DataModel Model = ViewBag.MostrarOfertaDelDia == true ? ViewBag.OfertaDelDia ?? new DataModel() : new DataModel();
     var prod = new EstrategiaPersonalizadaProductoModel();
     if (Model.ListaOferta.Count > 0)
