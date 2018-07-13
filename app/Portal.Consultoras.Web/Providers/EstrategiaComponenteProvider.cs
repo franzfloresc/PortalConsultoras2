@@ -159,7 +159,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (!string.IsNullOrEmpty(beEstrategiaProducto.ImagenProducto))
                 {
-                    componenteModel.Imagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + _paisISO, beEstrategiaProducto.ImagenProducto, Globals.UrlMatriz + "/" + _paisISO);
+                    componenteModel.Imagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + _paisISO, beEstrategiaProducto.ImagenProducto);
                 }
                 if (!string.IsNullOrEmpty(beEstrategiaProducto.NombreMarca))
                 {

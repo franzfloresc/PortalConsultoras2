@@ -114,7 +114,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             var nombreCarpetaTc = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.NombreCarpetaTC);
             var nombreArchivoTc = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.NombreArchivoTC) + ".pdf";
-            return ConfigS3.GetUrlFileS3(nombreCarpetaTc, codigoIso + "/" + nombreArchivoTc, String.Empty);
+            return ConfigCdn.GetUrlFileCdn(nombreCarpetaTc, codigoIso + "/" + nombreArchivoTc);
         }
 
         public List<ConfiguracionPaisDatosModel> GetConfiguracionPaisDatosPorComponente(int campaniaid, string componente)

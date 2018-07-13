@@ -1,80 +1,87 @@
 ﻿using Amazon.S3.Model;
 using System;
 using System.IO;
+using System.Configuration;
 
 namespace Portal.Consultoras.Common
 {
     public class ConfigS3
     {
-        private static readonly string MY_AWS_ACCESS_KEY_ID = System.Configuration.ConfigurationManager.AppSettings["MY_AWS_ACCESS_KEY_ID"] ?? string.Empty;
-        private static readonly string MY_AWS_SECRET_KEY = System.Configuration.ConfigurationManager.AppSettings["MY_AWS_SECRET_KEY"] ?? string.Empty;
-        private static readonly string BUCKET_NAME = System.Configuration.ConfigurationManager.AppSettings["BUCKET_NAME"] ?? string.Empty;
-        private static readonly string BUCKET_NAME_QAS = System.Configuration.ConfigurationManager.AppSettings["BUCKET_NAME_QAS"] ?? string.Empty;
-        private static readonly string ROOT_DIRECTORY = System.Configuration.ConfigurationManager.AppSettings["ROOT_DIRECTORY"] ?? string.Empty;
-        private static readonly string URL_S3 = System.Configuration.ConfigurationManager.AppSettings["URL_S3"] ?? string.Empty;
+        private static readonly string MY_AWS_ACCESS_KEY_ID = System.Configuration.ConfigurationManager.AppSettings["MY_AWS_ACCESS_KEY_ID"];
+        private static readonly string MY_AWS_SECRET_KEY = System.Configuration.ConfigurationManager.AppSettings["MY_AWS_SECRET_KEY"];
+        private static readonly string BUCKET_NAME = System.Configuration.ConfigurationManager.AppSettings["BUCKET_NAME"];
+        private static readonly string BUCKET_NAME_QAS = System.Configuration.ConfigurationManager.AppSettings["BUCKET_NAME_QAS"];
+        private static readonly string ROOT_DIRECTORY = System.Configuration.ConfigurationManager.AppSettings["ROOT_DIRECTORY"];
+        private static readonly string URL_S3 = System.Configuration.ConfigurationManager.AppSettings["URL_S3"];
         private static readonly string rutaRevistaDigital = System.Configuration.ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.CarpetaRevistaDigital] ?? string.Empty;
+        
+        //public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior = "")
+        //{
+        //    fileName = (fileName ?? "").Trim();
+        //    if (fileName == "")
+        //        return fileName;
 
-        public static string GetUrlFileS3Base(string carpetaPais)
-        {
-            return URL_S3 + "/" + BUCKET_NAME + "/" + ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "");
-        }
+        //    if (fileName.StartsWith(URL_S3))
+        //        return fileName;
 
-        public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior = "")
-        {
-            fileName = (fileName ?? "").Trim();
-            if (fileName == "")
-                return fileName;
+        //    if (fileName.StartsWith("http:/"))
+        //        return fileName;
 
-            if (fileName.StartsWith(URL_S3))
-                return fileName;
+        //    if (fileName.StartsWith("https:/"))
+        //        return fileName;            
 
-            if (fileName.StartsWith("http:/"))
-                return fileName;
+        //    var root = string.IsNullOrEmpty(ROOT_DIRECTORY) ? "" : ROOT_DIRECTORY + "/";
+        //    var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
 
-            if (fileName.StartsWith("https:/"))
-                return fileName;
+        //    return URL_S3 + "/" + BUCKET_NAME + "/" + root + carpeta + fileName;
+        //}
 
-            carpetaPais = carpetaPais ?? "";
-            return URL_S3 + "/" + BUCKET_NAME + "/" + ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName;
-        }
+        //public static string GetUrlS3(string carpetaPais)
+        //{
+        //    var root = string.IsNullOrEmpty(ROOT_DIRECTORY) ? "" : ROOT_DIRECTORY + "/";
+        //    var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
 
-        public static string GetUrlS3(string carpetaPais)
-        {
-            return URL_S3 + "/" + BUCKET_NAME + "/" + ROOT_DIRECTORY + "/" + (carpetaPais != "" ? carpetaPais + "/" : "");
-        }
+        //    return URL_S3 + "/" + BUCKET_NAME + "/" + root + carpeta;
+        //}
 
-        public static string GetUrlFileRDS3(string carpetaPais, string fileName)
-        {
-            fileName = fileName ?? "";
-            if (fileName.StartsWith(URL_S3))
-                return fileName;
+        //public static string GetUrlFileRDS3(string carpetaPais, string fileName)
+        //{
+        //    fileName = fileName ?? "";
+        //    if (fileName.StartsWith(URL_S3))
+        //        return fileName;
 
-            if (fileName.StartsWith("http:/"))
-                return fileName;
+        //    if (fileName.StartsWith("http:/"))
+        //        return fileName;
 
-            if (fileName.StartsWith("https:/"))
-                return fileName;
+        //    if (fileName.StartsWith("https:/"))
+        //        return fileName;
 
-            return URL_S3 + "/" + BUCKET_NAME + "/" + ROOT_DIRECTORY + "/" + rutaRevistaDigital + "/" + (carpetaPais != "" ? carpetaPais + "/" : "") + fileName;
-        }
+        //    var root = string.IsNullOrEmpty(ROOT_DIRECTORY) ? "" : ROOT_DIRECTORY + "/";
+        //    var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
+
+        //    return URL_S3 + "/" + BUCKET_NAME + "/" + root + "/" + rutaRevistaDigital + "/" + carpeta + fileName;
+        //}
 
         public static void DeleteFileS3(string carpetaPais, string fileName)
         {
+            var root = string.IsNullOrEmpty(ROOT_DIRECTORY) ? "" : ROOT_DIRECTORY + "/";
+            var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
+
             var client = Amazon.AWSClientFactory.CreateAmazonS3Client(
-                ConfigS3.MY_AWS_ACCESS_KEY_ID,
-                ConfigS3.MY_AWS_SECRET_KEY,
+                MY_AWS_ACCESS_KEY_ID,
+                MY_AWS_SECRET_KEY,
                 Amazon.RegionEndpoint.USEast1);
 
             var s3FileInfo = new Amazon.S3.IO.S3FileInfo(client,
-                ConfigS3.BUCKET_NAME,
-                ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName);
+                BUCKET_NAME,
+                root + carpeta + fileName);
 
             if (s3FileInfo.Exists)
             {
                 var deleteRequest = new DeleteObjectRequest
                 {
-                    BucketName = ConfigS3.BUCKET_NAME,
-                    Key = ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName
+                    BucketName = BUCKET_NAME,
+                    Key = root + carpeta + fileName
                 };
                 // Fix Error: cliente no cuenta con permiso para eliminar archivos. 
                 try
@@ -95,11 +102,13 @@ namespace Portal.Consultoras.Common
         {
             return SetFileS3(path, carpetaPais, fileName, true, true, false, actualizar);
         }
-
         public static bool SetFileS3(string path, string carpetaPais, string fileName, bool archivoPublico, bool EliminarArchivo, bool throwException, bool actualizar = false)
         {
             try
             {
+                var root = string.IsNullOrEmpty(ROOT_DIRECTORY) ? "" : ROOT_DIRECTORY + "/";
+                var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
+
                 if (fileName == "")
                     return true;
 
@@ -109,10 +118,8 @@ namespace Portal.Consultoras.Common
 
                     var request = new PutObjectRequest
                     {
-                        BucketName = ConfigS3.BUCKET_NAME,
-                        Key = ConfigS3.ROOT_DIRECTORY + "/" +
-                              ((carpetaPais != "") ? carpetaPais + "/" : "") +
-                              fileName,
+                        BucketName = BUCKET_NAME,
+                        Key = root + carpeta + fileName,
                         InputStream = inputStream
                     };
 
@@ -139,39 +146,47 @@ namespace Portal.Consultoras.Common
 
         public static string GetUrlFileS3WithAuthentication(string carpetaPais, string fileName, string carpetaAnterior)
         {
-            if (fileName.Trim() == "") return fileName;
-
-            var client = Amazon.AWSClientFactory.CreateAmazonS3Client(
-                ConfigS3.MY_AWS_ACCESS_KEY_ID,
-                ConfigS3.MY_AWS_SECRET_KEY,
-                Amazon.RegionEndpoint.USEast1);
-
-            var s3FileInfo = new Amazon.S3.IO.S3FileInfo(client,
-                ConfigS3.BUCKET_NAME,
-                ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName);
-
-            string url;
-
-            if (s3FileInfo.Exists)
+            try
             {
-                var expiryUrlRequest = new GetPreSignedUrlRequest
+                var root = string.IsNullOrEmpty(ROOT_DIRECTORY) ? "" : ROOT_DIRECTORY + "/";
+                var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
+
+                if (fileName.Trim() == "")
+                    return fileName;
+
+                var client = Amazon.AWSClientFactory.CreateAmazonS3Client(
+                    MY_AWS_ACCESS_KEY_ID,
+                    MY_AWS_SECRET_KEY,
+                    Amazon.RegionEndpoint.USEast1);
+
+                var s3FileInfo = new Amazon.S3.IO.S3FileInfo(client,
+                    BUCKET_NAME,
+                    root + carpeta + fileName);
+
+                var url = "";
+
+                if (s3FileInfo.Exists)
                 {
-                    BucketName = ConfigS3.BUCKET_NAME,
-                    Key = ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName,
+                    var expiryUrlRequest = new GetPreSignedUrlRequest
+                {
+                    BucketName = BUCKET_NAME,
+                    Key = root + carpeta + fileName,
                     Expires = DateTime.Now.AddDays(1)
                 };
 
-                url = client.GetPreSignedURL(expiryUrlRequest);
-            }
-            else
-            {
-                if (carpetaAnterior != string.Empty) url = carpetaAnterior + "/" + fileName;
-                else url = fileName;
-            }
+                    url = client.GetPreSignedURL(expiryUrlRequest);
+                }
+                else
+                {
+                    if (carpetaAnterior != string.Empty) url = carpetaAnterior + "/" + fileName;
+                    else url = fileName;
+                }
 
-            client.Dispose();
+                client.Dispose();
 
-            return url;
+                return url;
+            }
+            catch (Exception) { throw; }
         }
 
         public static string GetUrlFileS3WithAuthentication(string keyRuta)
@@ -210,6 +225,6 @@ namespace Portal.Consultoras.Common
             {
                 throw ex;
             }
-        }
+        }        
     }
 }

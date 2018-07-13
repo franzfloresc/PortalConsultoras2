@@ -546,7 +546,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!tieneRevistaDigital)
             {
                 urlImagen = _configuracionManagerProvider.GetDefaultGifMenuOfertas();
-                urlImagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
+                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
                 if (tieneEventoFestivoData)
                 {
                     urlImagen = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS, urlImagen);
@@ -556,7 +556,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (tieneRevistaDigital && !revistaDigital.EsSuscrita)
             {
                 urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
-                urlImagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
+                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
                 if (tieneEventoFestivoData)
                 {
                     urlImagen = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
@@ -567,7 +567,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (tieneRevistaDigital && revistaDigital.EsSuscrita)
             {
                 urlImagen = revistaDigital.LogoMenuOfertasActiva;
-                urlImagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
+                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
                 if (tieneEventoFestivoData)
                 {
                     urlImagen = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS, urlImagen);
@@ -577,7 +577,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (revistaDigital.TieneRDI)
             {
                 urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
-                urlImagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
+                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
                 if (tieneEventoFestivoData)
                 {
                     urlImagen = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
@@ -1027,6 +1027,10 @@ namespace Portal.Consultoras.Web.Controllers
                                                                                userData.CampaniaID,
                                                                                nivel);
 
+                            TippingPoint.ActiveTooltip = estrategia == null ? false : TippingPoint.ActiveTooltip;
+                            TippingPoint.ActiveMonto = estrategia == null ? false : TippingPoint.ActiveMonto;
+                            TippingPoint.Active = estrategia == null ? false : TippingPoint.Active;
+
                             TippingPoint.CampaniaID = estrategia == null ? default(int) : estrategia.CampaniaID;
                             TippingPoint.CampaniaIDFin = estrategia == null ? default(int) : estrategia.CampaniaIDFin;
                             TippingPoint.CUV1 = estrategia == null ? default(string) : estrategia.CUV1;
@@ -1057,7 +1061,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string getUrlTippingPoint(string noImagen)
         {
-            string url = string.Format
+            /*
+              string url = string.Format
                         ("{0}/{1}/{2}/{3}/{4}/{5}",
                             _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_S3),
                             _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.BUCKET_NAME),
@@ -1066,6 +1071,9 @@ namespace Portal.Consultoras.Web.Controllers
                             userData.CodigoISO ?? "",
                             noImagen ?? ""
                          );
+             */
+            string urlExtension = string.Format("{0}/{1}", _configuracionManagerProvider.GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""), userData.CodigoISO ?? "");
+            string url = ConfigCdn.GetUrlFileCdn(urlExtension, noImagen ?? "");
             return url;
         }
 
@@ -1871,14 +1879,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model.CuerpoDetalles.Add(string.Format("No cumplir con el <b>monto mínimo</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO)));
                 model.CuerpoDetalles.Add(string.Format("Tener una <b>deuda</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(deuda.FirstOrDefault().Valor, userData.CodigoISO)));
-                model.CuerpoMensaje2 = "Te invitamos a <b>añadir</b> mís productos, <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
+                model.CuerpoMensaje2 = "Te invitamos a <b>añadir</b> más productos, <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion;
                 return;
             }
             if (items.Any())
             {
                 model.CuerpoDetalles.Add(string.Format("No cumplir con el <b>monto mínimo</b> de  {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO)));
-                model.CuerpoMensaje2 = "Te invitamos a <b>añadir</b> mís productos y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
+                model.CuerpoMensaje2 = "Te invitamos a <b>añadir</b> más productos y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.MontoMinino;
                 return;
             }
@@ -1904,14 +1912,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model.CuerpoDetalles.Add("No cumplir con el <b>monto mínimo</b>");
                 model.CuerpoDetalles.Add(string.Format("Tener una <b>deuda</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(deuda.FirstOrDefault().Valor, userData.CodigoISO)));
-                model.CuerpoMensaje2 = "Te invitamos a <b>añadir</b> mís productos, <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
+                model.CuerpoMensaje2 = "Te invitamos a <b>añadir</b> más productos, <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion;
                 return;
             }
             if (items.Any())
             {
                 model.CuerpoDetalles.Add("No cumplir con el <b>monto mínimo</b>");
-                model.CuerpoMensaje2 = "Te invitamos a <b>añadir</b> mís productos y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
+                model.CuerpoMensaje2 = "Te invitamos a <b>añadir</b> más productos y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock;
                 return;
             }
@@ -2490,7 +2498,7 @@ namespace Portal.Consultoras.Web.Controllers
             else if (!userData.DiaPROL)
             {
                 ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + Util.FormatearHora(HoraCierrePortal) + "</b>";
-                if (!("BO CL VE").Contains(userData.CodigoISO)) TextoNuevoPROL = " Revisa tus notificaciones o correo y verifica que tu pedido está completo.";
+                if (!("BO CL VE").Contains(userData.CodigoISO)) TextoNuevoPROL = " Revisa tus notificaciones o correo y verifica que tu pedido esté completo.";
             }
             else
             {
@@ -2649,7 +2657,16 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            ViewBag.UrlRaizS3 = string.Format("{0}/{1}/{2}/", ConfigurationManager.AppSettings["URL_S3"], ConfigurationManager.AppSettings["BUCKET_NAME"], ConfigurationManager.AppSettings["ROOT_DIRECTORY"]);
+            var urlS3 = ConfigurationManager.AppSettings["URL_S3"] ?? "";
+            if (!string.IsNullOrEmpty(urlS3))
+                urlS3 = urlS3 + "/";
+            var bucket = ConfigurationManager.AppSettings["BUCKET_NAME"] ?? "";
+            if (!string.IsNullOrEmpty(bucket))
+                bucket = bucket + "/";
+            var root = ConfigurationManager.AppSettings["ROOT_DIRECTORY"] ?? "";
+            if (!string.IsNullOrEmpty(root))
+                root = root + "/";
+            ViewBag.UrlRaizS3 = string.Format("{0}{1}{2}", urlS3, bucket, root);
 
             ViewBag.ServiceController = (ConfigurationManager.AppSettings["ServiceController"] == null) ? "" : ConfigurationManager.AppSettings["ServiceController"].ToString();
             ViewBag.ServiceAction = (ConfigurationManager.AppSettings["ServiceAction"] == null) ? "" : ConfigurationManager.AppSettings["ServiceAction"].ToString();
