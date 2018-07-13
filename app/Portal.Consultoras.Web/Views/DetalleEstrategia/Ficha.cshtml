@@ -269,7 +269,10 @@
                         </div>
                     </div>
                 </div>
-                <p class="limit_pack"><span>!</span> Limitado a 5 packs por consultora</p>
+               
+                {{#iff TextoLibre '!=' ''}}
+                <p class="limit_pack"><span>!</span>{{TextoLibre}}</p>
+                {{/iff}}
             </div>
         </script>
 
