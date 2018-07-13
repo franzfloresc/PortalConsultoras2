@@ -313,13 +313,13 @@ namespace Portal.Consultoras.BizLogic
                     estrategia.Precio = Convert.ToDecimal(0.0);
 
                 estrategia.CampaniaID = entidad.CampaniaID;
-                estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenURL, carpetaPais);
+                estrategia.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetaPais, estrategia.ImagenURL);
                 estrategia.Simbolo = entidad.Simbolo;
                 estrategia.TieneStockProl = true;
                 estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);
                 estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio, codigoIso);
                 estrategia.GananciaString = Util.DecimalToStringFormat(estrategia.Ganancia, codigoIso);
-                //estrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
+                //estrategia.FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, estrategia.FotoProducto01, carpetaPais);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
             });
             return estrategiasResult;
@@ -386,7 +386,7 @@ namespace Portal.Consultoras.BizLogic
 
             listaEstrategias.ForEach(item =>
             {
-                item.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
+                item.FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, item.FotoProducto01);
             });
 
             return listaEstrategias;
@@ -563,7 +563,7 @@ namespace Portal.Consultoras.BizLogic
 
         public BEEstrategia GetEstrategiaProgramaNuevas(BEEstrategia entidad)
         {
-            BEEstrategia data = new BEEstrategia();
+            BEEstrategia data = null;
             var da = new DAEstrategia(entidad.PaisID);
             using (IDataReader reader = da.GetEstrategiaProgramaNuevas(entidad))
                 if (reader.Read())
@@ -574,7 +574,7 @@ namespace Portal.Consultoras.BizLogic
 
         public BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel)
         {
-            BEEstrategia result = new BEEstrategia();
+            BEEstrategia result = null;
             try
             {
                 var da = new BLPremiosProgramaNuevas();
@@ -593,7 +593,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch
             {
-                result = new BEEstrategia();
+                result = null;
             }
             return result;
         }

@@ -355,19 +355,19 @@ namespace Portal.Consultoras.Web.Controllers
                     var carpetaPais = Globals.UrlMatriz + "/" + iso;
 
                     showRoomEvento.Imagen1 = string.IsNullOrEmpty(showRoomEvento.Imagen1)
-                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, showRoomEvento.Imagen1, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                        ? "" : ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.Imagen1);
                     showRoomEvento.Imagen2 = string.IsNullOrEmpty(showRoomEvento.Imagen2)
-                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, showRoomEvento.Imagen2, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                        ? "" : ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.Imagen2);
                     showRoomEvento.ImagenCabeceraProducto = string.IsNullOrEmpty(showRoomEvento.ImagenCabeceraProducto)
-                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, showRoomEvento.ImagenCabeceraProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                        ? "" : ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.ImagenCabeceraProducto);
                     showRoomEvento.ImagenVentaSetPopup = string.IsNullOrEmpty(showRoomEvento.ImagenVentaSetPopup)
-                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, showRoomEvento.ImagenVentaSetPopup, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                        ? "" : ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.ImagenVentaSetPopup);
                     showRoomEvento.ImagenVentaTagLateral = string.IsNullOrEmpty(showRoomEvento.ImagenVentaTagLateral)
-                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, showRoomEvento.ImagenVentaTagLateral, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                        ? "" : ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.ImagenVentaTagLateral);
                     showRoomEvento.ImagenPestaniaShowRoom = string.IsNullOrEmpty(showRoomEvento.ImagenPestaniaShowRoom)
-                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, showRoomEvento.ImagenPestaniaShowRoom, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                        ? "" : ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.ImagenPestaniaShowRoom);
                     showRoomEvento.ImagenPreventaDigital = string.IsNullOrEmpty(showRoomEvento.ImagenPreventaDigital)
-                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, showRoomEvento.ImagenPreventaDigital, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                        ? "" : ConfigCdn.GetUrlFileCdn(carpetaPais, showRoomEvento.ImagenPreventaDigital);
 
                     listaShowRoomEvento.Add(showRoomEvento);
                 }
@@ -1407,8 +1407,8 @@ namespace Portal.Consultoras.Web.Controllers
                 string iso = Util.GetPaisISO(paisId);
                 var carpetaPais = Globals.UrlMatriz + "/" + iso;
 
-                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + iso));
-                lst.Update(x => x.ImagenMini = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.RutaImagenesMatriz + "/" + iso));
+                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                lst.Update(x => x.ImagenMini = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenMini));
                 lst.Update(x => x.ISOPais = iso);
                 var data = new
                 {
@@ -1455,10 +1455,9 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv = new PedidoServiceClient())
             {
                 lst = sv.GetImagenesByCodigoSAP(paisId, codigoSap).ToList();
-            }
+            }                      
 
-            var carpetaPais = ObtenerCarpetaPais();
-            if (lst.Count > 0)
+            if (lst != null && lst.Count > 0)
             {
                 lstFinal.Add(new BEMatrizComercial
                 {
@@ -1468,14 +1467,16 @@ namespace Portal.Consultoras.Web.Controllers
                     PaisID = lst[0].PaisID
                 });
 
+                var carpetaPais = ObtenerCarpetaPais();
+
                 if (lst[0].FotoProducto != "")
-                    lstFinal[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    lstFinal[0].FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, lst[0].FotoProducto);
 
                 if (lst[1].FotoProducto != "")
-                    lstFinal[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, lst[1].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    lstFinal[0].FotoProducto02 = ConfigCdn.GetUrlFileCdn(carpetaPais, lst[1].FotoProducto);
 
                 if (lst[2].FotoProducto != "")
-                    lstFinal[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, lst[2].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    lstFinal[0].FotoProducto03 = ConfigCdn.GetUrlFileCdn(carpetaPais, lst[2].FotoProducto);
             }
             return Json(new
             {
@@ -1908,7 +1909,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string iso = Util.GetPaisISO(userData.PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + iso;
 
-                lst.Update(x => x.Imagen = ConfigS3.GetUrlFileS3(carpetaPais, x.Imagen, Globals.RutaImagenesMatriz + "/" + iso));
+                lst.Update(x => x.Imagen = ConfigCdn.GetUrlFileCdn(carpetaPais, x.Imagen));
 
                 var data = new
                 {
@@ -1993,7 +1994,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string iso = Util.GetPaisISO(userData.PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + iso;
 
-                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + iso));
+                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
 
                 var data = new
                 {
@@ -2589,7 +2590,7 @@ namespace Portal.Consultoras.Web.Controllers
                             var carpetaPais = Globals.UrlMatriz + "/" + iso;
 
                             item.Valor = string.IsNullOrEmpty(item.Valor)
-                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, item.Valor, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                                ? "" : ConfigCdn.GetUrlFileCdn(carpetaPais, item.Valor);
                         }
                     }
                     else
@@ -2728,7 +2729,7 @@ namespace Portal.Consultoras.Web.Controllers
                             var carpetaPais = Globals.UrlMatriz + "/" + iso;
 
                             item.Valor = string.IsNullOrEmpty(item.Valor)
-                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, item.Valor, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                                ? "" : ConfigCdn.GetUrlFileCdn(carpetaPais, item.Valor);
                         }
                     }
                     else
