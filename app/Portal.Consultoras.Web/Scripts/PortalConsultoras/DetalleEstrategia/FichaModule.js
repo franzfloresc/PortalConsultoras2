@@ -223,6 +223,9 @@
                 estrategia.codigoVariante = _codigoVariedad.ComuestaFija;
             }
         }
+        else if (estrategia.Hermanos.length == 0) {
+            estrategia.CodigoVariante = "";
+        }
     };
 
     var _validarDesactivadoGeneral = function (estrategia) {
