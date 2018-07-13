@@ -1144,7 +1144,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("OfertaFinal")]
         public int OfertaFinal { get; set; }
-        
+
         [DataMember]
         [Column("EsOfertaFinalZonaValida")]
         public bool EsOfertaFinalZonaValida { get; set; }
@@ -1467,8 +1467,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool MostrarBotonValidar { get; set; }
         [DataMember]
-        public BEOfertaFinal _OfertaFinal { get; set; }
+        public BEOfertaFinal beOfertaFinal { get; set; }
         [DataMember]
+        [Column("IndicadorConsultoraOficina")]
         public bool EsConsultoraOficina { get; set; }
         [DataMember]
         public int IndicadorConsultoraDigital { get; set; }
@@ -1488,5 +1489,6 @@ namespace Portal.Consultoras.Entities
         }
         [DataMember]
         public string NivelProyectado { get; set; }
+  
     }
 }
