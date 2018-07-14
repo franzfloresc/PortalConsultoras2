@@ -88,6 +88,14 @@ namespace Portal.Consultoras.Common
                 return ConfigurationManager.AppSettings["S3_Pedidos"] ?? string.Empty;
             }
         }
+
+        public static string PROL_Consultas
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["RutaServicePROLConsultas"] ?? string.Empty;
+            }
+        }
         #endregion
 
         public static string GetByTagName(string tagName)

@@ -117,6 +117,7 @@ namespace Portal.Consultoras.Entities
             miTipoUsuario = Convert.ToInt16(row["TipoUsuario"]);
             mbCambioClave = Convert.ToBoolean(row["CambioClave"]);
 
+
             if (DataRecord.HasColumn(row, "TelefonoTrabajo"))
                 msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);
             if (DataRecord.HasColumn(row, "AceptoContrato"))
@@ -1144,7 +1145,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("OfertaFinal")]
         public int OfertaFinal { get; set; }
-        
+
         [DataMember]
         [Column("EsOfertaFinalZonaValida")]
         public bool EsOfertaFinalZonaValida { get; set; }
@@ -1467,11 +1468,21 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool MostrarBotonValidar { get; set; }
         [DataMember]
-        public BEOfertaFinal _OfertaFinal { get; set; }
+        public BEOfertaFinal beOfertaFinal { get; set; }
+        public string FotoOriginalSinModificar { get; set; }
         [DataMember]
+        public bool PuedeActualizar { get; set; }
+        [DataMember]
+        public bool PuedeEnviarSMS { get; set; }
+        [DataMember]
+        public bool FotoPerfilAncha { get; set; }
+        [DataMember]
+        [Column("IndicadorConsultoraOficina")]
         public bool EsConsultoraOficina { get; set; }
         [DataMember]
         public int IndicadorConsultoraDigital { get; set; }
+        [DataMember]
+        public string NivelProyectado { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
@@ -1486,7 +1497,5 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "HoraCierreZonaDemAnti")) HoraCierreZonaDemAnti = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAnti"]);
             if (DataRecord.HasColumn(row, "HoraCierreZonaNormal")) HoraCierreZonaNormal = DbConvert.ToTimeSpan(row["HoraCierreZonaNormal"]);
         }
-        [DataMember]
-        public string NivelProyectado { get; set; }
     }
 }

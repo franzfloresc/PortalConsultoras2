@@ -220,6 +220,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private int ObtenerTipoPopUpMostrar()
         {
             var tipoPopUpMostrar = 0;
+            var resultPopupEmail = ObtenerActualizacionEmail();
+            var resultPopupEmailSplited = resultPopupEmail.Split('|')[0];
+
             if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
             {
                 tipoPopUpMostrar = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
@@ -227,6 +230,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
                     tipoPopUpMostrar = 0;
 
+                if (resultPopupEmailSplited == "0" && tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
+
+                return tipoPopUpMostrar;
+            }
+
+            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora && resultPopupEmailSplited == "1")
+            {
+                tipoPopUpMostrar = Constantes.TipoPopUp.ActualizarCorreo;
+                Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
                 return tipoPopUpMostrar;
             }
 
@@ -250,8 +262,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
                 return tipoPopUpMostrar;
             }
-
-
 
             // debe tener la misma logica que desktop
 
@@ -537,6 +547,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     message = "Hubo un problema con el servicio, intente nuevamente",
                     extra = ""
                 });
+            }
+        }
+
+        public string ObtenerActualizacionEmail()
+        {
+            try
+            {
+                using (var svClient = new UsuarioServiceClient())
+                {
+                    var result = svClient.GetActualizacionEmail(userData.PaisID, userData.CodigoConsultora);
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "";
             }
         }
     }
