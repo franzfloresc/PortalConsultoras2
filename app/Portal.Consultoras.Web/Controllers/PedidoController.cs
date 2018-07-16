@@ -196,11 +196,11 @@ namespace Portal.Consultoras.Web.Controllers
                 var banner02 = WebConfigurationManager.AppSettings["banner_02"];
                 var banner03 = WebConfigurationManager.AppSettings["banner_03"];
 
-                model.UrlBanner01 = ConfigS3.GetUrlFileS3(urlCarpeta, banner01, String.Empty);
-                model.UrlBanner02 = ConfigS3.GetUrlFileS3(urlCarpeta, banner02, String.Empty);
-                model.UrlBanner03 = ConfigS3.GetUrlFileS3(urlCarpeta, banner03, String.Empty);
+                model.UrlBanner01 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner01);
+                model.UrlBanner02 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner02);
+                model.UrlBanner03 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner03);
 
-                model.accionBanner_01 = ConfigS3.GetUrlFileS3(urlProdDesc, userData.CampaniaID + ".pdf", String.Empty);
+                model.accionBanner_01 = ConfigCdn.GetUrlFileCdn(urlProdDesc, userData.CampaniaID + ".pdf");
 
                 #endregion
 
@@ -2011,7 +2011,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
-                ruta = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + rutaNombreExtension + soloExtension);
+                ruta = ConfigCdn.GetUrlFileCdn(carpetaPais, soloImagen + rutaNombreExtension + soloExtension);
             }
             else
             {
@@ -2484,9 +2484,9 @@ namespace Portal.Consultoras.Web.Controllers
             var banner02 = WebConfigurationManager.AppSettings["banner_02"];
             var banner03 = WebConfigurationManager.AppSettings["banner_03"];
 
-            ViewBag.UrlBanner01 = ConfigS3.GetUrlFileS3(urlCarpeta, banner01, String.Empty);
-            ViewBag.UrlBanner02 = ConfigS3.GetUrlFileS3(urlCarpeta, banner02, String.Empty);
-            ViewBag.UrlBanner03 = ConfigS3.GetUrlFileS3(urlCarpeta, banner03, String.Empty);
+            ViewBag.UrlBanner01 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner01);
+            ViewBag.UrlBanner02 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner02);
+            ViewBag.UrlBanner03 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner03);
 
             return View();
         }
@@ -2652,11 +2652,11 @@ namespace Portal.Consultoras.Web.Controllers
             var banner02 = WebConfigurationManager.AppSettings["banner_02"];
             var banner03 = WebConfigurationManager.AppSettings["banner_03"];
 
-            ViewBag.UrlBanner01 = ConfigS3.GetUrlFileS3(urlCarpeta, banner01, String.Empty);
-            ViewBag.UrlBanner02 = ConfigS3.GetUrlFileS3(urlCarpeta, banner02, String.Empty);
-            ViewBag.UrlBanner03 = ConfigS3.GetUrlFileS3(urlCarpeta, banner03, String.Empty);
+            ViewBag.UrlBanner01 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner01);
+            ViewBag.UrlBanner02 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner02);
+            ViewBag.UrlBanner03 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner03);
 
-            model.accionBanner_01 = ConfigS3.GetUrlFileS3(urlProdDesc, userData.CampaniaID + ".pdf", String.Empty);
+            model.accionBanner_01 = ConfigCdn.GetUrlFileCdn(urlProdDesc, userData.CampaniaID + ".pdf");
 
             #endregion
 
@@ -3387,13 +3387,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 marca = GetDescripcionMarca(string.IsNullOrEmpty(lst[0].MarcaID) ? 0 : Convert.ToInt32(lst[0].MarcaID));
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO));
+                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
 
                 if (lst.Count > 1)
                 {
                     marca = marca + "," + GetDescripcionMarca(string.IsNullOrEmpty(lst[1].MarcaID) ? 0 : Convert.ToInt32(lst[1].MarcaID));
                 }
             }
+            
             return Json(new
             {
                 lista = lst,
@@ -3454,9 +3455,9 @@ namespace Portal.Consultoras.Web.Controllers
                 if (lst.Count > 0)
                 {
                     var carpetaPais = Globals.UrlBanner + "/" + userData.CodigoISO;
-                    lst.Update(x => x.ArchivoPortada = ConfigS3.GetUrlFileS3(carpetaPais, x.ArchivoPortada, Globals.RutaImagenesIncentivos));
-                    carpetaPais = Globals.UrlFileConsultoras + "/" + userData.CodigoISO;
-                    lst.Update(x => x.Archivo = ConfigS3.GetUrlFileS3(carpetaPais, x.Archivo, Globals.RutaImagenesIncentivos));
+                    var carpetaFileConsultoras = Globals.UrlFileConsultoras + "/" + userData.CodigoISO;
+                    lst.Update(x => x.ArchivoPortada = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ArchivoPortada));                        
+                    lst.Update(x => x.Archivo = ConfigCdn.GetUrlFileCdn(carpetaFileConsultoras, x.Archivo));
                 }
 
                 return Json(new
@@ -3873,7 +3874,6 @@ namespace Portal.Consultoras.Web.Controllers
             var listPedido = ObtenerPedidoWebDetalle();
 
             decimal descuentoprol = 0;
-
             if (listPedido.Any())
             {
                 descuentoprol = listPedido[0].DescuentoProl;
@@ -3912,10 +3912,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             if (lista.Count != 0)
-            {
+            {                
                 var tipoCross = lista[0].TipoCross;
                 listaProductoModel.Update(p =>
-                {
+                {                    
                     p.PrecioCatalogoString = Util.DecimalToStringFormat(p.PrecioCatalogo, userData.CodigoISO);
                     p.PrecioValorizadoString = Util.DecimalToStringFormat(p.PrecioValorizado, userData.CodigoISO);
                     p.MetaMontoStr = Util.DecimalToStringFormat(p.MontoMeta, userData.CodigoISO);
@@ -3926,7 +3926,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!tipoCross && userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
                     {
                         var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                        imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagenUrl, carpetapais);
+                        imagenUrl = ConfigCdn.GetUrlFileCdn(carpetapais, imagenUrl);
                     }
                     p.ImagenProductoSugerido = imagenUrl;
                     p.ImagenProductoSugeridoSmall = ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
@@ -4500,11 +4500,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             var estrategia = lst.Count > 0 ? lst[0] : new ServicePedido.BEEstrategia();
-            estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, estrategia.ImagenURL);
+            estrategia.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, estrategia.ImagenURL);
             estrategia.Simbolo = userData.Simbolo;
 
-            return estrategia;
-
+            return estrategia;            
         }
 
         private string ValidarStockEstrategiaMensaje(string cuv, int cantidad, int tipoOferta)
