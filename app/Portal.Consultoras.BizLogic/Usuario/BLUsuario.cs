@@ -2869,7 +2869,7 @@ namespace Portal.Consultoras.BizLogic
                     if (!TieneZona.VerifAutenticidad) return null;
                 }
                 /*Validando si corresponde al Usuario*/
-                if (opcion.lstFiltros.Count >= 0)
+                if (opcion.lstFiltros.Count > 0)
                 {
                     var usuFiltro = opcion.lstFiltros.Where(a => a.IdEstadoActividad == oUsu.IdEstadoActividad).FirstOrDefault();
                     if (usuFiltro == null) return null;
