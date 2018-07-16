@@ -154,10 +154,19 @@ namespace Portal.Consultoras.Entities
 
         public BENotificacionesDetalleCatalogo(IDataRecord row)
         {
-            this.DetalleNotificacion = row["DetalleNotificacion"] != DBNull.Value ? Convert.ToString(row["DetalleNotificacion"]) : string.Empty;
-            this.NombreCliente = row["NombreCliente"] != DBNull.Value ? Convert.ToString(row["NombreCliente"]) : string.Empty;
-            this.CorreoCliente = row["CorreoCliente"] != DBNull.Value ? Convert.ToString(row["CorreoCliente"]) : string.Empty;
-            this.TelefonoCliente = row["TelefonoCliente"] != DBNull.Value ? Convert.ToString(row["TelefonoCliente"]) : string.Empty;
+            DetalleNotificacion = string.Empty;
+            NombreCliente = string.Empty;
+            CorreoCliente = string.Empty;
+            TelefonoCliente = string.Empty;
+
+            if (DataRecord.HasColumn(row, "DetalleNotificacion"))
+                this.DetalleNotificacion = Convert.ToString(row["DetalleNotificacion"]);
+            if (DataRecord.HasColumn(row, "NombreCliente"))
+                this.NombreCliente = Convert.ToString(row["NombreCliente"]);
+            if (DataRecord.HasColumn(row, "CorreoCliente"))
+                this.CorreoCliente = Convert.ToString(row["CorreoCliente"]);
+            if (DataRecord.HasColumn(row, "TelefonoCliente"))
+                this.TelefonoCliente = Convert.ToString(row["TelefonoCliente"]);
         }
     }
 }

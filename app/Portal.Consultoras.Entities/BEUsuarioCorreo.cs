@@ -76,31 +76,33 @@ namespace Portal.Consultoras.Entities
 
         public BEUsuarioCorreo(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Cantidad") && row["Cantidad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Cantidad"))
                 Cantidad = Convert.ToInt32(row["Cantidad"]);
-            if (DataRecord.HasColumn(row, "CodigoUsuario") && row["CodigoUsuario"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoUsuario"))
                 CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-            if (DataRecord.HasColumn(row, "NombreCompleto") && row["NombreCompleto"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "NombreCompleto"))
                 NombreCompleto = Convert.ToString(row["NombreCompleto"]);
-            if (DataRecord.HasColumn(row, "PrimerNombre") && row["PrimerNombre"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrimerNombre"))
                 PrimerNombre = Convert.ToString(row["PrimerNombre"]);
-            if (DataRecord.HasColumn(row, "Correo") && row["Correo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Correo"))
                 Correo = Convert.ToString(row["Correo"]);
-            if (DataRecord.HasColumn(row, "Celular") && row["Celular"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Celular"))
                 Celular = Convert.ToString(row["Celular"]);
-            if (DataRecord.HasColumn(row, "ClaveSecreta") && row["ClaveSecreta"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ClaveSecreta"))
                 Clave = Convert.ToString(row["ClaveSecreta"]);
+
             if (DataRecord.HasColumn(row, "ClaveSecreta") && row["Descripcion"] != DBNull.Value)
                 Descripcion = Convert.ToString(row["Descripcion"]);
             if (DataRecord.HasColumn(row, "CodigoISO") && row["Descripcion"] != DBNull.Value)
                 CodigoISO = Convert.ToString(row["CodigoISO"]);
-            if (DataRecord.HasColumn(row, "TipoUsuario") && row["TipoUsuario"] != DBNull.Value)
+
+            if (DataRecord.HasColumn(row, "TipoUsuario"))
                 TipoUsuario = Convert.ToInt32(row["TipoUsuario"]);
-            if (DataRecord.HasColumn(row, "IdEstadoActividad") && row["IdEstadoActividad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IdEstadoActividad"))
                 IdEstadoActividad = Convert.ToInt32(row["IdEstadoActividad"]);
-            if (DataRecord.HasColumn(row, "TieneAutenticacion") && row["TieneAutenticacion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TieneAutenticacion"))
                 TieneAutenticacion = Convert.ToBoolean(row["TieneAutenticacion"]);
-            if (DataRecord.HasColumn(row, "ZonaID") && row["ZonaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ZonaID"))
                 ZonaID = Convert.ToInt32(row["ZonaID"]);
         }
     }

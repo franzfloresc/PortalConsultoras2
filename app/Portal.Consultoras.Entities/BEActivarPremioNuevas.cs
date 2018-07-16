@@ -37,25 +37,25 @@ namespace Portal.Consultoras.Entities
 
         public BEActivarPremioNuevas(IDataRecord dr)
         {
-            if (DataRecord.HasColumn(dr, "CodigoPrograma") && dr["CodigoPrograma"] != DBNull.Value)
+            if (DataRecord.HasColumn(dr, "CodigoPrograma"))
                 CodigoPrograma = Convert.ToString(dr["CodigoPrograma"]);
 
-            if (DataRecord.HasColumn(dr, "AnoCampana") && dr["AnoCampana"] != DBNull.Value)
+            if (DataRecord.HasColumn(dr, "AnoCampana"))
                 AnioCampana = Convert.ToInt32(dr["AnoCampana"]);
 
-            if (DataRecord.HasColumn(dr, "Nivel") && dr["Nivel"] != DBNull.Value)
+            if (DataRecord.HasColumn(dr, "Nivel"))
                 Nivel = Convert.ToString(dr["Nivel"]);
 
-            if (DataRecord.HasColumn(dr, "ActiveTooltip") && dr["ActiveTooltip"] != DBNull.Value)
+            if (DataRecord.HasColumn(dr, "ActiveTooltip"))
                 ActiveTooltip = Convert.ToBoolean(dr["ActiveTooltip"]);
 
-            if (DataRecord.HasColumn(dr, "ActiveTooltipMonto") && dr["ActiveTooltipMonto"] != DBNull.Value)
+            if (DataRecord.HasColumn(dr, "ActiveTooltipMonto"))
                 ActiveMontoTooltip = Convert.ToBoolean(dr["ActiveTooltipMonto"]);
 
-            if (DataRecord.HasColumn(dr, "Active") && dr["Active"] != DBNull.Value)
+            if (DataRecord.HasColumn(dr, "Active"))
                 Active = Convert.ToBoolean(dr["Active"]);
 
-            if (DataRecord.HasColumn(dr, "FechaCreate") && dr["FechaCreate"] != DBNull.Value)
+            if (DataRecord.HasColumn(dr, "FechaCreate"))
                 FechaCreate = Convert.ToDateTime(dr["FechaCreate"]);
 
         }
