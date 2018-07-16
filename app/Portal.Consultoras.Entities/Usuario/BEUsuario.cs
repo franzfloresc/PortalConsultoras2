@@ -1054,6 +1054,7 @@ namespace Portal.Consultoras.Entities
             set { mdRol = value; }
         }
 
+        [Column("SegmentoConstancia")]
         [DataMember]
         public string SegmentoConstancia
         {
@@ -1487,8 +1488,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "HoraCierreZonaDemAnti")) HoraCierreZonaDemAnti = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAnti"]);
             if (DataRecord.HasColumn(row, "HoraCierreZonaNormal")) HoraCierreZonaNormal = DbConvert.ToTimeSpan(row["HoraCierreZonaNormal"]);
         }
-        [DataMember]
-        public string NivelProyectado { get; set; }
+     
   
     }
 }

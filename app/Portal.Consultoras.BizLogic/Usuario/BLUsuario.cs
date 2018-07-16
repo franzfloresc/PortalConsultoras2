@@ -496,7 +496,7 @@ namespace Portal.Consultoras.BizLogic
                 var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
                 var cuponTask = Task.Run(() => GetCupon(usuario));
                 var programaNuevasTask = Task.Run(() => GetProgramaNuevas(usuario));
-                var nivelProyectado = Task.Run(() => GetNivelProyectado(paisID,usuario.ConsultoraID,usuario.CampaniaID));
+                
 
                 Task.WaitAll(
                                 terminosCondicionesTask,
@@ -509,8 +509,7 @@ namespace Portal.Consultoras.BizLogic
                                 incentivosConcursosTask,
                                 revistaDigitalSuscripcionTask,
                                 cuponTask,
-                                programaNuevasTask,
-                                nivelProyectado);
+                                programaNuevasTask);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -551,7 +550,7 @@ namespace Portal.Consultoras.BizLogic
                     usuario.CodigoPrograma = programaNuevas.CodigoPrograma ?? string.Empty;
                 }
 
-                usuario.NivelProyectado = nivelProyectado.Result;
+                
 
                 return usuario;
             }
@@ -2961,18 +2960,6 @@ namespace Portal.Consultoras.BizLogic
             return new DAUsuario(paisID).GetConsultoraParticipaEnPrograma(codigoPrograma, codigoConsultora, campaniaID);
         }
 
-        private string GetNivelProyectado(int paisID, long consultoraId, int campaniaId)
-        {
-            string nivelProyectado = "";
-            BEParametrosLider oBEParametrosLider;
-
-            oBEParametrosLider = _consultoraLiderBusinessLogic.ObtenerParametrosConsultoraLider(paisID, consultoraId, campaniaId);
-            if (oBEParametrosLider != null  )
-            {
-                nivelProyectado = oBEParametrosLider.NivelProyectado;
-            }
-
-            return nivelProyectado;
-        }
+       
     }
 }
