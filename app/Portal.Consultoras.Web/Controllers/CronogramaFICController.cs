@@ -171,8 +171,8 @@ namespace Portal.Consultoras.Web.Controllers
                 lstZonasInactivas = ObtenerZonasInactivas(PaisID, CampaniaID);
                 issuccess = true;
 
-                Session["lstZonasActivas"] = lstZonasActivas;
-                Session["lstZonasInactivas"] = lstZonasInactivas;
+                sessionManager.SetlstZonasActivas(lstZonasActivas);
+                sessionManager.SetlstZonasInactivas(lstZonasInactivas);
             }
             catch (FaultException ex)
             {
@@ -209,8 +209,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                lstZonasActivas = (List<ZonaModel>)Session["lstZonasActivas"];
-                lstZonasInactivas = (List<ZonaModel>)Session["lstZonasInactivas"];
+                lstZonasActivas = sessionManager.GetlstZonasActivas();
+                lstZonasInactivas = sessionManager.GetlstZonasInactivas();
 
                 foreach (var item in lstZonasInactivas)
                 {
@@ -232,8 +232,8 @@ namespace Portal.Consultoras.Web.Controllers
                 lstZonasActivas.Sort((x, y) => string.Compare(x.Codigo, y.Codigo));
                 lstZonasInactivas.Sort((x, y) => string.Compare(x.Codigo, y.Codigo));
 
-                Session["lstZonasActivas"] = lstZonasActivas;
-                Session["lstZonasInactivas"] = lstZonasInactivas;
+                sessionManager.SetlstZonasActivas(lstZonasActivas);
+                sessionManager.SetlstZonasInactivas(lstZonasInactivas);
             }
             catch (FaultException ex)
             {
@@ -269,8 +269,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                lstZonasActivas = (List<ZonaModel>)Session["lstZonasActivas"];
-                lstZonasInactivas = (List<ZonaModel>)Session["lstZonasInactivas"];
+                lstZonasActivas = sessionManager.GetlstZonasActivas();
+                lstZonasInactivas = sessionManager.GetlstZonasInactivas();
 
                 foreach (var item in lstZonasActivas)
                 {
@@ -292,8 +292,8 @@ namespace Portal.Consultoras.Web.Controllers
                 lstZonasActivas.Sort((x, y) => string.Compare(x.Codigo, y.Codigo));
                 lstZonasInactivas.Sort((x, y) => string.Compare(x.Codigo, y.Codigo));
 
-                Session["lstZonasActivas"] = lstZonasActivas;
-                Session["lstZonasInactivas"] = lstZonasInactivas;
+                sessionManager.SetlstZonasActivas(lstZonasActivas);
+                sessionManager.SetlstZonasInactivas(lstZonasInactivas);
 
             }
             catch (FaultException ex)
@@ -357,7 +357,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Session["ZonaCodigoEliminar"] = ZonaCodigoEliminar;
+                sessionManager.SetZonaCodigoEliminar(ZonaCodigoEliminar);
                 return Json(new
                 {
                     success = true,

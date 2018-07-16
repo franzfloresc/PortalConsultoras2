@@ -223,7 +223,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var listaDetalle = ObtenerPedidoWebDetalle();
 
-            if (Session[Constantes.ConstSession.ListaProductoShowRoom] != null)
+            if (sessionManager.GetListaProductoShowRoom() != null)
             {
                 List<ShowRoomOfertaModel> listadoOfertasTodasModel = ObtenerListaProductoShowRoomSession(listaDetalle);
                 return listadoOfertasTodasModel;
@@ -242,7 +242,7 @@ namespace Portal.Consultoras.Web.Controllers
         
         private List<ShowRoomOfertaModel> ObtenerListaProductoShowRoomSession(List<BEPedidoWebDetalle> listaPedidoDetalle)
         {
-            var listadoOfertasTodas = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom];
+            var listadoOfertasTodas = sessionManager.GetListaProductoShowRoom();
             List<ShowRoomOfertaModel> listadoOfertasTodasModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listadoOfertasTodas);
 
             listadoOfertasTodasModel.Update(x =>
@@ -331,7 +331,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }                                           
 
-            Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomOfertaFinal;
+            sessionManager.SetListaProductoShowRoom(listaShowRoomOfertaFinal);
             List<ShowRoomOfertaModel> listadoOfertasTodasModel1 = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOfertaFinal);
 
             listadoOfertasTodasModel1.Update(x =>
@@ -364,9 +364,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session[Constantes.ConstSession.ListaProductoShowRoomCpc] != null)
+                if (sessionManager.GetListaProductoShowRoomCpc() != null)
                 {
-                    var listadoOfertasTodas = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoomCpc];
+                    var listadoOfertasTodas = sessionManager.GetListaProductoShowRoomCpc();
                     var listadoOfertasTodasModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listadoOfertasTodas);
                     listadoOfertasTodasModel.Update(x =>
                     {
@@ -454,7 +454,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                Session[Constantes.ConstSession.ListaProductoShowRoomCpc] = listaShowRoomCpcFinal;
+                sessionManager.SetListaProductoShowRoomCpc(listaShowRoomCpcFinal);
                 var listadoProductosCpcModel1 = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomCpcFinal);
                 listadoProductosCpcModel1.Update(x =>
                 {

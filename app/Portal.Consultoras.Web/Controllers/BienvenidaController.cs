@@ -137,10 +137,10 @@ namespace Portal.Consultoras.Web.Controllers
                 var urlChile = Util.EncriptarQueryString(parametro);
                 model.UrlChileEncriptada = urlChile;
 
-                if (Session["PrimeraVezSession"] != null && (int)Session["PrimeraVezSession"] == 0)
+                if (sessionManager.GetPrimeraVezSession() != null && (int)sessionManager.GetPrimeraVezSession() == 0)
                 {
                     model.PrimeraVezSession = 0;
-                    Session["PrimeraVezSession"] = null;
+                    sessionManager.SetPrimeraVezSession(null);
                 }
                 else
                 {
@@ -189,10 +189,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                if (Session[Constantes.ConstSession.ActualizarDatosConsultora] == null)
+                if (sessionManager.GetActualizarDatosConsultora() == null)
                 {
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
-                    Session[Constantes.ConstSession.ActualizarDatosConsultora] = true;
+                    sessionManager.SetActualizarDatosConsultora(true);
                 }
 
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
@@ -237,12 +237,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
+                if (sessionManager.GetTipoPopUpMostrar() != null)
                 {
-                    var tipoPopup = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
+                    var tipoPopup = Convert.ToInt32(sessionManager.GetTipoPopUpMostrar());
                     if (tipoPopup == Constantes.TipoPopUp.AsesoraOnline)
                     {
-                        Session[Constantes.ConstSession.TipoPopUpMostrar] = Constantes.TipoPopUp.Ninguno;
+                        sessionManager.SetTipoPopUpMostrar(Constantes.TipoPopUp.Ninguno);
                     }
                 }
 
@@ -302,9 +302,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var tipoPopUpMostrar = 0;
-            if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
+            if (sessionManager.GetTipoPopUpMostrar() != null)
             {
-                tipoPopUpMostrar = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
+                tipoPopUpMostrar = Convert.ToInt32(sessionManager.GetTipoPopUpMostrar());
 
                 if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
                     tipoPopUpMostrar = 0;
@@ -316,7 +316,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (listaPopUps.Any())
             {
                 tipoPopUpMostrar = BuscarTipoPopupEnLista(model, listaPopUps);
-                Session[Constantes.ConstSession.TipoPopUpMostrar] = tipoPopUpMostrar;
+                sessionManager.SetTipoPopUpMostrar(tipoPopUpMostrar);
             }
             return tipoPopUpMostrar;
         }
@@ -1677,13 +1677,13 @@ namespace Portal.Consultoras.Web.Controllers
                 return 1;
 
             int validacion;
-            if (Session["SuenioNavidad"] == null)
+            if (sessionManager.GetSuenioNavidad() == null)
             {
                 using (var svc = new PedidoServiceClient())
                 {
                     validacion = svc.ValidarSuenioNavidad(entidad);
                 }
-                Session["SuenioNavidad"] = validacion;
+                sessionManager.SetSuenioNavidad(validacion);
             }
             else
             {

@@ -26,10 +26,10 @@ namespace Portal.Consultoras.Web.Controllers
             string str = Util.EncriptarQueryString(parametros);
             string url = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_LIDER) + "?p=" + str;
 
-            if (Session[Constantes.ConstSession.IngresoPortalLideres] == null)
+            if (sessionManager.GetIngresoPortalLideres() == null)
             {
                 RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalLideres, Constantes.LogDynamoDB.RolSociaEmpresaria, "HOME", "INGRESAR");
-                Session[Constantes.ConstSession.IngresoPortalLideres] = true;
+                sessionManager.SetIngresoPortalLideres(true);
             }
 
             return Redirect(url);

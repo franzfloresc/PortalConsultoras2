@@ -29,8 +29,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "ReportePedidoDDWeb/ReportePedidosDDWeb"))
                     return RedirectToAction("Index", "Bienvenida");
-                Session["PedidosWebDDConf"] = null;
-                Session["PedidosWebDD"] = null;
+                sessionManager.SetPedidosWebDDConf(null);
+                sessionManager.SetPedidosWebDD(null);
             }
             catch (FaultException ex)
             {
@@ -774,7 +774,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string[] lista = new string[21];
 
-            Session["PaisID"] = userData.PaisID;
+            sessionManager.SetPaisID(userData.PaisID);
 
             lista[0] = vPaisISO; lista[1] = vCampaniaCod; lista[2] = vConsultoraCod; lista[3] = vConsultoraNombre;
             lista[4] = vUsuarioNombre; lista[5] = vOrigen; lista[6] = vValidado; lista[7] = vSaldo;
@@ -893,9 +893,9 @@ namespace Portal.Consultoras.Web.Controllers
         private List<BEPedidoDDWeb> GetPedidoWebDDDetalle(FiltroReportePedidoDDWebModel model)
         {
             AjustarModel(model);
-            if ((string)Session[Constantes.ConstSession.PedidoWebDDDetalleConf] == model.UniqueId) return (List<BEPedidoDDWeb>)Session[Constantes.ConstSession.PedidoWebDDDetalle];
+            if ((string) sessionManager.GetPedidosWebDDConf() == model.UniqueId) return sessionManager.GetPedidoWebDDDetalle();
 
-            Session[Constantes.ConstSession.PedidoWebDDDetalleConf] = model.UniqueId;
+            sessionManager.SetPedidoWebDDDetalleConf(model.UniqueId);
             List<BEPedidoDDWeb> list;
             try
             {
@@ -910,7 +910,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 list = new List<BEPedidoDDWeb>();
             }
-            Session[Constantes.ConstSession.PedidoWebDDDetalle] = list;
+            sessionManager.SetPedidoWebDDDetalle(list);
             return list;
         }
 

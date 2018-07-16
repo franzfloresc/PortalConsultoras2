@@ -329,7 +329,7 @@ namespace Portal.Consultoras.Web.Controllers
             int campaniaId = Convert.ToInt32(model.CampaniaID);
             try
             {
-                List<MatrizCampaniaModel> listaErrores = Session["errores"] as List<MatrizCampaniaModel> ?? new List<MatrizCampaniaModel>();
+                List<MatrizCampaniaModel> listaErrores = sessionManager.Geterrores() ?? new List<MatrizCampaniaModel>();
                 if (uplArchivo == null)
                 {
                     return "El archivo especificado no existe.";
@@ -367,7 +367,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ListaCUVs = lista.ToList();
 
                 ListaCUVs = ConsultarDescripcionMasivo(lista.ToList(), campaniaId.ToString(), paisId.ToString(), ref isError);
-                Session["errores"] = ListaCUVs;
+                sessionManager.Seterrores(ListaCUVs);
                 if (isCorrect && lista != null && isError == false)
                 {
                     var lst = Mapper.Map<IList<MatrizCampaniaModel>, IEnumerable<BEProductoDescripcion>>(lista);
@@ -404,7 +404,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 List<MatrizCampaniaModel> listaEntradas;
 
-                listaEntradas = (Session["errores"] as List<MatrizCampaniaModel> ?? new List<MatrizCampaniaModel>()).ToList();
+                listaEntradas = ( sessionManager.Geterrores() ?? new List<MatrizCampaniaModel>()).ToList();
 
                 BEGrid grid = new BEGrid
                 {

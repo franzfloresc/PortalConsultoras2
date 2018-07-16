@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.ComunicadoId = oComunicado.ComunicadoId;
             ViewBag.EsPaisEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO) ? "1" : "0";
 
-            Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar] = true;
+            sessionManager.SetConsultoraNuevaBannerAppMostrar(true);
 
             return View();
         }

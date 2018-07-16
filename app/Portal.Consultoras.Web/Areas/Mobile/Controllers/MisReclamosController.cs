@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (pedidoId == 0 && !string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return RedirectToAction("Index","MisReclamos", new { area = "Mobile" });
 
             CargarInformacion();
-            model.ListaCampania = (List<CampaniaModel>)Session[Constantes.ConstSession.CDRCampanias];
+            model.ListaCampania = sessionManager.GetCDRCampanias();
             if (model.ListaCampania.Count <= 1) return RedirectToAction("Index","MisReclamos", new { area = "Mobile" });
 
             if (pedidoId != 0)
@@ -120,7 +120,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.CantidadAprobados = listaCdrWebDetalle.Count(f => f.Estado == Constantes.EstadoCDRWeb.Aceptado);
             model.CantidadRechazados = listaCdrWebDetalle.Count(f => f.Estado == Constantes.EstadoCDRWeb.Observado);
 
-            Session["ListaCDRDetalle"] = model;
+            sessionManager.SetListaCDRDetalle(model);
             return RedirectToAction("Detalle","MisReclamos", new { area = "Mobile" });
         }
 
@@ -156,13 +156,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.CantidadAprobados = listaCdrWebDetalle.Count(f => f.Estado == Constantes.EstadoCDRWeb.Aceptado);
             model.CantidadRechazados = listaCdrWebDetalle.Count(f => f.Estado == Constantes.EstadoCDRWeb.Observado);
 
-            Session["ListaCDRDetalle"] = model;
+            sessionManager.SetListaCDRDetalle(model);
             return RedirectToAction("Detalle", "MisReclamos", new { area = "Mobile" });
         }
 
         public ActionResult Detalle()
         {
-            var objCdr = Session["ListaCDRDetalle"] as CDRWebModel;
+            var objCdr = sessionManager.GetListaCDRDetalle() as CDRWebModel;
 
             if (objCdr != null)
             {
@@ -172,7 +172,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     PedidoID = objCdr.PedidoID
                 };
 
-                Session[Constantes.ConstSession.CDRWebDetalle] = null;
+                sessionManager.SetCDRWebDetalle(null);
                 objCdr.ListaDetalle = CargarDetalle(obj);
 
                 ViewBag.Origen = objCdr.OrigenCDRDetalle;
@@ -196,7 +196,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 if (model.OrigenCDRDetalle == "1")
                 {
-                    Session["ListaCDRDetalle"] = model;
+                    sessionManager.SetListaCDRDetalle(model);
                 }
                 return Json(new
                 {

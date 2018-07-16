@@ -659,7 +659,7 @@ namespace Portal.Consultoras.Web.Controllers
             lista[19] = vTotalPedidos; lista[20] = vPorFacturar; lista[21] = UserData().BanderaImagen;
             lista[22] = UserData().NombrePais;
 
-            Session["PaisID"] = UserData().PaisID;
+            sessionManager.SetPaisID(UserData().PaisID);
 
             Util.ExportToPdfWebPages(this, "PedidosPDF.pdf", "ConsultaPedidoImp", Util.EncriptarQueryString(lista));
             return View();

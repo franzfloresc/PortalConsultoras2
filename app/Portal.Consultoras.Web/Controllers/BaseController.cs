@@ -1299,7 +1299,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (personalizacionesNivel != null && personalizacionesNivel.Any())
                 {
                     var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
-                    Session["carpetaPais"] = carpetaPais;
+                    sessionManager.SetcarpetaPais(carpetaPais);
 
                     foreach (var item in configEstrategiaSR.ListaPersonalizacionConsultora)
                     {
@@ -2159,7 +2159,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (pConsultoraId == 0)
                 pConsultoraId = userData.ConsultoraID;
 
-            if (Session["ListadoEstadoCuenta"] == null)
+            if (sessionManager.GetListadoEstadoCuenta() == null)
             {
                 var estadoCuenta = new List<BEEstadoCuenta>();
                 try
@@ -2198,11 +2198,11 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                Session["ListadoEstadoCuenta"] = lst;
+                sessionManager.SetListadoEstadoCuenta( lst );
             }
             else
             {
-                lst = Session["ListadoEstadoCuenta"] as List<EstadoCuentaModel>;
+                lst = sessionManager.GetListadoEstadoCuenta();
             }
 
             return lst;
@@ -3355,9 +3355,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session[Constantes.ConstSession.CDRPedidosFacturado] != null)
+                if (sessionManager.GetCDRPedidosFacturado() != null)
                 {
-                    return (List<BEPedidoWeb>)Session[Constantes.ConstSession.CDRPedidosFacturado];
+                    return sessionManager.GetCDRPedidosFacturado();
                 }
 
                 if (maxDias <= 0) return new List<BEPedidoWeb>();
@@ -3368,13 +3368,13 @@ namespace Portal.Consultoras.Web.Controllers
                     listaPedidoFacturados = sv.GetPedidosFacturadoSegunDias(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, maxDias).ToList();
                 }
 
-                Session[Constantes.ConstSession.CDRPedidosFacturado] = listaPedidoFacturados;
+                sessionManager.SetCDRPedidosFacturado(listaPedidoFacturados);
                 return listaPedidoFacturados;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                Session[Constantes.ConstSession.CDRPedidosFacturado] = null;
+                sessionManager.SetCDRPedidosFacturado(null);
                 return new List<BEPedidoWeb>();
             }
         }
@@ -3383,9 +3383,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session[Constantes.ConstSession.CDRMotivoOperacion] != null)
+                if (sessionManager.GetCDRMotivoOperacion() != null)
                 {
-                    return (List<BECDRWebMotivoOperacion>)Session[Constantes.ConstSession.CDRMotivoOperacion];
+                    return sessionManager.GetCDRMotivoOperacion();
                 }
 
                 List<BECDRWebMotivoOperacion> listaMotivoOperacion;
@@ -3407,13 +3407,13 @@ namespace Portal.Consultoras.Web.Controllers
                             mo.CDRTipoOperacion.NumeroDiasAtrasOperacion = Math.Min(diasFaltantes, mo.CDRTipoOperacion.NumeroDiasAtrasOperacion);
                         });
                 }
-                Session[Constantes.ConstSession.CDRMotivoOperacion] = listaMotivoOperacion;
+                sessionManager.SetCDRMotivoOperacion(listaMotivoOperacion);
                 return listaMotivoOperacion;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                Session[Constantes.ConstSession.CDRMotivoOperacion] = null;
+                sessionManager.SetCDRMotivoOperacion(null);
                 return new List<BECDRWebMotivoOperacion>();
             }
         }
@@ -3427,9 +3427,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session[Constantes.ConstSession.CDRWebDatos] != null)
+                if (sessionManager.GetCDRWebDatos() != null)
                 {
-                    var listacdrWebDatos = (List<BECDRWebDatos>)Session[Constantes.ConstSession.CDRWebDatos];
+                    var listacdrWebDatos = sessionManager.GetCDRWebDatos();
                     if (listacdrWebDatos.Count > 0)
                         return listacdrWebDatos;
                 }
@@ -3441,13 +3441,13 @@ namespace Portal.Consultoras.Web.Controllers
                     lista = sv.GetCDRWebDatos(userData.PaisID, entidad).ToList();
                 }
 
-                Session[Constantes.ConstSession.CDRWebDatos] = lista;
+                sessionManager.SetCDRWebDatos(lista);
                 return lista;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                Session[Constantes.ConstSession.CDRWebDatos] = null;
+                sessionManager.SetCDRWebDatos(null);
                 return new List<BECDRWebDatos>();
             }
         }
@@ -3456,9 +3456,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session[Constantes.ConstSession.CDRWebDetalle] != null)
+                if (sessionManager.GetCDRWebDetalle() != null)
                 {
-                    return (List<BECDRWebDetalle>)Session[Constantes.ConstSession.CDRWebDetalle];
+                    return (List<BECDRWebDetalle>)sessionManager.GetCDRWebDetalle();
                 }
 
                 model = model ?? new MisReclamosModel();
@@ -3474,13 +3474,13 @@ namespace Portal.Consultoras.Web.Controllers
                 lista.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
                 lista.Update(p => p.FormatoPrecio1 = Util.DecimalToStringFormat(p.Precio, userData.CodigoISO));
                 lista.Update(p => p.FormatoPrecio2 = Util.DecimalToStringFormat(p.Precio2, userData.CodigoISO));
-                Session[Constantes.ConstSession.CDRWebDetalle] = lista;
+                sessionManager.SetCDRWebDetalle(lista);
                 return lista;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                Session[Constantes.ConstSession.CDRWebDetalle] = null;
+                sessionManager.SetCDRWebDetalle(null);
                 return new List<BECDRWebDetalle>();
             }
         }
@@ -3549,9 +3549,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session[Constantes.ConstSession.CDRDescripcion] != null)
+                if (sessionManager.GetCDRDescripcion() != null)
                 {
-                    var listaDescripcion = (List<BECDRWebDescripcion>)Session[Constantes.ConstSession.CDRDescripcion];
+                    var listaDescripcion = sessionManager.GetCDRDescripcion();
                     if (listaDescripcion.Count > 0)
                         return listaDescripcion;
                 }
@@ -3563,21 +3563,21 @@ namespace Portal.Consultoras.Web.Controllers
                     lista = sv.GetCDRWebDescripcion(userData.PaisID, entidad).ToList();
                 }
 
-                Session[Constantes.ConstSession.CDRDescripcion] = lista;
+                sessionManager.SetCDRDescripcion(lista);
                 return lista;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                Session[Constantes.ConstSession.CDRDescripcion] = null;
+                sessionManager.SetCDRDescripcion(null);
                 return new List<BECDRWebDescripcion>();
             }
         }
 
         protected void CargarInformacion()
         {
-            Session[Constantes.ConstSession.CDRWebDetalle] = null;
-            Session[Constantes.ConstSession.CDRWeb] = null;
+            sessionManager.SetCDRWebDetalle(null);
+            sessionManager.SetCDRWeb(null);
 
             var listaMotivoOperacion = CargarMotivoOperacion();
             // get max dias => plazo para hacer reclamo
@@ -3613,7 +3613,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            Session[Constantes.ConstSession.CDRCampanias] = listaCampanias;
+            sessionManager.SetCDRCampanias(listaCampanias);
 
             CargarParametriaCdr();
             CargarCdrWebDatos();
@@ -3623,9 +3623,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session[Constantes.ConstSession.CDRParametria] != null)
+                if (sessionManager.GetCDRParametria() != null)
                 {
-                    var listaDescripcion = (List<BECDRParametria>)Session[Constantes.ConstSession.CDRParametria];
+                    var listaDescripcion = sessionManager.GetCDRParametria();
                     if (listaDescripcion.Count > 0)
                         return listaDescripcion;
                 }
@@ -3637,13 +3637,13 @@ namespace Portal.Consultoras.Web.Controllers
                     lista = sv.GetCDRParametria(userData.PaisID, entidad).ToList();
                 }
 
-                Session[Constantes.ConstSession.CDRParametria] = lista;
+                sessionManager.SetCDRParametria(lista);
                 return lista;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                Session[Constantes.ConstSession.CDRParametria] = null;
+                sessionManager.SetCDRParametria(null);
                 return new List<BECDRParametria>();
             }
         }
@@ -3653,9 +3653,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BECDRWeb> entidadLista;
             try
             {
-                if (Session[Constantes.ConstSession.CDRWeb] != null)
+                if (sessionManager.GetCDRWeb() != null)
                 {
-                    return (List<BECDRWeb>)Session[Constantes.ConstSession.CDRWeb];
+                    return (List<BECDRWeb>)sessionManager.GetCDRWeb();
                 }
 
                 var entidad = new BECDRWeb
@@ -3670,17 +3670,17 @@ namespace Portal.Consultoras.Web.Controllers
                     entidadLista = sv.GetCDRWeb(userData.PaisID, entidad).ToList();
                 }
 
-                Session[Constantes.ConstSession.CDRWeb] = null;
+                sessionManager.SetCDRWeb(null);
                 if (entidadLista.Count == 1)
                 {
-                    Session[Constantes.ConstSession.CDRWeb] = entidadLista;
+                    sessionManager.SetCDRWeb(entidadLista);
                 }
 
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                Session[Constantes.ConstSession.CDRWeb] = null;
+                sessionManager.SetCDRWeb(null);
                 entidadLista = new List<BECDRWeb>();
             }
 
@@ -3969,7 +3969,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
 
-                var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
+                var listaShowRoom = sessionManager.GetListaProductoShowRoom() ?? new List<BEShowRoomOferta>();
                 seccion.CantidadProductos = listaShowRoom.Count(x => !x.EsSubCampania);
                 seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }
@@ -5246,7 +5246,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.FotoPerfil = userData.FotoPerfil;
 
-            ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
+            ViewBag.TokenPedidoAutenticoOk = (sessionManager.GetTokenPedidoAutentico() != null) ? 1 : 0;
             ViewBag.CodigoEstrategia = GetCodigoEstrategia();
             ViewBag.BannerInferior = _showRoomProvider.EvaluarBannerConfiguracion(userData.PaisID, sessionManager);
             ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
@@ -5337,8 +5337,8 @@ namespace Portal.Consultoras.Web.Controllers
                             sv.UpdateMostradoProductosPrecargados(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.IPUsuario);
                         }
 
-                        Session["PedidoWeb"] = null;
-                        Session["PedidoWebDetalle"] = null;
+                        sessionManager.SetPedidoWeb(null);
+                        sessionManager.SetDetallesPedido(null);
                         UpdPedidoWebMontosPROL();
                     }
                 }
@@ -5787,7 +5787,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             sessionManager.SetDatosPagoVisa(null);
-            Session["ListadoEstadoCuenta"] = null;
+            sessionManager.SetListadoEstadoCuenta(null);
 
             return resultado;
         }

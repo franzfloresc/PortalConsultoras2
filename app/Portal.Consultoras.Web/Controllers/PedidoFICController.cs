@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "PedidoFIC/Index")) return RedirectToAction("Index", "Bienvenida");
 
-                Session[Constantes.ConstSession.PedidoFIC] = null;
+                sessionManager.SetPedidoFIC(null);
                 ViewBag.ClaseTabla = "tabla2";
                 ViewBag.Pais_ISO = userData.CodigoISO;
                 ViewBag.PROL = "Guardar";
@@ -524,14 +524,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<BEPedidoFICDetalle> ObtenerPedidoFICDetalle()
         {
-            if (Session[Constantes.ConstSession.PedidoFIC] != null) return (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];
+            if (sessionManager.GetPedidoFIC() != null) return (List<BEPedidoFICDetalle>)sessionManager.GetPedidoFIC();
 
             List<BEPedidoFICDetalle> list;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 list = sv.SelectFICByCampania(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), userData.ConsultoraID, userData.NombreConsultora).ToList();
             }
-            Session[Constantes.ConstSession.PedidoFIC] = list;
+            sessionManager.SetPedidoFIC(list);
             return list;
         }
 
@@ -542,15 +542,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if (Session[Constantes.ConstSession.PedidoFIC] == null)
+                if ( sessionManager.GetPedidoFIC() == null)
                 {
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         olstTempListado = sv.SelectFICByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
                     }
-                    Session[Constantes.ConstSession.PedidoFIC] = olstTempListado;
+                    sessionManager.SetPedidoFIC(olstTempListado);
                 }
-                else olstTempListado = (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];
+                else olstTempListado = (List<BEPedidoFICDetalle>)sessionManager.GetPedidoFIC();
 
                 if (tipoAdm == "I")
                 {
@@ -673,13 +673,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 olstTempListado = olstTempListado.OrderByDescending(p => p.PedidoDetalleID).ToList();
-                Session[Constantes.ConstSession.PedidoFIC] = olstTempListado;
+                sessionManager.SetPedidoFIC(olstTempListado);
 
                 errorServer = false;
             }
             catch
             {
-                if (Session[Constantes.ConstSession.PedidoFIC] != null) olstTempListado = (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];
+                if (sessionManager.GetPedidoFIC() != null) olstTempListado = (List<BEPedidoFICDetalle>)sessionManager.GetPedidoFIC();
                 errorServer = true;
             }
 

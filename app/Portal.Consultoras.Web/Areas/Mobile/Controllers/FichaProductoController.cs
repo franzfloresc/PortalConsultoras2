@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     producto = FichaProductoFormatearModelo(lst).SingleOrDefault();
                     producto = FichaProductoHermanos(producto);
                     producto.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, producto.FotoProducto01);
-                    Session[Constantes.SessionNames.FichaProductoTemporal] = producto;
+                    sessionManager.SetFichaProductoTemporal(producto);
                 }
                 if (producto == null)
                 {

@@ -407,15 +407,15 @@ namespace Portal.Consultoras.Web.Controllers
         public List<EstrategiaPedidoModel> ConsultarEstrategiasHomePedido(string cuv = "", string codAgrupacion = "")
         {
             List<BEEstrategia> listModel;
-            if (Session[Constantes.ConstSession.ListaEstrategia] != null)
-                listModel = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia];
+            if (sessionManager.GetListaEstrategia() != null)
+                listModel = (List<BEEstrategia>)sessionManager.GetListaEstrategia();
             else
             {
                 listModel = ConsultarEstrategias(cuv, 0, codAgrupacion);
 
                 if (!listModel.Any())
                 {
-                    Session[Constantes.ConstSession.ListaEstrategia] = listModel;
+                    sessionManager.SetListaEstrategia(listModel);
                     return new List<EstrategiaPedidoModel>();
                 }
 
@@ -428,7 +428,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (!listModel.Any() && estrategiaLanzamiento.EstrategiaID <= 0)
                     {
-                        Session[Constantes.ConstSession.ListaEstrategia] = listModel;
+                        sessionManager.SetListaEstrategia(listModel);
                         return new List<EstrategiaPedidoModel>();
                     }
 
@@ -460,7 +460,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                Session[Constantes.ConstSession.ListaEstrategia] = listModel;
+                sessionManager.SetListaEstrategia(listModel);
             }
 
             var listaProductoModel = ConsultarEstrategiasModelFormato(listModel);
