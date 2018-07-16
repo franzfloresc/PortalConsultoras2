@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.IndicadorOfertaFIC = userData.IndicadorOfertaFIC;
 
                 var carpetaPais = Globals.UrlOfertasFic + "/" + userData.CodigoISO;
-                var url = ConfigS3.GetUrlFileS3(carpetaPais, userData.ImagenURLOfertaFIC);
+                var url = ConfigCdn.GetUrlFileCdn(carpetaPais, userData.ImagenURLOfertaFIC);
 
                 ViewBag.ImagenUrlOfertaFIC = url;
                 ViewBag.PaisID = userData.PaisID;

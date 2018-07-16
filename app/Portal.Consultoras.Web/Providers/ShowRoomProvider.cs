@@ -371,8 +371,7 @@ namespace Portal.Consultoras.Web.Providers
                 }
 
                 var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
-                item.Valor = ConfigS3.GetUrlFileS3(carpetaPais, item.Valor,
-                    Globals.RutaImagenesMatriz + "/" + model.CodigoISO);
+                item.Valor = ConfigCdn.GetUrlFileCdn(carpetaPais, item.Valor);
             }
         }
         

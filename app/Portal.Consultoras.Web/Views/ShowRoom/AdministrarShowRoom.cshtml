@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.OfertaProductoModel
+﻿@using  Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.OfertaProductoModel
 @{
     ViewBag.Title = "Administración de Ofertas Liquidación";
     Layout = "~/Views/Shared/_SACLayout.cshtml";
@@ -742,7 +743,7 @@
                 </div>
             </div>
             <div id="divPopupImagenDemo" style="width: 100px; height: 60px; float: right;">
-                <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/CO/CO_imagen_preventa_digital_2017232920_01_bddprudydm.png"
+                <img src="@Globals.RutaCdn/Matriz/CO/CO_imagen_preventa_digital_2017232920_01_bddprudydm.png"
                      alt="PopupImagenDemo" style="height: 100%;">
             </div>
         </div>

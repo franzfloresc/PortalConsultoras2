@@ -326,7 +326,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     if (!tipoCross && userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
                     {
                         var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                        imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagenUrl, carpetapais);
+                        imagenUrl = ConfigCdn.GetUrlFileCdn(carpetapais, imagenUrl);
                     }
                     p.ImagenProductoSugerido = imagenUrl;
                     p.ImagenProductoSugeridoSmall = _baseProvider.ObtenerRutaImagenResize(p.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall, userData.CodigoISO);
@@ -467,7 +467,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
                 modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
                 modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
-                modelo.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, modelo.FotoProducto01);
+                modelo.FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, modelo.FotoProducto01);
             }
 
             sessionManager.SetProductoTemporal(modelo);

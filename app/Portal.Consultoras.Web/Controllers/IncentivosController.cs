@@ -25,15 +25,12 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectIncentivos(paisId, campaniaId).ToList();
                 }
 
-                var carpetaPais = Globals.UrlIncentivos + "/" + userData.CodigoISO;
-                if (lst.Count > 0)
+                if (lst != null && lst.Count > 0)
                 {
-                    lst.Update(x => x.ArchivoPortada = ConfigS3.GetUrlFileS3(carpetaPais, x.ArchivoPortada, Globals.RutaImagenesIncentivos + "/" + userData.CodigoISO));
-                }
-                carpetaPais = Globals.UrlFileConsultoras + "/" + userData.CodigoISO;
-                if (lst.Count > 0)
-                {
-                    lst.Update(x => x.ArchivoPDF = ConfigS3.GetUrlFileS3(carpetaPais, x.ArchivoPDF, Globals.RutaImagenesIncentivos + "/" + userData.CodigoISO));
+                    var carpetaPaisIncentivos = Globals.UrlIncentivos + "/" + userData.CodigoISO;
+                    var carpetaPaisFileConsultoras = Globals.UrlFileConsultoras + "/" + userData.CodigoISO;
+                    lst.Update(x => x.ArchivoPortada = ConfigCdn.GetUrlFileCdn(carpetaPaisIncentivos, x.ArchivoPortada));
+                    lst.Update(x => x.ArchivoPDF = ConfigCdn.GetUrlFileCdn(carpetaPaisFileConsultoras, x.ArchivoPDF));
                 }
 
                 var incentivosModel = new IncentivosModel()
