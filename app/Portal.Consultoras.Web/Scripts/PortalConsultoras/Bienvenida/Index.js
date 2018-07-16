@@ -67,6 +67,7 @@ $(document).ready(function () {
 
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
+        PopupMostrar('popupAceptacionContrato');
     });
 
     $(".ver_video_introductorio").click(function () {
@@ -627,7 +628,6 @@ function agregarProductoAlCarrito(o) {
 }
 
 function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
-
     tieneFondoNegro = tieneFondoNegro == undefined ? false : tieneFondoNegro;
     mostrarPopupTutorial = mostrarPopupTutorial == undefined ? false : mostrarPopupTutorial;
 
