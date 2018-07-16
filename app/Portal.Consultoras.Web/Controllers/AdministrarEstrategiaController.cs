@@ -1,6 +1,5 @@
 using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
