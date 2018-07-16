@@ -321,7 +321,7 @@ namespace Portal.Consultoras.Web.Controllers
                     breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "ShowRoom", area });
                 if (palanca == Constantes.NombrePalanca.Lanzamiento)
                 {
-                    var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
+                    var actionPalanca = productoPerteneceACampaniaActual ? "Index" : "Revisar";
                     breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area });
                 }
                 if (palanca == Constantes.NombrePalanca.OfertaParaTi ||
