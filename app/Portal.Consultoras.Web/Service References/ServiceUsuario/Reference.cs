@@ -1958,6 +1958,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool PuedeEnviarSMSField;
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double PromedioVentaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RegionField;
@@ -4112,6 +4115,20 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.PuedeEnviarSMSField.Equals(value) != true)) {
                     this.PuedeEnviarSMSField = value;
                     this.RaisePropertyChanged("PuedeEnviarSMS");
+                    }
+            }
+        }
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double PromedioVenta {
+            get {
+                return this.PromedioVentaField;
+            }
+            set {
+                if ((this.PromedioVentaField.Equals(value) != true)) {
+                    this.PromedioVentaField = value;
+                    this.RaisePropertyChanged("PromedioVenta");
+
                 }
             }
         }
