@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var lst = ConsultarFichaProductoPorCuv(cuv, campanaId);
                     var producto = FichaProductoFormatearModelo(lst).SingleOrDefault();
                     producto = FichaProductoHermanos(producto);
-                    Session[Constantes.SessionNames.FichaProductoTemporal] = producto;
+                    sessionManager.SetFichaProductoTemporal(producto);
                     return Json(producto, JsonRequestBehavior.AllowGet);
                 }
             }
