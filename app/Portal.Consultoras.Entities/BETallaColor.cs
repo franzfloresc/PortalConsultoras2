@@ -44,22 +44,22 @@ namespace Portal.Consultoras.Entities
                 ID = Convert.ToInt32(row["ID"]);
 
             if (DataRecord.HasColumn(row, "CUV"))
-                CUV = row["CUV"].ToString();
+                CUV = Convert.ToString(row["CUV"]);
 
             if (DataRecord.HasColumn(row, "DescripcionCUV"))
-                DescripcionCUV = row["DescripcionCUV"].ToString();
+                DescripcionCUV = Convert.ToString(row["DescripcionCUV"]);
 
             if (DataRecord.HasColumn(row, "PrecioUnitario"))
-                PrecioUnitario = Convert.ToDecimal(row["PrecioUnitario"].ToString());
+                PrecioUnitario = Convert.ToDecimal(row["PrecioUnitario"]);
 
             if (DataRecord.HasColumn(row, "Tipo"))
-                Tipo = row["Tipo"].ToString();
+                Tipo = Convert.ToString(row["Tipo"]);
 
             if (DataRecord.HasColumn(row, "DescripcionTipo"))
-                DescripcionTipo = row["DescripcionTipo"].ToString();
+                DescripcionTipo = Convert.ToString(row["DescripcionTipo"]);
 
             if (DataRecord.HasColumn(row, "DescripcionTallaColor"))
-                DescripcionTallaColor = row["DescripcionTallaColor"].ToString();
+                DescripcionTallaColor = Convert.ToString(row["DescripcionTallaColor"]);
 
         }
 

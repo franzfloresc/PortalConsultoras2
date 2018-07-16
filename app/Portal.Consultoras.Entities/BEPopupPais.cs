@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Entities
         {
             PopupPaisID = Convert.ToInt32(record["PopupPaisID"]);
             CodigoPopup = Convert.ToInt32(record["CodigoPopup"]);
-            Descripcion = record["Descripcion"] != DBNull.Value ? record["Descripcion"].ToString() : string.Empty;
+            Descripcion = record["Descripcion"] != DBNull.Value ? Convert.ToString(record["Descripcion"]) : string.Empty;
             Orden = record["Orden"] != DBNull.Value ? Convert.ToInt32(record["Orden"]) : 0;
         }
     }

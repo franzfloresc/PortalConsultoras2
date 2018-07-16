@@ -22,9 +22,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "EstadoId"))
                 EstadoSolicitudClienteID = Convert.ToInt32(row["EstadoId"]);
             if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = row["Descripcion"].ToString();
+                Descripcion = Convert.ToString(row["Descripcion"]);
             if (DataRecord.HasColumn(row, "Estado"))
-                TipoEstado = row["Estado"].ToString();
+                TipoEstado = Convert.ToString(row["Estado"]);
             if (DataRecord.HasColumn(row, "Activo"))
                 Activo = Convert.ToBoolean(row["Activo"]);
         }

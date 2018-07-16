@@ -113,7 +113,7 @@ namespace Portal.Consultoras.Entities
         public BEResultadoMisPedidosAppCatalogo(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "Error"))
-                Error = Convert.ToBoolean(row["Error"].ToString());
+                Error = Convert.ToBoolean(row["Error"]);
             if (DataRecord.HasColumn(row, "Mensaje"))
                 Mensaje = Convert.ToString(row["Mensaje"]);
         }
@@ -184,7 +184,7 @@ namespace Portal.Consultoras.Entities
         public BEResultadoPedidoDetalleAppCatalogo(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "Error"))
-                Error = Convert.ToBoolean(row["Error"].ToString());
+                Error = Convert.ToBoolean(row["Error"]);
             if (DataRecord.HasColumn(row, "Mensaje"))
                 Mensaje = Convert.ToString(row["Mensaje"]);
         }
