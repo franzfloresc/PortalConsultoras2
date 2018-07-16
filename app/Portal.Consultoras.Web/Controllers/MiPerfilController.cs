@@ -262,10 +262,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (Util.IsUrl(userData.FotoPerfil))
                     {
-                        Stream StreamImagen = ConsultarImagen(userData.FotoPerfil);
-                        var imagenConsultada = System.Drawing.Image.FromStream(StreamImagen);
-                        userData.FotoPerfilAncha = (imagenConsultada.Width > imagenConsultada.Height ? true : false);
-                        ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
+                        Stream streamImagen = ConsultarImagen(userData.FotoPerfil);
+                        using (streamImagen)
+                        using (var imagenConsultada = System.Drawing.Image.FromStream(streamImagen))
+                        {
+                            userData.FotoPerfilAncha = (imagenConsultada.Width > imagenConsultada.Height);
+                            ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha; 
+                        }
                     }
 
                     userData.FotoOriginalSinModificar = nameImage;
