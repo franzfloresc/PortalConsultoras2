@@ -946,6 +946,11 @@ ul.breadcumbs li a {
     font-size: 12px;
 }
 
+ul.breadcumbs li:last-child a {
+    font-weight: bold;
+    pointer-events: none;
+}
+
 ul.breadcumbs li:first-child a::before{
     background: none;
 }
