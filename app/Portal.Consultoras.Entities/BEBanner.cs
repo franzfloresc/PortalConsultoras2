@@ -7,7 +7,7 @@ namespace Portal.Consultoras.Entities
 {
     [DataContract]
     public class BEBanner
-    {   
+    {
         [DataMember]
         public int CampaniaID { get; set; }
 
@@ -83,9 +83,9 @@ namespace Portal.Consultoras.Entities
             BannerID = Convert.ToInt32(datarec["BannerID"]);
             GrupoBannerID = Convert.ToInt32(datarec["GrupoBannerID"]);
             Orden = Convert.ToInt32(datarec["Orden"]);
-            Titulo = datarec["Titulo"].ToString();
-            Archivo = datarec["Archivo"].ToString();
-            URL = datarec["URL"].ToString();
+            Titulo = Convert.ToString(datarec["Titulo"]);
+            Archivo = Convert.ToString(datarec["Archivo"]);
+            URL = Convert.ToString(datarec["URL"]);
             FlagGrupoConsultora = Convert.ToBoolean(datarec["FlagGrupoConsultora"]);
             FlagConsultoraNueva = Convert.ToBoolean(datarec["FlagConsultoraNueva"]);
             TiempoRotacion = Convert.ToInt32(datarec["TiempoRotacion"]);

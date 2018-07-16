@@ -3358,13 +3358,13 @@ namespace Portal.Consultoras.Common
         public static string EnmascararCelular(string celular)
         {
             if (string.IsNullOrEmpty(celular.Trim())) return "";
-            int inicio = 1; 
+            int inicio = 1;
             int final = 2;
             int longitud = celular.Length;
             string strOcultar = celular.Substring(inicio, longitud - final - inicio);
             int longitudOcultar = strOcultar.Length;
-            string caracter = "*".PadLeft(longitudOcultar,'*');
-            return celular.Replace(strOcultar, caracter);        
+            string caracter = "*".PadLeft(longitudOcultar, '*');
+            return celular.Replace(strOcultar, caracter);
         }
 
         public static string GetDescripcionMarca(int marcaId)

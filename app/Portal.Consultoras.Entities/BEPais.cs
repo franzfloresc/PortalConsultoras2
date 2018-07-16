@@ -32,12 +32,12 @@ namespace Portal.Consultoras.Entities
         public BEPais(IDataRecord row)
         {
             PaisID = Convert.ToInt32(row["PaisID"]);
-            CodigoISO = row["CodigoISO"].ToString();
-            NombreCorto = row["NombreSimple"].ToString();
-            Nombre = row["NombreComplejo"].ToString();
+            CodigoISO = Convert.ToString(row["CodigoISO"]);
+            NombreCorto = Convert.ToString(row["NombreSimple"]);
+            Nombre = Convert.ToString(row["NombreComplejo"]);
 
             if (DataRecord.HasColumn(row, "CodigoISOProd"))
-                CodigoISOProd = row["CodigoISOProd"].ToString();
+                CodigoISOProd = Convert.ToString(row["CodigoISOProd"]);
             if (DataRecord.HasColumn(row, "ZonaHoraria"))
                 ZonaHoraria = Convert.ToDouble(row["ZonaHoraria"]);
             if (DataRecord.HasColumn(row, "DiasAntes"))
@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "HorasDuracionRestriccion"))
                 HorasDuracionRestriccion = Convert.ToInt32(row["HorasDuracionRestriccion"]);
             if (DataRecord.HasColumn(row, "Mensajes"))
-                Mensajes = row["Mensajes"].ToString();
+                Mensajes = Convert.ToString(row["Mensajes"]);
         }
     }
 }

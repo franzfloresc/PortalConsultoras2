@@ -122,7 +122,7 @@ namespace Portal.Consultoras.Entities
                 NumeroNiveles = Convert.ToInt32(row["NUMERO_NIVELES"]);
 
             if (DataRecord.HasColumn(row, "Simbolo"))
-                Simbolo = row["Simbolo"].ToString();
+                Simbolo = Convert.ToString(row["Simbolo"]);
 
             if (row.HasColumn("CampaniaInicio"))
                 CampaniaInicio = row.GetValue<string>("CampaniaInicio");

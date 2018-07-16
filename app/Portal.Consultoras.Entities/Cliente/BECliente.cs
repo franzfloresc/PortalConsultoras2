@@ -34,19 +34,19 @@ namespace Portal.Consultoras.Entities
                 ClienteID = Convert.ToInt32(datarec["ClienteID"]);
 
             if (DataRecord.HasColumn(datarec, "Nombre"))
-                Nombre = datarec["Nombre"].ToString();
+                Nombre = Convert.ToString(datarec["Nombre"]);
 
             if (DataRecord.HasColumn(datarec, "eMail"))
-                eMail = datarec["eMail"].ToString();
+                eMail = Convert.ToString(datarec["eMail"]);
 
             if (DataRecord.HasColumn(datarec, "Activo"))
                 Activo = Convert.ToBoolean(datarec["Activo"]);
 
             if (DataRecord.HasColumn(datarec, "Telefono"))
-                Telefono = datarec["Telefono"].ToString();
+                Telefono = Convert.ToString(datarec["Telefono"]);
 
             if (DataRecord.HasColumn(datarec, "Celular"))
-                Celular = datarec["Celular"].ToString();
+                Celular = Convert.ToString(datarec["Celular"]);
 
             if (DataRecord.HasColumn(datarec, "CodigoCliente"))
                 CodigoCliente = Convert.ToInt64(datarec["CodigoCliente"]);
@@ -58,10 +58,10 @@ namespace Portal.Consultoras.Entities
                 TipoContactoFavorito = Convert.ToInt16(datarec["TipoContactoFavorito"]);
 
             if (DataRecord.HasColumn(datarec, "NombreCliente"))
-                NombreCliente = datarec["NombreCliente"].ToString();
+                NombreCliente = Convert.ToString(datarec["NombreCliente"]);
 
             if (DataRecord.HasColumn(datarec, "ApellidoCliente"))
-                ApellidoCliente = datarec["ApellidoCliente"].ToString();
+                ApellidoCliente = Convert.ToString(datarec["ApellidoCliente"]);
 
             if (DataRecord.HasColumn(datarec, "Saldo"))
                 Saldo = Convert.ToDecimal(datarec["Saldo"]);

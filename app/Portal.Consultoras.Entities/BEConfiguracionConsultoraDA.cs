@@ -31,11 +31,11 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "ConsultoraID"))
                 ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
             if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = row["CampaniaID"].ToString();
+                CampaniaID = Convert.ToString(row["CampaniaID"]);
             if (DataRecord.HasColumn(row, "TipoConfiguracion"))
                 TipoConfiguracion = Convert.ToByte(row["TipoConfiguracion"]);
             if (DataRecord.HasColumn(row, "CodigoUsuario"))
-                CodigoUsuario = row["CodigoUsuario"].ToString();
+                CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
         }
 
 

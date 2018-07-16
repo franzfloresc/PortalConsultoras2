@@ -98,7 +98,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "NumeroVeces"))
                 NumeroVeces = Convert.ToInt16(row["NumeroVeces"]);
             if (DataRecord.HasColumn(row, "DocumentoResponsable") && row["DocumentoResponsable"] != DBNull.Value)
-                DocumentoResponsable = row["DocumentoResponsable"].ToString();
+                DocumentoResponsable = Convert.ToString(row["DocumentoResponsable"]);
         }
     }
 
