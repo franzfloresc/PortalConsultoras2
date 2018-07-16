@@ -1,16 +1,16 @@
 USE BelcorpDominicana
 
 UPDATE certificadodigitalconfig 
-	SET ciudad = 'Rep. Dom.', 
+	SET ciudad = 'República Dominicana', 
 	asunto = 'Certificado Paz y Salvo', 
 	descripcionestado = 'se encuentra a PAZ Y SALVO con la Compañía', 
 	razonsocial = 'TRANSBEL S.R.L', 
 	ruc = '', 
-	telefono = 'Tel.809-542-5353 Ext. 1091', 
+	telefono = 'Tel 1- 809 200-5235 y 809- 620-5235', 
 	urlfirma = 'http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/DO/FirmaGiselleHernandez.JPG', 
-	responsable = '', 
+	responsable = 'Giselle Hernández', 
 	cargo = 'Supervisor Cobranzas', 
-	documento = 'https://image.ibb.co/bFPexT/SELLO_RECTANGULO.jpg' 
+	documento = 'http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/DO/SELLO-RECTANGULO.JPG' 
 WHERE  configid = 1 
 
 UPDATE certificadodigitalconfig 
@@ -22,8 +22,8 @@ UPDATE certificadodigitalconfig
 	telefono = '1-809 200-5235 y 809-620-5235', 
 	urlfirma = 'http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/DO/FirmaGiselleHernandez.JPG' , 
 	responsable = 'Giselle Hernández', 
-	cargo = 'Rep. Dom.', 
-	documento = 'https://image.ibb.co/bFPexT/SELLO_RECTANGULO.jpg' 
+	cargo = 'República Dominicana', 
+	documento = 'http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/DO/SELLO-RECTANGULO.JPG' 
 WHERE  configid = 2 
 
 -----------
@@ -36,11 +36,11 @@ UPDATE certificadodigitalconfig
 	descripcionestado = 'se encuentra a PAZ Y SALVO con', 
 	razonsocial = 'Ventura Corporation Limited', 
 	ruc = '', 
-	telefono = 'Te.809-542-5353 Ext. 1091', 
+	telefono = 'Tel. 787-641-3235 Ext. 1091', 
 	urlfirma = 'http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/DO/FirmaGiselleHernandez.JPG', 
-	responsable = '', 
+	responsable = 'Giselle Hernández', 
 	cargo = 'Supervisor Cobranzas', 
-	documento = 'https://image.ibb.co/dVC4Wo/SELLO_REDONDO.jpg' 
+	documento = 'http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PR/SELLO-REDONDO.JPG' 
 WHERE  configid = 1 
 
 UPDATE certificadodigitalconfig 
@@ -53,5 +53,5 @@ UPDATE certificadodigitalconfig
 	urlfirma = 'http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/DO/FirmaGiselleHernandez.JPG' , 
 	responsable = 'Giselle Hernández', 
 	cargo = 'Puerto Rico', 
-	documento = 'https://image.ibb.co/dVC4Wo/SELLO_REDONDO.jpg' 
+	documento = 'http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PR/SELLO-REDONDO.JPG' 
 WHERE  configid = 2
