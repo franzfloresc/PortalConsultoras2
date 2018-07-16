@@ -353,5 +353,6 @@ namespace Portal.Consultoras.Web.Models
         public bool PuedeActualizar { get; set; }
         public bool FotoPerfilAncha { get; set; }
         public string MensajeChat { get; set; }
+        public double PromedioVenta { get; set; }
     }
 }
