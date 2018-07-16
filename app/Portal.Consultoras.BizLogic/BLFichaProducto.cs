@@ -77,12 +77,12 @@ namespace Portal.Consultoras.BizLogic
             fichasProductosResult.ForEach(ficha =>
             {
                 ficha.CampaniaID = entidad.CampaniaID;
-                ficha.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, ficha.ImagenURL, carpetaPais);
+                ficha.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetaPais, ficha.ImagenURL);
                 ficha.Simbolo = entidad.Simbolo;
                 ficha.TieneStockProl = true;
                 ficha.PrecioString = Util.DecimalToStringFormat(ficha.Precio2, codigoIso);
                 ficha.PrecioTachado = Util.DecimalToStringFormat(ficha.Precio, codigoIso);
-                //ficha.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, ficha.FotoProducto01, carpetaPais);
+                //ficha.FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, ficha.FotoProducto01);
                 ficha.CodigoEstrategia = Util.Trim(ficha.CodigoEstrategia);
             });
             return fichasProductosResult;

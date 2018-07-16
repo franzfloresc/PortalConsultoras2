@@ -499,14 +499,14 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Importe a Pagar", userData.Simbolo + " #ImportePagar"}
             };
 
-            string[] arrTotal = { "Importe Total:", " #CodigoUsuarioCreacion", "Flete:", " #CodigoUsuarioModificacion", "Total Facturado:", " #Mensaje", };
+            //string[] arrTotal = { "Importe Total:", " #CodigoUsuarioCreacion", "Flete:", " #CodigoUsuarioModificacion", "Total Facturado:", " #Mensaje", };
 
-            ExportToExcelMultipleFacturado("PedidosWebExcel", lst, dicCabeceras, dicDetalles, arrTotal, vTotalParcial, vFlete, vTotalFacturado);
+            ExportToExcelMultipleFacturado("PedidosWebExcel", lst, dicCabeceras, dicDetalles, vTotalParcial, vFlete, vTotalFacturado);
             return new EmptyResult();
         }
 
         private void ExportToExcelMultipleFacturado(string filename, List<BEPedidoWebDetalle> sourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
-            Dictionary<string, string> columnDetailDefinition, string[] arrTotal, string vTotalParcial, string vFlete, string vTotalFacturado)
+            Dictionary<string, string> columnDetailDefinition, string vTotalParcial, string vFlete, string vTotalFacturado)
         {
             try
             {

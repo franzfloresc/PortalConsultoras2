@@ -1822,6 +1822,10 @@ namespace Portal.Consultoras.Service
             return new BLEstrategiaProducto().GetEstrategiaProducto(entidad);
         }
 
+        public List<BEEstrategiaProducto> GetEstrategiaProductoList(int PaisID, string idList)
+        {
+            return new BLEstrategiaProducto().GetEstrategiaProductoList(PaisID, idList);
+        }
         public int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity)
         {
             return new BLShowRoomEvento().ShowRoomProgramarAviso(paisID, entity);

@@ -45,9 +45,9 @@ namespace Portal.Consultoras.Entities
             Descripcion = Convert.ToString(row["Descripcion"]);
             MenuPadreID = Convert.ToInt32(row["MenuPadreID"]);
             OrdenItem = Convert.ToInt32(row["OrdenItem"]);
-            if (row["UrlItem"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UrlItem"))
                 UrlItem = Convert.ToString(row["UrlItem"]);
-            if (row["UrlImagen"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "UrlImagen"))
                 UrlImagen = Convert.ToString(row["UrlImagen"]);
             PaginaNueva = Convert.ToBoolean(row["PaginaNueva"]);
             Posicion = Convert.ToString(row["Posicion"]);

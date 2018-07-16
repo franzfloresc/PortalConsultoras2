@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.SessionManager;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -51,7 +49,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
 
-                ruta = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + rutaNombreExtension + soloExtension);
+                ruta = ConfigCdn.GetUrlFileCdn(carpetaPais, soloImagen + rutaNombreExtension + soloExtension);
             }
             else
             {

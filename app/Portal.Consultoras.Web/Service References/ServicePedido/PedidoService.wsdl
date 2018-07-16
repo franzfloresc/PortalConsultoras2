@@ -344,6 +344,12 @@
   <wsdl:message name="IPedidoService_GetActivarPremioNuevas_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetActivarPremioNuevasResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetEstrategiaProductoList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstrategiaProductoList" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetEstrategiaProductoList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEstrategiaProductoListResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GuardarImagenShowRoom_InputMessage">
     <wsdl:part name="parameters" element="tns:GuardarImagenShowRoom" />
   </wsdl:message>
@@ -2585,6 +2591,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetActivarPremioNuevas" message="tns:IPedidoService_GetActivarPremioNuevas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetActivarPremioNuevasResponse" message="tns:IPedidoService_GetActivarPremioNuevas_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetEstrategiaProductoList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaProductoList" message="tns:IPedidoService_GetEstrategiaProductoList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaProductoListResponse" message="tns:IPedidoService_GetEstrategiaProductoList_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GuardarImagenShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GuardarImagenShowRoom" message="tns:IPedidoService_GuardarImagenShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GuardarImagenShowRoomResponse" message="tns:IPedidoService_GuardarImagenShowRoom_OutputMessage" />
@@ -4391,6 +4401,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetActivarPremioNuevas">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetActivarPremioNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstrategiaProductoList">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaProductoList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7905,6 +7924,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetActivarPremioNuevas">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetActivarPremioNuevas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEstrategiaProductoList">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaProductoList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

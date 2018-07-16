@@ -1,0 +1,125 @@
+-----------------------------------------------------------------------------------------------
+1.PortalConsultorasWeb
+-----------------------------------------------------------------------------------------------
+Agregar key:
+------------
+<add key="RutaCDN" value="https://d1y60eoca8fkyl.cloudfront.net"/>
+<add key="RevistaPiloto_Zonas_PE201806_.ESC1" value="7013 , 7093 , 8015 , 8023 , 8312" />
+<add key="RevistaPiloto_Zonas_PE201806_.ESC2" value="3122 , 8014 , 8016 , 8117" />
+<add key="RevistaPiloto_Zonas_PE201806_.ESC3" value="1252 , 2129 , 8013 , 8028 , 8211" />
+
+<add key="RevistaPiloto_Zonas_CO201806_.ESC1" value="0216 , 1201 , 1409 , 1504 , 2809" />
+<add key="RevistaPiloto_Zonas_CO201806_.ESC2" value="0318 , 1002 , 1416 , 1925" />
+<add key="RevistaPiloto_Zonas_CO201806_.ESC3" value="0220 , 0516 , 0833 , 0834 , 2212" />
+
+<!--  MEXICO  -->
+<add key="RevistaPiloto_Grupos_MX201811" value="ESCrdr1,ESCrdr2" />
+<add key="RevistaPiloto_Zonas_MX201811_ESCrdr1" value="5014, 5309, 7202, 8115" />
+<add key="RevistaPiloto_Zonas_MX201811_ESCrdr2" value="5103, 6506, 6512, 8114" />
+<!--  ECUADOR  -->
+<add key="RevistaPiloto_Grupos_EC201811" value="ESCrdr1" />
+<add key="RevistaPiloto_Zonas_EC201811_ESCrdr1" value="1911, 2011, 2105, 2214, 2320" />
+
+Actualizar Keys:
+----------------
+<add key="RevistaPiloto_Grupos_PE201806" value=".ESC1,  .ESC2,  .ESC3" />
+<add key="RevistaPiloto_Grupos_CO201806" value=".ESC1,  .ESC2,  .ESC3" />
+<add key="CodigoRevistaIssuu" value="sbconsultorarevista.{0}.c{1}.{2}{3}" />
+<add key="BUCKET_NAME" value="somosbelcorpqa" />
+<add key="ROOT_DIRECTORY" value="" />
+
+<add key="UrlImgMiAcademia" value="https://d1y60eoca8fkyl.cloudfront.net/MiAcademia"/>
+<add key="UrlImgFondo1ODD" value="https://d1y60eoca8fkyl.cloudfront.net/OfertaDelDia/{0}/textura_fondo.png" />
+<add key="UrlImgFondo2ODD" value="https://d1y60eoca8fkyl.cloudfront.net/OfertaDelDia/{0}/fondo_pop.png" />
+<add key="UrlImgSoloHoyODD" value="https://d1y60eoca8fkyl.cloudfront.net/OfertaDelDia/{0}/solo_hoy.png" />
+<add key="UrlImgBannerODD" value="https://d1y60eoca8fkyl.cloudfront.net/OfertaDelDia/{0}/{1}" />
+<add key="UrlImgDisplayODD" value="https://d1y60eoca8fkyl.cloudfront.net/OfertaDelDia/{0}/{1}" />
+<add key="UrlImagenFAVHome" value="https://d1y60eoca8fkyl.cloudfront.net/CatalogoPersonalizado/{0}/banner_fav_home.png" />
+<add key="UrlImagenFAVLanding" value="https://d1y60eoca8fkyl.cloudfront.net/CatalogoPersonalizado/{0}/banner_fav_cat.png" />
+<add key="UrlImagenFAVMobile" value="https://d1y60eoca8fkyl.cloudfront.net/CatalogoPersonalizado/{0}/banner_mobile.png" />
+
+<add key="UrlPoliticasCDR" value="https://d1y60eoca8fkyl.cloudfront.net/FileConsultoras/{0}/PoliticasCDRWeb.pdf" />
+<add key="UrlRetiroFondosTarjetaHelm" value="https://d1y60eoca8fkyl.cloudfront.net/FileConsultoras/CO/RetiroFondosTarjetaHelm.PDF" />
+<add key="oferta_final_regalo_url_s3" value="https://d1y60eoca8fkyl.cloudfront.net/FileConsultoras/{0}/RGX_Flyer_Regalo_Sorpresa.pdf" />
+
+Eliminar Keys:
+--------------
+<add key="RevistaPiloto_Grupos_PE201804" value="ESC1,ESC2,ESC3" />
+<add key="RevistaPiloto_Grupos_PE201805" value="ESC1,ESC2,ESC3" />
+<add key="RevistaPiloto_Zonas_PE201804_ESC1" value="7013 , 7093 , 8015 , 8023 , 8312" />
+<add key="RevistaPiloto_Zonas_PE201804_ESC2" value="3122 , 8014 , 8016 , 8117" />
+<add key="RevistaPiloto_Zonas_PE201804_ESC3" value="1252 , 2129 , 8013 , 8028 , 8211" />
+<add key="RevistaPiloto_Zonas_PE201805_ESC1" value="7013 , 7093 , 8015 , 8023 , 8312" />
+<add key="RevistaPiloto_Zonas_PE201805_ESC2" value="3122 , 8014 , 8016 , 8117" />
+<add key="RevistaPiloto_Zonas_PE201805_ESC3" value="1252 , 2129 , 8013 , 8028 , 8211" />
+<add key="RevistaPiloto_Zonas_PE201806_ESC1" value="7013 , 7093 , 8015 , 8023 , 8312" />
+<add key="RevistaPiloto_Zonas_PE201806_ESC2" value="3122 , 8014 , 8016 , 8117" />
+<add key="RevistaPiloto_Zonas_PE201806_ESC3" value="1252 , 2129 , 8013 , 8028 , 8211" />
+
+<add key="RevistaPiloto_Grupos_CO201804" value="ESC1,ESC2,ESC3" />
+<add key="RevistaPiloto_Grupos_CO201805" value="ESC1,ESC2,ESC3" />
+<add key="RevistaPiloto_Zonas_CO201804_ESC1" value="0216 , 1201 , 1409 , 1504 , 2809" />
+<add key="RevistaPiloto_Zonas_CO201804_ESC2" value="0318 , 1002 , 1416 , 1925" />
+<add key="RevistaPiloto_Zonas_CO201804_ESC3" value="0220 , 0516 , 0833 , 0834 , 2212" />
+<add key="RevistaPiloto_Zonas_CO201805_ESC1" value="0216 , 1201 , 1409 , 1504 , 2809" />
+<add key="RevistaPiloto_Zonas_CO201805_ESC2" value="0318 , 1002 , 1416 , 1925" />
+<add key="RevistaPiloto_Zonas_CO201805_ESC3" value="0220 , 0516 , 0833 , 0834 , 2212" />
+<add key="RevistaPiloto_Zonas_CO201806_ESC1" value="0216 , 1201 , 1409 , 1504 , 2809" />
+<add key="RevistaPiloto_Zonas_CO201806_ESC2" value="0318 , 1002 , 1416 , 1925" />
+<add key="RevistaPiloto_Zonas_CO201806_ESC3" value="0220 , 0516 , 0833 , 0834 , 2212" />
+
+-----------------------------------------------------------------------------------------------
+2.PortalConsultorasWCF2
+-----------------------------------------------------------------------------------------------
+Agregar key:
+------------
+<add key="RutaCDN" value="https://d1y60eoca8fkyl.cloudfront.net"/>
+<add key="RevistaPiloto_Zonas_PE201806_.ESC1" value="7013 , 7093 , 8015 , 8023 , 8312" />
+<add key="RevistaPiloto_Zonas_PE201806_.ESC2" value="3122 , 8014 , 8016 , 8117" />
+<add key="RevistaPiloto_Zonas_PE201806_.ESC3" value="1252 , 2129 , 8013 , 8028 , 8211" />
+
+<add key="RevistaPiloto_Zonas_CO201806_.ESC1" value="0216 , 1201 , 1409 , 1504 , 2809" />
+<add key="RevistaPiloto_Zonas_CO201806_.ESC2" value="0318 , 1002 , 1416 , 1925" />
+<add key="RevistaPiloto_Zonas_CO201806_.ESC3" value="0220 , 0516 , 0833 , 0834 , 2212" />
+
+<!--  MEXICO  -->
+<add key="RevistaPiloto_Grupos_MX201811" value="ESCrdr1,ESCrdr2" />
+<add key="RevistaPiloto_Zonas_MX201811_ESCrdr1" value="5014, 5309, 7202, 8115" />
+<add key="RevistaPiloto_Zonas_MX201811_ESCrdr2" value="5103, 6506, 6512, 8114" />
+<!--  ECUADOR  -->
+<add key="RevistaPiloto_Grupos_EC201811" value="ESCrdr1" />
+<add key="RevistaPiloto_Zonas_EC201811_ESCrdr1" value="1911, 2011, 2105, 2214, 2320" />
+
+Actualizar Keys:
+----------------
+<add key="RevistaPiloto_Grupos_PE201806" value=".ESC1,  .ESC2,  .ESC3" />
+<add key="RevistaPiloto_Grupos_CO201806" value=".ESC1,  .ESC2,  .ESC3" />
+<add key="CodigoRevistaIssuu" value="sbconsultorarevista.{0}.c{1}.{2}{3}" />
+<add key="BUCKET_NAME" value="somosbelcorpqa" />
+<add key="ROOT_DIRECTORY" value="" />
+
+Eliminar Keys:
+--------------
+<add key="RevistaPiloto_Grupos_PE201804" value="ESC1,ESC2,ESC3" />
+<add key="RevistaPiloto_Grupos_PE201805" value="ESC1,ESC2,ESC3" />
+<add key="RevistaPiloto_Zonas_PE201804_ESC1" value="7013 , 7093 , 8015 , 8023 , 8312" />
+<add key="RevistaPiloto_Zonas_PE201804_ESC2" value="3122 , 8014 , 8016 , 8117" />
+<add key="RevistaPiloto_Zonas_PE201804_ESC3" value="1252 , 2129 , 8013 , 8028 , 8211" />
+<add key="RevistaPiloto_Zonas_PE201805_ESC1" value="7013 , 7093 , 8015 , 8023 , 8312" />
+<add key="RevistaPiloto_Zonas_PE201805_ESC2" value="3122 , 8014 , 8016 , 8117" />
+<add key="RevistaPiloto_Zonas_PE201805_ESC3" value="1252 , 2129 , 8013 , 8028 , 8211" />
+<add key="RevistaPiloto_Zonas_PE201806_ESC1" value="7013 , 7093 , 8015 , 8023 , 8312" />
+<add key="RevistaPiloto_Zonas_PE201806_ESC2" value="3122 , 8014 , 8016 , 8117" />
+<add key="RevistaPiloto_Zonas_PE201806_ESC3" value="1252 , 2129 , 8013 , 8028 , 8211" />
+
+<add key="RevistaPiloto_Grupos_CO201804" value="ESC1,ESC2,ESC3" />
+<add key="RevistaPiloto_Grupos_CO201805" value="ESC1,ESC2,ESC3" />
+<add key="RevistaPiloto_Zonas_CO201804_ESC1" value="0216 , 1201 , 1409 , 1504 , 2809" />
+<add key="RevistaPiloto_Zonas_CO201804_ESC2" value="0318 , 1002 , 1416 , 1925" />
+<add key="RevistaPiloto_Zonas_CO201804_ESC3" value="0220 , 0516 , 0833 , 0834 , 2212" />
+<add key="RevistaPiloto_Zonas_CO201805_ESC1" value="0216 , 1201 , 1409 , 1504 , 2809" />
+<add key="RevistaPiloto_Zonas_CO201805_ESC2" value="0318 , 1002 , 1416 , 1925" />
+<add key="RevistaPiloto_Zonas_CO201805_ESC3" value="0220 , 0516 , 0833 , 0834 , 2212" />
+<add key="RevistaPiloto_Zonas_CO201806_ESC1" value="0216 , 1201 , 1409 , 1504 , 2809" />
+<add key="RevistaPiloto_Zonas_CO201806_ESC2" value="0318 , 1002 , 1416 , 1925" />
+<add key="RevistaPiloto_Zonas_CO201806_ESC3" value="0220 , 0516 , 0833 , 0834 , 2212" />

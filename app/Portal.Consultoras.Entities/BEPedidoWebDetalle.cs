@@ -367,7 +367,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CodigoCatalago"))
                 CodigoCatalago = Convert.ToInt32(row["CodigoCatalago"]);
             if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
-                EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
+                EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"]);
             if (DataRecord.HasColumn(row, "TipoEstrategiaCodigo"))
                 TipoEstrategiaCodigo = Convert.ToString(row["TipoEstrategiaCodigo"]);
             if (DataRecord.HasColumn(row, "FlagNueva"))

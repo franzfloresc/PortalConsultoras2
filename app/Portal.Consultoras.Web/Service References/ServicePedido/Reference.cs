@@ -38791,6 +38791,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetActivarPremioNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetActivarPremioNuevasResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEActivarPremioNuevas> GetActivarPremioNuevasAsync(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaProductoList", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaProductoListResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto[] GetEstrategiaProductoList(int PaisID, string idList);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaProductoList", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaProductoListResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto[]> GetEstrategiaProductoListAsync(int PaisID, string idList);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GuardarImagenShowRoom", ReplyAction="http://tempuri.org/IPedidoService/GuardarImagenShowRoomResponse")]
         int GuardarImagenShowRoom(int paisID, int eventoId, string nombreImagenFinal, int tipo, string usuarioModificacion);
         
@@ -41291,6 +41297,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEActivarPremioNuevas> GetActivarPremioNuevasAsync(int paisID, string codigoPrograma, int anioCampana, string codigoNivel) {
             return base.Channel.GetActivarPremioNuevasAsync(paisID, codigoPrograma, anioCampana, codigoNivel);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto[] GetEstrategiaProductoList(int PaisID, string idList) {
+            return base.Channel.GetEstrategiaProductoList(PaisID, idList);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategiaProducto[]> GetEstrategiaProductoListAsync(int PaisID, string idList) {
+            return base.Channel.GetEstrategiaProductoListAsync(PaisID, idList);
         }
         
         public int GuardarImagenShowRoom(int paisID, int eventoId, string nombreImagenFinal, int tipo, string usuarioModificacion) {

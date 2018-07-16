@@ -38,13 +38,13 @@ namespace Portal.Consultoras.Entities
                 OfertaID = Convert.ToInt32(row["OfertaID"]);
 
             if (DataRecord.HasColumn(row, "CodigoOferta"))
-                CodigoOferta = row["CodigoOferta"].ToString();
+                CodigoOferta = Convert.ToString(row["CodigoOferta"]);
 
             if (DataRecord.HasColumn(row, "DescripcionOferta"))
-                DescripcionOferta = row["DescripcionOferta"].ToString();
+                DescripcionOferta = Convert.ToString(row["DescripcionOferta"]);
 
             if (DataRecord.HasColumn(row, "CodigoPrograma"))
-                CodigoPrograma = row["CodigoPrograma"].ToString();
+                CodigoPrograma = Convert.ToString(row["CodigoPrograma"]);
         }
     }
 }

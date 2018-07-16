@@ -33,27 +33,27 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         public List<BEFiltrosOpcionesVerificacion> lstFiltros { get; set; }
 
         public BEOpcionesVerificacion()
-        {}
+        { }
 
         public BEOpcionesVerificacion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "OrigenID") && row["OrigenID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "OrigenID"))
                 OrigenID = Convert.ToInt32(row["OrigenID"]);
-            if (DataRecord.HasColumn(row, "OrigenDescripcion") && row["OrigenDescripcion"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "OrigenDescripcion"))
                 OrigenDescripcion = Convert.ToString(row["OrigenDescripcion"]);
-            if (DataRecord.HasColumn(row, "OpcionEmail") && row["OpcionEmail"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "OpcionEmail"))
                 OpcionEmail = Convert.ToBoolean(row["OpcionEmail"]);
-            if (DataRecord.HasColumn(row, "OpcionSms") && row["OpcionSms"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "OpcionSms"))
                 OpcionSms = Convert.ToBoolean(row["OpcionSms"]);
-            if (DataRecord.HasColumn(row, "OpcionChat") && row["OpcionChat"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "OpcionChat"))
                 OpcionChat = Convert.ToBoolean(row["OpcionChat"]);
-            if (DataRecord.HasColumn(row, "OpcionBelcorpResponde") && row["OpcionBelcorpResponde"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "OpcionBelcorpResponde"))
                 OpcionBelcorpResponde = Convert.ToBoolean(row["OpcionBelcorpResponde"]);
-            if (DataRecord.HasColumn(row, "IncluyeFiltros") && row["IncluyeFiltros"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IncluyeFiltros"))
                 IncluyeFiltros = Convert.ToBoolean(row["IncluyeFiltros"]);
-            if (DataRecord.HasColumn(row, "TieneZonas") && row["TieneZonas"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "TieneZonas"))
                 TieneZonas = Convert.ToBoolean(row["TieneZonas"]);
-            if (DataRecord.HasColumn(row, "Activo") && row["Activo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Activo"))
                 Activo = Convert.ToBoolean(row["Activo"]);
         }
     }
@@ -123,23 +123,23 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
 
         public BEUsuarioDatos(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoUsuario") && row["CodigoUsuario"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoUsuario"))
                 CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora") && row["CodigoConsultora"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoConsultora"))
                 CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (DataRecord.HasColumn(row, "Cantidad") && row["Cantidad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Cantidad"))
                 Cantidad = Convert.ToInt32(row["Cantidad"]);
-            if (DataRecord.HasColumn(row, "PrimerNombre") && row["PrimerNombre"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "PrimerNombre"))
                 PrimerNombre = Convert.ToString(row["PrimerNombre"]);
-            if (DataRecord.HasColumn(row, "IdEstadoActividad") && row["IdEstadoActividad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IdEstadoActividad"))
                 IdEstadoActividad = Convert.ToInt32(row["IdEstadoActividad"]);
-            if (DataRecord.HasColumn(row, "Celular") && row["Celular"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Celular"))
                 Celular = Convert.ToString(row["Celular"]);
-            if (DataRecord.HasColumn(row, "Correo") && row["Correo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "Correo"))
                 Correo = Convert.ToString(row["Correo"]);
-            if (DataRecord.HasColumn(row, "ZonaID") && row["ZonaID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "ZonaID"))
                 ZonaID = Convert.ToInt32(row["ZonaID"]);
-            if (DataRecord.HasColumn(row, "RegionID") && row["RegionID"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "RegionID"))
                 RegionID = Convert.ToInt32(row["RegionID"]);
         }
     }

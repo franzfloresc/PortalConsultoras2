@@ -26,7 +26,7 @@
             ImagenId = Convert.ToInt32(iDataRecord["ImagenId"]);
             PaisId = Convert.ToInt32(iDataRecord["PaisId"]);
             CampaniaId = Convert.ToInt32(iDataRecord["CampaniaId"]);
-            NombreImg = iDataRecord["NombreImg"].ToString();
+            NombreImg = Convert.ToString(iDataRecord["NombreImg"]);
         }
 
         //static byte[] ObtenerBytes(string str)

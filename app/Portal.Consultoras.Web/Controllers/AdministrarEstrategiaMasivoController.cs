@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 
@@ -426,7 +425,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string MasivoEstrategiaTemporalExecComplemento(AdministrarEstrategiaMasivoModel entidadMasivo)
         {
-            // si todo este proceso esta en MasivoEstrategiaTemporalInsertar, puede salir timed out
+            // este proceso esta en MasivoEstrategiaTemporalInsertar, puede salir timed out
             // se divide el proceso para evitar timed out
             string rpta = "";
             //bool rptaService = false;
