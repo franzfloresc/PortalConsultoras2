@@ -107,7 +107,12 @@ namespace Portal.Consultoras.Entities
             Novedad = Convert.ToString(row["Novedad"]);
             DesNovedad = Convert.ToString(row["DesNovedad"]);
             MensajeNovedad = Convert.ToString(row["MensajeNovedad"]);
-            FechaNovedad = row["FechaNovedad"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["FechaNovedad"]);
+
+            if (DataRecord.HasColumn(row, "Boleta"))
+                FechaNovedad = Convert.ToDateTime(row["FechaNovedad"]);
+            else
+                FechaNovedad = (DateTime?)null;
+
             Latitud = Convert.ToString(row["Latitud"]);
             Longitud = Convert.ToString(row["Longitud"]);
             Observacion = Convert.ToString(row["Observacion"]);
