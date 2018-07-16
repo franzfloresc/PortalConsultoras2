@@ -85,6 +85,7 @@ function OpenLoadingOF() {
     if (tipoOrigen == "1") AbrirSplash();
     else ShowLoading();
 }
+
 function CloseLoadingOF() {
     if (tipoOrigen == "1") CerrarSplash();
     else CloseLoading();

@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.SessionManager;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
