@@ -31,7 +31,7 @@ BEGIN
 
 		SELECT
 			@TipoDocumento = TipoDocumento,
-			@NumeroDocumento = Numero
+			@NumeroDocumento = RIGHT(Numero, 9)
 		FROM ods.Identificacion
 		WHERE ConsultoraId = @ConsultoraId AND DocumentoPrincipal = 1
 		INSERT INTO dbo.CertificadoDigitalLog
@@ -141,7 +141,7 @@ BEGIN
 
 		SELECT
 			@TipoDocumento = TipoDocumento,
-			@NumeroDocumento = RIGHT(Numero,9)
+			@NumeroDocumento = Numero
 		FROM ods.Identificacion
 		WHERE ConsultoraId = @ConsultoraId AND DocumentoPrincipal = 1
 		INSERT INTO dbo.CertificadoDigitalLog
