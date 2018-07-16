@@ -60,6 +60,44 @@ $(document).ready(function () {
                 FuncionesGenerales.AvoidingCopyingAndPasting('txtContraseniaAnterior');
                 FuncionesGenerales.AvoidingCopyingAndPasting('txtNuevaContrasenia01');
                 FuncionesGenerales.AvoidingCopyingAndPasting('txtNuevaContrasenia02');
+            },
+            ValidacionSoloLetras: function () {
+                $("#txtTelefonoMD").keypress(function (evt) {
+                    var charCode = (evt.which) ? evt.which : (window.event ? window.event.keyCode : null);
+                    if (!charCode) return false;
+                    if (charCode <= 13) {
+                        return false;
+                    }
+                    else {
+                        var keyChar = String.fromCharCode(charCode);
+                        var re = /[0-9+ *#-]/;
+                        return re.test(keyChar);
+                    }
+                });
+                $("#txtTelefonoTrabajoMD").keypress(function (evt) {
+                    var charCode = (evt.which) ? evt.which : (window.event ? window.event.keyCode : null);
+                    if (!charCode) return false;
+                    if (charCode <= 13) {
+                        return false;
+                    }
+                    else {
+                        var keyChar = String.fromCharCode(charCode);
+                        var re = /[0-9+ *#-]/;
+                        return re.test(keyChar);
+                    }
+                });
+                $("#txtCelularMD").keypress(function (evt) {
+                    var charCode = (evt.which) ? evt.which : (window.event ? window.event.keyCode : null);
+                    if (!charCode) return false;
+                    if (charCode <= 13) {
+                        return false;
+                    }
+                    else {
+                        var keyChar = String.fromCharCode(charCode);
+                        var re = /[0-9+ *#-]/;
+                        return re.test(keyChar);
+                    }
+                });
             }
         },
             me.Eventos = {
@@ -106,6 +144,7 @@ $(document).ready(function () {
                 me.Funciones.PuedeActualizar();
                 me.Funciones.PuedeCambiarTelefono();
                 me.Funciones.EvitandoCopiarPegar();
+                me.Funciones.ValidacionSoloLetras();
             }
     }
 
@@ -465,7 +504,7 @@ function CancelarAtualizacionEmail() {
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     if (checkTimeout(data)) {
-                        if (data == '1') {                    
+                        if (data == '1') {
                             document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'None';
                         }
                     }
