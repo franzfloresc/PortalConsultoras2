@@ -1472,6 +1472,7 @@ namespace Portal.Consultoras.Entities
         public bool MostrarBotonValidar { get; set; }
         [DataMember]
         public BEOfertaFinal beOfertaFinal { get; set; }
+        [DataMember]
         public string FotoOriginalSinModificar { get; set; }
         [DataMember]
         public bool PuedeActualizar { get; set; }
