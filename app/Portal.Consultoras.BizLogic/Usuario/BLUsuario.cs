@@ -292,11 +292,12 @@ namespace Portal.Consultoras.BizLogic
 
                 if (Common.Util.IsUrl(usuario.FotoPerfil) && Common.Util.ExisteUrlRemota(usuario.FotoPerfil))
                 {
-                    Stream streamImagen = ConsultarImagen(usuario.FotoPerfil);
-                    using (streamImagen)
-                    using (var imagenConsultada = System.Drawing.Image.FromStream(streamImagen))
+                    using (var streamImagen = ConsultarImagen(usuario.FotoPerfil))
                     {
-                        usuario.FotoPerfilAncha = imagenConsultada.Width > imagenConsultada.Height;
+                        using (var imagenConsultada = System.Drawing.Image.FromStream(streamImagen))
+                        {
+                            usuario.FotoPerfilAncha = imagenConsultada.Width > imagenConsultada.Height;
+                        }
                     }
                 }
 
@@ -2639,6 +2640,7 @@ namespace Portal.Consultoras.BizLogic
             BEHorario horarioChat = CacheManager<BEHorario>.ValidateDataElement(paisID, ECacheItem.HorarioChat, origen, () => new BLHorario().GetHorarioByCodigo(paisID, origen));
             if (horarioChat == null) return false;
             descripcion = horarioChat.Resumen;
+
             if (!horarioChat.EstaDisponible) return false;
             return true;
         }
