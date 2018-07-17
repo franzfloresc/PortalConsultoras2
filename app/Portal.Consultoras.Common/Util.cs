@@ -3535,6 +3535,107 @@ namespace Portal.Consultoras.Common
                 return default(int);
             }
         }
+
+        #region Convert
+
+        public static string ToString(this IDataRecord lector, string name)
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToString(lector[name]);
+            }
+            catch (Exception) { }
+            return default(string);
+        }
+
+        public static int ToInt16(this IDataRecord lector, string name)
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToInt16(lector[name]);
+
+            }
+            catch (Exception) { }
+            return default(Int16);
+        }
+
+        public static int ToInt32(this IDataRecord lector, string name)
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToInt32(lector[name]);
+            }
+            catch (Exception) { }
+            return default(int);
+        }
+
+        public static Int64 ToInt64(this IDataRecord lector, string name)
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToInt64(lector[name]);
+            }
+            catch (Exception) { }
+            return default(Int64);
+        }
+
+        public static decimal ToDecimal(this IDataRecord lector, string name)
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToDecimal(lector[name]);
+            }
+            catch (Exception) { }
+            return default(decimal);
+        }
+
+        public static byte ToByte(this IDataRecord lector, string name)
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToByte(lector[name]);
+            }
+            catch (Exception) { }
+            return default(byte);
+        }
+
+        public static bool ToBoolean(this IDataRecord lector, string name)
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToBoolean(lector[name]);
+            }
+            catch (Exception) { }
+            return default(bool);
+        }
+
+        public static DateTime ToDateTime(this IDataRecord lector, string name)
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToDateTime(lector[name]);
+            }
+            catch (Exception) { }
+            return default(DateTime);
+        }
+
+        #endregion
     }
 
     public static class LinqExtensions

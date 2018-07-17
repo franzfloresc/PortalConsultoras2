@@ -255,10 +255,16 @@
             window.location = baseUrl + (isMobile() ? "/Mobile/" : "") + "Ofertas";
             return false;
         }
-        if (estrategia.DescripcionCompleta.length < 40)
-            $(_elementos.estrategiaBreadcrumb).text(estrategia.DescripcionCompleta + " ...");
-        else
-            $(_elementos.estrategiaBreadcrumb).text(estrategia.DescripcionCompleta.substring(1, 40) + " ...");
+
+        if (typeof estrategia.DescripcionCompleta !== "undefined" && 
+            estrategia.DescripcionCompleta != null) {
+            estrategia.DescripcionCompleta = $.trim(estrategia.DescripcionCompleta);
+            var palabrasEstrategiaDescripcion = estrategia.DescripcionCompleta.split(" ");
+            var estrategiaBreadcrumb = palabrasEstrategiaDescripcion[0];
+            if (palabrasEstrategiaDescripcion.length > 1) estrategiaBreadcrumb = palabrasEstrategiaDescripcion[0] + " " + palabrasEstrategiaDescripcion[1];
+            if (palabrasEstrategiaDescripcion.length > 2) estrategiaBreadcrumb = estrategiaBreadcrumb + "...";
+            $(_elementos.estrategiaBreadcrumb).text(estrategiaBreadcrumb);
+        }
 
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
@@ -521,29 +527,29 @@
         }
     }
 
-    // Método que realiza la marcación en analytics de tonos en el combo de seleccion de tonos.
-    var _marcarCambiaColorCombo = function () {
-        var producto = _descripcionProducto;
-        var contenedorTonos = $(".content_tonos_select").children(".content_tono_elegido");
-        $(contenedorTonos).each(function (index, element) {
-            $(this).click(function () {
-                var tono = $(this).attr("data-tono-nombre");
-                AnalyticsPortalModule.MarcarCambiaColorCombo(producto, tono);
-            });
-        });
-    }
+    //// Método que realiza la marcación en analytics de tonos en el combo de seleccion de tonos.
+    //var _marcarCambiaColorCombo = function () {
+    //    var producto = _descripcionProducto;
+    //    var contenedorTonos = $(".content_tonos_select").children(".content_tono_elegido");
+    //    $(contenedorTonos).each(function (index, element) {
+    //        $(this).click(function () {
+    //            var tono = $(this).attr("data-tono-nombre");
+    //            AnalyticsPortalModule.MarcarCambiaColorCombo(producto, tono);
+    //        });
+    //    });
+    //}
 
-    // Método que realiza la marcación en analytics de tonos en el cuadrado de seleccion de tonos.
-    var _marcarCambiaColorCuadro = function () {
-        var producto = _descripcionProducto;
-        var contenedorTonos = $(".content_tonos_maquillaje").children(".content_tono_detalle");
-        $(contenedorTonos).each(function (index, element) {
-            $(this).click(function () {
-                var tono = $(this).attr("data-tono-nombre");
-                AnalyticsPortalModule.MarcarCambiaColorCuadro(producto, tono);
-            });
-        });
-    }
+    //// Método que realiza la marcación en analytics de tonos en el cuadrado de seleccion de tonos.
+    //var _marcarCambiaColorCuadro = function () {
+    //    var producto = _descripcionProducto;
+    //    var contenedorTonos = $(".content_tonos_maquillaje").children(".content_tono_detalle");
+    //    $(contenedorTonos).each(function (index, element) {
+    //        $(this).click(function () {
+    //            var tono = $(this).attr("data-tono-nombre");
+    //            AnalyticsPortalModule.MarcarCambiaColorCuadro(producto, tono);
+    //        });
+    //    });
+    //}
 
     function Inicializar() {
 
@@ -554,8 +560,8 @@
         _crearTabs();
         _ocultarTabs();
         _fijarFooterCampaniaSiguiente();
-        _marcarCambiaColorCombo();
-        _marcarCambiaColorCuadro();
+        //_marcarCambiaColorCombo();
+        //_marcarCambiaColorCuadro();
     }
 
     return {

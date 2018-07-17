@@ -22,13 +22,13 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
 
         public BEFiltrosOpcionesVerificacion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "IdEstadoActividad") && row["IdEstadoActividad"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "IdEstadoActividad"))
                 IdEstadoActividad = Convert.ToInt32(row["IdEstadoActividad"]);
-            if (DataRecord.HasColumn(row, "CampaniaInicio") && row["CampaniaInicio"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CampaniaInicio"))
                 CampaniaInicio = Convert.ToInt32(row["CampaniaInicio"]);
-            if (DataRecord.HasColumn(row, "CampaniaFinal") && row["CampaniaFinal"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CampaniaFinal"))
                 CampaniaFinal = Convert.ToInt32(row["CampaniaFinal"]);
-            if (DataRecord.HasColumn(row, "MensajeSaludo") && row["MensajeSaludo"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "MensajeSaludo"))
                 MensajeSaludo = Convert.ToString(row["MensajeSaludo"]);
         }
     }
