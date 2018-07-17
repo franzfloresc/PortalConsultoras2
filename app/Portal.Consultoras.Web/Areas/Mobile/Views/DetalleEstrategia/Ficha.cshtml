@@ -8,9 +8,7 @@
 }
 
 @section styles{
-    <link href="@Url.Content("~/Content/Css/Mobile/Ficha/ficha.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Mobile/Ficha/Carrusel.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Mobile/Ficha/RedesSociales.css")" rel="stylesheet" />
+    @System.Web.Optimization.Styles.Render("~/bundles/mobile/css/ficha")
     <style id="styleRelojOdd"></style>
 }
 
@@ -356,8 +354,8 @@
 @Html.Partial("_template-ofertadeldia-style")
 
 @section scripts{
-    @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
-    @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
+    @System.Web.Optimization.Scripts.Render("~/bundles/js/Ficha")
+    @System.Web.Optimization.Scripts.Render("~/bundles/js/EstrategiaAgregar")
 
     <script>
         window.videoKey = '@Model.CodigoVideo';

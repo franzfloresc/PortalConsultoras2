@@ -5,10 +5,7 @@
 }
 
 @section styles{
-    <link href="@Url.Content("~/Content/Css/Site/Ficha/Ficha.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Site/Ficha/Carrusel.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Site/Ficha/RedesSociales.css")" rel="stylesheet" />
-
+    @System.Web.Optimization.Styles.Render("~/bundles/desktop/css/ficha")
 }
 
 <div id="ImagenDeFondo" class="imagen_fondo_detalle" style="display:none;"></div>
@@ -281,7 +278,7 @@
                         </div>
                     </div>
                 </div>
-               
+
                 {{#iff TextoLibre '!=' ''}}
                 <p class="limit_pack"><span>!</span>{{TextoLibre}}</p>
                 {{/iff}}
@@ -426,9 +423,8 @@
 @section scripts{
 
 
-    @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
-    <script src="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" type="text/javascript"></script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
+    @System.Web.Optimization.Scripts.Render("~/bundles/js/EstrategiaAgregar")
+    @System.Web.Optimization.Scripts.Render("~/bundles/js/Ficha")
 
     <script type="text/javascript">
         var fichaModule;

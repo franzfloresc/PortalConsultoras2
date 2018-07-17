@@ -632,14 +632,14 @@ namespace Portal.Consultoras.Web
             ));
 
             #region DetalleEstrategia
-            bundles.Add(new ScriptBundle("~/bundles/EstrategiaAgregar").Include(
+            bundles.Add(new ScriptBundle("~/bundles/js/EstrategiaAgregar").Include(
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js"
             ));
 
 
-            bundles.Add(new ScriptBundle("~/bundles/Ficha").Include(
+            bundles.Add(new ScriptBundle("~/bundles/js/Ficha").Include(
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
@@ -649,7 +649,20 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/CarruselModule.js"
-          ));
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/desktop/css/ficha").Include(
+                "~/Content/Css/Site/Ficha/Ficha.css",
+                "~/Content/Css/Site/Ficha/Carrusel.css",
+                "~/Content/Css/Site/Ficha/RedesSociales.css"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/mobile/css/ficha").Include(
+                "~/Content/Css/Mobile/Ficha/ficha.css",
+                "~/Content/Css/Mobile/Ficha/Carrusel.css",
+                "~/Content/Css/Mobile/Ficha/RedesSociales.css"
+            ));
+
             #endregion
 
             #region MisCatalogosRevistas
@@ -725,6 +738,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/knockout.extensions.js"
             ));
             #endregion
+            
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else
