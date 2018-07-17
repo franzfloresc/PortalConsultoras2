@@ -292,11 +292,12 @@ namespace Portal.Consultoras.BizLogic
 
                 if (Common.Util.IsUrl(usuario.FotoPerfil) && Common.Util.ExisteUrlRemota(usuario.FotoPerfil))
                 {
-                    Stream streamImagen = ConsultarImagen(usuario.FotoPerfil);
-                    using (streamImagen)
-                    using (var imagenConsultada = System.Drawing.Image.FromStream(streamImagen))
+                    using (var streamImagen = ConsultarImagen(usuario.FotoPerfil))
                     {
-                        usuario.FotoPerfilAncha = imagenConsultada.Width > imagenConsultada.Height;
+                        using (var imagenConsultada = System.Drawing.Image.FromStream(streamImagen))
+                        {
+                            usuario.FotoPerfilAncha = imagenConsultada.Width > imagenConsultada.Height;
+                        }
                     }
                 }
 
