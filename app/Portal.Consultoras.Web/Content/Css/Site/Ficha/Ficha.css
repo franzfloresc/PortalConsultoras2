@@ -107,7 +107,6 @@ body {
 
 .nombre_marca {
     font-size: 12px;
-    height: 21px;
     letter-spacing: .8px;
     line-height: 1.83;
     text-transform: uppercase;
@@ -245,6 +244,10 @@ body {
 .contenedor_agregar {
     float: left;
     width: 100%;
+}
+
+.subprecio{
+    display: block;
 }
 
 .contenedor_rangos {

@@ -118,7 +118,19 @@
                             {{#iff Precio '>' 0}}
                             <div class="precio_valorizado">Valorizado en <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
                             {{/iff}}
-                            <div class="precio_venta_oferta">Precio para ti <b><span data-precio_venta_oferta="">{{SimboloMoneda}} {{PrecioVenta}}</span></b></div>
+
+                            <div class="precio_venta_oferta">Precio para ti 
+                                <b><span data-precio_venta_oferta="">{{SimboloMoneda}} {{PrecioVenta}}</span></b>
+                            </div>
+                            {{#iff PrecioNiveles '!=' ''}}
+                                {{#each lstPrecioNiveles as |item|}}
+                                <span class="subprecio">{{item}}</span>
+                                {{/each}}
+                            {{/iff}}
+
+                            @*<span class="subprecio">x1 s/.32</span>
+                            <span class="subprecio">x2 s/.64</span>
+                            <span class="subprecio">x3 s/.128</span>*@
                             {{#iff Ganancia '>' 0}}
                             <div class="ganancia">GANA <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span></div>
                             {{/iff}}
