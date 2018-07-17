@@ -102,6 +102,7 @@
     <Compile Include="Controllers\BaseControllerUnitTest.cs" />
     <Compile Include="Controllers\BaseLanzamientosControllerUnitTest.cs" />
     <Compile Include="Controllers\BaseRevistaDigitalControllerUnitTests.cs" />
+    <Compile Include="Controllers\BaseShowRoomControllerUnitTest.cs" />
     <Compile Include="Controllers\BienvenidaControllerUnitTests.cs" />
     <Compile Include="Controllers\GestionContenidoControllerUnitTest.cs" />
     <Compile Include="Controllers\PedidoControllerUnitTest.cs" />

@@ -1,20 +1,25 @@
-﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Web.Providers;
 using System;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class GuiaNegocioController : BaseGuiaNegocioController
+    public class GuiaNegocioController : BaseViewController
     {
+        private readonly GuiaNegocioProvider _guiaNegocioProvider;
+
+        public GuiaNegocioController()
+        {
+            _guiaNegocioProvider = new GuiaNegocioProvider();
+        }
+
         public ActionResult Index()
         {
             try
             {
-                if (GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
+                if (_guiaNegocioProvider.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
                 {
-                    return ViewLanding();
+                    return GNDViewLanding();
                 }
             }
             catch (Exception ex)
@@ -24,6 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
+
 
         [HttpPost]
         public JsonResult GNDObtenerProductos(BusquedaProductoModel model)

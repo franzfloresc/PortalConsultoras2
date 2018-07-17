@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CUV"))
                 CUV = Convert.ToString(row["CUV"]);
             if (DataRecord.HasColumn(row, "IndicadorDscto"))
-                IndicadorDscto = row["IndicadorDscto"].ToString();
+                IndicadorDscto = Convert.ToString(row["IndicadorDscto"]);
             if (DataRecord.HasColumn(row, "PrecioUnidad"))
                 PrecioUnidad = Convert.ToDecimal(row["PrecioUnidad"]);
             if (DataRecord.HasColumn(row, "PrecioCatalogo2"))

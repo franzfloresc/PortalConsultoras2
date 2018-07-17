@@ -199,9 +199,9 @@
                     @{ var posicionCpc = 1; }
                     @foreach (var item in Model.ListaShowRoomCompraPorCompra)
                     {
-                        <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
+                        <div data-posicion="@posicionCpc" data-item="@item.EstrategiaID">
                             <div data-campos="">
-                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
+                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.EstrategiaID" />
                                 <input type="hidden" class="valorCuv" value="@item.CUV" />
                                 <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
                                 <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta" />
@@ -233,8 +233,8 @@
                                            oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
                                            data-input="cantidad" data-cantidad-input="-">
                                     <div class="liquidacion_rango_right_pedido">
-                                        <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                        <a class="menos" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                        <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                        <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                                     </div>
                                 </div>
                                 <a data-btn-agregar-cpc="" class="boton_Agregalo_home btn_aregar_set" onclick="" style="width: 70%;">
@@ -305,14 +305,14 @@
                 <div class="precio_set_especial_showroom" style="margin-top: -3px;"> A SOLO <span class="precio_real_set">{{SimboloMoneda}} {{producto.FormatoPrecioOferta}}</span></div>
             </div>
             <div class="producto_nombre_descripcion" style="padding-bottom: 15px">
-                <div class="liquidacion_rango_home js-no-popup">
+                <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
                     <input type="text" value="1" min="1" max="99" size="2" maxlength="2" id="txtCantidad"
                            class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                            oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
                            data-input="cantidad" data-cantidad-input="-">
                     <div class="liquidacion_rango_right_pedido js-no-popup">
-                        <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                        <a class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
                 <a class="boton_Agregalo_home js-no-popup" data-btn-agregar-sr="">
@@ -362,8 +362,8 @@
                        oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); "
                        data-input="cantidad" data-cantidad-input="-">
                 <div class="liquidacion_rango_right_pedido">
-                    <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                    <a class="menos" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                 </div>
             </div>
             <a class="boton_Agregalo_home" data-btn-agregar-sr="">

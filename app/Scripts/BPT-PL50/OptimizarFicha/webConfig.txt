@@ -1,0 +1,25 @@
+Proyecto: PortalConsultoras2
+
+Capa WEB
+=========
+
+* Nuevo punto de servicio
+
+        <binding name="BasicHttpBinding_IOfertaService"
+                 closeTimeout="00:10:00" openTimeout="00:10:00" receiveTimeout="00:10:00" sendTimeout="00:10:00"
+                 allowCookies="false" bypassProxyOnLocal="false" hostNameComparisonMode="StrongWildcard"
+                 maxBufferPoolSize="2147483647" maxBufferSize="2147483647" maxReceivedMessageSize="2147483647"
+                 textEncoding="utf-8" transferMode="Streamed" useDefaultWebProxy="true"
+                 messageEncoding="Text" >
+          <readerQuotas maxDepth="32" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647" />
+          <security mode="None">
+            <transport clientCredentialType="None" proxyCredentialType="None" realm="" />
+            <message clientCredentialType="UserName" algorithmSuite="Default" />
+          </security>
+        </binding>
+
+      <endpoint address="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/SBBPTQAWCF/OfertaService.svc"
+                binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IOfertaService"
+                contract="ServiceOferta.IOfertaService" name="BasicHttpBinding_IOfertaService" />
+
+Fin Proyecto PortalConsultoras2

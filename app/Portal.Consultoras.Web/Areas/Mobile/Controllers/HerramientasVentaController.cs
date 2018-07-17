@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
     [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
-    public class HerramientasVentaController : BaseHerramientasVentaController
+    public class HerramientasVentaController : BaseViewController
     {
         public ActionResult Index()
         {
@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                return ViewLanding(1);
+                return HVViewLanding(1);
             }
             catch (Exception ex)
             {
@@ -48,7 +48,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                return ViewLanding(2);
+                return HVViewLanding(2);
             }
             catch (Exception ex)
             {
@@ -62,7 +62,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                return PartialView("template-mensaje-bloqueado", MensajeProductoBloqueado());
+                return PartialView("template-mensaje-bloqueado", HVMensajeProductoBloqueado());
             }
             catch (Exception ex)
             {

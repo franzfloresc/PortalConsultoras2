@@ -15,52 +15,52 @@ namespace Portal.Consultoras.Common
         private static readonly string URL_S3 = System.Configuration.ConfigurationManager.AppSettings["URL_S3"];
         private static readonly string rutaRevistaDigital = System.Configuration.ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.CarpetaRevistaDigital] ?? string.Empty;
         
-        public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior = "")
-        {
-            fileName = (fileName ?? "").Trim();
-            if (fileName == "")
-                return fileName;
+        //public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior = "")
+        //{
+        //    fileName = (fileName ?? "").Trim();
+        //    if (fileName == "")
+        //        return fileName;
 
-            if (fileName.StartsWith(URL_S3))
-                return fileName;
+        //    if (fileName.StartsWith(URL_S3))
+        //        return fileName;
 
-            if (fileName.StartsWith("http:/"))
-                return fileName;
+        //    if (fileName.StartsWith("http:/"))
+        //        return fileName;
 
-            if (fileName.StartsWith("https:/"))
-                return fileName;            
+        //    if (fileName.StartsWith("https:/"))
+        //        return fileName;            
 
-            var root = string.IsNullOrEmpty(ROOT_DIRECTORY) ? "" : ROOT_DIRECTORY + "/";
-            var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
+        //    var root = string.IsNullOrEmpty(ROOT_DIRECTORY) ? "" : ROOT_DIRECTORY + "/";
+        //    var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
 
-            return URL_S3 + "/" + BUCKET_NAME + "/" + root + carpeta + fileName;
-        }
+        //    return URL_S3 + "/" + BUCKET_NAME + "/" + root + carpeta + fileName;
+        //}
 
-        public static string GetUrlS3(string carpetaPais)
-        {
-            var root = string.IsNullOrEmpty(ROOT_DIRECTORY) ? "" : ROOT_DIRECTORY + "/";
-            var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
+        //public static string GetUrlS3(string carpetaPais)
+        //{
+        //    var root = string.IsNullOrEmpty(ROOT_DIRECTORY) ? "" : ROOT_DIRECTORY + "/";
+        //    var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
 
-            return URL_S3 + "/" + BUCKET_NAME + "/" + root + carpeta;
-        }
+        //    return URL_S3 + "/" + BUCKET_NAME + "/" + root + carpeta;
+        //}
 
-        public static string GetUrlFileRDS3(string carpetaPais, string fileName)
-        {
-            fileName = fileName ?? "";
-            if (fileName.StartsWith(URL_S3))
-                return fileName;
+        //public static string GetUrlFileRDS3(string carpetaPais, string fileName)
+        //{
+        //    fileName = fileName ?? "";
+        //    if (fileName.StartsWith(URL_S3))
+        //        return fileName;
 
-            if (fileName.StartsWith("http:/"))
-                return fileName;
+        //    if (fileName.StartsWith("http:/"))
+        //        return fileName;
 
-            if (fileName.StartsWith("https:/"))
-                return fileName;
+        //    if (fileName.StartsWith("https:/"))
+        //        return fileName;
 
-            var root = string.IsNullOrEmpty(ROOT_DIRECTORY) ? "" : ROOT_DIRECTORY + "/";
-            var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
+        //    var root = string.IsNullOrEmpty(ROOT_DIRECTORY) ? "" : ROOT_DIRECTORY + "/";
+        //    var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
 
-            return URL_S3 + "/" + BUCKET_NAME + "/" + root + "/" + rutaRevistaDigital + "/" + carpeta + fileName;
-        }
+        //    return URL_S3 + "/" + BUCKET_NAME + "/" + root + "/" + rutaRevistaDigital + "/" + carpeta + fileName;
+        //}
 
         public static void DeleteFileS3(string carpetaPais, string fileName)
         {

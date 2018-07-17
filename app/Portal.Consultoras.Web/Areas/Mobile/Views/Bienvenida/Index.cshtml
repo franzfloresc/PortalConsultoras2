@@ -488,11 +488,11 @@
             <tr>
                 <td style="vertical-align: middle;"> Unidades: &nbsp;&nbsp;</td>
                 <td>
-                    <div class="liquidacion_rango_home">
-                        <input type="tel" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" name="txtCantidadZE" id="txtCantidadZE" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                    <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                        <input type="tel" value="1" size="2" maxlength="2" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" name="txtCantidadZE" id="txtCantidadZE" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
                         <div class="liquidacion_rango_right_pedido">
-                            <a class="mas"><img src="" alt="" /></a>
-                            <a class="menos"><img src="" alt="" /></a>
+                            <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="" alt="" /></a>
+                            <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="" alt="" /></a>
                         </div>
                     </div>
                 </td>
@@ -832,7 +832,7 @@
         var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
         var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })';
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
-        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
 
         var tipoOrigenEstrategia = 2;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome';

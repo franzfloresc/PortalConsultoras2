@@ -1,14 +1,13 @@
 ﻿@using System.Globalization
-@using Portal.Consultoras.Web.Controllers
 @using Portal.Consultoras.Web.Helpers
 @using Portal.Consultoras.Web.ServiceUsuario
+@using Portal.Consultoras.Common
 
 @model BEMisPedidos
 
 @{
-    var base1 = new BaseController();
-    var nombreMes = base1.NombreMes(Model.FechaSolicitud.AddDays(1).Month);
-    var nombreMes2 = base1.NombreMes(Model.FechaModificacion.HasValue ? Model.FechaModificacion.Value.Month : 1);
+    var nombreMes = Util.NombreMes(Model.FechaSolicitud.AddDays(1).Month);
+    var nombreMes2 = Util.NombreMes(Model.FechaModificacion.HasValue ? Model.FechaModificacion.Value.Month : 1);
 }
 
 @{

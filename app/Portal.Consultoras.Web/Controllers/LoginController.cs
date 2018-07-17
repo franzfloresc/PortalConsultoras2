@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using ClosedXML.Excel;
-using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
@@ -20,10 +19,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.ServiceModel;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
@@ -346,19 +342,21 @@ namespace Portal.Consultoras.Web.Controllers
         public async Task<ActionResult> Redireccionar(int paisId, string codigoUsuario, string returnUrl = null,
             bool hizoLoginExterno = false)
         {
-            if (!Convert.ToBoolean(TempData["FlagPin"]))
-                if (TieneVerificacionAutenticidad(paisId, codigoUsuario))
+            if (!Convert.ToBoolean(TempData["FlagPin"]) && TieneVerificacionAutenticidad(paisId, codigoUsuario))
+            {
+                //if (TieneVerificacionAutenticidad(paisId, codigoUsuario))
+                //{
+                if (Request.IsAjaxRequest())
                 {
-                    if (Request.IsAjaxRequest())
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            success = true,
-                            redirectTo = Url.Action("VerificaAutenticidad", "Login")
-                        });
-                    }
-                    return RedirectToAction("VerificaAutenticidad", "Login");
+                        success = true,
+                        redirectTo = Url.Action("VerificaAutenticidad", "Login")
+                    });
                 }
+                return RedirectToAction("VerificaAutenticidad", "Login");
+                //}
+            }
 
             Session["DatosUsuario"] = null;
 
@@ -887,10 +885,10 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        private JsonResult ErrorJson(string message, bool allowGet = false)
-        {
-            return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
-        }
+        //private JsonResult ErrorJson(string message, bool allowGet = false)
+        //{
+        //    return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
+        //}
 
         private JsonResult SuccessJson(string message, bool allowGet = false)
         {
@@ -918,7 +916,7 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetIsOfertaPack(1);
 
             var usuarioModel = (UsuarioModel)null;
-            var estrategiaODD = (Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel)null;
+
             try
             {
                 if (paisId == 0)
@@ -1171,13 +1169,12 @@ namespace Portal.Consultoras.Web.Controllers
                         #region llamadas asincronas para GPR, ODD, RegaloPN, LoginFB, EventoFestivo, IncentivosConcursos
 
                         var motivoRechazoTask = Task.Run(() => GetMotivoRechazo(usuario, usuarioModel.MontoDeuda, esAppMobile));
-                        var ofertaDelDiaTask = Task.Run(() => GetOfertaDelDiaModel(usuarioModel, usuario));
                         var regaloProgramaNuevas = Task.Run(() => GetConsultoraRegaloProgramaNuevas(usuarioModel));
                         var loginExternoTask = Task.Run(() => GetListaLoginExterno(usuario));
                         var eventoFestivoTask = Task.Run(() => ConfigurarEventoFestivo(usuarioModel));
                         var incentivoConcursoTask = Task.Run(() => ConfigurarIncentivosConcursos(usuarioModel));
 
-                        Task.WaitAll(motivoRechazoTask, ofertaDelDiaTask, regaloProgramaNuevas, loginExternoTask, eventoFestivoTask, incentivoConcursoTask);
+                        Task.WaitAll(motivoRechazoTask, regaloProgramaNuevas, loginExternoTask, eventoFestivoTask, incentivoConcursoTask);
 
                         #region GPR
 
@@ -1207,6 +1204,7 @@ namespace Portal.Consultoras.Web.Controllers
                         usuarioModel.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
                         sessionManager.SetFlagOfertaDelDia(usuarioModel.TieneOfertaDelDia?1:0);
                         #endregion
+
 
                         #region RegaloPN
 
@@ -1465,7 +1463,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private async Task<BEOfertaFlexipago> GetLineaCreditoFlexipago(UsuarioModel usuarioModel)
         {
-            if (!(usuarioModel.IndicadorFlexiPago > 0 && usuarioModel.TipoUsuario == Constantes.TipoUsuario.Consultora)) return null;
+            if (!(usuarioModel.IndicadorFlexiPago > 0 && usuarioModel.EsConsultora())) return null;
 
             BEOfertaFlexipago ofertaFlexipago;
 
@@ -1640,6 +1638,8 @@ namespace Portal.Consultoras.Web.Controllers
             var t2 = (d2 - hoy);
             return t2;
         }
+
+
 
         private async Task<ConsultoraRegaloProgramaNuevasModel> GetConsultoraRegaloProgramaNuevas(UsuarioModel model)
         {
@@ -1906,9 +1906,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var revistaDigitalModel = new RevistaDigitalModel();
                 var ofertaFinalModel = new OfertaFinalModel();
                 var herramientasVentaModel = new HerramientasVentaModel();
-                var estrategiaODD = new Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel();
                 var configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
                 var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
+
                 if (configuracionesPaisModels.Any())
                 {
                     var configuracionPaisDatosAll = await GetConfiguracionPaisDatos(usuarioModel);
@@ -2565,54 +2565,6 @@ namespace Portal.Consultoras.Web.Controllers
             };
         }
 
-        private string ObtenerNombreOfertaDelDia(string descripcionCuv2)
-        {
-            var nombreOferta = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(descripcionCuv2))
-            {
-                nombreOferta = descripcionCuv2.Split('|').First();
-            }
-
-            return nombreOferta;
-        }
-
-        private string ObtenerDescripcionOfertaDelDia(string descripcionCuv2)
-        {
-            var descripcionOdd = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(descripcionCuv2))
-            {
-                var temp = descripcionCuv2.Split('|').ToList();
-                temp = temp.Skip(1).ToList();
-
-                var txtBuil = new StringBuilder();
-                foreach (var item in temp)
-                {
-                    if (!string.IsNullOrEmpty(item))
-                        txtBuil.Append(item.Trim() + "|");
-                }
-
-                descripcionOdd = txtBuil.ToString();
-                descripcionOdd = descripcionOdd == string.Empty
-                    ? string.Empty
-                    : descripcionOdd.Substring(0, descripcionOdd.Length - 1);
-                descripcionOdd = descripcionOdd.Replace("|", " +<br />");
-                descripcionOdd = descripcionOdd.Replace("\\", "");
-                descripcionOdd = descripcionOdd.Replace("(GRATIS)", "<b>GRATIS</b>");
-            }
-
-            return descripcionOdd;
-        }
-
-        private string ObtenerUrlImagenOfertaDelDia(string codigoIso, int cantidadOfertas)
-        {
-            var imgSh = string.Format(ConfigurationManager.AppSettings.Get("UrlImgSoloHoyODD"), codigoIso);
-            var exte = imgSh.Split('.')[imgSh.Split('.').Length - 1];
-            imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
-            return imgSh;
-        }
-
         private void SetTempDataAnalyticsLogin(UsuarioModel usuario, bool hizoLoginExterno)
         {
             var listAnalytics = GetLoginAnalyticsModel();
@@ -2661,6 +2613,35 @@ namespace Portal.Consultoras.Web.Controllers
 
             return modelo;
         }
+
+        //[Obsolete("No se usa")]
+        //private OfertaDelDiaModel ConfiguracionPaisDatosOfertaDelDia(OfertaDelDiaModel modelo, List<BEConfiguracionPaisDatos> listaDatos)
+        //{
+        //    try
+        //    {
+        //        modelo = modelo ?? new OfertaDelDiaModel();
+        //        if (listaDatos == null || !listaDatos.Any())
+        //            return modelo;
+
+        //        var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+        //        if (value1 != null) modelo.BloqueoProductoDigital = value1.Valor1 == "1";
+
+        //        listaDatos.RemoveAll(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+
+        //        modelo.ConfiguracionPaisDatos =
+        //            Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ??
+        //            new List<ConfiguracionPaisDatosModel>();
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
+        //            "LoginController.ConfiguracionPaisDatosOfertaDelDia");
+        //    }
+
+        //    return modelo;
+
+        //}
 
         private UsuarioModel ConfiguracionPaisDatosUsuario(UsuarioModel modelo, List<BEConfiguracionPaisDatos> listaDatos)
         {
@@ -2898,7 +2879,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ProcesaEnvioSms(int cantidadEnvios)
         {
             var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
-            if(oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
+            if (oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             try
             {
@@ -2966,7 +2947,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 TempData["FlagPin"] = true;
                                 break;
-                            };
+                            }
                     }
                 }
 
@@ -2993,10 +2974,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var oVerificacion = new BEUsuarioDatos();
+                BEUsuarioDatos oVerificacion;
                 using (var sv = new UsuarioServiceClient())
+                {
                     oVerificacion = sv.GetVerificacionAutenticidad(paisID, codigoUsuario);
+                }
+
                 if (oVerificacion == null) return false;
+
                 Session["DatosUsuario"] = oVerificacion;
                 TempData["PaisID"] = paisID;
                 return true;

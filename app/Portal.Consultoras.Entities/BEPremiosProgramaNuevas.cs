@@ -43,28 +43,28 @@ namespace Portal.Consultoras.Entities
 
         public BEPremiosProgramaNuevas(IDataRecord dr)
         {
-            if (DataRecord.HasColumn(dr, "CodigoPrograma") && dr["CodigoPrograma"] != DBNull.Value)
+            if (DataRecord.HasColumn(dr, "CodigoPrograma"))
                 CodigoPrograma = Convert.ToString(dr["CodigoPrograma"]);
 
-            if (DataRecord.HasColumn(dr, "AnoCampana") && dr["AnoCampana"] != DBNull.Value)
+            if (DataRecord.HasColumn(dr, "AnoCampana"))
                 AnioCampana = Convert.ToInt32(dr["AnoCampana"]);
 
-            if (DataRecord.HasColumn(dr, "CodigoNivel") && dr["CodigoNivel"] != DBNull.Value)
+            if (DataRecord.HasColumn(dr, "CodigoNivel"))
                 CodigoNivel = Convert.ToString(dr["CodigoNivel"]);
 
-            if (DataRecord.HasColumn(dr, "CUV") && dr["CUV"] != DBNull.Value)
+            if (DataRecord.HasColumn(dr, "CUV"))
                 CUV = Convert.ToString(dr["CUV"]);
 
-            if (DataRecord.HasColumn(dr, "DescripcionProducto") && dr["DescripcionProducto"] != DBNull.Value)
+            if (DataRecord.HasColumn(dr, "DescripcionProducto"))
                 DescripcionProducto = Convert.ToString(dr["DescripcionProducto"]);
 
-            if (DataRecord.HasColumn(dr, "IndicadorActivo") && dr["IndicadorActivo"] != DBNull.Value)
+            if (DataRecord.HasColumn(dr, "IndicadorActivo"))
                 IndicadorActivo = Convert.ToBoolean(dr["IndicadorActivo"]);
 
-            if (DataRecord.HasColumn(dr, "IndicadorKitNuevas") && dr["IndicadorKitNuevas"] != DBNull.Value)
+            if (DataRecord.HasColumn(dr, "IndicadorKitNuevas"))
                 IndicadorKitNuevas = Convert.ToBoolean(dr["IndicadorKitNuevas"]);
 
-            if (DataRecord.HasColumn(dr, "PrecioUnitario") && dr["PrecioUnitario"] != DBNull.Value)
+            if (DataRecord.HasColumn(dr, "PrecioUnitario"))
                 PrecioUnitario = Convert.ToDecimal(dr["PrecioUnitario"]);
         }
 

@@ -3,15 +3,14 @@
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 }
 
-@using Newtonsoft.Json
 @using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Helpers
 @using Portal.Consultoras.Web.Models
 
-
 @model Portal.Consultoras.Web.Models.ShowRoomEventoModel
 @{
     var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
 @section styles{
@@ -35,8 +34,7 @@
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Mobile/RevistaDigital/RedimensionLandingRD.css")" rel="stylesheet" />
 }
-@{ var mobileConfiguracion = Html.MobileAppConfiguracion();
-}
+
 <div class="wrapper_resumen_mobile">
     <div id="orderby-filter">
         <div id="content-orderby" style="margin-top: 15px;">
@@ -77,33 +75,33 @@
                     @if (Model.TieneCategoria)
                     {
                         if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
-                        {
-                            <div class="content_panel">
-                                <div class="titulo_filtro">
-                                    <a class="accordion-toggle" data-toggle="collapse" href="#CategoriaCollpase" style="text-decoration: none;">
-                                        <span class="title-accordion">CATEGORÍAS</span>
-                                    </a>
-                                </div>
-                                <div id="CategoriaCollpase" class="panel-collapse collapse">
-                                    <div class="panel-body panel_filtro">
-                                        <div id="idcategory" class="content-category">
-                                            @{
-                                                var cont = 1;
-                                            }
-                                            @foreach (var categoria in Model.ListaCategoria)
-                                            {
-                                                <div class="block-checkbox">
-                                                    <input class="chkFiltroMobile" type="checkbox" id="c@(cont)" name="categoria" value="@categoria.Codigo">
-                                                    <label for="c@(cont)" class="label-checkbox">@categoria.Descripcion</label>
-                                                </div>
-                                                {
-                                                    cont++;
+                            {
+                                <div class="content_panel">
+                                    <div class="titulo_filtro">
+                                        <a class="accordion-toggle" data-toggle="collapse" href="#CategoriaCollpase" style="text-decoration: none;">
+                                            <span class="title-accordion">CATEGORÍAS</span>
+                                        </a>
+                                    </div>
+                                    <div id="CategoriaCollpase" class="panel-collapse collapse">
+                                        <div class="panel-body panel_filtro">
+                                            <div id="idcategory" class="content-category">
+                                                @{
+                                                    var cont = 1;
                                                 }
-                                            }
+                                                @foreach (var categoria in Model.ListaCategoria)
+                                                {
+                                                    <div class="block-checkbox">
+                                                        <input class="chkFiltroMobile" type="checkbox" id="c@(cont)" name="categoria" value="@categoria.Codigo">
+                                                        <label for="c@(cont)" class="label-checkbox">@categoria.Descripcion</label>
+                                                    </div>
+                                                    {
+                                                        cont++;
+                                                    }
+                                                }
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         }
                     }
 
@@ -149,10 +147,13 @@
     </div>
 
     <div class="contenedor_productos_liquidacion content_showroom" style="position: relative;">
-        <div id="divProductosShowRoom" style="display: inline-flex; flex-wrap:wrap; justify-content:center;">
+        <div id="divProductosShowRoom"
+             style="display: inline-flex; flex-wrap: wrap; justify-content: center;"
+             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.ShowRoomMobileLandingCompra">
         </div>
     </div>
 </div>
+
 @if (Model.ProductosPerdio)
 {
     <hr class="clear" />
@@ -211,42 +212,6 @@
     }
 </div>
 
-@if (Model.TieneCompraXcompra)
-{
-    if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
-    {
-        <div class="content_promocion">
-            <div class="pestana_promocion" id="AbrirBannerCompra">PROMOCIÓN</div>
-            <div class="content_desplegable_banner" id="BannerCompra">
-                <div class="content_carrusel_intriga" style="background: white;" id="LlamarPopCompra"
-                     data-promotion-impresion-id="@Model.ListaShowRoomCompraPorCompra[0].CUV"
-                     @{ var _descripcion = Model.ListaShowRoomCompraPorCompra[0].Descripcion; if (_descripcion != null && _descripcion.Length > 41) { _descripcion = _descripcion.Substring(0, 40) + " ..."; } _descripcion = "Showroom - " + _descripcion + " A SÓLO " + Model.ListaShowRoomCompraPorCompra[0].Simbolo + " " + Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioOferta; }
-                     data-promotion-impresion-name="@_descripcion">
-                    <div class="content_banner_img">
-                        <img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto" />
-                    </div>
-                    <div class="content_banner_right">
-                        <div class="texto_banner_compra">
-                            <b style="margin-top: 10px;">
-                                @{
-                                    var descripcion = Model.ListaShowRoomCompraPorCompra[0].Descripcion;
-                                    if (descripcion != null && descripcion.Length > 41)
-                                    {
-                                        descripcion = descripcion.Substring(0, 40) + " ...";
-                                    }
-                                }
-                                @descripcion
-                            </b>
-                            <b style="font-size: 18px;">A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioOferta </b>
-                            <span class="set_dia_banner">@Model.TextoCondicionCompraCpc</span>
-                        </div>
-                    </div>
-                    <hr class="clear" />
-                </div>
-            </div>
-        </div>
-    }
-}
 <div id="divMensajeProductoAgregado" class="modal fade" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-alert ">
         <div class="modal-content">
@@ -261,49 +226,51 @@
 
 @if (Model.TieneSubCampania)
 {
-    var listaSubCampania = Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList();
+    //var listaSubCampania = Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList();
 
-    if (listaSubCampania != null && listaSubCampania.Count > 0)
-    {
-        <div class="content_sub_oferta_showroom" id="content_sub_oferta_showroom">
-            <div class="content_titulo_sub_oferta">
-                <hr class="clear" />
-                <div class="content_titulo_texto_sw" style="color: @Model.ColorTextoInicialOfertaSubCampania">
-                    <span style="font-size: 12px;">@Model.TextoInicialOfertaSubCampania</span>
-                    <span class="titulo_banner_showroom" style="font-size=11px;color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
-                </div>
-                <a href="#" class="btn_descubre_set_especial" id="btn_descubre_mobile"></a>
-            </div>
-            <hr class="clear" />
-
-        </div>
-        <div class="content_display_set_suboferta">
-            <div class="content_header_sub">
+    //if (listaSubCampania != null && listaSubCampania.Count > 0)
+    //{
+        <div id="divContentSubCampania" style="display:none;">
+            <div class="content_sub_oferta_showroom" id="content_sub_oferta_showroom">
                 <div class="content_titulo_sub_oferta">
                     <hr class="clear" />
                     <div class="content_titulo_texto_sw" style="color: @Model.ColorTextoInicialOfertaSubCampania">
-                        @Model.TextoInicialOfertaSubCampania
-                        <span class="titulo_banner_showroom" style="color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
+                        <span style="font-size: 12px;">@Model.TextoInicialOfertaSubCampania</span>
+                        <span class="titulo_banner_showroom" style="font-size=11px;color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
                     </div>
-                    <a href="#" class="btn_descubre_set_especial btn_descubre_set_especial_click" id="btn_cerrar_mobile"></a>
+                    <a href="#" class="btn_descubre_set_especial" id="btn_descubre_mobile"></a>
                 </div>
-                <div style="top: 45px; left: 50%; border: solid transparent; height: 0; width: 0; pointer-events: none; border-color: rgba(0, 0, 0, 0);
-                    border-top-color: #020202; border-width: 12px; margin-left: -12px; position: absolute;"></div>
+                <hr class="clear" />
+
             </div>
-            <div id="contenedor-showroom-subcampanias-mobile" class="content_info_set_especial" style="height: 100%;"></div>
-            <div class="content_btn_agregar" style="display:none;" id="agregarSetEspecial">
-                <div class="content_320">
-                    <div class="content_cantidad_ficha_producto">
-                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                        <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+            <div class="content_display_set_suboferta">
+                <div class="content_header_sub">
+                    <div class="content_titulo_sub_oferta">
+                        <hr class="clear" />
+                        <div class="content_titulo_texto_sw" style="color: @Model.ColorTextoInicialOfertaSubCampania">
+                            @Model.TextoInicialOfertaSubCampania
+                            <span class="titulo_banner_showroom" style="color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
+                        </div>
+                        <a href="#" class="btn_descubre_set_especial btn_descubre_set_especial_click" id="btn_cerrar_mobile"></a>
                     </div>
-                    <a class="btn_agregar_ficha_producto" data-odd-accion="agregar">AGRÉGALO</a>
-                    <hr class="clear">
+                    <div style="top: 45px; left: 50%; border: solid transparent; height: 0; width: 0; pointer-events: none; border-color: rgba(0, 0, 0, 0);
+                    border-top-color: #020202; border-width: 12px; margin-left: -12px; position: absolute;"></div>
+                </div>
+                <div id="contenedor-showroom-subcampanias-mobile" class="content_info_set_especial" style="height: 100%;"></div>
+                <div class="content_btn_agregar" style="display:none;" id="agregarSetEspecial">
+                    <div class="content_320">
+                    <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
+                        <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                        <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        </div>
+                        <a class="btn_agregar_ficha_producto" data-odd-accion="agregar">AGRÉGALO</a>
+                        <hr class="clear">
+                    </div>
                 </div>
             </div>
         </div>
-    }
+    //}
 }
 else
 {
@@ -318,7 +285,7 @@ else
 
             @if (Model.TieneCompraXcompra)
             {
-                if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+                @*if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
                 {
                     <div class="content_pop_compra">
                         @{ var posicionCpc = 1; }
@@ -373,7 +340,7 @@ else
                             }
                         }
                     </div>
-                }
+                }*@
             }
             <div class="legal_footer_compra">
                 @Model.TextoDescripcionLegalCpc
@@ -382,7 +349,7 @@ else
     </div>
 }
 
-<script id="template-showroom" type="text/x-handlebars-template">
+@*<script id="template-showroom" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div class="revistadigital-landing content_item_home_palanca">
         <div class="content_item_home_bpt box_producto_mobile_fix" data-posicion="{{Posicion}}" data-TipoAccionAgregar="{{TipoAccionAgregar}}"   {{#iff  TipoAccionAgregar 'ContainsArray' '[4,5]'}} href="javascript:;" onclick="javascript:VerPopupExpGanaMas();" {{/iff}}>
@@ -425,9 +392,11 @@ else
     </div>
     {{/each}}
     <hr class="clear" />
-</script>
+</script>*@
 
-<script id="template-showroom-subcampanias-mobile" type="text/x-handlebars-template">
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
+
+@*<script id="template-showroom-subcampanias-mobile" type="text/x-handlebars-template">
     {{#each this.Lista as |oferta|}}
     <div id="contenedor_showroom_mobile" class="content_info_set_especial" data-item="">
         <div style="display:none;" data-item="">
@@ -483,15 +452,19 @@ else
         </div>
     </div>
     {{/each}}
-</script>
+</script>*@
 
 @Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ShowRoom/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js")"></script>
     <script type="text/javascript">
         var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
         var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "ShowRoom", new { area = "" })';
@@ -499,15 +472,14 @@ else
         var urlInsertOfertaWebPortal = '@Url.Action("InsertOfertaWebPortal", "ShowRoom", new { area = "" })';
         var urlActualizarCantidadTotalPedido = '@Url.Action("ObtenerResumenPedido", "OfertaLiquidacion", new { area = "Mobile" })';
         var tipoOrigenPantalla = 2;
-        var precioMin = '@ViewBag.PrecioMin';
-        var precioMax = '@ViewBag.PrecioMax';
+        var precioMin = '@Model.PrecioMinFiltro';
+        var precioMax = '@Model.PrecioMaxFiltro';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom", new {area = "Mobile"})';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-        var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileShowRoomLandingCompraTactica';
-        var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.MobileShowRoomSubCampanias';
+        var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.ShowRoomMobileLandingCompra';
+        var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.ShowRoomMobileSubCampania';
         var tieneCompraXCompra = '@Model.TieneCompraXcompra';
-        var itemsCompraXCompra = '@Model.ListaShowRoomCompraPorCompra.Count';
         var tieneSubCampania = '@Model.TieneSubCampania';
-        var itemsSubCampania = @Model.ListaShowRoomOferta.Where(p => p.EsSubCampania && p.UnidadesPermitidasRestantes > 0).OrderBy(p => p.Orden).ToList().Count;
     </script>
+
 }

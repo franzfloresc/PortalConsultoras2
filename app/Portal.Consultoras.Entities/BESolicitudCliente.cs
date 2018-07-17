@@ -85,7 +85,7 @@ namespace Portal.Consultoras.Entities
         public BESolicitudCliente(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "SolicitudClienteID"))
-                SolicitudClienteID = Convert.ToInt64(row["SolicitudClienteID"].ToString());
+                SolicitudClienteID = Convert.ToInt64(row["SolicitudClienteID"]);
             if (DataRecord.HasColumn(row, "ConsultoraID"))
                 CodigoConsultora = Convert.ToString(row["ConsultoraID"]);
             if (DataRecord.HasColumn(row, "NombreCompleto"))
@@ -101,9 +101,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Campania"))
                 Campania = Convert.ToString(row["Campania"]);
             if (DataRecord.HasColumn(row, "MarcaID"))
-                MarcaID = Convert.ToInt32(row["MarcaID"].ToString());
+                MarcaID = Convert.ToInt32(row["MarcaID"]);
             if (DataRecord.HasColumn(row, "MarcaNombre"))
-                MarcaNombre = Convert.ToString(row["MarcaNombre"].ToString());
+                MarcaNombre = Convert.ToString(row["MarcaNombre"]);
             if (DataRecord.HasColumn(row, "Leido"))
                 Leido = Convert.ToInt32(row["Leido"]);
             if (DataRecord.HasColumn(row, "MensajeaCliente"))
@@ -111,9 +111,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Estado"))
                 Estado = Convert.ToString(row["Estado"]);
             if (DataRecord.HasColumn(row, "NumIteracion"))
-                NumIteracion = Convert.ToInt32(row["NumIteracion"].ToString());
+                NumIteracion = Convert.ToInt32(row["NumIteracion"]);
             if (DataRecord.HasColumn(row, "Direccion"))
-                Direccion = Convert.ToString(row["Direccion"].ToString());
+                Direccion = Convert.ToString(row["Direccion"]);
             if (DataRecord.HasColumn(row, "NombreGZ"))
                 NombreGZ = Convert.ToString(row["NombreGZ"]);
             if (DataRecord.HasColumn(row, "EmailGZ"))
@@ -197,7 +197,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Producto"))
                 DescripcionProducto = Convert.ToString(row["Producto"]);
             if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt32(row["Cantidad"].ToString());
+                Cantidad = Convert.ToInt32(row["Cantidad"]);
             if (DataRecord.HasColumn(row, "Precio"))
                 Precio = Convert.ToDecimal(row["Precio"]);
             if (DataRecord.HasColumn(row, "Tono"))
@@ -249,7 +249,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Producto"))
                 DescripcionProducto = Convert.ToString(row["Producto"]);
             if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt32(row["Cantidad"].ToString());
+                Cantidad = Convert.ToInt32(row["Cantidad"]);
             if (DataRecord.HasColumn(row, "Precio"))
                 Precio = Convert.ToDecimal(row["Precio"]);
             if (DataRecord.HasColumn(row, "Tono"))
@@ -301,7 +301,7 @@ namespace Portal.Consultoras.Entities
         public BEResultadoSolicitud(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "Resultado"))
-                Resultado = Convert.ToInt32(row["Resultado"].ToString());
+                Resultado = Convert.ToInt32(row["Resultado"]);
             if (DataRecord.HasColumn(row, "Mensaje"))
                 Mensaje = Convert.ToString(row["Mensaje"]);
         }
@@ -329,7 +329,7 @@ namespace Portal.Consultoras.Entities
         public BESolicitudNuevaConsultora(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "Nombre"))
-                Nombre = Convert.ToString(row["Nombre"].ToString());
+                Nombre = Convert.ToString(row["Nombre"]);
             if (DataRecord.HasColumn(row, "EMail"))
                 Email = Convert.ToString(row["EMail"]);
             if (DataRecord.HasColumn(row, "MarcaNombre"))

@@ -26,8 +26,11 @@ namespace Portal.Consultoras.Entities
 
         public BECronogramaFIC(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "FechaFin") && row["FechaFin"].ToString() != "") FechaFin = Convert.ToDateTime(row["FechaFin"]);
-            else FechaFin = null;
+            if (DataRecord.HasColumn(row, "FechaFin") && row["FechaFin"].ToString() != "")
+                FechaFin = Convert.ToDateTime(row["FechaFin"]);
+            else
+                FechaFin = null;
+
             if (DataRecord.HasColumn(row, "ZonaID"))
                 ZonaID = Convert.ToInt32(row["ZonaID"]);
             if (DataRecord.HasColumn(row, "CampaniaID"))

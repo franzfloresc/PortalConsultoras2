@@ -162,7 +162,12 @@ namespace Portal.Consultoras.Web.Models
         public decimal MontoMaximo { get; set; }
         public string Segmento { get; set; }
         public string Sobrenombre { get; set; }
-        public string UsuarioNombre { get; set; }
+
+        public string UsuarioNombre
+        {
+            get { return string.IsNullOrEmpty(Sobrenombre) ? NombreConsultora : Sobrenombre; }
+        }
+
         public string SobrenombreOriginal { get; set; }
         public int IndicadorDupla { get; set; }
         public int DiasAntes { get; set; }
@@ -256,11 +261,16 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionNivel { get; set; }
         public bool esConsultoraLider { get; set; }
         public int? SegmentoInternoID { get; set; }
+
         public bool ValidacionInteractiva { get; set; }
         public string MensajeValidacionInteractiva { get; set; }
+
         public int CatalogoPersonalizado { get; set; }
+
         public bool EjecutaProl { get; set; }
+
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
+
         public int VioTutorialSalvavidas { get; set; }
         public int TieneHana { get; set; }
         public int IndicadorBloqueoCDR { get; set; }
@@ -300,10 +310,14 @@ namespace Portal.Consultoras.Web.Models
         public List<ServicioCampaniaModel> MenuService { get; internal set; }
         public OfertaDelDiaModel OfertaDelDia { get; set; }
         public int EsOfertaDelDia { get; set; }
-        public bool TieneOfertaDelDia { get; set; }
+        //public bool TieneOfertaDelDia { get; set; }
         public bool CloseOfertaDelDia { get; set; }
         public bool CloseBannerPL20 { get; set; }
-        public bool EsDiasFacturacion { get; set; }
+
+        public bool EsDiasFacturacion
+        {
+            get { return FechaHoy >= FechaInicioCampania.Date && FechaHoy <= FechaFinCampania.Date; }
+        }
 
         public bool HizoLoginExterno { get; set; }
         public bool TieneLoginExterno { get; set; }
@@ -333,7 +347,10 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoPrograma { get; set; }
         public int ConsecutivoNueva { get; set; }
 
-        public DateTime FechaHoy { get; set; }
+        public DateTime FechaHoy
+        {
+            get { return DateTime.Now.AddHours(ZonaHoraria).Date; }
+        } 
 
         public string FotoPerfil { get; set; }
 
@@ -349,5 +366,23 @@ namespace Portal.Consultoras.Web.Models
         public double TotalCompraCer { get; set; }
         public double IvaTotalCer { get; set; }
         public string MensajeChat { get; set; }
+        public string GetCodigoConsultora()
+        {
+            return UsuarioPrueba == 1
+                ? ConsultoraAsociada
+                : CodigoConsultora;
+        }
+
+        public long GetConsultoraId()
+        {
+            return UsuarioPrueba == 1
+                ? ConsultoraAsociadaID
+                : ConsultoraID;
+        }
+
+        public bool EsConsultora()
+        {
+            return TipoUsuario == Constantes.TipoUsuario.Consultora;
+        }
     }
 }

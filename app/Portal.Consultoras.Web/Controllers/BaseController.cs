@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Common.MagickNet;
-using Portal.Consultoras.Common.PagoEnLinea;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
@@ -10,30 +8,25 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.ServiceCDR;
-using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -48,37 +41,60 @@ namespace Portal.Consultoras.Web.Controllers
     public partial class BaseController : Controller
     {
         #region Variables
-
         protected UsuarioModel userData;
         protected RevistaDigitalModel revistaDigital;
         protected HerramientasVentaModel herramientasVenta;
         protected GuiaNegocioModel guiaNegocio;
         protected ISessionManager sessionManager;
         protected ILogManager logManager;
-        private readonly TablaLogicaProvider _tablaLogicaProvider;
-        protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
-        protected readonly OfertaDelDiaProvider ofertaDelDiaProvider;
-        private readonly ShowRoomProvider _showRoomProvider;
-        protected readonly RevistaDigitalProvider revistaDigitalProvider;
-        protected string estrategiaWebApiDisponibilidadTipo;
         protected string paisesMicroservicioPersonalizacion;
+        protected string estrategiaWebApiDisponibilidadTipo;
+        protected readonly TipoEstrategiaProvider _tipoEstrategiaProvider;
+        protected readonly TablaLogicaProvider _tablaLogicaProvider;
+        protected readonly ShowRoomProvider _showRoomProvider;
+        protected readonly RevistaDigitalProvider revistaDigitalProvider;
+        protected readonly RevistaDigitalProvider _revistaDigitalProvider;
+        protected readonly PedidoWebProvider _pedidoWebProvider;
+        protected readonly OfertaViewProvider _ofertasViewProvider;  // Mover donde se utiliza
+        protected readonly OfertaPersonalizadaProvider _ofertaPersonalizadaProvider; // Mover donde se utiliza
+        protected readonly OfertaDelDiaProvider ofertaDelDiaProvider;
+        protected readonly OfertaDelDiaProvider _ofertaDelDiaProvider;
+        protected readonly MenuContenedorProvider _menuContenedorProvider;
+        protected readonly GuiaNegocioProvider _guiaNegocioProvider;
+        protected readonly EventoFestivoProvider _eventoFestivoProvider;
+        protected readonly EstrategiaComponenteProvider _estrategiaComponenteProvider;
+        protected readonly ConfiguracionPaisProvider _configuracionPaisProvider;
+        protected readonly ConfiguracionManagerProvider _configuracionManagerProvider;
+        protected readonly BaseProvider _baseProvider;
+        protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
         protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
         protected Models.Estrategia.OfertaDelDia.DataModel estrategiaODD;
         #endregion
 
         #region Constructor
 
-        public BaseController()
+        public BaseController() : this(SessionManager.SessionManager.Instance, LogManager.LogManager.Instance)
         {
-            userData = new UsuarioModel();
-            logManager = LogManager.LogManager.Instance;
-            sessionManager = SessionManager.SessionManager.Instance;
+            userData = UserData();
             _tablaLogicaProvider = new TablaLogicaProvider();
             administrarEstrategiaProvider = new AdministrarEstrategiaProvider();
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
             configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
             ofertaDelDiaProvider = new OfertaDelDiaProvider();
             revistaDigitalProvider = new RevistaDigitalProvider();
+            _baseProvider = new BaseProvider();
+            _guiaNegocioProvider = new GuiaNegocioProvider();
+            _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider();
+            _configuracionManagerProvider = new ConfiguracionManagerProvider();
+            _ofertasViewProvider = new OfertaViewProvider();
+            _revistaDigitalProvider = new RevistaDigitalProvider();
+            _ofertaDelDiaProvider = new OfertaDelDiaProvider();
+            _eventoFestivoProvider = new EventoFestivoProvider();
+            _pedidoWebProvider = new PedidoWebProvider();
+            _estrategiaComponenteProvider = new EstrategiaComponenteProvider(userData.PaisID, userData.CodigoISO);
+            _tipoEstrategiaProvider = new TipoEstrategiaProvider();
+            _configuracionPaisProvider = new ConfiguracionPaisProvider();
+            _menuContenedorProvider = new MenuContenedorProvider();
         }
 
         public bool UsarMsPer(string TipoEstrategiaCodigo)
@@ -89,14 +105,14 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public BaseController(ISessionManager sessionManager)
-            : this()
         {
+            userData = new UsuarioModel();
             this.sessionManager = sessionManager;
         }
 
         public BaseController(ISessionManager sessionManager, ILogManager logManager)
-            : this()
         {
+            userData = new UsuarioModel();
             this.sessionManager = sessionManager;
             this.logManager = logManager;
         }
@@ -122,6 +138,12 @@ namespace Portal.Consultoras.Web.Controllers
                 revistaDigital = sessionManager.GetRevistaDigital();
                 herramientasVenta = sessionManager.GetHerramientasVenta();
                 guiaNegocio = sessionManager.GetGuiaNegocio();
+                estrategiaODD = sessionManager.OfertaDelDia.Estrategia;
+                configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new ConfigModel();
+
+                if (!configEstrategiaSR.CargoEntidadesShowRoom)
+                    _showRoomProvider.CargarEntidadesShowRoom(userData);
+
                 if (Request.IsAjaxRequest())
                 {
                     base.OnActionExecuting(filterContext);
@@ -142,40 +164,9 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-        #region Métodos
+        #region Metodos
 
         #region Pedido
-
-        public virtual BEPedidoWeb ObtenerPedidoWeb()
-        {
-            var pedidoWeb = (BEPedidoWeb)null;
-
-            try
-            {
-                pedidoWeb = sessionManager.GetPedidoWeb();
-
-                if (pedidoWeb == null)
-                    using (var pedidoServiceClient = new PedidoServiceClient())
-                    {
-                        pedidoWeb = pedidoServiceClient.GetPedidoWebByCampaniaConsultora(
-                            userData.PaisID,
-                            userData.CampaniaID,
-                            userData.ConsultoraID
-                        );
-                    }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-            finally
-            {
-                pedidoWeb = pedidoWeb ?? new BEPedidoWeb();
-                sessionManager.SetPedidoWeb(pedidoWeb);
-            }
-
-            return pedidoWeb;
-        }
 
         protected int EsOpt()
         {
@@ -184,206 +175,19 @@ namespace Portal.Consultoras.Web.Controllers
             return esOpt;
         }
 
+        public virtual BEPedidoWeb ObtenerPedidoWeb()
+        {
+            return _pedidoWebProvider.ObtenerPedidoWeb(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
+        }
+
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
         {
-            var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
-            try
-            {
-                detallesPedidoWeb = sessionManager.GetDetallesPedido();
-
-                if (detallesPedidoWeb == null)
-                {
-                    using (var pedidoServiceClient = new PedidoServiceClient())
-                    {
-                        var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-                        {
-                            PaisId = userData.PaisID,
-                            CampaniaId = userData.CampaniaID,
-                            ConsultoraId = userData.ConsultoraID,
-                            Consultora = userData.NombreConsultora,
-                            EsBpt = EsOpt() == 1,
-                            CodigoPrograma = userData.CodigoPrograma,
-                            NumeroPedido = userData.ConsecutivoNueva
-                        };
-
-                        detallesPedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
-                    }
-                }
-
-                foreach (var item in detallesPedidoWeb)
-                {
-                    item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
-                    item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
-                    item.DescripcionOferta = ObtenerDescripcionOferta(item);
-                }
-                var observacionesProl = sessionManager.GetObservacionesProl();
-                if (detallesPedidoWeb.Count > 0 && observacionesProl != null)
-                {
-                    detallesPedidoWeb = PedidoConObservaciones(detallesPedidoWeb, observacionesProl);
-                }
-
-                userData.PedidoID = detallesPedidoWeb.Count > 0 ? detallesPedidoWeb[0].PedidoID : 0;
-
-                SetUserData(userData);
-
-                sessionManager.SetDetallesPedido(detallesPedidoWeb);
-            }
-            catch (Exception ex)
-            {
-                detallesPedidoWeb = detallesPedidoWeb ?? new List<BEPedidoWebDetalle>();
-                sessionManager.SetDetallesPedido(detallesPedidoWeb);
-
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-            return detallesPedidoWeb;
+            return _pedidoWebProvider.ObtenerPedidoWebDetalle(EsOpt());
         }
 
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado()
         {
-            var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
-            try
-            {
-
-                detallesPedidoWeb = sessionManager.GetDetallesPedidoSetAgrupado();
-
-                if (detallesPedidoWeb == null)
-                {
-                    using (var pedidoServiceClient = new PedidoServiceClient())
-                    {
-
-                        var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-                        {
-                            PaisId = userData.PaisID,
-                            CampaniaId = userData.CampaniaID,
-                            ConsultoraId = userData.ConsultoraID,
-                            Consultora = userData.NombreConsultora,
-                            EsBpt = EsOpt() == 1,
-                            CodigoPrograma = userData.CodigoPrograma,
-                            NumeroPedido = userData.ConsecutivoNueva,
-                            AgruparSet = true
-                        };
-
-                        detallesPedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
-                    }
-                }
-
-                foreach (var item in detallesPedidoWeb)
-                {
-                    item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
-                    item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
-                    item.DescripcionOferta = ObtenerDescripcionOferta(item);
-                }
-                var observacionesProl = sessionManager.GetObservacionesProl();
-                if (detallesPedidoWeb.Count > 0 && observacionesProl != null)
-                {
-                    detallesPedidoWeb = PedidoConObservacionesAgrupado(detallesPedidoWeb, observacionesProl);
-                }
-
-                userData.PedidoID = detallesPedidoWeb.Count > 0 ? detallesPedidoWeb[0].PedidoID : 0;
-
-                SetUserData(userData);
-
-                sessionManager.SetDetallesPedidoSetAgrupado(detallesPedidoWeb);
-            }
-            catch (Exception ex)
-            {
-                detallesPedidoWeb = detallesPedidoWeb ?? new List<BEPedidoWebDetalle>();
-                sessionManager.SetDetallesPedido(detallesPedidoWeb);
-
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-            return detallesPedidoWeb;
-        }
-
-
-        protected List<BEPedidoWebDetalle> PedidoConObservacionesAgrupado(List<BEPedidoWebDetalle> pedido, List<ObservacionModel> observaciones)
-        {
-            var pedObs = pedido;
-            List<string> listaCUVsAEvaluar;
-            var txtBuil = new StringBuilder();
-            var nuevasObservaciones = new List<ObservacionModel>();
-
-            List<BEPedidoWebDetalle> cuvHijos = TraerHijosFaltantesEnObsPROL(pedido);
-
-            foreach (var item in pedObs)
-            {
-                listaCUVsAEvaluar = new List<string>();
-                item.Mensaje = string.Empty;
-
-                if (cuvHijos.Any(x => x.SetID == item.SetID))
-                {
-                    listaCUVsAEvaluar.AddRange(cuvHijos.Where(x => x.SetID == item.SetID).Select(x => x.CUV));
-                }
-                else
-                    listaCUVsAEvaluar.Add(item.CUV);
-
-                var temp = observaciones.Where(o => listaCUVsAEvaluar.Contains(o.CUV)).ToList();
-
-
-                if (temp.Count != 0)
-                {
-                    if (temp.Any(o => o.Caso == 0)) item.TipoObservacion = 0;
-                    else item.TipoObservacion = temp[0].Tipo;
-
-                    foreach (var ob in temp)
-                    {
-                        txtBuil.Append(ob.Descripcion + "<br/>");
-                    }
-                    item.Mensaje = txtBuil.ToString();
-                    txtBuil.Clear();
-                }
-                else item.TipoObservacion = 0;
-            }
-
-            //sessionManager.SetObservacionesProl(null);
-
-            return pedObs.OrderByDescending(p => p.TipoObservacion).ToList();
-        }
-
-
-        protected List<BEPedidoWebDetalle> PedidoConObservaciones(List<BEPedidoWebDetalle> pedido, List<ObservacionModel> observaciones)
-        {
-            var pedObs = pedido;
-            var txtBuil = new StringBuilder();
-
-            foreach (var item in pedObs)
-            {
-                item.Mensaje = string.Empty;
-                var temp = observaciones.Where(o => o.CUV == item.CUV).ToList();
-                if (temp.Count != 0)
-                {
-                    if (temp.Any(o => o.Caso == 0)) item.TipoObservacion = 0;
-                    else item.TipoObservacion = temp[0].Tipo;
-
-                    foreach (var ob in temp)
-                    {
-                        txtBuil.Append(ob.Descripcion + "<br/>");
-                    }
-                    item.Mensaje = txtBuil.ToString();
-                    txtBuil.Clear();
-                }
-                else item.TipoObservacion = 0;
-            }
-            return pedObs.OrderByDescending(p => p.TipoObservacion).ToList();
-        }
-
-        private List<BEPedidoWebDetalle> TraerHijosFaltantesEnObsPROL(List<BEPedidoWebDetalle> pedido)
-        {
-            var idSetList = pedido.Where(x => x.SetID != 0).Select(x => x.SetID).ToList();
-            var cuvHijos = new List<BEPedidoWebDetalle>();
-
-            if (idSetList.Any())
-            {
-                using (var sv = new PedidoServiceClient())
-                {
-                    cuvHijos = sv.ObtenerCuvSetDetalle(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.PedidoID, String.Join(",", idSetList)).ToList();
-
-                }
-            }
-
-            return cuvHijos;
+            return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt());
         }
 
         protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(bool session = true)
@@ -402,7 +206,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var cuvs = string.Join("|", detallesPedidoWeb.Select(p => p.CUV).ToArray());
                 var cantidades = string.Join("|", detallesPedidoWeb.Select(p => p.Cantidad).ToArray());
 
-                var ambiente = GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
+                var ambiente = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
                 var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
                 using (var sv = new ServicesCalculoPrecioNiveles())
@@ -529,7 +333,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected bool ValidarPedidoReservado(out string mensaje)
         {
             mensaje = string.Empty;
-            var consultoraId = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
+            var consultoraId = userData.GetConsultoraId();
 
             BEConfiguracionCampania obeConfiguracionCampania;
             using (var sv = new PedidoServiceClient())
@@ -594,7 +398,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        #region Menú
+        #region Menu
 
         public List<PermisoModel> BuildMenu(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
@@ -606,7 +410,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var permisos = GetPermisosByRol(userData.PaisID, userData.RolID);
 
-            if (!GetMostrarOpcionClienteOnline(userData.CodigoISO) &&
+            if (!_configuracionManagerProvider.GetMostrarOpcionClienteOnline(userData.CodigoISO) &&
                 permisos.Any(p => p.UrlItem.ToLower() == "consultoraonline/index"))
             {
                 permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
@@ -748,28 +552,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<List<PermisoModel>>(permisos);
         }
 
-        private bool GetMostrarOpcionClienteOnline(string codigoIso)
-        {
-            return GetMostrarPedidosPendientesFromConfig() && GetPaisesConConsultoraOnlineFromConfig().Contains(codigoIso);
-        }
-
-        protected virtual bool GetMostrarPedidosPendientesFromConfig()
-        {
-            var mostrarPedidoAppSetting = GetConfiguracionManager(Constantes.ConfiguracionManager.MostrarPedidosPendientes);
-
-            return mostrarPedidoAppSetting == "1";
-        }
-
-        protected string GetPaisesConConsultoraOnlineFromConfig()
-        {
-            return GetConfiguracionManager(Constantes.ConfiguracionManager.Permisos_CCC);
-        }
-
-        protected virtual string GetDefaultGifMenuOfertas()
-        {
-            return GetConfiguracionManager(Constantes.ConfiguracionManager.GIF_MENU_DEFAULT_OFERTAS);
-        }
-
         public virtual string GetUrlImagenMenuOfertas(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
             var urlImagen = string.Empty;
@@ -781,11 +563,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!tieneRevistaDigital)
             {
-                urlImagen = GetDefaultGifMenuOfertas();
+                urlImagen = _configuracionManagerProvider.GetDefaultGifMenuOfertas();
                 urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
                 if (tieneEventoFestivoData)
                 {
-                    urlImagen = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS, urlImagen);
+                    urlImagen = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS, urlImagen);
                 }
             }
 
@@ -795,7 +577,7 @@ namespace Portal.Consultoras.Web.Controllers
                 urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
                 if (tieneEventoFestivoData)
                 {
-                    urlImagen = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
+                    urlImagen = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
                 }
 
             }
@@ -806,7 +588,7 @@ namespace Portal.Consultoras.Web.Controllers
                 urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
                 if (tieneEventoFestivoData)
                 {
-                    urlImagen = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS, urlImagen);
+                    urlImagen = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS, urlImagen);
                 }
             }
 
@@ -816,7 +598,7 @@ namespace Portal.Consultoras.Web.Controllers
                 urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
                 if (tieneEventoFestivoData)
                 {
-                    urlImagen = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
+                    urlImagen = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
                 }
 
             }
@@ -853,7 +635,7 @@ namespace Portal.Consultoras.Web.Controllers
             var menuConsultoraOnlineHijo = lstMenuMobileModel.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID != 0);
 
 
-            if (!GetMostrarOpcionClienteOnline(userData.CodigoISO))
+            if (!_configuracionManagerProvider.GetMostrarOpcionClienteOnline(userData.CodigoISO))
             {
                 lstMenuMobileModel.Remove(menuConsultoraOnlinePadre);
                 lstMenuMobileModel.Remove(menuConsultoraOnlineHijo);
@@ -1095,87 +877,15 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-        #region eventoFestivo        
-
-        public string EventoFestivoPersonalizacionSegunNombre(string nombre, string valorBase = "")
-        {
-            var eventoFestivo = new EventoFestivoModel();
-            try
-            {
-                eventoFestivo = sessionManager.GetEventoFestivoDataModel().ListaGifMenuContenedorOfertas.FirstOrDefault(p => p.Nombre == nombre) ?? new EventoFestivoModel();
-            }
-            catch (Exception ex)
-            {
-                Common.LogManager.SaveLog(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-            var valor = Util.Trim(eventoFestivo.Personalizacion);
-            valor = valor == "" ? Util.Trim(valorBase) : valor;
-
-            return valor;
-        }
-
-        #endregion
-
-        #region UserData        
-        protected void SetUserData(UsuarioModel model)
-        {
-            sessionManager.SetUserData(model);
-        }
+        #region UserData
 
         public UsuarioModel UserData()
         {
-            UsuarioModel model;
-
-            try
-            {
-                model = sessionManager.GetUserData();
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "UserData - sessionManager.GetUserData()");
-                model = null;
-            }
-
-            if (model == null)
-                return new UsuarioModel();
-
-            #region Cargar variables
-
-            configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new Models.Estrategia.ShowRoom.ConfigModel();
-
-            if (!configEstrategiaSR.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
-
-            model.UsuarioNombre = string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre;
-
-            model.FechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
-            model.EsDiasFacturacion = model.FechaHoy >= model.FechaInicioCampania.Date && model.FechaHoy <= model.FechaFinCampania.Date;
+            var model = sessionManager.GetUserData() ?? new UsuarioModel();
 
             model.MenuNotificaciones = 1;
 
-            #endregion
-
             return model;
-        }
-
-        private bool CumpleOfertaDelDia()
-        {
-            var result = false;
-            if (!NoMostrarBannerODD())
-            {
-                result = (!userData.TieneOfertaDelDia ||
-                          (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2 || userData.IndicadorGPRSB == 0)
-                          && !userData.CloseOfertaDelDia) && userData.TieneOfertaDelDia;
-            }
-
-            return result;
-        }
-
-        private string GetFormatDecimalPais(string isoPais)
-        {
-            var listaPaises = GetConfiguracionManager(Constantes.ConfiguracionManager.KeyPaisFormatDecimal);
-            if (listaPaises == "" || isoPais == "") return ",|.|2";
-            if (listaPaises.Contains(isoPais)) return ".||0";
-            return ",|.|2";
         }
 
         protected List<BEProductoFaltante> GetProductosFaltantes()
@@ -1191,15 +901,6 @@ namespace Portal.Consultoras.Web.Controllers
                 olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID, cuv, descripcion, codCategoria, codCatalogoRevista).ToList();
             }
             return olstProductoFaltante ?? new List<BEProductoFaltante>();
-        }
-
-        private string NombreCampania(string campania)
-        {
-            var result = campania;
-            campania = Util.Trim(campania);
-            if (campania.Length == 6)
-                result = string.Format("Campaña {0}", campania.Substring(4, 2));
-            return result;
         }
 
         public string GetIPCliente()
@@ -1242,560 +943,30 @@ namespace Portal.Consultoras.Web.Controllers
             return ip;
         }
 
-        protected void CargarEntidadesShowRoom(UsuarioModel model)
-        {
-            try
-            {
-                const int SHOWROOM_ESTADO_ACTIVO = 1;
-
-                sessionManager.SetEsShowRoom("0");
-                sessionManager.SetMostrarShowRoomProductos("0");
-                sessionManager.SetMostrarShowRoomProductosExpiro("0");
-
-                configEstrategiaSR.BeShowRoomConsultora = null;
-                configEstrategiaSR.BeShowRoom = null;
-
-                configEstrategiaSR.CargoEntidadesShowRoom = false;
-
-                if (!PaisTieneShowRoom(model.CodigoISO))
-                {
-                    SetUserData(model);
-                    return;
-                }
-
-                var codigoConsultora = model.UsuarioPrueba == 1
-                    ? model.ConsultoraAsociada
-                    : model.CodigoConsultora;
-                List<BEShowRoomPersonalizacionNivel> personalizacionesNivel = null;
-
-                using (var pedidoService = new PedidoServiceClient())
-                {
-                    configEstrategiaSR.BeShowRoom = pedidoService.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
-                    configEstrategiaSR.BeShowRoomConsultora = pedidoService.GetShowRoomConsultora(
-                        model.PaisID,
-                        model.CampaniaID,
-                        codigoConsultora,
-                        true);
-
-                    configEstrategiaSR.ListaNivel = pedidoService.GetShowRoomNivel(model.PaisID).ToList();
-
-
-
-                    configEstrategiaSR.ListaPersonalizacionConsultora = Mapper.Map<IList<BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(pedidoService.GetShowRoomPersonalizacion(model.PaisID).ToList()).ToList();
-                    configEstrategiaSR.ShowRoomNivelId = ObtenerNivelId(configEstrategiaSR.ListaNivel);
-
-                    if (configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
-                    {
-                        personalizacionesNivel = pedidoService.GetShowRoomPersonalizacionNivel(model.PaisID,
-                            configEstrategiaSR.BeShowRoom.EventoID, configEstrategiaSR.ShowRoomNivelId, 0).ToList();
-                    }
-                }
-
-                if (configEstrategiaSR.BeShowRoom != null && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO && configEstrategiaSR.BeShowRoomConsultora != null)
-                {
-                    sessionManager.SetEsShowRoom("1");
-
-                    var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-                    if (userData.FechaInicioCampania != default(DateTime))
-                        ViewBag.DiasFaltan = (userData.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes) - fechaHoy).Days;
-
-                    if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
-                        && fechaHoy <= model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
-                    {
-                        sessionManager.SetMostrarShowRoomProductos("1");
-                    }
-
-                    if (fechaHoy > model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
-                        sessionManager.SetMostrarShowRoomProductosExpiro("1");
-                }
-
-                if (personalizacionesNivel != null && personalizacionesNivel.Any())
-                {
-                    var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
-                    Session["carpetaPais"] = carpetaPais;
-
-                    foreach (var item in configEstrategiaSR.ListaPersonalizacionConsultora)
-                    {
-                        var personalizacionNivel = personalizacionesNivel.FirstOrDefault(
-                            p => p.NivelId == configEstrategiaSR.ShowRoomNivelId &&
-                                 p.EventoID == configEstrategiaSR.BeShowRoom.EventoID &&
-                                 p.PersonalizacionId == item.PersonalizacionId);
-
-                        if (personalizacionNivel == null)
-                        {
-                            item.PersonalizacionNivelId = 0;
-                            item.Valor = string.Empty;
-                            continue;
-                        }
-
-                        item.PersonalizacionNivelId = personalizacionNivel.PersonalizacionNivelId;
-                        item.Valor = personalizacionNivel.Valor;
-
-                        if (item.TipoAtributo == "IMAGEN")
-                        {
-                            item.Valor = string.IsNullOrEmpty(item.Valor)
-                                ? string.Empty
-                                : ConfigCdn.GetUrlFileCdn(carpetaPais, item.Valor);
-                        }
-                    }
-                }
-
-                configEstrategiaSR.CargoEntidadesShowRoom = true;
-            }
-            catch (Exception ex)
-            {
-                Common.LogManager.SaveLog(ex, model.CodigoConsultora, model.CodigoISO);
-                configEstrategiaSR.CargoEntidadesShowRoom = false;
-            }
-
-            SetUserData(model);
-            sessionManager.SetEstrategiaSR(configEstrategiaSR);
-        }
-
-        protected bool PaisTieneShowRoom(string codigoIsoPais)
-        {
-            if (string.IsNullOrEmpty(codigoIsoPais))
-                return false;
-
-            var paisesShowRoom = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesShowRoom);
-            var tieneShowRoom = paisesShowRoom.Contains(codigoIsoPais);
-            return tieneShowRoom;
-        }
-
-        protected int ObtenerNivelId(List<BEShowRoomNivel> niveles)
-        {
-            var showRoomNivelPais = niveles.FirstOrDefault(p => p.Codigo == "PAIS") ??
-                                    new BEShowRoomNivel();
-            return showRoomNivelPais.NivelId;
-        }
+        //public int TipoAccionAgregar(int tieneVariedad, string codigoTipoEstrategia, bool esConsultoraLider = false, bool bloqueado = false, string codigoTipos = "")
+        //{
+        //    var tipo = tieneVariedad == 0 ? codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
+        //    if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
+        //    {
+        //        tipo = esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva() ? 0 : tipo;
+        //    }
+        //    else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
+        //    {
+        //        tipo = codigoTipos == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoTipos == Constantes.TipoEstrategiaSet.CompuestaFija ? 2 : 3;
+        //        tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
+        //        tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
+        //    }
+        //    else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+        //        || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
+        //        || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento)
+        //    {
+        //        tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
+        //        tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
+        //    }
+        //    return tipo;
+        //}
 
         #endregion
-
-        #region FichaProducto
-        public List<FichaProductoModel> ConsultarFichaProductoPorCuv(string cuv = "", int campanaId = 0)
-        {
-            var entidad = new BEFichaProducto
-            {
-                PaisID = userData.PaisID,
-                CampaniaID = campanaId > 0 ? campanaId : userData.CampaniaID,
-                ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString(),
-                CUV2 = Util.Trim(cuv),
-                Zona = userData.ZonaID.ToString(),
-                ZonaHoraria = userData.ZonaHoraria,
-                FechaInicioFacturacion = userData.FechaFinCampania,
-                ValidarPeriodoFacturacion = true,
-                Simbolo = userData.Simbolo,
-                CodigoAgrupacion = Util.Trim("")
-            };
-
-            List<BEFichaProducto> listFichaProducto;
-            using (var sv = new PedidoServiceClient())
-            {
-                listFichaProducto = sv.GetFichaProducto(entidad).ToList();
-            }
-
-            listFichaProducto = listFichaProducto.Where(e => e.Precio2 > 0).ToList();
-
-            listFichaProducto.Where(e => (e.Precio <= e.Precio2) && e.FlagNueva != 1).ToList().ForEach(e =>
-            {
-                e.Precio = 0;
-                e.PrecioTachado = Util.DecimalToStringFormat(e.Precio, userData.CodigoISO);
-            });
-
-            var listaProductoModel = FichaProductoModelFormato(listFichaProducto);
-
-            return listaProductoModel;
-        }
-
-        public List<FichaProductoDetalleModel> FichaProductoFormatearModelo(List<FichaProductoModel> listaProductoModel)
-        {
-            var listaRetorno = new List<FichaProductoDetalleModel>();
-            if (!listaProductoModel.Any())
-                return listaRetorno;
-
-            var listaPedido = ObtenerPedidoWebDetalle();
-
-            listaProductoModel.ForEach(fichaProducto =>
-            {
-                var prodModel = new FichaProductoDetalleModel
-                {
-                    CampaniaID = fichaProducto.CampaniaID,
-                    EstrategiaID = fichaProducto.EstrategiaID,
-                    CUV2 = fichaProducto.CUV2,
-                    TipoEstrategiaImagenMostrar = fichaProducto.TipoEstrategiaImagenMostrar,
-                    CodigoEstrategia = fichaProducto.TipoEstrategia.Codigo,
-                    CodigoVariante = fichaProducto.CodigoEstrategia,
-                    FotoProducto01 = fichaProducto.FotoProducto01,
-                    ImagenURL = fichaProducto.ImagenURL,
-                    DescripcionMarca = fichaProducto.DescripcionMarca,
-                    DescripcionResumen = fichaProducto.DescripcionResumen,
-                    DescripcionCortada = fichaProducto.DescripcionCortada,
-                    DescripcionDetalle = fichaProducto.DescripcionDetalle,
-                    DescripcionCompleta = fichaProducto.DescripcionCUV2.Split('|')[0],
-                    Simbolo = userData.Simbolo,
-                    Precio = fichaProducto.Precio,
-                    Precio2 = fichaProducto.Precio2,
-                    PrecioTachado = fichaProducto.PrecioTachado,
-                    PrecioVenta = fichaProducto.PrecioString,
-
-                    TipoEstrategiaID = fichaProducto.TipoEstrategiaID,
-                    FlagNueva = fichaProducto.FlagNueva,
-                    IsAgregado = listaPedido.Any(p => p.CUV == fichaProducto.CUV2.Trim()),
-                    ArrayContenidoSet = fichaProducto.FlagNueva == 1 ? fichaProducto.DescripcionCUV2.Split('|').Skip(1).ToList() : new List<string>(),
-                    ListaDescripcionDetalle = fichaProducto.ListaDescripcionDetalle ?? new List<string>(),
-                    TextoLibre = Util.Trim(fichaProducto.TextoLibre),
-
-                    MarcaID = fichaProducto.MarcaID,
-
-                    TienePaginaProducto = fichaProducto.PuedeVerDetalle,
-                    TienePaginaProductoMob = fichaProducto.PuedeVerDetalleMob,
-
-                    TipoAccionAgregar = TipoAccionAgregar(fichaProducto.TieneVariedad, fichaProducto.TipoEstrategia.Codigo),
-                    LimiteVenta = fichaProducto.LimiteVenta
-                };
-                listaRetorno.Add(prodModel);
-            });
-
-            return listaRetorno;
-        }
-
-        public int TipoAccionAgregar(int tieneVariedad, string codigoTipoEstrategia, bool bloqueado = false, string codigoTipos = "")
-        {
-            var tipo = tieneVariedad == 0 ? codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
-
-            if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
-            {
-                tipo = userData.esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva() ? 0 : tipo;
-            }
-            else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
-            {
-                tipo = codigoTipos == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoTipos == Constantes.TipoEstrategiaSet.CompuestaFija ? 2 : 3;
-                tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
-                tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
-            }
-            else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
-                || codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento)
-            {
-                tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
-                tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
-            }
-            return tipo;
-        }
-
-
-        public List<FichaProductoModel> FichaProductoModelFormato(List<BEFichaProducto> listaProducto)
-        {
-            listaProducto = listaProducto ?? new List<BEFichaProducto>();
-            var listaProductoModel = Mapper.Map<List<BEFichaProducto>, List<FichaProductoModel>>(listaProducto);
-            return FichaProductoModelFormato(listaProductoModel);
-        }
-
-        public List<FichaProductoModel> FichaProductoModelFormato(List<FichaProductoModel> listaProductoModel)
-        {
-            if (!listaProductoModel.Any())
-                return listaProductoModel;
-
-            var listaPedido = ObtenerPedidoWebDetalle();
-
-            var claseBloqueada = "btn_desactivado_general";
-
-            listaProductoModel.ForEach(ficha =>
-            {
-                ficha.ClaseBloqueada = ficha.CampaniaID > 0 && ficha.CampaniaID != userData.CampaniaID ? claseBloqueada : "";
-                ficha.IsAgregado = ficha.ClaseBloqueada != claseBloqueada && listaPedido.Any(p => p.CUV == ficha.CUV2.Trim());
-                ficha.DescripcionResumen = "";
-                ficha.DescripcionDetalle = "";
-                if (ficha.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
-                {
-                    var listadescr = ficha.DescripcionCUV2.Split('|');
-                    ficha.DescripcionResumen = listadescr.Length > 0 ? listadescr[0] : "";
-                    ficha.DescripcionCortada = listadescr.Length > 1 ? listadescr[1] : "";
-                    if (listadescr.Length > 2)
-                    {
-                        ficha.ListaDescripcionDetalle = new List<string>(listadescr.Skip(2));
-                        ficha.DescripcionDetalle = string.Join("<br />", listadescr.Skip(2));
-                    }
-                    ficha.DescripcionCortada = Util.SubStrCortarNombre(ficha.DescripcionCortada, 40);
-                }
-                else if (ficha.FlagNueva == 1)
-                {
-                    ficha.DescripcionCortada = ficha.DescripcionCUV2.Split('|')[0];
-                    ficha.DescripcionDetalle = ficha.DescripcionCUV2.Split('|')[1];
-                    ficha.DescripcionResumen = "";
-                }
-                else
-                {
-                    ficha.DescripcionCortada = Util.SubStrCortarNombre(ficha.DescripcionCUV2, 40);
-                }
-
-                ficha.ImagenURL = ficha.FlagMostrarImg == 1 ? "/Content/Images/oferta-ultimo-minuto.png" : "";
-
-                ficha.ID = ficha.EstrategiaID;
-                if (ficha.FlagMostrarImg == 1)
-                {
-                    if (ficha.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
-                    {
-                        if (ficha.FlagEstrella == 1)
-                        {
-                            ficha.ImagenURL = "/Content/Images/oferta-ultimo-minuto.png";
-                        }
-                    }
-                    else if (!(ficha.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas
-                        || ficha.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.Lanzamiento))
-                    {
-                        ficha.ImagenURL = "";
-                    }
-                }
-                else
-                {
-                    ficha.ImagenURL = "";
-                }
-
-                ficha.PuedeCambiarCantidad = 1;
-                if (ficha.TieneVariedad == 0 && ficha.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas)
-                    ficha.PuedeCambiarCantidad = 0;
-
-                ficha.PuedeAgregar = 1;
-                ficha.PuedeVerDetalle = false;
-                ficha.PuedeVerDetalleMob = false;
-            });
-
-            return listaProductoModel;
-        }
-
-        public FichaProductoDetalleModel FichaProductoHermanos(FichaProductoDetalleModel fichaProductoModelo)
-        {
-            try
-            {
-                if (fichaProductoModelo == null)
-                    return null;
-
-                fichaProductoModelo.Hermanos = new List<ProductoModel>();
-                fichaProductoModelo.TextoLibre = Util.Trim(fichaProductoModelo.TextoLibre);
-                fichaProductoModelo.CodigoVariante = Util.Trim(fichaProductoModelo.CodigoVariante);
-
-                var listaPedido = ObtenerPedidoWebDetalle();
-                fichaProductoModelo.IsAgregado = listaPedido.Any(p => p.CUV == fichaProductoModelo.CUV2);
-
-                if (fichaProductoModelo.CodigoVariante == "")
-                    return fichaProductoModelo;
-
-                string separador = "|";
-                var txtBuil = new StringBuilder();
-                txtBuil.Append(separador);
-
-                fichaProductoModelo.CampaniaID = fichaProductoModelo.CampaniaID > 0 ? fichaProductoModelo.CampaniaID : userData.CampaniaID;
-
-                if (fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
-                {
-                    List<ServiceODS.BEProducto> listaHermanosE;
-                    using (var svc = new ODSServiceClient())
-                    {
-                        listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, fichaProductoModelo.CampaniaID, fichaProductoModelo.CUV2).ToList();
-                    }
-
-                    foreach (var item in listaHermanosE)
-                    {
-                        item.CodigoSAP = Util.Trim(item.CodigoSAP);
-                        if (item.CodigoSAP != "" && !txtBuil.ToString().Contains(separador + item.CodigoSAP + separador))
-                            txtBuil.Append(item.CodigoSAP + separador);
-                    }
-                }
-
-                var listaProducto = new List<ServicePedido.BEEstrategiaProducto>();
-                if (fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
-                {
-                    var estrategiaX = new EstrategiaPedidoModel() { PaisID = userData.PaisID, EstrategiaID = fichaProductoModelo.EstrategiaID };
-                    using (var svc = new PedidoServiceClient())
-                    {
-                        listaProducto = svc.GetEstrategiaProducto(Mapper.Map<EstrategiaPedidoModel, ServicePedido.BEEstrategia>(estrategiaX)).ToList();
-                    }
-
-                    foreach (var item in listaProducto)
-                    {
-                        item.SAP = Util.Trim(item.SAP);
-                        if (item.SAP != "" && !txtBuil.ToString().Contains(separador + item.SAP + separador))
-                            txtBuil.Append(item.SAP + separador);
-                    }
-                }
-
-                string joinCuv = txtBuil.ToString();
-
-                if (joinCuv == separador) return fichaProductoModelo;
-
-                joinCuv = joinCuv.Substring(separador.Length, joinCuv.Length - separador.Length * 2);
-
-                List<Producto> listaAppCatalogo;
-                using (var svc = new ProductoServiceClient())
-                {
-                    listaAppCatalogo = svc.ObtenerProductosByCodigoSap(userData.CodigoISO, fichaProductoModelo.CampaniaID, joinCuv).ToList();
-                }
-
-                if (!listaAppCatalogo.Any()) return fichaProductoModelo;
-
-                var listaHermanos = Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
-
-                if (fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
-                {
-                    if (listaHermanos.Count <= 1)
-                    {
-                        listaHermanos = new List<ProductoModel>();
-                    }
-                    else
-                    {
-                        listaHermanos.ForEach(h =>
-                        {
-                            h.CUV = Util.Trim(h.CUV);
-                            h.FactorCuadre = 1;
-                        });
-                        listaHermanos = listaHermanos.OrderBy(h => h.Orden).ToList();
-                    }
-                }
-                if (fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
-                {
-                    var listaHermanosX = new List<ProductoModel>();
-                    listaProducto = listaProducto.OrderBy(p => p.Grupo).ToList();
-                    listaHermanos = listaHermanos.OrderBy(p => p.CodigoProducto).ToList();
-
-                    var idPk = 1;
-                    listaHermanos.ForEach(h => h.ID = idPk++);
-
-                    idPk = 0;
-                    foreach (var item in listaProducto)
-                    {
-                        var prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto) ?? new ProductoModel()).Clone();
-                        if (Util.Trim(prod.CodigoProducto) == "")
-                            continue;
-
-                        var listaIgual = listaHermanos.Where(p => item.SAP == p.CodigoProducto);
-                        if (listaIgual.Count() > 1)
-                        {
-                            prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto && p.ID > idPk) ?? new ProductoModel()).Clone();
-                        }
-
-                        prod.Orden = item.Orden;
-                        prod.Grupo = item.Grupo;
-                        prod.PrecioCatalogo = item.Precio;
-                        prod.PrecioCatalogoString = Util.DecimalToStringFormat(item.Precio, userData.CodigoISO);
-                        prod.Digitable = item.Digitable;
-                        prod.CUV = Util.Trim(item.CUV);
-                        prod.Cantidad = item.Cantidad;
-                        prod.FactorCuadre = item.FactorCuadre > 0 ? item.FactorCuadre : 1;
-                        listaHermanosX.Add(prod);
-                        idPk = prod.ID;
-                    }
-
-                    listaHermanos = listaHermanosX;
-
-                    if (fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija)
-                    {
-                        listaHermanos.ForEach(h => { h.Digitable = 0; h.NombreComercial = Util.Trim(h.NombreComercial); });
-                        listaHermanos = listaHermanos.Where(h => h.NombreComercial != "").ToList();
-                    }
-                    else if (fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
-                    {
-                        var listaHermanosR = new List<ProductoModel>();
-                        ProductoModel hermano;
-                        foreach (var item in listaHermanos)
-                        {
-                            hermano = (ProductoModel)item.Clone();
-                            hermano.Hermanos = new List<ProductoModel>();
-                            if (hermano.Digitable == 1)
-                            {
-                                var existe = false;
-                                foreach (var itemR in listaHermanosR)
-                                {
-                                    existe = itemR.Hermanos.Any(h => h.CUV == hermano.CUV);
-                                    if (existe) break;
-                                }
-                                if (existe) continue;
-
-                                hermano.Hermanos = listaHermanos.Where(p => p.Grupo == hermano.Grupo).OrderBy(p => p.Orden).ToList();
-                            }
-                            listaHermanosR.Add(hermano);
-                        }
-                        listaHermanos = listaHermanosR.OrderBy(p => p.Orden).ToList();
-                    }
-                }
-                #region Factor Cuadre
-
-                var listaHermanosCuadre = new List<ProductoModel>();
-
-                foreach (var hermano in listaHermanos)
-                {
-                    listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
-
-                    if (hermano.FactorCuadre > 1)
-                    {
-                        for (var i = 0; i < hermano.FactorCuadre - 1; i++)
-                        {
-                            listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
-                        }
-                    }
-                }
-
-                #endregion
-
-                fichaProductoModelo.Hermanos = listaHermanosCuadre;
-            }
-            catch (Exception ex)
-            {
-                fichaProductoModelo = new FichaProductoDetalleModel
-                {
-                    Hermanos = new List<ProductoModel>()
-                };
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-            return fichaProductoModelo;
-        }
-        #endregion
-
-        public string NombreMes(int mes)
-        {
-            var result = string.Empty;
-            switch (mes)
-            {
-                case 1:
-                    result = "Enero";
-                    break;
-                case 2:
-                    result = "Febrero";
-                    break;
-                case 3:
-                    result = "Marzo";
-                    break;
-                case 4:
-                    result = "Abril";
-                    break;
-                case 5:
-                    result = "Mayo";
-                    break;
-                case 6:
-                    result = "Junio";
-                    break;
-                case 7:
-                    result = "Julio";
-                    break;
-                case 8:
-                    result = "Agosto";
-                    break;
-                case 9:
-                    result = "Septiembre";
-                    break;
-                case 10:
-                    result = "Octubre";
-                    break;
-                case 11:
-                    result = "Noviembre";
-                    break;
-                case 12:
-                    result = "Diciembre";
-                    break;
-            }
-            return result;
-        }
 
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(string constSession)
         {
@@ -1849,20 +1020,6 @@ namespace Portal.Consultoras.Web.Controllers
             return new Converter<decimal, string>(p => p.ToString("n2", new System.Globalization.CultureInfo("es-PE")));
         }
 
-        protected int AddCampaniaAndNumero(int campania, int numero)
-        {
-            return Util.AddCampaniaAndNumero(campania, numero, userData.NroCampanias);
-        }
-
-        public string FormatearHora(TimeSpan hora)
-        {
-            var tiempo = DateTime.Today.Add(hora);
-            var displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "");
-            displayTiempo = displayTiempo.Insert(displayTiempo.Length == 6 ? 4 : 5, " ");
-
-            return displayTiempo;
-        }
-
         private BarraTippingPoint GetTippingPoint(string TippingPointParticipa, string TippingPointStr)
         {
             BarraTippingPoint TippingPoint = new BarraTippingPoint { ActiveTooltip = false, ActiveMonto = false };
@@ -1875,15 +1032,15 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (var sv = new PedidoServiceClient())
                     {
-                        BEActivarPremioNuevas beActive = sv.GetActivarPremioNuevas(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);
-                        TippingPoint.ActiveTooltip = beActive == null ? false : beActive.ActiveTooltip;
-                        TippingPoint.ActiveMonto = beActive == null ? false : beActive.ActiveMontoTooltip;
-                        TippingPoint.Active = beActive == null ? false : beActive.Active;
+                        var beActive = sv.GetActivarPremioNuevas(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);
+                        TippingPoint.ActiveTooltip = beActive != null && beActive.ActiveTooltip;
+                        TippingPoint.ActiveMonto = beActive != null && beActive.ActiveMontoTooltip;
+                        TippingPoint.Active = beActive != null && beActive.Active;
                         TippingPoint.TippingPointMontoStr = TippingPointStr;
                         // verifica si esta activado el tooltip
-                        if (TippingPoint.ActiveTooltip == true)
+                        if (TippingPoint.ActiveTooltip)
                         {
-                            ServicePedido.BEEstrategia estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID,
+                            var estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID,
                                                                                Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo,
                                                                                userData.CampaniaID,
                                                                                nivel);
@@ -1903,7 +1060,7 @@ namespace Portal.Consultoras.Web.Controllers
                             TippingPoint.Precio2 = estrategia == null ? default(decimal) : estrategia.Precio2;
                             TippingPoint.PrecioPublico = estrategia == null ? default(decimal) : estrategia.PrecioPublico;
                             TippingPoint.PrecioUnitario = estrategia == null ? default(decimal) : estrategia.PrecioUnitario;
-                            TippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
+                            TippingPoint.LinkURL = estrategia == null ? default(string) : getUrlTippingPoint(estrategia.ImagenURL);
                         }
                     }
                 }
@@ -1914,6 +1071,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 TippingPoint = new BarraTippingPoint { ActiveTooltip = false, ActiveMonto = false };
             }
             return TippingPoint;
@@ -1924,29 +1082,29 @@ namespace Portal.Consultoras.Web.Controllers
             /*
               string url = string.Format
                         ("{0}/{1}/{2}/{3}/{4}/{5}",
-                            GetConfiguracionManager(Constantes.ConfiguracionManager.URL_S3),
-                            GetConfiguracionManager(Constantes.ConfiguracionManager.BUCKET_NAME),
-                            GetConfiguracionManager(Constantes.ConfiguracionManager.ROOT_DIRECTORY),
-                            GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""),
+                            _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_S3),
+                            _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.BUCKET_NAME),
+                            _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ROOT_DIRECTORY),
+                            _configuracionManagerProvider.GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""),
                             userData.CodigoISO ?? "",
                             noImagen ?? ""
                          );
              */
-            string urlExtension = string.Format("{0}/{1}", GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""), userData.CodigoISO ?? "");
+            string urlExtension = string.Format("{0}/{1}", _configuracionManagerProvider.GetConfiguracionManager(ConfigurationManager.AppSettings["Matriz"] ?? ""), userData.CodigoISO ?? "");
             string url = ConfigCdn.GetUrlFileCdn(urlExtension, noImagen ?? "");
             return url;
         }
 
         private string getValidaConsultoraProgramaNueva(string participa)
         {
-            string resultado = string.Empty;
+            //string resultado = string.Empty;
             // si el idestadoActividad es mayor a 1 o diferente a  1 entonces significa que el usuario pertenece al programa de nuevas[campo ConsecutivoNueva]
-            int ConsecutivoNueva = userData.ConsecutivoNueva;
+            //int ConsecutivoNueva = userData.ConsecutivoNueva;
             // este es el campo IdEstadoActividad en bd
-            int ConsultoraNueva = userData.ConsultoraNueva;
-            try
-            {
-                resultado = participa == null ? "" : participa.Trim();
+            //int ConsultoraNueva = userData.ConsultoraNueva;
+            //try
+            //{
+            string resultado = Util.Trim(participa);
 
                 /*
                 if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva ||
@@ -1959,11 +1117,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                     resultado = Constantes.TipoEstrategiaCodigo.NotParticipaProgramaNuevas;
                     */
-            }
-            catch
-            {
-                resultado = string.Empty;
-            }
+            //}
+            //catch
+            //{
+            //    resultado = string.Empty;
+            //}
             return resultado;
         }
 
@@ -2179,7 +1337,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (pConsultoraId == 0)
                 pConsultoraId = userData.ConsultoraID;
 
-            if (Session["ListadoEstadoCuenta"] == null)
+            //if (Session["ListadoEstadoCuenta"] == null)
+            if (sessionManager.GetListadoEstadoCuenta() == null)
             {
                 var estadoCuenta = new List<BEEstadoCuenta>();
                 try
@@ -2218,53 +1377,413 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                Session["ListadoEstadoCuenta"] = lst;
+                sessionManager.SetListadoEstadoCuenta(lst);
+                //Session["ListadoEstadoCuenta"] = lst;
             }
             else
             {
-                lst = Session["ListadoEstadoCuenta"] as List<EstadoCuentaModel>;
+                lst = sessionManager.GetListadoEstadoCuenta();
+                //lst = Session["ListadoEstadoCuenta"] as List<EstadoCuentaModel>;
             }
 
             return lst;
         }
 
-        public EstadoCuentaModel ObtenerUltimoMovimientoEstadoCuenta()
-        {
-            var ultimoMovimiento = new EstadoCuentaModel
-            {
-                Glosa = ""
-            };
+        #endregion
 
-            if (userData.TienePagoEnLinea)
+        #region Metodos Oferta del Dia
+
+        //private bool CumpleOfertaDelDia()
+        //{
+        //    var result = false;
+        //    if (!_ofertaDelDiaProvider.NoMostrarBannerODD(GetControllerActual()))
+        //    {
+        //        var tieneOfertaDelDia = sessionManager.GetFlagOfertaDelDia();
+        //        result = (!tieneOfertaDelDia ||
+        //                  (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2 || userData.IndicadorGPRSB == 0)
+        //                  && !userData.CloseOfertaDelDia) && tieneOfertaDelDia;
+        //    }
+
+        //    return result;
+        //}
+
+        //protected EstrategiaPedidoModel GetOfertaDelDiaModel()
+        //{
+        //    if (!userData.EsConsultora())
+        //        return new EstrategiaPedidoModel();
+
+        //    estrategiaODD = estrategiaODD ?? sessionManager.OfertaDelDia.Estrategia;
+
+        //    if (estrategiaODD != null && !estrategiaODD.TieneOfertaDelDia)
+        //        return new EstrategiaPedidoModel();
+
+        //    if (estrategiaODD != null &&
+        //        estrategiaODD.ListaOferta.Any())
+        //    {
+        //        var oddModel = estrategiaODD.ListaDeOferta.First().Clone();
+        //        //oddModel.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData);
+        //        oddModel.ListaOfertas = estrategiaODD.ListaDeOferta;
+        //        return oddModel;
+        //    }
+
+        //    var ofertasOddModel = _ofertaDelDiaProvider.GetOfertas(userData);
+        //    if (!ofertasOddModel.Any()) return new EstrategiaPedidoModel();
+
+        //    var personalizacionesOdd = _tablaLogicaProvider.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.PersonalizacionODD);
+        //    if (!personalizacionesOdd.Any()) return new EstrategiaPedidoModel();
+
+        //    var tiposEstrategia = sessionManager.GetTiposEstrategia();
+        //    if (tiposEstrategia == null)
+        //    {
+        //        tiposEstrategia = GetTipoEstrategias();
+        //        sessionManager.SetTiposEstrategia(tiposEstrategia);
+        //    }
+
+        //    var colorFondoBanner = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionOdd.ColorFondoBanner) ?? new TablaLogicaDatosModel();
+        //    var coloFondoDisplay = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionOdd.ColorFondoDisplay) ?? new TablaLogicaDatosModel();
+        //    var countdown = _ofertaDelDiaProvider.CountdownOdd(userData);
+
+        //    short posicion = 0;
+        //    ofertasOddModel.Update(x =>
+        //    {
+        //        x.Position = posicion++;
+        //        x.CodigoISO = userData.CodigoISO;
+        //        //x.TeQuedan = countdown;
+        //        x.ImagenFondo1 = string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo1ODD"), userData.CodigoISO);
+        //        x.ColorFondo1 = colorFondoBanner.Codigo ?? string.Empty;
+        //        x.ImagenSoloHoy = _ofertaDelDiaProvider.ObtenerUrlImagenOfertaDelDia(userData.CodigoISO, ofertasOddModel.Count);
+        //        x.ImagenFondo2 = string.Format(_configuracionManagerProvider.GetConfiguracionManager("UrlImgFondo2ODD"), userData.CodigoISO);
+        //        x.ColorFondo2 = coloFondoDisplay.Codigo ?? string.Empty;
+        //        //x.NombreOferta = ObtenerNombreOfertaDelDia(x.NombreOferta);
+        //        //x.DescripcionLegal = ObtenerDescripcionOfertaDelDia(x.DescripcionLegal);
+        //        x.NombreOferta = _ofertaDelDiaProvider.ObtenerNombreOfertaDelDia(x.NombreOferta);
+        //        x.DescripcionOferta = _ofertaDelDiaProvider.ObtenerDescripcionOfertaDelDia(x.DescripcionOferta);
+        //        x.TieneOfertaDelDia = true;
+        //        x.DescripcionMarca = Util.GetDescripcionMarca(x.MarcaID);
+        //        x.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == x.CUV2 && (d.TipoEstrategiaID == x.TipoEstrategiaID || d.TipoEstrategiaID == 0)) ? "block" : "none";
+        //        if (tiposEstrategia != null && tiposEstrategia.Any(te => te.TipoEstrategiaID == x.TipoEstrategiaID))
+        //            x.TipoEstrategiaDescripcion = tiposEstrategia.First(te => te.TipoEstrategiaID == x.TipoEstrategiaID).DescripcionEstrategia ?? string.Empty;
+        //    });
+
+        //    estrategiaODD = estrategiaODD ?? new DataModel();
+        //    estrategiaODD.ListaDeOferta = ofertasOddModel;
+        //    estrategiaODD.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
+        //    //sessionManager.SetUserData(userData);
+
+        //    var odd = estrategiaODD.ListaDeOferta.First();
+        //    odd.ConfiguracionContenedor = ObtenerConfiguracionSeccion(revistaDigital)
+        //        .FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
+
+        //    sessionManager.OfertaDelDia.Estrategia = estrategiaODD;
+
+        //    var model = estrategiaODD.ListaDeOferta.First().Clone();
+        //    model.ListaOfertas = estrategiaODD.ListaDeOferta;
+
+        //    return model;
+        //}
+
+        #endregion
+
+        #region Zonificacion
+
+        //protected IEnumerable<RegionModel> DropDownListRegiones(int paisId)
+        //{
+        //    IList<BERegion> lst;
+        //    using (var sv = new ZonificacionServiceClient())
+        //    {
+        //        lst = sv.SelectAllRegiones(paisId);
+        //    }
+        //    return Mapper.Map<IList<BERegion>, IEnumerable<RegionModel>>(lst.OrderBy(zona => zona.Codigo).ToList());
+        //}
+
+        //protected IEnumerable<ZonaModel> DropDownListZonas(int paisId)
+        //{
+        //    IList<BEZona> lst;
+        //    using (var sv = new ZonificacionServiceClient())
+        //    {
+        //        lst = sv.SelectAllZonas(paisId);
+        //    }
+        //    return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
+        //}
+
+        //public JsonResult ObtenerZonasByRegion(int paisId, int regionId)
+        //{
+        //    var listaZonas = DropDownListZonas(paisId);
+        //    if (regionId > -1) listaZonas = listaZonas.Where(x => x.RegionID == regionId).ToList();
+        //    return Json(new { success = true, listaZonas = listaZonas }, JsonRequestBehavior.AllowGet);
+        //}
+
+        #endregion
+
+        #region LogDynamo
+
+        protected void RegistrarLogDynamoDB(string aplicacion, string rol, string pantallaOpcion, string opcionAccion, ServiceUsuario.BEUsuario entidad = null)
+        {
+            var dataString = string.Empty;
+            try
             {
-                BEPagoEnLineaResultadoLog ultimoPagoEnLinea;
-                using (PedidoServiceClient ps = new PedidoServiceClient())
+                var data = new
                 {
-                    ultimoPagoEnLinea = ps.ObtenerUltimoPagoEnLineaByConsultoraId(userData.PaisID, userData.ConsultoraID);
+                    Fecha = "",
+                    Aplicacion = aplicacion,
+                    Pais = userData.CodigoISO,
+                    Region = userData.CodigorRegion,
+                    Zona = userData.CodigoZona,
+                    Seccion = userData.SeccionAnalytics,
+                    Rol = rol,
+                    Campania = userData.CampaniaID.ToString(),
+                    Usuario = userData.CodigoUsuario,
+                    PantallaOpcion = pantallaOpcion,
+                    OpcionAccion = opcionAccion,
+                    DispositivoCategoria = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
+                    DispositivoID = GetIPCliente(),
+                    Version = "2.0"
+                };
+
+
+                var urlApi = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+
+                if (string.IsNullOrEmpty(urlApi)) return;
+
+                var httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                dataString = JsonConvert.SerializeObject(data);
+
+                HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+
+                var response = httpClient.PostAsync("Api/LogUsabilidad", contentPost).GetAwaiter().GetResult();
+
+                var noQuitar = response.IsSuccessStatusCode;
+
+                httpClient.Dispose();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+            }
+        }
+        protected void EjecutarLogDynamoDB(object data, string requestUrl, string campomodificacion, string valoractual, string valoranterior, string origen, string aplicacion, string accion, string codigoconsultorabuscado, string seccion = "")
+        {
+            string dataString = string.Empty;
+            string urlApi = string.Empty;
+            bool noQuitar = false;
+
+            /*** Se registra seccion Solo para Peru HD-881 ***/
+            if (userData.CodigoISO != "PE")
+                seccion = "";
+
+            try
+            {
+                List<BETablaLogicaDatos> paisesAdmitidos;
+                short codigoTablaLogica = 138;
+
+                using (var tablaLogica = new SACServiceClient())
+                {
+                    paisesAdmitidos = tablaLogica.GetTablaLogicaDatos(userData.PaisID, codigoTablaLogica).ToList();
                 }
 
-                if (ultimoPagoEnLinea != null && ultimoPagoEnLinea.PagoEnLineaResultadoLogId != 0)
+                foreach (var item in paisesAdmitidos)
                 {
-                    var fechaUltimoPagoEnLinea = ultimoPagoEnLinea.FechaCreacion;
-                    var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-                    if (fechaUltimoPagoEnLinea.ToString("dd/MM/yyyy") == fechaHoy.ToString("dd/MM/yyyy"))
+                    if (Convert.ToInt32(item.Codigo) == Convert.ToInt32(userData.PaisID))
                     {
-                        ultimoMovimiento.Simbolo = userData.Simbolo;
-                        ultimoMovimiento.Glosa = "PAGO EN LINEA";
-                        ultimoMovimiento.Fecha = fechaUltimoPagoEnLinea;
-                        ultimoMovimiento.FechaVencimiento = fechaUltimoPagoEnLinea.ToString("dd/MM/yyyy");
-                        ultimoMovimiento.FechaVencimientoFormatDiaMes = ObtenerFormatoDiaMes(ultimoPagoEnLinea.FechaCreacion);
-                        ultimoMovimiento.TipoMovimiento = Constantes.EstadoCuentaTipoMovimiento.Abono;
-                        ultimoMovimiento.Abono = ultimoPagoEnLinea.MontoPago;
-                        ultimoMovimiento.Cargo = 0;
-                        ultimoMovimiento.MontoPagar = Util.DecimalToStringFormat(ultimoMovimiento.Abono, userData.CodigoISO);
+                        data = new
+                        {
+                            Usuario = userData.CodigoUsuario,
+                            CodigoConsultora = userData.CodigoConsultora,
+                            CampoModificacion = campomodificacion,
+                            ValorActual = valoractual,
+                            ValorAnterior = valoranterior,
+                            Origen = origen,
+                            Aplicacion = aplicacion,
+                            Pais = userData.NombrePais,
+                            Rol = userData.RolDescripcion,
+                            Dispositivo = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
+                            Accion = accion,
+                            UsuarioConsultado = codigoconsultorabuscado,
+                            Seccion = seccion
+                        };
+                        urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
+                        if (string.IsNullOrEmpty(urlApi)) return;
+
+                        HttpClient httpClient = new HttpClient();
+                        httpClient.BaseAddress = new Uri(urlApi);
+                        httpClient.DefaultRequestHeaders.Accept.Clear();
+                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        dataString = JsonConvert.SerializeObject(data);
+                        HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+                        HttpResponseMessage response = httpClient.PostAsync(requestUrl, contentPost).GetAwaiter().GetResult();
+                        noQuitar = response.IsSuccessStatusCode;
+                        httpClient.Dispose();
+                        break;
                     }
                 }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+            }
+        }
+        protected void EjecutarLogDynamoDB(object data, string campomodificacion, string valoractual, string valoranterior, string origen, string aplicacion, string accion, string codigoconsultorabuscado, string seccion = "")
+        {
+            string dataString = string.Empty;
+            string apiController = string.Empty;
+
+            try
+            {
+                string urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
+                if (string.IsNullOrEmpty(urlApi)) return;
+
+                if (userData.CodigoISO != "PE")
+                    seccion = "";
+
+                List<BETablaLogicaDatos> paisesAdmitidos;
+                short codigoTablaLogica = 138;
+
+                using (var tablaLogica = new SACServiceClient())
+                {
+                    paisesAdmitidos = tablaLogica.GetTablaLogicaDatos(userData.PaisID, codigoTablaLogica).ToList();
+                }
+
+                bool noQuitar = false;
+                foreach (var item in paisesAdmitidos)
+                {
+                    if (Convert.ToInt32(item.Codigo) == Convert.ToInt32(userData.PaisID))
+                    {
+                        data = new
+                        {
+                            Usuario = userData.CodigoUsuario,
+                            CodigoConsultora = userData.CodigoConsultora,
+                            CampoModificacion = campomodificacion,
+                            ValorActual = valoractual,
+                            ValorAnterior = valoranterior,
+                            Origen = origen,
+                            Aplicacion = aplicacion,
+                            Pais = userData.NombrePais,
+                            Rol = userData.RolDescripcion,
+                            Dispositivo = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
+                            Accion = accion,
+                            UsuarioConsultado = codigoconsultorabuscado,
+                            Seccion = seccion
+                        };
+
+                        apiController = ConfigurationManager.AppSettings.Get("UrlLogDynamoApiController");
+
+
+                        HttpClient httpClient = new HttpClient();
+                        httpClient.BaseAddress = new Uri(urlApi);
+                        httpClient.DefaultRequestHeaders.Accept.Clear();
+                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                        dataString = JsonConvert.SerializeObject(data);
+                        HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+                        HttpResponseMessage response = httpClient.PostAsync(apiController, contentPost).GetAwaiter().GetResult();
+                        noQuitar = response.IsSuccessStatusCode;
+                        httpClient.Dispose();
+                        break;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+            }
+        }
+        protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
+        {
+            string dataString = string.Empty;
+
+            try
+            {
+
+                object data = null;
+
+                //Data actual viene del Model       => model
+                //Data anterior viene del userData  => userData 
+
+                if (userData != null && p_modelo != null && p_Accion.Trim().ToUpper() == "MODIFICACION")
+                {
+                    string _seccion = "Mis Datos";
+
+                    if (string.IsNullOrEmpty(userData.Sobrenombre)) userData.Sobrenombre = "";
+                    if (string.IsNullOrEmpty(userData.EMail)) userData.EMail = "";
+                    if (string.IsNullOrEmpty(userData.Telefono)) userData.Telefono = "";
+                    if (string.IsNullOrEmpty(userData.Celular)) userData.Celular = "";
+                    if (string.IsNullOrEmpty(userData.TelefonoTrabajo)) userData.TelefonoTrabajo = "";
+
+                    if (string.IsNullOrEmpty(p_modelo.Sobrenombre)) p_modelo.Sobrenombre = "";
+                    if (string.IsNullOrEmpty(p_modelo.EMail)) p_modelo.EMail = "";
+                    if (string.IsNullOrEmpty(p_modelo.Telefono)) p_modelo.Telefono = "";
+                    if (string.IsNullOrEmpty(p_modelo.Celular)) p_modelo.Celular = "";
+                    if (string.IsNullOrEmpty(p_modelo.TelefonoTrabajo)) p_modelo.TelefonoTrabajo = "";
+
+                    string v_campomodificacion = string.Empty;
+                    string v_valoranterior = string.Empty;
+                    string v_valoractual = string.Empty;
+
+                    if (userData.Sobrenombre.ToString().Trim().ToUpper() != p_modelo.Sobrenombre.ToString().Trim().ToUpper())
+                    {
+                        v_campomodificacion = "SOBRENOMBRE";
+                        v_valoractual = p_modelo.Sobrenombre.ToString().Trim();
+                        v_valoranterior = userData.Sobrenombre.ToString().Trim();
+                        userData.Sobrenombre = v_valoractual;
+                        EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
+                    }
+
+                    if (userData.EMail.ToString().Trim().ToUpper() != p_modelo.EMail.ToString().Trim().ToUpper())
+                    {
+                        v_campomodificacion = "EMAIL";
+                        v_valoractual = p_modelo.EMail.ToString().Trim();
+                        v_valoranterior = userData.EMail.ToString().Trim();
+                        userData.EMail = v_valoractual;
+                        EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
+                    }
+
+                    if (userData.Telefono.ToString().Trim().ToUpper() != p_modelo.Telefono.ToString().Trim().ToUpper())
+                    {
+                        v_campomodificacion = "TELEFONO";
+                        v_valoractual = p_modelo.Telefono.ToString().Trim();
+                        v_valoranterior = userData.Telefono.ToString().Trim();
+                        userData.Telefono = v_valoractual;
+                        EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
+                    }
+
+                    if (userData.Celular.ToString().Trim().ToUpper() != p_modelo.Celular.ToString().Trim().ToUpper())
+                    {
+                        v_campomodificacion = "CELULAR";
+                        v_valoractual = p_modelo.Celular.ToString().Trim();
+                        v_valoranterior = userData.Celular.ToString().Trim();
+                        userData.Celular = v_valoractual;
+                        EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
+                    }
+
+                    if (userData.TelefonoTrabajo.ToString().Trim().ToUpper() != p_modelo.TelefonoTrabajo.ToString().Trim().ToUpper())
+                    {
+                        v_campomodificacion = "TELEFONO TRABAJO";
+                        v_valoractual = p_modelo.TelefonoTrabajo.ToString().Trim();
+                        v_valoranterior = userData.TelefonoTrabajo.ToString().Trim();
+                        userData.TelefonoTrabajo = v_valoractual;
+                        EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
+                    }
+
+                    sessionManager.SetUserData(userData);
+                }
+                else if (p_Accion.Trim().ToUpper() == "CONSULTA")
+                {
+                    EjecutarLogDynamoDB(data, "", "", "", p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, p_Seccion);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO, dataString);
             }
 
-            return ultimoMovimiento;
         }
+
+        #endregion
 
         public string GetFechaPromesaEntrega(int paisId, int campaniaId, string codigoConsultora, DateTime fechaFact)
         {
@@ -2282,8 +1801,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return sFecha;
         }
-
-        #endregion
 
         protected OfertaDelDiaModel GetOfertaDelDiaModel()
         {
@@ -2637,7 +2154,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (regionId > -1) listaZonas = listaZonas.Where(x => x.RegionID == regionId).ToList();
             return Json(new { success = true, listaZonas = listaZonas }, JsonRequestBehavior.AllowGet);
         }
-
         #endregion
 
         #region LogDynamo
@@ -2665,7 +2181,6 @@ namespace Portal.Consultoras.Web.Controllers
                     Version = "2.0"
                 };
 
-
                 var urlApi = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
 
                 if (string.IsNullOrEmpty(urlApi)) return;
@@ -2690,263 +2205,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        protected void EjecutarLogDynamoDB(object data, string requestUrl, string campomodificacion, string valoractual, string valoranterior, string origen, string aplicacion, string accion, string codigoconsultorabuscado, string seccion = "")
-        {
-            string dataString = string.Empty;
-            string urlApi = string.Empty;
-            bool noQuitar = false;
-
-            /*** Se registra sección Solo para Perú HD-881 ***/
-            if (userData.CodigoISO != "PE")
-                seccion = "";
-
-            try
-            {
-                var paisesAdmitidos = new List<BETablaLogicaDatos>();
-                short codigoTablaLogica = 138;
-
-                using (var tablaLogica = new SACServiceClient())
-                {
-                    paisesAdmitidos = tablaLogica.GetTablaLogicaDatos(userData.PaisID, codigoTablaLogica).ToList();
-                }
-
-                foreach (var item in paisesAdmitidos)
-                {
-                    if (Convert.ToInt32(item.Codigo) == Convert.ToInt32(userData.PaisID))
-                    {
-                        data = new
-                        {
-                            Usuario = userData.CodigoUsuario,
-                            CodigoConsultora = userData.CodigoConsultora,
-                            CampoModificacion = campomodificacion,
-                            ValorActual = valoractual,
-                            ValorAnterior = valoranterior,
-                            Origen = origen,
-                            Aplicacion = aplicacion,
-                            Pais = userData.NombrePais,
-                            Rol = userData.RolDescripcion,
-                            Dispositivo = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
-                            Accion = accion,
-                            UsuarioConsultado = codigoconsultorabuscado,
-                            Seccion = seccion
-                        };
-                        urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
-                        if (string.IsNullOrEmpty(urlApi)) return;
-
-                        HttpClient httpClient = new HttpClient();
-                        httpClient.BaseAddress = new Uri(urlApi);
-                        httpClient.DefaultRequestHeaders.Accept.Clear();
-                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                        dataString = JsonConvert.SerializeObject(data);
-                        HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-                        HttpResponseMessage response = httpClient.PostAsync(requestUrl, contentPost).GetAwaiter().GetResult();
-                        noQuitar = response.IsSuccessStatusCode;
-                        httpClient.Dispose();
-                        break;
-                    }
-                }
-
-                //data = new
-                //{
-                //    Usuario = userData.CodigoUsuario,
-                //    CodigoConsultora = userData.CodigoConsultora,
-                //    CampoModificacion = campomodificacion,
-                //    ValorActual = valoractual,
-                //    ValorAnterior = valoranterior,
-                //    Origen = origen,
-                //    Aplicacion = aplicacion,
-                //    Pais = userData.NombrePais,
-                //    Rol = userData.RolDescripcion,
-                //    Dispositivo = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
-                //    Accion = accion,
-                //    UsuarioConsultado = codigoconsultorabuscado,
-                //    Seccion = seccion
-                //};
-
-                //urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
-                //if (string.IsNullOrEmpty(urlApi)) return;
-
-                //HttpClient httpClient = new HttpClient();
-                //httpClient.BaseAddress = new Uri(urlApi);
-                //httpClient.DefaultRequestHeaders.Accept.Clear();
-                //httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                //dataString = JsonConvert.SerializeObject(data);
-                //HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-                //HttpResponseMessage response = httpClient.PostAsync(requestUrl, contentPost).GetAwaiter().GetResult();
-                //noQuitar = response.IsSuccessStatusCode;
-                //httpClient.Dispose();
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
-            }
-        }
-
-        protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
-        {
-            string dataString = string.Empty;
-
-            try
-            {
-
-                object data = null;
-
-                //Data actual viene del Model       => model
-                //Data anterior viene del userData  => userData 
-
-                if (userData != null && p_modelo != null && p_Accion.Trim().ToUpper() == "MODIFICACION")
-                {
-                    string _seccion = "Mis Datos";
-
-                    if (string.IsNullOrEmpty(userData.Sobrenombre)) userData.Sobrenombre = "";
-                    if (string.IsNullOrEmpty(userData.EMail)) userData.EMail = "";
-                    if (string.IsNullOrEmpty(userData.Telefono)) userData.Telefono = "";
-                    if (string.IsNullOrEmpty(userData.Celular)) userData.Celular = "";
-                    if (string.IsNullOrEmpty(userData.TelefonoTrabajo)) userData.TelefonoTrabajo = "";
-
-                    if (string.IsNullOrEmpty(p_modelo.Sobrenombre)) p_modelo.Sobrenombre = "";
-                    if (string.IsNullOrEmpty(p_modelo.EMail)) p_modelo.EMail = "";
-                    if (string.IsNullOrEmpty(p_modelo.Telefono)) p_modelo.Telefono = "";
-                    if (string.IsNullOrEmpty(p_modelo.Celular)) p_modelo.Celular = "";
-                    if (string.IsNullOrEmpty(p_modelo.TelefonoTrabajo)) p_modelo.TelefonoTrabajo = "";
-
-                    string v_campomodificacion = string.Empty;
-                    string v_valoranterior = string.Empty;
-                    string v_valoractual = string.Empty;
-
-                    if (userData.Sobrenombre.ToString().Trim().ToUpper() != p_modelo.Sobrenombre.ToString().Trim().ToUpper())
-                    {
-                        v_campomodificacion = "SOBRENOMBRE";
-                        v_valoractual = p_modelo.Sobrenombre.ToString().Trim();
-                        v_valoranterior = userData.Sobrenombre.ToString().Trim();
-                        userData.Sobrenombre = v_valoractual;
-                        EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
-                    }
-
-                    if (userData.EMail.ToString().Trim().ToUpper() != p_modelo.EMail.ToString().Trim().ToUpper())
-                    {
-                        v_campomodificacion = "EMAIL";
-                        v_valoractual = p_modelo.EMail.ToString().Trim();
-                        v_valoranterior = userData.EMail.ToString().Trim();
-                        userData.EMail = v_valoractual;
-                        EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
-                    }
-
-                    if (userData.Telefono.ToString().Trim().ToUpper() != p_modelo.Telefono.ToString().Trim().ToUpper())
-                    {
-                        v_campomodificacion = "TELEFONO";
-                        v_valoractual = p_modelo.Telefono.ToString().Trim();
-                        v_valoranterior = userData.Telefono.ToString().Trim();
-                        userData.Telefono = v_valoractual;
-                        EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
-                    }
-
-                    if (userData.Celular.ToString().Trim().ToUpper() != p_modelo.Celular.ToString().Trim().ToUpper())
-                    {
-                        v_campomodificacion = "CELULAR";
-                        v_valoractual = p_modelo.Celular.ToString().Trim();
-                        v_valoranterior = userData.Celular.ToString().Trim();
-                        userData.Celular = v_valoractual;
-                        EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
-                    }
-
-                    if (userData.TelefonoTrabajo.ToString().Trim().ToUpper() != p_modelo.TelefonoTrabajo.ToString().Trim().ToUpper())
-                    {
-                        v_campomodificacion = "TELEFONO TRABAJO";
-                        v_valoractual = p_modelo.TelefonoTrabajo.ToString().Trim();
-                        v_valoranterior = userData.TelefonoTrabajo.ToString().Trim();
-                        userData.TelefonoTrabajo = v_valoractual;
-                        EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, _seccion);
-                    }
-
-                    SetUserData(userData);
-                }
-                else if (p_Accion.Trim().ToUpper() == "CONSULTA")
-                {
-                    EjecutarLogDynamoDB(data, "", "", "", p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, p_Seccion);
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO, dataString);
-            }
-
-        }
-
-        protected void EjecutarLogDynamoDB(object data, string campomodificacion, string valoractual, string valoranterior, string origen, string aplicacion, string accion, string codigoconsultorabuscado, string seccion = "")
-        {
-            string dataString = string.Empty;
-            string apiController = string.Empty;
-
-            try
-            {
-                string urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
-                if (string.IsNullOrEmpty(urlApi)) return;
-
-                if (userData.CodigoISO != "PE")
-                    seccion = "";
-
-                List<BETablaLogicaDatos> paisesAdmitidos;
-                short codigoTablaLogica = 138;
-
-                using (var tablaLogica = new SACServiceClient())
-                {
-                    paisesAdmitidos = tablaLogica.GetTablaLogicaDatos(userData.PaisID, codigoTablaLogica).ToList();
-                }
-
-                bool noQuitar = false;
-                foreach (var item in paisesAdmitidos)
-                {
-                    if (Convert.ToInt32(item.Codigo) == Convert.ToInt32(userData.PaisID))
-                    {
-                        data = new
-                        {
-                            Usuario = userData.CodigoUsuario,
-                            CodigoConsultora = userData.CodigoConsultora,
-                            CampoModificacion = campomodificacion,
-                            ValorActual = valoractual,
-                            ValorAnterior = valoranterior,
-                            Origen = origen,
-                            Aplicacion = aplicacion,
-                            Pais = userData.NombrePais,
-                            Rol = userData.RolDescripcion,
-                            Dispositivo = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
-                            Accion = accion,
-                            UsuarioConsultado = codigoconsultorabuscado,
-                            Seccion = seccion
-                        };
-
-                        apiController = ConfigurationManager.AppSettings.Get("UrlLogDynamoApiController");
-
-
-                        HttpClient httpClient = new HttpClient();
-                        httpClient.BaseAddress = new Uri(urlApi);
-                        httpClient.DefaultRequestHeaders.Accept.Clear();
-                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                        dataString = JsonConvert.SerializeObject(data);
-                        HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-                        HttpResponseMessage response = httpClient.PostAsync(apiController, contentPost).GetAwaiter().GetResult();
-                        noQuitar = response.IsSuccessStatusCode;
-                        httpClient.Dispose();
-                        break;
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
-            }
-        }
-
         protected void RegistrarLogGestionSacUnete(string solicitudId, string pantalla, string accion)
         {
             var dataString = string.Empty;
             try
             {
-                var urlApi = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
+                var urlApi = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
                 if (string.IsNullOrEmpty(urlApi)) return;
 
                 var data = new
@@ -2976,6 +2240,65 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
         }
+
+        public void RegistrarLogDynamoCambioClave(string accion, string consultora, string v_valoractual, string v_valoranterior)
+        {
+            object data = null;
+            var p_origen = "SAC/ACTUALIZAR CONTRASEÑA";
+            var p_seccion = "Mantenimiento de contraseña";
+            var p_aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras;
+
+            if (accion.Trim().ToUpper() == "MODIFICACION")
+            {
+                EjecutarLogDynamoDB(data, "Contraseña", v_valoractual, v_valoranterior, p_origen, p_aplicacion, accion, "", p_seccion);
+            }
+            else
+            {
+                EjecutarLogDynamoDB(data, "", "", "", p_origen, p_aplicacion, accion, consultora, p_seccion);
+            }
+        }
+
+        public void registraLogDynamoCDR(MisReclamosModel model)
+        {
+            try
+            {
+                object data = null;
+                var p_origen = "MI NEGOCIO/CAMBIOS Y DEVOLUCIONES";
+                var p_seccion = "Validacion de datos";
+                var v_campomodificacion = "";
+                var v_valoractual = "";
+                var v_valoranterior = "";
+                var p_aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras;
+                var p_Accion = "Modificacion";
+
+                if (string.IsNullOrEmpty(userData.EMail)) userData.EMail = "";
+                if (string.IsNullOrEmpty(userData.Celular)) userData.Celular = "";
+
+                if (string.IsNullOrEmpty(model.Email)) model.Email = "";
+                if (string.IsNullOrEmpty(model.Telefono)) model.Telefono = "";
+
+                if (userData.EMail.ToString().Trim().ToUpper() != model.Email.ToString().Trim().ToUpper())
+                {
+                    v_campomodificacion = "EMAIL";
+                    v_valoractual = model.Email.ToString().Trim();
+                    v_valoranterior = userData.EMail.ToString().Trim();
+                    EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, "", p_seccion);
+                }
+
+                if (userData.Celular.ToString().Trim().ToUpper() != model.Telefono.ToString().Trim().ToUpper())
+                {
+                    v_campomodificacion = "CELULAR";
+                    v_valoractual = model.Telefono.ToString().Trim();
+                    v_valoranterior = userData.Celular.ToString().Trim();
+                    EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, "", p_seccion);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+        }
+
         #endregion
 
         #region Notificaciones
@@ -3050,12 +2373,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        protected int GetDiasFaltantesFacturacion(DateTime fechaInicioCampania, double zonaHoraria)
-        {
-            var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
-            return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
-        }
-
         protected JsonResult ErrorJson(string message, bool allowGet = false)
         {
             return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
@@ -3066,43 +2383,17 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { success = true, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
         }
 
-        private bool NoMostrarBannerODD()
-        {
-            var controllerName = ControllerContext.RouteData.Values["controller"].ToString();
-            switch (controllerName)
-            {
-                case "OfertaLiquidacion":
-                    return true;
-                case "CatalogoPersonalizado":
-                    return true;
-                case "ShowRoom":
-                    return true;
-                default:
-                    return false;
-            }
-        }
+        //public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)
+        //{
+        //    if (configEstrategiaSR.ListaPersonalizacionConsultora == null)
+        //        return string.Empty;
 
-        public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)
-        {
-            if (configEstrategiaSR.ListaPersonalizacionConsultora == null)
-                return string.Empty;
+        //    var model = configEstrategiaSR.ListaPersonalizacionConsultora.FirstOrDefault(p => p.Atributo == codigoAtributo && p.TipoAplicacion == tipoAplicacion);
 
-            var model = configEstrategiaSR.ListaPersonalizacionConsultora.FirstOrDefault(p => p.Atributo == codigoAtributo && p.TipoAplicacion == tipoAplicacion);
-
-            return model == null
-                ? string.Empty
-                : model.Valor;
-        }
-
-        public string GetCodigoEstrategia()
-        {
-            var codigo = Constantes.TipoEstrategiaCodigo.OfertaParaTi;
-            if (revistaDigital.TieneRevistaDigital())
-            {
-                codigo = Constantes.TipoEstrategiaCodigo.RevistaDigital;
-            }
-            return codigo;
-        }
+        //    return model == null
+        //        ? string.Empty
+        //        : model.Valor;
+        //}
 
         public bool ValidarPermiso(string codigo, string codigoConfig = "")
         {
@@ -3188,60 +2479,10 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        #region TablaLogica
-
-        public List<TablaLogicaDatosModel> ObtenerParametrosTablaLogica(int paisId, short tablaLogicaId, bool sesion = false)
-        {
-            var datos = sesion ? (List<TablaLogicaDatosModel>)Session[Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId.ToString()] : null;
-            if (datos == null)
-            {
-                datos = _tablaLogicaProvider.ObtenerConfiguracion(paisId, tablaLogicaId);
-
-                if (sesion)
-                    Session[Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId.ToString()] = datos;
-            }
-
-            return datos;
-        }
-
-        public string ObtenerValorTablaLogica(int paisId, short tablaLogicaId, short idTablaLogicaDatos, bool sesion = false)
-        {
-            return ObtenerValorTablaLogica(ObtenerParametrosTablaLogica(paisId, tablaLogicaId, sesion), idTablaLogicaDatos);
-        }
-
-        public string ObtenerValorTablaLogica(List<TablaLogicaDatosModel> datos, short idTablaLogicaDatos)
-        {
-            var valor = "";
-            datos = datos ?? new List<TablaLogicaDatosModel>();
-            if (datos.Any())
-            {
-                var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == idTablaLogicaDatos) ?? new TablaLogicaDatosModel();
-                valor = Util.Trim(par.Codigo);
-            }
-            return valor;
-        }
-
-        public int ObtenerValorTablaLogicaInt(int paisId, short tablaLogicaId, short idTablaLogicaDatos, bool sesion = false)
-        {
-            var resultadoString = ObtenerValorTablaLogica(paisId, tablaLogicaId, idTablaLogicaDatos, sesion);
-            int resultado;
-            int.TryParse(resultadoString, out resultado);
-            return resultado;
-        }
-
-        public int ObtenerValorTablaLogicaInt(List<TablaLogicaDatosModel> lista, short tablaLogicaDatosId)
-        {
-            var resultadoString = ObtenerValorTablaLogica(lista, tablaLogicaDatosId);
-
-            int resultado;
-            int.TryParse(resultadoString, out resultado);
-            return resultado;
-        }
-
         public bool HabilitarChatEmtelco(int paisId)
         {
             bool Mostrar = false;
-            List<TablaLogicaDatosModel> DataLogica = ObtenerParametrosTablaLogica(paisId, Constantes.TablaLogica.HabilitarChatEmtelco, false);
+            List<TablaLogicaDatosModel> DataLogica = _tablaLogicaProvider.ObtenerParametrosTablaLogica(paisId, Constantes.TablaLogica.HabilitarChatEmtelco, false);
 
             if (IsMobile())
             {
@@ -3256,8 +2497,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mostrar;
         }
-
-        #endregion
 
         public MobileAppConfiguracionModel MobileAppConfiguracion
         {
@@ -4962,9 +4201,325 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        #region Configuracion Seccion Palanca
+        //public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion(RevistaDigitalModel revistaDigital)
+        //{
+        //    var modelo = new List<ConfiguracionSeccionHomeModel>();
+
+        //    try
+        //    {
+        //        if (revistaDigital == null)
+        //            throw new ArgumentNullException("revistaDigital", "no puede ser nulo");
+
+        //        var menuActivo = sessionManager.GetMenuContenedorActivo();
+
+        //        if (menuActivo.CampaniaId <= 0)
+        //            menuActivo.CampaniaId = userData.CampaniaID;
+
+
+        //        var listaEntidad = sessionManager.GetSeccionesContenedor(menuActivo.CampaniaId);
+        //        if (listaEntidad == null)
+        //        {
+        //            listaEntidad = GetConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId);
+        //            sessionManager.SetSeccionesContenedor(menuActivo.CampaniaId, listaEntidad);
+        //        }
+
+        //        if (menuActivo.CampaniaId > userData.CampaniaID)
+        //        {
+        //            listaEntidad = listaEntidad.Where(entConf
+        //            => entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
+        //            || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento
+        //            || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.InicioRD
+        //            || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.HerramientasVenta).ToList();
+        //        }
+
+        //        var isMobile = IsMobile();
+        //        foreach (var beConfiguracionOfertasHome in listaEntidad)
+        //        {
+        //            var entConf = beConfiguracionOfertasHome;
+        //            entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
+
+        //            string titulo = "", subTitulo = "";
+
+        //            #region Pre Validacion
+
+        //            if (!SeccionTieneConfiguracionPais(entConf.ConfiguracionPais))
+        //                continue;
+
+        //            if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
+        //                || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
+        //                || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+        //            {
+        //                if (!RDObtenerTitulosSeccion(ref titulo, ref subTitulo, entConf.ConfiguracionPais.Codigo))
+        //                    continue;
+
+        //                entConf.DesktopTitulo = titulo;
+        //                entConf.DesktopSubTitulo = subTitulo;
+
+        //                entConf.MobileTitulo = titulo;
+        //                entConf.MobileSubTitulo = subTitulo;
+
+        //                if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+        //                {
+        //                    entConf.MobileCantidadProductos = 0;
+        //                    entConf.DesktopCantidadProductos = 0;
+        //                }
+
+        //            }
+        //            else if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
+        //            {
+        //                if (!revistaDigital.TieneRevistaDigital()) continue;
+
+        //                if (menuActivo.CampaniaId != userData.CampaniaID) entConf.UrlSeccion = "Revisar/" + entConf.UrlSeccion;
+        //            }
+
+        //            #endregion
+
+        //            _configuracionPaisProvider.RemplazarTagNombreConfiguracionOferta(ref entConf, Constantes.TagCadenaRd.Nombre1, userData.Sobrenombre);
+
+        //            var seccion = new ConfiguracionSeccionHomeModel
+        //            {
+        //                CampaniaID = menuActivo.CampaniaId,
+        //                Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
+        //                Orden = revistaDigital.TieneRevistaDigital() ? isMobile ? entConf.MobileOrdenBpt : entConf.DesktopOrdenBpt : isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
+        //                ColorFondo = isMobile ? (entConf.MobileColorFondo ?? "") : (entConf.DesktopColorFondo ?? ""),
+        //                UsarImagenFondo = isMobile ? entConf.MobileUsarImagenFondo : entConf.DesktopUsarImagenFondo,
+        //                ImagenFondo = isMobile ? (entConf.MobileImagenFondo ?? "") : (entConf.DesktopImagenFondo ?? ""),
+        //                ColorTexto = isMobile ? entConf.MobileColorTexto ?? "" : entConf.DesktopColorTexto ?? "",
+        //                Titulo = isMobile ? entConf.MobileTitulo : entConf.DesktopTitulo,
+        //                SubTitulo = isMobile ? entConf.MobileSubTitulo : entConf.DesktopSubTitulo,
+        //                TipoPresentacion = isMobile ? entConf.MobileTipoPresentacion : entConf.DesktopTipoPresentacion,
+        //                TipoEstrategia = isMobile ? entConf.MobileTipoEstrategia : entConf.DesktopTipoEstrategia,
+        //                CantidadMostrar = isMobile ? entConf.MobileCantidadProductos : entConf.DesktopCantidadProductos,
+        //                UrlLandig = "/" + (isMobile ? "Mobile/" : "") + entConf.UrlSeccion,
+        //                VerMas = true
+        //            };
+
+        //            seccion.TituloBtnAnalytics = seccion.Titulo.Replace("'", "");
+        //            seccion.ImagenFondo = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, seccion.ImagenFondo);
+
+        //            #region ConfiguracionPais.Codigo
+
+        //            switch (entConf.ConfiguracionPais.Codigo)
+        //            {
+        //                case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
+        //                    if (!_guiaNegocioProvider.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
+        //                        continue;
+
+        //                    seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "GuiaNegocio";
+        //                    seccion.UrlObtenerProductos = "";
+        //                    break;
+        //                case Constantes.ConfiguracionPais.OfertasParaTi:
+        //                    seccion.UrlObtenerProductos = "Estrategia/ConsultarEstrategiasOPT";
+        //                    seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor : Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedor;
+        //                    seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedorPopup : Constantes.OrigenPedidoWeb.OfertasParaTiDesktopContenedorPopup;
+        //                    seccion.VerMas = false;
+        //                    break;
+        //                case Constantes.ConfiguracionPais.Lanzamiento:
+        //                    seccion.UrlObtenerProductos = "Estrategia/RDObtenerProductosLan";
+        //                    seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor : Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedor;
+        //                    seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.LanzamientoMobileContenedorPopup : Constantes.OrigenPedidoWeb.LanzamientoDesktopContenedorPopup;
+        //                    seccion.VerMas = false;
+        //                    break;
+        //                case Constantes.ConfiguracionPais.RevistaDigitalReducida:
+        //                case Constantes.ConfiguracionPais.RevistaDigital:
+        //                    seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "RevistaDigital/Revisar" : "RevistaDigital/Comprar");
+        //                    seccion.UrlObtenerProductos = "Estrategia/RDObtenerProductos";
+        //                    seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor;
+        //                    seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedorPopup;
+        //                    break;
+        //                case Constantes.ConfiguracionPais.ShowRoom:
+        //                    ConfiguracionSeccionShowRoom(ref seccion);
+        //                    if (seccion.UrlLandig == "")
+        //                        continue;
+
+        //                    seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.DesktopShowRoomContenedor : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor;
+        //                    break;
+        //                case Constantes.ConfiguracionPais.OfertaDelDia:
+        //                    if (!estrategiaODD.TieneOfertaDelDia)
+        //                        continue;
+
+        //                    sessionManager.OfertaDelDia.Estrategia.ConfiguracionContenedor = seccion;
+
+        //                    break;
+        //                case Constantes.ConfiguracionPais.HerramientasVenta:
+        //                    seccion.UrlObtenerProductos = "Estrategia/HVObtenerProductos";
+        //                    seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "HerramientasVenta/Revisar" : "HerramientasVenta/Comprar");
+        //                    seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.HVDesktopContenedor;
+        //                    seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.HVDesktopContenedorPopup;
+        //                    break;
+        //            }
+        //            #endregion
+
+        //            #region TipoPresentacion
+
+        //            seccion.TemplatePresentacion = "";
+        //            seccion.TemplateProducto = "";
+        //            switch (seccion.TipoPresentacion)
+        //            {
+        //                case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselSimple:
+        //                    seccion.TemplatePresentacion = "seccion-simple-centrado";
+        //                    seccion.TemplateProducto = "#producto-landing-template";
+        //                    break;
+        //                case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselPrevisuales:
+        //                    seccion.TemplatePresentacion = "seccion-carrusel-previsuales";
+        //                    seccion.TemplateProducto = "#lanzamiento-carrusel-template";
+        //                    break;
+        //                case Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado:
+        //                    seccion.TemplatePresentacion = "seccion-simple-centrado";
+        //                    seccion.TemplateProducto = "#producto-landing-template";
+        //                    seccion.CantidadMostrar = isMobile ? 1 : seccion.CantidadMostrar > 3 || seccion.CantidadMostrar <= 0 ? 3 : seccion.CantidadMostrar;
+        //                    break;
+        //                case Constantes.ConfiguracionSeccion.TipoPresentacion.Banners:
+        //                    seccion.TemplatePresentacion = "seccion-banner";
+        //                    seccion.CantidadMostrar = 0;
+        //                    break;
+        //                case Constantes.ConfiguracionSeccion.TipoPresentacion.ShowRoom:
+        //                    seccion.TemplatePresentacion = "seccion-simple-centrado";
+        //                    //seccion.TemplateProducto = "#template-showroom";
+        //                    seccion.TemplateProducto = "#producto-landing-template";
+        //                    break;
+        //                case Constantes.ConfiguracionSeccion.TipoPresentacion.OfertaDelDia:
+        //                    seccion.TemplatePresentacion = "seccion-oferta-del-dia";
+        //                    break;
+
+        //                case Constantes.ConfiguracionSeccion.TipoPresentacion.DescagablesNavidenos:
+        //                    seccion.TemplatePresentacion = "seccion-descargables-navidenos";
+        //                    break;
+        //                case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselIndividuales:
+        //                    seccion.TemplatePresentacion = "seccion-carrusel-individuales";
+        //                    seccion.TemplateProducto = "#lanzamiento-carrusel-individual-template";
+        //                    break;
+        //            }
+
+        //            if (seccion.TemplatePresentacion == "") continue;
+        //            #endregion
+
+        //            modelo.Add(seccion);
+        //        }
+
+        //        modelo = modelo.OrderBy(s => s.Orden).ToList();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "BaseController.ObtenerConfiguracionSeccion");
+        //    }
+
+        //    return modelo;
+        //}
+
+        //private bool SeccionTieneConfiguracionPais(ServiceSAC.BEConfiguracionPais configuracionPais)
+        //{
+        //    var result = false;
+
+        //    var configuracionesPais = sessionManager.GetConfiguracionesPaisModel();
+        //    if (configuracionesPais != null)
+        //    {
+        //        var cp = configuracionesPais.FirstOrDefault(x => x.Codigo == configuracionPais.Codigo);
+        //        result = cp != null && cp.ConfiguracionPaisID >= 0 && !string.IsNullOrWhiteSpace(cp.Codigo);
+
+        //    }
+
+        //    return result;
+        //}
+
+        //private List<BEConfiguracionOfertasHome> GetConfiguracionOfertasHome(int paidId, int campaniaId)
+        //{
+        //    List<BEConfiguracionOfertasHome> configuracionesOfertasHomes;
+
+        //    using (var sv = new SACServiceClient())
+        //    {
+        //        configuracionesOfertasHomes = sv.ListarSeccionConfiguracionOfertasHome(paidId, campaniaId).ToList();
+        //    }
+
+        //    return configuracionesOfertasHomes;
+        //}
+
+        //private void ConfiguracionSeccionShowRoom(ref ConfiguracionSeccionHomeModel seccion)
+        //{
+        //    seccion.UrlLandig = "";
+
+        //    if (!sessionManager.GetEsShowRoom())
+        //        return;
+
+        //    if (sessionManager.GetMostrarShowRoomProductosExpiro())
+        //        return;
+
+        //    if (!sessionManager.GetMostrarShowRoomProductos())
+        //    {
+
+        //        seccion.UrlLandig = (seccion.IsMobile ? "/Mobile/" : "/") + "ShowRoom/Intriga";
+        //        seccion.UrlObtenerProductos = "ShowRoom/GetDataShowRoomIntriga";
+
+        //        if (!IsMobile())
+        //        {
+        //            seccion.ImagenFondo =
+        //                _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomIntriga,
+        //                                                    Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+        //        }
+        //        else
+        //        {
+        //            seccion.ImagenFondo =
+        //                _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasIntriga,
+        //                                                    Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        seccion.UrlLandig = (seccion.IsMobile ? "/Mobile/" : "/") + "ShowRoom";
+        //        seccion.UrlObtenerProductos = "ShowRoom/CargarProductosShowRoomOferta";
+        //        if (!IsMobile())
+        //        {
+        //            seccion.ImagenFondo =
+        //                _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomVenta,
+        //                                                    Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+        //        }
+        //        else
+        //        {
+        //            seccion.ImagenFondo =
+        //                _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasVenta,
+        //                                                    Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
+        //        }
+
+        //        var listaShowRoom = sessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPersonalizadaProductoModel>();
+        //        //seccion.CantidadProductos = listaShowRoom.Count(x => !x.EsSubCampania);
+        //        seccion.CantidadProductos = listaShowRoom.Count();
+        //        seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
+        //    }
+        //}
+
+        //private bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)
+        //{
+        //    if (codigo == Constantes.ConfiguracionPais.RevistaDigital && !revistaDigital.TieneRDC) return false;
+
+        //    titulo = revistaDigital.TieneRDC
+        //        ? (revistaDigital.EsActiva || revistaDigital.EsSuscrita)
+        //            ? "OFERTAS CLUB GANA+"
+        //            : "OFERTAS GANA+"
+        //        : "";
+
+        //    subtitulo = userData.Sobrenombre.ToUpper() + ", PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS";
+
+        //    if (codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+        //    {
+        //        if (revistaDigital.TieneRDC) return false;
+
+        //        titulo = "MÁS OFERTAS PARA TI " + userData.Sobrenombre.ToUpper();
+        //        subtitulo = "EXCLUSIVAS SÓLO POR WEB";
+        //    }
+
+        //    return true;
+        //}
         #endregion
 
-        #region Obtener URL Cerrar Sesión
+        protected List<ServicePedido.BETipoEstrategia> GetTipoEstrategias()
+        {
+            int PaisID = userData.PaisID, TipoEstrategiaID = 0;
+            List<ServicePedido.BETipoEstrategia> tiposEstrategia = _tipoEstrategiaProvider.GetTipoEstrategias(PaisID, TipoEstrategiaID);
+            return tiposEstrategia;
+        }
+
+        #region Obtener URL Cerrar Sesion
 
         private string ObtenerUrlCerrarSesion()
         {
@@ -4991,7 +4546,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.UsuarioNombre = (Util.Trim(userData.Sobrenombre) == "" ? userData.NombreConsultora : userData.Sobrenombre);
             ViewBag.Usuario = "Hola, " + userData.UsuarioNombre;
             ViewBag.Rol = userData.RolID;
-            ViewBag.Campania = NombreCampania(userData.NombreCorto);
+            ViewBag.Campania = Util.NombreCampania(userData.NombreCorto);
             ViewBag.CampaniaCodigo = userData.CampaniaID;
             ViewBag.NombrePais = userData.NombrePais;
             ViewBag.UrlAyuda = string.IsNullOrEmpty(userData.UrlAyuda) ? string.Empty : userData.UrlAyuda;
@@ -5039,7 +4594,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            ViewBag.Dias = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
+            ViewBag.Dias = Util.GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
             ViewBag.PeriodoAnalytics = userData.FechaHoy >= userData.FechaInicioCampania.Date && userData.FechaHoy <= userData.FechaFinCampania.Date ? "Facturacion" : "Venta";
             ViewBag.SemanaAnalytics = "No Disponible";
 
@@ -5051,21 +4606,21 @@ namespace Portal.Consultoras.Web.Controllers
             var TextoPromesa = ".";
             var TextoNuevoPROL = "";
 
-            if (!userData.ZonaValida) ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
+            if (!userData.ZonaValida) ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + Util.FormatearHora(HoraCierrePortal) + "</b>";
             else if (!userData.DiaPROL)
             {
-                ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
+                ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + Util.FormatearHora(HoraCierrePortal) + "</b>";
                 if (!("BO CL VE").Contains(userData.CodigoISO)) TextoNuevoPROL = " Revisa tus notificaciones o correo y verifica que tu pedido esté completo.";
             }
             else
             {
                 if (userData.DiasCampania != 0 && FechaHoraActual < userData.FechaInicioCampania)
                 {
-                    ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + FormatearHora(HoraCierrePortal) + "</b>";
+                    ViewBag.MensajeCierreCampania = "Pasa tu pedido hasta el <b>" + userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month) + "</b> a las <b>" + Util.FormatearHora(HoraCierrePortal) + "</b>";
                 }
                 else
                 {
-                    ViewBag.MensajeCierreCampania = "Pasa o modifica tu pedido hasta el día de <b>hoy a las " + FormatearHora(HoraCierrePortal) + "</b>";
+                    ViewBag.MensajeCierreCampania = "Pasa o modifica tu pedido hasta el día de <b>hoy a las " + Util.FormatearHora(HoraCierrePortal) + "</b>";
                 }
             }
 
@@ -5080,10 +4635,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     userData.FechaPromesaEntrega = FechaHoraActual.AddDays(userData.DiasCasoPromesa);
                     if (TextoPromesaEspecial)
-                        TextoPromesa = " Recibirás tu pedido el <b>" + userData.FechaPromesaEntrega.Day + " de " + NombreMes(userData.FechaPromesaEntrega.Month) + "</b>.";
+                        TextoPromesa = " Recibirás tu pedido el <b>" + userData.FechaPromesaEntrega.Day + " de " + Util.NombreMes(userData.FechaPromesaEntrega.Month) + "</b>.";
 
                     else
-                        TextoPromesa = " y recíbelo el <b>" + userData.FechaPromesaEntrega.Day + " de " + NombreMes(userData.FechaPromesaEntrega.Month) + "</b>.";
+                        TextoPromesa = " y recíbelo el <b>" + userData.FechaPromesaEntrega.Day + " de " + Util.NombreMes(userData.FechaPromesaEntrega.Month) + "</b>.";
                 }
             }
 
@@ -5092,7 +4647,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
-            ViewBag.FechaFacturacionPedido = userData.FechaFacturacion.Day + " de " + NombreMes(userData.FechaFacturacion.Month);
+            ViewBag.FechaFacturacionPedido = userData.FechaFacturacion.Day + " de " + Util.NombreMes(userData.FechaFacturacion.Month);
             ViewBag.QSBR = string.Format("NOMB={0}&PAIS={1}&CODI={2}&CORR={3}&TELF={4}", userData.NombreConsultora.ToUpper(), userData.CodigoISO, userData.CodigoConsultora, userData.EMail, (userData.Telefono ?? "").Trim() + ((userData.Celular ?? "").Trim() == string.Empty ? "" : "; " + (userData.Celular ?? "").Trim()));
             ViewBag.QSBR = ViewBag.QSBR.Replace("\n", "").Trim();
 
@@ -5103,7 +4658,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.Lider = userData.Lider;
             ViewBag.PortalLideres = userData.PortalLideres;
             ViewBag.TokenAtento = ConfigurationManager.AppSettings["TokenAtento_" + userData.CodigoISO];
-            ViewBag.FormatDecimalPais = GetFormatDecimalPais(userData.CodigoISO);
+            ViewBag.FormatDecimalPais = _baseProvider.GetFormatDecimalPais(userData.CodigoISO);
             ViewBag.OfertaFinal = userData.OfertaFinal;
             ViewBag.CatalogoPersonalizado = userData.CatalogoPersonalizado;
             ViewBag.Simbolo = userData.Simbolo;
@@ -5134,13 +4689,11 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.GPRBannerMensaje = userData.GPRBannerMensaje ?? "";
                 ViewBag.GPRBannerUrl = userData.GPRBannerUrl;
 
-                ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia();
-                ViewBag.MostrarOfertaDelDiaContenedor = userData.TieneOfertaDelDia;
-
-                var configuracionPaisOdd = sessionManager.GetConfiguracionesPaisModel().FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
-                configuracionPaisOdd = configuracionPaisOdd ?? new ConfiguracionPaisModel();
-                ViewBag.CodigoAnclaOdd = configuracionPaisOdd.Codigo;
-
+                // odd
+                ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
+                ViewBag.TieneOfertaDelDia = _ofertaDelDiaProvider.CumpleOfertaDelDia(userData, GetControllerActual());
+                //ViewBag.MostrarOfertaDelDiaContenedor = estrategiaODD.TieneOfertaDelDia;
+                //ViewBag.oddConfiguracion = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
             }
             catch (Exception ex)
             {
@@ -5184,14 +4737,15 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TieneRDC = revistaDigital.TieneRDC;
             ViewBag.TieneHV = herramientasVenta.TieneHV;
             ViewBag.revistaDigital = getRevistaDigitalShortModel();
-            ViewBag.variableBase = getBaseVariablesPortal();
+            ViewBag.variableBase = _configuracionPaisProvider.getBaseVariablesPortal(userData.CodigoISO, userData.Simbolo);
 
             ViewBag.TituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI)
                 || (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
 
-            var menuActivo = GetMenuActivo(userData, revistaDigital, herramientasVenta);
+            var esMobile = IsMobile();
+            var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, esMobile);
             ViewBag.MenuContenedorActivo = menuActivo;
-            ViewBag.MenuContenedor = GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID);
+            ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, esMobile);
 
             ViewBag.MenuMobile = BuildMenuMobile(userData, revistaDigital);
             ViewBag.Permiso = BuildMenu(userData, revistaDigital);
@@ -5234,42 +4788,13 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.FotoPerfil = userData.FotoPerfil;
 
             ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
-            ViewBag.CodigoEstrategia = GetCodigoEstrategia();
+            ViewBag.CodigoEstrategia = _revistaDigitalProvider.GetCodigoEstrategia();
             ViewBag.BannerInferior = _showRoomProvider.EvaluarBannerConfiguracion(userData.PaisID, sessionManager);
             ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
             int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
             ViewBag.HabilitarChatEmtelco = HabilitarChatEmtelco(userData.PaisID);
-        }
-
-        private VariablesGeneralesPortalModel getBaseVariablesPortal()
-        {
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            var baseVariablesGeneral = new VariablesGeneralesPortalModel
-            {
-                UrlCompartir = Util.GetUrlCompartirFB(userData.CodigoISO),
-                ExtensionImgSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall,
-                //ExtensionImgMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium,
-                ImgUrlBase = ConfigCdn.GetUrlCdn(carpetaPais),
-                SimboloMoneda = userData.Simbolo
-            };
-
-            return baseVariablesGeneral;
-
-        }
-
-        #endregion
-
-        protected string GetUrlFranjaNegra()
-        {
-            var oModel = sessionManager.GetEventoFestivoDataModel();
-            var urlFranjaNegra = oModel == null ? string.Empty : oModel.EfRutaPedido;
-
-            if (string.IsNullOrEmpty(urlFranjaNegra))
-                urlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
-
-            return urlFranjaNegra;
         }
 
         private string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes)
@@ -5282,7 +4807,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string hrCierrePortal = time.ToString("hh:mm tt").Replace(". ", "").ToUpper();
 
                 fecha = diasFaltantes > 0
-                    ? " CIERRA EL " + userData.FechaInicioCampania.Day + " " + NombreMes(userData.FechaInicioCampania.Month).ToUpper()
+                    ? " CIERRA EL " + userData.FechaInicioCampania.Day + " " + Util.NombreMes(userData.FechaInicioCampania.Month).ToUpper()
                     : " CIERRA HOY";
 
 
@@ -5300,10 +4825,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        protected string GetBucketNameFromConfig()
-        {
-            return GetConfiguracionManager(Constantes.ConfiguracionManager.BUCKET_NAME);
-        }
+        #endregion
 
         protected int GetMostradoPopupPrecargados()
         {
@@ -5369,6 +4891,8 @@ namespace Portal.Consultoras.Web.Controllers
             return resultado;
         }
 
+        #region PaqueteDocumentario
+
         protected List<RVPRFModel> GetListPaqueteDocumentario(string codigoConsultora, string campania, string numeroPedido)
         {
             string errorMessage;
@@ -5390,7 +4914,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Campana = campania,
                     NumeroPedido = numeroPedido
                 };
-                var urlService = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
+                var urlService = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
                 var wrapper = ConsumirServicio<WrapperPDFWeb>(input, urlService);
 
                 var result = (wrapper ?? new WrapperPDFWeb()).GET_URLResult;
@@ -5430,7 +4954,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Tipo = "1",
                     CodigoConsultora = codigoConsultora
                 };
-                var urlService = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_Campanias_NEW);
+                var urlService = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_Campanias_NEW);
                 var wrapper = ConsumirServicio<WrapperCampanias>(input, urlService);
 
                 var result = (wrapper ?? new WrapperCampanias()).LIS_CampanaResult;
@@ -5476,16 +5000,7 @@ namespace Portal.Consultoras.Web.Controllers
             return serializer.Deserialize<T>(outputJson);
         }
 
-        public List<BEComunicado> ObtenerComunicadoPorConsultora()
-        {
-            using (var sac = new SACServiceClient())
-            {
-                var lstComunicados = sac.ObtenerComunicadoPorConsultora(UserData().PaisID, UserData().CodigoConsultora,
-                        Constantes.ComunicadoTipoDispositivo.Desktop, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
-
-                return lstComunicados.ToList();
-            }
-        }
+        #endregion
 
         public async Task<List<BEComunicado>> ObtenerComunicadoPorConsultoraAsync()
         {
@@ -5515,47 +5030,6 @@ namespace Portal.Consultoras.Web.Controllers
             return model;
         }
 
-        public string GetUrlTerminosCondicionesDatosUsuario()
-        {
-            var nombreCarpetaTc = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreCarpetaTC);
-            var nombreArchivoTc = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreArchivoTC) + ".pdf";
-            return ConfigCdn.GetUrlFileCdn(nombreCarpetaTc, userData.CodigoISO + "/" + nombreArchivoTc);
-        }
-
-        public void GetLimitNumberPhone(out int limiteMinimoTelef, out int limiteMaximoTelef)
-        {
-            switch (userData.PaisID)
-            {
-                case Constantes.PaisID.Mexico:
-                    limiteMinimoTelef = 5;
-                    limiteMaximoTelef = 15;
-                    break;
-                case Constantes.PaisID.Peru:
-                    limiteMinimoTelef = 7;
-                    limiteMaximoTelef = 9;
-                    break;
-                case Constantes.PaisID.Colombia:
-                    limiteMinimoTelef = 10;
-                    limiteMaximoTelef = 10;
-                    break;
-                case Constantes.PaisID.Guatemala:
-                case Constantes.PaisID.ElSalvador:
-                case Constantes.PaisID.Panama:
-                case Constantes.PaisID.CostaRica:
-                    limiteMinimoTelef = 8;
-                    limiteMaximoTelef = 8;
-                    break;
-                case Constantes.PaisID.Ecuador:
-                    limiteMinimoTelef = 9;
-                    limiteMaximoTelef = 10;
-                    break;
-                default:
-                    limiteMinimoTelef = 0;
-                    limiteMaximoTelef = 15;
-                    break;
-            }
-        }
-
         public RevistaDigitalShortModel getRevistaDigitalShortModel()
         {
             RevistaDigitalShortModel _RevistaDigitalShortModel = null;
@@ -5575,472 +5049,330 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region PagoEnLinea
 
-        public PagoEnLineaModel ObtenerValoresPagoEnLinea()
-        {
-            var model = new PagoEnLineaModel();
+        //public PagoEnLineaModel ObtenerValoresPagoEnLinea()
+        //{
+        //    var model = new PagoEnLineaModel();
 
-            model.CodigoIso = userData.CodigoISO;
-            model.Simbolo = userData.Simbolo;
-            model.MontoDeuda = userData.MontoDeuda;
-            model.FechaVencimiento = userData.FechaLimPago;
+        //    model.CodigoIso = userData.CodigoISO;
+        //    model.Simbolo = userData.Simbolo;
+        //    model.MontoDeuda = userData.MontoDeuda;
+        //    model.FechaVencimiento = userData.FechaLimPago;
 
-            var listaConfiguracion = ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
+        //    var listaConfiguracion = _tablaLogicaProvider.ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
 
-            var porcentajeGastosAdministrativosString = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.PorcentajeGastosAdministrativos);
-            int porcentajeGastosAdministrativos;
-            bool esInt = int.TryParse(porcentajeGastosAdministrativosString, out porcentajeGastosAdministrativos);
+        //    var porcentajeGastosAdministrativosString = _tablaLogicaProvider.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.PorcentajeGastosAdministrativos);
+        //    int porcentajeGastosAdministrativos;
+        //    bool esInt = int.TryParse(porcentajeGastosAdministrativosString, out porcentajeGastosAdministrativos);
 
-            model.PorcentajeGastosAdministrativos = esInt ? porcentajeGastosAdministrativos : 0;
+        //    model.PorcentajeGastosAdministrativos = esInt ? porcentajeGastosAdministrativos : 0;
 
-            return model;
-        }
+        //    return model;
+        //}
 
-        public PagoVisaModel ObtenerValoresPagoVisa(PagoEnLineaModel model)
-        {
-            var pagoVisaModel = new PagoVisaModel();
+        //public PagoVisaModel ObtenerValoresPagoVisa(PagoEnLineaModel model)
+        //{
+        //    var pagoVisaModel = new PagoVisaModel();
 
-            #region Valores Configuracion Pago En Linea
+        //    #region Valores Configuracion Pago En Linea
 
-            var listaConfiguracion = ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
+        //    var listaConfiguracion = _tablaLogicaProvider.ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
 
-            pagoVisaModel.MerchantId = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.MerchantId);
-            pagoVisaModel.AccessKeyId = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.AccessKeyId);
-            pagoVisaModel.SecretAccessKey = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.SecretAccessKey);
-            pagoVisaModel.UrlSessionBotonPagos = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlSessionBotonPago);
-            pagoVisaModel.UrlGenerarNumeroPedido = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlGenerarNumeroPedido);
-            pagoVisaModel.UrlLibreriaPagoVisa = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlLibreriaPagoVisa);
-            pagoVisaModel.SessionToken = Guid.NewGuid().ToString().ToUpper();
+        //    pagoVisaModel.MerchantId = _tablaLogicaProvider.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.MerchantId);
+        //    pagoVisaModel.AccessKeyId = _tablaLogicaProvider.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.AccessKeyId);
+        //    pagoVisaModel.SecretAccessKey = _tablaLogicaProvider.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.SecretAccessKey);
+        //    pagoVisaModel.UrlSessionBotonPagos = _tablaLogicaProvider.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlSessionBotonPago);
+        //    pagoVisaModel.UrlGenerarNumeroPedido = _tablaLogicaProvider.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlGenerarNumeroPedido);
+        //    pagoVisaModel.UrlLibreriaPagoVisa = _tablaLogicaProvider.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlLibreriaPagoVisa);
+        //    pagoVisaModel.SessionToken = Guid.NewGuid().ToString().ToUpper();
 
-            #endregion
+        //    #endregion
 
-            pagoVisaModel.Amount = model.MontoDeudaConGastos;
+        //    pagoVisaModel.Amount = model.MontoDeudaConGastos;
 
-            #region Generar Sesión para el boton de pagos
+        //    #region Generar Sesion para el boton de pagos
 
-            string urlCreateSessionTokenAPI = pagoVisaModel.UrlSessionBotonPagos + pagoVisaModel.MerchantId;
+        //    string urlCreateSessionTokenAPI = pagoVisaModel.UrlSessionBotonPagos + pagoVisaModel.MerchantId;
 
-            string credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(pagoVisaModel.AccessKeyId + ":" + pagoVisaModel.SecretAccessKey));
+        //    string credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(pagoVisaModel.AccessKeyId + ":" + pagoVisaModel.SecretAccessKey));
 
-            DataToken datatoken = new DataToken();
-            datatoken.amount = Convert.ToDouble(pagoVisaModel.Amount.ToString());
+        //    DataToken datatoken = new DataToken();
+        //    datatoken.amount = Convert.ToDouble(pagoVisaModel.Amount.ToString());
 
-            string json = JsonHelper.JsonSerializer<DataToken>(datatoken);
+        //    string json = JsonHelper.JsonSerializer<DataToken>(datatoken);
 
-            HttpWebRequest requestSesion;
-            requestSesion = WebRequest.Create(urlCreateSessionTokenAPI) as HttpWebRequest;
-            requestSesion.Method = "POST";
-            requestSesion.ContentType = "application/json";
-            requestSesion.Headers.Add("Authorization", "Basic " + credentials);
-            requestSesion.Headers.Add("VisaNet-Session-Key", pagoVisaModel.SessionToken);
+        //    HttpWebRequest requestSesion;
+        //    requestSesion = WebRequest.Create(urlCreateSessionTokenAPI) as HttpWebRequest;
+        //    requestSesion.Method = "POST";
+        //    requestSesion.ContentType = "application/json";
+        //    requestSesion.Headers.Add("Authorization", "Basic " + credentials);
+        //    requestSesion.Headers.Add("VisaNet-Session-Key", pagoVisaModel.SessionToken);
 
-            StreamWriter postStreamWriterSesion = new StreamWriter(requestSesion.GetRequestStream());
-            postStreamWriterSesion.Write(json);
-            postStreamWriterSesion.Close();
+        //    StreamWriter postStreamWriterSesion = new StreamWriter(requestSesion.GetRequestStream());
+        //    postStreamWriterSesion.Write(json);
+        //    postStreamWriterSesion.Close();
 
-            HttpWebResponse responseSesion;
-            responseSesion = requestSesion.GetResponse() as HttpWebResponse;
-            StreamReader postStreamReaderSesion = new StreamReader(responseSesion.GetResponseStream());
+        //    HttpWebResponse responseSesion;
+        //    responseSesion = requestSesion.GetResponse() as HttpWebResponse;
+        //    StreamReader postStreamReaderSesion = new StreamReader(responseSesion.GetResponseStream());
 
-            postStreamReaderSesion.ReadToEnd();
-            postStreamReaderSesion.Close();
+        //    postStreamReaderSesion.ReadToEnd();
+        //    postStreamReaderSesion.Close();
 
-            #endregion
+        //    #endregion
 
-            #region Generar Número de Pedido
+        //    #region Generar Numero de Pedido
 
-            string urlNextCounterAPI = pagoVisaModel.UrlGenerarNumeroPedido + pagoVisaModel.MerchantId + "/nextCounter";
-            HttpWebRequest requestNumPedido;
-            requestNumPedido = WebRequest.Create(urlNextCounterAPI) as HttpWebRequest;
-            requestNumPedido.Method = "GET";
-            requestNumPedido.ContentType = "application/json";
-            requestNumPedido.Headers.Add("Authorization", "Basic " + credentials);
+        //    string urlNextCounterAPI = pagoVisaModel.UrlGenerarNumeroPedido + pagoVisaModel.MerchantId + "/nextCounter";
+        //    HttpWebRequest requestNumPedido;
+        //    requestNumPedido = WebRequest.Create(urlNextCounterAPI) as HttpWebRequest;
+        //    requestNumPedido.Method = "GET";
+        //    requestNumPedido.ContentType = "application/json";
+        //    requestNumPedido.Headers.Add("Authorization", "Basic " + credentials);
 
-            HttpWebResponse responseNumPedido;
-            responseNumPedido = requestNumPedido.GetResponse() as HttpWebResponse;
-            StreamReader postStreamReaderNumPedido = new StreamReader(responseNumPedido.GetResponseStream());
+        //    HttpWebResponse responseNumPedido;
+        //    responseNumPedido = requestNumPedido.GetResponse() as HttpWebResponse;
+        //    StreamReader postStreamReaderNumPedido = new StreamReader(responseNumPedido.GetResponseStream());
 
-            pagoVisaModel.PurchaseNumber = postStreamReaderNumPedido.ReadToEnd();
-            postStreamReaderNumPedido.Close();
+        //    pagoVisaModel.PurchaseNumber = postStreamReaderNumPedido.ReadToEnd();
+        //    postStreamReaderNumPedido.Close();
 
-            #endregion
+        //    #endregion
 
-            #region Variables para el formulario de pago visa
+        //    #region Variables para el formulario de pago visa
 
-            pagoVisaModel.MerchantLogo = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlLogoPasarelaPago);
-            pagoVisaModel.FormButtonColor = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.ColorBotonPagarPasarelaPago);
-            pagoVisaModel.Recurrence = "FALSE";
-            pagoVisaModel.RecurrenceFrequency = "";
-            pagoVisaModel.RecurrenceType = "";
-            pagoVisaModel.RecurrenceAmount = "0.00";
-
-            #endregion
-
-            #region Obtener Token de Tarjeta Guardada
-
-            var tokenTarjetaGuardada = "";
-
-            try
-            {
-                using (PedidoServiceClient ps = new PedidoServiceClient())
-                {
-                    tokenTarjetaGuardada = ps.ObtenerTokenTarjetaGuardadaByConsultora(userData.PaisID, userData.CodigoConsultora);
-                }
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-                tokenTarjetaGuardada = "";
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-                tokenTarjetaGuardada = "";
-            }
-
-            pagoVisaModel.TokenTarjetaGuardada = tokenTarjetaGuardada;
-
-            #endregion
-
-            return pagoVisaModel;
-        }
-
-        public bool ProcesarPagoVisa(ref PagoEnLineaModel model, string transactionToken)
-        {
-            var resultado = false;
-
-            try
-            {
-                string sessionToken = model.PagoVisaModel.SessionToken;
-                string merchantId = model.PagoVisaModel.MerchantId;
-                string accessKeyId = model.PagoVisaModel.AccessKeyId;
-                string secretAccessKey = model.PagoVisaModel.SecretAccessKey;
-
-                var respuestaAutorizacion = GenerarAutorizacionBotonPagos(sessionToken, merchantId, transactionToken, accessKeyId, secretAccessKey);
-                var respuestaVisa = JsonHelper.JsonDeserialize<RespuestaAutorizacionVisa>(respuestaAutorizacion);
-
-                BEPagoEnLineaResultadoLog bePagoEnLinea = GenerarEntidadPagoEnLineaLog(respuestaVisa);
-                bePagoEnLinea.MontoPago = model.MontoDeuda;
-                bePagoEnLinea.MontoGastosAdministrativos = model.MontoGastosAdministrativos;
-
-                int pagoEnLineaResultadoLogId = 0;
-                using (PedidoServiceClient ps = new PedidoServiceClient())
-                {
-                    pagoEnLineaResultadoLogId = ps.InsertPagoEnLineaResultadoLog(userData.PaisID, bePagoEnLinea);
-                }
-
-                // Requerido en pago rechazado.
-                model.NumeroOperacion = bePagoEnLinea.NumeroOrdenTienda;
-                model.FechaCreacion = bePagoEnLinea.FechaTransaccion;
-                model.DescripcionCodigoAccion = bePagoEnLinea.DescripcionCodigoAccion;
-
-                if (bePagoEnLinea.CodigoError == "0" && bePagoEnLinea.CodigoAccion == "000")
-                {
-                    model.PagoEnLineaResultadoLogId = pagoEnLineaResultadoLogId;
-                    model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
-                    model.PrimerApellido = userData.PrimerApellido;
-                    model.TarjetaEnmascarada = bePagoEnLinea.NumeroTarjeta;
-                    model.FechaVencimiento = userData.FechaLimPago;
-                    model.SaldoPendiente = decimal.Round(userData.MontoDeuda - model.MontoDeuda, 2);
-
-                    using (PedidoServiceClient ps = new PedidoServiceClient())
-                    {
-                        ps.UpdateMontoDeudaConsultora(userData.PaisID, userData.CodigoConsultora, model.SaldoPendiente);
-                    }
-
-                    var listaConfiguracion = ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
-                    var mensajeExitoso = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.MensajeInformacionPagoExitoso);
-
-                    model.MensajeInformacionPagoExitoso = mensajeExitoso;
-
-                    userData.MontoDeuda = model.SaldoPendiente;
-                    sessionManager.SetUserData(userData);
-
-                    if (!string.IsNullOrEmpty(userData.EMail))
-                    {
-                        string template = ObtenerTemplatePagoEnLinea(model);
-                        Util.EnviarMail("no-responder@somosbelcorp.com", userData.EMail, "PAGO EN LINEA", template, true, userData.NombreConsultora);
-                    }
-
-                    resultado = true;
-                }
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-            }
-
-            sessionManager.SetDatosPagoVisa(null);
-            Session["ListadoEstadoCuenta"] = null;
-
-            return resultado;
-        }
-
-        public string GenerarAutorizacionBotonPagos(string sessionToken, string merchantId, string transactionToken, string accessKeyId, string secretAccessKey)
-        {
-            var listaConfiguracion = ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
-            string urlAutorizacionBotonPago = ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlAutorizacionBotonPago);
-
-            string urlAuthorize = urlAutorizacionBotonPago + merchantId;
-            string credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(accessKeyId + ":" + secretAccessKey));
-
-            Common.PagoEnLinea.Data data = new Common.PagoEnLinea.Data();
-
-            DataRequestAut dataAutorizacionRQ = new DataRequestAut();
-            dataAutorizacionRQ.transactionToken = transactionToken;
-            dataAutorizacionRQ.sessionToken = sessionToken;
-            dataAutorizacionRQ.data = data;
-
-            string json = JsonHelper.JsonSerializer<DataRequestAut>(dataAutorizacionRQ);
-
-            HttpWebRequest requestAutorizacion;
-            requestAutorizacion = WebRequest.Create(urlAuthorize) as HttpWebRequest;
-            requestAutorizacion.Method = "POST";
-            requestAutorizacion.ContentType = "application/json";
-            requestAutorizacion.Headers.Add("Authorization", "Basic " + credentials);
-            StreamWriter postStreamWriterAutorizacion = new StreamWriter(requestAutorizacion.GetRequestStream());
-            postStreamWriterAutorizacion.Write(json);
-            postStreamWriterAutorizacion.Close();
-
-            HttpWebResponse responseAutorizacion;
-            StreamReader postStreamReaderAutorizacion;
-            string respuestaAutorizacion;
-            try
-            {
-                responseAutorizacion = requestAutorizacion.GetResponse() as HttpWebResponse;
-                postStreamReaderAutorizacion = new StreamReader(responseAutorizacion.GetResponseStream());
-                respuestaAutorizacion = postStreamReaderAutorizacion.ReadToEnd();
-                postStreamReaderAutorizacion.Close();
-            }
-            catch (WebException ex)
-            {
-                postStreamReaderAutorizacion = new StreamReader(ex.Response.GetResponseStream(), true);
-                respuestaAutorizacion = postStreamReaderAutorizacion.ReadToEnd();
-                postStreamReaderAutorizacion.Close();
-            }
-
-            return respuestaAutorizacion;
-        }
-
-        public BEPagoEnLineaResultadoLog GenerarEntidadPagoEnLineaLog(RespuestaAutorizacionVisa respuestaVisa)
-        {
-            BEPagoEnLineaResultadoLog bePagoEnLinea = new BEPagoEnLineaResultadoLog();
-
-            bePagoEnLinea.ConsultoraId = userData.ConsultoraID;
-            bePagoEnLinea.CodigoConsultora = userData.CodigoConsultora;
-            bePagoEnLinea.NumeroDocumento = userData.DocumentoIdentidad;
-            bePagoEnLinea.CampaniaId = userData.CampaniaID;
-            bePagoEnLinea.FechaVencimiento = userData.FechaLimPago;
-            bePagoEnLinea.TipoTarjeta = "VISA";
-            bePagoEnLinea.CodigoError = respuestaVisa.errorCode ?? "";
-            bePagoEnLinea.MensajeError = respuestaVisa.errorMessage ?? "";
-            bePagoEnLinea.IdGuidTransaccion = respuestaVisa.transactionUUID ?? "";
-            bePagoEnLinea.IdGuidExternoTransaccion = respuestaVisa.externalTransactionId ?? "";
-            bePagoEnLinea.MerchantId = respuestaVisa.merchantId ?? "";
-            bePagoEnLinea.IdTokenUsuario = respuestaVisa.userTokenId ?? "";
-            bePagoEnLinea.AliasNameTarjeta = respuestaVisa.aliasName ?? "";
-
-            var fechaTransaccion = string.IsNullOrEmpty(respuestaVisa.data.FECHAYHORA_TX) ? DateTime.MinValue.ToString() : respuestaVisa.data.FECHAYHORA_TX;
-            bePagoEnLinea.FechaTransaccion = Convert.ToDateTime(fechaTransaccion);
-            if (bePagoEnLinea.FechaTransaccion == DateTime.MinValue)
-                bePagoEnLinea.FechaTransaccion = DateTime.Now;
-
-            bePagoEnLinea.ResultadoValidacionCVV2 = respuestaVisa.data.RES_CVV2 ?? "";
-            bePagoEnLinea.CsiMensaje = respuestaVisa.data.CSIMENSAJE ?? "";
-            bePagoEnLinea.IdUnicoTransaccion = respuestaVisa.data.ID_UNICO ?? "";
-            bePagoEnLinea.Etiqueta = respuestaVisa.data.ETICKET ?? "";
-            bePagoEnLinea.RespuestaSistemAntifraude = respuestaVisa.data.DECISIONCS ?? "";
-            bePagoEnLinea.CsiPorcentajeDescuento = Convert.ToDecimal(respuestaVisa.data.CSIPORCENTAJEDESCUENTO ?? "0");
-            bePagoEnLinea.NumeroCuota = respuestaVisa.data.NROCUOTA ?? "";
-            bePagoEnLinea.TokenTarjetaGuardada = respuestaVisa.data.cardTokenUUID ?? "";
-            bePagoEnLinea.CsiImporteComercio = Convert.ToDecimal(respuestaVisa.data.CSIIMPORTECOMERCIO ?? "0");
-            bePagoEnLinea.CsiCodigoPrograma = respuestaVisa.data.CSICODIGOPROGRAMA ?? "";
-            bePagoEnLinea.DescripcionIndicadorComercioElectronico = respuestaVisa.data.DSC_ECI ?? "";
-            bePagoEnLinea.IndicadorComercioElectronico = respuestaVisa.data.ECI ?? "";
-            bePagoEnLinea.DescripcionCodigoAccion = respuestaVisa.data.DSC_COD_ACCION ?? "";
-            bePagoEnLinea.NombreBancoEmisor = respuestaVisa.data.NOM_EMISOR ?? "";
-            bePagoEnLinea.ImporteCuota = Convert.ToDecimal(respuestaVisa.data.IMPCUOTAAPROX ?? "0");
-            bePagoEnLinea.CsiTipoCobro = respuestaVisa.data.CSITIPOCOBRO ?? "";
-            bePagoEnLinea.NumeroReferencia = respuestaVisa.data.NUMREFERENCIA ?? "";
-            bePagoEnLinea.Respuesta = respuestaVisa.data.RESPUESTA ?? "";
-            bePagoEnLinea.NumeroOrdenTienda = respuestaVisa.data.NUMORDEN ?? "";
-            bePagoEnLinea.CodigoAccion = respuestaVisa.data.CODACCION ?? "";
-            bePagoEnLinea.ImporteAutorizado = Convert.ToDecimal(respuestaVisa.data.IMP_AUTORIZADO ?? "0");
-            bePagoEnLinea.CodigoAutorizacion = respuestaVisa.data.COD_AUTORIZA ?? "";
-            bePagoEnLinea.CodigoTienda = respuestaVisa.data.CODTIENDA ?? "";
-            bePagoEnLinea.NumeroTarjeta = respuestaVisa.data.PAN ?? "";
-            bePagoEnLinea.OrigenTarjeta = respuestaVisa.data.ORI_TARJETA ?? "";
-            bePagoEnLinea.UsuarioCreacion = userData.CodigoUsuario;
-
-            return bePagoEnLinea;
-        }
-
-        public string ObtenerTemplatePagoEnLinea(PagoEnLineaModel model)
-        {
-            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_pago_en_linea.html";
-            string htmlTemplate = FileManager.GetContenido(templatePath);
-
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_NOMBRECOMPLETO#", model.NombreConsultora + " " + model.PrimerApellido);
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_NUMEROOPERACION#", model.NumeroOperacion);
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_FECHAPAGO#", model.FechaCreacionString);
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_MONTODEUDA#", model.MontoDeudaString);
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_MONTOGASTOSADMINISTRATIVOS#", model.MontoGastosAdministrativosString);
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_MONTOTOTAL#", model.MontoDeudaConGastosString);
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_SIMBOLO#", model.Simbolo);
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_SALDOPENDIENTE#", model.SaldoPendienteString);
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_FECHAVENCIMIENTO#", model.FechaVencimientoString);
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_MENSAJEINFORMACION#", model.MensajeInformacionPagoExitoso);
-            htmlTemplate = htmlTemplate.Replace("#FORMATO_NUMTARJETA#", model.TarjetaEnmascarada);
-
-            return htmlTemplate;
-        }
+        //    pagoVisaModel.MerchantLogo = _tablaLogicaProvider.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlLogoPasarelaPago);
+        //    pagoVisaModel.FormButtonColor = _tablaLogicaProvider.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.ColorBotonPagarPasarelaPago);
+        //    pagoVisaModel.Recurrence = "FALSE";
+        //    pagoVisaModel.RecurrenceFrequency = "";
+        //    pagoVisaModel.RecurrenceType = "";
+        //    pagoVisaModel.RecurrenceAmount = "0.00";
+
+        //    #endregion
+
+        //    #region Obtener Token de Tarjeta Guardada
+
+        //    var tokenTarjetaGuardada = "";
+
+        //    try
+        //    {
+        //        using (PedidoServiceClient ps = new PedidoServiceClient())
+        //        {
+        //            tokenTarjetaGuardada = ps.ObtenerTokenTarjetaGuardadaByConsultora(userData.PaisID, userData.CodigoConsultora);
+        //        }
+        //    }
+        //    catch (FaultException ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+        //        tokenTarjetaGuardada = "";
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+        //        tokenTarjetaGuardada = "";
+        //    }
+
+        //    pagoVisaModel.TokenTarjetaGuardada = tokenTarjetaGuardada;
+
+        //    #endregion
+
+        //    return pagoVisaModel;
+        //}
+
+        //public bool ProcesarPagoVisa(ref PagoEnLineaModel model, string transactionToken)
+        //{
+        //    var resultado = false;
+
+        //    try
+        //    {
+        //        string sessionToken = model.PagoVisaModel.SessionToken;
+        //        string merchantId = model.PagoVisaModel.MerchantId;
+        //        string accessKeyId = model.PagoVisaModel.AccessKeyId;
+        //        string secretAccessKey = model.PagoVisaModel.SecretAccessKey;
+
+        //        var respuestaAutorizacion = GenerarAutorizacionBotonPagos(sessionToken, merchantId, transactionToken, accessKeyId, secretAccessKey);
+        //        var respuestaVisa = JsonHelper.JsonDeserialize<RespuestaAutorizacionVisa>(respuestaAutorizacion);
+
+        //        BEPagoEnLineaResultadoLog bePagoEnLinea = GenerarEntidadPagoEnLineaLog(respuestaVisa);
+        //        bePagoEnLinea.MontoPago = model.MontoDeuda;
+        //        bePagoEnLinea.MontoGastosAdministrativos = model.MontoGastosAdministrativos;
+
+        //        int pagoEnLineaResultadoLogId = 0;
+        //        using (PedidoServiceClient ps = new PedidoServiceClient())
+        //        {
+        //            pagoEnLineaResultadoLogId = ps.InsertPagoEnLineaResultadoLog(userData.PaisID, bePagoEnLinea);
+        //        }
+
+        //        // Requerido en pago rechazado.
+        //        model.NumeroOperacion = bePagoEnLinea.NumeroOrdenTienda;
+        //        model.FechaCreacion = bePagoEnLinea.FechaTransaccion;
+        //        model.DescripcionCodigoAccion = bePagoEnLinea.DescripcionCodigoAccion;
+
+        //        if (bePagoEnLinea.CodigoError == "0" && bePagoEnLinea.CodigoAccion == "000")
+        //        {
+        //            model.PagoEnLineaResultadoLogId = pagoEnLineaResultadoLogId;
+        //            model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+        //            model.PrimerApellido = userData.PrimerApellido;
+        //            model.TarjetaEnmascarada = bePagoEnLinea.NumeroTarjeta;
+        //            model.FechaVencimiento = userData.FechaLimPago;
+        //            model.SaldoPendiente = decimal.Round(userData.MontoDeuda - model.MontoDeuda, 2);
+
+        //            using (PedidoServiceClient ps = new PedidoServiceClient())
+        //            {
+        //                ps.UpdateMontoDeudaConsultora(userData.PaisID, userData.CodigoConsultora, model.SaldoPendiente);
+        //            }
+
+        //            var listaConfiguracion = _tablaLogicaProvider.ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
+        //            var mensajeExitoso = _tablaLogicaProvider.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.MensajeInformacionPagoExitoso);
+
+        //            model.MensajeInformacionPagoExitoso = mensajeExitoso;
+
+        //            userData.MontoDeuda = model.SaldoPendiente;
+        //            sessionManager.SetUserData(userData);
+
+        //            if (!string.IsNullOrEmpty(userData.EMail))
+        //            {
+        //                string template = ObtenerTemplatePagoEnLinea(model);
+        //                Util.EnviarMail("no-responder@somosbelcorp.com", userData.EMail, "PAGO EN LINEA", template, true, userData.NombreConsultora);
+        //            }
+
+        //            resultado = true;
+        //        }
+        //    }
+        //    catch (FaultException ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+        //    }
+
+        //    sessionManager.SetDatosPagoVisa(null);
+        //    Session["ListadoEstadoCuenta"] = null;
+
+        //    return resultado;
+        //}
+
+        //public string GenerarAutorizacionBotonPagos(string sessionToken, string merchantId, string transactionToken, string accessKeyId, string secretAccessKey)
+        //{
+        //    var listaConfiguracion = _tablaLogicaProvider.ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
+        //    string urlAutorizacionBotonPago = _tablaLogicaProvider.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.UrlAutorizacionBotonPago);
+
+        //    string urlAuthorize = urlAutorizacionBotonPago + merchantId;
+        //    string credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(accessKeyId + ":" + secretAccessKey));
+
+        //    Common.PagoEnLinea.Data data = new Common.PagoEnLinea.Data();
+
+        //    DataRequestAut dataAutorizacionRQ = new DataRequestAut();
+        //    dataAutorizacionRQ.transactionToken = transactionToken;
+        //    dataAutorizacionRQ.sessionToken = sessionToken;
+        //    dataAutorizacionRQ.data = data;
+
+        //    string json = JsonHelper.JsonSerializer<DataRequestAut>(dataAutorizacionRQ);
+
+        //    HttpWebRequest requestAutorizacion;
+        //    requestAutorizacion = WebRequest.Create(urlAuthorize) as HttpWebRequest;
+        //    requestAutorizacion.Method = "POST";
+        //    requestAutorizacion.ContentType = "application/json";
+        //    requestAutorizacion.Headers.Add("Authorization", "Basic " + credentials);
+        //    StreamWriter postStreamWriterAutorizacion = new StreamWriter(requestAutorizacion.GetRequestStream());
+        //    postStreamWriterAutorizacion.Write(json);
+        //    postStreamWriterAutorizacion.Close();
+
+        //    HttpWebResponse responseAutorizacion;
+        //    StreamReader postStreamReaderAutorizacion;
+        //    string respuestaAutorizacion;
+        //    try
+        //    {
+        //        responseAutorizacion = requestAutorizacion.GetResponse() as HttpWebResponse;
+        //        postStreamReaderAutorizacion = new StreamReader(responseAutorizacion.GetResponseStream());
+        //        respuestaAutorizacion = postStreamReaderAutorizacion.ReadToEnd();
+        //        postStreamReaderAutorizacion.Close();
+        //    }
+        //    catch (WebException ex)
+        //    {
+        //        postStreamReaderAutorizacion = new StreamReader(ex.Response.GetResponseStream(), true);
+        //        respuestaAutorizacion = postStreamReaderAutorizacion.ReadToEnd();
+        //        postStreamReaderAutorizacion.Close();
+        //    }
+
+        //    return respuestaAutorizacion;
+        //}
+
+        //public BEPagoEnLineaResultadoLog GenerarEntidadPagoEnLineaLog(RespuestaAutorizacionVisa respuestaVisa)
+        //{
+        //    BEPagoEnLineaResultadoLog bePagoEnLinea = new BEPagoEnLineaResultadoLog();
+
+        //    bePagoEnLinea.ConsultoraId = userData.ConsultoraID;
+        //    bePagoEnLinea.CodigoConsultora = userData.CodigoConsultora;
+        //    bePagoEnLinea.NumeroDocumento = userData.DocumentoIdentidad;
+        //    bePagoEnLinea.CampaniaId = userData.CampaniaID;
+        //    bePagoEnLinea.FechaVencimiento = userData.FechaLimPago;
+        //    bePagoEnLinea.TipoTarjeta = "VISA";
+        //    bePagoEnLinea.CodigoError = respuestaVisa.errorCode ?? "";
+        //    bePagoEnLinea.MensajeError = respuestaVisa.errorMessage ?? "";
+        //    bePagoEnLinea.IdGuidTransaccion = respuestaVisa.transactionUUID ?? "";
+        //    bePagoEnLinea.IdGuidExternoTransaccion = respuestaVisa.externalTransactionId ?? "";
+        //    bePagoEnLinea.MerchantId = respuestaVisa.merchantId ?? "";
+        //    bePagoEnLinea.IdTokenUsuario = respuestaVisa.userTokenId ?? "";
+        //    bePagoEnLinea.AliasNameTarjeta = respuestaVisa.aliasName ?? "";
+
+        //    var fechaTransaccion = string.IsNullOrEmpty(respuestaVisa.data.FECHAYHORA_TX) ? DateTime.MinValue.ToString() : respuestaVisa.data.FECHAYHORA_TX;
+        //    bePagoEnLinea.FechaTransaccion = Convert.ToDateTime(fechaTransaccion);
+        //    if (bePagoEnLinea.FechaTransaccion == DateTime.MinValue)
+        //        bePagoEnLinea.FechaTransaccion = DateTime.Now;
+
+        //    bePagoEnLinea.ResultadoValidacionCVV2 = respuestaVisa.data.RES_CVV2 ?? "";
+        //    bePagoEnLinea.CsiMensaje = respuestaVisa.data.CSIMENSAJE ?? "";
+        //    bePagoEnLinea.IdUnicoTransaccion = respuestaVisa.data.ID_UNICO ?? "";
+        //    bePagoEnLinea.Etiqueta = respuestaVisa.data.ETICKET ?? "";
+        //    bePagoEnLinea.RespuestaSistemAntifraude = respuestaVisa.data.DECISIONCS ?? "";
+        //    bePagoEnLinea.CsiPorcentajeDescuento = Convert.ToDecimal(respuestaVisa.data.CSIPORCENTAJEDESCUENTO ?? "0");
+        //    bePagoEnLinea.NumeroCuota = respuestaVisa.data.NROCUOTA ?? "";
+        //    bePagoEnLinea.TokenTarjetaGuardada = respuestaVisa.data.cardTokenUUID ?? "";
+        //    bePagoEnLinea.CsiImporteComercio = Convert.ToDecimal(respuestaVisa.data.CSIIMPORTECOMERCIO ?? "0");
+        //    bePagoEnLinea.CsiCodigoPrograma = respuestaVisa.data.CSICODIGOPROGRAMA ?? "";
+        //    bePagoEnLinea.DescripcionIndicadorComercioElectronico = respuestaVisa.data.DSC_ECI ?? "";
+        //    bePagoEnLinea.IndicadorComercioElectronico = respuestaVisa.data.ECI ?? "";
+        //    bePagoEnLinea.DescripcionCodigoAccion = respuestaVisa.data.DSC_COD_ACCION ?? "";
+        //    bePagoEnLinea.NombreBancoEmisor = respuestaVisa.data.NOM_EMISOR ?? "";
+        //    bePagoEnLinea.ImporteCuota = Convert.ToDecimal(respuestaVisa.data.IMPCUOTAAPROX ?? "0");
+        //    bePagoEnLinea.CsiTipoCobro = respuestaVisa.data.CSITIPOCOBRO ?? "";
+        //    bePagoEnLinea.NumeroReferencia = respuestaVisa.data.NUMREFERENCIA ?? "";
+        //    bePagoEnLinea.Respuesta = respuestaVisa.data.RESPUESTA ?? "";
+        //    bePagoEnLinea.NumeroOrdenTienda = respuestaVisa.data.NUMORDEN ?? "";
+        //    bePagoEnLinea.CodigoAccion = respuestaVisa.data.CODACCION ?? "";
+        //    bePagoEnLinea.ImporteAutorizado = Convert.ToDecimal(respuestaVisa.data.IMP_AUTORIZADO ?? "0");
+        //    bePagoEnLinea.CodigoAutorizacion = respuestaVisa.data.COD_AUTORIZA ?? "";
+        //    bePagoEnLinea.CodigoTienda = respuestaVisa.data.CODTIENDA ?? "";
+        //    bePagoEnLinea.NumeroTarjeta = respuestaVisa.data.PAN ?? "";
+        //    bePagoEnLinea.OrigenTarjeta = respuestaVisa.data.ORI_TARJETA ?? "";
+        //    bePagoEnLinea.UsuarioCreacion = userData.CodigoUsuario;
+
+        //    return bePagoEnLinea;
+        //}
+
+        //public string ObtenerTemplatePagoEnLinea(PagoEnLineaModel model)
+        //{
+        //    string templatePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_pago_en_linea.html";
+        //    string htmlTemplate = FileManager.GetContenido(templatePath);
+
+        //    htmlTemplate = htmlTemplate.Replace("#FORMATO_NOMBRECOMPLETO#", model.NombreConsultora + " " + model.PrimerApellido);
+        //    htmlTemplate = htmlTemplate.Replace("#FORMATO_NUMEROOPERACION#", model.NumeroOperacion);
+        //    htmlTemplate = htmlTemplate.Replace("#FORMATO_FECHAPAGO#", model.FechaCreacionString);
+        //    htmlTemplate = htmlTemplate.Replace("#FORMATO_MONTODEUDA#", model.MontoDeudaString);
+        //    htmlTemplate = htmlTemplate.Replace("#FORMATO_MONTOGASTOSADMINISTRATIVOS#", model.MontoGastosAdministrativosString);
+        //    htmlTemplate = htmlTemplate.Replace("#FORMATO_MONTOTOTAL#", model.MontoDeudaConGastosString);
+        //    htmlTemplate = htmlTemplate.Replace("#FORMATO_SIMBOLO#", model.Simbolo);
+        //    htmlTemplate = htmlTemplate.Replace("#FORMATO_SALDOPENDIENTE#", model.SaldoPendienteString);
+        //    htmlTemplate = htmlTemplate.Replace("#FORMATO_FECHAVENCIMIENTO#", model.FechaVencimientoString);
+        //    htmlTemplate = htmlTemplate.Replace("#FORMATO_MENSAJEINFORMACION#", model.MensajeInformacionPagoExitoso);
+        //    htmlTemplate = htmlTemplate.Replace("#FORMATO_NUMTARJETA#", model.TarjetaEnmascarada);
+
+        //    return htmlTemplate;
+        //}
 
         #endregion
-
-        public string ObtenerFormatoDiaMes(DateTime fecha)
-        {
-            string resultado = "";
-
-            var nombreMes = Util.NombreMes(fecha.Month);
-
-            resultado = fecha.Day + " " + nombreMes;
-
-            return resultado;
-        }
-
-        protected bool EsFacturacion()
-        {
-            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-            bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
-            return esFacturacion;
-        }
-
-        public void registraLogDynamoCDR(MisReclamosModel model)
-        {
-            try
-            {
-                object data = null;
-                var p_origen = "MI NEGOCIO/CAMBIOS Y DEVOLUCIONES";
-                var p_seccion = "Validacion de datos";
-                var v_campomodificacion = "";
-                var v_valoractual = "";
-                var v_valoranterior = "";
-                var p_aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras;
-                var p_Accion = "Modificacion";
-
-                if (string.IsNullOrEmpty(userData.EMail)) userData.EMail = "";
-                if (string.IsNullOrEmpty(userData.Celular)) userData.Celular = "";
-
-                if (string.IsNullOrEmpty(model.Email)) model.Email = "";
-                if (string.IsNullOrEmpty(model.Telefono)) model.Telefono = "";
-
-                if (userData.EMail.ToString().Trim().ToUpper() != model.Email.ToString().Trim().ToUpper())
-                {
-                    v_campomodificacion = "EMAIL";
-                    v_valoractual = model.Email.ToString().Trim();
-                    v_valoranterior = userData.EMail.ToString().Trim();
-                    EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, "", p_seccion);
-                }
-
-                if (userData.Celular.ToString().Trim().ToUpper() != model.Telefono.ToString().Trim().ToUpper())
-                {
-                    v_campomodificacion = "CELULAR";
-                    v_valoractual = model.Telefono.ToString().Trim();
-                    v_valoranterior = userData.Celular.ToString().Trim();
-                    EjecutarLogDynamoDB(data, v_campomodificacion, v_valoractual, v_valoranterior, p_origen, p_aplicacion, p_Accion, "", p_seccion);
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-        }
-
-        private string ObtenerDescripcionOferta(BEPedidoWebDetalle item)
-        {
-            var descripcion = "";
-            var pedidoValidado = sessionManager.GetPedidoValidado();
-
-            if (pedidoValidado)
-            {
-                if (!string.IsNullOrWhiteSpace(item.DescripcionOferta))
-                {
-                    descripcion = (item.DescripcionOferta.Replace("[", "")).Replace("]", "");
-                }
-                else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Liquidacion)
-                {
-                    descripcion = "OFERTA LIQUIDACIÓN";
-                }
-                else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Flexipago)
-                {
-                    descripcion = "OFERTA FLEXIPAGO";
-                }
-                else
-                {
-                    descripcion = "";
-                }
-            }
-            else
-            {
-                if (item.FlagConsultoraOnline)
-                {
-                    descripcion = "CLIENTE ONLINE";
-                }
-                else
-                {
-                    if (item.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal)
-                    {
-                        descripcion = "";
-                    }
-                    else if (item.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal)
-                    {
-                        descripcion = "";
-                    }
-                    else if (!string.IsNullOrWhiteSpace(item.DescripcionOferta))
-                    {
-                        descripcion = item.DescripcionOferta;
-                    }
-                    else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Liquidacion)
-                    {
-                        descripcion = "OFERTA LIQUIDACIÓN";
-                    }
-                    else if (item.ConfiguracionOfertaID == Constantes.TipoOferta.Flexipago)
-                    {
-                        descripcion = "OFERTA FLEXIPAGO";
-                    }
-                    else if (item.TipoOfertaSisID == Constantes.ConfiguracionOferta.ShowRoom)
-                    {
-                        descripcion = "OFERTAS ESPECIALES GANA+";
-                    }
-                    else
-                    {
-                        descripcion = "";
-                    }
-                }
-            }
-
-            return descripcion;
-        }
-
-        public void RegistrarLogDynamoCambioClave(string accion, string consultora, string v_valoractual, string v_valoranterior)
-        {
-            object data = null;
-            var p_origen = "SAC/ACTUALIZAR CONTRASEÑA";
-            var p_seccion = "Mantenimiento de contraseña";
-            var p_aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras;
-
-            if (accion.Trim().ToUpper() == "MODIFICACION")
-            {
-                EjecutarLogDynamoDB(data, "Contraseña", v_valoractual, v_valoranterior, p_origen, p_aplicacion, accion, "", p_seccion);
-            }
-            else
-            {
-                EjecutarLogDynamoDB(data, "", "", "", p_origen, p_aplicacion, accion, consultora, p_seccion);
-            }
-        }
 
         protected void GetNotificacionesValAutoProl(long procesoId, int tipoOrigen, out List<BENotificacionesDetalle> lstObservaciones, out List<BENotificacionesDetallePedido> lstObservacionesPedido)
         {
@@ -6057,56 +5389,9 @@ namespace Portal.Consultoras.Web.Controllers
             return Request.Browser.IsMobileDevice;
         }
 
-        #region Revista digital y Sección DORADA
-        public ConfiguracionPaisDatosModel ObtenerPerdio(int campaniaId)
+        public string GetControllerActual()
         {
-            var dato = new ConfiguracionPaisDatosModel();
-            if (TieneProductosPerdio(campaniaId))
-            {
-                var codigo = "";
-                bool upper = false;
-                if (!revistaDigital.EsSuscrita)
-                {
-                    codigo = Constantes.ConfiguracionPaisDatos.RD.NSPerdiste;
-                    upper = true;
-                }
-                else if (revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
-                {
-                    codigo = Constantes.ConfiguracionPaisDatos.RD.SNAPerdiste;
-                    upper = true;
-                }
-                else
-                {
-                    codigo = IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MPerdiste : Constantes.ConfiguracionPaisDatos.RD.DPerdiste;
-                }
-
-                dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-
-                dato.Valor1 = RemplazaTag(dato.Valor1, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
-                dato.Valor2 = RemplazaTag(dato.Valor2, Constantes.TagCadenaRd.Campania, string.Concat("C", revistaDigital.CampaniaFuturoActiva));
-
-                if (upper)
-                {
-                    dato.Valor1 = dato.Valor1.ToUpper();
-                    dato.Valor2 = dato.Valor2.ToUpper();
-                }
-
-                dato.Estado = true;
-            }
-
-            dato.Valor1 = Util.Trim(dato.Valor1);
-            dato.Valor2 = Util.Trim(dato.Valor2);
-
-            return dato;
-        }
-
-        public bool TieneProductosPerdio(int campaniaId)
-        {
-            if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&
-                campaniaId == userData.CampaniaID)
-                return true;
-
-            return false;
+            return ControllerContext.RouteData.Values["controller"].ToString();
         }
         #endregion
 
@@ -6119,5 +5404,6 @@ namespace Portal.Consultoras.Web.Controllers
             };
             return variableEstrategia; ;
         }
+
     }
 }

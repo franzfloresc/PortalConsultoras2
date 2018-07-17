@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Entities
                 EtiquetaID = Convert.ToInt32(row["EtiquetaID"]);
 
             if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = row["Descripcion"].ToString();
+                Descripcion = Convert.ToString(row["Descripcion"]);
 
             if (DataRecord.HasColumn(row, "Estado"))
                 Estado = Convert.ToInt32(row["Estado"]);

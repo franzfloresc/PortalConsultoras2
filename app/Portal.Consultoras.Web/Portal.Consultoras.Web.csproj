@@ -192,6 +192,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Mobile\Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\LanzamientosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PagoEnLineaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\GuiaNegocioController.cs" />
@@ -285,6 +286,7 @@
     <Compile Include="Controllers\AdministrarLugaresPagoController.cs" />
     <Compile Include="Controllers\AdministrarProductoSugeridoController.cs" />
     <Compile Include="Controllers\AdministrarReporteValidacionController.cs" />
+    <Compile Include="Controllers\AdministrarShowRoomController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
@@ -295,17 +297,25 @@
     <Compile Include="Controllers\BaseRevistaDigitalController.cs" />
     <Compile Include="Controllers\BaseEstrategiaController.cs" />
     <Compile Include="Controllers\BaseShowRoomController.cs" />
+    <Compile Include="Controllers\BaseViewController.cs" />
     <Compile Include="Controllers\CampaniaController.cs" />
     <Compile Include="Controllers\DescargablesController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
     <Compile Include="Controllers\EstrategiaProductoComentarioController.cs" />
     <Compile Include="Controllers\CatalogosBelcorpController.cs" />
+    <Compile Include="Controllers\Estrategias\EstrategiaController.cs" />
+    <Compile Include="Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Controllers\LanzamientosController.cs" />
+    <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="Infraestructure\Reader\ColumnCsvTransform.cs" />
     <Compile Include="Models\AdministrarEstrategia\AdministrarEstrategiaMasivoModel.cs" />
+    <Compile Include="Models\DetalleEstrategia\BreadCrumbModel.cs" />
+    <Compile Include="Models\DetalleEstrategia\DetalleEstrategiaBreadCrumbsModel.cs" />
+    <Compile Include="Models\EstrategiaComponenteModel.cs" />
+    <Compile Include="Models\EstrategiaFichaPersonalizadaProductoModel.cs" />
     <Compile Include="Models\Estrategia\OfertaDelDia\DataModel.cs" />
     <Compile Include="Models\BarraTippingPoint.cs" />
     <Compile Include="Models\Cache\CacheModel.cs" />
@@ -315,6 +325,8 @@
     <Compile Include="Models\Estrategia\ShowRoom\IBannerInferiorConfiguracion.cs" />
     <Compile Include="Models\Estrategia\VariablesGeneralEstrategiaModel.cs" />
     <Compile Include="Models\Estrategia\WaEstrategiaModel.cs" />
+    <Compile Include="Models\Estrategia\ShowRoom\ShowRoomEventoConsultoraModel.cs" />
+    <Compile Include="Models\Estrategia\ShowRoom\ShowRoomNivelModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingFullModel.cs" />
     <Compile Include="Controllers\MisCertificadosController.cs" />
     <Compile Include="Controllers\OfertasController.cs" />
@@ -470,6 +482,7 @@
     <Compile Include="Models\Estrategia\UpSellingRegaloModel.cs" />
     <Compile Include="Models\Estrategia\WaTipoEstrategia.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
+    <Compile Include="Models\ObservacionModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaReporteModel.cs" />
     <Compile Include="Models\PartialSectionBpt.cs" />
     <Compile Include="Models\BusquedaProductoModel.cs" />
@@ -495,6 +508,7 @@
     <Compile Include="Models\MensajesCDRExpressModel.cs" />
     <Compile Include="Models\PedidoCrudModel.cs" />
     <Compile Include="Models\PagoEnLineaConfiguracion.cs" />
+    <Compile Include="Models\PedidoDetalleModel.cs" />
     <Compile Include="Models\Pedido\PedidoWebSetDetalleModel.cs" />
     <Compile Include="Models\PagoEnlineaInfoModel.cs" />
     <Compile Include="Models\PagoEnLinea\DataToken.cs" />
@@ -634,7 +648,6 @@
     <Compile Include="Models\PedidoAsociadoModel.cs" />
     <Compile Include="Models\PedidoDetalleCarritoModel.cs" />
     <Compile Include="Models\PedidoFICModel.cs" />
-    <Compile Include="Models\PedidoModel.cs" />
     <Compile Include="Models\PedidoSb2Model.cs" />
     <Compile Include="Models\PedidoWebDetalleModel.cs" />
     <Compile Include="Models\PercepcionesModel.cs" />
@@ -644,6 +657,7 @@
     <Compile Include="Models\ProductoCompartidoModel.cs" />
     <Compile Include="Models\ProductoFaltanteModel.cs" />
     <Compile Include="Models\Pedido\PedidoWebSetModel.cs" />
+    <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
     <Compile Include="Models\RechazoModel.cs" />
     <Compile Include="Models\OfertaFinalRegaloModel.cs" />
@@ -718,11 +732,30 @@
     <Compile Include="Providers\AdministrarEstrategiaProvider.cs" />
     <Compile Include="Providers\OfertaBaseProvider.cs" />
     <Compile Include="Providers\PedidoSetProvider.cs" />
+    <Compile Include="Providers\CdrProvider.cs" />
+    <Compile Include="Providers\ConfiguracionManagerProvider.cs" />
+    <Compile Include="Providers\ConfiguracionOfertasHomeProvider.cs" />
+    <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
+    <Compile Include="Providers\EstadoCuentaProvider.cs" />
+    <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
+    <Compile Include="Providers\EventoFestivoProvider.cs" />
+    <Compile Include="Providers\GuiaNegocioProvider.cs" />
+    <Compile Include="Providers\BaseProvider.cs" />
+    <Compile Include="Providers\IssuuProvider.cs" />
+    <Compile Include="Providers\MenuContenedorProvider.cs" />
+    <Compile Include="Providers\OfertaDelDiaProvider.cs" />
+    <Compile Include="Providers\OfertaPersonalizadaProvider.cs" />
+    <Compile Include="Providers\OfertaViewProvider.cs" />
+    <Compile Include="Providers\PagoEnLineaProvider.cs" />
+    <Compile Include="Providers\PedidoWebProvider.cs" />
+    <Compile Include="Providers\RenderImgProvider.cs" />
     <Compile Include="Providers\RevistaDigitalProvider.cs" />
     <Compile Include="Providers\ShowRoomProvider.cs" />
     <Compile Include="Providers\OfertaDelDiaProvider.cs" />
     <Compile Include="Providers\TablaLogicaProvider.cs" />
+    <Compile Include="Providers\TipoEstrategiaProvider.cs" />
     <Compile Include="Providers\UpSellingProvider.cs" />
+    <Compile Include="Providers\VCFichaProductoProvider.cs" />
     <Compile Include="Providers\ZonificacionProvider.cs" />
     <Compile Include="Service References\HojaInscripcionBelcorpPais\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -765,6 +798,11 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\ServiceODS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceOferta\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -830,9 +868,11 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="SessionManager\ISessionManager.cs" />
-    <Compile Include="SessionManager\IShowRoom.cs" />
+    <Compile Include="SessionManager\OfertaDelDia\IOfertaDelDia.cs" />
+    <Compile Include="SessionManager\OfertaDelDia\OfertaDelDia.cs" />
+    <Compile Include="SessionManager\ShowRoom\IShowRoom.cs" />
     <Compile Include="SessionManager\SessionManager.cs" />
-    <Compile Include="SessionManager\ShowRoom.cs" />
+    <Compile Include="SessionManager\ShowRoom\ShowRoom.cs" />
     <Compile Include="Set.aspx.cs">
       <DependentUpon>Set.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1269,6 +1309,9 @@
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
     <Content Include="Content\Css\Mobile\Contenedor\Index.css" />
     <Content Include="Content\Css\Mobile\Contenedor\carrusel.individual.css" />
+    <Content Include="Content\Css\Mobile\Ficha\RedesSociales.css" />
+    <Content Include="Content\Css\Mobile\Ficha\Carrusel.css" />
+    <Content Include="Content\Css\Mobile\Ficha\ficha.css" />
     <Content Include="Content\Css\Mobile\Lanzamientos\Detalle.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
@@ -1280,9 +1323,13 @@
     <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
+    <Content Include="Content\Css\Site\Contenedor\OfertaDelDia.css" />
     <Content Include="Content\Css\Site\Esika\styleDefault.css" />
     <Content Include="Content\Css\Site\Esika\unsubscribe.css" />
     <Content Include="Content\Css\Site\Esika\verificacion-pin.css" />
+    <Content Include="Content\Css\Site\Ficha\Carrusel.css" />
+    <Content Include="Content\Css\Site\Ficha\RedesSociales.css" />
+    <Content Include="Content\Css\Site\Ficha\Ficha.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
     <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.css" />
@@ -2954,6 +3001,7 @@
     <Content Include="Content\Images\mobile\Esika\catalogo_ws2.png" />
     <Content Include="Content\Images\mobile\Esika\cerrar_04.png" />
     <Content Include="Content\Images\mobile\Esika\cyzone_revista.png" />
+    <Content Include="Content\Images\mobile\Esika\down-arrow.svg" />
     <Content Include="Content\Images\mobile\Esika\esika_blog.png" />
     <Content Include="Content\Images\mobile\Esika\esika_revista.png" />
     <Content Include="Content\Images\mobile\Esika\facebook.png" />
@@ -2989,7 +3037,9 @@
     <Content Include="Content\Images\mobile\Esika\previous_ofertas_home.png" />
     <Content Include="Content\Images\mobile\Esika\previous_ofertas_home_white.png" />
     <Content Include="Content\Images\mobile\Esika\revista_c09.png" />
+    <Content Include="Content\Images\mobile\Esika\right-arrow.svg" />
     <Content Include="Content\Images\mobile\Esika\tarjeta.png" />
+    <Content Include="Content\Images\mobile\Esika\top-arrow.svg" />
     <Content Include="Content\Images\mobile\Esika\triangulo.png" />
     <Content Include="Content\Images\mobile\Esika\user.jpg" />
     <Content Include="Content\Images\mobile\Esika\video.png" />
@@ -3456,6 +3506,8 @@
     <Content Include="Content\Images\showroom\preventa_pop.jpg" />
     <Content Include="Content\Images\showroom\prueba.png" />
     <Content Include="Content\Images\showroom\red.png" />
+    <Content Include="Content\Images\showroom\redes_facebook.png" />
+    <Content Include="Content\Images\showroom\redes_whatsapp.png" />
     <Content Include="Content\Images\showroom\selector.png" />
     <Content Include="Content\Images\showroom\SET-MAX.jpg" />
     <Content Include="Content\Images\showroom\Showroom-hoy.gif" />
@@ -3696,8 +3748,14 @@
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\CarruselModule.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaModule.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregar.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregarProvider.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\EstrategiaUrls.js" />
+    <Content Include="Scripts\PortalConsultoras\Estrategia\EstrategiaComponente.js" />
     <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\api.js" />
     <Content Include="Scripts\PortalConsultoras\Estrategia\UpSelling\Index.js" />
     <Content Include="Scripts\knockout.extensions.js" />
@@ -3768,6 +3826,7 @@
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Suscripcion.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-DataLayer.js" />
+    <Content Include="Scripts\PortalConsultoras\Shared\ConstantesModule.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\General\RedesSociales.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\MenuContenedor.js" />
@@ -4125,6 +4184,8 @@
     <Content Include="Areas\Mobile\Views\Lanzamientos\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-individuales.cshtml" />
     <Content Include="Content\Css\Site\Contenedor\producto.simple.css" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\Ficha.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\_BreadCrumb.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -4264,6 +4325,19 @@
     <None Include="Service References\ServiceODS\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceOferta\OfertaService.wsdl" />
+    <None Include="Service References\ServiceOferta\OfertaService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceOferta\OfertaService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceOferta\OfertaService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceOferta\OfertaService3.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.wsdl" />
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.xsd">
@@ -4745,9 +4819,10 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServiceUsuario\UsuarioService.disco" />
-    <None Include="Service References\ServiceUsuario\configuration91.svcinfo" />
-    <None Include="Service References\ServiceUsuario\configuration.svcinfo" />
-    <None Include="Service References\ServiceUsuario\Reference.svcmap">
+    <None Include="Service References\ServiceOferta\OfertaService.disco" />
+    <None Include="Service References\ServiceOferta\configuration91.svcinfo" />
+    <None Include="Service References\ServiceOferta\configuration.svcinfo" />
+    <None Include="Service References\ServiceOferta\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -4784,6 +4859,7 @@
     <Content Include="Views\CatalogoPersonalizado\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\DetalleEstrategia\Ficha.cshtml" />
     <Content Include="Views\Unete\ReporteFuenteIngreso.cshtml" />
     <Content Include="Web References\ServiceCatalogosIssuu\MulticatalogoWebService.disco" />
     <Content Include="WebPages\AppCatalogoTyC\BO_AppCatalogoTyC.html" />
@@ -5111,6 +5187,10 @@
     <Content Include="Views\Login\VerificaAutenticidad.cshtml" />
     <Content Include="Views\MatrizCampania\ActualizarMatrizCampaniaNew.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpVariablesGeneralesPortal.cshtml" />
+    <Content Include="Views\OfertaDelDia\ofertadeldia-banner-template.cshtml" />
+    <Content Include="Views\OfertaDelDia\ofertadeldia-contenedor-template.cshtml" />
+    <Content Include="Views\DetalleEstrategia\template-ficha-detalle-video.cshtml" />
+    <Content Include="Views\DetalleEstrategia\_BreadCrumb.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -5446,6 +5526,10 @@
     <ProjectReference Include="..\Portal.Consultoras.Entities\Portal.Consultoras.Entities.csproj">
       <Project>{2A3B50DF-C243-4D7D-B8C0-E4E6C9C6C8D9}</Project>
       <Name>Portal.Consultoras.Entities</Name>
+	</ProjectReference>
+    <ProjectReference Include="..\Portal.Consultoras.Service\Portal.Consultoras.Service.csproj">
+      <Project>{B3AD057A-2326-4F70-8723-0B2B3AFCE4EA}</Project>
+      <Name>Portal.Consultoras.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -5551,6 +5635,7 @@
     <WCFMetadataStorage Include="Service References\ServiceContenido\" />
     <WCFMetadataStorage Include="Service References\ServiceEvaluacionCrediticia\" />
     <WCFMetadataStorage Include="Service References\ServiceODS\" />
+    <WCFMetadataStorage Include="Service References\ServiceOferta\" />
     <WCFMetadataStorage Include="Service References\ServicePedidoRechazado\" />
     <WCFMetadataStorage Include="Service References\ServicePedido\" />
     <WCFMetadataStorage Include="Service References\ServiceProductoCatalogoPersonalizado\" />

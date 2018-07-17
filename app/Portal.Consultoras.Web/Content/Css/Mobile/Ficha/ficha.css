@@ -1,0 +1,460 @@
+﻿ul.breadcumbs {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    margin: 15px 0px;
+}
+
+    ul.breadcumbs li {
+        display: inline-block;
+    }
+
+        ul.breadcumbs li a {
+            display: block;
+            color: #808080;
+            font-size: 12px;
+        }
+
+            ul.breadcumbs li a::before {
+                content: '';
+                background: url(/Content/Images/mobile/Esika/right-arrow.svg);
+                width: 9px;
+                height: 9px;
+                display: inline-block;
+                background-size: cover;
+                margin-right: 3px;
+                margin-left: 1px;
+            }
+
+        ul.breadcumbs li:first-child a::before {
+            display: none;
+        }
+
+        ul.breadcumbs li:last-child a {
+            font-weight: bolder;
+        }
+
+
+.clock_odd {
+    height: 35px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+    .clock_odd .flip-clock-divider .flip-clock-label {
+        display: block;
+        left: 7px;
+        right: initial;
+        top: 30px;
+        /*color: #000;*/
+        margin-top: 5px;
+        font-size: 8px;
+    }
+
+    .clock_odd .hours .flip-clock-label {
+        width: 0;
+        left: 0;
+    }
+
+    .clock_odd .minutes .flip-clock-label {
+    }
+
+    .clock_odd .seconds .flip-clock-label {
+    }
+
+.bg_imagen_producto {
+    width: 100%;
+    height: 150px;
+    background-size: cover !important;
+    background-position: center center !important;
+}
+
+.bg_imagen_producto_subir {
+    margin-top: -120px;
+}
+
+.imagen_producto {
+    margin-bottom: 15px;
+}
+
+.imagen_producto > div{
+    text-align: center;
+}
+
+    .imagen_producto img {
+        width: 85%;
+    }
+
+.marca_producto h2 {
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 1.91;
+    letter-spacing: 0.5px;
+    color: #000000;
+    margin-top: 11px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.descripcion_producto {
+    font-size: 13px;
+    font-weight: 900;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.31;
+    letter-spacing: normal;
+    color: #000000;
+    margin-bottom: 20px;
+    text-transform:uppercase;
+}
+
+.precio_producto p {
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+}
+
+.precio_producto span {
+    text-decoration: none;
+}
+
+.precio_producto .subprecio {
+    font-weight: 700;
+    margin-left: 78px;
+    font-size: 14px;
+}
+
+.gana_precio_producto {
+    border-left: 1px solid #cacaca;
+}
+
+.gana_precio_producto p {
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #AD1F78;
+}
+
+.contenido_titulo {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    color: #000000;
+    margin: 12px 0px 14px 0px;
+    line-height: normal;
+}
+
+.texto_referencial {
+    font-weight: 700;
+    height: 19px;
+    margin-top: 24px;
+    text-align: center;
+}
+
+.contenido_agregado .box_agregado p.marca {
+    font-size: 11px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.73;
+    letter-spacing: 0.4px;
+    color: #000000;
+    margin-bottom: 0;
+}
+
+.contenido_agregado .box_agregado span.prod_agregado {
+    font-size: 15px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.27;
+    letter-spacing: normal;
+    color: #000000;
+    width: 100%;
+    display: block;
+    padding: 5px 0px;
+}
+
+    .contenido_agregado .box_agregado span.prod_agregado:last-child {
+        border-bottom: .5px solid #00000052;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+    }
+
+.contenido_agregado .box_agregado span.sin_borde {
+    border-bottom: none !important;
+}
+
+.contenido_agregado .box_agregado b.cant_agregado {
+    font-size: 15px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 0.87;
+    letter-spacing: normal;
+    color: #000000;
+}
+
+
+.panel-collapse {
+    margin-bottom: 20px;
+}
+
+.tab_title:hover, .tab_title:focus {
+    text-decoration: none;
+    color: initial;
+}
+
+.border-top-tab {
+    border-top: .5px solid #ccc;
+}
+
+.share {
+   text-align:center;
+   margin-bottom: 100px;
+}
+
+.share a {
+    margin: 0px 6px;
+}
+
+.share a img {
+    width: 49px;
+    height: 49px;
+}
+
+.list_style_none {
+    padding: 0px;
+    margin: 0 0 10px 0;
+}
+
+.list_style_none li {
+    display: inline-block;
+}
+
+.precio li:first-child {
+    padding-right: 11px;
+    /*border-right: 1px solid #cacaca;*/
+}
+
+.precio li:last-child {
+    padding-left: 8px;
+}
+
+.precio li p {
+    margin-bottom: 0px;
+}
+
+.marca {
+    font-size: 11px;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+}
+
+.nombre_producto_opt{
+    margin-top: 2px;
+}
+
+
+.producto_img_mobile_bpt img {
+    margin: 0 auto !important;
+}
+
+
+/*Seleccionar tono*/
+
+.seleccion_tonos {
+    margin-bottom: 30px;
+}
+
+.tono_select_opt {
+    border: none;
+    height: auto;
+    background: url('/Content/Images/mobile/Esika/down-arrow.svg');
+    background-position: right 15px center;
+    background-repeat: no-repeat;
+    background-size: 13px;
+    cursor: pointer;
+}
+
+.tono_no_seleccionado {
+    background: url('/Content/Images/mobile/Esika/down-arrow.svg');
+    background-repeat: no-repeat;
+    background-size: 13px;
+    background-color: #000;
+    background-position: right 15px center;
+    color: white;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+}
+
+
+.tono_seleccionado {
+    margin-top: 2px !important;
+    height: 41px;
+}
+
+.tono_por_elegir {
+    background: url('/Content/Images/mobile/Esika/top-arrow.svg');
+    background-position: right 15px center;
+    background-repeat: no-repeat;
+    background-size: 13px;
+    border: none;
+}
+
+.texto_sin_tono {
+    border: 1px solid #000;
+}
+
+.texto_tono_seleccionado {
+    padding: 13px 15px 13px 15px !important;
+    height: auto;
+    margin: 0;
+}
+
+.content_tonos_select {
+    max-height: 220px;
+    width: 100% !important;
+    border: 1px solid #000;
+    padding: 10px 10px 0px 10px;
+    border-top: 1px solid #ccc !important;
+    top: 45px;
+    left: 0px;
+}
+
+.texto_sin_tono .tono_seleccionado {
+    margin: 1px 9px;
+    margin-top: 1px;
+}
+
+.tono_seleccionado {
+    margin-top: 2px !important;
+    height: 41px;
+}
+
+.content_tonos_select .content_tono_elegido {
+    border-bottom: 0;
+}
+
+.content_tonos_select > div:last-child {
+    margin-bottom: 15px;
+}
+
+.content_tono_detalle{
+    height: auto;
+    cursor: pointer
+}
+
+/* Fin Seleccionar tono*/
+
+/* Tabs */
+.tabs ul.tabs {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.tabs ul.tabs li a, .tab_title {
+    padding: 20px 0px;
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: normal;
+    letter-spacing: 2.5px;
+    color: #000000;
+    background: url(/Content/Images/mobile/Esika/down-arrow.svg);
+    background-repeat: no-repeat;
+    background-position: center right 10px;
+    background-size: 11px;
+    cursor: pointer;
+}
+
+.tabs ul.tabs li .active {
+    background: url(/Content/Images/mobile/Esika/top-arrow.svg);
+    background-repeat: no-repeat;
+    background-position: center right 10px;
+    background-size: 11px;
+}
+
+.tabs ul.tabs li a:hover {
+    text-decoration: none;
+}
+
+.tabs ul.tabs li, .tab_item {
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid #ccc;
+}
+
+.tabs ul.tabs li:last-child {
+    border-top: none !important;
+}
+
+.tabs ul.tabs li ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    padding-bottom: 20px;
+    display: none;
+}
+
+.tabs li:nth-child(1) {
+    border-top: 1px solid #ccc;
+}
+
+/* fin Tabs */
+
+.content_producto_compuesto::after{
+    content:"";
+    clear:both;
+    display: block;
+}
+
+.box-container {
+    margin-top: -125px;
+}
+.nombre_detalle_producto_tono {
+    font-weight:bold;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.vineta {
+    display: block;
+    float: left;
+}
+
+.txt-des {
+    display: block;
+    float: left;
+    width: 95%;
+    padding-left: 8px;
+    padding-bottom: 5px;
+}
+
+.descripcion_detalle_producto_tono li {
+    clear: both;
+    padding-bottom: 3px;
+}
+.descripcion_detalle_producto_tono li::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+.ficha_lineaencuentraproducto hr {
+    border-color: #000 !important;
+}
+
+.ficha_tabs {
+    border-top: 1px solid #ccc;
+}

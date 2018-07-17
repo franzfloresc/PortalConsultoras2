@@ -39,13 +39,13 @@
             </div>
             <div class="producto_nombre_descripcion">
                 {{#iff PuedeAgregar '!=' '0'}}
-                <div class="liquidacion_rango_home">
+                <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                     {{#iff PuedeCambiarCantidad '==' '0'}}
                     <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" disabled="disabled" style="border: 1px solid #b0b0b0;width:100%!important" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
                     {{else}}
-                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                     <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
-                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     {{/iff}}
                 </div>
                 <div class="clear"></div>

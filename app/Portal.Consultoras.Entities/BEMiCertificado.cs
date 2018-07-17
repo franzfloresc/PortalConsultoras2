@@ -97,8 +97,8 @@ namespace Portal.Consultoras.Entities
                 TipoCert = Convert.ToInt16(row["TipoCert"]);
             if (DataRecord.HasColumn(row, "NumeroVeces"))
                 NumeroVeces = Convert.ToInt16(row["NumeroVeces"]);
-            if (DataRecord.HasColumn(row, "DocumentoResponsable") && row["DocumentoResponsable"] != DBNull.Value)
-                DocumentoResponsable = row["DocumentoResponsable"].ToString();
+            if (DataRecord.HasColumn(row, "DocumentoResponsable"))
+                DocumentoResponsable = Convert.ToString(row["DocumentoResponsable"]);
         }
     }
 

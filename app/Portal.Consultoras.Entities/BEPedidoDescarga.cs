@@ -54,10 +54,10 @@ namespace Portal.Consultoras.Entities
                 FechaHoraFin = Convert.ToDateTime(row["FechaHoraFin"]);
 
             if (DataRecord.HasColumn(row, "Estado"))
-                Estado = row["Estado"].ToString();
+                Estado = Convert.ToString(row["Estado"]);
 
             if (DataRecord.HasColumn(row, "Mensaje"))
-                Mensaje = row["Mensaje"].ToString();
+                Mensaje = Convert.ToString(row["Mensaje"]);
 
             if (DataRecord.HasColumn(row, "NumeroPedidosWeb"))
                 NumeroPedidosWeb = Convert.ToInt32(row["NumeroPedidosWeb"]);
@@ -66,10 +66,10 @@ namespace Portal.Consultoras.Entities
                 NumeroPedidosDD = Convert.ToInt32(row["NumeroPedidosDD"]);
 
             if (DataRecord.HasColumn(row, "TipoProceso"))
-                TipoProceso = row["TipoProceso"].ToString();
+                TipoProceso = Convert.ToString(row["TipoProceso"]);
 
             if (DataRecord.HasColumn(row, "FechaFacturacion"))
-                FechaFacturacion = Convert.ToDateTime(row["FechaFacturacion"].ToString());
+                FechaFacturacion = Convert.ToDateTime(row["FechaFacturacion"]);
 
             if (DataRecord.HasColumn(row, "NroLote"))
                 NroLote = Convert.ToInt32(row["NroLote"]);

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-
 namespace Portal.Consultoras.Data.Estrategia
 {
     public class UpSellingDataAccess : DataAccess

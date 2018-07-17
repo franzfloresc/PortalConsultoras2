@@ -4,7 +4,7 @@ namespace Portal.Consultoras.Web.Models
 {
     public class EstadoProductoComentarioModel
     {
-        private Enumeradores.EstadoProductoComentario _estado;
+        readonly Enumeradores.EstadoProductoComentario _estado;
 
         public EstadoProductoComentarioModel(Enumeradores.EstadoProductoComentario estado)
         {

@@ -51,8 +51,8 @@
                     </a>
                     <div data-tipo="descrip">{descripcion}</div>
                     <input id="txtUrl{tipoCatalogo}" type="hidden" value="" />
-                    <a class="compartir_catalogo_facebook" data-accion="face" onclick="CompartirFacebook('{comp}', '{campania}', this)"><img src="@Url.Content("~/Content/Images/Esika/catalogo_facebook.png")" /></a>
-                    <a class="compartir_catalogo_mensaje" onclick="javascript: AbrirCompartirCorreo('{tipoCatalogo}','{campania}');"><img src="@Url.Content("~/Content/Images/Esika/catalogo_mensaje.png")" /></a>
+                    <a class="compartir_catalogo_facebook" data-accion="face" onclick="RedesSociales.CompartirFacebook('{comp}', '{campania}', this)"><img src="@Url.Content("~/Content/Images/Esika/catalogo_facebook.png")" /></a>
+                    <a class="compartir_catalogo_mensaje" onclick="javascript: RedesSociales.AbrirCompartirCorreo('{tipoCatalogo}','{campania}');"><img src="@Url.Content("~/Content/Images/Esika/catalogo_mensaje.png")" /></a>
                 </div>
             </div>
         </div>
@@ -164,11 +164,12 @@
     }
 </div>
 @section scripts{
-    <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
     <script type="text/javascript" id="js-ready-Catalogo">
 
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
-        var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
+        var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' +
+            '{img}' +
+            '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo';
         imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
         var codigoIso = '@ViewBag.CodigoISO';
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
@@ -183,8 +184,7 @@
         var urlBuscadorIssu = '@Constantes.CatalogoUrlIssu.Buscador';
         var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
         var _Pagina = 1;
+        var tipoOrigenEstrategia = 1;
     </script>
-
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MisCatalogosRevistas/Index.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/MisCatalogosRevistas")
 }
