@@ -89,7 +89,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.FechaFinFacturacion, f => f.MapFrom(c => c.FechaFinCampania))
                 .ForMember(t => t.MontoMinimoFlexipago, f => f.Ignore())
                 .ForMember(t => t.OfertaDelDia, f => f.Ignore())
-                .ForMember(t => t._OfertaFinal, f => f.Ignore());
+                .ForMember(t => t.beOfertaFinal, f => f.Ignore());
 
             Mapper.CreateMap<AdministrarPalancaModel, ServiceSAC.BEConfiguracionPais>();
             Mapper.CreateMap<ConfiguracionPaisDatosModel, ServiceUsuario.BEConfiguracionPaisDatos>();

@@ -1115,6 +1115,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.ConsecutivoNueva = usuario.ConsecutivoNueva;
 
                     usuarioModel.DocumentoIdentidad = usuario.DocumentoIdentidad;
+                    usuarioModel.PromedioVenta = usuario.PromedioVenta;
                     #endregion
 
                     if (usuarioModel.RolID == Constantes.Rol.Consultora)

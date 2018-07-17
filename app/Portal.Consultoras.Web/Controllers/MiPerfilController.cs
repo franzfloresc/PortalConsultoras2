@@ -262,12 +262,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (Util.IsUrl(userData.FotoPerfil))
                     {
-                        Stream StreamImagen = ConsultarImagen(userData.FotoPerfil);
-                        using (var imagenConsultada = System.Drawing.Image.FromStream(StreamImagen))
+                        Stream streamImagen = ConsultarImagen(userData.FotoPerfil);
+                        using (streamImagen)
+                        using (var imagenConsultada = System.Drawing.Image.FromStream(streamImagen))
                         {
-                            userData.FotoPerfilAncha = (imagenConsultada.Width > imagenConsultada.Height ? true : false);
+                            userData.FotoPerfilAncha = (imagenConsultada.Width > imagenConsultada.Height);
+                            ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha; 
                         }
-                        ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
                     }
 
                     userData.FotoOriginalSinModificar = nameImage;
@@ -293,7 +294,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var sv = new UsuarioServiceClient())
                 {
-                    var upd = sv.UpdUsuarioFotoPerfil(userData.PaisID, userData.CodigoConsultora, null);
+                    var upd = sv.UpdUsuarioFotoPerfil(userData.PaisID, userData.CodigoUsuario, null);
                 }
 
                 var carpetaPais = Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora];

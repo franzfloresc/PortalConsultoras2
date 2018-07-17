@@ -292,10 +292,11 @@ namespace Portal.Consultoras.BizLogic
 
                 if (Common.Util.IsUrl(usuario.FotoPerfil) && Common.Util.ExisteUrlRemota(usuario.FotoPerfil))
                 {
-                    Stream StreamImagen = ConsultarImagen(usuario.FotoPerfil);
-                    using (var imagenConsultada = System.Drawing.Image.FromStream(StreamImagen))
+                    Stream streamImagen = ConsultarImagen(usuario.FotoPerfil);
+                    using (streamImagen)
+                    using (var imagenConsultada = System.Drawing.Image.FromStream(streamImagen))
                     {
-                        usuario.FotoPerfilAncha = (imagenConsultada.Width > imagenConsultada.Height ? true : false);
+                        usuario.FotoPerfilAncha = imagenConsultada.Width > imagenConsultada.Height;
                     }
                 }
 
@@ -2126,14 +2127,7 @@ namespace Portal.Consultoras.BizLogic
 
                                         if (eslbel)
                                         {
-                                            if (paisISO == Constantes.CodigosISOPais.Mexico || paisISO == Constantes.CodigosISOPais.CostaRica)
-                                            {
-                                                htmlTemplate.Replace("#DISPLAY1#", "");
-                                            }
-                                            else
-                                            {
-                                                htmlTemplate.Replace("#DISPLAY1#", "nomostrar");
-                                            }
+                                            htmlTemplate = htmlTemplate.Replace("#DISPLAY1#", paisISO == Constantes.CodigosISOPais.Mexico || paisISO == Constantes.CodigosISOPais.CostaRica ? string.Empty : "nomostrar");
                                         }
 
                                         htmlTemplate = htmlTemplate.Replace("#TELEFONO1#", telefono1);
@@ -2641,7 +2635,7 @@ namespace Portal.Consultoras.BizLogic
 
         private bool GetHorarioByCodigo(int paisID, string origen, out string descripcion)
         {
-            descripcion = "";
+            descripcion = string.Empty;
             BEHorario horarioChat = CacheManager<BEHorario>.ValidateDataElement(paisID, ECacheItem.HorarioChat, origen, () => new BLHorario().GetHorarioByCodigo(paisID, origen));
             if (horarioChat == null) return false;
             descripcion = horarioChat.Resumen;
@@ -2868,12 +2862,12 @@ namespace Portal.Consultoras.BizLogic
                 /*validando si tiene Zona*/
                 if (opcion.TieneZonas)
                 {
-                    var TieneZona = new BLOpcionesVerificacion().GetZonasOpcionesVerificacion(paisID, oUsu.RegionID, oUsu.ZonaID);
-                    if (TieneZona == null) return null;
-                    if (!TieneZona.VerifAutenticidad) return null;
+                    var tieneZona = new BLOpcionesVerificacion().GetZonasOpcionesVerificacion(paisID, oUsu.RegionID, oUsu.ZonaID);
+                    if (tieneZona == null) return null;
+                    if (!tieneZona.VerifAutenticidad) return null;
                 }
                 /*Validando si corresponde al Usuario*/
-                if (opcion.lstFiltros.Count >= 0)
+                if (opcion.lstFiltros.Count > 0)
                 {
                     var usuFiltro = opcion.lstFiltros.Where(a => a.IdEstadoActividad == oUsu.IdEstadoActividad).FirstOrDefault();
                     if (usuFiltro == null) return null;
