@@ -637,8 +637,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js"
             ));
-
-
+            
             bundles.Add(new ScriptBundle("~/bundles/js/Ficha").Include(
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/General.js",

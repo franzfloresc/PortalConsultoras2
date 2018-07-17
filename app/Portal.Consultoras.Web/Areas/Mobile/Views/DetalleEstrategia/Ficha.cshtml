@@ -90,7 +90,15 @@
 
         <ul class="list_style_none precio">
             <li class="precio_producto">
-                <p>Precio para ti <b style="font-size: 14px;">{{SimboloMoneda}} {{PrecioVenta}}</b></p>
+                <p>
+                    Precio para ti
+                    <b style="font-size: 14px;">
+                        {{#IsNullOrEmpty ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
+                    </b>
+                </p>
+                {{#each ListaPrecioNiveles as |itemNivel|}}
+                <span class="subprecio">{{itemNivel}}</span>
+                {{/each}}
             </li>
             {{#iff Ganancia '>' 0}}
             <li class="gana_precio_producto">
@@ -308,13 +316,13 @@
 </div>
 }
 
-<div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
-    <hr>
-</div>
 
 <!--compartir-->
 @if (Model.TieneCompartir)
 {
+<div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
+    <hr>
+</div>
 <div id="Contenedor_redes_sociales" data-item="">
     <div data-compartir-campos="" style="display:none;">
         <input type="hidden" class="CUV" value="" />
@@ -365,18 +373,7 @@
         var tieneCarrusel = '@Model.TieneCarrusel';
         var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new { area = "" })';
         $(document).ready(function () {
-
-            //$(".ficha_tabs li a").click(function () {
-            //    //var divpadre = $(this).parent();
-            //    //var clase = $(".ficha_tabs li a").attr("class");
-            //    var clase = $(this).attr("class");
-            //    if (clase == "active") {
-            //        $(this).attr("class", "tab-link");
-            //    } else {
-            //        $(this).attr("class", "active");
-            //    }
-            //});
-
+            
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",
                 origen: "@Model.OrigenUrl",

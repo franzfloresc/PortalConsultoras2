@@ -859,7 +859,8 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     prodModel.Precio = 0;
                     prodModel.Ganancia = 0;
-                    if (estrategia.Precio2 > 0 && !string.IsNullOrWhiteSpace(estrategia.Niveles))
+                    estrategia.Niveles = Util.Trim(estrategia.Niveles);
+                    if (estrategia.Precio2 > 0 && estrategia.Niveles != "")
                     {
                         try
                         {
@@ -888,7 +889,7 @@ namespace Portal.Consultoras.Web.Providers
                         }
                     }
 
-                    prodModel.PrecioNiveles = estrategia.Niveles ?? string.Empty;
+                    prodModel.ListaPrecioNiveles = estrategia.Niveles.Split('|').ToList();
                 }
 
                 if (estrategia.Hermanos!=null)

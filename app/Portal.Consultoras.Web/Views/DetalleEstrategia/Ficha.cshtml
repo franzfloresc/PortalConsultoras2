@@ -117,13 +117,16 @@
                             {{/iff}}
 
                             <div class="precio_venta_oferta">Precio para ti 
-                                <b><span data-precio_venta_oferta="">{{SimboloMoneda}} {{PrecioVenta}}</span></b>
+                                <b>
+                                    <span data-precio_venta_oferta="">
+                                    {{#IsNullOrEmpty ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
+                                    </span>
+                                    {{#each ListaPrecioNiveles as |itemNivel|}}
+                                    <span class="subprecio">{{itemNivel}}</span>
+                                    {{/each}}
+                                </b>
                             </div>
-                            {{#iff PrecioNiveles '!=' ''}}
-                                {{#each lstPrecioNiveles as |item|}}
-                                <span class="subprecio">{{item}}</span>
-                                {{/each}}
-                            {{/iff}}
+                            
 
                             @*<span class="subprecio">x1 s/.32</span>
                             <span class="subprecio">x2 s/.64</span>
@@ -421,7 +424,6 @@
 @Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")
 
 @section scripts{
-
 
     @System.Web.Optimization.Scripts.Render("~/bundles/js/EstrategiaAgregar")
     @System.Web.Optimization.Scripts.Render("~/bundles/js/Ficha")
