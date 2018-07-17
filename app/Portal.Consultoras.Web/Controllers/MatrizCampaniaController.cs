@@ -510,10 +510,10 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             XmlDocument xdLibro = docs[pos];
                             XmlElement nodoRaizHojas = xdLibro.DocumentElement;
-                            XmlNodeList nodosHojas = nodoRaizHojas.GetElementsByTagName("sheet");
-                            string id, hoja;
-                            if (nodosHojas != null)
+                            if (nodoRaizHojas != null)
                             {
+                                XmlNodeList nodosHojas = nodoRaizHojas.GetElementsByTagName("sheet");
+                                string id, hoja;
                                 contenido = "";
                                 int ch = 0;
                                 foreach (XmlNode nodoHoja in nodosHojas)
@@ -526,82 +526,79 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         XmlDocument xdHoja = docs[pos];
                                         XmlElement nodoRaizHoja = xdHoja.DocumentElement;
-                                        XmlNodeList nodosFilas = nodoRaizHoja.GetElementsByTagName("row");
-
-                                        int indice;
-                                        string celda, valor;
-                                        XmlAttribute tipoString;
-                                        contenido = "";
-                                        int cf = 0; //contador de filas
-                                        int cc = 0; //contador de columnas
-                                        XmlNode nodoCelda = null;
-                                        if (nodosFilas != null)
+                                        if (nodoRaizHoja != null)
                                         {
+                                            XmlNodeList nodosFilas = nodoRaizHoja.GetElementsByTagName("row");
+
+                                            int indice;
+                                            string celda, valor;
+                                            XmlAttribute tipoString;
+                                            contenido = "";
+                                            int cf = 0; //contador de filas
+                                            int cc = 0; //contador de columnas
+                                            XmlNode nodoCelda = null;
                                             foreach (XmlNode nodoFila in nodosFilas)
                                             {
                                                 XmlNodeList nodoCeldas = nodoFila.ChildNodes;
 
-                                                if (nodoCeldas != null)
+                                                if (cf == 0)
                                                 {
-                                                    if (cf == 0)
+                                                    columnas = new List<string>();
+                                                    nRegistros = nodoCeldas.Count;
+                                                    for (int i = 0; i < nRegistros; i++)
                                                     {
-                                                        columnas = new List<string>();
-                                                        nRegistros = nodoCeldas.Count;
-                                                        for (int i = 0; i < nRegistros; i++)
-                                                        {
-                                                            columnas.Add(nodoCeldas[i].Attributes["r"].Value.Replace(nodoFila.Attributes["r"].Value, ""));
-                                                        }
+                                                        columnas.Add(nodoCeldas[i].Attributes["r"].Value.Replace(nodoFila.Attributes["r"].Value, ""));
                                                     }
-                                                    else
+                                                }
+                                                else
+                                                {
+                                                    cc = 0;
+                                                    contenidoFila = "";
+                                                    nRegistros = columnas.Count;
+                                                    for (int i = 0; i < nRegistros; i++)
                                                     {
-                                                        cc = 0;
-                                                        contenidoFila = "";
-                                                        nRegistros = columnas.Count;
-                                                        for (int i = 0; i < nRegistros; i++)
+                                                        valor = "";
+                                                        nodoCelda = nodoCeldas[cc];
+                                                        if (cc > 0) contenidoFila += "¦";
+                                                        if (nodoCelda != null)
                                                         {
-                                                            valor = "";
-                                                            nodoCelda = nodoCeldas[cc];
-                                                            if (cc > 0) contenidoFila += "¦";
-                                                            if (nodoCelda != null)
+                                                            if (columnas[i] == nodoCelda.Attributes["r"].Value.Replace(nodoFila.Attributes["r"].Value, ""))
                                                             {
-                                                                if (columnas[i] == nodoCelda.Attributes["r"].Value.Replace(nodoFila.Attributes["r"].Value, ""))
+                                                                celda = nodoCelda.Attributes["r"].Value;
+                                                                tipoString = nodoCelda.Attributes["t"];
+                                                                valor = "";
+                                                                if (tipoString != null)
                                                                 {
-                                                                    celda = nodoCelda.Attributes["r"].Value;
-                                                                    tipoString = nodoCelda.Attributes["t"];
-                                                                    valor = "";
-                                                                    if (tipoString != null)
+                                                                    if (valores != null && valores.Count > 0)
                                                                     {
-                                                                        if (valores != null && valores.Count > 0)
-                                                                        {
-                                                                            indice = int.Parse(nodoCelda.FirstChild.FirstChild.Value);
-                                                                            valor = valores[indice];
-                                                                            contenidoFila += valor;
-                                                                        }
+                                                                        indice = int.Parse(nodoCelda.FirstChild.FirstChild.Value);
+                                                                        valor = valores[indice];
+                                                                        contenidoFila += valor;
                                                                     }
-                                                                    else
-                                                                    {
-                                                                        if (nodoCelda.FirstChild != null && nodoCelda.FirstChild.FirstChild != null)
-                                                                        {
-                                                                            valor = nodoCelda.FirstChild.FirstChild.Value;
-                                                                            contenidoFila += valor;
-                                                                        }
-                                                                    }
-                                                                    cc++;
                                                                 }
+                                                                else
+                                                                {
+                                                                    if (nodoCelda.FirstChild != null && nodoCelda.FirstChild.FirstChild != null)
+                                                                    {
+                                                                        valor = nodoCelda.FirstChild.FirstChild.Value;
+                                                                        contenidoFila += valor;
+                                                                    }
+                                                                }
+                                                                cc++;
                                                             }
                                                         }
-                                                        if (cf < nodosFilas.Count - 1) contenidoFila += "¬";
-                                                        contenido += contenidoFila;
                                                     }
+                                                    if (cf < nodosFilas.Count - 1) contenidoFila += "¬";
+                                                    contenido += contenidoFila;
                                                 }
                                                 cf++;
                                             }
                                         }
+
                                         hojas.Add(contenido);
                                         //sb.AppendLine(contenido);
                                     }
                                     ch++;
-                                    break;
                                 }
                             }
                         }

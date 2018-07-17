@@ -44,6 +44,12 @@ $(document).ready(function () {
         stopVideo();
         $('#VideoIntroductorio').hide();
     });
+
+    $('#btnCerrarPopupCorreo').click(function () {
+        $('#popupVerificacionCorreoElectronicoPendiente').fadeOut();
+        $('.contenedor_fondo_popup').fadeOut();
+    });
+
     $("#imgProductoMobile").click(function () {
 
     });
@@ -102,9 +108,10 @@ $(document).ready(function () {
         });
     });
 
-    if (consultoraNuevaBannerAppMostrar == "False") ObtenerComunicadosPopup();
+    ObtenerComunicadosPopup();
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
     bannerFunc.showExpoOferta();
+    ConsultarEmailPendiente();
 });
 
 $(window).load(function () {
@@ -380,10 +387,16 @@ function CargarPopupsConsultora() {
     else if (TipoPopUpMostrar == popupRevistaDigitalSuscripcion) {
         rdPopup.Mostrar();
     }
-    else if (TipoPopUpMostrar == popupAceptacionContrato)
-    {
+    else if (TipoPopUpMostrar == popupAceptacionContrato) {
         MostrarPopupAceptacionContratoGet();
     }
+    else if (TipoPopUpMostrar == popupActualizarCorreo) {
+        MostrarPopupActualizarCorreo();
+    }
+}
+
+function MostrarPopupActualizarCorreo() {
+    $("#popupVerificacionCorreoElectronicoPendiente").show();
 }
 
 function MostrarPopupAceptacionContratoGet()
@@ -391,6 +404,8 @@ function MostrarPopupAceptacionContratoGet()
     if (TipoPopUpMostrar == popupAceptacionContrato)
     {
         $("#fondoPopup_aceptacionTerminosYCondicionesContrato").show();
+    } else if (TipoPopUpMostrar == popupActualizarCorreo) {
+            MostrarPopupActualizarCorreo();
     }
 }
 
@@ -731,6 +746,26 @@ function VerTutorialMobile() {
     $('#tutorialesMobile').show();
 
     setTimeout(function () { $(window).resize(); }, 50);
+}
+
+function ConsultarEmailPendiente() {
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/ObtenerActualizacionEmail',
+        dataType: 'Text',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.split('|')[0] == '1') {
+                    document.getElementById('spnEmail').innerHTML = data.split('|')[1];
+                    document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
+                }
+            }
+        },
+        error: function (data, error) {
+            alert(error);
+        }
+    });
 }
 
 var bannerFunc = (function () {

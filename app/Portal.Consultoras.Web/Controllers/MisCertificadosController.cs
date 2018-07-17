@@ -75,48 +75,31 @@ namespace Portal.Consultoras.Web.Controllers
         private MiCertificadoModel ObtenerCertificadoNoAdeudo()
         {
             var certificado = new MiCertificadoModel();
-
-            var certificadoId = 0;
-            var nombre = "";
-            var mensajeError = "";
-
+            certificado.MensajeError = "";
             switch (userData.PaisID)
             {
                 case Constantes.PaisID.Colombia:
-                    nombre = "Paz y Salvo";
-
-                    if (userData.MontoDeuda > 0)
-                    {
-                        mensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certficado de Paz y Salvo";
-                        break;
-                    }
-
-                    certificadoId = 1;
-                    break;
+                case Constantes.PaisID.RepublicaDominicana:
+                case Constantes.PaisID.PuertoRico:
                 case Constantes.PaisID.Ecuador:
                 case Constantes.PaisID.Peru:
-                    nombre = (userData.PaisID == Constantes.PaisID.Peru) ? "Constancia No Adeudo" : "No Adeudo";
-
+                    certificado.Nombre = DevuelveNombreCertificadoNoAdeudo_PazySalvo(userData.PaisID);
                     if (userData.MontoDeuda > 0)
                     {
-                        mensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certificado de No Adeudo";
+                        certificado.MensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certificado de " + certificado.Nombre;
                         break;
                     }
+                    certificado.CertificadoId = 1;
 
-                    certificadoId = 1;
+                    if (userData.PaisID == Constantes.PaisID.RepublicaDominicana) certificado.NombreVista = "~/Views/MisCertificados/DO_PazYSalvoPdf.cshtml";
+                    if (userData.PaisID == Constantes.PaisID.PuertoRico) certificado.NombreVista = "~/Views/MisCertificados/PR_PazYSalvoPdf.cshtml";
+                    if (string.IsNullOrWhiteSpace(certificado.NombreVista)) certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPdf.cshtml";
+
                     break;
                 default:
-                    nombre = "";
+                    certificado = null;
                     break;
             }
-
-            if (nombre == "") return certificado;
-
-            certificado.CertificadoId = certificadoId;
-            certificado.Nombre = nombre;
-            certificado.MensajeError = mensajeError;
-            certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPdf.cshtml";
-
             return certificado;
         }
 
@@ -127,10 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
         private MiCertificadoModel ObtenerCertificadoComercial()
         {
             var certificado = new MiCertificadoModel();
-            var certificadoId = 0;
-            var nombre = "";
-            var mensajeError = "";
-            var cantidadCampaniaConsecutiva = "";// ConfigurationManager.AppSettings["cantCampaniaConsecutivaCertComercial"] ?? "5";
+            var cantidadCampaniaConsecutiva = "";
 
             short codigoTablaLogica = 140;
             var CampaniaConsecutiva = new List<BETablaLogicaDatos>();
@@ -140,41 +120,37 @@ namespace Portal.Consultoras.Web.Controllers
                 cantidadCampaniaConsecutiva = CampaniaConsecutiva[0].Valor;
             }
 
+            bool tieneCampaniaConsecutivas;
+            using (PedidoServiceClient ps = new PedidoServiceClient())
+            {
+                tieneCampaniaConsecutivas = ps.TieneCampaniaConsecutivas(userData.PaisID, userData.CampaniaID, int.Parse(cantidadCampaniaConsecutiva), userData.ConsultoraID);
+            }
+
+            certificado.MensajeError = "";
+
             switch (userData.PaisID)
             {
                 case Constantes.PaisID.Colombia:
                 case Constantes.PaisID.Ecuador:
                 case Constantes.PaisID.Peru:
-
-                    bool tieneCampaniaConsecutivas;
-                    using (PedidoServiceClient ps = new PedidoServiceClient())
+                case Constantes.PaisID.RepublicaDominicana:
+                case Constantes.PaisID.PuertoRico:
+                    certificado.Nombre = "Certificado Comercial";
+                    if (!tieneCampaniaConsecutivas || userData.PromedioVenta <= 0)
                     {
-                        tieneCampaniaConsecutivas = ps.TieneCampaniaConsecutivas(userData.PaisID, userData.CampaniaID, int.Parse(cantidadCampaniaConsecutiva), userData.ConsultoraID);
-                    }
-
-                    nombre = "Certificado Comercial";
-
-                    if (!tieneCampaniaConsecutivas)
-                    {
-                        mensajeError = "No has sido constante en las últimas " + cantidadCampaniaConsecutiva +
-                            " campañas, no es posible expedir un certificado comercial.";
+                        certificado.MensajeError = "No has sido constante en las últimas " + cantidadCampaniaConsecutiva + " campañas, no es posible expedir un certificado comercial.";
                         break;
                     }
-
-                    certificadoId = 2;
-
+                    certificado.CertificadoId = 2;
+                    
+                    if (userData.PaisID == Constantes.PaisID.RepublicaDominicana) certificado.NombreVista = "~/Views/MisCertificados/DO_ComercialPdf.cshtml";
+                    if (userData.PaisID == Constantes.PaisID.PuertoRico) certificado.NombreVista = "~/Views/MisCertificados/PR_ComercialPdf.cshtml";
+                    if (string.IsNullOrWhiteSpace(certificado.NombreVista)) certificado.NombreVista = "~/Views/MisCertificados/ComercialPdf.cshtml";
                     break;
                 default:
-                    nombre = "";
+                    certificado = null;
                     break;
             }
-
-            if (nombre == "") return certificado;
-
-            certificado.CertificadoId = certificadoId;
-            certificado.Nombre = nombre;
-            certificado.MensajeError = mensajeError;
-            certificado.NombreVista = "~/Views/MisCertificados/ComercialPdf.cshtml";
             return certificado;
         }
 
@@ -206,6 +182,28 @@ namespace Portal.Consultoras.Web.Controllers
             return certificado;
         }
         #endregion
+
+        private string DevuelveNombreCertificadoNoAdeudo_PazySalvo(int pais)
+        {
+            var nombre = "";
+            switch (pais)
+            {
+                case Constantes.PaisID.Colombia:
+                case Constantes.PaisID.RepublicaDominicana:
+                case Constantes.PaisID.PuertoRico:
+                    nombre = "Paz y Salvo";
+                    break;
+                case Constantes.PaisID.Peru:
+                    nombre = "Constancia No Adeudo";
+                    break;
+                case Constantes.PaisID.Ecuador:
+                    nombre = "No Adeudo";
+                    break;
+                default:
+                    break;
+            }
+            return nombre;
+        }
 
         [ValidateInput(false)]
         public FileResult Export(int id)
@@ -259,20 +257,34 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MensajeError = tmp.MensajeError;
                     model.NombreVista = tmp.NombreVista;
 
+                    var numeroDocumento = model.NumeroDocumento;
+                    switch (userData.PaisID)
+                    {
+                        case Constantes.PaisID.Peru:
+                            model.NumeroDocumento = numeroDocumento.Substring(numeroDocumento.Length - 8);
+                            break;
+                        case Constantes.PaisID.PuertoRico:
+                            model.NumeroDocumento = numeroDocumento.Substring(numeroDocumento.Length - 9);
+                            break;
+                    }
+
                     if (beMiCertificado != null)
                     {
                         var dt = DateTime.Now;
                         var nombreMes1 = dt.ToString("MMMM", new CultureInfo("es-ES"));
                         var letrasAnio = Conversores.NumeroALetras(dt.Year).ToLower();
+                        var letrasDias = Conversores.NumeroALetras(dt.Day).ToLower();
                         var ff1 = dt.ToString("dd") + " de " + nombreMes1.ToUpper(1) + " de " + dt.ToString("yyyy");
                         var ff2 = dt.ToString("dd") + " del mes de " + nombreMes1.ToUpper(1) + " de " + letrasAnio + " (" + dt.Year.ToString() + ").";
                         var fi = beMiCertificado.FechaIngresoConsultora;
                         var nombreMes2 = fi.ToString("MMMM", new CultureInfo("es-ES"));
                         var ff3 = fi.ToString("dd") + " de " + nombreMes2.ToUpper(1) + " de " + fi.ToString("yyyy");
+                        var ff4 = letrasDias + " (" + dt.ToString("dd") + ") días " + " del mes de " + nombreMes1.ToUpper(1) + " del año " + letrasAnio + " (" + dt.Year.ToString() + ").";
 
                         model.FechaCreacion = ff1;
                         model.FechaCreacionTexto = ff2;
                         model.FechaIngresoConsultora = ff3;
+                        model.FechaCreacionTextoFull = ff4;
                         model.Moneda = userData.Simbolo;
 
                         model.Anio = (dt.Year - 1).ToString();
