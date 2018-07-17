@@ -18,7 +18,7 @@ CREATE PROCEDURE dbo.InsValidacionDatos
 AS
 BEGIN
 	set nocount on;
-	declare @FechaCreacion datetime = getdate();
+	declare @FechaCreacion datetime = dbo.fnObtenerFechaHoraPais();
 
 	insert into ValidacionDatos(
 		TipoEnvio,
