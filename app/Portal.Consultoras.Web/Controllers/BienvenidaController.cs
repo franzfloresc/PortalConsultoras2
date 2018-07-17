@@ -313,6 +313,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (resultPopupEmailSplited == "0" && tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
 
+                if (tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
+
                 return tipoPopUpMostrar;
             }
 
