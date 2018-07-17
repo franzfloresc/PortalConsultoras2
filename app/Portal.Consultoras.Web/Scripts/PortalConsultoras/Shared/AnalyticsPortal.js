@@ -22,7 +22,8 @@ var AnalyticsPortalModule = (function () {
         fichaProducto: "Ficha de Producto",
         iniciarVideo: "Iniciar Video",
         seleccionTonoCombo: "Selección Tono - ComboBox",
-        seleccionTonoCuadro: "Selección Tono - Cuadrados"
+        seleccionTonoCuadro: "Selección Tono - Cuadrados",
+        migajaPan: "Breadcrumb"
     };
 
     var _constantes = {
@@ -208,6 +209,19 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
+    var marcarFichaBreadcrumb = function (opcion) {
+        try {
+            dataLayer.push({
+                "event": _evento.virtualEvent,
+                "category": _texto.fichaProducto,
+                "action": _texto.migajaPan,
+                "label": opcion || ""
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+    }
+
     return {
         MarcarVerFichaProducto: marcarVerFichaProducto,
         FcVerificarTipoMoneda: fcVerificarTipoMoneda,
@@ -217,6 +231,7 @@ var AnalyticsPortalModule = (function () {
         MarcarAgregaProductoCarro: marcarAgregaProductoCarro,
         MarcarComparteRedesSociales: marcarComparteRedesSociales,
         MarcarSlideCarruselProducto: marcarSlideCarruselProducto,
-        MarcarClicSetProductos: marcarClicSetProductos
+        MarcarClicSetProductos: marcarClicSetProductos,
+        MarcarFichaBreadcrumb: marcarFichaBreadcrumb
     }
 })();
