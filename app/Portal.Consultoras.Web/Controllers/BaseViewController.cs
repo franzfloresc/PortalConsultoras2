@@ -321,8 +321,8 @@ namespace Portal.Consultoras.Web.Controllers
                     breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "ShowRoom", area });
                 if (palanca == Constantes.NombrePalanca.Lanzamiento)
                 {
-                    var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
-                    breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area });
+                    var actionPalanca = productoPerteneceACampaniaActual ? "Index" : "Revisar";
+                    breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area }) + "#LAN";
                 }
                 if (palanca == Constantes.NombrePalanca.OfertaParaTi ||
                     palanca == Constantes.NombrePalanca.OfertasParaMi ||
@@ -332,7 +332,7 @@ namespace Portal.Consultoras.Web.Controllers
                     breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "RevistaDigital", area });
                 }
                 if (palanca == Constantes.NombrePalanca.OfertaDelDia)
-                    breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area });
+                    breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#ODD";
                 if (palanca == Constantes.NombrePalanca.GuiaDeNegocioDigitalizada)
                 {
                     var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
