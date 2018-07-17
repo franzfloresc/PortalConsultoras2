@@ -31,7 +31,7 @@
     {{else}}
     <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <div data-item-tag="body" class="content_item_carrusel"  {{#iff esSubcampania '==' false}}{{#iff TipoAccionAgregar '!=' '4' }} style="cursor:pointer;" {{/iff}} {{else}} style="padding-bottom: 30px;" {{/iff}}>
+        <div data-item-tag="body" class="content_item_carrusel"  {{#iff esSubcampania '==' false}}{{#iff TipoAccionAgregar '!=' '4' }} style="cursor:pointer;" {{/iff}}  {{/iff}}>
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
             <div data-item-tag="contenido"
                  {{#iff esSubcampania '==' false}}
@@ -39,8 +39,8 @@
                  onclick="javascript:VerPopupExpGanaMas();"
                  {{else}}
                  onclick="javascript:OnClickFichaDetalle(event.target);"
-                 {{/iff}}>
-                {{/iff}}
+                 {{/iff}}
+                {{/iff}}>
                 <div class="producto_img_home" data-item-tag="foto">
                     <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{ImgUrl FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
                     {{#iff esSubcampania '==' false}}
