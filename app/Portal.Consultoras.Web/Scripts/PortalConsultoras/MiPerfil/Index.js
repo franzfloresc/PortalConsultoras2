@@ -198,9 +198,7 @@ function actualizarDatos() {
             alert('El formato del celular no es correcto');
             return false;
         }
-    }
 
-    if (txtCelularMD != "") {
         if (txtCelularMD.length != hdn_CaracterMaximo) {
             alert('El formato del celular no es correcto');
             return false;
@@ -230,9 +228,7 @@ function actualizarDatos() {
             alert('El formato de teléfono no es correcto');
             return false;
         }
-    }
 
-    if (txtTelefonoMD != "") {
         if (txtTelefonoMD.length < hdn_CaracterMinimo) {
             alert('El número de teléfono debe tener como mínimo ' + hdn_CaracterMinimo + ' números.');
             return false;
@@ -249,9 +245,7 @@ function actualizarDatos() {
             alert('El formato de número adicional no es correcto');
             return false;
         }
-    }
 
-    if (txtTelefonoTrabajoMD != "") {
         if (txtTelefonoTrabajoMD.length < hdn_CaracterMinimo) {
             alert('El número adicional debe tener como mínimo ' + hdn_CaracterMinimo + ' números.');
             return false;
