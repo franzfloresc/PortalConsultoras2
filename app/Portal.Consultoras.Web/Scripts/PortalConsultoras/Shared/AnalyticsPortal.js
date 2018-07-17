@@ -182,30 +182,35 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    var marcarClicSetProductos = function (producto, tono) {
+    //var marcarClicSetProductos = function (tipoMoneda, producto, precio, marca, cuv, categoria, variante, cantidad, palanca) {
+    var marcarClicSetProductos = function (infoItem) {
+
+        var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
         try {
             dataLayer.push({
                 'event': _evento.productClick,
                 'ecommerce': {
-                    'currencyCode': 'PEN',
+                    'currencyCode': tipoMoneda,
                     'click': {
                         'actionField': {
-                            'list': '{nombre_producto} – Set productos'},
-                            'products': [{
-                              'name': 'LABIAL COLORFIX XP',
-                              'id': '8648756835',
-                              'price': '56.00',
-                              'brand': 'Cyzone',
-                              'category': 'Maquillaje > Cuerpo',
-                              'variant': 'Estándar',
-                                'position': 1
-                            }]
-                            }
-                            }
+                            'list': infoItem.DescripcionCompleta + ' – Set productos'
+                        },
+                        'products': [{
+                            'name':     infoItem.DescripcionCompleta,
+                            'id':       infoItem.CUV2,
+                            'price':    infoItem.Precio2,
+                            'brand':    infoItem.DescripcionMarca,
+                            'category': infoItem.CodigoCategoria,
+                            'variant': (infoItem.CodigoVariante !== "" || (typeof infoItem.CodigoVariante === "undefined")) ? infoItem.CodigoVariante : 'Estándar',
+                            'position': infoItem.Posicion
+                        }]
+                    }
+                }
             });
         } catch (e) {
             console.log(_texto.exception + e);
         }
+        debugger;
     }
 
     return {
