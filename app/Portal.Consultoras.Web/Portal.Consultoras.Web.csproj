@@ -1306,6 +1306,7 @@
     <Content Include="Content\Css\Mobile\Ficha\Carrusel.css" />
     <Content Include="Content\Css\Mobile\Ficha\ficha.css" />
     <Content Include="Content\Css\Mobile\Lanzamientos\Detalle.css" />
+    <Content Include="Content\Css\Mobile\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Gnd-Flotante.css" />

@@ -1,0 +1,12 @@
+﻿/*Mobile*/
+.box_producto_mobile_fix {
+    height: 300px;
+    padding: 0px 12px;
+    box-sizing: content-box;
+}
+
+.btn_elige_tono {
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 13px;
+}
