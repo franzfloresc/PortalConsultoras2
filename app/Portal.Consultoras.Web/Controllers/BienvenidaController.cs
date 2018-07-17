@@ -308,6 +308,8 @@ namespace Portal.Consultoras.Web.Controllers
                 if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
                     tipoPopUpMostrar = 0;
 
+                if (tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
+
                 return tipoPopUpMostrar;
             }
 

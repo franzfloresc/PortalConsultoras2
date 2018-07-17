@@ -230,7 +230,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
                     tipoPopUpMostrar = 0;
 
-                if (resultPopupEmailSplited == "0" && tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
+                if (tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
 
                 return tipoPopUpMostrar;
             }
