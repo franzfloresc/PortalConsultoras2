@@ -700,7 +700,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             try
             {
-                var usuario = pedidoDetalle.Usuario;
+                var usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(pedidoDetalle.Usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo);
 
                 //Validacion reserva u horario restringido
                 var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(pedidoDetalle.PaisID,
@@ -717,13 +717,49 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var estrategia = FiltrarEstrategiaPedido(pedidoDetalle.PaisID, pedidoDetalle.Producto.EstrategiaID, indFlagNueva);
 
                 estrategia.Cantidad = pedidoDetalle.Cantidad;
+                pedidoDetalle.Producto.PrecioCatalogo = estrategia.Precio2;
                 if (estrategia.Cantidad > estrategia.LimiteVenta)
                 {
                     var mensaje = string.Format(Constantes.PedidoAppValidacion.Message[Constantes.PedidoAppValidacion.Code.ERROR_CANTIDAD_LIMITE], estrategia.LimiteVenta);
                     return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_CANTIDAD_LIMITE, mensaje);
                 }
 
-                EstrategiaAgregarProducto(pedidoDetalle, estrategia);
+                //Obtener Detalle
+                var pedidoDetalleBuscar = new BEPedidoAppBuscar()
+                {
+                    PaisID = pedidoDetalle.PaisID,
+                    CampaniaID = usuario.CampaniaID,
+                    ConsultoraID = usuario.ConsultoraID,
+                    NombreConsultora = usuario.Nombre,
+                    CodigoPrograma = usuario.CodigoPrograma,
+                    ConsecutivoNueva = usuario.ConsecutivoNueva
+                };
+                var pedidoID = 0;
+                var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+                pedidoDetalle.PedidoID = pedidoID;
+                EstrategiaAgregarProducto(pedidoDetalle, usuario, estrategia, lstDetalle);
+
+                //Insertar pedido
+                var codeResult = PedidoInsertar(usuario, pedidoDetalle, lstDetalle);
+                if (codeResult != Constantes.PedidoAppValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(codeResult);
+
+                //Actualizar Prol
+                var existe = lstDetalle.Where(x => x.ClienteID == pedidoDetalle.ClienteID && x.CUV == pedidoDetalle.Producto.CUV).FirstOrDefault();
+                if (existe != null)
+                {
+                    existe.Cantidad += pedidoDetalle.Cantidad;
+                }
+                else
+                {
+                    lstDetalle.Add(new BEPedidoWebDetalle()
+                    {
+                        CUV = pedidoDetalle.Producto.CUV,
+                        Cantidad = pedidoDetalle.Cantidad,
+                        ClienteID = pedidoDetalle.ClienteID
+                    });
+                }
+
+                UpdateProl(usuario, lstDetalle);
 
                 return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.SUCCESS);
             }
@@ -1631,7 +1667,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return lst.FirstOrDefault() ?? new BEEstrategia();
         }
 
-        private void EstrategiaAgregarProducto(BEPedidoDetalleApp pedidoDetalle, BEEstrategia estrategia)
+        private void EstrategiaAgregarProducto(BEPedidoDetalleApp pedidoDetalle, BEUsuario usuario, BEEstrategia estrategia, List<BEPedidoWebDetalle> lstDetalle)
         {
             //Validar Stock Estrategia
             var ofertas = estrategia.DescripcionCUV2.Split('|');
@@ -1639,22 +1675,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
             if (estrategia.FlagNueva == 1) estrategia.Cantidad = estrategia.LimiteVenta;
             else descripcion = estrategia.DescripcionCUV2;
 
-            //Obtener Detalle
-            var usuario = pedidoDetalle.Usuario;
-            var pedidoDetalleBuscar = new BEPedidoAppBuscar()
-            {
-                PaisID = usuario.PaisID,
-                CampaniaID = usuario.CampaniaID,
-                ConsultoraID = usuario.ConsultoraID,
-                NombreConsultora = usuario.Nombre,
-                CodigoPrograma = usuario.CodigoPrograma,
-                ConsecutivoNueva = usuario.ConsecutivoNueva
-            };
-            var pedidoID = 0;
-            var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
-            pedidoDetalle.PedidoID = pedidoID;
+            var resultado = false;
+            var mensaje = ValidarMontoMaximo(usuario, pedidoDetalle, lstDetalle, out resultado);
 
-            //ValidarMontoMaximo(usuario, pedidoDetalle, lstDetalle);
+            //Agregar Producto ZE
+            AgregarProductoZE(usuario, pedidoDetalle, lstDetalle);
         }
         #endregion
     }

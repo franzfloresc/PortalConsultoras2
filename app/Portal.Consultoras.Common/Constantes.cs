@@ -1957,7 +1957,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_ACTUALIZAR = "2106";
                 public const string ERROR_ELIMINAR = "2107";
                 public const string ERROR_ELIMINAR_TODO = "2108";
-                public const string ERROR_CANTIDAD_LIMITE = "2109";
+                public const string ERROR_CANTIDAD_LIMITE = "2111";
 
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";

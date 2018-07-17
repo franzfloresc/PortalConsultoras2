@@ -1244,6 +1244,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario);
         [OperationContract]
+        BEPedidoDetalleAppResult InsertEstrategiaCarrusel(BEPedidoDetalleApp pedidoDetalle);
+        [OperationContract]
         BEUsuario GetConfiguracionOfertaFinal(BEUsuario usuario);
         [OperationContract]
         List<BEProducto> GetProductoSugerido(BEProductoAppBuscar productoBuscar);
