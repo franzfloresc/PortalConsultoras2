@@ -257,6 +257,17 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MensajeError = tmp.MensajeError;
                     model.NombreVista = tmp.NombreVista;
 
+                    var numeroDocumento = model.NumeroDocumento;
+                    switch (userData.PaisID)
+                    {
+                        case Constantes.PaisID.Peru:
+                            model.NumeroDocumento = numeroDocumento.Substring(numeroDocumento.Length - 8);
+                            break;
+                        case Constantes.PaisID.PuertoRico:
+                            model.NumeroDocumento = numeroDocumento.Substring(numeroDocumento.Length - 9);
+                            break;
+                    }
+
                     if (beMiCertificado != null)
                     {
                         var dt = DateTime.Now;

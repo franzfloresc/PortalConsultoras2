@@ -404,6 +404,8 @@ function MostrarPopupAceptacionContratoGet()
     if (TipoPopUpMostrar == popupAceptacionContrato)
     {
         $("#fondoPopup_aceptacionTerminosYCondicionesContrato").show();
+    } else if (TipoPopUpMostrar == popupActualizarCorreo) {
+            MostrarPopupActualizarCorreo();
     }
 }
 
