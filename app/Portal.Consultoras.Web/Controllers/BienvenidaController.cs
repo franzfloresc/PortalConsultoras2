@@ -291,6 +291,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         private int ObtenerTipoPopUpMostrar(BienvenidaHomeModel model)
         {
+            var resultPopupEmail = ObtenerActualizacionEmail();
+            var resultPopupEmailSplited = resultPopupEmail.Split('|')[0];
+
             if (model.ShowPopupMisDatos)
                 return Constantes.TipoPopUp.Ninguno;
 
@@ -307,6 +310,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
                     tipoPopUpMostrar = 0;
+
+                if (resultPopupEmailSplited == "0" && tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
 
                 return tipoPopUpMostrar;
             }
