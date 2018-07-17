@@ -465,33 +465,31 @@ namespace Portal.Consultoras.Web.Controllers
                     var resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, OldPassword);
                     if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
                     {
-                        var contraseñaAnt = "";
-                        var contraseñaCambiada = "";
+                        var contraseniaAnt = "";
+                        var contraseniaCambiada = "";
 
                         List<BEUsuario> lst;
                         List<BEUsuario> lstClave;
 
-                        lstClave = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoConsultora).ToList();
-                        contraseñaAnt = lstClave[0].ClaveSecreta;
+                        lstClave = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoUsuario).ToList();
+                        contraseniaAnt = lstClave[0].ClaveSecreta;
 
                         var result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
                             NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
 
                         rslt = result ? 2 : 1;
 
-                        lst = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoConsultora).ToList();
-                        contraseñaCambiada = lst[0].ClaveSecreta;
+                        lst = sv.SelectByNombre(Convert.ToInt32(userData.PaisID), userData.CodigoUsuario).ToList();
+                        contraseniaCambiada = lst[0].ClaveSecreta;
 
-                        RegistrarLogDynamoCambioClave("MODIFICACION", userData.CodigoConsultora, contraseñaCambiada, contraseñaAnt, "Mi PERFIL", "ACTUALIZAR CONTRASEÑA");
+                        RegistrarLogDynamoCambioClave("MODIFICACION", userData.CodigoConsultora, contraseniaCambiada, contraseniaAnt, "Mi PERFIL", "ACTUALIZAR CONTRASEÑA");
                     }
                     else
                     {
                         if (resultExiste == Constantes.ValidacionExisteUsuario.ExisteDiferenteClave)
                             rslt = 0;
                     }
-
                 }
-
                 return Json(new
                 {
                     success = true,

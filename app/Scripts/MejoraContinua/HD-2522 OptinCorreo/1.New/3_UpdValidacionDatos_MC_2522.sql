@@ -18,7 +18,7 @@ CREATE PROCEDURE dbo.UpdValidacionDatos
 AS
 BEGIN
 	set nocount on;
-	declare @FechaModificacion datetime = getdate();
+	declare @FechaModificacion datetime = dbo.fnObtenerFechaHoraPais();
 
 	update ValidacionDatos
 	set
