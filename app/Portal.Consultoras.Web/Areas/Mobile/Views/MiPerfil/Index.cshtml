@@ -122,7 +122,7 @@ else
             </fieldset>
             <fieldset class="grupo_form_cambio_datos text-uppercase">
                 <div class="w-71">
-                    <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="tel" value="@Model.Celular" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event)" maxlength="@Model.limiteMaximoTelef" />
+                    <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="tel" value="@Model.Celular" maxlength="@Model.limiteMaximoTelef" />
                     <label for="txtCelularMD" class="w-100">Celular <span class="asteriscos">*</span></label>
                 </div>
                 <a id="btnCambiarCelular" href="@Url.Action("ActualizarCelular", "MiPerfil", new {area = "Mobile"})" title="Cambiar" class="enlace_cambiar_dato w-29 text-right">
@@ -132,7 +132,7 @@ else
             </fieldset>
             <fieldset class="grupo_form_cambio_datos text-uppercase">
                 <div class="w-71">
-                    <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="tel" value="@Model.Telefono" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event)" maxlength="@Model.limiteMaximoTelef" />
+                    <input id="txtTelefonoMD" name="txtTelefonoMD" class="w-100" type="tel" value="@Model.Telefono" maxlength="@Model.limiteMaximoTelef" />
                     <label for="txtTelefonoMD" class="w-100">Número fijo <span class="asteriscos">*</span></label>
                 </div>
             </fieldset>
@@ -143,7 +143,7 @@ else
                 </a>
                 <div class="contenedor_campos_num_adicional w-100" style="display:none;">
                     <div class="w-71">
-                        <input id="txtTelefonoTrabajoMD" name="txtTelefonoTrabajoMD" class="w-100" type="tel" value="@Model.TelefonoTrabajo" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event)" maxlength="@Model.limiteMaximoTelef" />
+                        <input id="txtTelefonoTrabajoMD" name="txtTelefonoTrabajoMD" class="w-100" type="tel" value="@Model.TelefonoTrabajo" maxlength="@Model.limiteMaximoTelef" />
                         <label for="txtTelefonoTrabajoMD" class="label_num_adicional w-100">Número adicional</label>
                     </div>
                     <a href="#" title="Cambiar" class="enlace_eliminar_numero_adicional w-29 text-right">
