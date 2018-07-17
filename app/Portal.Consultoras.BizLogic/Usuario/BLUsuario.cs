@@ -242,7 +242,7 @@ namespace Portal.Consultoras.BizLogic
                 LogManager.SaveLog(ex, codigoUsuario, string.Empty);
                 return new BERespuestaActivarEmail { Message = Constantes.MensajesError.ActivacionCorreo };
             }
-            return new BERespuestaActivarEmail { Succcess = true, Usuario = usuario  };
+            return new BERespuestaActivarEmail { Succcess = true, Usuario = usuario };
         }
 
         public int setUsuarioVideoIntroductorio(int paisID, string CodigoUsuario)
@@ -290,14 +290,22 @@ namespace Portal.Consultoras.BizLogic
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
 
-                if (Common.Util.IsUrl(usuario.FotoPerfil) && Common.Util.ExisteUrlRemota(usuario.FotoPerfil))
+                if (Common.Util.IsUrl(usuario.FotoPerfil))
                 {
-                    using (var streamImagen = ConsultarImagen(usuario.FotoPerfil))
+                    if (Common.Util.ExisteUrlRemota(usuario.FotoPerfil))
                     {
-                        using (var imagenConsultada = System.Drawing.Image.FromStream(streamImagen))
+                        using (var streamImagen = ConsultarImagen(usuario.FotoPerfil))
                         {
-                            usuario.FotoPerfilAncha = imagenConsultada.Width > imagenConsultada.Height;
+                            using (var imagenConsultada = System.Drawing.Image.FromStream(streamImagen))
+                            {
+                                usuario.FotoPerfilAncha = imagenConsultada.Width > imagenConsultada.Height;
+                            }
                         }
+                    }
+                    else
+                    {
+                        usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
+                        usuario.FotoOriginalSinModificar = null;
                     }
                 }
 
@@ -311,8 +319,8 @@ namespace Portal.Consultoras.BizLogic
 
                 var valores = new List<BETablaLogicaDatos>();
                 valores = tabla.GetTablaLogicaDatosCache(usuario.PaisID, Convert.ToInt16(Constantes.TablaLogica.ActualizaDatosEnabled));
-                var listado = valores.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));                
-                usuario.PuedeActualizar =  Convert.ToBoolean(listado.Valor.ToInt());
+                var listado = valores.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));
+                usuario.PuedeActualizar = Convert.ToBoolean(listado.Valor.ToInt());
 
                 var verificacion = new BLOpcionesVerificacion();
                 var verificacionResult = new BEOpcionesVerificacion();
@@ -337,7 +345,7 @@ namespace Portal.Consultoras.BizLogic
                 if (reader.Read()) usuario = new BEUsuario(reader, true);
             }
             if (usuario == null) return null;
-            
+
             var daConfiguracionCampania = new DAConfiguracionCampania(paisID);
             BEConfiguracionCampania configuracion = null;
             if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -363,14 +371,14 @@ namespace Portal.Consultoras.BizLogic
                     if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
                 }
                 UpdateUsuarioFromConfiguracionCampania(usuario, configuracion);
-            }                
+            }
             return usuario;
         }
 
         private void UpdateUsuarioFromConfiguracionCampania(BEUsuario usuario, BEConfiguracionCampania configuracion)
         {
             if (configuracion == null) return;
-            
+
             usuario.CampaniaID = configuracion.CampaniaID;
             usuario.FechaInicioFacturacion = configuracion.FechaInicioFacturacion;
             usuario.FechaFinFacturacion = configuracion.FechaFinFacturacion;
@@ -541,7 +549,7 @@ namespace Portal.Consultoras.BizLogic
                 var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
                 var cuponTask = Task.Run(() => GetCupon(usuario));
                 var programaNuevasTask = Task.Run(() => GetProgramaNuevas(usuario));
-                var nivelProyectado = Task.Run(() => GetNivelProyectado(paisID,usuario.ConsultoraID,usuario.CampaniaID));
+                var nivelProyectado = Task.Run(() => GetNivelProyectado(paisID, usuario.ConsultoraID, usuario.CampaniaID));
 
                 Task.WaitAll(
                                 terminosCondicionesTask,
@@ -1855,7 +1863,7 @@ namespace Portal.Consultoras.BizLogic
 
             MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, logo, nomconsultora, url, fondo, paramQuerystring);
         }
-        
+
         public BERespuestaServicio RegistrarEnvioSms(
             int paisId,
             string codigoUsuario,
@@ -1932,7 +1940,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, codigoUsuario, string.Empty);
-                return new BERespuestaServicio (Constantes.MensajesError.CelularActivacion);
+                return new BERespuestaServicio(Constantes.MensajesError.CelularActivacion);
             }
 
             return new BERespuestaServicio { Succcess = true };
@@ -1942,7 +1950,7 @@ namespace Portal.Consultoras.BizLogic
         {
             if (string.IsNullOrEmpty(codigoSms))
             {
-                return new BERespuestaServicio (Constantes.MensajesError.ValorVacio);
+                return new BERespuestaServicio(Constantes.MensajesError.ValorVacio);
             }
 
             try
@@ -1958,7 +1966,7 @@ namespace Portal.Consultoras.BizLogic
 
                 if (!valid)
                 {
-                    return new BERespuestaServicio (Constantes.MensajesError.CodigoIncorrecto);
+                    return new BERespuestaServicio(Constantes.MensajesError.CodigoIncorrecto);
                 }
 
                 BEValidacionDatos validacionDato;
@@ -1997,7 +2005,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, codigoUsuario, string.Empty);
-                return new BERespuestaServicio (Constantes.MensajesError.CelularActivacion);
+                return new BERespuestaServicio(Constantes.MensajesError.CelularActivacion);
             }
         }
 
@@ -2018,7 +2026,7 @@ namespace Portal.Consultoras.BizLogic
             validacionDato.Estado = Constantes.ValidacionDatosEstado.Activo;
             validacionDato.UsuarioModificacion = codigoUsuario;
             validacionDato.CampaniaActivacionEmail = campania;
-            
+
             return new BERespuestaServicio { Succcess = true };
         }
 
@@ -2936,7 +2944,7 @@ namespace Portal.Consultoras.BizLogic
                 var esEsika = paisesEsika.Contains(paisISO);
                 string emailFrom = "no-responder@somosbelcorp.com";
                 string emailTo = oUsu.Correo;
-                string titulo = "(" + paisISO + ") Verificación de Autenticidad de Somosbelcorp";                
+                string titulo = "(" + paisISO + ") Verificación de Autenticidad de Somosbelcorp";
                 string logo = (esEsika ? Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png" : Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png");
                 string nombrecorreo = oUsu.PrimerNombre.Trim();
                 string fondo = (esEsika ? "e81c36" : "642f80");
@@ -3213,7 +3221,7 @@ namespace Portal.Consultoras.BizLogic
             return new DAUsuario(paisID).GetConsultoraParticipaEnPrograma(codigoPrograma, codigoConsultora, campaniaID);
         }
 
-        public string GetActualizacionEmail(int paisID,string codigoUsuario)
+        public string GetActualizacionEmail(int paisID, string codigoUsuario)
         {
             return new DAUsuario(paisID).GetActualizacionEmail(codigoUsuario);
         }
@@ -3227,7 +3235,7 @@ namespace Portal.Consultoras.BizLogic
             BEParametrosLider oBEParametrosLider;
 
             oBEParametrosLider = _consultoraLiderBusinessLogic.ObtenerParametrosConsultoraLider(paisID, consultoraId, campaniaId);
-            if (oBEParametrosLider != null  )
+            if (oBEParametrosLider != null)
             {
                 nivelProyectado = oBEParametrosLider.NivelProyectado;
             }

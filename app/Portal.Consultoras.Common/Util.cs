@@ -3104,16 +3104,12 @@ namespace Portal.Consultoras.Common
         public static bool ExisteUrlRemota(string url)
         {
             bool result;
-
-            WebRequest webRequest = WebRequest.Create(url);
-            webRequest.Timeout = 1200; // miliseconds
-            webRequest.Method = "HEAD";
-
-            HttpWebResponse response = null;
-
+            HttpWebResponse response = null;            
             try
             {
-                response = (HttpWebResponse)webRequest.GetResponse();
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Credentials = System.Net.CredentialCache.DefaultCredentials;
+                response = (HttpWebResponse)request.GetResponse();
                 result = true;
             }
             catch (WebException webException)
