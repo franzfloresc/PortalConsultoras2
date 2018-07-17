@@ -650,10 +650,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
-
                 entidad.PaisID = userData.PaisID;
                 entidad.ConsultoraID = userData.ConsultoraID;
                 entidad.CampaniaID = userData.CampaniaID;
+
                 if (tipo == 1)
                 {
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
@@ -669,8 +669,8 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.EsKitNueva = false;
                     entidad.EsCompraPorCompra = true;
                 }
-                entidad.IPUsuario = userData.IPUsuario;
 
+                entidad.IPUsuario = userData.IPUsuario;
                 entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
                 entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
                 entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
@@ -700,11 +700,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
 
-
                 if (tipo == 1)
                 {
-
-
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
                         pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
