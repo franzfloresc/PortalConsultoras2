@@ -889,7 +889,12 @@ namespace Portal.Consultoras.Web.Providers
                         }
                     }
 
-                    prodModel.ListaPrecioNiveles = estrategia.Niveles.Split('|').ToList();
+                    prodModel.ListaPrecioNiveles = new List<string>();
+                    if (estrategia.Niveles != "" )
+                    {
+                        prodModel.ListaPrecioNiveles = estrategia.Niveles.Split('|').ToList();
+                    }
+                    
                 }
 
                 if (estrategia.Hermanos!=null)
