@@ -540,7 +540,7 @@
                         <div id="msg-regalo-pn2">AGREGA S/.50.00 PARA <b>GANAR UN ESIKA LEYENDA 100ML*</b> Y ACCEDER A PACKS EXCLUSIVOS NUEVAS**</div>
                     </div>
                     <div class="content_imagen_alternativo" style="display: none;">
-                        <img id="img-regalo-pn" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000111962017530330_cjzkqorxhx.png">
+                        <img id="img-regalo-pn" src="@Globals.RutaCdn/Matriz/PE/PE_2000111962017530330_cjzkqorxhx.png">
                     </div>
                 </div>
             </div>
@@ -615,10 +615,10 @@
                                     </div>
                                     <div class="contenedor_cantidadProductos">
                                         <span class="textoCantidad">CANTIDAD:</span>
-                                        <div>
-                                            <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                                        <div data-cantidad-contenedor="">
+                                            <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                                             <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                                            <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                                            <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                                             <div class="clear"></div>
                                         </div>
                                     </div>
@@ -648,7 +648,7 @@
             </div>
             <div class="content_producto_alternativo" id="div-regalo-pn" style="display:none;">
                 <div class="content_imagen_alternativo">
-                    <img id="img-regalo-pn" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000111962017530330_cjzkqorxhx.png">
+                    <img id="img-regalo-pn" src="@Globals.RutaCdn/Matriz/PE/PE_2000111962017530330_cjzkqorxhx.png">
                 </div>
                 <div class="content-texto-producto-alternativo">
                     <div id="msg-regalo-pn2">
@@ -817,10 +817,10 @@
         <div style="margin-left:-20px; margin-right:-20px;">
             <div class="content_btn_agregar content_OPT">
                 <div class="content_320" style="max-width:292px; width:auto;">
-                    <div class="content_cantidad_ficha_producto">
-                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
+                        <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
                         <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" href="javascript:;" data-popup-verdetalle="{{id}}"
                            onclick="of_google_analytics_addtocar('mobile','detail',{{ID}},'{{TipoMeta}}')">AGRÉGALO</a>

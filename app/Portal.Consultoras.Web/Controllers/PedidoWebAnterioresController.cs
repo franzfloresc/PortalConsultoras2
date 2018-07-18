@@ -478,14 +478,14 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Importe a Pagar", UserData().Simbolo + " #ImportePagar"}
             };
 
-            string[] arrTotal = { "Importe Total:", " #CodigoUsuarioCreacion", "Flete:", " #CodigoUsuarioModificacion", "Total Facturado:", " #Mensaje", };
+            //string[] arrTotal = { "Importe Total:", " #CodigoUsuarioCreacion", "Flete:", " #CodigoUsuarioModificacion", "Total Facturado:", " #Mensaje", };
 
-            ExportToExcelMultiple("PedidosWebExcel", lst, dicCabeceras, dicDetalles, arrTotal, vTotalParcial, vFlete, vTotalFacturado);
+            ExportToExcelMultiple("PedidosWebExcel", lst, dicCabeceras, dicDetalles, vTotalParcial, vFlete, vTotalFacturado);
             return View();
         }
 
         private void ExportToExcelMultiple(string filename, List<BEPedidoWebDetalle> sourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
-            Dictionary<string, string> columnDetailDefinition, string[] arrTotal, string vTotalParcial, string vFlete, string vTotalFacturado)
+            Dictionary<string, string> columnDetailDefinition, string vTotalParcial, string vFlete, string vTotalFacturado)
         {
             try
             {

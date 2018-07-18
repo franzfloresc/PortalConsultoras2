@@ -62,7 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 string paisId = usuario.PaisID.ToString();
-                string codigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : usuario.CodigoConsultora;
+                string codigoConsultora = userData.GetCodigoConsultora();
                 string mostrarAyudaWebTracking = Convert.ToInt32(usuario.MostrarAyudaWebTraking).ToString();
                 string paisIso = userData.CodigoISO.Trim();
                 string campanhaId = userData.CampaniaID.ToString();
@@ -72,14 +72,14 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.URLWebTracking = url;
                 ViewBag.PaisISO = userData.CodigoISO;
 
-                string strpaises = GetPaisesConConsultoraOnlineFromConfig();
-                model.MostrarClienteOnline = (GetMostrarPedidosPendientesFromConfig() && strpaises.Contains(userData.CodigoISO));
+                string strpaises = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
+                model.MostrarClienteOnline = (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig() && strpaises.Contains(userData.CodigoISO));
                 if (model.MostrarClienteOnline)
                 {
                     model.CampaniasConsultoraOnline = new List<CampaniaModel>();
                     for (int i = 0; i <= 4; i++)
                     {
-                        model.CampaniasConsultoraOnline.Add(new CampaniaModel { CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, -i) });
+                        model.CampaniasConsultoraOnline.Add(new CampaniaModel { CampaniaID = Util.AddCampaniaAndNumero(userData.CampaniaID, -i, userData.NroCampanias) });
                     }
                     model.CampaniasConsultoraOnline.Update(campania => campania.NombreCorto = campania.CampaniaID.ToString().Substring(0, 4) + "-" + campania.CampaniaID.ToString().Substring(4, 2));
                     model.CampaniaActualConsultoraOnline = userData.CampaniaID;
@@ -252,7 +252,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string ObtenerRutaPaqueteDocumentario(string campania, string numeroPedido)
         {
-            var lstRVPRFModel = GetListPaqueteDocumentario(userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora, campania, numeroPedido);
+            var lstRVPRFModel = GetListPaqueteDocumentario(userData.GetCodigoConsultora(), campania, numeroPedido);
             return lstRVPRFModel.Count == 1 ? lstRVPRFModel[0].Ruta : "";
         }
 
@@ -261,7 +261,7 @@ namespace Portal.Consultoras.Web.Controllers
             var dia = fecha.Day;
             var mes = fecha.Month;
 
-            var resultado = dia + NombreMes(mes);
+            var resultado = dia + Util.NombreMes(mes);
 
             return resultado;
         }
@@ -499,14 +499,14 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Importe a Pagar", userData.Simbolo + " #ImportePagar"}
             };
 
-            string[] arrTotal = { "Importe Total:", " #CodigoUsuarioCreacion", "Flete:", " #CodigoUsuarioModificacion", "Total Facturado:", " #Mensaje", };
+            //string[] arrTotal = { "Importe Total:", " #CodigoUsuarioCreacion", "Flete:", " #CodigoUsuarioModificacion", "Total Facturado:", " #Mensaje", };
 
-            ExportToExcelMultipleFacturado("PedidosWebExcel", lst, dicCabeceras, dicDetalles, arrTotal, vTotalParcial, vFlete, vTotalFacturado);
+            ExportToExcelMultipleFacturado("PedidosWebExcel", lst, dicCabeceras, dicDetalles, vTotalParcial, vFlete, vTotalFacturado);
             return new EmptyResult();
         }
 
         private void ExportToExcelMultipleFacturado(string filename, List<BEPedidoWebDetalle> sourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
-            Dictionary<string, string> columnDetailDefinition, string[] arrTotal, string vTotalParcial, string vFlete, string vTotalFacturado)
+            Dictionary<string, string> columnDetailDefinition, string vTotalParcial, string vFlete, string vTotalFacturado)
         {
             try
             {

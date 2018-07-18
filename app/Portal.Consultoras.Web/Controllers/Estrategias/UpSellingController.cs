@@ -169,7 +169,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         private string MakeFullUrlS3(string fileName)
         {
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            return ConfigS3.GetUrlFileS3(carpetaPais, fileName, carpetaPais);
+            return ConfigCdn.GetUrlFileCdn(carpetaPais, fileName);
         }
 
         private bool FileExistsOrIsNotValid(string fileName)
@@ -345,7 +345,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 if (model != null)
                 {
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, model.RegaloImagenUrl, carpetaPais);
+                    model.RegaloImagenUrl = ConfigCdn.GetUrlFileCdn(carpetaPais, model.RegaloImagenUrl);
                     model.FormatoMontoMeta = Util.DecimalToStringFormat(model.MontoMeta, userData.CodigoISO);
                 }
                 return Json(new { success = true, data = model }, JsonRequestBehavior.AllowGet);

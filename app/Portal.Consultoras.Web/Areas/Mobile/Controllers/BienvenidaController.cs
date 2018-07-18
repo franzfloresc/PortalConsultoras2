@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.PortalLideres = userData.PortalLideres;
                 model.DiaPROL = userData.DiaPROL;
                 model.VioTutorial = userData.VioTutorialModelo;
-                model.UrlEnterateMas = ConfigS3.GetUrlFileS3("Mobile/AppCatalogo/" + userData.CodigoISO, "enteratemas.png", String.Empty);
+                model.UrlEnterateMas = ConfigCdn.GetUrlFileCdn("Mobile/AppCatalogo/" + userData.CodigoISO, "enteratemas.png");
                 model.CampaniaActual = userData.CampaniaID;
                 model.CatalogoPersonalizadoMobile = userData.CatalogoPersonalizado;
                 model.RutaChile = ObtenerRutaChile();
@@ -69,10 +69,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.MontoDeuda = userData.MontoDeuda;
                 model.IsConsultoraOnline = ObtenerIsConsultoraOnline();
 
-                model.UrlImagenAppCatalogo = ConfigS3.GetUrlFileS3("Mobile/AppCatalogo/" + userData.CodigoISO, "app.png", String.Empty);
-                model.UrlImagenMiAcademia = ConfigS3.GetUrlFileS3("Mobile/MiAcademia/" + userData.CodigoISO, "miacademia.png", String.Empty);
-                model.UrlImagenLiquidaciones = ConfigS3.GetUrlFileS3("Mobile/Liquidaciones/" + userData.CodigoISO, "liquidaciones.png", String.Empty);
-                model.UrlImagenCatalogoPersonalizado = ConfigS3.GetUrlFileS3("Mobile/CatalogoPersonalizado/" + userData.CodigoISO, "catalogo.png", String.Empty);
+                model.UrlImagenAppCatalogo = ConfigCdn.GetUrlFileCdn("Mobile/AppCatalogo/" + userData.CodigoISO, "app.png");
+                model.UrlImagenMiAcademia = ConfigCdn.GetUrlFileCdn("Mobile/MiAcademia/" + userData.CodigoISO, "miacademia.png");
+                model.UrlImagenLiquidaciones = ConfigCdn.GetUrlFileCdn("Mobile/Liquidaciones/" + userData.CodigoISO, "liquidaciones.png");
+                model.UrlImagenCatalogoPersonalizado = ConfigCdn.GetUrlFileCdn("Mobile/CatalogoPersonalizado/" + userData.CodigoISO, "catalogo.png");
                 model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
                 model.CodigoUsuario = userData.CodigoUsuario;
                 model.EMail = userData.EMail;
@@ -86,12 +86,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
 
                 ViewBag.paisISO = userData.CodigoISO;
-                ViewBag.Ambiente = GetBucketNameFromConfig();
+                ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
                 ViewBag.NombreConsultora = model.NombreConsultora;
 
                 model.PartialSectionBpt = GetPartialSectionBptModel();
                 ViewBag.NombreConsultoraFAV = ObtenerNombreConsultoraFav();
-                ViewBag.UrlImagenFAVMobile = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
+                ViewBag.UrlImagenFAVMobile = string.Format(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
 
                 model.CambioClave = userData.CambioClave;
 
@@ -160,7 +160,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var rutaChile = string.Empty;
             if (userData.CodigoISO == Constantes.CodigosISOPais.Chile)
             {
-                rutaChile = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile);
+                rutaChile = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile);
             }
 
             return rutaChile;
@@ -173,17 +173,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return urlChile;
         }
 
-        private BEConfiguracionCampania ObtenerConfiguracionCampania()
-        {
-            BEConfiguracionCampania configuracionCampania;
+        //private BEConfiguracionCampania ObtenerConfiguracionCampania()
+        //{
+        //    BEConfiguracionCampania configuracionCampania;
 
-            using (var sv = new PedidoServiceClient())
-            {
-                configuracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
-            }
+        //    using (var sv = new PedidoServiceClient())
+        //    {
+        //        configuracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+        //    }
 
-            return configuracionCampania ?? new BEConfiguracionCampania();
-        }
+        //    return configuracionCampania ?? new BEConfiguracionCampania();
+        //}
 
         private string ObtenerFechaVencimiento()
         {
@@ -203,7 +203,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private int ObtenerActivacionAppCatalogoWhastUp()
         {
-            string paisesCatalogoWhatsUp = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
+            string paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
 
             var activacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
 
@@ -348,10 +348,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult ChatBelcorp()
         {
             string url = "";
-            if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO))
+            if (_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO))
             {
                 url = String.Format(
-                    GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
+                    _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
                     userData.SegmentoAbreviatura.Trim(),
                     userData.CodigoUsuario.Trim(),
                     userData.PrimerNombre.Split(' ').First().Trim(),
@@ -372,7 +372,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 retorno = sv.setUsuarioVerTutorial(userData.PaisID, userData.CodigoUsuario);
                 userData.VioTutorialModelo = retorno;
             }
-            SetUserData(userData);
+            sessionManager.SetUserData(userData);
             return Json(new
             {
                 result = retorno
@@ -477,7 +477,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 using (var svr = new UsuarioServiceClient())
                 {
-                   svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora, origenAceptacion);
+                   svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora, origenAceptacion, null, null);
                 }
 
                 userData.IndicadorContrato = 1;
@@ -491,7 +491,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 var filePath = Server.MapPath("~/Content/FAQ/Contrato_CO.pdf");
-                var indicadorEnvio = GetConfiguracionManager(Constantes.ConfiguracionManager.indicadorContrato);
+                var indicadorEnvio = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.indicadorContrato);
                 if (indicadorEnvio == "1")
                 {
                     try

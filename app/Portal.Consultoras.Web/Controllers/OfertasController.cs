@@ -1,15 +1,20 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.Providers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class OfertasController : BaseController
     {
+        protected ConfiguracionOfertasHomeProvider _confiOfertasHomeProvider;
+
+        public OfertasController()
+        {
+            _confiOfertasHomeProvider = new ConfiguracionOfertasHomeProvider();
+        }
+
         public ActionResult Index()
         {
             if (EsDispositivoMovil())
@@ -21,14 +26,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
-                    MensajeProductoBloqueado = MensajeProductoBloqueado()
+                    ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile()),
+                    MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile())
                 };
 
-                ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                ViewBag.IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
-                var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
-                ViewBag.xlistaProductoSR = listaShowRoom.Count(x => !x.EsSubCampania);
+                //var listaShowRoom = sessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPedidoModel>();
+                //ViewBag.xlistaProductoSR = listaShowRoom.Count(x => !x.EsSubCampania);
 
                 ViewBag.variableEstrategia = GetVariableEstrategia();
 
@@ -48,8 +53,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = ObtenerConfiguracionSeccion(revistaDigital),
-                    MensajeProductoBloqueado = MensajeProductoBloqueado(),
+                    ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile()),
+                    MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(IsMobile()),
                     MensajeProductoBloqueado2 = HVMensajeProductoBloqueado()
 
                 };

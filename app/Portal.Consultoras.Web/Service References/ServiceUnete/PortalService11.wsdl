@@ -415,12 +415,6 @@
   <wsdl:message name="IPortalService_ObtenerDescripcionErrorGenerandoCodigo_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerDescripcionErrorGenerandoCodigoResponse" />
   </wsdl:message>
-  <wsdl:message name="IPortalService_ObtenerListaAutocompletarUbigeo_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerListaAutocompletarUbigeo" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_ObtenerListaAutocompletarUbigeo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerListaAutocompletarUbigeoResponse" />
-  </wsdl:message>
   <wsdl:message name="IPortalService_GetZonasNoDigitales_InputMessage">
     <wsdl:part name="parameters" element="tns:GetZonasNoDigitales" />
   </wsdl:message>
@@ -695,10 +689,6 @@
     <wsdl:operation name="ObtenerDescripcionErrorGenerandoCodigo">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerDescripcionErrorGenerandoCodigo" message="tns:IPortalService_ObtenerDescripcionErrorGenerandoCodigo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerDescripcionErrorGenerandoCodigoResponse" message="tns:IPortalService_ObtenerDescripcionErrorGenerandoCodigo_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerListaAutocompletarUbigeo">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerListaAutocompletarUbigeo" message="tns:IPortalService_ObtenerListaAutocompletarUbigeo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerListaAutocompletarUbigeoResponse" message="tns:IPortalService_ObtenerListaAutocompletarUbigeo_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetZonasNoDigitales">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetZonasNoDigitales" message="tns:IPortalService_GetZonasNoDigitales_InputMessage" />
@@ -1303,15 +1293,6 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerDescripcionErrorGenerandoCodigo">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerDescripcionErrorGenerandoCodigo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerListaAutocompletarUbigeo">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerListaAutocompletarUbigeo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

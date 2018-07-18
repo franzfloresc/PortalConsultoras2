@@ -1017,21 +1017,6 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ObtenerListaAutocompletarUbigeo">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="texto" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ObtenerListaAutocompletarUbigeoResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q80="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerListaAutocompletarUbigeoResult" nillable="true" type="q80:ParametroUneteCollection" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="GetZonasNoDigitales">
     <xs:complexType>
       <xs:sequence>
@@ -1042,7 +1027,7 @@
   <xs:element name="GetZonasNoDigitalesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q81="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="GetZonasNoDigitalesResult" nillable="true" type="q81:StringCollection" />
+        <xs:element xmlns:q80="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="GetZonasNoDigitalesResult" nillable="true" type="q80:StringCollection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

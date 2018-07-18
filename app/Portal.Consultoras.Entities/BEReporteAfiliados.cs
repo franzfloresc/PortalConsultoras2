@@ -42,11 +42,11 @@ namespace Portal.Consultoras.Entities
         public BEReporteAfiliados(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = row["CodigoConsultora"].ToString();
+                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
             if (DataRecord.HasColumn(row, "EsAfiliado"))
                 EsAfiliado = Convert.ToBoolean(row["EsAfiliado"]);
             if (DataRecord.HasColumn(row, "CodigoUbigeo"))
-                CodigoUbigeo = row["CodigoUbigeo"].ToString();
+                CodigoUbigeo = Convert.ToString(row["CodigoUbigeo"]);
             if (DataRecord.HasColumn(row, "UnidadGeografica1"))
                 UnidadGeografica1 = Convert.ToString(row["UnidadGeografica1"]);
             if (DataRecord.HasColumn(row, "UnidadGeografica2"))
@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "UnidadGeografica3"))
                 UnidadGeografica3 = Convert.ToString(row["UnidadGeografica3"]);
             if (DataRecord.HasColumn(row, "NombreCompleto"))
-                NombreCompleto = row["NombreCompleto"].ToString();
+                NombreCompleto = Convert.ToString(row["NombreCompleto"]);
             if (DataRecord.HasColumn(row, "Correo"))
                 Correo = Convert.ToString(row["Correo"]);
             if (DataRecord.HasColumn(row, "Edad"))
@@ -62,11 +62,11 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Segmento"))
                 Segmento = Convert.ToString(row["Segmento"]);
             if (DataRecord.HasColumn(row, "AnoCampanaIngreso"))
-                AnoCampanaIngreso = row["AnoCampanaIngreso"].ToString();
+                AnoCampanaIngreso = Convert.ToString(row["AnoCampanaIngreso"]);
             if (DataRecord.HasColumn(row, "FechaCreacion"))
-                FechaCreacionString = row["FechaCreacion"].ToString();
+                FechaCreacionString = Convert.ToString(row["FechaCreacion"]);
             if (DataRecord.HasColumn(row, "FechaModificacion"))
-                FechaModificacionString = row["FechaModificacion"].ToString();
+                FechaModificacionString = Convert.ToString(row["FechaModificacion"]);
 
         }
 

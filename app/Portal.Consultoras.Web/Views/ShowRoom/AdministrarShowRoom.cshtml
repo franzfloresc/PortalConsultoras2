@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.OfertaProductoModel
+﻿@using  Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.OfertaProductoModel
 @{
     ViewBag.Title = "Administración de Ofertas Liquidación";
     Layout = "~/Views/Shared/_SACLayout.cshtml";
@@ -388,7 +389,7 @@
 </div>
 
 <div id="DialogCargarProductoCpc" style="display: none;">
-    @using (Html.BeginForm("CargarProductoCpc", "ShowRoom", FormMethod.Post, new { id = "frmCargarProductoCpc", enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("CargarProductoCpc", "AdministrarShowRoom", FormMethod.Post, new { id = "frmCargarProductoCpc", enctype = "multipart/form-data" }))
     {
         <input type="hidden" id="hdCargarProductoCpcCampaniaID" name="hdCargarProductoCpcCampaniaID" />
         <input type="hidden" id="hdCargarProductoCpcEventoID" name="hdCargarProductoCpcEventoID" />
@@ -742,7 +743,7 @@
                 </div>
             </div>
             <div id="divPopupImagenDemo" style="width: 100px; height: 60px; float: right;">
-                <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/CO/CO_imagen_preventa_digital_2017232920_01_bddprudydm.png"
+                <img src="@Globals.RutaCdn/Matriz/CO/CO_imagen_preventa_digital_2017232920_01_bddprudydm.png"
                      alt="PopupImagenDemo" style="height: 100%;">
             </div>
         </div>
@@ -783,27 +784,26 @@
     var imagenDeshabilitar = '@Url.Content("~/Content/Images/NotAllowed.png")';
     var imagenEliminar = '@Url.Content("~/Content/Images/delete.png")';
     var imagenProductoVacio = '@Url.Content("~/Content/Images/prod_grilla_vacio.png")';
-    var urlConsultarShowRoom = baseUrl + 'ShowRoom/ConsultarShowRoom';
+    var urlConsultarShowRoom = baseUrl + 'AdministrarShowRoom/ConsultarShowRoom';
     var urlConsultarOfertaShowRoomDetalle = baseUrl + "ShowRoom/ConsultarOfertaShowRoomDetalle";
     var urlGuardarPerfilOfertaShowRoom = baseUrl + 'ShowRoom/GuardarPerfilOfertaShowRoom';
-    var urlGetShowRoomPerfilOfertaCuvs = baseUrl + 'ShowRoom/GetShowRoomPerfilOfertaCuvs';
     var urlGetShowRoomPerfiles = baseUrl + 'ShowRoom/GetShowRoomPerfiles';
     var urlGuardarImagenShowRoom = baseUrl + 'ShowRoom/GuardarImagenShowRoom';
-    var urlGuardarShowRoom = baseUrl + 'ShowRoom/GuardarShowRoom';
+    var urlGuardarShowRoom = baseUrl + 'AdministrarShowRoom/GuardarShowRoom';
     var urlInsertOrUpdateOfertaShowRoom = baseUrl + 'ShowRoom/InsertOrUpdateOfertaShowRoom';
     var urlInsertOfertaShowRoomDetalle = baseUrl + 'ShowRoom/InsertOfertaShowRoomDetalle';
     var urlUpdateOfertaShowRoomDetalle = baseUrl + 'ShowRoom/UpdateOfertaShowRoomDetalle';
     var urlDeshabilitarOfertaShowRoom = baseUrl + 'ShowRoom/DeshabilitarOfertaShowRoom';
     var urlRemoverOfertaShowRoom = baseUrl + 'ShowRoom/RemoverOfertaShowRoom';
-    var urlDeshabilitarShowRoomEvento = baseUrl + 'ShowRoom/DeshabilitarShowRoomEvento';
-    var urlEliminarShowRoomEvento = baseUrl + 'ShowRoom/EliminarShowRoomEvento';
+    var urlDeshabilitarShowRoomEvento = baseUrl + 'AdministrarShowRoom/DeshabilitarShowRoomEvento';
+    var urlEliminarShowRoomEvento = baseUrl + 'AdministrarShowRoom/EliminarShowRoomEvento';
     var urlEliminarOfertaShowRoomDetalleAll = baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalleAll';
     var urlEliminarOfertaShowRoomDetalle = baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalle';
-    var urlGetShowRoomNiveles = baseUrl + 'ShowRoom/GetShowRoomNiveles';
-    var urlGetShowRoomPersonalizacionNivel = baseUrl + 'ShowRoom/GetShowRoomPersonalizacionNivel';
+    var urlGetShowRoomNiveles = baseUrl + 'AdministrarShowRoom/GetShowRoomNiveles';
+    var urlGetShowRoomPersonalizacionNivel = baseUrl + 'AdministrarShowRoom/GetShowRoomPersonalizacionNivel';
     var urlImageMatrizUpload = '@Url.Action("ImageMatrizUpload", "FileUpload")';
     var rutaImagenTemporal = '@Url.Content("~/Content/Temporales/")';
-    var urlGuardarPersonalizacionNivelShowRoom = baseUrl + 'ShowRoom/GuardarPersonalizacionNivelShowRoom';
+    var urlGuardarPersonalizacionNivelShowRoom = baseUrl + 'AdministrarShowRoom/GuardarPersonalizacionNivelShowRoom';
     var urlGetShowRoomCategorias = baseUrl + 'ShowRoom/GetShowRoomCategorias';
     var urlGetShowRoomPersonalizacionCategoria = baseUrl + 'ShowRoom/GetShowRoomPersonalizacionCategoria';
     var urlUpdateShowRoomDescripcionCategoria = baseUrl + 'ShowRoom/UpdateShowRoomDescripcionCategoria';

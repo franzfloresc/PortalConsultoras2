@@ -1,0 +1,466 @@
+﻿@model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
+
+@{
+    Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
+}
+
+@section styles{
+    @System.Web.Optimization.Styles.Render("~/bundles/desktop/css/ficha")
+}
+
+<div id="ImagenDeFondo" class="imagen_fondo_detalle" style="display:none;"></div>
+<div class="contenedor_detalle texto_font">
+    <div class="contenedor_fichas">
+        <div class="contenedor_ficha_producto" data-item="" data-tag-html="@ViewBag.Campania" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
+            <div style="display:none;">
+                <div id="data-estrategia" data-estrategia="@Json.Encode(Model)"></div>
+            </div>
+            @Html.Partial("_BreadCrumb", Model.BreadCrumbs)
+            <div id="seccion_ficha_handlebars">
+
+            </div>
+        </div>
+        <script id="detalle_ficha_template" type="text/x-handlebars-template">
+            <div class="ficha_producto">
+                <div id="FichaImagenProducto" class="contenedor_imagen">
+                    <img class="contenedor_img" src="{{ImgUrl FotoProducto01}}" alt="">
+                </div>
+                {{#iff CodigoVariante 'ContainsArray' '[2001,2003]'}}
+                <hr class="clear">
+                <div id="contenedor_foto_referencial" class="texto_referencial">
+                    <span data-texto_referencial="">* Foto Referencial</span>
+                </div>
+                {{/iff}}
+                @*
+                    <div class="contenedor_carrusel_tonos">
+                        <div id="carrusel_tonos" style="display:none;">
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                            <div class="contenedor_imagen_carrusel_tonos" data-item="" data-img="">
+                                <img data-imagen_producto="" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200091042201768749_wttltqeyse.png" data-img-lazy="1">
+                            </div>
+                        </div>
+                    </div>*@
+
+                <!--compartir-->
+                @if (Model.TieneCompartir)
+                {
+                    <hr class="clear">
+                    <div id="Contenedor_redes_sociales" class="ficha_redes_sociales">
+                        <div data-compartir-campos="" style="display:none;">
+                            <input type="hidden" class="CUV" value="{{CUV2}}" />
+                            <input type="hidden" class="rsFBMensaje" value="" />
+                            <input type="hidden" class="rsWAMensaje" value="" />
+                            <input type="hidden" class="rsFBRutaImagen" value="{{ImgUrl FotoProducto01}}" />
+                            <input type="hidden" class="rsWARutaImagen" value="{{ImgUrl FotoProducto01}}" />
+                            <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+                            <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+                            <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
+                            <input type="hidden" class="ProductoDescripcion" value="" />
+                            <input type="hidden" class="Volumen" value="" />
+                            <input type="hidden" class="Palanca" value="@Model.Palanca" />
+                        </div>
+                        <div class="texto_redes_sociales">Comparte este producto con tus clientes</div>
+                        <a class="btn_compartir_facebook" href="javascript:;" data-compartir="FB">
+                            <img class="contenedor_img" src="/Content/Images/Esika/facebook.png">
+                        </a>
+                    </div>
+                }
+                <!--fin compartir-->
+            </div>
+            <div class="ficha_detalle">
+                <div id="contenedor_ficha_etiquetas" class="contenedor_ficha_etiquetas">
+                    {{#if TieneReloj}}
+                    <div id="EtiquetaOdd" class="contenedor_etiqueta_odd">
+                        <div id="clock" class="clock_odd"></div>
+                    </div>
+                    {{/if}}
+                    @*<div id="EtiquetaLanzamientos" class="contenedor_etiqueta_nuevo">
+                            <div class="triangulo_etiqueta_nuevo"></div>
+                            <div class="etiqueta_nuevo">
+                                <img src="{{TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" />
+                            </div>
+                        </div>*@
+                    <div id="EtiquetaPackNuevas" class="contenedor_etiqueta_nuevo">
+                        @*<div class="triangulo_etiqueta_nuevo"></div>*@
+                        <div class="etiqueta_nuevo">
+                            {{#IsNullOrEmpty ImagenURL '!='}}
+                            <img src="{{ImagenURL}}" alt="" />
+                            {{/IsNullOrEmpty}}
+                        </div>
+                    </div>
+                </div>
+                <hr class="clear">
+                <div class="ficha_detalle_cuerpo">
+
+                    <div class="contenedor_nombre_precio">
+                        <div class="contenedor_izquierdo">
+                            <div class="nombre_marca">
+                                {{#if EsMultimarca}}
+                                <span data-nombre_marca=""></span>
+                                {{else}}
+                                <span data-nombre_marca="">{{DescripcionMarca}}</span>
+                                {{/if}}
+                            </div>
+                            <div class="descripcion" data-descripcion="">{{DescripcionCompleta}}</div>
+                        </div>
+                        <div class="contenedor_derecho">
+                            {{#iff Precio '>' 0}}
+                            <div class="precio_valorizado">Valorizado en <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
+                            {{/iff}}
+
+                            <div class="precio_venta_oferta">Precio para ti 
+                                <b>
+                                    <span data-precio_venta_oferta="">
+                                    {{#IsNullOrEmpty ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
+                                    </span>
+                                    {{#each ListaPrecioNiveles as |itemNivel|}}
+                                    <span class="subprecio">{{itemNivel}}</span>
+                                    {{/each}}
+                                </b>
+                            </div>
+                            
+
+                            @*<span class="subprecio">x1 s/.32</span>
+                            <span class="subprecio">x2 s/.64</span>
+                            <span class="subprecio">x3 s/.128</span>*@
+                            {{#iff Ganancia '>' 0}}
+                            <div class="ganancia">GANA <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span></div>
+                            {{/iff}}
+                        </div>
+                    </div>
+                    {{#IsNullOrEmpty this.ListaDescripcionDetalle '!='}}
+                    <div id="SloganLanzamientos">
+                        <span class="nombre_detalle_producto_tono"><strong>{{this.TipoEstrategiaDetalle.Slogan}}</strong></span>
+                        <ul class="descripcion_detalle_producto_tono">
+                            {{#each this.ListaDescripcionDetalle}}
+                            <li><span class="vineta">-</span><span class="txt-des">{{Trim this}}</span></li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                    <hr class="clear">
+                    {{/IsNullOrEmpty}}
+                    @*<div id="SloganPackNuevas">
+                            <span class="nombre_detalle_producto_tono"><strong>Contenido del Set:</strong></span>
+                            <ul class="descripcion_detalle_producto_tono">
+                                {{#each this.ArrayContenidoSet}}
+                                <li><span class="txt-des">{{this}}</span></li>
+                                {{/each}}
+                            </ul>
+                        </div>*@
+                    <div data-codigovariante="{{CodigoVariante}}">
+                        {{#iff CodigoVariante '==' '2001'}}
+                        @*<div id="DescripcionAdicional"></div>*@
+                        {{#each this.Hermanos as |componente|}}
+                        <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
+                            <div class="tono_select_opt">
+                                <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                    <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                    <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
+                                    <hr class="clear">
+                                </div>
+                                <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
+                                    {{#each componente.Hermanos as |variedad|}}
+                                    <div class="content_tono_elegido" data-tono-change="2"
+                                         data-tono-cuv="{{variedad.Cuv}}"
+                                         data-tono-nombre="{{variedad.NombreBulk}}"
+                                         data-tono-descripcion="{{variedad.NombreComercial}}">
+                                        <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt=""></div>
+                                        <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
+                                        <hr class="clear" />
+                                    </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                            <div class="content_tonos_maquillaje" data-tono-div="">
+                                {{#each componente.Hermanos as |variedad|}}
+                                <div style="display: none;">
+                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
+                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
+                                </div>
+                                <div id="fav_tono_{{variedad.Cuv}}" class="content_tono_detalle"
+                                     data-tono-cuv="{{variedad.Cuv}}"
+                                     data-tono-change="2"
+                                     data-tono-nombre="{{variedad.NombreBulk}}"
+                                     data-tono-descripcion="{{variedad.NombreComercial}}">
+                                    <img src="{{variedad.ImagenBulk}}" alt="">
+                                </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{/iff}}
+                        {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}
+                        <div class="contenido_titulo">
+                            <div class="">
+                                <span>CONTENIDO:</span>
+                            </div>
+                        </div>
+                        <div class="contenedor_lista_detalle">
+                            {{#each this.Hermanos as |componente|}}
+                            {{#ifVerificarMarcaLast componente.DescripcionMarca}}
+                            <div style="border-bottom: 1px solid #ccc; margin:15px 0px;"></div>
+                            {{/ifVerificarMarcaLast}}
+                            <div class="content_producto_tono detalle_producto" data-tono="" data-tono-select="{{componente.CUVSelect}}" data-tono-digitable="{{componente.Digitable}}" style="border-bottom: {{../Linea}};">
+                                <div style="display: none;">
+                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
+                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
+                                </div>
+                                <div class="marca_cantidad_descripcion_detalle" data-tono-visible="">
+                                    {{#ifVerificarMarca componente.DescripcionMarca}}
+                                    <div class="marca_detalle_producto">
+                                        <span data-marca_detalle_producto>{{componente.DescripcionMarca}}</span>
+                                    </div>
+                                    {{/ifVerificarMarca}}
+                                    <div class="cantidad_descripcion_detalle">
+                                        <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x {{componente.Cantidad}}</span>
+                                        <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="">
+                                            {{componente.NombreComercial}}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {{#iff componente.Digitable '==' '1'}}
+                                <div class="content_right_ficha" style="width:43%;">
+                                    <div class="tono_select_opt">
+                                        <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                            <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                            <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
+                                            <hr class="clear">
+                                        </div>
+                                        <div class="content_tonos_select" style="width:102%;" data-tono-select-area="1">
+                                            {{#each componente.Hermanos as |variedad|}}
+                                            <div class="content_tono_elegido" data-tono-change="2"
+                                                 data-tono-cuv="{{variedad.Cuv}}"
+                                                 data-tono-nombre="{{variedad.NombreBulk}}"
+                                                 data-tono-descripcion="{{variedad.NombreComercial}}">
+                                                <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt="PRODUCTO"></div>
+                                                <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
+                                                <hr class="clear">
+                                            </div>
+                                            {{/each}}
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/iff}}
+                                <hr class="clear">
+                            </div>
+
+                            {{/each}}
+                        </div>
+                        {{/iff}}
+                    </div>
+
+                </div>
+                <div class="contenedor_agregar">
+                    <div class="contenedor_rangos" data-cantidad-contenedor="">
+                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
+                        <div>
+                            <a class="txt_menos" data-cantidad-agregar="-" data-bloqueada="" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                                <div class="dibujar_linea dibujar_menos"></div>
+                            </a>
+                            <a class="txt_mas" data-cantidad-agregar="+" data-bloqueada="" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                                <div class="dibujar_linea dibujar_mas"></div>
+                            </a>
+                        </div>
+                    </div>
+                    <a id="btnAgregalo" class="btn_agregalo {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
+                    <div id="ContenedorAgregado" class="contenedor_agregado" style="display:none;">
+                        <div class="txt_agregado" data-txt_agregado="">
+                            <span class="span_agregado">AGREGADO</span>
+                            <div class="check_agregado">
+                                <div class="dibujar_linea dibujar_check_agregado"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{#iff TextoLibre '!=' ''}}
+                <p class="limit_pack"><span>!</span>{{TextoLibre}}</p>
+                {{/iff}}
+            </div>
+        </script>
+
+        <div id="ContenidoProducto" class="contenedor_ficha_tabs">
+            <div class="tabla_ficha_tab">
+                <div class="row_ficha_tab">
+                    <div class="cell_ficha_tab" id="div_ficha_tab1">
+                        <div class="contents_ficha_tab">
+                            <input id="ficha_tab_1" class="imput_tab_clean imput_tab" type="radio" name="tabs" data-numTab="1">
+                            <label for="ficha_tab_1" class="label_tab">DETALLE DEL PRODUCTO</label>
+                        </div>
+                    </div>
+                    <div class="cell_ficha_tab" id="div_ficha_tab2">
+                        <div class="contents_ficha_tab">
+                            <input id="ficha_tab_2" class="imput_tab_clean imput_tab" type="radio" data-numTab="2" name="tabs">
+                            <label for="ficha_tab_2" class="label_tab">DETALLE DEL PACK</label>
+                        </div>
+                    </div>
+                    <div class="cell_ficha_tab" id="div_ficha_tab3">
+                        <div class="contents_ficha_tab">
+                            <input id="ficha_tab_3" class="imput_tab_clean imput_tab" type="radio" data-numTab="3" name="tabs">
+                            <label for="ficha_tab_3" class="label_tab">TIPS DE VENTA</label>
+                        </div>
+                    </div>
+                    <div class="cell_ficha_tab" id="div_ficha_tab4">
+                        <div class="contents_ficha_tab">
+                            <input id="ficha_tab_4" class="imput_tab_clean imput_tab" type="radio" data-numTab="4" name="tabs">
+                            <label for="ficha_tab_4" class="label_tab">BENEFICIOS</label>
+                        </div>
+                    </div>
+                    <div class="cell_ficha_tab" id="div_ficha_tab5">
+                        <div class="contents_ficha_tab">
+                            <input id="ficha_tab_5" class="imput_tab_clean imput_tab" type="radio" data-numTab="5" name="tabs">
+                            <label for="ficha_tab_5" class="label_tab">VIDEO</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section id="contenido_1" class="seccion_tab">
+                <ul class="txt_ul">
+                    <li class="txt_li">
+                        <div class="txt_li_titulo">Labial en barra rouge lintense:</div>
+                        <div class="txt_li_descripcion">El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</div>
+                    </li>
+                    <li>
+                        <div class="txt_li_titulo">Pulso:</div>
+                        <div class="txt_li_descripcion">Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</div>
+                    </li>
+                </ul>
+            </section>
+            <section id="contenido_2" class="seccion_tab">
+                <ul class="txt_ul">
+                    <li class="txt_li">
+                        <div class="txt_li_titulo">Labial en barra rouge lintense:</div>
+                        <div class="txt_li_descripcion">El labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.</div>
+                    </li>
+                    <li>
+                        <div class="txt_li_titulo">Pulso:</div>
+                        <div class="txt_li_descripcion">Posee un poder de seduccón innato que le permite conquistar a cualquier mujer a través de su mirada penetrante y su media sonrisa. Su aspecto puede parecer irreverente pero su elegancia y gestos de caballerosidad lo hacen irresistible. Aún sin conocerlo, puedes saber que</div>
+                    </li>
+                </ul>
+            </section>
+            <section id="contenido_3" class="seccion_tab">
+                <div class="contenedor_img_txt">
+                    <div class="txt_img_seccion_tab">
+                        <div class="img_seccion_tab">
+                            <img class="contenedor_img" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_2000934882018554845_vffslsirks.png" alt="">
+                        </div>
+                        <div class="txt_seccion_tab">
+                            Tiene un aroma maderoso con Canela de Magadascar de larga duración.<br />
+                            Su envase azul es moderno y sotisficado. Inspirado en el hombre.
+                        </div>
+                    </div>
+                    <div class="txt_img_seccion_tab">
+                        <div class="img_seccion_tab">
+                            <img class="contenedor_img" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_2000892222018550244_gbatklhzxl.png" alt="">
+                        </div>
+                        <div class="txt_seccion_tab">
+                            Aplícala directamente en la muñeca de tu cliente usando el demostrador.
+                        </div>
+                    </div>
+                    <div class="txt_img_seccion_tab">
+                        <div class="img_seccion_tab">
+                            <img class="contenedor_img" src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200083615201851656_wedqazhdhj.png" alt="">
+                        </div>
+                        <div class="txt_seccion_tab">
+                            Convencelo comentando que el olor durará hasta el final del día y pregunta: "¿Te pido el fresco aroma de Cardigan Evolución?"
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="contenido_4" class="seccion_tab">
+                <div class="contenedor_txt_p">
+                    <div class="txt_p_titulo">¿Por qué nos encanta?</div>
+                    <div class="txt_p">
+                        El Labial Color HD Velvet tiene un color mate 5 veces más intenso que hidrata tus labios. Contiene una fórmula con pigmentos de color saturado y microprismas que capturan la luz para amplificar el color. Labial de sensación ligera.
+                    </div>
+                    <div class="txt_p_titulo">¿Qué hace?</div>
+                    <div class="txt_p">
+                        El nuevo labial mate posee una gran innovación que mantiene tus labios hidratados hasta por 24 horas. Disfruta de todo el color
+                        y la suavidad de miles de pétalos de rosa en tus labios.
+                    </div>
+                    <div class="txt_p_titulo">¿Cómo funciona?</div>
+                    <div class="txt_p">
+                        Labial Mate aterciopelado, no reseca los labios y viene con identificador de color en el envase.
+                    </div>
+                </div>
+            </section>
+            <section id="contenido_5" class="seccion_tab">
+                <div class="contenedor_iframe_seccion_tab" id="contenedor-tab-video"></div>
+            </section>
+        </div>
+        @if (Model.TieneCarrusel)
+        {
+            <div id="CarruselProducto" class="contenedor_ficha_carrusel">
+                <div class="contenedor_titulo_carrusel">
+                    <div class="contenedor_linea_carrusel">
+                        <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_izquierda"></div>
+                    </div>
+                    <div id="tituloCarrusel" class="txt_titulo_carrusel"></div>
+                    <div class="contenedor_linea_carrusel">
+                        <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_derecha"></div>
+                    </div>
+                </div>
+                <!--carrusel-->
+                <div class="contenedor_carrusel" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar">
+                    <div id="carrusel" style="text-align:center;">
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
+@Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")
+
+@section scripts{
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/js/EstrategiaAgregar")
+    @System.Web.Optimization.Scripts.Render("~/bundles/js/Ficha")
+
+    <script type="text/javascript">
+        var fichaModule;
+        var carruselModule;
+        var tieneCarrusel = '@Model.TieneCarrusel';
+
+        $(document).ready(function () {
+
+            fichaModule = FichaModule({
+                palanca: "@Model.Palanca",
+                campania: "@Model.Campania",
+                cuv: "@Model.Cuv",
+                origen: "@Model.OrigenUrl",
+                tieneSession: "@Model.TieneSession",
+                urlObtenerComponentes: '@Url.Action("ObtenerComponentes", "DetalleEstrategia")'
+            });
+            fichaModule.Inicializar();
+
+            if (tieneCarrusel)
+            {
+                carruselModule = CarruselModule({
+                    palanca: "@Model.Palanca",
+                    campania: "@Model.Campania",
+                    cuv: "@Model.Cuv",
+                    idPlantilla: "#producto-landing-template",
+                    divCarrusel: "#carrusel",
+                    divSetsProductosdata: "#CarruselProducto",
+                    urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new { Area = "" })',
+                    idTituloCarrusel: "#tituloCarrusel"
+                });
+                carruselModule.Inicializar();
+            }
+        });
+    </script>
+
+
+}

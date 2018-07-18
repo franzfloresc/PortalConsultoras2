@@ -8,7 +8,7 @@ var urlOfertaCargarProductos = urlOfertaCargarProductos || '';
 var urlOfertaDetalle = urlOfertaDetalle || '';
 var campaniaId = campaniaId || 0;
 var indCampania = indCampania || 0;
-var lsListaRD = lsListaRD || "ListaRD";
+var lsListaRD = lsListaRD || "RDLista";
 var filtroCampania = {};
 var isScroll = typeof isScroll == "undefined" ? true : isScroll;
 var filtroIni = {
@@ -253,6 +253,10 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
         data: JSON.stringify(busquedaModel),
         async: true,
         success: function (response) {
+            if (response.codigo == '005') {
+                response.listaLan = Clone(response.lista);
+                response.lista = [];
+            }
             OfertaCargarProductoRespuesta(response, clear, busquedaModel);
         },
         error: function (response, error) {

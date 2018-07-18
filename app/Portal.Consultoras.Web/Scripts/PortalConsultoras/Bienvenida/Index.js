@@ -151,9 +151,6 @@ $(document).ready(function () {
             if ($('#popupInvitaionFlexipago').is(':visible')) {
                 PopupCerrar('popupInvitaionFlexipago');
             }
-            if ($('#popupAceptacionContrato').is(':visible')) {
-                PopupCerrar('popupAceptacionContrato');
-            }
             if ($('#popupDemandaAnticipada').is(':visible')) {
                 PopupCerrar('popupDemandaAnticipada');
             }
@@ -212,7 +209,7 @@ $(document).ready(function () {
     });
 
     CrearDialogs();
-    CargarCarouselEstrategias("");
+    CargarCarouselEstrategias();
     if (_validartieneMasVendidos() === 1) {
         masVendidosModule.readVariables({
             baseUrl: baseUrl,
@@ -232,7 +229,7 @@ $(document).ready(function () {
     CargarCarouselLiquidaciones();
     CargarMisCursos();
     CargarBanners();
-    CargarCatalogoPersonalizado();
+    //CargarCatalogoPersonalizado();
     if (showRoomMostrarLista == 1) {
         CargarProductosShowRoom({ Limite: 6, hidden: true });
     }
@@ -592,41 +589,6 @@ function animacionFlechaScroll() {
         }, 400, 'swing');
     });
 
-}
-function agregarProductoAlCarrito(o) {
-    var btnClickeado = $(o);
-    var contenedorItem = btnClickeado.parent().parent();
-    var imagenProducto = $('.imagen_producto', contenedorItem);
-
-    if (imagenProducto.length > 0) {
-        var carrito = $('.campana.cart_compras');
-
-        var urlImgProd = imagenProducto.attr("src") || "";
-        if (urlImgProd != "" && carrito) {
-            
-            $("body").prepend('<img src="' + urlImgProd + '" class="transicion">');
-
-            $(".transicion").css({
-                'height': imagenProducto.css("height"),
-                'width': imagenProducto.css("width"),
-                'top': imagenProducto.offset().top,
-                'left': imagenProducto.offset().left,
-            }).animate({
-                'top': carrito.offset().top,
-                'left': carrito.offset().left,
-                'height': carrito.css("height"),
-                'width': carrito.css("width"),
-                'opacity': 0.5
-            }, 450, 'swing', function () {
-                $(this).animate({
-                    'top': carrito.offset().top,
-                    'opacity': 0
-                }, 150, 'swing', function () {
-                    $(this).remove();
-                });
-            });
-        }
-    }
 }
 
 function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
@@ -2208,7 +2170,7 @@ function AbrirAceptacionContrato() {
 
 function AceptarContrato() {
    
-    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato};
+    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato, AppVersion: "" };
     waitingDialog({});
 
     $.ajax({
@@ -2225,9 +2187,6 @@ function AceptarContrato() {
                 }
 
                 PopupCerrar('popupAceptacionContrato');
-                if (viewBagCambioClave == 0) {
-                    PopupMostrar('popupActualizarMisDatos');
-                }
             }
         },
         error: function (data, error) {

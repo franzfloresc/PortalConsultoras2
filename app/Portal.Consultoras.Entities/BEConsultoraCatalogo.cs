@@ -107,13 +107,13 @@ namespace Portal.Consultoras.Entities
                 this.CampaniaActual = Convert.ToInt32((row["CampaniaActual"]).ToString());
 
             if (DataRecord.HasColumn(row, "HoraCierre"))
-                this.HoraCierre = Convert.ToDateTime(row["HoraCierre"].ToString()).ToShortTimeString();
+                this.HoraCierre = Convert.ToDateTime(row["HoraCierre"]).ToShortTimeString();
 
             if (DataRecord.HasColumn(row, "EstadoActividad"))
                 this.Estado = Convert.ToInt32((row["EstadoActividad"]).ToString());
 
             if (DataRecord.HasColumn(row, "CodigoUsuario"))
-                this.CodigoUsuario = Convert.ToString((row["CodigoUsuario"]));
+                this.CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
 
             if (DataRecord.HasColumn(row, "Pais"))
                 this.Pais = Convert.ToString(row["Pais"]);

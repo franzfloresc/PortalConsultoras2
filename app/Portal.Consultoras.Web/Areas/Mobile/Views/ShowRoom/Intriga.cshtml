@@ -6,8 +6,7 @@
 
 @using Newtonsoft.Json
 @using Portal.Consultoras.Common
-@using Portal.Consultoras.Web.Helpers
-@model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
+@model Portal.Consultoras.Web.Models.EstrategiaPedidoModel
 
 
 @section styles{
@@ -56,7 +55,7 @@
 
             <div class="content_imagen_intriga">
                 @if (Model.ImagenProducto != "")
-            {
+                {
                     <img src="@Model.ImagenProducto">
                 }
                 else
@@ -69,10 +68,10 @@
             <div class="precio_ficha_producto">
                 <span class="precio_tachado_ficha">@Model.Simbolo @Model.FormatoPrecioValorizado </span>@Model.Simbolo @Model.FormatoPrecioOferta
             </div>
-            <div class="liquidacion_rango_home">
-                <a class="cantidad_menos_home" tabindex="0" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" tabindex="0">
-                <a class="cantidad_mas_home" tabindex="0" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+            <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad" tabindex="0">
+                <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
             </div>
             <hr class="clear" />
             <input id="hdCampaniaCodigo" type="hidden" value="@Model.CodigoCampania" />
@@ -122,7 +121,7 @@
 
         var urlInsertOfertaWebPortal = '@Url.Action("InsertOfertaWebPortal", "ShowRoom", new {area = ""})';
         var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "ShowRoom", new {area = ""})';
-        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.MobileShowRoomLandingIntriga';
+        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.ShowRoomMobileLandingIntriga';
 
         $(document).ready(function () {
 
@@ -249,5 +248,6 @@
 
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/Intriga.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
 
 }

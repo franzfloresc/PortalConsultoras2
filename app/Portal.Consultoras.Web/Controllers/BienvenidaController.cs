@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.ServiceAsesoraOnline;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -9,7 +10,6 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -42,10 +42,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
 
                 model.PartialSectionBpt = GetPartialSectionBptModel(revistaDigital);
-                ViewBag.UrlImgMiAcademia = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
-                ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
-                ViewBag.UrlPdfTerminosyCondiciones = GetUrlTerminosCondicionesDatosUsuario();
-                ViewBag.UrlImagenFAVHome = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVHome), userData.CodigoISO);
+                ViewBag.UrlImgMiAcademia = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
+                ViewBag.RutaImagenNoDisponible = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
+                ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
+                ViewBag.UrlImagenFAVHome = string.Format(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVHome), userData.CodigoISO);
 
                 #region Montos
                 var bePedidoWeb = ObtenerPedidoWeb();
@@ -85,9 +85,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Celular = userData.Celular;
                 model.NombreGerenteZonal = userData.NombreGerenteZonal;
 
-                var carpetaPais = GetConfiguracionManager(Constantes.ConfiguracionManager.CarpetaImagenCompartirCatalogo) + userData.CodigoISO;
-                var nombreImagenCatalogo = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreImagenCompartirCatalogo);
-                model.UrlImagenCompartirCatalogo = ConfigS3.GetUrlFileS3(carpetaPais, nombreImagenCatalogo, String.Empty);
+                var carpetaPais = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CarpetaImagenCompartirCatalogo) + userData.CodigoISO;
+                var nombreImagenCatalogo = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.NombreImagenCompartirCatalogo);
+                model.UrlImagenCompartirCatalogo = ConfigCdn.GetUrlFileCdn(carpetaPais, nombreImagenCatalogo);
                 model.PrimeraVez = userData.CambioClave;
                 model.Simbolo = userData.Simbolo;
                 model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
@@ -110,7 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.IndicadorFlexipago = userData.IndicadorFlexiPago;
                 model.CantProductosCarouselLiq = configCarouselLiquidacion.Count > 0 ? Convert.ToInt32(configCarouselLiquidacion[0].Codigo) : 1;
                 model.BotonAnalytics = datGaBoton.Count > 0 ? datGaBoton[0].Descripcion : "";
-                model.UrlFlexipagoCL = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaFlexipagoCL);
+                model.UrlFlexipagoCL = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaFlexipagoCL);
                 model.PopupInicialCerrado = userData.PopupBienvenidaCerrado;
                 if (userData.CodigoISO == Constantes.CodigosISOPais.Chile || userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
                 {
@@ -122,7 +122,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     model.NroCampana = (tabla.FirstOrDefault(x => x.TablaLogicaDatosID == 6001) ?? new BETablaLogicaDatos()).Codigo;
 
-                    model.rutaChile = userData.CodigoISO == Constantes.CodigosISOPais.Chile ? GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile) : string.Empty;
+                    model.rutaChile = userData.CodigoISO == Constantes.CodigosISOPais.Chile ? _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile) : string.Empty;
                 }
                 else
                 {
@@ -130,7 +130,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.rutaChile = string.Empty;
                 }
 
-                var nombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
+                var nombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
                 model.ContratoActualizarDatos = nombreArchivoContrato;
 
                 var parametro = userData.CodigoConsultora + "|" + DateTime.Now.ToShortDateString() + " 23:59:59" + "|" + userData.CodigoISO;
@@ -164,7 +164,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ValidaDatosActualizados = 0;
                 }
 
-                model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png");
+                model.ImagenUsuario = ConfigCdn.GetUrlFileCdn("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png");
 
                 model.VisualizoComunicado = 1;
                 model.VisualizoComunicadoConfigurable = 1;
@@ -178,7 +178,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region limite Min - Max Telef
                 int limiteMinimoTelef, limiteMaximoTelef;
-                GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
+                Util.GetLimitNumberPhone(userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
                 model.limiteMinimoTelef = limiteMinimoTelef;
                 model.limiteMaximoTelef = limiteMaximoTelef;
                 #endregion
@@ -196,13 +196,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
-                model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                model.ShowRoomBannerUrl = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 model.TieneCupon = userData.TieneCupon;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 model.EMail = userData.EMail;
                 model.Celular = userData.Celular;
                 model.EmailActivo = userData.EMailActivo;
-                ViewBag.Ambiente = GetBucketNameFromConfig();
+                ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
                 TempData.Keep("MostrarPopupCuponGanaste");
 
                 ViewBag.FechaInicioCampania = userData.FechaInicioCampania;
@@ -261,7 +261,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData.PopupBienvenidaCerrado = true;
-                SetUserData(userData);
+                sessionManager.SetUserData(userData);
             }
             catch (FaultException ex)
             {
@@ -372,7 +372,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
 
                     case Constantes.TipoPopUp.DemandaAnticipada:
-                        if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora
+                        if (userData.EsConsultora()
                             && ValidarConsultoraDemandaAnticipada(model))
                         {
                             tipoPopUpMostrar = Constantes.TipoPopUp.DemandaAnticipada;
@@ -380,7 +380,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
 
                     case Constantes.TipoPopUp.AceptacionContrato:
-                        if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora
+                        if (userData.EsConsultora()
                             && userData.CambioClave == 0 && userData.IndicadorContrato == 0
                             && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia)
                             && sessionManager.GetIsContrato() == 1)
@@ -395,7 +395,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
 
                     case Constantes.TipoPopUp.ActualizarDatos:
-                        if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                        if (userData.EsConsultora())
                         {
                             if (userData.CodigoISO == Constantes.CodigosISOPais.Mexico
                                 && model.ValidaDatosActualizados == 1
@@ -417,7 +417,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
 
                     case Constantes.TipoPopUp.Flexipago:
-                        if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora
+                        if (userData.EsConsultora()
                             && (userData.InvitacionRechazada == "False" || userData.InvitacionRechazada == "0" || userData.InvitacionRechazada == "")
                             && model.InscritaFlexipago == "0"
                             && model.IndicadorFlexipago == 1
@@ -494,7 +494,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                if (userData.EsConsultora())
                 {
                     var comunicados = ObtenerComunicadoPorConsultora();
 
@@ -543,14 +543,14 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if (PaisTieneShowRoom(userData.CodigoISO))
+                if (_showRoomProvider.PaisTieneShowRoom(userData.CodigoISO))
                 {
                     if (!configEstrategiaSR.CargoEntidadesShowRoom) return false;
                     var beShowRoomConsultora = configEstrategiaSR.BeShowRoomConsultora;
                     var beShowRoom = configEstrategiaSR.BeShowRoom;
 
-                    if (beShowRoomConsultora == null) beShowRoomConsultora = new BEShowRoomEventoConsultora();
-                    if (beShowRoom == null) beShowRoom = new BEShowRoomEvento();
+                    if (beShowRoomConsultora == null) beShowRoomConsultora = new ShowRoomEventoConsultoraModel();
+                    if (beShowRoom == null) beShowRoom = new ShowRoomEventoModel();
 
                     if (beShowRoom.Estado == 1)
                     {
@@ -667,7 +667,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var sp = userData.HoraCierreZonaDemAntiCierre;
                 var cierrezonademanti = new DateTime(sp.Ticks).ToString("HH:mm") + " hrs";
 
-                model.MensajeFechaDA = diasemana + " " + fechaDa.Day.ToString() + " de " + NombreMes(fechaDa.Month) +
+                model.MensajeFechaDA = diasemana + " " + fechaDa.Day.ToString() + " de " + Util.NombreMes(fechaDa.Month) +
                                        " (" + cierrezonademanti + ")";
 
                 return true;
@@ -704,7 +704,7 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
             }
 
-            SetUserData(userData);
+            sessionManager.SetUserData(userData);
         }
 
         public JsonResult SubirImagen(string data)
@@ -722,7 +722,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var pathFile = Server.MapPath("~/Content/Images/temp/" + fileName);
                 System.IO.File.WriteAllBytes(pathFile, base64EncodedBytes);
                 ConfigS3.SetFileS3(pathFile, "ConsultoraImagen", fileName, true, true, true);
-                rutaImagen = ConfigS3.GetUrlFileS3("ConsultoraImagen", fileName);
+                rutaImagen = ConfigCdn.GetUrlFileCdn("ConsultoraImagen", fileName);
             }
             catch (Exception ex)
             {
@@ -732,7 +732,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { success = true, message = "La imagen se subió exitosamente", imagen = Url.Content(rutaImagen) });
         }
 
-        public JsonResult AceptarContrato(bool checkAceptar , string origenAceptacion)
+        public JsonResult AceptarContrato(bool checkAceptar , string origenAceptacion, string AppVersion)
         {
             try
             {
@@ -746,9 +746,17 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
+                string ip = null;
+                if (!Request.Browser.IsMobileDevice)
+                {
+                    ip = GetIPCliente();
+                    ip = string.IsNullOrEmpty(ip) ? "" : ip;
+                    AppVersion = null;
+                }
+
                 using (var svr = new UsuarioServiceClient())
                 {
-                  svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora , origenAceptacion);
+                  svr.AceptarContratoAceptacion(userData.PaisID, userData.ConsultoraID, userData.CodigoConsultora , origenAceptacion, ip, AppVersion);
                 }
 
                 userData.IndicadorContrato = 1;
@@ -762,7 +770,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var filePath = Server.MapPath("~/Content/FAQ/Contrato_CO.pdf");
-                var indicadorEnvio = GetConfiguracionManager(Constantes.ConfiguracionManager.indicadorContrato);
+                var indicadorEnvio = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.indicadorContrato);
                 if (indicadorEnvio == "1")
                 {
                     try
@@ -854,7 +862,7 @@ namespace Portal.Consultoras.Web.Controllers
             string urlRedirect;
             if (pp == Constantes.CodigosISOPais.Chile)
             {
-                urlRedirect = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaFlexipagoCL) + "/index.html";
+                urlRedirect = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.rutaFlexipagoCL) + "/index.html";
             }
             else
             {
@@ -901,7 +909,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CompartirDatos = beusuario.CompartirDatos;
                 model.AceptoContrato = beusuario.AceptoContrato;
                 model.UsuarioPrueba = userData.UsuarioPrueba;
-                model.NombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
+                model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
                 model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
 
                 BEZona[] bezona;
@@ -925,7 +933,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.DigitoVerificador = string.Empty;
                 model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
 
-                var paisesDigitoControl = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
+                var paisesDigitoControl = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
                 if (paisesDigitoControl.Contains(model.PaisISO)
                     && !String.IsNullOrEmpty(beusuario.DigitoVerificador))
                 {
@@ -970,7 +978,7 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                     }
 
-                    SetUserData(userData);
+                    sessionManager.SetUserData(userData);
                 }
             }
             catch (FaultException ex)
@@ -1028,7 +1036,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("function MM_preloadImages() { var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array(); var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++) if (a[i].indexOf('#')!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}}");
                         sb.Append("function MM_findObj(n, d) { var p,i,x;  if(!d) d=document; if((p=n.indexOf('?'))>0&&parent.frames.length) { d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);} if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n]; for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document); if(!x && d.getElementById) x=d.getElementById(n); return x;}");
                         sb.Append("function MM_swapImage() { var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3) if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];} } </script></head>");
-                        sb.Append("<body bgcolor='#FFFFFF' leftmargin='0' topmargin='0' marginwidth='0' marginheight='0' onLoad=\"MM_preloadImages('https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/hazclick_on.png')\">");
+                        sb.Append("<body bgcolor='#FFFFFF' leftmargin='0' topmargin='0' marginwidth='0' marginheight='0' onLoad=\"MM_preloadImages('" + Globals.RutaCdn + "/Comunidad/hazclick_on.png')\">");
                         sb.Append("<table width='800' height='521' border='0' align='center' cellpadding='0' cellspacing='0' id='Table_01'>");
                         sb.Append("<tr>");
                         sb.Append("<td width='17px' bgcolor='#F6F6F6'></td>");
@@ -1041,10 +1049,10 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<tr>");
                         sb.Append("<td width='198'><table id='Table_4' width='198' height='419' border='0' cellpadding='0' cellspacing='0'>");
                         sb.Append("<tr>");
-                        sb.Append("<td width='198' height='119'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_menulat_01.gif' width='198' height='119' alt=''></td>");
+                        sb.Append("<td width='198' height='119'><img src='" + Globals.RutaCdn + "/Comunidad/mail_menulat_01.gif' width='198' height='119' alt=''></td>");
                         sb.Append("</tr>");
                         sb.Append("<tr>");
-                        sb.Append("<td width='198' height='73'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_menulat_02.gif' width='198' height='73' alt=''></td>");
+                        sb.Append("<td width='198' height='73'><img src='" + Globals.RutaCdn + "/Comunidad/mail_menulat_02.gif' width='198' height='73' alt=''></td>");
                         sb.Append("</tr>");
                         sb.Append("<tr>");
                         sb.Append("<td width='198' height='139'><table id='Table_5' width='198' height='139' border='0' cellpadding='0' cellspacing='0'>");
@@ -1054,7 +1062,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<tr>");
                         sb.Append("<td><table width='180' border='0' cellspacing='0' cellpadding='0'>");
                         sb.Append("<tr>");
-                        sb.Append("<td width='20' height='28'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/ico_com.gif' width='20' height='20'></td>");
+                        sb.Append("<td width='20' height='28'><img src='" + Globals.RutaCdn + "/Comunidad/ico_com.gif' width='20' height='20'></td>");
                         sb.Append("<td width='5'></td>");
                         sb.Append("<td width='155'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 9.5px; text-transform: uppercase;'><a href='#'><font color='#b03695'><span style='text-decoration:none;text-underline:none'>Bienvenida a tu comunidad</span></font></a></font></td>");
                         sb.Append("</tr>");
@@ -1063,7 +1071,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<tr>");
                         sb.Append("<td><table width='180' border='0' cellspacing='0' cellpadding='0'>");
                         sb.Append("<tr>");
-                        sb.Append("<td width='20' height='28'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/ico_logra.gif' width='20' height='20'></td>");
+                        sb.Append("<td width='20' height='28'><img src='" + Globals.RutaCdn + "/Comunidad/ico_logra.gif' width='20' height='20'></td>");
                         sb.Append("<td width='5'></td>");
                         sb.Append("<td width='155'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 9.5px; text-transform: uppercase;'><a href='#'><font color='#569898'><span style='text-decoration:none;text-underline:none'>Logra con tu belleza</span></font></a></font></td>");
                         sb.Append("</tr>");
@@ -1072,7 +1080,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<tr>");
                         sb.Append("<td><table width='180' border='0' cellspacing='0' cellpadding='0'>");
                         sb.Append("<tr>");
-                        sb.Append("<td width='20' height='28'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/ico_neg.gif' width='20' height='20'></td>");
+                        sb.Append("<td width='20' height='28'><img src='" + Globals.RutaCdn + "/Comunidad/ico_neg.gif' width='20' height='20'></td>");
                         sb.Append("<td width='5'></td>");
                         sb.Append("<td width='155'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 9.5px; text-transform: uppercase;'><a href='#'><font color='#a8cb30'><span style='text-decoration:none;text-underline:none'>Tu negocio</span></font></a></font></td>");
                         sb.Append("</tr>");
@@ -1081,7 +1089,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<tr>");
                         sb.Append("<td><table width='180' border='0' cellspacing='0' cellpadding='0'>");
                         sb.Append("<tr>");
-                        sb.Append("<td width='20' height='28'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/ico_tusmarcas.gif' width='20' height='20'></td>");
+                        sb.Append("<td width='20' height='28'><img src='" + Globals.RutaCdn + "/Comunidad/ico_tusmarcas.gif' width='20' height='20'></td>");
                         sb.Append("<td width='5'></td>");
                         sb.Append("<td width='155'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 9.5px; text-transform: uppercase;'><a href='#'><font color='#570064'><span style='text-decoration:none;text-underline:none'>Tus marcas y tus productos</span></font></a></font></td>");
                         sb.Append("</tr>");
@@ -1090,7 +1098,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<tr>");
                         sb.Append("<td><table width='180' border='0' cellspacing='0' cellpadding='0'>");
                         sb.Append("<tr>");
-                        sb.Append("<td width='20' height='27'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/ico_cosas.gif' width='20' height='20'></td>");
+                        sb.Append("<td width='20' height='27'><img src='" + Globals.RutaCdn + "/Comunidad/ico_cosas.gif' width='20' height='20'></td>");
                         sb.Append("<td width='5'></td>");
                         sb.Append("<td width='155' height='27'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 9.5px; text-transform: uppercase;'><a href='#'><font color='#666696'><span style='text-decoration:none;text-underline:none'>Cosas de mujeres</span></font></a></font></td>");
                         sb.Append("</tr>");
@@ -1106,10 +1114,10 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("</table></td>");
                         sb.Append("<td width='568'><table id='Table_3' width='568' height='419' border='0' cellpadding='0' cellspacing='0'>");
                         sb.Append("<tr>");
-                        sb.Append(string.Format("<td width='568' height='197'><a href='{0}'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_derecho_01.jpg' width='568' height='197'></a></td>", paginaConfirmacion));
+                        sb.Append(string.Format("<td width='568' height='197'><a href='{0}'><img src='" + Globals.RutaCdn + "/Comunidad/mail_derecho_01.jpg' width='568' height='197'></a></td>", paginaConfirmacion));
                         sb.Append("</tr>");
                         sb.Append("<tr>");
-                        sb.Append("<td width='568' height='222' background='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/bgmail01.jpg'><table width='568' border='0' cellspacing='0' cellpadding='0'>");
+                        sb.Append("<td width='568' height='222' background='" + Globals.RutaCdn + "/Comunidad/bgmail01.jpg'><table width='568' border='0' cellspacing='0' cellpadding='0'>");
                         sb.Append("<tr>");
                         sb.Append("<td height='106'><table width='568' border='0' cellspacing='0' cellpadding='0'>");
                         sb.Append("<tr>");
@@ -1144,9 +1152,9 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<tr>");
                         sb.Append("<td width='581' height='29'></td>");
                         sb.Append("<td width='91'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 11px; color:#FFF; text-transform: uppercase;'>Siguenos en:</font></td>");
-                        sb.Append("<td width='24'><a href='https://www.facebook.com/SomosBelcorpOficial?fref=ts' target='_blank'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/socialbar_03.gif' width='24' height='29' alt=''></a></td>");
+                        sb.Append("<td width='24'><a href='https://www.facebook.com/SomosBelcorpOficial?fref=ts' target='_blank'><img src='" + Globals.RutaCdn + "/Comunidad/socialbar_03.gif' width='24' height='29' alt=''></a></td>");
                         sb.Append("<td width='3'></td>");
-                        sb.Append("<td width='23'><a href='https://www.youtube.com/user/somosbelcorp' target='_blank'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/socialbar_05.gif' width='23' height='29' alt=''></a></td>");
+                        sb.Append("<td width='23'><a href='https://www.youtube.com/user/somosbelcorp' target='_blank'><img src='" + Globals.RutaCdn + "/Comunidad/socialbar_05.gif' width='23' height='29' alt=''></a></td>");
                         sb.Append("<td width='44'></td>");
                         sb.Append("</tr>");
                         sb.Append("</table></td>");
@@ -1159,7 +1167,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<td width='18'></td>");
                         sb.Append("<td width='373'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 11px; color:#768591;'>¿No deseas recibir correos electrónicos de la Comunidad Somos Belcorp?</font></td>");
                         sb.Append("<td width='8'></td>");
-                        sb.Append("<td width='101'><a href='#' onMouseOut='MM_swapImgRestore()' onMouseOver=\"MM_swapImage('Haz click','','https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/hazclick_on.png',1)\"><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/hazclick_off.png' width='101' height='21' id='Haz click'></a></td>");
+                        sb.Append("<td width='101'><a href='#' onMouseOut='MM_swapImgRestore()' onMouseOver=\"MM_swapImage('Haz click','','" + Globals.RutaCdn + "/Comunidad/hazclick_on.png',1)\"><img src='" + Globals.RutaCdn + "/Comunidad/hazclick_off.png' width='101' height='21' id='Haz click'></a></td>");
                         sb.Append("<td width='266'></td>");
                         sb.Append("</tr>");
                         sb.Append("</table></td>");
@@ -1301,12 +1309,12 @@ namespace Portal.Consultoras.Web.Controllers
                     sb.Append("<html><head><title>mail_inscripcion</title><meta http-equiv='Content-Type' content='text/html; charset=utf-8'></head>");
                     sb.Append("<body bgcolor='#FFFFFF' leftmargin='0' topmargin='0' marginwidth='0' marginheight='0'>");
                     sb.Append("<table width='766' height='665' border='0' align='center' cellpadding='0' cellspacing='0' id='Table_01'>");
-                    sb.Append("<tr><td><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_verificacion_01.jpg' width='766' height='240' alt=''></td></tr>");
-                    sb.Append("<tr><td><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_verificacion_02.gif' width='766' height='142' alt=''></td></tr>");
-                    sb.Append("<tr><td><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/mail_verificacion_03.jpg' width='766' height='153' alt=''></td></tr>");
+                    sb.Append("<tr><td><img src='" + Globals.RutaCdn + "/Comunidad/mail_verificacion_01.jpg' width='766' height='240' alt=''></td></tr>");
+                    sb.Append("<tr><td><img src='" + Globals.RutaCdn + "/Comunidad/mail_verificacion_02.gif' width='766' height='142' alt=''></td></tr>");
+                    sb.Append("<tr><td><img src='" + Globals.RutaCdn + "/Comunidad/mail_verificacion_03.jpg' width='766' height='153' alt=''></td></tr>");
                     sb.Append("<tr><td width='766' height='28'>&nbsp;</td></tr>");
                     sb.Append("<tr><td><table id='Table_' width='766' height='46' border='0' cellpadding='0' cellspacing='0'><tr><td width='259'>&nbsp;</td>");
-                    sb.Append(string.Format("<td width='249'><a href='{0}'><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/bot_verifica.gif' width='249' height='46' alt=''></a></td>", paginaConfirmacion));
+                    sb.Append(string.Format("<td width='249'><a href='{0}'><img src='" + Globals.RutaCdn + "/Comunidad/bot_verifica.gif' width='249' height='46' alt=''></a></td>", paginaConfirmacion));
                     sb.Append("<td width='258'>&nbsp;</td></tr></table></td></tr>");
                     sb.Append("<tr><td width='766' height='56'>&nbsp;</td></tr></table></body></html>");
 
@@ -1771,7 +1779,7 @@ namespace Portal.Consultoras.Web.Controllers
                 const int SHOWROOM_ESTADO_INACTIVO = 0;
                 const string TIPO_APLICACION_DESKTOP = "Desktop";
 
-                if (!PaisTieneShowRoom(userData.CodigoISO))
+                if (!_showRoomProvider.PaisTieneShowRoom(userData.CodigoISO))
                 {
                     return Json(new
                     {
@@ -1792,7 +1800,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var showRoom = configEstrategiaSR.BeShowRoom ?? new BEShowRoomEvento();
+                var showRoom = configEstrategiaSR.BeShowRoom ?? new ShowRoomEventoModel();
 
                 if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
                 {
@@ -1804,7 +1812,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var showRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+                var showRoomConsultora = configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel();
                 var mostrarPopupIntriga = showRoomConsultora.MostrarPopup;
                 var mostrarPopupVenta = showRoomConsultora.MostrarPopupVenta;
 
@@ -1845,7 +1853,7 @@ namespace Portal.Consultoras.Web.Controllers
                     data = showRoomConsultora,
                     diaInicio = userData.FechaInicioCampania.AddDays(-showRoom.DiasAntes).Day,
                     diaFin = userData.FechaInicioCampania.Day,
-                    mesFin = NombreMes(userData.FechaInicioCampania.Month),
+                    mesFin = Util.NombreMes(userData.FechaInicioCampania.Month),
                     diasFaltan = (userData.FechaInicioCampania.AddDays(-showRoom.DiasAntes) - DateTime.Now.AddHours(userData.ZonaHoraria).Date).Days,
                     nombre = string.IsNullOrEmpty(userData.Sobrenombre)
                         ? userData.NombreConsultora
@@ -1876,7 +1884,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var model = GetShowRoomBannerLateral();
+                var model = _showRoomProvider.GetShowRoomBannerLateral(userData.CodigoISO, userData.ZonaHoraria, userData.FechaInicioCampania);
                 if (model.ConsultoraNoEncontrada)
                 {
                     return Json(new
@@ -1928,7 +1936,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult CerrarMensajeEstadoPedido()
         {
             userData.CerrarRechazado = 1;
-            SetUserData(userData);
+            sessionManager.SetUserData(userData);
             return Json(userData.CerrarRechazado);
         }
 
@@ -1938,7 +1946,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData.CerrarBannerPostulante = 1;
-                SetUserData(userData);
+                sessionManager.SetUserData(userData);
                 return Json(new
                 {
                     success = true
@@ -2150,10 +2158,10 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ChatBelcorp()
         {
             var url = "";
-            if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO))
+            if (_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO))
             {
                 url = String.Format(
-                    GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
+                    _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
                     userData.SegmentoAbreviatura.Trim(),
                     userData.CodigoUsuario.Trim(),
                     userData.PrimerNombre.Split(' ').First().Trim(),
@@ -2174,7 +2182,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (tipo == "sr")
                 {
-                    SetUserData(userData);
+                    sessionManager.SetUserData(userData);
                     controlador = "ShowRoom";
                     accion = AccionControlador("sr", true);
                 }
@@ -2195,12 +2203,23 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction(accion, controlador, new { area = area });
         }
 
+        private List<BEComunicado> ObtenerComunicadoPorConsultora()
+        {
+            using (var sac = new SACServiceClient())
+            {
+                var lstComunicados = sac.ObtenerComunicadoPorConsultora(UserData().PaisID, UserData().CodigoConsultora,
+                        Constantes.ComunicadoTipoDispositivo.Desktop, UserData().CodigorRegion, UserData().CodigoZona, UserData().ConsultoraNueva);
+
+                return lstComunicados.ToList();
+            }
+        }
+
         private void EnviarCorreoActivacionCupon()
         {
             var url = Util.GetUrlHost(this.HttpContext.Request).ToString();
             var montoLimite = ObtenerMontoLimiteDelCupon();
             var cuponModel = ObtenerDatosCupon();
-            var tipopais = GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
+            var tipopais = _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
             var mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url, montoLimite, tipopais);
             var correo = userData.EMail;
             Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);

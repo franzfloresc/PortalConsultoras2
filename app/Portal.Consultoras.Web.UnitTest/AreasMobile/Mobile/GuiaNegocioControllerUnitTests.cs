@@ -17,20 +17,20 @@ namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
         {
             public class GuiaNegocioControllerStub01: GuiaNegocioController
             {
-                public override ActionResult ViewLanding()
-                {
-                    throw new Exception("Error Render Index");
-                }
+                //public override ActionResult ViewLanding()
+                //{
+                //    throw new Exception("Error Render Index");
+                //}
 
                 public GuiaNegocioControllerStub01(ILogManager logManager)  
                 {
                     this.logManager = logManager;
                 }
 
-                public override bool GNDValidarAcceso(bool esConsultoraLider, GuiaNegocioModel guiaNegocio, RevistaDigitalModel revistaDigital)
-                {
-                    return true;
-                }
+                //public override bool GNDValidarAcceso(bool esConsultoraLider, GuiaNegocioModel guiaNegocio, RevistaDigitalModel revistaDigital)
+                //{
+                //    return true;
+                //}
             }
 
             [TestMethod]

@@ -52,7 +52,7 @@ $(document).ready(function () {
         $("#fondoPopup_aceptacionTerminosYCondicionesContrato").hide();
     }
 
-    CargarCarouselEstrategias("");
+    CargarCarouselEstrategias();
 
     if (tieneMasVendidos === 1) {
         masVendidosModule.readVariables({
@@ -484,33 +484,6 @@ function TagManagerCatalogosPersonalizados() {
     }
 }
 
-$("#content_oferta_dia_mobile").click(function () {
-    $('#PopOfertaDia').slideDown();
-    odd_mobile_google_analytics_promotion_click();
-});
-
-function odd_mobile_google_analytics_promotion_click() {
-    if ($('#BloqueMobileOfertaDia').length > 0) {
-        var id = $('#BloqueMobileOfertaDia').find("#estrategia-id-odd").val();
-        var name = "Oferta del día - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
-        var creative = $('#BloqueMobileOfertaDia').find("#nombre-odd").val() + " - " + $('#BloqueMobileOfertaDia').find("#cuv2-odd").val()
-        dataLayer.push({
-            'event': 'promotionClick',
-            'ecommerce': {
-                'promoClick': {
-                    'promotions': [
-                    {
-                        'id': id,
-                        'name': name,
-                        'position': 'Banner Superior Home - 1',
-                        'creative': creative
-                    }]
-                }
-            }
-        });
-    }
-}
-
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
 }
@@ -806,9 +779,10 @@ var bannerFunc = (function () {
     }
 })();
 
-function AceptarContrato() {
+function AceptarContrato() { 
+    appVersion = appVersion == undefined ? "" : appVersion;
 
-    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato };
+    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato, AppVersion: appVersion };
     ShowLoading({});
 
     $.ajax({
@@ -825,9 +799,6 @@ function AceptarContrato() {
                 }
 
                 $("#fondoPopup_aceptacionTerminosYCondicionesContrato").hide();
-                if (viewBagCambioClave == 0) {
-                    console.log("VERIFICAR SI ABRE ESTA PANTALLA popupActualizarMisDatos")
-                }
             }
         },
         error: function (data, error) {
