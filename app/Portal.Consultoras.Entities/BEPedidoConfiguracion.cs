@@ -20,12 +20,9 @@ namespace Portal.Consultoras.Entities
 
         public BEPedidoConfiguracion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "PedidoID"))
-                PedidoID = Convert.ToInt32(row["PedidoID"]);
-            if (DataRecord.HasColumn(row, "EstadoPedido"))
-                EstadoPedido = Convert.ToByte(row["EstadoPedido"]);
-            if (DataRecord.HasColumn(row, "ModificaPedidoReservado"))
-                ModificaPedidoReservado = Convert.ToBoolean(row["ModificaPedidoReservado"]);
+            PedidoID = row.ToInt32("PedidoID");
+            EstadoPedido = row.ToByte("EstadoPedido");
+            ModificaPedidoReservado = row.ToBoolean("ModificaPedidoReservado");
         }
     }
 }

@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "FechaFinValidacion"))
                 this.FechaFinValidacion = Convert.ToDateTime(row["FechaFinValidacion"]);
             if (DataRecord.HasColumn(row, "MotivoRechazo"))
-                this.MotivoRechazo = (row["MotivoRechazo"]).ToString().ToUpper().Trim();
+                this.MotivoRechazo = Convert.ToString(row["MotivoRechazo"]).ToUpper().Trim();
             if (DataRecord.HasColumn(row, "Valor"))
                 Valor = Convert.ToString(row["Valor"]);
         }

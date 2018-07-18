@@ -40,34 +40,22 @@ namespace Portal.Consultoras.Entities
 
         public BEPayPalConfiguracion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "chrCodigoParametro"))
-                chrCodigoParametro = Convert.ToString(row["chrCodigoParametro"]);
-            if (DataRecord.HasColumn(row, "chrDescripcion"))
-                chrDescripcion = Convert.ToString(row["chrDescripcion"]);
-            if (DataRecord.HasColumn(row, "chrValor"))
-                chrValor = Convert.ToString(row["chrValor"]);
+            chrCodigoParametro  = row.ToString("chrCodigoParametro");
+            chrDescripcion  = row.ToString("chrDescripcion");
+            chrValor  = row.ToString("chrValor");
         }
 
         public BEPayPalConfiguracion(IDataRecord row, int Tipo)
         {
-            if (DataRecord.HasColumn(row, "chrCodigoConsultora"))
-                chrCodigoConsultora = Convert.ToString(row["chrCodigoConsultora"]);
-            if (DataRecord.HasColumn(row, "vchNombreCompleto"))
-                vchNombreCompleto = Convert.ToString(row["vchNombreCompleto"]);
-            if (DataRecord.HasColumn(row, "datSYSFechaCreacion"))
-                datSYSFechaCreacion = Convert.ToDateTime(row["datSYSFechaCreacion"]);
-            if (DataRecord.HasColumn(row, "mnyMontoAbono"))
-                mnyMontoAbono = Convert.ToDecimal(row["mnyMontoAbono"]);
-            if (DataRecord.HasColumn(row, "chrRETCodigoTransaccion"))
-                chrRETCodigoTransaccion = Convert.ToString(row["chrRETCodigoTransaccion"]);
-            if (DataRecord.HasColumn(row, "chrRETCodigoAutorizacionBancaria"))
-                chrRETCodigoAutorizacionBancaria = Convert.ToString(row["chrRETCodigoAutorizacionBancaria"]);
-            if (DataRecord.HasColumn(row, "chrUltimosNumeroTarjeta"))
-                chrUltimosNumeroTarjeta = Convert.ToString(row["chrUltimosNumeroTarjeta"]);
-            if (DataRecord.HasColumn(row, "chrSYSUsuarioCreacion"))
-                chrSYSUsuarioCreacion = Convert.ToString(row["chrSYSUsuarioCreacion"]);
-            if (DataRecord.HasColumn(row, "chrRETResultado"))
-                chrRETResultado = Convert.ToString(row["chrRETResultado"]);
+            chrCodigoConsultora  = row.ToString("chrCodigoConsultora");
+            vchNombreCompleto  = row.ToString("vchNombreCompleto");
+            datSYSFechaCreacion  = row.ToDateTime("datSYSFechaCreacion");
+            mnyMontoAbono  = row.ToDecimal("mnyMontoAbono");
+            chrRETCodigoTransaccion  = row.ToString("chrRETCodigoTransaccion");
+            chrRETCodigoAutorizacionBancaria  = row.ToString("chrRETCodigoAutorizacionBancaria");
+            chrUltimosNumeroTarjeta  = row.ToString("chrUltimosNumeroTarjeta");
+            chrSYSUsuarioCreacion  = row.ToString("chrSYSUsuarioCreacion");
+            chrRETResultado  = row.ToString("chrRETResultado");
         }
     }
 }

@@ -53,34 +53,20 @@
 
         public BEPedidoDDDetalle(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "PedidoID"))
-                PedidoID = Convert.ToInt32(row["PedidoID"]);
-            if (DataRecord.HasColumn(row, "PedidoDetalleID"))
-                PedidoDetalleID = Convert.ToInt32(row["PedidoDetalleID"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt32(row["Cantidad"]);
-            if (DataRecord.HasColumn(row, "ImporteTotal"))
-                ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "IndicadorActivo"))
-                IndicadorActivo = Convert.ToBoolean(row["IndicadorActivo"]);
-            if (DataRecord.HasColumn(row, "CodigoUsuarioCreacion"))
-                CodigoUsuarioCreacion = Convert.ToString(row["CodigoUsuarioCreacion"]);
-            if (DataRecord.HasColumn(row, "CodigoUsuarioModificacion"))
-                CodigoUsuarioModificacion = Convert.ToString(row["CodigoUsuarioModificacion"]);
-            if (DataRecord.HasColumn(row, "FechaCreacion"))
-                FechaCreacion = Convert.ToDateTime(row["FechaCreacion"]);
-            if (DataRecord.HasColumn(row, "FechaModificacion"))
-                FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-            if (DataRecord.HasColumn(row, "IndicadorEnviado"))
-                IndicadorEnviado = Convert.ToBoolean(row["IndicadorEnviado"]);
-            if (DataRecord.HasColumn(row, "FechaEnvio"))
-                FechaEnvio = Convert.ToDateTime(row["FechaEnvio"]);
+            CampaniaID = row.ToInt32("CampaniaID");
+            PedidoID = row.ToInt32("PedidoID");
+            PedidoDetalleID = row.ToInt32("PedidoDetalleID");
+            ConsultoraID = row.ToInt64("ConsultoraID");
+            Cantidad = row.ToInt32("Cantidad");
+            ImporteTotal = row.ToDecimal("ImporteTotal");
+            CUV = row.ToString("CUV");
+            IndicadorActivo = row.ToBoolean("IndicadorActivo");
+            CodigoUsuarioCreacion = row.ToString("CodigoUsuarioCreacion");
+            CodigoUsuarioModificacion = row.ToString("CodigoUsuarioModificacion");
+            FechaCreacion = row.ToDateTime("FechaCreacion");
+            FechaModificacion = row.ToDateTime("FechaModificacion");
+            IndicadorEnviado = row.ToBoolean("IndicadorEnviado");
+            FechaEnvio = row.ToDateTime("FechaEnvio");
         }
     }
 }
