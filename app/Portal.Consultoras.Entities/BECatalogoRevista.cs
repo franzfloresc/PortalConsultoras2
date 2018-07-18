@@ -51,13 +51,13 @@ namespace Portal.Consultoras.Entities
 
         public BECatalogoRevista_ODS()
         {
-            this.IdMatrizCatalogo       = default(int);
-            this.CodigoCatalogo         = default(int);
-            this.EstadoActivo           = default(bool);
-            this.PaisID                 = default(int);
-            this.DescripcionCatalogo    = default(string);
-            this.CheckSumID             = default(int);
-            this.Descripcion            = default(string);
+            IdMatrizCatalogo = default(int);
+            CodigoCatalogo = default(int);
+            EstadoActivo = default(bool);
+            PaisID = default(int);
+            DescripcionCatalogo = default(string);
+            CheckSumID = default(int);
+            Descripcion = default(string);
         }
 
         public BECatalogoRevista_ODS(IDataRecord row)

@@ -21,9 +21,9 @@ namespace Portal.Consultoras.Entities
 
         public BECategoria()
         {
-            this.CodigoCategoria = string.Empty;
-            this.DescripcionCategoria = string.Empty;
-            this.Eliminado = string.Empty;
+            CodigoCategoria = string.Empty;
+            DescripcionCategoria = string.Empty;
+            Eliminado = string.Empty;
         }
 
         public BECategoria(IDataRecord row)

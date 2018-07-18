@@ -29,10 +29,10 @@ namespace Portal.Consultoras.Entities
 
         public BEActivarPremioNuevas()
         {
-            this.CodigoPrograma = default(string);
-            this.AnioCampana = default(int);
-            this.Nivel = default(string);
-            this.FechaCreate = default(DateTime);
+            CodigoPrograma = default(string);
+            AnioCampana = default(int);
+            Nivel = default(string);
+            FechaCreate = default(DateTime);
         }
 
         public BEActivarPremioNuevas(IDataRecord dr)

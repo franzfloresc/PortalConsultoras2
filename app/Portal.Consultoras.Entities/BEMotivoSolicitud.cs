@@ -23,13 +23,13 @@ namespace Portal.Consultoras.Entities
 
         public BEMotivoSolicitud(IDataRecord row)
         {
-            this.MotivoSolicitudID = Convert.ToInt32(row["MotivoSolicitudID"]);
-            this.Motivo = Convert.ToString(row["Motivo"]);
+            MotivoSolicitudID = Convert.ToInt32(row["MotivoSolicitudID"]);
+            Motivo = Convert.ToString(row["Motivo"]);
 
             if (DataRecord.HasColumn(row, "Tipo"))
-                this.Tipo = Convert.ToInt32(row["Tipo"]);
+                Tipo = Convert.ToInt32(row["Tipo"]);
             if (DataRecord.HasColumn(row, "Estado"))
-                this.Estado = Convert.ToInt16(row["Estado"]);
+                Estado = Convert.ToInt16(row["Estado"]);
         }
     }
 }

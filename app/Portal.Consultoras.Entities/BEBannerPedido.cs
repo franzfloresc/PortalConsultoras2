@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Entities
 
         public BEBannerPedido()
         {
-            this.Url = string.Empty;
+            Url = string.Empty;
         }
 
         public BEBannerPedido(IDataRecord row)

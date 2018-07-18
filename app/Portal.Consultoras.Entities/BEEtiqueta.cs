@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Entities
                 Estado = Convert.ToInt32(row["Estado"]);
 
             if (DataRecord.HasColumn(row, "CodigoGeneral"))
-                this.CodigoGeneral = Convert.ToInt32(row["CodigoGeneral"]);
+                CodigoGeneral = Convert.ToInt32(row["CodigoGeneral"]);
         }
     }
 

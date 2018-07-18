@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Entities
     {
         public BETallaColor()
         {
-            this.IDAux = 0;
+            IDAux = 0;
         }
 
         [DataMember]

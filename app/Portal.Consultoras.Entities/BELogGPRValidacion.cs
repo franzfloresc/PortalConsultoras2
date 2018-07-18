@@ -42,25 +42,25 @@ namespace Portal.Consultoras.Entities
         public BELogGPRValidacion(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "LogGPRValidacionId"))
-                this.LogGPRValidacionId = Convert.ToInt64(row["LogGPRValidacionId"]);
+                LogGPRValidacionId = Convert.ToInt64(row["LogGPRValidacionId"]);
             if (DataRecord.HasColumn(row, "DescripcionRechazo"))
-                this.DescripcionRechazo = Convert.ToString(row["DescripcionRechazo"]);
+                DescripcionRechazo = Convert.ToString(row["DescripcionRechazo"]);
             if (DataRecord.HasColumn(row, "Campania"))
-                this.Campania = Convert.ToString(row["Campania"]);
+                Campania = Convert.ToString(row["Campania"]);
             if (DataRecord.HasColumn(row, "ConsultoraID"))
-                this.ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
+                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
             if (DataRecord.HasColumn(row, "CodigoUsuario"))
-                this.CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
+                CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
             if (DataRecord.HasColumn(row, "SubTotal"))
-                this.SubTotal = Convert.ToDecimal(row["SubTotal"]);
+                SubTotal = Convert.ToDecimal(row["SubTotal"]);
             if (DataRecord.HasColumn(row, "Descuento"))
-                this.Descuento = Convert.ToDecimal(row["Descuento"]);
+                Descuento = Convert.ToDecimal(row["Descuento"]);
             if (DataRecord.HasColumn(row, "EstadoSimplificacionCUV"))
-                this.EstadoSimplificacionCUV = Convert.ToBoolean(row["EstadoSimplificacionCUV"]);
+                EstadoSimplificacionCUV = Convert.ToBoolean(row["EstadoSimplificacionCUV"]);
             if (DataRecord.HasColumn(row, "FechaFinValidacion"))
-                this.FechaFinValidacion = Convert.ToDateTime(row["FechaFinValidacion"]);
+                FechaFinValidacion = Convert.ToDateTime(row["FechaFinValidacion"]);
             if (DataRecord.HasColumn(row, "MotivoRechazo"))
-                this.MotivoRechazo = Convert.ToString(row["MotivoRechazo"]).ToUpper().Trim();
+                MotivoRechazo = Convert.ToString(row["MotivoRechazo"]).ToUpper().Trim();
             if (DataRecord.HasColumn(row, "Valor"))
                 Valor = Convert.ToString(row["Valor"]);
         }
