@@ -22,14 +22,10 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
 
         public BEFiltrosOpcionesVerificacion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "IdEstadoActividad"))
-                IdEstadoActividad = Convert.ToInt32(row["IdEstadoActividad"]);
-            if (DataRecord.HasColumn(row, "CampaniaInicio"))
-                CampaniaInicio = Convert.ToInt32(row["CampaniaInicio"]);
-            if (DataRecord.HasColumn(row, "CampaniaFinal"))
-                CampaniaFinal = Convert.ToInt32(row["CampaniaFinal"]);
-            if (DataRecord.HasColumn(row, "MensajeSaludo"))
-                MensajeSaludo = Convert.ToString(row["MensajeSaludo"]);
+            IdEstadoActividad = row.ToInt32("IdEstadoActividad");
+            CampaniaInicio = row.ToInt32("CampaniaInicio");
+            CampaniaFinal = row.ToInt32("CampaniaFinal");
+            MensajeSaludo = row.ToString("MensajeSaludo");
         }
     }
 }

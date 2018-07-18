@@ -16,8 +16,7 @@ namespace Portal.Consultoras.Entities
 
         public BEPedidoReporteLiderIndicador(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "PedidoWebEnProceso"))
-                PedidoWebEnProceso = Convert.ToInt32(row["PedidoWebEnProceso"]);
+            PedidoWebEnProceso = row.ToInt32("PedidoWebEnProceso");
         }
     }
 }

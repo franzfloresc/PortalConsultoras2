@@ -26,16 +26,11 @@ namespace Portal.Consultoras.Entities
 
         public BEPedidoWebDetalleDescuento(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "IndicadorDscto"))
-                IndicadorDscto = Convert.ToString(row["IndicadorDscto"]);
-            if (DataRecord.HasColumn(row, "PrecioUnidad"))
-                PrecioUnidad = Convert.ToDecimal(row["PrecioUnidad"]);
-            if (DataRecord.HasColumn(row, "PrecioCatalogo2"))
-                PrecioCatalogo2 = Convert.ToDecimal(row["PrecioCatalogo2"]);
-            if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt32(row["Cantidad"]);
+            CUV = row.ToString("CUV");
+            IndicadorDscto = row.ToString("IndicadorDscto");
+            PrecioUnidad = row.ToDecimal("PrecioUnidad");
+            PrecioCatalogo2 = row.ToDecimal("PrecioCatalogo2");
+            Cantidad = row.ToInt32("Cantidad");
         }
     }
 }
