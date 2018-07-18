@@ -59,10 +59,10 @@
                 }
             }
 
-            $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
+            $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").removeClass("texto_sin_tono").addClass("variedad_sin_seleccionar");
             setTimeout(
                 function () {
-                    $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
+                    $(objInput).parents("[data-item]").find("[data-tono-change='1']").removeClass("variedad_sin_seleccionar").addClass("texto_sin_tono");
                 }, 500);
             return true;
         }

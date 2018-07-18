@@ -208,7 +208,7 @@
                                     </div>
                                     {{/ifVerificarMarca}}
                                     <div class="cantidad_descripcion_detalle">
-                                        <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x {{componente.Cantidad}}</span>
+                                        <span class="cantidad_detalle_producto" data-cantidad_detalle_producto="">x {{Multiplicar componente.Cantidad componente.FactorCuadre}}</span>
                                         <span class="descripcion_detalle_producto" data-descripcion_detalle_producto="">
                                             {{componente.NombreComercial}}
                                         </span>
@@ -220,7 +220,13 @@
                                     <div class="tono_select_opt">
                                         <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
                                             <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
-                                            <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
+                                            <div class="texto_tono_seleccionado">
+                                                {{#iff componente.FactorCuadre '==' '1'}}
+                                                ELIGE 1 OPCIÓN
+                                                {{else}}
+                                                ELIGE {{componente.FactorCuadre}} OPCIONES
+                                                {{/iff}}
+                                            </div>
                                             <hr class="clear">
                                         </div>
                                         <div class="content_tonos_select" style="width:102%;" data-tono-select-area="1">

@@ -359,6 +359,16 @@ jQuery(document).ready(function () {
                 var simbMon = variablesPortal.SimboloMoneda || "";
                 return new Handlebars.SafeString(simbMon);
             });
+
+            Handlebars.registerHelper('Multiplicar', function (a,b) {
+                //var array = (JSON.parse(obj) instanceof Array) ? JSON.parse(obj) : [obj];
+                //var resultado = 1;
+                //$.each(array, function (index, value) {
+                //    resultado = resultado * value;
+                //});
+                //return resultado;
+                return a * b;
+            });
         }
     }
 

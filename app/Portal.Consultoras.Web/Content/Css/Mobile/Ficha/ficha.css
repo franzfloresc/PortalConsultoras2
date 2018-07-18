@@ -277,19 +277,10 @@
     background-size: 13px;
     cursor: pointer;
 }
-
-.tono_no_seleccionado {
-    background: url('/Content/Images/mobile/Esika/down-arrow.svg');
-    background-repeat: no-repeat;
-    background-size: 13px;
-    background-color: #000;
-    background-position: right 15px center;
-    color: white;
-    transition: all .3s ease;
-    -moz-transition: all .3s ease;
-    -o-transition: all .3s ease;
-    -ms-transition: all .3s ease;
-    -webkit-transition: all .3s ease;
+.variedad_sin_seleccionar {
+    border: 1px solid #fd0202;
+    display: block;
+    font-weight: bold;
 }
 
 
