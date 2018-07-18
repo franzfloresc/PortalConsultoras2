@@ -701,6 +701,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             try
             {
                 var usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(pedidoDetalle.Usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo);
+                usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.RevistaDigital);
 
                 //Validacion reserva u horario restringido
                 var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(pedidoDetalle.PaisID,
@@ -718,10 +719,27 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 estrategia.Cantidad = pedidoDetalle.Cantidad;
                 pedidoDetalle.Producto.PrecioCatalogo = estrategia.Precio2;
-                if (estrategia.Cantidad > estrategia.LimiteVenta)
+
+                var lstDetalleSets = ObtenerPedidoWebSetDetalleAgrupado(usuario);
+                lstDetalleSets = lstDetalleSets.Where(x => x.CUV == estrategia.CUV2 && x.SetID != 0).ToList();
+
+                if (lstDetalleSets.Any())
                 {
-                    var mensaje = string.Format(Constantes.PedidoAppValidacion.Message[Constantes.PedidoAppValidacion.Code.ERROR_CANTIDAD_LIMITE], estrategia.LimiteVenta);
-                    return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_CANTIDAD_LIMITE, mensaje);
+                    int CantidadActual = lstDetalleSets.Sum(x => x.Cantidad);
+
+                    if (CantidadActual + pedidoDetalle.Cantidad > estrategia.LimiteVenta)
+                    {
+                        var mensaje = string.Format(Constantes.PedidoAppValidacion.Message[Constantes.PedidoAppValidacion.Code.ERROR_CANTIDAD_LIMITE], estrategia.LimiteVenta);
+                        return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_CANTIDAD_LIMITE, mensaje);
+                    }
+                }
+                else
+                {
+                    if (estrategia.Cantidad > estrategia.LimiteVenta)
+                    {
+                        var mensaje = string.Format(Constantes.PedidoAppValidacion.Message[Constantes.PedidoAppValidacion.Code.ERROR_CANTIDAD_LIMITE], estrategia.LimiteVenta);
+                        return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_CANTIDAD_LIMITE, mensaje);
+                    }
                 }
 
                 //Obtener Detalle
@@ -758,8 +776,20 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         ClienteID = pedidoDetalle.ClienteID
                     });
                 }
-
                 UpdateProl(usuario, lstDetalle);
+
+                //Agregar sets agrupados
+                var strCuvs = string.Empty;
+                var ListaCuvsTemporal = new List<string>();
+                ListaCuvsTemporal.Add(estrategia.CUV2);
+                if (ListaCuvsTemporal.Any())
+                {
+                    ListaCuvsTemporal.OrderByDescending(x => x).Distinct().ToList().ForEach(x =>
+                    {
+                        strCuvs = string.Format("{0}{1}:{2},", strCuvs, x, ListaCuvsTemporal.Count(a => a == x));
+                    });
+                }
+                _pedidoWebDetalleBusinessLogic.InsertPedidoWebSet(usuario.PaisID, usuario.CampaniaID, pedidoDetalle.PedidoID, pedidoDetalle.Cantidad, estrategia.CUV2, usuario.ConsultoraID, string.Empty, strCuvs, estrategia.EstrategiaID);
 
                 return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.SUCCESS);
             }
@@ -1680,6 +1710,25 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             //Agregar Producto ZE
             AgregarProductoZE(usuario, pedidoDetalle, lstDetalle);
+        }
+        #endregion
+
+        #region Sets
+        private List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(BEUsuario usuario)
+        {
+            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+            {
+                PaisId = usuario.PaisID,
+                CampaniaId = usuario.CampaniaID,
+                ConsultoraId = usuario.ConsultoraID,
+                Consultora = usuario.Nombre,
+                EsBpt = usuario.RevistaDigital.EsOpt() == 1,
+                CodigoPrograma = usuario.CodigoPrograma,
+                NumeroPedido = usuario.ConsecutivoNueva,
+                AgruparSet = true
+            };
+
+            return _pedidoWebDetalleBusinessLogic.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
         }
         #endregion
     }
