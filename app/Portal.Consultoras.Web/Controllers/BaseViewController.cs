@@ -421,7 +421,10 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento:
                     result = Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage;
                     break;
-                    //Mobile
+                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor:
+                    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedorPopup;
+                    break;
+                //Mobile
                 case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
                     result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomePopUp;
                     break;
@@ -461,6 +464,9 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.OrigenPedidoWeb.HVDesktopLanding:
                     result = Constantes.OrigenPedidoWeb.HVDesktopLandingPopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.HVDesktopContenedor:
+                    result = Constantes.OrigenPedidoWeb.HVDesktopContenedorPopup;
                     break;
                 //SR
                 case Constantes.OrigenPedidoWeb.ShowRoomDesktopHome:
