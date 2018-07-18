@@ -556,7 +556,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 using (var svClient = new UsuarioServiceClient())
                 {
-                    var result = svClient.GetActualizacionEmail(userData.PaisID, userData.CodigoConsultora);
+                    var result = svClient.GetActualizacionEmail(userData.PaisID, userData.CodigoUsuario);
                     return result;
                 }
             }
