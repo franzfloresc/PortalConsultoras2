@@ -34,17 +34,10 @@ namespace Portal.Consultoras.Entities
 
         public BEOferta(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "OfertaID"))
-                OfertaID = Convert.ToInt32(row["OfertaID"]);
-
-            if (DataRecord.HasColumn(row, "CodigoOferta"))
-                CodigoOferta = Convert.ToString(row["CodigoOferta"]);
-
-            if (DataRecord.HasColumn(row, "DescripcionOferta"))
-                DescripcionOferta = Convert.ToString(row["DescripcionOferta"]);
-
-            if (DataRecord.HasColumn(row, "CodigoPrograma"))
-                CodigoPrograma = Convert.ToString(row["CodigoPrograma"]);
+            OfertaID = row.ToInt32("OfertaID");
+            CodigoOferta = row.ToString("CodigoOferta");
+            DescripcionOferta = row.ToString("DescripcionOferta");
+            CodigoPrograma = row.ToString("CodigoPrograma");
         }
     }
 }

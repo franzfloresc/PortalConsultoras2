@@ -31,8 +31,7 @@ namespace Portal.Consultoras.Entities
             RegionID = Convert.ToInt32(row["RegionID"]);
             Codigo = Convert.ToString(row["Codigo"]);
             Nombre = Convert.ToString(row["Nombre"]);
-            if (DataRecord.HasColumn(row, "CantidadDias"))
-                CantidadDias = Convert.ToInt32(row["CantidadDias"]);
+            CantidadDias = row.ToInt32("CantidadDias");
         }
 
     }

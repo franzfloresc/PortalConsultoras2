@@ -31,14 +31,14 @@ namespace Portal.Consultoras.Entities
 
         public BEPremiosProgramaNuevas()
         {
-            this.CodigoPrograma = default(string);
-            this.AnioCampana = default(int);
-            this.CodigoNivel = default(string);
-            this.CUV = default(string);
-            this.DescripcionProducto = default(string);
-            this.IndicadorActivo = default(bool);
-            this.IndicadorKitNuevas = default(bool);
-            this.PrecioUnitario = default(decimal);
+            CodigoPrograma = default(string);
+            AnioCampana = default(int);
+            CodigoNivel = default(string);
+            CUV = default(string);
+            DescripcionProducto = default(string);
+            IndicadorActivo = default(bool);
+            IndicadorKitNuevas = default(bool);
+            PrecioUnitario = default(decimal);
         }
 
         public BEPremiosProgramaNuevas(IDataRecord dr)

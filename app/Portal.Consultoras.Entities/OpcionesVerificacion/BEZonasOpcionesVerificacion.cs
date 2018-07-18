@@ -26,18 +26,12 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
 
         public BEZonasOpcionesVerificacion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "RegionID"))
-                RegionID = Convert.ToInt32(row["RegionID"]);
-            if (DataRecord.HasColumn(row, "ZonaID"))
-                ZonaID = Convert.ToInt32(row["ZonaID"]);
-            if (DataRecord.HasColumn(row, "OlvideContrasenya"))
-                OlvideContrasenya = Convert.ToBoolean(row["OlvideContrasenya"]);
-            if (DataRecord.HasColumn(row, "VerifAutenticidad"))
-                VerifAutenticidad = Convert.ToBoolean(row["VerifAutenticidad"]);
-            if (DataRecord.HasColumn(row, "ActualizarDatos"))
-                ActualizarDatos = Convert.ToBoolean(row["ActualizarDatos"]);
-            if (DataRecord.HasColumn(row, "CDR"))
-                CDR = Convert.ToBoolean(row["CDR"]);
+            RegionID = row.ToInt32("RegionID");
+            ZonaID = row.ToInt32("ZonaID");
+            OlvideContrasenya = row.ToBoolean("OlvideContrasenya");
+            VerifAutenticidad = row.ToBoolean("VerifAutenticidad");
+            ActualizarDatos = row.ToBoolean("ActualizarDatos");
+            CDR = row.ToBoolean("CDR");
         }
     }
 }

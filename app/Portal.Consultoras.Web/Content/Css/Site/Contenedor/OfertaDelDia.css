@@ -50,7 +50,7 @@
     line-height: 33px;
     text-align: center;
     margin: auto;
-    top: 0;
+    top: 40%;
     width: 49%;
 }
 
@@ -101,7 +101,7 @@
 
     .clock_palanca_detalle_odd .flip-clock-dot {
         height: 5px !important;
-        background: #fff !important;
+        /*background: #fff !important;*/
         margin-top: 10px !important;
         width: 5px !important;
     }
@@ -235,11 +235,16 @@
 }
 
     .dibujar_mas_odd::before, .dibujar_mas_odd::after, .dibujar_menos_odd::before, .dibujar_menos_odd::after {
-        border-bottom: solid 2px #fff;
+        border-bottom: solid 2px #fff !important;
     }
 
 .btn_agregalo_odd {
-    background: none;
+    background: #000;
+    color: #fff;
+    float: right;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
     border: solid 1px #fff;
     font-size: 13px;
     letter-spacing: 1px;
