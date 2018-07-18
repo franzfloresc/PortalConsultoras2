@@ -308,8 +308,8 @@ namespace Portal.Consultoras.Entities
 
         public BEResultadoSolicitud(int resultado, string mensaje)
         {
-            this.Resultado = resultado;
-            this.Mensaje = mensaje;
+            Resultado = resultado;
+            Mensaje = mensaje;
         }
 
     }

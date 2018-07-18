@@ -81,17 +81,12 @@ namespace Portal.Consultoras.Entities
             CodigoError = DataRecord.GetColumn<string>(row, "CodigoError");
             CodigoErrorObs = DataRecord.GetColumn<string>(row, "CodigoErrorObs");
             FactorCuadre = DataRecord.GetColumn<int>(row, "FactorCuadre");
-
             NombreProducto = DataRecord.GetColumn<string>(row, "NombreProducto");
             Descripcion1 = DataRecord.GetColumn<string>(row, "Descripcion1");
             ImagenProducto = DataRecord.GetColumn<string>(row, "ImagenProducto");
-
-            if (DataRecord.HasColumn(row, "IdMarca")) IdMarca = Convert.ToInt16(row["IdMarca"]);
-
-            if (DataRecord.HasColumn(row, "Activo")) Activo = Convert.ToInt16(row["Activo"]);
-
-            if (DataRecord.HasColumn(row, "Digitable")) Digitable = Convert.ToInt16(row["Digitable"]);
-
+            IdMarca = row.ToInt16("IdMarca");
+            Activo = row.ToInt16("Activo");
+            Digitable = row.ToInt16("Digitable");
             NombreMarca = DataRecord.GetColumn<string>(row, "NombreMarca");
         }
     }

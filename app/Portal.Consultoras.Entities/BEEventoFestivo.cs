@@ -29,20 +29,13 @@ namespace Portal.Consultoras.Entities
 
         public BEEventoFestivo(IDataRecord row)
         {
-            if (row.HasColumn("Nombre"))
-                Nombre = Convert.ToString(row["Nombre"]);
-            if (row.HasColumn("Alcance"))
-                Alcance = Convert.ToString(row["Alcance"]);
-            if (row.HasColumn("Periodo"))
-                Periodo = Convert.ToString(row["Periodo"]);
-            if (row.HasColumn("Inicio"))
-                Inicio = Convert.ToString(row["Inicio"]);
-            if (row.HasColumn("Fin"))
-                Fin = Convert.ToString(row["Fin"]);
-            if (row.HasColumn("Personalizacion"))
-                Personalizacion = Convert.ToString(row["Personalizacion"]);
-            if (row.HasColumn("Estado"))
-                Estado = Convert.ToBoolean(row["Estado"]);
+            Nombre = row.ToString("Nombre");
+            Alcance = row.ToString("Alcance");
+            Periodo = row.ToString("Periodo");
+            Inicio = row.ToString("Inicio");
+            Fin = row.ToString("Fin");
+            Personalizacion = row.ToString("Personalizacion");
+            Estado = row.ToBoolean("Estado");
         }
 
     }

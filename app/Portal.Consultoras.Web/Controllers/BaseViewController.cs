@@ -308,7 +308,7 @@ namespace Portal.Consultoras.Web.Controllers
             breadCrumbs.Inicio.Texto = "Inicio";
             breadCrumbs.Inicio.Url = Url.Action("Index", new { controller = "Bienvenida", area });
             //
-            breadCrumbs.Ofertas.Texto = tieneRevistaDigital ? "Club Gana +" : "Ofertas";
+            breadCrumbs.Ofertas.Texto = tieneRevistaDigital && revistaDigital.EsSuscrita ? "Club Gana +" : "Ofertas";
             var actionOfertas = productoPerteneceACampaniaActual ? "Index" : "Revisar";
             breadCrumbs.Ofertas.Url = Url.Action(actionOfertas, new { controller = "Ofertas", area });
             //
@@ -421,7 +421,10 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento:
                     result = Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage;
                     break;
-                    //Mobile
+                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor:
+                    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedorPopup;
+                    break;
+                //Mobile
                 case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
                     result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomePopUp;
                     break;
@@ -461,6 +464,9 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.OrigenPedidoWeb.HVDesktopLanding:
                     result = Constantes.OrigenPedidoWeb.HVDesktopLandingPopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.HVDesktopContenedor:
+                    result = Constantes.OrigenPedidoWeb.HVDesktopContenedorPopup;
                     break;
                 //SR
                 case Constantes.OrigenPedidoWeb.ShowRoomDesktopHome:

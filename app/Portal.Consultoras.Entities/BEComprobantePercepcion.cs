@@ -46,34 +46,20 @@ namespace Portal.Consultoras.Entities
 
         public BEComprobantePercepcion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "IdComprobantePercepcion"))
-                IdComprobantePercepcion = Convert.ToInt32(row["IdComprobantePercepcion"]);
-            if (DataRecord.HasColumn(row, "IdNumeroAutorizacion"))
-                IdNumeroAutorizacion = Convert.ToInt64(row["IdNumeroAutorizacion"]);
-            if (DataRecord.HasColumn(row, "NumeroComprobanteSerie"))
-                NumeroComprobanteSerie = Convert.ToString(row["NumeroComprobanteSerie"]);
-            if (DataRecord.HasColumn(row, "FechaEmision"))
-                FechaEmision = Convert.ToDateTime(row["FechaEmision"]);
-            if (DataRecord.HasColumn(row, "ImportePercepcion"))
-                ImportePercepcion = Convert.ToDecimal(row["ImportePercepcion"]);
-            if (DataRecord.HasColumn(row, "NombreAgentePerceptor"))
-                NombreAgentePerceptor = Convert.ToString(row["NombreAgentePerceptor"]);
-            if (DataRecord.HasColumn(row, "RUCAgentePerceptor"))
-                RUCAgentePerceptor = Convert.ToString(row["RUCAgentePerceptor"]);
-            if (DataRecord.HasColumn(row, "DireccionAgentePerceptor"))
-                DireccionAgentePerceptor = Convert.ToString(row["DireccionAgentePerceptor"]);
-            if (DataRecord.HasColumn(row, "EstadoComprobante"))
-                EstadoComprobante = Convert.ToString(row["EstadoComprobante"]);
-            if (DataRecord.HasColumn(row, "NumeroLote"))
-                NumeroLote = Convert.ToString(row["NumeroLote"]);
-            if (DataRecord.HasColumn(row, "EstadoActivo"))
-                EstadoActivo = Convert.ToInt32(row["EstadoActivo"]);
-            if (DataRecord.HasColumn(row, "NumeroComprobanteCorrelativo"))
-                NumeroComprobanteCorrelativo = Convert.ToString(row["NumeroComprobanteCorrelativo"]);
-            if (DataRecord.HasColumn(row, "PaisID"))
-                PaisID = Convert.ToInt32(row["PaisID"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
+            IdComprobantePercepcion = row.ToInt32("IdComprobantePercepcion");
+            IdNumeroAutorizacion = row.ToInt64("IdNumeroAutorizacion");
+            NumeroComprobanteSerie = row.ToString("NumeroComprobanteSerie");
+            FechaEmision = row.ToDateTime("FechaEmision");
+            ImportePercepcion = row.ToDecimal("ImportePercepcion");
+            NombreAgentePerceptor = row.ToString("NombreAgentePerceptor");
+            RUCAgentePerceptor = row.ToString("RUCAgentePerceptor");
+            DireccionAgentePerceptor = row.ToString("DireccionAgentePerceptor");
+            EstadoComprobante = row.ToString("EstadoComprobante");
+            NumeroLote = row.ToString("NumeroLote");
+            EstadoActivo = row.ToInt32("EstadoActivo");
+            NumeroComprobanteCorrelativo = row.ToString("NumeroComprobanteCorrelativo");
+            PaisID = row.ToInt32("PaisID");
+            ConsultoraID = row.ToInt32("ConsultoraID");
             if (NumeroComprobanteSerie != null && NumeroComprobanteCorrelativo != null)
             {
                 NumeroComprobante = NumeroComprobanteSerie + "-" + NumeroComprobanteCorrelativo;
