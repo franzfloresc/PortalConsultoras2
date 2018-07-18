@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in lst)
                     {
-                        item.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, item.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO);
+                        item.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, item.ImagenProducto);
                         item.ImagenProductoSmall = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenSmall);
                         item.ImagenProductoMedium = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenMedium);
                         item.PrecioString = Util.DecimalToStringFormat(item.PrecioOferta, userData.CodigoISO);
@@ -158,7 +158,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (lst.Count > 0)
             {
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
+                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
             }
 
             return Mapper.Map<IList<BEOfertaProducto>, List<OfertaProductoModel>>(lst);
@@ -642,7 +642,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
                 string iso = Util.GetPaisISO(PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + iso;
-                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + iso));
+                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
                 lst.Update(x => x.ISOPais = iso);
                 var data = new
                 {
@@ -701,7 +701,7 @@ namespace Portal.Consultoras.Web.Controllers
                     #region Imagen Resize 
 
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
+                    var rutaImagenCompleta = ConfigCdn.GetUrlFileCdn(carpetaPais, entidad.ImagenProducto);
 
                     mensajeErrorImagenResize = ImagenesResizeProceso(rutaImagenCompleta);
                     
@@ -756,7 +756,7 @@ namespace Portal.Consultoras.Web.Controllers
                     #region Imagen Resize 
 
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
+                    var rutaImagenCompleta = ConfigCdn.GetUrlFileCdn(carpetaPais, entidad.ImagenProducto);
 
                     mensajeErrorImagenResize = ImagenesResizeProceso(rutaImagenCompleta);
 

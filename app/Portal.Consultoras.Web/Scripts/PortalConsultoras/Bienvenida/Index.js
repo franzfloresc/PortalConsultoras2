@@ -151,9 +151,6 @@ $(document).ready(function () {
             if ($('#popupInvitaionFlexipago').is(':visible')) {
                 PopupCerrar('popupInvitaionFlexipago');
             }
-            if ($('#popupAceptacionContrato').is(':visible')) {
-                PopupCerrar('popupAceptacionContrato');
-            }
             if ($('#popupDemandaAnticipada').is(':visible')) {
                 PopupCerrar('popupDemandaAnticipada');
             }
@@ -2208,7 +2205,7 @@ function AbrirAceptacionContrato() {
 
 function AceptarContrato() {
    
-    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato};
+    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato, AppVersion: "" };
     waitingDialog({});
 
     $.ajax({
@@ -2225,9 +2222,6 @@ function AceptarContrato() {
                 }
 
                 PopupCerrar('popupAceptacionContrato');
-                if (viewBagCambioClave == 0) {
-                    PopupMostrar('popupActualizarMisDatos');
-                }
             }
         },
         error: function (data, error) {
