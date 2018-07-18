@@ -660,7 +660,8 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/bundles/mobile/css/ficha").Include(
                 "~/Content/Css/Mobile/Ficha/ficha.css",
                 "~/Content/Css/Mobile/Ficha/Carrusel.css",
-                "~/Content/Css/Mobile/Ficha/RedesSociales.css"
+                "~/Content/Css/Mobile/Ficha/RedesSociales.css",
+                "~/Content/Css/Mobile/Ficha/PopoverTooltip.css"
             ));
 
             #endregion

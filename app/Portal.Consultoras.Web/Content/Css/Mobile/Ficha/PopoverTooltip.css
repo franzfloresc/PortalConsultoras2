@@ -34,7 +34,19 @@
     margin-bottom: 0px;
 }
 
-    .list-inline li {
-        vertical-align: middle;
-    }
-/* Fin Tooltips */
+.list-inline li {
+    vertical-align: middle;
+}
+
+.tooltip_agregado {
+    width: 292px;
+    max-width: 292px;
+    color: #000;
+    text-align: center;
+    margin-right: 0;
+    top: 47px;
+}
+
+.tooltip_agregado > .arrow {
+       left: 93% !important;
+}
