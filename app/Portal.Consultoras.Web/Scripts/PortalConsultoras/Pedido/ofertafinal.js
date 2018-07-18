@@ -400,8 +400,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     }
 
     of_google_analytics_producto_impresion(tipoOrigen, objOf.TipoMeta, objOf.Detalle);
-    
-    AgregarOfertaFinalLog("", 0, cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, 2, 'Popup Mostrado', (cumpleOferta.upselling), objOf.TotalPedido);
+
+    AgregarOfertaFinalLog("", 0, cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, 2, 'Popup Mostrado', (cumpleOferta.upselling!=null), objOf.TotalPedido);
     AgregarOfertaFinalLogBulk(cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, cumpleOferta.productosMostrar);
 
     if (cuvOfertaProl != "") {
