@@ -255,10 +255,16 @@
             window.location = baseUrl + (isMobile() ? "/Mobile/" : "") + "Ofertas";
             return false;
         }
-        if (estrategia.DescripcionCompleta.length < 40)
-            $(_elementos.estrategiaBreadcrumb).text(estrategia.DescripcionCompleta + " ...");
-        else
-            $(_elementos.estrategiaBreadcrumb).text(estrategia.DescripcionCompleta.substring(1, 40) + " ...");
+
+        if (typeof estrategia.DescripcionCompleta !== "undefined" && 
+            estrategia.DescripcionCompleta != null) {
+            estrategia.DescripcionCompleta = $.trim(estrategia.DescripcionCompleta);
+            var palabrasEstrategiaDescripcion = estrategia.DescripcionCompleta.split(" ");
+            var estrategiaBreadcrumb = palabrasEstrategiaDescripcion[0];
+            if (palabrasEstrategiaDescripcion.length > 1) estrategiaBreadcrumb = palabrasEstrategiaDescripcion[0] + " " + palabrasEstrategiaDescripcion[1];
+            if (palabrasEstrategiaDescripcion.length > 2) estrategiaBreadcrumb = estrategiaBreadcrumb + "...";
+            $(_elementos.estrategiaBreadcrumb).text(estrategiaBreadcrumb);
+        }
 
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
