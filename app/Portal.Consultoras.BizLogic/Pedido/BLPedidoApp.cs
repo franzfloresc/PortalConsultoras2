@@ -415,12 +415,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var mensaje = string.Empty;
             try
             {
-                nombreServicio = "Update";
-
                 //Informacion de usuario y palancas
-                LogPerformance("Inicio");
                 var usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(pedidoDetalle.Usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo);
-                LogPerformance("Informacion palancas");
 
                 //Validacion reserve u horario restringido
                 var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(pedidoDetalle.PaisID,
@@ -428,7 +424,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                                                                           usuario.CampaniaID,
                                                                                           usuario.UsuarioPrueba == 1,
                                                                                           usuario.AceptacionConsultoraDA);
-                LogPerformance("Validacion horario");
+
                 if (validacionHorario.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno)
                     return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, validacionHorario.Mensaje);
 
@@ -444,17 +440,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 };
                 var pedidoID = 0;
                 var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
-                LogPerformance("ObtenerPedidoWebDetalle");
                 pedidoDetalle.PedidoID = pedidoID;
 
                 //Validar stock
                 var result = ValidarStockEstrategia(usuario, pedidoDetalle, lstDetalle, out mensaje);
-                LogPerformance("ValidarStockEstrategia");
+
                 if (!result) return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
 
                 //accion actualizar
                 var accionActualizar = PedidoActualizar(usuario, pedidoDetalle, lstDetalle);
-                LogPerformance("PedidoActualizar");
+
                 if (accionActualizar != Constantes.PedidoAppValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(accionActualizar);
 
                 //actualizar PROL
@@ -466,7 +461,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
 
                 UpdateProl(usuario, lstDetalle);
-                LogPerformance("UpdateProl");
+
 
                 return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.SUCCESS);
             }
@@ -885,9 +880,18 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             mensaje = ValidarMontoMaximo(usuario, pedidoDetalle, lstDetalle, out resultado);
 
-            if (mensaje == string.Empty || resultado)
-                mensaje = ValidarStockEstrategiaMensaje(usuario, pedidoDetalle);
-
+            if (mensaje == string.Empty || resultado) { 
+                var item = lstDetalle.Where(x => x.PedidoDetalleID == pedidoDetalle.PedidoDetalleID).FirstOrDefault();
+                var pedidoAuxiliar = new BEPedidoDetalleApp() {
+                    Cantidad = pedidoDetalle.Cantidad - item.Cantidad ,
+                    PaisID = pedidoDetalle.PaisID,
+                    Producto = new BEProducto() {
+                        TipoEstrategiaID  = pedidoDetalle.Producto.TipoEstrategiaID, 
+                        CUV = pedidoDetalle.Producto.CUV   
+                    } 
+                };
+                mensaje = ValidarStockEstrategiaMensaje(usuario, pedidoAuxiliar);
+            }
             return mensaje == string.Empty || resultado;
         }
 
