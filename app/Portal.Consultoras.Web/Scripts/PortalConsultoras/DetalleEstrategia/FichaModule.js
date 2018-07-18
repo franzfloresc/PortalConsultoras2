@@ -260,6 +260,7 @@
         else
             $(_elementos.estrategiaBreadcrumb).text(estrategia.DescripcionCompleta.substring(1, 40) + " ...");
 
+        $(_elementos.estrategiaBreadcrumb).parent("li").attr("data-opcion", estrategia.DescripcionCompleta.trim());
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
         _validarDesactivadoGeneral(estrategia);
@@ -555,7 +556,15 @@
         });
     }
 
-    
+    var _marcarFichaBreadcrumb = function () {
+        $(".breadcumbs").children("li").each(function (index, element) {
+            $(this).click(function () {
+                var opcion = $(this).attr("data-opcion");
+                AnalyticsPortalModule.MarcarFichaBreadcrumb(opcion);
+            });
+        });
+    }
+
     function Inicializar() {
 
         localStorageModule = LocalStorageModule();
@@ -569,6 +578,7 @@
         _marcarCambiaColorCuadro();
         _marcarAgregaProductoCarro();
         //_marcarSwipeCarrusel();
+        _marcarFichaBreadcrumb();
     }
 
     return {

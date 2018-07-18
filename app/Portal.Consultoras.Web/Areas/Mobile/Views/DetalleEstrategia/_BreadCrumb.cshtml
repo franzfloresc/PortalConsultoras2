@@ -6,13 +6,13 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class="breadcumbs">
-                    <li><a href="@Model.Inicio.Url">@Model.Inicio.Texto</a></li>
-                    <li><a href="@Model.Ofertas.Url">@Model.Ofertas.Texto</a></li>
+                    <li data-opcion="@Model.Inicio.Texto"><a href="@Model.Inicio.Url">@Model.Inicio.Texto</a></li>
+                    <li data-opcion="@Model.Ofertas.Texto"><a href="@Model.Ofertas.Url">@Model.Ofertas.Texto</a></li>
                     @if (!string.IsNullOrWhiteSpace(Model.Palanca.Texto))
                     {
-                        <li><a href="@Model.Palanca.Url">@Model.Palanca.Texto</a></li>
+                        <li data-opcion="@Model.Palanca.Texto"><a href="@Model.Palanca.Url">@Model.Palanca.Texto</a></li>
                     }
-                    <li><a href="@Model.Producto.Texto" id="estrategia-breadcrumb" >@Model.Producto.Texto</a></li>
+                    <li data-opcion="@Model.Producto.Texto"><a href="@Model.Producto.Texto" id="estrategia-breadcrumb" >@Model.Producto.Texto</a></li>
                 </ul>
             </div>
         </div>
