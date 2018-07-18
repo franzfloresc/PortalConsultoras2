@@ -136,10 +136,10 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Region"))
                 Region = Convert.ToString(row["Region"]);
             if (DataRecord.HasColumn(row, "DescuentoProl"))
-                this.DescuentoProl = Convert.ToDecimal(row["DescuentoProl"]);
+                DescuentoProl = Convert.ToDecimal(row["DescuentoProl"]);
             if (DataRecord.HasColumn(row, "MotivoRechazo"))
-                this.MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
-            this.ImporteTotalConDescuento = this.ImporteTotal - this.DescuentoProl;
+                MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
+            ImporteTotalConDescuento = ImporteTotal - DescuentoProl;
         }
     }
 }

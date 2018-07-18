@@ -37,24 +37,15 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
 
         public BEOpcionesVerificacion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "OrigenID"))
-                OrigenID = Convert.ToInt32(row["OrigenID"]);
-            if (DataRecord.HasColumn(row, "OrigenDescripcion"))
-                OrigenDescripcion = Convert.ToString(row["OrigenDescripcion"]);
-            if (DataRecord.HasColumn(row, "OpcionEmail"))
-                OpcionEmail = Convert.ToBoolean(row["OpcionEmail"]);
-            if (DataRecord.HasColumn(row, "OpcionSms"))
-                OpcionSms = Convert.ToBoolean(row["OpcionSms"]);
-            if (DataRecord.HasColumn(row, "OpcionChat"))
-                OpcionChat = Convert.ToBoolean(row["OpcionChat"]);
-            if (DataRecord.HasColumn(row, "OpcionBelcorpResponde"))
-                OpcionBelcorpResponde = Convert.ToBoolean(row["OpcionBelcorpResponde"]);
-            if (DataRecord.HasColumn(row, "IncluyeFiltros"))
-                IncluyeFiltros = Convert.ToBoolean(row["IncluyeFiltros"]);
-            if (DataRecord.HasColumn(row, "TieneZonas"))
-                TieneZonas = Convert.ToBoolean(row["TieneZonas"]);
-            if (DataRecord.HasColumn(row, "Activo"))
-                Activo = Convert.ToBoolean(row["Activo"]);
+            OrigenID = row.ToInt32("OrigenID");
+            OrigenDescripcion = row.ToString("OrigenDescripcion");
+            OpcionEmail = row.ToBoolean("OpcionEmail");
+            OpcionSms = row.ToBoolean("OpcionSms");
+            OpcionChat = row.ToBoolean("OpcionChat");
+            OpcionBelcorpResponde = row.ToBoolean("OpcionBelcorpResponde");
+            IncluyeFiltros = row.ToBoolean("IncluyeFiltros");
+            TieneZonas = row.ToBoolean("TieneZonas");
+            Activo = row.ToBoolean("Activo");
         }
     }
 

@@ -26,11 +26,11 @@ namespace Portal.Consultoras.Entities
 
         public BEMensajeCUV(IDataRecord row)
         {
-            this.ParametroID = Convert.ToInt32(row["ParametroID"]);
-            this.PaisID = Convert.ToInt32(row["PaisID"]);
-            this.CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            this.Cuvs = Convert.ToString(row["CUVs"]);
-            this.Mensaje = Convert.ToString(row["Mensaje"]);
+            ParametroID = Convert.ToInt32(row["ParametroID"]);
+            PaisID = Convert.ToInt32(row["PaisID"]);
+            CampaniaID = Convert.ToInt32(row["CampaniaID"]);
+            Cuvs = Convert.ToString(row["CUVs"]);
+            Mensaje = Convert.ToString(row["Mensaje"]);
         }
 
     }

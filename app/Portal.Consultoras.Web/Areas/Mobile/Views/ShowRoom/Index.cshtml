@@ -396,29 +396,29 @@ else
 
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
 
-@*<script id="template-showroom-subcampanias-mobile" type="text/x-handlebars-template">
+<script id="template-showroom-subcampanias-mobile" type="text/x-handlebars-template">
     {{#each this.Lista as |oferta|}}
     <div id="contenedor_showroom_mobile" class="content_info_set_especial" data-item="">
         <div style="display:none;" data-item="">
-            <input type="hidden" class="hdOfertaShowRoomID" value="{{oferta.OfertaShowRoomID}}" />
-            <input type="hidden" class="valorCuv" value="{{oferta.CUV}}" />
+            <input type="hidden" class="hdOfertaShowRoomID" value="{{oferta.EstrategiaID}}" />
+            <input type="hidden" class="valorCuv" value="{{oferta.CUV2}}" />
             <input type="hidden" class="claseMarcaID" value="{{oferta.MarcaID}}" />
-            <input type="hidden" class="clasePrecioUnidad" value="{{oferta.PrecioOferta}}" />
-            <input type="hidden" class="claseConfiguracionOfertaID" value="{{oferta.ConfiguracionOfertaID}}" />
-            <input type="hidden" class="DescripcionProd" value="{{oferta.Descripcion}}" />
+            <input type="hidden" class="clasePrecioUnidad" value="{{oferta.Precio2}}" />
+            <input type="hidden" class="claseConfiguracionOfertaID" value="{{oferta.TipoEstrategiaID}}" />
+            <input type="hidden" class="DescripcionProd" value="{{oferta.DescripcionCortada}}" />
             <input type="hidden" class="DescripcionMarca" value="{{oferta.DescripcionMarca}}" />
             <input type="hidden" class="posicionEstrategia" value="{{oferta.Posicion}}" />
         </div>
         <div data-compartir-campos="" style="display:none;">
-            <input type="hidden" class="CUV" value="{{oferta.CUV}}" />
+            <input type="hidden" class="CUV" value="{{oferta.CUV2}}" />
             <input type="hidden" class="rsFBMensaje" value="" />
             <input type="hidden" class="rsWAMensaje" value="" />
-            <input type="hidden" class="rsFBRutaImagen" value="{{oferta.ImagenProducto}}" />
-            <input type="hidden" class="rsWARutaImagen" value="{{oferta.ImagenProducto}}" />
+            <input type="hidden" class="rsFBRutaImagen" value="{{ImgSmall oferta.FotoProducto01}}" />
+            <input type="hidden" class="rsWARutaImagen" value="{{ImgSmall oferta.FotoProducto01}}" />
             <input type="hidden" class="MarcaID" value="{{oferta.MarcaID}}" />
             <input type="hidden" class="MarcaNombre" value="{{oferta.DescripcionMarca}}" />
-            <input type="hidden" class="Nombre" value="{{oferta.Descripcion}}" />
-            <input type="hidden" class="ProductoDescripcion" value="{{oferta.Descripcion}}" />
+            <input type="hidden" class="Nombre" value="{{oferta.DescripcionCortada}}" />
+            <input type="hidden" class="ProductoDescripcion" value="{{oferta.DescripcionCortada}}" />
             <input type="hidden" class="Palanca" value="Showroom" />
         </div>
         <div class="saludo_paginacion">
@@ -432,12 +432,12 @@ else
         </div>
         <div class="set_oferta_content">
             <div class="producto_img_mobile" data-img="">
-                <img src="{{oferta.ImagenProducto}}" alt="Solo Hoy" id="img-display-odd" data-img-lazy="1" />
+                <img src="{{ImgSmall oferta.FotoProducto01}}" alt="Solo Hoy" id="img-display-odd" data-img-lazy="1" />
             </div>
-            <div class="nombre_set_display">{{oferta.Descripcion}}</div>
-            <div class="precio_valorizado_mobile">VALORIZADO EN <span>{{SimboloMoneda}} {{oferta.FormatoPrecioValorizado}}</span></div>
+            <div class="nombre_set_display">{{oferta.DescripcionCortada}}</div>
+            <div class="precio_valorizado_mobile">VALORIZADO EN <span>{{SimboloMoneda}} {{oferta.PrecioTachado}}</span></div>
             <div class="producto_precio_hoy_mobile">
-                A SOLO <span>{{SimboloMoneda}} {{oferta.FormatoPrecioOferta}}</span>
+                A SOLO <span>{{SimboloMoneda}} {{oferta.PrecioVenta}}</span>
             </div>
             <div class="titulo_contenido">CONTENIDO</div>
             <div class="nombre_set_producto_hoy">{{{oferta.Contenido}}}</div>
@@ -452,7 +452,7 @@ else
         </div>
     </div>
     {{/each}}
-</script>*@
+</script>
 
 @Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 

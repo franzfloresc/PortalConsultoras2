@@ -120,7 +120,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "TelefonoTrabajo"))
                 msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);
             if (DataRecord.HasColumn(row, "AceptoContrato"))
-                this.AceptoContrato = Convert.ToBoolean(row["AceptoContrato"]);
+                AceptoContrato = Convert.ToBoolean(row["AceptoContrato"]);
             if (DataRecord.HasColumn(row, "MostrarAyudaWebTraking"))
                 MostrarAyudaWebTraking = Convert.ToBoolean(row["MostrarAyudaWebTraking"]);
             if (DataRecord.HasColumn(row, "CodigoISO"))

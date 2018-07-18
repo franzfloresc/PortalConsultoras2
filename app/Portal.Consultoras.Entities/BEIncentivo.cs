@@ -40,8 +40,8 @@ namespace Portal.Consultoras.Entities
 
         public BEIncentivo()
         {
-            this.ArchivoPDF = string.Empty;
-            this.Url = string.Empty;
+            ArchivoPDF = string.Empty;
+            Url = string.Empty;
         }
 
         public BEIncentivo(IDataRecord row)

@@ -26,15 +26,10 @@ namespace Portal.Consultoras.Entities
 
         public BEProcesoPedidoRechazado(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "IdProcesoPedidoRechazado"))
-                IdProcesoPedidoRechazado = Convert.ToInt32(row["IdProcesoPedidoRechazado"]);
-            if (DataRecord.HasColumn(row, "Fecha"))
-                Fecha = Convert.ToDateTime(row["Fecha"]);
-            if (DataRecord.HasColumn(row, "Estado"))
-                Estado = Convert.ToString(row["Estado"]);
-            if (DataRecord.HasColumn(row, "Mensaje"))
-                Mensaje = Convert.ToString(row["Mensaje"]);
-
+            IdProcesoPedidoRechazado = row.ToInt32("IdProcesoPedidoRechazado");
+            Fecha = row.ToDateTime("Fecha");
+            Estado = row.ToString("Estado");
+            Mensaje = row.ToString("Mensaje");
             olstBEPedidoRechazado = new List<BEPedidoRechazado>();
         }
     }

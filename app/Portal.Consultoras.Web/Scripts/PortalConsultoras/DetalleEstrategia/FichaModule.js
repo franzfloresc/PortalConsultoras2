@@ -261,8 +261,16 @@
             estrategia.DescripcionCompleta = $.trim(estrategia.DescripcionCompleta);
             var palabrasEstrategiaDescripcion = estrategia.DescripcionCompleta.split(" ");
             var estrategiaBreadcrumb = palabrasEstrategiaDescripcion[0];
-            if (palabrasEstrategiaDescripcion.length > 1) estrategiaBreadcrumb = palabrasEstrategiaDescripcion[0] + " " + palabrasEstrategiaDescripcion[1];
-            if (palabrasEstrategiaDescripcion.length > 2) estrategiaBreadcrumb = estrategiaBreadcrumb + "...";
+            if (!isMobile()) {
+                if (palabrasEstrategiaDescripcion.length > 1)
+                    estrategiaBreadcrumb += " " + palabrasEstrategiaDescripcion[1];
+                if (palabrasEstrategiaDescripcion.length > 2)
+                    estrategiaBreadcrumb += " " + palabrasEstrategiaDescripcion[2];
+                if (palabrasEstrategiaDescripcion.length > 3) estrategiaBreadcrumb += "...";
+            } else {
+                if (palabrasEstrategiaDescripcion.length > 1) estrategiaBreadcrumb += "...";
+            }
+
             $(_elementos.estrategiaBreadcrumb).text(estrategiaBreadcrumb);
         }
 

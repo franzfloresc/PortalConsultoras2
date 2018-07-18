@@ -309,7 +309,7 @@
     @Html.Partial("~/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
 </div>
 <div class="fondo_gris content_belcorp" id="divRevistaDigital"></div>
-<div class="content_belcorp">
+<div class="content_belcorp" id="divContentShowRoomHome" style="display:none;">
     <div class="content-favclientes content_carrusel_agregado">
         <div class="linea_separadora"></div>
         <div class="banner_showroom_home" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index", "ShowRoom")'">

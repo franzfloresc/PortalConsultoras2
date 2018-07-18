@@ -22,14 +22,10 @@ namespace Portal.Consultoras.Entities
 
         public BEDatosBelcorp(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "RazonSocial"))
-                RazonSocial = Convert.ToString(row["RazonSocial"]);
-            if (DataRecord.HasColumn(row, "NombreComercial"))
-                NombreComercial = Convert.ToString(row["NombreComercial"]);
-            if (DataRecord.HasColumn(row, "RUC"))
-                RUC = Convert.ToString(row["RUC"]);
-            if (DataRecord.HasColumn(row, "Direccion"))
-                Direccion = Convert.ToString(row["Direccion"]);
+            RazonSocial = row.ToString("RazonSocial");
+            NombreComercial = row.ToString("NombreComercial");
+            RUC = row.ToString("RUC");
+            Direccion = row.ToString("Direccion");
         }
     }
 }

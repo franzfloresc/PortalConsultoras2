@@ -33,24 +33,15 @@ namespace Portal.Consultoras.Entities
 
         public BEBelcorpNoticia(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "BelcorpNoticiaID"))
-                BelcorpNoticiaID = Convert.ToInt32(row["BelcorpNoticiaID"]);
-            if (DataRecord.HasColumn(row, "PaisID"))
-                PaisID = Convert.ToInt32(row["PaisID"]);
-            if (DataRecord.HasColumn(row, "Nombre"))
-                PaisNombre = Convert.ToString(row["Nombre"]);
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "NombreCorto"))
-                NombreCorto = Convert.ToString(row["NombreCorto"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "Titulo"))
-                Titulo = Convert.ToString(row["Titulo"]);
-            if (DataRecord.HasColumn(row, "ArchivoPortada"))
-                ArchivoPortada = Convert.ToString(row["ArchivoPortada"]);
-            if (DataRecord.HasColumn(row, "UrlPDF"))
-                UrlPDF = Convert.ToString(row["UrlPDF"]);
+            BelcorpNoticiaID = row.ToInt32("BelcorpNoticiaID");
+            PaisID = row.ToInt32("PaisID");
+            PaisNombre = row.ToString("Nombre");
+            CampaniaID = row.ToInt32("CampaniaID");
+            NombreCorto = row.ToString("NombreCorto");
+            ConsultoraID = row.ToInt64("ConsultoraID");
+            Titulo = row.ToString("Titulo");
+            ArchivoPortada = row.ToString("ArchivoPortada");
+            UrlPDF = row.ToString("UrlPDF");
         }
     }
 }

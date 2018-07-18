@@ -30,18 +30,12 @@ namespace Portal.Consultoras.Entities
 
         public BEConfiguracionValidacionZona(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "RegionID"))
-                RegionID = Convert.ToInt32(row["RegionID"]);
-            if (DataRecord.HasColumn(row, "RegionNombre"))
-                RegionNombre = Convert.ToString(row["RegionNombre"]);
-            if (DataRecord.HasColumn(row, "ZonaID"))
-                ZonaID = Convert.ToInt32(row["ZonaID"]);
-            if (DataRecord.HasColumn(row, "ZonaNombre"))
-                ZonaNombre = Convert.ToString(row["ZonaNombre"]);
-            if (DataRecord.HasColumn(row, "ValidacionActiva"))
-                ValidacionActiva = Convert.ToInt16(row["ValidacionActiva"]);
+            CampaniaID = row.ToInt32("CampaniaID");
+            RegionID = row.ToInt32("RegionID");
+            RegionNombre = row.ToString("RegionNombre");
+            ZonaID = row.ToInt32("ZonaID");
+            ZonaNombre = row.ToString("ZonaNombre");
+            ValidacionActiva = row.ToInt16("ValidacionActiva");
             if (DataRecord.HasColumn(row, "DiasDuracionCronograma"))
                 DiasDuracionCronograma = Convert.ToInt16(Convert.IsDBNull(row["DiasDuracionCronograma"]) ? 1 : row["DiasDuracionCronograma"]);
         }
