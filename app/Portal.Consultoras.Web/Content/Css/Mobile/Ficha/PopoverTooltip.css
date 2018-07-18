@@ -1,0 +1,40 @@
+﻿/* Tooltips */
+.content_320 {
+    position: relative;
+}
+
+.popover {
+    box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.2);
+    border: none;
+    border-radius: 4px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+}
+
+.tooltip_agregar_desabilitado, .tooltip_limite_pedidos {
+    top: -72px;
+}
+
+    .tooltip_limite_pedidos > .arrow {
+        left: 23% !important;
+    }
+
+.popover > .arrow {
+    border-top-color: rgba(0,0,0,.18) !important;
+}
+
+.popover-content {
+    padding: 17px 10px;
+}
+
+.list-inline {
+    margin-bottom: 0px;
+}
+
+    .list-inline li {
+        vertical-align: middle;
+    }
+/* Fin Tooltips */
