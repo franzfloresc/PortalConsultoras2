@@ -3598,7 +3598,7 @@ namespace Portal.Consultoras.Common
             catch (Exception) { }
             return default(decimal);
         }
-        
+
         public static double ToDouble(this IDataRecord lector, string name)
         {
             try
