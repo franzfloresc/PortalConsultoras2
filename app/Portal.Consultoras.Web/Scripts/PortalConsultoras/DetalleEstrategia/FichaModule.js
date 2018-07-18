@@ -555,6 +555,7 @@
         });
     }
 
+    
     function Inicializar() {
 
         localStorageModule = LocalStorageModule();
@@ -567,6 +568,7 @@
         _marcarCambiaColorCombo();
         _marcarCambiaColorCuadro();
         _marcarAgregaProductoCarro();
+        //_marcarSwipeCarrusel();
     }
 
     return {

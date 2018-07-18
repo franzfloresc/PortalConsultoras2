@@ -148,44 +148,12 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    var marcarSlideCarruselProducto = function (producto, tono) {
-        try {
-            dataLayer.push({
-                'event': _evento.productImpression,
-                'ecommerce': {
-                    'currencyCode': 'PEN',
-                    'impressions': [
-                        {
-                            'name': 'Giulia Free EDP',
-                            'id': '873654577',
-                            'price': '44.90',
-                            'brand': 'Cyzone',
-                            'category': 'Maquillaje > Cuerpo',
-                            'variant': 'Estándar',
-                            'list': '{nombre_producto} - Set productos',
-                            'position': 1
-                        },
-                        {
-                            'name': 'Blazer Taylor',
-                            'id': '873274577',
-                            'price': '89.90',
-                            'brand': 'Cyzone',
-                            'category': 'Moda',
-                            'variant': 'Estándar',
-                            'list': '{nombre_producto} - Set productos',
-                            'position': 2
-                        }]
-                }
-            });
-        } catch (e) {
-            console.log(_texto.exception + e);
-        }
-    }
+    
 
-    //var marcarClicSetProductos = function (tipoMoneda, producto, precio, marca, cuv, categoria, variante, cantidad, palanca) {
     var marcarClicSetProductos = function (infoItem) {
 
         var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
+        
         try {
             dataLayer.push({
                 'event': _evento.productClick,
@@ -210,7 +178,26 @@ var AnalyticsPortalModule = (function () {
         } catch (e) {
             console.log(_texto.exception + e);
         }
-        debugger;
+        
+    }
+    //Impresiones por productos en el carrusel
+    var marcarImpresionSetProductos = function (ArrayItems) {
+        
+        var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
+        try {
+            dataLayer.push({
+                'event': _evento.productImpression,
+                'ecommerce': {
+                    'currencyCode': tipoMoneda,
+                    'impressions': [
+                        ArrayItems
+                    ]
+                }
+            });
+        } catch (e) {
+            console.log(_texto.exception + e);
+        }
+        
     }
 
     return {
@@ -221,7 +208,7 @@ var AnalyticsPortalModule = (function () {
         MarcarCambiaColorCuadro: marcarCambiaColorCuadro,
         MarcarAgregaProductoCarro: marcarAgregaProductoCarro,
         MarcarComparteRedesSociales: marcarComparteRedesSociales,
-        MarcarSlideCarruselProducto: marcarSlideCarruselProducto,
-        MarcarClicSetProductos: marcarClicSetProductos
+        MarcarClicSetProductos: marcarClicSetProductos,
+        MarImpresionSetProductos: marcarImpresionSetProductos
     }
 })();
