@@ -42,41 +42,24 @@
         [DataMember]
         public string cataloVirtual { get; set; }
 
-        public BEConsultoraDatoSAC(IDataRecord datarec)
+        public BEConsultoraDatoSAC(IDataRecord row)
         {
-            if (DataRecord.HasColumn(datarec, "consultoraID"))
-                consultoraID = Convert.ToInt32(datarec["consultoraID"]);
-            if (DataRecord.HasColumn(datarec, "codigo"))
-                codigo = Convert.ToString(datarec["codigo"]);
-            if (DataRecord.HasColumn(datarec, "nombreCompleto"))
-                nombreCompleto = Convert.ToString(datarec["nombreCompleto"]);
-            if (DataRecord.HasColumn(datarec, "seccion"))
-                seccion = Convert.ToString(datarec["seccion"]);
-            if (DataRecord.HasColumn(datarec, "zona"))
-                zona = Convert.ToString(datarec["zona"]);
-            if (DataRecord.HasColumn(datarec, "region"))
-                region = Convert.ToString(datarec["region"]);
-            if (DataRecord.HasColumn(datarec, "direccionDomicilio"))
-                direccionDomicilio = Convert.ToString(datarec["direccionDomicilio"]);
-            if (DataRecord.HasColumn(datarec, "direccionEntrega"))
-                direccionEntrega = Convert.ToString(datarec["direccionEntrega"]);
-            if (DataRecord.HasColumn(datarec, "telefono1"))
-                telefono1 = Convert.ToString(datarec["telefono1"]);
-            if (DataRecord.HasColumn(datarec, "telefono2"))
-                telefono2 = Convert.ToString(datarec["telefono2"]);
-            if (DataRecord.HasColumn(datarec, "email"))
-                email = Convert.ToString(datarec["email"]);
-            if (DataRecord.HasColumn(datarec, "validoEmail"))
-                validoEmail = Convert.ToString(datarec["validoEmail"]);
-            if (DataRecord.HasColumn(datarec, "fechaNacimiento"))
-                fechaNacimiento = Convert.ToString(datarec["fechaNacimiento"]);
-            if (DataRecord.HasColumn(datarec, "estadoCivil"))
-                estadoCivil = Convert.ToString(datarec["estadoCivil"]);
-            if (DataRecord.HasColumn(datarec, "ofertaWeb"))
-                ofertaWeb = Convert.ToString(datarec["ofertaWeb"]);
-            if (DataRecord.HasColumn(datarec, "cataloVirtual"))
-                cataloVirtual = Convert.ToString(datarec["cataloVirtual"]);
-
+            consultoraID = row.ToInt32("consultoraID");
+            codigo = row.ToString("codigo");
+            nombreCompleto = row.ToString("nombreCompleto");
+            seccion = row.ToString("seccion");
+            zona = row.ToString("zona");
+            region = row.ToString("region");
+            direccionDomicilio = row.ToString("direccionDomicilio");
+            direccionEntrega = row.ToString("direccionEntrega");
+            telefono1 = row.ToString("telefono1");
+            telefono2 = row.ToString("telefono2");
+            email = row.ToString("email");
+            validoEmail = row.ToString("validoEmail");
+            fechaNacimiento = row.ToString("fechaNacimiento");
+            estadoCivil = row.ToString("estadoCivil");
+            ofertaWeb = row.ToString("ofertaWeb");
+            cataloVirtual = row.ToString("cataloVirtual");
         }
     }
 }

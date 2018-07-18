@@ -119,7 +119,7 @@
                             <div class="precio_venta_oferta">Precio para ti 
                                 <b>
                                     <span data-precio_venta_oferta="">
-                                    {{#IsNullOrEmpty ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
+                                        {{#IsNullOrEmpty this.ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
                                     </span>
                                     {{#each ListaPrecioNiveles as |itemNivel|}}
                                     <span class="subprecio">{{itemNivel}}</span>
@@ -272,19 +272,22 @@
                         </div>
                     </div>
                     <a id="btnAgregalo" class="btn_agregalo {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
-                    <div id="ContenedorAgregado" class="contenedor_agregado" style="display:none;">
-                        <div class="txt_agregado" data-txt_agregado="">
-                            <span class="span_agregado">AGREGADO</span>
-                            <div class="check_agregado">
-                                <div class="dibujar_linea dibujar_check_agregado"></div>
+
+                    <div class="ficha_div_libre_agregado" style="padding-top: 15px;">
+                        {{#iff TextoLibre '!=' ''}}
+                            <div class="limit_pack"><span>!</span>{{TextoLibre}}</div>
+                        {{/iff}}
+                        <div id="ContenedorAgregado" class="ficha_agregado" style="display:none;">
+                            <div class="txt_agregado" data-txt_agregado="">
+                                <span class="span_agregado">AGREGADO</span>
+                                <div class="check_agregado">
+                                    <div class="dibujar_linea dibujar_check_agregado"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {{#iff TextoLibre '!=' ''}}
-                <p class="limit_pack"><span>!</span>{{TextoLibre}}</p>
-                {{/iff}}
             </div>
         </script>
 

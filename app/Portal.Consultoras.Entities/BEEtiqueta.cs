@@ -31,17 +31,10 @@ namespace Portal.Consultoras.Entities
 
         public BEEtiqueta(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "EtiquetaID"))
-                EtiquetaID = Convert.ToInt32(row["EtiquetaID"]);
-
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-
-            if (DataRecord.HasColumn(row, "Estado"))
-                Estado = Convert.ToInt32(row["Estado"]);
-
-            if (DataRecord.HasColumn(row, "CodigoGeneral"))
-                this.CodigoGeneral = Convert.ToInt32(row["CodigoGeneral"]);
+            EtiquetaID = row.ToInt32("EtiquetaID");
+            Descripcion = row.ToString("Descripcion");
+            Estado = row.ToInt32("Estado");
+            CodigoGeneral = row.ToInt32("CodigoGeneral");
         }
     }
 
