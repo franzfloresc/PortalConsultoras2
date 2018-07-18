@@ -1059,7 +1059,6 @@ namespace Portal.Consultoras.Web.Providers
                                 item.Hermanos = new List<EstrategiaComponenteModel>();
                                 componentesRelacinados.ForEach(componente =>
                                 {
-
                                     if (componente.CUV != item.CUV2 && lineasPorCaja > 0 && !string.IsNullOrEmpty(componente.NombreProducto))
                                     {
                                         item.Hermanos.Add(new EstrategiaComponenteModel()

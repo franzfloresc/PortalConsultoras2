@@ -615,7 +615,6 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
                     {
                         $('.sub_campania_info_adicional').remove();
                     }
-
                 }
             }
         }
@@ -642,6 +641,7 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
             }
         }
 
+        $('#divContentShowRoomHome').show();
         $("#spnCantidadFiltro").html(response.listaOfertas.length);
         $("#spnCantidadTotal").html(response.totalOfertas);
 
