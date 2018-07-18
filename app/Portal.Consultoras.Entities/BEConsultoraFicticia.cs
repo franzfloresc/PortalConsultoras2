@@ -43,28 +43,17 @@ namespace Portal.Consultoras.Entities
 
         public BEConsultoraFicticia(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoUsuario"))
-                CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultoraFicticia"))
-                CodigoConsultoraFicticia = Convert.ToString(row["CodigoConsultoraFicticia"]);
-            if (DataRecord.HasColumn(row, "PrimerNombre"))
-                PrimerNombre = Convert.ToString(row["PrimerNombre"]);
-            if (DataRecord.HasColumn(row, "SegundoNombre"))
-                SegundoNombre = Convert.ToString(row["SegundoNombre"]);
-            if (DataRecord.HasColumn(row, "PrimerApellido"))
-                PrimerApellido = Convert.ToString(row["PrimerApellido"]);
-            if (DataRecord.HasColumn(row, "SegundoApellido"))
-                SegundoApellido = Convert.ToString(row["SegundoApellido"]);
-            if (DataRecord.HasColumn(row, "NombreCompleto"))
-                NombreCompleto = Convert.ToString(row["NombreCompleto"]);
-            if (DataRecord.HasColumn(row, "PaisNombre"))
-                PaisNombre = Convert.ToString(row["PaisNombre"]);
-            if (DataRecord.HasColumn(row, "ZonaNombre"))
-                ZonaNombre = Convert.ToString(row["ZonaNombre"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
+            CodigoUsuario = row.ToString("CodigoUsuario");
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            CodigoConsultoraFicticia = row.ToString("CodigoConsultoraFicticia");
+            PrimerNombre = row.ToString("PrimerNombre");
+            SegundoNombre = row.ToString("SegundoNombre");
+            PrimerApellido = row.ToString("PrimerApellido");
+            SegundoApellido = row.ToString("SegundoApellido");
+            NombreCompleto = row.ToString("NombreCompleto");
+            PaisNombre = row.ToString("PaisNombre");
+            ZonaNombre = row.ToString("ZonaNombre");
+            ConsultoraID = row.ToInt64("ConsultoraID");
         }
     }
 }

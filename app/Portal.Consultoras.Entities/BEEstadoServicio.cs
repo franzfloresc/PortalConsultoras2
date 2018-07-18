@@ -49,34 +49,20 @@ namespace Portal.Consultoras.Entities
 
         public BEEstadoServicio(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "AR"))
-                AR = Convert.ToString(row["AR"]);
-            if (DataRecord.HasColumn(row, "BO"))
-                BO = Convert.ToString(row["BO"]);
-            if (DataRecord.HasColumn(row, "CL"))
-                CL = Convert.ToString(row["CL"]);
-            if (DataRecord.HasColumn(row, "CO"))
-                CO = Convert.ToString(row["CO"]);
-            if (DataRecord.HasColumn(row, "CR"))
-                CR = Convert.ToString(row["CR"]);
-            if (DataRecord.HasColumn(row, "EC"))
-                EC = Convert.ToString(row["EC"]);
-            if (DataRecord.HasColumn(row, "SV"))
-                SV = Convert.ToString(row["SV"]);
-            if (DataRecord.HasColumn(row, "GT"))
-                GT = Convert.ToString(row["GT"]);
-            if (DataRecord.HasColumn(row, "MX"))
-                MX = Convert.ToString(row["MX"]);
-            if (DataRecord.HasColumn(row, "PA"))
-                PA = Convert.ToString(row["PA"]);
-            if (DataRecord.HasColumn(row, "PE"))
-                PE = Convert.ToString(row["PE"]);
-            if (DataRecord.HasColumn(row, "PR"))
-                PR = Convert.ToString(row["PR"]);
-            if (DataRecord.HasColumn(row, "DO"))
-                DO = Convert.ToString(row["DO"]);
-            if (DataRecord.HasColumn(row, "VE"))
-                VE = Convert.ToString(row["VE"]);
+            AR = row.ToString("AR");
+            BO = row.ToString("BO");
+            CL = row.ToString("CL");
+            CO = row.ToString("CO");
+            CR = row.ToString("CR");
+            EC = row.ToString("EC");
+            SV = row.ToString("SV");
+            GT = row.ToString("GT");
+            MX = row.ToString("MX");
+            PA = row.ToString("PA");
+            PE = row.ToString("PE");
+            PR = row.ToString("PR");
+            DO = row.ToString("DO");
+            VE = row.ToString("VE");
         }
     }
 }

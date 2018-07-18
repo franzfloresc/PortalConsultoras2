@@ -55,37 +55,22 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [ViewProperty]
         public string CorreoEnvioAviso { get; set; }
 
-        public BEShowRoomEventoConsultora(IDataRecord datarec)
+        public BEShowRoomEventoConsultora(IDataRecord row)
         {
-            if (DataRecord.HasColumn(datarec, "EventoConsultoraID"))
-                EventoConsultoraID = Convert.ToInt32(datarec["EventoConsultoraID"]);
-            if (DataRecord.HasColumn(datarec, "EventoID"))
-                EventoID = Convert.ToInt32(datarec["EventoID"]);
-            if (DataRecord.HasColumn(datarec, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
-            if (DataRecord.HasColumn(datarec, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(datarec["CodigoConsultora"]);
-            if (DataRecord.HasColumn(datarec, "Segmento"))
-                Segmento = Convert.ToString(datarec["Segmento"]);
-            if (DataRecord.HasColumn(datarec, "MostrarPopup"))
-                MostrarPopup = Convert.ToBoolean(datarec["MostrarPopup"]);
-            if (DataRecord.HasColumn(datarec, "MostrarPopupVenta"))
-                MostrarPopupVenta = Convert.ToBoolean(datarec["MostrarPopupVenta"]);
-            if (DataRecord.HasColumn(datarec, "FechaCreacion"))
-                FechaCreacion = Convert.ToDateTime(datarec["FechaCreacion"]);
-            if (DataRecord.HasColumn(datarec, "UsuarioCreacion"))
-                UsuarioCreacion = Convert.ToString(datarec["UsuarioCreacion"]);
-            if (DataRecord.HasColumn(datarec, "FechaModificacion"))
-                FechaModificacion = Convert.ToDateTime(datarec["FechaModificacion"]);
-            if (DataRecord.HasColumn(datarec, "UsuarioModificacion"))
-                UsuarioModificacion = Convert.ToString(datarec["UsuarioModificacion"]);
-
-            if (DataRecord.HasColumn(datarec, "Suscripcion"))
-                Suscripcion = Convert.ToBoolean(datarec["Suscripcion"]);
-            if (DataRecord.HasColumn(datarec, "Envio"))
-                Envio = Convert.ToInt32(datarec["Envio"]);
-            if (DataRecord.HasColumn(datarec, "CorreoEnvioAviso"))
-                CorreoEnvioAviso = Convert.ToString(datarec["CorreoEnvioAviso"]);
+            EventoConsultoraID = row.ToInt32("EventoConsultoraID");
+            EventoID = row.ToInt32("EventoID");
+            CampaniaID = row.ToInt32("CampaniaID");
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            Segmento = row.ToString("Segmento");
+            MostrarPopup = row.ToBoolean("MostrarPopup");
+            MostrarPopupVenta = row.ToBoolean("MostrarPopupVenta");
+            FechaCreacion = row.ToDateTime("FechaCreacion");
+            UsuarioCreacion = row.ToString("UsuarioCreacion");
+            FechaModificacion = row.ToDateTime("FechaModificacion");
+            UsuarioModificacion = row.ToString("UsuarioModificacion");
+            Suscripcion = row.ToBoolean("Suscripcion");
+            Envio = row.ToInt32("Envio");
+            CorreoEnvioAviso = row.ToString("CorreoEnvioAviso");
         }
     }
 }

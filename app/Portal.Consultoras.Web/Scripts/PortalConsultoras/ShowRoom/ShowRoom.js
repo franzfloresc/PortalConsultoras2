@@ -196,6 +196,7 @@ $(document).ready(function () {
                 });
             }
         });
+
         dataLayer.push({
             'event': 'productImpression',
             'ecommerce': {
@@ -330,7 +331,7 @@ function CargarProductosShowRoom(busquedaModel) {
 }
 
 function AgregarOfertaShowRoom(article, cantidad) {
-    
+
     var CUV = $(article).find(".valorCuv").val();
     var MarcaID = $(article).find(".claseMarcaID").val();
     var PrecioUnidad = $(article).find(".clasePrecioUnidad").val();
@@ -342,6 +343,7 @@ function AgregarOfertaShowRoom(article, cantidad) {
     if (!esSubCampania) {
         esSubCampania = $(article).parents('div#contenedor-showroom-subcampanias-mobile').length > 0;
     }
+
     dataLayer.push({
         'event': 'addToCart',
         'ecommerce': {
@@ -359,8 +361,6 @@ function AgregarOfertaShowRoom(article, cantidad) {
             }
         }
     });
-
-
 
     var origen = $(article).find(".origenPedidoWeb").val() || 0;
     if (origen == 0) {
@@ -380,10 +380,12 @@ function AgregarOfertaShowRoom(article, cantidad) {
     if (esSubCampania) {
         origen = origenPedidoWebSubCampania;
     }
+
     AbrirLoad();
     $.ajaxSetup({
         cache: false
     });
+
     $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, PrecioUnidad: PrecioUnidad, Cantidad: cantidad }, function (data) {
         
         if (parseInt(data.Saldo) < parseInt(cantidad)) {
@@ -613,7 +615,6 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
                     {
                         $('.sub_campania_info_adicional').remove();
                     }
-
                 }
             }
         }
@@ -640,6 +641,7 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
             }
         }
 
+        $('#divContentShowRoomHome').show();
         $("#spnCantidadFiltro").html(response.listaOfertas.length);
         $("#spnCantidadTotal").html(response.totalOfertas);
 
@@ -711,9 +713,14 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
                 $.each(response.listaSubCampania,
                     function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(30, true); });
 
-                objData.lista = response.listaSubCampania;
-                //SetHandlebars("#template-showroom-subcampanias-mobile", data, "#contenedor-showroom-subcampanias-mobile");
-                SetHandlebars("#producto-landing-template", objData, "#contenedor-showroom-subcampanias-mobile");
+                //objData.lista = response.listaSubCampania;
+                var dataSub = new Object(); 
+                dataSub.CantidadProductos = response.listaSubCampania.length;
+                //dataSub.Lista = response.listaSubCampania;
+                dataSub.Lista = AsignarPosicionAListaOfertas(response.listaSubCampania);
+
+                SetHandlebars("#template-showroom-subcampanias-mobile", dataSub, "#contenedor-showroom-subcampanias-mobile");
+                //SetHandlebars("#producto-landing-template", objData, "#contenedor-showroom-subcampanias-mobile");
                 $('#divContentSubCampania').show();
 
                 EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias-mobile'));
@@ -758,7 +765,7 @@ function AsignarPosicionAListaOfertas(listaOfertas) {
     $.each(listaOfertas, function (index, value) {
         posicion++;
         value.Posicion = posicion;
-        value.Contenido = ConstruirDescripcionOferta(value.ProductoTonos);
+        value.Contenido = ConstruirDescripcionOferta(value.Hermanos);
         nuevaListaOfertas.push(value);
     });
 

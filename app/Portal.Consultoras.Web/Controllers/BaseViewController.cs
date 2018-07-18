@@ -308,7 +308,7 @@ namespace Portal.Consultoras.Web.Controllers
             breadCrumbs.Inicio.Texto = "Inicio";
             breadCrumbs.Inicio.Url = Url.Action("Index", new { controller = "Bienvenida", area });
             //
-            breadCrumbs.Ofertas.Texto = tieneRevistaDigital ? "Club Gana +" : "Ofertas";
+            breadCrumbs.Ofertas.Texto = tieneRevistaDigital && revistaDigital.EsSuscrita ? "Club Gana +" : "Ofertas";
             var actionOfertas = productoPerteneceACampaniaActual ? "Index" : "Revisar";
             breadCrumbs.Ofertas.Url = Url.Action(actionOfertas, new { controller = "Ofertas", area });
             //
@@ -321,8 +321,8 @@ namespace Portal.Consultoras.Web.Controllers
                     breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "ShowRoom", area });
                 if (palanca == Constantes.NombrePalanca.Lanzamiento)
                 {
-                    var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
-                    breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area });
+                    var actionPalanca = productoPerteneceACampaniaActual ? "Index" : "Revisar";
+                    breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area }) + "#LAN";
                 }
                 if (palanca == Constantes.NombrePalanca.OfertaParaTi ||
                     palanca == Constantes.NombrePalanca.OfertasParaMi ||
@@ -332,7 +332,7 @@ namespace Portal.Consultoras.Web.Controllers
                     breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "RevistaDigital", area });
                 }
                 if (palanca == Constantes.NombrePalanca.OfertaDelDia)
-                    breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area });
+                    breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#ODD";
                 if (palanca == Constantes.NombrePalanca.GuiaDeNegocioDigitalizada)
                 {
                     var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
@@ -421,7 +421,10 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento:
                     result = Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage;
                     break;
-                    //Mobile
+                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor:
+                    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedorPopup;
+                    break;
+                //Mobile
                 case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
                     result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomePopUp;
                     break;
@@ -461,6 +464,9 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.OrigenPedidoWeb.HVDesktopLanding:
                     result = Constantes.OrigenPedidoWeb.HVDesktopLandingPopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.HVDesktopContenedor:
+                    result = Constantes.OrigenPedidoWeb.HVDesktopContenedorPopup;
                     break;
                 //SR
                 case Constantes.OrigenPedidoWeb.ShowRoomDesktopHome:

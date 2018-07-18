@@ -51,35 +51,16 @@ namespace Portal.Consultoras.Entities
 
         public BEOfertaFinalConsultoraLog(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "OfertaFinalConsultoraID"))
-                OfertaFinalConsultoraID = Convert.ToInt64(row["OfertaFinalConsultoraID"]);
-
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-
-            if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt32(row["Cantidad"]);
-
-            if (DataRecord.HasColumn(row, "Fecha"))
-                Fecha = Convert.ToDateTime(row["Fecha"]);
-
-            if (DataRecord.HasColumn(row, "TipoOfertaFinal"))
-                TipoOfertaFinal = Convert.ToString(row["TipoOfertaFinal"]);
-
-            if (DataRecord.HasColumn(row, "GAP"))
-                GAP = Convert.ToDecimal(row["GAP"]);
-
-            if (DataRecord.HasColumn(row, "TipoRegistro"))
-                TipoRegistro = Convert.ToInt32(row["TipoRegistro"]);
-
-            if (DataRecord.HasColumn(row, "DesTipoRegistro"))
-                DesTipoRegistro = Convert.ToString(row["DesTipoRegistro"]);
+            OfertaFinalConsultoraID = row.ToInt64("OfertaFinalConsultoraID");
+            CampaniaID = row.ToInt32("CampaniaID");
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            CUV = row.ToString("CUV");
+            Cantidad = row.ToInt32("Cantidad");
+            Fecha = row.ToDateTime("Fecha");
+            TipoOfertaFinal = row.ToString("TipoOfertaFinal");
+            GAP = row.ToDecimal("GAP");
+            TipoRegistro = row.ToInt32("TipoRegistro");
+            DesTipoRegistro = row.ToString("DesTipoRegistro");
         }
     }
 }

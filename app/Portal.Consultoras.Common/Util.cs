@@ -3550,7 +3550,7 @@ namespace Portal.Consultoras.Common
             return default(string);
         }
 
-        public static int ToInt16(this IDataRecord lector, string name)
+        public static Int16 ToInt16(this IDataRecord lector, string name)
         {
             try
             {
@@ -3597,6 +3597,18 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception) { }
             return default(decimal);
+        }
+
+        public static double ToDouble(this IDataRecord lector, string name)
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToDouble(lector[name]);
+            }
+            catch (Exception) { }
+            return default(double);
         }
 
         public static byte ToByte(this IDataRecord lector, string name)

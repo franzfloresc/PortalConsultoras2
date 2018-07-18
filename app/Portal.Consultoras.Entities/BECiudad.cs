@@ -22,14 +22,10 @@
 
         public BECiudad(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CiudadID"))
-                CiudadID = Convert.ToInt32(row["CiudadID"]);
-            if (DataRecord.HasColumn(row, "CodigoRegion"))
-                CodigoRegion = Convert.ToString(row["CodigoRegion"]);
-            if (DataRecord.HasColumn(row, "CodigoCiudad"))
-                CodigoCiudad = Convert.ToString(row["CodigoCiudad"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
+            CiudadID = row.ToInt32("CiudadID");
+            CodigoRegion = row.ToString("CodigoRegion");
+            CodigoCiudad = row.ToString("CodigoCiudad");
+            Descripcion = row.ToString("Descripcion");
         }
     }
 }
