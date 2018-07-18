@@ -58,41 +58,26 @@ namespace Portal.Consultoras.Entities
         public BEMisPedidosAppCatalogo(IDataRecord row)
         {
             PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
-
             ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
             ConsultoraCodigo = Convert.ToString(row["ConsultoraCodigo"]);
             ConsultoraNombre = Convert.ToString(row["ConsultoraNombre"]);
             ConsultoraCorreo = Convert.ToString(row["ConsultoraCorreo"]);
             ConsultoraCelular = Convert.ToString(row["ConsultoraCelular"]);
-
-            if (DataRecord.HasColumn(row, "Campania"))
-                Campania = Convert.ToString(row["Campania"]);
-            if (DataRecord.HasColumn(row, "Leido"))
-                Leido = Convert.ToInt16(row["Leido"]);
-
+            Campania = row.ToString("Campania");
+            Leido = row.ToInt16("Leido");
             MarcaID = Convert.ToInt32(row["MarcaID"]);
             Marca = Convert.ToString(row["Marca"]);
-
-            if (DataRecord.HasColumn(row, "TipoUsuario"))
-                TipoUsuario = Convert.ToInt32(row["TipoUsuario"]);
-
-            if (DataRecord.HasColumn(row, "FlagConsultora"))
-                FlagConsultora = Convert.ToBoolean(row["FlagConsultora"]);
-
+            TipoUsuario = row.ToInt32("TipoUsuario");
+            FlagConsultora = row.ToBoolean("FlagConsultora");
             FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
             Estado = Convert.ToString(row["Estado"]);
-
             ClienteNombre = Convert.ToString(row["ClienteNombre"]);
             ClienteTelefono = Convert.ToString(row["ClienteTelefono"]);
             ClienteEmail = Convert.ToString(row["ClienteEmail"]);
             ClienteDireccion = Convert.ToString(row["ClienteDireccion"]);
             Mensaje = Convert.ToString(row["Mensaje"]);
-
-            if (DataRecord.HasColumn(row, "Total"))
-                Total = Convert.ToDecimal(row["Total"]);
-
+            Total = row.ToDecimal("Total");
             Cantidad = Convert.ToInt32(row["Cantidad"]);
-
             DetallePedido = new List<BEMisPedidosDetalleAppCatalogo>();
         }
     }

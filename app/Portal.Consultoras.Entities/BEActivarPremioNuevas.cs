@@ -35,29 +35,15 @@ namespace Portal.Consultoras.Entities
             FechaCreate = default(DateTime);
         }
 
-        public BEActivarPremioNuevas(IDataRecord dr)
+        public BEActivarPremioNuevas(IDataRecord row)
         {
-            if (DataRecord.HasColumn(dr, "CodigoPrograma"))
-                CodigoPrograma = Convert.ToString(dr["CodigoPrograma"]);
-
-            if (DataRecord.HasColumn(dr, "AnoCampana"))
-                AnioCampana = Convert.ToInt32(dr["AnoCampana"]);
-
-            if (DataRecord.HasColumn(dr, "Nivel"))
-                Nivel = Convert.ToString(dr["Nivel"]);
-
-            if (DataRecord.HasColumn(dr, "ActiveTooltip"))
-                ActiveTooltip = Convert.ToBoolean(dr["ActiveTooltip"]);
-
-            if (DataRecord.HasColumn(dr, "ActiveTooltipMonto"))
-                ActiveMontoTooltip = Convert.ToBoolean(dr["ActiveTooltipMonto"]);
-
-            if (DataRecord.HasColumn(dr, "Active"))
-                Active = Convert.ToBoolean(dr["Active"]);
-
-            if (DataRecord.HasColumn(dr, "FechaCreate"))
-                FechaCreate = Convert.ToDateTime(dr["FechaCreate"]);
-
+            CodigoPrograma = row.ToString("CodigoPrograma");
+            AnioCampana = row.ToInt32("AnoCampana");
+            Nivel = row.ToString("Nivel");
+            ActiveTooltip = row.ToBoolean("ActiveTooltip");
+            ActiveMontoTooltip = row.ToBoolean("ActiveTooltipMonto");
+            Active = row.ToBoolean("Active");
+            FechaCreate = row.ToDateTime("FechaCreate");
         }
     }
 }

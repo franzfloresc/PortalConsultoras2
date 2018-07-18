@@ -62,26 +62,13 @@ namespace Portal.Consultoras.Entities
 
         public BECatalogoRevista_ODS(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "IdMatrizCatalogo"))
-                IdMatrizCatalogo = Convert.ToInt32(row["IdMatrizCatalogo"]);
-
-            if (DataRecord.HasColumn(row, "CodigoCatalogo"))
-                CodigoCatalogo = Convert.ToInt32(row["CodigoCatalogo"]);
-
-            if (DataRecord.HasColumn(row, "EstadoActivo"))
-                EstadoActivo = Convert.ToBoolean(row["EstadoActivo"]);
-
-            if (DataRecord.HasColumn(row, "PaisID"))
-                PaisID = Convert.ToInt32(row["PaisID"]);
-
-            if (DataRecord.HasColumn(row, "DescripcionCatalogo"))
-                DescripcionCatalogo = Convert.ToString(row["DescripcionCatalogo"]);
-
-            if (DataRecord.HasColumn(row, "CheckSumID"))
-                CheckSumID = Convert.ToInt32(row["CheckSumID"]);
-
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
+            IdMatrizCatalogo = row.ToInt32("IdMatrizCatalogo");
+            CodigoCatalogo = row.ToInt32("CodigoCatalogo");
+            EstadoActivo = row.ToBoolean("EstadoActivo");
+            PaisID = row.ToInt32("PaisID");
+            DescripcionCatalogo = row.ToString("DescripcionCatalogo");
+            CheckSumID = row.ToInt32("CheckSumID");
+            Descripcion = row.ToString("Descripcion");
         }
 
     }

@@ -49,25 +49,25 @@ namespace Portal.Consultoras.Entities.CDR
 
         public BELogCDRWebDetalle(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "LogCDRWebDetalleId")) LogCDRWebDetalleId = Convert.ToInt64(row["LogCDRWebDetalleId"]);
-            if (DataRecord.HasColumn(row, "LogCDRWebId")) LogCDRWebId = Convert.ToInt64(row["LogCDRWebId"]);
-            if (DataRecord.HasColumn(row, "CDRWebDetalleId")) CDRWebDetalleId = Convert.ToInt32(row["CDRWebDetalleId"]);
-            if (DataRecord.HasColumn(row, "CodigoOperacion")) CodigoOperacion = Convert.ToString(row["CodigoOperacion"]);
-            if (DataRecord.HasColumn(row, "DescripcionOperacion")) DescripcionOperacion = Convert.ToString(row["DescripcionOperacion"]);
-            if (DataRecord.HasColumn(row, "CodigoMotivo")) CodigoMotivo = Convert.ToString(row["CodigoMotivo"]);
-            if (DataRecord.HasColumn(row, "DescripcionMotivo")) DescripcionMotivo = Convert.ToString(row["DescripcionMotivo"]);
-            if (DataRecord.HasColumn(row, "CUV")) CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "Cantidad")) Cantidad = Convert.ToInt32(row["Cantidad"]);
-            if (DataRecord.HasColumn(row, "NombreProducto")) NombreProducto = Convert.ToString(row["NombreProducto"]);
-            if (DataRecord.HasColumn(row, "Precio")) Precio = Convert.ToDecimal(row["Precio"]);
-            if (DataRecord.HasColumn(row, "CUV2")) CUV2 = Convert.ToString(row["CUV2"]);
-            if (DataRecord.HasColumn(row, "Cantidad2")) Cantidad2 = Convert.ToInt32(row["Cantidad2"]);
-            if (DataRecord.HasColumn(row, "NombreProducto2")) NombreProducto2 = Convert.ToString(row["NombreProducto2"]);
-            if (DataRecord.HasColumn(row, "Precio2")) Precio2 = Convert.ToDecimal(row["Precio2"]);
-            if (DataRecord.HasColumn(row, "EstadoCDR")) EstadoCDR = Convert.ToByte(row["EstadoCDR"]);
-            if (DataRecord.HasColumn(row, "CodigoRechazo")) CodigoRechazo = Convert.ToString(row["CodigoRechazo"]);
-            if (DataRecord.HasColumn(row, "DescripcionRechazo")) DescripcionRechazo = Convert.ToString(row["DescripcionRechazo"]);
-            if (DataRecord.HasColumn(row, "ObservacionRechazo")) ObservacionRechazo = Convert.ToString(row["ObservacionRechazo"]);
+            LogCDRWebDetalleId = row.ToInt64("LogCDRWebDetalleId");
+            LogCDRWebId = row.ToInt64("LogCDRWebId");
+            CDRWebDetalleId = row.ToInt32("CDRWebDetalleId");
+            CodigoOperacion = row.ToString("CodigoOperacion");
+            DescripcionOperacion = row.ToString("DescripcionOperacion");
+            CodigoMotivo = row.ToString("CodigoMotivo");
+            DescripcionMotivo = row.ToString("DescripcionMotivo");
+            CUV = row.ToString("CUV");
+            Cantidad = row.ToInt32("Cantidad");
+            NombreProducto = row.ToString("NombreProducto");
+            Precio = row.ToDecimal("Precio");
+            CUV2 = row.ToString("CUV2");
+            Cantidad2 = row.ToInt32("Cantidad2");
+            NombreProducto2 = row.ToString("NombreProducto2");
+            Precio2 = row.ToDecimal("Precio2");
+            EstadoCDR = row.ToByte("EstadoCDR");
+            CodigoRechazo = row.ToString("CodigoRechazo");
+            DescripcionRechazo = row.ToString("DescripcionRechazo");
+            ObservacionRechazo = row.ToString("ObservacionRechazo");
         }
     }
 }

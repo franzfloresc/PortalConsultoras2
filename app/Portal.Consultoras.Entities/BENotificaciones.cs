@@ -51,10 +51,7 @@ namespace Portal.Consultoras.Entities
             FechaFacturacion = Convert.ToDateTime(row["FechaFacturacion"]);
             FacturaHoy = Convert.ToBoolean(row["FacturaHoy"]);
             EsMontoMinimo = Convert.ToBoolean(row["EsMontoMinino"]);
-
-            if (DataRecord.HasColumn(row, "Visualizado"))
-                Visualizado = Convert.ToBoolean(row["Visualizado"]);
-
+            Visualizado = row.ToBoolean("Visualizado");
             FlagProcedencia = Convert.ToBoolean(row["FlagProcedencia"]);
         }
     }
