@@ -731,6 +731,7 @@
     </Compile>
     <Compile Include="Providers\AdministrarEstrategiaProvider.cs" />
     <Compile Include="Providers\OfertaBaseProvider.cs" />
+    <Compile Include="Providers\OfertaDelDiaProvider.cs" />
     <Compile Include="Providers\PedidoSetProvider.cs" />
     <Compile Include="Providers\CdrProvider.cs" />
     <Compile Include="Providers\ConfiguracionManagerProvider.cs" />
@@ -743,7 +744,6 @@
     <Compile Include="Providers\BaseProvider.cs" />
     <Compile Include="Providers\IssuuProvider.cs" />
     <Compile Include="Providers\MenuContenedorProvider.cs" />
-    <Compile Include="Providers\OfertaDelDiaProvider.cs" />
     <Compile Include="Providers\OfertaPersonalizadaProvider.cs" />
     <Compile Include="Providers\OfertaViewProvider.cs" />
     <Compile Include="Providers\PagoEnLineaProvider.cs" />
@@ -751,7 +751,6 @@
     <Compile Include="Providers\RenderImgProvider.cs" />
     <Compile Include="Providers\RevistaDigitalProvider.cs" />
     <Compile Include="Providers\ShowRoomProvider.cs" />
-    <Compile Include="Providers\OfertaDelDiaProvider.cs" />
     <Compile Include="Providers\TablaLogicaProvider.cs" />
     <Compile Include="Providers\TipoEstrategiaProvider.cs" />
     <Compile Include="Providers\UpSellingProvider.cs" />
@@ -5526,7 +5525,7 @@
     <ProjectReference Include="..\Portal.Consultoras.Entities\Portal.Consultoras.Entities.csproj">
       <Project>{2A3B50DF-C243-4D7D-B8C0-E4E6C9C6C8D9}</Project>
       <Name>Portal.Consultoras.Entities</Name>
-	</ProjectReference>
+    </ProjectReference>
     <ProjectReference Include="..\Portal.Consultoras.Service\Portal.Consultoras.Service.csproj">
       <Project>{B3AD057A-2326-4F70-8723-0B2B3AFCE4EA}</Project>
       <Name>Portal.Consultoras.Service</Name>

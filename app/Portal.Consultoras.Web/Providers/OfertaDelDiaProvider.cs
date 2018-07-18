@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Threading.Tasks;
-using System.Text;
-using System.Linq;
-using System.Configuration;
 using System.Collections.Generic;
-using Portal.Consultoras.Web.SessionManager;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceOferta;
+using System.Configuration;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
-using Portal.Consultoras.Web.LogManager;
-using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServiceOferta;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.SessionManager;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -22,7 +22,6 @@ namespace Portal.Consultoras.Web.Providers
         protected TablaLogicaProvider _tablaLogica;
         protected OfertaPersonalizadaProvider _ofertaPersonalizada;
         private readonly ILogManager logManager = LogManager.LogManager.Instance;
-        private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
 
         public OfertaDelDiaProvider()
         {
@@ -100,14 +99,6 @@ namespace Portal.Consultoras.Web.Providers
                 default:
                     return false;
             }
-        }
-
-        public string ObtenerUrlImagenOfertaDelDia(string codigoIso, int cantidadOfertas)
-        {
-            var imgSh = string.Format(_configuracionManager.GetConfiguracionManager("UrlImgSoloHoyODD"), codigoIso);
-            var exte = imgSh.Split('.')[imgSh.Split('.').Length - 1];
-            imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
-            return imgSh;
         }
 
         public string ObtenerDescripcionOfertaDelDia(string descripcionCuv2)
@@ -194,7 +185,7 @@ namespace Portal.Consultoras.Web.Providers
                 }
 
                 oddSession.TieneOfertas = oddSession.ListaOferta.Any();
-                oddSession.TextoVerDetalle = oddSession.ListaOferta.Any() ? oddSession.ListaOferta.Count > 1 ? "VER MÁS OFERTAS" : "VER OFERTA" : "";
+                oddSession.TextoVerDetalle = oddSession.ListaOferta.Any() ? oddSession.ListaOferta.Count > 1 ? "VER MÃS OFERTAS" : "VER OFERTA" : "";
 
                 var colorFondoBanner = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionOdd.ColorFondoBanner) ?? new TablaLogicaDatosModel();
                 var coloFondoDisplay = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionOdd.ColorFondoDisplay) ?? new TablaLogicaDatosModel();
@@ -239,78 +230,6 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return result;
-        }
-
-        public OfertaDelDiaModel ObtenerOfertas()
-        {
-            OfertaDelDiaModel model = null;
-
-            var userData = sessionManager.GetUserData();
-
-            try
-            {
-                if (userData.TipoUsuario != Constantes.TipoUsuario.Consultora)
-                    return null;
-
-                if (!sessionManager.GetFlagOfertaDelDia())
-                    return null;
-
-                var paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(userData.CodigoISO);
-
-                if (paisHabilitado)
-                {
-                    var diaInicio = DateTime.Now.Date.Subtract(userData.FechaInicioCampania.Date).Days;
-
-                    string pathOfertaDelDia = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasDelDia, userData.CodigoISO, Constantes.ConfiguracionPais.OfertaDelDia, userData.CampaniaID, userData.CodigoConsultora, diaInicio);
-                    var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathOfertaDelDia));
-
-                    Task.WhenAll(taskApi);
-
-                    var listOfertasDelDias = taskApi.Result;
-
-                    model = ObtenerOfertaDelDiaModel(userData.PaisID, userData.CodigoISO, listOfertasDelDias);
-                }
-                else
-                {
-                    var ofertasDelDia = sessionManager.GetOfertasDelDia();
-
-                    if (ofertasDelDia == null)
-                    {
-                        var listOfertasDelDias = ObtenerOfertasDelDiaDesdeSoap(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, userData.FechaInicioCampania);
-
-                        model = ObtenerOfertaDelDiaModel(userData.PaisID, userData.CodigoISO, listOfertasDelDias);
-
-                        sessionManager.SetOfertasDelDia(model);
-                    }
-                }
-
-                if (model != null)
-                {
-                    model.TeQuedan = CountdownODD(userData.PaisID, userData.EsDiasFacturacion, userData.HoraCierreZonaNormal);
-
-                    sessionManager.SetFlagOfertaDelDia(1);
-                }
-                else
-                {
-                    sessionManager.SetFlagOfertaDelDia(0);
-                }
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoUsuario, userData.CodigoISO, "OfertaDelDiaProvider.ObtenerOfertas");
-            }
-
-            return model;
-        }
-
-        private static List<ServicePedido.BEEstrategia> ObtenerOfertasDelDiaDesdeSoap(int paisId, int campaniaId, string codigoConsultora, DateTime fechaInicioCampania)
-        {
-            ServicePedido.BEEstrategia[] estrategias;
-            using (var svc = new PedidoServiceClient())
-            {
-                estrategias = svc.GetEstrategiaODD(paisId, campaniaId, codigoConsultora, fechaInicioCampania.Date);
-            }
-            return estrategias.ToList();
         }
 
         private OfertaDelDiaModel ObtenerOfertaDelDiaModel(int paisId, string codigoIso, List<ServicePedido.BEEstrategia> ofertasDelDia)

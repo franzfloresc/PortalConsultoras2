@@ -142,132 +142,8 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("template-mensaje-bloqueado", new MensajeProductoBloqueadoModel());
         }
 
-        [HttpPost]
-
-
-        public JsonResult RDObtenerProductos(BusquedaProductoModel model)
-        {
-            try
-            {
-                if (model == null) throw new ArgumentNullException("model", "model no puede ser nulo");
-
-                if (!(revistaDigital.TieneRevistaDigital()) || EsCampaniaFalsa(model.CampaniaID))
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "",
-                        lista = new List<ShowRoomOfertaModel>(),
-                        cantidadTotal = 0,
-                        cantidad = 0
-                    });
-                }
-
-                var palanca = string.Empty;
-
-                if (revistaDigital.ActivoMdo)
-                {
-                    palanca = Constantes.TipoEstrategiaCodigo.RevistaDigital;
-                }
-                else
-                {
-                    palanca = model.CampaniaID != userData.CampaniaID
-                        || (revistaDigital.TieneRDC && revistaDigital.EsActiva)
-                        ? Constantes.TipoEstrategiaCodigo.RevistaDigital
-                        : string.Empty;
-                }
-
-                var listaFinal1 = ConsultarEstrategiasModel(string.Empty, model.CampaniaID, palanca);
-
-                List<EstrategiaPedidoModel> listModel1;
-
-                var mdo0 = revistaDigital.ActivoMdo && !revistaDigital.EsActiva;
-
-                if (mdo0 && model.CampaniaID == userData.CampaniaID)
-                {
-                    var listaRd = listaFinal1.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi || e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
-                    listModel1 = listaFinal1.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.OfertasParaMi && e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackAltoDesembolso).ToList();
-                    listModel1.AddRange(listaRd.Where(e => e.FlagRevista == Constantes.FlagRevista.Valor0));
-                }
-                else
-                {
-                    listModel1 = listaFinal1;
-                }
-
-                var listModel = ConsultarEstrategiasFormatearModelo(listModel1, 2);
-
-                var cantidadTotal = listModel.Count;
-
-                var listPerdio = ListaPerdio(model.CampaniaID, listaFinal1);
-
-                bool guarda = true;
-                if (UsarMsPer(Constantes.TipoEstrategiaCodigo.RevistaDigital))
-                {
-                    guarda = false;
-                }
-
-                return Json(new
-                {
-                    success = true,
-                    lista = listModel,
-                    listaPerdio = listPerdio,
-                    cantidadTotal = cantidadTotal,
-                    cantidad = cantidadTotal,
-                    campaniaId = model.CampaniaID,
-                    guardaEnLocalStorage = guarda
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Error al cargar los productos",
-                    data = ""
-                });
-            }
-        }
-
-        private List<EstrategiaPersonalizadaProductoModel> ListaPerdio(int campaniaId, List<EstrategiaPedidoModel> listModelCompleta)
-        {
-            var listPerdioFormato = new List<EstrategiaPersonalizadaProductoModel>();
-            try
-            {
-                var listPerdio = new List<EstrategiaPedidoModel>();
-                if (TieneProductosPerdio(campaniaId))
-                {
-                    var mdo0 = revistaDigital.ActivoMdo && !revistaDigital.EsActiva;
-                    if (mdo0)
-                    {
-                        listPerdio = listModelCompleta.Where(e =>
-                            (e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                            || e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
-                            && (e.FlagRevista == Constantes.FlagRevista.Valor1 || e.FlagRevista == Constantes.FlagRevista.Valor2)
-                            ).ToList();
-                    }
-                    else
-                    {
-                        var listPerdio1 = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
-                        listPerdio = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas && p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-                    }
-
-                    listPerdioFormato = ConsultarEstrategiasFormatearModelo(listPerdio, 1);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                listPerdioFormato = new List<EstrategiaPersonalizadaProductoModel>();
-
-            }
-            return listPerdioFormato;
-        }
 
         [HttpPost]
-
-
         public JsonResult Suscripcion()
         {
             return RegistroSuscripcionTry(Constantes.EstadoRDSuscripcion.Activo);
@@ -372,77 +248,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return "";
         }
-
-        //private string RegistroSuscripcionValidar(int tipo)
-        //{
-        //    var diasFaltanFactura = _baseProvider.GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
-        //    switch (tipo)
-        //    {
-        //        case Constantes.EstadoRDSuscripcion.Activo:
-        //            if (!revistaDigital.TieneRDC)
-        //                return "Por el momento no está habilitada la suscripción a " + revistaDigital.NombreComercialActiva + ", gracias.";
-
-        //            if (revistaDigital.EsSuscrita)
-        //                return "Usted ya está suscrito a " + revistaDigital.NombreComercialActiva + ", gracias.";
-
-        //            if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar && revistaDigital.BloquearDiasAntesFacturar > 0)
-        //            {
-        //                return "Lo sentimos no puede suscribirse a " + revistaDigital.NombreComercialActiva + ", porque "
-        //                    + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "mañana" : "en " + diasFaltanFactura + " días ")
-        //                    + " es cierre de campaña.";
-        //            }
-        //            break;
-        //        case Constantes.EstadoRDSuscripcion.Desactivo:
-        //            if (!revistaDigital.TieneRDC)
-        //                return "Por el momento no está habilitada la desuscripción a " + revistaDigital.NombreComercialActiva + ", gracias.";
-
-        //            if (!revistaDigital.EsSuscrita)
-        //                return "Lo sentimos no se puede desuscribirse a " + revistaDigital.NombreComercialActiva + ", gracias.";
-
-        //            if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar && revistaDigital.BloquearDiasAntesFacturar > 0)
-        //            {
-        //                return "Lo sentimos no puede desuscribirse a " + revistaDigital.NombreComercialActiva + ", porque "
-        //                    + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "mañana" : "en " + diasFaltanFactura + " días ")
-        //                    + " es cierre de campaña.";
-        //            }
-        //            break;
-        //        case Constantes.EstadoRDSuscripcion.NoPopUp:
-        //            if (!revistaDigital.TieneRDC)
-        //                return "Por el momento no está habilitada esta acción, gracias.";
-
-        //            if (revistaDigital.EsSuscrita)
-        //                return "Lo sentimos no se puede ejecutar esta acción, gracias.";
-
-        //            if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar && revistaDigital.BloquearDiasAntesFacturar > 0)
-        //            {
-        //                return "Lo sentimos no puede ejecutar esta acción, porque "
-        //                    + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "mañana" : "en " + diasFaltanFactura + " días ")
-        //                    + " es cierre de campaña.";
-        //            }
-        //            break;
-        //        default:
-        //            return "Lo sentimos no se puede ejecutar esta acción, gracias.";
-        //    }
-
-        //    return "";
-        //}
-
-        //private void RegistroSuscripcionVirtualCoach()
-        //{
-        //    if (revistaDigital.SubscripcionAutomaticaAVirtualCoach)
-        //    {
-        //        var asesoraOnLine = new BEAsesoraOnline
-        //        {
-        //            CodigoConsultora = userData.CodigoConsultora,
-        //            ConfirmacionInscripcion = 1,
-        //            Origen = Constantes.RevistaDigitalOrigen.RD
-        //        };
-        //        using (var sv = new AsesoraOnlineServiceClient())
-        //        {
-        //            sv.EnviarFormulario(userData.CodigoISO, asesoraOnLine);
-        //        }
-        //    }
-        //}
 
         [HttpPost]
         public JsonResult PopupCerrar()
@@ -662,13 +467,15 @@ namespace Portal.Consultoras.Web.Controllers
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.HerramientasVenta)] = null;
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.Lanzamiento)] = null;
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.LosMasVendidos)] = null;
-            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaParaTi)] = null;//
-            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaWeb)] = null;//
-            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.PackNuevas)] = null;//
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaParaTi)] = null;
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.OfertaWeb)] = null;
+            Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.PackNuevas)] = null;
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, Constantes.TipoEstrategiaCodigo.RevistaDigital)] = null;
             Session[string.Format("{0}{1}", Constantes.ConstSession.ListaEstrategia, string.Empty)] = null;// OPT
-            Session[Constantes.ConstSession.ListaProductoShowRoom] = null;//
-            //sessionManager.SetEstrategiaODD(null);    // no poner la session en null, ODD no tiene la funcionalidad de flagrevista aun
+            sessionManager.ShowRoom.Ofertas = null;
+            sessionManager.ShowRoom.OfertasSubCampania = null;
+            sessionManager.ShowRoom.OfertasPerdio = null;
+
             //Limpia cache de Redis
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {

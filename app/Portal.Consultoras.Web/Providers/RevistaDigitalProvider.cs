@@ -21,7 +21,6 @@ namespace Portal.Consultoras.Web.Providers
         protected RevistaDigitalModel revistaDigital;
         protected ConfiguracionManagerProvider _configuracionManager;
         private readonly ILogManager logManager = LogManager.LogManager.Instance;
-        private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
 
         public RevistaDigitalProvider()
         {
