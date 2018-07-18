@@ -91,7 +91,7 @@ body {
 }
 
 .ficha_detalle_cuerpo {
-    min-height: 340px;
+    min-height: 300px;
 }
 
 .contenedor_nombre_precio {
@@ -107,7 +107,6 @@ body {
 
 .nombre_marca {
     font-size: 12px;
-    height: 21px;
     letter-spacing: .8px;
     line-height: 1.83;
     text-transform: uppercase;
@@ -247,6 +246,10 @@ body {
     width: 100%;
 }
 
+.subprecio{
+    display: block;
+}
+
 .contenedor_rangos {
     border: solid 1px #b0b0b0;
     float: left;
@@ -322,14 +325,45 @@ body {
     color: #b9b9b9;
 }
 
-.contenedor_agregado {
-    float: left;
+/* Ficha Check Agreado y texto Libre */
+
+.ficha_div_libre_agregado {
+    padding-top: 15px;
+    clear: both;
+}
+
+.ficha_agregado {
+    float: right;
     height: 15px;
-    margin-top: 9px;
     position: relative;
     text-align: initial;
-    width: 100%;
+    display: inline-block;
+    width: 30%;
 }
+
+
+.limit_pack {
+    margin-bottom: 0px;
+    font-size: 13px;
+    font-weight: bold;
+    width: 50%;
+    display: inline-block;
+}
+
+    .limit_pack span {
+        color: #e81c36;
+        border: 1px solid #e81c36;
+        display: inline-block;
+        border-radius: 50%;
+        height: 17px;
+        width: 17px;
+        text-align: center;
+        font-size: 11px;
+        position: relative;
+        margin-right: 6px;
+        line-height: 15px;
+    }
+
 
 .txt_agregado {
     float: right;
@@ -357,25 +391,36 @@ body {
     width: 11px;
 }
 
-.dibujar_check_agregado::before {
-    border-bottom: solid 2px #a18328;
-    -webkit-transform: rotate(44deg);
-    -moz-transform: rotate(44deg);
-    -ms-transform: rotate(44deg);
-    -o-transform: rotate(44deg);
-    transform: rotate(44deg);
-    width: 50%;
-}
+    .dibujar_check_agregado::before {
+        border-bottom: solid 2px #a18328;
+        -webkit-transform: rotate(44deg);
+        -moz-transform: rotate(44deg);
+        -ms-transform: rotate(44deg);
+        -o-transform: rotate(44deg);
+        transform: rotate(44deg);
+        width: 50%;
+    }
 
-.dibujar_check_agregado::after {
-   border-bottom: solid 2px #a18328;
-   bottom: 0;
-   left: 25%;
-   -webkit-transform: rotate(134deg);
-   -moz-transform: rotate(134deg);
-   -ms-transform: rotate(134deg);
-   -o-transform: rotate(134deg);
-   transform: rotate(134deg);
+    .dibujar_check_agregado::after {
+        border-bottom: solid 2px #a18328;
+        bottom: 0;
+        left: 25%;
+        -webkit-transform: rotate(134deg);
+        -moz-transform: rotate(134deg);
+        -ms-transform: rotate(134deg);
+        -o-transform: rotate(134deg);
+        transform: rotate(134deg);
+    }
+
+/* FIN Ficha Check Agreado y texto Libre */
+
+.contenedor_agregado {
+    float: left;
+    height: 15px;
+    margin-top: 9px;
+    position: relative;
+    text-align: initial;
+    width: 100%;
 }
 
 .contenedor_limitacion {
@@ -487,27 +532,6 @@ body {
     height: 100%;
 }
 
-.limit_pack{
-   margin-bottom:0px;
-   font-size: 13px;
-   font-weight: bold;
-   padding-top: 15px;
-   clear:both;
-}
-
-.limit_pack span {
-    color: #e81c36;
-    border: 1px solid #e81c36;
-    display: inline-block;
-    border-radius: 50%;
-    height: 17px;
-    width: 17px;
-    text-align: center;
-    font-size: 11px;
-    position: relative;
-    margin-right: 6px;
-    line-height: 15px;
-}
 /* Reloj */
 .clock_odd {
     float: left;
@@ -727,6 +751,20 @@ body {
     border: 1px solid #fd0202;
     display: block;
     font-weight: bold;
+}
+
+.tono_no_seleccionado {
+    background: url('/Content/Images/mobile/Esika/right-arrow.svg');
+    background-repeat: no-repeat;
+    background-size: 13px;
+    background-color: #000;
+    background-position: right 15px center;
+    color: white;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
 }
 
 .texto_sin_tono {

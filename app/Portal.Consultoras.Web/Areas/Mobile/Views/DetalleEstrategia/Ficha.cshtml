@@ -8,9 +8,7 @@
 }
 
 @section styles{
-    <link href="@Url.Content("~/Content/Css/Mobile/Ficha/ficha.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Mobile/Ficha/Carrusel.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Mobile/Ficha/RedesSociales.css")" rel="stylesheet" />
+    @System.Web.Optimization.Styles.Render("~/bundles/mobile/css/ficha")
     <style id="styleRelojOdd"></style>
 }
 
@@ -92,7 +90,15 @@
 
         <ul class="list_style_none precio">
             <li class="precio_producto">
-                <p>Precio para ti <b style="font-size: 14px;">{{SimboloMoneda}} {{PrecioVenta}}</b></p>
+                <p>
+                    Precio para ti
+                    <b style="font-size: 14px;">
+                        {{#IsNullOrEmpty ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
+                    </b>
+                </p>
+                {{#each ListaPrecioNiveles as |itemNivel|}}
+                <span class="subprecio">{{itemNivel}}</span>
+                {{/each}}
             </li>
             {{#iff Ganancia '>' 0}}
             <li class="gana_precio_producto">
@@ -129,6 +135,21 @@
                             </div>
                             {{/each}}
                         </div>
+                    </div>
+                    <div class="tono_selecionado">
+                        <ul class="tono_selecionado_item">
+                            <li class="imagen_selecionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201811/L/productos/bulk/PE_200084967_B.jpg " alt="" /></li>
+                            <li class="titulo_selecionado">x5 Caramel bloom</li>
+                        </ul>
+                        <ul class="tono_selecionado_item">
+                            <li class="imagen_selecionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201811/L/productos/bulk/PE_200084967_B.jpg " alt="" /></li>
+                            <li class="titulo_selecionado">x5 Caramel bloom</li>
+                        </ul>
+                        <ul class="tono_selecionado_item">
+                            <li class="imagen_selecionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201811/L/productos/bulk/PE_200084967_B.jpg " alt="" /></li>
+                            <li class="titulo_selecionado">x5 Caramel bloom</li>
+                        </ul>
+                        <a class="btn_cambiar_opciones" href="#">Cambiar opciones <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="" /></a>
                     </div>
                     <hr class="clear">
                     <div data-tono-div="">
@@ -176,6 +197,21 @@
                             <div class="nombre_producto_opt">
                                 <span class="cantidad_producto_opt">x {{Multiplicar componente.Cantidad componente.FactorCuadre}}</span>
                                 <span>{{componente.NombreComercial}}</span>
+                            </div>
+                            <div class="tono_selecionado">
+                                <ul class="tono_selecionado_item">
+                                    <li class="imagen_selecionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201811/L/productos/bulk/PE_200084967_B.jpg " alt="" /></li>
+                                    <li class="titulo_selecionado">x5 Caramel bloom</li>
+                                </ul>
+                                <ul class="tono_selecionado_item">
+                                    <li class="imagen_selecionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201811/L/productos/bulk/PE_200084967_B.jpg " alt="" /></li>
+                                    <li class="titulo_selecionado">x5 Caramel bloom</li>
+                                </ul>
+                                <ul class="tono_selecionado_item">
+                                    <li class="imagen_selecionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201811/L/productos/bulk/PE_200084967_B.jpg " alt="" /></li>
+                                    <li class="titulo_selecionado">x5 Caramel bloom</li>
+                                </ul>
+                                <a class="btn_cambiar_opciones" href="#">Cambiar opciones <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="" /></a> 
                             </div>
                             <div class="clear"></div>
                             {{#iff componente.Digitable '==' '1'}}
@@ -233,6 +269,25 @@
     {
         <div class="content_btn_agregar">
             <div class="content_320">
+                <div class="popover top tooltip_agregar_desabilitado" role="tooltip" id="" style="display: block;">
+                    <div class="arrow" style="left: 75%;"></div>
+                    <div class="popover-content">
+                        <ul class="list-inline popover_texto">
+                            <li class="ico_alerta"><i>!</i></li>
+                            <li>Debes elegir tus opciones para poder agregar la oferta.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="popover top tooltip_limite_pedidos" role="tooltip" id="" style="display: block;">
+                    <div class="arrow"></div>
+                    <div class="popover-content">
+                        <ul class="list-inline popover_texto">
+                            <li class="ico_alerta"><i>!</i></li>
+                            <li>Lo sentimos 😕 Has llegado al límite de pedidos para esta oferta.</li>
+                        </ul>
+                    </div>
+                </div>
                 <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
                     <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                     <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
@@ -316,13 +371,13 @@
 </div>
 }
 
-<div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
-    <hr>
-</div>
 
 <!--compartir-->
 @if (Model.TieneCompartir)
 {
+<div class="col-md-12 col-sm-12 col-xs-12 ficha_lineaencuentraproducto">
+    <hr>
+</div>
 <div id="Contenedor_redes_sociales" data-item="">
     <div data-compartir-campos="" style="display:none;">
         <input type="hidden" class="CUV" value="" />
@@ -362,8 +417,8 @@
 @Html.Partial("_template-ofertadeldia-style")
 
 @section scripts{
-    @System.Web.Optimization.Scripts.Render("~/bundles/Ficha")
-    @System.Web.Optimization.Scripts.Render("~/bundles/EstrategiaAgregar")
+    @System.Web.Optimization.Scripts.Render("~/bundles/js/Ficha")
+    @System.Web.Optimization.Scripts.Render("~/bundles/js/EstrategiaAgregar")
 
     <script>
         window.videoKey = '@Model.CodigoVideo';
@@ -371,20 +426,9 @@
         //var carruselModule;
 
         var tieneCarrusel = '@Model.TieneCarrusel';
-
+        var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new { area = "" })';
         $(document).ready(function () {
-
-            //$(".ficha_tabs li a").click(function () {
-            //    //var divpadre = $(this).parent();
-            //    //var clase = $(".ficha_tabs li a").attr("class");
-            //    var clase = $(this).attr("class");
-            //    if (clase == "active") {
-            //        $(this).attr("class", "tab-link");
-            //    } else {
-            //        $(this).attr("class", "active");
-            //    }
-            //});
-
+            
             fichaModule = FichaModule({
                 palanca: "@Model.Palanca",
                 origen: "@Model.OrigenUrl",

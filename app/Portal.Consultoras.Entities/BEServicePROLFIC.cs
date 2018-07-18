@@ -43,29 +43,17 @@ namespace Portal.Consultoras.Entities
 
         public BEServicePROLFIC(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "PAIS"))
-                PAIS = Convert.ToString(row["PAIS"]);
-            if (DataRecord.HasColumn(row, "PERIODO"))
-                PERIODO = Convert.ToString(row["PERIODO"]);
-            if (DataRecord.HasColumn(row, "ZONA"))
-                ZONA = Convert.ToString(row["ZONA"]);
-            if (DataRecord.HasColumn(row, "CUENTA"))
-                CUENTA = Convert.ToString(row["CUENTA"]);
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "TIPO_OFETA"))
-                TIPO_OFETA = Convert.ToString(row["TIPO_OFETA"]);
-            if (DataRecord.HasColumn(row, "UNIDADES"))
-                UNIDADES = Convert.ToString(row["UNIDADES"]);
-            if (DataRecord.HasColumn(row, "VENTA_NETA"))
-                VENTA_NETA = Convert.ToString(row["VENTA_NETA"]);
-            if (DataRecord.HasColumn(row, "PRODUCTO"))
-                PRODUCTO = Convert.ToString(row["PRODUCTO"]);
-            if (DataRecord.HasColumn(row, "FechaRegistro"))
-                FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (DataRecord.HasColumn(row, "FechaModificacion"))
-                FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-
+            PAIS = row.ToString("PAIS");
+            PERIODO = row.ToString("PERIODO");
+            ZONA = row.ToString("ZONA");
+            CUENTA = row.ToString("CUENTA");
+            CUV = row.ToString("CUV");
+            TIPO_OFETA = row.ToString("TIPO_OFETA");
+            UNIDADES = row.ToString("UNIDADES");
+            VENTA_NETA = row.ToString("VENTA_NETA");
+            PRODUCTO = row.ToString("PRODUCTO");
+            FechaRegistro = row.ToDateTime("FechaRegistro");
+            FechaModificacion = row.ToDateTime("FechaModificacion");
             Descripcion = DataRecord.GetColumn<string>(row, "Descripcion");
             Marca = DataRecord.GetColumn<string>(row, "Marca");
             Categoria = DataRecord.GetColumn<string>(row, "Categoria");

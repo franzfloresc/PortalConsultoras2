@@ -28,21 +28,13 @@ namespace Portal.Consultoras.Entities
 
         public BEResumenCampania(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "MarcaID"))
-                MarcaID = Convert.ToInt32(row["MarcaID"]);
-            if (DataRecord.HasColumn(row, "Marca"))
-                Marca = Convert.ToString(row["Marca"]);
-            if (DataRecord.HasColumn(row, "ImporteTotal"))
-                ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-            
-            if (DataRecord.HasColumn(row, "SaldoPendiente"))
-                SaldoPendiente = Convert.ToDecimal(row["SaldoPendiente"]);
-            if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt32(row["Cantidad"]);
+            CampaniaID = row.ToInt32("CampaniaID");
+            ConsultoraID = row.ToInt32("ConsultoraID");
+            MarcaID = row.ToInt32("MarcaID");
+            Marca = row.ToString("Marca");
+            ImporteTotal = row.ToDecimal("ImporteTotal");
+            SaldoPendiente = row.ToDecimal("SaldoPendiente");
+            Cantidad = row.ToInt32("Cantidad");
         }
 
     }

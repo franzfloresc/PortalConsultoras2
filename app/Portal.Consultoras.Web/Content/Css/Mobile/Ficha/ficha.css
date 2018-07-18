@@ -122,6 +122,12 @@
     text-decoration: none;
 }
 
+.precio_producto .subprecio {
+    font-weight: 700;
+    margin-left: 78px;
+    font-size: 14px;
+}
+
 .gana_precio_producto {
     border-left: 1px solid #cacaca;
 }
@@ -271,7 +277,7 @@
 .tono_select_opt {
     border: none;
     height: auto;
-    background: url('/Content/Images/mobile/Esika/down-arrow.svg');
+    background: url('/Content/Images/mobile/Esika/right-arrow.svg');
     background-position: right 15px center;
     background-repeat: no-repeat;
     background-size: 13px;
@@ -281,6 +287,16 @@
     border: 1px solid #fd0202;
     display: block;
     font-weight: bold;
+}
+.tono_no_seleccionado .texto_sin_tono {
+    color: #000;
+    border: 1px solid #e81c36;
+    border-radius: 3px;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
 }
 
 
@@ -299,6 +315,7 @@
 
 .texto_sin_tono {
     border: 1px solid #000;
+    border-radius: 4px;
 }
 
 .texto_tono_seleccionado {
@@ -340,8 +357,55 @@
     cursor: pointer
 }
 
-/* Fin Seleccionar tono*/
+.tono_selecionado {
+    border: solid 1px #000000;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 15px 0px 5px 0px;
+}
 
+.tono_selecionado_item{
+    margin:14px 0 0 0;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.tono_selecionado_item:first-child {
+    margin: 0 0 0 0;
+}
+
+.tono_selecionado_item li{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.imagen_selecionado img{
+    width: 30px;
+    height: 30px;
+}
+
+.titulo_selecionado{
+    font-size: 13px;
+    font-weight: bold;
+    padding-left: 10px
+}
+.btn_cambiar_opciones {
+    font-size: 13px;
+    font-weight: bold;
+    padding-right: 5px;
+    text-align: right;
+    display: inherit;
+    margin-top: 20px;
+    text-decoration: underline;
+}
+
+.btn_cambiar_opciones img {
+    width: 10px;
+    display: inline-block;
+    margin-top: 1px;
+    margin-left: 4px;
+}
+/* Fin Seleccionar tono*/
 /* Tabs */
 .tabs ul.tabs {
     padding: 0;
@@ -398,16 +462,16 @@
 }
 
 /* fin Tabs */
-
-.content_producto_compuesto::after{
-    content:"";
-    clear:both;
+.content_producto_compuesto::after {
+    content: "";
+    clear: both;
     display: block;
 }
 
 .box-container {
     margin-top: -125px;
 }
+
 .nombre_detalle_producto_tono {
     font-weight:bold;
     padding-bottom: 10px;
@@ -442,4 +506,40 @@
 
 .ficha_tabs {
     border-top: 1px solid #ccc;
+}
+
+.btn_agregar_ficha_producto, .content_cantidad_ficha_producto {
+    border-radius: 4px;
+}
+
+.cantidad_menos_home {
+    border-radius: 4px 0px 0px 4px;
+}
+
+.cantidad_mas_home {
+    border-radius: 0px 4px 4px 0px;
+}
+
+.popover_texto li:last-child {
+    font-size: 13px;
+    font-weight: bold;
+    line-height: normal;
+    width: 87%;
+    padding: 0;
+}
+
+.ico_alerta i {
+    color: #e81c36;
+    border: 1px solid #e81c36;
+    display: inline-block;
+    border-radius: 50%;
+    height: 18px;
+    width: 18px;
+    text-align: center;
+    font-size: 12px;
+    position: relative;
+    line-height: 16px;
+    font-style: normal;
+    font-weight: bold;
+    letter-spacing: -1px;
 }

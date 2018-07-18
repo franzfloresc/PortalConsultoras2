@@ -1302,10 +1302,12 @@
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
     <Content Include="Content\Css\Mobile\Contenedor\Index.css" />
     <Content Include="Content\Css\Mobile\Contenedor\carrusel.individual.css" />
+    <Content Include="Content\Css\Mobile\Ficha\PopoverTooltip.css" />
     <Content Include="Content\Css\Mobile\Ficha\RedesSociales.css" />
     <Content Include="Content\Css\Mobile\Ficha\Carrusel.css" />
     <Content Include="Content\Css\Mobile\Ficha\ficha.css" />
     <Content Include="Content\Css\Mobile\Lanzamientos\Detalle.css" />
+    <Content Include="Content\Css\Mobile\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\ConfirmarDatos.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\Gnd-Flotante.css" />

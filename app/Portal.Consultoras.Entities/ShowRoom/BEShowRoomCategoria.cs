@@ -19,14 +19,10 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         public BEShowRoomCategoria(IDataRecord row)
         {
-            if (row.HasColumn("CategoriaId"))
-                CategoriaId = Convert.ToInt32(row["CategoriaId"]);
-            if (row.HasColumn("EventoID"))
-                EventoID = Convert.ToInt32(row["EventoID"]);
-            if (row.HasColumn("Codigo"))
-                Codigo = Convert.ToString(row["Codigo"]);
-            if (row.HasColumn("Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
+            CategoriaId = row.ToInt32("CategoriaId");
+            EventoID = row.ToInt32("EventoID");
+            Codigo = row.ToString("Codigo");
+            Descripcion = row.ToString("Descripcion");
         }
     }
 }

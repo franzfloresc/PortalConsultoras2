@@ -162,11 +162,9 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     componenteModel.Imagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + _paisISO, beEstrategiaProducto.ImagenProducto);
                 }
-                if (!string.IsNullOrEmpty(beEstrategiaProducto.NombreMarca))
-                {
-                    componenteModel.DescripcionMarca = beEstrategiaProducto.NombreMarca;
-                }
 
+                componenteModel.DescripcionMarca = beEstrategiaProducto.NombreMarca;
+                componenteModel.IdMarca = beEstrategiaProducto.IdMarca;
                 componenteModel.Orden = beEstrategiaProducto.Orden;
                 componenteModel.Grupo = beEstrategiaProducto.Grupo;
                 componenteModel.PrecioCatalogo = beEstrategiaProducto.Precio;
@@ -175,6 +173,7 @@ namespace Portal.Consultoras.Web.Providers
                 componenteModel.Cuv = Util.Trim(beEstrategiaProducto.CUV);
                 componenteModel.Cantidad = beEstrategiaProducto.Cantidad;
                 componenteModel.FactorCuadre = beEstrategiaProducto.FactorCuadre > 0 ? beEstrategiaProducto.FactorCuadre : 1;
+                
                 listaComponentesTemporal.Add(componenteModel);
                 idPk = componenteModel.Id;
             }

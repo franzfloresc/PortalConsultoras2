@@ -309,10 +309,10 @@ var EstrategiaAgregarModule = (function () {
             }
 
             if (isMobile()) {
-                ActualizarGanancia(data.DataBarra);
+                //ActualizarGanancia(data.DataBarra);
+                //if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.ShowRoom)
+                CargarCantidadProductosPedidos(true);
                 microefectoPedidoGuardado();
-                if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.ShowRoom)
-                    CargarCantidadProductosPedidos();
             } else {
                 CargarResumenCampaniaHeader(true);
             }
@@ -324,8 +324,8 @@ var EstrategiaAgregarModule = (function () {
                 if (typeof MostrarBarra != constantes.undefined())
                     MostrarBarra(data, "1");
 
-                if (typeof ActualizarGanancia != constantes.undefined())
-                    ActualizarGanancia(data.DataBarra);
+                //if (typeof ActualizarGanancia != constantes.undefined())
+                //    ActualizarGanancia(data.DataBarra);
 
                 if (typeof CargarCarouselEstrategias != constantes.undefined())
                     CargarCarouselEstrategias();
