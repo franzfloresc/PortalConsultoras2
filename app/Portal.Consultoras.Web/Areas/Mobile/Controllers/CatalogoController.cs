@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public JsonResult AutocompleteCorreo()
         {
             var term = (Request["term"] ?? "").ToString();
-            var lista = sessionManager.GetClientesByConsultora() ?? new List<BECliente>();
+            var lista = (List<BECliente>)sessionManager.GetClientesByConsultora() ?? new List<BECliente>();
             if (!lista.Any())
             {
                 using (ClienteServiceClient sv = new ClienteServiceClient())
