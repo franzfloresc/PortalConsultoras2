@@ -881,9 +881,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
             mensaje = ValidarMontoMaximo(usuario, pedidoDetalle, lstDetalle, out resultado);
 
             if (mensaje == string.Empty || resultado) { 
-                var item = lstDetalle.Where(x => x.PedidoDetalleID == pedidoDetalle.PedidoDetalleID).FirstOrDefault();
+                var item = lstDetalle.Where(x => x.CUV == pedidoDetalle.Producto.CUV  && x.ClienteID == pedidoDetalle.ClienteID ).FirstOrDefault();
+                var cantidadPedido = (item != null && pedidoDetalle.PedidoDetalleID > 0 ) ? item.Cantidad : 0;
                 var pedidoAuxiliar = new BEPedidoDetalleApp() {
-                    Cantidad = pedidoDetalle.Cantidad - item.Cantidad ,
+                    Cantidad = pedidoDetalle.Cantidad - cantidadPedido,
                     PaisID = pedidoDetalle.PaisID,
                     Producto = new BEProducto() {
                         TipoEstrategiaID  = pedidoDetalle.Producto.TipoEstrategiaID, 
