@@ -116,7 +116,19 @@
                             <div class="precio_valorizado">Valorizado en <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
                             {{/iff}}
 
-                            <div class="precio_venta_oferta">Precio para ti 
+                            <ul class="precio_venta_oferta_list">
+                                <li>Precio para ti</li>
+                                <li>
+                                    <span data-precio_venta_oferta="">
+                                        {{#IsNullOrEmpty this.ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
+                                    </span>
+                                    {{#each ListaPrecioNiveles as |itemNivel|}}
+                                    <span class="subprecio">{{itemNivel}}</span>
+                                    {{/each}}
+                                </li>
+                            </ul>
+
+                            @*<div class="precio_venta_oferta">Precio para ti 
                                 <b>
                                     <span data-precio_venta_oferta="">
                                         {{#IsNullOrEmpty this.ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
@@ -125,7 +137,7 @@
                                     <span class="subprecio">{{itemNivel}}</span>
                                     {{/each}}
                                 </b>
-                            </div>
+                            </div>*@
                             
 
                             @*<span class="subprecio">x1 s/.32</span>
