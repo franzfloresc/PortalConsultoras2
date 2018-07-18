@@ -58,45 +58,19 @@ namespace Portal.Consultoras.Entities
 
         public BEProductoComentarioDetalle(IDataRecord row)
         {
-            if (row.HasColumn("ProdComentarioDetalleId"))
-                ProdComentarioDetalleId = Convert.ToInt64(row["ProdComentarioDetalleId"]);
-
-            if (row.HasColumn("ProdComentarioId"))
-                ProdComentarioId = Convert.ToInt32(row["ProdComentarioId"]);
-
-            if (row.HasColumn("Valorizado"))
-                Valorizado = Convert.ToInt16(row["Valorizado"]);
-
-            if (row.HasColumn("Recomendado"))
-                Recomendado = Convert.ToBoolean(row["Recomendado"]);
-
-            if (row.HasColumn("Comentario"))
-                Comentario = Convert.ToString(row["Comentario"]);
-
-            if (row.HasColumn("CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-
-            if (row.HasColumn("CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-
-            if (row.HasColumn("FechaRegistro"))
-                FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-
-            if (row.HasColumn("FechaAprobacion"))
-                FechaAprobacion = Convert.ToDateTime(row["FechaAprobacion"]);
-
-            if (row.HasColumn("CodTipoOrigen"))
-                CodTipoOrigen = Convert.ToInt32(row["CodTipoOrigen"]);
-
-            if (row.HasColumn("Estado"))
-                Estado = Convert.ToInt16(row["Estado"]);
-
-            if (row.HasColumn("URLFotoConsultora"))
-                URLFotoConsultora = Convert.ToString(row["URLFotoConsultora"]);
-
-            if (row.HasColumn("NombreConsultora"))
-                NombreConsultora = Convert.ToString(row["NombreConsultora"]);
-
+            ProdComentarioDetalleId = row.ToInt64("ProdComentarioDetalleId");
+            ProdComentarioId = row.ToInt32("ProdComentarioId");
+            Valorizado = row.ToInt16("Valorizado");
+            Recomendado = row.ToBoolean("Recomendado");
+            Comentario = row.ToString("Comentario");
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            CampaniaID = row.ToInt32("CampaniaID");
+            FechaRegistro = row.ToDateTime("FechaRegistro");
+            FechaAprobacion = row.ToDateTime("FechaAprobacion");
+            CodTipoOrigen = row.ToInt32("CodTipoOrigen");
+            Estado = row.ToInt16("Estado");
+            URLFotoConsultora = row.ToString("URLFotoConsultora");
+            NombreConsultora = row.ToString("NombreConsultora");
             if (row.HasColumn("TotalFilas"))
                 RowsCount = Convert.ToInt32(row["TotalFilas"]);
         }

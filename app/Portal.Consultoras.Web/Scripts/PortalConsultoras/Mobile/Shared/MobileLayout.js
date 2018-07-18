@@ -818,6 +818,7 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
         url: urlGetCantidadProductos,
         dataType: 'json',
         data: JSON.stringify({ soloCantidad: true }),
+        cache: false,
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {

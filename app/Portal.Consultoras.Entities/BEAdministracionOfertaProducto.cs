@@ -23,12 +23,9 @@ namespace Portal.Consultoras.Entities
 
         public BEAdministracionOfertaProducto(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "OfertaAdmID"))
-                OfertaAdmID = Convert.ToInt32(row["OfertaAdmID"]);
-            if (DataRecord.HasColumn(row, "Correos"))
-                Correos = Convert.ToString(row["Correos"]);
-            if (DataRecord.HasColumn(row, "StockMinimo"))
-                StockMinimo = Convert.ToInt32(row["StockMinimo"]);
+            OfertaAdmID = row.ToInt32("OfertaAdmID");
+            Correos = row.ToString("Correos");
+            StockMinimo = row.ToInt32("StockMinimo");
         }
     }
 }

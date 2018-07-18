@@ -35,29 +35,17 @@ namespace Portal.Consultoras.Entities
         public BEBelcorpResponde() { }
         public BEBelcorpResponde(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "PaisID"))
-                PaisID = Convert.ToInt32(row["PaisID"]);
-            if (DataRecord.HasColumn(row, "Telefono1"))
-                Telefono1 = Convert.ToString(row["Telefono1"]);
-            if (DataRecord.HasColumn(row, "Telefono2"))
-                Telefono2 = Convert.ToString(row["Telefono2"]);
-            if (DataRecord.HasColumn(row, "Escribenos"))
-                Escribenos = Convert.ToString(row["Escribenos"]);
-            if (DataRecord.HasColumn(row, "EscribenosURL"))
-                EscribenosURL = Convert.ToString(row["EscribenosURL"]);
-            if (DataRecord.HasColumn(row, "Chat"))
-                Chat = Convert.ToString(row["Chat"]);
-            if (DataRecord.HasColumn(row, "ChatURL"))
-                ChatURL = Convert.ToString(row["ChatURL"]);
-            if (DataRecord.HasColumn(row, "ParametroPais"))
-                ParametroPais = Convert.ToBoolean(row["ParametroPais"]);
-            if (DataRecord.HasColumn(row, "ParametroCodigoConsultora"))
-                ParametroCodigoConsultora = Convert.ToBoolean(row["ParametroCodigoConsultora"]);
-
-            if (DataRecord.HasColumn(row, "Correo"))
-                Correo = Convert.ToString(row["Correo"]);
-            if (DataRecord.HasColumn(row, "CorreoBcc"))
-                CorreoBcc = Convert.ToString(row["CorreoBcc"]);
+            PaisID = row.ToInt32("PaisID");
+            Telefono1 = row.ToString("Telefono1");
+            Telefono2 = row.ToString("Telefono2");
+            Escribenos = row.ToString("Escribenos");
+            EscribenosURL = row.ToString("EscribenosURL");
+            Chat = row.ToString("Chat");
+            ChatURL = row.ToString("ChatURL");
+            ParametroPais = row.ToBoolean("ParametroPais");
+            ParametroCodigoConsultora = row.ToBoolean("ParametroCodigoConsultora");
+            Correo = row.ToString("Correo");
+            CorreoBcc = row.ToString("CorreoBcc");
         }
     }
 }

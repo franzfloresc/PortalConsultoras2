@@ -45,26 +45,16 @@ namespace Portal.Consultoras.Entities
 
         public BEConsultoraWS(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (DataRecord.HasColumn(row, "NombreCompleto"))
-                NombreCompleto = Convert.ToString(row["NombreCompleto"]);
-            if (DataRecord.HasColumn(row, "Direccion"))
-                Direccion = Convert.ToString(row["Direccion"]);
-            if (DataRecord.HasColumn(row, "Email"))
-                Email = Convert.ToString(row["Email"]);
-            if (DataRecord.HasColumn(row, "Telefono"))
-                Telefono = Convert.ToString(row["Telefono"]);
-            if (DataRecord.HasColumn(row, "Territorio"))
-                Territorio = Convert.ToString(row["Territorio"]);
-            if (DataRecord.HasColumn(row, "EstadoActividad"))
-                EstadoActividad = Convert.ToString(row["EstadoActividad"]);
-            if (DataRecord.HasColumn(row, "MontoSaldoActual"))
-                MontoSaldoActual = Convert.ToDecimal(row["MontoSaldoActual"]);
-            if (DataRecord.HasColumn(row, "AutorizaPedido"))
-                AutorizaPedido = Convert.ToString(row["AutorizaPedido"]);
-            if (DataRecord.HasColumn(row, "NroDocumentoConsultora"))
-                NroDocumentoConsultora = Convert.ToString(row["NroDocumentoConsultora"]);
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            NombreCompleto = row.ToString("NombreCompleto");
+            Direccion = row.ToString("Direccion");
+            Email = row.ToString("Email");
+            Telefono = row.ToString("Telefono");
+            Territorio = row.ToString("Territorio");
+            EstadoActividad = row.ToString("EstadoActividad");
+            MontoSaldoActual = row.ToDecimal("MontoSaldoActual");
+            AutorizaPedido = row.ToString("AutorizaPedido");
+            NroDocumentoConsultora = row.ToString("NroDocumentoConsultora");
         }
     }
 }

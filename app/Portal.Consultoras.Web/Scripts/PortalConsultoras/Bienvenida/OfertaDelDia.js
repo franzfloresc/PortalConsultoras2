@@ -338,7 +338,6 @@ $(document).ready(function () {
         data.Simbolo = variablesPortal.SimboloMoneda;
         data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
         data.lista = AsignarClaseCssAPalabraGratisDesktop(data.ListaOferta);
-        delete data.ListaOferta;
         data.prod = {};
         data.SoloUno = false;
         if (data.lista.length > 0) {

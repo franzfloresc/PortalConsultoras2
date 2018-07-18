@@ -41,30 +41,18 @@ namespace Portal.Consultoras.Entities
 
         public BEComprobantePercepcionDetalle(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "IdComprobantePercepcionDetalle"))
-                IdComprobantePercepcionDetalle = Convert.ToInt32(row["IdComprobantePercepcionDetalle"]);
-            if (DataRecord.HasColumn(row, "TipoDocumento"))
-                TipoDocumento = Convert.ToString(row["TipoDocumento"]);
-            if (DataRecord.HasColumn(row, "NumeroDocumentoSerie"))
-                NumeroDocumentoSerie = Convert.ToString(row["NumeroDocumentoSerie"]);
-            if (DataRecord.HasColumn(row, "NumeroDocumentoCorrelativo"))
-                NumeroDocumentoCorrelativo = Convert.ToString(row["NumeroDocumentoCorrelativo"]);
-            if (DataRecord.HasColumn(row, "FechaEmisionDocumento"))
-                FechaEmisionDocumento = Convert.ToDateTime(row["FechaEmisionDocumento"]);
-            if (DataRecord.HasColumn(row, "Monto"))
-                Monto = Convert.ToDecimal(row["Monto"]);
-            if (DataRecord.HasColumn(row, "PorcentajePercepcion"))
-                PorcentajePercepcion = Convert.ToDecimal(row["PorcentajePercepcion"]);
-            if (DataRecord.HasColumn(row, "ImportePercepcion"))
-                ImportePercepcion = Convert.ToDecimal(row["ImportePercepcion"]);
-            if (DataRecord.HasColumn(row, "MontoTotal"))
-                MontoTotal = Convert.ToDecimal(row["MontoTotal"]);
-            if (DataRecord.HasColumn(row, "EstadoActivo"))
-                EstadoActivo = Convert.ToInt32(row["EstadoActivo"]);
-            if (DataRecord.HasColumn(row, "PaisID"))
-                PaisID = Convert.ToInt32(row["PaisID"]);
-            if (DataRecord.HasColumn(row, "IdComprobantePercepcion"))
-                IdComprobantePercepcion = Convert.ToInt32(row["IdComprobantePercepcion"]);
+            IdComprobantePercepcionDetalle = row.ToInt32("IdComprobantePercepcionDetalle");
+            TipoDocumento = row.ToString("TipoDocumento");
+            NumeroDocumentoSerie = row.ToString("NumeroDocumentoSerie");
+            NumeroDocumentoCorrelativo = row.ToString("NumeroDocumentoCorrelativo");
+            FechaEmisionDocumento = row.ToDateTime("FechaEmisionDocumento");
+            Monto = row.ToDecimal("Monto");
+            PorcentajePercepcion = row.ToDecimal("PorcentajePercepcion");
+            ImportePercepcion = row.ToDecimal("ImportePercepcion");
+            MontoTotal = row.ToDecimal("MontoTotal");
+            EstadoActivo = row.ToInt32("EstadoActivo");
+            PaisID = row.ToInt32("PaisID");
+            IdComprobantePercepcion = row.ToInt32("IdComprobantePercepcion");
         }
     }
 }

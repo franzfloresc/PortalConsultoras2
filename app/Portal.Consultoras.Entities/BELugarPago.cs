@@ -40,28 +40,17 @@ namespace Portal.Consultoras.Entities
 
         public BELugarPago(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "LugarPagoID"))
-                LugarPagoID = Convert.ToInt32(row["LugarPagoID"]);
-            if (DataRecord.HasColumn(row, "PaisID"))
-                PaisID = Convert.ToInt32(row["PaisID"]);
-            if (DataRecord.HasColumn(row, "PaisNombre"))
-                PaisNombre = Convert.ToString(row["PaisNombre"]);
-            if (DataRecord.HasColumn(row, "NombreCorto"))
-                NombreCorto = Convert.ToString(row["NombreCorto"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "Nombre"))
-                Nombre = Convert.ToString(row["Nombre"]);
-            if (DataRecord.HasColumn(row, "UrlSitio"))
-                UrlSitio = Convert.ToString(row["UrlSitio"]);
-            if (DataRecord.HasColumn(row, "ArchivoLogo"))
-                ArchivoLogo = Convert.ToString(row["ArchivoLogo"]);
-            if (DataRecord.HasColumn(row, "ArchivoInstructivo"))
-                ArchivoInstructivo = Convert.ToString(row["ArchivoInstructivo"]);
-            if (DataRecord.HasColumn(row, "TextoPago"))
-                TextoPago = Convert.ToString(row["TextoPago"]);
-            if (DataRecord.HasColumn(row, "Posicion"))
-                Posicion = Convert.ToInt32(row["Posicion"]);
+            LugarPagoID = row.ToInt32("LugarPagoID");
+            PaisID = row.ToInt32("PaisID");
+            PaisNombre = row.ToString("PaisNombre");
+            NombreCorto = row.ToString("NombreCorto");
+            ConsultoraID = row.ToInt64("ConsultoraID");
+            Nombre = row.ToString("Nombre");
+            UrlSitio = row.ToString("UrlSitio");
+            ArchivoLogo = row.ToString("ArchivoLogo");
+            ArchivoInstructivo = row.ToString("ArchivoInstructivo");
+            TextoPago = row.ToString("TextoPago");
+            Posicion = row.ToInt32("Posicion");
         }
     }
 }
