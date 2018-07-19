@@ -9,7 +9,6 @@ using Portal.Consultoras.Web.ServiceAsesoraOnline;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Common;
-using System;
 using AutoMapper;
 
 namespace Portal.Consultoras.Web.Providers

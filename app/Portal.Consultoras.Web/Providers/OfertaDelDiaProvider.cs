@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<ServiceOferta.BEEstrategia> GetOfertas(UsuarioModel model)
         {
-            List<ServiceOferta.BEEstrategia> ofertasDelDia;
+            List<ServiceOferta.BEEstrategia> ofertasDelDia = null;
             try
             {
                 var entidad = new ServiceOferta.BEEstrategia
@@ -49,10 +49,27 @@ namespace Portal.Consultoras.Web.Providers
                     CodigoTipoEstrategia = Constantes.TipoEstrategiaCodigo.OfertaDelDia
                 };
 
-                using (var osc = new OfertaServiceClient())
+                if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.OfertaDelDia))
                 {
-                    ofertasDelDia = osc.GetEstrategiaODD(entidad, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
+                    var fechaInicio = (DateTime)DateTime.Now - (DateTime)model.FechaInicioCampania.Date;
+                    var diaInicio = DateTime.Now.Date.Subtract(model.FechaInicioCampania.Date).Days;
+                    string pathOfertaDelDia = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasDelDia, 
+                        model.CodigoISO, 
+                        Constantes.ConfiguracionPais.OfertaDelDia, 
+                        model.CampaniaID, 
+                        model.CodigoConsultora,
+                        fechaInicio.Days);
+
                 }
+                else
+                {
+                    using (var osc = new OfertaServiceClient())
+                    {
+                        ofertasDelDia = osc.GetEstrategiaODD(entidad, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
+                    }
+                }
+
+
             }
             catch (Exception ex)
             {
