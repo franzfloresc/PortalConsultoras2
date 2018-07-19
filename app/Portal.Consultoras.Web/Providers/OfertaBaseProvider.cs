@@ -22,9 +22,9 @@ namespace Portal.Consultoras.Web.Providers
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<List<BEEstrategia>> ObtenerOfertasDesdeApi(string path)
+        public async Task<List<ServiceOferta.BEEstrategia>> ObtenerOfertasDesdeApi(string path)
         {
-            var estrategias = new List<BEEstrategia>();
+            var estrategias = new List<ServiceOferta.BEEstrategia>();
             var httpResponse = await httpClient.GetAsync(path);
 
             if (httpResponse.IsSuccessStatusCode)
@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Web.Providers
                 foreach (var item in list)
                 {
 
-                    BEEstrategia estrategia = new BEEstrategia
+                    ServiceOferta.BEEstrategia estrategia = new ServiceOferta.BEEstrategia
                     {
                         CampaniaID= item.codigoCampania,
                         CodigoEstrategia = item.codigoEstrategia,
@@ -62,7 +62,7 @@ namespace Portal.Consultoras.Web.Providers
                         TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId),
                         TipoEstrategiaImagenMostrar = 6,
                     };
-                    estrategia.TipoEstrategia = new BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
+                    estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
                     estrategias.Add(estrategia);
                 }
             }

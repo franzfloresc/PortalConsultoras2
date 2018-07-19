@@ -249,7 +249,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 Task.WhenAll(taskApi);
 
-                model = taskApi.Result;
+                //model = taskApi.Result;
             }
             catch (Exception ex)
             {
