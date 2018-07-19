@@ -487,6 +487,7 @@ var EstrategiaAgregarModule = (function () {
         EstrategiaObtenerObj: getEstrategia,
         GetOrigenPedidoWeb: getOrigenPedidoWeb,
         AdicionarCantidad: adicionarCantidad,
-        DisminuirCantidad: disminuirCantidad
+        DisminuirCantidad: disminuirCantidad,
+        ElementosDiv: elementosDiv
     };
 })();
