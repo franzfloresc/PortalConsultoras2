@@ -364,7 +364,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     listEstrategia = osc.GetEstrategiasPedido(entidad).ToList();
                 }
-
+                //aqui va RD Implemenacion + tono
                 if (campaniaId == userData.CampaniaID)
                 {
                     if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas
