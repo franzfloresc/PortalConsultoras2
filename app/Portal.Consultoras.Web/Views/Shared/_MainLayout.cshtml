@@ -11,7 +11,27 @@
 
     <title>Belcorp | Portal Consultoras</title>
 
+    <script type="text/javascript">
+    dataLayer = [{
+        'campana': '@ViewBag.CampaniaCodigo',
+        'segmento': '@ViewBag.SegmentoAnalytics',
+        'edad': '@ViewBag.EdadAnalytics',
+        'zona': '@ViewBag.ZonaAnalytics',
+        'pais': '@ViewBag.PaisAnalytics',
+        'rol': '@ViewBag.esConsultoraLiderAnalytics',
+        'region': '@ViewBag.RegionAnalytics',
+        'seccion': '@ViewBag.SeccionAnalytics',
+        'codigoconsultora': '@ViewBag.CodigoConsultoraDL',
+        'periodo': '@ViewBag.PeriodoAnalytics',
+        'segmentoconstancia': '@ViewBag.SegmentoConstancia',
+        'socianivel': '@ViewBag.DescripcionNivelAnalytics',
+        'semana-periodo': '@ViewBag.SemanaAnalytics',
+        'inscripcionEPM': '@ViewBag.EstadoInscripcionEpm'
+    }];
+    </script>
+
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
 
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900" rel="stylesheet" type="text/css">
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
@@ -100,7 +120,9 @@
     }
 </head>
 <body>
-    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display: none; visibility: hidden;"></iframe>
+    </noscript>
 
     @if (ViewBag.PaisesConTrackingJetlore == "1")
     {
