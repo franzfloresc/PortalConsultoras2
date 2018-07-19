@@ -77,13 +77,13 @@ namespace Portal.Consultoras.Web.Controllers
                     switch (sidx)
                     {
                         case "CodigoSAP":
-                            items = lst.OrderBy(x => x.CodigoSAP);
+                            items = lst.OrderByDescending(x => x.CodigoSAP);
                             break;
                         case "DescripcionOriginal":
-                            items = lst.OrderBy(x => x.DescripcionOriginal);
+                            items = lst.OrderByDescending(x => x.DescripcionOriginal);
                             break;
                         case "Descripcion":
-                            items = lst.OrderBy(x => x.Descripcion);
+                            items = lst.OrderByDescending(x => x.Descripcion);
                             break;
                     }
                 }

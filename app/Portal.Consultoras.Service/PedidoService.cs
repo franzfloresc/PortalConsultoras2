@@ -2288,6 +2288,10 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoAppBusinessLogic.GetConfiguracionOfertaFinal(usuario);
         }
+        public List<BEProducto> GetProductoSugerido(BEProductoAppBuscar productoBuscar)
+        {
+            return _pedidoAppBusinessLogic.GetProductoSugerido(productoBuscar);
+        }
         #endregion
 
         public void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario)
