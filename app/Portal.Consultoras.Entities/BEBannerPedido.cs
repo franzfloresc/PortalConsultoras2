@@ -62,18 +62,10 @@ namespace Portal.Consultoras.Entities
             Archivo = row.ToString("Archivo");
             Url = row.ToString("Url");
             Posicion = row.ToInt32("Posicion");
-            if (DataRecord.HasColumn(row, "TipoUrl"))
-                TipoUrl = Convert.ToString(row["TipoUrl"]);
-            else
-                TipoUrl = string.Empty;
-            if (DataRecord.HasColumn(row, "UsuarioCreacion"))
-                UsuarioCreacion = Convert.ToString(row["UsuarioCreacion"]);
-            else
-                UsuarioCreacion = string.Empty;
-            if (DataRecord.HasColumn(row, "UsuarioModificacion"))
-                UsuarioModificacion = Convert.ToString(row["UsuarioModificacion"]);
-            else
-                UsuarioModificacion = string.Empty;
+            
+            TipoUrl = row.ToString("TipoUrl", string.Empty);
+            UsuarioCreacion = row.ToString("UsuarioCreacion", string.Empty);
+            UsuarioModificacion = row.ToString("UsuarioModificacion", string.Empty);
         }
     }
 }

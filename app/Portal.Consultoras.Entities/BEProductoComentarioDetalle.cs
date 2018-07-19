@@ -71,8 +71,7 @@ namespace Portal.Consultoras.Entities
             Estado = row.ToInt16("Estado");
             URLFotoConsultora = row.ToString("URLFotoConsultora");
             NombreConsultora = row.ToString("NombreConsultora");
-            if (row.HasColumn("TotalFilas"))
-                RowsCount = Convert.ToInt32(row["TotalFilas"]);
+            RowsCount = row.ToInt32("TotalFilas");
         }
     }
 }
