@@ -310,7 +310,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     }
                      
                 }
-
             }
             catch (Exception ex)
             {
@@ -628,18 +627,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
         }
 
-        public BEPedidoDetalleAppResult DeshacerReserva(BEUsuario usuario)
+        public BEPedidoDetalleAppResult DeshacerReserva(BEUsuario usuario, BEPedidoWeb pedido = null)
         {
             var mensaje = string.Empty;
 
             try
             {
-                nombreServicio = "DeshacerReserva";
-                LogPerformance("Inicio");
-
                 //Obtener pedido
-                var pedido = _pedidoWebBusinessLogic.GetPedidoWebByCampaniaConsultora(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
-                LogPerformance("GetPedidoWebByCampaniaConsultora");
+                pedido = pedido ?? _pedidoWebBusinessLogic.GetPedidoWebByCampaniaConsultora(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
 
                 //verificapedidoValidado
                 if (!(pedido.EstadoPedido == Constantes.EstadoPedido.Procesado && !pedido.ModificaPedidoReservado && !pedido.ValidacionAbierta))
@@ -647,7 +642,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 //Deshacer Pedido 
                 mensaje = _reservaBusinessLogic.DeshacerPedidoValidado(usuario, Constantes.EstadoPedido.PedidoValidado);
-                LogPerformance("DeshacerPedidoValidado");
                 if (mensaje != string.Empty) return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_DESHACER_PEDIDO, mensaje);
 
                 return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.SUCCESS);
@@ -800,7 +794,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
         }
 
-        public BEUsuario GetConfiguracionOfertaFinal(BEUsuario usuario)
+        public BEUsuario GetConfiguracionOfertaFinalCarrusel(BEUsuario usuario)
         {
             try
             {
@@ -818,6 +812,30 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
 
             return usuario;
+        }
+
+        public BEPedidoDetalleAppResult InsertOfertaFinalCarrusel(BEPedidoDetalleApp pedidoDetalle)
+        {
+            try
+            {
+                var usuario = pedidoDetalle.Usuario;
+
+                //Obtener  Cabecera 
+                var pedido = _pedidoWebBusinessLogic.GetPedidoWebByCampaniaConsultora(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
+                var pedidoValidado = (pedido.EstadoPedido == Constantes.EstadoPedido.Procesado && !pedido.ModificaPedidoReservado && !pedido.ValidacionAbierta);
+                if (pedidoValidado)
+                {
+                    var resultDR = DeshacerReserva(usuario, pedido);
+                    if(resultDR.CodigoRespuesta != Constantes.PedidoAppValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(resultDR.CodigoRespuesta);
+                }
+
+                return Insert(pedidoDetalle);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, pedidoDetalle.Usuario.CodigoUsuario, pedidoDetalle.PaisID);
+                return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_INTERNO, ex.Message);
+            }
         }
 
         public List<BEProducto> GetProductoSugerido(BEProductoAppBuscar productoBuscar)

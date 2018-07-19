@@ -2399,10 +2399,16 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.InsertEstrategiaCarrusel(pedidoDetalle);
         }
 
-        public BEUsuario GetConfiguracionOfertaFinal(BEUsuario usuario)
+        public BEUsuario GetConfiguracionOfertaFinalCarrusel(BEUsuario usuario)
         {
-            return _pedidoAppBusinessLogic.GetConfiguracionOfertaFinal(usuario);
+            return _pedidoAppBusinessLogic.GetConfiguracionOfertaFinalCarrusel(usuario);
         }
+
+        public BEPedidoDetalleAppResult InsertOfertaFinalCarrusel(BEPedidoDetalleApp pedidoDetalle)
+        {
+            return _pedidoAppBusinessLogic.InsertOfertaFinalCarrusel(pedidoDetalle);
+        }
+
         public List<BEProducto> GetProductoSugerido(BEProductoAppBuscar productoBuscar)
         {
             return _pedidoAppBusinessLogic.GetProductoSugerido(productoBuscar);
