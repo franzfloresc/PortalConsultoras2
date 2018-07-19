@@ -1563,6 +1563,7 @@ namespace Portal.Consultoras.Web.Controllers
             var productosModel = new List<ProductoModel>();
             try
             {
+                model.CUV = Util.Trim(model.CUV);
                 #region ValidarProgramaNuevas
                 Enumeradores.ValidacionProgramaNuevas num = ValidarProgramaNuevas(model.CUV);
                 Session["CuvEsProgramaNuevas"] = false;
@@ -1643,8 +1644,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new ServiceODS.BEProducto();
 
-                var estrategias = (List<ServicePedido.BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<ServicePedido.BEEstrategia>();
-                var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new ServicePedido.BEEstrategia();
+                var estrategias = (List<ServiceOferta.BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<ServiceOferta.BEEstrategia>();
+                var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new ServiceOferta.BEEstrategia();
 
                 var observacionCuv = ObtenerObservacionCreditoCuv(userModel, cuvCredito);
 
@@ -1686,7 +1687,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, "cuv consulta  = " + model.CUV);
                 productosModel.Add(new ProductoModel { MarcaID = 0, CUV = "Ha ocurrido un Error. Vuelva a intentarlo.", TieneSugerido = 0 });
             }
 

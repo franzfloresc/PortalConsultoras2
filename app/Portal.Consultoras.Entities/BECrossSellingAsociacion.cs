@@ -38,30 +38,17 @@ namespace Portal.Consultoras.Entities
         public string EtiquetaPrecio { get; set; }
         public BECrossSellingAsociacion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CrossSellingAsociacionID"))
-                CrossSellingAsociacionID = Convert.ToInt32(row["CrossSellingAsociacionID"]);
-            if (DataRecord.HasColumn(row, "NroOrden"))
-                NroOrden = Convert.ToInt32(row["NroOrden"]);
-            if (DataRecord.HasColumn(row, "CodigoCampania"))
-                CodigoCampania = Convert.ToString(row["CodigoCampania"]);
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "PrecioOferta"))
-                PrecioOferta = Convert.ToDecimal(row["PrecioOferta"]);
-            if (DataRecord.HasColumn(row, "CUVAsociado"))
-                CUVAsociado = Convert.ToString(row["CUVAsociado"]);
-            if (DataRecord.HasColumn(row, "CUVAsociado2"))
-                CUVAsociado2 = Convert.ToString(row["CUVAsociado2"]);
-            if (DataRecord.HasColumn(row, "CodigoSegmento"))
-                CodigoSegmento = Convert.ToString(row["CodigoSegmento"]);
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "EtiquetaPrecio"))
-                EtiquetaPrecio = Convert.ToString(row["EtiquetaPrecio"]);
-            else
-                EtiquetaPrecio = string.Empty;
+            CrossSellingAsociacionID = row.ToInt32("CrossSellingAsociacionID");
+            NroOrden = row.ToInt32("NroOrden");
+            CodigoCampania = row.ToString("CodigoCampania");
+            CUV = row.ToString("CUV");
+            Descripcion = row.ToString("Descripcion");
+            PrecioOferta = row.ToDecimal("PrecioOferta");
+            CUVAsociado = row.ToString("CUVAsociado");
+            CUVAsociado2 = row.ToString("CUVAsociado2");
+            CodigoSegmento = row.ToString("CodigoSegmento");
+            CampaniaID = row.ToInt32("CampaniaID");
+            EtiquetaPrecio = row.ToString("EtiquetaPrecio", string.Empty);
         }
     }
 }
