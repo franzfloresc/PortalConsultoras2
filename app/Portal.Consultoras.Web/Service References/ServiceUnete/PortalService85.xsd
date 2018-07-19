@@ -2,6 +2,7 @@
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:complexType name="GestionaPostulanteModelSAC">
     <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoIso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
@@ -13,6 +14,8 @@
       <xs:element minOccurs="0" name="FuenteIngresoListAvailable" nillable="true" type="tns:ArrayOfFuenteIngresoModelSAC" />
       <xs:element minOccurs="0" name="MostrarPaso1y2SE" type="xs:int" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PDigital" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PTradicional" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="PrefijoISOPais" type="xs:int" />
       <xs:element minOccurs="0" name="page" type="xs:int" />
       <xs:element minOccurs="0" name="rows" type="xs:int" />
@@ -92,6 +95,7 @@
       <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MyProperty" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NroRegistros" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="NumDiasAprobadoFFVV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumDiasRechazado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
@@ -111,6 +115,7 @@
       <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoRechazo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoRechazoId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TituloPostulantesNuevasApp" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UrlContent" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UrlContentImage" nillable="true" type="xs:string" />

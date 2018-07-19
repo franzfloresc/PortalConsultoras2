@@ -9,6 +9,10 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
     public class BEZonasOpcionesVerificacion
     {
         [DataMember]
+        public bool Activo { get; set; }
+        [DataMember]
+        public int OrigenID { get; set; }
+        [DataMember]
         public int RegionID { get; set; }
         [DataMember]
         public int ZonaID { get; set; }
@@ -26,6 +30,8 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
 
         public BEZonasOpcionesVerificacion(IDataRecord row)
         {
+            Activo = row.ToBoolean("Activo");
+            OrigenID = row.ToInt32("OrigenID");
             RegionID = row.ToInt32("RegionID");
             ZonaID = row.ToInt32("ZonaID");
             OlvideContrasenya = row.ToBoolean("OlvideContrasenya");

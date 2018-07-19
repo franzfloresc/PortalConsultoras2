@@ -5792,7 +5792,13 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string FlagActivacionSuscripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FotoOriginalSinModificarField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FotoPerfilField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool FotoPerfilAnchaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string GPRBannerMensajeField;
@@ -5991,6 +5997,15 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ProgramaReconocimientoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double PromedioVentaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PuedeActualizarField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PuedeEnviarSMSField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RegionField;
@@ -7227,6 +7242,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FotoOriginalSinModificar {
+            get {
+                return this.FotoOriginalSinModificarField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FotoOriginalSinModificarField, value) != true)) {
+                    this.FotoOriginalSinModificarField = value;
+                    this.RaisePropertyChanged("FotoOriginalSinModificar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string FotoPerfil {
             get {
                 return this.FotoPerfilField;
@@ -7235,6 +7263,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.FotoPerfilField, value) != true)) {
                     this.FotoPerfilField = value;
                     this.RaisePropertyChanged("FotoPerfil");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool FotoPerfilAncha {
+            get {
+                return this.FotoPerfilAnchaField;
+            }
+            set {
+                if ((this.FotoPerfilAnchaField.Equals(value) != true)) {
+                    this.FotoPerfilAnchaField = value;
+                    this.RaisePropertyChanged("FotoPerfilAncha");
                 }
             }
         }
@@ -8093,6 +8134,45 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ProgramaReconocimientoField.Equals(value) != true)) {
                     this.ProgramaReconocimientoField = value;
                     this.RaisePropertyChanged("ProgramaReconocimiento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double PromedioVenta {
+            get {
+                return this.PromedioVentaField;
+            }
+            set {
+                if ((this.PromedioVentaField.Equals(value) != true)) {
+                    this.PromedioVentaField = value;
+                    this.RaisePropertyChanged("PromedioVenta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PuedeActualizar {
+            get {
+                return this.PuedeActualizarField;
+            }
+            set {
+                if ((this.PuedeActualizarField.Equals(value) != true)) {
+                    this.PuedeActualizarField = value;
+                    this.RaisePropertyChanged("PuedeActualizar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PuedeEnviarSMS {
+            get {
+                return this.PuedeEnviarSMSField;
+            }
+            set {
+                if ((this.PuedeEnviarSMSField.Equals(value) != true)) {
+                    this.PuedeEnviarSMSField = value;
+                    this.RaisePropertyChanged("PuedeEnviarSMS");
                 }
             }
         }
@@ -38675,6 +38755,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinal", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEUsuario> GetConfiguracionOfertaFinalAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/GetProductoSugeridoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEProducto[] GetProductoSugerido(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/GetProductoSugeridoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProducto[]> GetProductoSugeridoAsync(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLog", ReplyAction="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLogResponse")]
         int InsertPagoEnLineaResultadoLog(int paisId, Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog entidad);
         
@@ -41145,6 +41231,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEUsuario> GetConfiguracionOfertaFinalAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
             return base.Channel.GetConfiguracionOfertaFinalAsync(usuario);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEProducto[] GetProductoSugerido(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar) {
+            return base.Channel.GetProductoSugerido(productoBuscar);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProducto[]> GetProductoSugeridoAsync(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar) {
+            return base.Channel.GetProductoSugeridoAsync(productoBuscar);
         }
         
         public int InsertPagoEnLineaResultadoLog(int paisId, Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog entidad) {
