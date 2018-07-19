@@ -473,6 +473,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int ProgramaReconocimientoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double PromedioVentaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool PuedeActualizarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -620,7 +623,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool ZonaValidaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Web.ServicePedido.BEOfertaFinal _OfertaFinalField;
+        private Portal.Consultoras.Web.ServicePedido.BEOfertaFinal beOfertaFinalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool esConsultoraLiderField;
@@ -2610,6 +2613,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public double PromedioVenta {
+            get {
+                return this.PromedioVentaField;
+            }
+            set {
+                if ((this.PromedioVentaField.Equals(value) != true)) {
+                    this.PromedioVentaField = value;
+                    this.RaisePropertyChanged("PromedioVenta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool PuedeActualizar {
             get {
                 return this.PuedeActualizarField;
@@ -3247,14 +3263,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Web.ServicePedido.BEOfertaFinal _OfertaFinal {
+        public Portal.Consultoras.Web.ServicePedido.BEOfertaFinal beOfertaFinal {
             get {
-                return this._OfertaFinalField;
+                return this.beOfertaFinalField;
             }
             set {
-                if ((object.ReferenceEquals(this._OfertaFinalField, value) != true)) {
-                    this._OfertaFinalField = value;
-                    this.RaisePropertyChanged("_OfertaFinal");
+                if ((object.ReferenceEquals(this.beOfertaFinalField, value) != true)) {
+                    this.beOfertaFinalField = value;
+                    this.RaisePropertyChanged("beOfertaFinal");
                 }
             }
         }
@@ -39434,6 +39450,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinal", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEUsuario> GetConfiguracionOfertaFinalAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/GetProductoSugeridoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEProducto[] GetProductoSugerido(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/GetProductoSugeridoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProducto[]> GetProductoSugeridoAsync(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLog", ReplyAction="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLogResponse")]
         int InsertPagoEnLineaResultadoLog(int paisId, Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog entidad);
         
@@ -42088,6 +42110,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEUsuario> GetConfiguracionOfertaFinalAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
             return base.Channel.GetConfiguracionOfertaFinalAsync(usuario);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEProducto[] GetProductoSugerido(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar) {
+            return base.Channel.GetProductoSugerido(productoBuscar);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProducto[]> GetProductoSugeridoAsync(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar) {
+            return base.Channel.GetProductoSugeridoAsync(productoBuscar);
         }
         
         public int InsertPagoEnLineaResultadoLog(int paisId, Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog entidad) {

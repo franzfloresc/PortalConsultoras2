@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "PagoEnLinea");
 
             model.ListaMetodoPago = ObtenerListaMetodoPago();
-
+            model.PagoVisaModel = new PagoVisaModel();
             if (model.ListaMetodoPago.Count > 0)
             {
                 var metodoPagoPasarelaVisa = model.ListaMetodoPago.FirstOrDefault(p => p.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaVisa);
