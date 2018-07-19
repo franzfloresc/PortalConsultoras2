@@ -566,6 +566,7 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoWebDetalleModel.TipoPedido = !string.IsNullOrEmpty(bePedidoWebDetalle.TipoPedido)
                         ? bePedidoWebDetalle.TipoPedido : "";
                     pedidoWebDetalleModel.TipoEstrategiaID = bePedidoWebDetalle.TipoEstrategiaID;
+                    pedidoWebDetalleModel.TipoEstrategiaCodigo = bePedidoWebDetalle.TipoEstrategiaCodigo;
                     pedidoWebDetalleModel.Mensaje = bePedidoWebDetalle.Mensaje;
                     pedidoWebDetalleModel.TipoObservacion = bePedidoWebDetalle.TipoObservacion;
                 }
