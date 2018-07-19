@@ -286,6 +286,7 @@ body {
     height: 45px;
     position: relative;
     width: 25%;
+    border-radius: 4px;
 }
 
 .txt_menos {
@@ -342,6 +343,7 @@ body {
     line-height: 45px;
     text-align: center;
     width: 55%;
+    border-radius: 4px;
 }
 
 .btn_agregalo_desactivado {
@@ -769,7 +771,7 @@ body {
 .tono_select_opt {
     height: auto;
     margin-bottom: 0px;
-    background: url('/Content/Images/mobile/Esika/down-arrow.svg');
+    background: url('/Content/Images/mobile/Esika/right-arrow.svg');
     background-position: right 15px center;
     background-repeat: no-repeat;
     background-size: 13px;
@@ -781,6 +783,7 @@ body {
     border: 1px solid #fd0202;
     display: block;
     font-weight: bold;
+    border-radius: 4px;
 }
 
 .tono_no_seleccionado {
@@ -799,10 +802,11 @@ body {
 
 .texto_sin_tono {
     border: 1px solid black;
+    border-radius: 4px;
 }
 
 .tono_por_elegir {
-    background: url('/Content/Images/mobile/Esika/top-arrow.svg');
+    background: url('/Content/Images/mobile/Esika/right-arrow.svg');
     background-position: right 15px center;
     background-repeat: no-repeat;
     background-size: 13px;
@@ -849,12 +853,11 @@ body {
     border: none;
 }
 
-.content_tonos .tono_select_opt {
-    width: 270px;
-}
-
 .content_tonos {
-    margin-bottom: 45px;
+    padding-bottom: 45px;
+}
+.precio_valorizado{
+    margin-bottom:5px;
 }
 
 .dibujar_flecha_tonos::after {
@@ -889,8 +892,62 @@ body {
     -o-transform: rotate(50deg);
     transform: rotate(50deg);
 }
-/*Fin tonos*/
 
+
+.tonos_seleccionados {
+    border: solid 1px #000000;
+    border-radius: 4px;
+    padding: 15px;
+}
+
+.tonos_seleccionados_item{
+    margin:14px 0 0 0;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.tonos_seleccionados_item:first-child {
+    margin: 0 0 0 0;
+}
+
+.tonos_seleccionados_item li{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.imagen_seleccionado img{
+    width: 30px;
+    height: 30px;
+    display: block;
+}
+
+.titulo_selecionado{
+    font-size: 13px;
+    font-weight: bold;
+    padding-left: 10px
+}
+.btn_cambiar_opciones {
+    font-size: 13px;
+    font-weight: bold;
+    padding-right: 5px;
+    text-align: right;
+    display: inherit;
+    margin-top: 20px;
+    text-decoration: underline;
+}
+
+.btn_cambiar_opciones img {
+    width: 10px;
+    display: inline-block;
+    margin-top: 1px;
+    margin-left: 4px;
+}
+
+.una_opcion {
+    margin-top: 12px;
+    padding-right: 30px;
+}
+/*Fin tonos*/
 /* Tabs */
 .contenedor_ficha_tabs {
     display: inline-block;
@@ -1026,4 +1083,3 @@ ul.breadcumbs li a::before {
     margin-left: 1px;
 }
 /* fin breadcumbs*/
-
