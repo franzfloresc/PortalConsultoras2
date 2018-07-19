@@ -68,6 +68,9 @@ namespace Portal.Consultoras.ServiceContracts
         bool ActiveEmail(int paisID, string codigoUsuario, string iso, string email);
 
         [OperationContract]
+        BERespuestaActivarEmail ActivarEmail(int paisID, string codigoConsultora, string email);
+
+        [OperationContract]
         BEUsuario GetSesionUsuario(int paisID, string codigoUsuario);
 
         [OperationContract]
@@ -311,6 +314,15 @@ namespace Portal.Consultoras.ServiceContracts
         string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior);
 
         [OperationContract]
+        BERespuestaServicio ActualizarEmail(BEUsuario usuario, string correoNuevo);
+
+        [OperationContract]
+        BERespuestaServicio RegistrarEnvioSms(int paisId, string codigoUsuario, string codigoConsultora, int campaniaId, bool esMobile, string celularActual, string celularNuevo);
+
+        [OperationContract]
+        BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania);
+
+        [OperationContract]
         int EliminarUsuarioPostulante(string paisISO, string numeroDocumento);
 
         [OperationContract]
@@ -377,5 +389,12 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool GetConsultoraParticipaEnPrograma(int paisID, string codigoPrograma, string codigoConsultora, int campaniaID);
+
+        [OperationContract]
+        string GetActualizacionEmail(int paisID, string codigoUsuario);
+
+        [OperationContract]
+        string CancelarAtualizacionEmail(int paisID, string codigoUsuario);
+
     }
 }
