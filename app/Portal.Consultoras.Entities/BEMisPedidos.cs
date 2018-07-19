@@ -77,37 +77,18 @@ namespace Portal.Consultoras.Entities
             MensajeDelCliente = Convert.ToString(row["Mensaje"]);
             Estado = Convert.ToString(row["Estado"]);
             FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
-
-            if (DataRecord.HasColumn(row, "Campania"))
-                Campania = Convert.ToString(row["Campania"]);
-            if (DataRecord.HasColumn(row, "Leido"))
-                Leido = Convert.ToInt16(row["Leido"]);
-            if (DataRecord.HasColumn(row, "NumIteracion"))
-                NumIteracion = Convert.ToInt32(row["NumIteracion"]);
-            if (DataRecord.HasColumn(row, "CodigoUbigeo"))
-                CodigoUbigeo = Convert.ToString(row["CodigoUbigeo"]);
-
-            if (DataRecord.HasColumn(row, "FechaModificacion"))
-                FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-            if (DataRecord.HasColumn(row, "FlagMedio"))
-                FlagMedio = Convert.ToString(row["FlagMedio"]);
-            if (DataRecord.HasColumn(row, "FlagConsultora"))
-                FlagConsultora = Convert.ToBoolean(row["FlagConsultora"]);
-
-            if (DataRecord.HasColumn(row, "MContacto"))
-                MedioContacto = Convert.ToString(row["MContacto"]);
-            if (DataRecord.HasColumn(row, "PrecioTotal"))
-                PrecioTotal = Convert.ToDecimal(row["PrecioTotal"]);
-            if (DataRecord.HasColumn(row, "Marca"))
-                Marca = Convert.ToString(row["Marca"]);
-
-            if (DataRecord.HasColumn(row, "SaldoHoras"))
-                SaldoHoras = Convert.ToString(row["SaldoHoras"]);
-
-            if (DataRecord.HasColumn(row, "PedidoWebID"))
-                PedidoWebID = Convert.ToInt32(row["PedidoWebID"]);
-
-
+            Campania = row.ToString("Campania");
+            Leido = row.ToInt16("Leido");
+            NumIteracion = row.ToInt32("NumIteracion");
+            CodigoUbigeo = row.ToString("CodigoUbigeo");
+            FechaModificacion = row.ToDateTime("FechaModificacion");
+            FlagMedio = row.ToString("FlagMedio");
+            FlagConsultora = row.ToBoolean("FlagConsultora");
+            MedioContacto = row.ToString("MContacto");
+            PrecioTotal = row.ToDecimal("PrecioTotal");
+            Marca = row.ToString("Marca");
+            SaldoHoras = row.ToString("SaldoHoras");
+            PedidoWebID = row.ToInt32("PedidoWebID");
             DetallePedido = new List<BEMisPedidosDetalle>();
         }
     }

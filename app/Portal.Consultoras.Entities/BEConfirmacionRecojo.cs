@@ -41,35 +41,20 @@ namespace Portal.Consultoras.Entities
 
         public BEConfirmacionRecojo(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                Campania = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (DataRecord.HasColumn(row, " CodigoPlataforma"))
-                CodigoPlataforma = Convert.ToString(row["CodigoPlataforma"]);
-            if (DataRecord.HasColumn(row, "NumeroRecojo"))
-                NumeroRecojo = Convert.ToString(row["NumeroRecojo"]);
-            if (DataRecord.HasColumn(row, "NumeroPedido"))
-                NumeroPedido = Convert.ToString(row["NumeroPedido"]);
-            if (DataRecord.HasColumn(row, "FechaRecojo"))
-                FechaRecojo = Convert.ToDateTime(row["FechaRecojo"]);
-
-            if (DataRecord.HasColumn(row, "FechaEstimadoRecojo"))
-                FechaEstimadoRecojo = Convert.ToDateTime(row["FechaEstimadoRecojo"]);
-            if (DataRecord.HasColumn(row, "EstadoRecojoID"))
-                EstadoRecojo = Convert.ToInt32(row["EstadoRecojoID"]);
-            if (DataRecord.HasColumn(row, "CodigoTipoNovedadRecojo"))
-                CodigoTipoNovedadRecojo = Convert.ToString(row["CodigoTipoNovedadRecojo"]);
-            if (DataRecord.HasColumn(row, "Latitud"))
-                Latitud = Convert.ToString(row["Latitud"]);
-            if (DataRecord.HasColumn(row, "Longitud"))
-                Longitud = Convert.ToString(row["Longitud"]);
-            if (DataRecord.HasColumn(row, "Foto1"))
-                Foto1 = Convert.ToString(row["Foto1"]);
-            if (DataRecord.HasColumn(row, "Foto2"))
-                Foto2 = Convert.ToString(row["Foto2"]);
-            if (DataRecord.HasColumn(row, "PaisISO"))
-                PaisISO = Convert.ToString(row["PaisISO"]);
+            Campania = row.ToInt32("CampaniaID");
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            CodigoPlataforma = row.ToString("CodigoPlataforma");
+            NumeroRecojo = row.ToString("NumeroRecojo");
+            NumeroPedido = row.ToString("NumeroPedido");
+            FechaRecojo = row.ToDateTime("FechaRecojo");
+            FechaEstimadoRecojo = row.ToDateTime("FechaEstimadoRecojo");
+            EstadoRecojo = row.ToInt32("EstadoRecojoID");
+            CodigoTipoNovedadRecojo = row.ToString("CodigoTipoNovedadRecojo");
+            Latitud = row.ToString("Latitud");
+            Longitud = row.ToString("Longitud");
+            Foto1 = row.ToString("Foto1");
+            Foto2 = row.ToString("Foto2");
+            PaisISO = row.ToString("PaisISO");
         }
 
     }
