@@ -89,7 +89,6 @@ $(document).ready(function () {
         UrlActual: window.location.href.toLowerCase(),
         UrlValidarStockEstrategia: "Pedido/ValidarStockEstrategia",
         UrlAgregarProducto: "Pedido/AgregarProductoZE",
-        EsPaginaIntriga: (window.location.href.toLowerCase().indexOf("intriga") > 0),
         TipoOrigenPantallaODD: TipoOrigenPantallaODD,
         OrigenDesktopODD: OrigenDesktopODD //para Analytics
     };
@@ -111,7 +110,7 @@ $(document).ready(function () {
     };
 
     self.CargarODD = function () {
-        if (props.EsPaginaIntriga) {
+        if (isPagina("intriga")) {
             return false;
         }
 
