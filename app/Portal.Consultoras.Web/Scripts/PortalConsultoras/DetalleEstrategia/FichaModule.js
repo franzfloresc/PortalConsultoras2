@@ -576,3 +576,8 @@
         Inicializar: Inicializar
     };
 });
+
+//Funcion temporal hasta estandarizar RevistaDigital.js
+function RDPageInformativa() {
+    window.location = (isMobile() ? "/Mobile/" : "") + baseUrl + 'revistadigital/Informacion';
+}
