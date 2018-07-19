@@ -139,6 +139,11 @@ namespace Portal.Consultoras.Service
             return blUsuario.ActiveEmail(paisID, codigoUsuario, iso, email);
         }
 
+        public BERespuestaActivarEmail ActivarEmail(int paisID, string codigoConsultora, string email)
+        {
+            return new BLUsuario().ActivarEmail(paisID, codigoConsultora, email);
+        }
+
         public BEUsuario GetSesionUsuario(int paisID, string codigoUsuario)
         {
             var blUsuario = new BLUsuario();
@@ -208,7 +213,7 @@ namespace Portal.Consultoras.Service
         {
             var blUsuario = new BLUsuario();
             return blUsuario.UpdActualizarDatos(paisID, CodigoUsuario, Email, Celular, Telefono);
-        }
+        }   
 
         public string GetNroDocumentoConsultora(int paisID, string CodigoConsultora)
         {
@@ -719,6 +724,28 @@ namespace Portal.Consultoras.Service
             return blUsuario.ActualizarMisDatos(usuario, CorreoAnterior);
         }
 
+        public BERespuestaServicio ActualizarEmail(BEUsuario usuario, string correoNuevo)
+        {
+            return new BLUsuario().ActualizarEmail(usuario, correoNuevo);
+        }
+
+        public BERespuestaServicio RegistrarEnvioSms(
+            int paisId,
+            string codigoUsuario,
+            string codigoConsultora,
+            int campaniaId,
+            bool esMobile,
+            string celularActual,
+            string celularNuevo)
+        {
+            return _usuarioBusinessLogic.RegistrarEnvioSms(paisId, codigoUsuario, codigoConsultora, campaniaId, esMobile, celularActual, celularNuevo);
+        }
+
+        public BERespuestaServicio ConfirmarCelularPorCodigoSms(int paisId, string codigoUsuario, string codigoSms, int campania)
+        {
+            return _usuarioBusinessLogic.ConfirmarCelularPorCodigoSms(paisId, codigoUsuario, codigoSms, campania);
+        }
+
         public string AceptarContrato(BEUsuario usuario)
         {
             var blUsuario = new BLUsuario();
@@ -850,5 +877,18 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetConsultoraParticipaEnPrograma(paisID, codigoPrograma, codigoConsultora, campaniaID);
         }
+
+        public string GetActualizacionEmail(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetActualizacionEmail(paisID, codigoUsuario);
+        }
+
+        public string CancelarAtualizacionEmail(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.CancelarAtualizacionEmail(paisID, codigoUsuario);
+        }
+
     }
 }
