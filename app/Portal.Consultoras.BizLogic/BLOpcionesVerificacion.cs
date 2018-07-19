@@ -24,7 +24,7 @@ namespace Portal.Consultoras.BizLogic
             }
             if (OpcVeri == null) return null;
             OpcVeri.lstFiltros = new List<BEFiltrosOpcionesVerificacion>();
-            if (OpcVeri.IncluyeFiltros) OpcVeri.lstFiltros =  GetFiltrosOpcionesVerificacion(paisID, origenID) ?? new List<BEFiltrosOpcionesVerificacion>();
+            if (OpcVeri.IncluyeFiltros) OpcVeri.lstFiltros = GetFiltrosOpcionesVerificacion(paisID, origenID) ?? new List<BEFiltrosOpcionesVerificacion>();
             return OpcVeri;
         }
 

@@ -356,6 +356,12 @@
   <wsdl:message name="IPedidoService_GetEstrategiaCarrusel_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategiaCarruselResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetConfiguracionOfertaFinal_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionOfertaFinal" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetConfiguracionOfertaFinal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionOfertaFinalResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertPagoEnLineaResultadoLog_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertPagoEnLineaResultadoLog" />
   </wsdl:message>
@@ -2731,6 +2737,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaCarrusel" message="tns:IPedidoService_GetEstrategiaCarrusel_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaCarruselResponse" message="tns:IPedidoService_GetEstrategiaCarrusel_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionOfertaFinal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinal" message="tns:IPedidoService_GetConfiguracionOfertaFinal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalResponse" message="tns:IPedidoService_GetConfiguracionOfertaFinal_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertPagoEnLineaResultadoLog">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLog" message="tns:IPedidoService_InsertPagoEnLineaResultadoLog_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLogResponse" message="tns:IPedidoService_InsertPagoEnLineaResultadoLog_OutputMessage" />
@@ -4639,6 +4649,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetEstrategiaCarrusel">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaCarrusel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionOfertaFinal">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8360,6 +8379,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetEstrategiaCarrusel">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategiaCarrusel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionOfertaFinal">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
