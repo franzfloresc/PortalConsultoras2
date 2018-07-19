@@ -1,69 +1,130 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.SessionManager;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 
 namespace Portal.Consultoras.Web.WebPages
 {
     public partial class MailConfirmation : System.Web.UI.Page
     {
+        private ISessionManager sessionManager;
+        private readonly LogDynamoProvider logDynamoProvider;
+        private readonly List<string> listUrlCss;
+
+        public MailConfirmation()
+        {
+            sessionManager = SessionManager.SessionManager.Instance;
+            logDynamoProvider = new LogDynamoProvider();
+            listUrlCss = new List<string> {
+                "../Content/Css/Site/{0}/reset.css",
+                "../Content/Css/Site/{0}/style.css",
+                "../Content/Css/Site/{0}/mi-perfil.css",
+                "../Content/Css/Site/{0}/styleDefault.css",
+                "../Content/Css/ui.jquery/{0}/jquery-ui.css"
+            };
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Page.IsPostBack) return;
+
             try
             {
-                if (!Page.IsPostBack)
+                if (string.IsNullOrEmpty(Request.QueryString["data"]))
                 {
-                    string result;
-
-                    var esEsika = false;
-
-                    string urlportal = ConfigurationManager.AppSettings["UrlSiteSE"];
-
-                    if (Request.QueryString["data"] != null)
-                    {
-                        string parametros = Request.QueryString["data"];
-                        var parametrosDesencriptados = Util.Decrypt(parametros);
-                        string[] query = parametrosDesencriptados.Split(';');
-                        string paisid = query[1];
-
-                        if (paisid == "11" || paisid == "2" || paisid == "3" || paisid == "8" || paisid == "7" || paisid == "4")
-                            esEsika = true;
-
-                        txtmarca.Text = esEsika ? "esika" : "lbel";
-
-                        bool hasSuccess;
-                        using (UsuarioServiceClient srv = new UsuarioServiceClient())
-                        {
-                            hasSuccess = srv.ActiveEmail(Convert.ToInt32(query[1]), query[0], query[2], query[3]);
-                        }
-                        if (hasSuccess)
-                            result = "Su dirección de correo electrónico ha sido activada correctamente.";
-                        else
-                            result = "Esta dirección de correo electrónico ya ha sido activada.";
-
-                        var opcional = query.Length > 4 ? query[4].Trim() : "";
-                        if (opcional != "")
-                        {
-                            var opcionalLista = opcional.Split(',');
-                            if (opcionalLista.Length > 1 && opcionalLista[0].ToLower() == "urlreturn")
-                            {
-                                urlportal = urlportal + "/" + "Bienvenida/MailConfirmacion?tipo=" + opcionalLista[1].ToLower();
-                            }
-                        }
-                    }
-                    else
-                        result = "Ha ocurrido un error con la activación de su correo electrónico.";
-                    lblConfirmacion.Text = result;
-                    linkregresarasomosbelcorp.NavigateUrl = urlportal;
+                    lblConfirmacion.Text = Constantes.MensajesError.ActivacionCorreo;
+                    return;
                 }
+
+                var paramDesencriptados = Util.Decrypt(Request.QueryString["data"]);
+                var arrayParam = paramDesencriptados.Split(';');
+                var codigoUsuario = arrayParam[0];
+                var paisId = Convert.ToInt32(arrayParam[1]);
+                var email = arrayParam[2];
+                var paisISO = Util.GetPaisISO(paisId);
+
+                SetStyle(paisISO, codigoUsuario);
+                SetLinks(paisISO, codigoUsuario);
+
+                BERespuestaActivarEmail respuesta;
+                using (UsuarioServiceClient srv = new UsuarioServiceClient())
+                {
+                    respuesta = srv.ActivarEmail(paisId, codigoUsuario, email);
+                }
+                SetRespuesta(respuesta);
+
+                if (respuesta.Succcess) GuardarLogDynamo(respuesta.Usuario, email);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, "MailConfirmation Page_Load", "", "Encrypt Data=" + (Request.QueryString["data"] != null ? Request.QueryString["data"] : ""));
-                lblConfirmacion.Text = "Ha ocurrido un error con la activación de su correo electrónico.";
+                lblConfirmacion.Text = Constantes.MensajesError.ActivacionCorreo;
             }
         }
 
+        private void SetLinks(string paisISO, string codigoUsuario)
+        {
+            var urlPortal = ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteSE];
+            var area = EsDispositivoMovil() ? "/Mobile" : "";
+            linkMainPage.NavigateUrl = urlPortal + area + "/MiPerfil/Index";
+        }
+
+        private void SetStyle(string paisISO, string codigoUsuario)
+        {
+            var marca = WebConfig.PaisesEsika.Contains(paisISO) ? "Esika" : "Lbel";
+            foreach (var urlCss in listUrlCss)
+            {
+                var link = new HtmlLink();
+                link.Href = string.Format(urlCss, marca);
+                link.Attributes.Add("rel", "stylesheet");
+                link.Attributes.Add("type", "text/css");
+                Page.Header.Controls.Add(link);
+            }
+        }
+
+        private void SetRespuesta(BERespuestaActivarEmail respuesta)
+        {
+            divHeadSuccess.Visible = respuesta.Succcess;
+            divHeadError.Visible = !respuesta.Succcess;
+            lblConfirmacion.Text = respuesta.Succcess ? Constantes.CambioCorreoResult.Valido : respuesta.Message;
+        }
+
+        private void GuardarLogDynamo(BEUsuario usuarioActual, string correoNuevo)
+        {
+            try
+            {
+                var model = Mapper.Map<UsuarioModel>(usuarioActual);
+                logDynamoProvider.EjecutarLogDynamoDB(
+                    model,
+                    EsDispositivoMovil(),
+                    "EMAIL",
+                    correoNuevo,
+                    usuarioActual.EMail,
+                    "WEB PAGES/MAIL CONFIRMATION",
+                    Constantes.LogDynamoDB.AplicacionPortalConsultoras,
+                    "Modificacion",
+                    ""
+                );
+
+                var userData = sessionManager.GetUserData();
+                if (userData == null) return;
+
+                userData.EMail = correoNuevo;
+                sessionManager.SetUserData(userData);
+            }
+            catch (Exception ex) { LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioActual.CodigoUsuario, usuarioActual.CodigoISO); }
+        }
+
+        public bool EsDispositivoMovil()
+        {
+            return Request.Browser.IsMobileDevice;
+        }
     }
 }

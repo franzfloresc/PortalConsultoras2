@@ -9,6 +9,10 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
     public class BEZonasOpcionesVerificacion
     {
         [DataMember]
+        public bool Activo { get; set; }
+        [DataMember]
+        public int OrigenID { get; set; }
+        [DataMember]
         public int RegionID { get; set; }
         [DataMember]
         public int ZonaID { get; set; }
@@ -20,12 +24,16 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         public bool ActualizarDatos { get; set; }
         [DataMember]
         public bool CDR { get; set; }
-        
+
         public BEZonasOpcionesVerificacion()
         { }
 
         public BEZonasOpcionesVerificacion(IDataRecord row)
         {
+            if (DataRecord.HasColumn(row, "Activo") && row["Activo"] != DBNull.Value)
+                Activo = Convert.ToBoolean(row["Activo"]);
+            if (DataRecord.HasColumn(row, "OrigenID") && row["OrigenID"] != DBNull.Value)
+                OrigenID = Convert.ToInt32(row["OrigenID"]);
             if (DataRecord.HasColumn(row, "RegionID") && row["RegionID"] != DBNull.Value)
                 RegionID = Convert.ToInt32(row["RegionID"]);
             if (DataRecord.HasColumn(row, "ZonaID") && row["ZonaID"] != DBNull.Value)
