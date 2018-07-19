@@ -256,6 +256,15 @@
     margin-top: 2px;
 }
 
+.nombre_producto_opt span:first-child{
+    float: left;
+}
+
+.nombre_producto_opt span:last-child{
+    float: left;
+    width: 87%;
+}
+
 
 .producto_img_mobile_bpt img {
     margin: 0 auto !important;
