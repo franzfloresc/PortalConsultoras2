@@ -28,6 +28,7 @@ namespace Portal.Consultoras.Entities
         {
             CodigoUbigeo = Convert.ToString(row["CodigoUbigeo"]);
             NivelUbigeo = Convert.ToInt32(row["Nivel"]);
+
             if (DataRecord.HasColumn(row, "UnidadGeografica1"))
                 Descripcion = Convert.ToString(row["UnidadGeografica1"]);
 

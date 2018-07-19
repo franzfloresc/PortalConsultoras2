@@ -3538,7 +3538,7 @@ namespace Portal.Consultoras.Common
 
         #region Convert
 
-        public static string ToString(this IDataRecord lector, string name)
+        public static string ToString(this IDataRecord lector, string name, string valorDefecto = default(string))
         {
             try
             {
@@ -3547,10 +3547,10 @@ namespace Portal.Consultoras.Common
                     return Convert.ToString(lector[name]);
             }
             catch (Exception) { }
-            return default(string);
+            return valorDefecto;
         }
 
-        public static Int16 ToInt16(this IDataRecord lector, string name)
+        public static Int16 ToInt16(this IDataRecord lector, string name, Int16 valorDefecto = default(Int16))
         {
             try
             {
@@ -3560,10 +3560,10 @@ namespace Portal.Consultoras.Common
 
             }
             catch (Exception) { }
-            return default(Int16);
+            return valorDefecto;
         }
 
-        public static int ToInt32(this IDataRecord lector, string name)
+        public static int ToInt32(this IDataRecord lector, string name, int valorDefecto = default(int))
         {
             try
             {
@@ -3572,7 +3572,7 @@ namespace Portal.Consultoras.Common
                     return Convert.ToInt32(lector[name]);
             }
             catch (Exception) { }
-            return default(int);
+            return valorDefecto;
         }
 
         public static Int64 ToInt64(this IDataRecord lector, string name)
@@ -3598,7 +3598,7 @@ namespace Portal.Consultoras.Common
             catch (Exception) { }
             return default(decimal);
         }
-        
+
         public static double ToDouble(this IDataRecord lector, string name)
         {
             try
@@ -3623,7 +3623,7 @@ namespace Portal.Consultoras.Common
             return default(byte);
         }
 
-        public static bool ToBoolean(this IDataRecord lector, string name)
+        public static bool ToBoolean(this IDataRecord lector, string name, bool valorDefecto = default(bool))
         {
             try
             {
@@ -3632,10 +3632,10 @@ namespace Portal.Consultoras.Common
                     return Convert.ToBoolean(lector[name]);
             }
             catch (Exception) { }
-            return default(bool);
+            return valorDefecto;
         }
 
-        public static DateTime ToDateTime(this IDataRecord lector, string name)
+        public static DateTime ToDateTime(this IDataRecord lector, string name, DateTime valorDefecto = default(DateTime))
         {
             try
             {
@@ -3644,7 +3644,7 @@ namespace Portal.Consultoras.Common
                     return Convert.ToDateTime(lector[name]);
             }
             catch (Exception) { }
-            return default(DateTime);
+            return valorDefecto;
         }
 
         #endregion

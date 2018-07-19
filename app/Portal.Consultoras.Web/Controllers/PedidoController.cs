@@ -1563,6 +1563,7 @@ namespace Portal.Consultoras.Web.Controllers
             var productosModel = new List<ProductoModel>();
             try
             {
+                model.CUV = Util.Trim(model.CUV);
                 #region ValidarProgramaNuevas
                 Enumeradores.ValidacionProgramaNuevas num = ValidarProgramaNuevas(model.CUV);
                 Session["CuvEsProgramaNuevas"] = false;
@@ -1686,7 +1687,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, "cuv consulta  = " + model.CUV);
                 productosModel.Add(new ProductoModel { MarcaID = 0, CUV = "Ha ocurrido un Error. Vuelva a intentarlo.", TieneSugerido = 0 });
             }
 
