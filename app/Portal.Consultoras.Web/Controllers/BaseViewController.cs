@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -276,13 +277,9 @@ namespace Portal.Consultoras.Web.Controllers
                     modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
                     modelo.TieneReloj = true;
 
-                    var sessionODD = sessionManager.OfertaDelDia.Estrategia;
-                    if (sessionODD != null)
-                    {
-                        modelo.ColorFondo1 = sessionODD.ColorFondo1;
-                        modelo.ConfiguracionContenedor = sessionODD.ConfiguracionContenedor;
-                    }
-
+                    var sessionODD = (DataModel)sessionManager.OfertaDelDia.Estrategia.Clone();
+                    modelo.ColorFondo1 = sessionODD.ColorFondo1;
+                    modelo.ConfiguracionContenedor = (ConfiguracionSeccionHomeModel)sessionODD.ConfiguracionContenedor.Clone();
                     modelo.ConfiguracionContenedor = modelo.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
                     modelo.ConfiguracionContenedor.ColorFondo = "#fff";
                     modelo.ConfiguracionContenedor.ColorTexto = "#000";
