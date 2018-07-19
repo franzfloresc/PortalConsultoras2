@@ -1644,8 +1644,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new ServiceODS.BEProducto();
 
-                var estrategias = (List<ServicePedido.BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<ServicePedido.BEEstrategia>();
-                var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new ServicePedido.BEEstrategia();
+                var estrategias = (List<ServiceOferta.BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<ServiceOferta.BEEstrategia>();
+                var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new ServiceOferta.BEEstrategia();
 
                 var observacionCuv = ObtenerObservacionCreditoCuv(userModel, cuvCredito);
 
