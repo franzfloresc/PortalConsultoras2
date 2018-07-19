@@ -27,20 +27,13 @@ namespace Portal.Consultoras.Entities
         public BEFactorGanancia() { }
         public BEFactorGanancia(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "FactorGananciaID"))
-                FactorGananciaID = Convert.ToInt32(row["FactorGananciaID"]);
-            if (DataRecord.HasColumn(row, "PaisID"))
-                PaisID = Convert.ToInt32(row["PaisID"]);
-            if (DataRecord.HasColumn(row, "Nombre"))
-                PaisNombre = Convert.ToString(row["Nombre"]);
-            if (DataRecord.HasColumn(row, "RangoMinimo"))
-                RangoMinimo = Convert.ToDecimal(row["RangoMinimo"]);
-            if (DataRecord.HasColumn(row, "RangoMaximo"))
-                RangoMaximo = Convert.ToDecimal(row["RangoMaximo"]);
-            if (DataRecord.HasColumn(row, "Porcentaje"))
-                Porcentaje = Convert.ToDecimal(row["Porcentaje"]);
-            if (DataRecord.HasColumn(row, "Escala"))
-                Escala = Convert.ToInt32(row["Escala"]);
+            FactorGananciaID = row.ToInt32("FactorGananciaID");
+            PaisID = row.ToInt32("PaisID");
+            PaisNombre = row.ToString("Nombre");
+            RangoMinimo = row.ToDecimal("RangoMinimo");
+            RangoMaximo = row.ToDecimal("RangoMaximo");
+            Porcentaje = row.ToDecimal("Porcentaje");
+            Escala = row.ToInt32("Escala");
         }
     }
 }

@@ -91,7 +91,7 @@ body {
 }
 
 .ficha_detalle_cuerpo {
-    min-height: 340px;
+    min-height: 300px;
 }
 
 .contenedor_nombre_precio {
@@ -130,6 +130,36 @@ body {
 .precio_venta_oferta b {
    font-size: 20px;
    margin-left: 5px;
+   
+}
+
+.precio_venta_oferta_list {
+    margin:0;
+    padding:0;
+}
+
+.precio_venta_oferta_list li{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: -5px;
+}
+
+.precio_venta_oferta_list li:last-child span{
+    font-size: 20px;
+    display: block;
+    margin-bottom: 5px;
+    line-height: normal;
+    font-weight: bold;
+}
+
+.precio_venta_oferta_list li:first-child {
+    padding-top: 5px;
+}
+
+
+.precio_venta_oferta_list li:last-child {
+    text-align: left;
+    margin-left: 10px;
 }
 
 .ganancia {
@@ -325,14 +355,45 @@ body {
     color: #b9b9b9;
 }
 
-.contenedor_agregado {
-    float: left;
+/* Ficha Check Agreado y texto Libre */
+
+.ficha_div_libre_agregado {
+    padding-top: 15px;
+    clear: both;
+}
+
+.ficha_agregado {
+    float: right;
     height: 15px;
-    margin-top: 9px;
     position: relative;
     text-align: initial;
-    width: 100%;
+    display: inline-block;
+    width: 30%;
 }
+
+
+.limit_pack {
+    margin-bottom: 0px;
+    font-size: 13px;
+    font-weight: bold;
+    width: 50%;
+    display: inline-block;
+}
+
+    .limit_pack span {
+        color: #e81c36;
+        border: 1px solid #e81c36;
+        display: inline-block;
+        border-radius: 50%;
+        height: 17px;
+        width: 17px;
+        text-align: center;
+        font-size: 11px;
+        position: relative;
+        margin-right: 6px;
+        line-height: 15px;
+    }
+
 
 .txt_agregado {
     float: right;
@@ -360,25 +421,36 @@ body {
     width: 11px;
 }
 
-.dibujar_check_agregado::before {
-    border-bottom: solid 2px #a18328;
-    -webkit-transform: rotate(44deg);
-    -moz-transform: rotate(44deg);
-    -ms-transform: rotate(44deg);
-    -o-transform: rotate(44deg);
-    transform: rotate(44deg);
-    width: 50%;
-}
+    .dibujar_check_agregado::before {
+        border-bottom: solid 2px #a18328;
+        -webkit-transform: rotate(44deg);
+        -moz-transform: rotate(44deg);
+        -ms-transform: rotate(44deg);
+        -o-transform: rotate(44deg);
+        transform: rotate(44deg);
+        width: 50%;
+    }
 
-.dibujar_check_agregado::after {
-   border-bottom: solid 2px #a18328;
-   bottom: 0;
-   left: 25%;
-   -webkit-transform: rotate(134deg);
-   -moz-transform: rotate(134deg);
-   -ms-transform: rotate(134deg);
-   -o-transform: rotate(134deg);
-   transform: rotate(134deg);
+    .dibujar_check_agregado::after {
+        border-bottom: solid 2px #a18328;
+        bottom: 0;
+        left: 25%;
+        -webkit-transform: rotate(134deg);
+        -moz-transform: rotate(134deg);
+        -ms-transform: rotate(134deg);
+        -o-transform: rotate(134deg);
+        transform: rotate(134deg);
+    }
+
+/* FIN Ficha Check Agreado y texto Libre */
+
+.contenedor_agregado {
+    float: left;
+    height: 15px;
+    margin-top: 9px;
+    position: relative;
+    text-align: initial;
+    width: 100%;
 }
 
 .contenedor_limitacion {
@@ -490,27 +562,6 @@ body {
     height: 100%;
 }
 
-.limit_pack{
-   margin-bottom:0px;
-   font-size: 13px;
-   font-weight: bold;
-   padding-top: 15px;
-   clear:both;
-}
-
-.limit_pack span {
-    color: #e81c36;
-    border: 1px solid #e81c36;
-    display: inline-block;
-    border-radius: 50%;
-    height: 17px;
-    width: 17px;
-    text-align: center;
-    font-size: 11px;
-    position: relative;
-    margin-right: 6px;
-    line-height: 15px;
-}
 /* Reloj */
 .clock_odd {
     float: left;

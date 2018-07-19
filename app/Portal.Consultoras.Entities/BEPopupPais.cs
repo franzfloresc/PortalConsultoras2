@@ -27,13 +27,10 @@ namespace Portal.Consultoras.Entities
         public BEPopupPais(IDataRecord row)
         {
             Descripcion = string.Empty;
-
             PopupPaisID = Convert.ToInt32(row["PopupPaisID"]);
             CodigoPopup = Convert.ToInt32(row["CodigoPopup"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "Orden"))
-                Orden = Convert.ToInt32(row["Orden"]);
+            Descripcion = row.ToString("Descripcion");
+            Orden = row.ToInt32("Orden");
         }
     }
 }
