@@ -149,9 +149,6 @@ namespace Portal.Consultoras.Web.Providers
             else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.HVObtenerProductos)
             {
                 listaFinal1 = listaFinal1
-                    .OrderByDescending(x => x.MarcaID == Constantes.Marca.Esika)
-                    .ThenByDescending(x => x.MarcaID == Constantes.Marca.LBel)
-                    .ThenByDescending(x => x.MarcaID == Constantes.Marca.Cyzone)
                     .ToList();
 
                 listModel1 = listaFinal1;
@@ -629,7 +626,7 @@ namespace Portal.Consultoras.Web.Providers
                 tipo = esConsultoraLider && revistaDigital.SociaEmpresariaExperienciaGanaMas && revistaDigital.EsSuscritaActiva() ? 0 : tipo;
             }
             else if (codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom)
-            {
+            {                                   
                 tipo = codigoTipos == Constantes.TipoEstrategiaSet.IndividualConTonos || codigoTipos == Constantes.TipoEstrategiaSet.CompuestaFija ? 2 : 3;
                 tipo = bloqueado && revistaDigital.EsNoSuscritaInactiva() ? 4 : tipo;
                 tipo = bloqueado && revistaDigital.EsSuscritaInactiva() ? 5 : tipo;
