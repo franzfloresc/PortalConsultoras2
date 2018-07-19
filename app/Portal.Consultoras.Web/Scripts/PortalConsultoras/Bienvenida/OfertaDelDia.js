@@ -2,6 +2,19 @@
 /// <reference path="../../../Scripts/jquery-1.11.2.js" />
 /// <reference path="../../../Scripts/General.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
+
+var belcorp = belcorp || {};
+belcorp.estrategia = belcorp.estrategia || {};
+registerEvent.call(belcorp.estrategia, "onProductoAgregado");
+belcorp.estrategia.subscribe("onProductoAgregado", function (data) {
+    //debugger;
+    if (data.data.TipoEstrategiaCodigo === ConstantesModule.ConstantesPalanca.OfertaDelDia) {
+        //alert(data.data.DescripcionProd);
+        //window.OfertaDelDia.CargarODD();
+    }
+});
+
 
 var fechaMostrarBanner = Date.now();
 var codigoAnclaOdd = codigoAnclaOdd || "";
@@ -50,6 +63,7 @@ var OfertaDelDiaModule = function() {
 }();
 
 $(document).ready(function () {
+    
     window.OfertaDelDia = window.OfertaDelDia || {};
     var odd_desktop_google_analytics_promotion_impresion_flag = true;
 
@@ -75,7 +89,6 @@ $(document).ready(function () {
         UrlActual: window.location.href.toLowerCase(),
         UrlValidarStockEstrategia: "Pedido/ValidarStockEstrategia",
         UrlAgregarProducto: "Pedido/AgregarProductoZE",
-        EsPaginaIntriga: (window.location.href.toLowerCase().indexOf("intriga") > 0),
         TipoOrigenPantallaODD: TipoOrigenPantallaODD,
         OrigenDesktopODD: OrigenDesktopODD //para Analytics
     };
@@ -97,7 +110,7 @@ $(document).ready(function () {
     };
 
     self.CargarODD = function () {
-        if (props.EsPaginaIntriga) {
+        if (isPagina("intriga")) {
             return false;
         }
 
