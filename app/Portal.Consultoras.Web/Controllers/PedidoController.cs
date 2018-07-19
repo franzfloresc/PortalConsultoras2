@@ -566,6 +566,7 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoWebDetalleModel.TipoPedido = !string.IsNullOrEmpty(bePedidoWebDetalle.TipoPedido)
                         ? bePedidoWebDetalle.TipoPedido : "";
                     pedidoWebDetalleModel.TipoEstrategiaID = bePedidoWebDetalle.TipoEstrategiaID;
+                    pedidoWebDetalleModel.TipoEstrategiaCodigo = bePedidoWebDetalle.TipoEstrategiaCodigo;
                     pedidoWebDetalleModel.Mensaje = bePedidoWebDetalle.Mensaje;
                     pedidoWebDetalleModel.TipoObservacion = bePedidoWebDetalle.TipoObservacion;
                 }
@@ -1644,8 +1645,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new ServiceODS.BEProducto();
 
-                var estrategias = (List<ServicePedido.BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<ServicePedido.BEEstrategia>();
-                var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new ServicePedido.BEEstrategia();
+                var estrategias = (List<ServiceOferta.BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<ServiceOferta.BEEstrategia>();
+                var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new ServiceOferta.BEEstrategia();
 
                 var observacionCuv = ObtenerObservacionCreditoCuv(userModel, cuvCredito);
 
