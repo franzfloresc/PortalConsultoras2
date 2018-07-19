@@ -41,13 +41,6 @@ namespace Portal.Consultoras.Web.Controllers
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
         protected ILogManager logManager = LogManager.LogManager.Instance;
 
-        public bool UsarMsPer(string TipoEstrategiaCodigo,string CodigoISO)
-        {
-            bool paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(CodigoISO);
-            bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(TipoEstrategiaCodigo);
-            return paisHabilitado && tipoEstrategiaHabilitado;
-        }
-
         #region Constructor
 
         public LoginController()

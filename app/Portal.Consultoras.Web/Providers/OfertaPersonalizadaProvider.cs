@@ -22,6 +22,7 @@ namespace Portal.Consultoras.Web.Providers
         protected ConfiguracionManagerProvider _configuracionManager;
         protected readonly PedidoWebProvider _pedidoWeb;
         protected readonly EstrategiaComponenteProvider _estrategiaComponenteProvider;
+        protected OfertaBaseProvider _ofertaBaseProvider;
 
         public OfertaPersonalizadaProvider()
         {
@@ -29,6 +30,7 @@ namespace Portal.Consultoras.Web.Providers
             revistaDigital = sessionManager.GetRevistaDigital();
             _configuracionManager = new ConfiguracionManagerProvider();
             _pedidoWeb = new PedidoWebProvider();
+            _ofertaBaseProvider = new OfertaBaseProvider();
         }
 
         #region Metodos de Estrategia Controller
@@ -360,11 +362,19 @@ namespace Portal.Consultoras.Web.Providers
                     entidad.ConsultoraID = userData.GetConsultoraId().ToString();
                 }
 
-                using (OfertaServiceClient osc = new OfertaServiceClient())
-                {
-                    listEstrategia = osc.GetEstrategiasPedido(entidad).ToList();
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipo)){
+                    /**/
+                    //Aquí llamado a api
+                    /**/
                 }
-                //aqui va RD Implemenacion + tono
+                else
+                {
+                    using (OfertaServiceClient osc = new OfertaServiceClient())
+                    {
+                        listEstrategia = osc.GetEstrategiasPedido(entidad).ToList();
+                    }
+                }
+
                 if (campaniaId == userData.CampaniaID)
                 {
                     if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas

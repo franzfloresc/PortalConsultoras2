@@ -96,13 +96,7 @@ namespace Portal.Consultoras.Web.Controllers
             _configuracionPaisProvider = new ConfiguracionPaisProvider();
             _menuContenedorProvider = new MenuContenedorProvider();
         }
-
-        public bool UsarMsPer(string TipoEstrategiaCodigo)
-        {
-            bool paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(userData.CodigoISO);
-            bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(TipoEstrategiaCodigo);
-            return paisHabilitado && tipoEstrategiaHabilitado;
-        }
+        
 
         public BaseController(ISessionManager sessionManager)
         {
