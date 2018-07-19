@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -362,10 +363,18 @@ namespace Portal.Consultoras.Web.Providers
                     entidad.ConsultoraID = userData.GetConsultoraId().ToString();
                 }
 
-                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipo)){
-                    /**/
-                    //Aquí llamado a api
-                    /**/
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipo))
+                {
+                    string pathRevistaDigital = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerRevistaDigital,
+                        userData.CodigoISO,
+                        Constantes.ConfiguracionPais.RevistaDigital,
+                        campaniaId,
+                        userData.CodigoConsultora,
+                        userData.CodigorRegion,
+                        userData.ZonaID);
+                    var taskApi = Task.Run(() => _ofertaBaseProvider.ObtenerOfertasDesdeApi(pathRevistaDigital));
+                    Task.WhenAll(taskApi);
+                    listEstrategia = taskApi.Result;
                 }
                 else
                 {

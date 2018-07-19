@@ -50,16 +50,19 @@ namespace Portal.Consultoras.Web.Providers
                 };
 
                 if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.OfertaDelDia))
-                {
-                    var fechaInicio = (DateTime)DateTime.Now - (DateTime)model.FechaInicioCampania.Date;
+                {                   
                     var diaInicio = DateTime.Now.Date.Subtract(model.FechaInicioCampania.Date).Days;
                     string pathOfertaDelDia = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertasDelDia, 
                         model.CodigoISO, 
                         Constantes.ConfiguracionPais.OfertaDelDia, 
                         model.CampaniaID, 
                         model.CodigoConsultora,
-                        fechaInicio.Days);
+                        diaInicio);
+                    var taskApi = Task.Run(() => ObtenerOfertasDesdeApi(pathOfertaDelDia));
 
+                    Task.WhenAll(taskApi);
+
+                    ofertasDelDia = taskApi.Result;
                 }
                 else
                 {
@@ -68,8 +71,6 @@ namespace Portal.Consultoras.Web.Providers
                         ofertasDelDia = osc.GetEstrategiaODD(entidad, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
                     }
                 }
-
-
             }
             catch (Exception ex)
             {

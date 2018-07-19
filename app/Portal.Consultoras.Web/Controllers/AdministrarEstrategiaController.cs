@@ -29,10 +29,11 @@ namespace Portal.Consultoras.Web.Controllers
     public class AdministrarEstrategiaController : BaseController
     {
         protected RenderImgProvider _renderImgProvider;
-
+        protected OfertaBaseProvider _ofertaBaseProvider;
         public AdministrarEstrategiaController()
         {
             _renderImgProvider = new RenderImgProvider();
+            _ofertaBaseProvider = new OfertaBaseProvider();
         }
 
         public ActionResult Index(int TipoVistaEstrategia = 0)
@@ -224,7 +225,7 @@ namespace Portal.Consultoras.Web.Controllers
                             Imagen = Imagen
                         };
 
-                        if (UsarMsPer(TipoEstrategiaCodigo))
+                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, TipoEstrategiaCodigo))
                         {
                             entidad.CodigoTipoEstrategia = TipoEstrategiaCodigo;
                             lst.AddRange(administrarEstrategiaProvider.Listar(entidad.CampaniaID.ToString(),
@@ -556,7 +557,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string wsprecio = "";
                 ServicePedido.BEEstrategia beEstrategia = null;
 
-                if (UsarMsPer(tipoEstrategiaCodigo))
+                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo))
                 {
                     var objEstrategia = administrarEstrategiaProvider.ObtenerEstrategiaCuv(CUV2,
                                                                 CampaniaID, tipoEstrategiaCodigo,
@@ -834,7 +835,7 @@ namespace Portal.Consultoras.Web.Controllers
                             entidad.ImagenMiniaturaURL = GuardarImagenMiniAmazon(model.ImagenMiniaturaURL, model.ImagenMiniaturaURLAnterior, userData.PaisID);
                         }
 
-                        if (UsarMsPer(entidad.CodigoTipoEstrategia))
+                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO,entidad.CodigoTipoEstrategia))
                         {
                             if (entidad.EstrategiaID != 0)
                             {
@@ -851,7 +852,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
-                if (!UsarMsPer(entidad.CodigoTipoEstrategia))
+                if (!_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, entidad.CodigoTipoEstrategia))
                     EstrategiaProductoInsertar(respuestaServiceCdr, entidad);
 
                 if (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi &&
@@ -944,7 +945,7 @@ namespace Portal.Consultoras.Web.Controllers
                     UsuarioRegistro = userData.CodigoConsultora
                 };
 
-                if (UsarMsPer(tipoEstrategiaCodigo))
+                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo))
                 {
                     lst.AddRange(administrarEstrategiaProvider.FiltrarEstrategia(mongoIdVal, userData.CodigoISO).ToList());
                 }
@@ -1091,7 +1092,7 @@ namespace Portal.Consultoras.Web.Controllers
                     UsuarioModificacion = userData.CodigoUsuario
                 };
 
-                if (UsarMsPer(tipoEstrategiaCodigo))
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo))
                 {
                     administrarEstrategiaProvider.DesactivarEstrategia(idMongoVal, userData.UsuarioNombre, userData.CodigoISO);
                 }
@@ -1186,7 +1187,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int resultado = 0;
                 EstrategiasActivas = EstrategiasActivas ?? "";
                 EstrategiasDesactivas = EstrategiasDesactivas ?? "";
-                if (UsarMsPer(tipoEstrategiaCod))
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCod))
                 {
                     List<string> estrategiasActivasList = new List<string>();
                     List<string> estrategiasInactivasList = new List<string>();
@@ -1875,7 +1876,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEDescripcionEstrategia> beDescripcionEstrategias;
                 List<DescripcionEstrategiaModel> descripcionEstrategiaModels;
 
-                if (UsarMsPer(model.TipoEstrategiaCodigo))
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, model.TipoEstrategiaCodigo))
                 {
                     descripcionEstrategiaModels = administrarEstrategiaProvider.UploadCsv(fileContent, userData.CodigoISO, model.TipoEstrategiaCodigo, model.CampaniaId);
                 }
