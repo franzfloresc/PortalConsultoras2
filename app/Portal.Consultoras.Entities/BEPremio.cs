@@ -28,20 +28,11 @@ namespace Portal.Consultoras.Entities
 
         public BEPremio(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "COD_PREM"))
-                Codigo = Convert.ToString(row["COD_PREM"]);
-
-            if (DataRecord.HasColumn(row, "DES_PROD"))
-                Descripcion = Convert.ToString(row["DES_PROD"]);
-
-            if (DataRecord.HasColumn(row, "COD_CONC"))
-                CodigoConcurso = Convert.ToString(row["COD_CONC"]);
-
-            if (DataRecord.HasColumn(row, "PUN_MINI"))
-                PuntajeMinimo = Convert.ToInt32(row["PUN_MINI"]);
-
-            if (DataRecord.HasColumn(row, "NUM_NIVE"))
-                NumeroNivel = Convert.ToInt32(row["NUM_NIVE"]);
+            Codigo = row.ToString("COD_PREM");
+            Descripcion = row.ToString("DES_PROD");
+            CodigoConcurso = row.ToString("COD_CONC");
+            PuntajeMinimo = row.ToInt32("PUN_MINI");
+            NumeroNivel = row.ToInt32("NUM_NIVE");
         }
     }
 }

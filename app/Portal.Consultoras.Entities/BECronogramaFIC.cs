@@ -31,16 +31,11 @@ namespace Portal.Consultoras.Entities
             else
                 FechaFin = null;
 
-            if (DataRecord.HasColumn(row, "ZonaID"))
-                ZonaID = Convert.ToInt32(row["ZonaID"]);
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "CodigoZona"))
-                Zona = Convert.ToString(row["CodigoZona"]);
-            if (DataRecord.HasColumn(row, "CodigoCampania"))
-                Campania = Convert.ToString(row["CodigoCampania"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
+            ZonaID = row.ToInt32("ZonaID");
+            CampaniaID = row.ToInt32("CampaniaID");
+            Zona = row.ToString("CodigoZona");
+            Campania = row.ToString("CodigoCampania");
+            CodigoConsultora = row.ToString("CodigoConsultora");
         }
     }
 }

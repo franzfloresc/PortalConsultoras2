@@ -32,24 +32,16 @@ namespace Portal.Consultoras.Entities
 
         public BEPedidoRechazado(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "IdPedidoRechazado"))
-                IdPedidoRechazado = Convert.ToInt32(row["IdPedidoRechazado"]);
-            if (DataRecord.HasColumn(row, "IdProcesoPedidoRechazado"))
-                IdProcesoPedidoRechazado = Convert.ToInt32(row["IdProcesoPedidoRechazado"]);
-            if (DataRecord.HasColumn(row, "Campania"))
-                Campania = Convert.ToString(row["Campania"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
+            IdPedidoRechazado = row.ToInt32("IdPedidoRechazado");
+            IdProcesoPedidoRechazado = row.ToInt32("IdProcesoPedidoRechazado");
+            Campania = row.ToString("Campania");
+            CodigoConsultora = row.ToString("CodigoConsultora");
             if (DataRecord.HasColumn(row, "MotivoRechazo"))
                 MotivoRechazo = Convert.ToString(row["MotivoRechazo"]).ToUpper().Trim();
-            if (DataRecord.HasColumn(row, "Valor"))
-                Valor = Convert.ToString(row["Valor"]);
-            if (DataRecord.HasColumn(row, "RequiereGestion"))
-                RequiereGestion = Convert.ToBoolean(row["RequiereGestion"]);
-            if (DataRecord.HasColumn(row, "Procesado"))
-                Procesado = Convert.ToBoolean(row["Procesado"]);
-            if (DataRecord.HasColumn(row, "Rechazado"))
-                Rechazado = Convert.ToBoolean(row["Rechazado"]);
+            Valor = row.ToString("Valor");
+            RequiereGestion = row.ToBoolean("RequiereGestion");
+            Procesado = row.ToBoolean("Procesado");
+            Rechazado = row.ToBoolean("Rechazado");
         }
     }
 }
