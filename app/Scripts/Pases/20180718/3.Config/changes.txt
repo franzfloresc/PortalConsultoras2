@@ -1,0 +1,8 @@
+-----------------------------------------------------------------------------------------------
+1.WSConsultoras
+-----------------------------------------------------------------------------------------------
+Agregar key:
+------------
+<add key="UrlLogElastic" value="https://arquitectura.belcorp.biz/qas/elastic/" />
+<add key="PatternElastic" value="qas-consultoras-ws-wsapp-" />
+<add key="EstrategiaCarrusel" value="2001,2002" />

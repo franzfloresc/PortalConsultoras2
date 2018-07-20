@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     [Serializable()]
-    public class DataModel
+    public class DataModel : ICloneable
     {
         public DataModel()
         {
@@ -28,5 +28,9 @@
 
         public ConfiguracionSeccionHomeModel ConfiguracionContenedor { get; set; }
         public List<EstrategiaPersonalizadaProductoModel> ListaOferta { get; set; }
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

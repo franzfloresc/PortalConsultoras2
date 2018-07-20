@@ -1087,6 +1087,12 @@ ul.breadcumbs li a::before {
     margin-left: 1px;
 }
 /* fin breadcumbs*/
+.contenedor_rangos_desactivado {
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
+    opacity: 0.5;
+}
 
 .popover_texto li:last-child {
     font-size: 13px;

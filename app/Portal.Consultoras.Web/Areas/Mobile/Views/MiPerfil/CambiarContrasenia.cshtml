@@ -1,0 +1,87 @@
+﻿@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.Models
+@model NotificacionesModel
+
+@{
+    ViewBag.Title = "Cambiar Contraseña";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/esika/mi-perfil.css")">
+}
+else
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/lbel/mi-perfil.css")">
+}
+
+<!-- TÍTULO -->
+<div class="titulo_mobile">
+    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        }
+    }
+    &nbsp;&nbsp;&nbsp;&nbsp;CAMBIA TU CONTRASEÑA
+</div>
+<div class="pestana_esika"></div>
+<div class="pestana_lbel"></div>
+<!-- FIN - TÍTULO -->
+
+<div class="content_belcorp">
+    <section class="vista_cambiar_contrasenia">
+        <div class="wrapper_content_cambiar_contrasenia">
+            <div id="contentPass">
+                <div class="form_cambiar_contrasenia">
+                    <fieldset class="grupo_form_cambio_datos text-uppercase">
+                        <div class="w-100">
+                            <input id="txtContraseniaAnterior" name="txtContraseniaAnterior" class="w-100" type="password" value="" />
+                            <label for="txtContraseniaAnterior" class="w-100">Contraseña Actual</label>
+                            <a href="#" title="Ver password" class="enlace_ver_password icono_ver_password"></a>
+                        </div>
+                    </fieldset>
+                    <fieldset class="grupo_form_cambio_datos text-uppercase">
+                        <div class="w-100">
+                            <input id="txtNuevaContrasenia01" name="txtNuevaContrasenia01" class="w-100" type="password" value="" />
+                            <label for="txtNuevaContrasenia01" class="w-100">Nueva contraseña</label>
+                            <a href="#" title="Ver password" class="enlace_ver_password icono_ver_password"></a>
+                        </div>
+                    </fieldset>
+                    <fieldset class="grupo_form_cambio_datos text-uppercase">
+                        <div class="w-100">
+                            <input id="txtNuevaContrasenia02" name="txtNuevaContrasenia02" class="w-100" type="password" value="" />
+                            <label for="txtNuevaContrasenia02" class="w-100">Repite la nueva contraseña</label>
+                            <a href="#" title="Ver password" class="enlace_ver_password icono_ver_password"></a>
+                        </div>
+                    </fieldset>
+                    <fieldset class="grupo_form_cambio_datos text-uppercase pt-8">
+                        <div class="pull-left text-left v-alignMiddle">
+                            <a href="@Request.UrlReferrer" title="Cancelar" class="enlace_cancelar">Cancelar</a>
+                        </div>
+                        <div class="pull-right text-right v-alignMiddle">
+                            <button id="btnCambiarPass" type="button" class="btn_cambiar_contrasenia text-uppercase text-bold default-background-color">
+                                Cambiar
+                            </button>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div id="contentPassChange" class="contrasenia_actualizada text-center mt-40 mb-40" style="display:none;">
+                <div class="icono_actualizacion_contrasenia_exitosa"></div>
+                <h1 class="titulo_contrasenia_actualizada text-uppercase">
+                    ¡Actualizaste <span class="text-bold">tu contraseña</span>!
+                </h1>
+                <p class="mensaje_contrasenia_actualizada">
+                    Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.
+                </p>
+                <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" class="btn_acept text-uppercase text-bold default-background-color" style="line-height: 45px;">Ok</a>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Index.js")"></script>
+}

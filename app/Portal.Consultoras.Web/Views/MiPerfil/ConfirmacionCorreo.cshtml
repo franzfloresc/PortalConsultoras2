@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Correo actualizado";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/mi-perfil.css")">
+}
+else
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/mi-perfil.css")">
+}
+
+<div class="fondo_f9f9f9">
+    <div class="content_belcorp">
+        <div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores"><span>CORREO</span> ACTUALIZADO</div>
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+</div>
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div>
+</div>
+<section class="vista_actualizar_correo">
+    <div class="wrapper_content_actualizar_correo">
+        <div class="correo_actualizado text-center">
+            <div class="icono_actualizacion_correo_exitoso"></div>
+            <h1 class="titulo_correo_actualizado text-uppercase">
+                ¡Actualizaste <span class="text-bold">tu correo</span>!
+            </h1>
+            <p class="mensaje_correo_actualizado">
+                @Html.Raw(ViewBag.Mensaje)
+            </p>
+            <a href="@Url.Action("Index")" class="btn_acept text-uppercase text-bold default-background-color">Ok</a>
+        </div>
+    </div>
+</section>
+
+

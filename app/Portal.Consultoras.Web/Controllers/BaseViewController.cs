@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -276,13 +277,9 @@ namespace Portal.Consultoras.Web.Controllers
                     modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
                     modelo.TieneReloj = true;
 
-                    var sessionODD = sessionManager.OfertaDelDia.Estrategia;
-                    if (sessionODD != null)
-                    {
-                        modelo.ColorFondo1 = sessionODD.ColorFondo1;
-                        modelo.ConfiguracionContenedor = sessionODD.ConfiguracionContenedor;
-                    }
-
+                    var sessionODD = (DataModel)sessionManager.OfertaDelDia.Estrategia.Clone();
+                    modelo.ColorFondo1 = sessionODD.ColorFondo1;
+                    modelo.ConfiguracionContenedor = (ConfiguracionSeccionHomeModel)sessionODD.ConfiguracionContenedor.Clone();
                     modelo.ConfiguracionContenedor = modelo.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
                     modelo.ConfiguracionContenedor.ColorFondo = "#fff";
                     modelo.ConfiguracionContenedor.ColorTexto = "#000";
@@ -334,10 +331,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (palanca == Constantes.NombrePalanca.OfertaDelDia)
                     breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#ODD";
                 if (palanca == Constantes.NombrePalanca.GuiaDeNegocioDigitalizada)
-                {
-                    var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
-                    breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "GuiaNegocio", area });
-                }
+                    breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "GuiaNegocio", area });
                 if (palanca == Constantes.NombrePalanca.HerramientasVenta)
                 {
                     var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
@@ -356,7 +350,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             NombrePalancas.Add(Constantes.NombrePalanca.ShowRoom, "Especiales");
             NombrePalancas.Add(Constantes.NombrePalanca.Lanzamiento, "Lo nuevo Nuevo");
-            NombrePalancas.Add(Constantes.NombrePalanca.OfertaParaTi, "Oferta para ti");
+            NombrePalancas.Add(Constantes.NombrePalanca.OfertaParaTi, "Ofertas para ti");
             NombrePalancas.Add(Constantes.NombrePalanca.OfertasParaMi, "Ofertas Para ti");
             NombrePalancas.Add(Constantes.NombrePalanca.RevistaDigital, "Revista Digital");
             NombrePalancas.Add(Constantes.NombrePalanca.OfertaDelDia, "Sólo Hoy");

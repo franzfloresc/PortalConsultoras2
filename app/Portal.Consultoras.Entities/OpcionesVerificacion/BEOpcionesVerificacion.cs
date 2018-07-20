@@ -24,9 +24,13 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public bool IncluyeFiltros { get; set; }
         [DataMember]
-        public bool TieneZonas { get; set; }
+        public bool TieneAlcanse { get; set; }
         [DataMember]
         public bool Activo { get; set; }
+        [DataMember]
+        public List<BEZonasOpcionesVerificacion> lstZonas { get; set; }
+        [DataMember]
+        public bool TieneZonas { get; set; }
         [DataMember]
         public BEZonasOpcionesVerificacion oZona { get; set; }
         [DataMember]
@@ -46,6 +50,8 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
             IncluyeFiltros = row.ToBoolean("IncluyeFiltros");
             TieneZonas = row.ToBoolean("TieneZonas");
             Activo = row.ToBoolean("Activo");
+            TieneAlcanse = row.ToBoolean("TieneAlcanse");
+
         }
     }
 
@@ -70,8 +76,6 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         public int RegionID { get; set; }
         [DataMember]
         public int ZonaID { get; set; }
-
-
         [DataMember]
         public int OrigenID { get; set; }
         [DataMember]
@@ -89,6 +93,10 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public string TelefonoCentral { get; set; }
         [DataMember]
+        public string OpcionCorreoActiva { get; set; }
+        [DataMember]
+        public string OpcionSmsActiva { get; set; }
+        [DataMember]
         public string OpcionCorreoDesabilitado { get; set; }
         [DataMember]
         public string OpcionSmsDesabilitado { get; set; }
@@ -101,13 +109,13 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public string CodigoIso { get; set; }
         [DataMember]
+        public bool opcionHabilitar { get { return true; } set { } }
+        [DataMember]
         public bool OpcionDesabilitado { get; set; }
         [DataMember]
         public string DescripcionHorario { get; set; }
-
         [DataMember]
         public bool OpcionChat { get; set; }
-
 
         public BEUsuarioDatos()
         { }

@@ -258,7 +258,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, input.CodigoConsultora, input.PaisISO);
-                return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_Error, false);
+                return new BEResultadoReservaProl(Constantes.MensajesError.Pedido_Reserva, false);
             }
         }
 
