@@ -1323,6 +1323,7 @@
     <Content Include="Content\Css\Site\Esika\unsubscribe.css" />
     <Content Include="Content\Css\Site\Esika\verificacion-pin.css" />
     <Content Include="Content\Css\Site\Ficha\Carrusel.css" />
+    <Content Include="Content\Css\Site\Ficha\PopoverTooltip.css" />
     <Content Include="Content\Css\Site\Ficha\RedesSociales.css" />
     <Content Include="Content\Css\Site\Ficha\Ficha.css" />
     <Content Include="Content\Css\Site\Images\carrusel_next_blanco_dorado.png" />

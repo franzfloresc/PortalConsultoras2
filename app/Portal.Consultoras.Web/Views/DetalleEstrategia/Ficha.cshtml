@@ -292,11 +292,30 @@
                             </a>
                         </div>
                     </div>
+
+                    <div class="popover top tooltip_agregar_desabilitado" role="tooltip" id="" style="display: block;">
+                        <div class="arrow" style="left: 20%;"></div>
+                        <div class="popover-content">
+                            <ul class="list-inline popover_texto">
+                                <li class="ico_alerta"><i>!</i></li>
+                                <li>Debes elegir tus opciones para poder agregar la oferta.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="popover top tooltip_limite_pedidos" role="tooltip" id="" style="display: block;">
+                        <div class="arrow"></div>
+                        <div class="popover-content">
+                            <ul class="list-inline popover_texto">
+                                <li class="ico_alerta"><i>!</i></li>
+                                <li>Lo sentimos 😕 Has llegado al límite de pedidos para esta oferta.</li>
+                            </ul>
+                        </div>
+                    </div>
                     <a id="btnAgregalo" class="btn_agregalo {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
 
                     <div class="ficha_div_libre_agregado" style="padding-top: 15px;">
                         {{#iff TextoLibre '!=' ''}}
-                            <div class="limit_pack"><span>!</span>{{TextoLibre}}</div>
+                        <div class="limit_pack"><span>!</span>{{TextoLibre}}</div>
                         {{/iff}}
                         <div id="ContenedorAgregado" class="ficha_agregado" style="display:none;">
                             <div class="txt_agregado" data-txt_agregado="">

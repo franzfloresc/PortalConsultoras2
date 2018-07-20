@@ -274,6 +274,7 @@ body {
 .contenedor_agregar {
     float: left;
     width: 100%;
+    position: relative;
 }
 
 .subprecio{
@@ -342,7 +343,7 @@ body {
     height: 45px;
     line-height: 45px;
     text-align: center;
-    width: 55%;
+    width: 72%;
     border-radius: 4px;
 }
 
@@ -382,19 +383,19 @@ body {
     display: inline-block;
 }
 
-    .limit_pack span {
-        color: #e81c36;
-        border: 1px solid #e81c36;
-        display: inline-block;
-        border-radius: 50%;
-        height: 17px;
-        width: 17px;
-        text-align: center;
-        font-size: 11px;
-        position: relative;
-        margin-right: 6px;
-        line-height: 15px;
-    }
+.limit_pack span {
+    color: #e81c36;
+    border: 1px solid #e81c36;
+    display: inline-block;
+    border-radius: 50%;
+    height: 17px;
+    width: 17px;
+    text-align: center;
+    font-size: 11px;
+    position: relative;
+    margin-right: 6px;
+    line-height: 15px;
+}
 
 
 .txt_agregado {
@@ -423,26 +424,26 @@ body {
     width: 11px;
 }
 
-    .dibujar_check_agregado::before {
-        border-bottom: solid 2px #a18328;
-        -webkit-transform: rotate(44deg);
-        -moz-transform: rotate(44deg);
-        -ms-transform: rotate(44deg);
-        -o-transform: rotate(44deg);
-        transform: rotate(44deg);
-        width: 50%;
-    }
+.dibujar_check_agregado::before {
+    border-bottom: solid 2px #a18328;
+    -webkit-transform: rotate(44deg);
+    -moz-transform: rotate(44deg);
+    -ms-transform: rotate(44deg);
+    -o-transform: rotate(44deg);
+    transform: rotate(44deg);
+    width: 50%;
+}
 
-    .dibujar_check_agregado::after {
-        border-bottom: solid 2px #a18328;
-        bottom: 0;
-        left: 25%;
-        -webkit-transform: rotate(134deg);
-        -moz-transform: rotate(134deg);
-        -ms-transform: rotate(134deg);
-        -o-transform: rotate(134deg);
-        transform: rotate(134deg);
-    }
+.dibujar_check_agregado::after {
+    border-bottom: solid 2px #a18328;
+    bottom: 0;
+    left: 25%;
+    -webkit-transform: rotate(134deg);
+    -moz-transform: rotate(134deg);
+    -ms-transform: rotate(134deg);
+    -o-transform: rotate(134deg);
+    transform: rotate(134deg);
+}
 
 /* FIN Ficha Check Agreado y texto Libre */
 
@@ -946,6 +947,9 @@ body {
 .una_opcion {
     margin-top: 12px;
     padding-right: 30px;
+    float: right;
+    position: relative;
+    z-index: 2;
 }
 /*Fin tonos*/
 /* Tabs */
@@ -1083,3 +1087,31 @@ ul.breadcumbs li a::before {
     margin-left: 1px;
 }
 /* fin breadcumbs*/
+
+.popover_texto li:last-child {
+    font-size: 13px;
+    font-weight: bold;
+    line-height: normal;
+    width: 87%;
+    padding: 0;
+}
+
+.ico_alerta {
+    margin-right: 6px;
+}
+
+.ico_alerta i {
+    color: #e81c36;
+    border: 1px solid #e81c36;
+    display: inline-block;
+    border-radius: 50%;
+    height: 18px;
+    width: 18px;
+    text-align: center;
+    font-size: 12px;
+    position: relative;
+    line-height: 16px;
+    font-style: normal;
+    font-weight: bold;
+    letter-spacing: -1px;
+}
