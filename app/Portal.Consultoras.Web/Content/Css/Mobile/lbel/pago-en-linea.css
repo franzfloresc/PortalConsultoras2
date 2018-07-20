@@ -14,8 +14,14 @@
 
 /* FIN - ICONOS CONVERTIDOS A TIPOGRAFÍAS */
 
+/* HELPERS */
+
 .mr-0{
     margin-right:0!important;
+}
+
+.mt-16{
+    margin-top:16px;
 }
 
 .mb-0{
@@ -26,8 +32,32 @@
     margin-bottom:10px;
 }
 
+.mb-23{
+    margin-bottom:23px;
+}
+
 .pb-11{
     padding-bottom:11px;
+}
+
+.w-53{
+    width:53.6%;
+}
+
+.w-45{
+    width:42.4%;
+}
+
+.w-100{
+    width:100%!important;
+}
+
+.text-bold{
+    font-weight:600;
+}
+
+.text-bold-black{
+    font-weight:900;
 }
 
 .content_belcorp {
@@ -35,11 +65,15 @@
     padding-right: 2.4%;
 }
 
+/* FIN - HELPERS */
+
 .cabecera_vista_pago_en_linea,
 .enlace_regresar,
 .proceso_de_pago_en_linea,
 .cantidad_pasos_proceso_pago,
 .linea_conectora_pasos,
+.opcion_pago_contenido_visible_sin_desplegar,
+.opcion_pago_contenido_visible_al_desplegar,
 .fondo_pasos_proceso_pago_avance,
 .seleccion_monto_a_pagar,
 .campo_seleccion_monto_a_pagar,
@@ -54,11 +88,12 @@
 .info_comision_pago_en_linea,
 .cta_pago_en_linea,
 .contenedor_info_pago_seguro_y_ctas,
+.info_requerimiento_tarjeta_habilitada,
 .info_pago_seguro_con_tarjetas,
-.texto_pago_seguro,
+.lista_tarjetas_permitidas_para_pago,
 .aceptar_terminos_y_condiciones,
 .barra_activacion,
-.btn_pago_credito_visa > span,
+.btn_pago_tarjeta_credito,
 .fondo_modal,
 .redireccion_proveedor_de_pago,
 .animacion_precarga_redireccion_proveedor_pago,
@@ -82,7 +117,12 @@
 .info_num_operacion_pago,
 .descripcion_terminos_y_condiciones,
 .contenedor_btn_pagar_con_visa,
-.enlace_ver_estado_de_cuenta
+.enlace_ver_estado_de_cuenta,
+.opcion_pago_monto,
+.opcion_pago_gastos_administrativos,
+.linea_separacion_montos_y_total,
+.opcion_pago_total_a_pagar,
+.icono_flecha_despliegue
 {
     display:block;
 }
@@ -96,6 +136,7 @@
 .monto_moneda_pais,
 .monto_a_editar,
 .icono_pago_seguro,
+.texto_pago_seguro,
 .texto_info_pago_seguro,
 .icono_marca_tarjeta,
 .marca_tarjeta,
@@ -116,7 +157,11 @@
 .num_operacion_pago,
 .enlace_ir_a_notificaciones,
 .icono_enlace_enviar_estado_cuenta, 
-.enlace_ver_estado_de_cuenta span:last-child
+.enlace_ver_estado_de_cuenta span:last-child,
+.opcion_pago_monto > div,
+.opcion_pago_gastos_administrativos > div,
+.opcion_pago_total_a_pagar > div,
+.texto_descripcion_tipo_pago
 {
     display:inline-block;
     vertical-align:middle;
@@ -161,28 +206,29 @@
     background: url(../../../Images/flecha_volver_mobile.svg) no-repeat center center;
 }
 
-.proceso_de_pago_en_linea{
-    padding:12px 6px 0 6px;
-}
-
+.proceso_de_pago_en_linea,
 .contenedor_info_pago_seguro_y_ctas,
 .redireccion_proveedor_de_pago
 {
-    padding: 24px 6px 0 6px;
+    padding: 12px 6px 0 6px;
+}
+
+.proceso_de_pago_en_linea{
+    margin-bottom:30px;
 }
 
 .cantidad_pasos_proceso_pago{
     position:relative;
-    margin:0 auto;
-    width:171px;
+    margin:0 auto 29px auto;
+    width:185px;
 }
 
 .paso_proceso_pago_en_linea{
-    width:29px;
-    height:29px;
+    width: 33.79px;
+    height: 32.66px;
     font-size:14px;
     font-weight:bold;
-    line-height:26.5px;
+    line-height: 30.66px;
     text-align:center;
     border-radius:100%;
     background-color:#FFF;
@@ -231,7 +277,7 @@
 
 .seleccion_monto_a_pagar h3{
     margin-top:18px;
-    margin-bottom:8px;
+    margin-bottom:21px;
     text-transform:uppercase;
     font-size:14px;
     font-weight:bold;
@@ -243,6 +289,10 @@
 .lista_opciones_pago
 {
     list-style-type:none;
+}
+
+.lista_opciones_pago{
+    margin-bottom:22.46px;
 }
 
 .campo_seleccion_monto_a_pagar{    
@@ -285,24 +335,27 @@
     top:11px;
 }
 
-.icono_marca_tarjeta{
-    margin-right:14px;
-}
-
 .marca_tarjeta{
     margin-bottom:3px;
 }
 
 .opcion_pago{
-    border:1px solid #D2D2D2;
-    margin-bottom:8px;
-    padding: 1px 11px 8px 11px;
+    border: 2px solid #7E7E7E;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    cursor:pointer;
 }
 
-.opcion_pago:last-child{
-    margin-bottom:0;
-    padding-top:10px;
-    padding-bottom:10px;
+.opcion_pago,
+.btn_pago_tarjeta_credito
+{
+    border-radius:4px;
+}
+
+.pagoTotal{
+    margin-bottom:16px;
 }
 
 .opcion_pago input[type="radio"]{
@@ -354,18 +407,81 @@
     background:#642f80;
 }
 
+.opcion_pago_contenido_visible_sin_desplegar,
+.opcion_pago_contenido_visible_al_desplegar,
+.linea_separacion_montos_y_total
+{
+    padding-left:12px;
+    padding-right:12px;
+}
+
+.opcion_pago_contenido_visible_sin_desplegar,
+.opcion_pago_contenido_visible_al_desplegar
+{
+    padding-bottom:12px;
+}
+
+.metodoPago{
+    margin-bottom:12px;
+}
+
+.metodoPago .titulo_monto_pago_total{
+    font-size:13px;
+}
+
+.metodoPago .opcion_pago_contenido_visible_sin_desplegar{
+    padding-top:11px!important;
+    padding-bottom:16px!important;
+}
+
+.opcion_pago:first-child .opcion_pago_contenido_visible_sin_desplegar{
+    padding-top:5px;
+}
+
+.opcion_pago:last-child .opcion_pago_contenido_visible_sin_desplegar{
+    padding-top:15px;
+}
+
+.opcion_pago:first-child .opcion_pago_contenido_visible_al_desplegar{
+    margin-top: 20px;
+}
+
+.opcion_pago:first-child .opcion_pago_total_a_pagar{
+    margin-bottom:52px;
+}
+
+.opcion_pago:last-child .opcion_pago_contenido_visible_al_desplegar{
+    margin-top: 13px;
+}
+
+.opcion_pago:last-child .opcion_pago_total_a_pagar{
+    margin-bottom:28px;
+}
+
+.opcion_pago_contenido_visible_al_desplegar{
+    font-size:15px;
+}
+
+.linea_separacion_montos_y_total{
+    margin-top:5px;
+    margin-bottom:5px;
+    height:1px;
+    background-color:#D8D8D8;
+}
+
 .col_izq,
 .col_der
 {
     vertical-align:top;
+    position:relative;
 }
 
 .col_izq{
-    width:91%;
+    width:92%;
 }
 
 .col_der{
-    width:8%;
+    width:7%;
     text-align:center;
 }
 
@@ -386,6 +502,13 @@
     font-size:20px;
 }
 
+.texto_descripcion_tipo_pago{
+    font-size:14px;
+    padding-bottom: 1px;
+    margin-right: 6px;
+    vertical-align:bottom;
+}
+
 .tipo_moneda_pais,
 .monto_moneda_pais
 {
@@ -395,6 +518,21 @@
 .fecha_vencimiento_pago_en_linea{
     font-size:12px;
     color:#909090;
+}
+
+.icono_flecha_despliegue{
+    width:17px;
+    height:17px;
+    position: absolute;
+    right: 0;
+}
+
+.pagoTotal .icono_flecha_despliegue{
+    top: 6px;
+}
+
+.pagoParcial .icono_flecha_despliegue{
+    top:-3px;
 }
 
 .titulo_monto_pago_total,
@@ -664,16 +802,25 @@
     font-weight:300;
     letter-spacing:0.2px;
     text-transform:uppercase;
+    margin-top:2px;
+    margin-right:5px;
 }
 
-.solo_visa{
-    
+.icono_marca_tarjeta{
+    width: auto;
+    height: 17px;
+    margin-right:10px;
 }
 
-.icono_marca_visa{
+.icono_marca_tarjeta img{
+    width:auto;
+    height:100%;
+}
+
+/*.icono_marca_visa{
     width: 29px;
     margin-bottom:3px;
-}
+}*/
 
 .cta_pago_en_linea{
     position:fixed;
@@ -695,9 +842,13 @@
     margin-bottom:4px;
 }
 
-.btn_pago_credito_visa{
-    line-height:17px;
-    padding-top:4px;
+.btn_pago_tarjeta_credito{
+    font-family:'Lato', sans-serif!important;
+    height:45px!important;
+    line-height:43px;
+    color:#FFF!important;
+    font-size:14px!important;
+    letter-spacing:0.5px;
 }
 
 .btn_pagar{
