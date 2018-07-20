@@ -50,20 +50,32 @@
     }
     
 
-    var _ValidarSeleccionTono=  function (objInput) {
+    var _ValidarSeleccionTono=  function (objInput, esFicha) {
         var attrClass = $.trim($(objInput).attr("class"));
         if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
+
+            var $SelectTonos = $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']");
+            var $SeleccionTonoToolTip = $("[data-selecciontono='tooltip']");
+
             if (isMobile()) {
-                if (origenPedidoWebEstrategia == 2731) {
-                    window.scrollTo(0, 540);
+                if (esFicha) {
+
+                    var $PrimerElemento = $SelectTonos[0];
+                    var Altura = $($PrimerElemento).offset().top - 200;
+                    window.scrollTo(0, Altura);
                 }
             }
 
-            $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").removeClass("texto_sin_tono").addClass("variedad_sin_seleccionar");
+            if (esFicha) {
+                $SeleccionTonoToolTip.show();
+                setTimeout(function () { $SeleccionTonoToolTip.hide(); }, 2000);
+            }
+
+            $SelectTonos.removeClass("texto_sin_tono").addClass("variedad_sin_seleccionar");
             setTimeout(
                 function () {
-                    $(objInput).parents("[data-item]").find("[data-tono-change='1']").removeClass("variedad_sin_seleccionar").addClass("texto_sin_tono");
-                }, 500);
+                    $SelectTonos.removeClass("variedad_sin_seleccionar").addClass("texto_sin_tono");
+                }, 1000);
             return true;
         }
         return false;

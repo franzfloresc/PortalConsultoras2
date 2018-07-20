@@ -106,9 +106,29 @@ var EstrategiaAgregarModule = (function () {
         } else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 262) {
             messageInfo(txt);
         } else if (isMobile()) {
-            messageInfo(txt);
+            if (txt.indexOf("cantidad limite")) {
+                var $limitePedidoToolTip = $('[data-limitepedido="tooltip"]');
+                if ($limitePedidoToolTip.length > 0) {
+                    $limitePedidoToolTip.show();
+                    setTimeout(function () { $limitePedidoToolTip.hide(); }, 2000);
+                } else {
+                    messageInfo(txt);
+                }
+            } else {
+                messageInfo(txt);
+            }
         } else {
-            alert_msg(txt);
+            var $limitePedidoToolTip = $('[data-limitepedido="tooltip"]');
+            if (txt.indexOf("cantidad limite")) {
+                var $limitePedidoToolTip = $('[data-limitepedido="tooltip"]');
+                if ($limitePedidoToolTip.length > 0) {
+                    setTimeout(function () { $limitePedidoToolTip.hide(); }, 2000);
+                } else {
+                    messageInfo(txt);
+                }
+            } else {
+                alert_msg(txt);
+            }
         }
     };
 
@@ -215,7 +235,7 @@ var EstrategiaAgregarModule = (function () {
             return false;
         }
 
-        if (estrategiaComponenteModule.ValidarSeleccionTono($btnAgregar)) {
+        if (estrategiaComponenteModule.ValidarSeleccionTono($btnAgregar, _config.esFicha)) {
             return false;
         }
 
@@ -289,13 +309,13 @@ var EstrategiaAgregarModule = (function () {
                 return false;
             }
 
-            $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
-
             if (data.success === false) {
                 abrirMensajeEstrategia(data.message);
                 CerrarLoad();
                 return false;
             }
+
+            $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
 
             if (!isMobile() && !agregoAlCarro) {
                 agregarProductoAlCarrito($btnAgregar);
@@ -322,8 +342,6 @@ var EstrategiaAgregarModule = (function () {
             }
 
             if (isMobile()) {
-                //ActualizarGanancia(data.DataBarra);
-                //if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.ShowRoom)
                 CargarCantidadProductosPedidos(true);
                 microefectoPedidoGuardado();
             } else {
@@ -336,9 +354,6 @@ var EstrategiaAgregarModule = (function () {
             if (tipoOrigenEstrategia == 1) {
                 if (typeof MostrarBarra != constantes.undefined())
                     MostrarBarra(data, "1");
-
-                //if (typeof ActualizarGanancia != constantes.undefined())
-                //    ActualizarGanancia(data.DataBarra);
 
                 if (typeof CargarCarouselEstrategias != constantes.undefined())
                     CargarCarouselEstrategias();
