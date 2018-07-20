@@ -76,7 +76,7 @@ $(document).ready(function () {
                     $(this).find('.icono_flecha_despliegue').removeClass('girar180');
                 } else {
                     $('.opcion_pago_contenido_visible_al_desplegar').slideUp(200);
-                    $('.opcion_pago_contenido_visible_al_desplegar').find('.icono_flecha_despliegue').removeClass('girar180');
+                    $('.icono_flecha_despliegue').removeClass('girar180');
                     $(this).next().slideDown(200);
                     $(this).find('.icono_flecha_despliegue').addClass('girar180');
                 }
