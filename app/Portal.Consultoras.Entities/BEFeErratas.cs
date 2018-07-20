@@ -33,26 +33,15 @@ namespace Portal.Consultoras.Entities
 
         public BEFeErratas(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "FeErratasID"))
-                FeErratasID = Convert.ToInt32(row["FeErratasID"]);
-            if (DataRecord.HasColumn(row, "PaisID"))
-                PaisID = Convert.ToInt32(row["PaisID"]);
-            if (DataRecord.HasColumn(row, "PaisNombre"))
-                PaisNombre = Convert.ToString(row["PaisNombre"]);
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "NombreCorto"))
-                NombreCorto = Convert.ToString(row["NombreCorto"]);
-            if (DataRecord.HasColumn(row, "Titulo"))
-                Titulo = Convert.ToString(row["Titulo"]);
-            else
-                Titulo = string.Empty;
-            if (DataRecord.HasColumn(row, "Pagina"))
-                Pagina = Convert.ToInt32(row["Pagina"]);
-            if (DataRecord.HasColumn(row, "Dice"))
-                Dice = Convert.ToString(row["Dice"]);
-            if (DataRecord.HasColumn(row, "DebeDecir"))
-                DebeDecir = Convert.ToString(row["DebeDecir"]);
+            FeErratasID = row.ToInt32("FeErratasID");
+            PaisID = row.ToInt32("PaisID");
+            PaisNombre = row.ToString("PaisNombre");
+            CampaniaID = row.ToInt32("CampaniaID");
+            NombreCorto = row.ToString("NombreCorto");
+            Titulo = row.ToString("Titulo", string.Empty);
+            Pagina = row.ToInt32("Pagina");
+            Dice = row.ToString("Dice");
+            DebeDecir = row.ToString("DebeDecir");
         }
     }
 }

@@ -18,6 +18,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
     public class BaseMobileController : BaseController
     {
+        public BaseMobileController():base()
+        {
+                
+        }
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
@@ -55,20 +60,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (mostrarBanner || mostrarBannerTop)
                 {
                     ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
-                    ShowRoomBannerLateralModel showRoomBannerLateral = GetShowRoomBannerLateral();
+                    ShowRoomBannerLateralModel showRoomBannerLateral = _showRoomProvider.GetShowRoomBannerLateral(userData.CodigoISO, userData.ZonaHoraria, userData.FechaInicioCampania);
                     ViewBag.ShowRoomBannerLateral = showRoomBannerLateral;
                     ViewBag.MostrarShowRoomBannerLateral = sessionManager.GetEsShowRoom() &&
                         !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&
                         showRoomBannerLateral.BEShowRoomConsultora.EventoConsultoraID != 0 && showRoomBannerLateral.EstaActivoLateral;
 
-                    if (showRoomBannerLateral.DiasFalta > 0)
-                    {
-                        if (showRoomBannerLateral.DiasFalta > 1)
-                        {
-                            showRoomBannerLateral.LetrasDias = "FALTAN " + Convert.ToInt32(showRoomBannerLateral.DiasFalta).ToString() + " DÍAS";
-                        }
-                        else { showRoomBannerLateral.LetrasDias = "FALTA " + Convert.ToInt32(showRoomBannerLateral.DiasFalta).ToString() + " DÍA"; }
-                    }
 
                     ViewBag.ImagenPopupShowroomIntriga = showRoomBannerLateral.ImagenPopupShowroomIntriga;
                     ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
@@ -77,15 +74,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ViewBag.DiasFaltantesLetras = showRoomBannerLateral.LetrasDias;
 
                     ViewBag.MostrarShowRoomProductos = showRoomBannerLateral.MostrarShowRoomProductos;
-
-                    OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
-                    ViewBag.OfertaDelDia = ofertaDelDia;
-
-                    ViewBag.MostrarOfertaDelDia =
-                            !(userData.IndicadorGPRSB == 1 || userData.CloseOfertaDelDia)
-                            && userData.TieneOfertaDelDia
-                            && ofertaDelDia != null
-                            && ofertaDelDia.TeQuedan.TotalSeconds > 0;
+                    
+                    ViewBag.MostrarOfertaDelDia = _ofertaDelDiaProvider.MostrarOfertaDelDia(userData);
 
                     showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
                 }
@@ -116,29 +106,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
-
-        public JsonResult GetOfertaDelDia()
-        {
-            try
-            {
-                var oddModel = GetOfertaDelDiaModel();
-                return Json(new
-                {
-                    success = oddModel != null,
-                    data = oddModel
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "No se pudo procesar la solicitud"
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
+        
         private void CargarValoresGenerales(UsuarioModel userData)
         {
             if (sessionManager.GetUserData() != null)

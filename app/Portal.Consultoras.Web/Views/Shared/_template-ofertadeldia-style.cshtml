@@ -1,5 +1,5 @@
 ﻿<script id="ofertadeldia-template-style" type="text/x-handlebars-template">
-    {{#if ConfiguracionContenedor.ColorFondo}}
+    {{#IsNullOrEmpty ConfiguracionContenedor.ColorFondo '!='}}
         .flip-clock-wrapper .flip{
             box-shadow: 0 2px 5px {{ConfiguracionContenedor.ColorFondo}} !important;
         }
@@ -10,12 +10,15 @@
             color: {{ConfiguracionContenedor.ColorTexto}} !important;
             {{/if}}
         }
+
         {{#if ConfiguracionContenedor.ColorTexto}}
         .flip-clock-dot {
             background: {{ConfiguracionContenedor.ColorTexto}} !important;
         }
         {{/if}}
-    {{else}}
+    {{/IsNullOrEmpty}}
+
+    {{#IsNullOrEmpty ConfiguracionContenedor.ColorFondo '=='}}
         .flip-clock-wrapper .flip{
             box-shadow: 0 2px 5px {{ColorFondo1}} !important;
         }
@@ -26,10 +29,28 @@
             color: {{ConfiguracionContenedor.ColorTexto}} !important;
             {{/if}}
         }
+
         {{#if ConfiguracionContenedor.ColorTexto}}
         .flip-clock-dot {
             background: {{ConfiguracionContenedor.ColorTexto}} !important;
         }
         {{/if}}
-    {{/if}}
+    {{/IsNullOrEmpty}}
+
+    .txt_te_quedan {
+        color: {{ConfiguracionContenedor.ColorTexto}};
+    }
+    .flip-clock-divider .flip-clock-label {
+        color: {{ConfiguracionContenedor.ColorTexto}};
+    }
+    .marca_odd {
+        color: {{ConfiguracionContenedor.ColorTexto}};
+    }
+    .nombre_oferta_odd {
+        color: {{ConfiguracionContenedor.ColorTexto}};
+    }
+    .precios_odd {
+        color: {{ConfiguracionContenedor.ColorTexto}};
+    }
+
 </script>

@@ -291,6 +291,7 @@
       <xs:element minOccurs="0" name="NombreConsultoraRecomienda" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Rechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SolicitudPrePostulanteID" type="xs:int" />
       <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="VieneDe" nillable="true" type="xs:string" />

@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, correoNuevo, "UrlReturn,cupon" };
                     string paramQuerystring = Util.Encrypt(string.Join(";", parametros));
 
-                    bool tipopais = GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
+                    bool tipopais = _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
 
                     var cadena = MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), userData.Sobrenombre, paramQuerystring, tipopais);
 
@@ -103,7 +103,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string url = Util.GetUrlHost(this.HttpContext.Request).ToString();
                 string montoLimite = ObtenerMontoLimiteDelCupon();
                 CuponConsultoraModel cuponModel = ObtenerDatosCupon();
-                bool tipopais = GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
+                bool tipopais = _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO);
                 string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url, montoLimite, tipopais);
                 string correo = userData.EMail;
                 Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
@@ -189,7 +189,7 @@ namespace Portal.Consultoras.Web.Controllers
             userData.EMail = entidad.EMail;
             userData.Celular = entidad.Celular;
             userData.EMailActivo = correoNuevo == correoAnterior && userData.EMailActivo;
-            SetUserData(userData);
+            sessionManager.SetUserData(userData);
         }
 
         private void ActivacionCupon()
@@ -209,77 +209,77 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private bool TieneOfertasPlan20()
-        {
-            var flag = false;
-            var flagValidacionCodigoCatalogo = false;   
-            var flagValidacionAppCatalogo = false;  
-            List<BEPedidoWebDetalle> listaPedidoWebDetalle;
+        //private bool TieneOfertasPlan20()
+        //{
+        //    var flag = false;
+        //    var flagValidacionCodigoCatalogo = false;   
+        //    var flagValidacionAppCatalogo = false;  
+        //    List<BEPedidoWebDetalle> listaPedidoWebDetalle;
 
-            if (sessionManager.GetDetallesPedido() == null)
-            {
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-                    {
-                        PaisId = userData.PaisID,
-                        CampaniaId = userData.CampaniaID,
-                        ConsultoraId = userData.ConsultoraID,
-                        Consultora = userData.NombreConsultora,
-                        EsBpt = EsOpt() == 1,
-                        CodigoPrograma = userData.CodigoPrograma,
-                        NumeroPedido = userData.ConsecutivoNueva
-                    };
+        //    if (sessionManager.GetDetallesPedido() == null)
+        //    {
+        //        using (PedidoServiceClient sv = new PedidoServiceClient())
+        //        {
+        //            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+        //            {
+        //                PaisId = userData.PaisID,
+        //                CampaniaId = userData.CampaniaID,
+        //                ConsultoraId = userData.ConsultoraID,
+        //                Consultora = userData.NombreConsultora,
+        //                EsBpt = EsOpt() == 1,
+        //                CodigoPrograma = userData.CodigoPrograma,
+        //                NumeroPedido = userData.ConsecutivoNueva
+        //            };
 
-                    listaPedidoWebDetalle = sv.SelectByCampania(bePedidoWebDetalleParametros).ToList();
-                }
-            }
-            else
-            {
-                listaPedidoWebDetalle = sessionManager.GetDetallesPedido();
-            }
+        //            listaPedidoWebDetalle = sv.SelectByCampania(bePedidoWebDetalleParametros).ToList();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        listaPedidoWebDetalle = sessionManager.GetDetallesPedido();
+        //    }
 
-            #region Logica validacion por Codigo de Catalogo    
+        //    #region Logica validacion por Codigo de Catalogo    
 
-            List<BETablaLogicaDatos> lstCodigosOfertas; 
-            using (SACServiceClient svc = new SACServiceClient())
-            {
-                lstCodigosOfertas = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TipoOfertasPlan20.TablaLogicaId).ToList();
-            }
+        //    List<BETablaLogicaDatos> lstCodigosOfertas; 
+        //    using (SACServiceClient svc = new SACServiceClient())
+        //    {
+        //        lstCodigosOfertas = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TipoOfertasPlan20.TablaLogicaId).ToList();
+        //    }
 
 
-            var listaCodigoTipoOferta = new List<string>(); 
-            listaCodigoTipoOferta.Add("126");   
+        //    var listaCodigoTipoOferta = new List<string>(); 
+        //    listaCodigoTipoOferta.Add("126");   
 
-            if (listaPedidoWebDetalle.Any() && lstCodigosOfertas.Any()) 
-            {
-                var producto = listaPedidoWebDetalle.FirstOrDefault(x => lstCodigosOfertas.Any(y => x.CodigoCatalago == int.Parse(y.Codigo))    
-                                                        && listaCodigoTipoOferta.Any(y => x.CodigoTipoOferta.Trim() != y)   
-                                                        && x.TipoEstrategiaCodigo.Trim() != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);     
+        //    if (listaPedidoWebDetalle.Any() && lstCodigosOfertas.Any()) 
+        //    {
+        //        var producto = listaPedidoWebDetalle.FirstOrDefault(x => lstCodigosOfertas.Any(y => x.CodigoCatalago == int.Parse(y.Codigo))    
+        //                                                && listaCodigoTipoOferta.Any(y => x.CodigoTipoOferta.Trim() != y)   
+        //                                                && x.TipoEstrategiaCodigo.Trim() != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);     
 
-                if (producto != null)   
-                    flagValidacionCodigoCatalogo = true;
-            }
+        //        if (producto != null)   
+        //            flagValidacionCodigoCatalogo = true;
+        //    }
 
-            #endregion
+        //    #endregion
 
-            #region Logica validacion por App Catalogo y OrigenPedidoWeb    
+        //    #region Logica validacion por App Catalogo y OrigenPedidoWeb    
 
-            if (listaPedidoWebDetalle.Any())    
-            {
-                var producto = listaPedidoWebDetalle.FirstOrDefault(p => p.OrigenPedidoWeb.ToString().StartsWith("4")   
-                                                                    && listaCodigoTipoOferta.Any(y => p.CodigoTipoOferta.Trim() != y)   
-                                                                    && p.TipoEstrategiaCodigo.Trim() != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);     
-                if (producto != null)   
-                    flagValidacionAppCatalogo = true;
-            }
+        //    if (listaPedidoWebDetalle.Any())    
+        //    {
+        //        var producto = listaPedidoWebDetalle.FirstOrDefault(p => p.OrigenPedidoWeb.ToString().StartsWith("4")   
+        //                                                            && listaCodigoTipoOferta.Any(y => p.CodigoTipoOferta.Trim() != y)   
+        //                                                            && p.TipoEstrategiaCodigo.Trim() != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);     
+        //        if (producto != null)   
+        //            flagValidacionAppCatalogo = true;
+        //    }
 
-            #endregion
+        //    #endregion
 
-            flag = flagValidacionCodigoCatalogo && flagValidacionAppCatalogo;   
+        //    flag = flagValidacionCodigoCatalogo && flagValidacionAppCatalogo;   
 
-            return flag;    
-        }
+        //    return flag;    
+        //}
 
         private void ValidarPopupDelGestorPopups()
         {
@@ -337,7 +337,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ActualizarDatos(entidad, entidad.EMail);
 
                 userData.Celular = entidad.Celular;
-                SetUserData(userData);
+                sessionManager.SetUserData(userData);
             }
         }
 

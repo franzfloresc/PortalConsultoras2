@@ -61,25 +61,24 @@ namespace Portal.Consultoras.Entities
         [ViewProperty]
         public int NumeroPagina { set; get; }
 
-        public BEProductoFaltante(IDataRecord datarec)
+        public BEProductoFaltante(IDataRecord row)
         {
-            if (DataRecord.HasColumn(datarec, "RowNumber")) rowID = Convert.ToString(datarec["RowNumber"]);
-            if (DataRecord.HasColumn(datarec, "CampaniaID")) CampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
-            if (DataRecord.HasColumn(datarec, "CUV")) CUV = Convert.ToString(datarec["CUV"]);
-            if (DataRecord.HasColumn(datarec, "ZonaID")) ZonaID = Convert.ToInt32(datarec["ZonaID"]);
-            if (DataRecord.HasColumn(datarec, "Zona")) Zona = Convert.ToString(datarec["Zona"]);
-            if (DataRecord.HasColumn(datarec, "Descripcion")) Descripcion = Convert.ToString(datarec["Descripcion"]);
-            if (DataRecord.HasColumn(datarec, "List_TotalNumeroPagina")) TotalPages = Convert.ToInt32(datarec["List_TotalNumeroPagina"]);
-            if (DataRecord.HasColumn(datarec, "List_TotalRegistros")) RowsCount = Convert.ToInt32(datarec["List_TotalRegistros"]);
-            if (DataRecord.HasColumn(datarec, "Estado")) Estado = Convert.ToInt32(datarec["Estado"]);
-            if (DataRecord.HasColumn(datarec, "fecha")) Fecha = Convert.IsDBNull(datarec["fecha"]) ? "" : datarec["fecha"].ToString();
+            rowID = row.ToString("RowNumber");
+            CampaniaID = row.ToInt32("CampaniaID");
+            CUV = row.ToString("CUV");
+            ZonaID = row.ToInt32("ZonaID");
+            Zona = row.ToString("Zona");
+            Descripcion = row.ToString("Descripcion");
+            TotalPages = row.ToInt32("List_TotalNumeroPagina");
+            RowsCount = row.ToInt32("List_TotalRegistros");
+            Estado = row.ToInt32("Estado");
+            if (DataRecord.HasColumn(row, "fecha")) Fecha = Convert.IsDBNull(row["fecha"]) ? "" : Convert.ToString(row["fecha"]);
             else Fecha = "";
-            if (DataRecord.HasColumn(datarec, "Codigo")) Codigo = Convert.ToString(datarec["Codigo"]);
-            if (DataRecord.HasColumn(datarec, "FaltanteUltimoMinuto")) FaltanteUltimoMinuto = Convert.ToBoolean(datarec["FaltanteUltimoMinuto"]);
-
-            if (DataRecord.HasColumn(datarec, "Categoria")) Categoria = Convert.IsDBNull(datarec["Categoria"]) ? "" : datarec["Categoria"].ToString();
-            if (DataRecord.HasColumn(datarec, "Catalogo")) Catalogo = Convert.IsDBNull(datarec["Catalogo"]) ? "" : datarec["Catalogo"].ToString();
-            if (DataRecord.HasColumn(datarec, "NumeroPagina")) NumeroPagina = Convert.IsDBNull(datarec["NumeroPagina"]) ? 0 : Convert.ToInt32(datarec["NumeroPagina"]);
+            Codigo = row.ToString("Codigo");
+            FaltanteUltimoMinuto = row.ToBoolean("FaltanteUltimoMinuto");
+            if (DataRecord.HasColumn(row, "Categoria")) Categoria = Convert.IsDBNull(row["Categoria"]) ? "" : Convert.ToString(row["Categoria"]);
+            if (DataRecord.HasColumn(row, "Catalogo")) Catalogo = Convert.IsDBNull(row["Catalogo"]) ? "" : Convert.ToString(row["Catalogo"]);
+            if (DataRecord.HasColumn(row, "NumeroPagina")) NumeroPagina = Convert.IsDBNull(row["NumeroPagina"]) ? 0 : Convert.ToInt32(row["NumeroPagina"]);
         }
 
         public BEProductoFaltante()

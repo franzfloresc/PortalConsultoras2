@@ -77,45 +77,25 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         public BEShowRoomOfertaDetalle(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "OfertaShowRoomDetalleID"))
-                OfertaShowRoomDetalleID = Convert.ToInt32(row["OfertaShowRoomDetalleID"]);
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "NombreSet"))
-                NombreSet = Convert.ToString(row["NombreSet"]);
-            if (DataRecord.HasColumn(row, "Posicion"))
-                Posicion = Convert.ToInt32(row["Posicion"]);
-            if (DataRecord.HasColumn(row, "NombreProducto"))
-                NombreProducto = Convert.ToString(row["NombreProducto"]);
-            if (DataRecord.HasColumn(row, "Descripcion1"))
-                Descripcion1 = Convert.ToString(row["Descripcion1"]);
-            if (DataRecord.HasColumn(row, "Descripcion2"))
-                Descripcion2 = Convert.ToString(row["Descripcion2"]);
-            if (DataRecord.HasColumn(row, "Descripcion3"))
-                Descripcion3 = Convert.ToString(row["Descripcion3"]);
-            if (DataRecord.HasColumn(row, "Imagen"))
-                Imagen = Convert.ToString(row["Imagen"]);
-            if (DataRecord.HasColumn(row, "UsuarioCreacion"))
-                UsuarioCreacion = Convert.ToString(row["UsuarioCreacion"]);
-            if (DataRecord.HasColumn(row, "FechaCreacion"))
-                FechaCreacion = Convert.ToDateTime(row["FechaCreacion"]);
-            if (DataRecord.HasColumn(row, "UsuarioModificacion"))
-                UsuarioModificacion = Convert.ToString(row["UsuarioModificacion"]);
-            if (DataRecord.HasColumn(row, "FechaModificacion"))
-                FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-            if (DataRecord.HasColumn(row, "Posicion"))
-                Posicion = Convert.ToInt32(row["Posicion"]);
-            if (DataRecord.HasColumn(row, "MarcaProducto"))
-                MarcaProducto = Convert.ToString(row["MarcaProducto"]);
-            if (DataRecord.HasColumn(row, "CodigoEstrategia"))
-                CodigoEstrategia = Convert.ToString(row["CodigoEstrategia"]);
-            if (DataRecord.HasColumn(row, "SAP"))
-                SAP = Convert.ToString(row["SAP"]);
-            if (DataRecord.HasColumn(row, "Grupo"))
-                Grupo = Convert.ToString(row["Grupo"]);
-
+            OfertaShowRoomDetalleID = row.ToInt32("OfertaShowRoomDetalleID");
+            CampaniaID = row.ToInt32("CampaniaID");
+            CUV = row.ToString("CUV");
+            NombreSet = row.ToString("NombreSet");
+            Posicion = row.ToInt32("Posicion");
+            NombreProducto = row.ToString("NombreProducto");
+            Descripcion1 = row.ToString("Descripcion1");
+            Descripcion2 = row.ToString("Descripcion2");
+            Descripcion3 = row.ToString("Descripcion3");
+            Imagen = row.ToString("Imagen");
+            UsuarioCreacion = row.ToString("UsuarioCreacion");
+            FechaCreacion = row.ToDateTime("FechaCreacion");
+            UsuarioModificacion = row.ToString("UsuarioModificacion");
+            FechaModificacion = row.ToDateTime("FechaModificacion");
+            Posicion = row.ToInt32("Posicion");
+            MarcaProducto = row.ToString("MarcaProducto");
+            CodigoEstrategia = row.ToString("CodigoEstrategia");
+            SAP = row.ToString("SAP");
+            Grupo = row.ToString("Grupo");
         }
     }
 }

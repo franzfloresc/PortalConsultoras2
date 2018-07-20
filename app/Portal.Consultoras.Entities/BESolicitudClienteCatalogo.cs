@@ -33,26 +33,13 @@ namespace Portal.Consultoras.Entities
 
         public BESolicitudClienteCatalogo(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Pais"))
-                Pais = Convert.ToString(row["Pais"]);
-
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-
-            if (DataRecord.HasColumn(row, "AsuntoNotificacion"))
-                AsuntoNotificacion = Convert.ToString(row["AsuntoNotificacion"]);
-
-            if (DataRecord.HasColumn(row, "DetalleNotificacion"))
-                DetalleNotificacion = Convert.ToString(row["DetalleNotificacion"]);
-
-            if (DataRecord.HasColumn(row, "Campania"))
-                Campania = Convert.ToString(row["Campania"]);
-
-            if (DataRecord.HasColumn(row, "CorreoCliente"))
-                CorreoCliente = Convert.ToString(row["CorreoCliente"]);
-
-            if (DataRecord.HasColumn(row, "FechaIngreso"))
-                FechaIngreso = Convert.ToDateTime((row["FechaIngreso"]).ToString());
+            Pais = row.ToString("Pais");
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            AsuntoNotificacion = row.ToString("AsuntoNotificacion");
+            DetalleNotificacion = row.ToString("DetalleNotificacion");
+            Campania = row.ToString("Campania");
+            CorreoCliente = row.ToString("CorreoCliente");
+            FechaIngreso = row.ToDateTime("FechaIngreso");
         }
     }
 }

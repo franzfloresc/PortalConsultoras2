@@ -4,7 +4,7 @@ namespace Portal.Consultoras.Web.Models
 {
     public class TipoProductoComentarioModel
     {
-        private Enumeradores.TipoProductoComentario _tipoComentario;
+        readonly Enumeradores.TipoProductoComentario _tipoComentario;
 
         public TipoProductoComentarioModel(Enumeradores.TipoProductoComentario tipoComentario)
         {

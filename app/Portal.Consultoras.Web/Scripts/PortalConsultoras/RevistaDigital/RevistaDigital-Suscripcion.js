@@ -1,5 +1,5 @@
 ﻿
-var lsListaRD = lsListaRD || "ListaRD";
+var lsListaRD = lsListaRD || "RDLista";
 
 $(document).ready(function () {
     "use strict";
@@ -74,8 +74,10 @@ function RDPopupMobileCerrar() {
 }
 
 function RDSuscripcion() {
+
     AbrirLoad();
     rdAnalyticsModule.Inscripcion();
+
     var rdSuscriocionPromise = RDSuscripcionPromise();
     rdSuscriocionPromise.then(
         function (data) {

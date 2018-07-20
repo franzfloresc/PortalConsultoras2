@@ -1,0 +1,20 @@
+﻿
+<script id="template-fichadetallevideo" type="text/x-handlebars-template">
+    <div class="video-visual">
+        <div class="video-container" style="width: 100%; position: relative;">
+            <div id="ytFicha"
+                 data-youtube="{
+                 height:'{{VideoHeight}}',
+                 width:'100%',
+                 enablejsapi:1,
+                 fs:0,
+                 showinfo:0,
+                 modestbranding:1,
+                 loop:1,
+                 videoId: '{{TipoEstrategiaDetalle.UrlVideo}}',
+                 playerVars:{autoplay:0,rel:0}}"
+                 data-extra="{'descripcionResumen':'{{DescripcionResumen}}'}"
+                 class="yt-video"></div>
+        </div>
+    </div>
+</script>

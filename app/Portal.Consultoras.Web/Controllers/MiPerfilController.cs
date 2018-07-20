@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CompartirDatos = beusuario.CompartirDatos;
                 model.AceptoContrato = beusuario.AceptoContrato;
                 model.UsuarioPrueba = userData.UsuarioPrueba;
-                model.NombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
+                model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
                 model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
 
                 BEZona[] bezona;
@@ -74,24 +74,24 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ActualizaDatos = userData.PuedeActualizar;
                 model.PaisID = userData.PaisID;
 
-                var paisesDigitoControl = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
+                var paisesDigitoControl = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
                 if (paisesDigitoControl.Contains(model.PaisISO)
                     && !String.IsNullOrEmpty(beusuario.DigitoVerificador))
                 {
                     model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
                 }
                 model.CodigoUsuarioReal = userData.CodigoUsuario;
-                ViewBag.UrlPdfTerminosyCondiciones = GetUrlTerminosCondicionesDatosUsuario();
+                ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
 
                 #region limite Min - Max Telef
                 int limiteMinimoTelef, limiteMaximoTelef;
-                GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
+                Util.GetLimitNumberPhone(userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
                 model.limiteMinimoTelef = limiteMinimoTelef;
                 model.limiteMaximoTelef = limiteMaximoTelef;
                 #endregion
                 var numero = 0;
                 var valida = false;
-                ObtenerIniciaNumeroCelular(out valida, out numero);
+                Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
                 model.IniciaNumeroCelular = valida ? numero : -1;
             }
 
@@ -182,7 +182,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var numero = 0;
             var valida = false;
-            ObtenerIniciaNumeroCelular(out valida, out numero);
+            Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
             ViewBag.IniciaNumeroCelular = valida ? numero : -1;
 
             return View();
@@ -276,7 +276,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.FotoOriginalSinModificar = nameImage;
                     ViewBag.FotoPerfilSinModificar = nameImage;
 
-                    SetUserData(userData);
+                    sessionManager.SetUserData(userData);
                     result = true;
                 }
 
@@ -312,7 +312,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
                 ViewBag.FotoPerfilSinModificar = "";
 
-                SetUserData(userData);
+                sessionManager.SetUserData(userData);
 
                 return Json(new { success = true, message = "Foto de perfil eliminada correctamente." }, "text/html");
             }

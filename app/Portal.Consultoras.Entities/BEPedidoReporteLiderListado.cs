@@ -93,14 +93,10 @@ namespace Portal.Consultoras.Entities
                 Constancia = Convert.ToString(row["Constancia"]).Trim();
             if (DataRecord.HasColumn(row, "Segmentacion"))
                 Segmentacion = Convert.ToString(row["Segmentacion"]).Trim();
-            if (DataRecord.HasColumn(row, "SaldoPendienteTotal"))
-                SaldoPendienteTotal = Convert.ToDecimal(row["SaldoPendienteTotal"]);
-            if (DataRecord.HasColumn(row, "VentaConsultora"))
-                VentaConsultora = Convert.ToInt32(row["VentaConsultora"]);
-            if (DataRecord.HasColumn(row, "DescuentoConsultora"))
-                DescuentoConsultora = Convert.ToInt32(row["DescuentoConsultora"]);
-            if (DataRecord.HasColumn(row, "MontoPedidoFacturado"))
-                MontoPedidoFacturado = Convert.ToInt32(row["MontoPedidoFacturado"]);
+            SaldoPendienteTotal = row.ToDecimal("SaldoPendienteTotal");
+            VentaConsultora = row.ToInt32("VentaConsultora");
+            DescuentoConsultora = row.ToInt32("DescuentoConsultora");
+            MontoPedidoFacturado = row.ToInt32("MontoPedidoFacturado");
             if (DataRecord.HasColumn(row, "MotivoRechazo"))
                 MotivoRechazo = Convert.ToString(row["MotivoRechazo"]).Trim();
             if (DataRecord.HasColumn(row, "DocumentodeIdentidad"))

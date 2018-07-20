@@ -86,12 +86,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
 
                 ViewBag.paisISO = userData.CodigoISO;
-                ViewBag.Ambiente = GetBucketNameFromConfig();
+                ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
                 ViewBag.NombreConsultora = model.NombreConsultora;
 
                 model.PartialSectionBpt = GetPartialSectionBptModel();
                 ViewBag.NombreConsultoraFAV = ObtenerNombreConsultoraFav();
-                ViewBag.UrlImagenFAVMobile = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
+                ViewBag.UrlImagenFAVMobile = string.Format(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
 
                 model.CambioClave = userData.CambioClave;
 
@@ -160,7 +160,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var rutaChile = string.Empty;
             if (userData.CodigoISO == Constantes.CodigosISOPais.Chile)
             {
-                rutaChile = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile);
+                rutaChile = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile);
             }
 
             return rutaChile;
@@ -173,17 +173,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return urlChile;
         }
 
-        private BEConfiguracionCampania ObtenerConfiguracionCampania()
-        {
-            BEConfiguracionCampania configuracionCampania;
+        //private BEConfiguracionCampania ObtenerConfiguracionCampania()
+        //{
+        //    BEConfiguracionCampania configuracionCampania;
 
-            using (var sv = new PedidoServiceClient())
-            {
-                configuracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
-            }
+        //    using (var sv = new PedidoServiceClient())
+        //    {
+        //        configuracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+        //    }
 
-            return configuracionCampania ?? new BEConfiguracionCampania();
-        }
+        //    return configuracionCampania ?? new BEConfiguracionCampania();
+        //}
 
         private string ObtenerFechaVencimiento()
         {
@@ -203,7 +203,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private int ObtenerActivacionAppCatalogoWhastUp()
         {
-            string paisesCatalogoWhatsUp = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
+            string paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
 
             var activacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
 
@@ -358,10 +358,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult ChatBelcorp()
         {
             string url = "";
-            if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO))
+            if (_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO))
             {
                 url = String.Format(
-                    GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
+                    _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
                     userData.SegmentoAbreviatura.Trim(),
                     userData.CodigoUsuario.Trim(),
                     userData.PrimerNombre.Split(' ').First().Trim(),
@@ -382,7 +382,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 retorno = sv.setUsuarioVerTutorial(userData.PaisID, userData.CodigoUsuario);
                 userData.VioTutorialModelo = retorno;
             }
-            SetUserData(userData);
+            sessionManager.SetUserData(userData);
             return Json(new
             {
                 result = retorno
@@ -501,7 +501,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 var filePath = Server.MapPath("~/Content/FAQ/Contrato_CO.pdf");
-                var indicadorEnvio = GetConfiguracionManager(Constantes.ConfiguracionManager.indicadorContrato);
+                var indicadorEnvio = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.indicadorContrato);
                 if (indicadorEnvio == "1")
                 {
                     try

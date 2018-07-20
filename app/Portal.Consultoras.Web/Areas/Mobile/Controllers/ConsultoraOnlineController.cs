@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ConsultoraOnlineController()
         {
-            if (GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
+            if (_configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
             {
                 isEsika = true;
             }
@@ -82,7 +82,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Informacion()
         {
             var userData = UserData();
-            var strpaises = GetPaisesConConsultoraOnlineFromConfig();
+            var strpaises = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(userData.CodigoISO))
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
 
@@ -299,7 +299,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public JsonResult EnviaCorreo()
         {
             var userData = UserData();
-            var strpaises = GetPaisesConConsultoraOnlineFromConfig();
+            var strpaises = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(userData.CodigoISO))
                 return Json(new
                 {
@@ -584,7 +584,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private string mensajeConsultora(string consultora, string url)
         {
-            string tlfBelcorpResponde = GetConfiguracionManager(String.Format(Constantes.ConfiguracionManager.BelcorpRespondeTEL, UserData().CodigoISO));
+            string tlfBelcorpResponde = _configuracionManagerProvider.GetConfiguracionManager(String.Format(Constantes.ConfiguracionManager.BelcorpRespondeTEL, UserData().CodigoISO));
             string carpetaPais = "Correo/CCC";
             string spacerGif = ConfigCdn.GetUrlFileCdn(carpetaPais, "spacer.gif");
             string mailing03 = ConfigCdn.GetUrlFileCdn(carpetaPais, "1-Mailing_03.png");
@@ -807,7 +807,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.CampaniasConsultoraOnline = new List<CampaniaModel>();
                 for (int i = 0; i <= 2; i++)
                 {
-                    model.CampaniasConsultoraOnline.Add(new CampaniaModel { CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, -i) });
+                    model.CampaniasConsultoraOnline.Add(new CampaniaModel { CampaniaID = Util.AddCampaniaAndNumero(userData.CampaniaID, -i, userData.NroCampanias) });
                 }
                 model.CampaniasConsultoraOnline.Update(campania =>
                 {

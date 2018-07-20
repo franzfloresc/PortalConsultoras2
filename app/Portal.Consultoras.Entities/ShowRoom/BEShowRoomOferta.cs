@@ -16,15 +16,23 @@ namespace Portal.Consultoras.Entities.ShowRoom
         public int OfertaShowRoomID { get; set; }
 
         [DataMember]
-        public int TipoOfertaSisID { get; set; }
+        [Column("TipoEstrategiaId")]
+        public int TipoEstrategiaId { get; set; }
 
         [DataMember]
         [Column("CampaniaID")]
         public int CampaniaID { get; set; }
 
         [DataMember]
+        public int TipoOfertaSisID { get; set; }
+
+        [DataMember]
         [Column("CUV")]
         public string CUV { get; set; }
+
+        [DataMember]
+        [Column("CUV2")]
+        public string CUV2 { get; set; }
 
         [DataMember]
         [Column("Stock")]
@@ -36,11 +44,11 @@ namespace Portal.Consultoras.Entities.ShowRoom
         public int ConfiguracionOfertaID { get; set; }
 
         [DataMember]
-        [Column("PrecioValorizado")]
+        [Column("Precio")]
         public decimal PrecioValorizado { get; set; }
 
         [DataMember]
-        [Column("PrecioOferta")]
+        [Column("Precio2")]
         public decimal PrecioOferta { get; set; }
 
         [DataMember]
@@ -64,6 +72,10 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [DataMember]
         [Column("Descripcion")]
         public string Descripcion { get; set; }
+
+        [DataMember]
+        [Column("Descripcion2")]
+        public string Descripcion2 { get; set; }
 
         [DataMember]
         [ViewProperty]
@@ -173,87 +185,55 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [ViewProperty]
         [Column("TieneVariedad")]
         public int TieneVariedad { get; set; }
-        
+
         [DataMember]
         [ViewProperty]
         [Column("FlagRevista")]
         public int FlagRevista { get; set; }
+
+        [DataMember]
+        [Column("CodigoTipoEstrategia")]
+        public string CodigoTipoEstrategia { get; set; }
 
         public BEShowRoomOferta()
         { }
 
         public BEShowRoomOferta(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "OfertaShowRoomID"))
-                OfertaShowRoomID = Convert.ToInt32(row["OfertaShowRoomID"]);
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "TipoOfertaSisID"))
-                TipoOfertaSisID = Convert.ToInt32(row["TipoOfertaSisID"]);
-            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID"))
-                ConfiguracionOfertaID = Convert.ToInt32(row["ConfiguracionOfertaID"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "PrecioOferta"))
-                PrecioOferta = Convert.ToDecimal(row["PrecioOferta"]);
-            if (DataRecord.HasColumn(row, "PrecioValorizado"))
-                PrecioValorizado = Convert.ToDecimal(row["PrecioValorizado"]);
-            if (DataRecord.HasColumn(row, "Stock"))
-                Stock = Convert.ToInt32(row["Stock"]);
-            if (DataRecord.HasColumn(row, "StockInicial"))
-                StockInicial = Convert.ToInt32(row["StockInicial"]);
-            if (DataRecord.HasColumn(row, "ImagenProducto"))
-                ImagenProducto = Convert.ToString(row["ImagenProducto"]);
-            if (DataRecord.HasColumn(row, "Orden"))
-                Orden = Convert.ToInt32(row["Orden"]);
-            if (DataRecord.HasColumn(row, "UnidadesPermitidas"))
-                UnidadesPermitidas = Convert.ToInt32(row["UnidadesPermitidas"]);
-            if (DataRecord.HasColumn(row, "FlagHabilitarProducto"))
-                FlagHabilitarProducto = Convert.ToBoolean(row["FlagHabilitarProducto"]);
-            if (DataRecord.HasColumn(row, "DescripcionLegal"))
-                DescripcionLegal = Convert.ToString(row["DescripcionLegal"]);
-            if (DataRecord.HasColumn(row, "CategoriaID"))
-                CategoriaID = Convert.ToString(row["CategoriaID"]);
-            if (DataRecord.HasColumn(row, "UsuarioRegistro"))
-                UsuarioRegistro = Convert.ToString(row["UsuarioRegistro"]);
-            if (DataRecord.HasColumn(row, "FechaRegistro"))
-                FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (DataRecord.HasColumn(row, "UsuarioModificacion"))
-                UsuarioModificacion = Convert.ToString(row["UsuarioModificacion"]);
-            if (DataRecord.HasColumn(row, "FechaModificacion"))
-                FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-            if (DataRecord.HasColumn(row, "ImagenMini"))
-                ImagenMini = Convert.ToString(row["ImagenMini"]);
-
-            if (DataRecord.HasColumn(row, "NroOrden"))
-                NroOrden = Convert.ToInt32(row["NroOrden"]);
-            if (DataRecord.HasColumn(row, "CodigoCampania"))
-                CodigoCampania = Convert.ToString(row["CodigoCampania"]);
-            if (DataRecord.HasColumn(row, "CodigoTipoOferta"))
-                CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
-            if (DataRecord.HasColumn(row, "TipoOferta"))
-                TipoOferta = Convert.ToString(row["TipoOferta"]);
-            if (DataRecord.HasColumn(row, "CodigoProducto"))
-                CodigoProducto = Convert.ToString(row["CodigoProducto"]);
-            if (DataRecord.HasColumn(row, "MarcaID"))
-                MarcaID = Convert.ToInt32(row["MarcaID"]);
-            if (DataRecord.HasColumn(row, "CodigoCategoria"))
-                CodigoCategoria = Convert.ToString(row["CodigoCategoria"]);
-            if (DataRecord.HasColumn(row, "TipNegocio"))
-                TipNegocio = Convert.ToString(row["TipNegocio"]);
-            if (DataRecord.HasColumn(row, "DescripcionCategoria"))
-                DescripcionCategoria = Convert.ToString(row["DescripcionCategoria"]);
-            if (DataRecord.HasColumn(row, "EsSubCampania"))
-                EsSubCampania = Convert.ToBoolean(row["EsSubCampania"]);
-            if (DataRecord.HasColumn(row, "CodigoEstrategia"))
-                CodigoEstrategia = Convert.ToString(row["CodigoEstrategia"]);
-            if (DataRecord.HasColumn(row, "TieneVariedad"))
-                TieneVariedad = Convert.ToInt32(row["TieneVariedad"]);
-            if (DataRecord.HasColumn(row, "FlagRevista"))
-                FlagRevista = Convert.ToInt32(row["FlagRevista"]);
-
+            OfertaShowRoomID = row.ToInt32("OfertaShowRoomID");
+            CampaniaID = row.ToInt32("CampaniaID");
+            CUV = row.ToString("CUV");
+            TipoOfertaSisID = row.ToInt32("TipoOfertaSisID");
+            ConfiguracionOfertaID = row.ToInt32("ConfiguracionOfertaID");
+            Descripcion = row.ToString("Descripcion");
+            PrecioOferta = row.ToDecimal("PrecioOferta");
+            PrecioValorizado = row.ToDecimal("PrecioValorizado");
+            Stock = row.ToInt32("Stock");
+            StockInicial = row.ToInt32("StockInicial");
+            ImagenProducto = row.ToString("ImagenProducto");
+            Orden = row.ToInt32("Orden");
+            UnidadesPermitidas = row.ToInt32("UnidadesPermitidas");
+            FlagHabilitarProducto = row.ToBoolean("FlagHabilitarProducto");
+            DescripcionLegal = row.ToString("DescripcionLegal");
+            CategoriaID = row.ToString("CategoriaID");
+            UsuarioRegistro = row.ToString("UsuarioRegistro");
+            FechaRegistro = row.ToDateTime("FechaRegistro");
+            UsuarioModificacion = row.ToString("UsuarioModificacion");
+            FechaModificacion = row.ToDateTime("FechaModificacion");
+            ImagenMini = row.ToString("ImagenMini");
+            NroOrden = row.ToInt32("NroOrden");
+            CodigoCampania = row.ToString("CodigoCampania");
+            CodigoTipoOferta = row.ToString("CodigoTipoOferta");
+            TipoOferta = row.ToString("TipoOferta");
+            CodigoProducto = row.ToString("CodigoProducto");
+            MarcaID = row.ToInt32("MarcaID");
+            CodigoCategoria = row.ToString("CodigoCategoria");
+            TipNegocio = row.ToString("TipNegocio");
+            DescripcionCategoria = row.ToString("DescripcionCategoria");
+            EsSubCampania = row.ToBoolean("EsSubCampania");
+            CodigoEstrategia = row.ToString("CodigoEstrategia");
+            TieneVariedad = row.ToInt32("TieneVariedad");
+            FlagRevista = row.ToInt32("FlagRevista");
         }
     }
 }

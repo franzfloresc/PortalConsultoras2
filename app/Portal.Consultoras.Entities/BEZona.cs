@@ -31,11 +31,10 @@ namespace Portal.Consultoras.Entities
         {
             ZonaID = Convert.ToInt32(row["ZonaID"]);
             RegionID = Convert.ToInt32(row["RegionID"]);
-            Codigo = row["Codigo"].ToString();
-            Nombre = row["Nombre"].ToString();
-            NombreGerenteZona = row["NombreGerenteZona"] == null ? "" : row["NombreGerenteZona"].ToString();
-            if (DataRecord.HasColumn(row, "CantidadDias"))
-                CantidadDias = Convert.ToInt32(row["CantidadDias"]);
+            Codigo = Convert.ToString(row["Codigo"]);
+            Nombre = Convert.ToString(row["Nombre"]);
+            NombreGerenteZona = row.ToString("NombreGerenteZona");
+            CantidadDias = row.ToInt32("CantidadDias");
         }
     }
 }
