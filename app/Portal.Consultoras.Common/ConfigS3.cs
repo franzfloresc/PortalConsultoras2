@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Common
         private static readonly string BUCKET_NAME_QAS = System.Configuration.ConfigurationManager.AppSettings["BUCKET_NAME_QAS"];
         private static readonly string ROOT_DIRECTORY = System.Configuration.ConfigurationManager.AppSettings["ROOT_DIRECTORY"];
         private static readonly string URL_S3 = System.Configuration.ConfigurationManager.AppSettings["URL_S3"];
-        private static readonly string rutaRevistaDigital = System.Configuration.ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.CarpetaRevistaDigital] ?? string.Empty;
+        //private static readonly string rutaRevistaDigital = System.Configuration.ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.CarpetaRevistaDigital] ?? string.Empty;
 
         //public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior = "")
         //{
