@@ -21,7 +21,29 @@
 
     <title>Somos Belcorp</title>
 
+    <!-- Variables Globales Google Tag Manager -->
+    <script type="text/javascript">
+    dataLayer = [{
+        'campana': '@ViewBag.CampaniaCodigo',
+        'segmento': '@ViewBag.SegmentoAnalytics',
+        'edad': '@ViewBag.EdadAnalytics',
+        'zona': '@ViewBag.ZonaAnalytics',
+        'pais': '@ViewBag.PaisAnalytics',
+        'rol': '@ViewBag.esConsultoraLiderAnalytics',
+        'region': '@ViewBag.RegionAnalytics',
+        'seccion': '@ViewBag.SeccionAnalytics',
+        'codigoconsultora': '@ViewBag.CodigoConsultoraDL',
+        'periodo': '@ViewBag.PeriodoAnalytics',
+        'segmentoconstancia': '@ViewBag.SegmentoConstancia',
+        'socianivel': '@ViewBag.DescripcionNivelAnalytics',
+        'semana-periodo': '@ViewBag.SemanaAnalytics',
+        'inscripcionEPM': '@ViewBag.EstadoInscripcionEpm'
+    }];
+    </script>
+    <!-- End Variables Globales Google Tag Manager -->
+
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
 
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
 
@@ -53,7 +75,11 @@
     }
 </head>
 <body>
-    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display: none; visibility: hidden;"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     @if (ViewBag.PaisesConTrackingJetlore == "1")
     {
@@ -302,7 +328,7 @@
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
-        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';        
+        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
 
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
         var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl';
