@@ -234,6 +234,8 @@
             if (hermano.Hermanos) {
                 if (hermano.Hermanos.length > 0) {
                     estrategia.ClaseBloqueada = "btn_desactivado_general";
+                    estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
+                    estrategia.RangoInputEnabled = "disabled";
                     $("#btnAgregalo").addClass("btn_desactivado_general");
                     
                 }
