@@ -528,6 +528,10 @@
     padding: 0;
 }
 
+.ico_alerta{
+    margin-left: 10px;
+}
+
 .ico_alerta i {
     color: #e81c36;
     border: 1px solid #e81c36;

@@ -163,6 +163,7 @@
                                 <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
                                     <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
                                     <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
+                                    <a class="btn_cambiar_opciones una_opcion" href="#">Cambiar opcion</a>
                                     <hr class="clear">
                                 </div>
                                 <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
@@ -207,7 +208,7 @@
                             {{#ifVerificarMarcaLast componente.DescripcionMarca}}
                             <div style="border-bottom: 1px solid #ccc; margin:15px 0px;"></div>
                             {{/ifVerificarMarcaLast}}
-                            <div class="content_producto_tono detalle_producto" data-tono="" data-tono-select="{{componente.CUVSelect}}" data-tono-digitable="{{componente.Digitable}}" style="border-bottom: {{../Linea}};">
+                            <div class="content_producto_tono detalle_producto" data-tono="" data-tono-select="{{componente.CUVSelect}}" data-tono-digitable="{{componente.Digitable}}" style="border-bottom: {{../Linea}}; margin-bottom: 10px">
                                 <div style="display: none;">
                                     <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
                                     <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
@@ -253,6 +254,21 @@
                                             {{/each}}
                                         </div>
                                     </div>
+                                    <div class="tonos_seleccionados">
+                                        <ul class="tonos_seleccionados_item">
+                                            <li class="imagen_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201811/L/productos/bulk/PE_200084967_B.jpg " alt="" /></li>
+                                            <li class="titulo_selecionado">x5 Caramel bloom</li>
+                                        </ul>
+                                        <ul class="tonos_seleccionados_item">
+                                            <li class="imagen_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201811/L/productos/bulk/PE_200084967_B.jpg " alt="" /></li>
+                                            <li class="titulo_selecionado">x5 Caramel bloom</li>
+                                        </ul>
+                                        <ul class="tonos_seleccionados_item">
+                                            <li class="imagen_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201811/L/productos/bulk/PE_200084967_B.jpg " alt="" /></li>
+                                            <li class="titulo_selecionado">x5 Caramel bloom</li>
+                                        </ul>
+                                        <a class="btn_cambiar_opciones" href="#">Cambiar opciones <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="" /></a>
+                                    </div>
                                 </div>
                                 {{/iff}}
                                 <hr class="clear">
@@ -276,11 +292,30 @@
                             </a>
                         </div>
                     </div>
+
+                    <div class="popover top tooltip_agregar_desabilitado" role="tooltip" id="" style="display: block;">
+                        <div class="arrow" style="left: 20%;"></div>
+                        <div class="popover-content">
+                            <ul class="list-inline popover_texto">
+                                <li class="ico_alerta"><i>!</i></li>
+                                <li>Debes elegir tus opciones para poder agregar la oferta.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="popover top tooltip_limite_pedidos" role="tooltip" id="" style="display: block;">
+                        <div class="arrow"></div>
+                        <div class="popover-content">
+                            <ul class="list-inline popover_texto">
+                                <li class="ico_alerta"><i>!</i></li>
+                                <li>Lo sentimos 😕 Has llegado al límite de pedidos para esta oferta.</li>
+                            </ul>
+                        </div>
+                    </div>
                     <a id="btnAgregalo" class="btn_agregalo {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true); ">AGRÉGALO</a>
 
                     <div class="ficha_div_libre_agregado" style="padding-top: 15px;">
                         {{#iff TextoLibre '!=' ''}}
-                            <div class="limit_pack"><span>!</span>{{TextoLibre}}</div>
+                        <div class="limit_pack"><span>!</span>{{TextoLibre}}</div>
                         {{/iff}}
                         <div id="ContenedorAgregado" class="ficha_agregado" style="display:none;">
                             <div class="txt_agregado" data-txt_agregado="">

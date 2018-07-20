@@ -13,6 +13,10 @@
 /// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 
+var belcorp = belcorp || {};
+belcorp.estrategia = belcorp.estrategia || {};
+registerEvent.call(belcorp.estrategia, "onProductoAgregado");
+
 var EstrategiaAgregarModule = (function () {
     "use strict";
 
@@ -260,6 +264,10 @@ var EstrategiaAgregarModule = (function () {
         AbrirLoad();
 
         var itemClone = estrategiaObtenerObjHtmlLanding($btnAgregar);
+        if (isPagina("ofertas") && !isMobile()) {
+            var estratediaId = itemClone.data("item");
+            itemClone = itemClone.parent().find("[data-item=" + estratediaId + "]");
+        }
         var divAgregado = $(itemClone).find(".agregado.product-add");
 
         var cuvs = "";
@@ -295,7 +303,7 @@ var EstrategiaAgregarModule = (function () {
             // ClienteID_:
         };
 
-        EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function (data) {
+        EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function(data) {
             if (!checkTimeout(data)) {
                 CerrarLoad();
                 return false;
@@ -317,6 +325,11 @@ var EstrategiaAgregarModule = (function () {
             AbrirLoad();
 
             if (divAgregado != null) {
+                if (typeof divAgregado.length != "undefined" && divAgregado.length > 0) {
+                    divAgregado.each(function(index, element) {
+                        $(element).show();
+                    });
+                }
 
                 $(divAgregado).show();
 
@@ -374,9 +387,9 @@ var EstrategiaAgregarModule = (function () {
 
                     origenRetorno = $.trim(origenRetorno);
                     if (origenRetorno != "") {
-                        setTimeout(function () {
-                            window.location = origenRetorno;
-                        },
+                        setTimeout(function() {
+                                window.location = origenRetorno;
+                            },
                             3700);
 
                     }
@@ -409,7 +422,7 @@ var EstrategiaAgregarModule = (function () {
 
             //ProcesarActualizacionMostrarContenedorCupon();
 
-            if (belcorp.estrategia.applyChanges) {
+            if (belcorp.estrategia.applyChanges){
                 belcorp.estrategia.applyChanges("onProductoAgregado", data);
             }
 
