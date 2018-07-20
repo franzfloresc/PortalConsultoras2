@@ -524,11 +524,32 @@
     width:17px;
     height:17px;
     position: absolute;
+    top:1px;
     right: 0;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.girar180 {
+    -moz-transform:rotate(-180deg);
+    -ms-transform:rotate(-180deg);
+    -o-transform:rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
+    transform:rotate(-180deg);
 }
 
 .pagoTotal .icono_flecha_despliegue{
     top: 6px;
+}
+
+.pagoTotal .icono_flecha_despliegue.girar180{
+    top: 9px;
+}
+
+.metodoPago .icono_flecha_despliegue.girar180{
+    top:3.5px;
 }
 
 .pagoParcial .icono_flecha_despliegue{
