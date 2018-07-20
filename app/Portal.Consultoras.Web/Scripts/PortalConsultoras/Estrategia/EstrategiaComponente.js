@@ -71,7 +71,7 @@
     
     var _eventos = 
     {
-        clickChangeTono: function () {
+            clickChangeTono: function () {
             var accion = $(this).attr("data-tono-change");
 
             var hideSelect = $(this).parents("[data-tono]").find(".content_tonos_select").attr("data-visible");
@@ -119,7 +119,16 @@
             $.each(listaDigitables, function (i, item) {
                 var cuv = $.trim($(item).attr("data-tono-select"));
                 btnActivar = btnActivar ? !(cuv == "") : btnActivar;
-            });
+             });
+
+            if (btnActivar) {
+                var campaniaCodigoActual = parseInt($(EstrategiaAgregarModule.ElementosDiv.hdCampaniaCodigo).val());
+                var estrategiaData = EstrategiaAgregarModule.EstrategiaObtenerObj($(this));
+
+                if (campaniaCodigoActual != estrategiaData.CampaniaID) {
+                    btnActivar = false;
+                }
+            }
 
             if (btnActivar) {
                 prod.parents("[data-item]").find("#tbnAgregarProducto").removeClass("btn_desactivado_general");

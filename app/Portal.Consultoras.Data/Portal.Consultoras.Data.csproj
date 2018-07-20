@@ -217,6 +217,7 @@
     <Compile Include="DAUsuario.cs" />
     <Compile Include="DAUsuarioOP.cs" />
     <Compile Include="DAValidacionAutomatica.cs" />
+    <Compile Include="DAValidacionDatos.cs" />
     <Compile Include="DAZonificacion.cs" />
     <Compile Include="Estrategia\UpSellingDataAccess.cs" />
     <Compile Include="Estrategia\UpSellingMarcaCategoriaDataAccess.cs" />
@@ -296,9 +297,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
