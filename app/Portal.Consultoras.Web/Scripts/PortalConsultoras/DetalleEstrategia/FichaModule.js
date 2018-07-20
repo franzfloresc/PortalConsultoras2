@@ -230,7 +230,6 @@
 
     var _validarDesactivadoGeneral = function (estrategia) {
         $.each(estrategia.Hermanos, function (index, hermano) {
-            
             if (hermano.Hermanos) {
                 if (hermano.Hermanos.length > 0) {
                     estrategia.ClaseBloqueada = "btn_desactivado_general";
@@ -244,9 +243,7 @@
                     
                     $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
                     $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
-                    
-                    
-                    
+
                 }
             }
         });

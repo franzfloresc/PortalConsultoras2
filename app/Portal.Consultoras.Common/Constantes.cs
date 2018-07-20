@@ -2312,7 +2312,7 @@ namespace Portal.Consultoras.Common
             public const string EnviarPorEmail = "Email";
             public const string EnviarPorSms = "SMS";
         }
-        #endregion
+        #endregion  
 
         public static class ValidacionDatosEstado
         {
@@ -2384,5 +2384,8 @@ namespace Portal.Consultoras.Common
 
             #endregion
         }
+
+
+
     }
 }

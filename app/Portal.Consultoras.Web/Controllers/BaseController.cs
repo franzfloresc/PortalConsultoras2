@@ -51,7 +51,9 @@ namespace Portal.Consultoras.Web.Controllers
         protected string estrategiaWebApiDisponibilidadTipo;
         protected readonly TipoEstrategiaProvider _tipoEstrategiaProvider;
         protected readonly TablaLogicaProvider _tablaLogicaProvider;
+        protected readonly BaseProvider _baseProvider;
         private readonly LogDynamoProvider _logDynamoProvider;
+        protected readonly GuiaNegocioProvider _guiaNegocioProvider;
         protected readonly ShowRoomProvider _showRoomProvider;
         protected readonly RevistaDigitalProvider revistaDigitalProvider;
         protected readonly RevistaDigitalProvider _revistaDigitalProvider;
@@ -61,12 +63,10 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly OfertaDelDiaProvider ofertaDelDiaProvider;
         protected readonly OfertaDelDiaProvider _ofertaDelDiaProvider;
         protected readonly MenuContenedorProvider _menuContenedorProvider;
-        protected readonly GuiaNegocioProvider _guiaNegocioProvider;
         protected readonly EventoFestivoProvider _eventoFestivoProvider;
         protected readonly EstrategiaComponenteProvider _estrategiaComponenteProvider;
         protected readonly ConfiguracionPaisProvider _configuracionPaisProvider;
         protected readonly ConfiguracionManagerProvider _configuracionManagerProvider;
-        protected readonly BaseProvider _baseProvider;
         protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
         protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
         protected Models.Estrategia.OfertaDelDia.DataModel estrategiaODD;
@@ -98,13 +98,7 @@ namespace Portal.Consultoras.Web.Controllers
             _configuracionPaisProvider = new ConfiguracionPaisProvider();
             _menuContenedorProvider = new MenuContenedorProvider();
         }
-
-        public bool UsarMsPer(string TipoEstrategiaCodigo)
-        {
-            bool paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(userData.CodigoISO);
-            bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(TipoEstrategiaCodigo);
-            return paisHabilitado && tipoEstrategiaHabilitado;
-        }
+        
 
         public BaseController(ISessionManager sessionManager)
         {
@@ -1674,7 +1668,6 @@ namespace Portal.Consultoras.Web.Controllers
                 seccion
             );
         }
-
 
         protected void RegistrarLogGestionSacUnete(string solicitudId, string pantalla, string accion)
         {

@@ -87,34 +87,6 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-
-
-        [HttpPost]
-        public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
-        {
-            if (modelo != null)
-            {
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                modelo.ClaseBloqueada = Util.Trim(modelo.ClaseBloqueada);
-                modelo.ClaseEstrategia = Util.Trim(modelo.ClaseEstrategia);
-                modelo.CodigoEstrategia = Util.Trim(modelo.CodigoEstrategia);
-                modelo.DescripcionResumen = Util.Trim(modelo.DescripcionResumen);
-                modelo.DescripcionDetalle = Util.Trim(modelo.DescripcionDetalle);
-                modelo.DescripcionCompleta = Util.Trim(modelo.DescripcionCompleta);
-                modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
-                modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
-                modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
-                modelo.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, modelo.FotoProducto01);
-            }
-
-            sessionManager.SetProductoTemporal(modelo);
-
-            return Json(new
-            {
-                success = true
-            }, JsonRequestBehavior.AllowGet);
-        }
-
         public ActionResult Detalle(string cuv, int campaniaId)
         {
             try
@@ -339,8 +311,8 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                modelo.ImagenEtiqueta = ConfigS3.GetUrlFileS3(carpetaPais, modelo.ImagenEtiqueta, String.Empty);
-                modelo.ImagenPublicidad = ConfigS3.GetUrlFileS3(carpetaPais, modelo.ImagenPublicidad, String.Empty);
+                modelo.ImagenEtiqueta = ConfigCdn.GetUrlFileCdn(carpetaPais, modelo.ImagenEtiqueta);
+                modelo.ImagenPublicidad = ConfigCdn.GetUrlFileCdn(carpetaPais, modelo.ImagenPublicidad);
 
                 var transparent = "transparent";
                 modelo.MensajeColor = Util.ColorFormato(modelo.MensajeColor, transparent);
