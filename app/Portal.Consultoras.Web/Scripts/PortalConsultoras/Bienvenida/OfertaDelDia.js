@@ -15,7 +15,6 @@ belcorp.estrategia.subscribe("onProductoAgregado", function (data) {
     }
 });
 
-
 var fechaMostrarBanner = Date.now();
 var codigoAnclaOdd = codigoAnclaOdd || "";
 
@@ -241,7 +240,18 @@ $(document).ready(function () {
                     return false;
 
                 var _data = response.data;
+                var origenPedidoWeb = 0;
+                if (isPagina('bienvenida')) {
+                    origenPedidoWeb = ConstantesModule.OrigenPedidoWeb.OfertaDelDiaDesktopHomeBanner;
+                }
+                else if (isPagina('pedido')) {
+                    origenPedidoWeb = ConstantesModule.OrigenPedidoWeb.OfertaDelDiaDesktopPedidoBanner;
+                }
+                else {
+                    origenPedidoWeb = ConstantesModule.OrigenPedidoWeb.OfertaDelDiaDesktopGeneralBanner;
+                }
 
+                _data.OrigenPedidoWeb = origenPedidoWeb;
                 RenderOfertaDelDia(_data, contenedorOfertas);
                 MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
 

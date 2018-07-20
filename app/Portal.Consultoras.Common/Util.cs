@@ -3212,41 +3212,7 @@ namespace Portal.Consultoras.Common
                 result = string.Format("Campaña {0}", campania.Substring(4, 2));
             return result;
         }
-
-        public static void GetLimitNumberPhone(int paisId, out int limiteMinimoTelef, out int limiteMaximoTelef)
-        {
-            switch (paisId)
-            {
-                case Constantes.PaisID.Mexico:
-                    limiteMinimoTelef = 5;
-                    limiteMaximoTelef = 15;
-                    break;
-                case Constantes.PaisID.Peru:
-                    limiteMinimoTelef = 7;
-                    limiteMaximoTelef = 9;
-                    break;
-                case Constantes.PaisID.Colombia:
-                    limiteMinimoTelef = 10;
-                    limiteMaximoTelef = 10;
-                    break;
-                case Constantes.PaisID.Guatemala:
-                case Constantes.PaisID.ElSalvador:
-                case Constantes.PaisID.Panama:
-                case Constantes.PaisID.CostaRica:
-                    limiteMinimoTelef = 8;
-                    limiteMaximoTelef = 8;
-                    break;
-                case Constantes.PaisID.Ecuador:
-                    limiteMinimoTelef = 9;
-                    limiteMaximoTelef = 10;
-                    break;
-                default:
-                    limiteMinimoTelef = 0;
-                    limiteMaximoTelef = 15;
-                    break;
-            }
-        }
-
+        
         public static bool IsUrl(string url)
         {
             Uri uriResult;
@@ -3256,16 +3222,12 @@ namespace Portal.Consultoras.Common
         public static bool ExisteUrlRemota(string url)
         {
             bool result;
-
-            WebRequest webRequest = WebRequest.Create(url);
-            webRequest.Timeout = 1200; // miliseconds
-            webRequest.Method = "HEAD";
-
-            HttpWebResponse response = null;
-
+            HttpWebResponse response = null;            
             try
             {
-                response = (HttpWebResponse)webRequest.GetResponse();
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Credentials = System.Net.CredentialCache.DefaultCredentials;
+                response = (HttpWebResponse)request.GetResponse();
                 result = true;
             }
             catch (WebException webException)
@@ -3338,6 +3300,80 @@ namespace Portal.Consultoras.Common
             #endregion
 
             return colorStr == "" ? defecto : colorStr;
+        }
+
+        public static void GetLimitNumberPhone(int paisId, out int limiteMinimoTelef, out int limiteMaximoTelef)
+        {
+            switch (paisId)
+            {
+                case Constantes.PaisID.Peru:
+                    limiteMinimoTelef = 7;
+                    limiteMaximoTelef = 9;
+                    break;
+                case Constantes.PaisID.Mexico:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 10;
+                    break;
+                case Constantes.PaisID.Ecuador:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 10;
+                    break;
+                case Constantes.PaisID.Chile:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 9;
+                    break;
+                case Constantes.PaisID.RepublicaDominicana:
+                case Constantes.PaisID.Colombia:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 10;
+                    break;
+                case Constantes.PaisID.Bolivia:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 8;
+                    break;
+                case Constantes.PaisID.Guatemala:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 8;
+                    break;
+                case Constantes.PaisID.ElSalvador:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 8;
+                    break;
+                case Constantes.PaisID.Panama:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 8;
+                    break;
+                case Constantes.PaisID.CostaRica:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 8;
+                    break;
+                default:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 15;
+                    break;
+            }
+        }
+
+        public static void ObtenerIniciaNumeroCelular(int paisId, out bool use, out int numero)
+        {
+            use = true;
+
+            switch (paisId)
+            {
+                case Constantes.PaisID.Peru:
+                    numero = 9;
+                    break;
+                case Constantes.PaisID.Chile:
+                    numero = 9;
+                    break;
+                case Constantes.PaisID.RepublicaDominicana:
+                    numero = 8;
+                    break;
+                default:
+                    numero = 0;
+                    use = false;
+                    break;
+            }
         }
 
         public static string EnmascararCorreo(string correo)

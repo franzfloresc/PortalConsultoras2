@@ -74,9 +74,12 @@ $(document).ready(function () {
     
 
     //soluciona error en producción : Uncaught ReferenceError: CatalogoMostrar is not defined
-    $("#divCatalogo a > img").click(function (e) {
-       
+    
+    $("#divCatalogo a[data-button_carrusel='carrusel'] > img").click(function (e) {
+    //$("#divCatalogo a > img").click(function (e) {
+   
         var img = $(this).attr("id") || "";
+        //if (img == "") return false;
         if (img === "cata_img_prev") CatalogoMostrar(-1, this);
         else CatalogoMostrar(1, this);
 

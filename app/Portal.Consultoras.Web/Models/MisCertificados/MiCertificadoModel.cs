@@ -43,6 +43,7 @@ namespace Portal.Consultoras.Web.Models.MisCertificados
         public string IvaTotal { get; set; }
         public string DocumentoResponsable { get; set; }
         public string Pais { get; set; }
+        public string FechaCreacionTextoFull { get; set; }
 
         public string PromedioVentasFormato
         {

@@ -148,7 +148,10 @@ namespace Portal.Consultoras.Web.Providers
             try
             {
                 if (!usuario.EsConsultora())
+                {
+                    sessionManager.OfertaDelDia.Estrategia = new DataModel();
                     return new DataModel();
+                }
 
                 if (oddSession != null)
                 {
@@ -201,12 +204,13 @@ namespace Portal.Consultoras.Web.Providers
                 oddSession.NombreOferta = ObtenerNombreOfertaDelDia(primeraOferta.DescripcionCompleta);
                 oddSession.PrecioOfertaFormat = Util.DecimalToStringFormat(primeraOferta.Precio2, usuario.CodigoISO);
 
-                sessionManager.OfertaDelDia.Estrategia = oddSession;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuario.CodigoConsultora, usuario.CodigoISO);
+                oddSession = new DataModel();
             }
+            sessionManager.OfertaDelDia.Estrategia = oddSession;
             return oddSession;
         }
 
