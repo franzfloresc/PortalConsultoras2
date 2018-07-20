@@ -332,7 +332,7 @@ var EstrategiaAgregarModule = (function () {
 
             var cuv = estrategia.CUV2;
 
-
+            var tipoOrigenEstrategia = tipoOrigenEstrategia || 0;
             if (tipoOrigenEstrategia == 1) {
                 if (typeof MostrarBarra != constantes.undefined())
                     MostrarBarra(data, "1");
@@ -487,6 +487,7 @@ var EstrategiaAgregarModule = (function () {
         EstrategiaObtenerObj: getEstrategia,
         GetOrigenPedidoWeb: getOrigenPedidoWeb,
         AdicionarCantidad: adicionarCantidad,
-        DisminuirCantidad: disminuirCantidad
+        DisminuirCantidad: disminuirCantidad,
+        ElementosDiv: elementosDiv
     };
 })();

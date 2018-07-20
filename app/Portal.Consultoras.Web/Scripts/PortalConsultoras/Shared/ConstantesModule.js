@@ -68,6 +68,12 @@ var ConstantesModule = (function () {
         GuiaDeNegocioDigitalizada: "/Estrategia/GNDObtenerProductos",
         HerrameintasVenta: "/Estrategia/HVObtenerProductos"
     }
+
+    var _origenPedidoWeb = {
+        OfertaDelDiaDesktopHomeBanner: "1191",
+        OfertaDelDiaDesktopPedidoBanner: "1291",
+        OfertaDelDiaDesktopGeneralBanner: "1991",
+    }
     
     return {
         CodigosPalanca: _codigosPalanca,
@@ -75,7 +81,8 @@ var ConstantesModule = (function () {
         CodigoVariedad: _codigoVariedad,
         ConstantesPalanca: _constantesPalanca,
         TipoEstrategia: _tipoEstrategia,
-        UrlObtenerEstrategia: _urlObtenerEstrategia
+        UrlObtenerEstrategia: _urlObtenerEstrategia,
+        OrigenPedidoWeb: _origenPedidoWeb
     }
     
 })();

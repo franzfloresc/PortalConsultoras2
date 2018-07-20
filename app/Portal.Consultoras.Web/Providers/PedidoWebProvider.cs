@@ -211,7 +211,7 @@ namespace Portal.Consultoras.Web.Providers
                 listaCUVsAEvaluar = new List<string>();
                 item.Mensaje = string.Empty;
 
-                listaCUVsAEvaluar.Add(item.CUV);
+                //listaCUVsAEvaluar.Add(item.CUV);
 
                 if (cuvHijos.Any(x => x.SetID == item.SetID))
                 {
