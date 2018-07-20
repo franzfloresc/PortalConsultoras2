@@ -230,10 +230,12 @@
 
     var _validarDesactivadoGeneral = function (estrategia) {
         $.each(estrategia.Hermanos, function (index, hermano) {
+            
             if (hermano.Hermanos) {
                 if (hermano.Hermanos.length > 0) {
                     estrategia.ClaseBloqueada = "btn_desactivado_general";
                     $("#btnAgregalo").addClass("btn_desactivado_general");
+                    
                 }
             }
         });
