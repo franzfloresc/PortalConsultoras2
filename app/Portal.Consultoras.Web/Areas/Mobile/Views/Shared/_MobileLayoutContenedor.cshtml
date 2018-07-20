@@ -90,9 +90,16 @@
             <div class="foto_menu">
                 @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
                 {
-                    <div class="foto_usuaria_mobile">
+                <div class="foto_usuaria_mobile">
+                    @if (ViewBag.FotoPerfilAncha)
+                    {
+                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:auto; height:100%" />
+                    }
+                    else
+                    {
                         <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
-                    </div>
+                    }
+                </div>
                 }
             </div>
             <br />

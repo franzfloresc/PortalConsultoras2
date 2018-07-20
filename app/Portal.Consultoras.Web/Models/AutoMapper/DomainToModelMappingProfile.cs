@@ -9,7 +9,7 @@ using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceSeguridad;
-using Portal.Consultoras.Web.ServiceUsuario;
+using ServiceUsuario = Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
@@ -77,24 +77,24 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEPedidoFICDetalle, PedidoWebDetalleModel>();
 
-            Mapper.CreateMap<BEMisPedidos, ClienteOnlineModel>()
+            Mapper.CreateMap<ServiceUsuario.BEMisPedidos, ClienteOnlineModel>()
                 .ForMember(t => t.SolicitudClienteID, f => f.MapFrom(c => c.PedidoId))
                 .ForMember(t => t.ClienteNuevo, f => f.MapFrom(c => c.MarcaID > 0 || !c.FlagConsultora));
 
             Mapper.CreateMap<BEMotivoSolicitud, MisPedidosMotivoRechazoModel>();
-            Mapper.CreateMap<BENotificacionesDetallePedido, NotificacionesModelDetallePedido>();
+            Mapper.CreateMap<ServiceUsuario.BENotificacionesDetallePedido, NotificacionesModelDetallePedido>();
 
             Mapper.CreateMap<BELogGPRValidacion, NotificacionesModel>()
                 .ForMember(t => t.Descuento, f => f.MapFrom(c => -c.Descuento))
                 .ForMember(t => t.FechaValidacion, f => f.MapFrom(c => c.FechaFinValidacion));
 
-            Mapper.CreateMap<BEMisPedidosDetalle, ClienteOnlineDetalleModel>()
+            Mapper.CreateMap<ServiceUsuario.BEMisPedidosDetalle, ClienteOnlineDetalleModel>()
                 .ForMember(t => t.SolicitudClienteDetalleID, f => f.MapFrom(c => c.PedidoDetalleId));
 
             Mapper.CreateMap<BELogGPRValidacionDetalle, NotificacionesModelDetallePedido>()
                 .ForMember(t => t.IndicadorOferta, f => f.MapFrom(c => c.IndicadorOferta ? 1 : 0));
 
-            Mapper.CreateMap<BEMisPedidosDetalle, MisPedidosDetalleModel2>();
+            Mapper.CreateMap<ServiceUsuario.BEMisPedidosDetalle, MisPedidosDetalleModel2>();
 
             Mapper.CreateMap<MatrizComercialModel, BEMatrizComercial>();
             Mapper.CreateMap<BEMatrizComercial, MatrizComercialResultadoModel>();
@@ -121,7 +121,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Estado, f => f.MapFrom(c => c.EstadoCDR))
                 .ForMember(t => t.Importe, f => f.MapFrom(c => c.ImporteCDR));
 
-            Mapper.CreateMap<BEUsuarioExterno, UsuarioExternoModel>()
+            Mapper.CreateMap<ServiceUsuario.BEUsuarioExterno, UsuarioExternoModel>()
                 .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
                 .ForMember(t => t.Proveedor, f => f.MapFrom(c => c.Proveedor))
                 .ForMember(t => t.IdAplicacion, f => f.MapFrom(c => c.IdAplicacion))
@@ -243,7 +243,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
                 .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
 
-            Mapper.CreateMap<BEEventoFestivo, EventoFestivoModel>();
+            Mapper.CreateMap<ServiceUsuario.BEEventoFestivo, EventoFestivoModel>();
             Mapper.CreateMap<BETracking, SeguimientoMobileModel>();
 
 
@@ -532,6 +532,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEPedidoWebSetDetalle, PedidoWebSetDetalleModel>()
                 .ForMember(t => t.CUV, f => f.MapFrom(c => c.CuvProducto))
                 .ForMember(t => t.TipoOfertaSisId, f => f.MapFrom(c => c.TipoOfertaSisId));
+            
+            Mapper.CreateMap<ServiceUsuario.BEUsuario, MisDatosModel>();
             
             Mapper.CreateMap<ServicePedido.BEEstrategia, BarraTippingPoint>()
                 .ForMember(t => t.LinkURL, f => f.Ignore())

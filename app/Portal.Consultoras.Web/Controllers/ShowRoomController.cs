@@ -1885,19 +1885,19 @@ namespace Portal.Consultoras.Web.Controllers
                     switch (sidx)
                     {
                         case "NombreProducto":
-                            items = lst.OrderBy(x => x.NombreProducto);
+                            items = lst.OrderByDescending(x => x.NombreProducto);
                             break;
                         case "Descripcion1":
-                            items = lst.OrderBy(x => x.Descripcion1);
+                            items = lst.OrderByDescending(x => x.Descripcion1);
                             break;
                         case "Descripcion2":
-                            items = lst.OrderBy(x => x.Descripcion2);
+                            items = lst.OrderByDescending(x => x.Descripcion2);
                             break;
                         case "Descripcion3":
-                            items = lst.OrderBy(x => x.Descripcion3);
+                            items = lst.OrderByDescending(x => x.Descripcion3);
                             break;
                         case "MarcaProducto":
-                            items = lst.OrderBy(x => x.MarcaProducto);
+                            items = lst.OrderByDescending(x => x.MarcaProducto);
                             break;
                     }
                 }
@@ -1979,10 +1979,10 @@ namespace Portal.Consultoras.Web.Controllers
                     switch (sidx)
                     {
                         case "NombreProducto":
-                            items = lst.OrderBy(x => x.NombreProducto);
+                            items = lst.OrderByDescending(x => x.NombreProducto);
                             break;
                         case "Descripcion1":
-                            items = lst.OrderBy(x => x.Descripcion1);
+                            items = lst.OrderByDescending(x => x.Descripcion1);
                             break;
                     }
                 }
@@ -3487,10 +3487,10 @@ namespace Portal.Consultoras.Web.Controllers
                 switch (sidx)
                 {
                     case "Codigo":
-                        items = lst.OrderBy(x => x.Codigo);
+                        items = lst.OrderByDescending(x => x.Codigo);
                         break;
                     case "Descripcion":
-                        items = lst.OrderBy(x => x.Descripcion);
+                        items = lst.OrderByDescending(x => x.Descripcion);
                         break;
                 }
             }

@@ -4,6 +4,7 @@ using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.Pedido.App;
 using Portal.Consultoras.Data.ServiceCalculoPROL;
 using Portal.Consultoras.Data.ServicePROL;
+using Portal.Consultoras.Data.ServicePROLConsultas;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.BizLogic.Reserva;
@@ -121,6 +122,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 //Validación producto liquidaciones
                 if (producto.TipoOfertaSisID == Constantes.ConfiguracionOferta.Liquidacion) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_LIQUIDACION, null, producto);
+
+                //Validacción producto sugerido
+                if (producto.TieneSugerido > 0) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_SUGERIDO, null, producto);
 
                 //Información de producto con oferta en revista
                 if (usuario.RevistaDigital != null)
@@ -283,10 +287,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     lstDetalle.Where(x => x.ClienteID == 0).Update(x => x.NombreCliente = usuario.Nombre);
                     lstDetalle.Where(x => x.EsKitNueva).Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.DescripcionKitInicio);
-                    lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID != Constantes.PedidoDetalleApp.idHerramientaVenta).Update
+                    lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID == 0).Update
                                     (x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.OfertaNiveles);
-                    lstDetalle.Where(x => x.TipoEstrategiaID == Constantes.PedidoDetalleApp.idHerramientaVenta).Update(
-                                     x => { x.DescripcionEstrategia = string.Format("{0} (*)", x.DescripcionEstrategia.ToUpper());
+                    lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID > 0).Update(
+                                     x => { x.DescripcionEstrategia = string.Format("{0} (*)", x.DescripcionEstrategia);
                                          x.IndicadorOfertaCUV = true; });
                     pedido.olstBEPedidoWebDetalle = lstDetalle;
 
@@ -312,19 +316,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             try
             {
-                nombreServicio = "InsertKitInicio";
-
                 if (usuario.EsConsultoraOficina) return false;
                 if (usuario.DiaPROL && !EsHoraReserva(usuario, DateTime.Now.AddHours(usuario.ZonaHoraria))) return false;
-                LogPerformance("Inicio");
                 
                 var confProgNuevas = _configuracionProgramaNuevasBusinessLogic.Get(usuario);
-                LogPerformance("GetConfiguracionProgramaNuevas");
                 if (confProgNuevas.IndProgObli != "1") return false;
                 
                 string cuvKitNuevas = _configuracionProgramaNuevasBusinessLogic.GetCuvKitNuevas(usuario, confProgNuevas);
                 if (string.IsNullOrEmpty(cuvKitNuevas)) return false;
-                LogPerformance("GetCuvKitNuevas");
 
                 //Obtener Detalle
                 var bePedidoWebDetalleParametros = new BEPedidoAppBuscar
@@ -338,13 +337,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 };
                 var PedidoID = 0;
                 var lstDetalle = ObtenerPedidoWebDetalle(bePedidoWebDetalleParametros, out PedidoID);
-                LogPerformance("ObtenerPedidoWebDetalle");
                 var det = lstDetalle.FirstOrDefault(d => d.CUV == cuvKitNuevas) ?? new BEPedidoWebDetalle();
                 if (det.PedidoDetalleID > 0) return false;
 
                 var olstProducto = _productoBusinessLogic.SelectProductoToKitInicio(usuario.PaisID, usuario.CampaniaID, cuvKitNuevas);
-                LogPerformance("SelectProductoToKitInicio");
-
                 var producto = olstProducto.FirstOrDefault();
                 if (producto != null)
                 {
@@ -370,7 +366,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     };
 
                     var result = PedidoInsertar(usuario, detalle, lstDetalle, true);
-                    LogPerformance("PedidoInsertar");
                     if (result != Constantes.PedidoAppValidacion.Code.SUCCESS) return false;
 
                     return true;
@@ -688,6 +683,97 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
 
             return usuario;
+        }
+
+        public List<BEProducto> GetProductoSugerido(BEProductoAppBuscar productoBuscar)
+        {
+            var listaProductoSugerido = new List<BEProducto >();
+            try
+            {
+                var usuario = productoBuscar.Usuario;
+                var listaProductos = _productoBusinessLogic.GetProductoSugeridoByCUV(usuario.PaisID, usuario.CampaniaID, Convert.ToInt32(usuario.ConsultoraID), productoBuscar.CodigoDescripcion,
+                                 usuario.RegionID, usuario.ZonaID, usuario.CodigorRegion, usuario.CodigoZona);
+
+                var fechaHoy = DateTime.Now.AddHours(usuario.ZonaHoraria).Date;
+                var esFacturacion = fechaHoy >= usuario.FechaInicioFacturacion.Date;
+
+                var listaTieneStock = new List<Lista>();
+                if (esFacturacion)
+                {
+                    var txtBuil = new StringBuilder();
+
+                    foreach (var beProducto in listaProductos)
+                    {
+                        if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
+                        {
+                            txtBuil.Append(string.Concat(beProducto.CodigoProducto , "|"));
+                        }
+                    }
+
+                    var codigoSap = txtBuil.ToString();
+                    codigoSap = codigoSap == string.Empty  ? string.Empty  : codigoSap.Substring(0, codigoSap.Length - 1);
+
+                    try
+                    {
+                        if (!string.IsNullOrEmpty(codigoSap))
+                        {
+                            using (var sv = new wsConsulta())
+                            {
+                                sv.Url = WebConfig.PROL_Consultas;
+                                listaTieneStock = sv.ConsultaStock(codigoSap, usuario.CodigoISO).ToList();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.SaveLog(ex, productoBuscar.Usuario.CodigoUsuario, productoBuscar.PaisID);
+                        listaTieneStock = new List<Lista>();
+                    }
+
+                }
+
+                foreach (var producto in listaProductos)
+                {
+                    var tieneStockProl = true;
+                    if (esFacturacion)
+                    {
+                        var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == producto.CodigoProducto);
+                        if (itemStockProl != null) tieneStockProl = itemStockProl.estado == 1;
+                    }
+
+                    if (producto.TieneStock && tieneStockProl)
+                    {
+                        listaProductoSugerido.Add(new BEProducto()
+                        {
+                            CUV = producto.CUV ?? string.Empty ,
+                            Descripcion = producto.Descripcion.Trim(),
+                            PrecioCatalogo = producto.PrecioCatalogo,
+                            MarcaID = producto.MarcaID,
+                            EstaEnRevista = producto.EstaEnRevista,
+                            TieneStock = true,
+                            EsExpoOferta = producto.EsExpoOferta,
+                            CUVRevista = producto.CUVRevista ?? string.Empty ,
+                            CUVComplemento = producto.CUVComplemento ?? string.Empty,
+                            IndicadorMontoMinimo = producto.IndicadorMontoMinimo,
+                            TipoOfertaSisID = producto.TipoOfertaSisID,
+                            ConfiguracionOfertaID = producto.ConfiguracionOfertaID,
+                            DescripcionMarca = producto.DescripcionMarca ?? string.Empty ,
+                            DescripcionEstrategia = producto.DescripcionEstrategia ?? string.Empty ,
+                            DescripcionCategoria = producto.DescripcionCategoria ?? string.Empty ,
+                            FlagNueva = producto.FlagNueva,
+                            TipoEstrategiaID = producto.TipoEstrategiaID,
+                            ImagenProductoSugerido = producto.ImagenProductoSugerido ?? string.Empty ,    
+                            CodigoProducto = producto.CodigoProducto
+                        }); 
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, productoBuscar.Usuario.CodigoUsuario, productoBuscar.PaisID);              
+            }
+
+            return listaProductoSugerido ?? new List<BEProducto>();
         }
         #endregion
 

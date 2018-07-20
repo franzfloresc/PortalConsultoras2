@@ -88,7 +88,9 @@
       <xs:element minOccurs="0" name="FechaNacimiento" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaVencimiento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FlagActivacionSuscripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoOriginalSinModificar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FotoPerfil" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FotoPerfilAncha" type="xs:boolean" />
       <xs:element minOccurs="0" name="GPRBannerMensaje" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="GPRBannerTitulo" nillable="true" type="xs:string" />
       <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="GPRBannerUrl" type="q1:Enumeradores.RechazoBannerUrl" />
@@ -155,6 +157,9 @@
       <xs:element minOccurs="0" name="PrimerApellido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ProgramaReconocimiento" type="xs:int" />
+      <xs:element minOccurs="0" name="PromedioVenta" type="xs:double" />
+      <xs:element minOccurs="0" name="PuedeActualizar" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PuedeEnviarSMS" type="xs:boolean" />
       <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RegionID" type="xs:int" />
       <xs:element minOccurs="0" name="Retail" type="xs:double" />
@@ -202,7 +207,7 @@
       <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
       <xs:element minOccurs="0" name="ZonaNuevoPROL" type="xs:boolean" />
       <xs:element minOccurs="0" name="ZonaValida" type="xs:boolean" />
-      <xs:element minOccurs="0" name="_OfertaFinal" nillable="true" type="tns:BEOfertaFinal" />
+      <xs:element minOccurs="0" name="beOfertaFinal" nillable="true" type="tns:BEOfertaFinal" />
       <xs:element minOccurs="0" name="esConsultoraLider" type="xs:boolean" />
       <xs:element minOccurs="0" name="mdFechaEncuesta" type="xs:dateTime" />
       <xs:element minOccurs="0" name="msCampaniaEncuesta" nillable="true" type="xs:string" />
@@ -1197,6 +1202,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEEstrategiaProducto" nillable="true" type="tns:BEEstrategiaProducto" />
+  <xs:complexType name="ArrayOfBEProducto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEProducto" nillable="true" type="tns:BEProducto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEProducto" nillable="true" type="tns:ArrayOfBEProducto" />
   <xs:complexType name="BEActivarPremioNuevas">
     <xs:sequence>
       <xs:element minOccurs="0" name="Active" type="xs:boolean" />
