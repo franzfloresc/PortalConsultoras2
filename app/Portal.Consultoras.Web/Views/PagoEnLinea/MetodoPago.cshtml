@@ -65,7 +65,19 @@
                     <div class="aceptar_terminos_y_condiciones">
                         <input type="hidden" value="@item.TerminosCondiciones" data-terminos />
                         <div class="descripcion_opcion_activacion">
-                            Al presionar continuar aceptas los <a id="lnkAceptaTerminosCondiciones" class="ver_terminos_y_condiciones">términos y condiciones</a>
+                            Al presionar continuar aceptas los
+                            @if (item.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Popup)
+                            {
+                                <a class="ver_terminos_y_condiciones" data-tipovisualizacion="">
+                                    términos y condiciones
+                                </a>
+                            }
+                            @if (item.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Archivo)
+                            {
+                                <a class="ver_terminos_y_condiciones" target="_blank" href="@item.TerminosCondiciones">
+                                    términos y condiciones
+                                </a>
+                            }
                         </div>
                     </div>
                     @if (Constantes.PagoEnLineaMetodoPago.PasarelaVisa == item.TipoPasarelaCodigoPlataforma)

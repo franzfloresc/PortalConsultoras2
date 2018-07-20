@@ -20139,6 +20139,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -20155,6 +20158,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoPasarelaCodigoPlataformaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoVisualizacionTyCField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -20175,6 +20181,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
                     this.DescripcionField = value;
                     this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Estado {
+            get {
+                return this.EstadoField;
+            }
+            set {
+                if ((this.EstadoField.Equals(value) != true)) {
+                    this.EstadoField = value;
+                    this.RaisePropertyChanged("Estado");
                 }
             }
         }
@@ -20253,6 +20272,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.TipoPasarelaCodigoPlataformaField, value) != true)) {
                     this.TipoPasarelaCodigoPlataformaField = value;
                     this.RaisePropertyChanged("TipoPasarelaCodigoPlataforma");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoVisualizacionTyC {
+            get {
+                return this.TipoVisualizacionTyCField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoVisualizacionTyCField, value) != true)) {
+                    this.TipoVisualizacionTyCField = value;
+                    this.RaisePropertyChanged("TipoVisualizacionTyC");
                 }
             }
         }

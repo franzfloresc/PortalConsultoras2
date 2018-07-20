@@ -21,9 +21,13 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
         [DataMember]
         public int Orden { get; set; }
         [DataMember]
+        public string TipoVisualizacionTyC { get; set; }
+        [DataMember]
         public string TerminosCondiciones { get; set; }
         [DataMember]
         public string TipoPasarelaCodigoPlataforma { get; set; }
+        [DataMember]
+        public bool Estado { get; set; }
 
         #region Variables Externas
 
@@ -42,10 +46,14 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
                 Descripcion = Convert.ToString(datarec["Descripcion"]);
             if (DataRecord.HasColumn(datarec, "Orden"))
                 Orden = Convert.ToInt32(datarec["Orden"]);
+            if (DataRecord.HasColumn(datarec, "TipoVisualizacionTyC"))
+                TipoVisualizacionTyC = Convert.ToString(datarec["TipoVisualizacionTyC"]);
             if (DataRecord.HasColumn(datarec, "TerminosCondiciones"))
                 TerminosCondiciones = Convert.ToString(datarec["TerminosCondiciones"]);
             if (DataRecord.HasColumn(datarec, "TipoPasarelaCodigoPlataforma"))
                 TipoPasarelaCodigoPlataforma = Convert.ToString(datarec["TipoPasarelaCodigoPlataforma"]);
+            if (DataRecord.HasColumn(datarec, "Estado"))
+                Estado = Convert.ToBoolean(datarec["Estado"]);
 
             if (DataRecord.HasColumn(datarec, "RutaIcono"))
                 RutaIcono = Convert.ToString(datarec["RutaIcono"]);

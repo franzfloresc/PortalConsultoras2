@@ -24,7 +24,7 @@ $(document).ready(function () {
                     $(document).on('click', '.opcionPagoMobile', me.Eventos.MostrarDetalleTipoPago);
                     $(document).on('click', '.opcionPagoDesktop', me.Eventos.MostrarDetalleTipoPago);
                     $(document).on('click', 'button[data-metodopago]', me.Eventos.ContinuarPasarelaPago);
-                    $(document).on('click', '#lnkAceptaTerminosCondiciones', me.Eventos.AbrirPopupTerminosYCondiciones);
+                    $(document).on('click', 'a[data-tipovisualizacion]', me.Eventos.AbrirPopupTerminosYCondiciones);
                     $(document).on('click', '.cerrar_popup_terminos_y_condiciones', me.Eventos.CerrarPopupTerminosYCondiciones);
                 },
                 InicializarAcciones: function () {
@@ -91,10 +91,9 @@ $(document).ready(function () {
                     e.preventDefault();
 
                     var contenedorPadre = $(this).parents('.aceptar_terminos_y_condiciones')[0];
-                    var htmlTerminosCondiciones = $(contenedorPadre).find('input[data-terminos]').val();
 
+                    var htmlTerminosCondiciones = $(contenedorPadre).find('input[data-terminos]').val();                    
                     $('#divContenidoTerminosCondiciones').html(htmlTerminosCondiciones);
-
                     $('.popup_terminos_y_condiciones').fadeIn(300);
                 },
                 CerrarPopupTerminosYCondiciones: function (e) {

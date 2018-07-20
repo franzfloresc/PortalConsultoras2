@@ -2263,21 +2263,29 @@ namespace Portal.Consultoras.Common
         {
             public const string Pendiente = "P";
             public const string Activo = "A";
-        } 
+        }
 
-        public class PagoEnLineaTipoPago
+        #region PagoEnLinea
+
+        public static class PagoEnLineaTipoPago
         {
             public const string PagoTotal = "01";
             public const string PagoParcial = "02";
         }
 
-        public class PagoEnLineaMetodoPago
+        public static class PagoEnLineaMetodoPagoVisualizacionTyC
+        {
+            public const string Popup = "POPUP";
+            public const string Archivo = "ARCHIVO";
+        }
+
+        public static class PagoEnLineaMetodoPago
         {
             public const string PasarelaVisa = "A";
             public const string PasarelaBelcorpPayU = "B";
         }
 
-        public class PagoEnLineaPasarelaVisa
+        public static class PagoEnLineaPasarelaVisa
         {
             public const string MerchantId = "01";
             public const string AccessKeyId = "02";
@@ -2291,5 +2299,7 @@ namespace Portal.Consultoras.Common
             public const string ColorBotonPagarPasarelaPago = "10";
             public const string MensajeInformacionPagoExitoso = "11";
         }
+
+        #endregion        
     }
 }

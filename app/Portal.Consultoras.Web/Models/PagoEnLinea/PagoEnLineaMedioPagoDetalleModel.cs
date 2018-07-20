@@ -12,8 +12,10 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         public int PagoEnLineaMedioPagoId { get; set; }
         public string Descripcion { get; set; }
         public int Orden { get; set; }
+        public string TipoVisualizacionTyC { get; set; }
         public string TerminosCondiciones { get; set; }
         public string TipoPasarelaCodigoPlataforma { get; set; }
         public string RutaIcono { get; set; }
+        public bool Estado { get; set; }
     }
 }

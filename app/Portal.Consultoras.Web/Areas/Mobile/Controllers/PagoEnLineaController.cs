@@ -36,17 +36,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (model == null)
                 return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
 
-            model.ListaMetodoPago = ObtenerListaMetodoPago();
+            model = ObtenerValoresMetodoPago(model);
 
-            if (model.ListaMetodoPago.Count > 0)
-            {
-                var metodoPagoPasarelaVisa = model.ListaMetodoPago.FirstOrDefault(p => p.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaVisa);
+            //model.ListaMetodoPago = ObtenerListaMetodoPago();
+            //model.PagoVisaModel = new PagoVisaModel();
+            //if (model.ListaMetodoPago.Count > 0)
+            //{
+            //    var metodoPagoPasarelaVisa = model.ListaMetodoPago.FirstOrDefault(p => p.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaVisa);
 
-                if (metodoPagoPasarelaVisa != null)
-                    model.PagoVisaModel = ObtenerValoresPagoVisa(model);
-                else
-                    model.PagoVisaModel = new PagoVisaModel();
-            }
+            //    if (metodoPagoPasarelaVisa != null)
+            //        model.PagoVisaModel = ObtenerValoresPagoVisa(model);
+            //    else
+            //        model.PagoVisaModel = new PagoVisaModel();
+            //}
 
 
             return View(model);
