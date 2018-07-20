@@ -1341,6 +1341,7 @@
     <Content Include="Content\Css\Site\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Site\Lbel\styleDefault.css" />
     <Content Include="Content\Css\Site\Lbel\verificacion-pin.css" />
+    <Content Include="Content\Css\Site\ProductoListado\CajaProducto.css" />
     <Content Include="Content\Css\Site\ProductoListado\Landing.css" />
     <Content Include="Content\Css\Site\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Site\RevistaDigital\ConfirmarDatos.css" />
