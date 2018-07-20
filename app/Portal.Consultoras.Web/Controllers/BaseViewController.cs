@@ -353,7 +353,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             NombrePalancas.Add(Constantes.NombrePalanca.ShowRoom, "Especiales");
             NombrePalancas.Add(Constantes.NombrePalanca.Lanzamiento, "Lo nuevo Nuevo");
-            NombrePalancas.Add(Constantes.NombrePalanca.OfertaParaTi, "Oferta para ti");
+            NombrePalancas.Add(Constantes.NombrePalanca.OfertaParaTi, "Ofertas para ti");
             NombrePalancas.Add(Constantes.NombrePalanca.OfertasParaMi, "Ofertas Para ti");
             NombrePalancas.Add(Constantes.NombrePalanca.RevistaDigital, "Revista Digital");
             NombrePalancas.Add(Constantes.NombrePalanca.OfertaDelDia, "Sólo Hoy");
