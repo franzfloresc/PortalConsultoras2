@@ -120,7 +120,7 @@
                     var cuv = $.trim($(item).attr("data-tono-select"));
                     btnActivar = btnActivar ? !(cuv == "") : btnActivar;
                 });
-
+                
                 if (btnActivar) {
                     var campaniaCodigoActual = parseInt($(EstrategiaAgregarModule.ElementosDiv.hdCampaniaCodigo).val());
                     var estrategiaData = EstrategiaAgregarModule.EstrategiaObtenerObj($(this));
@@ -133,6 +133,19 @@
                 if (btnActivar) {
                     prod.parents("[data-item]").find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
                     prod.parents("[data-item]").find('#btnAgregalo').removeClass('btn_desactivado_general');
+
+                    prod.parents("[data-item]").find('.contenedor_rangos').removeClass('btn_desactivado_general');
+                    prod.parents("[data-item]").find('.contenedor_rangos').removeClass('contenedor_rangos_desactivado');
+                    prod.parents("[data-item]").find('.txt_mas').removeAttr('data-bloqueada');
+                    prod.parents("[data-item]").find('.dibujar_linea').removeAttr('data-bloqueada');
+                    prod.parents("[data-item]").find('.txt_menos').removeAttr('data-bloqueada');
+
+                    //mobile
+                    prod.parents("[data-item]").find('.content_cantidad_ficha_producto').removeClass('btn_desactivado_general');
+                    prod.parents("[data-item]").find('.cantidad_menos_home').removeAttr('data-bloqueada');
+                    prod.parents("[data-item]").find('#imgFichaProduMenos').attr('data-bloqueada','');
+                    prod.parents("[data-item]").find('.cantidad_mas_home').removeAttr('data-bloqueada');
+                    prod.parents("[data-item]").find('#imgFichaProduMas').attr('data-bloqueada','');
                 }
 
                 if (accion == 2 && _esVirtualCouch()) {

@@ -259,14 +259,14 @@
 
                 </div>
                 <div class="contenedor_agregar">
-                    <div class="contenedor_rangos {{ClaseBloqueada}}" id="idcontenedor_rangos" data-cantidad-contenedor="">
-                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
+                    <div class="contenedor_rangos {{ClaseBloqueadaRangos}}" id="idcontenedor_rangos" data-cantidad-contenedor="">
+                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" {{RangoInputEnabled}} type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
                         <div>
-                            <a class="txt_menos" data-cantidad-agregar="-" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                                <div class="dibujar_linea dibujar_menos" data-bloqueada="{{ClaseBloqueada}}"></div>
+                            <a class="txt_menos" data-cantidad-agregar="-" data-bloqueada="{{ClaseBloqueadaRangos}}" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                                <div class="dibujar_linea dibujar_menos" data-bloqueada="{{ClaseBloqueadaRangos}}"></div>
                             </a>
-                            <a class="txt_mas" data-cantidad-agregar="+" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                                <div class="dibujar_linea dibujar_mas" data-bloqueada="{{ClaseBloqueada}}"></div>
+                            <a class="txt_mas" data-cantidad-agregar="+" data-bloqueada="{{ClaseBloqueadaRangos}}" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                                <div class="dibujar_linea dibujar_mas" data-bloqueada="{{ClaseBloqueadaRangos}}"></div>
                             </a>
                         </div>
                     </div>
