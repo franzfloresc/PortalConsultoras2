@@ -1608,31 +1608,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var userModel = userData;
 
-                var puedeIngresarCuvProgramaNuevas = PuedeIngresarCuvProgramaNuevas(model.CUV);
-                if (!puedeIngresarCuvProgramaNuevas)
-                {
-                    productosModel.Add(GetProductoValidoProgramaNuevas());
-                    return Json(productosModel, JsonRequestBehavior.AllowGet);
-                }
+                //var puedeIngresarCuvProgramaNuevas = PuedeIngresarCuvProgramaNuevas(model.CUV);
+                //if (!puedeIngresarCuvProgramaNuevas)
+                //{
+                //    productosModel.Add(GetProductoValidoProgramaNuevas());
+                //    return Json(productosModel, JsonRequestBehavior.AllowGet);
+                //}
 
                 var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 1, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
-
                 var siExiste = productos.Any(p => p.CUV == model.CUV);
-
                 BloqueoProductosCatalogo(ref productos);
-
                 BloqueoProductosDigitales(ref productos);
 
                 if (!productos.Any())
                 {
-                    if (siExiste)
-                    {
-                        productosModel.Add(GetProductoDigital());
-                    }
-                    else
-                    {
-                        productosModel.Add(GetProductoNoExiste());
-                    }
+                    if (siExiste) productosModel.Add(GetProductoDigital());
+                    else productosModel.Add(GetProductoNoExiste());
 
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
@@ -1643,7 +1634,6 @@ namespace Portal.Consultoras.Web.Controllers
                     productosModel.Add(GetProductoCuvRegular(cuvCredito));
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
-
                 var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new ServiceODS.BEProducto();
 
                 var estrategias = (List<ServicePedido.BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<ServicePedido.BEEstrategia>();
@@ -1685,14 +1675,12 @@ namespace Portal.Consultoras.Web.Controllers
                     EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
                     TieneRDC = tieneRdc
                 });
-
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 productosModel.Add(new ProductoModel { MarcaID = 0, CUV = "Ha ocurrido un Error. Vuelva a intentarlo.", TieneSugerido = 0 });
             }
-
             return Json(productosModel, JsonRequestBehavior.AllowGet);
         }
 
