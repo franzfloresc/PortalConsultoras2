@@ -533,7 +533,6 @@ namespace Portal.Consultoras.Common
             public const int BannerDesktopHome = 1111;
             public const int DesktopPedido = 12;
             public const int MobilePedido = 22;
-            public const int AppPedido = 42;
 
             #region OfertasParaTi
             public const int OfertasParaTiDesktopHome = 1121;
@@ -546,6 +545,7 @@ namespace Portal.Consultoras.Common
             public const int OfertasParaTiMobileHome = 2121;
             public const int OfertasParaTiMobileHomePopUp = 2122;
             public const int OfertasParaTiMobilePedido = 2221;
+            public const int OfertasParaTiAppPedido = 4221;
             public const int OfertasParaTiMobilePedidoPopUp = 2222;
             public const int OfertasParaTiMobileContenedor = 2821;
             public const int OfertasParaTiMobileContenedorPopup = 2822;
@@ -610,6 +610,7 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalDesktopPedidoPopUp = 1202;
             public const int RevistaDigitalMobilePedidoSeccion = 2201;
             public const int RevistaDigitalMobilePedidoPopUp = 2202;
+            public const int RevistaDigitalAppPedidoSeccion = 4201;
 
             public const int RevistaDigitalDesktopLanding = 1711;
             public const int RevistaDigitalDesktopLandingPopUp = 1712;

@@ -35,5 +35,7 @@ namespace Portal.Consultoras.Entities.Pedido.App
         public short PedidoDetalleID { get; set; }
         [DataMember]
         public string ObservacionPROL { get; set; }
+        [DataMember]
+        public int OrigenPedidoWeb { get; set; }
     }
 }

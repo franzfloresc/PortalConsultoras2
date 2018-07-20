@@ -176,14 +176,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             try
             {
-                nombreServicio = "Insert";
-                LogPerformance("Inicio");
-
                 //Informacion de usuario
                 var usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(pedidoDetalle.Usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo);
-                LogPerformance("Informacion de palancas");
                 usuario.EsConsultoraNueva = _usuarioBusinessLogic.EsConsultoraNueva(usuario);
-                LogPerformance("EsConsultoraNueva");
 
                 //Validacion reserva u horario restringido
                 var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(pedidoDetalle.PaisID,
@@ -191,7 +186,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                                                     usuario.CampaniaID,
                                                                     usuario.UsuarioPrueba == 1,
                                                                     usuario.AceptacionConsultoraDA);
-                LogPerformance("ValidacionModificarPedido");
                 if (validacionHorario.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno)
                     return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, validacionHorario.Mensaje);
 
@@ -207,12 +201,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 };
                 var pedidoID = 0;
                 var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
-                LogPerformance("ObtenerPedidoWebDetalle");
                 pedidoDetalle.PedidoID = pedidoID;
 
                 //Validar stock
                 var result = ValidarStockEstrategia(usuario, pedidoDetalle, lstDetalle, out mensaje);
-                LogPerformance("ValidarStockEstrategia");
                 if (!result) return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
 
                 if (pedidoDetalle.Producto.TipoOfertaSisID == 0)
@@ -224,10 +216,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 var esOfertaNueva = (pedidoDetalle.Producto.FlagNueva == "1");
                 if (esOfertaNueva) AgregarProductoZE(usuario, pedidoDetalle, lstDetalle);
-                LogPerformance("AgregarProductoZE");
 
                 var codeResult = PedidoInsertar(usuario, pedidoDetalle, lstDetalle);
-                LogPerformance("PedidoInsertar");
                 if (codeResult != Constantes.PedidoAppValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(codeResult);
 
                 //Actualizar Prol
@@ -247,7 +237,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
 
                 UpdateProl(usuario, lstDetalle);
-                LogPerformance("UpdateProl");
 
                 return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.SUCCESS);
             }
@@ -752,6 +741,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 EstrategiaAgregarProducto(pedidoDetalle, usuario, estrategia, lstDetalle);
 
                 //Insertar pedido
+                pedidoDetalle.OrigenPedidoWeb = usuario.RevistaDigital.TieneRevistaDigital() ? 
+                    Constantes.OrigenPedidoWeb.RevistaDigitalAppPedidoSeccion : Constantes.OrigenPedidoWeb.OfertasParaTiAppPedido;
                 var codeResult = PedidoInsertar(usuario, pedidoDetalle, lstDetalle);
                 if (codeResult != Constantes.PedidoAppValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(codeResult);
 
@@ -1087,7 +1078,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 Cantidad = pedidoDetalle.Cantidad,
                 PrecioUnidad = pedidoDetalle.Producto.PrecioCatalogo,
                 TipoEstrategiaID = tipoEstrategiaID,
-                OrigenPedidoWeb = Constantes.OrigenPedidoWeb.AppPedido,
+                OrigenPedidoWeb = pedidoDetalle.OrigenPedidoWeb,
                 ConfiguracionOfertaID = pedidoDetalle.Producto.ConfiguracionOfertaID,
                 ClienteID = pedidoDetalle.ClienteID,
                 OfertaWeb = false,
