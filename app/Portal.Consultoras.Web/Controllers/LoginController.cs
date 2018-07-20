@@ -160,9 +160,12 @@ namespace Portal.Consultoras.Web.Controllers
             if (url.Length > 1)
             {
                 var MiCurso = url[1].Split('=');
-                if (Util.IsNumeric(MiCurso[1]))
-                {
-                    misCursos = Convert.ToInt32(MiCurso[1]);
+                var MiId = MiCurso[1].Split('&');
+               // if (Util.IsNumeric(MiCurso[1]))
+                 if (Util.IsNumeric(MiId[0]))
+                   {
+                    // misCursos = Convert.ToInt32(MiCurso[1]);
+                    misCursos = Convert.ToInt32(MiId[0]);
                     TempData["MiAcademia"] = misCursos;
                 }
             }
@@ -1118,6 +1121,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.ConsecutivoNueva = usuario.ConsecutivoNueva;
 
                     usuarioModel.DocumentoIdentidad = usuario.DocumentoIdentidad;
+                    usuarioModel.PromedioVenta = usuario.PromedioVenta;
                     #endregion
 
                     if (usuarioModel.RolID == Constantes.Rol.Consultora)
@@ -1279,6 +1283,10 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
                     usuarioModel.MensajeChat = await GetMessageChat(usuarioModel.PaisID);
 
+                    usuarioModel.PuedeActualizar = usuario.PuedeActualizar;
+                    usuarioModel.PuedeEnviarSMS = usuario.PuedeEnviarSMS;
+                    usuarioModel.FotoPerfilAncha = usuario.FotoPerfilAncha;
+
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
                     sessionManager.SetTieneLanX1(true);
@@ -1289,6 +1297,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneHvX1(true);
 
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
+                    usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
                 }
 
                 sessionManager.SetUserData(usuarioModel);
