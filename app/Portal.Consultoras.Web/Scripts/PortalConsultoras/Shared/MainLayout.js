@@ -297,7 +297,6 @@ $(document).ready(function () {
 
 });
 
-
 function AbrirVentanaBelcorpChat(url) {
     var res = encodeURI(url);
     ventanaChat = open(res, 'ventanaChat', 'top=0,left=0,width=400,height=500');
@@ -445,6 +444,7 @@ function AbrirModalFeErratas() {
     closeWaitingDialog();
     return false;
 }
+
 function SeparadorMiles(pnumero) {
     var resultado = "";
     var numero = pnumero.replace(/\,/g, '');
@@ -616,10 +616,12 @@ function alert_msg(message, titulo, funcion) {
     }
     $('#alertDialogMensajes').dialog('open');
 }
+
 function alert_msg_com(message) {
     $('#DialogMensajesCom .message_text').html(message);
     $('#DialogMensajesCom').dialog('open');
 }
+
 function AbrirModalRegistroComunidad() {
 
     if (gTipoUsuario == '2') {
@@ -639,9 +641,11 @@ function AbrirModalRegistroComunidad() {
 
     return false;
 }
+
 function SendPushMiComunidad() {
     dataLayer.push({ 'event': 'virtualPage', 'pageUrl': '/mi-comunidad/formulario-de-registro', 'pageTitle': 'Mi comunidad – Formulario de registro' });
 }
+
 function ValidarUsuarioIngresado(usuario) {
     $.ajaxSetup({
         cache: false
@@ -672,6 +676,7 @@ function ValidarUsuarioIngresado(usuario) {
         }
     });
 }
+
 function ValidarCorreoIngresado(correo) {
     $.ajaxSetup({
         cache: false
@@ -701,6 +706,7 @@ function ValidarCorreoIngresado(correo) {
         }
     });
 }
+
 function ValidarCorreo(correo) {
     var expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+[a-zA-Z0-9]{2,4}$/;
     return expr.test(correo);
@@ -908,6 +914,7 @@ function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
 function RedirectIngresaTuPedido() {
     location.href = baseUrl + 'Pedido/Index';
 }
+
 function CerrarSesion() {
     if (typeof (Storage) !== 'undefined') {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
@@ -926,9 +933,11 @@ function CerrarSesion() {
 
     location.href = baseUrl + 'Login/LogOut';
 }
+
 function Notificaciones() {
     location.href = baseUrl + 'Notificaciones/Index';
 }
+
 function SetMarcaGoogleAnalyticsTermino() {
     dataLayer.push({
         'event': 'virtualEvent',
