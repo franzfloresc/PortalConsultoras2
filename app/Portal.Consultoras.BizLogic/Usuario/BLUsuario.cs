@@ -287,14 +287,19 @@ namespace Portal.Consultoras.BizLogic
                 usuario.FotoOriginalSinModificar = usuario.FotoPerfil;
                 usuario.FotoPerfilAncha = false;
 
+                var imagenS3 = "";
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
+                {
+                    imagenS3 = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
+                }
+                    
 
                 if (Common.Util.IsUrl(usuario.FotoPerfil))
                 {
-                    if (Common.Util.ExisteUrlRemota(usuario.FotoPerfil))
+                    if (Common.Util.ExisteUrlRemota(imagenS3))
                     {
-                        using (var streamImagen = ConsultarImagen(usuario.FotoPerfil))
+                        using (var streamImagen = ConsultarImagen(imagenS3))
                         {
                             using (var imagenConsultada = System.Drawing.Image.FromStream(streamImagen))
                             {
