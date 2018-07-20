@@ -252,7 +252,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
                     if (lst.Count > 0)
-                        lst.Update(x => x.BEEstrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.BEEstrategia.ImagenURL, carpetapais));
+                        lst.Update(x => x.BEEstrategia.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, x.BEEstrategia.ImagenURL));
 
                     var grid = new BEGrid
                     {
@@ -970,7 +970,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
 
                 string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                lst.Update(x => x.BEEstrategia.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3(carpetapais, x.BEEstrategia.ImagenMiniaturaURL, carpetapais));
+                lst.Update(x => x.BEEstrategia.ImagenMiniaturaURL = ConfigCdn.GetUrlFileCdn(carpetapais, entidad.ImagenMiniaturaURL));
                 return Json(lst[0].BEEstrategia, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)

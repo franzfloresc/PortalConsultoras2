@@ -44,7 +44,7 @@
         ImagenDeFondo: "#ImagenDeFondo",
         //DescripcionAdicional: "#DescripcionAdicional",
         ContenidoProducto: "#ContenidoProducto",
-        //CarruselProducto: "#CarruselProducto",
+        CarruselProducto: "#CarruselProducto",
         //EtiquetaOdd: "#EtiquetaOdd",
         //SloganLanzamientos: "#SloganLanzamientos",
         //ContenedoFotoReferencial: "#contenedor_foto_referencial",
