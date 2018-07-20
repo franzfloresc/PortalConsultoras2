@@ -5,34 +5,34 @@
     margin: 15px 0px;
 }
 
-    ul.breadcumbs li {
-        display: inline-block;
-    }
+ul.breadcumbs li {
+    display: inline-block;
+}
 
-        ul.breadcumbs li a {
-            display: block;
-            color: #808080;
-            font-size: 12px;
-        }
+ul.breadcumbs li a {
+    display: block;
+    color: #808080;
+    font-size: 12px;
+}
 
-            ul.breadcumbs li a::before {
-                content: '';
-                background: url(/Content/Images/mobile/Esika/right-arrow.svg);
-                width: 9px;
-                height: 9px;
-                display: inline-block;
-                background-size: cover;
-                margin-right: 3px;
-                margin-left: 1px;
-            }
+ul.breadcumbs li a::before {
+    content: '';
+    background: url(/Content/Images/mobile/Esika/right-arrow.svg);
+    width: 9px;
+    height: 9px;
+    display: inline-block;
+    background-size: cover;
+    margin-right: 3px;
+    margin-left: 1px;
+}
 
-        ul.breadcumbs li:first-child a::before {
-            display: none;
-        }
+ul.breadcumbs li:first-child a::before {
+    display: none;
+}
 
-        ul.breadcumbs li:last-child a {
-            font-weight: bolder;
-        }
+ul.breadcumbs li:last-child a {
+    font-weight: bolder;
+}
 
 
 .clock_odd {
@@ -41,26 +41,26 @@
     padding-bottom: 15px;
 }
 
-    .clock_odd .flip-clock-divider .flip-clock-label {
-        display: block;
-        left: 7px;
-        right: initial;
-        top: 30px;
-        /*color: #000;*/
-        margin-top: 5px;
-        font-size: 8px;
-    }
+.clock_odd .flip-clock-divider .flip-clock-label {
+    display: block;
+    left: 7px;
+    right: initial;
+    top: 30px;
+    /*color: #000;*/
+    margin-top: 5px;
+    font-size: 8px;
+}
 
-    .clock_odd .hours .flip-clock-label {
-        width: 0;
-        left: 0;
-    }
+.clock_odd .hours .flip-clock-label {
+    width: 0;
+    left: 0;
+}
 
-    .clock_odd .minutes .flip-clock-label {
-    }
+.clock_odd .minutes .flip-clock-label {
+}
 
-    .clock_odd .seconds .flip-clock-label {
-    }
+.clock_odd .seconds .flip-clock-label {
+}
 
 .bg_imagen_producto {
     width: 100%;
@@ -81,9 +81,9 @@
     text-align: center;
 }
 
-    .imagen_producto img {
-        width: 85%;
-    }
+.imagen_producto img {
+    width: 85%;
+}
 
 .marca_producto h2 {
     font-size: 11px;
@@ -182,11 +182,11 @@
     padding: 5px 0px;
 }
 
-    .contenido_agregado .box_agregado span.prod_agregado:last-child {
-        border-bottom: .5px solid #00000052;
-        margin-bottom: 15px;
-        padding-bottom: 15px;
-    }
+.contenido_agregado .box_agregado span.prod_agregado:last-child {
+    border-bottom: .5px solid #00000052;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+}
 
 .contenido_agregado .box_agregado span.sin_borde {
     border-bottom: none !important;
@@ -528,9 +528,6 @@
     padding: 0;
 }
 
-.ico_alerta{
-    margin-left: 10px;
-}
 
 .ico_alerta i {
     color: #e81c36;
