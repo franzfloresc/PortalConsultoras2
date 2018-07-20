@@ -2394,10 +2394,21 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.GetEstrategiaCarrusel(usuario);
         }
 
-        public BEUsuario GetConfiguracionOfertaFinal(BEUsuario usuario)
+        public BEPedidoDetalleAppResult InsertEstrategiaCarrusel(BEPedidoDetalleApp pedidoDetalle)
         {
-            return _pedidoAppBusinessLogic.GetConfiguracionOfertaFinal(usuario);
+            return _pedidoAppBusinessLogic.InsertEstrategiaCarrusel(pedidoDetalle);
         }
+
+        public BEUsuario GetConfiguracionOfertaFinalCarrusel(BEUsuario usuario)
+        {
+            return _pedidoAppBusinessLogic.GetConfiguracionOfertaFinalCarrusel(usuario);
+        }
+
+        public BEPedidoDetalleAppResult InsertOfertaFinalCarrusel(BEPedidoDetalleApp pedidoDetalle)
+        {
+            return _pedidoAppBusinessLogic.InsertOfertaFinalCarrusel(pedidoDetalle);
+        }
+
         public List<BEProducto> GetProductoSugerido(BEProductoAppBuscar productoBuscar)
         {
             return _pedidoAppBusinessLogic.GetProductoSugerido(productoBuscar);

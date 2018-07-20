@@ -17,9 +17,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
         BEConfiguracionPedido GetConfiguracion(int paisID, string codigoUsuario);
         Task<BEPedidoDetalleAppResult> Delete(BEPedidoDetalleApp pedidoDetalle);
         Task<BEPedidoReservaAppResult> Reserva(BEUsuario usuario);
-        BEPedidoDetalleAppResult DeshacerReserva(BEUsuario usuario);
+        BEPedidoDetalleAppResult DeshacerReserva(BEUsuario usuario, BEPedidoWeb pedido = null);
         List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario);
-        BEUsuario GetConfiguracionOfertaFinal(BEUsuario usuario);
+        BEPedidoDetalleAppResult InsertEstrategiaCarrusel(BEPedidoDetalleApp pedidoDetalle);
+        BEUsuario GetConfiguracionOfertaFinalCarrusel(BEUsuario usuario);
+        BEPedidoDetalleAppResult InsertOfertaFinalCarrusel(BEPedidoDetalleApp pedidoDetalle);
         List<BEProducto> GetProductoSugerido(BEProductoAppBuscar productoBuscar);
     }
 }

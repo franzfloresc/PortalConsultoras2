@@ -29,5 +29,6 @@ namespace Portal.Consultoras.BizLogic
         void UpdPedidoWebByEstado(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, bool ModificaPedidoReservado, bool Eliminar, string CodigoUsuario, bool ValidacionAbierta);
         void UpdPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
         short UpdPedidoWebDetalleMasivo(List<BEPedidoWebDetalle> pedidowebdetalle);
+        bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId);
     }
 }

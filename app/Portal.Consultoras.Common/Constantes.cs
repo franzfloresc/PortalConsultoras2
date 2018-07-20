@@ -534,7 +534,6 @@ namespace Portal.Consultoras.Common
             public const int BannerDesktopHome = 1111;
             public const int DesktopPedido = 12;
             public const int MobilePedido = 22;
-            public const int AppPedido = 42;
 
             #region OfertasParaTi
             public const int OfertasParaTiDesktopHome = 1121;
@@ -547,6 +546,7 @@ namespace Portal.Consultoras.Common
             public const int OfertasParaTiMobileHome = 2121;
             public const int OfertasParaTiMobileHomePopUp = 2122;
             public const int OfertasParaTiMobilePedido = 2221;
+            public const int OfertasParaTiAppPedido = 4221;
             public const int OfertasParaTiMobilePedidoPopUp = 2222;
             public const int OfertasParaTiMobileContenedor = 2821;
             public const int OfertasParaTiMobileContenedorPopup = 2822;
@@ -611,6 +611,7 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalDesktopPedidoPopUp = 1202;
             public const int RevistaDigitalMobilePedidoSeccion = 2201;
             public const int RevistaDigitalMobilePedidoPopUp = 2202;
+            public const int RevistaDigitalAppPedidoSeccion = 4201;
 
             public const int RevistaDigitalDesktopLanding = 1711;
             public const int RevistaDigitalDesktopLandingPopUp = 1712;
@@ -1979,6 +1980,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_ACTUALIZAR = "2106";
                 public const string ERROR_ELIMINAR = "2107";
                 public const string ERROR_ELIMINAR_TODO = "2108";
+                public const string ERROR_CANTIDAD_LIMITE = "2111";
 
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
@@ -2025,6 +2027,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_ACTUALIZAR, "Ocurrió un error al actualizar el pedido." },
                         {Code.ERROR_ELIMINAR, "Ocurrió un error al eliminar el detalle de pedido." },
                         {Code.ERROR_ELIMINAR_TODO, "Ocurrió un error al eliminar el pedido." },
+                        {Code.ERROR_CANTIDAD_LIMITE, "La cantidad no debe ser mayor que la cantidad limite ( {0} )." },
 
                         {Code.ERROR_RESERVA_NINGUNO, "El pedido no se reservó." },
                         {Code.SUCCESS_RESERVA, "Pedido reservado." },
