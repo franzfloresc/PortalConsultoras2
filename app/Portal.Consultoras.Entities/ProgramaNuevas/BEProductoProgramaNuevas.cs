@@ -36,30 +36,19 @@ namespace Portal.Consultoras.Entities.ProgramaNuevas
         [DataMember]
         public int NumeroCampanasVigentes { get; set; }
 
-        public BEProductoProgramaNuevas(IDataRecord datarec)
+        public BEProductoProgramaNuevas(IDataRecord row)
         {
-            if (DataRecord.HasColumn(datarec, "CodigoPrograma"))
-                CodigoPrograma = Convert.ToString(datarec["CodigoPrograma"]);
-            if (DataRecord.HasColumn(datarec, "CampanaID"))
-                CampanaID = Convert.ToInt32(datarec["CampanaID"]);
-            if (DataRecord.HasColumn(datarec, "CodigoNivel"))
-                CodigoNivel = Convert.ToString(datarec["CodigoNivel"]);
-            if (DataRecord.HasColumn(datarec, "CodigoCupon"))
-                CodigoCupon = Convert.ToString(datarec["CodigoCupon"]);
-            if (DataRecord.HasColumn(datarec, "CodigoVenta"))
-                CodigoVenta = Convert.ToString(datarec["CodigoVenta"]);
-            if (DataRecord.HasColumn(datarec, "DescripcionProducto"))
-                DescripcionProducto = Convert.ToString(datarec["DescripcionProducto"]);
-            if (DataRecord.HasColumn(datarec, "UnidadesMaximas"))
-                UnidadesMaximas = Convert.ToInt32(datarec["UnidadesMaximas"]);
-            if (DataRecord.HasColumn(datarec, "IndicadorKit"))
-                IndicadorKit = Convert.ToBoolean(datarec["IndicadorKit"]);
-            if (DataRecord.HasColumn(datarec, "IndicadorCuponIndependiente"))
-                IndicadorCuponIndependiente = Convert.ToBoolean(datarec["IndicadorCuponIndependiente"]);
-            if (DataRecord.HasColumn(datarec, "PrecioUnitario"))
-                PrecioUnitario = Convert.ToDecimal(datarec["PrecioUnitario"]);
-            if (DataRecord.HasColumn(datarec, "NumeroCampanasVigentes"))
-                NumeroCampanasVigentes = Convert.ToInt32(datarec["NumeroCampanasVigentes"]);
+            CodigoPrograma = row.ToString("CodigoPrograma");
+            CampanaID = row.ToInt32("CampanaID");
+            CodigoNivel = row.ToString("CodigoNivel");
+            CodigoCupon = row.ToString("CodigoCupon");
+            CodigoVenta = row.ToString("CodigoVenta");
+            DescripcionProducto = row.ToString("DescripcionProducto");
+            UnidadesMaximas = row.ToInt32("UnidadesMaximas");
+            IndicadorKit = row.ToBoolean("IndicadorKit");
+            IndicadorCuponIndependiente = row.ToBoolean("IndicadorCuponIndependiente");
+            PrecioUnitario = row.ToDecimal("PrecioUnitario");
+            NumeroCampanasVigentes = row.ToInt32("NumeroCampanasVigentes");
         }
     }
 }

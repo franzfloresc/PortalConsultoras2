@@ -46,26 +46,13 @@ namespace Portal.Consultoras.Entities
 
         public BEEstadoCuenta(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-
-            if (DataRecord.HasColumn(row, "FechaRegistro"))
-                FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-
-            if (DataRecord.HasColumn(row, "DescripcionOperacion"))
-                DescripcionOperacion = Convert.ToString(row["DescripcionOperacion"]);
-
-            if (DataRecord.HasColumn(row, "MontoOperacion"))
-                MontoOperacion = Convert.ToDecimal(row["MontoOperacion"]);
-
-            if (DataRecord.HasColumn(row, "Cargo"))
-                Cargo = Convert.ToDecimal(row["Cargo"]);
-
-            if (DataRecord.HasColumn(row, "Abono"))
-                Abono = Convert.ToDecimal(row["Abono"]);
-
-            if (DataRecord.HasColumn(row, "Orden"))
-                Orden = Convert.ToInt32(row["Orden"]);
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            FechaRegistro = row.ToDateTime("FechaRegistro");
+            DescripcionOperacion = row.ToString("DescripcionOperacion");
+            MontoOperacion = row.ToDecimal("MontoOperacion");
+            Cargo = row.ToDecimal("Cargo");
+            Abono = row.ToDecimal("Abono");
+            Orden = row.ToInt32("Orden");
         }
 
     }

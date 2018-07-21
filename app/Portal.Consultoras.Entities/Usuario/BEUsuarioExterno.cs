@@ -86,29 +86,17 @@ namespace Portal.Consultoras.Entities
             CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
             Proveedor = Convert.ToString(row["Proveedor"]);
             IdAplicacion = Convert.ToString(row["IdAplicacion"]);
-
-            if (row.HasColumn("Login"))
-                Login = Convert.ToString(row["Login"]);
-            if (row.HasColumn("Nombres"))
-                Nombres = Convert.ToString(row["Nombres"]);
-            if (row.HasColumn("Apellidos"))
-                Apellidos = Convert.ToString(row["Apellidos"]);
-            if (row.HasColumn("FechaNacimiento"))
-                FechaNacimiento = Convert.ToString(row["FechaNacimiento"]);
-            if (row.HasColumn("Correo"))
-                Correo = Convert.ToString(row["Correo"]);
-            if (row.HasColumn("Genero"))
-                Genero = Convert.ToString(row["Genero"]);
-            if (row.HasColumn("Ubicacion"))
-                Ubicacion = Convert.ToString(row["Ubicacion"]);
-            if (row.HasColumn("LinkPerfil"))
-                LinkPerfil = Convert.ToString(row["LinkPerfil"]);
-            if (row.HasColumn("FotoPerfil"))
-                FotoPerfil = Convert.ToString(row["FotoPerfil"]);
-            if (row.HasColumn("FechaRegistro"))
-                FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (row.HasColumn("Estado"))
-                Estado = Convert.ToInt16(row["Estado"]);
+            Login = row.ToString("Login");
+            Nombres = row.ToString("Nombres");
+            Apellidos = row.ToString("Apellidos");
+            FechaNacimiento = row.ToString("FechaNacimiento");
+            Correo = row.ToString("Correo");
+            Genero = row.ToString("Genero");
+            Ubicacion = row.ToString("Ubicacion");
+            LinkPerfil = row.ToString("LinkPerfil");
+            FotoPerfil = row.ToString("FotoPerfil");
+            FechaRegistro = row.ToDateTime("FechaRegistro");
+            Estado = row.ToInt16("Estado");
         }
     }
 }

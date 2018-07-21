@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal PrecioMinimo { get; set; }
 
-        #endregion        
+        #endregion
 
         public string Algoritmo { get; set; }
 
@@ -37,18 +37,12 @@ namespace Portal.Consultoras.Entities
         [Obsolete("Use MapUtil.MapToCollection")]
         public BEEscalaDescuento(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "MontoDesde"))
-                MontoDesde = Convert.ToDecimal(row["MontoDesde"]);
-            if (DataRecord.HasColumn(row, "MontoHasta"))
-                MontoHasta = Convert.ToDecimal(row["MontoHasta"]);
-            if (DataRecord.HasColumn(row, "PorDescuento"))
-                PorDescuento = Convert.ToInt32(row["PorDescuento"]);
-            if (DataRecord.HasColumn(row, "TipoParametriaOfertaFinal"))
-                TipoParametriaOfertaFinal = Convert.ToString(row["TipoParametriaOfertaFinal"]);
-            if (DataRecord.HasColumn(row, "PrecioMinimo"))
-                PrecioMinimo = Convert.ToDecimal(row["PrecioMinimo"]);
-            if (DataRecord.HasColumn(row, "Algoritmo"))
-                Algoritmo = Convert.ToString(row["Algoritmo"]);
+            MontoDesde = row.ToDecimal("MontoDesde");
+            MontoHasta = row.ToDecimal("MontoHasta");
+            PorDescuento = row.ToInt32("PorDescuento");
+            TipoParametriaOfertaFinal = row.ToString("TipoParametriaOfertaFinal");
+            PrecioMinimo = row.ToDecimal("PrecioMinimo");
+            Algoritmo = row.ToString("Algoritmo");
         }
     }
 }

@@ -15,10 +15,8 @@ namespace Portal.Consultoras.Entities.CargaMasiva
 
         public BECargaMasivaImagenes(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Cuv"))
-                Cuv = row["Cuv"].ToString();
-            if (DataRecord.HasColumn(row, "RutaImagen"))
-                RutaImagen = row["RutaImagen"].ToString();
+            Cuv = row.ToString("Cuv");
+            RutaImagen = row.ToString("RutaImagen");
         }
     }
 }

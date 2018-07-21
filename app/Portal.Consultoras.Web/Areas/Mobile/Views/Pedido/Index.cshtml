@@ -247,11 +247,11 @@
             <tr>
                 <td style="vertical-align: middle;">Unidades: &nbsp;&nbsp;</td>
                 <td>
-                    <div class="liquidacion_rango_home">
-                        <input type="tel" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" name="txtCantidadZE" id="txtCantidadZE" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                    <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                        <input type="tel" value="1" size="2" maxlength="2" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" name="txtCantidadZE" id="txtCantidadZE" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
                         <div class="liquidacion_rango_right_pedido">
-                            <a class="mas"><img src="" alt="" /></a>
-                            <a class="menos"><img src="" alt="" /></a>
+                            <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="" alt="" /></a>
+                            <a class="menos"  onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="" alt="" /></a>
                         </div>
                     </div>
                 </td>
@@ -363,10 +363,10 @@
                 </div>
                 <div class="clear"></div>
 
-                <div class="sugeridos_rango_home">
-                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="tel" value="1" size="2" maxlength="2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
-                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                <div class="sugeridos_rango_home" data-cantidad-contenedor="">
+                    <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                    <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                 </div>
                 <div class="clear"></div>
                 <a class="boton_Agregalo_home btnAgregarSugerido" href="javascript:;">AGRÉGALO</a>
@@ -412,7 +412,7 @@
 
         var urlPedidoInsert = '@Url.Action("PedidoInsertar", "Pedido", new {area = ""})';
         var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new {area = ""})';
-        var urlObtenerProductosSugeridos = '@Url.Action("ObtenerProductosSugeridos", "Pedido", new { area = "" })';
+        var urlObtenerProductosSugeridos = '@Url.Action("ObtenerProductosSugeridos", "Estrategia", new { area = "" })';
         var urlIngresoFAD = '@Url.Action("IngresoFAD", "Pedido", new {area = ""})';
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';

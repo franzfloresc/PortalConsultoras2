@@ -1,6 +1,8 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.Estrategia;
 using Portal.Consultoras.BizLogic.Mobile;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.Mobile;
 using Portal.Consultoras.ServiceContracts;
 using System;
@@ -8,8 +10,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
-using Portal.Consultoras.BizLogic.Estrategia;
-using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Service
 {

@@ -22,14 +22,10 @@ namespace Portal.Consultoras.Entities
 
         public BEContenidoDato(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "PaisID"))
-                PaisID = Convert.ToInt32(row["PaisID"]);
-            if (DataRecord.HasColumn(row, "ImagenFondo"))
-                ImagenFondo = Convert.ToString(row["ImagenFondo"]);
-            if (DataRecord.HasColumn(row, "ImagenLogo"))
-                ImagenLogo = Convert.ToString(row["ImagenLogo"]);
+            CampaniaID = row.ToInt32("CampaniaID");
+            PaisID = row.ToInt32("PaisID");
+            ImagenFondo = row.ToString("ImagenFondo");
+            ImagenLogo = row.ToString("ImagenLogo");
         }
     }
 }

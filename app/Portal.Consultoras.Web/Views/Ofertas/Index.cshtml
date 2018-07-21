@@ -6,6 +6,10 @@
 }
 @section styles{
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/ccsOfertas")
+    <link href="@Url.Content("~/Content/Css/Site/Contenedor/OfertaDelDia.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/Ficha/Ficha.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/Ficha/Carrusel.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/Ficha/RedesSociales.css")" rel="stylesheet" />
 }
 
 <div class="bc_estrategia_contenido" id="seccion-estrategia-contenido">
@@ -33,7 +37,7 @@
                 <br />
                 Cargando @seccion.Titulo
                 <br />
-                <img src="@Url.Content("~/Content/Images/Loading.gif")" alt="....."/>
+                <img src="@Url.Content("~/Content/Images/Loading.gif")" alt="....." />
                 <br />
                 <br />
                 <br />
@@ -74,20 +78,20 @@
 </div>
 
 @section scripts{
-<script type="text/javascript">
-    var urlOfertaCargarProductos = "@Url.Action("RDObtenerProductos", "RevistaDigital")";
-    var urlCargarProductosHv = '@Url.Action("HVObtenerProductos", "HerramientasVenta")';
+    <script type="text/javascript">
+    var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "Estrategia", new { area = ""})';
+    var urlCargarProductosHv = '@Url.Action("HVObtenerProductos", "Estrategia", new { area = ""})';
     var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
     var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
-    var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
-    var urlOfertaDetalleProductoLan = '@Url.Action("Detalle", "Lanzamientos")';
-    var urlOfertaDetalleProductoLanTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
+    var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
+    //var urlOfertaDetalleProductoLan = '@Url.Action("Detalle", "Lanzamientos")';
+    var urlOfertaDetalleProductoLan = '@Url.Action("Ficha", "DetalleEstrategia")';
     var isScroll = false;
     var tipoOrigenPantalla = 1;
     var TipoOrigenPantallaODD = 111;
     var tipoOrigenEstrategia = 107;
     var OrigenDesktopODD = 3;
-</script>
+    </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Ofertas")
 

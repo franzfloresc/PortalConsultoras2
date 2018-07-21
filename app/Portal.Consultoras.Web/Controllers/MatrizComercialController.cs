@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new MatrizComercialModel()
             {
                 lstPais = DropDowListPaises(),
-                ExpValidacionNemotecnico = GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico)
+                ExpValidacionNemotecnico = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico)
             };
 
             return View(model);
@@ -495,7 +495,7 @@ namespace Portal.Consultoras.Web.Controllers
                 iso = Util.Trim(Util.GetPaisISO(paisID));
                 if (iso != "")
                 {
-                    habilitarNemotecnico = ObtenerValorTablaLogica(paisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoMatriz);
+                    habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(paisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoMatriz);
                 }
             }
             return Json(new

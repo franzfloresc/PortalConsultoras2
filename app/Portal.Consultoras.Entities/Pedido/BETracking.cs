@@ -51,23 +51,14 @@ namespace Portal.Consultoras.Entities
 
         public BETracking(IDataRecord row)
         {
-            if (row.HasColumn("CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (row.HasColumn("NumeroPedido"))
-                NumeroPedido = Convert.ToString(row["NumeroPedido"]);
-            if (row.HasColumn("Campana"))
-                Campana = Convert.ToInt32(row["Campana"]);
-            if (row.HasColumn("Estado"))
-                Estado = Convert.ToString(row["Estado"]);
-            if (row.HasColumn("Etapa"))
-                Etapa = Convert.ToInt32(row["Etapa"]);
-            if (row.HasColumn("Situacion"))
-                Situacion = Convert.ToString(row["Situacion"]);
-            if (row.HasColumn("Fecha"))
-                Fecha = Convert.ToDateTime(row["Fecha"]);
-
-            if (row.HasColumn("ValorTurno"))
-                ValorTurno = Convert.ToString(row["ValorTurno"]);
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            NumeroPedido = row.ToString("NumeroPedido");
+            Campana = row.ToInt32("Campana");
+            Estado = row.ToString("Estado");
+            Etapa = row.ToInt32("Etapa");
+            Situacion = row.ToString("Situacion");
+            Fecha = row.ToDateTime("Fecha");
+            ValorTurno = row.ToString("ValorTurno");
         }
     }
 
@@ -107,7 +98,10 @@ namespace Portal.Consultoras.Entities
             Novedad = Convert.ToString(row["Novedad"]);
             DesNovedad = Convert.ToString(row["DesNovedad"]);
             MensajeNovedad = Convert.ToString(row["MensajeNovedad"]);
-            FechaNovedad = row["FechaNovedad"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["FechaNovedad"]);
+
+            if (DataRecord.HasColumn(row, "Boleta")) FechaNovedad = Convert.ToDateTime(row["FechaNovedad"]);
+            else FechaNovedad = (DateTime?)null;
+
             Latitud = Convert.ToString(row["Latitud"]);
             Longitud = Convert.ToString(row["Longitud"]);
             Observacion = Convert.ToString(row["Observacion"]);
