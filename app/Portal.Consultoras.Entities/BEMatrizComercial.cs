@@ -52,7 +52,6 @@ namespace Portal.Consultoras.Entities
             DescripcionOriginal = row.ToString("DescripcionOriginal");
             Descripcion = row.ToString("Descripcion");
             DescripcionProductoComercial = row.ToString("DescripcionProductoComercial");
-            DescripcionProductoComercial = row.ToString("DescripcionProductoComercial");
             FotoProducto = row.ToString("FotoProducto");
         }
     }
