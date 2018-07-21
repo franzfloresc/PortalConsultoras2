@@ -20,7 +20,8 @@ $(document).ready(function () {
     }
     
     if (tieneOfertaDelDia == "True") {
-        window.OfertaDelDia.CargarODD();
+        OfertaDelDiaModule.Inicializar();
+        //window.OfertaDelDia.CargarODD();
     }
 
     $(document).keyup(function (e) {
