@@ -117,23 +117,23 @@ namespace Portal.Consultoras.Entities
             ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
             ObservacionPROL = Convert.ToString(row["ObservacionPROL"]);
 
-            if (DataRecord.HasColumn(row, "IndicadorOferta"))
-                IndicadorOferta = Convert.ToInt16(row["IndicadorOferta"]);
-            if (DataRecord.HasColumn(row, "MontoTotalProl"))
-                MontoTotalProl = Convert.ToDecimal(row["MontoTotalProl"]);
-            if (DataRecord.HasColumn(row, "DescuentoProl"))
-                DescuentoProl = Convert.ToDecimal(row["DescuentoProl"]);
-            if (DataRecord.HasColumn(row, "ImporteTotalPedido"))
-                ImporteTotalPedido = Convert.ToDecimal(row["ImporteTotalPedido"]);
+            
+                IndicadorOferta = row.ToInt16("IndicadorOferta");
+            
+                MontoTotalProl = row.ToDecimal("MontoTotalProl");
+            
+                DescuentoProl = row.ToDecimal("DescuentoProl");
+            
+                ImporteTotalPedido = row.ToDecimal("ImporteTotalPedido");
 
-            if (DataRecord.HasColumn(row, "StockDisponible"))
-                StockDisponible = Convert.ToInt32(row["StockDisponible"]);
-            if (DataRecord.HasColumn(row, "MontoAhorroCatalogo"))
-                MontoAhorroCatalogo = Convert.ToDecimal(row["MontoAhorroCatalogo"]);
-            if (DataRecord.HasColumn(row, "MontoAhorroRevista"))
-                MontoAhorroRevista = Convert.ToDecimal(row["MontoAhorroRevista"]);
-            if (DataRecord.HasColumn(row, "NombreCliente"))
-                NombreCliente = Convert.ToString(row["NombreCliente"]);
+            
+                StockDisponible = row.ToInt32("StockDisponible");
+            
+                MontoAhorroCatalogo = row.ToDecimal("MontoAhorroCatalogo");
+            
+                MontoAhorroRevista = row.ToDecimal("MontoAhorroRevista");
+            
+                NombreCliente = row.ToString("NombreCliente");
         }
     }
 
@@ -156,14 +156,14 @@ namespace Portal.Consultoras.Entities
             CorreoCliente = string.Empty;
             TelefonoCliente = string.Empty;
 
-            if (DataRecord.HasColumn(row, "DetalleNotificacion"))
-                DetalleNotificacion = Convert.ToString(row["DetalleNotificacion"]);
-            if (DataRecord.HasColumn(row, "NombreCliente"))
-                NombreCliente = Convert.ToString(row["NombreCliente"]);
-            if (DataRecord.HasColumn(row, "CorreoCliente"))
-                CorreoCliente = Convert.ToString(row["CorreoCliente"]);
-            if (DataRecord.HasColumn(row, "TelefonoCliente"))
-                TelefonoCliente = Convert.ToString(row["TelefonoCliente"]);
+            
+                DetalleNotificacion = row.ToString("DetalleNotificacion");
+            
+                NombreCliente = row.ToString("NombreCliente");
+            
+                CorreoCliente = row.ToString("CorreoCliente");
+            
+                TelefonoCliente = row.ToString("TelefonoCliente");
         }
     }
 }

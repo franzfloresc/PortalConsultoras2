@@ -57,9 +57,10 @@ namespace Portal.Consultoras.Entities
             TiempoRotacion = row.ToInt32("TiempoRotacion");
             Ancho = row.ToInt32("Ancho");
             Alto = row.ToInt32("Alto");
-            if (DataRecord.HasColumn(row, "DimensionEsika")) DimensionEsika = Convert.ToString(row["DimensionEsika"]);
-            if (DataRecord.HasColumn(row, "AnchoEsika")) AnchoEsika = DbConvert.ToInt32(row["AnchoEsika"]);
-            if (DataRecord.HasColumn(row, "AltoEsika")) AltoEsika = DbConvert.ToInt32(row["AltoEsika"]);
+            DimensionEsika = row.ToString("DimensionEsika");
+            AnchoEsika = row.ToInt32("AnchoEsika");
+            AltoEsika = row.ToInt32("AltoEsika");
+
             Consultoras = new BEGrupoConsultora[0];
         }
     }

@@ -97,10 +97,10 @@ namespace Portal.Consultoras.Entities
 
         public BEResultadoMisPedidosAppCatalogo(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Error"))
-                Error = Convert.ToBoolean(row["Error"]);
-            if (DataRecord.HasColumn(row, "Mensaje"))
-                Mensaje = Convert.ToString(row["Mensaje"]);
+            
+                Error = row.ToBoolean("Error");
+            
+                Mensaje = row.ToString("Mensaje");
         }
 
         public BEResultadoMisPedidosAppCatalogo(Boolean error, string mensaje)
@@ -168,10 +168,10 @@ namespace Portal.Consultoras.Entities
 
         public BEResultadoPedidoDetalleAppCatalogo(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Error"))
-                Error = Convert.ToBoolean(row["Error"]);
-            if (DataRecord.HasColumn(row, "Mensaje"))
-                Mensaje = Convert.ToString(row["Mensaje"]);
+            
+                Error = row.ToBoolean("Error");
+            
+                Mensaje = row.ToString("Mensaje");
         }
 
         public BEResultadoPedidoDetalleAppCatalogo(Boolean error, string mensaje)

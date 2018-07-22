@@ -152,20 +152,20 @@ namespace Portal.Consultoras.Entities
             Cantidad = Convert.ToInt32(row["Cantidad"]);
             PrecioTotal = PrecioUnitario * Cantidad;
 
-            if (DataRecord.HasColumn(row, "MarcaID"))
-                MarcaID = Convert.ToInt32(row["MarcaID"]);
+            
+                MarcaID = row.ToInt32("MarcaID");
 
-            if (DataRecord.HasColumn(row, "MContacto"))
-                MedioContacto = Convert.ToString(row["MContacto"]);
+            
+                MedioContacto = row.ToString("MContacto");
 
-            if (DataRecord.HasColumn(row, "TipoAtencion"))
-                TipoAtencion = Convert.ToInt32(row["TipoAtencion"]);
+            
+                TipoAtencion = row.ToInt32("TipoAtencion");
 
-            if (DataRecord.HasColumn(row, "PedidoWebID"))
-                PedidoWebID = Convert.ToInt32(row["PedidoWebID"]);
+            
+                PedidoWebID = row.ToInt32("PedidoWebID");
 
-            if (DataRecord.HasColumn(row, "PedidoWebDetalleID"))
-                PedidoWebDetalleID = Convert.ToInt32(row["PedidoWebDetalleID"]);
+            
+                PedidoWebDetalleID = row.ToInt32("PedidoWebDetalleID");
         }
     }
 }

@@ -98,19 +98,12 @@ namespace Portal.Consultoras.Entities
             Novedad = Convert.ToString(row["Novedad"]);
             DesNovedad = Convert.ToString(row["DesNovedad"]);
             MensajeNovedad = Convert.ToString(row["MensajeNovedad"]);
-
-            if (DataRecord.HasColumn(row, "FechaNovedad"))
-                FechaNovedad = Convert.ToDateTime(row["FechaNovedad"]);
-            else
-                FechaNovedad = (DateTime?)null;
-
             Latitud = Convert.ToString(row["Latitud"]);
             Longitud = Convert.ToString(row["Longitud"]);
             Observacion = Convert.ToString(row["Observacion"]);
-            if (DataRecord.HasColumn(row, "Boleta"))
-                Boleta = Convert.ToString(row["Boleta"]);
-            if (DataRecord.HasColumn(row, "Foto"))
-                Foto = Convert.ToString(row["Foto"]);
+            Boleta = row.ToString("Boleta");
+            Foto = row.ToString("Foto");
+            FechaNovedad = row.ToDateTimeNull("FechaNovedad", (DateTime?)null);
         }
     }
 
