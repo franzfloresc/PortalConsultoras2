@@ -27,10 +27,10 @@ namespace Portal.Consultoras.Entities
 
         public BEGetZonaByPaisParametroCarga(IDataRecord row)
         {
-            ZonaID = Convert.ToInt32(row["ZonaID"]);
-            RegionID = Convert.ToInt32(row["RegionID"]);
-            Codigo = Convert.ToString(row["Codigo"]);
-            Nombre = Convert.ToString(row["Nombre"]);
+            ZonaID = row.ToInt32("ZonaID");
+            RegionID = row.ToInt32("RegionID");
+            Codigo = row.ToString("Codigo");
+            Nombre = row.ToString("Nombre");
             CantidadDias = row.ToInt32("CantidadDias");
         }
 

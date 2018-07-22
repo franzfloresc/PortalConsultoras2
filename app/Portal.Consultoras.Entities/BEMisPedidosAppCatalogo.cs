@@ -57,27 +57,27 @@ namespace Portal.Consultoras.Entities
 
         public BEMisPedidosAppCatalogo(IDataRecord row)
         {
-            PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
-            ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
-            ConsultoraCodigo = Convert.ToString(row["ConsultoraCodigo"]);
-            ConsultoraNombre = Convert.ToString(row["ConsultoraNombre"]);
-            ConsultoraCorreo = Convert.ToString(row["ConsultoraCorreo"]);
-            ConsultoraCelular = Convert.ToString(row["ConsultoraCelular"]);
+            PedidoId = row.ToInt64("SolicitudClienteID");
+            ConsultoraID = row.ToInt32("ConsultoraID");
+            ConsultoraCodigo = row.ToString("ConsultoraCodigo");
+            ConsultoraNombre = row.ToString("ConsultoraNombre");
+            ConsultoraCorreo = row.ToString("ConsultoraCorreo");
+            ConsultoraCelular = row.ToString("ConsultoraCelular");
             Campania = row.ToString("Campania");
             Leido = row.ToInt16("Leido");
-            MarcaID = Convert.ToInt32(row["MarcaID"]);
-            Marca = Convert.ToString(row["Marca"]);
+            MarcaID = row.ToInt32("MarcaID");
+            Marca = row.ToString("Marca");
             TipoUsuario = row.ToInt32("TipoUsuario");
             FlagConsultora = row.ToBoolean("FlagConsultora");
-            FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
-            Estado = Convert.ToString(row["Estado"]);
-            ClienteNombre = Convert.ToString(row["ClienteNombre"]);
-            ClienteTelefono = Convert.ToString(row["ClienteTelefono"]);
-            ClienteEmail = Convert.ToString(row["ClienteEmail"]);
-            ClienteDireccion = Convert.ToString(row["ClienteDireccion"]);
-            Mensaje = Convert.ToString(row["Mensaje"]);
+            FechaSolicitud = row.ToDateTime("FechaSolicitud");
+            Estado = row.ToString("Estado");
+            ClienteNombre = row.ToString("ClienteNombre");
+            ClienteTelefono = row.ToString("ClienteTelefono");
+            ClienteEmail = row.ToString("ClienteEmail");
+            ClienteDireccion = row.ToString("ClienteDireccion");
+            Mensaje = row.ToString("Mensaje");
             Total = row.ToDecimal("Total");
-            Cantidad = Convert.ToInt32(row["Cantidad"]);
+            Cantidad = row.ToInt32("Cantidad");
             DetallePedido = new List<BEMisPedidosDetalleAppCatalogo>();
         }
     }
@@ -97,9 +97,9 @@ namespace Portal.Consultoras.Entities
 
         public BEResultadoMisPedidosAppCatalogo(IDataRecord row)
         {
-            
+
                 Error = row.ToBoolean("Error");
-            
+
                 Mensaje = row.ToString("Mensaje");
         }
 
@@ -140,16 +140,16 @@ namespace Portal.Consultoras.Entities
 
         public BEMisPedidosDetalleAppCatalogo(IDataRecord row)
         {
-            PedidoDetalleId = Convert.ToInt64(row["SolicitudClienteDetalleID"]);
-            PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
-            Producto = Convert.ToString(row["Producto"]);
-            Tono = Convert.ToString(row["Tono"]);
-            Marca = Convert.ToString(row["Marca"]);
-            CUV = Convert.ToString(row["CUV"]);
-            PrecioUnitario = Convert.ToDouble(row["Precio"]);
-            Cantidad = Convert.ToInt32(row["Cantidad"]);
+            PedidoDetalleId = row.ToInt64("SolicitudClienteDetalleID");
+            PedidoId = row.ToInt64("SolicitudClienteID");
+            Producto = row.ToString("Producto");
+            Tono = row.ToString("Tono");
+            Marca = row.ToString("Marca");
+            CUV = row.ToString("CUV");
+            PrecioUnitario = row.ToDouble("Precio");
+            Cantidad = row.ToInt32("Cantidad");
             SubTotal = PrecioUnitario * Cantidad;
-            Url = Convert.ToString(row["Url"]);
+            Url = row.ToString("Url");
         }
     }
 
@@ -168,9 +168,9 @@ namespace Portal.Consultoras.Entities
 
         public BEResultadoPedidoDetalleAppCatalogo(IDataRecord row)
         {
-            
+
                 Error = row.ToBoolean("Error");
-            
+
                 Mensaje = row.ToString("Mensaje");
         }
 

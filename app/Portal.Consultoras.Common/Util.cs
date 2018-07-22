@@ -1,5 +1,6 @@
 ﻿using Belcorp.Security.Federation.Connections;
 using ClosedXML.Excel;
+using MaxMind.Db;
 using MaxMind.Util;
 using Microsoft.IdentityModel.Protocols.WSIdentity;
 using Microsoft.IdentityModel.Protocols.WSTrust;
@@ -3472,7 +3473,8 @@ namespace Portal.Consultoras.Common
             columnName = (columnName ?? "").Trim();
             if (columnName == "") return false;
 
-            if (row.Table.Columns.Contains(columnName)) return row[columnName] != DBNull.Value;
+            if (row.Table.Columns.Contains(columnName))
+                return row[columnName] != DBNull.Value;
 
             return false;
         }

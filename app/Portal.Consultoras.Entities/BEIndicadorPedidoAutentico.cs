@@ -39,9 +39,9 @@ namespace Portal.Consultoras.Entities
 
         public BEIndicadorPedidoAutentico(IDataRecord row)
         {
-            PedidoID = Convert.ToInt32(row["PedidoID"]);
-            CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            PedidoDetalleID = Convert.ToInt32(row["PedidoDetalleID"]);
+            PedidoID = row.ToInt32("PedidoID");
+            CampaniaID = row.ToInt32("CampaniaID");
+            PedidoDetalleID = row.ToInt32("PedidoDetalleID");
             IndicadorIPUsuario = row.ToString("IndicadorIPUsuario");
             IndicadorFingerprint = row.ToString("IndicadorFingerprint");
             IndicadorToken = row.ToString("IndicadorToken");

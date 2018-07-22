@@ -39,20 +39,20 @@ namespace Portal.Consultoras.Entities
 
         public BENotificaciones(IDataRecord row)
         {
-            ProcesoId = Convert.ToInt64(row["ProcesoId"]);
-            CampaniaId = Convert.ToInt32(row["CampaniaId"]);
-            EstadoPROL = Convert.ToString(row["EstadoPROL"]);
-            FechaHoraValidación = Convert.ToDateTime(row["FechaHoraValidación"]);
-            EnvioCorreo = Convert.ToBoolean(row["EnvioCorreo"]);
-            Proceso = Convert.ToString(row["Proceso"]);
-            Estado = Convert.ToInt32(row["Estado"]);
-            Observaciones = Convert.ToString(row["Observaciones"]);
-            Asunto = Convert.ToString(row["Asunto"]);
-            FechaFacturacion = Convert.ToDateTime(row["FechaFacturacion"]);
-            FacturaHoy = Convert.ToBoolean(row["FacturaHoy"]);
-            EsMontoMinimo = Convert.ToBoolean(row["EsMontoMinino"]);
+            ProcesoId = row.ToInt64("ProcesoId");
+            CampaniaId = row.ToInt32("CampaniaId");
+            EstadoPROL = row.ToString("EstadoPROL");
+            FechaHoraValidación = row.ToDateTime("FechaHoraValidación");
+            EnvioCorreo = row.ToBoolean("EnvioCorreo");
+            Proceso = row.ToString("Proceso");
+            Estado = row.ToInt32("Estado");
+            Observaciones = row.ToString("Observaciones");
+            Asunto = row.ToString("Asunto");
+            FechaFacturacion = row.ToDateTime("FechaFacturacion");
+            FacturaHoy = row.ToBoolean("FacturaHoy");
+            EsMontoMinimo = row.ToBoolean("EsMontoMinino");
             Visualizado = row.ToBoolean("Visualizado");
-            FlagProcedencia = Convert.ToBoolean(row["FlagProcedencia"]);
+            FlagProcedencia = row.ToBoolean("FlagProcedencia");
         }
     }
 
@@ -68,9 +68,9 @@ namespace Portal.Consultoras.Entities
 
         public BENotificacionesDetalle(IDataRecord row)
         {
-            CUV = Convert.ToString(row["CUV"]);
-            CodigoObservacion = Convert.ToString(row["CodigoObservacion"]);
-            MensajePROL = Convert.ToString(row["MensajePROL"]);
+            CUV = row.ToString("CUV");
+            CodigoObservacion = row.ToString("CodigoObservacion");
+            MensajePROL = row.ToString("MensajePROL");
         }
     }
 
@@ -110,29 +110,29 @@ namespace Portal.Consultoras.Entities
 
         public BENotificacionesDetallePedido(IDataRecord row)
         {
-            CUV = Convert.ToString(row["CUV"]);
-            Descripcion = Convert.ToString(row["DescripcionProd"]);
-            Cantidad = Convert.ToInt32(row["Cantidad"]);
-            PrecioUnidad = Convert.ToDecimal(row["PrecioUnidad"]);
-            ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-            ObservacionPROL = Convert.ToString(row["ObservacionPROL"]);
+            CUV = row.ToString("CUV");
+            Descripcion = row.ToString("DescripcionProd");
+            Cantidad = row.ToInt32("Cantidad");
+            PrecioUnidad = row.ToDecimal("PrecioUnidad");
+            ImporteTotal = row.ToDecimal("ImporteTotal");
+            ObservacionPROL = row.ToString("ObservacionPROL");
 
-            
+
                 IndicadorOferta = row.ToInt16("IndicadorOferta");
-            
+
                 MontoTotalProl = row.ToDecimal("MontoTotalProl");
-            
+
                 DescuentoProl = row.ToDecimal("DescuentoProl");
-            
+
                 ImporteTotalPedido = row.ToDecimal("ImporteTotalPedido");
 
-            
+
                 StockDisponible = row.ToInt32("StockDisponible");
-            
+
                 MontoAhorroCatalogo = row.ToDecimal("MontoAhorroCatalogo");
-            
+
                 MontoAhorroRevista = row.ToDecimal("MontoAhorroRevista");
-            
+
                 NombreCliente = row.ToString("NombreCliente");
         }
     }
@@ -156,13 +156,13 @@ namespace Portal.Consultoras.Entities
             CorreoCliente = string.Empty;
             TelefonoCliente = string.Empty;
 
-            
+
                 DetalleNotificacion = row.ToString("DetalleNotificacion");
-            
+
                 NombreCliente = row.ToString("NombreCliente");
-            
+
                 CorreoCliente = row.ToString("CorreoCliente");
-            
+
                 TelefonoCliente = row.ToString("TelefonoCliente");
         }
     }

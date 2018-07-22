@@ -93,14 +93,14 @@ namespace Portal.Consultoras.Entities
 
         public BENovedadTracking(IDataRecord row)
         {
-            TipoEntrega = Convert.ToString(row["TipoEntrega"]);
-            DesTipoEntrega = Convert.ToString(row["DesTipoEntrega"]);
-            Novedad = Convert.ToString(row["Novedad"]);
-            DesNovedad = Convert.ToString(row["DesNovedad"]);
-            MensajeNovedad = Convert.ToString(row["MensajeNovedad"]);
-            Latitud = Convert.ToString(row["Latitud"]);
-            Longitud = Convert.ToString(row["Longitud"]);
-            Observacion = Convert.ToString(row["Observacion"]);
+            TipoEntrega = row.ToString("TipoEntrega");
+            DesTipoEntrega = row.ToString("DesTipoEntrega");
+            Novedad = row.ToString("Novedad");
+            DesNovedad = row.ToString("DesNovedad");
+            MensajeNovedad = row.ToString("MensajeNovedad");
+            Latitud = row.ToString("Latitud");
+            Longitud = row.ToString("Longitud");
+            Observacion = row.ToString("Observacion");
             Boleta = row.ToString("Boleta");
             Foto = row.ToString("Foto");
             FechaNovedad = row.ToDateTimeNull("FechaNovedad", (DateTime?)null);
@@ -120,8 +120,8 @@ namespace Portal.Consultoras.Entities
 
         public BENovedadFacturacion(IDataRecord row)
         {
-            CodigoMotivo = Convert.ToString(row["CodigoMotivo"]);
-            DescripcionMotivo = Convert.ToString(row["DescripcionMotivo"]);
+            CodigoMotivo = row.ToString("CodigoMotivo");
+            DescripcionMotivo = row.ToString("DescripcionMotivo");
         }
     }
 }

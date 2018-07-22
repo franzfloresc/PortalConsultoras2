@@ -50,8 +50,8 @@ namespace Portal.Consultoras.Entities
 
         public BEGrupoBanner(IDataRecord row)
         {
-            Nombre = Convert.ToString(row["Nombre"]);
-            Dimension = Convert.ToString(row["Dimension"]);
+            Nombre = row.ToString("Nombre");
+            Dimension = row.ToString("Dimension");
             CampaniaID = row.ToInt32("CampaniaID");
             GrupoBannerID = row.ToInt32("GrupoBannerID");
             TiempoRotacion = row.ToInt32("TiempoRotacion");
