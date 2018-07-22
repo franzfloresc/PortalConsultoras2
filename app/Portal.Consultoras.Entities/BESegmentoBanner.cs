@@ -17,10 +17,10 @@ namespace Portal.Consultoras.Entities
 
         }
 
-        public BESegmentoBanner(IDataRecord datarec)
+        public BESegmentoBanner(IDataRecord row)
         {
-            BannerSegmentoId = Convert.ToInt32(datarec["SegmentoID"]);
-            BannerSegmentoDes = Convert.ToString(datarec["Descripcion"]);
+            BannerSegmentoId = Convert.ToInt32(row["SegmentoID"]);
+            BannerSegmentoDes = Convert.ToString(row["Descripcion"]);
         }
     }
 }

@@ -26,14 +26,14 @@ namespace Portal.Consultoras.Entities
         public string URL { get; set; }
 
         public BEFormularioDato() { }
-        public BEFormularioDato(IDataRecord datarec)
+        public BEFormularioDato(IDataRecord row)
         {
-            PaisID = Convert.ToInt32(datarec["PaisID"]);
-            TipoFormularioID = (ETipoFormulario)Convert.ToInt32(datarec["TipoFormularioID"]);
-            FormularioDatoID = Convert.ToInt32(datarec["FormularioDatoID"]);
-            Descripcion = (string)datarec["Descripcion"];
-            Archivo = (string)datarec["Archivo"];
-            URL = (string)datarec["URL"];
+            PaisID = Convert.ToInt32(row["PaisID"]);
+            TipoFormularioID = (ETipoFormulario)Convert.ToInt32(row["TipoFormularioID"]);
+            FormularioDatoID = Convert.ToInt32(row["FormularioDatoID"]);
+            Descripcion = (string)row["Descripcion"];
+            Archivo = (string)row["Archivo"];
+            URL = (string)row["URL"];
         }
     }
 }

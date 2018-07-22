@@ -21,12 +21,12 @@
         public string NombreImg { get; set; }
 
 
-        public BENavidadConsultora(IDataRecord iDataRecord)
+        public BENavidadConsultora(IDataRecord row)
         {
-            ImagenId = Convert.ToInt32(iDataRecord["ImagenId"]);
-            PaisId = Convert.ToInt32(iDataRecord["PaisId"]);
-            CampaniaId = Convert.ToInt32(iDataRecord["CampaniaId"]);
-            NombreImg = Convert.ToString(iDataRecord["NombreImg"]);
+            ImagenId = Convert.ToInt32(row["ImagenId"]);
+            PaisId = Convert.ToInt32(row["PaisId"]);
+            CampaniaId = Convert.ToInt32(row["CampaniaId"]);
+            NombreImg = Convert.ToString(row["NombreImg"]);
         }
 
         //static byte[] ObtenerBytes(string str)

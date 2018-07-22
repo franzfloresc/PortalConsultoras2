@@ -29,16 +29,16 @@ namespace Portal.Consultoras.Entities
         {
         }
 
-        public BEAfiliaClienteConsultora(IDataRecord datarec)
+        public BEAfiliaClienteConsultora(IDataRecord row)
         {
-            ConsultoraID = Convert.ToInt64(datarec["ConsultoraID"]);
-            EsConsultoraLider = Convert.ToInt32(datarec["EsConsultoraLider"]) > 0;
-            EsAfiliado = Convert.ToInt32(datarec["EsAfiliado"]);
-            NombreCompleto = Convert.ToString(datarec["NombreCompleto"]);
-            Email = Convert.ToString(datarec["Email"]);
-            Celular = Convert.ToString(datarec["Celular"]);
-            Telefono = Convert.ToString(datarec["Telefono"]);
-            EmailActivo = Convert.ToBoolean(datarec["EmailActivo"]);
+            ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
+            EsConsultoraLider = Convert.ToInt32(row["EsConsultoraLider"]) > 0;
+            EsAfiliado = Convert.ToInt32(row["EsAfiliado"]);
+            NombreCompleto = Convert.ToString(row["NombreCompleto"]);
+            Email = Convert.ToString(row["Email"]);
+            Celular = Convert.ToString(row["Celular"]);
+            Telefono = Convert.ToString(row["Telefono"]);
+            EmailActivo = Convert.ToBoolean(row["EmailActivo"]);
         }
 
     }
