@@ -58,8 +58,8 @@ namespace Portal.Consultoras.Entities
             Ancho = row.ToInt32("Ancho");
             Alto = row.ToInt32("Alto");
             if (DataRecord.HasColumn(row, "DimensionEsika")) DimensionEsika = Convert.ToString(row["DimensionEsika"]);
-            if (DataRecord.HasColumn(row, "DimensionEsika")) AnchoEsika = DbConvert.ToInt32(row["AnchoEsika"]);
-            if (DataRecord.HasColumn(row, "DimensionEsika")) AltoEsika = DbConvert.ToInt32(row["AltoEsika"]);
+            if (DataRecord.HasColumn(row, "AnchoEsika")) AnchoEsika = DbConvert.ToInt32(row["AnchoEsika"]);
+            if (DataRecord.HasColumn(row, "AltoEsika")) AltoEsika = DbConvert.ToInt32(row["AltoEsika"]);
             Consultoras = new BEGrupoConsultora[0];
         }
     }
