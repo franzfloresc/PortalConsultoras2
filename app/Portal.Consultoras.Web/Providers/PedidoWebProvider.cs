@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Web.Providers
                     item.DescripcionOferta = ObtenerDescripcionOferta(item);
                 }
                 var observacionesProl = sessionManager.GetObservacionesProl();
-                if (detallesPedidoWeb.Count > 0 && observacionesProl != null)
+                if (observacionesProl != null && detallesPedidoWeb.Count > 0)
                 {
                     detallesPedidoWeb = PedidoConObservacionesAgrupado(detallesPedidoWeb, observacionesProl, userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.PedidoID);
                 }
@@ -211,7 +211,7 @@ namespace Portal.Consultoras.Web.Providers
                 listaCUVsAEvaluar = new List<string>();
                 item.Mensaje = string.Empty;
 
-                listaCUVsAEvaluar.Add(item.CUV);
+                //listaCUVsAEvaluar.Add(item.CUV);
 
                 if (cuvHijos.Any(x => x.SetID == item.SetID))
                 {

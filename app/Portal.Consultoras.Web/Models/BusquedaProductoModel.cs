@@ -12,6 +12,7 @@ namespace Portal.Consultoras.Web.Models
         public int CampaniaID { get; set; }
         public bool IsMobile { get; set; }
         public string ValorOpcional { get; set; }
+        public string Codigo { get; set; }
     }
 
     public class Filtro

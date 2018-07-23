@@ -126,10 +126,43 @@ body {
     width: 35%;
 }
 
+.precio_valorizado {
+    margin-bottom: 10px;
+}
 
 .precio_venta_oferta b {
    font-size: 20px;
    margin-left: 5px;
+   
+}
+
+.precio_venta_oferta_list {
+    margin:0;
+    padding:0;
+}
+
+.precio_venta_oferta_list li{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: -5px;
+}
+
+.precio_venta_oferta_list li:last-child span{
+    font-size: 20px;
+    display: block;
+    margin-bottom: 5px;
+    line-height: normal;
+    font-weight: bold;
+}
+
+.precio_venta_oferta_list li:first-child {
+    padding-top: 5px;
+}
+
+
+.precio_venta_oferta_list li:last-child {
+    text-align: left;
+    margin-left: 10px;
 }
 
 .ganancia {
@@ -990,4 +1023,9 @@ ul.breadcumbs li a::before {
     margin-left: 1px;
 }
 /* fin breadcumbs*/
-
+.contenedor_rangos_desactivado {
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
+    opacity: 0.5;
+}

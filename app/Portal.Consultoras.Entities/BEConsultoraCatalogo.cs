@@ -82,83 +82,36 @@ namespace Portal.Consultoras.Entities
 
         public BEConsultoraCatalogo(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-
-            if (DataRecord.HasColumn(row, "NombreCompleto"))
-                NombreCompleto = Convert.ToString(row["NombreCompleto"]);
-
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            NombreCompleto = row.ToString("NombreCompleto");
             if (DataRecord.HasColumn(row, "ZonaID"))
                 IdZona = Convert.ToInt32((row["ZonaID"]).ToString());
-
-            if (DataRecord.HasColumn(row, "Correo"))
-                Correo = Convert.ToString(row["Correo"]);
-
-            if (DataRecord.HasColumn(row, "Celular"))
-                TelefonoCelular = Convert.ToString(row["Celular"]);
-
-            if (DataRecord.HasColumn(row, "CodigoZona"))
-                CodigoZona = Convert.ToString(row["CodigoZona"]);
-
+            Correo = row.ToString("Correo");
+            TelefonoCelular = row.ToString("Celular");
+            CodigoZona = row.ToString("CodigoZona");
             if (DataRecord.HasColumn(row, "FechaInicioFacturacion"))
                 DiaFacturacion = Convert.ToDateTime((row["FechaInicioFacturacion"]).ToString());
-
             if (DataRecord.HasColumn(row, "CampaniaActual"))
                 CampaniaActual = Convert.ToInt32((row["CampaniaActual"]).ToString());
-
             if (DataRecord.HasColumn(row, "HoraCierre"))
                 HoraCierre = Convert.ToDateTime(row["HoraCierre"]).ToShortTimeString();
-
             if (DataRecord.HasColumn(row, "EstadoActividad"))
                 Estado = Convert.ToInt32((row["EstadoActividad"]).ToString());
-
-            if (DataRecord.HasColumn(row, "CodigoUsuario"))
-                CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-
-            if (DataRecord.HasColumn(row, "Pais"))
-                Pais = Convert.ToString(row["Pais"]);
-
-            if (DataRecord.HasColumn(row, "IdConsultora"))
-                IdConsultora = Convert.ToInt64(row["IdConsultora"]);
-
-            if (DataRecord.HasColumn(row, "CodigoRegion"))
-                CodigoRegion = Convert.ToString(row["CodigoRegion"]);
-
-            if (DataRecord.HasColumn(row, "CodigoSeccion"))
-                CodigoSeccion = Convert.ToString(row["CodigoSeccion"]);
-
-            if (DataRecord.HasColumn(row, "RolId"))
-                RolId = Convert.ToInt32(row["RolId"]);
-
-            if (DataRecord.HasColumn(row, "IdEstadoActividad"))
-                IdEstadoActividad = Convert.ToInt32(row["IdEstadoActividad"]);
-
-            if (DataRecord.HasColumn(row, "AutorizaPedido"))
-                AutorizaPedido = Convert.ToString(row["AutorizaPedido"]);
-
-            if (DataRecord.HasColumn(row, "EsAfiliado"))
-                EsAfiliado = Convert.ToBoolean(row["EsAfiliado"]);
-
-            if (DataRecord.HasColumn(row, "UltimaCampania"))
-                UltimaCampania = Convert.ToInt32(row["UltimaCampania"]);
-
-            if (DataRecord.HasColumn(row, "Ubigeo"))
-                Ubigeo = Convert.ToString(row["Ubigeo"]);
-
-            if (DataRecord.HasColumn(row, "UnidadGeografica1"))
-                UnidadGeografica1 = Convert.ToString(row["UnidadGeografica1"]);
-
-            if (DataRecord.HasColumn(row, "UnidadGeografica2"))
-                UnidadGeografica2 = Convert.ToString(row["UnidadGeografica2"]);
-
-            if (DataRecord.HasColumn(row, "UnidadGeografica3"))
-                UnidadGeografica3 = Convert.ToString(row["UnidadGeografica3"]);
-
-            if (DataRecord.HasColumn(row, "CampaniaActualID"))
-                CampaniaActualID = Convert.ToInt32(row["CampaniaActualID"]);
-
-            if (DataRecord.HasColumn(row, "IdEstadoActividad"))
-                IdEstadoActividad = Convert.ToInt32(row["IdEstadoActividad"]);
+            CodigoUsuario = row.ToString("CodigoUsuario");
+            Pais = row.ToString("Pais");
+            IdConsultora = row.ToInt64("IdConsultora");
+            CodigoRegion = row.ToString("CodigoRegion");
+            CodigoSeccion = row.ToString("CodigoSeccion");
+            RolId = row.ToInt32("RolId");
+            IdEstadoActividad = row.ToInt32("IdEstadoActividad");
+            AutorizaPedido = row.ToString("AutorizaPedido");
+            EsAfiliado = row.ToBoolean("EsAfiliado");
+            UltimaCampania = row.ToInt32("UltimaCampania");
+            Ubigeo = row.ToString("Ubigeo");
+            UnidadGeografica1 = row.ToString("UnidadGeografica1");
+            UnidadGeografica2 = row.ToString("UnidadGeografica2");
+            UnidadGeografica3 = row.ToString("UnidadGeografica3");
+            CampaniaActualID = row.ToInt32("CampaniaActualID");
         }
     }
 }

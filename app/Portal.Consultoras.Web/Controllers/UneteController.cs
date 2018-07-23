@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceUnete;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Data.OleDb;
@@ -15,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -1326,40 +1328,36 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ExportarExcel(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre,
             int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso,
-            int MostrarPaso1y2SE = 1)
+            int MostrarPaso1y2SE = 1, int PaginaActual = 1)
+        {
+
+            using (var sv = new PortalServiceClient())
+            {
+
+                var solicitudes = sv.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde,
+                       FechaHasta, Nombre,
+                       Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO,
+                       MostrarPaso1y2SE, PaginaActual).ToList();
+
+                Dictionary<string, string> dic = sv.GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
+
+                MemoryStream workbook = new MemoryStream();
+
+                workbook = ExcelExportHelper.ExportarExcel("Reporte_GestionaPostulante", "GestionaPostulante", dic, solicitudes);
+                string saveAsFileName = "Reporte_GestionaPostulante" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + ".xlsx";
+
+                return File(workbook.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", string.Format("{0}", saveAsFileName));
+            }
+         
+        }                   
+
+        public Dictionary<string, string> GetDictionaryReporteGestionPostulantes(string CodigoISO, int Estado)
         {
             using (var sv = new PortalServiceClient())
             {
-                List<SolicitudPostulanteBE> resultado = sv.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde,
-                        FechaHasta, Nombre,
-                        Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO,
-                        MostrarPaso1y2SE)
-                    .ToList();
-
-                List<ResumenDiasEsperaBE> listaRequest = new List<ResumenDiasEsperaBE>();
-                foreach (var item in resultado)
-                {
-                    if (!string.IsNullOrEmpty(item.DiasEnEspera))
-                        listaRequest.Add(new ResumenDiasEsperaBE() { SolicitudPostulanteId = item.SolicitudPostulanteID, DiasEspera = Convert.ToInt32(item.DiasEnEspera) });
-                }
-                //Se separó para no saturar el servicio ObtenerReporteGestionPostulante
-                ResumenDiasEsperaCollection reporteDiasEspera;
-                reporteDiasEspera = sv.ObtenerReporteDiasEspera(CodigoISO, listaRequest.ToArray());
-
-                foreach (var item in resultado)
-                {
-                    if (!string.IsNullOrEmpty(item.DiasEnEspera) && reporteDiasEspera != null)
-                    {
-                        var data = reporteDiasEspera.ToList().FirstOrDefault(x => x.SolicitudPostulanteId == item.SolicitudPostulanteID).ResumenDiasEspera.Split('|');
-                        item.DetalleDiasEsperaGSAC = data[0];
-                        item.DetalleDiasEsperaAFFVV = data[1];
-                        item.DetalleDiasEsperaASAC = data[2];
-                    }
-                }
-
                 Dictionary<string, string> dic = sv.GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
-                Util.ExportToExcel("ReportePostulantes", resultado, dic);
-                return null;
+
+                return dic;
             }
         }
 

@@ -3213,40 +3213,6 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
-        public static void GetLimitNumberPhone(int paisId, out int limiteMinimoTelef, out int limiteMaximoTelef)
-        {
-            switch (paisId)
-            {
-                case Constantes.PaisID.Mexico:
-                    limiteMinimoTelef = 5;
-                    limiteMaximoTelef = 15;
-                    break;
-                case Constantes.PaisID.Peru:
-                    limiteMinimoTelef = 7;
-                    limiteMaximoTelef = 9;
-                    break;
-                case Constantes.PaisID.Colombia:
-                    limiteMinimoTelef = 10;
-                    limiteMaximoTelef = 10;
-                    break;
-                case Constantes.PaisID.Guatemala:
-                case Constantes.PaisID.ElSalvador:
-                case Constantes.PaisID.Panama:
-                case Constantes.PaisID.CostaRica:
-                    limiteMinimoTelef = 8;
-                    limiteMaximoTelef = 8;
-                    break;
-                case Constantes.PaisID.Ecuador:
-                    limiteMinimoTelef = 9;
-                    limiteMaximoTelef = 10;
-                    break;
-                default:
-                    limiteMinimoTelef = 0;
-                    limiteMaximoTelef = 15;
-                    break;
-            }
-        }
-
         public static bool IsUrl(string url)
         {
             Uri uriResult;
@@ -3256,16 +3222,18 @@ namespace Portal.Consultoras.Common
         public static bool ExisteUrlRemota(string url)
         {
             bool result;
-
-            WebRequest webRequest = WebRequest.Create(url);
-            webRequest.Timeout = 1200; // miliseconds
-            webRequest.Method = "HEAD";
-
             HttpWebResponse response = null;
-
             try
             {
-                response = (HttpWebResponse)webRequest.GetResponse();
+                url = Trim(url);
+                if (url == "")
+                {
+                    return false;
+                }
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Credentials = System.Net.CredentialCache.DefaultCredentials;
+                response = (HttpWebResponse)request.GetResponse();
                 result = true;
             }
             catch (WebException webException)
@@ -3338,6 +3306,80 @@ namespace Portal.Consultoras.Common
             #endregion
 
             return colorStr == "" ? defecto : colorStr;
+        }
+
+        public static void GetLimitNumberPhone(int paisId, out int limiteMinimoTelef, out int limiteMaximoTelef)
+        {
+            switch (paisId)
+            {
+                case Constantes.PaisID.Peru:
+                    limiteMinimoTelef = 7;
+                    limiteMaximoTelef = 9;
+                    break;
+                case Constantes.PaisID.Mexico:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 10;
+                    break;
+                case Constantes.PaisID.Ecuador:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 10;
+                    break;
+                case Constantes.PaisID.Chile:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 9;
+                    break;
+                case Constantes.PaisID.RepublicaDominicana:
+                case Constantes.PaisID.Colombia:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 10;
+                    break;
+                case Constantes.PaisID.Bolivia:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 8;
+                    break;
+                case Constantes.PaisID.Guatemala:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 8;
+                    break;
+                case Constantes.PaisID.ElSalvador:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 8;
+                    break;
+                case Constantes.PaisID.Panama:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 8;
+                    break;
+                case Constantes.PaisID.CostaRica:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 8;
+                    break;
+                default:
+                    limiteMinimoTelef = 5;
+                    limiteMaximoTelef = 15;
+                    break;
+            }
+        }
+
+        public static void ObtenerIniciaNumeroCelular(int paisId, out bool use, out int numero)
+        {
+            use = true;
+
+            switch (paisId)
+            {
+                case Constantes.PaisID.Peru:
+                    numero = 9;
+                    break;
+                case Constantes.PaisID.Chile:
+                    numero = 9;
+                    break;
+                case Constantes.PaisID.RepublicaDominicana:
+                    numero = 8;
+                    break;
+                default:
+                    numero = 0;
+                    use = false;
+                    break;
+            }
         }
 
         public static string EnmascararCorreo(string correo)
@@ -3538,7 +3580,7 @@ namespace Portal.Consultoras.Common
 
         #region Convert
 
-        public static string ToString(this IDataRecord lector, string name)
+        public static string ToString(this IDataRecord lector, string name, string valorDefecto = default(string))
         {
             try
             {
@@ -3547,10 +3589,10 @@ namespace Portal.Consultoras.Common
                     return Convert.ToString(lector[name]);
             }
             catch (Exception) { }
-            return default(string);
+            return valorDefecto;
         }
 
-        public static Int16 ToInt16(this IDataRecord lector, string name)
+        public static Int16 ToInt16(this IDataRecord lector, string name, Int16 valorDefecto = default(Int16))
         {
             try
             {
@@ -3560,10 +3602,10 @@ namespace Portal.Consultoras.Common
 
             }
             catch (Exception) { }
-            return default(Int16);
+            return valorDefecto;
         }
 
-        public static int ToInt32(this IDataRecord lector, string name)
+        public static int ToInt32(this IDataRecord lector, string name, int valorDefecto = default(int))
         {
             try
             {
@@ -3572,7 +3614,7 @@ namespace Portal.Consultoras.Common
                     return Convert.ToInt32(lector[name]);
             }
             catch (Exception) { }
-            return default(int);
+            return valorDefecto;
         }
 
         public static Int64 ToInt64(this IDataRecord lector, string name)
@@ -3623,7 +3665,7 @@ namespace Portal.Consultoras.Common
             return default(byte);
         }
 
-        public static bool ToBoolean(this IDataRecord lector, string name)
+        public static bool ToBoolean(this IDataRecord lector, string name, bool valorDefecto = default(bool))
         {
             try
             {
@@ -3632,10 +3674,10 @@ namespace Portal.Consultoras.Common
                     return Convert.ToBoolean(lector[name]);
             }
             catch (Exception) { }
-            return default(bool);
+            return valorDefecto;
         }
 
-        public static DateTime ToDateTime(this IDataRecord lector, string name)
+        public static DateTime ToDateTime(this IDataRecord lector, string name, DateTime valorDefecto = default(DateTime))
         {
             try
             {
@@ -3644,7 +3686,7 @@ namespace Portal.Consultoras.Common
                     return Convert.ToDateTime(lector[name]);
             }
             catch (Exception) { }
-            return default(DateTime);
+            return valorDefecto;
         }
 
         #endregion

@@ -460,8 +460,8 @@ namespace Portal.Consultoras.Web.Controllers
                 await Task.Run(() =>
                 {
                     string contenido = "";
-                    //StringBuilder sb = new StringBuilder();
-                    //string contenidoFila = "";
+                    StringBuilder sb = new StringBuilder();
+                    string contenidoFila = "";
                     int nRegistros = 0;
                     List<string> hojas = new List<string>();
                     List<XmlDocument> docs = new List<XmlDocument>();
@@ -488,7 +488,6 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
-
                     if (docs.Count > 0)
                     {
                         //Leer el archivo xml donde se guardan los datos de tipo cadena
@@ -506,18 +505,15 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
-
                         pos = nombres.IndexOf("workbook.xml");
                         if (pos > -1)
                         {
                             XmlDocument xdLibro = docs[pos];
                             XmlElement nodoRaizHojas = xdLibro.DocumentElement;
-                            XmlNodeList nodosHojas = nodoRaizHojas.GetElementsByTagName("sheet");
-                            string id;
-                            string hoja;
-
-                            if (nodosHojas != null)
+                            if (nodoRaizHojas != null)
                             {
+                                XmlNodeList nodosHojas = nodoRaizHojas.GetElementsByTagName("sheet");
+                                string id, hoja;
                                 contenido = "";
                                 int ch = 0;
                                 foreach (XmlNode nodoHoja in nodosHojas)
@@ -530,54 +526,42 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         XmlDocument xdHoja = docs[pos];
                                         XmlElement nodoRaizHoja = xdHoja.DocumentElement;
-                                        XmlNodeList nodosFilas = nodoRaizHoja.GetElementsByTagName("row");
-
-                                        int indice;
-                                        string celda, valor;
-                                        XmlAttribute tipoString;
-                                        contenido = "";
-                                        int cf = 0; //contador de filas
-                                        int cc = 0; //contador de columnas
-                                        XmlNode nodoCelda = null;
-                                        if (nodosFilas != null)
+                                        if (nodoRaizHoja != null)
                                         {
+                                            XmlNodeList nodosFilas = nodoRaizHoja.GetElementsByTagName("row");
+
+                                            int indice;
+                                            string celda, valor;
+                                            XmlAttribute tipoString;
+                                            contenido = "";
+                                            int cf = 0; //contador de filas
+                                            int cc = 0; //contador de columnas
+                                            XmlNode nodoCelda = null;
                                             foreach (XmlNode nodoFila in nodosFilas)
                                             {
                                                 XmlNodeList nodoCeldas = nodoFila.ChildNodes;
 
-                                                if (nodoCeldas != null)
+                                                if (cf == 0)
                                                 {
-                                                    if (cf == 0)
+                                                    columnas = new List<string>();
+                                                    nRegistros = nodoCeldas.Count;
+                                                    for (int i = 0; i < nRegistros; i++)
                                                     {
-                                                        columnas = new List<string>();
-                                                        nRegistros = nodoCeldas.Count;
-                                                        for (int i = 0; i < nRegistros; i++)
-                                                        {
-                                                            columnas.Add(nodoCeldas[i].Attributes["r"].Value.Replace(nodoFila.Attributes["r"].Value, ""));
-                                                        }
+                                                        columnas.Add(nodoCeldas[i].Attributes["r"].Value.Replace(nodoFila.Attributes["r"].Value, ""));
                                                     }
-                                                    else
+                                                }
+                                                else
+                                                {
+                                                    cc = 0;
+                                                    contenidoFila = "";
+                                                    nRegistros = columnas.Count;
+                                                    for (int i = 0; i < nRegistros; i++)
                                                     {
-                                                        cc = 0;
-                                                        //contenidoFila = "";
-                                                        nRegistros = columnas.Count;
-
-                                                        var contenidoFilaBuild = new StringBuilder();
-
-                                                        for (int i = 0; i < nRegistros; i++)
+                                                        valor = "";
+                                                        nodoCelda = nodoCeldas[cc];
+                                                        if (cc > 0) contenidoFila += "¦";
+                                                        if (nodoCelda != null)
                                                         {
-                                                            valor = "";
-                                                            nodoCelda = nodoCeldas[cc];
-                                                            //if (cc > 0) contenidoFila += "¦";
-                                                            if (cc > 0) contenidoFilaBuild.Append("¦");
-
-                                                            if (nodoCelda == null)
-                                                            {
-                                                                continue;
-                                                            }
-
-                                                            //if (nodoCelda != null)
-                                                            //{
                                                             if (columnas[i] == nodoCelda.Attributes["r"].Value.Replace(nodoFila.Attributes["r"].Value, ""))
                                                             {
                                                                 celda = nodoCelda.Attributes["r"].Value;
@@ -589,8 +573,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                                     {
                                                                         indice = int.Parse(nodoCelda.FirstChild.FirstChild.Value);
                                                                         valor = valores[indice];
-                                                                        //contenidoFila += valor;
-                                                                        contenidoFilaBuild.Append(valor);
+                                                                        contenidoFila += valor;
                                                                     }
                                                                 }
                                                                 else
@@ -598,35 +581,26 @@ namespace Portal.Consultoras.Web.Controllers
                                                                     if (nodoCelda.FirstChild != null && nodoCelda.FirstChild.FirstChild != null)
                                                                     {
                                                                         valor = nodoCelda.FirstChild.FirstChild.Value;
-                                                                        //contenidoFila += valor;
-                                                                        contenidoFilaBuild.Append(valor);
+                                                                        contenidoFila += valor;
                                                                     }
                                                                 }
                                                                 cc++;
                                                             }
-                                                            //}
                                                         }
-
-
-                                                        if (cf < nodosFilas.Count - 1)
-                                                        {
-                                                            //contenidoFila += "¬";
-                                                            contenidoFilaBuild.Append("¬");
-                                                        }
-                                                        contenido += contenidoFilaBuild.ToString();
                                                     }
+                                                    if (cf < nodosFilas.Count - 1) contenidoFila += "¬";
+                                                    contenido += contenidoFila;
                                                 }
                                                 cf++;
                                             }
                                         }
+
                                         hojas.Add(contenido);
                                         //sb.AppendLine(contenido);
                                     }
                                     ch++;
-                                    break;
                                 }
                             }
-
                         }
                     }
 
@@ -673,8 +647,8 @@ namespace Portal.Consultoras.Web.Controllers
                 if (registros[j].Split('¦').Length > 0)
                 {
                     campo = registros[j].Split('¦')[0];
-                    CUV += registros[j].Split('¦')[0] + '¬';
-                    //CUV += '¬';
+                    CUV += registros[j].Split('¦')[0];
+                    CUV += '¬';
                     resultado = uint.TryParse(campo, out numero);
                     longCUV = campo.Trim().Length;
                     if (!resultado || campo.Trim().Length != 5)

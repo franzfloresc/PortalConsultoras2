@@ -19,6 +19,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Mensaje { get; set; }
         [DataMember]
+        public string MensajeOptin { get; set; }
+        [DataMember]
         public string RequestUrl { get; set; }
         [DataMember]
         public string RecursoApi { get; set; }

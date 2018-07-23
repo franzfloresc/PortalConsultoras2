@@ -234,9 +234,13 @@
         <div class="content_btn_agregar">
             <div class="content_320">
                 <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
-                    <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                    <img id="imgFichaProduMenos" src="/Content/Images/Mobile/Esika/menos.png" alt="">
+                    </a>
                     <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                    <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                    <img id="imgFichaProduMas" src="/Content/Images/Mobile/Esika/mas.png" alt="">
+                    </a>
                 </div>
                 <a class="btn_agregar_ficha_producto @Model.ClaseBloqueada"
                    id="btnAgregalo"
@@ -315,6 +319,10 @@
     </div>
 </div>
 }
+else
+{
+    <div class="share"></div>
+}
 
 
 <!--compartir-->
@@ -363,6 +371,7 @@
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/bundles/js/Ficha")
+    @System.Web.Optimization.Scripts.Render("~/bundles/mobile/js/Ficha")
     @System.Web.Optimization.Scripts.Render("~/bundles/js/EstrategiaAgregar")
 
     <script>
@@ -393,7 +402,9 @@
                     divCarrusel: "#divOfertaProductos",
                     divSetsProductosdata: "#set_relacionados",
                     urlDataCarrusel: '@Url.Action("FichaObtenerProductosCarrusel", "Estrategia", new { Area = "" })',
-                    idTituloCarrusel: "#tituloCarrusel"
+                    idTituloCarrusel: "#tituloCarrusel",
+                    ContenidoProducto: "#ContenidoProducto",
+                    CarruselProducto: "#CarruselProducto"
                 });
                 carruselModule.Inicializar();
             }

@@ -99,7 +99,7 @@ namespace Portal.Consultoras.Entities
             DesNovedad = Convert.ToString(row["DesNovedad"]);
             MensajeNovedad = Convert.ToString(row["MensajeNovedad"]);
 
-            if (DataRecord.HasColumn(row, "Boleta"))
+            if (DataRecord.HasColumn(row, "FechaNovedad"))
                 FechaNovedad = Convert.ToDateTime(row["FechaNovedad"]);
             else
                 FechaNovedad = (DateTime?)null;

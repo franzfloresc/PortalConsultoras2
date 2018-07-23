@@ -41,28 +41,17 @@ namespace Portal.Consultoras.Entities
 
         public BELogGPRValidacion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "LogGPRValidacionId"))
-                LogGPRValidacionId = Convert.ToInt64(row["LogGPRValidacionId"]);
-            if (DataRecord.HasColumn(row, "DescripcionRechazo"))
-                DescripcionRechazo = Convert.ToString(row["DescripcionRechazo"]);
-            if (DataRecord.HasColumn(row, "Campania"))
-                Campania = Convert.ToString(row["Campania"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "CodigoUsuario"))
-                CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-            if (DataRecord.HasColumn(row, "SubTotal"))
-                SubTotal = Convert.ToDecimal(row["SubTotal"]);
-            if (DataRecord.HasColumn(row, "Descuento"))
-                Descuento = Convert.ToDecimal(row["Descuento"]);
-            if (DataRecord.HasColumn(row, "EstadoSimplificacionCUV"))
-                EstadoSimplificacionCUV = Convert.ToBoolean(row["EstadoSimplificacionCUV"]);
-            if (DataRecord.HasColumn(row, "FechaFinValidacion"))
-                FechaFinValidacion = Convert.ToDateTime(row["FechaFinValidacion"]);
-            if (DataRecord.HasColumn(row, "MotivoRechazo"))
-                MotivoRechazo = Convert.ToString(row["MotivoRechazo"]).ToUpper().Trim();
-            if (DataRecord.HasColumn(row, "Valor"))
-                Valor = Convert.ToString(row["Valor"]);
+            LogGPRValidacionId = row.ToInt64("LogGPRValidacionId");
+            DescripcionRechazo = row.ToString("DescripcionRechazo");
+            Campania = row.ToString("Campania");
+            ConsultoraID = row.ToInt64("ConsultoraID");
+            CodigoUsuario = row.ToString("CodigoUsuario");
+            SubTotal = row.ToDecimal("SubTotal");
+            Descuento = row.ToDecimal("Descuento");
+            EstadoSimplificacionCUV = row.ToBoolean("EstadoSimplificacionCUV");
+            FechaFinValidacion = row.ToDateTime("FechaFinValidacion");
+            MotivoRechazo = row.ToString("MotivoRechazo", "").ToUpper().Trim();
+            Valor = row.ToString("Valor");
         }
     }
 }
