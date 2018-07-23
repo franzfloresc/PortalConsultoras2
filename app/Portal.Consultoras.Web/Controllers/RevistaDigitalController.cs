@@ -517,6 +517,7 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.ShowRoom.Ofertas = null;
             sessionManager.ShowRoom.OfertasSubCampania = null;
             sessionManager.ShowRoom.OfertasPerdio = null;
+            sessionManager.ShowRoom.CargoOfertas = "0";
             //sessionManager.OfertaDelDia.Estrategia = null;
 
             //Limpia cache de Redis
