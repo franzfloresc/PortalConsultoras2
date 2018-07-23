@@ -1572,22 +1572,14 @@ namespace Portal.Consultoras.Web.Controllers
                 switch (num)
                 {
                     case Enumeradores.ValidacionProgramaNuevas.ProductoNoExiste:
-                        {
-                            productosModel.Add(GetProductoNoExiste());
-                            return Json(productosModel, JsonRequestBehavior.AllowGet);
-                        }
-
+                        productosModel.Add(GetProductoNoExiste());
+                        return Json(productosModel, JsonRequestBehavior.AllowGet);
                     case Enumeradores.ValidacionProgramaNuevas.ConsultoraNoNueva:
-                        {
-                            productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.ConsultoraNoNueva));
-                            return Json(productosModel, JsonRequestBehavior.AllowGet);
-                        }
-
+                        productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.ConsultoraNoNueva));
+                        return Json(productosModel, JsonRequestBehavior.AllowGet);
                     case Enumeradores.ValidacionProgramaNuevas.CuvNoPerteneceASuPrograma:
-                        {
-                            productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.CuvNoPerteneceASuPrograma));
-                            return Json(productosModel, JsonRequestBehavior.AllowGet);
-                        }
+                        productosModel.Add(GetValidacionProgramaNuevas(Constantes.ProgramaNuevas.MensajeValidacionBusqueda.CuvNoPerteneceASuPrograma));
+                        return Json(productosModel, JsonRequestBehavior.AllowGet);
                     case Enumeradores.ValidacionProgramaNuevas.CuvPerteneceProgramaNuevas:
                         Session["CuvEsProgramaNuevas"] = true;
                         break;
