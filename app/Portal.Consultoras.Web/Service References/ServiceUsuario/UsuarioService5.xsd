@@ -18,8 +18,10 @@
       <xs:element minOccurs="0" name="MensajeSaludo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MostrarOpcion" type="xs:int" />
       <xs:element minOccurs="0" name="OpcionChat" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OpcionCorreoActiva" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OpcionCorreoDesabilitado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OpcionDesabilitado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OpcionSmsActiva" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OpcionSmsDesabilitado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OrigenDescripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OrigenID" type="xs:int" />
@@ -28,6 +30,7 @@
       <xs:element minOccurs="0" name="TelefonoCentral" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
       <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="opcionHabilitar" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEUsuarioDatos" nillable="true" type="tns:BEUsuarioDatos" />

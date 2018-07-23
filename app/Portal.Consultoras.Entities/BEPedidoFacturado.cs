@@ -64,68 +64,30 @@ namespace Portal.Consultoras.Entities
 
         public BEPedidoFacturado(IDataRecord row, int Tipo)
         {
-            if (DataRecord.HasColumn(row, "Campania"))
-                Campania = Convert.ToInt32(row["Campania"]);
-
-            if (DataRecord.HasColumn(row, "ImporteTotal"))
-                ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-
-            if (DataRecord.HasColumn(row, "EstadoPedido"))
-                EstadoPedido = Convert.ToString(row["EstadoPedido"]);
-
-            if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt32(row["Cantidad"]);
-
-            if (DataRecord.HasColumn(row, "PedidoId"))
-                PedidoId = Convert.ToInt32(row["PedidoId"]);
+            Campania  = row.ToInt32("Campania");
+            ImporteTotal  = row.ToDecimal("ImporteTotal");
+            EstadoPedido  = row.ToString("EstadoPedido");
+            Cantidad  = row.ToInt32("Cantidad");
+            PedidoId  = row.ToInt32("PedidoId");
         }
 
         public BEPedidoFacturado(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-
-            if (DataRecord.HasColumn(row, "MontoDescuento"))
-                MontoDescuento = Convert.ToDecimal(row["MontoDescuento"]);
-
-            if (DataRecord.HasColumn(row, "CodigoTerritorio"))
-                CodigoTerritorio = Convert.ToString(row["CodigoTerritorio"]);
-
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-
-            if (DataRecord.HasColumn(row, "CodigoProducto"))
-                CodigoProducto = Convert.ToString(row["CodigoProducto"]);
-
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-
-            if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt32(row["Cantidad"]);
-
-            if (DataRecord.HasColumn(row, "PrecioUnidad"))
-                PrecioUnidad = Convert.ToDecimal(row["PrecioUnidad"]);
-
-            if (DataRecord.HasColumn(row, "ImporteTotal"))
-                ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-
-            if (DataRecord.HasColumn(row, "CodigoTipoOferta"))
-                CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
-
-            if (DataRecord.HasColumn(row, "Origen"))
-                Origen = Convert.ToString(row["Origen"]);
-
-            if (DataRecord.HasColumn(row, "FechaUltimaActualizacion"))
-                FechaUltimaActualizacion = Convert.ToDateTime(row["FechaUltimaActualizacion"]);
-
-            if (DataRecord.HasColumn(row, "PedidoId"))
-                PedidoId = Convert.ToInt32(row["PedidoId"]);
-
-            if (DataRecord.HasColumn(row, "ClienteID"))
-                ClienteID = Convert.ToInt32(row["ClienteID"]);
-
-            if (DataRecord.HasColumn(row, "NombreCliente"))
-                NombreCliente = Convert.ToString(row["NombreCliente"]);
+            CodigoConsultora  = row.ToString("CodigoConsultora");
+            MontoDescuento  = row.ToDecimal("MontoDescuento");
+            CodigoTerritorio  = row.ToString("CodigoTerritorio");
+            CUV  = row.ToString("CUV");
+            CodigoProducto  = row.ToString("CodigoProducto");
+            Descripcion  = row.ToString("Descripcion");
+            Cantidad  = row.ToInt32("Cantidad");
+            PrecioUnidad  = row.ToDecimal("PrecioUnidad");
+            ImporteTotal  = row.ToDecimal("ImporteTotal");
+            CodigoTipoOferta  = row.ToString("CodigoTipoOferta");
+            Origen  = row.ToString("Origen");
+            FechaUltimaActualizacion  = row.ToDateTime("FechaUltimaActualizacion");
+            PedidoId  = row.ToInt32("PedidoId");
+            ClienteID  = row.ToInt32("ClienteID");
+            NombreCliente  = row.ToString("NombreCliente");
         }
     }
 }

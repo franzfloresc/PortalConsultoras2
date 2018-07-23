@@ -39,23 +39,20 @@ namespace Portal.Consultoras.Entities
 
         public BENotificaciones(IDataRecord row)
         {
-            this.ProcesoId = Convert.ToInt64(row["ProcesoId"]);
-            this.CampaniaId = Convert.ToInt32(row["CampaniaId"]);
-            this.EstadoPROL = Convert.ToString(row["EstadoPROL"]);
-            this.FechaHoraValidación = Convert.ToDateTime(row["FechaHoraValidación"]);
-            this.EnvioCorreo = Convert.ToBoolean(row["EnvioCorreo"]);
-            this.Proceso = Convert.ToString(row["Proceso"]);
-            this.Estado = Convert.ToInt32(row["Estado"]);
-            this.Observaciones = Convert.ToString(row["Observaciones"]);
-            this.Asunto = Convert.ToString(row["Asunto"]);
-            this.FechaFacturacion = Convert.ToDateTime(row["FechaFacturacion"]);
-            this.FacturaHoy = Convert.ToBoolean(row["FacturaHoy"]);
-            this.EsMontoMinimo = Convert.ToBoolean(row["EsMontoMinino"]);
-
-            if (DataRecord.HasColumn(row, "Visualizado"))
-                this.Visualizado = Convert.ToBoolean(row["Visualizado"]);
-
-            this.FlagProcedencia = Convert.ToBoolean(row["FlagProcedencia"]);
+            ProcesoId = Convert.ToInt64(row["ProcesoId"]);
+            CampaniaId = Convert.ToInt32(row["CampaniaId"]);
+            EstadoPROL = Convert.ToString(row["EstadoPROL"]);
+            FechaHoraValidación = Convert.ToDateTime(row["FechaHoraValidación"]);
+            EnvioCorreo = Convert.ToBoolean(row["EnvioCorreo"]);
+            Proceso = Convert.ToString(row["Proceso"]);
+            Estado = Convert.ToInt32(row["Estado"]);
+            Observaciones = Convert.ToString(row["Observaciones"]);
+            Asunto = Convert.ToString(row["Asunto"]);
+            FechaFacturacion = Convert.ToDateTime(row["FechaFacturacion"]);
+            FacturaHoy = Convert.ToBoolean(row["FacturaHoy"]);
+            EsMontoMinimo = Convert.ToBoolean(row["EsMontoMinino"]);
+            Visualizado = row.ToBoolean("Visualizado");
+            FlagProcedencia = Convert.ToBoolean(row["FlagProcedencia"]);
         }
     }
 
@@ -71,9 +68,9 @@ namespace Portal.Consultoras.Entities
 
         public BENotificacionesDetalle(IDataRecord row)
         {
-            this.CUV = Convert.ToString(row["CUV"]);
-            this.CodigoObservacion = Convert.ToString(row["CodigoObservacion"]);
-            this.MensajePROL = Convert.ToString(row["MensajePROL"]);
+            CUV = Convert.ToString(row["CUV"]);
+            CodigoObservacion = Convert.ToString(row["CodigoObservacion"]);
+            MensajePROL = Convert.ToString(row["MensajePROL"]);
         }
     }
 
@@ -113,21 +110,21 @@ namespace Portal.Consultoras.Entities
 
         public BENotificacionesDetallePedido(IDataRecord row)
         {
-            this.CUV = Convert.ToString(row["CUV"]);
-            this.Descripcion = Convert.ToString(row["DescripcionProd"]);
-            this.Cantidad = Convert.ToInt32(row["Cantidad"]);
-            this.PrecioUnidad = Convert.ToDecimal(row["PrecioUnidad"]);
-            this.ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-            this.ObservacionPROL = Convert.ToString(row["ObservacionPROL"]);
+            CUV = Convert.ToString(row["CUV"]);
+            Descripcion = Convert.ToString(row["DescripcionProd"]);
+            Cantidad = Convert.ToInt32(row["Cantidad"]);
+            PrecioUnidad = Convert.ToDecimal(row["PrecioUnidad"]);
+            ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
+            ObservacionPROL = Convert.ToString(row["ObservacionPROL"]);
 
             if (DataRecord.HasColumn(row, "IndicadorOferta"))
-                this.IndicadorOferta = Convert.ToInt16(row["IndicadorOferta"]);
+                IndicadorOferta = Convert.ToInt16(row["IndicadorOferta"]);
             if (DataRecord.HasColumn(row, "MontoTotalProl"))
-                this.MontoTotalProl = Convert.ToDecimal(row["MontoTotalProl"]);
+                MontoTotalProl = Convert.ToDecimal(row["MontoTotalProl"]);
             if (DataRecord.HasColumn(row, "DescuentoProl"))
-                this.DescuentoProl = Convert.ToDecimal(row["DescuentoProl"]);
+                DescuentoProl = Convert.ToDecimal(row["DescuentoProl"]);
             if (DataRecord.HasColumn(row, "ImporteTotalPedido"))
-                this.ImporteTotalPedido = Convert.ToDecimal(row["ImporteTotalPedido"]);
+                ImporteTotalPedido = Convert.ToDecimal(row["ImporteTotalPedido"]);
 
             if (DataRecord.HasColumn(row, "StockDisponible"))
                 StockDisponible = Convert.ToInt32(row["StockDisponible"]);
@@ -160,13 +157,13 @@ namespace Portal.Consultoras.Entities
             TelefonoCliente = string.Empty;
 
             if (DataRecord.HasColumn(row, "DetalleNotificacion"))
-                this.DetalleNotificacion = Convert.ToString(row["DetalleNotificacion"]);
+                DetalleNotificacion = Convert.ToString(row["DetalleNotificacion"]);
             if (DataRecord.HasColumn(row, "NombreCliente"))
-                this.NombreCliente = Convert.ToString(row["NombreCliente"]);
+                NombreCliente = Convert.ToString(row["NombreCliente"]);
             if (DataRecord.HasColumn(row, "CorreoCliente"))
-                this.CorreoCliente = Convert.ToString(row["CorreoCliente"]);
+                CorreoCliente = Convert.ToString(row["CorreoCliente"]);
             if (DataRecord.HasColumn(row, "TelefonoCliente"))
-                this.TelefonoCliente = Convert.ToString(row["TelefonoCliente"]);
+                TelefonoCliente = Convert.ToString(row["TelefonoCliente"]);
         }
     }
 }

@@ -35,19 +35,12 @@ namespace Portal.Consultoras.Entities
             CodigoISO = Convert.ToString(row["CodigoISO"]);
             NombreCorto = Convert.ToString(row["NombreSimple"]);
             Nombre = Convert.ToString(row["NombreComplejo"]);
-
-            if (DataRecord.HasColumn(row, "CodigoISOProd"))
-                CodigoISOProd = Convert.ToString(row["CodigoISOProd"]);
-            if (DataRecord.HasColumn(row, "ZonaHoraria"))
-                ZonaHoraria = Convert.ToDouble(row["ZonaHoraria"]);
-            if (DataRecord.HasColumn(row, "DiasAntes"))
-                DiasAntes = Convert.ToInt32(row["DiasAntes"]);
-            if (DataRecord.HasColumn(row, "HabilitarRestriccionHoraria"))
-                HabilitarRestriccionHoraria = Convert.ToBoolean(row["HabilitarRestriccionHoraria"]);
-            if (DataRecord.HasColumn(row, "HorasDuracionRestriccion"))
-                HorasDuracionRestriccion = Convert.ToInt32(row["HorasDuracionRestriccion"]);
-            if (DataRecord.HasColumn(row, "Mensajes"))
-                Mensajes = Convert.ToString(row["Mensajes"]);
+            CodigoISOProd = row.ToString("CodigoISOProd");
+            ZonaHoraria = row.ToDouble("ZonaHoraria");
+            DiasAntes = row.ToInt32("DiasAntes");
+            HabilitarRestriccionHoraria = row.ToBoolean("HabilitarRestriccionHoraria");
+            HorasDuracionRestriccion = row.ToInt32("HorasDuracionRestriccion");
+            Mensajes = row.ToString("Mensajes");
         }
     }
 }

@@ -292,6 +292,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         private int ObtenerTipoPopUpMostrar(BienvenidaHomeModel model)
         {
+            var resultPopupEmail = ObtenerActualizacionEmail();
+            var resultPopupEmailSplited = resultPopupEmail.Split('|')[0];
+
             if (model.ShowPopupMisDatos)
                 return Constantes.TipoPopUp.Ninguno;
 
@@ -308,6 +311,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
                     tipoPopUpMostrar = 0;
+
+                if (resultPopupEmailSplited == "0" && tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
+
+                if (tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
 
                 return tipoPopUpMostrar;
             }
@@ -388,7 +395,6 @@ namespace Portal.Consultoras.Web.Controllers
                             tipoPopUpMostrar = Constantes.TipoPopUp.AceptacionContrato;
                         }
                         break;
-
                     case Constantes.TipoPopUp.Showroom:
                         if (ValidarMostrarShowroomPopUp())
                             tipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
@@ -478,7 +484,13 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                         break;
-
+                    case Constantes.TipoPopUp.ActualizarCorreo:
+                        var result = ObtenerActualizacionEmail();
+                        if (result.Split('|')[0] == "1")
+                        {
+                            tipoPopUpMostrar = Constantes.TipoPopUp.ActualizarCorreo;
+                        }
+                        break;
                 }
 
                 if (tipoPopUpMostrar > 0)
@@ -707,31 +719,6 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetUserData(userData);
         }
 
-        public JsonResult SubirImagen(string data)
-        {
-            if (string.IsNullOrEmpty(data)) return Json(new { success = false, message = "Imagen inválida" });
-            var dataPartes = data.Split(',');
-            if (dataPartes.Length <= 1) return Json(new { success = false, message = "Imagen inválida" });
-            var image = dataPartes[1];
-
-            string rutaImagen;
-            try
-            {
-                var base64EncodedBytes = Convert.FromBase64String(image);
-                var fileName = userData.CodigoISO + "-" + userData.CodigoConsultora + ".png";
-                var pathFile = Server.MapPath("~/Content/Images/temp/" + fileName);
-                System.IO.File.WriteAllBytes(pathFile, base64EncodedBytes);
-                ConfigS3.SetFileS3(pathFile, "ConsultoraImagen", fileName, true, true, true);
-                rutaImagen = ConfigCdn.GetUrlFileCdn("ConsultoraImagen", fileName);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-                return Json(new { success = false, message = "Hubo un problema con el servicio, intente nuevamente" });
-            }
-            return Json(new { success = true, message = "La imagen se subió exitosamente", imagen = Url.Content(rutaImagen) });
-        }
-
         public JsonResult AceptarContrato(bool checkAceptar , string origenAceptacion, string AppVersion)
         {
             try
@@ -931,7 +918,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 model.DigitoVerificador = string.Empty;
-                model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
+                model.CodigoUsuario = userData.CodigoUsuario;
+                model.Zona = userData.CodigoZona;
 
                 var paisesDigitoControl = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
                 if (paisesDigitoControl.Contains(model.PaisISO)
@@ -2360,5 +2348,26 @@ namespace Portal.Consultoras.Web.Controllers
             partial.ConfiguracionPaisDatos = partial.ConfiguracionPaisDatos ?? new ConfiguracionPaisDatosModel();
             return partial;
         }
+
+        public string ObtenerActualizacionEmail()
+        {
+            try
+            {
+
+                using (var svClient = new UsuarioServiceClient())
+                {
+                    var result = svClient.GetActualizacionEmail(userData.PaisID, userData.CodigoUsuario);
+                    return  result;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "";
+            }
+        }
+
+
     }
 }

@@ -84,71 +84,37 @@ namespace Portal.Consultoras.Entities
 
         public BESolicitudCliente(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "SolicitudClienteID"))
-                SolicitudClienteID = Convert.ToInt64(row["SolicitudClienteID"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID"))
-                CodigoConsultora = Convert.ToString(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "NombreCompleto"))
-                NombreCompleto = Convert.ToString(row["NombreCompleto"]);
-            if (DataRecord.HasColumn(row, "Email"))
-                Email = Convert.ToString(row["Email"]);
-            if (DataRecord.HasColumn(row, "CodigoUbigeo"))
-                CodigoUbigeo = Convert.ToString(row["CodigoUbigeo"]);
-            if (DataRecord.HasColumn(row, "Telefono"))
-                Telefono = Convert.ToString(row["Telefono"]);
-            if (DataRecord.HasColumn(row, "Mensaje"))
-                Mensaje = Convert.ToString(row["Mensaje"]);
-            if (DataRecord.HasColumn(row, "Campania"))
-                Campania = Convert.ToString(row["Campania"]);
-            if (DataRecord.HasColumn(row, "MarcaID"))
-                MarcaID = Convert.ToInt32(row["MarcaID"]);
-            if (DataRecord.HasColumn(row, "MarcaNombre"))
-                MarcaNombre = Convert.ToString(row["MarcaNombre"]);
-            if (DataRecord.HasColumn(row, "Leido"))
-                Leido = Convert.ToInt32(row["Leido"]);
-            if (DataRecord.HasColumn(row, "MensajeaCliente"))
-                MensajeaCliente = Convert.ToString(row["MensajeaCliente"]);
-            if (DataRecord.HasColumn(row, "Estado"))
-                Estado = Convert.ToString(row["Estado"]);
-            if (DataRecord.HasColumn(row, "NumIteracion"))
-                NumIteracion = Convert.ToInt32(row["NumIteracion"]);
-            if (DataRecord.HasColumn(row, "Direccion"))
-                Direccion = Convert.ToString(row["Direccion"]);
-            if (DataRecord.HasColumn(row, "NombreGZ"))
-                NombreGZ = Convert.ToString(row["NombreGZ"]);
-            if (DataRecord.HasColumn(row, "EmailGZ"))
-                EmailGZ = Convert.ToString(row["EmailGZ"]);
-            if (DataRecord.HasColumn(row, "MensajeaGZ"))
-                MensajeaGZ = Convert.ToString(row["MensajeaGZ"]);
-            if (DataRecord.HasColumn(row, "UsuarioModificacion"))
-                UsuarioModificacion = Convert.ToString(row["UsuarioModificacion"]);
-            if (DataRecord.HasColumn(row, "FechaModificacion"))
-                FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-            if (DataRecord.HasColumn(row, "FechaSolicitud"))
-                FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
-            if (DataRecord.HasColumn(row, "Seccion"))
-                Seccion = Convert.ToString(row["Seccion"]);
-            if (DataRecord.HasColumn(row, "NombreConsultoraAsignada"))
-                NombreConsultoraAsignada = Convert.ToString(row["NombreConsultoraAsignada"]);
-            if (DataRecord.HasColumn(row, "CorreoConsultoraAsginada"))
-                CorreoConsultoraAsginada = Convert.ToString(row["CorreoConsultoraAsginada"]);
-
-            if (DataRecord.HasColumn(row, "EnviadoGZ"))
-                EnviadoGZ = Convert.ToString(row["EnviadoGZ"]);
-            if (DataRecord.HasColumn(row, "UnidadGeografica1"))
-                UnidadGeografica1 = Convert.ToString(row["UnidadGeografica1"]);
-            if (DataRecord.HasColumn(row, "UnidadGeografica2"))
-                UnidadGeografica2 = Convert.ToString(row["UnidadGeografica2"]);
-            if (DataRecord.HasColumn(row, "UnidadGeografica3"))
-                UnidadGeografica3 = Convert.ToString(row["UnidadGeografica3"]);
-            if (DataRecord.HasColumn(row, "TipoDistribucion"))
-                TipoDistribucion = Convert.ToInt32(row["TipoDistribucion"]);
-
-            if (DataRecord.HasColumn(row, "EstadoSolicitudClienteId"))
-                EstadoSolicitudClienteId = Convert.ToInt32(row["EstadoSolicitudClienteId"]);
-
-            if (DataRecord.HasColumn(row, "PedidoWebID"))
-                PedidoWebID = Convert.ToInt32(row["PedidoWebID"]);
+            SolicitudClienteID = row.ToInt64("SolicitudClienteID");
+            CodigoConsultora = row.ToString("ConsultoraID");
+            NombreCompleto = row.ToString("NombreCompleto");
+            Email = row.ToString("Email");
+            CodigoUbigeo = row.ToString("CodigoUbigeo");
+            Telefono = row.ToString("Telefono");
+            Mensaje = row.ToString("Mensaje");
+            Campania = row.ToString("Campania");
+            MarcaID = row.ToInt32("MarcaID");
+            MarcaNombre = row.ToString("MarcaNombre");
+            Leido = row.ToInt32("Leido");
+            MensajeaCliente = row.ToString("MensajeaCliente");
+            Estado = row.ToString("Estado");
+            NumIteracion = row.ToInt32("NumIteracion");
+            Direccion = row.ToString("Direccion");
+            NombreGZ = row.ToString("NombreGZ");
+            EmailGZ = row.ToString("EmailGZ");
+            MensajeaGZ = row.ToString("MensajeaGZ");
+            UsuarioModificacion = row.ToString("UsuarioModificacion");
+            FechaModificacion = row.ToDateTime("FechaModificacion");
+            FechaSolicitud = row.ToDateTime("FechaSolicitud");
+            Seccion = row.ToString("Seccion");
+            NombreConsultoraAsignada = row.ToString("NombreConsultoraAsignada");
+            CorreoConsultoraAsginada = row.ToString("CorreoConsultoraAsginada");
+            EnviadoGZ = row.ToString("EnviadoGZ");
+            UnidadGeografica1 = row.ToString("UnidadGeografica1");
+            UnidadGeografica2 = row.ToString("UnidadGeografica2");
+            UnidadGeografica3 = row.ToString("UnidadGeografica3");
+            TipoDistribucion = row.ToInt32("TipoDistribucion");
+            EstadoSolicitudClienteId = row.ToInt32("EstadoSolicitudClienteId");
+            PedidoWebID = row.ToInt32("PedidoWebID");
         }
 
     }
@@ -308,8 +274,8 @@ namespace Portal.Consultoras.Entities
 
         public BEResultadoSolicitud(int resultado, string mensaje)
         {
-            this.Resultado = resultado;
-            this.Mensaje = mensaje;
+            Resultado = resultado;
+            Mensaje = mensaje;
         }
 
     }

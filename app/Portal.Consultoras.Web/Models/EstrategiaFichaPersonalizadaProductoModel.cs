@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Portal.Consultoras.Web.Models.DetalleEstrategia;
+using System;
 using System.Collections.Generic;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models.DetalleEstrategia;
 
 namespace Portal.Consultoras.Web.Models
 {
