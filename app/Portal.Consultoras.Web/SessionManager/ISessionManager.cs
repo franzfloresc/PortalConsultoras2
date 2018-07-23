@@ -199,17 +199,14 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<EstadoCuentaModel> GetListadoEstadoCuenta();
 
-	void SetOfertasDelDia(OfertaDelDiaModel ofertasDelDia);
-
-        OfertaDelDiaModel GetOfertasDelDia();
-
-        void SetFlagOfertaDelDia(int ofertasDelDia);
-
-        bool GetFlagOfertaDelDia();
         void SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo);
+
         EstrategiaPersonalizadaProductoModel GetProductoTemporal();
+
         void SetEstrategiaSR(Models.Estrategia.ShowRoom.ConfigModel data);
+
         Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR();
+        
         void SetBEEstrategia(string key, List<ServiceOferta.BEEstrategia> data);
 
         List<ServiceOferta.BEEstrategia> GetBEEstrategia(string key);

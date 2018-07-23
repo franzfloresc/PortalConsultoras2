@@ -227,6 +227,7 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
 
 function ActualizarLocalStorageIsAgregado(cuv, valor, lista, indCampania) {
     var ok = false;
+
     var valLocalStorage = localStorage.getItem(lista + campaniaCodigo);
 
     if (valLocalStorage != null) {
@@ -245,6 +246,7 @@ function ActualizarLocalStorageIsAgregado(cuv, valor, lista, indCampania) {
 
 function actualizarIsAgregado(lista, cuv, valor) {
     var ok = false;
+
     if (lista !== undefined) {
         $.each(lista, function (index, item) {
             if (item.CUV2 == cuv || cuv == "todo") {
@@ -266,7 +268,7 @@ function actualizarIsAgregado(lista, cuv, valor) {
     return ok
 }
 
-function RDActualizarTipoAccionAgregar(revistaDigital, key) {
+function RDActualizarTipoAccionAgregar(revistaDigital, key){
     var valLocalStorage = LocalStorageListado(key,null,1);
     if (valLocalStorage == null)
         return false;

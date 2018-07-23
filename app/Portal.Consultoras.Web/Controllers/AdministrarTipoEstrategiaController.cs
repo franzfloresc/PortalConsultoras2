@@ -326,17 +326,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    entidad.TipoEstrategiaID = sv.InsertarTipoEstrategia(entidad);
+                    sv.InsertarTipoEstrategia(entidad);
                 }
 
                 if (TipoEstrategiaID != "0")
                 {
-                    administrarEstrategiaProvider.EditarTipoEstrategia(entidad,userData.CodigoISO);
                     operacion = "actualizó";
-                }
-                else
-                {
-                    administrarEstrategiaProvider.RegistrarTipoEstrategia(entidad, userData.CodigoISO);
                 }
 
                 return Json(new

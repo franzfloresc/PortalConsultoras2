@@ -234,6 +234,7 @@ function GetArrowNameNext() {
 }
 
 function OfertaArmarEstrategias(response, busquedaModel) {
+
     response.CampaniaID = response.CampaniaID || response.campaniaId || 0;
     if (response.CampaniaID <= 0) return false;
 
@@ -337,6 +338,7 @@ function OfertaArmarEstrategias(response, busquedaModel) {
         $("#divOfertaProductosPerdio").remove();
     }
    
+
     ResizeBoxContnet();
     if (response.guardaEnLocalStorage === false) {
         return true;
@@ -364,7 +366,8 @@ function RDLocalStorageListado(key, valor, codigo) {
     else {
         valLocalStorage = valor;
     }
-        LocalStorageListado(key, valLocalStorage);
+
+    LocalStorageListado(key, valLocalStorage);
 }
 
 function OfertaArmarEstrategiasContenedor(responseData, busquedaModel) {

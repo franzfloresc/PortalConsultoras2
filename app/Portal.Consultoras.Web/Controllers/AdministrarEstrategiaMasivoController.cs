@@ -107,7 +107,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.Id,
-                               cell = new[]
+                               cell = new string[]
                                {
                                     a.Id.ToString(),
                                     a.Descripcion,
@@ -122,13 +122,13 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
 
-        [HttpPost]
         public ActionResult ConsultarCuvTipoConfigurado(string sidx, string sord, int page, int rows, int campaniaId,
             int tipoConfigurado, string estrategiaCodigo, string estrategiaMIds)
         {
             if (ModelState.IsValid)
             {
                 List<BEEstrategia> lst = new List<BEEstrategia>();
+
                 try
                 {
                     if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, estrategiaCodigo))
@@ -151,10 +151,10 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                         lst.AddRange(webApiList.Select(d => d.BEEstrategia).ToList().Select(item => new BEEstrategia
-                            {
-                                CUV2 = item.CUV2,
-                                DescripcionCUV2 = item.DescripcionCUV2
-                            }));
+                        {
+                            CUV2 = item.CUV2,
+                            DescripcionCUV2 = item.DescripcionCUV2
+                        }));
                     }
                     else
                     {
@@ -195,7 +195,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.CUV2,
-                               cell = new[]
+                               cell = new string[]
                                {
                                     a.CUV2,
                                     a.DescripcionCUV2
@@ -280,7 +280,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.Id,
-                               cell = new[]
+                               cell = new string[]
                                {
                                     a.Id.ToString(),
                                     a.Descripcion,
@@ -331,6 +331,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (ModelState.IsValid)
             {
                 List<BEEstrategia> lst = new List<BEEstrategia>();
+
                 try
                 {
                     if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoEstrategia))
@@ -348,10 +349,10 @@ namespace Portal.Consultoras.Web.Controllers
                             }
 
                             lst.AddRange(webApiList.Select(d => d.BEEstrategia).ToList().Select(item => new BEEstrategia
-                                {
-                                    CUV2 = item.CUV2,
-                                    DescripcionCUV2 = item.DescripcionCUV2
-                                }));
+                            {
+                                CUV2 = item.CUV2,
+                                DescripcionCUV2 = item.DescripcionCUV2
+                            }));
                         }
                     }
                     else
@@ -361,8 +362,6 @@ namespace Portal.Consultoras.Web.Controllers
                             lst = ser.GetOfertasPersonalizadasByTipoConfiguradoTemporal(userData.PaisID, tipoConfigurado, nroLote).ToList();
                         }
                     }
-
-                   
                 }
                 catch (Exception ex)
                 {
@@ -393,10 +392,10 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.CUV2,
-                               cell = new[]
+                               cell = new string[]
                                {
-                                    a.CUV2,
-                                    a.DescripcionCUV2
+                            a.CUV2,
+                            a.DescripcionCUV2
                                }
                            }
                 };
@@ -496,7 +495,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private int MasivoEstrategiaTemporalInsertar(AdministrarEstrategiaMasivoModel entidadMasivo)
         {
-            int lote;
+            int lote = 0;
             try
             {
                 using (var svc = new SACServiceClient())
@@ -522,6 +521,7 @@ namespace Portal.Consultoras.Web.Controllers
             // este proceso esta en MasivoEstrategiaTemporalInsertar, puede salir timed out
             // se divide el proceso para evitar timed out
             string rpta = "";
+            //bool rptaService = false;
             try
             {
                 bool rptaService = MasivoEstrategiaTemporalPrecio(entidadMasivo);
@@ -541,6 +541,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                //rptaService = false;
             }
             return rpta;
         }
@@ -567,12 +568,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool MasivoEstrategiaTemporalSetDetalle(AdministrarEstrategiaMasivoModel entidadMasivo)
         {
-            bool rpta;
+            bool rpta = false;
             try
             {
                 var codigo = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.Tonos, true);
                 if (codigo > entidadMasivo.CampaniaId)
-                    return false;
+                    return rpta;
 
                 using (var svc = new SACServiceClient())
                 {
