@@ -50,7 +50,7 @@
     }
 
 
-    var _ValidarSeleccionTono = function (objInput) {
+    var _ValidarSeleccionTono = function (objInput, esFicha) {
         var attrClass = $.trim($(objInput).attr("class"));
         if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
 

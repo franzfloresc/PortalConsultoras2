@@ -105,30 +105,16 @@ var EstrategiaAgregarModule = (function () {
             alert_msg(txt);
         } else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 262) {
             messageInfo(txt);
-        } else if (isMobile()) {
-            if (txt.indexOf("cantidad limite")) {
-                var $limitePedidoToolTip = $('[data-limitepedido="tooltip"]');
-                if ($limitePedidoToolTip.length > 0) {
-                    $limitePedidoToolTip.show();
-                    setTimeout(function () { $limitePedidoToolTip.hide(); }, 2000);
-                } else {
-                    messageInfo(txt);
-                }
-            } else {
-                messageInfo(txt);
-            }
-        } else {
+        } else if (txt.indexOf("cantidad limite") > 0) {
             var $limitePedidoToolTip = $('[data-limitepedido="tooltip"]');
-            if (txt.indexOf("cantidad limite")) {
-                var $limitePedidoToolTip = $('[data-limitepedido="tooltip"]');
-                if ($limitePedidoToolTip.length > 0) {
-                    setTimeout(function () { $limitePedidoToolTip.hide(); }, 2000);
-                } else {
-                    messageInfo(txt);
-                }
-            } else {
-                alert_msg(txt);
+            if ($limitePedidoToolTip.length > 0) {
+                $limitePedidoToolTip.show();
+                setTimeout(function () { $limitePedidoToolTip.hide(); }, 2000);
             }
+        } else if (isMobile()) {
+            messageInfo(txt);
+        } else {
+            alert_msg(txt);
         }
     };
 
@@ -345,6 +331,10 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
             }
+
+            var $AgregadoTooltip = $("[data-agregado='tooltip']");
+            $AgregadoTooltip.show();
+            setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
 
             if (isMobile()) {
                 CargarCantidadProductosPedidos(true);
