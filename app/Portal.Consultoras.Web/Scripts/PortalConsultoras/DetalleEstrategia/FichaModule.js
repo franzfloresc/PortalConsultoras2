@@ -52,7 +52,8 @@
         Contenedor_redes_sociales: "#Contenedor_redes_sociales",
         //EtiquetaPackNuevas: "#EtiquetaPackNuevas"
         //SloganPackNuevas: "#SloganPackNuevas",
-        ImagenProducto: "#FichaImagenProducto"
+        ImagenProducto: "#FichaImagenProducto",
+        dvContenedorAgregar: "#dvContenedorAgregar"
     };
 
     var _tabsFichaProducto = {
@@ -336,6 +337,9 @@
         //var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
         //AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, null, estrategia.CodigoVariante, _config.palanca);
         _descripcionProducto = estrategia.DescripcionCompleta;
+        if (estrategia.TipoAccionAgregar <= 0) {
+            $(_seccionesFichaProducto.dvContenedorAgregar).hide();
+        }
         return true;
     };
 
