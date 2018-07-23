@@ -49,43 +49,23 @@ namespace Portal.Consultoras.Entities
 
         public BECrossSellingProducto(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CrossSellingProductoID"))
-                CrossSellingProductoID = Convert.ToInt32(row["CrossSellingProductoID"]);
-            if (DataRecord.HasColumn(row, "NroOrden"))
-                NroOrden = Convert.ToInt32(row["NroOrden"]);
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "CodigoCampania"))
-                CodigoCampania = Convert.ToString(row["CodigoCampania"]);
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "PrecioOferta"))
-                PrecioOferta = Convert.ToDecimal(row["PrecioOferta"]);
-            if (DataRecord.HasColumn(row, "ImagenProducto"))
-                ImagenProducto = Convert.ToString(row["ImagenProducto"]);
-            if (DataRecord.HasColumn(row, "FlagHabilitarProducto"))
-                FlagHabilitarProducto = Convert.ToInt32(row["FlagHabilitarProducto"]);
-            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID"))
-                ConfiguracionOfertaID = Convert.ToInt32(row["ConfiguracionOfertaID"]);
-            if (DataRecord.HasColumn(row, "TipoOfertaSisID"))
-                TipoOfertaSisID = Convert.ToInt32(row["TipoOfertaSisID"]);
-            if (DataRecord.HasColumn(row, "MensajeProducto"))
-                MensajeProducto = Convert.ToString(row["MensajeProducto"]);
-            if (DataRecord.HasColumn(row, "CodigoProducto"))
-                CodigoProducto = Convert.ToString(row["CodigoProducto"]);
-            if (DataRecord.HasColumn(row, "CodigoTipoOferta"))
-                CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
-            if (DataRecord.HasColumn(row, "MarcaID"))
-                MarcaID = Convert.ToString(row["MarcaID"]);
-            if (DataRecord.HasColumn(row, "SubTipoOfertaSisID"))
-                SubTipoOfertaSisID = Convert.ToInt32(row["SubTipoOfertaSisID"]);
-
-            if (DataRecord.HasColumn(row, "EtiquetaPrecio"))
-                EtiquetaPrecio = Convert.ToString(row["EtiquetaPrecio"]);
-            else
-                EtiquetaPrecio = string.Empty;
+            CrossSellingProductoID = row.ToInt32("CrossSellingProductoID");
+            NroOrden = row.ToInt32("NroOrden");
+            CampaniaID = row.ToInt32("CampaniaID");
+            CodigoCampania = row.ToString("CodigoCampania");
+            CUV = row.ToString("CUV");
+            Descripcion = row.ToString("Descripcion");
+            PrecioOferta = row.ToDecimal("PrecioOferta");
+            ImagenProducto = row.ToString("ImagenProducto");
+            FlagHabilitarProducto = row.ToInt32("FlagHabilitarProducto");
+            ConfiguracionOfertaID = row.ToInt32("ConfiguracionOfertaID");
+            TipoOfertaSisID = row.ToInt32("TipoOfertaSisID");
+            MensajeProducto = row.ToString("MensajeProducto");
+            CodigoProducto = row.ToString("CodigoProducto");
+            CodigoTipoOferta = row.ToString("CodigoTipoOferta");
+            MarcaID = row.ToString("MarcaID");
+            SubTipoOfertaSisID = row.ToInt32("SubTipoOfertaSisID");
+            EtiquetaPrecio = row.ToString("EtiquetaPrecio", string.Empty);
         }
     }
 }

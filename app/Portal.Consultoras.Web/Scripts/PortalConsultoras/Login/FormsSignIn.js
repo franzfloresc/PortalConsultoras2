@@ -324,19 +324,11 @@ $(document).ready(function () {
     });
 
     $("#divChatearConNosotros").click(function () {
-        
         if ($('#hddHabilitarChatEmtelco').val() === 'false') {
-            
-            //if (!isMobile()) {
-            //    $('#popupChatDisabled .content_bg_chatdisabled .mensaje_pop_up2 .contenedor_info_datos .titulo_opcion_chatea_con_nosotros')
-            //        .text('Por el momento el chat no esta disponible');
-            //}
-
             $('#popupChatDisabled').show();
             return;
         }
         $('#marca').css('display', 'block');
-
         var connected = localStorage.getItem('connected');
         var idBtn = connected ? '#btn_open' : '#btn_init';
         $(idBtn).trigger("click");
@@ -990,8 +982,6 @@ function RecuperarContrasenia() {
 
                 $("#spnNombreConsultora").append(nomConsultora);
 
-                correoRecuperar = Enmascarar_Correo(email);
-
                 $("#linkvolverInicio").hide();  
                 $("#vermasopciones1").hide();
 
@@ -1065,14 +1055,15 @@ function RecuperarContrasenia() {
                         } break;
 
                     case 4:
-                        {                            
+                        {                
                             //set variables nuevo chat
-                            emt_client_type = datos.TipoUsuario;
-                            emt_country = datos.CodigoISO;
+                            emt_client_type = datos.IdEstadoActividad;
+                            emt_country = datos.CodigoIso;
                             emt_email_address = datos.Correo;
                             emt_first_name = datos.PrimerNombre.toUpperCase();
                             emt_id = datos.CodigoUsuario;
                             emt_type = '1';
+                            emt_device = ' ';
                             //fin set variables nuevo chat
                         
                             $("#hdCodigoConsultora").val(datos.CodigoUsuario);

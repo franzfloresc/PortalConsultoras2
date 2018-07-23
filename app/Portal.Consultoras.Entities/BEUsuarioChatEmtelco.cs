@@ -19,10 +19,10 @@ namespace Portal.Consultoras.Entities
 
         public BEUsuarioChatEmtelco(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoUsuario")) CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-            if (DataRecord.HasColumn(row, "Email")) Email = Convert.ToString(row["Email"]);
-            if (DataRecord.HasColumn(row, "PrimerNombre")) PrimerNombre = Convert.ToString(row["PrimerNombre"]);
-            if (DataRecord.HasColumn(row, "SegmentoAbreviatura")) SegmentoAbreviatura = Convert.ToString(row["SegmentoAbreviatura"]);
+            CodigoUsuario = row.ToString("CodigoUsuario");
+            Email = row.ToString("Email");
+            PrimerNombre = row.ToString("PrimerNombre");
+            SegmentoAbreviatura = row.ToString("SegmentoAbreviatura");
         }
 
     }

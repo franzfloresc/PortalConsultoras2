@@ -31,41 +31,26 @@ namespace Portal.Consultoras.Entities
 
         public BEPremiosProgramaNuevas()
         {
-            this.CodigoPrograma = default(string);
-            this.AnioCampana = default(int);
-            this.CodigoNivel = default(string);
-            this.CUV = default(string);
-            this.DescripcionProducto = default(string);
-            this.IndicadorActivo = default(bool);
-            this.IndicadorKitNuevas = default(bool);
-            this.PrecioUnitario = default(decimal);
+            CodigoPrograma = default(string);
+            AnioCampana = default(int);
+            CodigoNivel = default(string);
+            CUV = default(string);
+            DescripcionProducto = default(string);
+            IndicadorActivo = default(bool);
+            IndicadorKitNuevas = default(bool);
+            PrecioUnitario = default(decimal);
         }
 
-        public BEPremiosProgramaNuevas(IDataRecord dr)
+        public BEPremiosProgramaNuevas(IDataRecord row)
         {
-            if (DataRecord.HasColumn(dr, "CodigoPrograma"))
-                CodigoPrograma = Convert.ToString(dr["CodigoPrograma"]);
-
-            if (DataRecord.HasColumn(dr, "AnoCampana"))
-                AnioCampana = Convert.ToInt32(dr["AnoCampana"]);
-
-            if (DataRecord.HasColumn(dr, "CodigoNivel"))
-                CodigoNivel = Convert.ToString(dr["CodigoNivel"]);
-
-            if (DataRecord.HasColumn(dr, "CUV"))
-                CUV = Convert.ToString(dr["CUV"]);
-
-            if (DataRecord.HasColumn(dr, "DescripcionProducto"))
-                DescripcionProducto = Convert.ToString(dr["DescripcionProducto"]);
-
-            if (DataRecord.HasColumn(dr, "IndicadorActivo"))
-                IndicadorActivo = Convert.ToBoolean(dr["IndicadorActivo"]);
-
-            if (DataRecord.HasColumn(dr, "IndicadorKitNuevas"))
-                IndicadorKitNuevas = Convert.ToBoolean(dr["IndicadorKitNuevas"]);
-
-            if (DataRecord.HasColumn(dr, "PrecioUnitario"))
-                PrecioUnitario = Convert.ToDecimal(dr["PrecioUnitario"]);
+            CodigoPrograma = row.ToString("CodigoPrograma");
+            AnioCampana = row.ToInt32("AnoCampana");
+            CodigoNivel = row.ToString("CodigoNivel");
+            CUV = row.ToString("CUV");
+            DescripcionProducto = row.ToString("DescripcionProducto");
+            IndicadorActivo = row.ToBoolean("IndicadorActivo");
+            IndicadorKitNuevas = row.ToBoolean("IndicadorKitNuevas");
+            PrecioUnitario = row.ToDecimal("PrecioUnitario");
         }
 
     }

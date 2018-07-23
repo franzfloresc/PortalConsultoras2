@@ -122,6 +122,12 @@
     text-decoration: none;
 }
 
+.precio_producto .subprecio {
+    font-weight: 700;
+    margin-left: 78px;
+    font-size: 14px;
+}
+
 .gana_precio_producto {
     border-left: 1px solid #cacaca;
 }
@@ -254,6 +260,15 @@
 
 .nombre_producto_opt{
     margin-top: 2px;
+}
+
+.nombre_producto_opt span:first-child{
+    float: left;
+}
+
+.nombre_producto_opt span:last-child{
+    float: left;
+    width: 87%;
 }
 
 

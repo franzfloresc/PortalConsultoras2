@@ -3,7 +3,7 @@
 namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
-    public class ConfiguracionSeccionHomeModel
+    public class ConfiguracionSeccionHomeModel :ICloneable
     {
         public int ConfiguracionOfertasHomeID { get; set; }
         public int ConfiguracionPaisID { get; set; }
@@ -30,5 +30,9 @@ namespace Portal.Consultoras.Web.Models
         public bool VerMas { get; set; }
         public int OrigenPedido { get; set; }
         public int OrigenPedidoPopup { get; set; }
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

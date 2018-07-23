@@ -44,7 +44,7 @@
         ImagenDeFondo: "#ImagenDeFondo",
         //DescripcionAdicional: "#DescripcionAdicional",
         ContenidoProducto: "#ContenidoProducto",
-        //CarruselProducto: "#CarruselProducto",
+        CarruselProducto: "#CarruselProducto",
         //EtiquetaOdd: "#EtiquetaOdd",
         //SloganLanzamientos: "#SloganLanzamientos",
         //ContenedoFotoReferencial: "#contenedor_foto_referencial",
@@ -219,8 +219,8 @@
             }
         }
         else if (estrategia.Hermanos.length > 1) {
-            if (estrategia.codigoVariante == _codigoVariedad.IndividualVariable) {
-                estrategia.codigoVariante = _codigoVariedad.ComuestaFija;
+            if (estrategia.CodigoVariante == _codigoVariedad.IndividualVariable) {
+                estrategia.CodigoVariante = _codigoVariedad.ComuestaFija;
             }
         }
         else if (estrategia.Hermanos.length == 0) {
@@ -230,10 +230,23 @@
 
     var _validarDesactivadoGeneral = function (estrategia) {
         $.each(estrategia.Hermanos, function (index, hermano) {
+            
             if (hermano.Hermanos) {
                 if (hermano.Hermanos.length > 0) {
                     estrategia.ClaseBloqueada = "btn_desactivado_general";
+                    estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
+                    estrategia.RangoInputEnabled = "disabled";
                     $("#btnAgregalo").addClass("btn_desactivado_general");
+                    $(".content_cantidad_ficha_producto").addClass("btn_desactivado_general");
+                    //$(".contenedor_rangos").addClass("contenedor_rangos_desactivado");
+                    $(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
+                    $(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
+                    
+                    $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
+                    $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
+                    
+                    
+                    
                 }
             }
         });
@@ -255,10 +268,24 @@
             window.location = baseUrl + (isMobile() ? "/Mobile/" : "") + "Ofertas";
             return false;
         }
-        if (estrategia.DescripcionCompleta.length < 40)
-            $(_elementos.estrategiaBreadcrumb).text(estrategia.DescripcionCompleta + " ...");
-        else
-            $(_elementos.estrategiaBreadcrumb).text(estrategia.DescripcionCompleta.substring(1, 40) + " ...");
+
+        if (typeof estrategia.DescripcionCompleta !== "undefined" && 
+            estrategia.DescripcionCompleta != null) {
+            estrategia.DescripcionCompleta = $.trim(estrategia.DescripcionCompleta);
+            var palabrasEstrategiaDescripcion = estrategia.DescripcionCompleta.split(" ");
+            var estrategiaBreadcrumb = palabrasEstrategiaDescripcion[0];
+            if (!isMobile()) {
+                if (palabrasEstrategiaDescripcion.length > 1)
+                    estrategiaBreadcrumb += " " + palabrasEstrategiaDescripcion[1];
+                if (palabrasEstrategiaDescripcion.length > 2)
+                    estrategiaBreadcrumb += " " + palabrasEstrategiaDescripcion[2];
+                if (palabrasEstrategiaDescripcion.length > 3) estrategiaBreadcrumb += "...";
+            } else {
+                if (palabrasEstrategiaDescripcion.length > 1) estrategiaBreadcrumb += "...";
+            }
+
+            $(_elementos.estrategiaBreadcrumb).text(estrategiaBreadcrumb);
+        }
 
         $(_elementos.estrategiaBreadcrumb).parent("li").attr("data-opcion", estrategia.DescripcionCompleta.trim());
         _verificarVariedad(estrategia);
@@ -585,3 +612,8 @@
         Inicializar: Inicializar
     };
 });
+
+//Funcion temporal hasta estandarizar RevistaDigital.js
+function RDPageInformativa() {
+    window.location = (isMobile() ? "/Mobile/" : "") + baseUrl + 'revistadigital/Informacion';
+}

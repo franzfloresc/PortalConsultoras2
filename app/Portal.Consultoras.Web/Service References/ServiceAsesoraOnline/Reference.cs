@@ -440,7 +440,13 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private string FlagActivacionSuscripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FotoOriginalSinModificarField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FotoPerfilField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool FotoPerfilAnchaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string GPRBannerMensajeField;
@@ -639,6 +645,15 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ProgramaReconocimientoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double PromedioVentaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PuedeActualizarField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PuedeEnviarSMSField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RegionField;
@@ -1875,6 +1890,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FotoOriginalSinModificar {
+            get {
+                return this.FotoOriginalSinModificarField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FotoOriginalSinModificarField, value) != true)) {
+                    this.FotoOriginalSinModificarField = value;
+                    this.RaisePropertyChanged("FotoOriginalSinModificar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string FotoPerfil {
             get {
                 return this.FotoPerfilField;
@@ -1883,6 +1911,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.FotoPerfilField, value) != true)) {
                     this.FotoPerfilField = value;
                     this.RaisePropertyChanged("FotoPerfil");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool FotoPerfilAncha {
+            get {
+                return this.FotoPerfilAnchaField;
+            }
+            set {
+                if ((this.FotoPerfilAnchaField.Equals(value) != true)) {
+                    this.FotoPerfilAnchaField = value;
+                    this.RaisePropertyChanged("FotoPerfilAncha");
                 }
             }
         }
@@ -2741,6 +2782,45 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((this.ProgramaReconocimientoField.Equals(value) != true)) {
                     this.ProgramaReconocimientoField = value;
                     this.RaisePropertyChanged("ProgramaReconocimiento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double PromedioVenta {
+            get {
+                return this.PromedioVentaField;
+            }
+            set {
+                if ((this.PromedioVentaField.Equals(value) != true)) {
+                    this.PromedioVentaField = value;
+                    this.RaisePropertyChanged("PromedioVenta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PuedeActualizar {
+            get {
+                return this.PuedeActualizarField;
+            }
+            set {
+                if ((this.PuedeActualizarField.Equals(value) != true)) {
+                    this.PuedeActualizarField = value;
+                    this.RaisePropertyChanged("PuedeActualizar");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PuedeEnviarSMS {
+            get {
+                return this.PuedeEnviarSMSField;
+            }
+            set {
+                if ((this.PuedeEnviarSMSField.Equals(value) != true)) {
+                    this.PuedeEnviarSMSField = value;
+                    this.RaisePropertyChanged("PuedeEnviarSMS");
                 }
             }
         }

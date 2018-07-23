@@ -33,10 +33,8 @@ namespace Portal.Consultoras.Entities
             RegionID = Convert.ToInt32(row["RegionID"]);
             Codigo = Convert.ToString(row["Codigo"]);
             Nombre = Convert.ToString(row["Nombre"]);
-            if (DataRecord.HasColumn(row, "NombreGerenteZona"))
-                NombreGerenteZona = Convert.ToString(row["NombreGerenteZona"]);
-            if (DataRecord.HasColumn(row, "CantidadDias"))
-                CantidadDias = Convert.ToInt32(row["CantidadDias"]);
+            NombreGerenteZona = row.ToString("NombreGerenteZona");
+            CantidadDias = row.ToInt32("CantidadDias");
         }
     }
 }

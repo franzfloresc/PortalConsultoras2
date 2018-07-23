@@ -273,7 +273,7 @@ div#caja-back-header {
 .foto_menu {
     width: 89px;
     margin: auto;
-    overflow: hidden;
+    position:relative;
 }
 
 .menu[style='left: 0;'] {
