@@ -170,7 +170,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     campaniaId = model.CampaniaID,
                     cantidadTotal = cantidadTotal,
                     cantidad = cantidadTotal,
-                    codigo = palanca
+                    codigo = palanca,
+                    codigoOrigen = model.Codigo
                 });
             }
             catch (Exception ex)

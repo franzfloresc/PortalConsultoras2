@@ -110,7 +110,7 @@ function SeccionCargarProductos(objConsulta) {
         $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
     }
 
-
+    console.log(objConsulta);
 
     if (objConsulta.UrlObtenerProductos === "")
         return false;
@@ -159,6 +159,7 @@ function SeccionCargarProductos(objConsulta) {
         cache: false
     });
 
+    console.log(objConsulta, param);
     $.ajax({
         type: "POST",
         url: baseUrl + objConsulta.UrlObtenerProductos,
@@ -171,8 +172,14 @@ function SeccionCargarProductos(objConsulta) {
                 data.codigo = $.trim(data.codigo);
                 if (data.codigo !== "") {
                     data.campaniaId = $.trim(data.campaniaId) || campaniaCodigo;
-                    data.Seccion = listaSeccion[data.codigo + "-" + data.campaniaId];
-                    SeccionMostrarProductos(data);
+                    data.Seccion = listaSeccion[data.codigo + "-" + data.campaniaId]
+                        || listaSeccion[data.codigoOrigen + "-" + data.campaniaId];
+                    if (data.Seccion != undefined) {
+                        SeccionMostrarProductos(data);
+                    }
+                    else {
+                        console.error(data);
+                    }
                 }
             }
         },
