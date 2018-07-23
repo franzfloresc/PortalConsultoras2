@@ -3209,7 +3209,7 @@ namespace Portal.Consultoras.Common
                 result = string.Format("Campaña {0}", campania.Substring(4, 2));
             return result;
         }
-        
+
         public static bool IsUrl(string url)
         {
             Uri uriResult;
@@ -3219,9 +3219,15 @@ namespace Portal.Consultoras.Common
         public static bool ExisteUrlRemota(string url)
         {
             bool result;
-            HttpWebResponse response = null;            
+            HttpWebResponse response = null;
             try
             {
+                url = Trim(url);
+                if (url == "")
+                {
+                    return false;
+                }
+
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Credentials = System.Net.CredentialCache.DefaultCredentials;
                 response = (HttpWebResponse)request.GetResponse();
