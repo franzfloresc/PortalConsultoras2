@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -228,17 +229,21 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv)) return RedirectToAction("Index", "Ofertas");
+                if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
+                    return RedirectToAction("Index", "Ofertas");
 
                 palanca = IdentificarPalanca(palanca, campaniaId);
 
-                if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca)) return RedirectToAction("Index", "Ofertas");
+                if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca))
+                    return RedirectToAction("Index", "Ofertas");
 
                 DetalleEstrategiaFichaModel modelo;
                 if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
                 {
                     var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
-                    if (estrategiaPresonalizada == null) return RedirectToAction("Index", "Ofertas");
+                    if (estrategiaPresonalizada == null)
+                        return RedirectToAction("Index", "Ofertas");
+
                     modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
                     if (palanca == Constantes.NombrePalanca.PackNuevas)
                     {
@@ -276,13 +281,9 @@ namespace Portal.Consultoras.Web.Controllers
                     modelo.TeQuedan = _ofertaDelDiaProvider.CountdownOdd(userData).TotalSeconds;
                     modelo.TieneReloj = true;
 
-                    var sessionODD = sessionManager.OfertaDelDia.Estrategia;
-                    if (sessionODD != null)
-                    {
-                        modelo.ColorFondo1 = sessionODD.ColorFondo1;
-                        modelo.ConfiguracionContenedor = sessionODD.ConfiguracionContenedor;
-                    }
-
+                    var sessionODD = (DataModel)sessionManager.OfertaDelDia.Estrategia.Clone();
+                    modelo.ColorFondo1 = sessionODD.ColorFondo1;
+                    modelo.ConfiguracionContenedor = (ConfiguracionSeccionHomeModel)sessionODD.ConfiguracionContenedor.Clone();
                     modelo.ConfiguracionContenedor = modelo.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
                     modelo.ConfiguracionContenedor.ColorFondo = "#fff";
                     modelo.ConfiguracionContenedor.ColorTexto = "#000";
@@ -308,7 +309,7 @@ namespace Portal.Consultoras.Web.Controllers
             breadCrumbs.Inicio.Texto = "Inicio";
             breadCrumbs.Inicio.Url = Url.Action("Index", new { controller = "Bienvenida", area });
             //
-            breadCrumbs.Ofertas.Texto = tieneRevistaDigital ? "Club Gana +" : "Ofertas";
+            breadCrumbs.Ofertas.Texto = tieneRevistaDigital && revistaDigital.EsSuscrita ? "Club Gana +" : "Ofertas";
             var actionOfertas = productoPerteneceACampaniaActual ? "Index" : "Revisar";
             breadCrumbs.Ofertas.Url = Url.Action(actionOfertas, new { controller = "Ofertas", area });
             //
@@ -321,8 +322,8 @@ namespace Portal.Consultoras.Web.Controllers
                     breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "ShowRoom", area });
                 if (palanca == Constantes.NombrePalanca.Lanzamiento)
                 {
-                    var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
-                    breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area });
+                    var actionPalanca = productoPerteneceACampaniaActual ? "Index" : "Revisar";
+                    breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area }) + "#LAN";
                 }
                 if (palanca == Constantes.NombrePalanca.OfertaParaTi ||
                     palanca == Constantes.NombrePalanca.OfertasParaMi ||
@@ -332,12 +333,9 @@ namespace Portal.Consultoras.Web.Controllers
                     breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "RevistaDigital", area });
                 }
                 if (palanca == Constantes.NombrePalanca.OfertaDelDia)
-                    breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area });
+                    breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#ODD";
                 if (palanca == Constantes.NombrePalanca.GuiaDeNegocioDigitalizada)
-                {
-                    var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
-                    breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "GuiaNegocio", area });
-                }
+                    breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "GuiaNegocio", area });
                 if (palanca == Constantes.NombrePalanca.HerramientasVenta)
                 {
                     var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
@@ -356,7 +354,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             NombrePalancas.Add(Constantes.NombrePalanca.ShowRoom, "Especiales");
             NombrePalancas.Add(Constantes.NombrePalanca.Lanzamiento, "Lo nuevo Nuevo");
-            NombrePalancas.Add(Constantes.NombrePalanca.OfertaParaTi, "Oferta para ti");
+            NombrePalancas.Add(Constantes.NombrePalanca.OfertaParaTi, "Ofertas para ti");
             NombrePalancas.Add(Constantes.NombrePalanca.OfertasParaMi, "Ofertas Para ti");
             NombrePalancas.Add(Constantes.NombrePalanca.RevistaDigital, "Revista Digital");
             NombrePalancas.Add(Constantes.NombrePalanca.OfertaDelDia, "Sólo Hoy");
@@ -421,7 +419,10 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento:
                     result = Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage;
                     break;
-                    //Mobile
+                case Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor:
+                    result = Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedorPopup;
+                    break;
+                //Mobile
                 case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
                     result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomePopUp;
                     break;
@@ -461,6 +462,9 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.OrigenPedidoWeb.HVDesktopLanding:
                     result = Constantes.OrigenPedidoWeb.HVDesktopLandingPopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.HVDesktopContenedor:
+                    result = Constantes.OrigenPedidoWeb.HVDesktopContenedorPopup;
                     break;
                 //SR
                 case Constantes.OrigenPedidoWeb.ShowRoomDesktopHome:

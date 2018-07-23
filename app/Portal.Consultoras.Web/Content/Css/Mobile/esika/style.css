@@ -4564,7 +4564,14 @@ table > thead > tr > th {
     width: 77px;
     height: 76px;
     border-radius: 100px;
-    overflow: hidden;
+    position:relative;
+    background-color:rgba(229,229,229,1);
+    background-image:url('../../../Images/icono_avatar.svg');
+    background-repeat:no-repeat;
+    background-position: center 12px;
+    background-size: 75%;
+    border-radius:100%;
+    overflow:hidden;
 }
 
     .foto_usuaria_mobile img {
@@ -4572,13 +4579,103 @@ table > thead > tr > th {
     }
 
 .subir_foto_mobile {
-    background: url('../../../Images/mobile/Esika/camara.png') no-repeat top center;
+    background-image: url('../../../Images/mobile/icono_editar_foto_perfil.svg');
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:63%;
     width: 26px;
     height: 26px;
     position: absolute;
     z-index: 100;
     top: 0;
-    margin-left: 56px;
+    right:-6px;
+    border-radius:100%;
+    text-decoration:none;
+    color:#FFF;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+    .subir_foto_mobile:hover{
+        text-decoration:none;
+        color:#FFF;
+        background-color:#bf0d24;
+    }
+
+.subir_foto_mobile_menu{
+    right: 6px;
+    top: -1px;
+}
+
+.foto_usuaria_mobile,
+.icono_info_alerta,
+.tooltip_texto
+{
+    display: inline-block;
+    vertical-align:top;
+}
+
+.icono_info_alerta{
+    width: 20px;
+    height: 20px;
+    background-image: url(../../../Images/Esika/icono_info_alerta.svg);
+    margin-right: 5px;
+}
+
+.tooltip_info_revision_correo {
+    width: 100%;
+    min-width: 285px;
+    max-width:300px;
+    min-height: 70px;
+    padding: 17px 12px;
+    position: absolute;
+    top: 97%;
+    left: 0;
+    border:1px solid #dcdcdc;
+    background-color: #FFF;
+    z-index: 4;
+    -moz-box-shadow: 0 1px 8px 1px rgba(150, 150, 150, 0.5);
+    -webkit-box-shadow: 0 1px 8px 1px rgba(150, 150, 150, 0.5);
+    box-shadow: 0 1px 8px 1px rgba(150, 150, 150, 0.5);
+}
+
+.tooltip_info_revision_correo:after, .tooltip_info_revision_correo:before {
+	bottom: 100%;
+    left: 37px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.tooltip_info_revision_correo:after {
+	border-color: rgba(136, 183, 213, 0);
+    border-bottom-color: #FFF;
+    border-width: 8px;
+    margin-left: -8px;
+}
+
+.tooltip_info_revision_correo:before {
+	border-color: rgba(204, 204, 204, 0);
+	border-bottom-color: #dcdcdc;
+	border-width: 9px;
+	margin-left: -9px;
+}
+
+.tooltip_texto{
+    width:88%;
+    text-transform:initial;
+}
+
+.tooltip_texto p{
+    margin:0;
+    padding:0;
+    text-align:left;
+    font-size:12.5px;
 }
 
 .content_resumen_dato_mobile {
@@ -5214,7 +5311,7 @@ table > thead > tr > th {
     padding-top: 8px;
     padding-bottom: 8px;
     display: block;
-    background: url('../../../Images/mobile/Esika/mas_footer.png') no-repeat right center;
+    background: url('../../../Images/mobile/Esika/mas_footer.png') no-repeat right 12px center;
 }
 
 .menu_footer_menos {
@@ -5228,7 +5325,7 @@ table > thead > tr > th {
     padding-top: 8px;
     padding-bottom: 8px;
     display: block;
-    background: url('../../../Images/mobile/Esika/menos_footer.png') no-repeat right center;
+    background: url('../../../Images/mobile/Esika/menos_footer.png') no-repeat right 12px center;
 }
 
 .menu_footer:hover {
@@ -14939,6 +15036,104 @@ a {
     padding: 10px !important;
 }
 
+/* HD-2524 - POPUP OPTIN (VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE) */
+
+.w-100{
+    width:100%;
+}
+
+.text-bold{
+    font-weight:bold;
+}
+
+.text-center{
+    text-align:center;
+    overflow:initial!important;
+}
+
+.w-100,
+.popup_correo_pendiente_de_confirmar,
+.titulo_correo_pendiente_confirmacion,
+.icono_correo_sobre,
+.envio_instrucciones_info,
+.enlace_reenviar_instrucciones,
+.cambiar_correo_info
+{
+    display:block;
+}
+
+.popup_correo_pendiente_de_confirmar{
+    margin:0 auto;
+    max-width: 290px;
+    background-color: #FFF;
+    padding: 28.3px 17px 15px;
+    position: absolute;
+    top: 14%;
+    left: 9px;
+    right: 0;
+}
+
+.titulo_correo_pendiente_confirmacion,
+.icono_correo_sobre
+{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.titulo_correo_pendiente_confirmacion{
+    margin-top:0;
+    font-size:16px;
+    line-height:23px;
+    font-family:'Lato', sans-serif;
+    color:#000;
+    font-weight:300!important;
+    margin-top:0;
+    font-size:16px;
+    line-height:23px;
+}
+
+.icono_correo_sobre{
+    margin-bottom:13.5px;
+    background-size:100%;
+    width:78px;
+    height:46px;
+    background-image:url('../../../Images/Esika/icono_envelope.svg');
+}
+
+.icono_correo_sobre img{
+    width:100%;
+    height:auto;
+}
+
+.envio_instrucciones_info{
+    margin-bottom:50px;
+    font-size:14px;
+    line-height:18px;
+    margin-top:0;
+    margin-left:0;
+    margin-right:0;
+    margin-bottom:35px;
+    padding:0;
+}
+
+.envio_instrucciones_info span:first-child{
+    margin-bottom:7px;
+}
+
+.envio_instrucciones_info span:last-child{
+    font-size:15px;
+}
+
+.enlace_reenviar_instrucciones{
+    font-size:13px;
+    text-decoration:underline;
+}
+
+.cambiar_correo_info{
+    font-size:12px;
+}
+
+/* FIN - HD-2524 - POPUP OPTIN (VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE) */
 /* HD-2513 - 50 AÑOS BELCORP */
 
 .agregarBackgroundCincuentaAniosBelcorp{
@@ -15078,3 +15273,37 @@ a {
 }
 
 /* FIN - HD-2430 -  ACEPTAR TYC OBLIGATORIO MOBILE */
+
+/* STYLE OF AUTOCOMPLETE */
+.autocomplete {
+    position: relative;
+    display: inline-block;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+    .autocomplete-items div {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #fff;
+        border-bottom: 1px solid #d4d4d4;
+    }
+
+        .autocomplete-items div:hover {
+            background-color: #e9e9e9;
+        }
+
+.autocomplete-active {
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}
+/* FIN STYLE OF AUTOCOMPLETE */

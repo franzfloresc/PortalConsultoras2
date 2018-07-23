@@ -45,7 +45,7 @@
                         </div>
                         <div class="nombre_oferta_odd">{{prod.DescripcionCompleta}}</div>
                         <div class="precios_odd">
-                            {{#iff Precio '>' 0}}
+                            {{#iff prod.Precio '>' 0}}
                             <span class="precio_valorizado_odd">{{SimboloMoneda}} {{prod.PrecioTachado}}</span>
                             {{/iff}}
                             <span class="precio_venta_odd">{{SimboloMoneda}} {{prod.PrecioVenta}}</span>
@@ -68,7 +68,7 @@
                                     </div>
                                 </div>
                                 <a id="btnAgregalo"
-                                   class="btn_agregalo btn_agregalo_odd"
+                                   class="btn_agregalo_odd"
                                    @*data-btn-agregar-sr=""*@
                                    href="javascript:;"
                                    onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, true, 1);">AGRÉGALO</a>

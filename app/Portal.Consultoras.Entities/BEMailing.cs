@@ -34,30 +34,14 @@ namespace Portal.Consultoras.Entities
 
         public BEMailing(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "PlantillaID"))
-                PlantillaID = Convert.ToInt32(row["PlantillaID"]);
-
-            if (DataRecord.HasColumn(row, "PaisID"))
-                PaisID = Convert.ToInt32(row["PaisID"]);
-
-            if (DataRecord.HasColumn(row, "NombrePais"))
-                NombrePais = Convert.ToString(row["NombrePais"]);
-
-            if (DataRecord.HasColumn(row, "PlantillaDetalle"))
-                PlantillaDetalle = Convert.ToString(row["PlantillaDetalle"]);
-
-            if (DataRecord.HasColumn(row, "UsuarioCreacion"))
-                UsuarioCreacion = Convert.ToString(row["UsuarioCreacion"]);
-
-            if (DataRecord.HasColumn(row, "FechaCreacion"))
-                FechaCreacion = Convert.ToDateTime(row["FechaCreacion"]);
-
-            if (DataRecord.HasColumn(row, "UsuarioModificacion"))
-                UsuarioModificacion = Convert.ToString(row["UsuarioModificacion"]);
-
-            if (DataRecord.HasColumn(row, "FechaModificacion"))
-                FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-
+            PlantillaID = row.ToInt32("PlantillaID");
+            PaisID = row.ToInt32("PaisID");
+            NombrePais = row.ToString("NombrePais");
+            PlantillaDetalle = row.ToString("PlantillaDetalle");
+            UsuarioCreacion = row.ToString("UsuarioCreacion");
+            FechaCreacion = row.ToDateTime("FechaCreacion");
+            UsuarioModificacion = row.ToString("UsuarioModificacion");
+            FechaModificacion = row.ToDateTime("FechaModificacion");
         }
     }
 

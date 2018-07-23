@@ -859,7 +859,8 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     prodModel.Precio = 0;
                     prodModel.Ganancia = 0;
-                    if (estrategia.Precio2 > 0 && !string.IsNullOrWhiteSpace(estrategia.Niveles))
+                    estrategia.Niveles = Util.Trim(estrategia.Niveles);
+                    if (estrategia.Precio2 > 0 && estrategia.Niveles != "")
                     {
                         try
                         {
@@ -888,7 +889,12 @@ namespace Portal.Consultoras.Web.Providers
                         }
                     }
 
-                    prodModel.PrecioNiveles = estrategia.Niveles ?? string.Empty;
+                    prodModel.ListaPrecioNiveles = new List<string>();
+                    if (estrategia.Niveles != "" )
+                    {
+                        prodModel.ListaPrecioNiveles = estrategia.Niveles.Split('|').ToList();
+                    }
+                    
                 }
 
                 if (estrategia.Hermanos!=null)
@@ -1058,7 +1064,6 @@ namespace Portal.Consultoras.Web.Providers
                                 item.Hermanos = new List<EstrategiaComponenteModel>();
                                 componentesRelacinados.ForEach(componente =>
                                 {
-
                                     if (componente.CUV != item.CUV2 && lineasPorCaja > 0 && !string.IsNullOrEmpty(componente.NombreProducto))
                                     {
                                         item.Hermanos.Add(new EstrategiaComponenteModel()
@@ -1111,7 +1116,8 @@ namespace Portal.Consultoras.Web.Providers
                     tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada); break;
                 case Constantes.NombrePalanca.HerramientasVenta:
                     {
-                        return revistaDigital.TieneRDC || revistaDigital.TieneRDCR;
+                        tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.HerramientasVenta); break;
+                        //return revistaDigital.TieneRDC || revistaDigital.TieneRDCR || revistaDigital.TieneRDI;
                     }
                 case Constantes.NombrePalanca.ShowRoom:
                     tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.ShowRoom); break;

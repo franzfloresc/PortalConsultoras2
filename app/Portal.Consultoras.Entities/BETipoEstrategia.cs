@@ -115,59 +115,25 @@ namespace Portal.Consultoras.Entities
         [Obsolete("Use MapUtil.MapToCollection")]
         public BETipoEstrategia(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "TipoEstrategiaID"))
-                TipoEstrategiaID = Convert.ToInt32(row["TipoEstrategiaID"]);
-
-            if (DataRecord.HasColumn(row, "DescripcionEstrategia"))
-                DescripcionEstrategia = Convert.ToString(row["DescripcionEstrategia"]);
-
-            if (DataRecord.HasColumn(row, "DescripcionOferta"))
-                DescripcionOferta = Convert.ToString(row["DescripcionOferta"]);
-
-            if (DataRecord.HasColumn(row, "Orden"))
-                Orden = Convert.ToInt32(row["Orden"]);
-
-            if (DataRecord.HasColumn(row, "FlagActivo"))
-                FlagActivo = Convert.ToInt32(row["FlagActivo"]);
-
+            TipoEstrategiaID = row.ToInt32("TipoEstrategiaID");
+            DescripcionEstrategia = row.ToString("DescripcionEstrategia");
+            DescripcionOferta = row.ToString("DescripcionOferta");
+            Orden = row.ToInt32("Orden");
+            FlagActivo = row.ToInt32("FlagActivo");
             if (DataRecord.HasColumn(row, "OfertaID") )
                 OfertaID = Convert.ToString(row["OfertaID"]);
-
-            if (DataRecord.HasColumn(row, "ImagenEstrategia"))
-                ImagenEstrategia = Convert.ToString(row["ImagenEstrategia"]);
-
-            if (DataRecord.HasColumn(row, "FlagNueva"))
-                FlagNueva = Convert.ToInt32(row["FlagNueva"]);
-
-            if (DataRecord.HasColumn(row, "FlagRecoPerfil"))
-                FlagRecoPerfil = Convert.ToInt32(row["FlagRecoPerfil"]);
-
-            if (DataRecord.HasColumn(row, "FlagRecoProduc"))
-                FlagRecoProduc = Convert.ToInt32(row["FlagRecoProduc"]);
-
-            if (DataRecord.HasColumn(row, "CodigoPrograma"))
-                CodigoPrograma = Convert.ToString(row["CodigoPrograma"]);
-
-            if (DataRecord.HasColumn(row, "FlagMostrarImg"))
-                FlagMostrarImg = Convert.ToInt32(row["FlagMostrarImg"]);
-
-            if (DataRecord.HasColumn(row, "CodigoGeneral"))
-                CodigoGeneral = Convert.ToInt32(row["CodigoGeneral"]);
-
-            if (DataRecord.HasColumn(row, "Codigo"))
-                Codigo = Convert.ToString(row["Codigo"]);
-
-            if (DataRecord.HasColumn(row, "MostrarImgOfertaIndependiente"))
-                MostrarImgOfertaIndependiente = Convert.ToBoolean(row["MostrarImgOfertaIndependiente"]);
-
-            if (DataRecord.HasColumn(row, "ImagenOfertaIndependiente"))
-                ImagenOfertaIndependiente = Convert.ToString(row["ImagenOfertaIndependiente"]);
-
-            if (DataRecord.HasColumn(row, "FlagValidarImagen"))
-                FlagValidarImagen = Convert.ToInt32(row["FlagValidarImagen"]);
-
-            if (DataRecord.HasColumn(row, "PesoMaximoImagen"))
-                PesoMaximoImagen = Convert.ToInt32(row["PesoMaximoImagen"]);
+            ImagenEstrategia = row.ToString("ImagenEstrategia");
+            FlagNueva = row.ToInt32("FlagNueva");
+            FlagRecoPerfil = row.ToInt32("FlagRecoPerfil");
+            FlagRecoProduc = row.ToInt32("FlagRecoProduc");
+            CodigoPrograma = row.ToString("CodigoPrograma");
+            FlagMostrarImg = row.ToInt32("FlagMostrarImg");
+            CodigoGeneral = row.ToInt32("CodigoGeneral");
+            Codigo = row.ToString("Codigo");
+            MostrarImgOfertaIndependiente = row.ToBoolean("MostrarImgOfertaIndependiente");
+            ImagenOfertaIndependiente = row.ToString("ImagenOfertaIndependiente");
+            FlagValidarImagen = row.ToInt32("FlagValidarImagen");
+            PesoMaximoImagen = row.ToInt32("PesoMaximoImagen");
         }
 
         public BETipoEstrategia()

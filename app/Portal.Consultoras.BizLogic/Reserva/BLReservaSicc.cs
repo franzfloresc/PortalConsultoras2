@@ -35,7 +35,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             if (respuestaSicc == null || respuestaSicc.exitCode == 1)
             {
                 LogManager.SaveLog(new CustomTraceException(Constantes.MensajesError.Reserva_Prol3, ""), input.CodigoConsultora, input.PaisISO);
-                return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_Error, false);
+                return new BEResultadoReservaProl(Constantes.MensajesError.Pedido_Reserva, false);
             }
                         
             var resultado = new BEResultadoReservaProl

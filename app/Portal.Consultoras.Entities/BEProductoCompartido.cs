@@ -31,12 +31,12 @@ namespace Portal.Consultoras.Entities
 
         public BEProductoCompartido(IDataRecord row)
         {
-            this.PcID = Convert.ToInt32(row["ProductoCompID"]);
-            this.PcCampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            this.PcCuv = Convert.ToString(row["CUV"]);
-            this.PcPalanca = Convert.ToString(row["Palanca"]);
-            this.PcDetalle = Convert.ToString(row["Detalle"]);
-            this.PcApp = Convert.ToString(row["Applicacion"]);
+            PcID = Convert.ToInt32(row["ProductoCompID"]);
+            PcCampaniaID = Convert.ToInt32(row["CampaniaID"]);
+            PcCuv = Convert.ToString(row["CUV"]);
+            PcPalanca = Convert.ToString(row["Palanca"]);
+            PcDetalle = Convert.ToString(row["Detalle"]);
+            PcApp = Convert.ToString(row["Applicacion"]);
         }
     }
 }

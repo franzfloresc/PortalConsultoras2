@@ -18,10 +18,8 @@ namespace Portal.Consultoras.Entities
 
         public BEFechaNoHabilFacturacion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoZona"))
-                CodigoZona = Convert.ToString(row["CodigoZona"]);
-            if (DataRecord.HasColumn(row, "Fecha"))
-                Fecha = Convert.ToDateTime(row["Fecha"]);
+            CodigoZona = row.ToString("CodigoZona");
+            Fecha = row.ToDateTime("Fecha");
         }
     }
 }
