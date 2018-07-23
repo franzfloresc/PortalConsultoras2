@@ -219,8 +219,8 @@
             }
         }
         else if (estrategia.Hermanos.length > 1) {
-            if (estrategia.codigoVariante == _codigoVariedad.IndividualVariable) {
-                estrategia.codigoVariante = _codigoVariedad.ComuestaFija;
+            if (estrategia.CodigoVariante == _codigoVariedad.IndividualVariable) {
+                estrategia.CodigoVariante = _codigoVariedad.ComuestaFija;
             }
         }
         else if (estrategia.Hermanos.length == 0) {
