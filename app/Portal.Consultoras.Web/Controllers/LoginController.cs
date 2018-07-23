@@ -6,7 +6,6 @@ using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
@@ -40,13 +39,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
         protected ILogManager logManager = LogManager.LogManager.Instance;
-
-        public bool UsarMsPer(string TipoEstrategiaCodigo,string CodigoISO)
-        {
-            bool paisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion.Contains(CodigoISO);
-            bool tipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(TipoEstrategiaCodigo);
-            return paisHabilitado && tipoEstrategiaHabilitado;
-        }
 
         #region Constructor
 

@@ -261,7 +261,6 @@ namespace Portal.Consultoras.Common
             public const string ParticipaProgramaNuevas = "ParticipaProgramaNuevas";
             public const string NotParticipaProgramaNuevas = "NotParticipaProgramaNuevas";
         }
-
         public static class ConstSession
         {
             public const string IngresoPortalLideres = "IngresoPortalLideres";
@@ -2312,7 +2311,6 @@ namespace Portal.Consultoras.Common
             public const string EnviarPorEmail = "Email";
             public const string EnviarPorSms = "SMS";
         }
-
         #endregion  
 
         public static class ValidacionDatosEstado
@@ -2321,7 +2319,6 @@ namespace Portal.Consultoras.Common
             public const string Activo = "A";
         }
         
-
         public class TipoConsultaOfertaPersonalizadas
         {
             public const int RDObtenerProductos = 1;
@@ -2330,7 +2327,6 @@ namespace Portal.Consultoras.Common
             public const int HVObtenerProductos = 4;
             public const int OPTObtenerProductos = 5;
         };
-
 
         public class PersonalizacionOfertasService
         {
@@ -2388,6 +2384,7 @@ namespace Portal.Consultoras.Common
             #endregion
         }
 
-    }
 
+
+    }
 }

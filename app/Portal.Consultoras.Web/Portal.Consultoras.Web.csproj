@@ -5537,10 +5537,6 @@
       <Project>{136fa1d7-ab98-4ffa-8c03-c011d34d8d27}</Project>
       <Name>Portal.Consultoras.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Portal.Consultoras.Entities\Portal.Consultoras.Entities.csproj">
-      <Project>{2A3B50DF-C243-4D7D-B8C0-E4E6C9C6C8D9}</Project>
-      <Name>Portal.Consultoras.Entities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Portal.Consultoras.Service\Portal.Consultoras.Service.csproj">
       <Project>{B3AD057A-2326-4F70-8723-0B2B3AFCE4EA}</Project>
       <Name>Portal.Consultoras.Service</Name>

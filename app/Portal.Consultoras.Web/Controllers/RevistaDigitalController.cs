@@ -87,34 +87,6 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-
-
-        [HttpPost]
-        public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
-        {
-            if (modelo != null)
-            {
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                modelo.ClaseBloqueada = Util.Trim(modelo.ClaseBloqueada);
-                modelo.ClaseEstrategia = Util.Trim(modelo.ClaseEstrategia);
-                modelo.CodigoEstrategia = Util.Trim(modelo.CodigoEstrategia);
-                modelo.DescripcionResumen = Util.Trim(modelo.DescripcionResumen);
-                modelo.DescripcionDetalle = Util.Trim(modelo.DescripcionDetalle);
-                modelo.DescripcionCompleta = Util.Trim(modelo.DescripcionCompleta);
-                modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
-                modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
-                modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
-                modelo.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, modelo.FotoProducto01);
-            }
-
-            sessionManager.SetProductoTemporal(modelo);
-
-            return Json(new
-            {
-                success = true
-            }, JsonRequestBehavior.AllowGet);
-        }
-
         public ActionResult Detalle(string cuv, int campaniaId)
         {
             try
@@ -141,7 +113,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return PartialView("template-mensaje-bloqueado", new MensajeProductoBloqueadoModel());
         }
-
 
         [HttpPost]
         public JsonResult Suscripcion()
@@ -249,6 +220,77 @@ namespace Portal.Consultoras.Web.Controllers
             return "";
         }
 
+        //private string RegistroSuscripcionValidar(int tipo)
+        //{
+        //    var diasFaltanFactura = _baseProvider.GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
+        //    switch (tipo)
+        //    {
+        //        case Constantes.EstadoRDSuscripcion.Activo:
+        //            if (!revistaDigital.TieneRDC)
+        //                return "Por el momento no está habilitada la suscripción a " + revistaDigital.NombreComercialActiva + ", gracias.";
+
+        //            if (revistaDigital.EsSuscrita)
+        //                return "Usted ya está suscrito a " + revistaDigital.NombreComercialActiva + ", gracias.";
+
+        //            if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar && revistaDigital.BloquearDiasAntesFacturar > 0)
+        //            {
+        //                return "Lo sentimos no puede suscribirse a " + revistaDigital.NombreComercialActiva + ", porque "
+        //                    + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "mañana" : "en " + diasFaltanFactura + " días ")
+        //                    + " es cierre de campaña.";
+        //            }
+        //            break;
+        //        case Constantes.EstadoRDSuscripcion.Desactivo:
+        //            if (!revistaDigital.TieneRDC)
+        //                return "Por el momento no está habilitada la desuscripción a " + revistaDigital.NombreComercialActiva + ", gracias.";
+
+        //            if (!revistaDigital.EsSuscrita)
+        //                return "Lo sentimos no se puede desuscribirse a " + revistaDigital.NombreComercialActiva + ", gracias.";
+
+        //            if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar && revistaDigital.BloquearDiasAntesFacturar > 0)
+        //            {
+        //                return "Lo sentimos no puede desuscribirse a " + revistaDigital.NombreComercialActiva + ", porque "
+        //                    + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "mañana" : "en " + diasFaltanFactura + " días ")
+        //                    + " es cierre de campaña.";
+        //            }
+        //            break;
+        //        case Constantes.EstadoRDSuscripcion.NoPopUp:
+        //            if (!revistaDigital.TieneRDC)
+        //                return "Por el momento no está habilitada esta acción, gracias.";
+
+        //            if (revistaDigital.EsSuscrita)
+        //                return "Lo sentimos no se puede ejecutar esta acción, gracias.";
+
+        //            if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar && revistaDigital.BloquearDiasAntesFacturar > 0)
+        //            {
+        //                return "Lo sentimos no puede ejecutar esta acción, porque "
+        //                    + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "mañana" : "en " + diasFaltanFactura + " días ")
+        //                    + " es cierre de campaña.";
+        //            }
+        //            break;
+        //        default:
+        //            return "Lo sentimos no se puede ejecutar esta acción, gracias.";
+        //    }
+
+        //    return "";
+        //}
+
+        //private void RegistroSuscripcionVirtualCoach()
+        //{
+        //    if (revistaDigital.SubscripcionAutomaticaAVirtualCoach)
+        //    {
+        //        var asesoraOnLine = new BEAsesoraOnline
+        //        {
+        //            CodigoConsultora = userData.CodigoConsultora,
+        //            ConfirmacionInscripcion = 1,
+        //            Origen = Constantes.RevistaDigitalOrigen.RD
+        //        };
+        //        using (var sv = new AsesoraOnlineServiceClient())
+        //        {
+        //            sv.EnviarFormulario(userData.CodigoISO, asesoraOnLine);
+        //        }
+        //    }
+        //}
+
         [HttpPost]
         public JsonResult PopupCerrar()
         {
@@ -339,8 +381,8 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                modelo.ImagenEtiqueta = ConfigS3.GetUrlFileS3(carpetaPais, modelo.ImagenEtiqueta, String.Empty);
-                modelo.ImagenPublicidad = ConfigS3.GetUrlFileS3(carpetaPais, modelo.ImagenPublicidad, String.Empty);
+                modelo.ImagenEtiqueta = ConfigCdn.GetUrlFileCdn(carpetaPais, modelo.ImagenEtiqueta);
+                modelo.ImagenPublicidad = ConfigCdn.GetUrlFileCdn(carpetaPais, modelo.ImagenPublicidad);
 
                 var transparent = "transparent";
                 modelo.MensajeColor = Util.ColorFormato(modelo.MensajeColor, transparent);
@@ -475,6 +517,8 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.ShowRoom.Ofertas = null;
             sessionManager.ShowRoom.OfertasSubCampania = null;
             sessionManager.ShowRoom.OfertasPerdio = null;
+            sessionManager.ShowRoom.CargoOfertas = "0";
+            //sessionManager.OfertaDelDia.Estrategia = null;
 
             //Limpia cache de Redis
             using (PedidoServiceClient sv = new PedidoServiceClient())
