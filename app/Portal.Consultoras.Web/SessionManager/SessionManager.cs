@@ -506,7 +506,7 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (PagoEnLineaModel)HttpContext.Current.Session[Constantes.ConstSession.DatosPagoVisa];
         }
-       
+        
         void ISessionManager.SetListadoEstadoCuenta(List<EstadoCuentaModel> model)
         {
             HttpContext.Current.Session["ListadoEstadoCuenta"] = model;
@@ -565,27 +565,6 @@ namespace Portal.Consultoras.Web.SessionManager
         List<ServiceUsuario.BEUsuario> ISessionManager.getBEUsuarioModel()
         {
             return (List<ServiceUsuario.BEUsuario>)HttpContext.Current.Session["BEUsuarioModel"];
-        }
-
-        void ISessionManager.SetOfertasDelDia(OfertaDelDiaModel ofertasDelDia)
-        {
-            HttpContext.Current.Session["ListaOfertasDelDia"] = ofertasDelDia;
-        }
-
-        OfertaDelDiaModel ISessionManager.GetOfertasDelDia()
-        {
-            return (OfertaDelDiaModel)HttpContext.Current.Session["ListaOfertasDelDia"];
-        }
-
-        void ISessionManager.SetFlagOfertaDelDia(int ofertasDelDia)
-        {
-            HttpContext.Current.Session["FlagOfertaDelDia"] = ofertasDelDia;
-        }
-
-        bool ISessionManager.GetFlagOfertaDelDia()
-        {
-            var value = HttpContext.Current.Session["FlagOfertaDelDia"];
-            return value == null ? true : Convert.ToBoolean(value);
         }
 
         EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal

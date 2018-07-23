@@ -261,7 +261,6 @@ namespace Portal.Consultoras.Common
             public const string ParticipaProgramaNuevas = "ParticipaProgramaNuevas";
             public const string NotParticipaProgramaNuevas = "NotParticipaProgramaNuevas";
         }
-
         public static class ConstSession
         {
             public const string IngresoPortalLideres = "IngresoPortalLideres";
@@ -2319,7 +2318,7 @@ namespace Portal.Consultoras.Common
             public const string Pendiente = "P";
             public const string Activo = "A";
         }
-
+        
         public class TipoConsultaOfertaPersonalizadas
         {
             public const int RDObtenerProductos = 1;

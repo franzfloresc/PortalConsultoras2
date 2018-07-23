@@ -112,7 +112,6 @@ namespace Portal.Consultoras.Entities
             UnidadGeografica2 = row.ToString("UnidadGeografica2");
             UnidadGeografica3 = row.ToString("UnidadGeografica3");
             CampaniaActualID = row.ToInt32("CampaniaActualID");
-            IdEstadoActividad = row.ToInt32("IdEstadoActividad");
         }
     }
 }

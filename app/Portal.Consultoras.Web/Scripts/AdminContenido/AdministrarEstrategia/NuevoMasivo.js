@@ -90,8 +90,8 @@
             hidegrid: false,
             datatype: "json",
             postData: ({
-                campaniaId: $("#ddlCampania").val(),
-                codigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
+                CampaniaID: $("#ddlCampania").val(),
+                CodigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
