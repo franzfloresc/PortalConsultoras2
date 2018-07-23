@@ -4089,7 +4089,7 @@
         waitingDialog();
         jQuery.ajax({
             type: "POST",
-            url: urlDeshabilitarShowRoomEvento,
+            url: _config.urlDeshabilitarShowRoomEvento,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(item),
