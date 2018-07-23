@@ -385,8 +385,8 @@
 
     var _obtenerFiltrarEstrategiaSuccess = function (editData, id) {
         return function (data, textStatus, jqXHR) {
-          
-            if (data.success == false) {
+
+           if (data.success == false) {
                 _toastHelper.success(data.message);
                 closeWaitingDialog();
                 return false;
@@ -540,7 +540,7 @@
             _editData.imagen = _obtenerImagenGrilla(id);
 
             if (data.FlagEstrella == "1") $("#chkOfertaUltimoMinuto").attr("checked", true);
-            else $("#chkOfertaUltimoMinuto").attr("checked", false);
+            else $("#chkEstrella").attr("checked", false);
             $(".checksPedidosAsociados")
                 .append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' +
                 data.NumeroPedido +
@@ -819,9 +819,10 @@
                 success: function (data) {
                     var objPreview, objChkImagen, idImagen, dataImagen;
                     $("#mensajeErrorCUV").val("");
-                    
+
                     if (data.message == "OK") {
                         $("#txtDescripcion").val(data.descripcion);
+
                         if (data.wsprecio > 0) {
                             $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
                             $("#txtPrecio").val(data.precio);
@@ -846,7 +847,7 @@
                      
                         _editData.CUV2 = $("#txtCUV2").val();
                         _editData.CodigoSAP = data.codigoSAP;
-                        _editData.IdMatrizComercial = data.IdMatrizComercial;
+                        _editData.IdMatrizComercial = data.idMatrizComercial;
                         _editData.imagenes = [];
                         _editData.imagen = _obtenerImagenGrilla(_idImagen);
 
@@ -1142,7 +1143,6 @@
         }
         return true;
     }
-
     var _fnGrilla = function () {
         $("#divSeccionProductos").show();
         $("#list").jqGrid("GridUnload");
@@ -3915,7 +3915,7 @@
     function Editar(id, mongoId, tipoEstrategiaCodigo, event) {
         event.preventDefault();
         event.stopPropagation();
-        
+
         if (id != 0)
             _variables.isNuevo = false;
 
@@ -3932,7 +3932,6 @@
                 EstrategiaID: $("#hdEstrategiaID").val(),
                 TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                 CampaniaID: $("#ddlCampania").val(),
-                //IdMatrizComercial: $("").val(),
                 ValidarImagen: $("#ddlTipoEstrategia option:selected").attr("data-FValidarImagen"),
                 PesoMaximo: $("#ddlTipoEstrategia option:selected").attr("data-PesoMaximo"),
                 mongoIdP: mongoId,

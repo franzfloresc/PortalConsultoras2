@@ -13,7 +13,6 @@ namespace Portal.Consultoras.Common
         private static readonly string BUCKET_NAME_QAS = System.Configuration.ConfigurationManager.AppSettings["BUCKET_NAME_QAS"];
         private static readonly string ROOT_DIRECTORY = System.Configuration.ConfigurationManager.AppSettings["ROOT_DIRECTORY"];
         private static readonly string URL_S3 = System.Configuration.ConfigurationManager.AppSettings["URL_S3"];
-
         //private static readonly string rutaRevistaDigital = System.Configuration.ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.CarpetaRevistaDigital] ?? string.Empty;
 
         //public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior = "")
@@ -24,6 +23,7 @@ namespace Portal.Consultoras.Common
 
         //    if (fileName.StartsWith(URL_S3))
         //        return fileName;
+
         //    if (fileName.StartsWith("http:/"))
         //        return fileName;
 
@@ -43,6 +43,24 @@ namespace Portal.Consultoras.Common
 
             return URL_S3 + "/" + BUCKET_NAME + "/" + root + carpeta;
         }
+
+        //public static string GetUrlFileRDS3(string carpetaPais, string fileName)
+        //{
+        //    fileName = fileName ?? "";
+        //    if (fileName.StartsWith(URL_S3))
+        //        return fileName;
+
+        //    if (fileName.StartsWith("http:/"))
+        //        return fileName;
+
+        //    if (fileName.StartsWith("https:/"))
+        //        return fileName;
+
+        //    var root = string.IsNullOrEmpty(ROOT_DIRECTORY) ? "" : ROOT_DIRECTORY + "/";
+        //    var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
+
+        //    return URL_S3 + "/" + BUCKET_NAME + "/" + root + "/" + rutaRevistaDigital + "/" + carpeta + fileName;
+        //}
 
         public static void DeleteFileS3(string carpetaPais, string fileName)
         {
@@ -150,11 +168,11 @@ namespace Portal.Consultoras.Common
                 if (s3FileInfo.Exists)
                 {
                     var expiryUrlRequest = new GetPreSignedUrlRequest
-                    {
-                        BucketName = BUCKET_NAME,
-                        Key = root + carpeta + fileName,
-                        Expires = DateTime.Now.AddDays(1)
-                    };
+                {
+                    BucketName = BUCKET_NAME,
+                    Key = root + carpeta + fileName,
+                    Expires = DateTime.Now.AddDays(1)
+                };
 
                     url = client.GetPreSignedURL(expiryUrlRequest);
                 }
@@ -207,6 +225,6 @@ namespace Portal.Consultoras.Common
             {
                 throw ex;
             }
-        }
+        }        
     }
 }
