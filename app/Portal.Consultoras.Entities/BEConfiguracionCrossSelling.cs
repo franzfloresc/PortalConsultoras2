@@ -20,10 +20,8 @@ namespace Portal.Consultoras.Entities
 
         public BEConfiguracionCrossSelling(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "HabilitarDiasValidacion"))
-                HabilitarDiasValidacion = Convert.ToInt32(row["HabilitarDiasValidacion"]);
+            CampaniaID = row.ToInt32("CampaniaID");
+            HabilitarDiasValidacion = row.ToInt32("HabilitarDiasValidacion");
         }
     }
 }

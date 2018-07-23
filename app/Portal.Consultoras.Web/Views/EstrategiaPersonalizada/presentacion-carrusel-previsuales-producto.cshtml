@@ -67,23 +67,23 @@
                         {{/iff}}
                         {{#iff TipoAccionAgregar '!=' '3'}}
                             {{#if ../Mobile}}
-                            <div class="liquidacion_rango_home">
-                                <a class="cantidad_menos_home" tabindex="0" data-bloqueada="{{lan.ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                            <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                                <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0" data-bloqueada="{{lan.ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                                 <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{lan.ClaseBloqueada}}" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" tabindex="0" {{#iff lan.ClaseBloqueada '!=' ''}} disabled="disabled" {{/iff}}>
-                                <a class="cantidad_mas_home" tabindex="0" data-bloqueada="{{lan.ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                                <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0" data-bloqueada="{{lan.ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                             </div>
                             <div class="clear"></div>
                             {{else}}
                             <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                                 <input type="text" value="1" min="1" max="99" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{lan.ClaseBloqueada}}" {{#iff lan.ClaseBloqueada '!=' ''}} disabled="disabled" {{/iff}} oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad" data-cantidad-input="-">
                                 <div class="liquidacion_rango_right_pedido">
-                                    <a class="mas" data-cantidad-agregar="+" href="javascript:;" data-bloqueada="{{lan.ClaseBloqueada}}"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                    <a class="menos" data-cantidad-agregar="-" href="javascript:;" data-bloqueada="{{lan.ClaseBloqueada}}"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                    <a class="mas" data-cantidad-agregar="+" href="javascript:;" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{lan.ClaseBloqueada}}"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a class="menos" data-cantidad-agregar="-" href="javascript:;" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{lan.ClaseBloqueada}}"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                                 </div>
                             </div>
                             {{/if}}
                             <a class="boton_Agregalo_home {{lan.ClaseBloqueada}}" data-bloqueada="{{lan.ClaseBloqueada}}" href="javascript:;" data-campaniaid="{{lan.CampaniaID}}"
-                               onclick="javascript:EstrategiaAgregar(event); ">
+                               onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
                                 AGRÉGALO
                             </a>
                         {{/iff}}

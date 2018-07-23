@@ -31,8 +31,8 @@ namespace Portal.Consultoras.Entities
             RegionID = Convert.ToInt32(row["RegionID"]);
             ZonaID = Convert.ToInt32(row["ZonaID"]);
             TerritorioID = Convert.ToInt32(row["TerritorioID"]);
-            Codigo = row["Codigo"].ToString();
-            Descripcion = row["Descripcion"].ToString();
+            Codigo = Convert.ToString(row["Codigo"]);
+            Descripcion = Convert.ToString(row["Descripcion"]);
             SeccionID = Convert.ToInt32(row["SeccionID"]);
         }
 

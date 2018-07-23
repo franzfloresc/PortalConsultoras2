@@ -23,18 +23,12 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         public BEShowRoomPersonalizacionNivel(IDataRecord row)
         {
-            if (row.HasColumn("PersonalizacionNivelId"))
-                PersonalizacionNivelId = Convert.ToInt32(row["PersonalizacionNivelId"]);
-            if (row.HasColumn("EventoID"))
-                EventoID = Convert.ToInt32(row["EventoID"]);
-            if (row.HasColumn("PersonalizacionId"))
-                PersonalizacionId = Convert.ToInt32(row["PersonalizacionId"]);
-            if (row.HasColumn("NivelId"))
-                NivelId = Convert.ToInt32(row["NivelId"]);
-            if (row.HasColumn("CategoriaId"))
-                CategoriaId = Convert.ToInt32(row["CategoriaId"]);
-            if (row.HasColumn("Valor"))
-                Valor = Convert.ToString(row["Valor"]);
+            PersonalizacionNivelId = row.ToInt32("PersonalizacionNivelId");
+            EventoID = row.ToInt32("EventoID");
+            PersonalizacionId = row.ToInt32("PersonalizacionId");
+            NivelId = row.ToInt32("NivelId");
+            CategoriaId = row.ToInt32("CategoriaId");
+            Valor = row.ToString("Valor");
         }
     }
 }

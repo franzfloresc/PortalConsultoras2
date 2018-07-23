@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string pathData = "pais=" + UserData().CodigoISO + "&codConsultora=" + UserData().CodigoConsultora + "&campania=" + UserData().CampaniaID + "&region=" + UserData().CodigorRegion + "&zona=" + UserData().CodigoZona + "&nombre=" + UserData().NombreConsultora + "&email=" + UserData().EMail + "&segmento=" + (UserData().Segmento.Trim() == "" ? "Nivel IV" : UserData().Segmento.Trim()) + "&perfil=Consultora" + "&seccion=" + "" + "&Lider=" + UserData().Lider.ToString() + "&NL=" + UserData().NivelLider.ToString() + "&CL=" + campaniaVenta + "&SL=" + seccionGestionLider + "&PN=" + nivelProyectado;
                 string texto = System.Web.HttpUtility.UrlEncode(Util.EncriptarSuperateBelcorp(keyPath, pathData)) ?? "";
                 byte[] bytesToEncode = Encoding.UTF8.GetBytes(texto);
-                string url = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_SUPERATE_NUEVO) + Convert.ToBase64String(bytesToEncode) + "&seccion=";
+                string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_SUPERATE_NUEVO) + Convert.ToBase64String(bytesToEncode) + "&seccion=";
                 return Redirect(url);
             }
             else
@@ -52,7 +52,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string texto2 = System.Web.HttpUtility.UrlEncode(Util.EncriptarSuperateBelcorp(keyPath, Url)) ?? "";
                 byte[] bytesToEncode = Encoding.UTF8.GetBytes(texto);
                 byte[] bytesToEncode2 = Encoding.UTF8.GetBytes(texto2);
-                string url = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_SUPERATE_NUEVO) + Convert.ToBase64String(bytesToEncode) + "&seccion=" + Convert.ToBase64String(bytesToEncode2);
+                string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_SUPERATE_NUEVO) + Convert.ToBase64String(bytesToEncode) + "&seccion=" + Convert.ToBase64String(bytesToEncode2);
                 return Redirect(url);
             }
 

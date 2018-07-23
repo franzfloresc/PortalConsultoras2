@@ -40,38 +40,25 @@ namespace Portal.Consultoras.Entities
 
         public BEIncentivo()
         {
-            this.ArchivoPDF = string.Empty;
-            this.Url = string.Empty;
+            ArchivoPDF = string.Empty;
+            Url = string.Empty;
         }
 
         public BEIncentivo(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "IncentivoID"))
-                IncentivoID = Convert.ToInt32(row["IncentivoID"]);
-            if (DataRecord.HasColumn(row, "PaisID"))
-                PaisID = Convert.ToInt32(row["PaisID"]);
-            if (DataRecord.HasColumn(row, "Nombre"))
-                PaisNombre = Convert.ToString(row["Nombre"]);
-            if (DataRecord.HasColumn(row, "CampaniaIDInicio"))
-                CampaniaIDInicio = Convert.ToInt32(row["CampaniaIDInicio"]);
-            if (DataRecord.HasColumn(row, "CampaniaIDFin"))
-                CampaniaIDFin = Convert.ToInt32(row["CampaniaIDFin"]);
-            if (DataRecord.HasColumn(row, "NombreCortoInicio"))
-                NombreCortoInicio = Convert.ToString(row["NombreCortoInicio"]);
-            if (DataRecord.HasColumn(row, "NombreCortoFin"))
-                NombreCortoFin = Convert.ToString(row["NombreCortoFin"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "Titulo"))
-                Titulo = Convert.ToString(row["Titulo"]);
-            if (DataRecord.HasColumn(row, "Subtitulo"))
-                Subtitulo = Convert.ToString(row["Subtitulo"]);
-            if (DataRecord.HasColumn(row, "ArchivoPortada"))
-                ArchivoPortada = Convert.ToString(row["ArchivoPortada"]);
-            if (DataRecord.HasColumn(row, "ArchivoPDF"))
-                ArchivoPDF = Convert.ToString(row["ArchivoPDF"]);
-            if (DataRecord.HasColumn(row, "Url"))
-                Url = Convert.ToString(row["Url"]);
+            IncentivoID = row.ToInt32("IncentivoID");
+            PaisID = row.ToInt32("PaisID");
+            PaisNombre = row.ToString("Nombre");
+            CampaniaIDInicio = row.ToInt32("CampaniaIDInicio");
+            CampaniaIDFin = row.ToInt32("CampaniaIDFin");
+            NombreCortoInicio = row.ToString("NombreCortoInicio");
+            NombreCortoFin = row.ToString("NombreCortoFin");
+            ConsultoraID = row.ToInt64("ConsultoraID");
+            Titulo = row.ToString("Titulo");
+            Subtitulo = row.ToString("Subtitulo");
+            ArchivoPortada = row.ToString("ArchivoPortada");
+            ArchivoPDF = row.ToString("ArchivoPDF");
+            Url = row.ToString("Url");
         }
     }
 }

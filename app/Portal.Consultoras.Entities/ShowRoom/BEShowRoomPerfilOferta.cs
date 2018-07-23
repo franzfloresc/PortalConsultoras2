@@ -30,22 +30,15 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [DataMember]
         public bool EsSubCampania { get; set; }
 
-        public BEShowRoomPerfilOferta(IDataRecord datarec)
+        public BEShowRoomPerfilOferta(IDataRecord row)
         {
-            if (DataRecord.HasColumn(datarec, "PerfilOfertaShowRoomID"))
-                PerfilOfertaShowRoomID = Convert.ToInt32(datarec["PerfilOfertaShowRoomID"]);
-            if (DataRecord.HasColumn(datarec, "EventoID"))
-                EventoID = Convert.ToInt32(datarec["EventoID"]);
-            if (DataRecord.HasColumn(datarec, "PerfilID"))
-                PerfilID = Convert.ToInt32(datarec["PerfilID"]);
-            if (DataRecord.HasColumn(datarec, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
-            if (DataRecord.HasColumn(datarec, "CUV"))
-                CUV = Convert.ToString(datarec["CUV"]);
-            if (DataRecord.HasColumn(datarec, "Orden"))
-                Orden = Convert.ToInt32(datarec["Orden"]);
-            if (DataRecord.HasColumn(datarec, "EsSubCampania"))
-                EsSubCampania = Convert.ToBoolean(datarec["EsSubCampania"]);
+            PerfilOfertaShowRoomID = row.ToInt32("PerfilOfertaShowRoomID");
+            EventoID = row.ToInt32("EventoID");
+            PerfilID = row.ToInt32("PerfilID");
+            CampaniaID = row.ToInt32("CampaniaID");
+            CUV = row.ToString("CUV");
+            Orden = row.ToInt32("Orden");
+            EsSubCampania = row.ToBoolean("EsSubCampania");
         }
     }
 }

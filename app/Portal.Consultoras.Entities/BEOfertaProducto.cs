@@ -136,80 +136,37 @@ namespace Portal.Consultoras.Entities
 
         public BEOfertaProducto(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "OfertaProductoID"))
-                OfertaProductoID = Convert.ToInt32(row["OfertaProductoID"]);
-            if (DataRecord.HasColumn(row, "NroOrden"))
-                NroOrden = Convert.ToInt32(row["NroOrden"]);
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "CodigoCampania"))
-                CodigoCampania = Convert.ToString(row["CodigoCampania"]);
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "CodigoTipoOferta"))
-                CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
-            if (DataRecord.HasColumn(row, "TipoOferta"))
-                TipoOferta = Convert.ToString(row["TipoOferta"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "PrecioOferta"))
-                PrecioOferta = Convert.ToDecimal(row["PrecioOferta"]);
-            if (DataRecord.HasColumn(row, "Stock"))
-                Stock = Convert.ToInt32(row["Stock"]);
-            if (DataRecord.HasColumn(row, "ImagenProducto"))
-                ImagenProducto = Convert.ToString(row["ImagenProducto"]);
-            if (DataRecord.HasColumn(row, "UnidadesPermitidas"))
-                UnidadesPermitidas = Convert.ToInt32(row["UnidadesPermitidas"]);
-            if (DataRecord.HasColumn(row, "FlagHabilitarProducto"))
-                FlagHabilitarProducto = Convert.ToInt32(row["FlagHabilitarProducto"]);
-            if (DataRecord.HasColumn(row, "Orden"))
-                Orden = Convert.ToInt32(row["Orden"]);
-            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID"))
-                ConfiguracionOfertaID = Convert.ToInt32(row["ConfiguracionOfertaID"]);
-            if (DataRecord.HasColumn(row, "CodigoProducto"))
-                CodigoProducto = Convert.ToString(row["CodigoProducto"]);
-            if (DataRecord.HasColumn(row, "DescripcionLegal"))
-                DescripcionLegal = Convert.ToString(row["DescripcionLegal"]);
-            if (DataRecord.HasColumn(row, "TipoOfertaSisID"))
-                TipoOfertaSisID = Convert.ToInt32(row["TipoOfertaSisID"]);
-            if (DataRecord.HasColumn(row, "MarcaID"))
-                MarcaID = Convert.ToInt32(row["MarcaID"]);
-            if (DataRecord.HasColumn(row, "StockInicial"))
-                StockInicial = Convert.ToInt32(row["StockInicial"]);
-
-            if (DataRecord.HasColumn(row, "ID"))
-                ID = Convert.ToInt32(row["ID"]);
-
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = row["CUV"].ToString();
-
-            if (DataRecord.HasColumn(row, "DescripcionCUV"))
-                DescripcionCUV = row["DescripcionCUV"].ToString();
-
-            if (DataRecord.HasColumn(row, "PrecioUnitario"))
-                PrecioUnitario = Convert.ToDecimal(row["PrecioUnitario"].ToString());
-
-            if (DataRecord.HasColumn(row, "Tipo"))
-                Tipo = row["Tipo"].ToString();
-
-            if (DataRecord.HasColumn(row, "DescripcionTipo"))
-                DescripcionTipo = row["DescripcionTipo"].ToString();
-
-            if (DataRecord.HasColumn(row, "DescripcionTallaColor"))
-                DescripcionTallaColor = row["DescripcionTallaColor"].ToString();
-
-            if (DataRecord.HasColumn(row, "TallaColor"))
-                TallaColor = row["TallaColor"].ToString();
-
-            if (DataRecord.HasColumn(row, "DescripcionMarca"))
-                DescripcionMarca = row["DescripcionMarca"].ToString();
-
-            if (DataRecord.HasColumn(row, "DescripcionCategoria"))
-                DescripcionCategoria = row["DescripcionCategoria"].ToString();
-
-            if (DataRecord.HasColumn(row, "DescripcionEstrategia"))
-                DescripcionEstrategia = row["DescripcionEstrategia"].ToString();
-
+            OfertaProductoID = row.ToInt32("OfertaProductoID");
+            NroOrden = row.ToInt32("NroOrden");
+            CampaniaID = row.ToInt32("CampaniaID");
+            CodigoCampania = row.ToString("CodigoCampania");
+            CUV = row.ToString("CUV");
+            CodigoTipoOferta = row.ToString("CodigoTipoOferta");
+            TipoOferta = row.ToString("TipoOferta");
+            Descripcion = row.ToString("Descripcion");
+            PrecioOferta = row.ToDecimal("PrecioOferta");
+            Stock = row.ToInt32("Stock");
+            ImagenProducto = row.ToString("ImagenProducto");
+            UnidadesPermitidas = row.ToInt32("UnidadesPermitidas");
+            FlagHabilitarProducto = row.ToInt32("FlagHabilitarProducto");
+            Orden = row.ToInt32("Orden");
+            ConfiguracionOfertaID = row.ToInt32("ConfiguracionOfertaID");
+            CodigoProducto = row.ToString("CodigoProducto");
+            DescripcionLegal = row.ToString("DescripcionLegal");
+            TipoOfertaSisID = row.ToInt32("TipoOfertaSisID");
+            MarcaID = row.ToInt32("MarcaID");
+            StockInicial = row.ToInt32("StockInicial");
+            ID = row.ToInt32("ID");
+            CUV = row.ToString("CUV");
+            DescripcionCUV = row.ToString("DescripcionCUV");
+            PrecioUnitario = row.ToDecimal("PrecioUnitario");
+            Tipo = row.ToString("Tipo");
+            DescripcionTipo = row.ToString("DescripcionTipo");
+            DescripcionTallaColor = row.ToString("DescripcionTallaColor");
+            TallaColor = row.ToString("TallaColor");
+            DescripcionMarca = row.ToString("DescripcionMarca");
+            DescripcionCategoria = row.ToString("DescripcionCategoria");
+            DescripcionEstrategia = row.ToString("DescripcionEstrategia");
         }
         public BEOfertaProducto()
         { }

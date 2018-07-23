@@ -19,9 +19,9 @@ namespace Portal.Consultoras.Entities.CDR
 
         public BECDRParametria(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoParametria")) CodigoParametria = Convert.ToString(row["CodigoParametria"]);
-            if (DataRecord.HasColumn(row, "DescripcionParametria")) DescripcionParametria = Convert.ToString(row["DescripcionParametria"]);
-            if (DataRecord.HasColumn(row, "ValorParametria")) ValorParametria = Convert.ToString(row["ValorParametria"]);
+            CodigoParametria = row.ToString("CodigoParametria");
+            DescripcionParametria = row.ToString("DescripcionParametria");
+            ValorParametria = row.ToString("ValorParametria");
         }
     }
 }

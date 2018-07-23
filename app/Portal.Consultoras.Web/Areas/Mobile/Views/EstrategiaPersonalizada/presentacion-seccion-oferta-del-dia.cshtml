@@ -1,10 +1,4 @@
-﻿@using Portal.Consultoras.Web.Models;
-
-@{
-    OfertaDelDiaModel ofertaDelDia = ViewBag.OfertaDelDia ?? new OfertaDelDiaModel();
-    ofertaDelDia.ConfiguracionContenedor = ofertaDelDia.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
-}
-
+﻿
 <div class="contenedor_banner_showroom_vistaOfertas_seccion_inferior">
-    @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBanner.cshtml", ofertaDelDia)
+    @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBanner.cshtml")
 </div>

@@ -34,6 +34,12 @@
       <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IODSService_GetProductoComercialByListaCuv_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductoComercialByListaCuv" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetProductoComercialByListaCuv_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductoComercialByListaCuvResponse" />
+  </wsdl:message>
   <wsdl:message name="IODSService_GetProductoComercialByPaisAndCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetProductoComercialByPaisAndCampania" />
   </wsdl:message>
@@ -69,12 +75,6 @@
   </wsdl:message>
   <wsdl:message name="IODSService_SelectProductoByListaCuvSearchRegionZona_OutputMessage">
     <wsdl:part name="parameters" element="tns:SelectProductoByListaCuvSearchRegionZonaResponse" />
-  </wsdl:message>
-  <wsdl:message name="IODSService_GetProductoComercialByListaCuv_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductoComercialByListaCuv" />
-  </wsdl:message>
-  <wsdl:message name="IODSService_GetProductoComercialByListaCuv_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductoComercialByListaCuvResponse" />
   </wsdl:message>
   <wsdl:message name="IODSService_SelectConsultoraCodigo_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectConsultoraCodigo" />
@@ -287,6 +287,10 @@
     <wsdl:part name="parameters" element="tns:ValidarVentaExclusivaResponse" />
   </wsdl:message>
   <wsdl:portType name="IODSService">
+    <wsdl:operation name="GetProductoComercialByListaCuv">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetProductoComercialByListaCuv" message="tns:IODSService_GetProductoComercialByListaCuv_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetProductoComercialByListaCuvResponse" message="tns:IODSService_GetProductoComercialByListaCuv_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetProductoComercialByPaisAndCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetProductoComercialByPaisAndCampania" message="tns:IODSService_GetProductoComercialByPaisAndCampania_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetProductoComercialByPaisAndCampaniaResponse" message="tns:IODSService_GetProductoComercialByPaisAndCampania_OutputMessage" />
@@ -310,10 +314,6 @@
     <wsdl:operation name="SelectProductoByListaCuvSearchRegionZona">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/SelectProductoByListaCuvSearchRegionZona" message="tns:IODSService_SelectProductoByListaCuvSearchRegionZona_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/SelectProductoByListaCuvSearchRegionZonaResponse" message="tns:IODSService_SelectProductoByListaCuvSearchRegionZona_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetProductoComercialByListaCuv">
-      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetProductoComercialByListaCuv" message="tns:IODSService_GetProductoComercialByListaCuv_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetProductoComercialByListaCuvResponse" message="tns:IODSService_GetProductoComercialByListaCuv_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SelectConsultoraCodigo">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/SelectConsultoraCodigo" message="tns:IODSService_SelectConsultoraCodigo_InputMessage" />
@@ -458,6 +458,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IODSService" type="tns:IODSService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProductoComercialByListaCuv">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetProductoComercialByListaCuv" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetProductoComercialByPaisAndCampania">
       <soap:operation soapAction="http://tempuri.org/IODSService/GetProductoComercialByPaisAndCampania" style="document" />
       <wsdl:input>
@@ -505,15 +514,6 @@
     </wsdl:operation>
     <wsdl:operation name="SelectProductoByListaCuvSearchRegionZona">
       <soap:operation soapAction="http://tempuri.org/IODSService/SelectProductoByListaCuvSearchRegionZona" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetProductoComercialByListaCuv">
-      <soap:operation soapAction="http://tempuri.org/IODSService/GetProductoComercialByListaCuv" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -840,6 +840,15 @@
   <wsdl:binding name="BasicHttpsBinding_IODSService" type="tns:IODSService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IODSService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProductoComercialByListaCuv">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetProductoComercialByListaCuv" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetProductoComercialByPaisAndCampania">
       <soap:operation soapAction="http://tempuri.org/IODSService/GetProductoComercialByPaisAndCampania" style="document" />
       <wsdl:input>
@@ -887,15 +896,6 @@
     </wsdl:operation>
     <wsdl:operation name="SelectProductoByListaCuvSearchRegionZona">
       <soap:operation soapAction="http://tempuri.org/IODSService/SelectProductoByListaCuvSearchRegionZona" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetProductoComercialByListaCuv">
-      <soap:operation soapAction="http://tempuri.org/IODSService/GetProductoComercialByListaCuv" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

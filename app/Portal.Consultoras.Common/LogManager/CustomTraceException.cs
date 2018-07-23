@@ -4,7 +4,7 @@ namespace Portal.Consultoras.Common
 {
     public class CustomTraceException : Exception
     {
-        private string _stackTrace;
+        readonly string _stackTrace;
 
         public CustomTraceException(string message, string stackTrace) : base(message)
         {

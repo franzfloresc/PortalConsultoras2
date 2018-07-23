@@ -1,8 +1,8 @@
 ﻿
 var campaniaId = campaniaId || 0;
 var CantidadFilas = CantidadFilas || 15;
-var lsListaRD = lsListaRD || "ListaRD";
-var listaLAN = listaLAN || "listaLAN";
+var lsListaRD = lsListaRD || "RDLista";
+var listaLAN = listaLAN || "LANLista";
 var indCampania = indCampania || 0;
 var isDetalle = false;
 var esPrimeraCarga = true;
@@ -133,7 +133,8 @@ $(document).ready(function () {
         }
         return false;
     });
-
+    
+    //Este metodo será quitado porque la etiqueta verdetalle ya no existe.
     $("body").on("click", "[data-item-accion='verdetalle']", function (e) {
         var campania = $(this).parents("[data-tag-html]").attr("data-tag-html");
         var cuv = $(this).parents("[data-item]").attr("data-item-cuv");
@@ -157,7 +158,7 @@ $(document).ready(function () {
             if (guardo) {
                 obj
                 var url = urlOfertaDetalleProducto;
-
+                
                 if (obj.CodigoEstrategia) {
                     url = urlOfertaDetalleProductoLan;
                 }
@@ -165,7 +166,7 @@ $(document).ready(function () {
                 url = url +
                     "?cuv=" + obj.CUV2 +
                     "&campaniaId=" + obj.CampaniaID;
-
+                
                 return window.location = url;
             }
         }
@@ -315,8 +316,8 @@ function OfertaArmarEstrategias(response, busquedaModel) {
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
 
     if (response.listaPerdio != undefined) {
-        var divPredio = $("#divOfertaProductosPerdio");
         if (response.listaPerdio.length > 0) {
+            var divPredio = $("#divOfertaProductosPerdio");
             if (divPredio.children('div').length < response.listaPerdio.length) {
                 modeloTemp.lista = response.listaPerdio;
 
@@ -374,7 +375,7 @@ function OfertaArmarEstrategiasContenedor(responseData, busquedaModel) {
 
     var listaSeccionesRD = ["HV"];
 
-    if (busquedaModel.VarListaStorage === "ListaRD") {
+    if (busquedaModel.VarListaStorage === "RDLista") {
         listaSeccionesRD = ["RD", "RDR"];
     }
 

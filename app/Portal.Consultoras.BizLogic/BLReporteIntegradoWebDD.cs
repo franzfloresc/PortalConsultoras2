@@ -65,16 +65,16 @@ namespace Portal.Consultoras.BizLogic
             return obeInformacion;
         }
 
-        private TemplateField[] ParseTemplate(string templateText)
-        {
-            string[] parts = templateText.Split(';');
-            var template = new TemplateField[parts.Length];
-            for (int index = 0; index < parts.Length; index++)
-            {
-                template[index] = new TemplateField(parts[index]);
-            }
-            return template;
-        }
+        //private TemplateField[] ParseTemplate(string templateText)
+        //{
+        //    string[] parts = templateText.Split(';');
+        //    var template = new TemplateField[parts.Length];
+        //    for (int index = 0; index < parts.Length; index++)
+        //    {
+        //        template[index] = new TemplateField(parts[index]);
+        //    }
+        //    return template;
+        //}
 
         private string FormatFile(string fileName, DateTime date)
         {

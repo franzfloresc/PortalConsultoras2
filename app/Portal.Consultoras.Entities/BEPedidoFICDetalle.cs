@@ -82,92 +82,50 @@ namespace Portal.Consultoras.Entities
 
         public BEPedidoFICDetalle(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "PedidoID"))
-                PedidoID = Convert.ToInt32(row["PedidoID"]);
-            if (DataRecord.HasColumn(row, "PedidoDetalleID"))
-                PedidoDetalleID = Convert.ToInt16(row["PedidoDetalleID"]);
-            if (DataRecord.HasColumn(row, "MarcaID"))
-                MarcaID = Convert.ToByte(row["MarcaID"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "ClienteID"))
-                ClienteID = Convert.ToInt16(row["ClienteID"]);
-            if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt32(row["Cantidad"]);
-            if (DataRecord.HasColumn(row, "PrecioUnidad"))
-                PrecioUnidad = Convert.ToDecimal(row["PrecioUnidad"]);
-            if (DataRecord.HasColumn(row, "ImporteTotal"))
-                ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "DescripcionProd"))
-                DescripcionProd = Convert.ToString(row["DescripcionProd"]);
-            if (DataRecord.HasColumn(row, "Nombre"))
-                Nombre = Convert.ToString(row["Nombre"]);
-            if (DataRecord.HasColumn(row, "eMail"))
-                eMail = Convert.ToString(row["eMail"]);
-            if (DataRecord.HasColumn(row, "OfertaWeb"))
-                OfertaWeb = Convert.ToBoolean(row["OfertaWeb"]);
-            if (DataRecord.HasColumn(row, "CUVPadre"))
-                CUVPadre = Convert.ToString(row["CUVPadre"]);
-            if (DataRecord.HasColumn(row, "ModificaPedidoReservado"))
-                ModificaPedidoReservado = Convert.ToBoolean(row["ModificaPedidoReservado"]);
-            if (DataRecord.HasColumn(row, "Simbolo"))
-                Simbolo = Convert.ToString(row["Simbolo"]);
-            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID"))
-                ConfiguracionOfertaID = Convert.ToInt32(row["ConfiguracionOfertaID"]);
-            if (DataRecord.HasColumn(row, "TipoOfertaSisID"))
-                TipoOfertaSisID = Convert.ToInt32(row["TipoOfertaSisID"]);
+            CampaniaID = row.ToInt32("CampaniaID");
+            PedidoID = row.ToInt32("PedidoID");
+            PedidoDetalleID = row.ToInt16("PedidoDetalleID");
+            MarcaID = row.ToByte("MarcaID");
+            ConsultoraID = row.ToInt64("ConsultoraID");
+            ClienteID = row.ToInt16("ClienteID");
+            Cantidad = row.ToInt32("Cantidad");
+            PrecioUnidad = row.ToDecimal("PrecioUnidad");
+            ImporteTotal = row.ToDecimal("ImporteTotal");
+            CUV = row.ToString("CUV");
+            DescripcionProd = row.ToString("DescripcionProd");
+            Nombre = row.ToString("Nombre");
+            eMail = row.ToString("eMail");
+            OfertaWeb = row.ToBoolean("OfertaWeb");
+            CUVPadre = row.ToString("CUVPadre");
+            ModificaPedidoReservado = row.ToBoolean("ModificaPedidoReservado");
+            Simbolo = row.ToString("Simbolo");
+            ConfiguracionOfertaID = row.ToInt32("ConfiguracionOfertaID");
+            TipoOfertaSisID = row.ToInt32("TipoOfertaSisID");
         }
 
         public BEPedidoFICDetalle(IDataRecord row, string Consultora)
         {
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "PedidoID"))
-                PedidoID = Convert.ToInt32(row["PedidoID"]);
-            if (DataRecord.HasColumn(row, "PedidoDetalleID"))
-                PedidoDetalleID = Convert.ToInt16(row["PedidoDetalleID"]);
-            if (DataRecord.HasColumn(row, "MarcaID"))
-                MarcaID = Convert.ToByte(row["MarcaID"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "ClienteID"))
-                ClienteID = Convert.ToInt16(row["ClienteID"]);
-            if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt32(row["Cantidad"]);
-            if (DataRecord.HasColumn(row, "PrecioUnidad"))
-                PrecioUnidad = Convert.ToDecimal(row["PrecioUnidad"]);
-            if (DataRecord.HasColumn(row, "ImporteTotal"))
-                ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "DescripcionProd"))
-                DescripcionProd = Convert.ToString(row["DescripcionProd"]);
-            if (DataRecord.HasColumn(row, "Nombre"))
-                Nombre = Convert.ToString(row["Nombre"]);
-            if (DataRecord.HasColumn(row, "eMail"))
-                eMail = Convert.ToString(row["eMail"]);
-            if (DataRecord.HasColumn(row, "OfertaWeb"))
-                OfertaWeb = Convert.ToBoolean(row["OfertaWeb"]);
-            if (DataRecord.HasColumn(row, "CUVPadre"))
-                CUVPadre = Convert.ToString(row["CUVPadre"]);
-            if (DataRecord.HasColumn(row, "PedidoDetalleIDPadre"))
-                PedidoDetalleIDPadre = Convert.ToInt16(row["PedidoDetalleIDPadre"]);
-            if (DataRecord.HasColumn(row, "ModificaPedidoReservado"))
-                ModificaPedidoReservado = Convert.ToBoolean(row["ModificaPedidoReservado"]);
-            if (DataRecord.HasColumn(row, "Simbolo"))
-                Simbolo = Convert.ToString(row["Simbolo"]);
-            if (DataRecord.HasColumn(row, "ConfiguracionOfertaID"))
-                ConfiguracionOfertaID = Convert.ToInt32(row["ConfiguracionOfertaID"]);
-            if (DataRecord.HasColumn(row, "TipoOfertaSisID"))
-                TipoOfertaSisID = Convert.ToInt32(row["TipoOfertaSisID"]);
-            if (DataRecord.HasColumn(row, "IndicadorMontoMinimo"))
-                IndicadorMontoMinimo = Convert.ToInt32(row["IndicadorMontoMinimo"]);
-            else
-                IndicadorMontoMinimo = 1;
+            CampaniaID = row.ToInt32("CampaniaID");
+            PedidoID = row.ToInt32("PedidoID");
+            PedidoDetalleID = row.ToInt16("PedidoDetalleID");
+            MarcaID = row.ToByte("MarcaID");
+            ConsultoraID = row.ToInt64("ConsultoraID");
+            ClienteID = row.ToInt16("ClienteID");
+            Cantidad = row.ToInt32("Cantidad");
+            PrecioUnidad = row.ToDecimal("PrecioUnidad");
+            ImporteTotal = row.ToDecimal("ImporteTotal");
+            CUV = row.ToString("CUV");
+            DescripcionProd = row.ToString("DescripcionProd");
+            Nombre = row.ToString("Nombre");
+            eMail = row.ToString("eMail");
+            OfertaWeb = row.ToBoolean("OfertaWeb");
+            CUVPadre = row.ToString("CUVPadre");
+            PedidoDetalleIDPadre = row.ToInt16("PedidoDetalleIDPadre");
+            ModificaPedidoReservado = row.ToBoolean("ModificaPedidoReservado");
+            Simbolo = row.ToString("Simbolo");
+            ConfiguracionOfertaID = row.ToInt32("ConfiguracionOfertaID");
+            TipoOfertaSisID = row.ToInt32("TipoOfertaSisID");
+            IndicadorMontoMinimo = row.ToInt32("IndicadorMontoMinimo", 1);
         }
     }
 }
