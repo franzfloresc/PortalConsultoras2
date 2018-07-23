@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public int CampaniaFinal { get; set; }
         [DataMember]
-        public string  MensajeSaludo { get; set; }
+        public string MensajeSaludo { get; set; }
 
         public BEFiltrosOpcionesVerificacion()
         { }

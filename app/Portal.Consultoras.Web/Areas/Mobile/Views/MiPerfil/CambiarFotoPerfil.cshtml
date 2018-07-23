@@ -1,0 +1,132 @@
+﻿@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.Models
+@model NotificacionesModel
+
+@{
+    ViewBag.Title = "Cambiar Contraseña";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/esika/mi-perfil.css")">
+}
+else
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/lbel/mi-perfil.css")">
+}
+<script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
+<!-- TÍTULO -->
+<div class="titulo_mobile">
+    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        }
+    }
+    &nbsp;&nbsp;&nbsp;&nbsp;CAMBIA TU FOTO DE PERFIL
+</div>
+<a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" style="display: none;" id="volverBienvenida">Volver</a>
+<div class="pestana_esika"></div>
+<div class="pestana_lbel"></div>
+<!-- FIN - TÍTULO -->
+
+<div class="content_belcorp">
+    <section class="vista_cambiar_foto_perfil">
+        <div class="wrapper_content_cambiar_foto_perfil">
+            <div>
+                <div class="opciones_foto_perfil">
+                    <a href="javascript:;" id="tomarFotoLabel" title="Tomar una foto" class="opcion_foto_perfil opcion_tomar_foto">
+                        <span class="icono_opcion_foto_perfil icono_tomar_foto v-alignMiddle">
+                            <img src="@Url.Content("~/Content/Images/icono_tomar_foto.svg")" alt="Tomar una foto" />
+                        </span>
+                        <span class="descrip_opcion_foto_perfil text-uppercase v-alignMiddle">Tomar una foto</span>
+                    </a>
+                    <div id="fpImagenPerfilFoto" style="display: none;">
+                        <script type="text/javascript">
+                            var uploaderFoto = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                                element: document.getElementById('fpImagenPerfilFoto'),
+                                action: '@Url.Action("MoverFotoPerfil", "MiPerfil", new { area = "" })',
+                                onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                                SubirImagen('@Url.Action("Index", "Bienvenida", new { area = "Mobile" })', responseJSON.name);
+                                        } else {
+                                                alert('Hubo un error al cargar el archivo, intente nuevamente.');
+                                        }
+                                    }
+                                },
+                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                            });
+                        </script>
+                    </div>
+                    <!---->
+                    <a href="javascript:;" id="AbrirGaleriaLabel" title="Desde mi galería" class="opcion_foto_perfil opcion_cargar_foto_desde_galeria">
+                        <span class="icono_opcion_foto_perfil icono_cargar_foto_desde_galeria v-alignMiddle">
+                            <img src="@Url.Content("~/Content/Images/icono_cargar_foto_desde_galeria.svg")" alt="Desde mi galería" />
+                        </span>
+                        <span class="descrip_opcion_foto_perfil text-uppercase v-alignMiddle">Desde mi galería</span>
+                    </a>
+                    <div id="fpImagenPerfil" style="display: none;">
+                        <script type="text/javascript">
+                            var uploader = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg', 'gif'],
+                                element: document.getElementById('fpImagenPerfil'),
+                                action: '@Url.Action("MoverFotoPerfil", "MiPerfil", new { area = "" })',
+                                onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                                SubirImagen('@Url.Action("Index", "Bienvenida", new { area = "Mobile" })', responseJSON.name);
+                                        } else {
+                                                alert('Hubo un error al cargar el archivo, intente nuevamente.');
+                                        }
+                                    }
+                                },
+                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                            });
+                        </script>
+                    </div>
+                    <a href="#" id="btnEliminarFoto" title="Eliminar foto" class="opcion_foto_perfil opcion_eliminar_foto">
+                        <span class="icono_opcion_foto_perfil icono_eliminar_foto v-alignMiddle">
+                            <img src="@Url.Content("~/Content/Images/icono_eliminar.svg")" alt="Eliminar foto" />
+                        </span>
+                        <span class="descrip_opcion_foto_perfil text-uppercase v-alignMiddle">Eliminar foto</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section scripts{
+    <script>
+        var divpricipalfpImagenPerfilFoto = document.getElementById('fpImagenPerfilFoto');
+        inputElegirFoto = divpricipalfpImagenPerfilFoto.querySelector('input[type="file"]');
+        inputElegirFoto.setAttribute("id", "TomarFoto");
+        inputElegirFoto.setAttribute("capture", "camera");
+        inputElegirFoto.setAttribute("accept", "image/*");
+        inputElegirFoto.setAttribute("style", "");
+        inputElegirFoto.removeAttribute("multiple");
+
+        var divprincipalfpImagenPerfil = document.getElementById('fpImagenPerfil');
+        inputElegirImagen = divprincipalfpImagenPerfil.querySelector('input[type="file"]');
+        inputElegirImagen.setAttribute("id", "AbrirGaleria");
+        inputElegirImagen.setAttribute("style", "");
+
+        $('#tomarFotoLabel').click(function () {
+            $('#TomarFoto').click();
+        });
+
+        $('#AbrirGaleriaLabel').click(function () {
+            $('#AbrirGaleria').click();
+        });
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Index.js")"></script>
+}

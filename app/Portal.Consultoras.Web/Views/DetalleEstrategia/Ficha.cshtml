@@ -207,7 +207,7 @@
                             {{#ifVerificarMarcaLast componente.DescripcionMarca}}
                             <div style="border-bottom: 1px solid #ccc; margin:15px 0px;"></div>
                             {{/ifVerificarMarcaLast}}
-                            <div class="content_producto_tono detalle_producto" data-tono="" data-tono-select="{{componente.CUVSelect}}" data-tono-digitable="{{componente.Digitable}}" style="border-bottom: {{../Linea}};">
+                            <div class="content_producto_tono detalle_producto" data-tono="" data-tono-select="{{componente.CUVSelect}}" data-tono-digitable="{{componente.Digitable}}" style="border-bottom: {{../Linea}}; margin-bottom: 10px">
                                 <div style="display: none;">
                                     <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
                                     <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
@@ -259,14 +259,14 @@
 
                 </div>
                 <div class="contenedor_agregar">
-                    <div class="contenedor_rangos" data-cantidad-contenedor="">
-                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
+                    <div class="contenedor_rangos {{ClaseBloqueadaRangos}}" id="idcontenedor_rangos" data-cantidad-contenedor="">
+                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" {{RangoInputEnabled}} type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
                         <div>
-                            <a class="txt_menos" data-cantidad-agregar="-" data-bloqueada="" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                                <div class="dibujar_linea dibujar_menos"></div>
+                            <a class="txt_menos" data-cantidad-agregar="-" data-bloqueada="{{ClaseBloqueadaRangos}}" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                                <div class="dibujar_linea dibujar_menos" data-bloqueada="{{ClaseBloqueadaRangos}}"></div>
                             </a>
-                            <a class="txt_mas" data-cantidad-agregar="+" data-bloqueada="" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                                <div class="dibujar_linea dibujar_mas"></div>
+                            <a class="txt_mas" data-cantidad-agregar="+" data-bloqueada="{{ClaseBloqueadaRangos}}" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                                <div class="dibujar_linea dibujar_mas" data-bloqueada="{{ClaseBloqueadaRangos}}"></div>
                             </a>
                         </div>
                     </div>

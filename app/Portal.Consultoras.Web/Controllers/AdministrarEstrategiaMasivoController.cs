@@ -6,12 +6,19 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.AdministrarEstrategia;
 using Portal.Consultoras.Web.Models.Estrategia;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarEstrategiaMasivoController : BaseController
     {
+        protected OfertaBaseProvider _ofertaBaseProvider;
+
+        public AdministrarEstrategiaMasivoController()
+        {
+            _ofertaBaseProvider = new OfertaBaseProvider();
+        }
         public ActionResult ConsultarOfertasParaTi(string sidx, string sord, int page, int rows, int campaniaId, string codigoEstrategia)
         {
             if (ModelState.IsValid)
@@ -21,7 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string oddIdsEstrategia = "";
                 try
                 {
-                    if (UsarMsPer(codigoEstrategia))
+                    if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoEstrategia))
                     {
                         Dictionary<string, int> cantidades = administrarEstrategiaProvider.ObtenerCantidadOfertasParaTi(codigoEstrategia, campaniaId, userData.CodigoISO);
                         cantidadEstrategiasConfiguradas = cantidades["CUV_ZE"];
@@ -124,7 +131,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEEstrategia> lst = new List<BEEstrategia>();
                 try
                 {
-                    if (UsarMsPer(estrategiaCodigo))
+                    if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, estrategiaCodigo))
                     {
                         List<EstrategiaMDbAdapterModel> webApiList = new List<EstrategiaMDbAdapterModel>();
                         if (tipoConfigurado == 0 || tipoConfigurado == 1)
@@ -209,7 +216,7 @@ namespace Portal.Consultoras.Web.Controllers
                 const string oddIdsEstrategia = "";
                 try
                 {
-                    if (UsarMsPer(codigoEstrategia))
+                    if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoEstrategia))
                     {
                         Dictionary<string, int> cantidades = administrarEstrategiaProvider.ObtenerCantidadOfertasParaTi(codigoEstrategia, campaniaId, userData.CodigoISO);
                         cantidadEstrategiasConfiguradas = cantidades["CUV_OP"];
@@ -326,7 +333,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEEstrategia> lst = new List<BEEstrategia>();
                 try
                 {
-                    if (UsarMsPer(codigoEstrategia))
+                    if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoEstrategia))
                     {
                         if (tipoConfigurado == 1)
                         {
@@ -591,7 +598,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string idsEstrategiaok = string.Empty;
                 string idsEstrategiaerror = string.Empty;
 
-                if (UsarMsPer(codigoEstrategia))
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoEstrategia))
                 {
                     List<string> estrategiaMidsList = new List<string>();
                     estrategiaMidsList.AddRange(estrategiaMIds.Split(',').ToList());

@@ -71,7 +71,7 @@
     
     var _eventos = 
     {
-        clickChangeTono: function () {
+            clickChangeTono: function () {
             var accion = $(this).attr("data-tono-change");
 
             var hideSelect = $(this).parents("[data-tono]").find(".content_tonos_select").attr("data-visible");
@@ -93,33 +93,44 @@
                 $(this).parent().addClass("tono_por_elegir");
                 return true;
             }
+                var listaDigitables = prod.parents("[data-item]").find("[data-tono-digitable='1']");
+                var btnActivar = true;
+                $.each(listaDigitables, function (i, item) {
+                    var cuv = $.trim($(item).attr("data-tono-select"));
+                    btnActivar = btnActivar ? !(cuv == "") : btnActivar;
+                });
+                
+                if (btnActivar) {
+                    var campaniaCodigoActual = parseInt($(EstrategiaAgregarModule.ElementosDiv.hdCampaniaCodigo).val());
+                    var estrategiaData = EstrategiaAgregarModule.EstrategiaObtenerObj($(this));
 
-            var cuv = $.trim($(this).attr("data-tono-cuv"));
-            var prod = $(this).parents("[data-tono]");
-            var objSet = prod.find("[data-tono-change='1']");
-            objSet.find("img").attr("src", $(this).find("img").attr("src"));
-            objSet.find(".tono_seleccionado").show();
-            objSet.find(".texto_tono_seleccionado").html($(this).attr("data-tono-nombre"));
-            objSet.parent().addClass("tono_escogido");
-            
-            prod.find("[data-tono-select-nombrecomercial]").html($(this).attr("data-tono-descripcion"));
-            prod.attr("data-tono-select", cuv);
-            prod.find("[data-tono-div]").find("[data-tono-cuv]").removeClass("borde_seleccion_tono");
-            var estrategia = prod.parents("[data-codigovariante='2001']").length;
-            if (estrategia > 0) {
-                prod.find("[data-tono-div]").find("[data-tono-cuv='" + cuv + "']").addClass("borde_seleccion_tono");
-            }
-
-            var objCompartir = prod.find("[data-item]").find("[data-compartir-campos]");
-            objCompartir.find(".CUV").val(cuv);
-            objCompartir.find(".Nombre").val($(this).attr("data-tono-descripcion"));
 
             var listaDigitables = prod.parents("[data-item]").find("[data-tono-digitable='1']");
             var btnActivar = true;
             $.each(listaDigitables, function (i, item) {
                 var cuv = $.trim($(item).attr("data-tono-select"));
                 btnActivar = btnActivar ? !(cuv == "") : btnActivar;
-            });
+             });
+
+                if (btnActivar) {
+                    prod.parents("[data-item]").find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
+                    prod.parents("[data-item]").find('#btnAgregalo').removeClass('btn_desactivado_general');
+
+                    prod.parents("[data-item]").find('.contenedor_rangos').removeClass('btn_desactivado_general');
+                    prod.parents("[data-item]").find('.contenedor_rangos').removeClass('contenedor_rangos_desactivado');
+                    prod.parents("[data-item]").find('.txt_mas').removeAttr('data-bloqueada');
+                    prod.parents("[data-item]").find('.dibujar_linea').removeAttr('data-bloqueada');
+                    prod.parents("[data-item]").find('.txt_menos').removeAttr('data-bloqueada');
+
+                    //mobile
+                    prod.parents("[data-item]").find('.content_cantidad_ficha_producto').removeClass('btn_desactivado_general');
+                    prod.parents("[data-item]").find('.cantidad_menos_home').removeAttr('data-bloqueada');
+                    prod.parents("[data-item]").find('#imgFichaProduMenos').attr('data-bloqueada','');
+                    prod.parents("[data-item]").find('.cantidad_mas_home').removeAttr('data-bloqueada');
+                    prod.parents("[data-item]").find('#imgFichaProduMas').attr('data-bloqueada','');
+
+                }
+            }
 
             if (btnActivar) {
                 prod.parents("[data-item]").find("#tbnAgregarProducto").removeClass("btn_desactivado_general");

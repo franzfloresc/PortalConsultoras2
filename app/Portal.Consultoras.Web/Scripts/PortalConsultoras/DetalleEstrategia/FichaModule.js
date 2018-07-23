@@ -44,7 +44,7 @@
         ImagenDeFondo: "#ImagenDeFondo",
         //DescripcionAdicional: "#DescripcionAdicional",
         ContenidoProducto: "#ContenidoProducto",
-        //CarruselProducto: "#CarruselProducto",
+        CarruselProducto: "#CarruselProducto",
         //EtiquetaOdd: "#EtiquetaOdd",
         //SloganLanzamientos: "#SloganLanzamientos",
         //ContenedoFotoReferencial: "#contenedor_foto_referencial",
@@ -233,7 +233,17 @@
             if (hermano.Hermanos) {
                 if (hermano.Hermanos.length > 0) {
                     estrategia.ClaseBloqueada = "btn_desactivado_general";
+                    estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
+                    estrategia.RangoInputEnabled = "disabled";
                     $("#btnAgregalo").addClass("btn_desactivado_general");
+                    $(".content_cantidad_ficha_producto").addClass("btn_desactivado_general");
+                    //$(".contenedor_rangos").addClass("contenedor_rangos_desactivado");
+                    $(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
+                    $(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
+                    
+                    $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
+                    $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
+
                 }
             }
         });
@@ -576,3 +586,8 @@
         Inicializar: Inicializar
     };
 });
+
+//Funcion temporal hasta estandarizar RevistaDigital.js
+function RDPageInformativa() {
+    window.location = (isMobile() ? "/Mobile/" : "") + baseUrl + 'revistadigital/Informacion';
+}

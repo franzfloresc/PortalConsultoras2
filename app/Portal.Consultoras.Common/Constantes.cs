@@ -161,6 +161,7 @@ namespace Portal.Consultoras.Common
             public const int MensajeInformacionPagoExitoso = 12211;
 
             public const int CantidadCuvMasivo_NuevoMasivo = 13701;
+            public const int ActualizaDatosEnabled = 14301;
 
             public static class PersonalizacionOdd
             {
@@ -892,6 +893,8 @@ namespace Portal.Consultoras.Common
             public const int Cupon = 10;
             public const int CuponForzado = 11;
             public const int AsesoraOnline = 12;
+            public const int ActualizarCorreo = 13; // OMGC
+
         }
 
         public static class GPRMotivoRechazo
@@ -1177,13 +1180,31 @@ namespace Portal.Consultoras.Common
             public const string LimiteDescargaSobrepasado = "El archivo no se puede descargar debido a que se sobrepaso el máximo de items ({0}).";
             public const string PaqueteDocumentario_ConsumirServicio = "Ocurrió un error al intentar obtener la información. Por favor, vuelva a intentar dentro de unos minutos.";
             public const string Cache_Eliminar = "Ocurrió un error al eliminar la caché. Inténtelo más tarde";
-            public const string Reserva_Error = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo.";
+            public const string Pedido_Reserva = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo.";
             public const string Reserva_SinDetalle = "No tiene productos que reservar esta campaña.";
+            public const string Pedido_DeleteAll = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
+            public const string UpdCorreoConsultora = "Ocurrió un error al intentar actualizar su correo. Inténtelo más tarde.";
+            public const string UpdCorreoConsultora_NoAutorizado = "Su país no permite la actualización de datos.";
+            public const string UpdCorreoConsultora_CorreoVacio = "Debe ingresar un correo nuevo.";
+            public const string UpdCorreoConsultora_CorreoNoCambia = "Debe ingresar un correo diferente a su correo actual.";
+            public const string UpdCorreoConsultora_CorreoYaExiste = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.";
+            public const string ActivacionCorreo = "Ha ocurrido un error con la activación de su correo electrónico.";
+            public const string ActivacionCorreo_NoExiste = "No existe una activación de correo pendiente para su correo.";
+            public const string ActivacionCorreo_EstaActivo = "Esta dirección de correo electrónico ya ha sido activada.";
+            public const string ValorVacio = "El valor no puede estar vacío.";
+            public const string CodigoIncorrecto = "El código ingresado no es el correcto.";
+            public const string CelularActivacion = "No se pudo confirmar el número registrado.";
+            public const string CelularEnUso = "El número ya esta en uso.";
             public const string DeleteAllPedido_Error = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
             public const string Reserva_ObsHuerfanas = "Reserva_ObsHuerfanas: Se obtuvieron observaciones al reservar que no se encuentran en el detalle.";
             public const string Reserva_Prol2 = "Reserva_Prol2: El servicio externo de reserva de Prol2 retornó vacio.";
             public const string Reserva_Prol3 = "Reserva_Prol3: El servicio externo de reserva de Sicc retornó vacio o error.";
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
+        }
+
+        public static class MensajesExito
+        {
+            public const string UpdCorreoConsultora_Reenvio = "Email reenviado satisfactoriamente.";
         }
 
         public static class ConfiguracionPais
@@ -1498,6 +1519,7 @@ namespace Portal.Consultoras.Common
             public const int ValoresPagoEnLinea = 122;
             public const int CantidadCuvMasivo = 137;
             public const short ProlObsCod = 5;
+            public const int ActualizaDatosEnabled = 143;
             public const short HabilitarChatEmtelco = 144;
             public const short OrdenamientoShowRoom = 99;
         }
@@ -2002,6 +2024,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_PRODUCTO_OFERTAREVISTA_ESIKA = "1106";
                 public const string ERROR_PRODUCTO_OFERTAREVISTA_LBEL = "1107";
                 public const string ERROR_PRODUCTO_ESTRATEGIA = "1108";
+                public const string ERROR_PRODUCTO_SUGERIDO = "1109";
 
                 public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                 public const string ERROR_STOCK_ESTRATEGIA = "2102";
@@ -2047,6 +2070,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, "Este producto está de oferta en la Guía de Negocio Ésika."},
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, "Este producto está de oferta en Mi Negocio L’Bel."},
                         {Code.ERROR_PRODUCTO_ESTRATEGIA, string.Empty},
+                        {Code.ERROR_PRODUCTO_SUGERIDO,"Este producto tiene reemplazos sugeridos." },
 
                         {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
                         {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
@@ -2153,6 +2177,27 @@ namespace Portal.Consultoras.Common
             public const int OrigenActulizarDatos = 3;            
         }
 
+        public class CambioCorreoResult
+        {
+            public const string Valido = "Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.";
+            public const string Invalido = "Esta dirección de correo electrónico ya ha sido activada. ";
+        }
+        
+        public class EnviarCorreoYSms
+        {
+            public const string Activo = "Activo";
+            public const string IdEstadoActividad = "IdEstadoActividad";
+
+            public const int Origen_RecuperarClave = 1;
+            public const int Origen_Autenticacion = 2;
+            public const int Origen_ActualizarCorreo = 3;
+            public const int OrigenActualizarCelular = 3;
+
+            public const string OrigenDescripcion = "actualizar datos";
+
+            public const int TipoEnvio_Email = 1;
+        }
+
         #region Olvide Contrasenia
         public class OlvideContrasenia
         {
@@ -2241,6 +2286,7 @@ namespace Portal.Consultoras.Common
                     public const string URL = "URL";
                     public const string RECURSO = "RECURSO";
                     public const string MENSAJE = "MENSAJE";
+                    public const string MENSAJE_OPTIN = "MENSAJE_OPTIN";
                 }
             }
 
@@ -2266,7 +2312,14 @@ namespace Portal.Consultoras.Common
             public const string EnviarPorEmail = "Email";
             public const string EnviarPorSms = "SMS";
         }
-        #endregion
+        #endregion  
+
+        public static class ValidacionDatosEstado
+        {
+            public const string Pendiente = "P";
+            public const string Activo = "A";
+        }
+
         public class TipoConsultaOfertaPersonalizadas
         {
             public const int RDObtenerProductos = 1;
@@ -2331,6 +2384,8 @@ namespace Portal.Consultoras.Common
 
             #endregion
         }
-    }
 
+
+
+    }
 }

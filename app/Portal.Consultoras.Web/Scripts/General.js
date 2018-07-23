@@ -1,5 +1,4 @@
-﻿
-var formatDecimalPais = formatDecimalPais || new Object();
+﻿var formatDecimalPais = formatDecimalPais || new Object();
 var finishLoadCuponContenedorInfo = false;
 var belcorp = belcorp || {};
 belcorp.settings = belcorp.settings || {}
@@ -35,8 +34,8 @@ jQuery(document).ready(function () {
             });
         }
     }
-
 });
+
 (function ($) {
     $.fn.Readonly = function (val) {
         if (val != undefined || val != null) {
@@ -560,7 +559,6 @@ function CreateLoading() {
     $("#loadingScreen").parent().find(".ui-dialog-titlebar").hide();
 }
 
-
 function printElement(selector) {
     var element = document.querySelector(selector);
     if (!element) {
@@ -922,6 +920,17 @@ FuncionesGenerales = {
         var te = String.fromCharCode(tecla);
         return patron.test(te);
     },
+    ValidarSoloLetrasYNumeros: function (e) {
+        var charCode = (e.which) ? e.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.-]/;
+            return re.test(keyChar);
+        }
+    },
     GetDataForm: function (form) {
         var that = $(form);
         var url = that.attr('action');
@@ -968,8 +977,103 @@ FuncionesGenerales = {
     IsGuid: function (input) {
         var guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
         return guidRegex.test(input);
+    },
+    AvoidingCopyingAndPasting: function (idInput) {
+        var myInput = document.getElementById(idInput);
+        if (myInput) {
+            myInput.onpaste = function (e) { e.preventDefault(); }
+            myInput.oncopy = function (e) { e.preventDefault(); }
+        }
+    },
+    AutoCompletarEmailAPartirDeArroba: function (input) {
+        var dominios = ["@gmail.com", "@hotmail.com", "@outlook.com", "@yahoo.com"];
+        autoCompleteByCharacters(input, dominios, '@');
     }
 };
+
+function autoCompleteByCharacters(inp, arr, car) {
+    var currentFocus;
+
+    inp.addEventListener("input", function (e) {
+        var a, b, i, val = this.value;
+        closeAllLists();
+        if (!val) { return false; }
+
+        var search = val.indexOf(car);
+        var longi = val.length;
+
+        if (longi <= 1) { return false; }
+        if (search == -1) { return false; }
+
+        var splited = val.split(car);
+        var sizeAfterAt = splited[1].length + 1;
+        var valueInput = splited[0];
+
+        currentFocus = -1;
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        this.parentNode.appendChild(a);
+
+        for (i = 0; i < arr.length; i++) {
+            if (arr[i].substr(0, sizeAfterAt).toUpperCase() == val.substr(search, val.length).toUpperCase()) {
+                b = document.createElement("DIV");
+                b.innerHTML = "<strong>" + valueInput + arr[i].substr(0, sizeAfterAt) + "</strong>";
+                b.innerHTML += arr[i].substr(sizeAfterAt);
+                b.innerHTML += "<input type='hidden' value='" + valueInput + arr[i] + "'>";
+                b.addEventListener("click", function (e) {
+                    inp.value = this.getElementsByTagName("input")[0].value;
+                    closeAllLists();
+                });
+                a.appendChild(b);
+            }
+        }
+    });
+
+    inp.addEventListener("keydown", function (e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+            currentFocus++;
+            addActive(x);
+        } else if (e.keyCode == 38) {
+            currentFocus--;
+            addActive(x);
+        } else if (e.keyCode == 13) {
+            e.preventDefault();
+            if (currentFocus > -1) {
+                if (x) x[currentFocus].click();
+            }
+        }
+    });
+
+    function addActive(x) {
+        if (!x) return false;
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = (x.length - 1);
+        x[currentFocus].classList.add("autocomplete-active");
+    }
+
+    function removeActive(x) {
+        for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("autocomplete-active");
+        }
+    }
+
+    function closeAllLists(elmnt) {
+        var x = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+                x[i].parentNode.removeChild(x[i]);
+            }
+        }
+    }
+
+    document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+    });
+}
 
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
     var dataNueva = {
@@ -1631,22 +1735,22 @@ function odd_google_analytics_product_click(name, id, price, brand, variant, pos
     dataLayer.push({
         'event': 'productClick',
         'ecommerce':
-        {
-            'click':
             {
-                'actionField': { 'list': listName },
-                'products':
-                [{
-                    'name': name,
-                    'id': id,
-                    'price': price,
-                    'brand': brand,
-                    'category': 'No disponible',
-                    'variant': variant,
-                    'position': position
-                }]
+                'click':
+                    {
+                        'actionField': { 'list': listName },
+                        'products':
+                            [{
+                                'name': name,
+                                'id': id,
+                                'price': price,
+                                'brand': brand,
+                                'category': 'No disponible',
+                                'variant': variant,
+                                'position': position
+                            }]
+                    }
             }
-        }
     });
 }
 
@@ -1792,6 +1896,7 @@ Object.defineProperty(Object.prototype, "in", {
     enumerable: false,
     writable: true
 });
+
 var registerEvent = function (eventName) {
     var self = this;
     self[eventName] = self[eventName] || {};

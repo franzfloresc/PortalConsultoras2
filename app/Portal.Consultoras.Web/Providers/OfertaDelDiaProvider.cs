@@ -166,7 +166,10 @@ namespace Portal.Consultoras.Web.Providers
             try
             {
                 if (!usuario.EsConsultora())
+                {
+                    sessionManager.OfertaDelDia.Estrategia = new DataModel();
                     return new DataModel();
+                }
 
                 if (oddSession != null)
                 {
@@ -219,12 +222,13 @@ namespace Portal.Consultoras.Web.Providers
                 oddSession.NombreOferta = ObtenerNombreOfertaDelDia(primeraOferta.DescripcionCompleta);
                 oddSession.PrecioOfertaFormat = Util.DecimalToStringFormat(primeraOferta.Precio2, usuario.CodigoISO);
 
-                sessionManager.OfertaDelDia.Estrategia = oddSession;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuario.CodigoConsultora, usuario.CodigoISO);
+                oddSession = new DataModel();
             }
+            sessionManager.OfertaDelDia.Estrategia = oddSession;
             return oddSession;
         }
 
@@ -250,87 +254,6 @@ namespace Portal.Consultoras.Web.Providers
             return result;
         }
 
-        private OfertaDelDiaModel ObtenerOfertaDelDiaModel(int paisId, string codigoIso, List<ServicePedido.BEEstrategia> ofertasDelDia)
-        {
-            if (!ofertasDelDia.Any())
-                return null;
-
-            var personalizacionesOfertaDelDia = ObtenerPersonalizacionesOfertaDelDia(paisId);
-            if (!personalizacionesOfertaDelDia.Any())
-                return null;
-
-            ofertasDelDia = ofertasDelDia.OrderBy(odd => odd.Orden).ToList();
-
-            var tablaLogica9301 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9301) ?? new BETablaLogicaDatos();
-            var tablaLogica9302 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9302) ?? new BETablaLogicaDatos();
-
-            var contOdd = 0;
-            short posicion = 1;
-            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
-            var ofertasDelDiaModel = new List<OfertaDelDiaModel>();
-
-            foreach (var oferta in ofertasDelDia)
-            {
-                if (!string.IsNullOrEmpty(oferta.ImagenURL))
-                {
-                    oferta.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, oferta.ImagenURL, carpetaPais);
-                }
-
-                if (!string.IsNullOrEmpty(oferta.FotoProducto01))
-                {
-                    oferta.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, oferta.FotoProducto01, carpetaPais);
-                }
-
-                var oddModel = new OfertaDelDiaModel
-                {
-                    ID = contOdd++,
-                    Position = posicion++,
-                    CodigoIso = codigoIso,
-                    TipoEstrategiaID = oferta.TipoEstrategiaID,
-                    EstrategiaID = oferta.EstrategiaID,
-                    CUV2 = oferta.CUV2,
-                    MarcaID = oferta.MarcaID,
-                    DescripcionMarca = oferta.DescripcionMarca,
-                    TipoEstrategiaDescripcion = oferta.DescripcionEstrategia,
-                    LimiteVenta = oferta.LimiteVenta,
-                    IndicadorMontoMinimo = oferta.IndicadorMontoMinimo,
-                    TipoEstrategiaImagenMostrar = oferta.TipoEstrategiaImagenMostrar,
-                    ImagenFondo1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"), codigoIso),
-                    ColorFondo1 = tablaLogica9301.Codigo ?? string.Empty,
-                    ImagenBanner = oferta.FotoProducto01,
-                    ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(codigoIso, ofertasDelDia.Count),
-                    ImagenFondo2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"), codigoIso),
-                    ColorFondo2 = tablaLogica9302.Codigo ?? string.Empty,
-                    ImagenDisplay = oferta.FotoProducto01,
-                    NombreOferta = ObtenerNombreOferta(oferta.DescripcionCUV2),
-                    DescripcionOferta = ObtenerDescripcionOferta(oferta.DescripcionCUV2),
-                    PrecioOferta = oferta.Precio2,
-                    PrecioCatalogo = oferta.Precio,
-                    TieneOfertaDelDia = true,
-                    Orden = oferta.Orden
-                };
-
-                ofertasDelDiaModel.Add(oddModel);
-            }
-
-            OfertaDelDiaModel model = ofertasDelDiaModel.First().Clone();
-
-            model.ListaOfertas = ofertasDelDiaModel;
-
-            return model;
-        }
-
-        private static List<BETablaLogicaDatos> ObtenerPersonalizacionesOfertaDelDia(int paisId)
-        {
-            BETablaLogicaDatos[] personalizacionesOfertaDelDia;
-
-            using (var svc = new SACServiceClient())
-            {
-                personalizacionesOfertaDelDia = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.PersonalizacionODD);
-            }
-
-            return personalizacionesOfertaDelDia.ToList();
-        }
 
         private static TimeSpan CountdownODD(int paisId, bool esDiasFacturacion, TimeSpan horaCierreZonaNormal)
         {
