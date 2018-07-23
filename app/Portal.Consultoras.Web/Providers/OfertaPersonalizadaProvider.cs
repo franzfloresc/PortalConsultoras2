@@ -1109,7 +1109,8 @@ namespace Portal.Consultoras.Web.Providers
                     tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada); break;
                 case Constantes.NombrePalanca.HerramientasVenta:
                     {
-                        return revistaDigital.TieneRDC || revistaDigital.TieneRDCR;
+                        tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.HerramientasVenta); break;
+                        //return revistaDigital.TieneRDC || revistaDigital.TieneRDCR || revistaDigital.TieneRDI;
                     }
                 case Constantes.NombrePalanca.ShowRoom:
                     tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.ShowRoom); break;
