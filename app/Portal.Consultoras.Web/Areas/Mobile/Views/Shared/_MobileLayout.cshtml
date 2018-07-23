@@ -111,8 +111,17 @@
         <div class="foto_menu">
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
+                <a href="@Url.Action("Index", "MiPerfil", new {area = "Mobile"})" title="Actualizar datos" class="subir_foto_mobile subir_foto_mobile_menu default-background"></a>
                 <div class="foto_usuaria_mobile">
-                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+                    @if (ViewBag.FotoPerfilAncha)
+                    {
+                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:auto; height:100%" />
+                    }
+                    else
+                    {
+                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+                    }
+
                 </div>
             }
         </div>

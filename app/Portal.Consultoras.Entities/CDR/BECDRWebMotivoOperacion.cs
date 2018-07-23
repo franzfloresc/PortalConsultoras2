@@ -25,10 +25,10 @@ namespace Portal.Consultoras.Entities.CDR
 
         public BECDRWebMotivoOperacion(IDataRecord row)
         {
-            if (row.HasColumn("CodigoOperacion")) CodigoOperacion = Convert.ToString(row["CodigoOperacion"]);
-            if (row.HasColumn("CodigoReclamo")) CodigoReclamo = Convert.ToString(row["CodigoReclamo"]);
-            if (row.HasColumn("Prioridad")) Prioridad = Convert.ToInt32(row["Prioridad"]);
-            if (row.HasColumn("Estado")) Estado = Convert.ToInt32(row["Estado"]);
+            CodigoOperacion = row.ToString("CodigoOperacion");
+            CodigoReclamo = row.ToString("CodigoReclamo");
+            Prioridad = row.ToInt32("Prioridad");
+            Estado = row.ToInt32("Estado");
         }
     }
 }

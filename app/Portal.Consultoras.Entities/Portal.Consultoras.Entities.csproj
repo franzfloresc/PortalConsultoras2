@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="AsesoraOnline\BEAsesoraOnline.cs" />
     <Compile Include="Auditoria.cs" />
+    <Compile Include="BERespuestaServicio.cs" />
     <Compile Include="BaseEntidad.cs" />
     <Compile Include="BEActivarPremioNuevas.cs" />
     <Compile Include="BEAdministracionOfertaProducto.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="BEGPRBanner.cs" />
     <Compile Include="BEGPRUsuario.cs" />
     <Compile Include="BEParametrosLider.cs" />
+    <Compile Include="BEValidacionDatos.cs" />
     <Compile Include="BEPremiosProgramaNuevas.cs" />
     <Compile Include="CargaMasiva\BECargaMasivaImagenes.cs" />
     <Compile Include="BEMiCertificado.cs" />
@@ -81,13 +83,13 @@
     <Compile Include="Comunicado\BEComunicadoSegmentacion.cs" />
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
     <Compile Include="DENativeType.cs" />
-    <Compile Include="Externos\ReservaSicc\BEIncentivoSicc.cs" />
-    <Compile Include="OpcionesVerificacion\BEOpcionesVerificacion.cs" />
     <Compile Include="OpcionesVerificacion\BEFiltrosOpcionesVerificacion.cs" />
+    <Compile Include="OpcionesVerificacion\BEOpcionesVerificacion.cs" />
+    <Compile Include="OpcionesVerificacion\BEZonasOpcionesVerificacion.cs" />
+    <Compile Include="Externos\ReservaSicc\BEIncentivoSicc.cs" />
     <Compile Include="Oferta\BEGuiaNegocio.cs" />
     <Compile Include="Oferta\BEOfertaDelDia.cs" />
     <Compile Include="Oferta\BEOfertaFinal.cs" />
-    <Compile Include="OpcionesVerificacion\BEZonasOpcionesVerificacion.cs" />
     <Compile Include="ProgramaNuevas\BEProductoProgramaNuevas.cs" />
     <Compile Include="Externos\ReservaSicc\BEDetalleSicc.cs" />
     <Compile Include="Externos\ReservaSicc\BEPedidoSicc.cs" />
@@ -355,6 +357,7 @@
     <Compile Include="BEUnidadGeografica.cs" />
     <Compile Include="ShowRoom\BEShowRoomTono.cs" />
     <Compile Include="RevistaDigital\BERevistaDigital.cs" />
+    <Compile Include="Usuario\BERespuestaActivarEmail.cs" />
     <Compile Include="Usuario\BEUsuario.cs" />
     <Compile Include="BEUsuarioCorreo.cs" />
     <Compile Include="BEUsuarioRol.cs" />

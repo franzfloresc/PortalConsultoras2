@@ -68,47 +68,28 @@ namespace Portal.Consultoras.Entities
 
         public BEMisPedidos(IDataRecord row)
         {
-            this.PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
-            this.MarcaID = Convert.ToInt32(row["MarcaID"]);
-            this.Cliente = Convert.ToString(row["NombreCompleto"]);
-            this.Direccion = Convert.ToString(row["Direccion"]);
-            this.Telefono = Convert.ToString(row["Telefono"]);
-            this.Email = Convert.ToString(row["Email"]);
-            this.MensajeDelCliente = Convert.ToString(row["Mensaje"]);
-            this.Estado = Convert.ToString(row["Estado"]);
-            this.FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
-
-            if (DataRecord.HasColumn(row, "Campania"))
-                this.Campania = Convert.ToString(row["Campania"]);
-            if (DataRecord.HasColumn(row, "Leido"))
-                this.Leido = Convert.ToInt16(row["Leido"]);
-            if (DataRecord.HasColumn(row, "NumIteracion"))
-                this.NumIteracion = Convert.ToInt32(row["NumIteracion"]);
-            if (DataRecord.HasColumn(row, "CodigoUbigeo"))
-                this.CodigoUbigeo = Convert.ToString(row["CodigoUbigeo"]);
-
-            if (DataRecord.HasColumn(row, "FechaModificacion"))
-                this.FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-            if (DataRecord.HasColumn(row, "FlagMedio"))
-                this.FlagMedio = Convert.ToString(row["FlagMedio"]);
-            if (DataRecord.HasColumn(row, "FlagConsultora"))
-                this.FlagConsultora = Convert.ToBoolean(row["FlagConsultora"]);
-
-            if (DataRecord.HasColumn(row, "MContacto"))
-                this.MedioContacto = Convert.ToString(row["MContacto"]);
-            if (DataRecord.HasColumn(row, "PrecioTotal"))
-                this.PrecioTotal = Convert.ToDecimal(row["PrecioTotal"]);
-            if (DataRecord.HasColumn(row, "Marca"))
-                this.Marca = Convert.ToString(row["Marca"]);
-
-            if (DataRecord.HasColumn(row, "SaldoHoras"))
-                this.SaldoHoras = Convert.ToString(row["SaldoHoras"]);
-
-            if (DataRecord.HasColumn(row, "PedidoWebID"))
-                this.PedidoWebID = Convert.ToInt32(row["PedidoWebID"]);
-
-
-            this.DetallePedido = new List<BEMisPedidosDetalle>();
+            PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
+            MarcaID = Convert.ToInt32(row["MarcaID"]);
+            Cliente = Convert.ToString(row["NombreCompleto"]);
+            Direccion = Convert.ToString(row["Direccion"]);
+            Telefono = Convert.ToString(row["Telefono"]);
+            Email = Convert.ToString(row["Email"]);
+            MensajeDelCliente = Convert.ToString(row["Mensaje"]);
+            Estado = Convert.ToString(row["Estado"]);
+            FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
+            Campania = row.ToString("Campania");
+            Leido = row.ToInt16("Leido");
+            NumIteracion = row.ToInt32("NumIteracion");
+            CodigoUbigeo = row.ToString("CodigoUbigeo");
+            FechaModificacion = row.ToDateTime("FechaModificacion");
+            FlagMedio = row.ToString("FlagMedio");
+            FlagConsultora = row.ToBoolean("FlagConsultora");
+            MedioContacto = row.ToString("MContacto");
+            PrecioTotal = row.ToDecimal("PrecioTotal");
+            Marca = row.ToString("Marca");
+            SaldoHoras = row.ToString("SaldoHoras");
+            PedidoWebID = row.ToInt32("PedidoWebID");
+            DetallePedido = new List<BEMisPedidosDetalle>();
         }
     }
 
@@ -161,30 +142,30 @@ namespace Portal.Consultoras.Entities
 
         public BEMisPedidosDetalle(IDataRecord row)
         {
-            this.PedidoDetalleId = Convert.ToInt64(row["SolicitudClienteDetalleID"]);
-            this.PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
-            this.Producto = Convert.ToString(row["Producto"]);
-            this.Tono = Convert.ToString(row["Tono"]);
-            this.Marca = Convert.ToString(row["Marca"]);
-            this.CUV = Convert.ToString(row["CUV"]);
-            this.PrecioUnitario = Convert.ToDouble(row["Precio"]);
-            this.Cantidad = Convert.ToInt32(row["Cantidad"]);
-            this.PrecioTotal = this.PrecioUnitario * this.Cantidad;
+            PedidoDetalleId = Convert.ToInt64(row["SolicitudClienteDetalleID"]);
+            PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
+            Producto = Convert.ToString(row["Producto"]);
+            Tono = Convert.ToString(row["Tono"]);
+            Marca = Convert.ToString(row["Marca"]);
+            CUV = Convert.ToString(row["CUV"]);
+            PrecioUnitario = Convert.ToDouble(row["Precio"]);
+            Cantidad = Convert.ToInt32(row["Cantidad"]);
+            PrecioTotal = PrecioUnitario * Cantidad;
 
             if (DataRecord.HasColumn(row, "MarcaID"))
-                this.MarcaID = Convert.ToInt32(row["MarcaID"]);
+                MarcaID = Convert.ToInt32(row["MarcaID"]);
 
             if (DataRecord.HasColumn(row, "MContacto"))
-                this.MedioContacto = Convert.ToString(row["MContacto"]);
+                MedioContacto = Convert.ToString(row["MContacto"]);
 
             if (DataRecord.HasColumn(row, "TipoAtencion"))
-                this.TipoAtencion = Convert.ToInt32(row["TipoAtencion"]);
+                TipoAtencion = Convert.ToInt32(row["TipoAtencion"]);
 
             if (DataRecord.HasColumn(row, "PedidoWebID"))
-                this.PedidoWebID = Convert.ToInt32(row["PedidoWebID"]);
+                PedidoWebID = Convert.ToInt32(row["PedidoWebID"]);
 
             if (DataRecord.HasColumn(row, "PedidoWebDetalleID"))
-                this.PedidoWebDetalleID = Convert.ToInt32(row["PedidoWebDetalleID"]);
+                PedidoWebDetalleID = Convert.ToInt32(row["PedidoWebDetalleID"]);
         }
     }
 }

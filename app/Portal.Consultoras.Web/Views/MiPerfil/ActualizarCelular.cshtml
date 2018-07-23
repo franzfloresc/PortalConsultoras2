@@ -1,0 +1,145 @@
+﻿@{
+    ViewBag.Title = "Actualiza tu numero de celular";
+}
+
+@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/mi-perfil.css")">
+}
+else
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/mi-perfil.css")">
+}
+
+<div class="fondo_f9f9f9">
+    <div class="content_belcorp">
+        <div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores"><span>ACTUALIZA</span> TU NÚMERO DE CELULAR</div>
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+</div>
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div>
+</div>
+<section class="vista_actualizar_celular">
+    <div class="wrapper_content_actualizar_celular">
+        <div>
+            <a href="@Url.Action("Index")" title="Volver" class="enlace_volver_a_mi_perfil text-uppercase text-bold">
+                <span class="icono_back_arrow">
+                    <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Volver" />
+                </span>
+                <span class="enlace_texto">Volver</span>
+            </a>
+            <div class="form_actualizar_celular">
+                @if (string.IsNullOrWhiteSpace(ViewBag.Celular))
+                {
+                    <div class="sin_numero_celular_registrado">
+                        <span>Aún no has registrado un celular. Llena el siguiente campo para añadirlo.</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="celular_actual">
+                        <span class="w-100 text-uppercase">Tu número actual es :</span>
+                        <span class="w-100">@ViewBag.Celular</span>
+                    </div>
+                }
+                <fieldset class="grupo_form_cambio_datos text-uppercase">
+                    <div class="w-100">
+                        <input id="NuevoCelular" name="NuevoCelular" class="w-100" type="text" value="" />
+                        <label for="NuevoCelular" class="w-100">Ingresa tu nuevo número</label>
+                    </div>
+                    <div class="text-error"></div>
+                </fieldset>
+                <fieldset class="grupo_form_cambio_datos text-uppercase">
+                    <div class="w-50 text-left v-alignMiddle">
+                        <a href="@Url.Action("Index")" title="Cancelar" class="enlace_cancelar">Cancelar</a>
+                    </div>
+                    <div class="w-50 text-right v-alignMiddle">
+                        <button type="button"
+                                class="btn_continuar text-uppercase text-bold default-background-color mt-31">
+                            Continuar
+                        </button>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="revisa_tu_celular text-center" style="display:none;">
+                <h1 class="titulo_revisa_tu_celular text-uppercase">
+                    Revisa <span class="text-bold">tu celular</span>
+                </h1>
+                <div class="icono_mensaje_sms"></div>
+                <p class="w-100 envio_instrucciones_info">
+                    <span class="w-100">Te hemos enviado un código SMS al:</span>
+                    <span class="w-100 text-bold" id="NumeroMensajeEnviado"></span>
+                </p>
+                <div class="area_ingreso_codigo_sms">
+                    <div class="texto_ingreso_codigo text-uppercase text-bold">Ingresa el código aquí</div>
+                    <fieldset class="campos_ingreso_codigo_sms">
+                        <div class="wrapper_campo_ingreso_codigo_sms">
+                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                        </div>
+                        <div class="wrapper_campo_ingreso_codigo_sms">
+                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                        </div>
+                        <div class="wrapper_campo_ingreso_codigo_sms">
+                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                        </div>
+                        <div class="wrapper_campo_ingreso_codigo_sms">
+                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                        </div>
+                        <div class="wrapper_campo_ingreso_codigo_sms">
+                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                        </div>
+                        <div class="wrapper_campo_ingreso_codigo_sms">
+                            <input class="campo_ingreso_codigo_sms text-center" type="text" value="" maxlength="1" />
+                            <div class="icono_validacion_codigo_sms validacion_erronea"></div>
+                        </div>
+                    </fieldset>
+                    <div class="codigo_sms_caducidad text-uppercase">El código caduca en <span class="default-color" id="time_counter">03:00</span></div>
+                </div>
+                <p class="w-100 envio_instrucciones_info">
+                    <a href="#"
+                       title="Reenvíenme las instrucciones"
+                       class="enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
+                        Reenvíenme el código
+                    </a>
+                </p>
+                <p class="w-100 cambiar_correo_info">
+                    <span>¿Este no es tu número?</span>
+                    <a href="#"
+                       title="Cambia tu correo"
+                       class="enlace_cambiar_correo text-bold">Cambia tu número</a>
+                </p>
+            </div>
+        </div>
+        <div class="celular_actualizado text-center" style="display:none;">
+            <div class="icono_actualizacion_celular_exitoso"></div>
+            <h1 class="titulo_correo_actualizado text-uppercase">
+                ¡Actualizaste <span class="text-bold">tu celular</span>!
+            </h1>
+            <p class="mensaje_celular_actualizado">
+                Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.
+            </p>
+            <a href="@Url.Action("Index")" class="btn_acept text-uppercase text-bold default-background-color">Ok</a>
+        </div>
+    </div>
+</section>
+
+@section scripts
+{
+    <script>
+        var actualizaCelularData = {
+            celular: '@ViewBag.Celular',
+            iniciaNumero: @ViewBag.IniciaNumeroCelular,
+            urlProvider: {
+                enviarSmsCodigo: '@Url.Action("EnviarSmsCodigo")',
+                confirmarSmsCode: '@Url.Action("ConfirmarSmsCode")'
+            }
+        };
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Base.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/ActualizarCelular.js")?v4"></script>
+}
+
+

@@ -21,12 +21,9 @@ namespace Portal.Consultoras.Entities
 
         public BEParametro(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "ParametroId"))
-                ParametroId = Convert.ToInt32(row["ParametroId"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "Abreviatura"))
-                Abreviatura = Convert.ToString(row["Abreviatura"]);
+            ParametroId = row.ToInt32("ParametroId");
+            Descripcion = row.ToString("Descripcion");
+            Abreviatura = row.ToString("Abreviatura");
         }
     }
 }

@@ -77,34 +77,26 @@ namespace Portal.Consultoras.Entities
             PaisesSegZona = new BEBannerSegmentoZona[0];
         }
 
-        public BEBanner(IDataRecord datarec)
+        public BEBanner(IDataRecord row)
         {
-            CampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
-            BannerID = Convert.ToInt32(datarec["BannerID"]);
-            GrupoBannerID = Convert.ToInt32(datarec["GrupoBannerID"]);
-            Orden = Convert.ToInt32(datarec["Orden"]);
-            Titulo = Convert.ToString(datarec["Titulo"]);
-            Archivo = Convert.ToString(datarec["Archivo"]);
-            URL = Convert.ToString(datarec["URL"]);
-            FlagGrupoConsultora = Convert.ToBoolean(datarec["FlagGrupoConsultora"]);
-            FlagConsultoraNueva = Convert.ToBoolean(datarec["FlagConsultoraNueva"]);
-            TiempoRotacion = Convert.ToInt32(datarec["TiempoRotacion"]);
-            TipoContenido = Convert.ToInt32(datarec["TipoContenido"]);
-            if (DataRecord.HasColumn(datarec, "Nombre"))
-                Nombre = Convert.ToString(datarec["Nombre"]);
-            if (DataRecord.HasColumn(datarec, "PaginaNueva"))
-                PaginaNueva = Convert.ToInt32(datarec["PaginaNueva"]);
-            if (DataRecord.HasColumn(datarec, "TituloComentario"))
-                TituloComentario = Convert.ToString(datarec["TituloComentario"]);
-            if (DataRecord.HasColumn(datarec, "TextoComentario"))
-                TextoComentario = Convert.ToString(datarec["TextoComentario"]);
-            if (DataRecord.HasColumn(datarec, "TipoAccion"))
-                TipoAccion = Convert.ToInt32(datarec["TipoAccion"]);
-            if (DataRecord.HasColumn(datarec, "CuvPedido"))
-                CuvPedido = Convert.ToString(datarec["CuvPedido"]);
-            if (DataRecord.HasColumn(datarec, "CantCuvPedido"))
-                CantCuvPedido = Convert.ToInt32(datarec["CantCuvPedido"]);
-
+            CampaniaID = Convert.ToInt32(row["CampaniaID"]);
+            BannerID = Convert.ToInt32(row["BannerID"]);
+            GrupoBannerID = Convert.ToInt32(row["GrupoBannerID"]);
+            Orden = Convert.ToInt32(row["Orden"]);
+            Titulo = Convert.ToString(row["Titulo"]);
+            Archivo = Convert.ToString(row["Archivo"]);
+            URL = Convert.ToString(row["URL"]);
+            FlagGrupoConsultora = Convert.ToBoolean(row["FlagGrupoConsultora"]);
+            FlagConsultoraNueva = Convert.ToBoolean(row["FlagConsultoraNueva"]);
+            TiempoRotacion = Convert.ToInt32(row["TiempoRotacion"]);
+            TipoContenido = Convert.ToInt32(row["TipoContenido"]);
+            Nombre = row.ToString("Nombre");
+            PaginaNueva = row.ToInt32("PaginaNueva");
+            TituloComentario = row.ToString("TituloComentario");
+            TextoComentario = row.ToString("TextoComentario");
+            TipoAccion = row.ToInt32("TipoAccion");
+            CuvPedido = row.ToString("CuvPedido");
+            CantCuvPedido = row.ToInt32("CantCuvPedido");
             PaisesSegZona = new BEBannerSegmentoZona[0];
         }
     }

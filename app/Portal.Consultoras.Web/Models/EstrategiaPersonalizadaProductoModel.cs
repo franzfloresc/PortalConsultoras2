@@ -12,6 +12,7 @@ namespace Portal.Consultoras.Web.Models
             ArrayContenidoSet = new List<string>();
             ListaDescripcionDetalle = new List<string>();
             Hermanos = new List<EstrategiaComponenteModel>();
+            ListaPrecioNiveles = new List<string>();
         }
 
         public int CampaniaID { get; set; }
@@ -63,14 +64,15 @@ namespace Portal.Consultoras.Web.Models
 
         public List<EstrategiaComponenteModel> Hermanos { get; set; }
         public bool EsOfertaIndependiente { get; set; }
-        public string PrecioNiveles { get; set; }
-        
+        //public string PrecioNiveles { get; set; }
+        public List<string> ListaPrecioNiveles { get; set; }
+
         public string CodigoProducto { get; set; }
         public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }
         public string CodigoCategoria { get; set; } // se usa para filtrar los productos por categoria en ShowRoom
         public string ImagenProductoMini { get; set; }  // se usa para ShowRoom
 
-        public bool esMultimarca { get; set; }
-        public bool esSubcampania { get; set; }
+        public bool EsMultimarca { get; set; }
+        public bool EsSubcampania { get; set; }
     }
 }

@@ -40,20 +40,13 @@ namespace Portal.Consultoras.Entities
 
         public BEMatrizComercialImagen(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "IdMatrizComercialImagen"))
-                IdMatrizComercialImagen = Convert.ToInt32(row["IdMatrizComercialImagen"]);
-            if (DataRecord.HasColumn(row, "IdMatrizComercial"))
-                IdMatrizComercial = Convert.ToInt32(row["IdMatrizComercial"]);
-            if (DataRecord.HasColumn(row, "Foto"))
-                Foto = Convert.ToString(row["Foto"]);
-            if (DataRecord.HasColumn(row, "NemoTecnico"))
-                NemoTecnico = Convert.ToString(row["NemoTecnico"]);
-            if (DataRecord.HasColumn(row, "DescripcionComercial"))
-                DescripcionComercial = Convert.ToString(row["DescripcionComercial"]);
-            if (DataRecord.HasColumn(row, "FechaRegistro"))
-                FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (DataRecord.HasColumn(row, "TotalRegistros"))
-                TotalRegistros = Convert.ToInt32(row["TotalRegistros"]);
+            IdMatrizComercialImagen = row.ToInt32("IdMatrizComercialImagen");
+            IdMatrizComercial = row.ToInt32("IdMatrizComercial");
+            Foto = row.ToString("Foto");
+            NemoTecnico = row.ToString("NemoTecnico");
+            DescripcionComercial = row.ToString("DescripcionComercial");
+            FechaRegistro = row.ToDateTime("FechaRegistro");
+            TotalRegistros = row.ToInt32("TotalRegistros");
         }
     }
 }

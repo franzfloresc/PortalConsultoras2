@@ -40,57 +40,56 @@
 
 <div class="content_belcorp">
     <div class="content_datos">
-        <div class="contenedor_img_perfil" style="display:none">
-
+        <div class="contenedor_img_perfil" style="display:none;">
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
+                <a href="@Url.Action("Index", "MiPerfil")" id="hrefActualizarDatos" title="Actualizar datos" class="actualizar_datos default-background"></a>
+                <div class="tooltip_info_revision_correo" style="display:none;">
+                    <div class="icono_info_alerta"></div>
+                    <div class="tooltip_texto">
+                        <p>
+                            Ingresa y actualiza tu correo y/o celular para poder contactarnos contigo.
+                        </p>
+                    </div>
+                </div>
                 <div class="foto_perfil_home">
-                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+                    @if (ViewBag.FotoPerfilAncha)
+                    {
+                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width: auto; height: 100%;" />
+                    }
+                    else
+                    {
+                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width: 100%; height: auto;" />
+                    }
                 </div>
             }
-
             <div class="clear"></div>
-
         </div>
 
         <div class="resumen_belcorp_cam">
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
             {
-
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡Feliz Aniversario @nombreConsultora
-                    @if (ViewBag.TipoUsuario != 2)
-                    {
-                        <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
-                    }
                 </div>
             }
             else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                    ¡Feliz Cumpleaños @nombreConsultora @if (ViewBag.TipoUsuario != 2)
-                    {
-                        <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
-                    }
+                    ¡Feliz Cumpleaños @nombreConsultora 
                 </div>
             }
             else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                    ¡@ViewBag.SaludoFestivo @nombreConsultora @if (ViewBag.TipoUsuario != 2)
-                    {
-                        <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
-                    }
+                    ¡@ViewBag.SaludoFestivo @nombreConsultora
                 </div>
 
             }
             else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                    ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a><br />@nombreConsultora @if (ViewBag.TipoUsuario != 2)
-                    {
-                        <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
-                    }
+                    ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a><br />@nombreConsultora
                 </div>
             }
             else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && revistaDigital.EsActiva)
@@ -101,29 +100,20 @@
                 if (CampaniaEfectiva.Equals(CampaniaActual))
                 {
                     <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                        ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a><br />@nombreConsultora @if (ViewBag.TipoUsuario != 2)
-                        {
-                            <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
-                        }
+                        ¡Bienvenida al <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Club Gana+</a><br />@nombreConsultora
                     </div>
                 }
                 else
                 {
                     <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                        ¡Hola @nombreConsultora @if (ViewBag.TipoUsuario != 2)
-                        {
-                            <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
-                        }
+                        ¡Hola @nombreConsultora 
                     </div>
                 }
             }
             else
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                    ¡Hola @nombreConsultora @if (ViewBag.TipoUsuario != 2)
-                    {
-                        <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
-                    }
+                    ¡Hola @nombreConsultora 
                 </div>
             }
             <hr class="clear" />
@@ -196,12 +186,12 @@
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea"
                href="@Url.Action("Index","PagoEnLinea")" class="btn_paga_online btn_100_paga"
-               style="margin-top: 10px;">PAGA EN L&Iacute;NEA</a>
+               style="margin-top: 10px;">PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
             if (Model.PaisID == Constantes.PaisID.Ecuador || Model.PaisID == Constantes.PaisID.Peru)
             {
                 <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion"
                    href="@Url.Action("Index", "FacturaElectronica")" target="_blank"
-                   style="margin-top: 10px;">FACTURACI&Oacute;N ELECTR&Oacute;NICA</a>
+                   style="margin-top: 10px;">FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> <!-- AGREGAR LA CLASES="btn_100_facturacion"-->
             }
         }
         else
@@ -309,7 +299,7 @@
     @Html.Partial("~/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
 </div>
 <div class="fondo_gris content_belcorp" id="divRevistaDigital"></div>
-<div class="content_belcorp">
+<div class="content_belcorp" id="divContentShowRoomHome" style="display:none;">
     <div class="content-favclientes content_carrusel_agregado">
         <div class="linea_separadora"></div>
         <div class="banner_showroom_home" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index", "ShowRoom")'">
@@ -1087,6 +1077,41 @@
             </form>
         </div>
     </div>
+    <!-- FIN POPUP MIS DATOS -->
+    <!-- POPUP VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE -->
+    <div class="popup_correo_pendiente_de_confirmar text-center" id="popupVerificacionCorreoElectronicoPendiente" style="display:none;">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="#" id="cerrarPopupActualizacionEmail" title="Cerrar">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" id="imgCerrarSvg" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp">
+            <div class="mb-40">
+                <h1 class="titulo_correo_pendiente_confirmacion text-uppercase">
+                    Tienes pendiente<br /><span class="text-bold">confirmar tu correo para<br />actualizarlo</span>
+                </h1>
+                <div class="icono_correo_sobre"></div>
+                <p class="w-100 envio_instrucciones_info">
+                    <span class="w-100">Te hemos enviado las instrucciones a:</span>
+                    <span class="w-100 text-bold" id="spnEmail">valeria.tarazona@gmail</span>
+                </p>
+                <p class="w-100 envio_instrucciones_info">
+                    @*<span class="w-100">¿Aún no recibes nuestro correo?</span>*@
+                    <a href="@Url.Action("Index", "MiPerfil")" title="Ir A Mis Datos" class="enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
+                        Ir a mis datos
+                    </a>
+                </p>
+                @*<p class="w-100 cambiar_correo_info">
+                        <span>¿Este no es tu correo?</span>
+                        <a href="#" title="Cambia tu correo" class="enlace_cambiar_correo text-bold">Cambia tu correo</a>
+                    </p>*@
+            </div>
+            @*<a href="#" class="enlace_no_cambiar_correo" title="Ya no deseo actualizar mi correo">Ya no deseo actualizar mi correo</a>*@
+        </div>
+    </div>
+    <!-- FIN - POPUP VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE -->
+    <!-- POPUP TUTORIAL HOME-->
     <div id="popup_tutorial_home" style="display: none;">
         <div class="popup_tutorial_home" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
             <div id="slide1_container" class="shadow">
@@ -1114,98 +1139,6 @@
     <div id="popupComunicados" style="display:none;"></div>
 </div>
 
-<div class="popup_actualizarMisDatos" id="CamaraIntroductoria" style="display: none;">
-    <div class="btn_cerrar_actualizarMisDatos">
-        <a href="javascript:CerrarCamara();" title="Cerrar">
-            <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-            <span class="texto_btn_cerrar">CERRAR</span>
-        </a>
-    </div>
-    <div class="contenido_popUp">
-        <style type="text/css">
-            #btnTomarFoto, #btnSubirFoto {
-                margin-top: 15px;
-                margin-right: 15px;
-            }
-
-            .results {
-                margin: 20px;
-                padding: 20px;
-                border: 1px solid;
-                background: #ccc;
-            }
-        </style>
-
-        <div id="my_camera"></div>
-        <input type="button" value="Tomar Foto" onclick="TomarFoto()">
-        <div class="results"><img id="imgFotoTomada" /></div>
-        <div class="results"><div id="demo"></div></div>
-        <input type="button" value="Cortar Foto" onclick="CortarFoto()">
-    </div>
-</div>
-<div id="PopUpFotoCargada" class="CompartirCorreoPop" style="display:none">
-    <div class="content_foto_cargada">
-        <a class="cerrar_compartir" href="javascript:;" onclick="javascript: $('#PopUpFotoCargada').hide();">
-            <img src="/Content/Images/cerrar_04.png" alt=" alternate text">
-        </a>
-        <div class="titulo_pop_foto">MI <b>FOTO</b></div>
-        <div class="content_foto_usuario">
-            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
-        </div>
-        <a class="btn_tomar_foto">TOMAR FOTO</a>
-    </div>
-</div>
-<div id="PopUpFotoActualizada" class="CompartirCorreoPop" style="display:none">
-    <div class="content_foto_cargada">
-        <a class="cerrar_compartir" href="javascript:;" onclick="javascript: $('#PopUpFotoActualizada').hide();">
-            <img src="/Content/Images/cerrar_04.png" alt=" alternate text">
-        </a>
-        <div class="titulo_pop_foto">MI <b>FOTO</b></div>
-        <div class="content_foto_usuario">
-            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
-        </div>
-        <div class="text_actualizada">¡FELICITACIONES!</div>
-        <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
-    </div>
-</div>
-<div class="contenedor_fondo_popup contenedor_fondo_popup_oscuro" id="PopUpFotoActualizada2" style="display: none;">
-    <div class="popup_img_perfil">
-        <h1>MI <b>FOTO</b></h1>
-        <div class="imgPerfil">
-
-        </div>
-        <div class="btn_acciones">
-            <button class="boton_cancelarImagen" type="button" name="btnCancelarImg">
-                CANCELAR
-            </button>
-            <button class="boton_guardarImagen" type="button" name="btnGuardarImg">
-                GUARDAR
-            </button>
-        </div>
-    </div>
-    <div class="content_foto_cargada">
-        <a class="cerrar_compartir" href="javascript:;" onclick="javascript: $('#PopUpFotoActualizada').hide();">
-            <img src="/Content/Images/cerrar_04.png" alt=" alternate text">
-        </a>
-        <div class="titulo_pop_foto">MI <b>FOTO</b></div>
-        <div class="content_foto_usuario">
-            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
-        </div>
-        <div class="text_actualizada">¡FELICITACIONES!</div>
-        <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
-    </div>
-    <div class="content_foto_cargada">
-        <a class="cerrar_compartir" href="javascript:;" onclick="javascript: $('#PopUpFotoActualizada').hide();">
-            <img src="/Content/Images/cerrar_04.png" alt=" alternate text">
-        </a>
-        <div class="titulo_pop_foto">MI <b>FOTO</b></div>
-        <div class="content_foto_usuario">
-            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
-        </div>
-        <div class="text_actualizada">¡FELICITACIONES!</div>
-        <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
-    </div>
-</div>
 <div data-oferta=""></div>
 <div id="DialogoMensajeBannerShowRoom" class="fondo_popupShowRoom" style="display: none;">
     <div style="background: white; overflow: inherit; position: relative; top: 50%; margin: -240px auto 0 auto; width: 821px; height: 480px; padding: 0; z-index: 1100; ">
@@ -2137,6 +2070,7 @@
         var popupCupon = '@Constantes.TipoPopUp.Cupon';
         var popupCuponForzado = '@Constantes.TipoPopUp.CuponForzado';
         var popupAsesoraOnline = '@Constantes.TipoPopUp.AsesoraOnline';
+        var popupActualizarCorreo = '@Constantes.TipoPopUp.ActualizarCorreo';
         var mostrarPopupActualizarDatosXPais = '@Model.MostrarPopupActualizarDatosXPais';
         var mensajeFechaDA = '@Model.MensajeFechaDA';
         var origenPagina = 1;
@@ -2190,7 +2124,8 @@
         var OrigenDesktopODD = 1;
         var nombreAlias = '@Util.SubStr(Model.NombreConsultora, 0)';
         var viewBagTieneHV = '@((ViewBag.TieneHV ??  false).ToString().ToLower())' == 'true';
-
+        var urlActionMiPerfil = '@Url.Action("ObtenerActualizacionEmail", "Bienvenida", new { area = "" })';
+        var urlLocationMiPerfil = '@Url.Action("Index", "MiPerfil", new { area = "" })';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Portal.Consultoras.Web.SessionManager.SessionManager.Instance.SetIsContrato(0); }

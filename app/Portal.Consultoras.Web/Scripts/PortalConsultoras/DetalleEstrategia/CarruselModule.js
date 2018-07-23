@@ -13,7 +13,9 @@
         divCarruselSetsProductosRelacionados: config.divCarrusel,
         divProductosRelacionados: config.divCarrusel,
         idTituloCarrusel: config.idTituloCarrusel,
-        divCarruselContenedor: config.divSetsProductosdata
+        divCarruselContenedor: config.divSetsProductosdata,
+        ContenidoProducto: config.ContenidoProducto,
+        CarruselProducto: config.CarruselProducto
     };
 
     var _variable = {
@@ -191,6 +193,9 @@
             if (Array.isArray(data.lista) && data.lista.length > 0) {
                 $(_elementos.divCarruselContenedor).show();
                 return;
+            } else {
+                $(_elementos.ContenidoProducto).hide();
+                $(_elementos.CarruselProducto).hide();
             }
         $(_elementos.divCarruselContenedor).hide();
     }

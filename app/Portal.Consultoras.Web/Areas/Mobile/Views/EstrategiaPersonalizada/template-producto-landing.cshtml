@@ -64,11 +64,11 @@
                         {{else}}
                         <h6>&ensp;&nbsp;</h6>
                         {{/IsNullOrEmpty}}
-                        {{#iff DescripcionCortada '!=' ''}}
+                        
                         <p class="nombre_producto" style=" {{#iff esSubcampania '==' 'false'}}cursor: pointer;{{/iff}} height: 36px;">
                             <b class="text_descrition_prd_bpt" {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>{{DescripcionCortada}}</b>
                         </p>
-                        {{/iff}}
+                        
                         {{#iff esSubcampania '==' true}}
                         <div class="sub_campania_info_adicional" style="min-height: 60px;  max-height: 60px;">
                             {{#each item.Hermanos as |itemHermano|}}
@@ -130,7 +130,7 @@
                     <div class="texto_elige_tono" style="height: 55px;padding-top: 16px;">¡AHORA ELIGE TU TONO!</div>
                     <div class="clear"></div>
                     <div class="producto_nombre_descripcion">
-                        <a class="btn_elige_tono" data-item-tag="eligetuopcion" onclick="javascript:VerDetalleEstrategia(event);" href="javascript:;">
+                        <a class="btn_elige_tono" data-item-tag="eligetuopcion" onclick="javascript:OnClickFichaDetalle(this);" href="javascript:;">
                             ELIGE TU OPCIÓN
                         </a>
                     </div>

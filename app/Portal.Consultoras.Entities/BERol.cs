@@ -31,15 +31,10 @@ namespace Portal.Consultoras.Entities
 
         public BERol(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "RolID"))
-                RolID = Convert.ToInt32(row["RolID"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "Activo"))
-                Activo = Convert.ToBoolean(row["Activo"]);
-            if (DataRecord.HasColumn(row, "Sistema"))
-                Sistema = Convert.ToInt32(row["Sistema"]);
-
+            RolID = row.ToInt32("RolID");
+            Descripcion = row.ToString("Descripcion");
+            Activo = row.ToBoolean("Activo");
+            Sistema = row.ToInt32("Sistema");
         }
     }
 }
