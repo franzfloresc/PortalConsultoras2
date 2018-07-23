@@ -9,6 +9,8 @@
 
 @section styles{
 
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/ui.jquery/Esika/jquery-ui.css")">
+
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
 
@@ -65,9 +67,13 @@
                 <div class="grupo_campo_formulario_pasarela_pago">
                     <label class="nom_campo_formulario_pasarela_pago w-100">*Número de tarjeta :</label>
                     <input type="text" value="" class="campo_formulario_pasarela_pago w-100 campo_num_tarjeta_credito_o_debito" />
+                    <div class="mensaje_validacion text-center w-100" style="display:none;">
+                        <span class="icono_validacion_incorrecta"></span>
+                        <span>El número ingresado no es correcto.</span>
+                    </div>
                 </div>
                 <div class="grupo_campo_formulario_pasarela_pago">
-                    <div class="w-69 pr-7">
+                    <div class="w-69 pr-7 vAlignTop">
                         <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de expiración :</label>
                         @*<input type="text" value="" class="campo_formulario_pasarela_pago w-100" placeholder="MM/AA"/>*@
                         <select class="campo_formulario_pasarela_pago campo_seleccion_fecha_expiracion campo_mes mr-5">
@@ -84,8 +90,12 @@
                             <option value="3">2019</option>
                             <option value="4">2018</option>
                         </select>
+                        <div class="mensaje_validacion text-center w-100" style="display:none;">
+                            <span class="icono_validacion_incorrecta"></span>
+                            <span>La fecha no es válida.</span>
+                        </div>
                     </div>
-                    <div class="w-30 pl-8">
+                    <div class="w-30 pl-8 vAlignTop">
                         <label class="nom_campo_formulario_pasarela_pago w-100">
                             <span>*CVV :</span>
                             <span class="tooltip_informativo">
@@ -104,7 +114,7 @@
                 </div>
                 <div class="grupo_campo_formulario_pasarela_pago">
                     <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de nacimiento :</label>
-                    <input type="text" value="" class="campo_formulario_pasarela_pago w-100" placeholder="00/00/0000" />
+                    <input type="text" value="" id="CampoFechaNacimiento" class="campo_formulario_pasarela_pago w-100" placeholder="00/00/0000" />
                 </div>
                 <div class="grupo_campo_formulario_pasarela_pago">
                     <label class="nom_campo_formulario_pasarela_pago w-100">*Correo Electrónico :</label>
@@ -121,3 +131,17 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#CampoFechaNacimiento").datepicker();
+
+        });
+
+    </script>    
+    
+}

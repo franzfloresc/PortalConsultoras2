@@ -88,6 +88,10 @@
     font-weight:900;
 }
 
+.vAlignTop{
+    vertical-align:top!important;
+}
+
 .content_belcorp {
     padding-left: 2.4%;
     padding-right: 2.4%;
@@ -156,7 +160,8 @@
 .grupo_campo_formulario_pasarela_pago,
 .nom_campo_formulario_pasarela_pago,
 .campo_formulario_pasarela_pago,
-.info_tooltip_informativo
+.info_tooltip_informativo,
+.mensaje_validacion
 {
     display:block;
 }
@@ -200,7 +205,8 @@
 .opcion_pago_total_a_pagar > div,
 .texto_descripcion_tipo_pago,
 .campo_seleccion_fecha_expiracion,
-.tooltip_informativo
+.tooltip_informativo,
+.mensaje_validacion span
 {
     display:inline-block;
     vertical-align:middle;
@@ -1197,7 +1203,8 @@
 }
 
 .campo_num_tarjeta_credito_o_debito,
-.campo_seleccion_fecha_expiracion
+.campo_seleccion_fecha_expiracion,
+.icono_validacion_incorrecta
 {
     background-repeat: no-repeat;
 }
@@ -1283,6 +1290,95 @@
 .tooltip_informativo:hover .info_tooltip_informativo{
     display:block;
 }
+
+.mensaje_validacion {
+    margin-top:10px;
+    background-color: #EBEBEB;
+    padding-top: 13px;
+    padding-bottom: 17px;
+    border-radius:6px;
+    position:relative;
+}
+
+.mensaje_validacion:before {
+    bottom: 100%;
+    margin:0 auto;
+	left: 0;
+    right:0;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+    border-bottom-color: #EBEBEB;
+    border-width: 8px;
+}
+
+.icono_validacion_incorrecta{
+    width:26px;
+    height:30px;
+    background-image:url(../../../Images/Lbel/icono_fecha_no_valida.svg);
+    background-position:center;
+    background-size:26px;
+    margin-right:7px;
+}
+
+/* MODIFICACIONES DE DISEÑO JQUERY DATEPICKER */
+
+.ui-datepicker {
+    background-color:#FFF;
+    width: 82.2%;
+    padding:13px 10px;
+    -moz-box-shadow: 1px 4px 15px -1px rgba(0,0,0,0.4);
+    -webkit-box-shadow: 1px 4px 15px -1px rgba(0,0,0,0.4);
+    box-shadow: 1px 4px 15px -1px rgba(0,0,0,0.4);
+}
+
+.ui-widget.ui-widget-content {
+	font-family: 'Lato';
+	font-size: 12.5px;
+	border-radius: 0%;
+	margin-top:2px;
+	margin-left: -1px;
+}
+
+.ui-widget-header{
+	border-radius:0%;
+}
+
+.ui-widget-header,
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-state-active,
+.ui-widget-content .ui-state-active
+{
+	background:#f5eafb;
+	color:#000;
+	border:none;
+	padding-right:4px;
+	transition:all 0.3s ease;
+	-moz-transition:all 0.3s ease;
+	-o-transition:all 0.3s ease;
+	-ms-transition:all 0.3s ease;
+	-webkit-transition:all 0.3s ease;
+}
+
+.ui-datepicker th{
+    color:#000;
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight
+{
+	background:#642f80;
+	color:#FFF;
+}
+
+/* FIN - MODIFICACIONES DE DISEÑO JQUERY DATEPICKER */
 
 /* POPUP TÉRMINOS Y CONDICIONES */
 

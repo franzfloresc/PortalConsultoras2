@@ -88,6 +88,10 @@
     font-weight:900;
 }
 
+.vAlignTop{
+    vertical-align:top!important;
+}
+
 .content_belcorp {
     padding-left: 2.4%;
     padding-right: 2.4%;
@@ -156,7 +160,8 @@
 .grupo_campo_formulario_pasarela_pago,
 .nom_campo_formulario_pasarela_pago,
 .campo_formulario_pasarela_pago,
-.info_tooltip_informativo
+.info_tooltip_informativo,
+.mensaje_validacion
 {
     display:block;
 }
@@ -200,7 +205,8 @@
 .opcion_pago_total_a_pagar > div,
 .texto_descripcion_tipo_pago,
 .campo_seleccion_fecha_expiracion,
-.tooltip_informativo
+.tooltip_informativo,
+.mensaje_validacion span
 {
     display:inline-block;
     vertical-align:middle;
@@ -1206,7 +1212,8 @@
 }
 
 .campo_num_tarjeta_credito_o_debito,
-.campo_seleccion_fecha_expiracion
+.campo_seleccion_fecha_expiracion,
+.icono_validacion_incorrecta
 {
     background-repeat: no-repeat;
 }
@@ -1256,6 +1263,127 @@
     width:auto;
     height:90%;
 }
+
+.info_tooltip_informativo{
+    display:none;
+    position: absolute;
+    top: -101px;
+    right: -16px;
+    width: 232px;
+    min-height: 88.06px;
+    background-color: #DADADA;
+    color: #000;
+    padding: 16px 12px;
+    z-index: 20;
+    border-radius:4px;
+    font-size:13px;
+    font-weight:500;
+}
+
+.info_tooltip_informativo:after {
+    top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+    border-top-color: #DADADA;
+    border-width: 8px;
+    margin-left: 82px;
+}
+
+.tooltip_informativo:hover .info_tooltip_informativo{
+    display:block;
+}
+
+.mensaje_validacion {
+    margin-top:10px;
+    background-color: #EBEBEB;
+    padding-top: 13px;
+    padding-bottom: 17px;
+}
+
+.mensaje_validacion:before {
+    bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(136, 183, 213, 0);
+    border-top-color: #DADADA;
+    border-width: 8px;
+    margin-left: 82px;
+}
+
+.icono_validacion_incorrecta{
+    width:26px;
+    height:30px;
+    background-image:url(../../../Images/Esika/icono_fecha_no_valida.svg);
+    background-position:center;
+    background-size:26px;
+    margin-right:7px;
+}
+
+/* MODIFICACIONES DE DISEÑO JQUERY DATEPICKER */
+
+.ui-datepicker{
+    background-color:#FFF;
+    width: 82.2%;
+    padding:13px 10px;
+    -moz-box-shadow: 1px 4px 15px -1px rgba(0,0,0,0.4);
+    -webkit-box-shadow: 1px 4px 15px -1px rgba(0,0,0,0.4);
+    box-shadow: 1px 4px 15px -1px rgba(0,0,0,0.4);
+}
+
+.ui-widget.ui-widget-content {
+	font-family: 'Lato';
+	font-size: 12.5px;
+	border-radius: 0%;
+	margin-top:2px;
+	margin-left: -1px;
+}
+
+.ui-widget-header{
+	border-radius:0%;
+}
+
+.ui-widget-header,
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-state-active,
+.ui-widget-content .ui-state-active
+{
+	background:#ffecef;
+	color:#000;
+	border:none;
+	padding-right:4px;
+	transition:all 0.3s ease;
+	-moz-transition:all 0.3s ease;
+	-o-transition:all 0.3s ease;
+	-ms-transition:all 0.3s ease;
+	-webkit-transition:all 0.3s ease;
+}
+
+.ui-datepicker th{
+    color:#000;
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight
+{
+	background:#e81c36;
+	color:#FFF;
+}
+
+/* FIN - MODIFICACIONES DE DISEÑO JQUERY DATEPICKER */
 
 /* POPUP TÉRMINOS Y CONDICIONES */
 
