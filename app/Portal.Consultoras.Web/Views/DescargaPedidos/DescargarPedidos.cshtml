@@ -25,10 +25,13 @@
         IniFecha();
         fnGrilla();
 
+        // Hay un click en progreso
+        $("#btnDescargar").data('click', false);
+
         $("#btnDescargar").click(function () {
 
-            $(this).addClass('disabled');
-            RealizarDescarga();
+            //$(this).addClass('disabled');
+            RealizarDescarga($(this));
         });
 
         $("#btnDesmarcarUltimoPedido").click(function () {
@@ -52,7 +55,7 @@
         }).mask('99/99/9999');
     }
 
-    function RealizarDescarga() {
+    function RealizarDescarga($btnClick) {
         var vMessage = "";
         $("#DivDescargas").hide();
         $("#Aheader").text("");
@@ -75,6 +78,17 @@
             return false;
         }
         else {
+            // Click anterior
+            // Si ya se clickeo anteriormente y aun no termina proceso.
+            if ($btnClick.data('click')) {
+                alert("Esperando finalización de proceso anterior.");
+                return ;
+            }
+
+            // Si no hay clicks anteriores pendientes
+            // Seguimos en este click
+            $btnClick.data('click', true);
+
             var waiting = {
                 message: 'Espere unos minutos, por favor...',
                 title: 'Ejecutando Proceso'
@@ -114,12 +128,13 @@
                             $("#hdnfileDetailAct").val(data.rutae);
                             $("#DivDescargas").show();
                         }
-                    }, complete: function () {
+                    }
+                    , complete: function () {
                         $('#btnDescargar').removeClass('disabled');
-                    
+                        $btnClick.data('click', false); // Termino el click
                         // Handle the complete event
-                    },
-                    error: function (data, error) {
+                    }
+                    , error: function (data, error) {
                         if (checkTimeout(data)) {
                             closeWaitingDialog();
                             alert("Error del Sistema.");
@@ -150,6 +165,11 @@
                             $("#hdnfileHeader").val(data.rutac);
                             $("#DivMensajeLideres").show();
                         }
+                    },
+                    complete: function () {
+                        $('#btnDescargar').removeClass('disabled');
+                        $btnClick.data('click', false); // Termino el click
+                        // Handle the complete event
                     },
                     error: function (data, error) {
                         if (checkTimeout(data)) {
@@ -184,6 +204,11 @@
                             }
                             else alert(data.mensaje);
                         }
+                    },
+                    complete: function () {
+                        $('#btnDescargar').removeClass('disabled');
+                        $btnClick.data('click', false); // Termino el click
+                        // Handle the complete event
                     },
                     error: function (data, error) {
                         if (checkTimeout(data)) {
@@ -226,6 +251,11 @@
                             }
                             else alert(data.mensaje);
                         }
+                    },
+                    complete: function () {
+                        $('#btnDescargar').removeClass('disabled');
+                        $btnClick.data('click', false); // Termino el click
+                        // Handle the complete event
                     },
                     error: function (data, error) {
                         if (checkTimeout(data)) {
