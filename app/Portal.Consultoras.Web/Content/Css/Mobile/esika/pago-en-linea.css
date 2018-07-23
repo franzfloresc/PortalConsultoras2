@@ -20,8 +20,16 @@
     margin-right:0!important;
 }
 
+.mr-5{
+    margin-right:5px;
+}
+
 .mt-16{
     margin-top:16px;
+}
+
+.mt-30{
+    margin-top:30px;
 }
 
 .mb-0{
@@ -36,16 +44,36 @@
     margin-bottom:23px;
 }
 
+.pl-8{
+    padding-left:11px;
+}
+
+.pr-7{
+    padding-right:11px;
+}
+
 .pb-11{
     padding-bottom:11px;
+}
+
+.w-30{
+    width:30%;
+}
+
+.w-50{
+    width:50%;
+}
+
+.w-45{
+    width:42.4%;
 }
 
 .w-53{
     width:53.6%;
 }
 
-.w-45{
-    width:42.4%;
+.w-69{
+    width:69%;
 }
 
 .w-100{
@@ -122,11 +150,20 @@
 .opcion_pago_gastos_administrativos,
 .linea_separacion_montos_y_total,
 .opcion_pago_total_a_pagar,
-.icono_flecha_despliegue
+.icono_flecha_despliegue,
+.pasarela_pago,
+.formulario_pasarela_pago,
+.grupo_campo_formulario_pasarela_pago,
+.nom_campo_formulario_pasarela_pago,
+.campo_formulario_pasarela_pago,
+.info_tooltip_informativo
 {
     display:block;
 }
 
+.w-30,
+.w-50,
+.w-69,
 .paso_proceso_pago_en_linea,
 .col_izq,
 .col_der,
@@ -161,7 +198,9 @@
 .opcion_pago_monto > div,
 .opcion_pago_gastos_administrativos > div,
 .opcion_pago_total_a_pagar > div,
-.texto_descripcion_tipo_pago
+.texto_descripcion_tipo_pago,
+.campo_seleccion_fecha_expiracion,
+.tooltip_informativo
 {
     display:inline-block;
     vertical-align:middle;
@@ -279,14 +318,24 @@
     background:#e81c36;
 }
 
+.seleccion_monto_a_pagar h3,
+.pasarela_pago h3
+{
+    text-transform:uppercase;
+    font-weight:bold;
+}
+
 .seleccion_monto_a_pagar h3{
+    font-size:14px;
+    border-bottom:1px solid #B5B5B5;
     margin-top:18px;
     margin-bottom:21px;
-    text-transform:uppercase;
-    font-size:14px;
-    font-weight:bold;
     padding-bottom:10px;
-    border-bottom:1px solid #7E7E7E;
+}
+
+.pasarela_pago h3{
+    margin-bottom:22.56px;
+    font-size:15px;
 }
 
 .lista_metodos_pago,
@@ -1129,6 +1178,83 @@
 
 .enlace_ver_estado_de_cuenta span:last-child{
     text-transform:uppercase;
+}
+
+.pasarela_pago{
+    padding-left:15px;
+    padding-right:15px;
+}
+
+.grupo_campo_formulario_pasarela_pago{
+    margin-bottom:15px;
+}
+
+.nom_campo_formulario_pasarela_pago{
+    color:#000;
+    font-size:14px;
+    margin-bottom:7px;
+    position:relative;
+}
+
+.campo_formulario_pasarela_pago {
+    border-radius: 4px;
+    height: 40px;
+    border: 1px solid #808080;
+    background-color: #FFF;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.campo_num_tarjeta_credito_o_debito,
+.campo_seleccion_fecha_expiracion
+{
+    background-repeat: no-repeat;
+}
+
+.campo_num_tarjeta_credito_o_debito{
+    padding-right: 46px;
+    background-image: url(../../../Images/logo-mastercard.svg);
+    background-position: 96% center;
+    background-size:26px;
+}
+
+.campo_seleccion_fecha_expiracion{
+    padding-left: 8px;
+    padding-right: 23px;
+    -webkit-appearance: none;
+    background-image: url(../../../Images/flecha-despliegue.svg);
+    background-size: 14px;
+}
+
+.campo_mes{
+    width:58%;
+    background-position: 92% 16px;
+}
+
+.campo_anio{
+    width:37%;
+    background-position: 87% 16px;
+}
+
+.tooltip_informativo{
+    width:19px;
+    height:19px;
+    background-color:#B4B1B1;
+    border-radius:100%;
+    position:relative;
+    top:-1px;
+    margin-left:5px;
+}
+
+.tooltip_informativo img{
+    position:absolute;
+    margin:auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    width:auto;
+    height:90%;
 }
 
 /* POPUP TÉRMINOS Y CONDICIONES */
