@@ -468,11 +468,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (respuesta.Data.ToString().Contains("success = True"))
                 {
-                    using (var pedidoServiceClient = new PedidoServiceClient())
-                    {
-                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
-                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
-                    }
+                    PedidoAgregarProductoAgrupado(model.Cantidad.ToInt(), model.CUV, model.CUV, 0);
                 }
 
                 return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
@@ -4168,11 +4164,8 @@ namespace Portal.Consultoras.Web.Controllers
                         });
                     }
 
-                    using (var pedidoServiceClient = new PedidoServiceClient())
-                    {
-                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), CuvSet
-                            , userData.ConsultoraID, "", strCuvs, estrategia.EstrategiaID);
-                    }
+                    PedidoAgregarProductoAgrupado(model.Cantidad.ToInt(), CuvSet, strCuvs, estrategia.EstrategiaID);
+
                 }
 
                 return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
@@ -4407,6 +4400,18 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
                 return ErrorJson(Constantes.MensajesError.ErrorGenerico, true);
             }
+        }
+
+        private void PedidoAgregarProductoAgrupado(int cantidad, string cuv, string cuvlist, int estrategiaId)
+        {
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, cantidad, cuv
+                    , userData.ConsultoraID, "", string.Format("{0}:1", cuvlist), estrategiaId);
+            }
+
+            sessionManager.SetDetallesPedidoSetAgrupado(null);
+            sessionManager.GetDetallesPedidoSetAgrupado(); // para actualizar session agrupado
         }
 
         #endregion
