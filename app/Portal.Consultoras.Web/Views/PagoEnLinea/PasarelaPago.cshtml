@@ -7,7 +7,18 @@
 }
 
 @section styles{
-    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/pago-en-linea.css")">
+
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+    {
+
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/pago-en-linea.css")">
+
+    }
+    else
+    {
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/pago-en-linea.css")">
+    }
+
 }
 
 <div class="fondo_f9f9f9">
@@ -19,11 +30,16 @@
     <div class="linea_separadora" style="margin-top:-1px"></div>
 </div>
 
-<a id="linkRegresar" class="btn_paso_anterior_pago_en_linea" href="@Url.Action("Index", "PagoEnLinea")">REGRESAR</a>
-
 <div class="content_belcorp">
     <div class="pestana_lbel"></div>
     <div class="proceso_de_pago_en_linea">
+        <a id="linkRegresar" class="btn_paso_anterior_pago_en_linea" href="@Url.Action("MetodoPago", "PagoEnLinea")">
+            <span class="icono_back_arrow">
+                <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Volver" />
+            </span>
+            <span class="enlace_texto">VOLVER</span>
+        </a>
+        <div class="clear"></div>
         <div class="cantidad_pasos_proceso_pago">
 
             <span class="paso_proceso_pago_en_linea paso_activo paso_completado">1</span>
@@ -34,8 +50,76 @@
                 <span class="fondo_pasos_proceso_pago_avance"></span>
             </div>
         </div>
-        <div class="vista_confirmacion_pago">
-            <h3 class="titulo_seleccion_monto_a_pagar">TARJETA DE CRÉDITO O DÉBITO</h3>
+        <div class="pasarela_pago">
+            <h3 class="titulo_eleccion_metodo_pago text-center text-uppercase">Elige el método de pago</h3>
+            <div class="formulario_pasarela_pago w-100">
+                <div class="titulo_formulario_pasarela_pago text-uppercase text-center text-bold">
+                    Tarjeta de crédito o débito
+                </div>
+                <div class="grupo_campo_formulario_pasarela_pago">
+                    <label class="nom_campo_formulario_pasarela_pago w-100">*Número de tarjeta :</label>
+                    <input type="text" value="" class="campo_formulario_pasarela_pago w-100 campo_num_tarjeta_credito_o_debito" />
+                    <div class="mensaje_validacion text-center w-100" style="display:none;">
+                        <span class="icono_validacion_incorrecta"></span>
+                        <span>El número ingresado no es correcto.</span>
+                    </div>
+                </div>
+                <div class="grupo_campo_formulario_pasarela_pago">
+                    <div class="w-69 pr-7 vAlignTop">
+                        <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de expiración :</label>
+                        @*<input type="text" value="" class="campo_formulario_pasarela_pago w-100" placeholder="MM/AA"/>*@
+                        <select class="campo_formulario_pasarela_pago campo_seleccion_fecha_expiracion campo_mes mr-5">
+                            <option value="0">MES</option>
+                            <option value="1">Diciembre</option>
+                            <option value="2">Noviembre</option>
+                            <option value="3">Octubre</option>
+                            <option value="4">Septiembre</option>
+                        </select>
+                        <select class="campo_formulario_pasarela_pago campo_seleccion_fecha_expiracion campo_anio">
+                            <option value="0">AÑO</option>
+                            <option value="1">2021</option>
+                            <option value="2">2020</option>
+                            <option value="3">2019</option>
+                            <option value="4">2018</option>
+                        </select>
+                        <div class="mensaje_validacion text-center w-100" style="display:none;">
+                            <span class="icono_validacion_incorrecta"></span>
+                            <span>La fecha no es válida.</span>
+                        </div>
+                    </div>
+                    <div class="w-30 pl-8 vAlignTop">
+                        <label class="nom_campo_formulario_pasarela_pago w-100">
+                            <span>*CVV :</span>
+                            <span class="tooltip_informativo">
+                                <img src="@Url.Content("~/Content/Images/icono_tooltip_informativo.svg")" alt="Tooltip Informativo" />
+                                <span class="info_tooltip_informativo">
+                                    Son los 3 dígitos que se ubican en la parte posterior de tu tarjeta, al lado derecho.
+                                </span>
+                            </span>
+                        </label>
+                        <input type="text" value="" class="campo_formulario_pasarela_pago w-100" />
+                    </div>
+                </div>
+                <div class="grupo_campo_formulario_pasarela_pago">
+                    <label class="nom_campo_formulario_pasarela_pago w-100">*Titular de la tarjeta :</label>
+                    <input type="text" value="" class="campo_formulario_pasarela_pago w-100" placeholder="SOFÍA GARCÍA" />
+                </div>
+                <div class="grupo_campo_formulario_pasarela_pago">
+                    <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de nacimiento :</label>
+                    <input type="text" value="" id="CampoFechaNacimiento" class="campo_formulario_pasarela_pago w-100" placeholder="00/00/0000" />
+                </div>
+                <div class="grupo_campo_formulario_pasarela_pago">
+                    <label class="nom_campo_formulario_pasarela_pago w-100">*Correo Electrónico :</label>
+                    <input type="email" value="" class="campo_formulario_pasarela_pago w-100" placeholder="tucorreo@belcorp.biz" />
+                </div>
+                <div class="grupo_campo_formulario_pasarela_pago">
+                    <label class="nom_campo_formulario_pasarela_pago w-100">*Número de celular :</label>
+                    <input type="text" value="" class="campo_formulario_pasarela_pago w-100" placeholder="000000000" />
+                </div>
+                <button type="button" class="cta_pago_en_linea btn_pago_tarjeta_credito text-bold text-uppercase default-background w-100 mt-40 mb-30">
+                    Pagar
+                </button>
+            </div>
         </div>
     </div>
 </div>
