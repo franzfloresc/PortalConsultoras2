@@ -24,7 +24,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #region Nuevo Masivo
-        
+
         public int GetCantidadOfertasPersonalizadas(int paisId, int campaniaId, int tipoConfigurado, string codigoEstrategia)
         {
             var daEstrategia = new DAEstrategia(paisId);
@@ -69,7 +69,6 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-
         public List<BEEstrategia> GetOfertasPersonalizadasByTipoConfiguradoTemporal(int paisId, int tipoConfigurado, int nroLote)
         {
             List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
@@ -98,7 +97,7 @@ namespace Portal.Consultoras.BizLogic
                 return 0;
             }
         }
-        
+
         public bool EstrategiaTemporalActualizarPrecioNivel(int paisId, int nroLote, int pagina)
         {
             try
@@ -126,7 +125,7 @@ namespace Portal.Consultoras.BizLogic
                 return false;
             }
         }
-        
+
         public int EstrategiaTemporalInsertarEstrategiaMasivo(int paisId, int nroLote)
         {
             try

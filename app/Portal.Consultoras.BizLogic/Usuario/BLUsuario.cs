@@ -287,14 +287,19 @@ namespace Portal.Consultoras.BizLogic
                 usuario.FotoOriginalSinModificar = usuario.FotoPerfil;
                 usuario.FotoPerfilAncha = false;
 
+                var imagenS3 = "";
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
+                {
+                    imagenS3 = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
+                }
+                    
 
                 if (Common.Util.IsUrl(usuario.FotoPerfil))
                 {
-                    if (Common.Util.ExisteUrlRemota(usuario.FotoPerfil))
+                    if (Common.Util.ExisteUrlRemota(imagenS3))
                     {
-                        using (var streamImagen = ConsultarImagen(usuario.FotoPerfil))
+                        using (var streamImagen = ConsultarImagen(imagenS3))
                         {
                             using (var imagenConsultada = System.Drawing.Image.FromStream(streamImagen))
                             {
@@ -434,8 +439,8 @@ namespace Portal.Consultoras.BizLogic
 
         public bool EsConsultoraNueva(BEUsuario usuario)
         {
-            var listEstadosNueva = new List<int> { Constantes.EstadoActividadConsultora.Registrada, Constantes.EstadoActividadConsultora.Retirada };
-            return listEstadosNueva.Contains(usuario.ConsultoraNueva);
+            var listEstadosValidos = new List<int> { Constantes.EstadoActividadConsultora.Registrada, Constantes.EstadoActividadConsultora.Retirada };
+            return listEstadosValidos.Contains(usuario.ConsultoraNueva);
         }
 
         public BEUsuario GetSesionUsuarioWS(int paisID, string codigoUsuario)
@@ -2720,7 +2725,7 @@ namespace Portal.Consultoras.BizLogic
                 string nombre = oUsu.PrimerNombre;
                 var newUri = Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisID, oUsu.Correo, paisiso, codigousuario, fechasolicitud, nombre);
                 string emailFrom = "no-responder@somosbelcorp.com";
-                string emailTo = oUsu.Correo; ;
+                string emailTo = oUsu.Correo;
                 string titulo = "(" + paisISO + ") Cambio de contraseña de Somosbelcorp";
                 string logo = (esEsika ? Globals.RutaCdn + "/Correo/logo_esika.png" : Globals.RutaCdn + "/Correo/logo_lbel.png");
                 string fondo = (esEsika ? "e81c36" : "642f80");

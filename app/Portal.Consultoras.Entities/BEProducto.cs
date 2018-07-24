@@ -16,7 +16,6 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int ConfiguracionOfertaID { get; set; }
-
         [DataMember]
         public int TipoOfertaSisID { get; set; }
 
@@ -44,10 +43,8 @@ namespace Portal.Consultoras.Entities
         public string CUVRevista { get; set; }
         [DataMember]
         public string MensajeEstaEnRevista1 { get; set; }
-
         [DataMember]
         public string MensajeEstaEnRevista2 { get; set; }
-
         [DataMember]
         public string CUVComplemento { get; set; }
 
@@ -117,73 +114,47 @@ namespace Portal.Consultoras.Entities
         public string TipoEstrategiaCodigo { get; set; }
 
         [DataMember]
-        public bool EsOfertaIndependiente { get; set; }        
+        public bool EsOfertaIndependiente { get; set; }
 
-        public BEProducto(IDataRecord datarec)
-        {                               
-            if (datarec.HasColumn("CUV")) CUV = Convert.ToString(datarec["CUV"]);
-            if (datarec.HasColumn("CodigoSAP")) CodigoSAP = Convert.ToString(datarec["CodigoSAP"]);
-            if (datarec.HasColumn("PrecioCatalogo")) PrecioCatalogo = Convert.ToDecimal(datarec["PrecioCatalogo"]);
-            if (datarec.HasColumn("MarcaID")) MarcaID = Convert.ToInt32(datarec["MarcaID"]);
-            if (datarec.HasColumn("EstaEnRevista")) EstaEnRevista = Convert.ToBoolean(datarec["EstaEnRevista"]);
-
-            if (datarec.HasColumn("TieneStock")) TieneStock = Convert.ToBoolean(datarec["TieneStock"]);
-
-            EsExpoOferta = false;
-            if (datarec.HasColumn("EsExpoOferta"))
-                EsExpoOferta = Convert.ToBoolean(datarec["EsExpoOferta"]);
-
-            CUVRevista = string.Empty;
-            if (datarec.HasColumn("CUVRevista"))
-                CUVRevista = Convert.ToString(datarec["CUVRevista"]);
-
-            if (datarec.HasColumn("CUVComplemento")) CUVComplemento = Convert.ToString(datarec["CUVComplemento"]);
-            if (datarec.HasColumn("IndicadorMontoMinimo")) IndicadorMontoMinimo = Convert.ToInt32(datarec["IndicadorMontoMinimo"]);
-
-            ConfiguracionOfertaID = 0;
-            if (datarec.HasColumn("ConfiguracionOfertaID"))
-                ConfiguracionOfertaID = Convert.ToInt32(datarec["ConfiguracionOfertaID"]);
-
-            TipoOfertaSisID = 0;
-            if (datarec.HasColumn("TipoOfertaSisID"))
-                TipoOfertaSisID = Convert.ToInt32(datarec["TipoOfertaSisID"]);
-
-            if (datarec.HasColumn("DescripcionMarca")) DescripcionMarca = Convert.ToString(datarec["DescripcionMarca"]);
-            if (datarec.HasColumn("DescripcionCategoria")) DescripcionCategoria = Convert.ToString(datarec["DescripcionCategoria"]);
-            if (datarec.HasColumn("DescripcionEstrategia")) DescripcionEstrategia = Convert.ToString(datarec["DescripcionEstrategia"]);
-
-            FlagNueva = "0";
-            if (datarec.HasColumn("FlagNueva"))
-                FlagNueva = Convert.ToString(datarec["FlagNueva"]);
-
-            TipoEstrategiaID = string.Empty;
-            if (datarec.HasColumn("TipoEstrategiaID"))
-                TipoEstrategiaID = Convert.ToString(datarec["TipoEstrategiaID"]);
-
-            if (datarec.HasColumn("IndicadorOfertaCUV")) IndicadorOfertaCUV = Convert.ToBoolean(datarec["IndicadorOfertaCUV"]);
-            if (datarec.HasColumn("ImagenProductoSugerido")) ImagenProductoSugerido = Convert.ToString(datarec["ImagenProductoSugerido"]);
-            if (datarec.HasColumn("TieneSugerido")) TieneSugerido = Convert.ToInt32(datarec["TieneSugerido"]);             
-            if (datarec.HasColumn("CodigoProducto")) CodigoProducto = Convert.ToString(datarec["CodigoProducto"]);
-            if (datarec.HasColumn("PrecioValorizado")) PrecioValorizado = Convert.ToDecimal(datarec["PrecioValorizado"]);
-            if (datarec.HasColumn("TieneOfertaRevista")) TieneOfertaRevista = Convert.ToBoolean(datarec["TieneOfertaRevista"]);
-            if (datarec.HasColumn("TieneLanzamientoCatalogoPersonalizado")) TieneLanzamientoCatalogoPersonalizado = Convert.ToBoolean(datarec["TieneLanzamientoCatalogoPersonalizado"]);
-
-            TipoOfertaRevista = string.Empty;
-            if (datarec.HasColumn("TipoOfertaRevista"))
-                TipoOfertaRevista = Convert.ToString(datarec["TipoOfertaRevista"]);
-
-            if (datarec.HasColumn("CodigoCatalago")) CodigoCatalogo = Convert.ToInt32(datarec["CodigoCatalago"]);            
-            if (datarec.HasColumn("CatalogoDescripcion")) CatalogoDescripcion = Convert.ToString(datarec["CatalogoDescripcion"]);            
-            if (datarec.HasColumn("ImagenURL")) ImagenURL = Convert.ToString(datarec["ImagenURL"]);            
-            if (datarec.HasColumn("Nombre")) Nombre = Convert.ToString(datarec["Nombre"]);
-            if (datarec.HasColumn("Descripcion")) Descripcion = Convert.ToString(datarec["Descripcion"]);
-            if (datarec.HasColumn("Volumen")) Volumen = Convert.ToString(datarec["Volumen"]);
-            if (datarec.HasColumn("Tono")) Tono = Convert.ToString(datarec["Tono"]);
-            if (datarec.HasColumn("ImagenProducto")) ImagenProducto = Convert.ToString(datarec["ImagenProducto"]);
-            if (datarec.HasColumn("DescripcionOferta")) DescripcionOferta = Convert.ToString(datarec["DescripcionOferta"]);
-            if (datarec.HasColumn("DescripcionProducto")) DescripcionProducto = Convert.ToString(datarec["DescripcionProducto"]);
-            if (datarec.HasColumn("TipoEstrategiaCodigo")) TipoEstrategiaCodigo = Convert.ToString(datarec["TipoEstrategiaCodigo"]);
-            if (datarec.HasColumn("EsOfertaIndependiente")) EsOfertaIndependiente = Convert.ToBoolean(datarec["EsOfertaIndependiente"]);            
+        public BEProducto(IDataRecord row)
+        {
+            CUV = row.ToString("CUV");
+            CodigoSAP = row.ToString("CodigoSAP");
+            PrecioCatalogo = row.ToDecimal("PrecioCatalogo");
+            MarcaID = row.ToInt32("MarcaID");
+            EstaEnRevista = row.ToBoolean("EstaEnRevista");
+            TieneStock = row.ToBoolean("TieneStock");
+            EsExpoOferta = row.ToBoolean("EsExpoOferta", false);
+            CUVRevista = row.ToString("CUVRevista", string.Empty);
+            CUVComplemento = row.ToString("CUVComplemento");
+            IndicadorMontoMinimo = row.ToInt32("IndicadorMontoMinimo");
+            ConfiguracionOfertaID = row.ToInt32("ConfiguracionOfertaID", 0);
+            TipoOfertaSisID = row.ToInt32("TipoOfertaSisID", 0);
+            DescripcionMarca = row.ToString("DescripcionMarca");
+            DescripcionCategoria = row.ToString("DescripcionCategoria");
+            DescripcionEstrategia = row.ToString("DescripcionEstrategia");
+            FlagNueva = row.ToString("FlagNueva", "0");
+            TipoEstrategiaID = row.ToString("TipoEstrategiaID", string.Empty);
+            IndicadorOfertaCUV = row.ToBoolean("IndicadorOfertaCUV");
+            ImagenProductoSugerido = row.ToString("ImagenProductoSugerido");
+            TieneSugerido = row.ToInt32("TieneSugerido");
+            CodigoProducto = row.ToString("CodigoProducto");
+            PrecioValorizado = row.ToDecimal("PrecioValorizado");
+            TieneOfertaRevista = row.ToBoolean("TieneOfertaRevista");
+            TieneLanzamientoCatalogoPersonalizado = row.ToBoolean("TieneLanzamientoCatalogoPersonalizado");
+            TipoOfertaRevista = row.ToString("TipoOfertaRevista", string.Empty);
+            CodigoCatalogo = row.ToInt32("CodigoCatalago");
+            CatalogoDescripcion = row.ToString("CatalogoDescripcion");
+            ImagenURL = row.ToString("ImagenURL");
+            Nombre = row.ToString("Nombre");
+            Descripcion = row.ToString("Descripcion");
+            Volumen = row.ToString("Volumen");
+            Tono = row.ToString("Tono");
+            ImagenProducto = row.ToString("ImagenProducto");
+            DescripcionOferta = row.ToString("DescripcionOferta");
+            DescripcionProducto = row.ToString("DescripcionProducto");
+            TipoEstrategiaCodigo = row.ToString("TipoEstrategiaCodigo");
+            EsOfertaIndependiente = row.ToBoolean("EsOfertaIndependiente");
         }
 
         //Refactor Inheritance

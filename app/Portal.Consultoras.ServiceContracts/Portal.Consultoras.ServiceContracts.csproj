@@ -63,6 +63,7 @@
     <Compile Include="IConsultoraWebService.cs" />
     <Compile Include="IContenidoService.cs" />
     <Compile Include="IODSService.cs" />
+    <Compile Include="IOfertaService.cs" />
     <Compile Include="IPedidoService.cs" />
     <Compile Include="ISACService.cs" />
     <Compile Include="ISeguridadService.cs" />

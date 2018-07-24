@@ -23,7 +23,7 @@
     else
     {
         <div class="texto_titulo_reclamos" id="TituloReclamo">
-            Queremos verte siempre satisfecha con nuestros productos y servicio <br/>
+            Queremos verte siempre satisfecha con nuestros productos y servicio <br />
             <span>
                 Si tuviste inconvenientes con algún producto y estás dentro del
                 <a href="@Model.UrlPoliticaCdr" style="text-decoration: underline; font-weight: bold; display: inline;" target="_blank">plazo permitido</a>
@@ -33,9 +33,9 @@
         <div class="content_registro_reclamos">
             <div class="texto_solicitud_registrada">Tienes @Model.ListaCDRWeb.Count() solicitudes registradas:</div>
             <a class="btn_si_stock_cdr" href="javascript:;" style="width: 296px;" id="IrPaso1">REGISTRAR SOLICITUD</a>
-            <hr class="clear"/>
-            <br/>
-            <br/>
+            <hr class="clear" />
+            <br />
+            <br />
             <div class="grilla_detalle_reclamo">
                 <div class="content_listado_reclamo">
                     <div class="listado_fecha_general text_gris_reclamo">FECHA REGISTRO</div>
@@ -86,12 +86,12 @@
                                     : "";
 
                     <div class="content_listado_reclamo">
-                        <input type="hidden" class="cdrweb_id" value="@item.CDRWebID"/>
-                        <input type="hidden" class="cdrweb_pedidoid" value="@item.PedidoID"/>
-                        <input type="hidden" class="cdrweb_estado" value="@item.Estado"/>
-                        <input type="hidden" class="cdrweb_formatoFechaCulminado" value="@formatoFechaCulminado"/>
-                        <input type="hidden" class="cdrweb_formatocampania" value="@formatoCampania"/>
-                        <input type="hidden" class="cdrweb_resumenresolucion" value="@item.ResumenResolucion"/>
+                        <input type="hidden" class="cdrweb_id" value="@item.CDRWebID" />
+                        <input type="hidden" class="cdrweb_pedidoid" value="@item.PedidoID" />
+                        <input type="hidden" class="cdrweb_estado" value="@item.Estado" />
+                        <input type="hidden" class="cdrweb_formatoFechaCulminado" value="@formatoFechaCulminado" />
+                        <input type="hidden" class="cdrweb_formatocampania" value="@formatoCampania" />
+                        <input type="hidden" class="cdrweb_resumenresolucion" value="@item.ResumenResolucion" />
                         <input type="hidden" class="cdrweb_consultorasaldo" value="@item.ConsultoraSaldo" />
                         <input type="hidden" class="cdrweb_mensajedespacho" value="@item.MensajeDespacho" />
 
@@ -137,10 +137,10 @@
                 }
             </div>
         </div>
-    }    
+    }
 </div>
 
-<input type="hidden" id="hdPedidoIdActual"/>
+<input type="hidden" id="hdPedidoIdActual" />
 
 <div class="contenedor_popup_percepciones" id="PopSolicitud">
     <div class="popup_Pendientes">
@@ -194,7 +194,8 @@
     <div class="popup_Pendientes">
         <div class="btn_cerrar_popupPercepcion cerrarPendientesPORTAL">
             <a class="regresaPendientes" title="Regresar" style="text-align: right;" href="javascript:;" onclick=" javascript: $('#PopSolicitud2').hide(); ">
-                <div class="icono_regresar"><img src="/Content/Images/btn_regresar.svg" alt="Regresar">
+                <div class="icono_regresar">
+                    <img src="/Content/Images/btn_regresar.svg" alt="Regresar">
                 </div>
                 <div class="texto_btn_regresar">REGRESAR AL LISTADO</div>
             </a>
@@ -203,11 +204,14 @@
         <div class="fondo_f7f7f7 row_36">
             <div class="texto_titulo_reclamos" id="TituloReclamo">Solicitud de Cambios y Devoluciones</div>
             <div style="text-align: center; max-width: 700px; margin: 0 auto">
-                <div class="detalle_estado_reclamo">Fecha:<b> <span id="spnFechaCulminado2">10 Oct 2016</span></b>
+                <div class="detalle_estado_reclamo">
+                    Fecha:<b> <span id="spnFechaCulminado2">10 Oct 2016</span></b>
                 </div>
-                <div class="detalle_estado_reclamo">Solicitud:<b> Nº <span id="spnNumeroSolicitud2">12345678</span></b>
+                <div class="detalle_estado_reclamo">
+                    Solicitud:<b> Nº <span id="spnNumeroSolicitud2">12345678</span></b>
                 </div>
-                <div class="detalle_estado_reclamo">Campaña:<b> <span id="spnFormatoCampania2">2016-15</span></b>
+                <div class="detalle_estado_reclamo">
+                    Campaña:<b> <span id="spnFormatoCampania2">2016-15</span></b>
                 </div>
             </div>
             <div class="cabecera_popup_cdr">
@@ -223,7 +227,7 @@
             </div>
 
             <div id="divDetallePedidoCdrAprobado">
-                
+
             </div>
             <div class="linea_separadora_roja" style="height: 2px;"></div>
             <a id="btnFinalizar" class="btn_si_stock_cdr" href="#" style="width: 296px;">CONTINUAR</a>
@@ -246,24 +250,24 @@
         </div>
         <div class="pop_solicitud_solucion">
             {{#if_eq CodigoOperacion 'C'}}
-                {{item.SolucionSolicitada}}
+            {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'D'}}
-                {{item.SolucionSolicitada}}
+            {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'F'}}
-                {{item.SolucionSolicitada}}
+            {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'G'}}
-                {{item.SolucionSolicitada}}
+            {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'T'}}
-                {{item.CUV2}}<br />
-                <b>{{item.Descripcion2}}</b> <br />
-                {{item.Cantidad2}} unidades<br />
-                Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
+            {{item.CUV2}}<br />
+            <b>{{item.Descripcion2}}</b> <br />
+            {{item.Cantidad2}} unidades<br />
+            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
             {{else}}
             {{/if_eq}}
         </div>
         <div class="pop_solicitud_resolucion">
             {{#if_eq Estado '3'}}
-                <span class="texto_estado_solicitud">APROBADO</span>
+            <span class="texto_estado_solicitud">APROBADO</span>
             {{else}}
             {{/if_eq}}
         </div>
@@ -282,69 +286,69 @@
         <div class="pop_solicitud_resolucion text_gris_reclamo">Resolución:</div>
     </div>
     <div class="linea_separadora"></div>
-    
+
     {{#each detalle as |item|}}
-        {{#if_eq item.Estado '4'}}
-        <div class="content_listado_reclamo" data-pedidodetalleid="{{item.CDRWebDetalleID}}">            
-            <div class="pop_solicitud_producto">
-                {{item.CUV}}<br>
-                <b>{{item.Descripcion}}</b> <br>
-                {{item.Cantidad}} unidades<br>
-                Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
-            </div>
-            <div class="pop_solicitud_tipo">
-                <b>{{item.Solicitud}}</b>
-            </div>
-            <div class="pop_solicitud_solucion">
-                {{#if_eq CodigoOperacion 'C'}}
-                {{item.SolucionSolicitada}}
-                {{else if_eq CodigoOperacion 'D'}}
-                {{item.SolucionSolicitada}}
-                {{else if_eq CodigoOperacion 'F'}}
-                {{item.SolucionSolicitada}}
-                {{else if_eq CodigoOperacion 'G'}}
-                {{item.SolucionSolicitada}}
-                {{else if_eq CodigoOperacion 'T'}}
-                {{item.CUV2}}<br />
-                <b>{{item.Descripcion2}}</b> <br />
-                {{item.Cantidad2}} unidades<br />
-                Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
-                {{else}}
-                {{/if_eq}}
-            </div>
-            <div class="pop_solicitud_resolucion">
-                <span class="texto_estado_solicitud">RECHAZADO</span>{{item.Observacion}}
-            </div>
-            <hr class="clear" />
-            <div class="content_producto_observado">
-                <div class="nota_producto_observado">
-                    {{#if_eq item.TipoMotivoRechazo '1'}}
-                    Debes eliminar este producto para procesar nuevamente tu solicitud.
-                    {{else if_eq item.TipoMotivoRechazo '2'}}
-                    Debes modificar la cantidad y/o eliminar este producto para procesar nuevamente tu solicitud.
-                    {{else}}
-                    Debes eliminar este producto para procesar nuevamente tu solicitud.
-                    {{/if_eq}}
-                </div>
-                {{#if_eq item.TipoMotivoRechazo '1'}}
-                {{else if_eq item.TipoMotivoRechazo '2'}}
-                <div class="rango_producto_observado">
-                    <input style="background: white;" type="text" name="Cantidad" value="1" maxlength="2" class="txtCantidad liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onkeypress=" PreValidarCUV(event); " onfocus=" SeleccionarContenido(this) " />
-                    <div class="liquidacion_rango_right_pedido" style="background: white;">
-                        <a class="mas"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                    </div>
-                </div>
-                {{else}}
-                {{/if_eq}}
-                
-                <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x" class="btn_eliminar_observado">ELIMINAR PRODUCTO</a>
-                <hr class="clear" />
-            </div>
+    {{#if_eq item.Estado '4'}}
+    <div class="content_listado_reclamo" data-pedidodetalleid="{{item.CDRWebDetalleID}}">
+        <div class="pop_solicitud_producto">
+            {{item.CUV}}<br>
+            <b>{{item.Descripcion}}</b> <br>
+            {{item.Cantidad}} unidades<br>
+            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
         </div>
-        {{/if_eq}}    
-    {{/each}}    
-    <br />    
+        <div class="pop_solicitud_tipo">
+            <b>{{item.Solicitud}}</b>
+        </div>
+        <div class="pop_solicitud_solucion">
+            {{#if_eq CodigoOperacion 'C'}}
+            {{item.SolucionSolicitada}}
+            {{else if_eq CodigoOperacion 'D'}}
+            {{item.SolucionSolicitada}}
+            {{else if_eq CodigoOperacion 'F'}}
+            {{item.SolucionSolicitada}}
+            {{else if_eq CodigoOperacion 'G'}}
+            {{item.SolucionSolicitada}}
+            {{else if_eq CodigoOperacion 'T'}}
+            {{item.CUV2}}<br />
+            <b>{{item.Descripcion2}}</b> <br />
+            {{item.Cantidad2}} unidades<br />
+            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
+            {{else}}
+            {{/if_eq}}
+        </div>
+        <div class="pop_solicitud_resolucion">
+            <span class="texto_estado_solicitud">RECHAZADO</span>{{item.Observacion}}
+        </div>
+        <hr class="clear" />
+        <div class="content_producto_observado">
+            <div class="nota_producto_observado">
+                {{#if_eq item.TipoMotivoRechazo '1'}}
+                Debes eliminar este producto para procesar nuevamente tu solicitud.
+                {{else if_eq item.TipoMotivoRechazo '2'}}
+                Debes modificar la cantidad y/o eliminar este producto para procesar nuevamente tu solicitud.
+                {{else}}
+                Debes eliminar este producto para procesar nuevamente tu solicitud.
+                {{/if_eq}}
+            </div>
+            {{#if_eq item.TipoMotivoRechazo '1'}}
+            {{else if_eq item.TipoMotivoRechazo '2'}}
+            <div class="rango_producto_observado" data-cantidad-contenedor="">
+                <input style="background: white;" type="text" name="Cantidad" data-input="cantidad" value="1" maxlength="2" class="txtCantidad liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onkeypress=" PreValidarCUV(event); " onfocus=" SeleccionarContenido(this) " />
+                <div class="liquidacion_rango_right_pedido" style="background: white;">
+                    <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            {{else}}
+            {{/if_eq}}
+
+            <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x" class="btn_eliminar_observado">ELIMINAR PRODUCTO</a>
+            <hr class="clear" />
+        </div>
+    </div>
+    {{/if_eq}}
+    {{/each}}
+    <br />
 </script>
 
 <script id="template-detalle-2-aprobado" type="text/x-handlebars-template">
@@ -356,41 +360,41 @@
         <div class="pop_solicitud_resolucion text_gris_reclamo">Resolución:</div>
     </div>
     <div class="linea_separadora"></div>
-    
+
     {{#each detalle as |item|}}
-        {{#if_eq item.Estado '3'}}
-            <div class="content_listado_reclamo">
-                <div class="pop_solicitud_producto">
-                    {{item.CUV}}<br>
-                    <b>{{item.Descripcion}}</b> <br>
-                    {{item.Cantidad}} unidades<br>
-                    Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
-                </div>
-                <div class="pop_solicitud_tipo">
-                    <b>{{item.Solicitud}}</b>
-                </div>
-                <div class="pop_solicitud_solucion">
-                    {{#if_eq CodigoOperacion 'C'}}
-                    {{item.SolucionSolicitada}}
-                    {{else if_eq CodigoOperacion 'D'}}
-                    {{item.SolucionSolicitada}}
-                    {{else if_eq CodigoOperacion 'F'}}
-                    {{item.SolucionSolicitada}}
-                    {{else if_eq CodigoOperacion 'G'}}
-                    {{item.SolucionSolicitada}}
-                    {{else if_eq CodigoOperacion 'T'}}
-                    {{item.CUV2}}<br />
-                    <b>{{item.Descripcion2}}</b> <br />
-                    {{item.Cantidad2}} unidades<br />
-                    Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
-                    {{else}}
-                    {{/if_eq}}
-                </div>
-                <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">APROBADO</span></div>
-                <hr class="clear" />
-            </div>
-        {{/if_eq}}        
-    {{/each}}  
+    {{#if_eq item.Estado '3'}}
+    <div class="content_listado_reclamo">
+        <div class="pop_solicitud_producto">
+            {{item.CUV}}<br>
+            <b>{{item.Descripcion}}</b> <br>
+            {{item.Cantidad}} unidades<br>
+            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
+        </div>
+        <div class="pop_solicitud_tipo">
+            <b>{{item.Solicitud}}</b>
+        </div>
+        <div class="pop_solicitud_solucion">
+            {{#if_eq CodigoOperacion 'C'}}
+            {{item.SolucionSolicitada}}
+            {{else if_eq CodigoOperacion 'D'}}
+            {{item.SolucionSolicitada}}
+            {{else if_eq CodigoOperacion 'F'}}
+            {{item.SolucionSolicitada}}
+            {{else if_eq CodigoOperacion 'G'}}
+            {{item.SolucionSolicitada}}
+            {{else if_eq CodigoOperacion 'T'}}
+            {{item.CUV2}}<br />
+            <b>{{item.Descripcion2}}</b> <br />
+            {{item.Cantidad2}} unidades<br />
+            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
+            {{else}}
+            {{/if_eq}}
+        </div>
+        <div class="pop_solicitud_resolucion"><span class="texto_estado_solicitud">APROBADO</span></div>
+        <hr class="clear" />
+    </div>
+    {{/if_eq}}
+    {{/each}}
 </script>
 |
 @section scripts{
@@ -563,7 +567,7 @@
                         $(parent).remove();
                     }
                 };
-                messageConfirmacion("", "Se eliminará el registro seleccionado. <br/>¿Deseas continuar?", functionEliminar);                
+                messageConfirmacion("", "Se eliminará el registro seleccionado. <br/>¿Deseas continuar?", functionEliminar);
             }
         }
 
@@ -633,5 +637,6 @@
             return resultado;
         };
     </script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
 }
 

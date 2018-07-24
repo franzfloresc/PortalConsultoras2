@@ -3,6 +3,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServicePedido;
@@ -20,6 +21,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class NotificacionesController : BaseMobileController
     {
+        readonly CdrProvider _cdrProvider;
+
+        public NotificacionesController()
+        {
+            _cdrProvider = new CdrProvider();
+        }
+
         #region Acciones
 
         public ActionResult Index()
@@ -60,7 +68,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.SolicitudClienteId = SolicitudId;
                 model.FechaEjecucion = fechaEjecucion;
                 model.MarcaID = beSolicitudCliente.MarcaID;
-                model.FechaDescripcion = fechaEjecucion.Day + " de " + NombreMes(fechaEjecucion.Month);
+                model.FechaDescripcion = fechaEjecucion.Day + " de " + Util.NombreMes(fechaEjecucion.Month);
                 model.TelefonoCliente = beSolicitudCliente.Telefono;
                 model.NombreCliente = beSolicitudCliente.NombreCompleto;
                 model.EmailCliente = beSolicitudCliente.Email;
@@ -347,8 +355,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
 
-                listaCdrWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
-                listaCdrWebDetalle.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
+                listaCdrWebDetalle.Update(p => p.Solicitud = _cdrProvider.ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado, userData.PaisID).Descripcion);
+                listaCdrWebDetalle.Update(p => p.SolucionSolicitada = _cdrProvider.ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado, userData.PaisID).Descripcion);
 
                 var model = Proceso == "CDR-CULM" ? Mapper.Map<CDRWebModel>(cdrWeb) : Mapper.Map<CDRWebModel>(logCdrWeb);
                 model.CodigoIso = userData.CodigoISO;

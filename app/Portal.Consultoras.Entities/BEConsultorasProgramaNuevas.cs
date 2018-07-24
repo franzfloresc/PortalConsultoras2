@@ -35,22 +35,15 @@ namespace Portal.Consultoras.Entities
         public int ConsecutivoNueva { get; set; }
 
         [Obsolete("Use MapUtil.MapToCollection")]
-        public BEConsultorasProgramaNuevas(IDataRecord datarec)
+        public BEConsultorasProgramaNuevas(IDataRecord row)
         {
-            if (DataRecord.HasColumn(datarec, "Campania"))
-                Campania = Convert.ToString(datarec["Campania"]);
-            if (DataRecord.HasColumn(datarec, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(datarec["CodigoConsultora"]);
-            if (DataRecord.HasColumn(datarec, "CodigoPrograma"))
-                CodigoPrograma = Convert.ToString(datarec["CodigoPrograma"]);
-            if (DataRecord.HasColumn(datarec, "Participa"))
-                Participa = Convert.ToString(datarec["Participa"]);
-            if (DataRecord.HasColumn(datarec, "Motivo"))
-                Motivo = Convert.ToString(datarec["Motivo"]);
-            if (DataRecord.HasColumn(datarec, "MontoVentaExigido"))
-                MontoVentaExigido = Convert.ToDecimal(datarec["MontoVentaExigido"]);
-            if (DataRecord.HasColumn(datarec, "ConsecutivoNueva"))
-                ConsecutivoNueva = Convert.ToInt32(datarec["ConsecutivoNueva"]);
+            Campania = row.ToString("Campania");
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            CodigoPrograma = row.ToString("CodigoPrograma");
+            Participa = row.ToString("Participa");
+            Motivo = row.ToString("Motivo");
+            MontoVentaExigido = row.ToDecimal("MontoVentaExigido");
+            ConsecutivoNueva = row.ToInt32("ConsecutivoNueva");
         }
 
         public BEConsultorasProgramaNuevas()

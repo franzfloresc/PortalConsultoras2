@@ -20,10 +20,8 @@ namespace Portal.Consultoras.Entities
 
         public BEParametrosLider(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "SeccionGestionLider"))
-                SeccionGestionLider = Convert.ToString(row["SeccionGestionLider"]);
-            if (DataRecord.HasColumn(row, "NivelProyectado"))
-                NivelProyectado = Convert.ToString(row["NivelProyectado"]);
+            SeccionGestionLider = row.ToString("SeccionGestionLider");
+            NivelProyectado = row.ToString("NivelProyectado");
         }
     }
 }

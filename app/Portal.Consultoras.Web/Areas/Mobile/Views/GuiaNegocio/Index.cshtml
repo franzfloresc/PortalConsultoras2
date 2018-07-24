@@ -102,11 +102,11 @@
 @Html.Partial("~/Areas/Mobile/Views/GuiaNegocio/_GuiaNegocioFlotante.cshtml")
 
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
-        var urlOfertaCargarProductos = '@Url.Action("GNDObtenerProductos", "GuiaNegocio", new { area = ""})';
+        var urlOfertaCargarProductos = '@Url.Action("GNDObtenerProductos", "Estrategia", new { area = ""})';
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.GNDMobileLanding';
-        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
 
         var tipoOrigenEstrategia = 2;
         var CantidadFilas = @Model.CantidadFilas;
@@ -120,6 +120,6 @@
             '@Model.CampaniaID': '@ViewBag.CodigoRevistaActual'
         };
 
-    </script>
+</script>
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/GuiaNegocio-Landing")
 }

@@ -10,44 +10,19 @@ namespace Portal.Consultoras.Entities
     {
         public BEReporteValidacion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "TipoEstrategia"))
-                TipoPersonalizacion = Convert.ToString(row["TipoEstrategia"]);
-
-            if (DataRecord.HasColumn(row, "CUV2"))
-                CUV2 = Convert.ToString(row["CUV2"]);
-
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                AnioCampanaVenta = Convert.ToString(row["CampaniaID"]);
-
-            if (DataRecord.HasColumn(row, "Pais"))
-                CodPais = Convert.ToString(row["Pais"]);
-
-            if (DataRecord.HasColumn(row, "DescripcionCUV2"))
-                DescripcionCUV2 = Convert.ToString(row["DescripcionCUV2"]);
-
-            if (DataRecord.HasColumn(row, "DescripcionCorta"))
-                DescripcionCorta = Convert.ToString(row["DescripcionCorta"]);
-
-            if (DataRecord.HasColumn(row, "ImagenUrl"))
-                ImagenUrl = Convert.ToString(row["ImagenUrl"]);
-
-            if (DataRecord.HasColumn(row, "PrecioNormal"))
-                PrecioNormal = Convert.ToDecimal(row["PrecioNormal"]);
-
-            if (DataRecord.HasColumn(row, "PrecioOfertaDigital"))
-                PrecioOfertaDigital = Convert.ToDecimal(row["PrecioOfertaDigital"]);
-
-            if (DataRecord.HasColumn(row, "LimiteVenta"))
-                LimiteVenta = Convert.ToInt32(row["LimiteVenta"]);
-
-            if (DataRecord.HasColumn(row, "Activo"))
-                Activo = Convert.ToInt32(row["Activo"]);
-
-            if (DataRecord.HasColumn(row, "CUVPrecioTachado"))
-                CUVPrecioTachado = Convert.ToString(row["CUVPrecioTachado"]);
-
-            if (DataRecord.HasColumn(row, "PrecioTachado"))
-                PrecioTachado = Convert.ToDecimal(row["PrecioTachado"]);
+            TipoPersonalizacion = row.ToString("TipoEstrategia");
+            CUV2 = row.ToString("CUV2");
+            AnioCampanaVenta = row.ToString("CampaniaID");
+            CodPais = row.ToString("Pais");
+            DescripcionCUV2 = row.ToString("DescripcionCUV2");
+            DescripcionCorta = row.ToString("DescripcionCorta");
+            ImagenUrl = row.ToString("ImagenUrl");
+            PrecioNormal = row.ToDecimal("PrecioNormal");
+            PrecioOfertaDigital = row.ToDecimal("PrecioOfertaDigital");
+            LimiteVenta = row.ToInt32("LimiteVenta");
+            Activo = row.ToInt32("Activo");
+            CUVPrecioTachado = row.ToString("CUVPrecioTachado");
+            PrecioTachado = row.ToDecimal("PrecioTachado");
         }
 
         #region Member Properties

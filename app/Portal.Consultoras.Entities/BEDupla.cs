@@ -9,18 +9,18 @@ namespace Portal.Consultoras.Entities
     {
         public BEDupla(IDataRecord row)
         {
-            CodigoUsuario = row["CodigoUsuario"].ToString();
-            Nombre = row["Nombre"].ToString();
-            SegundoNombre = row["SegundoNombre"].ToString();
-            ApellidoPaterno = row["ApellidoPaterno"].ToString();
-            ApellidoMaterno = row["ApellidoMaterno"].ToString();
-            Sobrenombre = row["Sobrenombre"].ToString();
+            CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
+            Nombre = Convert.ToString(row["Nombre"]);
+            SegundoNombre = Convert.ToString(row["SegundoNombre"]);
+            ApellidoPaterno = Convert.ToString(row["ApellidoPaterno"]);
+            ApellidoMaterno = Convert.ToString(row["ApellidoMaterno"]);
+            Sobrenombre = Convert.ToString(row["Sobrenombre"]);
             FechaNacimiento = Convert.ToDateTime(row["FechaNacimiento"]);
-            eMail = row["eMail"].ToString();
-            Sexo = row["Sexo"].ToString();
-            Telefono = row["Telefono"].ToString();
-            Celular = row["Celular"].ToString();
-            Direccion = row["Direccion"].ToString();
+            eMail = Convert.ToString(row["eMail"]);
+            Sexo = Convert.ToString(row["Sexo"]);
+            Telefono = Convert.ToString(row["Telefono"]);
+            Celular = Convert.ToString(row["Celular"]);
+            Direccion = Convert.ToString(row["Direccion"]);
             Activo = Convert.ToBoolean(row["Activo"]);
         }
 

@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 
@@ -396,7 +395,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (entidadMasivo.CantidadCuv <= 0)
             {
-                entidadMasivo.CantidadCuv = ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.CantidadCuvMasivo_NuevoMasivo, true);
+                entidadMasivo.CantidadCuv = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.CantidadCuvMasivo_NuevoMasivo, true);
             }
             return entidadMasivo.CantidadCuv;
         }
@@ -426,13 +425,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string MasivoEstrategiaTemporalExecComplemento(AdministrarEstrategiaMasivoModel entidadMasivo)
         {
-            // si todo este proceso esta en MasivoEstrategiaTemporalInsertar, puede salir timed out
+            // este proceso esta en MasivoEstrategiaTemporalInsertar, puede salir timed out
             // se divide el proceso para evitar timed out
             string rpta = "";
-            bool rptaService = false;
+            //bool rptaService = false;
             try
             {
-                rptaService = MasivoEstrategiaTemporalPrecio(entidadMasivo);
+                bool rptaService = MasivoEstrategiaTemporalPrecio(entidadMasivo);
                 if (rptaService)
                 {
                     rptaService = MasivoEstrategiaTemporalSetDetalle(entidadMasivo);
@@ -446,9 +445,10 @@ namespace Portal.Consultoras.Web.Controllers
                     rpta = "Error al cargar precios.";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                rptaService = false;
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                //rptaService = false;
             }
             return rpta;
         }
@@ -460,7 +460,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var svc = new SACServiceClient())
                 {
-                    rpta = svc.EstrategiaTemporalActualizarPrecioNivel(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
+                    svc.EstrategiaTemporalActualizarPrecioNivel(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
                 }
                 rpta = true;
             }
@@ -478,13 +478,13 @@ namespace Portal.Consultoras.Web.Controllers
             bool rpta = false;
             try
             {
-                var codigo = ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.Tonos, true);
+                var codigo = _tablaLogicaProvider.ObtenerValorTablaLogicaInt(userData.PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.Tonos, true);
                 if (codigo > entidadMasivo.CampaniaId)
                     return rpta;
 
                 using (var svc = new SACServiceClient())
                 {
-                    rpta = svc.EstrategiaTemporalActualizarSetDetalle(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
+                    svc.EstrategiaTemporalActualizarSetDetalle(userData.PaisID, entidadMasivo.NroLote, entidadMasivo.Pagina);
                 }
                 rpta = true;
             }

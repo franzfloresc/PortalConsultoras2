@@ -27,22 +27,14 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         public BEShowRoomPersonalizacion(IDataRecord row)
         {
-            if (row.HasColumn("PersonalizacionId"))
-                PersonalizacionId = Convert.ToInt32(row["PersonalizacionId"]);
-            if (row.HasColumn("TipoAplicacion"))
-                TipoAplicacion = Convert.ToString(row["TipoAplicacion"]);
-            if (row.HasColumn("Atributo"))
-                Atributo = Convert.ToString(row["Atributo"]);
-            if (row.HasColumn("TextoAyuda"))
-                TextoAyuda = Convert.ToString(row["TextoAyuda"]);
-            if (row.HasColumn("TipoAtributo"))
-                TipoAtributo = Convert.ToString(row["TipoAtributo"]);
-            if (row.HasColumn("TipoPersonalizacion"))
-                TipoPersonalizacion = Convert.ToString(row["TipoPersonalizacion"]);
-            if (row.HasColumn("Orden"))
-                Orden = Convert.ToInt32(row["Orden"]);
-            if (row.HasColumn("Estado"))
-                Estado = Convert.ToBoolean(row["Estado"]);
+            PersonalizacionId = row.ToInt32("PersonalizacionId");
+            TipoAplicacion = row.ToString("TipoAplicacion");
+            Atributo = row.ToString("Atributo");
+            TextoAyuda = row.ToString("TextoAyuda");
+            TipoAtributo = row.ToString("TipoAtributo");
+            TipoPersonalizacion = row.ToString("TipoPersonalizacion");
+            Orden = row.ToInt32("Orden");
+            Estado = row.ToBoolean("Estado");
         }
     }
 }

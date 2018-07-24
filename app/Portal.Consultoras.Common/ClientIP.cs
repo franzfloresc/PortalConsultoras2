@@ -118,11 +118,11 @@ namespace Portal.Consultoras.Common
                 return _start <= addrValue && addrValue <= _end;
             }
 
-            public bool Encompasses(IPAddress addr)
-            {
-                var value = AddrToUInt64(addr);
-                return Encompasses(value);
-            }
+            //public bool Encompasses(IPAddress addr)
+            //{
+            //    var value = AddrToUInt64(addr);
+            //    return Encompasses(value);
+            //}
         };
 
         private static readonly IpRange[] s_PrivateRanges =

@@ -34,20 +34,13 @@
 
         public BETipoMeta(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "IdTipoMeta"))
-                IdTipoMeta = Convert.ToInt32(row["IdTipoMeta"]);
-            if (DataRecord.HasColumn(row, "CodigoMeta"))
-                CodigoMeta = Convert.ToString(row["CodigoMeta"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "EstadoActivo"))
-                EstadoActivo = Convert.ToInt32(row["EstadoActivo"]);
-            if (DataRecord.HasColumn(row, "MontoMinimo"))
-                MontoMinimo = Convert.ToDecimal(row["MontoMinimo"]);
-            if (DataRecord.HasColumn(row, "MontoMaximo"))
-                MontoMaximo = Convert.ToDecimal(row["MontoMaximo"]);
-            if (DataRecord.HasColumn(row, "PaisID"))
-                PaisID = Convert.ToInt32(row["PaisID"]);
+            IdTipoMeta = row.ToInt32("IdTipoMeta");
+            CodigoMeta = row.ToString("CodigoMeta");
+            Descripcion = row.ToString("Descripcion");
+            EstadoActivo = row.ToInt32("EstadoActivo");
+            MontoMinimo = row.ToDecimal("MontoMinimo");
+            MontoMaximo = row.ToDecimal("MontoMaximo");
+            PaisID = row.ToInt32("PaisID");
         }
     }
 }

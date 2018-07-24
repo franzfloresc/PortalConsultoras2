@@ -25,22 +25,15 @@ namespace Portal.Consultoras.Entities
         [ViewProperty]
         public string Descripcion { set; get; }
 
-        public BECUVAutomatico(IDataRecord datarec)
+        public BECUVAutomatico(IDataRecord row)
         {
-            if (DataRecord.HasColumn(datarec, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
-            if (DataRecord.HasColumn(datarec, "CUV"))
-                CUV = Convert.ToString(datarec["CUV"]);
-            if (DataRecord.HasColumn(datarec, "PaisISO"))
-                PaisISO = Convert.ToString(datarec["PaisISO"]);
-            if (DataRecord.HasColumn(datarec, "UsuarioRegistro"))
-                UsuarioRegistro = Convert.ToString(datarec["UsuarioRegistro"]);
-            if (DataRecord.HasColumn(datarec, "Descripcion"))
-                Descripcion = Convert.ToString(datarec["Descripcion"]);
-            if (DataRecord.HasColumn(datarec, "List_TotalNumeroPagina"))
-                TotalPages = Convert.ToInt32(datarec["List_TotalNumeroPagina"]);
-            if (DataRecord.HasColumn(datarec, "List_TotalRegistros"))
-                RowsCount = Convert.ToInt32(datarec["List_TotalRegistros"]);
+            CampaniaID = row.ToInt32("CampaniaID");
+            CUV = row.ToString("CUV");
+            PaisISO = row.ToString("PaisISO");
+            UsuarioRegistro = row.ToString("UsuarioRegistro");
+            Descripcion = row.ToString("Descripcion");
+            TotalPages = row.ToInt32("List_TotalNumeroPagina");
+            RowsCount = row.ToInt32("List_TotalRegistros");
         }
 
         public BECUVAutomatico() { }

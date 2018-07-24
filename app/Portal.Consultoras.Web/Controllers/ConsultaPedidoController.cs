@@ -198,7 +198,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             IEnumerable<CampaniaModel> lstcampania = DropDownCampanias(PaisID);
             IEnumerable<ZonaModel> lstzona = DropDownZonas(PaisID);
-            IEnumerable<RegionModel> lstregion = DropDownListRegiones(PaisID);
+            IEnumerable<RegionModel> lstregion = _baseProvider.DropDownListRegiones(PaisID);
 
             return Json(new
             {

@@ -6,42 +6,8 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class OfertasMasVendidosController : BaseEstrategiaController
+    public class OfertasMasVendidosController : BaseController // BaseEstrategiaController
     {
-        [HttpGet]
-        public JsonResult ObtenerOfertas()
-        {
-            try
-            {
-                var model = new EstrategiaOutModel();
-
-                var listModel = ConsultarMasVendidosModel();
-
-                model.Lista = listModel;
-
-                model = ActualizarPosicion(model);
-                model = ActualizarPrecioFormateado(model);
-
-                return Json(new { success = true, data = model }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
-            }
-        }
-
-        private EstrategiaOutModel ActualizarPosicion(EstrategiaOutModel model)
-        {
-            if (model != null)
-            {
-                for (int i = 0; i <= model.Lista.Count - 1; i++)
-                {
-                    model.Lista[i].Posicion = i + 1;
-                }
-            }
-            return model;
-        }
-
         [HttpPost]
         public JsonResult ActualizarModel(EstrategiaOutModel model)
         {
@@ -74,18 +40,5 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private EstrategiaOutModel ActualizarPrecioFormateado(EstrategiaOutModel model)
-        {
-            if (model != null)
-            {
-                for (int i = 0; i <= model.Lista.Count - 1; i++)
-                {
-                    model.Lista[i].Posicion = i + 1;
-                    model.Lista[i].PrecioTachado = Util.DecimalToStringFormat(model.Lista[i].Precio, userData.CodigoISO);
-                    model.Lista[i].GananciaString = Util.DecimalToStringFormat(model.Lista[i].Ganancia, userData.CodigoISO);
-                }
-            }
-            return model;
-        }
     }
 }

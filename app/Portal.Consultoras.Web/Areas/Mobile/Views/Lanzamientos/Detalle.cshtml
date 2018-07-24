@@ -19,10 +19,9 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Mobile/Lanzamientos-Detalle")
 }
 
-<div data-item="" data-tag-html="@ViewBag.Campania">
+<div data-item="" data-tag-html="@ViewBag.Campania" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
     <div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoMobile); background-color: #efefef !important;'
-         data-estadoregistro="@ViewBag.EstadoSuscripcion"
-         data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage">
+         data-estadoregistro="@ViewBag.EstadoSuscripcion">
         <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
         <div class="wrapper_resumen_mobile">
             <div class="detalle-prod">
@@ -70,15 +69,15 @@
         <div class="row">
             <div class="content_btn_agregar">
                 <div class="content_320">
-                    <div class="content_cantidad_ficha_producto">
-                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
+                        <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
                     <a class="@Model.ClaseBloqueada btn_agregar_ficha_producto"
                        id="tbnAgregarProducto"
                        data-bloqueada="@Model.ClaseBloqueada"
-                       onclick="javascript:EstrategiaAgregar(event, true); ">AGRÉGALO</a>
+                       onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true); ">AGRÉGALO</a>
                     <hr class="clear">
                 </div>
             </div>

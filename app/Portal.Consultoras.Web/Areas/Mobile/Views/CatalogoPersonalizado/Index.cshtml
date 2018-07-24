@@ -274,10 +274,10 @@
             <div class="titulo_producto_oferta" id="titulo">{{Descripcion}}</div>
             <div class="sub_texto_oferta">En Guía de Negocio: {{SimboloMoneda}} {{DecimalToStringFormat precio_revista}}</div>
             <div class="texto_ganancia_oferta">{{TxtGanancia}}: {{SimboloMoneda}} {{DecimalToStringFormat ganancia}}</div>
-            <div class="liquidacion_rango_home">
-                <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad-revista" data-cantidad-input="revista">
-                <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+            <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="revista">
+                <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
             </div>
             <div class="clear"></div>
             <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista" tabindex="0">AGRÉGALO</a>
@@ -291,10 +291,10 @@
                     <div class="sub_texto_oferta" style="font-weight: 800;">{{SimboloMoneda}} {{DecimalToStringFormat precio_catalogo}}</div>
                     <hr class="clear" />
                     <br />
-                    <div class="liquidacion_rango_home">
-                        <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad-catalogo" data-cantidad-input="catalogo">
-                        <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                        <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="catalogo">
+                        <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
                     <div class="clear"></div>
                     <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="catalogo" tabindex="0">AGRÉGALO</a>
@@ -495,10 +495,10 @@
                     te ofrecerá la mejor combinación
                 </div>
                 <br />
-                <div class="liquidacion_rango_home">
-                    <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-cantidad-input="revista">
-                    <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                    <a class="cantidad_menos_home"  onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-input="cantidad" data-cantidad-input="revista">
+                    <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                 </div>
                 <div class="clear"></div>
                 <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista">AGRÉGALO</a>
@@ -513,10 +513,10 @@
                     <div class="sub_texto_oferta">{{SimboloMoneda}} {{DecimalToStringFormat precio_catalogo}}</div>
                     <hr class="clear" />
                     <br />
-                    <div class="liquidacion_rango_home">
-                        <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-cantidad-input="catalogo">
-                        <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                        <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" tabindex="0" data-cantidad-input="catalogo">
+                        <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
                     <div class="clear"></div>
                     <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="catalogo" tabindex="0">AGRÉGALO</a>
@@ -580,10 +580,10 @@
             <div class="sub_texto_oferta">Precio para ti: {{SimboloMoneda}} {{DecimalToStringFormat precio_revista}}</div>
             <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{TxtGanancia}}: {{SimboloMoneda}} {{DecimalToStringFormat ganancia}}</div>
 
-            <div class="liquidacion_rango_home">
-                <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-cantidad-input="revista">
-                <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+            <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                <a class="cantidad_menos_home"  onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" tabindex="0" data-cantidad-input="revista">
+                <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
             </div>
             <div class="clear"></div>
             <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="revista" tabindex="0">AGRÉGALO</a>
@@ -624,10 +624,10 @@
                 {{/if_eq}}
                 {{/each}}
                 <br />
-                <div class="liquidacion_rango_home">
-                    <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-cantidad-input="pack">
-                    <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                    <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-input="cantidad" data-cantidad-input="pack">
+                    <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                 </div>
                 <div class="clear"></div>
                 <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="pack" data-cuvadd="{{pack.cuv_pack}}" tabindex="0">AGRÉGALO</a>
@@ -643,10 +643,10 @@
                     <div class="sub_texto_oferta">{{SimboloMoneda}} {{DecimalToStringFormat precio_catalogo}}</div>
                     <hr class="clear" />
                     <br />
-                    <div class="liquidacion_rango_home">
-                        <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-cantidad-input="catalogo">
-                        <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                        <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" tabindex="0" data-input="cantidad" data-cantidad-input="catalogo">
+                        <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
                     <div class="clear"></div>
                     <a class="boton_Agregalo_home agregar-ofertarevista" data-cuv="catalogo" tabindex="0">AGRÉGALO</a>

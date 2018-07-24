@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new SeguimientoMobileModel { ListaEstadoSeguimiento = new List<SeguimientoMobileModel>() };
             try
             {
-                var codigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora;
+                var codigoConsultora = userData.GetCodigoConsultora();
                 BETracking[] listaPedidos;
                 using (var service = new PedidoServiceClient())
                 {
@@ -80,7 +80,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     using (var service = new PedidoServiceClient())
                     {
                         listaEstadoSeguimiento = service.GetTrackingByPedido(userData.PaisID, codigoConsultora, model.Campana.ToString(), model.NumeroPedido).ToList();
-                        if (GetConfiguracionManager(Constantes.ConfiguracionManager.WebTrackingConfirmacion).Contains(userData.CodigoISO))
+                        if (_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.WebTrackingConfirmacion).Contains(userData.CodigoISO))
                         {
                             novedades = service.GetNovedadesTracking(userData.PaisID, model.NumeroPedido).ToList();
                         }
