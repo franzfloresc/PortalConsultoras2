@@ -1150,6 +1150,7 @@ namespace Portal.Consultoras.Common
             public const string Reserva_Prol2 = "Reserva_Prol2: El servicio externo de reserva de Prol2 retornó vacio.";
             public const string Reserva_Prol3 = "Reserva_Prol3: El servicio externo de reserva de Sicc retornó vacio o error.";
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
+            public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";            
         }
 
         public static class MensajesExito

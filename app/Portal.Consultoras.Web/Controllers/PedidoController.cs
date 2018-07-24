@@ -652,7 +652,7 @@ namespace Portal.Consultoras.Web.Controllers
             return new
             {
                 success = false,
-                message = "Ocurrió un error al ejecutar la operación.",
+                message = Constantes.MensajesError.InsertarValidarKitInicio,
                 errorInsertarProducto = "1"
             };
         }
