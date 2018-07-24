@@ -135,10 +135,12 @@
     border-bottom: 1px solid #d8d8d8;
 }
 
-.item_selecionado{
+.item_selecionado {
     width: 56px;
     text-align: center;
     position: relative;
+    padding: 0px !important;
+    margin: 0px 7px;
 }
 .item_selecionado_img{
     width: 100%;
@@ -179,6 +181,22 @@
     position: fixed;
     width: 100%;
     top: 0px;
+}
+
+.contenedor_seleccion .slick-track {
+    padding-top: 4px;
+}
+
+.modal {
+    display: block;
+    visibility: hidden;
+    overflow-y: hidden;
+}
+.modal.in {
+    visibility: visible;
+}
+.selecionados_carrosel .slick-list {
+    padding: 0 !important
 }
 
 
