@@ -3,6 +3,7 @@ using Portal.Consultoras.Entities.OpcionesVerificacion;
 using System;
 using System.Data;
 using System.Data.Common;
+using Portal.Consultoras.Entities.OpcionesVerificacion;
 
 namespace Portal.Consultoras.Data
 {
@@ -236,12 +237,31 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public bool ActiveEmail(string CodigoUsuario)
+        public bool ActiveEmail(string codigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioEMailActivo");
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
 
             return Convert.ToBoolean(Context.ExecuteScalar(command));
+        }
+
+        public void UpdUsuarioEmail(string codigoUsuario, string email, int campania)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioEmail");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@Email", DbType.AnsiString, email);
+            Context.Database.AddInParameter(command, "@CampaniaActivacionEmail", DbType.Int32, campania);
+
+            Context.ExecuteNonQuery(command);
+        }
+
+        public void UpdUsuarioCelular(string codigoUsuario, string celular)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioCelular");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@Celular", DbType.AnsiString, celular);
+
+            Context.ExecuteNonQuery(command);
         }
 
         public IDataReader GetSesionUsuario(string CodigoUsuario)
@@ -272,13 +292,21 @@ namespace Portal.Consultoras.Data
             return Convert.ToString(Context.ExecuteScalar(command));
         }
 
-        public int ValidarEmailConsultora(string Email, string CodigoUsuario)
+        public int ValidarEmailConsultora(string email, string codigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidateConsultoraEmail");
-            Context.Database.AddInParameter(command, "@Email", DbType.AnsiString, Email);
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@Email", DbType.AnsiString, email);
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
 
             return Convert.ToInt32(Context.ExecuteScalar(command));
+        }
+
+        public bool ExistsUsuarioEmail(string email)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ExistsUsuarioEmail");
+            Context.Database.AddInParameter(command, "@Email", DbType.AnsiString, email);
+
+            return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
 
         public int ValidarTelefonoConsultora(string Telefono, string CodigoUsuario)
@@ -804,7 +832,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetOpcionHabilitada(string CodigoUsuario, int OrigenID)
         {
-            var objFlag = new BEUsuarioCorreo();
+            //var objFlag = new BEUsuarioCorreo();
 
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetHabilitaOpcion");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
@@ -815,7 +843,7 @@ namespace Portal.Consultoras.Data
 
         public bool VerificarIgualdadCodigoIngresado(BEUsuarioDatos oUsu, string codigoIngresado)
         {
-            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.GetVerificarCodigo"); ;
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetVerificarCodigo");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsu.CodigoUsuario);
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsu.OrigenID);
             Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, codigoIngresado);
@@ -848,10 +876,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public bool GetAlcanseVerificacionAutenticidad(int zonaID)
+        public bool ValidarCodigoIngresado(BEUsuarioDatos oUsu, string tipoEnvio, string codigoSms)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("GetAlcanseVerificacionAutenticidad");
-            Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, zonaID);
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarCodigoIngresado"); ;
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsu.CodigoUsuario);
+            Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsu.OrigenID);
+            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, tipoEnvio);
+            Context.Database.AddInParameter(command, "@CodigoIngresado", DbType.AnsiString, codigoSms);
+
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
         #endregion
@@ -871,6 +903,18 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
 
             return Convert.ToBoolean(Context.ExecuteScalar(command));
+        }
+        public string GetActualizacionEmail(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("GetActualizacionEmail");
+            Context.Database.AddInParameter(command, "@codConsultora", DbType.String, codigoUsuario);
+            return Context.ExecuteScalar(command).ToString();
+        }
+        public string CancelarAtualizacionEmail(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("CancelarAtualizacionEmail");
+            Context.Database.AddInParameter(command, "@codConsultora", DbType.String, codigoUsuario);
+            return Context.ExecuteScalar(command).ToString();
         }
     }
 }

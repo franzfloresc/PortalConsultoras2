@@ -48,8 +48,6 @@
         //ODD
         var MostrarODD = '@ViewBag.MostrarODD';
         var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
-        var mostrarOfertaDelDiaContenedor ='@ViewBag.MostrarOfertaDelDiaContenedor';
-        var esContenedorOfertas = false;
         // New Chat
         var emt_client_type = '@ViewBag.TipoUsuario';
         var emt_country = '@ViewBag.CodigoISODL';
@@ -134,7 +132,7 @@
         {
             @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBloqueMensajesPedido.cshtml")
         }
-        else if (ViewBag.tieneOfertaDelDia == true)
+        else if (ViewBag.TieneOfertaDelDia == true)
         {
             <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none"></div>
         }
@@ -224,193 +222,9 @@
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTemplateResumenCampania.cshtml")
 
-    <script id="ofertadeldia-template" type="text/x-handlebars-template">
-        <div data-odd-tipoventana="baner">
-            <div class="content_oferta_dia" id="banner-odd" data-item="">
-                <div class="content_oferta_dia_img izquierda_img">
-                    <img src="https://lh6.googleusercontent.com/XQ_8c_lRv3g8a3VTVgmF6MkITCn72T4TigQTDldhqzhUsv-OWWAve4cEwYDFSBnhgBu60RCucknFaY4p8sZ1=w1366-h613" alt="">
-                </div>
-                <div class="content_oferta_dia_img derecha_img">
-                    <img src="https://lh6.googleusercontent.com/XQ_8c_lRv3g8a3VTVgmF6MkITCn72T4TigQTDldhqzhUsv-OWWAve4cEwYDFSBnhgBu60RCucknFaY4p8sZ1=w1366-h613" alt="">
-                </div>
-                <div style="display:none;" data-item-campos="">
-                    <input type="hidden" Class="tipoestrategia-id-odd" value="{{TipoEstrategiaID}}" />
-                    <input type="hidden" Class="estrategia-id-odd" value="{{EstrategiaID}}" />
-                    <input type="hidden" Class="marca-id-odd" value="{{MarcaID}}" />
-                    <input type="hidden" Class="cuv2-odd" value="{{CUV2}}" />
-                    <input type="hidden" Class="limite-venta-odd" value="{{LimiteVenta}}" />
-                    <input type="hidden" Class="flagnueva-odd" value="{{FlagNueva}}" />
-                    <input type="hidden" Class="precio-odd" value="{{PrecioOferta}}" />
-                    <input type="hidden" Class="nombre-odd" value="{{NombreOferta}}" />
-                    <input type="hidden" Class="indmonto-min-odd" value="{{IndicadorMontoMinimo}}" />
-                    <input type="hidden" Class="teimagenmostrar-odd" value="{{TipoEstrategiaImagenMostrar}}" />
-                    <input type="hidden" Class="imagen-odd" value="{{ImagenBanner}}" />
-                    <input type="hidden" class="origenPedidoWeb-odd" value="2" />
-                    <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
-                    <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
-                </div>
-                <div class="solo_hoy">
-                    <div style="height:42px; overflow:hidden;"><img src="{{ImagenSoloHoy}}" id="img-solohoy-odd" alt="" /></div>
-                    <div class="clock"></div>
-                    <div class="message"></div>
-                </div>
-                <div class="producto_set">
-                    <img src="{{ImagenBanner}}" alt="" id="img-banner-odd" class="imagen_producto" />
-                </div>
-                <div class="precio_set_dia">
-                    <div class="nombre_set_oferta">{{NombreOferta}}</div>
-                    <span>{{SimboloMoneda}} {{PrecioOfertaFormat}}</span>
-                </div>
-                <div style="float: left">
-                    <input type="hidden" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
-                    <a class="btn_agrega_set_dia" data-odd-accion="agregar" data-odd-accion-type="banner" data-odd-accion-element="0" data-odd-cabecera-position="0" href="javascript: void(0);">AGRÉGALO YA</a>
-                </div>
-                <a class="btn_detalle_hoy" data-odd-accion="veroferta" data-odd-cantidad="{{CantidadProductos}}" onclick="odd_desktop_google_analytics_promotion_click_verofertas();">
-                    <div class="circulo_hoy"><span id="odd_simbolo_ver_ofertas">+</span></div>
-                    <div class="texto_detalle_set">{{TextoVerDetalle}}</div>
-                </a>
-            </div>
-            <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia(this);">x</a>
-        </div>
-        <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia">
-            <div data-odd-tipoventana="detalle" style="display:none;">
-                <a class="regresar_carrusel" href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">REGRESAR</a>
-                <hr class="clear" />
-                <div class="content_90" style="margin-top: 20px;">
-                    <div id="divOddCarruselDetalle">
-                        {{#each this.ListaOfertas  as |detalle|}}
-                        <div data-item="" data-item-position="{{detalle.ID}}">
-                            <div style="display:none;" data-item-campos="">
-                                <input type="hidden" class="tipoestrategia-id-odd" value="{{detalle.TipoEstrategiaID}}" />
-                                <input type="hidden" class="estrategia-id-odd" value="{{detalle.EstrategiaID}}" />
-                                <input type="hidden" class="marca-id-odd" value="{{detalle.MarcaID}}" />
-                                <input type="hidden" class="cuv2-odd" value="{{detalle.CUV2}}" />
-                                <input type="hidden" class="limite-venta-odd" value="{{detalle.LimiteVenta}}" />
-                                <input type="hidden" class="flagnueva-odd" value="{{detalle.FlagNueva}}" />
-                                <input type="hidden" class="precio-odd" value="{{detalle.PrecioOferta}}" />
-                                <input type="hidden" class="nombre-odd" value="{{detalle.NombreOferta}}" />
-                                <input type="hidden" class="indmonto-min-odd" value="{{detalle.IndicadorMontoMinimo}}" />
-                                <input type="hidden" class="teimagenmostrar-odd" value="{{detalle.TipoEstrategiaImagenMostrar}}" />
-                                <input type="hidden" Class="imagen-odd" value="{{detalle.ImagenDisplay}}" />
-                                <input type="hidden" class="origenPedidoWeb-odd" value="4" />
-                                <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
-                                <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
-                            </div>
-                            <div data-compartir-campos="" style="display:none;">
-                                <input type="hidden" class="CUV" value="{{detalle.CUV2}}" />
-                                <input type="hidden" class="rsFBMensaje" value="" />
-                                <input type="hidden" class="rsWAMensaje" value="" />
-                                <input type="hidden" class="rsFBRutaImagen" value="{{detalle.ImagenDisplay}}" />
-                                <input type="hidden" class="rsWARutaImagen" value="{{detalle.ImagenDisplay}}" />
-                                <input type="hidden" class="MarcaID" value="{{detalle.MarcaID}}" />
-                                <input type="hidden" class="MarcaNombre" value="{{detalle.DescripcionMarca}}" />
-                                <input type="hidden" class="Nombre" value="{{detalle.NombreOferta}}" />
-                                <input type="hidden" class="ProductoDescripcion" value="{{detalle.DescripcionOferta}}" />
-                                <input type="hidden" class="Volumen" value="{{detalle.Volumen}}" />
-                                <input type="hidden" class="Palanca" value="ODD" />
-                                <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
-                                <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
-                            </div>
-                            <div class="content_set_pop_hoy">
-                                <div class="imagen_set_Oferta_pop">
-                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1" />
-                                    <div class="compartir_redes_ficha">
-                                        <div class="texto_compartelo" style="color:#fff;">Comparte la oferta con tus clientes</div>
-                                        <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
-                                            <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/dUttu2lhWRcJ1AQ/face_new.png" />
-                                        </a>
-                                        <hr class="clear">
-                                    </div>
-                                </div>
-                                <div class="right_set_hoy">
-                                    <div class="height_min">
-                                        <div class="titulo_set_ODD">{{detalle.NombreOferta}}</div>
-                                        <div class="descripcion_set_ofertaDia">{{{detalle.DescripcionOferta}}}</div>
-                                        <div class="precio_valorizado_oferta">VALORIZADO EN <span>{{SimboloMoneda}} {{detalle.PrecioCatalogoFormat}}</span></div>
-                                        <div class="precio_ofertaDia">A SOLO <span>{{SimboloMoneda}} {{detalle.PrecioOfertaFormat}}</span></div>
-                                    </div>
-                                    <div>
-                                        <div class="liquidacion_rango_home js-no-popup">
-                                            <input type="text" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
-                                            <div class="liquidacion_rango_right_pedido js-no-popup">
-                                                <a class="mas js-no-popup" tabindex="0" style="border-bottom:1px solid white">
-                                                    <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt="">
-                                                </a>
-                                                <a class="menos js-no-popup" tabindex="0">
-                                                    <img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt="">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" data-odd-accion-type="detail" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {{/each}}
-                    </div>
-                </div>
-            </div>
-            <div style="display:none;" data-odd-tipoventana="carrusel">
-                <div class="saludo_mas_productos" data-odd-texto="cliente" style="display:none;">{{UsuarioNombre}}, APROVECHA ESTAS OFERTAS ¡SOLO HOY!</div>
-                <div class="content_90">
-                    <div id="divOddCarrusel">
-                        {{#each this.ListaOfertas  as |detalle|}}
-                        <div data-item="" data-item-position="{{detalle.ID}}" style="float:left; overflow:hidden;">
-                            <div class="content_item_carrusel_ODD">
-                                <div style="display:none;" data-item-campos="">
-                                    <input type="hidden" class="tipoestrategia-id-odd" value="{{detalle.TipoEstrategiaID}}" />
-                                    <input type="hidden" class="estrategia-id-odd" value="{{detalle.EstrategiaID}}" />
-                                    <input type="hidden" class="marca-id-odd" value="{{detalle.MarcaID}}" />
-                                    <input type="hidden" class="cuv2-odd" value="{{detalle.CUV2}}" />
-                                    <input type="hidden" class="limite-venta-odd" value="{{detalle.LimiteVenta}}" />
-                                    <input type="hidden" class="flagnueva-odd" value="{{detalle.FlagNueva}}" />
-                                    <input type="hidden" class="precio-odd" value="{{detalle.PrecioOferta}}" />
-                                    <input type="hidden" class="nombre-odd" value="{{detalle.NombreOferta}}" />
-                                    <input type="hidden" class="indmonto-min-odd" value="{{detalle.IndicadorMontoMinimo}}" />
-                                    <input type="hidden" class="teimagenmostrar-odd" value="{{detalle.TipoEstrategiaImagenMostrar}}" />
-                                    <input type="hidden" Class="imagen-odd" value="{{detalle.ImagenDisplay}}" />
-                                    <input type="hidden" class="origenPedidoWeb-odd" value="3" />
-                                    <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
-                                    <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
-                                </div>
-                                <div class="content_img_carrusel_ODD" data-odd-accion="verdetalle">
-                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1" />
-                                    <a class="ver_detalle_carrusel" onclick="odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}}, 'Oferta del día - Banner');" style="top: 80px;">VER DETALLE</a>
-                                    <div class="titulo_carrusel_ODD">{{detalle.NombreOferta}}</div>
-                                    {{#iff detalle.PrecioCatalogo '>' 0}}
-                                    <div class="valorizado_carrusel_ODD">VALORIZADO EN <span>{{SimboloMoneda}} {{detalle.PrecioCatalogoFormat}}</span></div>
-                                    {{/iff}}
-                                    <div class="precio_carrusel_ODD">{{SimboloMoneda}} {{detalle.PrecioOfertaFormat}}</div>
-                                </div>
-                                <div style="text-align: center">
-                                    <div class="liquidacion_rango_home js-no-popup">
-                                        <input type="text" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
-                                        <div class="liquidacion_rango_right_pedido js-no-popup">
-                                            <a class="mas js-no-popup" tabindex="0" style="border-bottom:1px solid white">
-                                                <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt="">
-                                            </a>
-                                            <a class="menos js-no-popup" tabindex="0">
-                                                <img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" data-odd-accion-type="list" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
-                                </div>
-                                <div style="padding-top:6px; height: 15px;">
-                                    <div class="agregado product-add" style="text-align:right; display:{{detalle.Agregado}};">
-                                        AGREGADO
-                                        <div class="icono"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {{/each}}
-                    </div>
-                </div>
-            </div>
+    @Html.Partial("~/Views/OfertaDelDia/ofertadeldia-banner-template.cshtml")
 
-        </div>
-    </script>
+    @Html.Partial("~/Views/Shared/_template-ofertadeldia-style.cshtml")
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
 
@@ -433,9 +247,9 @@
         var clock;
         var TipoOrigenPantallaODD = 1;
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
-        var codigoAnclaOdd = '@ViewBag.CodigoAnclaOdd';
+        var codigoAnclaOdd = '@Constantes.ConfiguracionPais.OfertaDelDia';
         var OrigenDesktopODD = 0;
-        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';        
+        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script type='text/javascript'>

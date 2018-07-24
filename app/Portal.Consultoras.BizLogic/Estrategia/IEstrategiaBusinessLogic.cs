@@ -16,7 +16,7 @@ namespace Portal.Consultoras.BizLogic
         List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad);
         List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad);
         BEEstrategiaDetalle GetEstrategiaDetalle(int paisID, int estrategiaID);
-        List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
+        
         List<BEEstrategia> GetEstrategias(BEEstrategia entidad);
         List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad);
         List<BEMatrizComercialImagen> GetImagenesByEstrategiaMatrizComercialImagen(BEEstrategia entidad, int pagina, int registros);

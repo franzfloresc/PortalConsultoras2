@@ -109,8 +109,12 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectBannerPedido(vpaisID, vCampaniaID).ToList();
                 }
 
-                var carpetaPais = Globals.UrlBanner + "/" + UserData().CodigoISO;
-                if (lst.Count > 0) lst.Update(x => x.ArchivoPortada = ConfigS3.GetUrlFileS3(carpetaPais, x.ArchivoPortada, Globals.RutaImagenesIncentivos + "/" + UserData().CodigoISO));
+                
+                if (lst != null && lst.Count > 0)
+                {
+                    var carpetaPais = Globals.UrlBanner + "/" + userData.CodigoISO;
+                    lst.Update(x => x.ArchivoPortada = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ArchivoPortada));
+                }                    
 
                 BEGrid grid = new BEGrid
                 {

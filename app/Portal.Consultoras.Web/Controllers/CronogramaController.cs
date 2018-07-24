@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaPaises = DropDowListPaises(),
                 listaCampania = DropDowListCampanias(paisId),
-                listaZonas = DropDownListZonas(paisId),
+                listaZonas = _baseProvider.DropDownListZonas(paisId),
                 PaisID = paisId,
                 CampaniaID = campaniaIdActual
             };
@@ -73,7 +73,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
-            IEnumerable<ZonaModel> lstZonas = DropDownListZonas(PaisID);
+            IEnumerable<ZonaModel> lstZonas = _baseProvider.DropDownListZonas(PaisID);
 
             return Json(new
             {
@@ -818,7 +818,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
 
                             mensajeFechaDa = diasemana + " " + fechaDa.Day.ToString() + " de " +
-                                             NombreMes(fechaDa.Month) + " (" + cierrezonademanti + ")";
+                                             Util.NombreMes(fechaDa.Month) + " (" + cierrezonademanti + ")";
                         }
 
                         validar = true;

@@ -64,65 +64,26 @@ namespace Portal.Consultoras.Entities
 
         public BEConsultoraConcurso(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "COD_CLIE"))
-                CodigoConsultora = Convert.ToString(row["COD_CLIE"]);
-
-            if (DataRecord.HasColumn(row, "COD_CONC"))
-                CodigoConcurso = Convert.ToString(row["COD_CONC"]);
-
-            if (DataRecord.HasColumn(row, "DES_CONC"))
-                DescripcionConcurso = Convert.ToString(row["DES_CONC"]);
-
-            if (DataRecord.HasColumn(row, "COD_REGI"))
-                CodigoRegion = Convert.ToString(row["COD_REGI"]);
-
-            if (DataRecord.HasColumn(row, "PARTICIPA"))
-                Participa = Convert.ToBoolean(row["PARTICIPA"]);
-
-            if (DataRecord.HasColumn(row, "COD_CAMPANIA"))
-                CodigoCampania = Convert.ToString(row["COD_CAMPANIA"]);
-
-            if (DataRecord.HasColumn(row, "NIV_ALCA"))
-                NivelAlcanzado = Convert.ToInt32(row["NIV_ALCA"]);
-
-            if (DataRecord.HasColumn(row, "NivelSiguiente"))
-                NivelSiguiente = Convert.ToInt32(row["NivelSiguiente"]);
-
-            if (DataRecord.HasColumn(row, "PUN_FALT_NIVS"))
-                PuntosFaltantesSiguienteNivel = Convert.ToInt32(row["PUN_FALT_NIVS"]);
-
-            if (DataRecord.HasColumn(row, "PUN_VTAS"))
-                PuntosXVentas = Convert.ToInt32(row["PUN_VTAS"]);
-
-            if (DataRecord.HasColumn(row, "PUN_RETA"))
-                PuntosRetail = Convert.ToInt32(row["PUN_RETA"]);
-
-            if (DataRecord.HasColumn(row, "PUN_TOTA"))
-                PuntajeTotal = Convert.ToInt32(row["PUN_TOTA"]);
-
-            if (DataRecord.HasColumn(row, "TIP_CONC"))
-                TipoConcurso = Convert.ToString(row["TIP_CONC"]);
-
-            if (DataRecord.HasColumn(row, "FEC_VIGE_RETA"))
-                FechaVentaRetail = Convert.ToDateTime(row["FEC_VIGE_RETA"]);
-
-            if (DataRecord.HasColumn(row, "EsCampaniaAnterior"))
-                EsCampaniaAnterior = Convert.ToBoolean(row["EsCampaniaAnterior"]);
-
-            if (DataRecord.HasColumn(row, "IND_PREM_PEDI"))
-                IndicadorPremiacionPedido = Convert.ToBoolean(row["IND_PREM_PEDI"]);
-
-            if (DataRecord.HasColumn(row, "MON_PREM_PEDI"))
-                MontoPremiacionPedido = Convert.ToDecimal(row["MON_PREM_PEDI"]);
-
-            if (DataRecord.HasColumn(row, "IND_PREM_ACUM"))
-                IndicadorPremioAcumulativo = Convert.ToBoolean(row["IND_PREM_ACUM"]);
-
-            if (DataRecord.HasColumn(row, "NUMERO_NIVELES"))
-                NumeroNiveles = Convert.ToInt32(row["NUMERO_NIVELES"]);
-
-            if (DataRecord.HasColumn(row, "Simbolo"))
-                Simbolo = row["Simbolo"].ToString();
+            CodigoConsultora = row.ToString("COD_CLIE");
+            CodigoConcurso = row.ToString("COD_CONC");
+            DescripcionConcurso = row.ToString("DES_CONC");
+            CodigoRegion = row.ToString("COD_REGI");
+            Participa = row.ToBoolean("PARTICIPA");
+            CodigoCampania = row.ToString("COD_CAMPANIA");
+            NivelAlcanzado = row.ToInt32("NIV_ALCA");
+            NivelSiguiente = row.ToInt32("NivelSiguiente");
+            PuntosFaltantesSiguienteNivel = row.ToInt32("PUN_FALT_NIVS");
+            PuntosXVentas = row.ToInt32("PUN_VTAS");
+            PuntosRetail = row.ToInt32("PUN_RETA");
+            PuntajeTotal = row.ToInt32("PUN_TOTA");
+            TipoConcurso = row.ToString("TIP_CONC");
+            FechaVentaRetail = row.ToDateTime("FEC_VIGE_RETA");
+            EsCampaniaAnterior = row.ToBoolean("EsCampaniaAnterior");
+            IndicadorPremiacionPedido = row.ToBoolean("IND_PREM_PEDI");
+            MontoPremiacionPedido = row.ToDecimal("MON_PREM_PEDI");
+            IndicadorPremioAcumulativo = row.ToBoolean("IND_PREM_ACUM");
+            NumeroNiveles = row.ToInt32("NUMERO_NIVELES");
+            Simbolo = row.ToString("Simbolo");
 
             if (row.HasColumn("CampaniaInicio"))
                 CampaniaInicio = row.GetValue<string>("CampaniaInicio");

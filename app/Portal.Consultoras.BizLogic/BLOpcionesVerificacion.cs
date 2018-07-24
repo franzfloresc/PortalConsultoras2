@@ -10,10 +10,10 @@ namespace Portal.Consultoras.BizLogic
     {
         public BEOpcionesVerificacion GetOpcionesVerificacionCache(int paisID, int origenID, int regionID = 0, int zonaID = 0)
         {
-            return CacheManager<BEOpcionesVerificacion>.ValidateDataElement(paisID, ECacheItem.OpcionesVerificacion, paisID.ToString() + origenID.ToString(), () => GetOpcionesVerificacion(paisID, origenID, regionID, zonaID));
+            return CacheManager<BEOpcionesVerificacion>.ValidateDataElement(paisID, ECacheItem.OpcionesVerificacion, paisID.ToString() + origenID.ToString(), () => GetOpcionesVerificacion(paisID, origenID));
         }
 
-        private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID, int regionID, int zonaID)
+        private BEOpcionesVerificacion GetOpcionesVerificacion(int paisID, int origenID)
         {
             var obj = new DAOpcionesVerificacion(paisID);
             BEOpcionesVerificacion OpcVeri = null;
@@ -24,7 +24,7 @@ namespace Portal.Consultoras.BizLogic
             }
             if (OpcVeri == null) return null;
             OpcVeri.lstFiltros = new List<BEFiltrosOpcionesVerificacion>();
-            if (OpcVeri.IncluyeFiltros) OpcVeri.lstFiltros =  GetFiltrosOpcionesVerificacion(paisID, origenID) ?? new List<BEFiltrosOpcionesVerificacion>();
+            if (OpcVeri.IncluyeFiltros) OpcVeri.lstFiltros = GetFiltrosOpcionesVerificacion(paisID, origenID) ?? new List<BEFiltrosOpcionesVerificacion>();
             return OpcVeri;
         }
 

@@ -34,22 +34,14 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         public BEShowRoomTipoOferta(IDataRecord row)
         {
-            if (row.HasColumn("TipoOfertaID"))
-                TipoOfertaID = Convert.ToInt32(row["TipoOfertaID"]);
-            if (row.HasColumn("Codigo"))
-                Codigo = Convert.ToString(row["Codigo"]);
-            if (row.HasColumn("Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (row.HasColumn("Activo"))
-                Activo = Convert.ToBoolean(row["Activo"]);
-            if (row.HasColumn("FechaCreacion"))
-                FechaCreacion = Convert.ToDateTime(row["FechaCreacion"]);
-            if (row.HasColumn("UsuarioCreacion"))
-                UsuarioCreacion = Convert.ToString(row["UsuarioCreacion"]);
-            if (row.HasColumn("FechaModificacion"))
-                FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-            if (row.HasColumn("UsuarioModificacion"))
-                UsuarioModificacion = Convert.ToString(row["UsuarioModificacion"]);
+            TipoOfertaID = row.ToInt32("TipoOfertaID");
+            Codigo = row.ToString("Codigo");
+            Descripcion = row.ToString("Descripcion");
+            Activo = row.ToBoolean("Activo");
+            FechaCreacion = row.ToDateTime("FechaCreacion");
+            UsuarioCreacion = row.ToString("UsuarioCreacion");
+            FechaModificacion = row.ToDateTime("FechaModificacion");
+            UsuarioModificacion = row.ToString("UsuarioModificacion");
         }
     }
 }

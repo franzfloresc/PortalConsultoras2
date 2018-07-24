@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCatalogosIssuu;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
@@ -14,7 +15,14 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class CatalogosBelcorpController : BaseController
     {
-        MisCatalogosRevistasModel CatalogosRevistas = new MisCatalogosRevistasModel();
+        readonly MisCatalogosRevistasModel CatalogosRevistas = new MisCatalogosRevistasModel();
+
+        private readonly IssuuProvider _issuuProvider;
+
+        public CatalogosBelcorpController()
+        {
+            _issuuProvider = new IssuuProvider();
+        }
 
         public ActionResult Index()
         {
@@ -43,14 +51,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
             userData.NroCampanias = nroCampanias;
 
-            CatalogosRevistas.PaisNombre = GetPaisNombreByISO(userData.CodigoISO);
+            CatalogosRevistas.PaisNombre = Util.GetPaisNombreByISO(userData.CodigoISO);
             CatalogosRevistas.CampaniaActual = campaniaActiva;
-            CatalogosRevistas.CampaniaAnterior = AddCampaniaAndNumero(Convert.ToInt32(campaniaActiva), -1).ToString();
-            CatalogosRevistas.CampaniaSiguiente = AddCampaniaAndNumero(Convert.ToInt32(campaniaActiva), 1).ToString();
+            CatalogosRevistas.CampaniaAnterior = Util.AddCampaniaAndNumero(Convert.ToInt32(campaniaActiva), -1, userData.NroCampanias).ToString();
+            CatalogosRevistas.CampaniaSiguiente = Util.AddCampaniaAndNumero(Convert.ToInt32(campaniaActiva), 1, userData.NroCampanias).ToString();
 
-            CatalogosRevistas.CodigoRevistaActual = GetRevistaCodigoIssuu(CatalogosRevistas.CampaniaActual);
-            CatalogosRevistas.CodigoRevistaAnterior = GetRevistaCodigoIssuu(CatalogosRevistas.CampaniaAnterior);
-            CatalogosRevistas.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(CatalogosRevistas.CampaniaSiguiente);
+            CatalogosRevistas.CodigoRevistaActual = _issuuProvider.GetRevistaCodigoIssuu(CatalogosRevistas.CampaniaActual, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+            CatalogosRevistas.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(CatalogosRevistas.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+            CatalogosRevistas.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(CatalogosRevistas.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
 
             List<Catalogo> catalogosAnteriores = this.GetCatalogosPublicados(userData.CodigoISO, CatalogosRevistas.CampaniaAnterior);
             List<Catalogo> catalogosActuales = this.GetCatalogosPublicados(userData.CodigoISO, CatalogosRevistas.CampaniaActual);
@@ -79,15 +87,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<Catalogo> catalogos = new List<Catalogo>();
             const string urlIssuuSearch = "http:" + Constantes.CatalogoUrlIssu.Buscador;
-            string urlIssuuVisor = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
+            string urlIssuuVisor = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
             List<String> preferences = new List<String> { "LBel", "Esika", "Cyzone" };
 
             try
             {
-                string catalogoLbel = GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.LBel);
-                string catalogoEsika = GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Esika);
-                string catalogoCyzone = GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Cyzone);
-                string catalogoFinart = GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Finart);
+                string catalogoLbel = _issuuProvider.GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.LBel, userData.CodigoISO, userData.CodigoZona);
+                string catalogoEsika = _issuuProvider.GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Esika, userData.CodigoISO, userData.CodigoZona);
+                string catalogoCyzone = _issuuProvider.GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Cyzone, userData.CodigoISO, userData.CodigoZona);
+                string catalogoFinart = _issuuProvider.GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Finart, userData.CodigoISO, userData.CodigoZona);
 
                 var url = urlIssuuSearch +
                     "docname:" + catalogoLbel + "+OR+" +

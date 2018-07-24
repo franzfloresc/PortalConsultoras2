@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaZonas = DropDownListZonas(PaisID).ToList();
+                var listaZonas = _baseProvider.DropDownListZonas(PaisID).ToList();
                 var listaZonasActivas = DropDowListZonasActivas(PaisID).ToList();
                 List<ConfiguracionValidacionZonaModel> lstActivos = new List<ConfiguracionValidacionZonaModel>();
 

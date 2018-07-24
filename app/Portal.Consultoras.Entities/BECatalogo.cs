@@ -19,14 +19,10 @@ namespace Portal.Consultoras.Entities
 
         public BECatalogo(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "MarcaID"))
-                MarcaID = Convert.ToInt16(row["MarcaID"]);
-            if (DataRecord.HasColumn(row, "PaisID"))
-                PaisID = Convert.ToInt16(row["PaisID"]);
-            if (DataRecord.HasColumn(row, "Direccion"))
-                Direccion = Convert.ToString(row["Direccion"]);
+            CampaniaID = row.ToInt32("CampaniaID");
+            MarcaID = row.ToInt16("MarcaID");
+            PaisID = row.ToInt16("PaisID");
+            Direccion = row.ToString("Direccion");
         }
     }
 }

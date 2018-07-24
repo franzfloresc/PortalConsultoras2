@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new MatrizComercialModel()
             {
                 lstPais = DropDowListPaises(),
-                ExpValidacionNemotecnico = GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico)
+                ExpValidacionNemotecnico = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico)
             };
 
             return View(model);
@@ -77,13 +77,13 @@ namespace Portal.Consultoras.Web.Controllers
                     switch (sidx)
                     {
                         case "CodigoSAP":
-                            items = lst.OrderBy(x => x.CodigoSAP);
+                            items = lst.OrderByDescending(x => x.CodigoSAP);
                             break;
                         case "DescripcionOriginal":
-                            items = lst.OrderBy(x => x.DescripcionOriginal);
+                            items = lst.OrderByDescending(x => x.DescripcionOriginal);
                             break;
                         case "Descripcion":
-                            items = lst.OrderBy(x => x.Descripcion);
+                            items = lst.OrderByDescending(x => x.Descripcion);
                             break;
                     }
                 }
@@ -308,7 +308,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                var urlS3 = ConfigS3.GetUrlS3(formatoArchivo.CarpetaPais);
+                var urlS3 = ConfigCdn.GetUrlCdn(formatoArchivo.CarpetaPais);
 
                 return Json(new
                 {
@@ -495,7 +495,7 @@ namespace Portal.Consultoras.Web.Controllers
                 iso = Util.Trim(Util.GetPaisISO(paisID));
                 if (iso != "")
                 {
-                    habilitarNemotecnico = ObtenerValorTablaLogica(paisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoMatriz);
+                    habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(paisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoMatriz);
                 }
             }
             return Json(new
@@ -590,7 +590,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string paisIso = Util.GetPaisISO(paisId);
             var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
-            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+            var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
 
             var data = lst.Select(p => new MatrizComercialImagen
             {
