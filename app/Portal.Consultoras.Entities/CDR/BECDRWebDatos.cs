@@ -19,9 +19,9 @@ namespace Portal.Consultoras.Entities.CDR
 
         public BECDRWebDatos(IDataRecord row)
         {
-            if (row.HasColumn("CDRWebDatosID")) CDRWebDatosID = Convert.ToInt32(row["CDRWebDatosID"]);
-            if (row.HasColumn("Codigo")) Codigo = Convert.ToString(row["Codigo"]);
-            if (row.HasColumn("Valor")) Valor = Convert.ToString(row["Valor"]);
+            CDRWebDatosID = row.ToInt32("CDRWebDatosID");
+            Codigo = row.ToString("Codigo");
+            Valor = row.ToString("Valor");
         }
     }
 }

@@ -18,14 +18,11 @@
         [DataMember]
         public string estado { get; set; }
 
-        public BEPaqueteDocumentario(IDataRecord datarec)
+        public BEPaqueteDocumentario(IDataRecord row)
         {
-            if (DataRecord.HasColumn(datarec, "codigoConsultora"))
-                codigoConsultora = Convert.ToString(datarec["codigoConsultora"]);
-            if (DataRecord.HasColumn(datarec, "campaniaID"))
-                campaniaID = Convert.ToString(datarec["campaniaID"]);
-            if (DataRecord.HasColumn(datarec, "estado"))
-                estado = Convert.ToString(datarec["estado"]);
+            codigoConsultora = row.ToString("codigoConsultora");
+            campaniaID = row.ToString("campaniaID");
+            estado = row.ToString("estado");
         }
     }
 }

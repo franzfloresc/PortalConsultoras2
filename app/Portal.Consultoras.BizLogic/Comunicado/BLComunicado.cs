@@ -50,53 +50,62 @@ namespace Portal.Consultoras.BizLogic
             }
 
             var lstComunicadoFinal = new List<BEComunicado>();
-                foreach (var item in lstComunicado)
-                {
-                    item.Vistas = lstComunicadoVista.Where(x => x.ComunicadoId == item.ComunicadoId).ToList();
-                    var Segmentaciones = lstComunicadoSegmentacion.Where(x => x.ComunicadoId == item.ComunicadoId).ToList();
 
-                    if (item.SegmentacionID == null)
+            foreach (var item in lstComunicado)
+            {
+                item.Vistas = lstComunicadoVista.Where(x => x.ComunicadoId == item.ComunicadoId).ToList();
+                var Segmentaciones = lstComunicadoSegmentacion.Where(x => x.ComunicadoId == item.ComunicadoId).ToList();
+
+                if (item.SegmentacionID == null)
+                {
+                    lstComunicadoFinal.Add(item);
+                    continue;
+                }
+
+                if (item.SegmentacionConsultora)
+                {
+                    if (Segmentaciones.Any(x => x.CodigoConsultora == CodigoConsultora))
                     {
                         lstComunicadoFinal.Add(item);
                     }
-                    else
-                    {
-                        if (item.SegmentacionConsultora)
-                        {
-                            if (Segmentaciones.Where(x => x.CodigoConsultora == CodigoConsultora).Any())
-                            {
-                                lstComunicadoFinal.Add(item);
-                            }
-                        }
-                        else if (!item.SegmentacionRegionZona && !item.SegmentacionEstadoActividad)
-                        {
-                            lstComunicadoFinal.Add(item);
-                        }
-                        else if (item.SegmentacionRegionZona && item.SegmentacionEstadoActividad)
-                        {
-                            if (Segmentaciones.Where(x => x.CodigoRegion == CodigoRegion && (string.IsNullOrEmpty(x.CodigoZona) ? CodigoZona : x.CodigoZona) == CodigoZona).Any()
-                                && Segmentaciones.Where(x => x.IdEstadoActividad == IdEstadoActividad).Any())
-                            {
-                                lstComunicadoFinal.Add(item);
-                            }
-                        }
-                        else if (item.SegmentacionRegionZona && !item.SegmentacionEstadoActividad)
-                        {
-                            if (Segmentaciones.Where(x => x.CodigoRegion == CodigoRegion && (string.IsNullOrEmpty(x.CodigoZona) ? CodigoZona : x.CodigoZona) == CodigoZona).Any())
-                            {
-                                lstComunicadoFinal.Add(item);
-                            }
-                        }
-                        else if (!item.SegmentacionRegionZona && item.SegmentacionEstadoActividad)
-                        {
-                            if (Segmentaciones.Where(x => x.IdEstadoActividad == IdEstadoActividad).Any())
-                            {
-                                lstComunicadoFinal.Add(item);
-                            }
-                        }
-                    }
+                    continue;
                 }
-            
+
+                if (!item.SegmentacionRegionZona && !item.SegmentacionEstadoActividad)
+                {
+                    lstComunicadoFinal.Add(item);
+                    continue;
+                }
+
+                if (item.SegmentacionRegionZona && item.SegmentacionEstadoActividad)
+                {
+                    if (Segmentaciones.Any(x => x.CodigoRegion == CodigoRegion && (string.IsNullOrEmpty(x.CodigoZona) ? CodigoZona : x.CodigoZona) == CodigoZona)
+                        && Segmentaciones.Any(x => x.IdEstadoActividad == IdEstadoActividad))
+                    {
+                        lstComunicadoFinal.Add(item);
+                    }
+                    continue;
+                }
+
+                if (item.SegmentacionRegionZona && !item.SegmentacionEstadoActividad)
+                {
+                    if (Segmentaciones.Any(x => x.CodigoRegion == CodigoRegion && (string.IsNullOrEmpty(x.CodigoZona) ? CodigoZona : x.CodigoZona) == CodigoZona))
+                    {
+                        lstComunicadoFinal.Add(item);
+                    }
+                    continue;
+                }
+
+                if (!item.SegmentacionRegionZona && item.SegmentacionEstadoActividad 
+                    && Segmentaciones.Any(x => x.IdEstadoActividad == IdEstadoActividad))
+                {
+                    //if (Segmentaciones.Where(x => x.IdEstadoActividad == IdEstadoActividad).Any())
+                    //{
+                    lstComunicadoFinal.Add(item);
+                    //}
+                }
+            }
+
             return lstComunicadoFinal;
         }
 

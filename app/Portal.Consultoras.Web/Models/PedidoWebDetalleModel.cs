@@ -150,5 +150,6 @@ namespace Portal.Consultoras.Web.Models
 
         public bool FlagNueva { get; set; }
         public int SetID { get; set; }
+        public string TipoEstrategiaCodigo { get; set; }
     }
 }

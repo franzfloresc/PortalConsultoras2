@@ -90,8 +90,8 @@
                             }
                             <li data-campania="@menuhijo.CampaniaId" data-activo="1"
                                 data-codigo="@menuhijo.Codigo"
-                                data-es-ancla="@(menuhijo.Codigo != "ODD" && @menuhijo.EsAncla)"
-                                onclick="menuModule.menuClick(this, '@(menuhijo.Codigo == "ODD" ? Url.Action("Index", "OfertaDelDia", new {Area = "Mobile"}) : @menuhijo.UrlMenuMobile)')">
+                                data-es-ancla="@menuhijo.EsAncla"
+                                onclick="menuModule.menuClick(this, '@menuhijo.UrlMenuMobile')">
                                 <a href="javascript:;" class="@claseActivo" role="menu" region="Lateral" parent="Contenedor - @menuActivo.NombreOrigenPantalla" title="@menuhijo.DesktopSubTituloMenu">
                                     @if (!string.IsNullOrEmpty(menuhijo.MobileLogoMenu))
                                     {

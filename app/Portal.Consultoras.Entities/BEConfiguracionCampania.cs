@@ -163,95 +163,56 @@ namespace Portal.Consultoras.Entities
         }
 
         [Obsolete("Use MapUtil.MapToCollection")]
-        public BEConfiguracionCampania(IDataRecord datarec)
+        public BEConfiguracionCampania(IDataRecord row)
         {
-            if (DataRecord.HasColumn(datarec, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
-            if (DataRecord.HasColumn(datarec, "FechaInicioFacturacion"))
-                FechaInicioFacturacion = Convert.ToDateTime(datarec["FechaInicioFacturacion"]);
-            if (DataRecord.HasColumn(datarec, "FechaFinFacturacion"))
-                FechaFinFacturacion = Convert.ToDateTime(datarec["FechaFinFacturacion"]);
-            if (DataRecord.HasColumn(datarec, "CampaniaDescripcion"))
-                CampaniaDescripcion = Convert.ToString(datarec["CampaniaDescripcion"]);
-            if (DataRecord.HasColumn(datarec, "HoraInicio"))
-                HoraInicio = DbConvert.ToTimeSpan(datarec["HoraInicio"]);
-            if (DataRecord.HasColumn(datarec, "HoraFin"))
-                HoraFin = DbConvert.ToTimeSpan(datarec["HoraFin"]);
-            if (DataRecord.HasColumn(datarec, "DiasAntes"))
-                DiasAntes = Convert.ToByte(datarec["DiasAntes"]);
-            if (DataRecord.HasColumn(datarec, "ZonaValida"))
-                TempZonaValida = Convert.ToInt32(datarec["ZonaValida"]);
-            if (DataRecord.HasColumn(datarec, "HoraInicioNoFacturable"))
-                HoraInicioNoFacturable = DbConvert.ToTimeSpan(datarec["HoraInicioNoFacturable"]);
-            if (DataRecord.HasColumn(datarec, "HoraCierreNoFacturable"))
-                HoraCierreNoFacturable = DbConvert.ToTimeSpan(datarec["HoraCierreNoFacturable"]);
-            if (DataRecord.HasColumn(datarec, "HoraCierreZonaNormal"))
-                HoraCierreZonaNormal = DbConvert.ToTimeSpan(datarec["HoraCierreZonaNormal"]);
-            if (DataRecord.HasColumn(datarec, "HoraCierreZonaDemAnti"))
-                HoraCierreZonaDemAnti = DbConvert.ToTimeSpan(datarec["HoraCierreZonaDemAnti"]);
-            if (DataRecord.HasColumn(datarec, "ZonaHoraria"))
-                ZonaHoraria = Convert.ToDouble(datarec["ZonaHoraria"]);
-            if (DataRecord.HasColumn(datarec, "EsZonaDemAnti"))
-                EsZonaDemAnti = Convert.ToInt32(datarec["EsZonaDemAnti"]);
-            if (DataRecord.HasColumn(datarec, "DiasDuracionCronograma"))
-                DiasDuracionCronograma = Convert.ToByte(datarec["DiasDuracionCronograma"]);
-            if (DataRecord.HasColumn(datarec, "HabilitarRestriccionHoraria"))
-                HabilitarRestriccionHoraria = Convert.ToBoolean(datarec["HabilitarRestriccionHoraria"]);
-            if (DataRecord.HasColumn(datarec, "HorasDuracionRestriccion"))
-                HorasDuracionRestriccion = Convert.ToInt32(datarec["HorasDuracionRestriccion"]);
-            if (DataRecord.HasColumn(datarec, "NroCampanias"))
-                NroCampanias = Convert.ToInt32(datarec["NroCampanias"]);
-            if (DataRecord.HasColumn(datarec, "PROLSinStock"))
-                PROLSinStock = Convert.ToBoolean(datarec["PROLSinStock"]);
-
-            if (DataRecord.HasColumn(datarec, "FechaFinFIC")) FechaFinFIC = Convert.ToDateTime(datarec["FechaFinFIC"]);
-            else FechaFinFIC = DateTime.Today;
-            if (DataRecord.HasColumn(datarec, "IndicadorOfertaFIC")) IndicadorOfertaFIC = Convert.ToInt32(datarec["IndicadorOfertaFIC"]);
-            if (DataRecord.HasColumn(datarec, "ImagenUrlOfertaFIC")) ImagenURLOfertaFIC = Convert.ToString(datarec["ImagenUrlOfertaFIC"]);
-            else ImagenURLOfertaFIC = string.Empty;
-
-            if (DataRecord.HasColumn(datarec, "FechaInicioReFacturacion"))
-                FechaInicioReFacturacion = Convert.ToDateTime(datarec["FechaInicioReFacturacion"]);
-            if (DataRecord.HasColumn(datarec, "FactorCierreZonaNormal"))
-                FactorCierreZonaNormal = DbConvert.ToTimeSpan(datarec["FactorCierreZonaNormal"]);
-            if (DataRecord.HasColumn(datarec, "FactorCierreZonaDemAnti"))
-                FactorCierreZonaDemAnti = DbConvert.ToTimeSpan(datarec["FactorCierreZonaDemAnti"]);
-
-            if (DataRecord.HasColumn(datarec, "NuevoPROL"))
-                NuevoPROL = Convert.ToBoolean(datarec["NuevoPROL"]);
-
-            if (DataRecord.HasColumn(datarec, "ZonaNuevoPROL"))
-                ZonaNuevoPROL = Convert.ToBoolean(datarec["ZonaNuevoPROL"]);
-
-            if (DataRecord.HasColumn(datarec, "EstadoSimplificacionCUV"))
-                EstadoSimplificacionCUV = Convert.ToBoolean(datarec["EstadoSimplificacionCUV"]);
-            if (DataRecord.HasColumn(datarec, "EsquemaDAConsultora"))
-                EsquemaDAConsultora = Convert.ToBoolean(datarec["EsquemaDAConsultora"]);
-            if (DataRecord.HasColumn(datarec, "HoraCierreZonaDemAntiCierre"))
-                HoraCierreZonaDemAntiCierre = DbConvert.ToTimeSpan(datarec["HoraCierreZonaDemAntiCierre"]);
-
-            if (DataRecord.HasColumn(datarec, "ValidacionInteractiva"))
-                ValidacionInteractiva = Convert.ToBoolean(datarec["ValidacionInteractiva"]);
-            if (DataRecord.HasColumn(datarec, "MensajeValidacionInteractiva"))
-                MensajeValidacionInteractiva = Convert.ToString(datarec["MensajeValidacionInteractiva"]);
-
-            if (DataRecord.HasColumn(datarec, "IndicadorGPRSB")) IndicadorGPRSB = Convert.ToInt32(datarec["IndicadorGPRSB"]);
-            if (DataRecord.HasColumn(datarec, "IndicadorEnviado")) IndicadorEnviado = Convert.ToBoolean(datarec["IndicadorEnviado"]);
-
-            if (DataRecord.HasColumn(datarec, "EstadoPedido"))
-                EstadoPedido = Convert.ToInt32(datarec["EstadoPedido"]);
-
-            if (DataRecord.HasColumn(datarec, "ModificaPedidoReservado"))
-                ModificaPedidoReservado = Convert.ToBoolean(datarec["ModificaPedidoReservado"]);
-
-            if (DataRecord.HasColumn(datarec, "ValidacionAbierta"))
-                ValidacionAbierta = Convert.ToBoolean(datarec["ValidacionAbierta"]);
-
-            if (DataRecord.HasColumn(datarec, "FechaActualPais"))
-                FechaActualPais = Convert.ToDateTime(datarec["FechaActualPais"]);
-
-            if (DataRecord.HasColumn(datarec, "AceptacionConsultoraDA"))
-                AceptacionConsultoraDA = Convert.ToInt32(datarec["AceptacionConsultoraDA"]);
+            CampaniaID = row.ToInt32("CampaniaID");
+            FechaInicioFacturacion = row.ToDateTime("FechaInicioFacturacion");
+            FechaFinFacturacion = row.ToDateTime("FechaFinFacturacion");
+            CampaniaDescripcion = row.ToString("CampaniaDescripcion");
+            if (DataRecord.HasColumn(row, "HoraInicio"))
+                HoraInicio = DbConvert.ToTimeSpan(row["HoraInicio"]);
+            if (DataRecord.HasColumn(row, "HoraFin"))
+                HoraFin = DbConvert.ToTimeSpan(row["HoraFin"]);
+            DiasAntes = row.ToByte("DiasAntes");
+            TempZonaValida = row.ToInt32("ZonaValida");
+            if (DataRecord.HasColumn(row, "HoraInicioNoFacturable"))
+                HoraInicioNoFacturable = DbConvert.ToTimeSpan(row["HoraInicioNoFacturable"]);
+            if (DataRecord.HasColumn(row, "HoraCierreNoFacturable"))
+                HoraCierreNoFacturable = DbConvert.ToTimeSpan(row["HoraCierreNoFacturable"]);
+            if (DataRecord.HasColumn(row, "HoraCierreZonaNormal"))
+                HoraCierreZonaNormal = DbConvert.ToTimeSpan(row["HoraCierreZonaNormal"]);
+            if (DataRecord.HasColumn(row, "HoraCierreZonaDemAnti"))
+                HoraCierreZonaDemAnti = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAnti"]);
+            ZonaHoraria = row.ToDouble("ZonaHoraria");
+            EsZonaDemAnti = row.ToInt32("EsZonaDemAnti");
+            DiasDuracionCronograma = row.ToByte("DiasDuracionCronograma");
+            HabilitarRestriccionHoraria = row.ToBoolean("HabilitarRestriccionHoraria");
+            HorasDuracionRestriccion = row.ToInt32("HorasDuracionRestriccion");
+            NroCampanias = row.ToInt32("NroCampanias");
+            PROLSinStock = row.ToBoolean("PROLSinStock");
+            FechaFinFIC = row.ToDateTime("FechaFinFIC", DateTime.Today);
+            IndicadorOfertaFIC = row.ToInt32("IndicadorOfertaFIC");
+            ImagenURLOfertaFIC = row.ToString("ImagenUrlOfertaFIC", string.Empty);
+            FechaInicioReFacturacion = row.ToDateTime("FechaInicioReFacturacion");
+            if (DataRecord.HasColumn(row, "FactorCierreZonaNormal"))
+                FactorCierreZonaNormal = DbConvert.ToTimeSpan(row["FactorCierreZonaNormal"]);
+            if (DataRecord.HasColumn(row, "FactorCierreZonaDemAnti"))
+                FactorCierreZonaDemAnti = DbConvert.ToTimeSpan(row["FactorCierreZonaDemAnti"]);
+            NuevoPROL = row.ToBoolean("NuevoPROL");
+            ZonaNuevoPROL = row.ToBoolean("ZonaNuevoPROL");
+            EstadoSimplificacionCUV = row.ToBoolean("EstadoSimplificacionCUV");
+            EsquemaDAConsultora = row.ToBoolean("EsquemaDAConsultora");
+            if (DataRecord.HasColumn(row, "HoraCierreZonaDemAntiCierre"))
+                HoraCierreZonaDemAntiCierre = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAntiCierre"]);
+            ValidacionInteractiva = row.ToBoolean("ValidacionInteractiva");
+            MensajeValidacionInteractiva = row.ToString("MensajeValidacionInteractiva");
+            IndicadorGPRSB = row.ToInt32("IndicadorGPRSB");
+            IndicadorEnviado = row.ToBoolean("IndicadorEnviado");
+            EstadoPedido = row.ToInt32("EstadoPedido");
+            ModificaPedidoReservado = row.ToBoolean("ModificaPedidoReservado");
+            ValidacionAbierta = row.ToBoolean("ValidacionAbierta");
+            FechaActualPais = row.ToDateTime("FechaActualPais");
+            AceptacionConsultoraDA = row.ToInt32("AceptacionConsultoraDA");
         }
     }
 }

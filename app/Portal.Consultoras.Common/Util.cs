@@ -1094,11 +1094,12 @@ namespace Portal.Consultoras.Common
             string connectionString = string.Empty;
             List<V> list = null;
 
-            try {
+            try
+            {
                 string extension = System.IO.Path.GetExtension(@filepath).ToLower();
                 string csXls = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties=\"Excel 8.0;IMEX=1;HDR=YES;\"";
                 string csXlsx = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=\"Excel 12.0;IMEX=1;HDR=YES;\"";
-                
+
                 // para lectura de archivos 97-2003
                 if (extension.Equals(".xls")) connectionString = string.Format(csXls, filepath);
                 // else
@@ -1133,11 +1134,11 @@ namespace Portal.Consultoras.Common
                             using (OleDbDataReader reader = select.ExecuteReader())
                             {
                                 if (reader == null) continue;
-                                
+
                                 reader.GetSchemaTable();
 
                                 if (!reader.HasRows) continue;
-                                
+
                                 list = new List<V>();
                                 while (reader.Read())
                                 {
@@ -1304,7 +1305,7 @@ namespace Portal.Consultoras.Common
                             }
 
                             if (isTime)
-                                ws.Cell(row, col).Style.DateFormat.Format = !string.IsNullOrWhiteSpace(dateFormat)? dateFormat: "dd/MM/yyyy";
+                                ws.Cell(row, col).Style.DateFormat.Format = !string.IsNullOrWhiteSpace(dateFormat) ? dateFormat : "dd/MM/yyyy";
                             else
                                 ws.Cell(row, col).Style.NumberFormat.Format = "@";
                             ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
@@ -2045,17 +2046,20 @@ namespace Portal.Consultoras.Common
             else if ((value == 200) || (value == 300) || (value == 400) || (value == 600) || (value == 800)) num2Text = ToText(value / 100) + "CIENTOS";
             else if (value < 1000) num2Text = ToText(value / 100 * 100) + " " + ToText(value % 100);
             else if (value < 2000) num2Text = "MIL " + ToText(value % 1000);
-            else if (value < 1000000) {
+            else if (value < 1000000)
+            {
                 num2Text = ToText(value / 1000) + " MIL";
                 if (value % 1000 > 0) num2Text = num2Text + " " + ToText(value % 1000);
             }
             else if (value < 2000000) num2Text = "UN MILLON " + ToText(value % 1000000);
-            else if (value < 1000000000000) {
+            else if (value < 1000000000000)
+            {
                 num2Text = ToText(value / 1000000) + " MILLONES";
                 if (value % 1000000 > 0) num2Text = num2Text + " " + ToText(value % 1000000);
             }
             else if (value < 2000000000000) num2Text = "UN BILLON " + ToText(value % 1000000000000);
-            else {
+            else
+            {
                 num2Text = ToText(value / 1000000000000) + " BILLONES";
                 if (value % 1000000000000 > 0) num2Text = num2Text + " " + ToText(value % 1000000000000);
             }
@@ -2363,6 +2367,28 @@ namespace Portal.Consultoras.Common
                     break;
             }
             return paisNom;
+        }
+
+        public static string GetPaisNombreByISO(string paisISO)
+        {
+            switch (paisISO)
+            {
+                case Constantes.CodigosISOPais.Argentina: return "argentina";
+                case Constantes.CodigosISOPais.Bolivia: return "bolivia";
+                case Constantes.CodigosISOPais.Chile: return "chile";
+                case Constantes.CodigosISOPais.Colombia: return "colombia";
+                case Constantes.CodigosISOPais.CostaRica: return "costarica";
+                case Constantes.CodigosISOPais.Dominicana: return "republicadominicana";
+                case Constantes.CodigosISOPais.Ecuador: return "ecuador";
+                case Constantes.CodigosISOPais.Guatemala: return "guatemala";
+                case Constantes.CodigosISOPais.Mexico: return "mexico";
+                case Constantes.CodigosISOPais.Panama: return "panama";
+                case Constantes.CodigosISOPais.Peru: return "peru";
+                case Constantes.CodigosISOPais.PuertoRico: return "puertorico";
+                case Constantes.CodigosISOPais.Salvador: return "elsalvador";
+                case Constantes.CodigosISOPais.Venezuela: return "venezuela";
+                default: return "sinpais";
+            }
         }
 
         public static int GetPaisID(string ISO)
@@ -2824,6 +2850,18 @@ namespace Portal.Consultoras.Common
             return cadena.Replace("\r\n", saltoLinea).Replace("\n", saltoLinea).Replace("\r", saltoLinea);
         }
 
+        public static string RemplazaTag(string cadena, string tag, string valor)
+        {
+            cadena = cadena ?? "";
+            tag = tag ?? "";
+            valor = valor ?? "";
+
+            cadena = cadena.Replace(tag, valor);
+            cadena = cadena.Replace(tag.ToLower(), valor);
+            cadena = cadena.Replace(tag.ToUpper(), valor);
+
+            return cadena;
+        }
         public static int ObtenerCampaniaPasada(int campaniaId, int numeroCampaniasAtras)
         {
             int resultado;
@@ -3031,7 +3069,7 @@ namespace Portal.Consultoras.Common
             return ConfigurationManager.AppSettings["CONTEXTO_BASE"] + "/" + partialUrl;
         }
 
-        public static string NombreMes(int Mes)
+        public static string NombreMesAbrev(int Mes)
         {
             string result = string.Empty;
             switch (Mes)
@@ -3076,6 +3114,77 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
+        public static string NombreMes(int mes)
+        {
+            var result = string.Empty;
+            switch (mes)
+            {
+                case 1:
+                    result = "Enero";
+                    break;
+                case 2:
+                    result = "Febrero";
+                    break;
+                case 3:
+                    result = "Marzo";
+                    break;
+                case 4:
+                    result = "Abril";
+                    break;
+                case 5:
+                    result = "Mayo";
+                    break;
+                case 6:
+                    result = "Junio";
+                    break;
+                case 7:
+                    result = "Julio";
+                    break;
+                case 8:
+                    result = "Agosto";
+                    break;
+                case 9:
+                    result = "Septiembre";
+                    break;
+                case 10:
+                    result = "Octubre";
+                    break;
+                case 11:
+                    result = "Noviembre";
+                    break;
+                case 12:
+                    result = "Diciembre";
+                    break;
+            }
+            return result;
+        }
+
+        public static string ObtenerFormatoDiaMes(DateTime fecha)
+        {
+            string resultado = "";
+
+            var nombreMes = Util.NombreMesAbrev(fecha.Month);
+
+            resultado = fecha.Day + " " + nombreMes;
+
+            return resultado;
+        }
+
+        public static string FormatearHora(TimeSpan hora)
+        {
+            var tiempo = DateTime.Today.Add(hora);
+            var displayTiempo = tiempo.ToShortTimeString().Replace(".", " ").Replace(" ", "");
+            displayTiempo = displayTiempo.Insert(displayTiempo.Length == 6 ? 4 : 5, " ");
+
+            return displayTiempo;
+        }
+
+        public static int GetDiasFaltantesFacturacion(DateTime fechaInicioCampania, double zonaHoraria)
+        {
+            var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
+            return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
+        }
+
         public static int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
         {
             if (campania <= 0 || nroCampanias <= 0) return 0;
@@ -3095,6 +3204,15 @@ namespace Portal.Consultoras.Common
             return (anioCampaniaResult * 100) + nroCampaniaResult;
         }
 
+        public static string NombreCampania(string campania)
+        {
+            var result = campania;
+            campania = Util.Trim(campania);
+            if (campania.Length == 6)
+                result = string.Format("Campaña {0}", campania.Substring(4, 2));
+            return result;
+        }
+
         public static bool IsUrl(string url)
         {
             Uri uriResult;
@@ -3104,9 +3222,15 @@ namespace Portal.Consultoras.Common
         public static bool ExisteUrlRemota(string url)
         {
             bool result;
-            HttpWebResponse response = null;            
+            HttpWebResponse response = null;
             try
             {
+                url = Trim(url);
+                if (url == "")
+                {
+                    return false;
+                }
+
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Credentials = System.Net.CredentialCache.DefaultCredentials;
                 response = (HttpWebResponse)request.GetResponse();
@@ -3276,14 +3400,53 @@ namespace Portal.Consultoras.Common
         public static string EnmascararCelular(string celular)
         {
             if (string.IsNullOrEmpty(celular.Trim())) return "";
-            int inicio = 1; 
+            int inicio = 1;
             int final = 2;
             int longitud = celular.Length;
             string strOcultar = celular.Substring(inicio, longitud - final - inicio);
             int longitudOcultar = strOcultar.Length;
-            string caracter = "*".PadLeft(longitudOcultar,'*');
-            return celular.Replace(strOcultar, caracter);        
+            string caracter = "*".PadLeft(longitudOcultar, '*');
+            return celular.Replace(strOcultar, caracter);
         }
+
+        public static string GetDescripcionMarca(int marcaId)
+        {
+            string result;
+
+            switch (marcaId)
+            {
+                case 1:
+                    result = "L'bel";
+                    break;
+                case 2:
+                    result = "Ésika";
+                    break;
+                case 3:
+                    result = "Cyzone";
+                    break;
+                case 4:
+                    result = "S&M";
+                    break;
+                case 5:
+                    result = "Home Collection";
+                    break;
+                case 6:
+                    result = "Finart";
+                    break;
+                case 7:
+                    result = "Generico";
+                    break;
+                case 8:
+                    result = "Glance";
+                    break;
+                default:
+                    result = "NO DISPONIBLE";
+                    break;
+            }
+
+            return result;
+        }
+
     }
 
     public static class DataRecord
@@ -3355,11 +3518,11 @@ namespace Portal.Consultoras.Common
         /// Obtiene el valor de la fila convirtiendo a un tipo, verificar primero si existe con HasColumn
         /// </summary>
         /// <typeparam name="T">Data Row</typeparam>
-        /// <param name="row">Fila</param>
+        /// <param name="lector">Fila</param>
         /// <param name="name">Nombre de la columna</param>
         /// <exception cref="ArgumentNullException">ArgumentNullException cuando name es enviado vacio o nulo</exception>
         /// <returns>Valor convertido</returns>
-        public static T GetValue<T>(this IDataRecord row, string name)
+        public static T GetValue<T>(this IDataRecord lector, string name)
         {
             try
             {
@@ -3368,14 +3531,165 @@ namespace Portal.Consultoras.Common
                     throw new ArgumentNullException("nombre enviado es nulo o vacio");
                 }
 
-                return (T)row.GetValue(row.GetOrdinal(name));
+                return (T)lector.GetValue(lector.GetOrdinal(name));
             }
             catch (Exception ex)
             {
-                var value = row.GetValue(row.GetOrdinal(name));
+                var value = lector.GetValue(lector.GetOrdinal(name));
                 throw new InvalidCastException("campo: " + name + " no se puede convertir de " + value.GetType() + " a " + typeof(T), ex);
             }
         }
+
+        public static string GetColumnStr(this IDataRecord lector, string name)
+        {
+            try
+            {
+                name = name ?? "";
+                name = name.Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToString(lector[name]);
+                return default(string);
+            }
+            catch (Exception)
+            {
+                return default(string);
+            }
+        }
+
+        /// <summary>
+        ///  Obtiene el valor de la fila convirtiendo a Int, internamente utiliza HasColumn
+        ///  Ejemplo: EstrategiaIDSicc = [variable de IDataRecord].GetColumnInt("EstrategiaIDSicc");
+        /// </summary>
+        /// <param name="lector">Fila</param>
+        /// <param name="name">Nombre de la Columna</param>
+        /// <returns>valor convertido a Int o Int32</returns>
+        public static int GetColumnInt(this IDataRecord lector, string name)
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToInt32(lector[name]);
+                return default(int);
+            }
+            catch (Exception)
+            {
+                return default(int);
+            }
+        }
+
+        #region Convert
+
+        public static string ToString(this IDataRecord lector, string name, string valorDefecto = default(string))
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToString(lector[name]);
+            }
+            catch (Exception) { }
+            return valorDefecto;
+        }
+
+        public static Int16 ToInt16(this IDataRecord lector, string name, Int16 valorDefecto = default(Int16))
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToInt16(lector[name]);
+
+            }
+            catch (Exception) { }
+            return valorDefecto;
+        }
+
+        public static int ToInt32(this IDataRecord lector, string name, int valorDefecto = default(int))
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToInt32(lector[name]);
+            }
+            catch (Exception) { }
+            return valorDefecto;
+        }
+
+        public static Int64 ToInt64(this IDataRecord lector, string name)
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToInt64(lector[name]);
+            }
+            catch (Exception) { }
+            return default(Int64);
+        }
+
+        public static decimal ToDecimal(this IDataRecord lector, string name)
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToDecimal(lector[name]);
+            }
+            catch (Exception) { }
+            return default(decimal);
+        }
+
+        public static double ToDouble(this IDataRecord lector, string name)
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToDouble(lector[name]);
+            }
+            catch (Exception) { }
+            return default(double);
+        }
+
+        public static byte ToByte(this IDataRecord lector, string name)
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToByte(lector[name]);
+            }
+            catch (Exception) { }
+            return default(byte);
+        }
+
+        public static bool ToBoolean(this IDataRecord lector, string name, bool valorDefecto = default(bool))
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToBoolean(lector[name]);
+            }
+            catch (Exception) { }
+            return valorDefecto;
+        }
+
+        public static DateTime ToDateTime(this IDataRecord lector, string name, DateTime valorDefecto = default(DateTime))
+        {
+            try
+            {
+                name = (name ?? "").Trim();
+                if (HasColumn(lector, name))
+                    return Convert.ToDateTime(lector[name]);
+            }
+            catch (Exception) { }
+            return valorDefecto;
+        }
+
+        #endregion
     }
 
     public static class LinqExtensions

@@ -57,43 +57,28 @@ namespace Portal.Consultoras.Entities
 
         public BEMisPedidosAppCatalogo(IDataRecord row)
         {
-            this.PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
-
-            this.ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
-            this.ConsultoraCodigo = Convert.ToString(row["ConsultoraCodigo"]);
-            this.ConsultoraNombre = Convert.ToString(row["ConsultoraNombre"]);
-            this.ConsultoraCorreo = Convert.ToString(row["ConsultoraCorreo"]);
-            this.ConsultoraCelular = Convert.ToString(row["ConsultoraCelular"]);
-
-            if (DataRecord.HasColumn(row, "Campania"))
-                this.Campania = Convert.ToString(row["Campania"]);
-            if (DataRecord.HasColumn(row, "Leido"))
-                this.Leido = Convert.ToInt16(row["Leido"]);
-
-            this.MarcaID = Convert.ToInt32(row["MarcaID"]);
-            this.Marca = Convert.ToString(row["Marca"]);
-
-            if (DataRecord.HasColumn(row, "TipoUsuario"))
-                this.TipoUsuario = Convert.ToInt32(row["TipoUsuario"]);
-
-            if (DataRecord.HasColumn(row, "FlagConsultora"))
-                this.FlagConsultora = Convert.ToBoolean(row["FlagConsultora"]);
-
-            this.FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
-            this.Estado = Convert.ToString(row["Estado"]);
-
-            this.ClienteNombre = Convert.ToString(row["ClienteNombre"]);
-            this.ClienteTelefono = Convert.ToString(row["ClienteTelefono"]);
-            this.ClienteEmail = Convert.ToString(row["ClienteEmail"]);
-            this.ClienteDireccion = Convert.ToString(row["ClienteDireccion"]);
-            this.Mensaje = Convert.ToString(row["Mensaje"]);
-
-            if (DataRecord.HasColumn(row, "Total"))
-                this.Total = Convert.ToDecimal(row["Total"]);
-
-            this.Cantidad = Convert.ToInt32(row["Cantidad"]);
-
-            this.DetallePedido = new List<BEMisPedidosDetalleAppCatalogo>();
+            PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
+            ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
+            ConsultoraCodigo = Convert.ToString(row["ConsultoraCodigo"]);
+            ConsultoraNombre = Convert.ToString(row["ConsultoraNombre"]);
+            ConsultoraCorreo = Convert.ToString(row["ConsultoraCorreo"]);
+            ConsultoraCelular = Convert.ToString(row["ConsultoraCelular"]);
+            Campania = row.ToString("Campania");
+            Leido = row.ToInt16("Leido");
+            MarcaID = Convert.ToInt32(row["MarcaID"]);
+            Marca = Convert.ToString(row["Marca"]);
+            TipoUsuario = row.ToInt32("TipoUsuario");
+            FlagConsultora = row.ToBoolean("FlagConsultora");
+            FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
+            Estado = Convert.ToString(row["Estado"]);
+            ClienteNombre = Convert.ToString(row["ClienteNombre"]);
+            ClienteTelefono = Convert.ToString(row["ClienteTelefono"]);
+            ClienteEmail = Convert.ToString(row["ClienteEmail"]);
+            ClienteDireccion = Convert.ToString(row["ClienteDireccion"]);
+            Mensaje = Convert.ToString(row["Mensaje"]);
+            Total = row.ToDecimal("Total");
+            Cantidad = Convert.ToInt32(row["Cantidad"]);
+            DetallePedido = new List<BEMisPedidosDetalleAppCatalogo>();
         }
     }
 
@@ -113,15 +98,15 @@ namespace Portal.Consultoras.Entities
         public BEResultadoMisPedidosAppCatalogo(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "Error"))
-                Error = Convert.ToBoolean(row["Error"].ToString());
+                Error = Convert.ToBoolean(row["Error"]);
             if (DataRecord.HasColumn(row, "Mensaje"))
                 Mensaje = Convert.ToString(row["Mensaje"]);
         }
 
         public BEResultadoMisPedidosAppCatalogo(Boolean error, string mensaje)
         {
-            this.Error = error;
-            this.Mensaje = mensaje;
+            Error = error;
+            Mensaje = mensaje;
         }
     }
 
@@ -155,16 +140,16 @@ namespace Portal.Consultoras.Entities
 
         public BEMisPedidosDetalleAppCatalogo(IDataRecord row)
         {
-            this.PedidoDetalleId = Convert.ToInt64(row["SolicitudClienteDetalleID"]);
-            this.PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
-            this.Producto = Convert.ToString(row["Producto"]);
-            this.Tono = Convert.ToString(row["Tono"]);
-            this.Marca = Convert.ToString(row["Marca"]);
-            this.CUV = Convert.ToString(row["CUV"]);
-            this.PrecioUnitario = Convert.ToDouble(row["Precio"]);
-            this.Cantidad = Convert.ToInt32(row["Cantidad"]);
-            this.SubTotal = this.PrecioUnitario * this.Cantidad;
-            this.Url = Convert.ToString(row["Url"]);
+            PedidoDetalleId = Convert.ToInt64(row["SolicitudClienteDetalleID"]);
+            PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
+            Producto = Convert.ToString(row["Producto"]);
+            Tono = Convert.ToString(row["Tono"]);
+            Marca = Convert.ToString(row["Marca"]);
+            CUV = Convert.ToString(row["CUV"]);
+            PrecioUnitario = Convert.ToDouble(row["Precio"]);
+            Cantidad = Convert.ToInt32(row["Cantidad"]);
+            SubTotal = PrecioUnitario * Cantidad;
+            Url = Convert.ToString(row["Url"]);
         }
     }
 
@@ -184,15 +169,15 @@ namespace Portal.Consultoras.Entities
         public BEResultadoPedidoDetalleAppCatalogo(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "Error"))
-                Error = Convert.ToBoolean(row["Error"].ToString());
+                Error = Convert.ToBoolean(row["Error"]);
             if (DataRecord.HasColumn(row, "Mensaje"))
                 Mensaje = Convert.ToString(row["Mensaje"]);
         }
 
         public BEResultadoPedidoDetalleAppCatalogo(Boolean error, string mensaje)
         {
-            this.Error = error;
-            this.Mensaje = mensaje;
+            Error = error;
+            Mensaje = mensaje;
         }
     }
 }
