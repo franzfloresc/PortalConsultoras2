@@ -780,7 +780,7 @@ namespace Portal.Consultoras.Web.Controllers
             string message = string.Empty;
             decimal total = 0;
             string totalFormato = string.Empty;
-            string totalCliente = string.Empty;
+            var txtBuildCliente = new StringBuilder();
 
             var objvalida = InsertarMensajeValidarDatos(model.ClienteID.ToString());
             if (objvalida != null)
@@ -844,7 +844,7 @@ namespace Portal.Consultoras.Web.Controllers
                 total += olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
                 totalFormato = Util.DecimalToStringFormat(total, userData.CodigoISO);
 
-                totalCliente += PedidoWebTotalClienteFormato(model.ClienteID_, olstPedidoWebDetalle);
+                txtBuildCliente.Append(PedidoWebTotalClienteFormato(model.ClienteID_, olstPedidoWebDetalle));
 
                 message = !errorServer ? "El registro ha sido actualizado de manera exitosa."
                    : tipo.Length > 1 ? tipo
@@ -864,7 +864,7 @@ namespace Portal.Consultoras.Web.Controllers
                 message,
                 Total = total,
                 TotalFormato = totalFormato,
-                Total_Cliente = totalCliente,
+                Total_Cliente = txtBuildCliente.ToString(),
                 model.ClienteID_,
                 userData.Simbolo,
                 extra = "",

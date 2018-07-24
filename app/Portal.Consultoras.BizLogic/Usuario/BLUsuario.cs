@@ -580,7 +580,7 @@ namespace Portal.Consultoras.BizLogic
                 usuario.DiasCierre = usuarioConsultoraTask.Result.DiasCierre;
                 usuario.FechaVencimiento = usuarioConsultoraTask.Result.FechaVencimiento;
 
-                usuario.EsAniversario = consultoraAniversarioTask.Result.Count == 2 ? (bool)consultoraAniversarioTask.Result[0] : false;
+                usuario.EsAniversario = consultoraAniversarioTask.Result.Count == 2 && (bool)consultoraAniversarioTask.Result[0];
                 usuario.EsCumpleanio = consultoraCumpleanioTask.Result;
                 usuario.AniosPermanencia = consultoraAniversarioTask.Result.Count == 2 ? (int)consultoraAniversarioTask.Result[1] : 0;
 
@@ -589,7 +589,7 @@ namespace Portal.Consultoras.BizLogic
 
                 usuario.RevistaDigitalSuscripcion = revistaDigitalSuscripcionTask.Result.Count == 3 ? (short)revistaDigitalSuscripcionTask.Result[0] : Constantes.GanaMas.PaisSinRD;
                 usuario.UrlBannerGanaMas = revistaDigitalSuscripcionTask.Result.Count == 3 ? (string)revistaDigitalSuscripcionTask.Result[1] : string.Empty;
-                usuario.TieneGND = revistaDigitalSuscripcionTask.Result.Count == 3 ? (bool)revistaDigitalSuscripcionTask.Result[2] : false;
+                usuario.TieneGND = revistaDigitalSuscripcionTask.Result.Count == 3 && (bool)revistaDigitalSuscripcionTask.Result[2];
 
                 usuario.CuponEstado = cuponTask.Result.EstadoCupon;
                 usuario.CuponPctDescuento = cuponTask.Result.ValorAsociado;
