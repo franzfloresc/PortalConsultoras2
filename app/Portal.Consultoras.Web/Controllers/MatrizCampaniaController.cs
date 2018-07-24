@@ -263,7 +263,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 int cant = 0;
                 List<BEProductoDescripcion> productos2;
-                JsonResult result = new JsonResult();
+                //JsonResult result = new JsonResult();
 
                 foreach (var producto in productos)
                 {
@@ -297,8 +297,9 @@ namespace Portal.Consultoras.Web.Controllers
                         producto.ErrorCargaMasiva = "El CUV ingresado no se encuentra registrado para la campaña seleccionada, verifique.";
                     }
 
-                };
-                if (isError == false)
+                }
+
+                if (!isError)
                 {
                     ViewBag.succesRow = cant;
                 }
@@ -330,7 +331,7 @@ namespace Portal.Consultoras.Web.Controllers
             int campaniaId = Convert.ToInt32(model.CampaniaID);
             try
             {
-                List<MatrizCampaniaModel> listaErrores = Session["errores"] as List<MatrizCampaniaModel> ?? new List<MatrizCampaniaModel>();
+                //List<MatrizCampaniaModel> listaErrores = Session["errores"] as List<MatrizCampaniaModel> ?? new List<MatrizCampaniaModel>();
                 if (uplArchivo == null)
                 {
                     return "El archivo especificado no existe.";
@@ -369,7 +370,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ListaCUVs = ConsultarDescripcionMasivo(lista.ToList(), campaniaId.ToString(), paisId.ToString(), ref isError);
                 Session["errores"] = ListaCUVs;
-                if (isCorrect && lista != null && isError == false)
+                if (isCorrect && lista != null && !isError)
                 {
                     var lst = Mapper.Map<IList<MatrizCampaniaModel>, IEnumerable<BEProductoDescripcion>>(lista);
 
@@ -445,7 +446,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " }, JsonRequestBehavior.AllowGet);
         }
-
 
 
         [HttpPost]
@@ -644,7 +644,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //    continue;
                 //}
 
-                if (registros[j].Split('¦').Length>0)
+                if (registros[j].Split('¦').Length > 0)
                 {
                     campo = registros[j].Split('¦')[0];
                     CUV += registros[j].Split('¦')[0];
@@ -707,14 +707,14 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        if (numero==0)
+                        if (numero == 0)
                         {
                             FlagCampoValido = false;
                             rpta.Append(" -Factor Repetición no válido ");
                         }
                     }
                 }
-                if (longCUV==0 && longDes==0 && longPrecioProducto ==0 && longFactorRepeticion ==0)
+                if (longCUV == 0 && longDes == 0 && longPrecioProducto == 0 && longFactorRepeticion == 0)
                 {
                     FlagCampoValido = true;
                     rpta.Clear();
@@ -736,7 +736,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CamposNovalidos.Append("¬");
                 }
 
-                if (FlagCampoValido == true)
+                if (FlagCampoValido)
                 {
                     CampoValidos.Append(registros[j].Split('¦')[0]);
                     CampoValidos.Append("¬");

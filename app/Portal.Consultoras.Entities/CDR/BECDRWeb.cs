@@ -71,25 +71,24 @@ namespace Portal.Consultoras.Entities.CDR
 
         public BECDRWeb(IDataRecord row)
         {
-            if (row.HasColumn("CDRWebID")) CDRWebID = Convert.ToInt32(row["CDRWebID"]);
-            if (row.HasColumn("PedidoID")) PedidoID = Convert.ToInt32(row["PedidoID"]);
-            if (row.HasColumn("PedidoNumero")) PedidoNumero = Convert.ToInt32(row["PedidoNumero"]);
-            if (row.HasColumn("CampaniaID")) CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (row.HasColumn("ConsultoraID")) ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
-            if (row.HasColumn("FechaRegistro")) FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (row.HasColumn("Estado")) Estado = Convert.ToInt32(row["Estado"]);
-            if (row.HasColumn("FechaCulminado")) FechaCulminado = Convert.ToDateTime(row["FechaCulminado"]);
-            if (row.HasColumn("FechaAtencion")) FechaAtencion = Convert.ToDateTime(row["FechaAtencion"]);
-            if (row.HasColumn("Importe")) Importe = Convert.ToDecimal(row["Importe"]);
-            if (row.HasColumn("CantidadDetalle")) CantidadDetalle = Convert.ToInt32(row["CantidadDetalle"]);
-            if (row.HasColumn("ConsultoraSaldo")) ConsultoraSaldo = Convert.ToDecimal(row["ConsultoraSaldo"]);
-            if (row.HasColumn("CantidadAprobados")) CantidadAprobados = Convert.ToInt32(row["CantidadAprobados"]);
-            if (row.HasColumn("CantidadRechazados")) CantidadRechazados = Convert.ToInt32(row["CantidadRechazados"]);
-            if (row.HasColumn("TipoDespacho")) TipoDespacho = Convert.ToBoolean(row["TipoDespacho"]);
-            if (row.HasColumn("FleteDespacho")) FleteDespacho = Convert.ToDecimal(row["FleteDespacho"]);
-            if (row.HasColumn("MensajeDespacho")) MensajeDespacho = Convert.ToString(row["MensajeDespacho"]);
-            if (row.HasColumn("TipoConsultora")) TipoConsultora = Convert.ToInt32(row["TipoConsultora"] ?? 0);
-
+            CDRWebID = row.ToInt32("CDRWebID");
+            PedidoID = row.ToInt32("PedidoID");
+            PedidoNumero = row.ToInt32("PedidoNumero");
+            CampaniaID = row.ToInt32("CampaniaID");
+            ConsultoraID = row.ToInt64("ConsultoraID");
+            FechaRegistro = row.ToDateTime("FechaRegistro");
+            Estado = row.ToInt32("Estado");
+            FechaCulminado = row.ToDateTime("FechaCulminado");
+            FechaAtencion = row.ToDateTime("FechaAtencion");
+            Importe = row.ToDecimal("Importe");
+            CantidadDetalle = row.ToInt32("CantidadDetalle");
+            ConsultoraSaldo = row.ToDecimal("ConsultoraSaldo");
+            CantidadAprobados = row.ToInt32("CantidadAprobados");
+            CantidadRechazados = row.ToInt32("CantidadRechazados");
+            TipoDespacho = row.ToBoolean("TipoDespacho");
+            FleteDespacho = row.ToDecimal("FleteDespacho");
+            MensajeDespacho = row.ToString("MensajeDespacho");
+            TipoConsultora = row.ToInt32("TipoConsultora");
             CDRWebDetalle = new List<BECDRWebDetalle>();
         }
     }

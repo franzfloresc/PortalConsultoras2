@@ -26,15 +26,15 @@
             ImagenId = Convert.ToInt32(iDataRecord["ImagenId"]);
             PaisId = Convert.ToInt32(iDataRecord["PaisId"]);
             CampaniaId = Convert.ToInt32(iDataRecord["CampaniaId"]);
-            NombreImg = iDataRecord["NombreImg"].ToString();
+            NombreImg = Convert.ToString(iDataRecord["NombreImg"]);
         }
 
-        static byte[] ObtenerBytes(string str)
-        {
-            byte[] bytes = new byte[str.Length * sizeof(char)];
-            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
-            return bytes;
-        }
+        //static byte[] ObtenerBytes(string str)
+        //{
+        //    byte[] bytes = new byte[str.Length * sizeof(char)];
+        //    System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+        //    return bytes;
+        //}
     }
 
 }

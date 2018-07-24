@@ -131,6 +131,7 @@
     <Compile Include="Configuracion\BLConfiguracionPais.cs" />
     <Compile Include="BLConfiguracionPaisDetalle.cs" />
     <Compile Include="BLReporteValidacion.cs" />
+    <Compile Include="OfertaPersonalizada\BLOfertaPersonalizada.cs" />
     <Compile Include="Pedido\IEscalaDescuentoBusinessLogic.cs" />
     <Compile Include="Pedido\IMensajeMetaConsultoraBusinessLogic.cs" />
     <Compile Include="Pedido\IPedidoWebDetalleBusinessLogic.cs" />

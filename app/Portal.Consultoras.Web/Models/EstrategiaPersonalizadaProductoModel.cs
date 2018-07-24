@@ -4,14 +4,15 @@ using System.Collections.Generic;
 namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
-    public class EstrategiaPersonalizadaProductoModel
+    public class EstrategiaPersonalizadaProductoModel 
     {
         public EstrategiaPersonalizadaProductoModel()
         {
             TipoEstrategiaDetalle = new EstrategiaDetalleModelo();
             ArrayContenidoSet = new List<string>();
             ListaDescripcionDetalle = new List<string>();
-            Hermanos = new List<ProductoModel>();
+            Hermanos = new List<EstrategiaComponenteModel>();
+            ListaPrecioNiveles = new List<string>();
         }
 
         public int CampaniaID { get; set; }
@@ -23,11 +24,11 @@ namespace Portal.Consultoras.Web.Models
         public bool TienePaginaProducto { get; set; }
         public bool TienePaginaProductoMob { get; set; }
         public string FotoProducto01 { get; set; }
-        public string ImagenURL { get; set; }
+        public string ImagenURL { get; set; }   // se usa para el logo
         public string DescripcionMarca { get; set; }
         public string DescripcionResumen { get; set; } // Puede ser el nombre de un set, o la descripcion simple
         public string DescripcionCortada { get; set; } // Es la descripcion extendida solo con 40 caracteres
-        public string DescripcionDetalle { get; set; } // Es la descripcion extendida 
+        public string DescripcionDetalle { get; set; } // Es la descripcion extendida, ya no se utiliza, revisar 
         public string DescripcionCompleta { get; set; }
         public decimal Precio { get; set; }
         public decimal Precio2 { get; set; }
@@ -48,8 +49,11 @@ namespace Portal.Consultoras.Web.Models
         public bool IsAgregado { get; set; }
         public string CodigoEstrategia { get; set; }
         public string CodigoVariante { get; set; }
+
+        // Mejorar para solo utilizar un solo array de string
         public List<string> ArrayContenidoSet { get; set; }
         public List<string> ListaDescripcionDetalle { get; set; }
+        
         public string TextoLibre { get; set; }
 
         public int MarcaID { get; set; }
@@ -58,11 +62,17 @@ namespace Portal.Consultoras.Web.Models
         public string GananciaString { get; set; }
         public EstrategiaDetalleModelo TipoEstrategiaDetalle { get; set; }
 
-        public List<ProductoModel> Hermanos { get; set; }
+        public List<EstrategiaComponenteModel> Hermanos { get; set; }
         public bool EsOfertaIndependiente { get; set; }
-        public string PrecioNiveles { get; set; }
-        
+        //public string PrecioNiveles { get; set; }
+        public List<string> ListaPrecioNiveles { get; set; }
+
         public string CodigoProducto { get; set; }
         public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }
+        public string CodigoCategoria { get; set; } // se usa para filtrar los productos por categoria en ShowRoom
+        public string ImagenProductoMini { get; set; }  // se usa para ShowRoom
+
+        public bool esMultimarca { get; set; }
+        public bool esSubcampania { get; set; }
     }
 }

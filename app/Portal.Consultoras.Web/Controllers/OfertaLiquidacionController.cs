@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
@@ -18,7 +18,13 @@ namespace Portal.Consultoras.Web.Controllers
     public class OfertaLiquidacionController : BaseController
     {
         static List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
+        protected RenderImgProvider _renderImgProvider;
 
+        public OfertaLiquidacionController()
+        {
+            _renderImgProvider = new RenderImgProvider();
+        }
+        
         #region Visualización de Pedidos Liquidación
 
         public ActionResult OfertasLiquidacion()
@@ -97,7 +103,7 @@ namespace Portal.Consultoras.Web.Controllers
                 usuario.FechaFacturacion = obeConfiguracionCampania.FechaFinFacturacion;
                 usuario.HoraFacturacion = obeConfiguracionCampania.HoraFin;
             }
-            SetUserData(usuario);
+            sessionManager.SetUserData(usuario);
         }
 
         [HttpGet]
@@ -432,7 +438,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lstCampania = new List<CampaniaModel>(),
                 lstConfiguracionOferta = new List<ConfiguracionOfertaModel>(),
                 lstPais = DropDowListPaises(),
-                ExpValidacionNemotecnico = GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico)
+                ExpValidacionNemotecnico = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico)
             };
             return View(cronogramaModel);
         }
@@ -496,7 +502,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
             IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
-            string habilitarNemotecnico = ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoOfertaLiquidacion);
+            string habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoOfertaLiquidacion);
 
             return Json(new
             {
@@ -703,7 +709,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     var rutaImagenCompleta = ConfigCdn.GetUrlFileCdn(carpetaPais, entidad.ImagenProducto);
 
-                    mensajeErrorImagenResize = ImagenesResizeProceso(rutaImagenCompleta);
+                    mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(rutaImagenCompleta, userData.CodigoISO);
                     
                     #endregion                    
 
@@ -758,7 +764,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     var rutaImagenCompleta = ConfigCdn.GetUrlFileCdn(carpetaPais, entidad.ImagenProducto);
 
-                    mensajeErrorImagenResize = ImagenesResizeProceso(rutaImagenCompleta);
+                    mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(rutaImagenCompleta, userData.CodigoISO);
 
                     #endregion                    
 

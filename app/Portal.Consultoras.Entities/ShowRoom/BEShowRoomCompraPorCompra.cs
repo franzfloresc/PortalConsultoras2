@@ -45,28 +45,18 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [ViewProperty]
         public string UsuarioModificacion { get; set; }
 
-        public BEShowRoomCompraPorCompra(IDataRecord datarec)
+        public BEShowRoomCompraPorCompra(IDataRecord row)
         {
-            if (datarec.HasColumn("CompraxCompraID"))
-                CompraxCompraID = Convert.ToInt32(datarec["CompraxCompraID"]);
-            if (datarec.HasColumn("EventoID"))
-                EventoID = Convert.ToInt32(datarec["EventoID"]);
-            if (datarec.HasColumn("CUV"))
-                CUV = Convert.ToString(datarec["CUV"]);
-            if (datarec.HasColumn("SAP"))
-                SAP = Convert.ToString(datarec["SAP"]);
-            if (datarec.HasColumn("Orden"))
-                Orden = Convert.ToInt32(datarec["Orden"]);
-            if (datarec.HasColumn("PrecioValorizado"))
-                PrecioValorizado = Convert.ToDecimal(datarec["PrecioValorizado"]);
-            if (datarec.HasColumn("UsuarioCreacion"))
-                UsuarioCreacion = Convert.ToString(datarec["UsuarioCreacion"]);
-            if (datarec.HasColumn("FechaCreacion"))
-                FechaCreacion = Convert.ToDateTime(datarec["FechaCreacion"]);
-            if (datarec.HasColumn("UsuarioModificacion"))
-                UsuarioModificacion = Convert.ToString(datarec["UsuarioModificacion"]);
-            if (datarec.HasColumn("FechaModificacion"))
-                FechaModificacion = Convert.ToDateTime(datarec["FechaModificacion"]);
+            CompraxCompraID = row.ToInt32("CompraxCompraID");
+            EventoID = row.ToInt32("EventoID");
+            CUV = row.ToString("CUV");
+            SAP = row.ToString("SAP");
+            Orden = row.ToInt32("Orden");
+            PrecioValorizado = row.ToDecimal("PrecioValorizado");
+            UsuarioCreacion = row.ToString("UsuarioCreacion");
+            FechaCreacion = row.ToDateTime("FechaCreacion");
+            UsuarioModificacion = row.ToString("UsuarioModificacion");
+            FechaModificacion = row.ToDateTime("FechaModificacion");
         }
     }
 }

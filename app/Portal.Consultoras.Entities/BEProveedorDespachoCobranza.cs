@@ -50,37 +50,21 @@ namespace Portal.Consultoras.Entities
         public BEProveedorDespachoCobranza() { }
         public BEProveedorDespachoCobranza(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "ProveedorDespachoCobranzaID"))
-                ProveedorDespachoCobranzaID = Convert.ToInt32(row["ProveedorDespachoCobranzaID"]);
-            if (DataRecord.HasColumn(row, "NombreComercial"))
-                NombreComercial = Convert.ToString(row["NombreComercial"]);
-            if (DataRecord.HasColumn(row, "RazonSocial"))
-                RazonSocial = Convert.ToString(row["RazonSocial"]);
-            if (DataRecord.HasColumn(row, "RFC"))
-                RFC = Convert.ToString(row["RFC"]);
-            if (DataRecord.HasColumn(row, "NombreSocios"))
-                NombreSocios = Convert.ToString(row["NombreSocios"]);
-            if (DataRecord.HasColumn(row, "RepresentanteLegales"))
-                RepresentanteLegales = Convert.ToString(row["RepresentanteLegales"]);
-            if (DataRecord.HasColumn(row, "DomicilioFiscal"))
-                DomicilioFiscal = Convert.ToString(row["DomicilioFiscal"]);
-            if (DataRecord.HasColumn(row, "Direccion"))
-                Direccion = Convert.ToString(row["Direccion"]);
-            if (DataRecord.HasColumn(row, "Telefonos"))
-                Telefonos = Convert.ToString(row["Telefonos"]);
-            if (DataRecord.HasColumn(row, "CorreosElectronicos"))
-                CorreosElectronicos = Convert.ToString(row["CorreosElectronicos"]);
-            if (DataRecord.HasColumn(row, "PaginaElectronica"))
-                PaginaElectronica = Convert.ToString(row["PaginaElectronica"]);
-            if (DataRecord.HasColumn(row, "NombreEjecutivos"))
-                NombreEjecutivos = Convert.ToString(row["NombreEjecutivos"]);
-
-            if (DataRecord.HasColumn(row, "valor"))
-                Valor = Convert.ToString(row["valor"]);
-            if (DataRecord.HasColumn(row, "campoid"))
-                CampoId = Convert.ToInt16(row["campoid"]);
-            if (DataRecord.HasColumn(row, "nombrecampo"))
-                NombreCampo = Convert.ToString(row["nombrecampo"]);
+            ProveedorDespachoCobranzaID = row.ToInt32("ProveedorDespachoCobranzaID");
+            NombreComercial = row.ToString("NombreComercial");
+            RazonSocial = row.ToString("RazonSocial");
+            RFC = row.ToString("RFC");
+            NombreSocios = row.ToString("NombreSocios");
+            RepresentanteLegales = row.ToString("RepresentanteLegales");
+            DomicilioFiscal = row.ToString("DomicilioFiscal");
+            Direccion = row.ToString("Direccion");
+            Telefonos = row.ToString("Telefonos");
+            CorreosElectronicos = row.ToString("CorreosElectronicos");
+            PaginaElectronica = row.ToString("PaginaElectronica");
+            NombreEjecutivos = row.ToString("NombreEjecutivos");
+            Valor = row.ToString("valor");
+            CampoId = row.ToInt16("campoid");
+            NombreCampo = row.ToString("nombrecampo");
         }
 
 

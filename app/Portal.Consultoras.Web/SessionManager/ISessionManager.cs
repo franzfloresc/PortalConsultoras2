@@ -3,9 +3,12 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
+using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
+using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
 
@@ -13,6 +16,51 @@ namespace Portal.Consultoras.Web.SessionManager
 {
     public interface ISessionManager
     {
+        #region TablaLogica
+        TablaLogicaDatosModel GetTablaLogicaDatos(string key);
+
+        void SetTablaLogicaDatos(string key, TablaLogicaDatosModel datoLogico);
+
+        List<TablaLogicaDatosModel> GetTablaLogicaDatosLista(string key);
+
+        void SetTablaLogicaDatosLista(string key, List<TablaLogicaDatosModel> datoLogico);
+        #endregion
+
+        #region CDR
+
+        List<BECDRWebDetalle> GetCDRWebDetalle();
+        
+        void SetCDRWebDetalle(List<BECDRWebDetalle> datos);
+        
+        List<BECDRWeb> GetCdrWeb();
+
+        void SetCdrWeb(List<BECDRWeb> datos);
+        
+        List<CampaniaModel> GetCdrCampanias();
+
+        void SetCdrCampanias(List<CampaniaModel> datos);
+        
+        List<BECDRParametria> GetCdrParametria();
+
+        void SetCdrParametria(List<BECDRParametria> datos);
+        
+        List<BECDRWebDatos> GetCdrWebDatos();
+
+        void SetCdrWebDatos(List<BECDRWebDatos> datos);
+        
+        List<BEPedidoWeb> GetCdrPedidosFacturado();
+
+        void SetCdrPedidosFacturado(List<BEPedidoWeb> datos);
+        
+        List<BECDRWebDescripcion> GetCdrDescripcion();
+
+        void SetCdrDescripcion(List<BECDRWebDescripcion> datos);
+
+        List<BECDRWebMotivoOperacion> GetCdrMotivoOperacion();
+
+        void SetCdrMotivoOperacion(List<BECDRWebMotivoOperacion> datos);
+        #endregion
+
         BEPedidoWeb GetPedidoWeb();
 
         void SetPedidoWeb(BEPedidoWeb pedidoWeb);
@@ -140,23 +188,28 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetStartSession(DateTime StartSession);
 
         DateTime GetStartSession();
+        
+        IShowRoom ShowRoom { get; }
 
         void SetDatosPagoVisa(PagoEnLineaModel model);
 
-        IShowRoom ShowRoom { get; }
-
         PagoEnLineaModel GetDatosPagoVisa();
+        
+        void SetListadoEstadoCuenta(List<EstadoCuentaModel> model);
+
+        List<EstadoCuentaModel> GetListadoEstadoCuenta();
 
         void SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo);
 
         EstrategiaPersonalizadaProductoModel GetProductoTemporal();
 
-        void SetEstrategiaODD(Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel data);
+        void SetEstrategiaSR(Models.Estrategia.ShowRoom.ConfigModel data);
 
-        Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel GetEstrategiaODD();
+        Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR();
+        
+        void SetBEEstrategia(string key, List<ServiceOferta.BEEstrategia> data);
 
-        void SetEstrategiaSR(Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel data);
-        Portal.Consultoras.Web.Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR();
+        List<ServiceOferta.BEEstrategia> GetBEEstrategia(string key);
 
         void SetPedidosFacturados(PedidoWebClientePrincipalMobilModel model);
 
@@ -173,11 +226,13 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetPedidoValidado(bool validado);
 
         bool GetPedidoValidado();
-        
+
         EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
 
         void setBEUsuarioModel (List<ServiceUsuario.BEUsuario> model);
 
         List<ServiceUsuario.BEUsuario> getBEUsuarioModel();
+
+        IOfertaDelDia OfertaDelDia { get; }
     }
 }

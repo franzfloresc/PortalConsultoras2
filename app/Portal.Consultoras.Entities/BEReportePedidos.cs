@@ -52,47 +52,26 @@ namespace Portal.Consultoras.Entities
 
         public BEReportePedidos(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "SolicitudClienteID"))
-                SolicitudClienteID = Convert.ToInt32(row["SolicitudClienteID"]);
-            if (DataRecord.HasColumn(row, "Estado"))
-                Estado = row["Estado"].ToString();
-            if (DataRecord.HasColumn(row, "FechaSolicitud"))
-                FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
-            if (DataRecord.HasColumn(row, "NombreCliente"))
-                NombreCliente = row["NombreCliente"].ToString();
-            if (DataRecord.HasColumn(row, "Direccion"))
-                Direccion = row["Direccion"].ToString();
-            if (DataRecord.HasColumn(row, "EmailCliente"))
-                EmailCliente = row["EmailCliente"].ToString();
-            if (DataRecord.HasColumn(row, "TelefonoCliente"))
-                TelefonoCliente = row["TelefonoCliente"].ToString();
-            if (DataRecord.HasColumn(row, "Marca"))
-                Marca = row["Marca"].ToString();
-            if (DataRecord.HasColumn(row, "Campania"))
-                Campania = row["Campania"].ToString();
-            if (DataRecord.HasColumn(row, "Producto"))
-                Producto = row["Producto"].ToString();
-            if (DataRecord.HasColumn(row, "Tono"))
-                Tono = row["Tono"].ToString();
-            if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt16(row["Cantidad"]);
-            if (DataRecord.HasColumn(row, "Precio"))
-                Precio = Convert.ToDecimal(row["Precio"]);
-            if (DataRecord.HasColumn(row, "MensajeCliente"))
-                MensajeCliente = row["MensajeCliente"].ToString();
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = row["CodigoConsultora"].ToString();
-            if (DataRecord.HasColumn(row, "NombreConsultora"))
-                NombreConsultora = row["NombreConsultora"].ToString();
-            if (DataRecord.HasColumn(row, "TelefonoMovilConsultora"))
-                TelefonoMovilConsultora = row["TelefonoMovilConsultora"].ToString();
-            if (DataRecord.HasColumn(row, "TelefonoFijoConsultora"))
-                TelefonoFijoConsultora = row["TelefonoFijoConsultora"].ToString();
-            if (DataRecord.HasColumn(row, "EmailConsultora"))
-                EmailConsultora = row["EmailConsultora"].ToString();
-            if (DataRecord.HasColumn(row, "Leido"))
-                Leido = Convert.ToBoolean(row["Leido"]);
-
+            SolicitudClienteID = row.ToInt32("SolicitudClienteID");
+            Estado = row.ToString("Estado");
+            FechaSolicitud = row.ToDateTime("FechaSolicitud");
+            NombreCliente = row.ToString("NombreCliente");
+            Direccion = row.ToString("Direccion");
+            EmailCliente = row.ToString("EmailCliente");
+            TelefonoCliente = row.ToString("TelefonoCliente");
+            Marca = row.ToString("Marca");
+            Campania = row.ToString("Campania");
+            Producto = row.ToString("Producto");
+            Tono = row.ToString("Tono");
+            Cantidad = row.ToInt16("Cantidad");
+            Precio = row.ToDecimal("Precio");
+            MensajeCliente = row.ToString("MensajeCliente");
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            NombreConsultora = row.ToString("NombreConsultora");
+            TelefonoMovilConsultora = row.ToString("TelefonoMovilConsultora");
+            TelefonoFijoConsultora = row.ToString("TelefonoFijoConsultora");
+            EmailConsultora = row.ToString("EmailConsultora");
+            Leido = row.ToBoolean("Leido");
         }
     }
 }

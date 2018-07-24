@@ -35,13 +35,13 @@ namespace Portal.Consultoras.Entities
 
         public DESolicitudClienteDetalleAppCatalogo(BESolicitudClienteDetalleAppCatalogo solicitudClienteDetalleAppCatalogo)
         {
-            this.Cantidad = solicitudClienteDetalleAppCatalogo.Cantidad;
-            this.CUV = solicitudClienteDetalleAppCatalogo.CUV;
-            this.MarcaID = solicitudClienteDetalleAppCatalogo.MarcaID;
-            this.DescripcionProducto = solicitudClienteDetalleAppCatalogo.DescripcionProducto;
-            this.Precio = solicitudClienteDetalleAppCatalogo.Precio;
-            this.Tono = solicitudClienteDetalleAppCatalogo.Tono;
-            this.Url = solicitudClienteDetalleAppCatalogo.UrlImgProducto;
+            Cantidad = solicitudClienteDetalleAppCatalogo.Cantidad;
+            CUV = solicitudClienteDetalleAppCatalogo.CUV;
+            MarcaID = solicitudClienteDetalleAppCatalogo.MarcaID;
+            DescripcionProducto = solicitudClienteDetalleAppCatalogo.DescripcionProducto;
+            Precio = solicitudClienteDetalleAppCatalogo.Precio;
+            Tono = solicitudClienteDetalleAppCatalogo.Tono;
+            Url = solicitudClienteDetalleAppCatalogo.UrlImgProducto;
         }
     }
 }

@@ -1,8 +1,8 @@
 using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
@@ -27,6 +27,13 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarEstrategiaController : BaseController
     {
+        protected RenderImgProvider _renderImgProvider;
+
+        public AdministrarEstrategiaController()
+        {
+            _renderImgProvider = new RenderImgProvider();
+        }
+
         public ActionResult Index(int TipoVistaEstrategia = 0)
         {
             EstrategiaModel estrategiaModel;
@@ -40,7 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
                 var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
 
-                var habilitarNemotecnico = ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
+                var habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
                     Constantes.TablaLogicaDato.BusquedaNemotecnicoZonaEstrategia);
 
                 estrategiaModel = new EstrategiaModel()
@@ -51,7 +58,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ListaEtiquetas = DropDowListEtiqueta(),
                     UrlS3 = urlS3,
                     habilitarNemotecnico = habilitarNemotecnico == "1",
-                    ExpValidacionNemotecnico = GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico),
+                    ExpValidacionNemotecnico = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico),
                     TipoVistaEstrategia = TipoVistaEstrategia,
                     PaisID = userData.PaisID
                 };
@@ -612,7 +619,7 @@ namespace Portal.Consultoras.Web.Controllers
             var respuestaServiceCdr = new List<RptProductoEstrategia>();
             try
             {
-                var codigo = ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
+                var codigo = _tablaLogicaProvider.ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
                     Constantes.TablaLogicaDato.Tonos, true);
 
                 if (Convert.ToInt32(codigo) <= entidad.CampaniaID)
@@ -755,7 +762,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         #region Imagen Resize  
 
-                        mensajeErrorImagenResize = ImagenesResizeProceso(model.RutaImagenCompleta);
+                        mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(model.RutaImagenCompleta, userData.CodigoISO);
 
                         #endregion
 
@@ -1798,6 +1805,7 @@ namespace Portal.Consultoras.Web.Controllers
             return nombreImagenFinal;
         }
 
+        #region Metodos ShowRoom
         [HttpPost]
         public ActionResult UploadFileSetStrategyShowroom(DescripcionMasivoModel model)
         {
@@ -2085,6 +2093,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
             }
         }
+
+        #endregion
 
         private string ObtenerTextoNiveles(NivelEstrategia[] listaNivelEstrategias)
         {
