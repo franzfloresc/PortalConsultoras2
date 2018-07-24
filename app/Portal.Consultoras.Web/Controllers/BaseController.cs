@@ -1030,9 +1030,9 @@ namespace Portal.Consultoras.Web.Controllers
                                                                                userData.CampaniaID,
                                                                                nivel);
 
-                            TippingPoint.ActiveTooltip = estrategia == null ? false : TippingPoint.ActiveTooltip;
-                            TippingPoint.ActiveMonto = estrategia == null ? false : TippingPoint.ActiveMonto;
-                            TippingPoint.Active = estrategia == null ? false : TippingPoint.Active;
+                            TippingPoint.ActiveTooltip = estrategia != null && TippingPoint.ActiveTooltip;
+                            TippingPoint.ActiveMonto = estrategia != null && TippingPoint.ActiveMonto;
+                            TippingPoint.Active = estrategia != null && TippingPoint.Active;
 
                             TippingPoint.CampaniaID = estrategia == null ? default(int) : estrategia.CampaniaID;
                             TippingPoint.CampaniaIDFin = estrategia == null ? default(int) : estrategia.CampaniaIDFin;
@@ -1557,7 +1557,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
 
-                object data = null;
+                //object data = null;
 
                 //Data actual viene del Model       => model
                 //Data anterior viene del userData  => userData 

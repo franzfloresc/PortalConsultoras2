@@ -3391,7 +3391,7 @@ namespace Portal.Consultoras.Common
             else
                 longitud = 1;
             separada[0] = separada[0].Remove(inicio, longitud).Insert(inicio, new string('*', longitud));
-            return correo = String.Join("@", separada);
+            return String.Join("@", separada);
         }
 
         public static string EnmascararCelular(string celular)
