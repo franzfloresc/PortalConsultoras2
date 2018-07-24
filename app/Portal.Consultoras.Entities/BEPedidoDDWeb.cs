@@ -89,57 +89,33 @@ namespace Portal.Consultoras.Entities
 
         public BEPedidoDDWeb(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "NroRegistro"))
-                NroRegistro = Convert.ToString(row["NroRegistro"]);
-            if (DataRecord.HasColumn(row, "FechaRegistro"))
-                FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (DataRecord.HasColumn(row, "CampaniaCodigo"))
-                CampaniaCodigo = Convert.ToString(row["CampaniaCodigo"]);
-            if (DataRecord.HasColumn(row, "Seccion"))
-                Seccion = Convert.ToString(row["Seccion"]);
-            if (DataRecord.HasColumn(row, "ConsultoraCodigo"))
-                ConsultoraCodigo = Convert.ToString(row["ConsultoraCodigo"]);
-            if (DataRecord.HasColumn(row, "ConsultoraNombre"))
-                ConsultoraNombre = Convert.ToString(row["ConsultoraNombre"]);
-            if (DataRecord.HasColumn(row, "ImporteTotal"))
-                ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-            if (DataRecord.HasColumn(row, "ConsultoraSaldo"))
-                ConsultoraSaldo = Convert.ToDecimal(row["ConsultoraSaldo"]);
-            if (DataRecord.HasColumn(row, "UsuarioResponsable"))
-                UsuarioResponsable = Convert.ToString(row["UsuarioResponsable"]);
-            if (DataRecord.HasColumn(row, "OrigenNombre"))
-                OrigenNombre = Convert.ToString(row["OrigenNombre"]);
-            if (DataRecord.HasColumn(row, "EstadoValidacionNombre"))
-                EstadoValidacionNombre = Convert.ToString(row["EstadoValidacionNombre"]);
-            if (DataRecord.HasColumn(row, "FechaReserva"))
-                FechaReserva = Convert.ToDateTime(row["FechaReserva"]);
-            if (DataRecord.HasColumn(row, "Zona"))
-                Zona = Convert.ToString(row["Zona"]);
+            NroRegistro = row.ToString("NroRegistro");
+            FechaRegistro = row.ToDateTime("FechaRegistro");
+            CampaniaCodigo = row.ToString("CampaniaCodigo");
+            Seccion = row.ToString("Seccion");
+            ConsultoraCodigo = row.ToString("ConsultoraCodigo");
+            ConsultoraNombre = row.ToString("ConsultoraNombre");
+            ImporteTotal = row.ToDecimal("ImporteTotal");
+            ConsultoraSaldo = row.ToDecimal("ConsultoraSaldo");
+            UsuarioResponsable = row.ToString("UsuarioResponsable");
+            OrigenNombre = row.ToString("OrigenNombre");
+            EstadoValidacionNombre = row.ToString("EstadoValidacionNombre");
+            FechaReserva = row.ToDateTime("FechaReserva");
+            Zona = row.ToString("Zona");
             if (DataRecord.HasColumn(row, "IndicadorEnviado"))
                 IndicadorEnviado = Convert.ToBoolean(row["IndicadorEnviado"]) ? "B" : "NB";
-            if (DataRecord.HasColumn(row, "RegionCodigo"))
-                RegionCodigo = Convert.ToString(row["RegionCodigo"]);
-            if (DataRecord.HasColumn(row, "DocumentoIDentidad"))
-                DocumentoIdentidad = Convert.ToString(row["DocumentoIDentidad"]);
-            if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt32(row["Cantidad"]);
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "PrimeraCampaniaCodigo"))
-                PrimeraCampaniaCodigo = Convert.ToString(row["PrimeraCampaniaCodigo"]);
-            if (DataRecord.HasColumn(row, "MontoMinimoPedido"))
-                MontoMinimoPedido = Convert.ToDecimal(row["MontoMinimoPedido"]);
-            if (DataRecord.HasColumn(row, "ImporteTotalMM"))
-                ImporteTotalMM = Convert.ToDecimal(row["ImporteTotalMM"]);
-            if (DataRecord.HasColumn(row, "PedidoID"))
-                PedidoID = Convert.ToInt32(row["PedidoID"]);
-            if (DataRecord.HasColumn(row, "Region"))
-                Region = Convert.ToString(row["Region"]);
-            if (DataRecord.HasColumn(row, "DescuentoProl"))
-                this.DescuentoProl = Convert.ToDecimal(row["DescuentoProl"]);
-            if (DataRecord.HasColumn(row, "MotivoRechazo"))
-                this.MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
-            this.ImporteTotalConDescuento = this.ImporteTotal - this.DescuentoProl;
+            RegionCodigo = row.ToString("RegionCodigo");
+            DocumentoIdentidad = row.ToString("DocumentoIDentidad");
+            Cantidad = row.ToInt32("Cantidad");
+            CUV = row.ToString("CUV");
+            PrimeraCampaniaCodigo = row.ToString("PrimeraCampaniaCodigo");
+            MontoMinimoPedido = row.ToDecimal("MontoMinimoPedido");
+            ImporteTotalMM = row.ToDecimal("ImporteTotalMM");
+            PedidoID = row.ToInt32("PedidoID");
+            Region = row.ToString("Region");
+            DescuentoProl = row.ToDecimal("DescuentoProl");
+            MotivoRechazo = row.ToString("MotivoRechazo");
+            ImporteTotalConDescuento = ImporteTotal - DescuentoProl;
         }
     }
 }

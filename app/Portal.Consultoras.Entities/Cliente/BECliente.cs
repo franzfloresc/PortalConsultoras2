@@ -25,49 +25,22 @@ namespace Portal.Consultoras.Entities
             ApellidoCliente = string.Empty;
         }
 
-        public BECliente(IDataRecord datarec)
+        public BECliente(IDataRecord row)
         {
-            if (DataRecord.HasColumn(datarec, "ConsultoraID"))
-                ConsultoraID = Convert.ToInt64(datarec["ConsultoraID"]);
-
-            if (DataRecord.HasColumn(datarec, "ClienteID"))
-                ClienteID = Convert.ToInt32(datarec["ClienteID"]);
-
-            if (DataRecord.HasColumn(datarec, "Nombre"))
-                Nombre = datarec["Nombre"].ToString();
-
-            if (DataRecord.HasColumn(datarec, "eMail"))
-                eMail = datarec["eMail"].ToString();
-
-            if (DataRecord.HasColumn(datarec, "Activo"))
-                Activo = Convert.ToBoolean(datarec["Activo"]);
-
-            if (DataRecord.HasColumn(datarec, "Telefono"))
-                Telefono = datarec["Telefono"].ToString();
-
-            if (DataRecord.HasColumn(datarec, "Celular"))
-                Celular = datarec["Celular"].ToString();
-
-            if (DataRecord.HasColumn(datarec, "CodigoCliente"))
-                CodigoCliente = Convert.ToInt64(datarec["CodigoCliente"]);
-
-            if (DataRecord.HasColumn(datarec, "Favorito"))
-                Favorito = Convert.ToInt16(datarec["Favorito"]);
-
-            if (DataRecord.HasColumn(datarec, "TipoContactoFavorito"))
-                TipoContactoFavorito = Convert.ToInt16(datarec["TipoContactoFavorito"]);
-
-            if (DataRecord.HasColumn(datarec, "NombreCliente"))
-                NombreCliente = datarec["NombreCliente"].ToString();
-
-            if (DataRecord.HasColumn(datarec, "ApellidoCliente"))
-                ApellidoCliente = datarec["ApellidoCliente"].ToString();
-
-            if (DataRecord.HasColumn(datarec, "Saldo"))
-                Saldo = Convert.ToDecimal(datarec["Saldo"]);
-
-            if (DataRecord.HasColumn(datarec, "CantidadProductos"))
-                CantidadProductos = Convert.ToInt32(datarec["CantidadProductos"]);
+            ConsultoraID = row.ToInt64("ConsultoraID");
+            ClienteID = row.ToInt32("ClienteID");
+            Nombre = row.ToString("Nombre");
+            eMail = row.ToString("eMail");
+            Activo = row.ToBoolean("Activo");
+            Telefono = row.ToString("Telefono");
+            Celular = row.ToString("Celular");
+            CodigoCliente = row.ToInt64("CodigoCliente");
+            Favorito = row.ToInt16("Favorito");
+            TipoContactoFavorito = row.ToInt16("TipoContactoFavorito");
+            NombreCliente = row.ToString("NombreCliente");
+            ApellidoCliente = row.ToString("ApellidoCliente");
+            Saldo = row.ToDecimal("Saldo");
+            CantidadProductos = row.ToInt32("CantidadProductos");
         }
 
         [DataMember]

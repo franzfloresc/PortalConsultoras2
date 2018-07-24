@@ -25,16 +25,11 @@ namespace Portal.Consultoras.Entities
 
         public BEServicioParametro(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "ParametroId"))
-                ParametroId = Convert.ToInt32(row["ParametroId"]);
-            if (DataRecord.HasColumn(row, "ServicioId"))
-                ServicioId = Convert.ToInt32(row["ServicioId"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "Abreviatura"))
-                Abreviatura = Convert.ToString(row["Abreviatura"]);
-            if (DataRecord.HasColumn(row, "Correlativo"))
-                Correlativo = Convert.ToString(row["Correlativo"]);
+            ParametroId = row.ToInt32("ParametroId");
+            ServicioId = row.ToInt32("ServicioId");
+            Descripcion = row.ToString("Descripcion");
+            Abreviatura = row.ToString("Abreviatura");
+            Correlativo = row.ToString("Correlativo");
         }
     }
 }

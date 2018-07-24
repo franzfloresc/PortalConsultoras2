@@ -5311,7 +5311,7 @@ table > thead > tr > th {
     padding-top: 8px;
     padding-bottom: 8px;
     display: block;
-    background: url('../../../Images/mobile/Esika/mas_footer.png') no-repeat right center;
+    background: url('../../../Images/mobile/Esika/mas_footer.png') no-repeat right 12px center;
 }
 
 .menu_footer_menos {
@@ -5325,7 +5325,7 @@ table > thead > tr > th {
     padding-top: 8px;
     padding-bottom: 8px;
     display: block;
-    background: url('../../../Images/mobile/Esika/menos_footer.png') no-repeat right center;
+    background: url('../../../Images/mobile/Esika/menos_footer.png') no-repeat right 12px center;
 }
 
 .menu_footer:hover {

@@ -1,6 +1,8 @@
 ﻿$(document).ready(function () {
     CargarFiltroRangoPrecio();
-    CargarProductosShowRoom(null);
+    //CargarProductosShowRoom(null);
+    CargarShowroomMobile(null);
+
     var AbrirBanner = 0;
     $("#AbrirBannerCompra").click(function () {
         if (AbrirBanner == 0) {
@@ -35,7 +37,6 @@
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -10%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
         });
     });
-
 
     $("#CerrarPopCompra").click(function () {
         $('body').css({ 'overflow-y': 'scroll' });

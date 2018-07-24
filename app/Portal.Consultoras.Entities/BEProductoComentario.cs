@@ -37,29 +37,14 @@ namespace Portal.Consultoras.Entities
 
         public BEProductoComentario(IDataRecord row)
         {
-            if (row.HasColumn("ProdComentarioId"))
-                ProdComentarioId = Convert.ToInt32(row["ProdComentarioId"]);
-
-            if (row.HasColumn("CodigoSap"))
-                CodigoSap = Convert.ToString(row["CodigoSap"]);
-
-            if (row.HasColumn("CodigoGenerico"))
-                CodigoGenerico = Convert.ToString(row["CodigoGenerico"]);
-
-            if (row.HasColumn("CantAprobados"))
-                CantAprobados = Convert.ToInt32(row["CantAprobados"]);
-
-            if (row.HasColumn("CantRecomendados"))
-                CantRecomendados = Convert.ToInt32(row["CantRecomendados"]);
-
-            if (row.HasColumn("PromValorizado"))
-                PromValorizado = Convert.ToInt32(row["PromValorizado"]);
-
-            if (row.HasColumn("FechaRegistro"))
-                FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-
-            if (row.HasColumn("Estado"))
-                Estado = Convert.ToInt16(row["Estado"]);
+            ProdComentarioId = row.ToInt32("ProdComentarioId");
+            CodigoSap = row.ToString("CodigoSap");
+            CodigoGenerico = row.ToString("CodigoGenerico");
+            CantAprobados = row.ToInt32("CantAprobados");
+            CantRecomendados = row.ToInt32("CantRecomendados");
+            PromValorizado = row.ToInt32("PromValorizado");
+            FechaRegistro = row.ToDateTime("FechaRegistro");
+            Estado = row.ToInt16("Estado");
         }
     }
 }

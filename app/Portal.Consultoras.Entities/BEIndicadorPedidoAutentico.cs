@@ -42,21 +42,11 @@ namespace Portal.Consultoras.Entities
             PedidoID = Convert.ToInt32(row["PedidoID"]);
             CampaniaID = Convert.ToInt32(row["CampaniaID"]);
             PedidoDetalleID = Convert.ToInt32(row["PedidoDetalleID"]);
-
-            if (row.HasColumn("IndicadorIPUsuario"))
-                IndicadorIPUsuario = Convert.ToString(row["IndicadorIPUsuario"]);
-
-            if (row.HasColumn("IndicadorFingerprint"))
-                IndicadorFingerprint = Convert.ToString(row["IndicadorFingerprint"]);
-
-            if (row.HasColumn("IndicadorToken"))
-                IndicadorToken = Convert.ToString(row["IndicadorToken"]);
-
-            if (row.HasColumn("FechaCreacion"))
-                FechaCreacion = Convert.ToDateTime(row["FechaCreacion"]);
-
-            if (row.HasColumn("FechaModificacion"))
-                FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
+            IndicadorIPUsuario = row.ToString("IndicadorIPUsuario");
+            IndicadorFingerprint = row.ToString("IndicadorFingerprint");
+            IndicadorToken = row.ToString("IndicadorToken");
+            FechaCreacion = row.ToDateTime("FechaCreacion");
+            FechaModificacion = row.ToDateTime("FechaModificacion");
         }
     }
 }

@@ -1,6 +1,20 @@
-﻿@using Portal.Consultoras.Web.Models;
-@model Portal.Consultoras.Web.Models.OfertaDelDiaModel
+﻿@using Portal.Consultoras.Web.Models
+@using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 
+@{
+    DataModel Model = ViewBag.MostrarOfertaDelDia == true ? ViewBag.OfertaDelDia ?? new DataModel() : new DataModel();
+    var prod = new EstrategiaPersonalizadaProductoModel();
+    if (Model.ListaOferta.Count > 0)
+    {
+        prod = Model.ListaOferta.First();
+    }
+    var controllerName = this.ViewContext.RouteData.Values["controller"].ToString().ToLower();
+    var origenPedidoWeb = Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.OfertaDelDiaMobileHomeBanner;
+    if (controllerName.Equals("ofertas"))
+    {
+        origenPedidoWeb = Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.OfertaDelDiaMobileContenedor;
+    }
+}
 <style>
     .flip-clock-wrapper .flip{
         box-shadow: 0 2px 5px @(string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorFondo) ? Model.ColorFondo1 : Model.ConfiguracionContenedor.ColorFondo) !important;
@@ -26,40 +40,44 @@
     {
         estiloFondo = "background-color:" + (string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorFondo) ? Model.ColorFondo1 : Model.ConfiguracionContenedor.ColorFondo) + ";";
     }
+
+    var estiloBoton = "";
+    estiloBoton = string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorTexto) ? "" : "style=color:" + Model.ConfiguracionContenedor.ColorTexto + ";border-color:" + Model.ConfiguracionContenedor.ColorTexto + ";";
 }
 
+<div id="BloqueMobileOfertaDia" class="BloqueOfertaDia bc_plantilla-banner" 
+     style="@estiloFondo" 
+     data-OrigenPedidoWeb="@origenPedidoWeb">
+    <div class="centerElementos" data-item="">
+        <div style="display:none;"   data-item-campos="">
+            <input data-estrategia="@Json.Encode(prod)" />
+        </div>
+        <div class="content_oferta_dia_mobile" id="content_oferta_dia_mobile">
 
-    <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia bc_plantilla-banner" style="@estiloFondo">
-        <div class="centerElementos">
-            <div class="content_oferta_dia_mobile" id="content_oferta_dia_mobile">
-                <div class="solo_hoy_mobile">
-                    <img id="img1-solohoy-odd" alt="" src="@Model.ImagenSoloHoy" />
+            <div class="solo_hoy_mobile">
+                <img id="img1-solohoy-odd" alt="" src="@Model.ImagenSoloHoy"/>
+            </div>
+
+            <div class="clock" data-total-seconds="@Model.TeQuedan.TotalSeconds"></div>
+
+            <div class="imagen_set_oferta_mobile">
+                <img src="@Model.ImagenBanner" alt="" id="img-banner-odd"/>
+            </div>
+
+            <div class="detalle_oferta_dia float_left centerElementos">
+                <div class="nombre_set_oferta_mobile" @(string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorTexto) ? "" : "style=color:" + Model.ConfiguracionContenedor.ColorTexto + ";")>
+                    @Model.NombreOferta <br/>
+                    <b class="precio_oferta_soloHoy">@ViewBag.Simbolo @Model.PrecioOfertaFormat</b>
                 </div>
-                <div class="clock" data-total-seconds="@Model.TeQuedan.TotalSeconds"></div>
+                <a class="btn_compralo_ahora btn_compralo_ahora_odd"
+                   @(estiloBoton)
+                   href="javascript:;" onclick="OnClickFichaDetalle($(this));">
+                    @Model.TextoVerDetalle
+                </a>
+            </div>
 
-                <div class="imagen_set_oferta_mobile">
-                    <img src="@Model.ImagenBanner" alt="" id="img-banner-odd" />
-                </div>
-
-
-                <div class="detalle_oferta_dia float_left centerElementos">
-                    <div class="nombre_set_oferta_mobile" @(string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorTexto) ? "" : "style=color:" + Model.ConfiguracionContenedor.ColorTexto + ";")>@Model.NombreOferta <br /><b class="precio_oferta_soloHoy">@ViewBag.Simbolo @Model.PrecioOfertaFormat</b></div>
-                    @if (Model.ListaOfertas != null)
-                    {
-                        if (Model.ListaOfertas.Count > 1)
-                        {
-                            <a class="btn_compralo_ahora btn_compralo_ahora_odd" href="#"
-                               @(string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorTexto) ? "" : "style=color:" + Model.ConfiguracionContenedor.ColorTexto + ";border-color:" + Model.ConfiguracionContenedor.ColorTexto + ";")>VER OFERTAS</a>
-                        }
-                        else
-                        {
-                            <a class="btn_compralo_ahora btn_compralo_ahora_odd" href="#"
-                               @(string.IsNullOrEmpty(Model.ConfiguracionContenedor.ColorTexto) ? "" : "style=color:" + Model.ConfiguracionContenedor.ColorTexto + ";border-color:" + Model.ConfiguracionContenedor.ColorTexto + ";")>VER OFERTA</a>
-                        }
-                    }
-                </div>
-                <hr class="clear" />
-                <div style="display:none;" id="banner-odd-mobile">
+            @*<hr class="clear" />
+            <div style="display:none;" id="banner-odd-mobile">
                     <input type="hidden" id="tipoestrategia-id-odd" value="@Model.TipoEstrategiaID" />
                     <input type="hidden" id="marca-id-odd" value="@Model.MarcaID" />
                     <input type="hidden" id="cuv2-odd" value="@Model.CUV2" />
@@ -72,8 +90,7 @@
                     <input type="hidden" id="estrategia-id-odd" value="@Model.EstrategiaID" />
                     <input type="hidden" id="marca-descripcion-odd" value="@Model.DescripcionMarca" />
                     <input type="hidden" id="tipoestrategia-descripcion-odd" value="@Model.TipoEstrategiaDescripcion" />
-                </div>
-
-            </div>
+            </div>*@
         </div>
     </div>
+</div>

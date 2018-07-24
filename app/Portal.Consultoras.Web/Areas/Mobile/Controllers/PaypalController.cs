@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                var userData = UserData();
+                //var userData = UserData();
                 model.PaisID = userData.PaisID;
                 model.CodigoConsultora = userData.CodigoConsultora;
                 model.NombreConsultora = userData.NombreConsultora;
@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public JsonResult InsertDatosPago(string nroTarjeta, decimal monto)
         {
-            var userData = UserData();
+            //var userData = UserData();
             try
             {
                 bool result;
@@ -78,32 +78,29 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 using (var sv = new ContenidoServiceClient())
                 {
-                    var rpta = sv.InsDatosPago(userData.PaisID, userData.CodigoConsultora, userData.CodigoTerritorio, monto, nroTarjeta, DateTime.Now, 1);
-                    return Json(new
-                    {
-                        success = true,
-                        message = "Exito"
-                    });
+                    sv.InsDatosPago(userData.PaisID, userData.CodigoConsultora, userData.CodigoTerritorio, monto, nroTarjeta, DateTime.Now, 1);
                 }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Exito"
+                });
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Hubo un problema con el servicio, intente nuevamente"
-                });
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Hubo un problema con el servicio, intente nuevamente"
-                });
             }
+
+            return Json(new
+            {
+                success = false,
+                message = "Hubo un problema con el servicio, intente nuevamente"
+            });
         }
 
         public ActionResult TransaccionSuccess()

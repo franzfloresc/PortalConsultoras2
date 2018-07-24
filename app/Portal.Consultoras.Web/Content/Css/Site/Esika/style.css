@@ -16927,7 +16927,7 @@ ul.tabs-nav li.active {
 }
 
 .preloader {
-    background: url('../../Images/loadingCatalogo.gif') center center no-repeat #ffffff;
+    background: url('/Content/Images/loadingCatalogo.gif') center center no-repeat #ffffff;
     display: inline-block;
 }
 
@@ -34359,7 +34359,7 @@ h1#penmostreo .campana {
 }
 /*HOMOLOGAR OPT*/
 .tono_select_opt {
-    border: 2px solid black;
+    border: 1px solid black;
     height: 45px;
     width: 100%;
     font-family: 'Lato';

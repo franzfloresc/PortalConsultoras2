@@ -25,12 +25,12 @@ namespace Portal.Consultoras.Entities
 
         public BEHorario(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "HorarioID")) HorarioID = Convert.ToInt32(row["HorarioID"]);
-            if (DataRecord.HasColumn(row, "Codigo")) Codigo = Convert.ToString(row["Codigo"]);
-            if (DataRecord.HasColumn(row, "Resumen")) Resumen = Convert.ToString(row["Resumen"]);
-            if (DataRecord.HasColumn(row, "PrimerDiaSemana")) PrimerDiaSemana = Convert.ToByte(row["PrimerDiaSemana"]);
-            if (DataRecord.HasColumn(row, "HoraISO")) HoraISO = Convert.ToBoolean(row["HoraISO"]);
-            if (DataRecord.HasColumn(row, "HoraIncluyente")) HoraIncluyente = Convert.ToBoolean(row["HoraIncluyente"]);
+            HorarioID = row.ToInt32("HorarioID");
+            Codigo = row.ToString("Codigo");
+            Resumen = row.ToString("Resumen");
+            PrimerDiaSemana = row.ToByte("PrimerDiaSemana");
+            HoraISO = row.ToBoolean("HoraISO");
+            HoraIncluyente = row.ToBoolean("HoraIncluyente");
         }
     }
 }

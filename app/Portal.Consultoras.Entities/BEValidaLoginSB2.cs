@@ -25,15 +25,10 @@ namespace Portal.Consultoras.Entities
 
         public BEValidaLoginSB2(IDataRecord row)
         {
-            if (row.HasColumn("Result"))
-                Result = Convert.ToInt16(row["Result"]);
-            if (row.HasColumn("Mensaje"))
-                Mensaje = Convert.ToString(row["Mensaje"]);
-            if (row.HasColumn("CodigoUsuario"))
-                CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-
-            if (row.HasColumn("TipoUsuario"))
-                TipoUsuario = Convert.ToInt32(row["TipoUsuario"]);
+            Result = row.ToInt16("Result");
+            Mensaje = row.ToString("Mensaje");
+            CodigoUsuario = row.ToString("CodigoUsuario");
+            TipoUsuario = row.ToInt32("TipoUsuario");
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.OrdenMaximo = 3;
                 model.OrdenCyzone = 3;
 
-                if (GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
+                if (_configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
                 {
                     model.OrdenEsika = 1;
                     model.OrdenLbel = 2;
