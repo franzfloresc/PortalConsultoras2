@@ -138,7 +138,6 @@
 .opcion_pago_gastos_administrativos,
 .linea_separacion_montos_y_total,
 .opcion_pago_total_a_pagar,
-.icono_flecha_despliegue,
 .info_requerimiento_tarjeta_habilitada,
 .pasarela_pago,
 .formulario_pasarela_pago,
@@ -412,6 +411,10 @@
     padding-bottom:14px!important;
 }
 
+.metodoPago .icono_flecha_despliegue.girar180{
+    top:0;
+}
+
 .opcion_pago_contenido_visible_sin_desplegar{
     cursor:pointer;
     padding-top:6px;
@@ -532,15 +535,36 @@
     width:17px;
     height:17px;
     position: absolute;
+    top:2px;
     right: 0;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.girar180 {
+    -moz-transform:rotate(-180deg);
+    -ms-transform:rotate(-180deg);
+    -o-transform:rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
+    transform:rotate(-180deg);
 }
 
 .pagoTotal .icono_flecha_despliegue{
     top: 19px;
 }
 
+.pagoTotal .icono_flecha_despliegue.girar180{
+    top: 14px;
+}
+
 .pagoParcial .icono_flecha_despliegue{
     top:16px;
+}
+
+.pagoParcial .icono_flecha_despliegue.girar180{
+    top:11px;
 }
 
 .titulo_pago_total,
@@ -642,7 +666,7 @@
 
 .aceptar_terminos_y_condiciones{
     text-align:center;
-    margin-bottom:8px;
+    margin-bottom:12px;
     position:relative;
 }
 
@@ -1399,17 +1423,32 @@
 
 /* MODIFICACIONES DE DISEÑO JQUERY DATEPICKER */
 
+.ui-datepicker,
+.ui-datepicker-header
+{
+    font-family: 'Lato', sans-serif;
+}
+
 .ui-datepicker {
     background-color:#FFF;
-    width: 82.2%;
+    width:250px;
     padding:13px 10px;
     -moz-box-shadow: 1px 4px 15px -1px rgba(0,0,0,0.4);
     -webkit-box-shadow: 1px 4px 15px -1px rgba(0,0,0,0.4);
     box-shadow: 1px 4px 15px -1px rgba(0,0,0,0.4);
 }
 
+.ui-datepicker-header{
+    font-size:15px!important;
+}
+
+.ui-datepicker-title{
+    position: relative;
+    bottom: 2px;
+    font-weight:600;
+}
+
 .ui-widget.ui-widget-content {
-	font-family: 'Lato';
 	font-size: 12.5px;
 	border-radius: 0%;
 	margin-top:2px;
@@ -1426,6 +1465,7 @@
 .ui-state-active,
 .ui-widget-content .ui-state-active
 {
+    font-size:12px;
 	background:#f5eafb;
 	color:#000;
 	border:none;
@@ -1448,6 +1488,12 @@
 {
 	background:#642f80;
 	color:#FFF;
+}
+
+.ui-datepicker-prev-hover,
+.ui-datepicker-next-hover
+{
+    background:transparent!important;
 }
 
 /* FIN - MODIFICACIONES DE DISEÑO JQUERY DATEPICKER */
@@ -1477,7 +1523,7 @@
     height: auto;
     background-color: #FFF;
     margin: auto;
-    top: 0;
+    top: -7px;
     bottom: 0;
     left: 0;
     right: 0;

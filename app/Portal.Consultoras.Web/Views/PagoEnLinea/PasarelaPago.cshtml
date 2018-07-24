@@ -67,7 +67,6 @@
                 <div class="grupo_campo_formulario_pasarela_pago">
                     <div class="w-69 pr-7 vAlignTop">
                         <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de expiración :</label>
-                        @*<input type="text" value="" class="campo_formulario_pasarela_pago w-100" placeholder="MM/AA"/>*@
                         <select class="campo_formulario_pasarela_pago campo_seleccion_fecha_expiracion campo_mes mr-5">
                             <option value="0">MES</option>
                             <option value="1">Diciembre</option>
@@ -123,3 +122,17 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#CampoFechaNacimiento").datepicker();
+
+        });
+
+    </script>
+
+}
