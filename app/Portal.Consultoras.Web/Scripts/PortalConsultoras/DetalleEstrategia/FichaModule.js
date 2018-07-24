@@ -219,8 +219,8 @@
             }
         }
         else if (estrategia.Hermanos.length > 1) {
-            if (estrategia.codigoVariante == _codigoVariedad.IndividualVariable) {
-                estrategia.codigoVariante = _codigoVariedad.ComuestaFija;
+            if (estrategia.CodigoVariante == _codigoVariedad.IndividualVariable) {
+                estrategia.CodigoVariante = _codigoVariedad.ComuestaFija;
             }
         }
         else if (estrategia.Hermanos.length == 0) {
@@ -291,7 +291,6 @@
         _actualizarVariedad(estrategia);
         _validarDesactivadoGeneral(estrategia);
 
-        console.log(estrategia);
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
 
         var imgFondo = "";

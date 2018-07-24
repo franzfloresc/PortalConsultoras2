@@ -229,17 +229,22 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv)) return RedirectToAction("Index", "Ofertas");
+                if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
+                    return RedirectToAction("Index", "Ofertas");
 
                 palanca = IdentificarPalanca(palanca, campaniaId);
 
-                if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca)) return RedirectToAction("Index", "Ofertas");
+                if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca))
+                    return RedirectToAction("Index", "Ofertas");
 
                 DetalleEstrategiaFichaModel modelo;
                 if (_ofertaPersonalizadaProvider.PalancasConSesion(palanca))
                 {
                     var estrategiaPresonalizada = _ofertaPersonalizadaProvider.ObtenerEstrategiaPersonalizada(userData, palanca, cuv, campaniaId);
-                    if (estrategiaPresonalizada == null) return RedirectToAction("Index", "Ofertas");
+                    if (estrategiaPresonalizada == null)
+                        return RedirectToAction("Index", "Ofertas");
+
+                    if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
                     modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
                     if (palanca == Constantes.NombrePalanca.PackNuevas)
                     {
