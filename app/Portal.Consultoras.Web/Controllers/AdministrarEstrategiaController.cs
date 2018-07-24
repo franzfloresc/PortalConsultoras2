@@ -136,7 +136,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia(int TipoVistaEstrategia)
         {
-            var lst = GetTipoEstrategias();
+            var lst = _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID);
 
             if (lst != null && lst.Count > 0)
             {
@@ -1327,7 +1327,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.hdnPaisID = userData.PaisID;
                 ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
 
-                var tipoEstrategias = GetTipoEstrategias();
+                var tipoEstrategias = _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID);
                 var oTipoEstrategia =
                     tipoEstrategias.FirstOrDefault(x =>
                         x.Codigo == Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas) ?? new ServicePedido.BETipoEstrategia();
@@ -1623,7 +1623,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.hdnPaisID = userData.PaisID;
                 ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
 
-                var tipoEstrategias = GetTipoEstrategias();
+                var tipoEstrategias = _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID);
                 var oTipoEstrategia =
                     tipoEstrategias.FirstOrDefault(x => x.Codigo == Constantes.TipoEstrategiaCodigo.Incentivos) ??
                     new ServicePedido.BETipoEstrategia();
