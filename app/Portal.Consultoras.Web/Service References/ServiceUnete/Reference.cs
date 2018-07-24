@@ -9786,6 +9786,15 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string CorreoElectronicoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DetalleDiasEsperaAFFVVField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DetalleDiasEsperaASACField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DetalleDiasEsperaGSACField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DiasEnEsperaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9883,15 +9892,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoSolicitudField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TotalEnAprobacionFFVVField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TotalEnAprobacionSACField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TotalEnGestionSACField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string VieneDeField;
@@ -10022,6 +10022,45 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.CorreoElectronicoField, value) != true)) {
                     this.CorreoElectronicoField = value;
                     this.RaisePropertyChanged("CorreoElectronico");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DetalleDiasEsperaAFFVV {
+            get {
+                return this.DetalleDiasEsperaAFFVVField;
+            }
+            set {
+                if ((this.DetalleDiasEsperaAFFVVField.Equals(value) != true)) {
+                    this.DetalleDiasEsperaAFFVVField = value;
+                    this.RaisePropertyChanged("DetalleDiasEsperaAFFVV");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DetalleDiasEsperaASAC {
+            get {
+                return this.DetalleDiasEsperaASACField;
+            }
+            set {
+                if ((this.DetalleDiasEsperaASACField.Equals(value) != true)) {
+                    this.DetalleDiasEsperaASACField = value;
+                    this.RaisePropertyChanged("DetalleDiasEsperaASAC");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DetalleDiasEsperaGSAC {
+            get {
+                return this.DetalleDiasEsperaGSACField;
+            }
+            set {
+                if ((this.DetalleDiasEsperaGSACField.Equals(value) != true)) {
+                    this.DetalleDiasEsperaGSACField = value;
+                    this.RaisePropertyChanged("DetalleDiasEsperaGSAC");
                 }
             }
         }
@@ -10451,45 +10490,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.TipoSolicitudField, value) != true)) {
                     this.TipoSolicitudField = value;
                     this.RaisePropertyChanged("TipoSolicitud");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TotalEnAprobacionFFVV {
-            get {
-                return this.TotalEnAprobacionFFVVField;
-            }
-            set {
-                if ((this.TotalEnAprobacionFFVVField.Equals(value) != true)) {
-                    this.TotalEnAprobacionFFVVField = value;
-                    this.RaisePropertyChanged("TotalEnAprobacionFFVV");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TotalEnAprobacionSAC {
-            get {
-                return this.TotalEnAprobacionSACField;
-            }
-            set {
-                if ((this.TotalEnAprobacionSACField.Equals(value) != true)) {
-                    this.TotalEnAprobacionSACField = value;
-                    this.RaisePropertyChanged("TotalEnAprobacionSAC");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TotalEnGestionSAC {
-            get {
-                return this.TotalEnGestionSACField;
-            }
-            set {
-                if ((this.TotalEnGestionSACField.Equals(value) != true)) {
-                    this.TotalEnGestionSACField = value;
-                    this.RaisePropertyChanged("TotalEnGestionSAC");
                 }
             }
         }
