@@ -258,11 +258,12 @@ namespace Portal.Consultoras.Web.Controllers
                         ConfigS3.DeleteFileS3(carpetaPais, userData.FotoOriginalSinModificar);
                     }
 
-                    userData.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), nameImage);
+                    var imagenS3 = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), nameImage);
+                    userData.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), nameImage);
 
                     if (Util.IsUrl(userData.FotoPerfil))
                     {
-                        using (var streamImagen = ConsultarImagen(userData.FotoPerfil))
+                        using (var streamImagen = ConsultarImagen(imagenS3))
                         {
                             using (var imagenConsultada = System.Drawing.Image.FromStream(streamImagen))
                             {

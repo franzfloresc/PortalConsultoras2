@@ -1,20 +1,28 @@
-﻿@model Portal.Consultoras.Web.Models.DetalleEstrategia.DetalleEstrategiaBreadCrumbsModel
+﻿@using Portal.Consultoras.Web.Helpers
+
+
+@model Portal.Consultoras.Web.Models.DetalleEstrategia.DetalleEstrategiaBreadCrumbsModel
 
 @if (Model.Visible)
 {
-    <div class="container" id="div-container-breadcubs">
-        <div class="row">
-            <div class="col-md-12">
-                <ul class="breadcumbs">
-                    <li><a href="@Model.Inicio.Url">@Model.Inicio.Texto</a></li>
-                    <li><a href="@Model.Ofertas.Url">@Model.Ofertas.Texto</a></li>
-                    @if (!string.IsNullOrWhiteSpace(Model.Palanca.Texto))
-                    {
-                        <li><a href="@Model.Palanca.Url">@Model.Palanca.Texto</a></li>
-                    }
-                    <li><a href="@Model.Producto.Texto" id="estrategia-breadcrumb" >@Model.Producto.Texto</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+	<div class="container" id="div-container-breadcubs">
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="breadcumbs">
+					@{ var mobileConfiguracion = Html.MobileAppConfiguracion();
+						if (!mobileConfiguracion.EsAppMobile)
+						{
+							<li><a href="@Model.Inicio.Url">@Model.Inicio.Texto</a></li>
+						}
+					}
+					<li><a href="@Model.Ofertas.Url">@Model.Ofertas.Texto</a></li>
+					@if (!string.IsNullOrWhiteSpace(Model.Palanca.Texto))
+					{
+						<li><a href="@Model.Palanca.Url">@Model.Palanca.Texto</a></li>
+					}
+					<li><a href="@Model.Producto.Texto" id="estrategia-breadcrumb">@Model.Producto.Texto</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
 }
