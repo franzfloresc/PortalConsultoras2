@@ -402,7 +402,7 @@
 .tabs ul.tabs li, .tab_item {
     width: 100%;
     display: block;
-    border-bottom: 1px solid #ccc;
+    /*border-bottom: 1px solid #ccc;*/
 }
 
 .tabs ul.tabs li:last-child {
