@@ -45,15 +45,12 @@ namespace Portal.Consultoras.Entities
             Descripcion = Convert.ToString(row["Descripcion"]);
             MenuPadreID = Convert.ToInt32(row["MenuPadreID"]);
             OrdenItem = Convert.ToInt32(row["OrdenItem"]);
-            if (row["UrlItem"] != DBNull.Value)
-                UrlItem = Convert.ToString(row["UrlItem"]);
-            if (row["UrlImagen"] != DBNull.Value)
-                UrlImagen = Convert.ToString(row["UrlImagen"]);
+            UrlItem = row.ToString("UrlItem");
+            UrlImagen = row.ToString("UrlImagen");
             PaginaNueva = Convert.ToBoolean(row["PaginaNueva"]);
             Posicion = Convert.ToString(row["Posicion"]);
             Version = Convert.ToString(row["Version"]);
-
-            if (row.HasColumn("Codigo")) Codigo = Convert.ToString(row["Codigo"]);
+            Codigo = row.ToString("Codigo");
         }
     }
 }

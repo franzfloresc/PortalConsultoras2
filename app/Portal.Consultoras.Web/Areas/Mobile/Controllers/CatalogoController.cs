@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using System;
 using System.Collections.Generic;
@@ -14,15 +15,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     public class CatalogoController : BaseMobileController
     {
         private const string TextoMensajeSaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
+        private readonly IssuuProvider _issuuProvider;
+
+        public CatalogoController()
+        {
+            _issuuProvider = new IssuuProvider();
+        }
 
         public ActionResult Index()
         {
             var clienteModel = new MisCatalogosRevistasModel
             {
-                PaisNombre = GetPaisNombreByISO(userData.CodigoISO),
+                PaisNombre = Util.GetPaisNombreByISO(userData.CodigoISO),
                 CampaniaActual = userData.CampaniaID.ToString(),
-                CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString(),
-                CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString(),
+                CampaniaAnterior = Util.AddCampaniaAndNumero(userData.CampaniaID, -1, userData.NroCampanias).ToString(),
+                CampaniaSiguiente = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString(),
                 TieneSeccionRD = (revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI,
                 TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva,
                 TieneGND = userData.TieneGND
@@ -30,9 +37,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             clienteModel.MostrarTab = clienteModel.TieneSeccionRD || clienteModel.TieneSeccionRevista;
             clienteModel.Titulo = clienteModel.TieneSeccionRD || clienteModel.TieneSeccionRevista ? "MIS CATÁLOGOS Y REVISTAS" : "MIS CATÁLOGOS";
 
-            clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
-            clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
-            clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
+            clienteModel.CodigoRevistaActual = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaActual, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+            clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+            clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
 
             clienteModel.PartialSectionBpt = GetPartialSectionBptModel();
 
@@ -40,10 +47,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
 
-            string paisesCatalogoWhatsUp = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
+            string paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
             ViewBag.ActivacionAppCatalogoWhastUp = paisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
 
-            var paisesEsika = GetPaisesEsikaFromConfig().ToLower();
+            var paisesEsika = _configuracionManagerProvider.GetPaisesEsikaFromConfig().ToLower();
             ViewBag.EsPaisEsika = paisesEsika.Contains(userData.CodigoISO.ToLower());
 
             return View(clienteModel);
@@ -90,7 +97,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                codigoRevista = GetRevistaCodigoIssuuRDR(codigoRevista);
+                codigoRevista = _issuuProvider.GetRevistaCodigoIssuuRDR(codigoRevista, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
 
                 string stringIssuuRevista = GetStringIssuRevista(codigoRevista);
                 dynamic item = new JavaScriptSerializer().Deserialize<object>(stringIssuuRevista);
@@ -121,7 +128,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return stringIssuuRevista;
         }
-        
+
         public ActionResult MiRevista(string campaniaRevista)
         {
             ViewBag.Campania = campaniaRevista;

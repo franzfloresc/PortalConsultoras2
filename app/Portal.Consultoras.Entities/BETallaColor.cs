@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Entities
     {
         public BETallaColor()
         {
-            this.IDAux = 0;
+            IDAux = 0;
         }
 
         [DataMember]
@@ -40,27 +40,13 @@ namespace Portal.Consultoras.Entities
 
         public BETallaColor(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "ID"))
-                ID = Convert.ToInt32(row["ID"]);
-
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = row["CUV"].ToString();
-
-            if (DataRecord.HasColumn(row, "DescripcionCUV"))
-                DescripcionCUV = row["DescripcionCUV"].ToString();
-
-            if (DataRecord.HasColumn(row, "PrecioUnitario"))
-                PrecioUnitario = Convert.ToDecimal(row["PrecioUnitario"].ToString());
-
-            if (DataRecord.HasColumn(row, "Tipo"))
-                Tipo = row["Tipo"].ToString();
-
-            if (DataRecord.HasColumn(row, "DescripcionTipo"))
-                DescripcionTipo = row["DescripcionTipo"].ToString();
-
-            if (DataRecord.HasColumn(row, "DescripcionTallaColor"))
-                DescripcionTallaColor = row["DescripcionTallaColor"].ToString();
-
+            ID = row.ToInt32("ID");
+            CUV = row.ToString("CUV");
+            DescripcionCUV = row.ToString("DescripcionCUV");
+            PrecioUnitario = row.ToDecimal("PrecioUnitario");
+            Tipo = row.ToString("Tipo");
+            DescripcionTipo = row.ToString("DescripcionTipo");
+            DescripcionTallaColor = row.ToString("DescripcionTallaColor");
         }
 
     }

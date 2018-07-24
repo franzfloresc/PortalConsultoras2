@@ -14,222 +14,22 @@ var divAgregado = null;
 
 var revistaDigital = revistaDigital || {};
 
-$(document).ready(function () {
-    if (isMobile()) {
-        var pathname = window.location.pathname;
-        if (pathname == '/Mobile/FichaProducto/Detalle') {
-            
-            $('[data-tono-change]').click(mostrarListaTonosVC);
-        }
-        else {
-            $('[data-tono-change]').click(mostrarListaTonos);
-        }
-       // $('[data-tono-change]').click(mostrarListaTonos);
-    } else {
-       // $('body').on('click', '[data-tono-change]', mostrarListaTonos);
-        var pathname = window.location.pathname;        
-        if (pathname == '/Pedido/virtualCoach') {            
-            $('body').on('click', '[data-tono-change]', mostrarListaTonosVC);
-        }
-        else {
-            $('body').on('click', '[data-tono-change]', mostrarListaTonos);
-        }
-
-    }    
-
-    function mostrarListaTonos() {
-        var accion = $(this).attr("data-tono-change");
-
-        var hideSelect = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
-        if (hideSelect == "1") {
-            $(this).parents("[data-tono]").find('.content_tonos_select').hide();
-            $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "0");
-            $(this).parents("[data-tono]").find("[data-tono-change='1']").parent().removeClass("tono_por_elegir");
-            if (accion == 1)
-                return true;
-        }
-
-        if (accion == 1) {
-            $("[data-tono]").find('.content_tonos_select').hide();
-            $("[data-tono]").find('.content_tonos_select').attr("data-visible", "0");
-            $("[data-tono]").find("[data-tono-change='1']").parent().removeClass("tono_por_elegir");
-
-            $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "1");
-            $(this).parents("[data-tono]").find('.content_tonos_select').show();
-            $(this).parent().addClass("tono_por_elegir");
-            return true;
-        }
-
-        var cuv = $.trim($(this).attr("data-tono-cuv"));
-        var prod = $(this).parents("[data-tono]");
-        var objSet = prod.find("[data-tono-change='1']");
-        objSet.find("img").attr("src", $(this).find("img").attr("src"));
-        objSet.find(".tono_seleccionado").show();
-        objSet.find(".texto_tono_seleccionado").html($(this).attr("data-tono-nombre"));
-
-        objSet.parent().addClass("tono_escogido");
-        prod.find("[data-tono-select-nombrecomercial]").html($(this).attr("data-tono-descripcion"));
-        prod.attr("data-tono-select", cuv);
-
-        prod.find("[data-tono-div]").find("[data-tono-cuv]").removeClass("borde_seleccion_tono");
-        var estrategia = prod.parents("[data-estrategia='2001']").length;
-        if (estrategia > 0) {
-            prod.find("[data-tono-div]").find("[data-tono-cuv='" + cuv + "']").addClass("borde_seleccion_tono");
-        }
-
-        var objCompartir = prod.find("[data-item]").find("[data-compartir-campos]");
-        objCompartir.find(".CUV").val(cuv);
-        objCompartir.find(".Nombre").val($(this).attr("data-tono-descripcion"));
-
-        var listaDigitables = prod.parents("[data-item]").find("[data-tono-digitable='1']");
-        var btnActivar = true;
-        $.each(listaDigitables, function (i, item) {
-            var cuv = $.trim($(item).attr("data-tono-select"));
-            btnActivar = btnActivar ? !(cuv == "") : btnActivar;
-        });
-
-        if (btnActivar) {
-            prod.parents("[data-item]").find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
-        }
-    }
-    function mostrarListaTonosVC() {
-        
-        var accion = $(this).attr("data-tono-change");
-
-        var hideSelect = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
-        if (hideSelect == "1") {
-            $(this).parents("[data-tono]").find('.content_tonos_select').hide();
-            $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "0");
-            $(this).parents("[data-tono]").find("[data-tono-change='1']").parent().removeClass("tono_por_elegir");
-            if (accion == 1)
-                return true;
-        }
-
-        if (accion == 1) {
-            $("[data-tono]").find('.content_tonos_select').hide();
-            $("[data-tono]").find('.content_tonos_select').attr("data-visible", "0");
-            $("[data-tono]").find("[data-tono-change='1']").parent().removeClass("tono_por_elegir");
-
-            $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "1");
-            $(this).parents("[data-tono]").find('.content_tonos_select').show();
-            $(this).parent().addClass("tono_por_elegir");
-            return true;
-        }
-
-        var cuv = $.trim($(this).attr("data-tono-cuv"));
-        var prod = $(this).parents("[data-tono]");
-        var objSet = prod.find("[data-tono-change='1']");
-        objSet.find("img").attr("src", $(this).find("img").attr("src"));
-        objSet.find(".tono_seleccionado").show();
-        objSet.find(".texto_tono_seleccionado").html($(this).attr("data-tono-nombre"));
-
-        objSet.parent().addClass("tono_escogido");
-        prod.find("[data-tono-select-nombrecomercial]").html($(this).attr("data-tono-descripcion"));
-        
-        prod.attr("data-tono-select", cuv);
-        
-        prod.find("[data-tono-div]").find("[data-tono-cuv]").removeClass("borde_seleccion_tono");
-        var estrategia = prod.parents("[data-estrategia='2001']").length;
-        if (estrategia > 0) {
-            prod.find("[data-tono-div]").find("[data-tono-cuv='" + cuv + "']").addClass("borde_seleccion_tono");
-        }
-
-        var objCompartir = prod.find("[data-item]").find("[data-compartir-campos]");
-        objCompartir.find(".CUV").val(cuv);
-        objCompartir.find(".Nombre").val($(this).attr("data-tono-descripcion"));
-
-        var listaDigitables = prod.parents("[data-item]").find("[data-tono-digitable='1']");
-        var btnActivar = true;
-        $.each(listaDigitables, function (i, item) {
-            
-            var cuv = $.trim($(item).attr("data-tono-select"));
-            btnActivar = btnActivar ? !(cuv == "") : btnActivar;
-        });
-
-        if (btnActivar) {
-            prod.parents("[data-item]").find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
-        }
-        // PPC
-        
-        if (accion == 2) {
-            var URLactual = window.location.search;
-            var campana = URLactual.substring(12, 18);
-            var fichaPromise = ObtenerProductoPromise(cuv, campana);
-            var producto;
-            $.when(fichaPromise).then(function (response) {
-                if (checkTimeout(response)) {
-                    if (response !== null) {
-                        
-                        var cabecera = document.getElementsByTagName("head")[0];
-                        var nuevoScript = document.createElement('script');
-                        nuevoScript.type = 'text/javascript';
-                        nuevoScript.src = "https://ok383.infusionsoft.com/app/webTracking/getTrackingCode";
-                        nuevoScript.id = "infusionsoft";
-                        cabecera.appendChild(nuevoScript);
-                        producto = response;
-                        
-                        $('#fav_nombre_prod').text(producto.DescripcionCompleta);
-                    }
-                }
-            });
-
-        }
-        // PPC
-    }
-    var so = $.trim(tipoOrigenEstrategia)[0];
-    if (so == 1) {
-        $(document).on('mousemove', '[data-tono-change]', function (e) {
-            var activo = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
-            if (activo == 1) {
-                $(this).parents("[data-tono]").find('.content_tonos_select').show();
-            }
-        });
-
-        $(document).on('mouseleave', '.content_tonos_select', function (e) {
-            $(this).hide();
-            $(this).attr("data-visible", "0");
-        });
-    }
-});
-
-
-function ObtenerProductoPromise(cuv, campaniaId) {
-    
-    var d = $.Deferred();
-    
-    var promise = $.ajax({
-        type: 'GET',
-        url: baseUrl + 'FichaProducto/ObtenerFichaProducto?cuv=' + cuv + '&campanaId=' + campaniaId,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: true
-    });
-
-    promise.done(function (response) {
-        d.resolve(response);
-    })
-    promise.fail(d.reject);
-
-    return d.promise();
-};
-
-function CargarCarouselEstrategias(cuv) {
+function CargarCarouselEstrategias() {
     $.ajax({
-        type: 'GET',
-        url: baseUrl + 'OfertasParaTi/JsonConsultarEstrategias',
+        type: "GET",
+        url: baseUrl + "Estrategia/JsonConsultarEstrategias",
         data: {
-            cuv: cuv,
             tipoOrigenEstrategia: tipoOrigenEstrategia
         },
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
         success: function (data) {
             data.Lista = Clone(data.ListaModelo);
             data.ListaModelo = [];
             ArmarCarouselEstrategias(data);
         },
         error: function (error) {
-            $('#divListadoEstrategia').html('<div style="text-align: center;">Ocurrio un error al cargar los productos.</div>');
+            $("#divListadoEstrategia").html('<div style="text-align: center;">Ocurrio un error al cargar los productos.</div>');
         }
     });
 }
@@ -237,16 +37,16 @@ function CargarCarouselEstrategias(cuv) {
 var CargarCarouselMasVendidos = function (origen) {
     var model = obtenerModelMasVendidos();
     if (model != null) {
-        $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');
+        $("#divCarrouselMasVendidos.slick-initialized").slick("unslick");
         ArmarCarouselMasVendidos(model);
         inicializarDivMasVendidos(origen);
         _validarDivTituloMasVendidos();
     }
-}
+};
 
 var obtenerModelMasVendidos = function () {
     var model = get_local_storage("data_mas_vendidos");
-    if (typeof model === 'undefined' || model === null) {
+    if (typeof model === "undefined" || model === null) {
         var promesa = _obtenerModelMasVendidosPromise();
         $.when(promesa)
             .then(function (response) {
@@ -259,46 +59,46 @@ var obtenerModelMasVendidos = function () {
             });
     }
     return model;
-}
+};
 
 var _obtenerModelMasVendidosPromise = function () {
     var d = $.Deferred();
     var promise = $.ajax({
-        type: 'GET',
-        url: baseUrl + "OfertasMasVendidos/ObtenerOfertas",
+        type: "GET",
+        url: baseUrl + "Estrategia/BSObtenerOfertas",
         data: "",
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
         async: false
     });
 
     promise.done(function (response) {
         d.resolve(response);
-    })
+    });
     promise.fail(d.reject);
 
     return d.promise();
 };
 
 function inicializarDivMasVendidos(origen) {
-    $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');
+    $("#divCarrouselMasVendidos.slick-initialized").slick("unslick");
 
     var slickArrows = {
         'mobile': {
-            prev: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>'
-            , next: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>'
+            prev: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            next: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>'
         },
         'desktop': {
-            prev: '<a class="previous_ofertas" style="left:-5%; text-align:left;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>'
-            , next: '<a class="previous_ofertas" style="display: block; right:-5%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+            prev: '<a class="previous_ofertas" style="left:-5%; text-align:left;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            next: '<a class="previous_ofertas" style="display: block; right:-5%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
         }
     };
 
-    $('#divCarrouselMasVendidos').not('.slick-initialized').slick({
+    $("#divCarrouselMasVendidos").not(".slick-initialized").slick({
         infinite: true,
         vertical: false,
         centerMode: false,
-        centerPadding: '0px',
+        centerPadding: "0px",
         slidesToShow: 4,
         slidesToScroll: 1,
         autoplay: false,
@@ -333,7 +133,7 @@ function ArmarCarouselMasVendidos(data) {
             if (checkTimeout(response)) {
                 if (response.success) {
                     data = response.data;
-                    SetHandlebars("#mas-vendidos-template", data, '#divCarrouselMasVendidos');
+                    SetHandlebars("#mas-vendidos-template", data, "#divCarrouselMasVendidos");
                     if (data.Lista == null) data.Lista = [];
                     PintarEstrellas(data.Lista);
                     PintarRecomendaciones(data.Lista);
@@ -367,7 +167,7 @@ function PintarRecomendaciones(listaMasVendidos) {
 
 function _pintarRecomendaciones(item) {
     var xdiv = "#recommedation-" + item.EstrategiaID.toString();
-    var recommendation = '(' + item.CantComenAprob.toString() + ')';
+    var recommendation = "(" + item.CantComenAprob.toString() + ")";
     $(xdiv).html(recommendation);
     $(xdiv).show();
 }
@@ -384,8 +184,8 @@ function _pintarEstrellas(item) {
         item.PromValorizado = item.PromValorizado || 0;
 
         var xdiv = "#star-" + item.EstrategiaID.toString();
-        var rating = '';
-        rating = item.PromValorizado.toString() + '%';
+        var rating = "";
+        rating = item.PromValorizado.toString() + "%";
 
         if ($(xdiv).length) {
             $(xdiv).rateYo({
@@ -405,15 +205,15 @@ function _pintarEstrellas(item) {
 
 function ArmarCarouselEstrategias(data) {
 
-    $('#divListaEstrategias').hide();
-    $('.js-slick-prev').remove();
-    $('.js-slick-next').remove();
-    $('#divListadoEstrategia.slick-initialized').slick('unslick');
+    $("#divListaEstrategias").hide();
+    $(".js-slick-prev").remove();
+    $(".js-slick-next").remove();
+    $("#divListadoEstrategia.slick-initialized").slick("unslick");
     data.Lista = data.Lista || [];
     if (data.Lista.length == 0) {
-        $('#divListaEstrategias').show();
-        $('#divContenedorListaEstrategia').hide();
-        $('.contenido_gana_mas').hide();
+        $("#divListaEstrategias").show();
+        $("#divContenedorListaEstrategia").hide();
+        $(".contenido_gana_mas").hide();
         if (revistaDigital) {
             if (revistaDigital.TieneRDC) {
                 if (isMobile()) {
@@ -450,7 +250,7 @@ function ArmarCarouselEstrategias(data) {
             if (data.ListaLan) {
                 if (data.ListaLan.length > 0) {
                     if (revistaDigital.EsActiva) {
-                        var productoLanzamiento = new Object();
+                        var productoLanzamiento = {};
                         $.extend(true, productoLanzamiento, data.ListaLan[0]);
                         productoLanzamiento.EsLanzamiento = true;
                         productoLanzamiento.EsBanner = false;
@@ -470,7 +270,7 @@ function ArmarCarouselEstrategias(data) {
             }
 
             if (!revistaDigital.EsSuscrita) {
-                var bannerClubGanaMas = new Object();
+                var bannerClubGanaMas = {};
                 $.extend(true, bannerClubGanaMas, data.Lista[0]);
                 bannerClubGanaMas.EsBanner = true;
 
@@ -492,17 +292,17 @@ function ArmarCarouselEstrategias(data) {
    
 
     data.lista = data.Lista;
-    SetHandlebars("#producto-landing-template", data, '#divListadoEstrategia');
+    SetHandlebars("#producto-landing-template", data, "#divListadoEstrategia");
 
     if (tipoOrigenEstrategia == 11) {
-        $('#cierreCarousel').hide();
+        $("#cierreCarousel").hide();
         $("[data-barra-width]").css("width", indicadorFlexiPago == 1 ? "68%" : "100%");
 
-        $('.caja_pedidos').addClass('sinOfertasParaTi');
-        $('.tooltip_infoCopy').addClass('tooltip_infoCopy_expand');
+        $(".caja_pedidos").addClass("sinOfertasParaTi");
+        $(".tooltip_infoCopy").addClass("tooltip_infoCopy_expand");
     }
 
-    if ($.trim($('#divListadoEstrategia').html()).length == 0) {
+    if ($.trim($("#divListadoEstrategia").html()).length == 0) {
         return false;
     }
 
@@ -512,13 +312,13 @@ function ArmarCarouselEstrategias(data) {
         var cantProCarrusel = 4;
         var esVariableWidth = true;
 
-        $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "content_item_carrusel");
-        $('#divListaEstrategias').show();
+        $("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "content_item_carrusel");
+        $("#divListaEstrategias").show();
 
-        EstablecerLazyCarrusel($('#divListadoEstrategia'));
+        EstablecerLazyCarrusel($("#divListadoEstrategia"));
 
-        $('#divListadoEstrategia').not('.slick-initialized').slick({
-            lazyLoad: 'ondemand',
+        $("#divListadoEstrategia").not(".slick-initialized").slick({
+            lazyLoad: "ondemand",
             infinite: true,
             vertical: false,
             slidesToShow: cantProCarrusel,
@@ -536,28 +336,28 @@ function ArmarCarouselEstrategias(data) {
                     }
                 }
             ]
-        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+        }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
         });
     }
     else if (tipoOrigenEstrategia == 11) {
-        $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "producto_carousel");
-        $('#divListaEstrategias #divListadoEstrategia [data-item]').css("padding-bottom", "0");
+        $("#divListaEstrategias #divListadoEstrategia [data-item] > div").attr("class", "producto_carousel");
+        $("#divListaEstrategias #divListadoEstrategia [data-item]").css("padding-bottom", "0");
 
         $("[data-barra-width]").css("width", "100%");
-        $('#divListaEstrategias').show();
+        $("#divListaEstrategias").show();
         if (indicadorFlexiPago == 1) {
-            $('#divListaEstrategias').css("margin-top", ($(".flexiPago_belcorp").outerHeight() + 50) + "px");
+            $("#divListaEstrategias").css("margin-top", ($(".flexiPago_belcorp").outerHeight() + 50) + "px");
         }
-        $('.caja_pedidos').removeClass('sinOfertasParaTi');
-        $('.tooltip_infoCopy').removeClass('tooltip_infoCopy_expand');
+        $(".caja_pedidos").removeClass("sinOfertasParaTi");
+        $(".tooltip_infoCopy").removeClass("tooltip_infoCopy_expand");
         var hCar = $($("#divListadoEstrategia").find("[data-item]").get(0)).height();
         var heightReference = $("#divListadoPedido").find("[data-tag='table']").height();
         var cant = parseInt(heightReference / hCar);
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
         cant = data.CodigoEstrategia == "101" ? (data.Lista.length > 4 ? 4 : data.Lista.length) : cant;
 
-        EstablecerLazyCarrusel($('#divListadoEstrategia'));
+        EstablecerLazyCarrusel($("#divListadoEstrategia"));
 
         var claseFlechaDoradaNext = "";
         var claseFlechaDoradaPrev = "";
@@ -571,12 +371,12 @@ function ArmarCarouselEstrategias(data) {
             }
         }        
 
-        $('#divListadoEstrategia').not('.slick-initialized').slick({
-            lazyLoad: 'ondemand',
+        $("#divListadoEstrategia").not(".slick-initialized").slick({
+            lazyLoad: "ondemand",
             infinite: true,
             vertical: true,
             centerMode: false,
-            centerPadding: '0px',
+            centerPadding: "0px",
             slidesToShow: cant,
             slidesToScroll: 1,
             autoplay: false,
@@ -584,23 +384,23 @@ function ArmarCarouselEstrategias(data) {
             pantallaPedido: false,
             prevArrow: '<button type="button" data-role="none" class="slick-next ' + claseFlechaDoradaNext+' "></button>',
             nextArrow: '<button type="button" data-role="none" class="slick-prev ' + claseFlechaDoradaPrev+'"></button>'
-        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+        }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
         });
 
         if (data.Lista.length > cant) {
-            $('#cierreCarousel').show();
+            $("#cierreCarousel").show();
         }
         MostrarBarra();
     }
     else if (tipoOrigenEstrategia == 2) {
-        $('#div-linea-OPT').show();
+        $("#div-linea-OPT").show();
         $("#divListaEstrategias").show();
 
-        EstablecerLazyCarrusel($('#divListadoEstrategia'));
+        EstablecerLazyCarrusel($("#divListadoEstrategia"));
 
-        $('#divListadoEstrategia').slick({
-            lazyload: 'ondemand',
+        $("#divListadoEstrategia").slick({
+            lazyload: "ondemand",
             infinite: true,
             vertical: false,
             slidesToShow: 1,
@@ -624,17 +424,17 @@ function ArmarCarouselEstrategias(data) {
                     settings: { slidesToShow: 1, slidesToScroll: 1 }
                 }
             ]
-        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+        }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
         });
     }
     else if (tipoOrigenEstrategia == 21) {
         $("#divListaEstrategias").show();
 
-        EstablecerLazyCarrusel($('#divListadoEstrategia'));
+        EstablecerLazyCarrusel($("#divListadoEstrategia"));
 
-        $('#divListadoEstrategia').slick({
-            lazyLoad: 'ondemand',
+        $("#divListadoEstrategia").slick({
+            lazyLoad: "ondemand",
             slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: false,
@@ -659,7 +459,7 @@ function ArmarCarouselEstrategias(data) {
                     settings: { slidesToShow: 1, slidesToScroll: 1 }
                 }
             ]
-        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+        }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
         });
     }
@@ -675,77 +475,77 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
         tipoOrigenEstrategia == 2 ? "MobileHome" : tipoOrigenEstrategia == 21 ? "MobilePedido" : "";
     var accion;
     if (nextSlide == 0 && currentSlide + 1 == arrayOfertasParaTi.length) {
-        accion = 'next';
+        accion = "next";
     } else if (currentSlide == 0 && nextSlide + 1 == arrayOfertasParaTi.length) {
-        accion = 'prev';
+        accion = "prev";
     } else if (nextSlide > currentSlide) {
-        accion = 'next';
+        accion = "next";
     } else {
-        accion = 'prev';
+        accion = "prev";
     }
 
-    if (accion == 'prev') {
-        var posicionPrimerActivo = $($('#divListadoEstrategia').find(".slick-active")[0]).find('.PosicionEstrategia').val();
+    if (accion == "prev") {
+        var posicionPrimerActivo = $($("#divListadoEstrategia").find(".slick-active")[0]).find(".PosicionEstrategia").val();
          posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
          recomendado = arrayOfertasParaTi[posicionEstrategia];
-         arrayEstrategia = new Array();
+         arrayEstrategia = [];
         arrayEstrategia.push({
             'name': recomendado.DescripcionCompleta,
             'id': recomendado.CUV2,
             'price': $.trim(recomendado.Precio2),
             'brand': recomendado.DescripcionMarcaEstrategiaAgregarProducto,
-            'category': 'NO DISPONIBLE',
+            'category': "NO DISPONIBLE",
             'variant': recomendado.DescripcionEstrategia,
-            'list': 'Ofertas para ti - ' + origen,
+            'list': "Ofertas para ti - " + origen,
             'position': recomendado.Posicion
         });
 
         dataLayer.push({
-            'event': 'productImpression',
+            'event': "productImpression",
             'ecommerce': {
                 'impressions': arrayEstrategia
             }
         });
         dataLayer.push({
-            'event': 'virtualEvent',
+            'event': "virtualEvent",
             'category': origen,
-            'action': 'Ofertas para ti',
-            'label': 'Ver anterior'
+            'action': "Ofertas para ti",
+            'label': "Ver anterior"
         });
-    } else if (accion == 'next') {
-        var posicionUltimoActivo = $($('#divListadoEstrategia').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
+    } else if (accion == "next") {
+        var posicionUltimoActivo = $($("#divListadoEstrategia").find(".slick-active").slice(-1)[0]).find(".PosicionEstrategia").val();
          posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
          recomendado = arrayOfertasParaTi[posicionEstrategia];
-         arrayEstrategia = new Array();
+         arrayEstrategia = [];
          arrayEstrategia.push({
             'name': recomendado.DescripcionCompleta,
             'id': recomendado.CUV2,
             'price': $.trim(recomendado.Precio2),
             'brand': recomendado.DescripcionMarca,
-            'category': 'NO DISPONIBLE',
+            'category': "NO DISPONIBLE",
             'variant': recomendado.DescripcionEstrategia,
-            'list': 'Ofertas para ti - ' + origen,
+            'list': "Ofertas para ti - " + origen,
             'position': recomendado.Posicion
         });
 
         dataLayer.push({
-            'event': 'productImpression',
+            'event': "productImpression",
             'ecommerce': {
                 'impressions': arrayEstrategia
             }
         });
         dataLayer.push({
-            'event': 'virtualEvent',
+            'event': "virtualEvent",
             'category': origen,
-            'action': 'Ofertas para ti',
-            'label': 'Ver siguiente'
+            'action': "Ofertas para ti",
+            'label': "Ver siguiente"
         });
     }
 }
 
 
 function EstructurarDataCarousel(array) {
-    array = array || new Array();
+    array = array || [];
     var isList = array.length != undefined;
     var lista = [];
     if (typeof array == "object") {
@@ -757,17 +557,17 @@ function EstructurarDataCarousel(array) {
     var urlOfertaDetalle = $.trim(urlOfertaDetalle);
     $.each(lista, function (i, item) {
         item.DescripcionCUV2 = $.trim(item.DescripcionCUV2);
-        item.DescripcionCompleta = item.DescripcionCUV2.split('|')[0];
+        item.DescripcionCompleta = item.DescripcionCUV2.split("|")[0];
         if (item.FlagNueva == 1) {
-            item.DescripcionCUVSplit = item.DescripcionCUV2.split('|')[0];
-            item.ArrayContenidoSet = item.DescripcionCUV2.split('|').slice(1);
+            item.DescripcionCUVSplit = item.DescripcionCUV2.split("|")[0];
+            item.ArrayContenidoSet = item.DescripcionCUV2.split("|").slice(1);
         } else {
             item.DescripcionCUV2 = (item.DescripcionCUV2.length > 40 ? item.DescripcionCUV2.substring(0, 40) + "..." : item.DescripcionCUV2);
         }
 
         item.Posicion = i + 1;
         item.MostrarTextoLibre = (item.TextoLibre ? $.trim(item.TextoLibre).length > 0 : false);
-        item.UrlDetalle = urlOfertaDetalle + '/' + (item.ID || item.Id) || "";
+        item.UrlDetalle = urlOfertaDetalle + "/" + (item.ID || item.Id) || "";
         item.PrecioVenta = item.PrecioString;
     });
     return isList ? lista : lista[0];
@@ -793,8 +593,10 @@ function EstrategiaVerDetalle(id, origen) {
 
             obj.CUV2 = $.trim(obj.CUV2);
             if (obj.CUV2 != "") {
-                if (GuardarProductoTemporal(obj))
-                    return window.location = url;
+                if (GuardarProductoTemporal(obj)){
+                    window.location = url;
+                    return true;
+                }
             }
         }
     } catch (e) {
@@ -803,30 +605,7 @@ function EstrategiaVerDetalle(id, origen) {
     window.location = url;
 }
 
-function EstrategiaMostrarMasTonos(menos) {
-    if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21) {
-        if (menos) {
-            var tonos = $("#popupDetalleCarousel_lanzamiento [data-tono-div] [data-tono-change]");
-            var h = $(tonos[0]).height();
-            var w = $(tonos[0]).width();
-            var total = tonos.length;
-            var t = $("#popupDetalleCarousel_lanzamiento [data-tono-div]").width();
-            if (w * total > t) {
-                $(".indicador_tono").show();
-            }
-            else {
-                $(".indicador_tono").hide();
 
-            }
-            $("#popupDetalleCarousel_lanzamiento [data-tono-div]").css("height", Math.max(h, w) + 5);
-        }
-        else {
-            $("#popupDetalleCarousel_lanzamiento [data-tono-div]").css("height", "auto");
-        }
-
-
-    }
-}
 
 function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     if ($.trim($(objInput).attr("data-bloqueada")) != "") {
@@ -887,15 +666,15 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     var posicionItem = objParameter.Posicion;
     var flagNueva = objParameter.FlagNueva;
 
-    var cantidadIngresada = (limite > 0) ? limite : $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val()
-        || $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val()
-        || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val();
+    var cantidadIngresada = (limite > 0) ? limite : $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val() ||
+        $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val() || 
+        $(objInput).parents("[data-item]").find("[data-input='cantidad']").val();
     origenPedidoWebEstrategia =
-        $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
-        || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
-        || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
-        || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
-        || origenPedidoWebEstrategia;
+        $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val() ||
+        $(objInput).parents("[data-item]").attr("OrigenPedidoWeb") || 
+        $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb") || 
+        $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb") || 
+        origenPedidoWebEstrategia;
 
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
@@ -909,10 +688,10 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     };
 
     jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'AdministrarEstrategia/FiltrarEstrategiaPedido',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
+        type: "POST",
+        url: baseUrl + "AdministrarEstrategia/FiltrarEstrategiaPedido",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
         data: JSON.stringify(params),
         async: true,
         success: function (datos) {
@@ -921,15 +700,15 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 agregarProductoAlCarrito(objInput);
 
                 if (objParameter.FlagNueva == "1")
-                    $('#OfertaTipoNuevo').val(objParameter.FlagNueva);
+                    $("#OfertaTipoNuevo").val(objParameter.FlagNueva);
                 else
-                    $('#OfertaTipoNuevo').val("");
+                    $("#OfertaTipoNuevo").val("");
             }
 
             datos.data.cantidadIngresada = cantidadIngresada;
             datos.data.posicionItem = posicionItem;
 
-            var estrategiaCarrusel = popup ? new Object() : JSON.parse($(objInput).parents("[data-estrategia]").attr("data-estrategia"));
+            var estrategiaCarrusel = popup ? {} : JSON.parse($(objInput).parents("[data-estrategia]").attr("data-estrategia"));
 
             var codigoEstrategia = popup ? $(objInput).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia") : estrategiaCarrusel.CodigoEstrategia;
             if ((codigoEstrategia == "2001" || codigoEstrategia == "2003") && popup) {
@@ -961,146 +740,15 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
             CerrarLoad();
         }
     });
-};
+}
 
-//function EstrategiaTallaColor(datos) {
-
-//    var flagEstrella = (datos.data.FlagEstrella == 0) ? "hidden" : "visible";
-//    $("#imgTipoOfertaEdit").attr("src", datos.data.ImagenURL);
-//    $("#imgEstrellaEdit").css({ "visibility": flagEstrella });
-//    $("#imgZonaEstrategiaEdit").attr("src", datos.data.FotoProducto01);
-
-//    if (datos.data.Precio != "0") {
-//        $(".zona2Edit").html(datos.data.EtiquetaDescripcion + ' ' + datos.data.Simbolo + '' + datos.precio);
-//    } else {
-//        $(".zona2Edit").html("");
-//    }
-
-//    if (datos.data.Precio2 != "0") {
-//        $(".zona3Edit_1").html(datos.data.EtiquetaDescripcion2);
-//        $(".zona3Edit_2").html('<span>' + datos.data.Simbolo + '' + datos.precio2 + '</span>');
-//    } else {
-//        $(".zona3Edit_1").html("");
-//        $(".zona3Edit_2").html("");
-//    }
-
-//    if (datos.data.TextoLibre != "") {
-//        $(".zona4Edit").html(datos.data.TextoLibre);
-//    } else {
-//        $(".zona4Edit").html("");
-//    }
-
-//    if (datos.data.ColorFondo != "") {
-//        $("#divVistaPrevia").css({ "background-color": datos.data.ColorFondo });
-//    } else {
-//        $("#divVistaPrevia").css({ "background-color": "#FFF" });
-//    }
-
-//    $("#txtCantidadZE").val(cantidadIngresada);
-//    $("#txtCantidadZE").attr("est-cantidad", datos.data.LimiteVenta);
-//    $("#txtCantidadZE").attr("est-cuv2", datos.data.CUV2);
-//    $("#txtCantidadZE").attr("est-marcaID", datos.data.MarcaID);
-//    $("#txtCantidadZE").attr("est-precio2", datos.data.Precio2);
-//    $("#txtCantidadZE").attr("est-montominimo", datos.data.IndicadorMontoMinimo);
-//    $("#txtCantidadZE").attr("est-tipooferta", datos.data.TipoOferta);
-//    $("#txtCantidadZE").attr("est-descripcionMarca", datos.data.DescripcionMarca);
-//    $("#txtCantidadZE").attr("est-descripcionEstrategia", datos.data.DescripcionEstrategia);
-//    $("#txtCantidadZE").attr("est-descripcionCategoria", datos.data.DescripcionCategoria);
-//    $("#txtCantidadZE").attr("est-posicion", posicionItem);
-
-//    $("#ddlTallaColor").empty();
-//    $(".zona0Edit").html(datos.data.DescripcionMarca);
-
-//    /*Validar Programa Ofertas Nuevas*/
-//    $("#hdnProgramaOfertaNuevo").val(false);
-//    $("#OfertasResultados li").hide();
-//    $("#OfertaTipoNuevo").val("");
-
-//    if (datos.data.FlagNueva == 1) {
-//        $(".zona4Edit").hide();
-//        $(".zonaCantidad").hide();
-//        $("#hdnProgramaOfertaNuevo").val(true);
-//        var nroPedidos = false;
-//        var pedidosData = $('#divListadoPedido').find("input[id^='hdfFlagNueva']");
-
-//        pedidosData.each(function (indice, valor) {
-//            if (valor.value == 1) {
-//                nroPedidos = true;
-//                var OfertaTipoNuevo = "".concat($('#divListadoPedido').find("input[id^='hdfCampaniaID']")[indice].value, ";",
-//                    $('#divListadoPedido').find("input[id^='hdfPedidoId']")[indice].value, ";",
-//                    $('#divListadoPedido').find("input[id^='hdfPedidoDetalleID']")[indice].value, ";",
-//                    $('#divListadoPedido').find("input[id^='hdfTipoOfertaSisID']")[indice].value, ";",
-//                    $('#divListadoPedido').find("input[id^='hdfCUV']")[indice].value, ";",
-//                    $('#divListadoPedido').find("input[id^='txtLPTempCant']")[indice].value, ";",
-//                    $('#hdnPagina').val(), ";",
-//                    $('#hdnClienteID2_').val());
-
-//                $("#OfertaTipoNuevo").val(OfertaTipoNuevo);
-//                return;
-//            }
-//        });
-
-//        if (nroPedidos) {
-//            $(".zona4Edit").text(datos.data.TextoLibre);
-//            $(".zona4Edit").show();
-//        }
-
-//        var ofertas = datos.data.DescripcionCUV2.split('|');
-//        $(".zona1Edit").html(ofertas[0]);
-//        $("#txtCantidadZE").attr("est-descripcion", ofertas[0]);
-//        $("#OfertasResultados li").remove();
-
-//        $.each(ofertas, function (i) {
-//            if (i != 0 && $.trim(ofertas[i]) != "") {
-//                $("#OfertasResultados").append("<li>" + ofertas[i] + "</li>");
-//            }
-//        });
-
-//        CerrarLoad();
-//        EstrategiaAgregarProducto(popup, tipoEstrategiaImagen);
-//    } else {
-//        $(".zona4Edit").show();
-//        $(".zonaCantidad").show();
-//        $(".zona1Edit").html(datos.data.DescripcionCUV2);
-//        $("#txtCantidadZE").attr("est-descripcion", datos.data.DescripcionCUV2);
-//        var option = "";
-//        $(".tallaColor").hide();
-//        if (datos.data.TallaColor != "") {
-//            var arrOption = datos.data.TallaColor.split('</>');
-//            if (arrOption.length > 2) {
-//                for (var i = 0; i < arrOption.length; i++) {
-//                    if (arrOption[i] != "") {
-//                        option = "<option ";
-//                        var strOption = arrOption[i].split('|');
-//                        var strCuv = strOption[0];
-//                        var strDescCuv = strOption[1];
-//                        var strDescTalla = strOption[2];
-//                        option += " value='" + strCuv + "' desc-talla='" + strDescCuv + "' >" + strDescTalla + "</option>";
-//                        $("#ddlTallaColor").append(option);
-//                    }
-//                }
-
-//                $(".tallaColor").show();
-//                if (tipoOrigenEstrategia == 11) {
-//                    showDialog('divVistaPrevia');
-//                }
-//            }
-//        }
-//        if (option == "") {
-//            EstrategiaAgregarProducto(popup, tipoEstrategiaImagen);
-//        } else {
-//            CerrarLoad();
-//        }
-//    }
-
-//}
 
 function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
     AbrirLoad();
     var marcaID = datosEst.MarcaID;
     var cuv = datosEst.CUV2;
     var precio = datosEst.Precio2;
-    var ofertas = datosEst.DescripcionCUV2.split('|');
+    var ofertas = datosEst.DescripcionCUV2.split("|");
     var descripcion = ofertas[0];
     var cantidad = datosEst.cantidadIngresada;
     var cantidadLimite = datosEst.LimiteVenta;
@@ -1116,13 +764,13 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
 
     if (!$.isNumeric(cantidad)) {
         AbrirMensajeEstrategia("Ingrese un valor numérico.");
-        $('.liquidacion_rango_cantidad_pedido').val(1);
+        $(".liquidacion_rango_cantidad_pedido").val(1);
         CerrarLoad();
         return false;
     }
     if (parseInt(cantidad) <= 0) {
         AbrirMensajeEstrategia("La cantidad debe ser mayor a cero.");
-        $('.liquidacion_rango_cantidad_pedido').val(1);
+        $(".liquidacion_rango_cantidad_pedido").val(1);
         CerrarLoad();
         return false;
     }
@@ -1141,18 +789,17 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         MarcaID: marcaID,
         DescripcionProd: descripcion,
         IndicadorMontoMinimo: indicadorMontoMinimo,
-        ClienteID_: '-1',
+        ClienteID_: "-1",
         TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
         Descripcion: descripcion,
-        TipoOferta: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val(),
-        TipoEstrategiaImagen: tipoEstrategiaImagen || 0
+        TipoOferta: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val()
     };
 
     jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/ValidarStockEstrategia',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
+        type: "POST",
+        url: baseUrl + "Pedido/ValidarStockEstrategia",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
         data: JSON.stringify(param),
         async: false,
         success: function (datos) {
@@ -1163,10 +810,10 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                 CerrarLoad();
             } else {
                 jQuery.ajax({
-                    type: 'POST',
-                    url: baseUrl + 'Pedido/AgregarProductoZE',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
+                    type: "POST",
+                    url: baseUrl + "Pedido/AgregarProductoZE",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(param),
                     async: true,
                     success: function (data) {
@@ -1188,9 +835,9 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         }
 
                         if (tipoOrigenEstrategia == 1) {
-                            MostrarBarra(data, '1');
+                            MostrarBarra(data, "1");
                             ActualizarGanancia(data.DataBarra);
-                            CargarCarouselEstrategias(cuv);
+                            CargarCarouselEstrategias();
                           
 
                             CargarResumenCampaniaHeader(true);
@@ -1200,7 +847,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
 
                             cierreCarouselEstrategias();
-                            CargarCarouselEstrategias(cuv);
+                            CargarCarouselEstrategias();
                             CargarResumenCampaniaHeader();
                             HideDialog("divVistaPrevia");
 
@@ -1221,7 +868,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                                 }
                             }
                             else if (tipoOrigenEstrategia != 272) {
-                                CargarCarouselEstrategias(cuv);
+                                CargarCarouselEstrategias();
 
                            
                             }
@@ -1235,7 +882,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
 
                         CerrarLoad();
                         if (popup) {
-                            CerrarPopup('#popupDetalleCarousel_lanzamiento');
+                            CerrarPopup("#popupDetalleCarousel_lanzamiento");
                             HidePopupEstrategiasEspeciales();
                         }
 
@@ -1263,12 +910,12 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
 }
 
 function HidePopupEstrategiasEspeciales() {
-    $('#popupDetalleCarousel_packNuevas').hide();
+    $("#popupDetalleCarousel_packNuevas").hide();
 }
 
 function CerrarLoad() {
     if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) {
-        closeWaitingDialog()
+        closeWaitingDialog();
     }
     else if (tipoOrigenEstrategia == 11) {
         CerrarSplash();
@@ -1279,13 +926,13 @@ function CerrarLoad() {
         CloseLoading();
     }
     else {
-        closeWaitingDialog()
+        closeWaitingDialog();
     }
 }
 
 function AbrirLoad() {
     if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) {
-        waitingDialog()
+        waitingDialog();
     }
     else if (tipoOrigenEstrategia == 11) {
         AbrirSplash();
@@ -1321,7 +968,7 @@ function AbrirMensajeEstrategia(txt) {
 }
 
 function ProcesarActualizacionMostrarContenedorCupon() {
-    if (typeof paginaOrigenCupon !== 'undefined' && paginaOrigenCupon) {
+    if (typeof paginaOrigenCupon !== "undefined" && paginaOrigenCupon) {
         if (cuponModule) {
             cuponModule.actualizarContenedorCupon();
         }
@@ -1330,7 +977,7 @@ function ProcesarActualizacionMostrarContenedorCupon() {
 
 function RevisarMostrarContenedorCupon() {
    
-    if (typeof finishLoadCuponContenedorInfo !== 'undefined' && finishLoadCuponContenedorInfo) {
+    if (typeof finishLoadCuponContenedorInfo !== "undefined" && finishLoadCuponContenedorInfo) {
         if (cuponModule) {
             cuponModule.revisarMostrarContenedorCupon();
         }
@@ -1342,7 +989,7 @@ function _validarDivTituloMasVendidos() {
     var xmodel = get_local_storage("data_mas_vendidos");
     var xlista = [];
 
-    if (xmodel !== 'undefined' && xmodel !== null) {
+    if (xmodel !== "undefined" && xmodel !== null) {
         xlista = xmodel.Lista;
     }
 
@@ -1374,10 +1021,10 @@ function GuardarProductoTemporal(obj) {
     obj.TipoAccionAgregar = obj.TipoAccionAgregarBack || obj.TipoAccionAgregar;
 
     jQuery.ajax({
-        type: 'POST',
+        type: "POST",
         url: urlOfertaDetalleProductoTem,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
         data: JSON.stringify(obj),
         async: false,
         success: function (response) {
@@ -1385,7 +1032,7 @@ function GuardarProductoTemporal(obj) {
         },
         error: function (response, error) {
             CerrarLoad();
-            localStorage.setItem(lsListaRD, '');
+            localStorage.setItem(lsListaRD, "");
         }
     });
 

@@ -41,6 +41,20 @@ namespace Portal.Consultoras.BizLogic
             return lista;
         }
 
+        public List<BEEstrategiaProducto> GetEstrategiaProductoList(int PaisID,string idList)
+        {
+            var lista = new List<BEEstrategiaProducto>();
+            var da = new DAEstrategiaProducto(PaisID);
+
+            using (IDataReader reader = da.GetEstrategiaProductoList(idList))
+                while (reader.Read())
+                {
+                    var entidadR = new BEEstrategiaProducto(reader);
+                    lista.Add(entidadR);
+                }
+
+            return lista;
+        }
         public bool DeleteEstrategiaProducto(BEEstrategiaProducto entidad)
         {
             var DA = new DAEstrategiaProducto(entidad.PaisID);

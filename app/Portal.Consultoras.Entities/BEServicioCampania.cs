@@ -24,18 +24,11 @@ namespace Portal.Consultoras.Entities
         public BEServicioCampania() { }
         public BEServicioCampania(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "ServicioId"))
-                ServicioId = Convert.ToInt32(row["ServicioId"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "Url"))
-                Url = Convert.ToString(row["Url"]);
-
-            if (DataRecord.HasColumn(row, "Segmento"))
-                Segmento = Convert.ToString(row["Segmento"]);
-
-            if (DataRecord.HasColumn(row, "ConfiguracionZona"))
-                ConfiguracionZona = Convert.ToString(row["ConfiguracionZona"]);
+            ServicioId = row.ToInt32("ServicioId");
+            Descripcion = row.ToString("Descripcion");
+            Url = row.ToString("Url");
+            Segmento = row.ToString("Segmento");
+            ConfiguracionZona = row.ToString("ConfiguracionZona");
         }
     }
 }

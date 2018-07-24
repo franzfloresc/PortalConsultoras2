@@ -83,7 +83,7 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros)
             return false;
         }
 
-        location.href = URL;
+        window.location.href = URL;
         return true;
     }
 }

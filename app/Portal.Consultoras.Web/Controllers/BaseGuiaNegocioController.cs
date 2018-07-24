@@ -1,74 +1,37 @@
-﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceSAC;
-using System.Collections.Generic;
-using System.Web.Mvc;
+﻿//using Portal.Consultoras.Common;
+//using Portal.Consultoras.Web.Models;
+//using Portal.Consultoras.Web.Providers;
+//using System.Web.Mvc;
 
-namespace Portal.Consultoras.Web.Controllers
-{
-    public class BaseGuiaNegocioController : BaseEstrategiaController
-    {
-        public virtual ActionResult ViewLanding()
-        {
-            ViewBag.CodigoRevistaActual = GetRevistaCodigoIssuu(userData.CampaniaID.ToString());
-            ViewBag.CodigoRevistaAnterior = GetRevistaCodigoIssuu(AddCampaniaAndNumero(userData.CampaniaID, -1).ToString());
-            ViewBag.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(AddCampaniaAndNumero(userData.CampaniaID, 1).ToString());
+//namespace Portal.Consultoras.Web.Controllers
+//{
+//    public class BaseGuiaNegocioController : BaseEstrategiaController
+//    {
+//        private readonly IssuuProvider _issuuProvider;
 
-            var model = new RevistaDigitalLandingModel
-            {
-                CampaniaID = userData.CampaniaID,
-                IsMobile = IsMobile(),
-                FiltersBySorting = GetFiltersBySorting(),
-                FiltersByBrand = GetFiltersByBrand(),
-                Success = true,
-                CantidadFilas = 10
-            };
+//        public BaseGuiaNegocioController()
+//        {
+//            _issuuProvider = new IssuuProvider();
+//        }
 
-            return PartialView("Index", model);
-        }
+//        public virtual ActionResult ViewLanding()
+//        {
+//            ViewBag.CodigoRevistaActual = _issuuProvider.GetRevistaCodigoIssuu(userData.CampaniaID.ToString(), revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+//            ViewBag.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(Util.AddCampaniaAndNumero(userData.CampaniaID, -1, userData.NroCampanias).ToString(), revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+//            ViewBag.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString(), revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
 
-        public List<BETablaLogicaDatos> GetFiltersBySorting()
-        {
-            var filtersBySorting = new List<BETablaLogicaDatos>
-            {
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.GuiaNegocioTipoOrdenamiento.ValorPrecio.Predefinido,
-                    Descripcion = IsMobile() ? "ORDENAR POR" : "ORDENAR POR PRECIO"
-                },
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.GuiaNegocioTipoOrdenamiento.ValorPrecio.MenorAMayor,
-                    Descripcion = IsMobile() ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO"
-                },
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.GuiaNegocioTipoOrdenamiento.ValorPrecio.MayorAMenor,
-                    Descripcion = IsMobile() ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO"
-                }
-            };
-            return filtersBySorting;
-        }
+//            var model = new RevistaDigitalLandingModel
+//            {
+//                CampaniaID = userData.CampaniaID,
+//                IsMobile = IsMobile(),
+//                FiltersBySorting = _ofertasViewProvider.GetFiltersBySorting(IsMobile()),
+//                FiltersByBrand = _ofertasViewProvider.GetFiltersByBrand(),
+//                Success = true,
+//                MensajeProductoBloqueado = new MensajeProductoBloqueadoModel(),
+//                CantidadFilas = 10
+//            };
 
-        public List<BETablaLogicaDatos> GetFiltersByBrand()
-        {
-            var filterByBrand = new List<BETablaLogicaDatos>
-            {
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Predefinido,
-                    Descripcion = IsMobile() ? "MARCA" : "FILTRAR POR MARCA"
-                },
-                new BETablaLogicaDatos
-                {
-                    Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Cyzone,
-                    Descripcion = "CYZONE"
-                },
-                new BETablaLogicaDatos {Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Esika, Descripcion = "ÉSIKA"},
-                new BETablaLogicaDatos {Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.LBel, Descripcion = "LBEL"}
-            };
-            return filterByBrand;
-        }
-
-    }
-}
+//            return PartialView("Index", model);
+//        }
+//    }
+//}

@@ -21,16 +21,11 @@ namespace Portal.Consultoras.Entities
 
         public BELogModificacionCronograma(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Fecha"))
-                Fecha = Convert.ToString(row["Fecha"]);
-            if (DataRecord.HasColumn(row, "CodigoUsuario"))
-                CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-            if (DataRecord.HasColumn(row, "CodigosRegionZona"))
-                CodigosRegionZona = Convert.ToString(row["CodigosRegionZona"]);
-            if (DataRecord.HasColumn(row, "DiasDuracionCronogramaAnterior"))
-                DiasDuracionCronogramaAnterior = Convert.ToInt16(row["DiasDuracionCronogramaAnterior"]);
-            if (DataRecord.HasColumn(row, "DiasDuracionCronogramaActual"))
-                DiasDuracionCronogramaActual = Convert.ToInt16(row["DiasDuracionCronogramaActual"]);
+            Fecha = row.ToString("Fecha");
+            CodigoUsuario = row.ToString("CodigoUsuario");
+            CodigosRegionZona = row.ToString("CodigosRegionZona");
+            DiasDuracionCronogramaAnterior = row.ToInt16("DiasDuracionCronogramaAnterior");
+            DiasDuracionCronogramaActual = row.ToInt16("DiasDuracionCronogramaActual");
         }
     }
 }

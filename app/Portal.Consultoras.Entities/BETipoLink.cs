@@ -10,8 +10,8 @@ namespace Portal.Consultoras.Entities
         public BETipoLink(IDataRecord row)
         {
             PaisID = Convert.ToInt32(row["PaisID"]);
-            TipoLinkID = Convert.ToInt32(row["TipoLinkID"].ToString());
-            Url = row["Url"].ToString();
+            TipoLinkID = Convert.ToInt32(row["TipoLinkID"]);
+            Url = Convert.ToString(row["Url"]);
         }
 
         [DataMember]

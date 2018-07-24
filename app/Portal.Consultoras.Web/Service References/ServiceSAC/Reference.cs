@@ -2973,6 +2973,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string FotoProducto01Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FotoProductoMediumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FotoProductoSmallField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal GananciaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3754,6 +3760,32 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.FotoProducto01Field, value) != true)) {
                     this.FotoProducto01Field = value;
                     this.RaisePropertyChanged("FotoProducto01");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FotoProductoMedium {
+            get {
+                return this.FotoProductoMediumField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FotoProductoMediumField, value) != true)) {
+                    this.FotoProductoMediumField = value;
+                    this.RaisePropertyChanged("FotoProductoMedium");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FotoProductoSmall {
+            get {
+                return this.FotoProductoSmallField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FotoProductoSmallField, value) != true)) {
+                    this.FotoProductoSmallField = value;
+                    this.RaisePropertyChanged("FotoProductoSmall");
                 }
             }
         }
@@ -5510,147 +5542,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.UsuarioModificacionField, value) != true)) {
                     this.UsuarioModificacionField = value;
                     this.RaisePropertyChanged("UsuarioModificacion");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEHorario", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEHorario : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool EstaDisponibleField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool HoraISOField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool HoraIncluyenteField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int HorarioIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private byte PrimerDiaSemanaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ResumenField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Codigo {
-            get {
-                return this.CodigoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
-                    this.CodigoField = value;
-                    this.RaisePropertyChanged("Codigo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool EstaDisponible {
-            get {
-                return this.EstaDisponibleField;
-            }
-            set {
-                if ((this.EstaDisponibleField.Equals(value) != true)) {
-                    this.EstaDisponibleField = value;
-                    this.RaisePropertyChanged("EstaDisponible");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool HoraISO {
-            get {
-                return this.HoraISOField;
-            }
-            set {
-                if ((this.HoraISOField.Equals(value) != true)) {
-                    this.HoraISOField = value;
-                    this.RaisePropertyChanged("HoraISO");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool HoraIncluyente {
-            get {
-                return this.HoraIncluyenteField;
-            }
-            set {
-                if ((this.HoraIncluyenteField.Equals(value) != true)) {
-                    this.HoraIncluyenteField = value;
-                    this.RaisePropertyChanged("HoraIncluyente");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int HorarioID {
-            get {
-                return this.HorarioIDField;
-            }
-            set {
-                if ((this.HorarioIDField.Equals(value) != true)) {
-                    this.HorarioIDField = value;
-                    this.RaisePropertyChanged("HorarioID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public byte PrimerDiaSemana {
-            get {
-                return this.PrimerDiaSemanaField;
-            }
-            set {
-                if ((this.PrimerDiaSemanaField.Equals(value) != true)) {
-                    this.PrimerDiaSemanaField = value;
-                    this.RaisePropertyChanged("PrimerDiaSemana");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Resumen {
-            get {
-                return this.ResumenField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ResumenField, value) != true)) {
-                    this.ResumenField = value;
-                    this.RaisePropertyChanged("Resumen");
                 }
             }
         }
@@ -16136,12 +16027,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetConfiguracionPaisDatos", ReplyAction="http://tempuri.org/ISACService/GetConfiguracionPaisDatosResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPaisDatos> GetConfiguracionPaisDatosAsync(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPaisDatos configuracionPaisDatos);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetHorarioByCodigo", ReplyAction="http://tempuri.org/ISACService/GetHorarioByCodigoResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetHorarioByCodigo", ReplyAction="http://tempuri.org/ISACService/GetHorarioByCodigoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEHorario> GetHorarioByCodigoAsync(int paisID, string codigo, bool loadEstaDisponible);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ListConfiguracionOfertasHome", ReplyAction="http://tempuri.org/ISACService/ListConfiguracionOfertasHomeResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEConfiguracionOfertasHome[] ListConfiguracionOfertasHome(int paisId, int campaniaId);
         
@@ -17568,14 +17453,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPaisDatos> GetConfiguracionPaisDatosAsync(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPaisDatos configuracionPaisDatos) {
             return base.Channel.GetConfiguracionPaisDatosAsync(configuracionPaisDatos);
-        }
-        
-        public Portal.Consultoras.Web.ServiceSAC.BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible) {
-            return base.Channel.GetHorarioByCodigo(paisID, codigo, loadEstaDisponible);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEHorario> GetHorarioByCodigoAsync(int paisID, string codigo, bool loadEstaDisponible) {
-            return base.Channel.GetHorarioByCodigoAsync(paisID, codigo, loadEstaDisponible);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionOfertasHome[] ListConfiguracionOfertasHome(int paisId, int campaniaId) {

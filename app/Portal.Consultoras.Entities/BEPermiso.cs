@@ -62,53 +62,23 @@ namespace Portal.Consultoras.Entities
         public BEPermiso() { }
         public BEPermiso(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "PermisoID"))
-                PermisoID = Convert.ToInt32(row["PermisoID"]);
-            if (DataRecord.HasColumn(row, "PaisID"))
-                PaisID = Convert.ToInt32(row["PaisID"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "IdPadre"))
-                IdPadre = Convert.ToInt32(row["IdPadre"]);
-            if (DataRecord.HasColumn(row, "OrdenItem"))
-                OrdenItem = Convert.ToInt32(row["OrdenItem"]);
-            if (DataRecord.HasColumn(row, "UrlItem"))
-                UrlItem = Convert.ToString(row["UrlItem"]);
-            if (DataRecord.HasColumn(row, "PaginaNueva"))
-                PaginaNueva = Convert.ToBoolean(row["PaginaNueva"]);
-            if (DataRecord.HasColumn(row, "RolId"))
-                RolId = Convert.ToInt32(row["RolId"]);
-            if (DataRecord.HasColumn(row, "Mostrar"))
-                Mostrar = Convert.ToBoolean(row["Mostrar"]);
-            if (DataRecord.HasColumn(row, "Posicion"))
-                Posicion = Convert.ToString(row["Posicion"]);
-            if (DataRecord.HasColumn(row, "DescripcionPadre"))
-                DescripcionPadre = Convert.ToString(row["DescripcionPadre"]);
-            if (DataRecord.HasColumn(row, "DescripcionPaginaNueva"))
-                DescripcionPaginaNueva = Convert.ToString(row["DescripcionPaginaNueva"]);
-
-            if (DataRecord.HasColumn(row, "UrlImagen"))
-            {
-                UrlImagen = Convert.ToString(row["UrlImagen"]);
-            }
-
-            if (DataRecord.HasColumn(row, "EsSoloImagen"))
-            {
-                EsSoloImagen = Convert.ToBoolean(row["EsSoloImagen"]);
-            }
-
-            if (DataRecord.HasColumn(row, "EsMenuEspecial"))
-            {
-                EsMenuEspecial = Convert.ToBoolean(row["EsMenuEspecial"]);
-            }
-
-            if (DataRecord.HasColumn(row, "EsServicios"))
-            {
-                EsServicios = Convert.ToBoolean(row["EsServicios"]);
-            }
-
-            if (row.HasColumn("Codigo")) Codigo = Convert.ToString(row["Codigo"]);
-
+            PermisoID = row.ToInt32("PermisoID");
+            PaisID = row.ToInt32("PaisID");
+            Descripcion = row.ToString("Descripcion");
+            IdPadre = row.ToInt32("IdPadre");
+            OrdenItem = row.ToInt32("OrdenItem");
+            UrlItem = row.ToString("UrlItem");
+            PaginaNueva = row.ToBoolean("PaginaNueva");
+            RolId = row.ToInt32("RolId");
+            Mostrar = row.ToBoolean("Mostrar");
+            Posicion = row.ToString("Posicion");
+            DescripcionPadre = row.ToString("DescripcionPadre");
+            DescripcionPaginaNueva = row.ToString("DescripcionPaginaNueva");
+            UrlImagen = row.ToString("UrlImagen");
+            EsSoloImagen = row.ToBoolean("EsSoloImagen");
+            EsMenuEspecial = row.ToBoolean("EsMenuEspecial");
+            EsServicios = row.ToBoolean("EsServicios");
+            Codigo = row.ToString("Codigo");
         }
     }
 }

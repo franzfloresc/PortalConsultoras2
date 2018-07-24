@@ -5,6 +5,8 @@ using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
 using System.Collections.Generic;
+using Portal.Consultoras.Web.ServiceOferta;
+using Portal.Consultoras.Web.SessionManager.ShowRoom;
 
 namespace Portal.Consultoras.Web.UnitTest.Providers
 {
@@ -124,6 +126,12 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
                     bannerInferiorConfiguracion = value;
                 }
             }
+
+            public string CargoOfertas { get; set; }
+            public List<EstrategiaPersonalizadaProductoModel> Ofertas { get; set; }
+            public List<EstrategiaPersonalizadaProductoModel> OfertasSubCampania { get; set; }
+            public List<EstrategiaPersonalizadaProductoModel> OfertasPerdio { get; set; }
+            //public List<EstrategiaPersonalizadaProductoModel> OfertasCompraPorCompra { get; set; }
         }
 
     }

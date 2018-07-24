@@ -1,16 +1,12 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models;
 @using Portal.Consultoras.Web.Areas.Mobile.Helpers
-@using Newtonsoft.Json;
 @using Portal.Consultoras.Web.Helpers
 
 @{
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
     if (ViewBag.MostrarShowRoomBannerLateral == true) { showRoomBannerLateral = ViewBag.ShowRoomBannerLateral; }
-
-    OfertaDelDiaModel ofertaDelDia = ViewBag.MostrarOfertaDelDia == true ? ViewBag.OfertaDelDia ?? new OfertaDelDiaModel() : new OfertaDelDiaModel();
-    ofertaDelDia.ConfiguracionContenedor = ofertaDelDia.ConfiguracionContenedor ?? new ConfiguracionSeccionHomeModel();
-
+    
     bool esIngresoUnico = ViewContext.EsIngresoUnico();
 }
 
@@ -132,10 +128,10 @@
             <div id="flexslidertop" class="header_slider" style="overflow:hidden;">
                 <a id="btn_cerrar_oferta_mobile" class="btn_cerrar_oferta_mobile">X</a>
                 <ul class="slides">
-                    @if (ViewBag.MostrarOfertaDelDiaContenedor == true)
+                    @if (ViewBag.TieneOfertaDelDia == true)
                     {
                         <li style="height: 60px;">
-                            @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBannerTop.cshtml", ofertaDelDia);
+                            @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBannerTop.cshtml");
                         </li>
                     }
 
@@ -206,8 +202,8 @@
 
                                 @if (ViewBag.MostrarOfertaDelDia == true)
                                 {
-                                    <li>
-                                        @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBanner.cshtml", ofertaDelDia)
+                                    <li data-section="ODD">
+                                        @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBanner.cshtml")
                                     </li>
                                 }
                             </ul>
@@ -247,7 +243,7 @@
         </div>
     </div>
 
-    <script id="estrategia-template_carrusel" type="text/x-handlebars-template">
+    @*<script id="estrategia-template_carrusel" type="text/x-handlebars-template">
         {{#each this.ListaOfertas  as |oferta|}}
         <div data-item="">
             <div style="display:none;" data-item-campos="">
@@ -307,10 +303,9 @@
             </div>
         </div>
         {{/each}}
-    </script>
+    </script>*@
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
-
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")
@@ -358,7 +353,6 @@
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
 
         var mostrarOfertaDelDia = '@ViewBag.MostrarODD';
-        var vbMmostrarOfertaDelDia = '@ViewBag.MostrarOfertaDelDia';
         var usuarioNombre = '@ViewBag.UsuarioNombre';
         var campaniaCodigo = '@ViewBag.CampaniaCodigo';
         var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
@@ -421,16 +415,16 @@
         //console.log("controllerName:" + controllerName + " | actionName:" + actionName);
     </script>
 
-    @if (ViewBag.MostrarOfertaDelDiaContenedor == true)
+    @if (ViewBag.TieneOfertaDelDia == true)
     {
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 window.OfertaDelDia.CargarODD();
 
-                $("div[id^='content_oferta_dia_mobile']").click(function () {
-                    document.location.href = urlOfertaDelDiaMobile;
-                });
+                //$("div[id^='content_oferta_dia_mobile']").click(function () {
+                //    document.location.href = urlOfertaDelDiaMobile;
+                //});
             });
         </script>
     }
@@ -519,7 +513,6 @@
                 }
             }
         }
-
 
         function CargarShowRoom() {
             AgregarTagManagerShowRoomAnalytics();
