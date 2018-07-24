@@ -62,7 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
                     new ComunModel
                     {
                         Id = 1,
-                        Descripcion = CodigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta ? "CUVS encontrados en Producto Comercial" : "CUVS encontrados en ofertas personalizadas.",
+                        Descripcion = codigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta ? "CUVS encontrados en Producto Comercial" : "CUVS encontrados en ofertas personalizadas.",
                         Valor = (cantidadEstrategiasConfiguradas + cantidadEstrategiasSinConfigurar).ToString(),
                         ValorOpcional = "0",
                         mongoIds = ""
@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<BEEstrategia> lst;
+                List<BEEstrategia> lst = new List<BEEstrategia>();
 
                 try
                 {
@@ -151,10 +151,10 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                         lst.AddRange(webApiList.Select(d => d.BEEstrategia).ToList().Select(item => new BEEstrategia
-                            {
-                                CUV2 = item.CUV2,
-                                DescripcionCUV2 = item.DescripcionCUV2
-                            }));
+                        {
+                            CUV2 = item.CUV2,
+                            DescripcionCUV2 = item.DescripcionCUV2
+                        }));
                     }
                     else
                     {
@@ -325,11 +325,12 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ConsultarCuvTipoConfiguradoTemporal(string sidx, string sord, int page, int rows, int tipoConfigurado, int nroLote)
+        [HttpPost]
+        public ActionResult ConsultarCuvTipoConfiguradoTemporal(string sidx, string sord, int page, int rows, int tipoConfigurado, int nroLote, int campaniaId, string codigoEstrategia, string estrategiaMIds)
         {
             if (ModelState.IsValid)
             {
-                List<BEEstrategia> lst;
+                List<BEEstrategia> lst = new List<BEEstrategia>();
 
                 try
                 {
@@ -348,10 +349,10 @@ namespace Portal.Consultoras.Web.Controllers
                             }
 
                             lst.AddRange(webApiList.Select(d => d.BEEstrategia).ToList().Select(item => new BEEstrategia
-                                {
-                                    CUV2 = item.CUV2,
-                                    DescripcionCUV2 = item.DescripcionCUV2
-                                }));
+                            {
+                                CUV2 = item.CUV2,
+                                DescripcionCUV2 = item.DescripcionCUV2
+                            }));
                         }
                     }
                     else
@@ -361,8 +362,6 @@ namespace Portal.Consultoras.Web.Controllers
                             lst = ser.GetOfertasPersonalizadasByTipoConfiguradoTemporal(userData.PaisID, tipoConfigurado, nroLote).ToList();
                         }
                     }
-
-                   
                 }
                 catch (Exception ex)
                 {

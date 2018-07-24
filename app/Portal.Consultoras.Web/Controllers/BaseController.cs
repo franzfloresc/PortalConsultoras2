@@ -47,7 +47,6 @@ namespace Portal.Consultoras.Web.Controllers
         protected GuiaNegocioModel guiaNegocio;
         protected DataModel estrategiaODD;
         protected ConfigModel configEstrategiaSR;
-
         protected ISessionManager sessionManager;
         protected ILogManager logManager;
         protected string paisesMicroservicioPersonalizacion;
@@ -71,8 +70,6 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly ConfiguracionPaisProvider _configuracionPaisProvider;
         protected readonly ConfiguracionManagerProvider _configuracionManagerProvider;
         protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
-        protected Models.Estrategia.ShowRoom.ConfigModel configEstrategiaSR;
-        protected Models.Estrategia.OfertaDelDia.DataModel estrategiaODD;
         #endregion
 
         #region Constructor
@@ -3185,6 +3182,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return ControllerContext.RouteData.Values["controller"].ToString();
         }
-        
+
+        public VariablesGeneralEstrategiaModel GetVariableEstrategia()
+        {
+            var variableEstrategia = new VariablesGeneralEstrategiaModel
+            {
+                PaisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion,
+                TipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion
+            };
+            return variableEstrategia; ;
+        }
+
     }
 }
