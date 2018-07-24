@@ -244,6 +244,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (estrategiaPresonalizada == null)
                         return RedirectToAction("Index", "Ofertas");
 
+                    if (userData.CampaniaID != campaniaId) estrategiaPresonalizada.ClaseBloqueada = "btn_desactivado_general";
                     modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(estrategiaPresonalizada);
                     if (palanca == Constantes.NombrePalanca.PackNuevas)
                     {
