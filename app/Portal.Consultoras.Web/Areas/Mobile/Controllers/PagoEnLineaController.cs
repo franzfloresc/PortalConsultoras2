@@ -58,8 +58,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = sessionManager.GetDatosPagoVisa();
 
             //Logica para Obtener Valores de la PasarelaBelcorp
-            ViewBag.PagoLineaCamposRequeridos = _pagoEnLineaProvider.ObtenerPagoEnLineaPasarelaCampos()
-                                                        .Select(p => p.Codigo);
+            ViewBag.PagoLineaCampos = _pagoEnLineaProvider.ObtenerPagoEnLineaPasarelaCampos()
+                                            .Select(p => p.Codigo)
+                                            .ToArray();
+
+            ViewBag.UserCelular = userData.Celular;
+            ViewBag.UserEmail = userData.EMail;
 
             return View(model);
         }
