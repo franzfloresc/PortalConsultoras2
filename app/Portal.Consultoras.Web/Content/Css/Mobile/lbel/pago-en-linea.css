@@ -45,11 +45,11 @@
 }
 
 .pl-8{
-    padding-left:11px;
+    padding-left:8px;
 }
 
 .pr-7{
-    padding-right:11px;
+    padding-right:7px;
 }
 
 .pb-11{
@@ -1314,6 +1314,7 @@
 	border-color: rgba(136, 183, 213, 0);
     border-bottom-color: #EBEBEB;
     border-width: 8px;
+    z-index:2;
 }
 
 .icono_validacion_incorrecta{

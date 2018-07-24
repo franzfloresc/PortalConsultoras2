@@ -7,7 +7,18 @@
 }
 
 @section styles{
-    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/pago-en-linea.css")">
+
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+    {
+
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/pago-en-linea.css")">
+
+    }
+    else
+    {
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/pago-en-linea.css")">
+    }
+
 }
 
 <div class="fondo_f9f9f9">
