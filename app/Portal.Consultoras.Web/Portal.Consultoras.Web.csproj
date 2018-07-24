@@ -1317,6 +1317,7 @@
     <Content Include="Content\Css\Mobile\Ficha\RedesSociales.css" />
     <Content Include="Content\Css\Mobile\Ficha\Carrusel.css" />
     <Content Include="Content\Css\Mobile\Ficha\ficha.css" />
+    <Content Include="Content\Css\Mobile\Ficha\SeleccionarTipo.css" />
     <Content Include="Content\Css\Mobile\Lanzamientos\Detalle.css" />
     <Content Include="Content\Css\Mobile\lbel\mi-perfil.css" />
     <Content Include="Content\Css\Mobile\ProductoListado\CajaProducto.css" />
@@ -1513,6 +1514,10 @@
     <Content Include="Content\Images\Lbel\icono_info_alerta.svg" />
     <Content Include="Content\Images\Lbel\icono_plus.svg" />
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
+    <Content Include="Content\Images\mobile\Esika\click-ico.svg" />
+    <Content Include="Content\Images\mobile\Esika\close-button-white.svg" />
+    <Content Include="Content\Images\mobile\Esika\close-button.svg" />
+    <Content Include="Content\Images\mobile\Esika\left-arrow.svg" />
     <Content Include="Content\Images\mobile\icono_editar_foto_perfil.svg" />
     <Content Include="Content\Images\icono_eliminar.svg" />
     <Content Include="Content\Images\Esika\icono_envelope.svg" />
@@ -4226,6 +4231,7 @@
     <Content Include="Areas\Mobile\Views\MiPerfil\CambiarFotoPerfil.cshtml" />
     <Content Include="Areas\Mobile\Views\MiPerfil\ActualizarCorreo.cshtml" />
     <Content Include="Areas\Mobile\Views\MiPerfil\ActualizarCelular.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\SeleccionarTipos.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>

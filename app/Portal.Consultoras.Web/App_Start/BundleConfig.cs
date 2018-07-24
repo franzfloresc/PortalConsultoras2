@@ -669,7 +669,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/Ficha/Carrusel.css",
                 "~/Content/Css/Mobile/Ficha/RedesSociales.css",
                 "~/Content/Css/Mobile/Ficha/PopoverTooltip.css",
-                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css"
+                "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
+                "~/Content/Css/Mobile/Ficha/SeleccionarTipo.css"
             ));
 
             #endregion
