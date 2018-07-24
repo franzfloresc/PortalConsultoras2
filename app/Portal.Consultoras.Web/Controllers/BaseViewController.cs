@@ -330,7 +330,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (palanca == Constantes.NombrePalanca.OfertaParaTi ||
                     palanca == Constantes.NombrePalanca.OfertasParaMi ||
-                    palanca == Constantes.NombrePalanca.RevistaDigital)
+                    palanca == Constantes.NombrePalanca.RevistaDigital ||
+                    palanca == Constantes.NombrePalanca.PackNuevas)
                 {
                     if (tieneRevistaDigital)
                     {
@@ -372,7 +373,7 @@ namespace Portal.Consultoras.Web.Controllers
             NombrePalancas.Add(Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, "Guía De Negocio");
             NombrePalancas.Add(Constantes.NombrePalanca.HerramientasVenta, "Demostradores");
 
-            //NombrePalancas.Add(Constantes.NombrePalanca.PackNuevas, "Pack de Nuevas");
+            NombrePalancas.Add(Constantes.NombrePalanca.PackNuevas, "Ofertas Para ti");
             //NombrePalancas.Add(Constantes.NombrePalanca.OfertaWeb, "Oferta Web");
             //NombrePalancas.Add(Constantes.NombrePalanca.OfertasParaMi, "Ofertas Para Mi");
             //NombrePalancas.Add(Constantes.NombrePalanca.PackAltoDesembolso, "Pack de Alto Desembolso");
