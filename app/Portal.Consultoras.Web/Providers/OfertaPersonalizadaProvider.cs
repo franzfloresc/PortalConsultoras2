@@ -956,7 +956,7 @@ namespace Portal.Consultoras.Web.Providers
                         break;
                     case 2:
                         listaProductoRetorno = sessionManager.ShowRoom.OfertasSubCampania ?? new List<EstrategiaPersonalizadaProductoModel>();
-                        listaProductoRetorno.ForEach(producto => { producto.EsSubcampania = true; });
+                        listaProductoRetorno.ForEach(producto => { producto.esSubcampania = true; });
                         break;
                     case 3:
                         listaProductoRetorno = sessionManager.ShowRoom.OfertasPerdio ?? new List<EstrategiaPersonalizadaProductoModel>();
