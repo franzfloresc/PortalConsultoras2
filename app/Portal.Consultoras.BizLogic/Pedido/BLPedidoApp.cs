@@ -1035,7 +1035,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private string PedidoInsertar(BEUsuario usuario, BEPedidoDetalleApp pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle, bool esKitNuevaAuto)
         {
             bool result;
-            if(esKitNuevaAuto)
+            if(!esKitNuevaAuto)
             {
                 result = InsertarValidarKitInicio(usuario, pedidoDetalle, lstDetalle);
                 if (!result) return Constantes.PedidoAppValidacion.Code.ERROR_KIT_INICIO;
