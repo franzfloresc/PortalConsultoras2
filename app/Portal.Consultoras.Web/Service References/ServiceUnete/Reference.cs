@@ -9765,9 +9765,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private System.Nullable<int> CampaniaDeRegistroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CelularField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoCampaniaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9870,7 +9867,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private int SolicitudPostulanteIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TelefonoField;
+        private string TelefonoCelularField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TelefonoFijoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoConsultoraField;
@@ -9931,19 +9931,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((this.CampaniaDeRegistroField.Equals(value) != true)) {
                     this.CampaniaDeRegistroField = value;
                     this.RaisePropertyChanged("CampaniaDeRegistro");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Celular {
-            get {
-                return this.CelularField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CelularField, value) != true)) {
-                    this.CelularField = value;
-                    this.RaisePropertyChanged("Celular");
                 }
             }
         }
@@ -10391,14 +10378,27 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Telefono {
+        public string TelefonoCelular {
             get {
-                return this.TelefonoField;
+                return this.TelefonoCelularField;
             }
             set {
-                if ((object.ReferenceEquals(this.TelefonoField, value) != true)) {
-                    this.TelefonoField = value;
-                    this.RaisePropertyChanged("Telefono");
+                if ((object.ReferenceEquals(this.TelefonoCelularField, value) != true)) {
+                    this.TelefonoCelularField = value;
+                    this.RaisePropertyChanged("TelefonoCelular");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TelefonoFijo {
+            get {
+                return this.TelefonoFijoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TelefonoFijoField, value) != true)) {
+                    this.TelefonoFijoField = value;
+                    this.RaisePropertyChanged("TelefonoFijo");
                 }
             }
         }
