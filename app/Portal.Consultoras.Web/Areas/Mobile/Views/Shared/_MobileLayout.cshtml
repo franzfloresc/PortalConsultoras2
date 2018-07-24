@@ -20,7 +20,29 @@
 
     <title>Somos Belcorp</title>
 
+    <!-- Variables Globales Google Tag Manager -->
+    <script type="text/javascript">
+    dataLayer = [{
+        'campana': '@ViewBag.CampaniaCodigo',
+        'segmento': '@ViewBag.SegmentoAnalytics',
+        'edad': '@ViewBag.EdadAnalytics',
+        'zona': '@ViewBag.ZonaAnalytics',
+        'pais': '@ViewBag.PaisAnalytics',
+        'rol': '@ViewBag.esConsultoraLiderAnalytics',
+        'region': '@ViewBag.RegionAnalytics',
+        'seccion': '@ViewBag.SeccionAnalytics',
+        'codigoconsultora': '@ViewBag.CodigoConsultoraDL',
+        'periodo': '@ViewBag.PeriodoAnalytics',
+        'segmentoconstancia': '@ViewBag.SegmentoConstancia',
+        'socianivel': '@ViewBag.DescripcionNivelAnalytics',
+        'semana-periodo': '@ViewBag.SemanaAnalytics',
+        'inscripcionEPM': '@ViewBag.EstadoInscripcionEpm'
+    }];
+    </script>
+    <!-- End Variables Globales Google Tag Manager -->
+
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
 
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
 
@@ -53,7 +75,11 @@
     }
 </head>
 <body>
-    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display: none; visibility: hidden;"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     @if (ViewBag.PaisesConTrackingJetlore == "1")
     {
@@ -244,66 +270,66 @@
     </div>
 
     @*<script id="estrategia-template_carrusel" type="text/x-handlebars-template">
-        {{#each this.ListaOfertas  as |oferta|}}
-        <div data-item="">
-            <div style="display:none;" data-item-campos="">
-                <input type="text" class="tipoestrategia-id-odd" value="{{oferta.TipoEstrategiaID}}" />
-                <input type="text" class="estrategia-id-odd" value="{{oferta.EstrategiaID}}" />
-                <input type="text" class="marca-id-odd" value="{{oferta.MarcaID}}" />
-                <input type="text" class="cuv2-odd" value="{{oferta.CUV2}}" />
-                <input type="text" class="limite-venta-odd" value="{{oferta.LimiteVenta}}" />
-                <input type="text" class="flagnueva-odd" value="{{oferta.FlagNueva}}" />
-                <input type="text" class="precio-odd" value="{{oferta.PrecioOferta}}" />
-                <input type="text" class="nombre-odd" value="{{oferta.NombreOferta}}" />
-                <input type="text" class="indmonto-min-odd" value="{{oferta.IndicadorMontoMinimo}}" />
-                <input type="text" class="teimagenmostrar-odd" value="{{oferta.TipoEstrategiaImagenMostrar}}" />
-                <input type="text" Class="imagen-odd" value="{{oferta.ImagenDisplay}}" />
-                <input type="text" class="origenPedidoWeb-odd" value="1" />
-                <input type="hidden" class="DescripcionEstrategia" value="{{oferta.DescripcionEstrategia}}" />
-            </div>
-            <div data-compartir-campos="" style="display:none;">
-                <input type="hidden" class="CUV" value="{{oferta.CUV2}}" />
-                <input type="hidden" class="rsFBMensaje" value="" />
-                <input type="hidden" class="rsWAMensaje" value="" />
-                <input type="hidden" class="rsFBRutaImagen" value="{{oferta.ImagenDisplay}}" />
-                <input type="hidden" class="rsWARutaImagen" value="{{oferta.ImagenDisplay}}" />
-                <input type="hidden" class="MarcaID" value="{{oferta.MarcaID}}" />
-                <input type="hidden" class="MarcaNombre" value="{{oferta.DescripcionMarca}}" />
-                <input type="hidden" class="Nombre" value="{{oferta.NombreOferta}}" />
-                <input type="hidden" class="ProductoDescripcion" value="{{oferta.DescripcionOferta}}" />
-                <input type="hidden" class="Palanca" value="ODD" />
-            </div>
-            <div class="saludo_paginacion">
-                <p>@ViewBag.NombreConsultora</p>, te mostramos <b>{{oferta.Posicion}} de {{../CantidadProductos}}</b>
-                {{#iff ../CantidadProductos '>' 1}}
-                &nbsp;ofertas
-                {{/iff}}
-                {{#iff ../CantidadProductos '<' 2}}
-                &nbsp;oferta
-                {{/iff}}
-            </div>
-            <div class="producto_img_mobile">
-                <img src="{{oferta.ImagenDisplay}}" alt="" id="img-display-odd" />
-            </div>
-            <div class="nombre_set_display">{{oferta.NombreOferta}}</div>
-            <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo {{oferta.PrecioCatalogoFormat}}</span></div>
-            <div class="producto_precio_hoy_mobile">
-                A SOLO <span>@ViewBag.Simbolo {{oferta.PrecioOfertaFormat}}</span>
-            </div>
+            {{#each this.ListaOfertas  as |oferta|}}
+            <div data-item="">
+                <div style="display:none;" data-item-campos="">
+                    <input type="text" class="tipoestrategia-id-odd" value="{{oferta.TipoEstrategiaID}}" />
+                    <input type="text" class="estrategia-id-odd" value="{{oferta.EstrategiaID}}" />
+                    <input type="text" class="marca-id-odd" value="{{oferta.MarcaID}}" />
+                    <input type="text" class="cuv2-odd" value="{{oferta.CUV2}}" />
+                    <input type="text" class="limite-venta-odd" value="{{oferta.LimiteVenta}}" />
+                    <input type="text" class="flagnueva-odd" value="{{oferta.FlagNueva}}" />
+                    <input type="text" class="precio-odd" value="{{oferta.PrecioOferta}}" />
+                    <input type="text" class="nombre-odd" value="{{oferta.NombreOferta}}" />
+                    <input type="text" class="indmonto-min-odd" value="{{oferta.IndicadorMontoMinimo}}" />
+                    <input type="text" class="teimagenmostrar-odd" value="{{oferta.TipoEstrategiaImagenMostrar}}" />
+                    <input type="text" Class="imagen-odd" value="{{oferta.ImagenDisplay}}" />
+                    <input type="text" class="origenPedidoWeb-odd" value="1" />
+                    <input type="hidden" class="DescripcionEstrategia" value="{{oferta.DescripcionEstrategia}}" />
+                </div>
+                <div data-compartir-campos="" style="display:none;">
+                    <input type="hidden" class="CUV" value="{{oferta.CUV2}}" />
+                    <input type="hidden" class="rsFBMensaje" value="" />
+                    <input type="hidden" class="rsWAMensaje" value="" />
+                    <input type="hidden" class="rsFBRutaImagen" value="{{oferta.ImagenDisplay}}" />
+                    <input type="hidden" class="rsWARutaImagen" value="{{oferta.ImagenDisplay}}" />
+                    <input type="hidden" class="MarcaID" value="{{oferta.MarcaID}}" />
+                    <input type="hidden" class="MarcaNombre" value="{{oferta.DescripcionMarca}}" />
+                    <input type="hidden" class="Nombre" value="{{oferta.NombreOferta}}" />
+                    <input type="hidden" class="ProductoDescripcion" value="{{oferta.DescripcionOferta}}" />
+                    <input type="hidden" class="Palanca" value="ODD" />
+                </div>
+                <div class="saludo_paginacion">
+                    <p>@ViewBag.NombreConsultora</p>, te mostramos <b>{{oferta.Posicion}} de {{../CantidadProductos}}</b>
+                    {{#iff ../CantidadProductos '>' 1}}
+                    &nbsp;ofertas
+                    {{/iff}}
+                    {{#iff ../CantidadProductos '<' 2}}
+                    &nbsp;oferta
+                    {{/iff}}
+                </div>
+                <div class="producto_img_mobile">
+                    <img src="{{oferta.ImagenDisplay}}" alt="" id="img-display-odd" />
+                </div>
+                <div class="nombre_set_display">{{oferta.NombreOferta}}</div>
+                <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo {{oferta.PrecioCatalogoFormat}}</span></div>
+                <div class="producto_precio_hoy_mobile">
+                    A SOLO <span>@ViewBag.Simbolo {{oferta.PrecioOfertaFormat}}</span>
+                </div>
 
-            {{#IsNullOrEmpty oferta.DescripcionOferta '!='}}
-            <div class="titulo_contenido">CONTENIDO</div>
-            <div class="nombre_set_producto_hoy">{{{oferta.DescripcionOferta}}}</div>
-            {{/IsNullOrEmpty}}
+                {{#IsNullOrEmpty oferta.DescripcionOferta '!='}}
+                <div class="titulo_contenido">CONTENIDO</div>
+                <div class="nombre_set_producto_hoy">{{{oferta.DescripcionOferta}}}</div>
+                {{/IsNullOrEmpty}}
 
-            <div class="content_redes_ficha" data-item="">
-                <div class="texto_redes">Comparte este producto con tus clientes:</div>
-                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+                <div class="content_redes_ficha" data-item="">
+                    <div class="texto_redes">Comparte este producto con tus clientes:</div>
+                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+                </div>
             </div>
-        </div>
-        {{/each}}
-    </script>*@
+            {{/each}}
+        </script>*@
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
@@ -371,7 +397,7 @@
         var emt_device = ' ';
         var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
 
-        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';        
+        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';

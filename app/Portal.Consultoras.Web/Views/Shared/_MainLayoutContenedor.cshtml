@@ -10,7 +10,29 @@
 
     <title>Belcorp | Portal Consultoras</title>
 
+    <!-- Variables Globales Google Tag Manager -->
+    <script type="text/javascript">
+    dataLayer = [{
+        'campana': '@ViewBag.CampaniaCodigo',
+        'segmento': '@ViewBag.SegmentoAnalytics',
+        'edad': '@ViewBag.EdadAnalytics',
+        'zona': '@ViewBag.ZonaAnalytics',
+        'pais': '@ViewBag.PaisAnalytics',
+        'rol': '@ViewBag.esConsultoraLiderAnalytics',
+        'region': '@ViewBag.RegionAnalytics',
+        'seccion': '@ViewBag.SeccionAnalytics',
+        'codigoconsultora': '@ViewBag.CodigoConsultoraDL',
+        'periodo': '@ViewBag.PeriodoAnalytics',
+        'segmentoconstancia': '@ViewBag.SegmentoConstancia',
+        'socianivel': '@ViewBag.DescripcionNivelAnalytics',
+        'semana-periodo': '@ViewBag.SemanaAnalytics',
+        'inscripcionEPM': '@ViewBag.EstadoInscripcionEpm'
+    }];
+    </script>
+    <!-- End Variables Globales Google Tag Manager -->
+
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
 
     <link href="@Url.Content("~/Content/Css/Site/flipclock.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
@@ -103,7 +125,11 @@
     }
 </head>
 <body>
-    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display: none; visibility: hidden;"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     @if (ViewBag.PaisesConTrackingJetlore == "1")
     {
@@ -224,7 +250,7 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTemplateResumenCampania.cshtml")
 
     @Html.Partial("~/Views/OfertaDelDia/ofertadeldia-contenedor-template.cshtml")
-    
+
     @Html.Partial("~/Views/Shared/_template-ofertadeldia-style.cshtml")
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
