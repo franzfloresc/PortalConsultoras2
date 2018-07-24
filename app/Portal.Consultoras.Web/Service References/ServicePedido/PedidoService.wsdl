@@ -362,6 +362,12 @@
   <wsdl:message name="IPedidoService_GetConfiguracionOfertaFinal_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetConfiguracionOfertaFinalResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetProductoSugerido_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductoSugerido" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetProductoSugerido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductoSugeridoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertPagoEnLineaResultadoLog_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertPagoEnLineaResultadoLog" />
   </wsdl:message>
@@ -734,11 +740,11 @@
   <wsdl:message name="IPedidoService_GetConfiguracionProgramaNuevas_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetConfiguracionProgramaNuevasResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetConfiguracionProgramaDespuesPrimerPedido_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetConfiguracionProgramaDespuesPrimerPedido" />
+  <wsdl:message name="IPedidoService_GetCuvKitNuevas_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCuvKitNuevas" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetConfiguracionProgramaDespuesPrimerPedido_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetConfiguracionProgramaDespuesPrimerPedidoResponse" />
+  <wsdl:message name="IPedidoService_GetCuvKitNuevas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCuvKitNuevasResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_UpdateMontosPedidoWeb_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateMontosPedidoWeb" />
@@ -2717,6 +2723,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinal" message="tns:IPedidoService_GetConfiguracionOfertaFinal_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalResponse" message="tns:IPedidoService_GetConfiguracionOfertaFinal_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetProductoSugerido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetProductoSugerido" message="tns:IPedidoService_GetProductoSugerido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetProductoSugeridoResponse" message="tns:IPedidoService_GetProductoSugerido_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertPagoEnLineaResultadoLog">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLog" message="tns:IPedidoService_InsertPagoEnLineaResultadoLog_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLogResponse" message="tns:IPedidoService_InsertPagoEnLineaResultadoLog_OutputMessage" />
@@ -2965,9 +2975,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevas" message="tns:IPedidoService_GetConfiguracionProgramaNuevas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasResponse" message="tns:IPedidoService_GetConfiguracionProgramaNuevas_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionProgramaDespuesPrimerPedido">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaDespuesPrimerPedido" message="tns:IPedidoService_GetConfiguracionProgramaDespuesPrimerPedido_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaDespuesPrimerPedidoResponse" message="tns:IPedidoService_GetConfiguracionProgramaDespuesPrimerPedido_OutputMessage" />
+    <wsdl:operation name="GetCuvKitNuevas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCuvKitNuevas" message="tns:IPedidoService_GetCuvKitNuevas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCuvKitNuevasResponse" message="tns:IPedidoService_GetCuvKitNuevas_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdateMontosPedidoWeb">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateMontosPedidoWeb" message="tns:IPedidoService_UpdateMontosPedidoWeb_InputMessage" />
@@ -4625,6 +4635,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetProductoSugerido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductoSugerido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsertPagoEnLineaResultadoLog">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLog" style="document" />
       <wsdl:input>
@@ -5183,8 +5202,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionProgramaDespuesPrimerPedido">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaDespuesPrimerPedido" style="document" />
+    <wsdl:operation name="GetCuvKitNuevas">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCuvKitNuevas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8319,6 +8338,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetProductoSugerido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductoSugerido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsertPagoEnLineaResultadoLog">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLog" style="document" />
       <wsdl:input>
@@ -8877,8 +8905,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionProgramaDespuesPrimerPedido">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaDespuesPrimerPedido" style="document" />
+    <wsdl:operation name="GetCuvKitNuevas">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCuvKitNuevas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -434,14 +434,8 @@ namespace Portal.Consultoras.BizLogic
 
         public bool EsConsultoraNueva(BEUsuario usuario)
         {
-            var listEstadosValidos = new List<int> { Constantes.EstadoActividadConsultora.Registrada, Constantes.EstadoActividadConsultora.Retirada };
-            if (!(listEstadosValidos.Contains(usuario.ConsultoraNueva))) return false;
-
-            int campaniaAnterior = Common.Util.AddCampaniaAndNumero(usuario.CampaniaID, -1, usuario.NroCampanias);
-            if (campaniaAnterior <= 0) return false;
-
-            var existsPedidoAnterior = new BLPedidoWeb().ExistsPedidoWebByCampaniaConsultora(usuario.PaisID, campaniaAnterior, usuario.usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID);
-            return !existsPedidoAnterior;
+            var listEstadosNueva = new List<int> { Constantes.EstadoActividadConsultora.Registrada, Constantes.EstadoActividadConsultora.Retirada };
+            return listEstadosNueva.Contains(usuario.ConsultoraNueva);
         }
 
         public BEUsuario GetSesionUsuarioWS(int paisID, string codigoUsuario)
@@ -538,6 +532,13 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
+                var programaNuevas = GetProgramaNuevas(usuario);
+                if (programaNuevas != null)
+                {
+                    usuario.ConsecutivoNueva = programaNuevas.ConsecutivoNueva;
+                    usuario.CodigoPrograma = programaNuevas.CodigoPrograma ?? string.Empty;
+                }
+
                 var terminosCondicionesTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppTerminosCondiciones));
                 var politicaPrivacidadTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppPoliticaPrivacidad));
                 var destinatariosFeedBack = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.CorreoFeedbackAppConsultora));
@@ -548,7 +549,6 @@ namespace Portal.Consultoras.BizLogic
                 var incentivosConcursosTask = Task.Run(() => GetIncentivosConcursos(usuario));
                 var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
                 var cuponTask = Task.Run(() => GetCupon(usuario));
-                var programaNuevasTask = Task.Run(() => GetProgramaNuevas(usuario));
 
                 Task.WaitAll(
                                 terminosCondicionesTask,
@@ -560,8 +560,7 @@ namespace Portal.Consultoras.BizLogic
                                 consultoraCumpleanioTask,
                                 incentivosConcursosTask,
                                 revistaDigitalSuscripcionTask,
-                                cuponTask,
-                                programaNuevasTask);
+                                cuponTask);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -594,13 +593,6 @@ namespace Portal.Consultoras.BizLogic
                 usuario.CuponPctDescuento = cuponTask.Result.ValorAsociado;
                 usuario.CuponMontoMaxDscto = cuponTask.Result.MontoMaximoDescuento;
                 usuario.CuponTipoCondicion = cuponTask.Result.TipoCondicion;
-
-                var programaNuevas = programaNuevasTask.Result;
-                if (programaNuevas != null)
-                {
-                    usuario.ConsecutivoNueva = programaNuevas.ConsecutivoNueva;
-                    usuario.CodigoPrograma = programaNuevas.CodigoPrograma ?? string.Empty;
-                }
 
                 
 
@@ -777,7 +769,7 @@ namespace Portal.Consultoras.BizLogic
                 var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
                 var arrCalculoProgramaNuevas = Constantes.Incentivo.CalculoProgramaNuevas.Split(';');
 
-                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario.PaisID, usuario.CampaniaDescripcion, usuario.CodigoConsultora, usuario.CodigorRegion, usuario.CodigoZona);
+                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario);
 
                 if (result.Any())
                 {

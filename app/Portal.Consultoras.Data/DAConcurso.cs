@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using Portal.Consultoras.Entities;
+using System.Data;
 using System.Data.Common;
 
 namespace Portal.Consultoras.Data
@@ -72,6 +73,17 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, CodigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, CodigoZona);
             return Context.ExecuteReader(command);
+        }
+        public void DelInsProgramaNuevasXConsultora(string codigoConsultora, BEIncentivoConcurso incentivosNuevas)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelInsProgramaNuevasXConsultora");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            Context.Database.AddInParameter(command, "@CodigoCampania", DbType.Int32, incentivosNuevas.CampaniaID);
+            Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, incentivosNuevas.CodigoConcurso);
+            Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, incentivosNuevas.CodigoNivelProgramaNuevas);
+            Context.Database.AddInParameter(command, "@TipoConcurso", DbType.String, incentivosNuevas.TipoConcurso);
+
+            Context.ExecuteNonQuery(command);
         }
 
         public IDataReader ObtenerIncentivosProgramaNuevasConsultora(string CodigoConsultora, int CodigoCampania, long ConsultoraID)

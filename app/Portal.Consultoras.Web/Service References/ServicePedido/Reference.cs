@@ -473,6 +473,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int ProgramaReconocimientoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double PromedioVentaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool PuedeActualizarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -620,7 +623,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool ZonaValidaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Web.ServicePedido.BEOfertaFinal _OfertaFinalField;
+        private Portal.Consultoras.Web.ServicePedido.BEOfertaFinal beOfertaFinalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool esConsultoraLiderField;
@@ -2610,6 +2613,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public double PromedioVenta {
+            get {
+                return this.PromedioVentaField;
+            }
+            set {
+                if ((this.PromedioVentaField.Equals(value) != true)) {
+                    this.PromedioVentaField = value;
+                    this.RaisePropertyChanged("PromedioVenta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool PuedeActualizar {
             get {
                 return this.PuedeActualizarField;
@@ -3247,14 +3263,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Web.ServicePedido.BEOfertaFinal _OfertaFinal {
+        public Portal.Consultoras.Web.ServicePedido.BEOfertaFinal beOfertaFinal {
             get {
-                return this._OfertaFinalField;
+                return this.beOfertaFinalField;
             }
             set {
-                if ((object.ReferenceEquals(this._OfertaFinalField, value) != true)) {
-                    this._OfertaFinalField = value;
-                    this.RaisePropertyChanged("_OfertaFinal");
+                if ((object.ReferenceEquals(this.beOfertaFinalField, value) != true)) {
+                    this.beOfertaFinalField = value;
+                    this.RaisePropertyChanged("beOfertaFinal");
                 }
             }
         }
@@ -24014,31 +24030,16 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CUVKitField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CampaniaFinField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CampaniaInicioField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoNivelField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoProgramaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoRegionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoZonaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CuponKitField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IndExigVentField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IndProgObliField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoVentaExigidoField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -24064,45 +24065,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CampaniaFin {
-            get {
-                return this.CampaniaFinField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CampaniaFinField, value) != true)) {
-                    this.CampaniaFinField = value;
-                    this.RaisePropertyChanged("CampaniaFin");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CampaniaInicio {
-            get {
-                return this.CampaniaInicioField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CampaniaInicioField, value) != true)) {
-                    this.CampaniaInicioField = value;
-                    this.RaisePropertyChanged("CampaniaInicio");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoNivel {
-            get {
-                return this.CodigoNivelField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoNivelField, value) != true)) {
-                    this.CodigoNivelField = value;
-                    this.RaisePropertyChanged("CodigoNivel");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string CodigoPrograma {
             get {
                 return this.CodigoProgramaField;
@@ -24111,45 +24073,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CodigoProgramaField, value) != true)) {
                     this.CodigoProgramaField = value;
                     this.RaisePropertyChanged("CodigoPrograma");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoRegion {
-            get {
-                return this.CodigoRegionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoRegionField, value) != true)) {
-                    this.CodigoRegionField = value;
-                    this.RaisePropertyChanged("CodigoRegion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoZona {
-            get {
-                return this.CodigoZonaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoZonaField, value) != true)) {
-                    this.CodigoZonaField = value;
-                    this.RaisePropertyChanged("CodigoZona");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CuponKit {
-            get {
-                return this.CuponKitField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CuponKitField, value) != true)) {
-                    this.CuponKitField = value;
-                    this.RaisePropertyChanged("CuponKit");
                 }
             }
         }
@@ -24176,6 +24099,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.IndProgObliField, value) != true)) {
                     this.IndProgObliField = value;
                     this.RaisePropertyChanged("IndProgObli");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoVentaExigido {
+            get {
+                return this.MontoVentaExigidoField;
+            }
+            set {
+                if ((this.MontoVentaExigidoField.Equals(value) != true)) {
+                    this.MontoVentaExigidoField = value;
+                    this.RaisePropertyChanged("MontoVentaExigido");
                 }
             }
         }
@@ -38743,10 +38679,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEReporteValidacion[]> GetReporteValidacionAsync(int paisID, int campaniaID, int tipoEstrategia);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultora", ReplyAction="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultoraResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[] ObtenerConcursosXConsultora(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoRegion, string CodigoZona);
+        Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[] ObtenerConcursosXConsultora(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultora", ReplyAction="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultoraResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[]> ObtenerConcursosXConsultoraAsync(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoRegion, string CodigoZona);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[]> ObtenerConcursosXConsultoraAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcurso", ReplyAction="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcursoResponse")]
         void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso);
@@ -38949,6 +38885,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinal", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEUsuario> GetConfiguracionOfertaFinalAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/GetProductoSugeridoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEProducto[] GetProductoSugerido(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/GetProductoSugeridoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProducto[]> GetProductoSugeridoAsync(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLog", ReplyAction="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLogResponse")]
         int InsertPagoEnLineaResultadoLog(int paisId, Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog entidad);
@@ -39321,18 +39263,16 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<string> DelProductoSugeridoAsync(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(int paisID, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas entidad);
+        Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas> GetConfiguracionProgramaNuevasAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas entidad);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas> GetConfiguracionProgramaNuevasAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaDespuesPrimerPedido", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaDespuesPrimerPedidoResp" +
-            "onse")]
-        Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas GetConfiguracionProgramaDespuesPrimerPedido(int paisID, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas entidad);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCuvKitNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetCuvKitNuevasResponse")]
+        string GetCuvKitNuevas(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas confProgNuevas);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaDespuesPrimerPedido", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaDespuesPrimerPedidoResp" +
-            "onse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas> GetConfiguracionProgramaDespuesPrimerPedidoAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas entidad);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCuvKitNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetCuvKitNuevasResponse")]
+        System.Threading.Tasks.Task<string> GetCuvKitNuevasAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas confProgNuevas);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdateMontosPedidoWeb", ReplyAction="http://tempuri.org/IPedidoService/UpdateMontosPedidoWebResponse")]
         void UpdateMontosPedidoWeb(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bePedidoWeb);
@@ -39521,10 +39461,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<int> InsIndicadorPedidoAutenticoAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEIndicadorPedidoAutentico entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConsultoraRegaloProgramaNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetConsultoraRegaloProgramaNuevasResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
+        Portal.Consultoras.Web.ServicePedido.BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConsultoraRegaloProgramaNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetConsultoraRegaloProgramaNuevasResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraRegaloProgramaNuevas> GetConsultoraRegaloProgramaNuevasAsync(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraRegaloProgramaNuevas> GetConsultoraRegaloProgramaNuevasAsync(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProl", ReplyAction="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProlResponse")]
         Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
@@ -41306,12 +41246,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetReporteValidacionAsync(paisID, campaniaID, tipoEstrategia);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[] ObtenerConcursosXConsultora(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoRegion, string CodigoZona) {
-            return base.Channel.ObtenerConcursosXConsultora(PaisID, CodigoCampania, CodigoConsultora, CodigoRegion, CodigoZona);
+        public Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[] ObtenerConcursosXConsultora(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
+            return base.Channel.ObtenerConcursosXConsultora(usuario);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[]> ObtenerConcursosXConsultoraAsync(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoRegion, string CodigoZona) {
-            return base.Channel.ObtenerConcursosXConsultoraAsync(PaisID, CodigoCampania, CodigoConsultora, CodigoRegion, CodigoZona);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEIncentivoConcurso[]> ObtenerConcursosXConsultoraAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
+            return base.Channel.ObtenerConcursosXConsultoraAsync(usuario);
         }
         
         public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso) {
@@ -41576,6 +41516,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEUsuario> GetConfiguracionOfertaFinalAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
             return base.Channel.GetConfiguracionOfertaFinalAsync(usuario);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEProducto[] GetProductoSugerido(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar) {
+            return base.Channel.GetProductoSugerido(productoBuscar);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProducto[]> GetProductoSugeridoAsync(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar) {
+            return base.Channel.GetProductoSugeridoAsync(productoBuscar);
         }
         
         public int InsertPagoEnLineaResultadoLog(int paisId, Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog entidad) {
@@ -42066,20 +42014,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.DelProductoSugeridoAsync(PaisID, entidad);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(int paisID, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas entidad) {
-            return base.Channel.GetConfiguracionProgramaNuevas(paisID, entidad);
+        public Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
+            return base.Channel.GetConfiguracionProgramaNuevas(usuario);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas> GetConfiguracionProgramaNuevasAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas entidad) {
-            return base.Channel.GetConfiguracionProgramaNuevasAsync(paisID, entidad);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas> GetConfiguracionProgramaNuevasAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
+            return base.Channel.GetConfiguracionProgramaNuevasAsync(usuario);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas GetConfiguracionProgramaDespuesPrimerPedido(int paisID, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas entidad) {
-            return base.Channel.GetConfiguracionProgramaDespuesPrimerPedido(paisID, entidad);
+        public string GetCuvKitNuevas(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas confProgNuevas) {
+            return base.Channel.GetCuvKitNuevas(usuario, confProgNuevas);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas> GetConfiguracionProgramaDespuesPrimerPedidoAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas entidad) {
-            return base.Channel.GetConfiguracionProgramaDespuesPrimerPedidoAsync(paisID, entidad);
+        public System.Threading.Tasks.Task<string> GetCuvKitNuevasAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas confProgNuevas) {
+            return base.Channel.GetCuvKitNuevasAsync(usuario, confProgNuevas);
         }
         
         public void UpdateMontosPedidoWeb(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb bePedidoWeb) {
@@ -42322,12 +42270,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.InsIndicadorPedidoAutenticoAsync(paisID, entidad);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona) {
-            return base.Channel.GetConsultoraRegaloProgramaNuevas(paisID, campaniaId, codigoConsultora, codigoRegion, codigoZona);
+        public Portal.Consultoras.Web.ServicePedido.BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva) {
+            return base.Channel.GetConsultoraRegaloProgramaNuevas(paisID, campaniaId, codigoConsultora, consecutivoNueva);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraRegaloProgramaNuevas> GetConsultoraRegaloProgramaNuevasAsync(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona) {
-            return base.Channel.GetConsultoraRegaloProgramaNuevasAsync(paisID, campaniaId, codigoConsultora, codigoRegion, codigoZona);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraRegaloProgramaNuevas> GetConsultoraRegaloProgramaNuevasAsync(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva) {
+            return base.Channel.GetConsultoraRegaloProgramaNuevasAsync(paisID, campaniaId, codigoConsultora, consecutivoNueva);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo) {

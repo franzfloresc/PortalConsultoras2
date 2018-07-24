@@ -9,27 +9,69 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLConfiguracionProgramaNuevas : IConfiguracionProgramaNuevasBusinessLogic
     {
-        public BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(int paisID, BEConfiguracionProgramaNuevas entidad)
+        public BEConfiguracionProgramaNuevas Get(BEUsuario usuario)
         {
-            if (!new BLPais().EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
+            var configuracion = new BEConfiguracionProgramaNuevas()
             {
-                using (var reader = new DAConfiguracionProgramaNuevas(paisID).GetConfiguracionProgramaNuevas(entidad))
-                {
-                    return reader.MapToObject<BEConfiguracionProgramaNuevas>(true);
-                }
+                Campania = usuario.CampaniaID.ToString(),
+                CodigoConsultora = usuario.CodigoConsultora
+            };
+
+            //if (!new BLPais().EsPaisHana(paisID))
+            //{
+            using (var reader = new DAConfiguracionProgramaNuevas(usuario.PaisID).Get(configuracion))
+            {
+                configuracion = reader.MapToObject<BEConfiguracionProgramaNuevas>(true);
             }
-            else
+            //}
+            //else
+            //{
+            //return new DAHConfiguracionProgramaNuevas().GetConfiguracionProgramaNuevas(paisID, entidad);
+            //}
+            
+            return configuracion ?? new BEConfiguracionProgramaNuevas();
+        }
+
+        public string GetCuvKitNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas)
+        {
+            if (usuario.EsConsultoraNueva) return confProgNuevas.CUVKit;
+            if (new List<int> { 1, 2 }.Contains(usuario.ConsecutivoNueva) && WebConfig.PaisesFraccionKitNuevas.Contains(usuario.CodigoISO))
             {
-                return new DAHConfiguracionProgramaNuevas().GetConfiguracionProgramaNuevas(paisID, entidad);
+                confProgNuevas.Campania = usuario.CampaniaID.ToString();
+                confProgNuevas.CodigoNivel = GetCodigoNivel(usuario);
+                return new DAConfiguracionProgramaNuevas(usuario.PaisID).GetCuvPremioKitNuevas(confProgNuevas);
+            }
+            return "";
+        }
+
+        public BEConsultoraRegaloProgramaNuevas GetRegaloProgramaNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas)
+        {
+            confProgNuevas.Campania = usuario.CampaniaID.ToString();
+            confProgNuevas.CodigoNivel = GetCodigoNivel(usuario);
+
+            using (var reader = new DAConfiguracionProgramaNuevas(usuario.PaisID).GetRegaloProgramaNuevas(confProgNuevas))
+            {
+                return reader.MapToObject<BEConsultoraRegaloProgramaNuevas>(true);
             }
         }
 
-        public BEConfiguracionProgramaNuevas GetConfiguracionProgramaDespuesPrimerPedido(int paisID, BEConfiguracionProgramaNuevas entidad)
+        public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva)
         {
-            using (var reader = new DAConfiguracionProgramaNuevas(paisID).GetConfiguracionProgramaDespuesPrimerPedido(entidad))
-            {
-                return reader.MapToObject<BEConfiguracionProgramaNuevas>(true);
-            }
+            var usuario = new BEUsuario { PaisID = paisID, CampaniaID = campaniaId, CodigoConsultora = codigoConsultora, ConsecutivoNueva = consecutivoNueva };
+            var configuracion = Get(usuario);
+            if (configuracion.IndExigVent != "1") return null;
+
+            var regalo = GetRegaloProgramaNuevas(usuario, configuracion);
+            if (regalo == null) return null;
+
+            regalo.CodigoNivel = GetCodigoNivel(usuario);
+            regalo.TippingPoint = configuracion.MontoVentaExigido;
+            return regalo;
+        }
+
+        public string GetCodigoNivel(BEUsuario usuario)
+        {
+            return "0" + (usuario.ConsecutivoNueva + 1);
         }
 
         #region ConfiguracionApp
