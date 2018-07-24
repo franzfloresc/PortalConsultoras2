@@ -5199,6 +5199,8 @@
     <Content Include="Views\MisCertificados\DO_ComercialPdf.cshtml" />
     <Content Include="Views\MisCertificados\PR_PazYSalvoPdf.cshtml" />
     <Content Include="Views\MisCertificados\PR_ComercialPdf.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerHeader.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerBody.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
