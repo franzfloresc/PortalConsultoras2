@@ -47,65 +47,41 @@ namespace Portal.Consultoras.Entities
         public BEItemCarruselInicio() { }
         public BEItemCarruselInicio(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "ItemCarruselInicioID"))
-            {
-                ItemCarruselInicioID = Convert.ToInt32(row["ItemCarruselInicioID"]);
-            }
+            
+                ItemCarruselInicioID = row.ToInt32("ItemCarruselInicioID");
 
-            if (DataRecord.HasColumn(row, "UrlImagenPrincipal"))
-            {
-                UrlImagenPrincipal = Convert.ToString(row["UrlImagenPrincipal"]);
-            }
+            
+                UrlImagenPrincipal = row.ToString("UrlImagenPrincipal");
 
-            if (DataRecord.HasColumn(row, "UrlImagenTitulo"))
-            {
-                UrlImagenTitulo = Convert.ToString(row["UrlImagenTitulo"]);
-            }
+            
+                UrlImagenTitulo = row.ToString("UrlImagenTitulo");
 
-            if (DataRecord.HasColumn(row, "TextoDescripcion"))
-            {
-                TextoDescripcion = Convert.ToString(row["TextoDescripcion"]);
-            }
+            
+                TextoDescripcion = row.ToString("TextoDescripcion");
 
-            if (DataRecord.HasColumn(row, "TextoLink"))
-            {
-                TextoLink = Convert.ToString(row["TextoLink"]);
-            }
+            
+                TextoLink = row.ToString("TextoLink");
 
-            if (DataRecord.HasColumn(row, "UrlLink"))
-            {
-                UrlLink = Convert.ToString(row["UrlLink"]);
-            }
+            
+                UrlLink = row.ToString("UrlLink");
 
-            if (DataRecord.HasColumn(row, "EsVideo"))
-            {
-                EsVideo = Convert.ToBoolean(row["EsVideo"]);
-            }
+            
+                EsVideo = row.ToBoolean("EsVideo");
 
-            if (DataRecord.HasColumn(row, "UrlLinkPrincipal"))
-            {
-                UrlLinkPrincipal = Convert.ToString(row["UrlLinkPrincipal"]);
-            }
+            
+                UrlLinkPrincipal = row.ToString("UrlLinkPrincipal");
 
-            if (DataRecord.HasColumn(row, "UrlLinkPrincipalExterno"))
-            {
-                UrlLinkPrincipalExterno = Convert.ToBoolean(row["UrlLinkPrincipalExterno"]);
-            }
+            
+                UrlLinkPrincipalExterno = row.ToBoolean("UrlLinkPrincipalExterno");
 
-            if (DataRecord.HasColumn(row, "TextoDescripcion2"))
-            {
-                TextoDescripcion2 = Convert.ToString(row["TextoDescripcion2"]);
-            }
+            
+                TextoDescripcion2 = row.ToString("TextoDescripcion2");
 
-            if (DataRecord.HasColumn(row, "Orden"))
-            {
-                Orden = Convert.ToInt32(row["Orden"]);
-            }
+            
+                Orden = row.ToInt32("Orden");
 
-            if (DataRecord.HasColumn(row, "NombreItem"))
-            {
-                NombreItem = Convert.ToString(row["NombreItem"]);
-            }
+            
+                NombreItem = row.ToString("NombreItem");
         }
     }
 }

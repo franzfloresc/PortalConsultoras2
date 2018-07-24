@@ -921,7 +921,6 @@ namespace Portal.Consultoras.Web.Controllers
                        detalle.CUV,
                        set.Cantidad * detalle.FactorRepeticion,
                        ClienteID,
-                       CUVReco,
                        EsBackOrder);
 
                         if (!lastResult.Item1)
@@ -938,13 +937,13 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 lastResult = DeletePedidoWeb(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad,
-                    ClienteID, CUVReco, EsBackOrder);
+                    ClienteID, EsBackOrder);
             }
 
             return lastResult.Item2;
         }
 
-        private Tuple<bool, JsonResult> DeletePedidoWeb(int campaniaId, int pedidoID, short pedidoDetalleId, int tipoOfertaSisId, string CUV, int cantidad, string clienteId, string CUVReco, bool esBackOrder)
+        private Tuple<bool, JsonResult> DeletePedidoWeb(int campaniaId, int pedidoID, short pedidoDetalleId, int tipoOfertaSisId, string CUV, int cantidad, string clienteId, bool esBackOrder)
         {
             try
             {

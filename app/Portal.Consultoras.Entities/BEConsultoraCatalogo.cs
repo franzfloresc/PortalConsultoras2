@@ -84,19 +84,17 @@ namespace Portal.Consultoras.Entities
         {
             CodigoConsultora = row.ToString("CodigoConsultora");
             NombreCompleto = row.ToString("NombreCompleto");
-            if (DataRecord.HasColumn(row, "ZonaID"))
-                IdZona = Convert.ToInt32((row["ZonaID"]).ToString());
+            IdZona = row.ToInt32("ZonaID");
             Correo = row.ToString("Correo");
             TelefonoCelular = row.ToString("Celular");
             CodigoZona = row.ToString("CodigoZona");
-            if (DataRecord.HasColumn(row, "FechaInicioFacturacion"))
-                DiaFacturacion = Convert.ToDateTime((row["FechaInicioFacturacion"]).ToString());
-            if (DataRecord.HasColumn(row, "CampaniaActual"))
-                CampaniaActual = Convert.ToInt32((row["CampaniaActual"]).ToString());
+            DiaFacturacion = row.ToDateTime("FechaInicioFacturacion");
+            CampaniaActual = row.ToInt32("CampaniaActual");
+
             if (DataRecord.HasColumn(row, "HoraCierre"))
                 HoraCierre = Convert.ToDateTime(row["HoraCierre"]).ToShortTimeString();
-            if (DataRecord.HasColumn(row, "EstadoActividad"))
-                Estado = Convert.ToInt32((row["EstadoActividad"]).ToString());
+            
+            Estado = row.ToInt32("EstadoActividad");
             CodigoUsuario = row.ToString("CodigoUsuario");
             Pais = row.ToString("Pais");
             IdConsultora = row.ToInt64("IdConsultora");

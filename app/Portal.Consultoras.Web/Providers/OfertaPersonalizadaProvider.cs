@@ -1044,7 +1044,7 @@ namespace Portal.Consultoras.Web.Providers
                     var strJoinIds = string.Join(",", listaSubCampania.Select(x => x.EstrategiaID).ToList());
                     using (var svc = new PedidoServiceClient())
                     {
-                        listaEstrategiaProductos = svc.GetEstrategiaProductoList(userData.PaisID, strJoinIds).ToList().ToList();
+                        listaEstrategiaProductos = svc.GetEstrategiaProductoList(userData.PaisID, strJoinIds).ToList();
                         listaEstrategiaProductos = (listaEstrategiaProductos == null ? new List<ServicePedido.BEEstrategiaProducto>() : listaEstrategiaProductos);
                     }
 
