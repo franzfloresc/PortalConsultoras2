@@ -17,8 +17,8 @@ namespace Portal.Consultoras.Entities.CDR
 
         public BECDRMotivoReclamo(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoReclamo")) CodigoReclamo = Convert.ToString(row["CodigoReclamo"]);
-            if (DataRecord.HasColumn(row, "DescripcionReclamo")) DescripcionReclamo = Convert.ToString(row["DescripcionReclamo"]);
+            CodigoReclamo = row.ToString("CodigoReclamo");
+            DescripcionReclamo = row.ToString("DescripcionReclamo");
         }
     }
 }

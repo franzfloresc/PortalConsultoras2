@@ -34,22 +34,14 @@ namespace Portal.Consultoras.Entities
 
         public BELogGPRValidacionDetalle(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "LogGPRValidacionDetalleId"))
-                this.LogGPRValidacionDetalleId = Convert.ToInt64(row["LogGPRValidacionDetalleId"]);
-            if (DataRecord.HasColumn(row, "LogGPRValidacionId"))
-                this.LogGPRValidacionId = Convert.ToInt64(row["LogGPRValidacionId"]);
-            if (DataRecord.HasColumn(row, "CUV"))
-                this.CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                this.Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "Cantidad"))
-                this.Cantidad = Convert.ToInt32(row["Cantidad"]);
-            if (DataRecord.HasColumn(row, "PrecioUnidad"))
-                this.PrecioUnidad = Convert.ToDecimal(row["PrecioUnidad"]);
-            if (DataRecord.HasColumn(row, "ImporteTotal"))
-                this.ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-            if (DataRecord.HasColumn(row, "IndicadorOferta"))
-                this.IndicadorOferta = Convert.ToBoolean(row["IndicadorOferta"]);
+            LogGPRValidacionDetalleId = row.ToInt64("LogGPRValidacionDetalleId");
+            LogGPRValidacionId = row.ToInt64("LogGPRValidacionId");
+            CUV = row.ToString("CUV");
+            Descripcion = row.ToString("Descripcion");
+            Cantidad = row.ToInt32("Cantidad");
+            PrecioUnidad = row.ToDecimal("PrecioUnidad");
+            ImporteTotal = row.ToDecimal("ImporteTotal");
+            IndicadorOferta = row.ToBoolean("IndicadorOferta");
         }
     }
 }

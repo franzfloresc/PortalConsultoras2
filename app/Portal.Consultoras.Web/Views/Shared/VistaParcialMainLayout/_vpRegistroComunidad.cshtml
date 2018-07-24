@@ -16,7 +16,7 @@
                     <input id="txtUsuarioComunidad" runat="server" type="text" class="inputForm ValidaAlfanumerico" maxlength="25" onpaste="return false;" value="Tu apodo en la comunidad" onfocus="if (this.value == 'Tu apodo en la comunidad') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Tu apodo en la comunidad';}else{if (this.value != 'Tu apodo en la comunidad') {ValidarUsuarioIngresado(this.value);}}" />
                     <div id="ErrorUsuario" style="font-size: 11px; color: red; display: none;">Debe ingresar un apodo.</div>
                     <div id="ValUsuario" style="font-size: 11px; display: none;">
-                        <img src="../Content/Images/loadingCatalogo.gif" style="vertical-align: middle;" alt="Cargando" />
+                        <img src="~/Content/Images/loadingCatalogo.gif" style="vertical-align: middle;" alt="Cargando" />
                         Validando...
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                     <input id="txtNuevoCorreoComunidad" runat="server" type="text" class="inputForm" value="Correo electrónico" onfocus="if (this.value == 'Correo electrónico') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Correo electrónico';}else{if (this.value != 'Correo electrónico') {ValidarCorreoIngresado(this.value);}}" />
                     <div id="ErrorCorreo" style="font-size: 11px; color: red; display: none;"></div>
                     <div id="ValCorreo" style="font-size: 11px; display: none;">
-                        <img src="../Content/Images/loadingCatalogo.gif" style="vertical-align: middle;" alt="Cargando" />
+                        <img src="~/Content/Images/loadingCatalogo.gif" style="vertical-align: middle;" alt="Cargando" />
                         Validando...
                     </div>
                 </div>

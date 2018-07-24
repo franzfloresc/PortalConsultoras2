@@ -8,7 +8,8 @@ var _palanca = {
 
 var _tipopresentacion = {
     showroom: "5",
-    odd: "6"
+    odd: "6",
+    banner: "4"
 }
 jQuery(document).ready(function () {
     admPalancaDatos.ini();
@@ -334,7 +335,7 @@ function IniDialogs() {
 
                 if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") === _palanca.showroom) {
                     desktopTipoPresentacion = _tipopresentacion.showroom;
-                    mobileTipoPresentacion = _tipopresentacion.showroom;
+                    mobileTipoPresentacion = _tipopresentacion.banner;
                 }
                 if ($("#ddlConfiguracionIdOfertas").find("option:selected").attr("data-codigo") === _palanca.odd) {
                     desktopTipoPresentacion = _tipopresentacion.odd;

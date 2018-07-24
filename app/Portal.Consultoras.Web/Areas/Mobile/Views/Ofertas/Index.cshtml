@@ -56,10 +56,11 @@
 @section scripts{
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
-        var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
-        var urlCargarProductosHv = '@Url.Action("HVObtenerProductos", "HerramientasVenta", new { area = ""})';
+        var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "Estrategia", new { area = ""})';
+        var urlCargarProductosHv = '@Url.Action("HVObtenerProductos", "Estrategia", new { area = ""})';
         var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
-        var urlOfertaDetalleProductoLan = '@Url.Action("Detalle", "Lanzamientos", new { area = "Mobile" })';
+        var urlOfertaDetalleProductoLan = '@Url.Action("Ficha", "DetalleEstrategia", new { area = "Mobile" })';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
         var OrigenDesktopODD = 0;
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/JsSB2-Ofertas")

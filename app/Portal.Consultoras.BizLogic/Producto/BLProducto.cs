@@ -12,6 +12,23 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLProducto : IProductoBusinessLogic
     {
+        [Obsolete("Migrado PL50-50")]
+        public IList<BEProducto> GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
+        {
+            IList<BEProducto> productos = new List<BEProducto>();
+            var daProducto = new DAProducto(paisID);
+
+            using (IDataReader reader = daProducto.GetProductoComercialByListaCuv(campaniaID, regionID, zonaID, codigoRegion, codigoZona, listaCuv))
+            {
+                while (reader.Read())
+                {
+                    productos.Add(new BEProducto(reader));
+                }
+            }
+
+            return productos;
+        }
+
         public List<BEProductoDescripcion> GetProductoDescripcionByCUVandCampania(int paisID, int campaniaID, string CUV)
         {
             List<BEProductoDescripcion> productoDescripcion = new List<BEProductoDescripcion>();
@@ -212,23 +229,6 @@ namespace Portal.Consultoras.BizLogic
             return (from producto in productos
                     orderby producto.CUV
                     select producto).ToList();
-        }
-
-        [Obsolete("Migrado PL50-50")]
-        public IList<BEProducto> GetProductoComercialByListaCuv(int paisID, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string listaCuv)
-        {
-            IList<BEProducto> productos = new List<BEProducto>();
-            var daProducto = new DAProducto(paisID);
-
-            using (IDataReader reader = daProducto.GetProductoComercialByListaCuv(campaniaID, regionID, zonaID, codigoRegion, codigoZona, listaCuv))
-            {
-                while (reader.Read())
-                {
-                    productos.Add(new BEProducto(reader));
-                }
-            }
-
-            return productos;
         }
 
         public int UpdProductoDescripcion(BEProductoDescripcion producto, string codigoUsuario)
@@ -474,13 +474,13 @@ namespace Portal.Consultoras.BizLogic
 
         private bool EsProductoExclusivo(int paisID, int campaniaID, string cuv)
         {
-            var lstProductos = GetProductosExclusivosCache(paisID, campaniaID, cuv);
+            var lstProductos = GetProductosExclusivosCache(paisID, campaniaID);
             if (lstProductos == null) return false;
             if (lstProductos.Any(a => a.Any(b => lstProductos.Contains(cuv)))) return true;
             return false;
         }
 
-        private List<string> GetProductosExclusivosCache(int paisID, int campaniaID, string cuv)
+        private List<string> GetProductosExclusivosCache(int paisID, int campaniaID)
         {
             return CacheManager<List<string>>.ValidateDataElement(paisID, ECacheItem.ProductosExclusivos, campaniaID.ToString(), () => GetProductosExclusivos(paisID, campaniaID));
         }
@@ -516,7 +516,7 @@ namespace Portal.Consultoras.BizLogic
 
             var daProductoDescripcion = new DAProductoDescripcion(paisID);
 
-            List<BEProductoDescripcion> lstFinal = new List<BEProductoDescripcion>();
+            //List<BEProductoDescripcion> lstFinal = new List<BEProductoDescripcion>();
 
             //foreach (BEProductoDescripcion be in productos)
             //{

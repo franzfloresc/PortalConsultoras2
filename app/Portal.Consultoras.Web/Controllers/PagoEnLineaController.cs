@@ -1,27 +1,28 @@
 ﻿using AutoMapper;
-using Newtonsoft.Json;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Common.PagoEnLinea;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
-using Portal.Consultoras.Web.ServiceContenido;
-using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.ServiceModel;
-using System.Text;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceZonificacion;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class PagoEnLineaController : BaseController
     {
+        protected PagoEnLineaProvider _pagoEnLineaProvider;
+
+        public PagoEnLineaController()
+        {
+            _pagoEnLineaProvider = new PagoEnLineaProvider();
+        }
+
         // GET: PagoEnLinea
         public ActionResult Index()
         {
@@ -30,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             sessionManager.SetDatosPagoVisa(null);
 
-            var model = ObtenerValoresPagoEnLinea();
+            var model = _pagoEnLineaProvider.ObtenerValoresPagoEnLinea();
 
             return View(model);
         }
@@ -90,7 +91,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (model == null)
                 return RedirectToAction("Index", "PagoEnLinea");
 
-            model.PagoVisaModel = ObtenerValoresPagoVisa(model);
+            model.PagoVisaModel = _pagoEnLineaProvider.ObtenerValoresPagoVisa(model);
 
             sessionManager.SetDatosPagoVisa(model);
 
@@ -108,7 +109,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string transactionToken = Request.Form["transactionToken"];
 
-                bool pagoOk = ProcesarPagoVisa(ref model, transactionToken);
+                bool pagoOk = _pagoEnLineaProvider.ProcesarPagoVisa(ref model, transactionToken);
 
                 if (pagoOk)
                 {

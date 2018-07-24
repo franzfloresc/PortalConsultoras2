@@ -34,34 +34,20 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int MostrarAgotado { get; set; }
 
-        public BEProductoSugerido(IDataRecord datarec)
+        public BEProductoSugerido(IDataRecord row)
         {
-            if (DataRecord.HasColumn(datarec, "ProductoSugeridoID"))
-                ProductoSugeridoID = Convert.ToInt32(datarec["ProductoSugeridoID"]);
-            if (DataRecord.HasColumn(datarec, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
-            if (DataRecord.HasColumn(datarec, "CUV"))
-                CUV = Convert.ToString(datarec["CUV"]);
-            if (DataRecord.HasColumn(datarec, "CUVSugerido"))
-                CUVSugerido = Convert.ToString(datarec["CUVSugerido"]);
-            if (DataRecord.HasColumn(datarec, "Orden"))
-                Orden = Convert.ToInt32(datarec["Orden"]);
-            if (DataRecord.HasColumn(datarec, "ImagenProducto"))
-                ImagenProducto = Convert.ToString(datarec["ImagenProducto"]);
-
-            if (DataRecord.HasColumn(datarec, "Estado"))
-                Estado = Convert.ToInt32(datarec["Estado"]);
-
-            if (DataRecord.HasColumn(datarec, "FechaRegistro"))
-                FechaRegistro = Convert.ToDateTime(datarec["FechaRegistro"]);
-            if (DataRecord.HasColumn(datarec, "UsuarioRegistro"))
-                UsuarioRegistro = Convert.ToString(datarec["UsuarioRegistro"]);
-            if (DataRecord.HasColumn(datarec, "FechaModificacion"))
-                FechaModificacion = Convert.ToDateTime(datarec["FechaModificacion"]);
-            if (DataRecord.HasColumn(datarec, "UsuarioModificacion"))
-                UsuarioModificacion = Convert.ToString(datarec["UsuarioModificacion"]);
-            if (DataRecord.HasColumn(datarec, "MostrarAgotado"))
-                MostrarAgotado = Convert.ToInt32(datarec["MostrarAgotado"]);
+            ProductoSugeridoID = row.ToInt32("ProductoSugeridoID");
+            CampaniaID = row.ToInt32("CampaniaID");
+            CUV = row.ToString("CUV");
+            CUVSugerido = row.ToString("CUVSugerido");
+            Orden = row.ToInt32("Orden");
+            ImagenProducto = row.ToString("ImagenProducto");
+            Estado = row.ToInt32("Estado");
+            FechaRegistro = row.ToDateTime("FechaRegistro");
+            UsuarioRegistro = row.ToString("UsuarioRegistro");
+            FechaModificacion = row.ToDateTime("FechaModificacion");
+            UsuarioModificacion = row.ToString("UsuarioModificacion");
+            MostrarAgotado = row.ToInt32("MostrarAgotado");
         }
     }
 }

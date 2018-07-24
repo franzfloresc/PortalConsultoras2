@@ -25,16 +25,11 @@ namespace Portal.Consultoras.Entities
 
         public BEServicio(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "ServicioId"))
-                ServicioId = Convert.ToInt32(row["ServicioId"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "Url"))
-                Url = Convert.ToString(row["Url"]);
-            if (DataRecord.HasColumn(row, "PaginaNueva"))
-                PaginaNueva = Convert.ToBoolean(row["PaginaNueva"]);
-            if (DataRecord.HasColumn(row, "PaginaNuevaDescripcion"))
-                PaginaNuevaDescripcion = Convert.ToString(row["PaginaNuevaDescripcion"]);
+            ServicioId = row.ToInt32("ServicioId");
+            Descripcion = row.ToString("Descripcion");
+            Url = row.ToString("Url");
+            PaginaNueva = row.ToBoolean("PaginaNueva");
+            PaginaNuevaDescripcion = row.ToString("PaginaNuevaDescripcion");
         }
     }
 }

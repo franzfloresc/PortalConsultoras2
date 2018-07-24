@@ -58,7 +58,7 @@ $(document).ready(function () {
         $("#fondoPopup_aceptacionTerminosYCondicionesContrato").hide();
     }
 
-    CargarCarouselEstrategias("");
+    CargarCarouselEstrategias();
 
     if (tieneMasVendidos === 1) {
         masVendidosModule.readVariables({
@@ -492,33 +492,6 @@ function TagManagerCatalogosPersonalizados() {
                         'id': '1',
                         'name': 'Favoritos',
                         'position': 'Home-inferior-1'
-                    }]
-                }
-            }
-        });
-    }
-}
-
-$("#content_oferta_dia_mobile").click(function () {
-    $('#PopOfertaDia').slideDown();
-    odd_mobile_google_analytics_promotion_click();
-});
-
-function odd_mobile_google_analytics_promotion_click() {
-    if ($('#BloqueMobileOfertaDia').length > 0) {
-        var id = $('#BloqueMobileOfertaDia').find("#estrategia-id-odd").val();
-        var name = "Oferta del día - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
-        var creative = $('#BloqueMobileOfertaDia').find("#nombre-odd").val() + " - " + $('#BloqueMobileOfertaDia').find("#cuv2-odd").val()
-        dataLayer.push({
-            'event': 'promotionClick',
-            'ecommerce': {
-                'promoClick': {
-                    'promotions': [
-                    {
-                        'id': id,
-                        'name': name,
-                        'position': 'Banner Superior Home - 1',
-                        'creative': creative
                     }]
                 }
             }

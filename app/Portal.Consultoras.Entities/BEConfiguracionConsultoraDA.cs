@@ -24,18 +24,12 @@ namespace Portal.Consultoras.Entities
 
         public BEConfiguracionConsultoraDA(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "ConfiguracionConsultoraDAID"))
-                ConfiguracionConsultoraDAID = Convert.ToInt32(row["ConfiguracionConsultoraDAID"]);
-            if (DataRecord.HasColumn(row, "ZonaID"))
-                ZonaID = Convert.ToInt32(row["ZonaID"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = row["CampaniaID"].ToString();
-            if (DataRecord.HasColumn(row, "TipoConfiguracion"))
-                TipoConfiguracion = Convert.ToByte(row["TipoConfiguracion"]);
-            if (DataRecord.HasColumn(row, "CodigoUsuario"))
-                CodigoUsuario = row["CodigoUsuario"].ToString();
+            ConfiguracionConsultoraDAID = row.ToInt32("ConfiguracionConsultoraDAID");
+            ZonaID = row.ToInt32("ZonaID");
+            ConsultoraID = row.ToInt32("ConsultoraID");
+            CampaniaID = row.ToString("CampaniaID");
+            TipoConfiguracion = row.ToByte("TipoConfiguracion");
+            CodigoUsuario = row.ToString("CodigoUsuario");
         }
 
 

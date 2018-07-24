@@ -29,35 +29,21 @@ namespace Portal.Consultoras.Entities
 
         public BEActivarPremioNuevas()
         {
-            this.CodigoPrograma = default(string);
-            this.AnioCampana = default(int);
-            this.Nivel = default(string);
-            this.FechaCreate = default(DateTime);
+            CodigoPrograma = default(string);
+            AnioCampana = default(int);
+            Nivel = default(string);
+            FechaCreate = default(DateTime);
         }
 
-        public BEActivarPremioNuevas(IDataRecord dr)
+        public BEActivarPremioNuevas(IDataRecord row)
         {
-            if (DataRecord.HasColumn(dr, "CodigoPrograma") && dr["CodigoPrograma"] != DBNull.Value)
-                CodigoPrograma = Convert.ToString(dr["CodigoPrograma"]);
-
-            if (DataRecord.HasColumn(dr, "AnoCampana") && dr["AnoCampana"] != DBNull.Value)
-                AnioCampana = Convert.ToInt32(dr["AnoCampana"]);
-
-            if (DataRecord.HasColumn(dr, "Nivel") && dr["Nivel"] != DBNull.Value)
-                Nivel = Convert.ToString(dr["Nivel"]);
-
-            if (DataRecord.HasColumn(dr, "ActiveTooltip") && dr["ActiveTooltip"] != DBNull.Value)
-                ActiveTooltip = Convert.ToBoolean(dr["ActiveTooltip"]);
-
-            if (DataRecord.HasColumn(dr, "ActiveTooltipMonto") && dr["ActiveTooltipMonto"] != DBNull.Value)
-                ActiveMontoTooltip = Convert.ToBoolean(dr["ActiveTooltipMonto"]);
-
-            if (DataRecord.HasColumn(dr, "Active") && dr["Active"] != DBNull.Value)
-                Active = Convert.ToBoolean(dr["Active"]);
-
-            if (DataRecord.HasColumn(dr, "FechaCreate") && dr["FechaCreate"] != DBNull.Value)
-                FechaCreate = Convert.ToDateTime(dr["FechaCreate"]);
-
+            CodigoPrograma = row.ToString("CodigoPrograma");
+            AnioCampana = row.ToInt32("AnoCampana");
+            Nivel = row.ToString("Nivel");
+            ActiveTooltip = row.ToBoolean("ActiveTooltip");
+            ActiveMontoTooltip = row.ToBoolean("ActiveTooltipMonto");
+            Active = row.ToBoolean("Active");
+            FechaCreate = row.ToDateTime("FechaCreate");
         }
     }
 }

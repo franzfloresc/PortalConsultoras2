@@ -19,14 +19,9 @@ namespace Portal.Consultoras.Entities
 
         public BETerminosCondiciones(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-
-            if (DataRecord.HasColumn(row, "Aceptado"))
-                Aceptado = Convert.ToBoolean(row["Aceptado"]);
-
-            if (DataRecord.HasColumn(row, "Tipo"))
-                Tipo = Convert.ToInt16(row["Tipo"]);
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            Aceptado = row.ToBoolean("Aceptado");
+            Tipo = row.ToInt16("Tipo");
         }
 
         public BETerminosCondiciones()

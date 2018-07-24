@@ -1,60 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:simpleType name="Enumeradores.RechazoBannerUrl">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Ninguna" />
-      <xs:enumeration value="Deuda" />
-      <xs:enumeration value="ModificaPedido" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Enumeradores.RechazoBannerUrl" nillable="true" type="tns:Enumeradores.RechazoBannerUrl" />
-  <xs:simpleType name="Enumeradores.ResultadoReserva">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Ninguno" />
-      <xs:enumeration value="Reservado" />
-      <xs:enumeration value="ReservadoObservaciones" />
-      <xs:enumeration value="NoReservadoObservaciones" />
-      <xs:enumeration value="NoReservadoMontoMinimo" />
-      <xs:enumeration value="NoReservadoMontoMaximo" />
-      <xs:enumeration value="ReservaNoDisponible" />
-      <xs:enumeration value="NoReservadoDeuda" />
-      <xs:enumeration value="NoReservadoMontoPermitido" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Enumeradores.ResultadoReserva" nillable="true" type="tns:Enumeradores.ResultadoReserva" />
-  <xs:simpleType name="Enumeradores.MotivoPedidoLock">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Ninguno" />
-      <xs:enumeration value="GPR">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="Reservado">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="HorarioRestringido">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="Facturado">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Enumeradores.MotivoPedidoLock" nillable="true" type="tns:Enumeradores.MotivoPedidoLock" />
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfBEIncentivoProgramaNuevasNivel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEIncentivoProgramaNuevasNivel" nillable="true" type="tns:BEIncentivoProgramaNuevasNivel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEIncentivoProgramaNuevasNivel" nillable="true" type="tns:ArrayOfBEIncentivoProgramaNuevasNivel" />
+  <xs:complexType name="BEIncentivoProgramaNuevasNivel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CuponesProgramaNuevas" nillable="true" type="tns:ArrayOfBEIncentivoProgramaNuevasCupon" />
+      <xs:element minOccurs="0" name="MontoExigidoCupon" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoExigidoPremio" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PremiosProgramaNuevas" nillable="true" type="tns:ArrayOfBEIncentivoProgramaNuevasPremio" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEIncentivoProgramaNuevasNivel" nillable="true" type="tns:BEIncentivoProgramaNuevasNivel" />
+  <xs:complexType name="ArrayOfBEIncentivoProgramaNuevasCupon">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEIncentivoProgramaNuevasCupon" nillable="true" type="tns:BEIncentivoProgramaNuevasCupon" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEIncentivoProgramaNuevasCupon" nillable="true" type="tns:ArrayOfBEIncentivoProgramaNuevasCupon" />
+  <xs:complexType name="BEIncentivoProgramaNuevasCupon">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoCupon" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoVenta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ganancia" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ImagenURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IndicadorCuponIndependiente" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IndicadorKit" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NumeroCampanasVigentes" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioUnitario" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TextoLibre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnidadesMaximas" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEIncentivoProgramaNuevasCupon" nillable="true" type="tns:BEIncentivoProgramaNuevasCupon" />
+  <xs:complexType name="ArrayOfBEIncentivoProgramaNuevasPremio">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEIncentivoProgramaNuevasPremio" nillable="true" type="tns:BEIncentivoProgramaNuevasPremio" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEIncentivoProgramaNuevasPremio" nillable="true" type="tns:ArrayOfBEIncentivoProgramaNuevasPremio" />
+  <xs:complexType name="BEIncentivoProgramaNuevasPremio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ganancia" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ImagenURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IndicadorKitNuevas" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PrecioUnitario" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TextoLibre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEIncentivoProgramaNuevasPremio" nillable="true" type="tns:BEIncentivoProgramaNuevasPremio" />
 </xs:schema>

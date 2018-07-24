@@ -4,7 +4,6 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
-using Portal.Consultoras.Entities.ProgramaNuevas;
 
 namespace Portal.Consultoras.Service
 {
@@ -141,7 +140,6 @@ namespace Portal.Consultoras.Service
         {
             return BLProducto.GetProductoComercialByListaCuv(paisID, campaniaID, regionID, zonaID, codigoRegion, codigoZona, listaCuv);
         }
-
 
         #region Digitacion Distribuida
 

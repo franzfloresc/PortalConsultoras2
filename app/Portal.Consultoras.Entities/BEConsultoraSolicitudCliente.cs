@@ -28,23 +28,12 @@ namespace Portal.Consultoras.Entities
 
         public BEConsultoraSolicitudCliente(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Codigo"))
-                Codigo = Convert.ToString(row["Codigo"]);
-
-            if (DataRecord.HasColumn(row, "Nombre"))
-                Nombre = Convert.ToString(row["Nombre"]);
-
-            if (DataRecord.HasColumn(row, "NombreCompleto"))
-                NombreCompleto = Convert.ToString(row["NombreCompleto"]);
-
-            if (DataRecord.HasColumn(row, "Email"))
-                Email = Convert.ToString(row["Email"]);
-
-            if (DataRecord.HasColumn(row, "CodigoISO"))
-                CodigoISO = Convert.ToString(row["CodigoISO"]);
-
-            if (DataRecord.HasColumn(row, "MarcaNombre"))
-                MarcaNombre = Convert.ToString(row["MarcaNombre"]);
+            Codigo = row.ToString("Codigo");
+            Nombre = row.ToString("Nombre");
+            NombreCompleto = row.ToString("NombreCompleto");
+            Email = row.ToString("Email");
+            CodigoISO = row.ToString("CodigoISO");
+            MarcaNombre = row.ToString("MarcaNombre");
         }
     }
 }

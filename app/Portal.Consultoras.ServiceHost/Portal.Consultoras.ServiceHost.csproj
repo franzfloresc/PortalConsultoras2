@@ -110,6 +110,7 @@
     <Content Include="ContenidoService.svc" />
     <Content Include="Global.asax" />
     <Content Include="ODSService.svc" />
+    <Content Include="OfertaService.svc" />
     <Content Include="PedidoService.svc" />
     <Content Include="SACService.svc" />
     <Content Include="SeguridadService.svc" />

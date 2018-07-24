@@ -1,21 +1,19 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using System;
-using System.Linq;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Models.PagoEnLinea;
-using System.ServiceModel;
-using System.Text;
-using Portal.Consultoras.Common.PagoEnLinea;
-using System.Net;
-using System.IO;
-using System.Web;
-using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class PagoEnLineaController : BaseMobileController
     {
+        protected PagoEnLineaProvider _pagoEnLineaProvider;
+
+        public PagoEnLineaController()
+        {
+            _pagoEnLineaProvider = new PagoEnLineaProvider();
+        }
 
         public ActionResult Index()
         {
@@ -24,7 +22,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             sessionManager.SetDatosPagoVisa(null);
 
-            var model = ObtenerValoresPagoEnLinea();
+            var model = _pagoEnLineaProvider.ObtenerValoresPagoEnLinea();
 
             return View(model);
         }
@@ -70,7 +68,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (model == null)
                 return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
 
-            model.PagoVisaModel = ObtenerValoresPagoVisa(model);
+            model.PagoVisaModel = _pagoEnLineaProvider.ObtenerValoresPagoVisa(model);
 
             sessionManager.SetDatosPagoVisa(model);
 
@@ -87,7 +85,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 string transactionToken = Request.Form["transactionToken"];
-                bool pagoOk = ProcesarPagoVisa(ref model, transactionToken);
+                bool pagoOk = _pagoEnLineaProvider.ProcesarPagoVisa(ref model, transactionToken);
 
                 if (pagoOk)
                 {

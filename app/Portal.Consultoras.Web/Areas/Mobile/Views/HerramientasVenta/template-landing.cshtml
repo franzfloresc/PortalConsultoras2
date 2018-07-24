@@ -97,8 +97,8 @@
 <script type="text/javascript">
     var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
     var tipoOrigenPantalla = 2;
-    var urlOfertaCargarProductos = '@Url.Action("HVObtenerProductos", "HerramientasVenta", new { area = ""})';
-    var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = ""})';
+    var urlOfertaCargarProductos = '@Url.Action("HVObtenerProductos", "Estrategia", new { area = ""})';
+    var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
     var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.HVMobileLanding';
     var tipoOrigenEstrategia = 27;
     var CantidadFilas = @Model.CantidadFilas;
@@ -108,4 +108,5 @@
     var campaniaId = @Model.CampaniaID;
 </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/HerramientasVenta-Landing")
+    @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/js/HerramientasVenta-Landing")
 }

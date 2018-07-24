@@ -200,7 +200,7 @@ $(document).ready(function () {
     });
     $("#txtUsuario").keypress(
         function (evt) {
-            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            var charCode = getCharCodeKeyPress(evt);
             if (charCode <= 13) {
                 $('#txtContrasenia').focus();
             }
@@ -213,7 +213,7 @@ $(document).ready(function () {
 
     $("#txtUsuario2").keypress(
         function (evt) {
-            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            var charCode = getCharCodeKeyPress(evt);
             if (charCode <= 13) {
                 $('#txtContrasenia2').focus();
                 return false;
@@ -227,7 +227,7 @@ $(document).ready(function () {
 
     $("#txtContrasenia").keypress(
         function (evt) {
-            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            var charCode = getCharCodeKeyPress(evt);
             if (charCode <= 13) {
                 $('#btnLogin').focus();
             }
@@ -235,7 +235,7 @@ $(document).ready(function () {
 
     $("#txtContrasenia2").keypress(
         function (evt) {
-            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            var charCode = getCharCodeKeyPress(evt);
             if (charCode <= 13) {
                 $('#btnLogin2').focus();
                 return false;
@@ -335,7 +335,7 @@ $(document).ready(function () {
     });
 
     $("body").keyup(function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        var charCode = getCharCodeKeyPress(evt);
 
         if ($('#popup_olvidasteContrasenia').is(':visible') && charCode == 27) {
             $('#popup1').hide();
@@ -351,7 +351,7 @@ $(document).ready(function () {
     });
 
     $("#txtCorreoElectronico").keypress(function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        var charCode = getCharCodeKeyPress(evt);
 
         if (charCode < 13) {
             return false;
@@ -418,6 +418,10 @@ $(window).resize(function () {
         activarHover = true;
     }
 });
+
+function getCharCodeKeyPress(evt) {
+    return (evt.which) ? evt.which : (window.event || {}).keyCode;
+}
 
 function getVALbyISO(ISO) {
     var result = "98";
