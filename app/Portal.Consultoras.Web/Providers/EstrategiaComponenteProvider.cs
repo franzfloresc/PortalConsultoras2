@@ -172,6 +172,11 @@ namespace Portal.Consultoras.Web.Providers
                 componenteModel.Cuv = Util.Trim(beEstrategiaProducto.CUV);
                 componenteModel.Cantidad = beEstrategiaProducto.Cantidad;
                 componenteModel.FactorCuadre = beEstrategiaProducto.FactorCuadre > 0 ? beEstrategiaProducto.FactorCuadre : 1;
+                componenteModel.NombreComercial = Util.Trim(componenteModel.NombreComercial);
+                if (componenteModel.NombreComercial == "")
+                {
+                    componenteModel.NombreComercial = beEstrategiaProducto.NombreProducto;
+                }
                 
                 listaComponentesTemporal.Add(componenteModel);
                 idPk = componenteModel.Id;
