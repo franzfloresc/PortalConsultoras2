@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = "Pago En Línea";
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var visibleFields = (string[])ViewBag.PagoLineaCampos;
 }
 
 @section styles{
@@ -75,20 +76,19 @@
                 <div class="grupo_campo_formulario_pasarela_pago">
                     <div class="w-69 pr-7 vAlignTop">
                         <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de expiración :</label>
-                        @*<input type="text" value="" class="campo_formulario_pasarela_pago w-100" placeholder="MM/AA"/>*@
                         <select class="campo_formulario_pasarela_pago campo_seleccion_fecha_expiracion campo_mes mr-5">
                             <option value="0">MES</option>
-                            <option value="1">Diciembre</option>
-                            <option value="2">Noviembre</option>
-                            <option value="3">Octubre</option>
-                            <option value="4">Septiembre</option>
+                            @foreach (var month in Enumerable.Range(1, 12).Select(i => i.ToString("00")))
+                            {
+                                <option value="@month">@month</option>
+                            }
                         </select>
                         <select class="campo_formulario_pasarela_pago campo_seleccion_fecha_expiracion campo_anio">
                             <option value="0">AÑO</option>
-                            <option value="1">2021</option>
-                            <option value="2">2020</option>
-                            <option value="3">2019</option>
-                            <option value="4">2018</option>
+                            @foreach (var year in Enumerable.Range(DateTime.Now.Year, 20))
+                            {
+                                <option value="@year">@year</option>
+                            }
                         </select>
                         <div class="mensaje_validacion text-center w-100" style="display:none;">
                             <span class="icono_validacion_incorrecta"></span>
@@ -112,19 +112,28 @@
                     <label class="nom_campo_formulario_pasarela_pago w-100">*Titular de la tarjeta :</label>
                     <input type="text" value="" class="campo_formulario_pasarela_pago w-100" placeholder="SOFÍA GARCÍA" />
                 </div>
-                <div class="grupo_campo_formulario_pasarela_pago">
-                    <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de nacimiento :</label>
-                    <input type="text" value="" id="CampoFechaNacimiento" class="campo_formulario_pasarela_pago w-100" placeholder="00/00/0000" />
-                </div>
-                <div class="grupo_campo_formulario_pasarela_pago">
-                    <label class="nom_campo_formulario_pasarela_pago w-100">*Correo Electrónico :</label>
-                    <input type="email" value="" class="campo_formulario_pasarela_pago w-100" placeholder="tucorreo@belcorp.biz" />
-                </div>
-                <div class="grupo_campo_formulario_pasarela_pago">
-                    <label class="nom_campo_formulario_pasarela_pago w-100">*Número de celular :</label>
-                    <input type="text" value="" class="campo_formulario_pasarela_pago w-100" placeholder="000000000" />
-                </div>
-                <button type="button" class="btn_pago_tarjeta_credito text-bold text-uppercase default-background w-100 mt-30">
+                @if (visibleFields.Contains(Constantes.PagoEnLineaCampos.FechaNacimiento))
+                {
+                    <div class="grupo_campo_formulario_pasarela_pago">
+                        <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de nacimiento :</label>
+                        <input type="text" value="" id="CampoFechaNacimiento" class="campo_formulario_pasarela_pago w-100" placeholder="00/00/0000" />
+                    </div>
+                }
+                @if (visibleFields.Contains(Constantes.PagoEnLineaCampos.Email))
+                {
+                    <div class="grupo_campo_formulario_pasarela_pago">
+                        <label class="nom_campo_formulario_pasarela_pago w-100">*Correo Electrónico :</label>
+                        <input type="email" value="@ViewBag.UserEmail" class="campo_formulario_pasarela_pago w-100" placeholder="tucorreo@belcorp.biz" />
+                    </div>
+                }
+                @if (visibleFields.Contains(Constantes.PagoEnLineaCampos.Celular))
+                {
+                    <div class="grupo_campo_formulario_pasarela_pago">
+                        <label class="nom_campo_formulario_pasarela_pago w-100">*Número de celular :</label>
+                        <input type="text" value="@ViewBag.UserCelular" class="campo_formulario_pasarela_pago w-100" placeholder="000000000" />
+                    </div>
+                }
+                <button type="submit" class="btn_pago_tarjeta_credito text-bold text-uppercase default-background w-100 mt-30">
                     Pagar
                 </button>
             </div>

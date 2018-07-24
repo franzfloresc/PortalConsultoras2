@@ -140,6 +140,13 @@ namespace Portal.Consultoras.Data.PagoEnLinea
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader ObtenerPagoEnLineaPasarelaCampos()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerPagoEnLineaPasarelaCampos");
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader ObtenerPagoEnLineaMedioPagoDetalle()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerPagoEnLineaMedioPagoDetalle");

@@ -490,6 +490,7 @@
     <Compile Include="Models\ObservacionModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoDetalleModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaMedioPagoModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PagoEnLineaPasarelaCamposModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaReporteModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaTipoPagoModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaTipoPasarelaModel.cs" />
