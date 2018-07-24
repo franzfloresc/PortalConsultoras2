@@ -163,6 +163,11 @@ namespace Portal.Consultoras.Common
             public const int CantidadCuvMasivo_NuevoMasivo = 13701;
             public const int ActualizaDatosEnabled = 14301;
 
+            public static class PersonalizacionOdd
+            {
+                public static readonly int ColorFondoBanner = 9301;
+                public static readonly int ColorFondoDisplay = 9302;
+            }
         }
 
         public static class ParametrosNames
@@ -226,6 +231,26 @@ namespace Portal.Consultoras.Common
             public const string NotParticipaProgramaNuevas = "0";
         }
 
+        public static class NombrePalanca
+        {
+            public const string OfertaParaTi = "OfertaParaTi";
+            public const string PackNuevas = "PackNuevas"; // Oferta Nueva Esika
+            public const string OfertaWeb = "OfertaWeb";
+            public const string Lanzamiento = "LoNuevoNuevo";
+            public const string OfertasParaMi = "OfertasParaMi";
+            public const string PackAltoDesembolso = "PackAltoDesembolso";
+            public const string RevistaDigital = "RevistaDigital"; // No tiene referecia con BD, es un grupo de estrategias
+            public const string LosMasVendidos = "LosMasVendidos";
+            public const string IncentivosProgramaNuevas = "IncentivosProgramaNuevas";
+            public const string OfertaDelDia = "SoloHoy";
+            public const string GuiaDeNegocioDigitalizada = "GuiadeNegocio";
+            public const string Incentivos = "Incentivos";
+            public const string ShowRoom = "Especiales";
+            public const string HerramientasVenta = "Demostradores";
+            public const string ProgramaNuevasRegalo = "ProgramaNuevasRegalo";
+            public const string ParticipaProgramaNuevas = "ParticipaProgramaNuevas";
+            public const string NotParticipaProgramaNuevas = "NotParticipaProgramaNuevas";
+        }
         public static class ConstSession
         {
             public const string IngresoPortalLideres = "IngresoPortalLideres";
@@ -254,8 +279,11 @@ namespace Portal.Consultoras.Common
             public const string TablaLogicaDatos = "TablaLogicaDatos";
 
             //ShowRoom
-            public const string ListaProductoShowRoom = "ListaProductoShowRoom";
-            public const string ListaProductoShowRoomCpc = "ListaProductoShowRoomCpc";
+            public const string CargoShowRoomOfertas = "CargoShowRoomOfertas";
+            public const string ListaShowRoomOfertas = "ListaShowRoomOfertas";
+            public const string ListaShowRoomSubCampania = "ListaShowRoomSubCampania";
+            public const string ListaShowRoomOfertasPerdio = "ListaShowRoomOfertasPerdio";
+            public const string ListaShowRoomOfertasCpc = "ListaShowRoomOfertasCpc";
 
             //FIC
             public const string PedidoFIC = "PedidoFIC";
@@ -565,32 +593,41 @@ namespace Portal.Consultoras.Common
             public const int MobilePedidoOfertaFinal = 2261;
 
             #region ShowRoom
-            public const int DesktopShowRoomLandingIntriga = 1511;
-            public const int DesktopShowRoomLandingCompra = 1521;
-            public const int DesktopShowRoomLandingCompraTactica = 1522;
-            public const int DesktopShowRoomProductPage = 1531;
-            public const int DesktopShowRoomProductPageCarrusel = 1532;
-            public const int DesktopShowRoomProductPageTactica = 1533;
-            public const int DesktopShowRoomBienvenida = 1541;
-            public const int DesktopShowRoomSubCampanias = 1524;
-            public const int DesktopShowRoomContenedor = 1871;
-            public const int MobileShowRoomSubCampanias = 2524;
-            public const int MobileShowRoomLandingIntriga = 2511;
-            public const int MobileShowRoomLandingCompraTactica = 2522;
-            public const int MobileShowRoomProductPage = 2531;
-            public const int MobileShowRoomProductPageCarrusel = 2532;
-            public const int MobileShowRoomProductPageTactica = 2533;
-            public const int MobileShowRoom = 2571;
+            public const int ShowRoomDesktopLandingIntriga = 1511;
+            public const int ShowRoomDesktopLandingCompra = 1521;
+            public const int ShowRoomDesktopLandingCompraTactica = 1522;
+            public const int ShowRoomDesktopProductPage = 1531;
+            //public const int ShowRoomDesktopProductPageCarrusel = 1532;
+            //public const int ShowRoomDesktopProductPageTactica = 1533;
+            public const int ShowRoomDesktopHome = 1541;
+            public const int ShowRoomDesktopSubCampania = 1524;
+            public const int ShowRoomDesktopContenedor = 1871;
+
+            public const int ShowRoomMobileLandingIntriga = 2511;
+            public const int ShowRoomMobileLandingCompra = 2521;
+            //public const int ShowRoomMobileLandingCompraTactica = 2522;   // revisar
+            public const int ShowRoomMobileProductPage = 2531;
+            //public const int ShowRoomMobileProductPageCarrusel = 2532;
+            //public const int ShowRoomMobileProductPageTactica = 2533;
+            public const int ShowRoomMobileSubCampania = 2524;
+            public const int ShowRoomMobileContenedor = 2871;
+            //public const int MobileShowRoom = 2571;
             #endregion
 
             #region OfertaDelDia 
             // no tulizan estas variables, todos estos estan en la logica en ofertaDelDia.js
             public const int OfertaDelDiaDesktopHomeBanner = 1191;
-            public const int OfertaDelDiaDesktopHomeDisplay = 1192;
+            //public const int DesktopOfertaDelDiaHomeDisplay = 1192;
             public const int OfertaDelDiaDesktopPedidoBanner = 1291;
-            public const int OfertaDelDiaDesktopPedidoDisplay = 1292;
+            //public const int DesktopOfertaDelDiaPedidoDisplay = 1292;
             public const int OfertaDelDiaDesktopGeneralBanner = 1991;
-            public const int OfertaDelDiaDesktopGeneralDisplay = 1992;
+            //public const int DesktopOfertaDelDiaGeneralDisplay = 1992;
+            public const int OfertaDelDiaDesktopContenedor = 1891;
+            public const int OfertaDelDiaDesktopFicha = 1491;
+
+            public const int OfertaDelDiaMobileHomeBanner = 2191;
+            public const int OfertaDelDiaMobileContenedor = 2891;
+            public const int OfertaDelDiaMobileFicha = 2491;
             #endregion
 
             #region RevistaDigital
@@ -1163,6 +1200,7 @@ namespace Portal.Consultoras.Common
             public const string InicioRD = "INICIORD";
             public const string Inicio = "INICIO";
             public const string OfertasParaTi = "OPT";
+            public const string OfertasParaMi = "OPM";
             public const string RevistaDigitalIntriga = "RDI";
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
@@ -1182,6 +1220,7 @@ namespace Portal.Consultoras.Common
             public const string PagoEnLinea = "PAYONLINE";
         }
 
+        
         public static class ConfiguracionPaisComponente
         {
             public static class RD
@@ -1470,6 +1509,7 @@ namespace Portal.Consultoras.Common
             public const short ProlObsCod = 5;
             public const int ActualizaDatosEnabled = 143;
             public const short HabilitarChatEmtelco = 144;
+            public const short OrdenamientoShowRoom = 99;
         }
 
         public struct MensajesCDRExpress
@@ -1773,6 +1813,15 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVentaIndex = "/herramientasventa/index";
             public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
             public const string HerramientasVentaComprar = "/herramientasventa/comprar";
+
+            public const string DetalleHerramientasVenta = "/detalle/demostradores";
+            public const string DetalleLanzamiento = "/detalle/lonuevonuevo";
+            public const string DetalleOfertaParaTi = "/detalle/ofertaparati";
+            public const string DetalleOfertasParaMi = "/detalle/ofertasparami";
+            public const string DetalleGuiaDeNegocioDigitalizada = "/detalle/guiadenegocio";
+            public const string DetalleShowRoom = "/detalle/especiales";
+            public const string DetalleOfertaDelDia = "/detalle/solohoy";
+            public const string DetallePackNuevas = "/detalle/packnuevas";
         }
 
         public static class TipoVistaEstrategia
@@ -2258,5 +2307,15 @@ namespace Portal.Consultoras.Common
             public const string Pendiente = "P";
             public const string Activo = "A";
         }
+        
+        public class TipoConsultaOfertaPersonalizadas
+        {
+            public const int RDObtenerProductos = 1;
+            public const int RDObtenerProductosLan = 2;
+            public const int GNDObtenerProductos = 3;
+            public const int HVObtenerProductos = 4;
+            public const int OPTObtenerProductos = 5;
+        };
+
     }
 }

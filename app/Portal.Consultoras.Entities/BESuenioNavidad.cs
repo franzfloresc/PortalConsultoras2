@@ -31,32 +31,16 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string UsuarioCreacion { get; set; }
 
-        public BESuenioNavidad(IDataRecord datarec)
+        public BESuenioNavidad(IDataRecord row)
         {
-            if (DataRecord.HasColumn(datarec, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
-
-            if (DataRecord.HasColumn(datarec, "Region"))
-                Region = Convert.ToString(datarec["Region"]);
-
-            if (DataRecord.HasColumn(datarec, "Zona"))
-                Zona = Convert.ToString(datarec["Zona"]);
-
-            if (DataRecord.HasColumn(datarec, "Seccion"))
-                Seccion = Convert.ToString(datarec["Seccion"]);
-
-            if (DataRecord.HasColumn(datarec, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(datarec["CodigoConsultora"]);
-
-            if (DataRecord.HasColumn(datarec, "NombreCompleto"))
-                NombreCompleto = Convert.ToString(datarec["NombreCompleto"]);
-
-            if (DataRecord.HasColumn(datarec, "Descripcion"))
-                Descripcion = Convert.ToString(datarec["Descripcion"]);
-
-            if (DataRecord.HasColumn(datarec, "Canal"))
-                Canal = Convert.ToString(datarec["Canal"]);
-
+            CampaniaID = row.ToInt32("CampaniaID");
+            Region = row.ToString("Region");
+            Zona = row.ToString("Zona");
+            Seccion = row.ToString("Seccion");
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            NombreCompleto = row.ToString("NombreCompleto");
+            Descripcion = row.ToString("Descripcion");
+            Canal = row.ToString("Canal");
         }
 
     }

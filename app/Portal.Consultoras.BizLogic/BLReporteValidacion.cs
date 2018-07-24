@@ -20,7 +20,7 @@ namespace Portal.Consultoras.BizLogic
                     var reporteValidacion = new BEReporteValidacion(reader);
                     reporteValidaciones.Add(reporteValidacion);
                 }
-            } 
+            }
 
             return reporteValidaciones;
         }

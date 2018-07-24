@@ -19,12 +19,9 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         public BEShowRoomNivel(IDataRecord row)
         {
-            if (row.HasColumn("NivelId"))
-                NivelId = Convert.ToInt32(row["NivelId"]);
-            if (row.HasColumn("Codigo"))
-                Codigo = Convert.ToString(row["Codigo"]);
-            if (row.HasColumn("Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
+            NivelId = row.ToInt32("NivelId");
+            Codigo = row.ToString("Codigo");
+            Descripcion = row.ToString("Descripcion");
         }
     }
 }

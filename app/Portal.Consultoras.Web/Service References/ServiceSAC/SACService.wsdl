@@ -170,12 +170,6 @@
   <wsdl:message name="ISACService_GetConfiguracionPaisDatos_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetConfiguracionPaisDatosResponse" />
   </wsdl:message>
-  <wsdl:message name="ISACService_GetHorarioByCodigo_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetHorarioByCodigo" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetHorarioByCodigo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetHorarioByCodigoResponse" />
-  </wsdl:message>
   <wsdl:message name="ISACService_ListConfiguracionOfertasHome_InputMessage">
     <wsdl:part name="parameters" element="tns:ListConfiguracionOfertasHome" />
   </wsdl:message>
@@ -1483,10 +1477,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionPaisDatos" message="tns:ISACService_GetConfiguracionPaisDatos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionPaisDatosResponse" message="tns:ISACService_GetConfiguracionPaisDatos_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetHorarioByCodigo">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetHorarioByCodigo" message="tns:ISACService_GetHorarioByCodigo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetHorarioByCodigoResponse" message="tns:ISACService_GetHorarioByCodigo_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="ListConfiguracionOfertasHome">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ListConfiguracionOfertasHome" message="tns:ISACService_ListConfiguracionOfertasHome_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ListConfiguracionOfertasHomeResponse" message="tns:ISACService_ListConfiguracionOfertasHome_OutputMessage" />
@@ -2493,15 +2483,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetConfiguracionPaisDatos">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionPaisDatos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetHorarioByCodigo">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetHorarioByCodigo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4531,15 +4512,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetConfiguracionPaisDatos">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionPaisDatos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetHorarioByCodigo">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetHorarioByCodigo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

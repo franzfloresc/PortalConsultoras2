@@ -19,14 +19,10 @@ namespace Portal.Consultoras.Entities
 
         public BEPedidoRechazadoSicc(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Campania"))
-                Campania = Convert.ToString(row["Campania"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (DataRecord.HasColumn(row, "MotivoRechazo"))
-                MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
-            if (DataRecord.HasColumn(row, "Valor"))
-                Valor = Convert.ToString(row["Valor"]);
+            Campania = row.ToString("Campania");
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            MotivoRechazo = row.ToString("MotivoRechazo");
+            Valor = row.ToString("Valor");
         }
     }
 }

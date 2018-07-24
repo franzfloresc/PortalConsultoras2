@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.Models;
-
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
-using Portal.Consultoras.Common;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {

@@ -28,26 +28,17 @@ namespace Portal.Consultoras.Entities.Cupon
         [DataMember]
         public string UsuarioModificacion { get; set; }
 
-        public BECupon(IDataRecord datarec)
+        public BECupon(IDataRecord row)
         {
-            if (DataRecord.HasColumn(datarec, "CuponId"))
-                CuponId = Convert.ToInt32(datarec["CuponId"]);
-            if (DataRecord.HasColumn(datarec, "Tipo"))
-                Tipo = Convert.ToString(datarec["Tipo"]);
-            if (DataRecord.HasColumn(datarec, "Descripcion"))
-                Descripcion = Convert.ToString(datarec["Descripcion"]);
-            if (DataRecord.HasColumn(datarec, "CampaniaId"))
-                CampaniaId = Convert.ToInt32(datarec["CampaniaId"]);
-            if (DataRecord.HasColumn(datarec, "Estado"))
-                Estado = Convert.ToBoolean(datarec["Estado"]);
-            if (DataRecord.HasColumn(datarec, "FechaCreacion"))
-                FechaCreacion = Convert.ToDateTime(datarec["FechaCreacion"]);
-            if (DataRecord.HasColumn(datarec, "FechaModificacion"))
-                FechaModificacion = Convert.ToDateTime(datarec["FechaModificacion"]);
-            if (DataRecord.HasColumn(datarec, "UsuarioCreacion"))
-                UsuarioCreacion = Convert.ToString(datarec["UsuarioCreacion"]);
-            if (DataRecord.HasColumn(datarec, "UsuarioModificacion"))
-                UsuarioModificacion = Convert.ToString(datarec["UsuarioModificacion"]);
+            CuponId = row.ToInt32("CuponId");
+            Tipo = row.ToString("Tipo");
+            Descripcion = row.ToString("Descripcion");
+            CampaniaId = row.ToInt32("CampaniaId");
+            Estado = row.ToBoolean("Estado");
+            FechaCreacion = row.ToDateTime("FechaCreacion");
+            FechaModificacion = row.ToDateTime("FechaModificacion");
+            UsuarioCreacion = row.ToString("UsuarioCreacion");
+            UsuarioModificacion = row.ToString("UsuarioModificacion");
         }
     }
 }
