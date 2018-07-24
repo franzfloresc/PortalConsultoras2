@@ -18086,6 +18086,522 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPagoEnLineaTipoPago", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea")]
+    [System.SerializableAttribute()]
+    public partial class BEPagoEnLineaTipoPago : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PagoEnLineaTipoPagoIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Codigo {
+            get {
+                return this.CodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
+                    this.CodigoField = value;
+                    this.RaisePropertyChanged("Codigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion {
+            get {
+                return this.DescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
+                    this.DescripcionField = value;
+                    this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Estado {
+            get {
+                return this.EstadoField;
+            }
+            set {
+                if ((this.EstadoField.Equals(value) != true)) {
+                    this.EstadoField = value;
+                    this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PagoEnLineaTipoPagoId {
+            get {
+                return this.PagoEnLineaTipoPagoIdField;
+            }
+            set {
+                if ((this.PagoEnLineaTipoPagoIdField.Equals(value) != true)) {
+                    this.PagoEnLineaTipoPagoIdField = value;
+                    this.RaisePropertyChanged("PagoEnLineaTipoPagoId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPagoEnLineaMedioPago", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea")]
+    [System.SerializableAttribute()]
+    public partial class BEPagoEnLineaMedioPago : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrdenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PagoEnLineaMedioPagoIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RutaIconoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TextoToolTipField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Codigo {
+            get {
+                return this.CodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
+                    this.CodigoField = value;
+                    this.RaisePropertyChanged("Codigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion {
+            get {
+                return this.DescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
+                    this.DescripcionField = value;
+                    this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Estado {
+            get {
+                return this.EstadoField;
+            }
+            set {
+                if ((this.EstadoField.Equals(value) != true)) {
+                    this.EstadoField = value;
+                    this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Orden {
+            get {
+                return this.OrdenField;
+            }
+            set {
+                if ((this.OrdenField.Equals(value) != true)) {
+                    this.OrdenField = value;
+                    this.RaisePropertyChanged("Orden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PagoEnLineaMedioPagoId {
+            get {
+                return this.PagoEnLineaMedioPagoIdField;
+            }
+            set {
+                if ((this.PagoEnLineaMedioPagoIdField.Equals(value) != true)) {
+                    this.PagoEnLineaMedioPagoIdField = value;
+                    this.RaisePropertyChanged("PagoEnLineaMedioPagoId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RutaIcono {
+            get {
+                return this.RutaIconoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RutaIconoField, value) != true)) {
+                    this.RutaIconoField = value;
+                    this.RaisePropertyChanged("RutaIcono");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TextoToolTip {
+            get {
+                return this.TextoToolTipField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TextoToolTipField, value) != true)) {
+                    this.TextoToolTipField = value;
+                    this.RaisePropertyChanged("TextoToolTip");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPagoEnLineaMedioPagoDetalle", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea")]
+    [System.SerializableAttribute()]
+    public partial class BEPagoEnLineaMedioPagoDetalle : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrdenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PagoEnLineaMedioPagoDetalleIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PagoEnLineaMedioPagoIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RutaIconoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TerminosCondicionesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoPasarelaCodigoPlataformaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoVisualizacionTyCField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion {
+            get {
+                return this.DescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
+                    this.DescripcionField = value;
+                    this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Estado {
+            get {
+                return this.EstadoField;
+            }
+            set {
+                if ((this.EstadoField.Equals(value) != true)) {
+                    this.EstadoField = value;
+                    this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Orden {
+            get {
+                return this.OrdenField;
+            }
+            set {
+                if ((this.OrdenField.Equals(value) != true)) {
+                    this.OrdenField = value;
+                    this.RaisePropertyChanged("Orden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PagoEnLineaMedioPagoDetalleId {
+            get {
+                return this.PagoEnLineaMedioPagoDetalleIdField;
+            }
+            set {
+                if ((this.PagoEnLineaMedioPagoDetalleIdField.Equals(value) != true)) {
+                    this.PagoEnLineaMedioPagoDetalleIdField = value;
+                    this.RaisePropertyChanged("PagoEnLineaMedioPagoDetalleId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PagoEnLineaMedioPagoId {
+            get {
+                return this.PagoEnLineaMedioPagoIdField;
+            }
+            set {
+                if ((this.PagoEnLineaMedioPagoIdField.Equals(value) != true)) {
+                    this.PagoEnLineaMedioPagoIdField = value;
+                    this.RaisePropertyChanged("PagoEnLineaMedioPagoId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RutaIcono {
+            get {
+                return this.RutaIconoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RutaIconoField, value) != true)) {
+                    this.RutaIconoField = value;
+                    this.RaisePropertyChanged("RutaIcono");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TerminosCondiciones {
+            get {
+                return this.TerminosCondicionesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TerminosCondicionesField, value) != true)) {
+                    this.TerminosCondicionesField = value;
+                    this.RaisePropertyChanged("TerminosCondiciones");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoPasarelaCodigoPlataforma {
+            get {
+                return this.TipoPasarelaCodigoPlataformaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoPasarelaCodigoPlataformaField, value) != true)) {
+                    this.TipoPasarelaCodigoPlataformaField = value;
+                    this.RaisePropertyChanged("TipoPasarelaCodigoPlataforma");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoVisualizacionTyC {
+            get {
+                return this.TipoVisualizacionTyCField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoVisualizacionTyCField, value) != true)) {
+                    this.TipoVisualizacionTyCField = value;
+                    this.RaisePropertyChanged("TipoVisualizacionTyC");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPagoEnLineaTipoPasarela", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea")]
+    [System.SerializableAttribute()]
+    public partial class BEPagoEnLineaTipoPasarela : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoPlataformaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PagoEnLineaTipoPasarelaIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ValorField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Codigo {
+            get {
+                return this.CodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
+                    this.CodigoField = value;
+                    this.RaisePropertyChanged("Codigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoPlataforma {
+            get {
+                return this.CodigoPlataformaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoPlataformaField, value) != true)) {
+                    this.CodigoPlataformaField = value;
+                    this.RaisePropertyChanged("CodigoPlataforma");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion {
+            get {
+                return this.DescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
+                    this.DescripcionField = value;
+                    this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PagoEnLineaTipoPasarelaId {
+            get {
+                return this.PagoEnLineaTipoPasarelaIdField;
+            }
+            set {
+                if ((this.PagoEnLineaTipoPasarelaIdField.Equals(value) != true)) {
+                    this.PagoEnLineaTipoPasarelaIdField = value;
+                    this.RaisePropertyChanged("PagoEnLineaTipoPasarelaId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Valor {
+            get {
+                return this.ValorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ValorField, value) != true)) {
+                    this.ValorField = value;
+                    this.RaisePropertyChanged("Valor");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoWebSetDetalle", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido")]
     [System.SerializableAttribute()]
     public partial class BEPedidoWebSetDetalle : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -38799,6 +39315,34 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByFiltro", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaByFiltroResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLogReporte[]> ObtenerPagoEnLineaByFiltroAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaFiltro filtro);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaTipoPago", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaTipoPagoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaTipoPago[] ObtenerPagoEnLineaTipoPago(int paisId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaTipoPago", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaTipoPagoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaTipoPago[]> ObtenerPagoEnLineaTipoPagoAsync(int paisId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaMedioPago", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaMedioPagoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaMedioPago[] ObtenerPagoEnLineaMedioPago(int paisId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaMedioPago", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaMedioPagoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaMedioPago[]> ObtenerPagoEnLineaMedioPagoAsync(int paisId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaMedioPagoDetalle", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaMedioPagoDetalleResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaMedioPagoDetalle[] ObtenerPagoEnLineaMedioPagoDetalle(int paisId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaMedioPagoDetalle", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaMedioPagoDetalleResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaMedioPagoDetalle[]> ObtenerPagoEnLineaMedioPagoDetalleAsync(int paisId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaTipoPasarelaByCodigoPlataform" +
+            "a", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaTipoPasarelaByCodigoPlataform" +
+            "aResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaTipoPasarela[] ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(int paisId, string codigoPlataforma);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaTipoPasarelaByCodigoPlataform" +
+            "a", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPagoEnLineaTipoPasarelaByCodigoPlataform" +
+            "aResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaTipoPasarela[]> ObtenerPagoEnLineaTipoPasarelaByCodigoPlataformaAsync(int paisId, string codigoPlataforma);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertPedidoWebSet", ReplyAction="http://tempuri.org/IPedidoService/InsertPedidoWebSetResponse")]
         bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId);
         
@@ -41287,6 +41831,38 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLogReporte[]> ObtenerPagoEnLineaByFiltroAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaFiltro filtro) {
             return base.Channel.ObtenerPagoEnLineaByFiltroAsync(paisId, filtro);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaTipoPago[] ObtenerPagoEnLineaTipoPago(int paisId) {
+            return base.Channel.ObtenerPagoEnLineaTipoPago(paisId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaTipoPago[]> ObtenerPagoEnLineaTipoPagoAsync(int paisId) {
+            return base.Channel.ObtenerPagoEnLineaTipoPagoAsync(paisId);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaMedioPago[] ObtenerPagoEnLineaMedioPago(int paisId) {
+            return base.Channel.ObtenerPagoEnLineaMedioPago(paisId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaMedioPago[]> ObtenerPagoEnLineaMedioPagoAsync(int paisId) {
+            return base.Channel.ObtenerPagoEnLineaMedioPagoAsync(paisId);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaMedioPagoDetalle[] ObtenerPagoEnLineaMedioPagoDetalle(int paisId) {
+            return base.Channel.ObtenerPagoEnLineaMedioPagoDetalle(paisId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaMedioPagoDetalle[]> ObtenerPagoEnLineaMedioPagoDetalleAsync(int paisId) {
+            return base.Channel.ObtenerPagoEnLineaMedioPagoDetalleAsync(paisId);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaTipoPasarela[] ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(int paisId, string codigoPlataforma) {
+            return base.Channel.ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(paisId, codigoPlataforma);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaTipoPasarela[]> ObtenerPagoEnLineaTipoPasarelaByCodigoPlataformaAsync(int paisId, string codigoPlataforma) {
+            return base.Channel.ObtenerPagoEnLineaTipoPasarelaByCodigoPlataformaAsync(paisId, codigoPlataforma);
         }
         
         public bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId) {

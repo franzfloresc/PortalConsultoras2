@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (model == null)
                 return RedirectToAction("Index", "PagoEnLinea");
 
-            model = ObtenerValoresMetodoPago(model);
+            model = _pagoEnLineaProvider.ObtenerValoresMetodoPago(model);
 
             //model.ListaMetodoPago = ObtenerListaMetodoPago();
             //model.PagoVisaModel = new PagoVisaModel();

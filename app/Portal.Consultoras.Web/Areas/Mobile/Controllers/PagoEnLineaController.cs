@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (model == null)
                 return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
 
-            model = ObtenerValoresMetodoPago(model);
+            model = _pagoEnLineaProvider.ObtenerValoresMetodoPago(model);
 
             //model.ListaMetodoPago = ObtenerListaMetodoPago();
             //model.PagoVisaModel = new PagoVisaModel();
