@@ -534,8 +534,14 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.TipoOfertaSisId, f => f.MapFrom(c => c.TipoOfertaSisId));
             
             Mapper.CreateMap<ServiceUsuario.BEUsuario, MisDatosModel>();
-            
+
+            Mapper.CreateMap<BEActivarPremioNuevas, BarraTippingPoint>()
+                .ForMember(t => t.ActiveMonto, f => f.MapFrom(c => c.ActiveMontoTooltip));
+
             Mapper.CreateMap<ServicePedido.BEEstrategia, BarraTippingPoint>()
+                .ForMember(t => t.ActiveTooltip, f => f.Ignore())
+                .ForMember(t => t.ActiveMonto, f => f.Ignore())
+                .ForMember(t => t.Active, f => f.Ignore())
                 .ForMember(t => t.LinkURL, f => f.Ignore())
                 .ForMember(t => t.TippingPointMontoStr, f => f.Ignore());
         }

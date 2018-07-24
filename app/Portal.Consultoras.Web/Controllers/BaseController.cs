@@ -1847,17 +1847,20 @@ namespace Portal.Consultoras.Web.Controllers
             string nivel = Convert.ToString(userData.ConsecutivoNueva + 1).PadLeft(2, '0');
             try
             {
+                BEActivarPremioNuevas beActive;
                 ServicePedido.BEEstrategia estrategia;
+
                 using (var sv = new PedidoServiceClient())
                 {
-                    BEActivarPremioNuevas beActive = sv.GetActivarPremioNuevas(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);
+                    beActive = sv.GetActivarPremioNuevas(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);
                     if (beActive == null || !beActive.ActiveTooltip) return new BarraTippingPoint();
 
                     estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);                    
                 }
                 if (estrategia == null) return new BarraTippingPoint();
 
-                var tippingPoint = Mapper.Map<BarraTippingPoint>(estrategia);
+                var tippingPoint = Mapper.Map<BarraTippingPoint>(beActive);
+                tippingPoint = Mapper.Map(estrategia, tippingPoint);
                 tippingPoint.LinkURL = getUrlTippingPoint(estrategia.ImagenURL);
                 tippingPoint.TippingPointMontoStr = TippingPointStr;
                 return tippingPoint;
