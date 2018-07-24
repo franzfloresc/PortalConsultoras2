@@ -231,8 +231,8 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<ServiceUsuario.BEUsuario> getBEUsuarioModel();
 
-        BEConfiguracionProgramaNuevas ConfiguracionProgramaNuevas { get; set; }
         IOfertaDelDia OfertaDelDia { get; }
+        BEConfiguracionProgramaNuevas ConfiguracionProgramaNuevas { get; set; }
         bool ProcesoKitNuevas { get; set; }
         string CuvKitNuevas { get; set; }
     }
