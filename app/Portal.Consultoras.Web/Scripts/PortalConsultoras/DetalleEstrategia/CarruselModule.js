@@ -194,7 +194,7 @@
                 $(_elementos.divCarruselContenedor).show();
                 return;
             } else {
-                $(_elementos.ContenidoProducto).hide();
+                //$(_elementos.ContenidoProducto).hide();
                 $(_elementos.CarruselProducto).hide();
             }
         $(_elementos.divCarruselContenedor).hide();
