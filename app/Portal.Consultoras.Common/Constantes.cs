@@ -2358,6 +2358,13 @@ namespace Portal.Consultoras.Common
             public const string MensajeInformacionPagoExitoso = "11";
         }
 
+        public static class PagoEnLineaCampos
+        {
+            public const string FechaNacimiento = "FECHANAC";
+            public const string Email = "EMAIL";
+            public const string Celular = "CELULAR";
+        }
+
         #endregion        
     }
 }

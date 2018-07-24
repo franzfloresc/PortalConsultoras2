@@ -516,5 +516,34 @@ namespace Portal.Consultoras.Web.Providers
 
             return resultado;
         }
+
+        public List<PagoEnLineaPasarelaCamposModel> ObtenerPagoEnLineaPasarelaCampos()
+        {
+            List<PagoEnLineaPasarelaCamposModel> result;
+            var userData = sessionManager.GetUserData();
+
+            try
+            {
+                List<BEPagoEnLineaPasarelaCampos> list;
+                using (var ps = new PedidoServiceClient())
+                {
+                    list = ps.ObtenerPagoEnLineaPasarelaCampos(userData.PaisID).ToList();
+                }
+
+                result = Mapper.Map<List<PagoEnLineaPasarelaCamposModel>>(list);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                result = new List<PagoEnLineaPasarelaCamposModel>();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                result = new List<PagoEnLineaPasarelaCamposModel>();
+            }
+
+            return result;
+        }
     }
 }

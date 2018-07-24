@@ -141,5 +141,21 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
 
             return lista;
         }
+
+        public List<BEPagoEnLineaPasarelaCampos> ObtenerPagoEnLineaPasarelaCampos(int paisId)
+        {
+            var lista = new List<BEPagoEnLineaPasarelaCampos>();
+            var daPagoEnLinea = new DAPagoEnLinea(paisId);
+
+            using (var reader = daPagoEnLinea.ObtenerPagoEnLineaPasarelaCampos())
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new BEPagoEnLineaPasarelaCampos(reader));
+                }
+            }
+
+            return lista;
+        }
     }
 }

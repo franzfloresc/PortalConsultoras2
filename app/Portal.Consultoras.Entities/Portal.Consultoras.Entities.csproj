@@ -91,6 +91,7 @@
     <Compile Include="Oferta\BEOfertaDelDia.cs" />
     <Compile Include="Oferta\BEOfertaFinal.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaMedioPago.cs" />
+    <Compile Include="PagoEnLinea\BEPagoEnLineaPasarelaCampos.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaTipoPago.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaMedioPagoDetalle.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaTipoPasarela.cs" />

@@ -2,6 +2,7 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
 using System;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
@@ -57,6 +58,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = sessionManager.GetDatosPagoVisa();
 
             //Logica para Obtener Valores de la PasarelaBelcorp
+            ViewBag.PagoLineaCamposRequeridos = _pagoEnLineaProvider.ObtenerPagoEnLineaPasarelaCampos()
+                                                        .Select(p => p.Codigo);
 
             return View(model);
         }

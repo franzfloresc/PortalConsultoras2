@@ -2198,6 +2198,11 @@ namespace Portal.Consultoras.Service
             return BLPagoEnLinea.ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(paisId, codigoPlataforma);
         }
 
+        public List<BEPagoEnLineaPasarelaCampos> ObtenerPagoEnLineaPasarelaCampos(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerPagoEnLineaPasarelaCampos(paisId);
+        }
+
         #endregion
 
 
