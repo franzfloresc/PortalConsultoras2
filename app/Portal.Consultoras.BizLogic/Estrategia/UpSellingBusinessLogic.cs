@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
+using Portal.Consultoras.Data.Estrategia;
+using Portal.Consultoras.Entities.Estrategia;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
-using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
-using Portal.Consultoras.Data.Estrategia;
-using Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.BizLogic.Estrategia
 {

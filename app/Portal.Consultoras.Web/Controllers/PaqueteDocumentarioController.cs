@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             string errorMessage;
-            string codigoConsultora = (userData.UsuarioPrueba == 1) ? userData.ConsultoraAsociada : userData.CodigoConsultora;
+            string codigoConsultora = userData.GetCodigoConsultora();
             var rvDigitalModel = new RVDigitalModel { listaCampania = GetListCampaniaPaqueteDocumentario(codigoConsultora, out errorMessage) };
 
             ViewBag.ErrorDescripcion = errorMessage;
@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string Campania)
         {
             var lst = new List<RVPRFModel>();
-            if (!string.IsNullOrEmpty(Campania)) lst = GetListPaqueteDocumentario(userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora, Campania, "");
+            if (!string.IsNullOrEmpty(Campania)) lst = GetListPaqueteDocumentario(userData.GetCodigoConsultora(), Campania, "");
             IEnumerable<RVPRFModel> items = lst;
 
             #region Sort Section

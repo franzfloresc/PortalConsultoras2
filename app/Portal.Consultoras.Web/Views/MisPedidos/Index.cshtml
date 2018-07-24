@@ -1,4 +1,4 @@
-﻿@using Portal.Consultoras.Web.Controllers
+﻿
 @using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.MisPedidosSb2Model
 
@@ -7,7 +7,7 @@
 }
 
 @{
-    var base1 = new BaseController();
+    //var base1 = new BaseController();
     Model.ListaFacturados = Model.ListaFacturados ?? new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb>();
     var cantidad = Model.ListaFacturados.Count;
     var mensajeCantidad = cantidad == 0
@@ -217,7 +217,7 @@
 {
     var campaniaFacturadoNro = (item.CampaniaID == 0) ? "" : item.CampaniaID.ToString().Substring(4, 2);
     var formatoCampaniaFacturado = (item.CampaniaID == 0) ? "" : item.CampaniaID.ToString().Substring(0, 4) + "-" + item.CampaniaID.ToString().Substring(4, 2);
-    var formatoFechaFacturado = item.FechaRegistro.Day.ToString().PadLeft(2, '0') + " de " + base1.NombreMes(item.FechaRegistro.Month);
+    var formatoFechaFacturado = item.FechaRegistro.Day.ToString().PadLeft(2, '0') + " de " + Util.NombreMesAbrev(item.FechaRegistro.Month);
 
     var estiloSinRuta = "ingresado";
     var targetPaqueteDocumentario = "";

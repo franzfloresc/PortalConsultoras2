@@ -258,10 +258,24 @@ jQuery(document).ready(function () {
                 opts = optsx;
                 switch (operator) {
                     case '==':
-                        bool = $.trim(a) == "";
+                        if (typeof a == "object" && a != null) {
+                            if (typeof a.length != "undefined") {
+                                bool = a.length == 0;
+                            }
+                        }
+                        else {
+                            bool = $.trim(a) == "";
+                        }
                         break;
                     case '!=':
-                        bool = $.trim(a) != "";
+                        if (typeof a == "object" && a != null) {
+                            if (typeof a.length != "undefined") {
+                                bool = a.length > 0;
+                            }
+                        }
+                        else {
+                            bool = $.trim(a) != "";
+                        }
                         break;
                     default:
                         throw "Unknown operator " + operator;
@@ -277,6 +291,7 @@ jQuery(document).ready(function () {
             });
 
             Handlebars.registerHelper('EscapeSpecialChars', function (textoOrigen) {
+                textoOrigen = textoOrigen || "";
                 textoOrigen = textoOrigen.replace(/'/g, "\\'");
                 return new Handlebars.SafeString(textoOrigen);
             });
@@ -329,10 +344,10 @@ jQuery(document).ready(function () {
             });
 
             // por si en un futuro se puede utilizar
-            //Handlebars.registerHelper('ImgMedium', function (imgOriginal) {
-            //    var urlRender = ImgUrlRender(imgOriginal, variablesPortal.ExtensionImgMedium);
-            //    return new Handlebars.SafeString(urlRender);
-            //});
+            Handlebars.registerHelper('ImgMedium', function (imgOriginal) {
+                var urlRender = ImgUrlRender(imgOriginal, variablesPortal.ExtensionImgMedium);
+                return new Handlebars.SafeString(urlRender);
+            });
 
             Handlebars.registerHelper('ImgUrl', function (imgOriginal) {
                 var urlRender = ImgUrlRender(imgOriginal);
@@ -1578,6 +1593,7 @@ function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
         }
         else if (NameContenedor == "#OfertasDelDiaOfertas") {
             NameList = "Oferta del día - Detalle Slider";
+            listaOferta.ListaOfertas = listaOferta.ListaOfertas || [];
             if (listaOferta.ListaOfertas.length > 1) {
                 NameList = "Oferta del día - Slider Productos";
                 var lstOferta = data ? data.ListaOfertas : [];
@@ -1980,4 +1996,11 @@ function CuponPopupCerrar() {
         error: function (data, error) {
         }
     });
+}
+
+function microefectoPedidoGuardado() {
+    $(".contenedor_circulos").fadeIn();
+    setTimeout(function () {
+        $(".contenedor_circulos").fadeOut();
+    }, 2700);
 }

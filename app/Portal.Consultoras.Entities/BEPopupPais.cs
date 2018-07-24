@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -23,12 +24,13 @@ namespace Portal.Consultoras.Entities
         {
         }
 
-        public BEPopupPais(IDataRecord record)
+        public BEPopupPais(IDataRecord row)
         {
-            PopupPaisID = Convert.ToInt32(record["PopupPaisID"]);
-            CodigoPopup = Convert.ToInt32(record["CodigoPopup"]);
-            Descripcion = record["Descripcion"] != DBNull.Value ? record["Descripcion"].ToString() : string.Empty;
-            Orden = record["Orden"] != DBNull.Value ? Convert.ToInt32(record["Orden"]) : 0;
+            Descripcion = string.Empty;
+            PopupPaisID = Convert.ToInt32(row["PopupPaisID"]);
+            CodigoPopup = Convert.ToInt32(row["CodigoPopup"]);
+            Descripcion = row.ToString("Descripcion");
+            Orden = row.ToInt32("Orden");
         }
     }
 }

@@ -110,7 +110,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (producto == null) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
                 //Validación producto en catalogos
-                var bloqueoProductoCatalogo = BloqueoProductosCatalogo(usuario.RevistaDigital, usuario.CodigosRevistaImpresa, producto, productoBuscar);
+                var bloqueoProductoCatalogo = BloqueoProductosCatalogo(usuario.RevistaDigital, usuario.CodigosRevistaImpresa, producto);
                 if (!bloqueoProductoCatalogo) return ProductoBuscarRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
                 //Validacion Tipo Estrategia
@@ -221,7 +221,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (codeResult != Constantes.PedidoAppValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(codeResult);
 
                 //Actualizar Prol
-                var existe = lstDetalle.Where(x => x.ClienteID == pedidoDetalle.ClienteID && x.CUV == pedidoDetalle.Producto.CUV).FirstOrDefault();
+                var existe = lstDetalle.FirstOrDefault(x => x.ClienteID == pedidoDetalle.ClienteID && x.CUV == pedidoDetalle.Producto.CUV);
                 if (existe != null)
                 {
                     existe.Cantidad += pedidoDetalle.Cantidad;
@@ -441,7 +441,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (accionActualizar != Constantes.PedidoAppValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(accionActualizar);
 
                 //actualizar PROL
-                var item = lstDetalle.Where(x => x.PedidoDetalleID == pedidoDetalle.PedidoDetalleID).FirstOrDefault();
+                var item = lstDetalle.FirstOrDefault(x => x.PedidoDetalleID == pedidoDetalle.PedidoDetalleID);
                 if (item != null)
                 {
                     item.Cantidad = pedidoDetalle.Cantidad;
@@ -525,7 +525,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Actualizar Prol
                 if (pedidoDetalle.Producto != null)
                 {
-                    var item = lstDetalle.Where(x => x.PedidoDetalleID == pedidoDetalle.PedidoDetalleID).FirstOrDefault();
+                    var item = lstDetalle.FirstOrDefault(x => x.PedidoDetalleID == pedidoDetalle.PedidoDetalleID);
                     if (item != null) lstDetalle.Remove(item);
                 }
                 else
@@ -650,7 +650,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     || (revistaDigital.TieneRDC && revistaDigital.ActivoMdo) ?
                     Constantes.TipoEstrategiaCodigo.RevistaDigital : string.Empty;
 
-                lstEstrategia = ConsultarEstrategiasHomePedido(string.Empty, codAgrupa, usuario);
+                lstEstrategia = ConsultarEstrategiasHomePedido(codAgrupa, usuario);
 
                 lstEstrategia = lstEstrategia.Where(x => x.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
 
@@ -943,7 +943,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             };
         }
 
-        private bool BloqueoProductosCatalogo(BERevistaDigital revistaDigital, string codigosRevistaImpresa, BEProducto producto, BEProductoAppBuscar productoBuscar)
+        private bool BloqueoProductosCatalogo(BERevistaDigital revistaDigital, string codigosRevistaImpresa, BEProducto producto)
         {
             if (producto == null) return true;
 
@@ -1536,10 +1536,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
         #endregion
 
         #region EstrategiaCarrusel
-        private List<BEEstrategia> ConsultarEstrategiasHomePedido(string cuv, string codAgrupacion, BEUsuario usuario)
+        private List<BEEstrategia> ConsultarEstrategiasHomePedido(string codAgrupacion, BEUsuario usuario)
         {
             var revistaDigital = usuario.RevistaDigital;
-            var listModel = ConsultarEstrategias(cuv, 0, codAgrupacion, usuario);
+            var listModel = ConsultarEstrategias(codAgrupacion, usuario);
 
             if (!listModel.Any()) return new List<BEEstrategia>();
 
@@ -1579,7 +1579,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return listModel;
         }
 
-        private List<BEEstrategia> ConsultarEstrategias(string cuv, int campaniaId, string codAgrupacion, BEUsuario usuario)
+        private List<BEEstrategia> ConsultarEstrategias(string codAgrupacion, BEUsuario usuario)
         {
             var listEstrategia = new List<BEEstrategia>();
 

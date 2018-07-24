@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             this.registrosPagina = 5;
 
-            if (userData.CodigoISO != null && GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
+            if (userData.CodigoISO != null && _configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
             {
                 isEsika = true;
             }
@@ -81,7 +81,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Informacion()
         {
-            string strpaises = GetPaisesConConsultoraOnlineFromConfig();
+            string strpaises = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(userData.CodigoISO))
                 return RedirectToAction("Index", "Bienvenida");
 
@@ -266,7 +266,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult EnviaCorreo()
         {
-            string strpaises = GetPaisesConConsultoraOnlineFromConfig();
+            string strpaises = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(userData.CodigoISO))
                 return RedirectToAction("Index", "Bienvenida");
 
@@ -396,7 +396,7 @@ namespace Portal.Consultoras.Web.Controllers
         public string mensajeConsultora(string consultora, string url)
         {
             string tlfBelcorpResponde =
-                GetConfiguracionManager(String.Format(Constantes.ConfiguracionManager.BelcorpRespondeTEL,
+                _configuracionManagerProvider.GetConfiguracionManager(String.Format(Constantes.ConfiguracionManager.BelcorpRespondeTEL,
                     userData.CodigoISO));
             string carpetaPais = "Correo/CCC";
             string spacerGif = ConfigCdn.GetUrlFileCdn(carpetaPais, "spacer.gif");
@@ -1254,7 +1254,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 sessionManager.SetDetallesPedido(null);
                 sessionManager.SetDetallesPedidoSetAgrupado(null);
-                string emailDe = GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
+                string emailDe = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
 
                 if (pedidoAux.FlagMedio == "01")
                 {
@@ -1643,7 +1643,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             UsuarioModel usuario = userData;
                             usuario.PedidoID = oBePedidoWebDetalleTemp.PedidoID;
-                            SetUserData(usuario);
+                            sessionManager.SetUserData(usuario);
                         }
 
                         olstTempListado.Add(oBePedidoWebDetalleTemp);
@@ -1934,7 +1934,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             string emailDe =
-                                GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
+                                _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
                             if (typeAction == "1")
                             {
                                 Util.EnviarMail3(emailDe, pedido.Email, titulocliente, mensajecliente.ToString(), true,

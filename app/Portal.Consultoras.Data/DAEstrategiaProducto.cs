@@ -54,6 +54,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetEstrategiaProductoList(string idList)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEstrategiaProductoList");
+            Context.Database.AddInParameter(command, "@EstrategiaListId", DbType.String, idList);
+
+            return Context.ExecuteReader(command);
+        }
+
         public int UpdateEstrategiaProducto(BEEstrategiaProducto entidad)
         {
             int result;

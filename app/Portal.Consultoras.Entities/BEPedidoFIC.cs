@@ -68,46 +68,26 @@ namespace Portal.Consultoras.Entities
 
         public BEPedidoFIC(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "PedidoID"))
-                PedidoID = Convert.ToInt32(row["PedidoID"]);
-            if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "Clientes"))
-                Clientes = Convert.ToInt16(row["Clientes"]);
-            if (DataRecord.HasColumn(row, "ImporteTotal"))
-                ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-            if (DataRecord.HasColumn(row, "ImporteCredito"))
-                ImporteCredito = Convert.ToDecimal(row["ImporteCredito"]);
-            if (DataRecord.HasColumn(row, "EstadoPedidoDesc"))
-                EstadoPedidoDesc = Convert.ToString(row["EstadoPedidoDesc"]);
-            if (DataRecord.HasColumn(row, "MotivoCreditoID"))
-                MotivoCreditoID = Convert.ToInt16(row["MotivoCreditoID"]);
-            if (DataRecord.HasColumn(row, "PaisID"))
-                PaisID = Convert.ToInt32(row["PaisID"]);
-            if (DataRecord.HasColumn(row, "CantidadProductos"))
-                CantidadProductos = Convert.ToInt32(row["CantidadProductos"]);
-            if (DataRecord.HasColumn(row, "Bloqueado"))
-                Bloqueado = Convert.ToInt16(row["Bloqueado"]);
-            if (DataRecord.HasColumn(row, "Nombres"))
-                Nombres = Convert.ToString(row["Nombres"]);
-            if (DataRecord.HasColumn(row, "DescripcionBloqueo"))
-                DescripcionBloqueo = Convert.ToString(row["DescripcionBloqueo"]);
-            if (DataRecord.HasColumn(row, "CodigoZona"))
-                CodigoZona = Convert.ToString(row["CodigoZona"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (DataRecord.HasColumn(row, "SaldoDeuda"))
-                SaldoDeuda = Convert.ToDecimal(row["SaldoDeuda"]);
-            if (DataRecord.HasColumn(row, "MontoPedido"))
-                MontoPedido = Convert.ToDecimal(row["MontoPedido"]);
-            if (DataRecord.HasColumn(row, "CodigoTerritorio"))
-                CodigoTerritorio = Convert.ToString(row["CodigoTerritorio"]);
-            if (DataRecord.HasColumn(row, "Direccion"))
-                Direccion = Convert.ToString(row["Direccion"]);
-            if (DataRecord.HasColumn(row, "IndicadorEnviado"))
-                IndicadorEnviado = Convert.ToInt32(row["IndicadorEnviado"]);
+            CampaniaID = row.ToInt32("CampaniaID");
+            PedidoID = row.ToInt32("PedidoID");
+            ConsultoraID = row.ToInt64("ConsultoraID");
+            Clientes = row.ToInt16("Clientes");
+            ImporteTotal = row.ToDecimal("ImporteTotal");
+            ImporteCredito = row.ToDecimal("ImporteCredito");
+            EstadoPedidoDesc = row.ToString("EstadoPedidoDesc");
+            MotivoCreditoID = row.ToInt16("MotivoCreditoID");
+            PaisID = row.ToInt32("PaisID");
+            CantidadProductos = row.ToInt32("CantidadProductos");
+            Bloqueado = row.ToInt16("Bloqueado");
+            Nombres = row.ToString("Nombres");
+            DescripcionBloqueo = row.ToString("DescripcionBloqueo");
+            CodigoZona = row.ToString("CodigoZona");
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            SaldoDeuda = row.ToDecimal("SaldoDeuda");
+            MontoPedido = row.ToDecimal("MontoPedido");
+            CodigoTerritorio = row.ToString("CodigoTerritorio");
+            Direccion = row.ToString("Direccion");
+            IndicadorEnviado = row.ToInt32("IndicadorEnviado");
         }
     }
 }

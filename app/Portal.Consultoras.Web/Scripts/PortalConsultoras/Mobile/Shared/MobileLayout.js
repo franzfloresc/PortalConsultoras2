@@ -82,30 +82,6 @@
         objInput.val(actual);
     });
 
-    $("body").on("click", ".cantidad_menos_home", function (e) {
-        if ($.trim($(this).data("bloqueada")) !== "") return false;
-        var $txtcantidad = $(this).siblings('input');
-        var cantidad = parseInt($txtcantidad.val());
-
-        cantidad = isNaN(cantidad) ? 0 : cantidad;
-        cantidad = cantidad > 1 ? (cantidad - 1) : 1;
-
-        $txtcantidad.val(cantidad);
-        e.stopPropagation();
-    });
-
-    $("body").on("click", ".cantidad_mas_home", function (e) {
-        if ($.trim($(this).data("bloqueada")) !== "") return false;
-        var $txtcantidad = $(this).siblings('input');
-        var cantidad = parseInt($txtcantidad.val());
-
-        cantidad = isNaN(cantidad) ? 0 : cantidad;
-        cantidad = cantidad < 99 ? (cantidad + 1) : 99;
-
-        $txtcantidad.val(cantidad);
-        e.stopPropagation();
-    });
-
     $("body").on("click", "[data-popup-main]", function (e) {
         if (!$(e.target).closest('[data-popup-body]').length) {
             if ($(e.target).is(':visible')) {
@@ -842,6 +818,7 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
         url: urlGetCantidadProductos,
         dataType: 'json',
         data: JSON.stringify({ soloCantidad: true }),
+        cache: false,
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
