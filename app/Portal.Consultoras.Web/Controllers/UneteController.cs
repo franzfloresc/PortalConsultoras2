@@ -1328,19 +1328,23 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ExportarExcel(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre,
             int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso,
-            int MostrarPaso1y2SE = 1, int PaginaActual = 1)
+            int PaginaActual, string CodigoConsultora, int? PDigital, int? PTradicional, int MostrarPaso1y2SE = 1)
         {
 
             using (var sv = new PortalServiceClient())
             {
 
                 var solicitudes = sv.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde,
-                       FechaHasta, Nombre,
-                       Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO,
-                       MostrarPaso1y2SE, PaginaActual).ToList();
+                    FechaHasta, Nombre,
+                    Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO,
+                    PaginaActual,
+                    CodigoConsultora,
+                    PDigital,
+                    PTradicional,
+                    MostrarPaso1y2SE
+                ).ToList();
 
                 Dictionary<string, string> dic = sv.GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
-
                 MemoryStream workbook = new MemoryStream();
 
                 workbook = ExcelExportHelper.ExportarExcel("Reporte_GestionaPostulante", "GestionaPostulante", dic, solicitudes);
