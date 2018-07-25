@@ -4411,14 +4411,14 @@ namespace Portal.Consultoras.Web.Controllers
             else
                 formatoPedidoWebSet = cuvlist;
 
-                using (var pedidoServiceClient = new PedidoServiceClient())
-                {
-                    pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, cantidad, cuv
-                        , userData.ConsultoraID, "", formatoPedidoWebSet, estrategiaId);
-                }
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, cantidad, cuv
+                    , userData.ConsultoraID, "", formatoPedidoWebSet, estrategiaId);
+            }
 
             sessionManager.SetDetallesPedidoSetAgrupado(null);
-            sessionManager.GetDetallesPedidoSetAgrupado(); // para actualizar session agrupado
+            ObtenerPedidoWebSetDetalleAgrupado();// para actualizar session de agrupado
         }
 
         #endregion
