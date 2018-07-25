@@ -169,9 +169,9 @@ namespace Portal.Consultoras.Web.Controllers
             return _pedidoWebProvider.ObtenerPedidoWebDetalle(EsOpt());
         }
 
-        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado()
+        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(bool esSession = false)
         {
-            return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt());
+            return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt(), esSession);
         }
 
         protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(bool session = true)

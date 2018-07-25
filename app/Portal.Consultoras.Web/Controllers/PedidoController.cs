@@ -4417,8 +4417,8 @@ namespace Portal.Consultoras.Web.Controllers
                     , userData.ConsultoraID, "", formatoPedidoWebSet, estrategiaId);
             }
 
-            sessionManager.SetDetallesPedidoSetAgrupado(null);
-            ObtenerPedidoWebSetDetalleAgrupado();// para actualizar session de agrupado
+            //sessionManager.SetDetallesPedidoSetAgrupado(null);
+            ObtenerPedidoWebSetDetalleAgrupado(true);// para actualizar session de agrupado
         }
 
         #endregion
