@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
@@ -14,8 +15,10 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 {
     public class EstrategiaController : BaseController // BaseEstrategiaController
     {
+        protected OfertaBaseProvider _ofertaBaseProvider;
         public EstrategiaController()
         {
+            _ofertaBaseProvider = new OfertaBaseProvider();
         }
 
         #region Metodos Por Palanca
@@ -162,6 +165,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 var cantidadTotal = listModel.Count;
 
+                bool guarda = true;
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, palanca))
+                {
+                    guarda = false;
+                }
+
                 return Json(new
                 {
                     success = true,
@@ -171,7 +180,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     cantidadTotal = cantidadTotal,
                     cantidad = cantidadTotal,
                     codigo = palanca,
-                    codigoOrigen = model.Codigo
+                    codigoOrigen = model.Codigo,
+                    guardaEnLocalStorage = guarda
                 });
             }
             catch (Exception ex)

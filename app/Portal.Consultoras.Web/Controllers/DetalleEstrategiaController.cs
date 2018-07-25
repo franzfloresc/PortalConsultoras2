@@ -12,13 +12,14 @@ namespace Portal.Consultoras.Web.Controllers
             return base.Ficha(palanca, campaniaId, cuv, origen);
         }
 
-        public JsonResult ObtenerComponentes(string estrategiaId, string campania, string codigoVariante, string codigoEstrategia = "")
+        public JsonResult ObtenerComponentes(string estrategiaId, string cuv2,  string campania, string codigoVariante, string codigoEstrategia = "")
         {
             try
             {
                 var estrategiaModelo = new EstrategiaPersonalizadaProductoModel
                 {
                     EstrategiaID = estrategiaId.ToInt(),
+                    CUV2 = cuv2,
                     CampaniaID = campania.ToInt(),
                     CodigoVariante = codigoVariante
                 };
