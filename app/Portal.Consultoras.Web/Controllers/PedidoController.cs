@@ -4404,11 +4404,18 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void PedidoAgregarProductoAgrupado(int cantidad, string cuv, string cuvlist, int estrategiaId)
         {
-            using (var pedidoServiceClient = new PedidoServiceClient())
-            {
-                pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, cantidad, cuv
-                    , userData.ConsultoraID, "", string.Format("{0}:1", cuvlist), estrategiaId);
-            }
+            var formatoPedidoWebSet = string.Empty;
+
+            if (cuvlist.IndexOf(":") < 0)
+                formatoPedidoWebSet = string.Format("{0}:1", cuvlist);
+            else
+                formatoPedidoWebSet = cuvlist;
+
+                using (var pedidoServiceClient = new PedidoServiceClient())
+                {
+                    pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, cantidad, cuv
+                        , userData.ConsultoraID, "", formatoPedidoWebSet, estrategiaId);
+                }
 
             sessionManager.SetDetallesPedidoSetAgrupado(null);
             sessionManager.GetDetallesPedidoSetAgrupado(); // para actualizar session agrupado
