@@ -337,8 +337,12 @@ var EstrategiaAgregarModule = (function () {
 
             var cuv = estrategia.CUV2;
 
-            var tipoOrigenEstrategia = tipoOrigenEstrategia || 0;
-            if (tipoOrigenEstrategia == 1) {
+            var tipoOrigenEstrategiaAux = 0;
+            if (typeof tipoOrigenEstrategia != "undefined") {
+                tipoOrigenEstrategiaAux = tipoOrigenEstrategia || 0;
+            }
+
+            if (tipoOrigenEstrategiaAux == 1) {
                 if (typeof MostrarBarra != constantes.undefined())
                     MostrarBarra(data, "1");
 
@@ -354,7 +358,7 @@ var EstrategiaAgregarModule = (function () {
                             CargarCarouselMasVendidos("desktop");
                     }
                 }
-            } else if (tipoOrigenEstrategia == 11) {
+            } else if (tipoOrigenEstrategiaAux == 11) {
 
                 $(elementosDiv.hdErrorInsertarProducto).val(data.errorInsertarProducto);
 
@@ -363,27 +367,27 @@ var EstrategiaAgregarModule = (function () {
                 CargarCarouselEstrategias();
                 HideDialog(elementosDiv.divVistaPrevia.substring(1));
 
-                tieneMicroefecto = true;
+                //tieneMicroefecto = true;
 
                 CargarDetallePedido();
                 MostrarBarra(data);
-            } else if (tipoOrigenEstrategia == 2 ||
-                tipoOrigenEstrategia == 21 ||
-                tipoOrigenEstrategia == 27 ||
-                tipoOrigenEstrategia == 262 ||
-                tipoOrigenEstrategia == 272) {
+            } else if (tipoOrigenEstrategiaAux == 2 ||
+                tipoOrigenEstrategiaAux == 21 ||
+                tipoOrigenEstrategiaAux == 27 ||
+                tipoOrigenEstrategiaAux == 262 ||
+                tipoOrigenEstrategiaAux == 272) {
 
-                if (tipoOrigenEstrategia == 262) {
+                if (tipoOrigenEstrategiaAux == 262) {
 
-                    origenRetorno = $.trim(origenRetorno);
-                    if (origenRetorno != "") {
+                    var origenRetornoAux = $.trim(origenRetorno);
+                    if (origenRetornoAux != "") {
                         setTimeout(function() {
-                                window.location = origenRetorno;
+                                window.location = origenRetornoAux;
                             },
                             3700);
 
                     }
-                } else if (tipoOrigenEstrategia != 272) {
+                } else if (tipoOrigenEstrategiaAux != 272) {
                     CargarCarouselEstrategias();
 
                     if (tieneMasVendidos === 1) {
