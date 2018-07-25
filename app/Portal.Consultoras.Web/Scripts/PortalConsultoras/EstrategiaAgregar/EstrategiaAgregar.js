@@ -245,8 +245,7 @@ var EstrategiaAgregarModule = (function () {
             return false;
         }
         estrategia.Cantidad = cantidad;
-
-        var agregoAlCarro = false;
+        
         if (!isMobile()) {
             estrategia.FlagNueva = estrategia.FlagNueva == "1" ? estrategia.FlagNueva : "";
             $(elementosDiv.OfertaTipoNuevo).val(estrategia.FlagNueva);
@@ -307,11 +306,6 @@ var EstrategiaAgregarModule = (function () {
             }
 
             $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
-
-            if (!isMobile() && !agregoAlCarro) {
-                agregarProductoAlCarrito($btnAgregar);
-                agregoAlCarro = true;
-            }
 
             AbrirLoad();
 
