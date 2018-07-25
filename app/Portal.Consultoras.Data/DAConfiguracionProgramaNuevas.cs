@@ -13,25 +13,35 @@ namespace Portal.Consultoras.Data
 
         }
 
-        public IDataReader GetConfiguracionProgramaNuevas(BEConfiguracionProgramaNuevas entidad)
+        public IDataReader Get(BEConfiguracionProgramaNuevas entidad)
         {
-            using (var command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionProgramaNuevas_SB2"))
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionProgramaNuevas"))
             {
-                Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.CampaniaInicio);
-                Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
-                Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
+                Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.Campania);
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.CodigoConsultora);
 
                 return Context.ExecuteReader(command);
             }
         }
 
-        public IDataReader GetConfiguracionProgramaDespuesPrimerPedido(BEConfiguracionProgramaNuevas entidad)
+        public string GetCuvPremioKitNuevas(BEConfiguracionProgramaNuevas entidad)
         {
-            using (var command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionProgramaNuevas_2y3PedidoSB2"))
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GetCuvPremioKitNuevas"))
             {
-                Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.CampaniaInicio);
-                Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, entidad.CodigoRegion);
-                Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, entidad.CodigoZona);
+                Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
+                Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.Campania);
+                Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, entidad.CodigoNivel);
+
+                return (string)Context.ExecuteScalar(command);
+            }
+        }
+
+        public IDataReader GetRegaloProgramaNuevas(BEConfiguracionProgramaNuevas entidad)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GetRegaloProgramaNuevas"))
+            {
+                Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
+                Context.Database.AddInParameter(command, "@Campania", DbType.String, entidad.Campania);
                 Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, entidad.CodigoNivel);
 
                 return Context.ExecuteReader(command);
