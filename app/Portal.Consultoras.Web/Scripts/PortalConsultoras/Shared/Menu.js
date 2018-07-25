@@ -100,21 +100,17 @@ function MostrarMensajeConsultoraValidacion() {
 
 function modificarAnchoBuscadorFiltros() {
     if (window.location.href.indexOf("Pedido") > -1) {
-        $('.new_menu ').each(function () {
-            if ($('.new_menu a').attr("title") == "SOCIA EMPRESARIA") {
-                $('.buscador_filtros').addClass('buscador_filtros_con_enlace_menu_socia_empresaria_vista_pedido');
-            } else {
-                $('.buscador_filtros').addClass('buscador_filtros_sin_enlace_menu_socia_empresaria_vista_pedido');
-            }
-        });
+        if ($('.new_menu').first().find('a').attr("title") == "SOCIA EMPRESARIA") {
+            $('.buscador_filtros').addClass('buscador_filtros_con_enlace_menu_socia_empresaria_vista_pedido');
+        } else {
+            $('.buscador_filtros').addClass('buscador_filtros_sin_enlace_menu_socia_empresaria_vista_pedido');
+        }
     } else {
-        $('.new_menu ').each(function () {
-            if ($('.new_menu a').attr("title") == "SOCIA EMPRESARIA") {
-                $('.buscador_filtros').addClass('buscador_filtros_con_enlace_menu_socia_empresaria');
-            } else {
-                $('.buscador_filtros').addClass('buscador_filtros_sin_enlace_menu_socia_empresaria');
-            }
-        });
+        if ($('.new_menu').first().find('a').attr("title") == "SOCIA EMPRESARIA") {
+            $('.buscador_filtros').addClass('buscador_filtros_con_enlace_menu_socia_empresaria');
+        } else {
+            $('.buscador_filtros').addClass('buscador_filtros_sin_enlace_menu_socia_empresaria');
+        }
     }
 }
 
