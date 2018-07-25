@@ -84,9 +84,12 @@ namespace Portal.Consultoras.Web.Providers
                 x.NombreComercial = x.NombreComercial ?? string.Empty;
                 x.NombreBulk = x.NombreBulk ?? string.Empty;
                 //
-                x.NombreComercial = string.IsNullOrWhiteSpace(x.NombreBulk)
+                if (x.FactorCuadre > 1)
+                {
+                    x.NombreComercial = string.IsNullOrWhiteSpace(x.NombreBulk)
                         ? x.NombreComercial
                         : x.NombreComercial.Replace(x.NombreBulk, string.Empty);
+                }
                 //
                 x.ImagenBulk = x.ImagenBulk ?? string.Empty;
                 if (string.IsNullOrEmpty(x.ImagenBulk)) return;
@@ -121,6 +124,12 @@ namespace Portal.Consultoras.Web.Providers
                     componenteModel.NombreComercial = string.IsNullOrEmpty(beEstrategiaProducto.NombreProducto)
                         ? componenteModel.NombreComercial
                         : string.Concat(Util.Trim(beEstrategiaProducto.NombreProducto), " ", beEstrategiaProducto.Volumen);
+                }
+                else
+                {
+                    componenteModel.NombreComercial = string.IsNullOrEmpty(beEstrategiaProducto.NombreComercial)
+                        ? beEstrategiaProducto.NombreProducto
+                        : string.Empty;
                 }
 
                 componenteModel.Descripcion = beEstrategiaProducto.Descripcion;
