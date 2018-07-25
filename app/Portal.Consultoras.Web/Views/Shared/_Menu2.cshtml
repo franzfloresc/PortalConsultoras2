@@ -12,8 +12,9 @@
             urlProgramaNuevas = item.Url;
         }
     }
-    
+
     var claseSociaEmpresaria = (ViewBag.Lider == 1 && ViewBag.PortalLideres) ? "menu_socia_empresaria" : "";
+
 }
 
 @if (permisoList.Count > 0)
@@ -212,3 +213,7 @@
         <li class="clear"></li>
     </ul>
 }
+
+<div class="buscador_filtros">
+    <input type="text" value="" class="campo_buscador_filtros" placeholder="¿Buscas ofertas?" />
+</div>

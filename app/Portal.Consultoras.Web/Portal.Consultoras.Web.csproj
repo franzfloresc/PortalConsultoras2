@@ -1329,6 +1329,7 @@
     <Content Include="Content\Css\Site\Admin\Estrategias\UpSelling.css" />
     <Content Include="Content\Css\Mobile\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
+    <Content Include="Content\Css\Site\Esika\buscador-filtros.css" />
     <Content Include="Content\Css\Site\Esika\mi-perfil.css" />
     <Content Include="Content\Css\Site\Contenedor\OfertaDelDia.css" />
     <Content Include="Content\Css\Site\Esika\styleDefault.css" />
@@ -1347,6 +1348,7 @@
     <Content Include="Content\Css\Site\ion.rangeSlider\ion.rangeSlider.skinSimple.css" />
     <Content Include="Content\Css\Site\ion.rangeSlider\normalize.css" />
     <Content Include="Content\Css\Site\Landing\producto.landing.css" />
+    <Content Include="Content\Css\Site\Lbel\buscador-filtros.css" />
     <Content Include="Content\Css\Site\Lbel\mi-perfil.css" />
     <Content Include="Content\Css\Site\Lbel\unsubscribe.css" />
     <Content Include="Content\Css\Site\Lanzamientos\Detalle.css" />
