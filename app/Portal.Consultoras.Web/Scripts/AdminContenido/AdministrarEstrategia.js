@@ -540,7 +540,7 @@
             _editData.imagen = _obtenerImagenGrilla(id);
 
             if (data.FlagEstrella == "1") $("#chkOfertaUltimoMinuto").attr("checked", true);
-            else $("#chkEstrella").attr("checked", false);
+            else $("#chkOfertaUltimoMinuto").attr("checked", false);
             $(".checksPedidosAsociados")
                 .append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' +
                 data.NumeroPedido +
@@ -847,7 +847,7 @@
                      
                         _editData.CUV2 = $("#txtCUV2").val();
                         _editData.CodigoSAP = data.codigoSAP;
-                        _editData.IdMatrizComercial = data.idMatrizComercial;
+                        _editData.IdMatrizComercial = data.IdMatrizComercial;
                         _editData.imagenes = [];
                         _editData.imagen = _obtenerImagenGrilla(_idImagen);
 
@@ -1151,7 +1151,6 @@
 
         var colNameActions = (codigo == _codigoEstrategia.ShowRoom) ? "Set" : "";
         var hideColProducts = (codigo == _codigoEstrategia.ShowRoom) ? false : true;
-
         jQuery("#list").jqGrid({
             url: baseUrl + "AdministrarEstrategia/Consultar",
             hidegrid: false,
