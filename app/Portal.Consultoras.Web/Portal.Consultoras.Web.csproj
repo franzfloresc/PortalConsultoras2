@@ -494,6 +494,7 @@
     <Compile Include="Models\PagoEnLinea\PagoEnLineaReporteModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaTipoPagoModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaTipoPasarelaModel.cs" />
+    <Compile Include="Models\PagoEnLinea\PaymentInfo.cs" />
     <Compile Include="Models\PartialSectionBpt.cs" />
     <Compile Include="Models\BusquedaProductoModel.cs" />
     <Compile Include="Models\CatalogoPersonalizadoModel.cs" />

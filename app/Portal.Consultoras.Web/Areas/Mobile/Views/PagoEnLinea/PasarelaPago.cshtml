@@ -1,6 +1,6 @@
 ﻿@using Portal.Consultoras.Common;
 @using Portal.Consultoras.Web.Models.PagoEnLinea;
-@model PagoEnLineaModel
+@model PaymentInfo
 
 @{
     ViewBag.Title = "Pago En Línea";
@@ -65,92 +65,95 @@
                 TARJETA DE CRÉDITO O DÉBITO
             </h3>
             <div class="formulario_pasarela_pago">
-                <div class="grupo_campo_formulario_pasarela_pago">
-                    <label class="nom_campo_formulario_pasarela_pago w-100">*Número de tarjeta :</label>
-                    <input type="text" value="" class="campo_formulario_pasarela_pago w-100 campo_num_tarjeta_credito_o_debito" />
-                    <div class="mensaje_validacion text-center w-100" style="display:none;">
-                        <span class="icono_validacion_incorrecta"></span>
-                        <span>El número ingresado no es correcto.</span>
-                    </div>
-                </div>
-                <div class="grupo_campo_formulario_pasarela_pago">
-                    <div class="w-69 pr-7 vAlignTop">
-                        <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de expiración :</label>
-                        <select class="campo_formulario_pasarela_pago campo_seleccion_fecha_expiracion campo_mes mr-5">
-                            <option value="0">MES</option>
-                            @foreach (var month in Enumerable.Range(1, 12).Select(i => i.ToString("00")))
-                            {
-                                <option value="@month">@month</option>
-                            }
-                        </select>
-                        <select class="campo_formulario_pasarela_pago campo_seleccion_fecha_expiracion campo_anio">
-                            <option value="0">AÑO</option>
-                            @foreach (var year in Enumerable.Range(DateTime.Now.Year, 20))
-                            {
-                                <option value="@year">@year</option>
-                            }
-                        </select>
-                        <div class="mensaje_validacion text-center w-100" style="display:none;">
+                @using (Html.BeginForm("PasarelaPago", "PagoEnLinea", FormMethod.Post, new {id = "frmPay"}))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="grupo_campo_formulario_pasarela_pago">
+                        <label class="nom_campo_formulario_pasarela_pago w-100">*Número de tarjeta :</label>
+                        @Html.TextBoxFor(m => m.NumberCard, new { @class = "campo_formulario_pasarela_pago w-100 campo_num_tarjeta_credito_o_debito" })
+                        @Html.ValidationMessageFor(m => m.NumberCard)
+                        <div class="mensaje_validacion text-center w-100" style="display: none;">
                             <span class="icono_validacion_incorrecta"></span>
-                            <span>La fecha no es válida.</span>
+                            <span>El número ingresado no es correcto.</span>
                         </div>
                     </div>
-                    <div class="w-30 pl-8 vAlignTop">
-                        <label class="nom_campo_formulario_pasarela_pago w-100">
-                            <span>*CVV :</span>
-                            <span class="tooltip_informativo">
-                                <img src="@Url.Content("~/Content/Images/icono_tooltip_informativo.svg")" alt="Tooltip Informativo" />
-                                <span class="info_tooltip_informativo">
-                                    Son los 3 dígitos que se ubican en la parte posterior de tu tarjeta, al lado derecho.
+                    <div class="grupo_campo_formulario_pasarela_pago">
+                        <div class="w-69 pr-7 vAlignTop">
+                            <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de expiración :</label>
+                            @Html.DropDownListFor(m => m.ExpireMonth, Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString("00"), Text = i.ToString("00") }), "MES", new { @class = "campo_formulario_pasarela_pago campo_seleccion_fecha_expiracion campo_mes mr-5" })
+                            @Html.DropDownListFor(m => m.ExpireYear, Enumerable.Range(DateTime.Now.Year, 20).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "AÑO", new { @class = "campo_formulario_pasarela_pago campo_seleccion_fecha_expiracion campo_anio" })
+                            @Html.ValidationMessageFor(m => m.ExpireMonth)
+                            @Html.ValidationMessageFor(m => m.ExpireYear)
+                            <div class="mensaje_validacion text-center w-100" style="display: none;">
+                                <span class="icono_validacion_incorrecta"></span>
+                                <span>La fecha no es válida.</span>
+                            </div>
+                        </div>
+                        <div class="w-30 pl-8 vAlignTop">
+                            <label class="nom_campo_formulario_pasarela_pago w-100">
+                                <span>*CVV :</span>
+                                <span class="tooltip_informativo">
+                                    <img src="@Url.Content("~/Content/Images/icono_tooltip_informativo.svg")" alt="Tooltip Informativo" />
+                                    <span class="info_tooltip_informativo">
+                                        Son los 3 dígitos que se ubican en la parte posterior de tu tarjeta, al lado derecho.
+                                    </span>
                                 </span>
-                            </span>
-                        </label>
-                        <input type="text" value="" class="campo_formulario_pasarela_pago w-100" />
+                            </label>
+                            @Html.TextBoxFor(m => m.Cvv, new { @class = "campo_formulario_pasarela_pago w-100" })
+                            @Html.ValidationMessageFor(m => m.Cvv)
+                        </div>
                     </div>
-                </div>
-                <div class="grupo_campo_formulario_pasarela_pago">
-                    <label class="nom_campo_formulario_pasarela_pago w-100">*Titular de la tarjeta :</label>
-                    <input type="text" value="" class="campo_formulario_pasarela_pago w-100" placeholder="SOFÍA GARCÍA" />
-                </div>
-                @if (visibleFields.Contains(Constantes.PagoEnLineaCampos.FechaNacimiento))
-                {
                     <div class="grupo_campo_formulario_pasarela_pago">
-                        <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de nacimiento :</label>
-                        <input type="text" value="" id="CampoFechaNacimiento" class="campo_formulario_pasarela_pago w-100" placeholder="00/00/0000" />
+                        <label class="nom_campo_formulario_pasarela_pago w-100">*Titular de la tarjeta :</label>
+                        <input type="text" value="" class="campo_formulario_pasarela_pago w-100" placeholder="SOFÍA GARCÍA" />
                     </div>
+                    if (visibleFields.Contains(Constantes.PagoEnLineaCampos.FechaNacimiento))
+                    {
+                        <div class="grupo_campo_formulario_pasarela_pago">
+                            <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de nacimiento :</label>
+                            @Html.TextBoxFor(m => m.Birthdate, new { @class = "campo_formulario_pasarela_pago w-100" , id = "CampoFechaNacimiento", placeholder = "00/00/0000" })
+                            @Html.ValidationMessageFor(m => m.Birthdate)
+                        </div>
+                    }
+                    if (visibleFields.Contains(Constantes.PagoEnLineaCampos.Email))
+                    {
+                        <div class="grupo_campo_formulario_pasarela_pago">
+                            <label class="nom_campo_formulario_pasarela_pago w-100">*Correo Electrónico :</label>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "campo_formulario_pasarela_pago w-100", placeholder = "tucorreo@belcorp.biz" })
+                            @Html.ValidationMessageFor(m => m.Email)
+                        </div>
+                    }
+                    if (visibleFields.Contains(Constantes.PagoEnLineaCampos.Celular))
+                    {
+                        <div class="grupo_campo_formulario_pasarela_pago">
+                            <label class="nom_campo_formulario_pasarela_pago w-100">*Número de celular :</label>
+                            @Html.TextBoxFor(m => m.Phone, new { @class = "campo_formulario_pasarela_pago w-100", placeholder = "000000000" })
+                            @Html.ValidationMessageFor(m => m.Phone)
+                        </div>
+                    }
+                    <button type="submit" class="btn_pago_tarjeta_credito text-bold text-uppercase default-background w-100 mt-30">
+                        Pagar
+                    </button>
                 }
-                @if (visibleFields.Contains(Constantes.PagoEnLineaCampos.Email))
-                {
-                    <div class="grupo_campo_formulario_pasarela_pago">
-                        <label class="nom_campo_formulario_pasarela_pago w-100">*Correo Electrónico :</label>
-                        <input type="email" value="@ViewBag.UserEmail" class="campo_formulario_pasarela_pago w-100" placeholder="tucorreo@belcorp.biz" />
-                    </div>
-                }
-                @if (visibleFields.Contains(Constantes.PagoEnLineaCampos.Celular))
-                {
-                    <div class="grupo_campo_formulario_pasarela_pago">
-                        <label class="nom_campo_formulario_pasarela_pago w-100">*Número de celular :</label>
-                        <input type="text" value="@ViewBag.UserCelular" class="campo_formulario_pasarela_pago w-100" placeholder="000000000" />
-                    </div>
-                }
-                <button type="submit" class="btn_pago_tarjeta_credito text-bold text-uppercase default-background w-100 mt-30">
-                    Pagar
-                </button>
             </div>
         </div>
     </div>
 </div>
 
 @section scripts{
-
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script>
-
         $(document).ready(function () {
-
             $("#CampoFechaNacimiento").datepicker();
-
+            $("form#frmPay :input").each(function(){
+                var input = $(this);
+                var value = input.attr('data-val-length-max');
+                console.log(value);
+                if (value) {
+                    input.prop('maxlength', value);
+                }
+            });
         });
-
     </script>    
     
 }
