@@ -4,6 +4,7 @@ using Portal.Consultoras.Web.Providers;
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -55,17 +56,36 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult PasarelaPago()
         {
-            var model = sessionManager.GetDatosPagoVisa();
+            //var model = sessionManager.GetDatosPagoVisa();
 
             //Logica para Obtener Valores de la PasarelaBelcorp
             ViewBag.PagoLineaCampos = _pagoEnLineaProvider.ObtenerPagoEnLineaPasarelaCampos()
                                             .Select(p => p.Codigo)
                                             .ToArray();
-
-            ViewBag.UserCelular = userData.Celular;
-            ViewBag.UserEmail = userData.EMail;
+            var model = new PaymentInfo
+            {
+                Phone = userData.Celular,
+                Email = userData.EMail
+            };
 
             return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PasarelaPago(PaymentInfo info)
+        {
+            if (ModelState.IsValid)
+            {
+                var model = sessionManager.GetDatosPagoVisa();
+
+                return View("PagoExitoso", model);
+            }
+            ViewBag.PagoLineaCampos = _pagoEnLineaProvider.ObtenerPagoEnLineaPasarelaCampos()
+                .Select(p => p.Codigo)
+                .ToArray();
+
+            return View(info);
         }
 
         public ActionResult PagoVisa()
