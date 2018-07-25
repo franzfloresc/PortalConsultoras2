@@ -125,12 +125,12 @@ namespace Portal.Consultoras.Web.Providers
                         ? componenteModel.NombreComercial
                         : string.Concat(Util.Trim(beEstrategiaProducto.NombreProducto), " ", beEstrategiaProducto.Volumen);
                 }
-                else
-                {
-                    componenteModel.NombreComercial = string.IsNullOrEmpty(beEstrategiaProducto.NombreComercial)
-                        ? beEstrategiaProducto.NombreProducto
-                        : string.Empty;
-                }
+                //else
+                //{
+                //    componenteModel.NombreComercial = string.IsNullOrEmpty(beEstrategiaProducto.NombreComercial)
+                //        ? beEstrategiaProducto.NombreProducto
+                //        : string.Empty;
+                //}
 
                 componenteModel.Descripcion = beEstrategiaProducto.Descripcion;
                 componenteModel.NombreBulk = beEstrategiaProducto.NombreBulk;
