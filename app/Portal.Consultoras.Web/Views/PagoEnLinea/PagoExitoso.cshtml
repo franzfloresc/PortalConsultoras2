@@ -35,11 +35,11 @@
     <div class="proceso_de_pago_en_linea">
 
         <div class="pago_exitoso">
-            <h3 class="titulo_pago_exitoso">
+            <h3 class="titulo_pago_exitoso text-center">
                 <span class="icono_pago_exitoso"></span>
-                <span>Pago exitoso</span>
+                <span>¡Pago <b>exitoso</b>!</span>
             </h3>
-            <div class="col_izq">
+            <div class="col_izq w-100">
                 <p class="mensaje_felicitacion_por_pago_exitoso">
                     ¡Muy bien @Model.NombreConsultora @Model.PrimerApellido! <span class="imagen_felicitacion"><img src="@Url.Content("~/Content/Images/celebracion-img.png")" alt="Felicitaciones" /></span>
                 </p>
@@ -50,7 +50,7 @@
                     @Model.MensajeInformacionPagoExitoso
                 </p>
             </div>
-            <div class="col_der">
+            <div class="col_der w-100">
                 <div class="resumen_pago_exitoso">
                     <h3 class="titulo_resumen_pago_exitoso">
                         Resumen del pago
@@ -94,7 +94,7 @@
                     </div>
                 </div>
             </div>
-            <p class="terminos_web">Revisar Términos y Condiciones de Uso Web <a href="@ViewBag.UrlCondiciones" class="enlace_ir_a_notificaciones" target="_blank">Aquí</a></p>
+            <p class="terminos_web text-center">Revisar Términos y Condiciones de Uso Web <a href="@ViewBag.UrlCondiciones" class="enlace_ir_a_notificaciones" target="_blank">Aquí</a></p>
         </div>
 
     </div>

@@ -131,6 +131,10 @@
 .num_operacion,
 .pago_exitoso,
 .pago_rechazado,
+.titulo_pago_exitoso span:last-child,
+.titulo_pago_rechazado span:last-child,
+.icono_pago_exitoso,
+.icono_pago_rechazado,
 .mensaje_pago_rechazado,
 .contenedor_btn_pagar_con_visa,
 .contenido_terminos_y_condiciones,
@@ -183,10 +187,6 @@
 .resumen_pago > div > span,
 .monto_saldo_pendiente > div,
 .fecha_vencimiento_saldo_pendiente > div,
-.titulo_pago_exitoso span:last-child,
-.titulo_pago_rechazado span:last-child,
-.icono_pago_exitoso,
-.icono_pago_rechazado,
 .enlace_ir_a_notificaciones,
 .opcion_pago_monto > div,
 .opcion_pago_gastos_administrativos > div,
@@ -990,7 +990,6 @@
 {
     margin-top:19px;
     padding-bottom:13px;
-    border-bottom:1px solid #B5B5B5;
 }
 
 .titulo_pago_exitoso{
@@ -1005,8 +1004,8 @@
 .titulo_pago_rechazado span:last-child
 {
     font-family:'Lato';
-    font-size:16px;
-    font-weight:bold!important;
+    font-size:27px;
+    font-weight:300!important;
     color:#000;
     text-transform:uppercase;
 }
@@ -1014,9 +1013,9 @@
 .icono_pago_exitoso,
 .icono_pago_rechazado
 {
-    width: 24px;
-    height: 24px;
-    margin-right: 4px;
+    margin:0 auto 16px auto;
+    width: 56.31px;
+    height: 56.31px;
     font-family: 'somos-belcorp-iconos';
     border-radius: 100%;
     border: 2px solid #e81c36;
@@ -1029,16 +1028,19 @@
 .icono_pago_rechazado:before
 {
     color:#e81c36;
-    font-weight: bold;
     z-index: 1;
+    font-weight:normal;
 }
 
 .icono_pago_exitoso:before{
     content: '\e90e';
-    font-size: 11px;
+    font-size: 25px;
     position: absolute;
-    top: 4.5px;
-    left: 3px;
+    margin: auto;
+    top: 12px;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .icono_pago_rechazado:before{
@@ -1049,25 +1051,18 @@
     left: 0.3px;
 }
 
+.pago_exitoso{
+    margin:0 auto;
+    max-width:375px;
+}
+
 .pago_exitoso .col_izq,
 .pago_exitoso .col_der
 {
-    vertical-align:top;
-}
-
-.pago_exitoso .col_izq{
-    width: 47.952%;
-    max-width: 417px;
-    margin-right: 63px;
-}
-
-.pago_exitoso .col_der{
-    width: 44.642%;
-    max-width: 387px;
+    max-width: none;
 }
 
 .mensaje_felicitacion_por_pago_exitoso{
-    margin-top:8px;
     margin-bottom:10px;
     font-weight:bold;
     color:#a18328;
@@ -1127,7 +1122,6 @@
 }
 
 .pago_exitoso .terminos_web {
-    text-align: right;
     margin-top: 20px;
 }
 
@@ -1142,13 +1136,18 @@
     font-weight:bold!important;
 }
 
+.monto_saldo_pendiente{
+    margin-top:14px;
+}
+
 .titulo_resumen_pago_exitoso{
     font-family:'Lato';
+    font-size:15.77px;
 }
 
 .resumen_pago{
     border: 1px solid #d2d2d2;
-    padding: 13px 16px 13px;
+    padding: 24px;
 }
 
 .resumen_pago > div {
@@ -1171,7 +1170,6 @@
     font-size:13px;
 }
 
-.pago_exitoso .col_der,
 .titulo_resumen_pago_exitoso,
 .num_operacion,
 .monto_pagado,
