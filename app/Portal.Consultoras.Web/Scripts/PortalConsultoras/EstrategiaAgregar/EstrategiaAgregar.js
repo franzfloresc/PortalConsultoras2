@@ -327,7 +327,7 @@ var EstrategiaAgregarModule = (function () {
             }
 
             if (isMobile()) {
-                //ActualizarGanancia(data.DataBarra);
+                ActualizarGanancia(data.DataBarra);
                 //if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.ShowRoom)
                 CargarCantidadProductosPedidos(true);
                 microefectoPedidoGuardado();
