@@ -18086,6 +18086,163 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoWebDetalleParametros", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEPedidoWebDetalleParametros : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool AgruparSetField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoProgramaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long ConsultoraIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsBptField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NumeroPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool AgruparSet {
+            get {
+                return this.AgruparSetField;
+            }
+            set {
+                if ((this.AgruparSetField.Equals(value) != true)) {
+                    this.AgruparSetField = value;
+                    this.RaisePropertyChanged("AgruparSet");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CampaniaId {
+            get {
+                return this.CampaniaIdField;
+            }
+            set {
+                if ((this.CampaniaIdField.Equals(value) != true)) {
+                    this.CampaniaIdField = value;
+                    this.RaisePropertyChanged("CampaniaId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoPrograma {
+            get {
+                return this.CodigoProgramaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoProgramaField, value) != true)) {
+                    this.CodigoProgramaField = value;
+                    this.RaisePropertyChanged("CodigoPrograma");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Consultora {
+            get {
+                return this.ConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ConsultoraField, value) != true)) {
+                    this.ConsultoraField = value;
+                    this.RaisePropertyChanged("Consultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long ConsultoraId {
+            get {
+                return this.ConsultoraIdField;
+            }
+            set {
+                if ((this.ConsultoraIdField.Equals(value) != true)) {
+                    this.ConsultoraIdField = value;
+                    this.RaisePropertyChanged("ConsultoraId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsBpt {
+            get {
+                return this.EsBptField;
+            }
+            set {
+                if ((this.EsBptField.Equals(value) != true)) {
+                    this.EsBptField = value;
+                    this.RaisePropertyChanged("EsBpt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NumeroPedido {
+            get {
+                return this.NumeroPedidoField;
+            }
+            set {
+                if ((this.NumeroPedidoField.Equals(value) != true)) {
+                    this.NumeroPedidoField = value;
+                    this.RaisePropertyChanged("NumeroPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisId {
+            get {
+                return this.PaisIdField;
+            }
+            set {
+                if ((this.PaisIdField.Equals(value) != true)) {
+                    this.PaisIdField = value;
+                    this.RaisePropertyChanged("PaisId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoWebSetDetalle", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido")]
     [System.SerializableAttribute()]
     public partial class BEPedidoWebSetDetalle : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -36840,163 +36997,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoWebDetalleParametros", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEPedidoWebDetalleParametros : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool AgruparSetField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CampaniaIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoProgramaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ConsultoraField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private long ConsultoraIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool EsBptField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int NumeroPedidoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PaisIdField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool AgruparSet {
-            get {
-                return this.AgruparSetField;
-            }
-            set {
-                if ((this.AgruparSetField.Equals(value) != true)) {
-                    this.AgruparSetField = value;
-                    this.RaisePropertyChanged("AgruparSet");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CampaniaId {
-            get {
-                return this.CampaniaIdField;
-            }
-            set {
-                if ((this.CampaniaIdField.Equals(value) != true)) {
-                    this.CampaniaIdField = value;
-                    this.RaisePropertyChanged("CampaniaId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoPrograma {
-            get {
-                return this.CodigoProgramaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoProgramaField, value) != true)) {
-                    this.CodigoProgramaField = value;
-                    this.RaisePropertyChanged("CodigoPrograma");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Consultora {
-            get {
-                return this.ConsultoraField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ConsultoraField, value) != true)) {
-                    this.ConsultoraField = value;
-                    this.RaisePropertyChanged("Consultora");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public long ConsultoraId {
-            get {
-                return this.ConsultoraIdField;
-            }
-            set {
-                if ((this.ConsultoraIdField.Equals(value) != true)) {
-                    this.ConsultoraIdField = value;
-                    this.RaisePropertyChanged("ConsultoraId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool EsBpt {
-            get {
-                return this.EsBptField;
-            }
-            set {
-                if ((this.EsBptField.Equals(value) != true)) {
-                    this.EsBptField = value;
-                    this.RaisePropertyChanged("EsBpt");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int NumeroPedido {
-            get {
-                return this.NumeroPedidoField;
-            }
-            set {
-                if ((this.NumeroPedidoField.Equals(value) != true)) {
-                    this.NumeroPedidoField = value;
-                    this.RaisePropertyChanged("NumeroPedido");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PaisId {
-            get {
-                return this.PaisIdField;
-            }
-            set {
-                if ((this.PaisIdField.Equals(value) != true)) {
-                    this.PaisIdField = value;
-                    this.RaisePropertyChanged("PaisId");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoDDWeb", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEPedidoDDWeb : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -38800,16 +38800,16 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLogReporte[]> ObtenerPagoEnLineaByFiltroAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaFiltro filtro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertPedidoWebSet", ReplyAction="http://tempuri.org/IPedidoService/InsertPedidoWebSetResponse")]
-        bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId);
+        bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId, string nombreConsultora, string codigoPrograma, int numeroPedido);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertPedidoWebSet", ReplyAction="http://tempuri.org/IPedidoService/InsertPedidoWebSetResponse")]
-        System.Threading.Tasks.Task<bool> InsertPedidoWebSetAsync(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId);
+        System.Threading.Tasks.Task<bool> InsertPedidoWebSetAsync(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId, string nombreConsultora, string codigoPrograma, int numeroPedido);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdCantidadPedidoWebSet", ReplyAction="http://tempuri.org/IPedidoService/UpdCantidadPedidoWebSetResponse")]
-        bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad);
+        bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdCantidadPedidoWebSet", ReplyAction="http://tempuri.org/IPedidoService/UpdCantidadPedidoWebSetResponse")]
-        System.Threading.Tasks.Task<bool> UpdCantidadPedidoWebSetAsync(int paisId, int setId, int cantidad);
+        System.Threading.Tasks.Task<bool> UpdCantidadPedidoWebSetAsync(int paisId, int setId, int cantidad, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidoWebSetDetalle", ReplyAction="http://tempuri.org/IPedidoService/GetPedidoWebSetDetalleResponse")]
         Portal.Consultoras.Web.ServicePedido.BEPedidoWebSetDetalle[] GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId);
@@ -38824,10 +38824,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebSet> ObtenerPedidoWebSetAsync(int paisId, int setId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EliminarPedidoWebSet", ReplyAction="http://tempuri.org/IPedidoService/EliminarPedidoWebSetResponse")]
-        bool EliminarPedidoWebSet(int paisId, int setId);
+        bool EliminarPedidoWebSet(int paisId, int setId, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EliminarPedidoWebSet", ReplyAction="http://tempuri.org/IPedidoService/EliminarPedidoWebSetResponse")]
-        System.Threading.Tasks.Task<bool> EliminarPedidoWebSetAsync(int paisId, int setId);
+        System.Threading.Tasks.Task<bool> EliminarPedidoWebSetAsync(int paisId, int setId, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerFechaInicioSets", ReplyAction="http://tempuri.org/IPedidoService/ObtenerFechaInicioSetsResponse")]
         System.Nullable<System.DateTime> ObtenerFechaInicioSets(int paisId);
@@ -41289,20 +41289,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.ObtenerPagoEnLineaByFiltroAsync(paisId, filtro);
         }
         
-        public bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId) {
-            return base.Channel.InsertPedidoWebSet(paisID, Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList, EstrategiaId);
+        public bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId, string nombreConsultora, string codigoPrograma, int numeroPedido) {
+            return base.Channel.InsertPedidoWebSet(paisID, Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList, EstrategiaId, nombreConsultora, codigoPrograma, numeroPedido);
         }
         
-        public System.Threading.Tasks.Task<bool> InsertPedidoWebSetAsync(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId) {
-            return base.Channel.InsertPedidoWebSetAsync(paisID, Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList, EstrategiaId);
+        public System.Threading.Tasks.Task<bool> InsertPedidoWebSetAsync(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId, string nombreConsultora, string codigoPrograma, int numeroPedido) {
+            return base.Channel.InsertPedidoWebSetAsync(paisID, Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList, EstrategiaId, nombreConsultora, codigoPrograma, numeroPedido);
         }
         
-        public bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad) {
-            return base.Channel.UpdCantidadPedidoWebSet(paisId, setId, cantidad);
+        public bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleParametros bePedidoWebDetalleParametros) {
+            return base.Channel.UpdCantidadPedidoWebSet(paisId, setId, cantidad, bePedidoWebDetalleParametros);
         }
         
-        public System.Threading.Tasks.Task<bool> UpdCantidadPedidoWebSetAsync(int paisId, int setId, int cantidad) {
-            return base.Channel.UpdCantidadPedidoWebSetAsync(paisId, setId, cantidad);
+        public System.Threading.Tasks.Task<bool> UpdCantidadPedidoWebSetAsync(int paisId, int setId, int cantidad, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleParametros bePedidoWebDetalleParametros) {
+            return base.Channel.UpdCantidadPedidoWebSetAsync(paisId, setId, cantidad, bePedidoWebDetalleParametros);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEPedidoWebSetDetalle[] GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId) {
@@ -41321,12 +41321,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.ObtenerPedidoWebSetAsync(paisId, setId);
         }
         
-        public bool EliminarPedidoWebSet(int paisId, int setId) {
-            return base.Channel.EliminarPedidoWebSet(paisId, setId);
+        public bool EliminarPedidoWebSet(int paisId, int setId, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleParametros bePedidoWebDetalleParametros) {
+            return base.Channel.EliminarPedidoWebSet(paisId, setId, bePedidoWebDetalleParametros);
         }
         
-        public System.Threading.Tasks.Task<bool> EliminarPedidoWebSetAsync(int paisId, int setId) {
-            return base.Channel.EliminarPedidoWebSetAsync(paisId, setId);
+        public System.Threading.Tasks.Task<bool> EliminarPedidoWebSetAsync(int paisId, int setId, Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleParametros bePedidoWebDetalleParametros) {
+            return base.Channel.EliminarPedidoWebSetAsync(paisId, setId, bePedidoWebDetalleParametros);
         }
         
         public System.Nullable<System.DateTime> ObtenerFechaInicioSets(int paisId) {

@@ -469,9 +469,9 @@ namespace Portal.Consultoras.Web.Controllers
                 if (respuesta.Data.ToString().Contains("success = True"))
                 {
                     using (var pedidoServiceClient = new PedidoServiceClient())
-                    {
+                    {                        
                         pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
-                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
+                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0, userData.NombreConsultora, userData.CodigoPrograma, userData.ConsecutivoNueva);
                     }
                 }
 
@@ -853,7 +853,19 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!errorServer && model.SetID > 0)
             {
-                var setUpdate = _pedidoSetProvider.ActualizarCantidadSet(userData.PaisID, model.SetID, int.Parse(model.Cantidad));
+                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                {
+                    PaisId = userData.PaisID,                
+                    CampaniaId = userData.CampaniaID,
+                    ConsultoraId = userData.ConsultoraID,
+                    Consultora = userData.NombreConsultora,
+                    EsBpt = false,   //no se usa
+                    CodigoPrograma = userData.CodigoPrograma,                
+                    NumeroPedido = userData.ConsecutivoNueva,
+                    AgruparSet = true
+                };
+
+                var setUpdate = _pedidoSetProvider.ActualizarCantidadSet(userData.PaisID, model.SetID, int.Parse(model.Cantidad), bePedidoWebDetalleParametros);
                 if (!setUpdate.Success)
                     message = setUpdate.Message;
             }
@@ -930,7 +942,19 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (lastResult.Item1)
                 {
-                    var setDeleted = _pedidoSetProvider.EliminarSet(userData.PaisID, setId);
+                    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                    {
+                        PaisId = userData.PaisID,
+                        CampaniaId = CampaniaID,
+                        ConsultoraId = userData.ConsultoraID,
+                        Consultora = userData.NombreConsultora,
+                        EsBpt = false,   //no se usa
+                        CodigoPrograma = userData.CodigoPrograma,
+                        NumeroPedido = userData.ConsecutivoNueva,
+                        AgruparSet = true
+                    };
+
+                    var setDeleted = _pedidoSetProvider.EliminarSet(userData.PaisID, setId, bePedidoWebDetalleParametros);
                     if (!setDeleted.Success)
                         return ErrorJson(setDeleted.Message, allowGet: true);
                 }
@@ -1076,9 +1100,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoWebDetalle = ObtenerPedidoWebSetDetalleAgrupado() ?? new List<BEPedidoWebDetalle>();
                 var setIds = pedidoWebDetalle.Select(d => d.SetID);
+
+                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                {
+                    PaisId = userData.PaisID,
+                    CampaniaId = userData.CampaniaID,
+                    ConsultoraId = userData.ConsultoraID,
+                    Consultora = userData.NombreConsultora,
+                    EsBpt = false,   //no se usa
+                    CodigoPrograma = userData.CodigoPrograma,
+                    NumeroPedido = userData.ConsecutivoNueva,
+                    AgruparSet = true
+                };
                 foreach (var setId in setIds)
                 {
-                    _pedidoSetProvider.EliminarSet(userData.PaisID, setId);
+                    _pedidoSetProvider.EliminarSet(userData.PaisID, setId, bePedidoWebDetalleParametros);
                 }
 
                 sessionManager.SetPedidoWeb(null);
@@ -4171,7 +4207,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
                         pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), CuvSet
-                            , userData.ConsultoraID, "", strCuvs, estrategia.EstrategiaID);
+                            , userData.ConsultoraID, "", strCuvs, estrategia.EstrategiaID, userData.NombreConsultora, userData.CodigoPrograma, userData.ConsecutivoNueva);
                     }
                 }
 
