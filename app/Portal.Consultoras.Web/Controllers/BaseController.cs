@@ -43,6 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected GuiaNegocioModel guiaNegocio;
         protected DataModel estrategiaODD;
         protected ConfigModel configEstrategiaSR;
+        protected BuscadorYFiltrosModel buscadorYFiltro;
 
         protected ISessionManager sessionManager;
         protected ILogManager logManager;
@@ -124,6 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
                 guiaNegocio = sessionManager.GetGuiaNegocio();
                 estrategiaODD = sessionManager.OfertaDelDia.Estrategia;
                 configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new ConfigModel();
+                buscadorYFiltro = sessionManager.GetBuscadorYFiltros();
 
                 if (!configEstrategiaSR.CargoEntidadesShowRoom)
                     _showRoomProvider.CargarEntidadesShowRoom(userData);
@@ -2347,6 +2349,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.SegmentoConstancia = userData.SegmentoConstancia != null && userData.SegmentoConstancia != "" ? userData.SegmentoConstancia.Trim() : "(not available)";
             ViewBag.DescripcionNivelAnalytics = userData.DescripcionNivel != null && userData.DescripcionNivel != "" ? userData.DescripcionNivel : "(not available)";
             ViewBag.MensajeChat = userData.MensajeChat;
+            
 
             if (userData.RolID == Constantes.Rol.Consultora)
             {
@@ -2572,6 +2575,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
             ViewBag.HabilitarChatEmtelco = HabilitarChatEmtelco(userData.PaisID);
+
+            ViewBag.MostrarBuscadorYFiltros = buscadorYFiltro.ConfiguracionPaisDatos.Any() ? Convert.ToBoolean(buscadorYFiltro.ConfiguracionPaisDatos[0].Valor1.ToInt()) : false;
         }
 
         private string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes)

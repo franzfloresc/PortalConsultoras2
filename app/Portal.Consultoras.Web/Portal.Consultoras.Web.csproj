@@ -320,6 +320,7 @@
     <Compile Include="Infraestructure\Reader\ColumnCsvTransform.cs" />
     <Compile Include="Infraestructure\Validator\Phone\NotSamePhoneValidator.cs" />
     <Compile Include="Models\AdministrarEstrategia\AdministrarEstrategiaMasivoModel.cs" />
+    <Compile Include="Models\BuscadorYFiltrosModel.cs" />
     <Compile Include="Models\DetalleEstrategia\BreadCrumbModel.cs" />
     <Compile Include="Models\DetalleEstrategia\DetalleEstrategiaBreadCrumbsModel.cs" />
     <Compile Include="Models\EstrategiaComponenteModel.cs" />

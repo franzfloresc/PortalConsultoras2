@@ -600,5 +600,15 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return Convert.ToBoolean(HttpContext.Current.Session["PedidoValidado"]);
         }
+
+        public void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel)
+        {
+            HttpContext.Current.Session["BuscadorYFiltros"] = buscadorYFiltrosModel;
+        }
+
+        public BuscadorYFiltrosModel GetBuscadorYFiltros()
+        {
+            return ((BuscadorYFiltrosModel)HttpContext.Current.Session["BuscadorYFiltros"]) ?? new BuscadorYFiltrosModel();
+        }
     }
 }

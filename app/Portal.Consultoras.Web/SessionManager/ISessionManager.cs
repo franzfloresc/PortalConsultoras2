@@ -234,5 +234,9 @@ namespace Portal.Consultoras.Web.SessionManager
         List<ServiceUsuario.BEUsuario> getBEUsuarioModel();
 
         IOfertaDelDia OfertaDelDia { get; }
+
+        void SetBuscadorYFiltros(BuscadorYFiltrosModel buscadorYFiltrosModel);
+
+        BuscadorYFiltrosModel GetBuscadorYFiltros();
     }
 }
