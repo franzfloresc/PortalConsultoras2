@@ -322,14 +322,12 @@ namespace Portal.Consultoras.BizLogic
 
                 var tabla = new BLTablaLogicaDatos();
 
-                var valores = new List<BETablaLogicaDatos>();
-                valores = tabla.GetTablaLogicaDatosCache(usuario.PaisID, Convert.ToInt16(Constantes.TablaLogica.ActualizaDatosEnabled));
+                var valores = tabla.GetTablaLogicaDatosCache(usuario.PaisID, Convert.ToInt16(Constantes.TablaLogica.ActualizaDatosEnabled));
                 var listado = valores.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));
                 usuario.PuedeActualizar = Convert.ToBoolean(listado.Valor.ToInt());
 
                 var verificacion = new BLOpcionesVerificacion();
-                var verificacionResult = new BEOpcionesVerificacion();
-                verificacionResult = verificacion.GetOpcionesVerificacionCache(usuario.PaisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos);
+                var verificacionResult = verificacion.GetOpcionesVerificacionCache(usuario.PaisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos);
                 usuario.PuedeEnviarSMS = (verificacionResult != null && verificacionResult.OpcionSms);
 
                 return usuario;
