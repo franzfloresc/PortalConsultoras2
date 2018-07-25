@@ -2062,7 +2062,7 @@ namespace Portal.Consultoras.Common
 
                         {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
                         {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
-                        {Code.ERROR_KIT_INICIO, "Ocurrió un error al ejecutar la operación."},
+                        {Code.ERROR_KIT_INICIO, Constantes.MensajesError.InsertarValidarKitInicio },
                         {Code.ERROR_GRABAR, "Ocurrió un error al insertar el pedido."},
                         {Code.ERROR_VALIDA_DATOS , string.Empty },
                         {Code.ERROR_ACTUALIZAR, "Ocurrió un error al actualizar el pedido." },
