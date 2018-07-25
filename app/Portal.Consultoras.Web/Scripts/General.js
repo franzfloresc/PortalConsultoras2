@@ -237,6 +237,12 @@ jQuery(document).ready(function () {
                     case '<':
                         bool = a < b;
                         break;
+                    case '<=':
+                        bool = a <= b;
+                        break;
+                    case '>=':
+                        bool = a >= b;
+                        break;
                     case 'Contains':
                         bool = a.indexOf(b) >= 0;
                         break;

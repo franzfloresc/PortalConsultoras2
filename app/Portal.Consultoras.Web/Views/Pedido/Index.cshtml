@@ -1705,7 +1705,7 @@
                         <input class="boton_quiero_este_premio" type="button" data-agregar-regalo="" value="QUIERO ESTE PREMIO" onclick="InsertUpSellingRegalo('{{UpSellingRegaloId}}','{{CUV}}')" />
                     </div>
 
-                    {{#iff StockActual '<' '1'}}
+                    {{#iff StockActual '<=' '0'}}
                     <div class="content_regalo_sinstock" data-regalo-sinstock="">
                         <div class="txt_agotado">AGOTADO</div>
                     </div>
