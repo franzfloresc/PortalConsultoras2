@@ -69,6 +69,38 @@ namespace Portal.Consultoras.Web.Providers
             return estrategias;
         }
 
+        public async Task<List<BEEstrategiaProducto>> ObtenerComponenteDesdeApi(string path)
+        {
+            var estrategias = new List<BEEstrategiaProducto>();
+            var httpResponse = await httpClient.GetAsync(path);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                var jsonString = await httpResponse.Content.ReadAsStringAsync();
+
+                var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
+
+                foreach (var item in list)
+                {
+                    BEEstrategiaProducto estrategiaProducto = new BEEstrategiaProducto
+                    {
+                        Grupo = item.grupo,
+                        CUV = item.cuv,
+                        SAP = item.codigoSap,
+                        Orden = item.orden,
+                        Precio = item.precioUnitario,
+                        Digitable = Convert.ToBoolean(item.indicadorDigitable) ? 1 : 0,
+                        Cantidad = item.cantidad,
+                        FactorCuadre = item.factorCuadre,
+                        IdMarca= item.marcaId
+                    };
+                    estrategias.Add(estrategiaProducto);
+                }
+            }
+            return estrategias;
+        }
+
+
         public string ObtenerDescripcionOferta(string descripcionCuv2)
         {
             var descripcionOdd = string.Empty;

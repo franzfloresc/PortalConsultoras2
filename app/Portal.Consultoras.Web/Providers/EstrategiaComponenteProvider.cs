@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+using Portal.Consultoras.Web.SessionManager;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -16,19 +18,46 @@ namespace Portal.Consultoras.Web.Providers
         private readonly ConfiguracionManagerProvider _configuracionManagerProvider;
         private readonly int _paisId;
         private readonly string _paisISO;
-        
+        protected OfertaBaseProvider _ofertaBaseProvider;
+        protected ISessionManager sessionManager;
+
         public EstrategiaComponenteProvider(int paisId, string paisIso)
         {
             _configuracionManagerProvider = new ConfiguracionManagerProvider();
             _paisId = paisId;
             _paisISO = paisIso;
+            _ofertaBaseProvider = new OfertaBaseProvider();
+            sessionManager = SessionManager.SessionManager.Instance;
         }
 
         public List<EstrategiaComponenteModel> GetListaComponentes(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca)
         {
-            string joinCuv;
+            string joinCuv=string.Empty;
+            List<BEEstrategiaProducto> listaBeEstrategiaProductos = null;
             esMultimarca = false;
-            var listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo, out joinCuv);
+
+            var userData = sessionManager.GetUserData();
+            if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia))
+            {
+                listaBeEstrategiaProductos = new List<BEEstrategiaProducto>();
+                string pathComponente = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerComponente,
+                        userData.CodigoISO,
+                        estrategiaModelo.CampaniaID,
+                        estrategiaModelo.CUV2);
+                var taskApi = Task.Run(() => _ofertaBaseProvider.ObtenerComponenteDesdeApi(pathComponente));
+                Task.WhenAll(taskApi);
+                listaBeEstrategiaProductos = taskApi.Result;
+
+                if (listaBeEstrategiaProductos != null)
+                {
+                    joinCuv = String.Join("|", listaBeEstrategiaProductos.Distinct().Select(o => o.SAP));
+                }
+            }
+            else
+            {
+                listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo, out joinCuv);
+            }
+           
             if (joinCuv == "") return new List<EstrategiaComponenteModel>();
 
             var listaProductos = GetAppProductoBySap(estrategiaModelo, joinCuv);
