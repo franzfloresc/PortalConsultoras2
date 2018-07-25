@@ -457,8 +457,13 @@ var EstrategiaAgregarModule = (function () {
         e.stopPropagation();
 
         var $this = $(e.target);
-        if ($this.data("bloqueada"))
-            if ($this.data("bloqueada") !== "") return false;
+        if ($this.data("bloqueada")) {
+            var desactivado = $this.find("[data-bloqueada='contenedor_rangos_desactivado']");
+            desactivado = desactivado.length;
+            //if ($this.data("bloqueada") !== "") return false;
+            if (desactivado !== 0) return false;
+        }    
+            
         var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
         var cantidad = parseInt($inputCantidad.val());
 
@@ -472,10 +477,14 @@ var EstrategiaAgregarModule = (function () {
 
     var disminuirCantidad = function (e) {
         e.stopPropagation();
-
         var $this = $(e.target);
-        if ($this.data("bloqueada"))
-            if ($this.data("bloqueada") !== "") return false;
+        if ($this.data("bloqueada")) {
+            //if ($this.data("bloqueada") !== "") return false;
+            var desactivado = $this.find("[data-bloqueada='contenedor_rangos_desactivado']");
+            desactivado = desactivado.length;
+            if (desactivado !== 0) return false;
+        }
+             
         var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
         var cantidad = parseInt($inputCantidad.val());
 
