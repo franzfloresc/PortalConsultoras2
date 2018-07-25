@@ -103,6 +103,7 @@ namespace Portal.Consultoras.Entities
             Descripcion = DataRecord.GetColumn<string>(row, "Descripcion");
             ImagenBulk = DataRecord.GetColumn<string>(row, "ImagenBulk");
             NombreBulk = DataRecord.GetColumn<string>(row, "NombreBulk");
+            Volumen = DataRecord.GetColumn<string>(row, "Volumen");
         }
     }
 }

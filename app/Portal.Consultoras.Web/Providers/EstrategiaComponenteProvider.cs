@@ -84,12 +84,12 @@ namespace Portal.Consultoras.Web.Providers
                 x.NombreComercial = x.NombreComercial ?? string.Empty;
                 x.NombreBulk = x.NombreBulk ?? string.Empty;
                 //
-                if (x.FactorCuadre > 1)
-                {
+                //if (x.FactorCuadre > 1)
+                //{
                     x.NombreComercial = string.IsNullOrWhiteSpace(x.NombreBulk)
                         ? x.NombreComercial
                         : x.NombreComercial.Replace(x.NombreBulk, string.Empty);
-                }
+                //}
                 //
                 x.ImagenBulk = x.ImagenBulk ?? string.Empty;
                 if (string.IsNullOrEmpty(x.ImagenBulk)) return;
