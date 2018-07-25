@@ -316,6 +316,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.BEEstrategia.EsOfertaIndependiente.ToString(),
                                 a.BEEstrategia.FlagValidarImagen.ToString(),
                                 a.BEEstrategia.PesoMaximoImagen.ToString(),
+                                 a._id,
                                 a.BEEstrategia.CodigoTipoEstrategia
                                    }
                                }
