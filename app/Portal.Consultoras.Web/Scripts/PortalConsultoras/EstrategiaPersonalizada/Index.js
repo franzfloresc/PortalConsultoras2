@@ -110,7 +110,7 @@ function SeccionCargarProductos(objConsulta) {
         $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
     }
 
-    console.log(objConsulta);
+    console.log('SeccionCargarProductos', objConsulta);
 
     if (objConsulta.UrlObtenerProductos === "")
         return false;
