@@ -33,6 +33,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly IReservaBusinessLogic _reservaBusinessLogic;
         private readonly ITipoEstrategiaBusinessLogic _tipoEstrategiaBusinessLogic;
         private readonly IEstrategiaProductoBusinessLogic _estrategiaProductoBusinessLogic;
+        private readonly IPedidoWebSetBusinessLogic _pedidoWebSetBusinessLogic;
 
         private string nombreServicio = string.Empty;
 
@@ -48,7 +49,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                     new BLMensajeMetaConsultora(),
                                     new BLReserva(),
                                     new BLTipoEstrategia(),
-                                    new BLEstrategiaProducto())
+                                    new BLEstrategiaProducto(),
+                                    new BLPedidoWebSet())
         { }
 
         public BLPedidoApp(IProductoBusinessLogic productoBusinessLogic,
@@ -63,7 +65,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             IMensajeMetaConsultoraBusinessLogic mensajeMetaConsultoraBusinessLogic,
                             IReservaBusinessLogic reservaBusinessLogic,
                             ITipoEstrategiaBusinessLogic tipoEstrategiaBusinessLogic,
-                            IEstrategiaProductoBusinessLogic estrategiaProductoBusinessLogic)
+                            IEstrategiaProductoBusinessLogic estrategiaProductoBusinessLogic,
+                            IPedidoWebSetBusinessLogic pedidoWebSetBusinessLogic)
         {
             _productoBusinessLogic = productoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
@@ -78,6 +81,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             _reservaBusinessLogic = reservaBusinessLogic;
             _tipoEstrategiaBusinessLogic = tipoEstrategiaBusinessLogic;
             _estrategiaProductoBusinessLogic = estrategiaProductoBusinessLogic;
+            _pedidoWebSetBusinessLogic = pedidoWebSetBusinessLogic;
         }
 
         #region Publicos
@@ -454,11 +458,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             try
             {
-                nombreServicio = "Delete";
-                LogPerformance("Inicio");
-
                 //Informacion de usuario
-                var usuario = pedidoDetalle.Usuario;
+                var usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(pedidoDetalle.Usuario, Constantes.ConfiguracionPais.RevistaDigital);
                 usuario.PaisID = pedidoDetalle.PaisID;
 
                 //Validacion reserva u horario restringido
@@ -467,7 +468,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                                                 usuario.CampaniaID,
                                                                 usuario.UsuarioPrueba == 1,
                                                                 usuario.AceptacionConsultoraDA);
-                LogPerformance("ValidacionModificarPedido");
                 if (validacionHorario.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno)
                     return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, validacionHorario.Mensaje);
 
@@ -484,13 +484,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 };
                 var pedidoID = 0;
                 var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
-                LogPerformance("ObtenerPedidoWebDetalle");
 
                 //Eliminar Detalle
                 var responseCode = Constantes.PedidoAppValidacion.Code.SUCCESS;
                 if (pedidoDetalle.Producto == null) responseCode = await DeleteAll(usuario, pedidoDetalle);
                 else responseCode = DeleteCUV(usuario, pedidoDetalle, lstDetalle);
-                LogPerformance("Delete");
 
                 //Actualizar Prol
                 if (pedidoDetalle.Producto != null)
@@ -503,7 +501,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     lstDetalle = new List<BEPedidoWebDetalle>();
                 }
                 UpdateProl(usuario, lstDetalle);
-                LogPerformance("UpdateProl");
 
                 //Desreservar pedido PROL
                 if (!lstDetalle.Any() && pedidoDetalle.Producto != null && usuario.ZonaValida)
@@ -512,7 +509,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     {
                         sv.Url = ConfigurarUrlServiceProl(usuario.CodigoISO);
                         sv.wsDesReservarPedido(usuario.CodigoConsultora, usuario.CodigoISO);
-                        LogPerformance("wsDesReservarPedido");
                     }
                 }
 
@@ -1446,8 +1442,17 @@ namespace Portal.Consultoras.BizLogic.Pedido
         #region Delete
         private async Task<string> DeleteAll(BEUsuario usuario, BEPedidoDetalleApp pedidoDetalle)
         {
+            var lstAgrupados = ObtenerPedidoWebSetDetalleAgrupado(usuario);
+
             var result = await _pedidoWebDetalleBusinessLogic.DelPedidoWebDetalleMasivo(usuario, pedidoDetalle.PedidoID);
             if (!result) return Constantes.PedidoAppValidacion.Code.ERROR_ELIMINAR_TODO;
+
+            foreach (var agrupado in lstAgrupados)
+            {
+                if (agrupado.SetID == 0) continue;
+                result = _pedidoWebSetBusinessLogic.Eliminar(usuario.PaisID, agrupado.SetID);
+                if(!result) return Constantes.PedidoAppValidacion.Code.ERROR_ELIMINAR_TODO_SET;
+            }
 
             return Constantes.PedidoAppValidacion.Code.SUCCESS;
         }
