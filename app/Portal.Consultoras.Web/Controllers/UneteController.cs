@@ -1345,7 +1345,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ).ToList();
 
                 Dictionary<string, string> dic = sv.GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
-
                 MemoryStream workbook = new MemoryStream();
 
                 workbook = ExcelExportHelper.ExportarExcel("Reporte_GestionaPostulante", "GestionaPostulante", dic, solicitudes);
