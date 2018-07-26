@@ -10,8 +10,12 @@ BEGIN
 	VALUES ('B&F', 1, 'Buscador y Filtros', 1, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0)
 
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
+
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'Mostra Buscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+	VALUES (@id, 'MostrarBuscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+
+	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
+	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 END
 
 GO
@@ -26,8 +30,12 @@ BEGIN
 	VALUES ('B&F', 1, 'Buscador y Filtros', 1, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0)
 
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
+
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'Mostra Buscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+	VALUES (@id, 'MostrarBuscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+
+	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
+	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 END
 
 GO
@@ -42,8 +50,12 @@ BEGIN
 	VALUES ('B&F', 1, 'Buscador y Filtros', 1, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0)
 
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
+
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'Mostra Buscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+	VALUES (@id, 'MostrarBuscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+
+	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
+	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 END
 
 GO
@@ -58,8 +70,12 @@ BEGIN
 	VALUES ('B&F', 1, 'Buscador y Filtros', 1, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0)
 
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
+
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'Mostra Buscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+	VALUES (@id, 'MostrarBuscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+
+	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
+	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 END
 
 GO
@@ -74,8 +90,12 @@ BEGIN
 	VALUES ('B&F', 1, 'Buscador y Filtros', 1, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0)
 
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
+
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'Mostra Buscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+	VALUES (@id, 'MostrarBuscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+
+	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
+	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 END
 
 GO
@@ -90,8 +110,12 @@ BEGIN
 	VALUES ('B&F', 1, 'Buscador y Filtros', 1, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0)
 
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
+
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'Mostra Buscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+	VALUES (@id, 'MostrarBuscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+
+	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
+	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 END
 
 GO
@@ -106,8 +130,12 @@ BEGIN
 	VALUES ('B&F', 1, 'Buscador y Filtros', 1, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0)
 
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
+
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'Mostra Buscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+	VALUES (@id, 'MostrarBuscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+
+	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
+	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 END
 
 GO
@@ -122,8 +150,12 @@ BEGIN
 	VALUES ('B&F', 1, 'Buscador y Filtros', 1, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0)
 
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
+
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'Mostra Buscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+	VALUES (@id, 'MostrarBuscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+
+	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
+	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 END
 
 GO
@@ -138,8 +170,12 @@ BEGIN
 	VALUES ('B&F', 1, 'Buscador y Filtros', 1, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0)
 
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
+
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'Mostra Buscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+	VALUES (@id, 'MostrarBuscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+
+	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
+	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 END
 
 GO
@@ -154,8 +190,12 @@ BEGIN
 	VALUES ('B&F', 1, 'Buscador y Filtros', 1, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0)
 
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
+
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'Mostra Buscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+	VALUES (@id, 'MostrarBuscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+
+	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
+	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 END
 
 GO
@@ -170,8 +210,12 @@ BEGIN
 	VALUES ('B&F', 1, 'Buscador y Filtros', 1, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0)
 
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
+
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'Mostra Buscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+	VALUES (@id, 'MostrarBuscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+
+	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
+	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 END
 
 GO
@@ -186,8 +230,12 @@ BEGIN
 	VALUES ('B&F', 1, 'Buscador y Filtros', 1, 0, 0, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0)
 
 	DECLARE @id int = (SELECT ConfiguracionPaisID FROM configuracionpais WHERE codigo = 'B&F')
+
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'Mostra Buscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+	VALUES (@id, 'MostrarBuscador', 0, 1, NULL, NULL, 'Mostrar u ocultar la opción de busqueda', 1, NULL)
+
+	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
+	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 END
 
 GO
