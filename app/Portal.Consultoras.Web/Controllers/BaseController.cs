@@ -2576,7 +2576,27 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.HabilitarChatEmtelco = HabilitarChatEmtelco(userData.PaisID);
 
-            ViewBag.MostrarBuscadorYFiltros = buscadorYFiltro.ConfiguracionPaisDatos.Any() ? Convert.ToBoolean(buscadorYFiltro.ConfiguracionPaisDatos[0].Valor1.ToInt()) : false;
+            var MostrarBuscador = false;
+            var CaracteresBuscador = 0;
+
+            if (buscadorYFiltro.ConfiguracionPaisDatos.Any())
+            {
+                foreach (var item in buscadorYFiltro.ConfiguracionPaisDatos)
+                {
+                    switch (item.Codigo)
+                    {
+                        case Constantes.TipoConfiguracionBuscador.MostrarBuscador:
+                            MostrarBuscador = Convert.ToBoolean(item.Valor1.ToInt());
+                            break;
+                        case Constantes.TipoConfiguracionBuscador.CaracteresBuscador:
+                            CaracteresBuscador = item.Valor1.ToInt();
+                            break;
+                    }
+                }
+            }
+
+            ViewBag.MostrarBuscadorYFiltros = MostrarBuscador;
+            ViewBag.CaracteresBuscador = CaracteresBuscador;
         }
 
         private string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes)
