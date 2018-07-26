@@ -2381,6 +2381,9 @@ namespace Portal.Consultoras.Common
             ///api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}
             public const string UrlObtenerRevistaDigital = "api/Oferta/{0}/{1}/{2}/{3}/{4}/{5}";
 
+            //api/Componente/{pais}/{codigoCampania}/{cuv}
+            public const string UrlObtenerComponente = "api/Componente/{0}/{1}/{2}";
+
             #endregion
         }
 
