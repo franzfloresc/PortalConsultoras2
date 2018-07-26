@@ -2,8 +2,10 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Infraestructure.Validator.PagoEnLinea;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
@@ -37,7 +39,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("Index", "PagoEnLinea", new { area = "Mobile" });
 
             model = _pagoEnLineaProvider.ObtenerValoresMetodoPago(model);
-
+            
             //model.ListaMetodoPago = ObtenerListaMetodoPago();
             //model.PagoVisaModel = new PagoVisaModel();
             //if (model.ListaMetodoPago.Count > 0)
@@ -54,9 +56,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(model);
         }
 
-        public ActionResult PasarelaPago()
+        [HttpGet]
+        public ActionResult PasarelaPago(string cardType)
         {
-            //var model = sessionManager.GetDatosPagoVisa();
+            var pago = sessionManager.GetDatosPagoVisa();
+            var selected = pago.ListaMetodoPago.FirstOrDefault(m => m.TipoPasarelaCodigoPlataforma  == Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU && m.TipoTarjeta == cardType);
+
+            if (selected == null)
+            {
+                return RedirectToAction("MetodoPago");
+            }
+            pago.MetodoPagoSeleccionado = selected;
+            sessionManager.SetDatosPagoVisa(pago);
 
             //Logica para Obtener Valores de la PasarelaBelcorp
             ViewBag.PagoLineaCampos = _pagoEnLineaProvider.ObtenerPagoEnLineaPasarelaCampos()
@@ -75,15 +86,33 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult PasarelaPago(PaymentInfo info)
         {
+            var requiredFields = _pagoEnLineaProvider.ObtenerPagoEnLineaPasarelaCampos()
+                .Select(p => p.Codigo)
+                .ToArray();
+
             if (ModelState.IsValid)
             {
                 var model = sessionManager.GetDatosPagoVisa();
+                var expRegular = model.MetodoPagoSeleccionado.ExpresionRegularTarjeta;
+                var validator = new PasarelaValidator
+                {
+                    RequiredFields = requiredFields,
+                    PatternCard = expRegular
+                };
 
-                return View("PagoExitoso", model);
+                if (validator.IsValid(info))
+                {
+                    // Make Pay
+                    return View("PagoExitoso", model);
+                }
+
+                foreach (var error in validator.Errors)
+                {
+                    ModelState.AddModelError(error.Key, error.Value);
+                }
             }
-            ViewBag.PagoLineaCampos = _pagoEnLineaProvider.ObtenerPagoEnLineaPasarelaCampos()
-                .Select(p => p.Codigo)
-                .ToArray();
+
+            ViewBag.PagoLineaCampos = requiredFields;
 
             return View(info);
         }

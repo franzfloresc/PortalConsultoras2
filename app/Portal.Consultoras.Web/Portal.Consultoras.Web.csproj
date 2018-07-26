@@ -185,7 +185,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Annotations\DateCardAttribute.cs" />
     <Compile Include="Annotations\ExpressionRequiredIfAttribute.cs" />
+    <Compile Include="Annotations\LuhnCardAttribute.cs" />
     <Compile Include="Annotations\RequiredIfAttribute.cs" />
     <Compile Include="Annotations\RequiredIfPropertiesNotNullAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -314,6 +316,8 @@
     <Compile Include="Infraestructure\Sms\ISmsConfirm.cs" />
     <Compile Include="Infraestructure\Sms\ISmsSender.cs" />
     <Compile Include="Infraestructure\Sms\SmsProcess.cs" />
+    <Compile Include="Infraestructure\Validator\IEntityValidator.cs" />
+    <Compile Include="Infraestructure\Validator\PagoEnLinea\PasarelaValidator.cs" />
     <Compile Include="Infraestructure\Validator\Phone\MatchCountryPhone.cs" />
     <Compile Include="Infraestructure\Validator\Phone\MultiPhoneValidator.cs" />
     <Compile Include="Infraestructure\Validator\Phone\NotExistingPhone.cs" />

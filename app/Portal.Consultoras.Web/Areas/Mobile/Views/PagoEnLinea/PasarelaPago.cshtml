@@ -1,4 +1,5 @@
 ﻿@using Portal.Consultoras.Common;
+@using Portal.Consultoras.Web.Helpers
 @using Portal.Consultoras.Web.Models.PagoEnLinea;
 @model PaymentInfo
 
@@ -70,8 +71,8 @@
                     @Html.AntiForgeryToken()
                     <div class="grupo_campo_formulario_pasarela_pago">
                         <label class="nom_campo_formulario_pasarela_pago w-100">*Número de tarjeta :</label>
-                        @Html.TextBoxFor(m => m.NumberCard, new { @class = "campo_formulario_pasarela_pago w-100 campo_num_tarjeta_credito_o_debito" })
-                        @Html.ValidationMessageFor(m => m.NumberCard)
+                        @Html.TextBoxFor(m => m.NumberCard, new { @class = "campo_formulario_pasarela_pago w-100 campo_num_tarjeta_credito_o_debito", autocomplete = "off" })
+                        @Html.PagoValidationMessageFor(m => m.NumberCard)
                         <div class="mensaje_validacion text-center w-100" style="display: none;">
                             <span class="icono_validacion_incorrecta"></span>
                             <span>El número ingresado no es correcto.</span>
@@ -82,12 +83,8 @@
                             <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de expiración :</label>
                             @Html.DropDownListFor(m => m.ExpireMonth, Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString("00"), Text = i.ToString("00") }), "MES", new { @class = "campo_formulario_pasarela_pago campo_seleccion_fecha_expiracion campo_mes mr-5" })
                             @Html.DropDownListFor(m => m.ExpireYear, Enumerable.Range(DateTime.Now.Year, 20).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "AÑO", new { @class = "campo_formulario_pasarela_pago campo_seleccion_fecha_expiracion campo_anio" })
-                            @Html.ValidationMessageFor(m => m.ExpireMonth)
-                            @Html.ValidationMessageFor(m => m.ExpireYear)
-                            <div class="mensaje_validacion text-center w-100" style="display: none;">
-                                <span class="icono_validacion_incorrecta"></span>
-                                <span>La fecha no es válida.</span>
-                            </div>
+                            @Html.PagoValidationMessageFor(m => m.ExpireMonth)
+                            @Html.PagoValidationMessageFor(m => m.ExpireYear)
                         </div>
                         <div class="w-30 pl-8 vAlignTop">
                             <label class="nom_campo_formulario_pasarela_pago w-100">
@@ -99,20 +96,21 @@
                                     </span>
                                 </span>
                             </label>
-                            @Html.TextBoxFor(m => m.Cvv, new { @class = "campo_formulario_pasarela_pago w-100" })
-                            @Html.ValidationMessageFor(m => m.Cvv)
+                            @Html.TextBoxFor(m => m.Cvv, new { @class = "campo_formulario_pasarela_pago w-100", autocomplete = "off" })
+                            @Html.PagoValidationMessageFor(m => m.Cvv)
                         </div>
                     </div>
                     <div class="grupo_campo_formulario_pasarela_pago">
                         <label class="nom_campo_formulario_pasarela_pago w-100">*Titular de la tarjeta :</label>
-                        <input type="text" value="" class="campo_formulario_pasarela_pago w-100" placeholder="SOFÍA GARCÍA" />
+                        @Html.TextBoxFor(m => m.Titular, new { @class = "campo_formulario_pasarela_pago w-100", placeholder = "SOFÍA GARCÍA" })
+                        @Html.PagoValidationMessageFor(m => m.Titular)
                     </div>
                     if (visibleFields.Contains(Constantes.PagoEnLineaCampos.FechaNacimiento))
                     {
                         <div class="grupo_campo_formulario_pasarela_pago">
                             <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de nacimiento :</label>
                             @Html.TextBoxFor(m => m.Birthdate, new { @class = "campo_formulario_pasarela_pago w-100" , id = "CampoFechaNacimiento", placeholder = "00/00/0000" })
-                            @Html.ValidationMessageFor(m => m.Birthdate)
+                            @Html.PagoValidationMessageFor(m => m.Birthdate)
                         </div>
                     }
                     if (visibleFields.Contains(Constantes.PagoEnLineaCampos.Email))
@@ -120,7 +118,7 @@
                         <div class="grupo_campo_formulario_pasarela_pago">
                             <label class="nom_campo_formulario_pasarela_pago w-100">*Correo Electrónico :</label>
                             @Html.TextBoxFor(m => m.Email, new { @class = "campo_formulario_pasarela_pago w-100", placeholder = "tucorreo@belcorp.biz" })
-                            @Html.ValidationMessageFor(m => m.Email)
+                            @Html.PagoValidationMessageFor(m => m.Email)
                         </div>
                     }
                     if (visibleFields.Contains(Constantes.PagoEnLineaCampos.Celular))
@@ -128,7 +126,7 @@
                         <div class="grupo_campo_formulario_pasarela_pago">
                             <label class="nom_campo_formulario_pasarela_pago w-100">*Número de celular :</label>
                             @Html.TextBoxFor(m => m.Phone, new { @class = "campo_formulario_pasarela_pago w-100", placeholder = "000000000" })
-                            @Html.ValidationMessageFor(m => m.Phone)
+                            @Html.PagoValidationMessageFor(m => m.Phone)
                         </div>
                     }
                     <button type="submit" class="btn_pago_tarjeta_credito text-bold text-uppercase default-background w-100 mt-30">
@@ -141,18 +139,29 @@
 </div>
 
 @section scripts{
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script>
         $(document).ready(function () {
             $("#CampoFechaNacimiento").datepicker();
             $("form#frmPay :input").each(function(){
                 var input = $(this);
                 var value = input.attr('data-val-length-max');
-                console.log(value);
                 if (value) {
                     input.prop('maxlength', value);
                 }
             });
+            $('div.mensaje_validacion').not(':has(span.field-validation-error)').hide();
+
+            $(".field-validation-valid").bind("DOMNodeInserted",function(){
+                var div = $(this).closest('div.mensaje_validacion');
+                div.show();
+            });
+            $(".field-validation-valid").bind("DOMNodeRemoved", function () {
+                var div = $(this).closest('div.mensaje_validacion');
+                div.hide();
+            });
+
+            $('#NumberCard').on('keydown', FuncionesGenerales.ValidarSoloNumeros);
+            $('#Titular').on('keydown', FuncionesGenerales.ValidarSoloLetras);
         });
     </script>    
     

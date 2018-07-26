@@ -152,12 +152,14 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ExpresionRegularTarjeta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="PagoEnLineaMedioPagoDetalleId" type="xs:int" />
       <xs:element minOccurs="0" name="PagoEnLineaMedioPagoId" type="xs:int" />
       <xs:element minOccurs="0" name="RutaIcono" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TerminosCondiciones" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoPasarelaCodigoPlataforma" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoTarjeta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoVisualizacionTyC" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

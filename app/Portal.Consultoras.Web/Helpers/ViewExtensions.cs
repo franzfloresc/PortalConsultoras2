@@ -1,6 +1,9 @@
-﻿using Portal.Consultoras.Web.Areas.Mobile.Models;
+﻿using System;
+using System.Linq.Expressions;
+using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Infraestructure;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 
 namespace Portal.Consultoras.Web.Helpers
 {
@@ -86,5 +89,20 @@ namespace Portal.Consultoras.Web.Helpers
             return getUniqueSession == null ? newInstance ? new T() : default(T) : (T)getUniqueSession;
         }
 
+        public static MvcHtmlString PagoValidationMessageFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression)
+        {
+            var containerDivBuilder = new TagBuilder("div");
+            containerDivBuilder.AddCssClass("mensaje_validacion text-center w-100");
+
+            var topDivBuilder = new TagBuilder("div");
+            topDivBuilder.AddCssClass("icono_validacion_incorrecta");
+            
+            var validationContent = helper.ValidationMessageFor(expression).ToString();
+
+            containerDivBuilder.InnerHtml += topDivBuilder.ToString(TagRenderMode.Normal);
+            containerDivBuilder.InnerHtml += validationContent;
+
+            return MvcHtmlString.Create(containerDivBuilder.ToString(TagRenderMode.Normal));
+        }
     }
 }

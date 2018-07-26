@@ -15,6 +15,8 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         public string TipoVisualizacionTyC { get; set; }
         public string TerminosCondiciones { get; set; }
         public string TipoPasarelaCodigoPlataforma { get; set; }
+        public string ExpresionRegularTarjeta { get; set; }
+        public string TipoTarjeta { get; set; }
         public string RutaIcono { get; set; }
         public bool Estado { get; set; }
     }

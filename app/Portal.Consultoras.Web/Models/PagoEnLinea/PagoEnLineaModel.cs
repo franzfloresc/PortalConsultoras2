@@ -23,6 +23,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         public List<PagoEnLineaMedioPagoModel> ListaMedioPago { get; set; }
 
         public List<PagoEnLineaMedioPagoDetalleModel> ListaMetodoPago { get; set; }
+        public PagoEnLineaMedioPagoDetalleModel MetodoPagoSeleccionado { get; set; }
 
         #region Propiedades luego de la respuesta de la pasarela de pago
 

@@ -113,9 +113,9 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
         public List<BEPagoEnLineaMedioPagoDetalle> ObtenerPagoEnLineaMedioPagoDetalle(int paisId)
         {
             var lista = new List<BEPagoEnLineaMedioPagoDetalle>();
-            var DAPagoEnLinea = new DAPagoEnLinea(paisId);
+            var daPagoEnLinea = new DAPagoEnLinea(paisId);
 
-            using (var reader = DAPagoEnLinea.ObtenerPagoEnLineaMedioPagoDetalle())
+            using (var reader = daPagoEnLinea.ObtenerPagoEnLineaMedioPagoDetalle())
             {
                 while (reader.Read())
                 {

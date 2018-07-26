@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities.PagoEnLinea
 {
@@ -27,6 +23,10 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
         [DataMember]
         public string TipoPasarelaCodigoPlataforma { get; set; }
         [DataMember]
+        public string ExpresionRegularTarjeta { get; set; }
+        [DataMember]
+        public string TipoTarjeta { get; set; }
+        [DataMember]
         public bool Estado { get; set; }
 
         #region Variables Externas
@@ -36,27 +36,27 @@ namespace Portal.Consultoras.Entities.PagoEnLinea
 
         #endregion        
 
-        public BEPagoEnLineaMedioPagoDetalle(IDataRecord datarec)
+        public BEPagoEnLineaMedioPagoDetalle(IDataRecord row)
         {
-            if (DataRecord.HasColumn(datarec, "PagoEnLineaMedioPagoDetalleId"))
-                PagoEnLineaMedioPagoDetalleId = Convert.ToInt32(datarec["PagoEnLineaMedioPagoDetalleId"]);
-            if (DataRecord.HasColumn(datarec, "PagoEnLineaMedioPagoId"))
-                PagoEnLineaMedioPagoId = Convert.ToInt32(datarec["PagoEnLineaMedioPagoId"]);
-            if (DataRecord.HasColumn(datarec, "Descripcion"))
-                Descripcion = Convert.ToString(datarec["Descripcion"]);
-            if (DataRecord.HasColumn(datarec, "Orden"))
-                Orden = Convert.ToInt32(datarec["Orden"]);
-            if (DataRecord.HasColumn(datarec, "TipoVisualizacionTyC"))
-                TipoVisualizacionTyC = Convert.ToString(datarec["TipoVisualizacionTyC"]);
-            if (DataRecord.HasColumn(datarec, "TerminosCondiciones"))
-                TerminosCondiciones = Convert.ToString(datarec["TerminosCondiciones"]);
-            if (DataRecord.HasColumn(datarec, "TipoPasarelaCodigoPlataforma"))
-                TipoPasarelaCodigoPlataforma = Convert.ToString(datarec["TipoPasarelaCodigoPlataforma"]);
-            if (DataRecord.HasColumn(datarec, "Estado"))
-                Estado = Convert.ToBoolean(datarec["Estado"]);
+            if (DataRecord.HasColumn(row, "PagoEnLineaMedioPagoDetalleId"))
+                PagoEnLineaMedioPagoDetalleId = Convert.ToInt32(row["PagoEnLineaMedioPagoDetalleId"]);
+            if (DataRecord.HasColumn(row, "PagoEnLineaMedioPagoId"))
+                PagoEnLineaMedioPagoId = Convert.ToInt32(row["PagoEnLineaMedioPagoId"]);
+            if (DataRecord.HasColumn(row, "Descripcion"))
+                Descripcion = Convert.ToString(row["Descripcion"]);
+            if (DataRecord.HasColumn(row, "Orden"))
+                Orden = Convert.ToInt32(row["Orden"]);
+            if (DataRecord.HasColumn(row, "TipoVisualizacionTyC"))
+                TipoVisualizacionTyC = Convert.ToString(row["TipoVisualizacionTyC"]);
+            if (DataRecord.HasColumn(row, "TerminosCondiciones"))
+                TerminosCondiciones = Convert.ToString(row["TerminosCondiciones"]);
+            if (DataRecord.HasColumn(row, "TipoPasarelaCodigoPlataforma"))
+                TipoPasarelaCodigoPlataforma = Convert.ToString(row["TipoPasarelaCodigoPlataforma"]);
 
-            if (DataRecord.HasColumn(datarec, "RutaIcono"))
-                RutaIcono = Convert.ToString(datarec["RutaIcono"]);
+            ExpresionRegularTarjeta = row.ToString("ExpresionRegularTarjeta");
+            TipoTarjeta = row.ToString("TipoTarjeta");
+            Estado = row.ToBoolean("Estado");
+            RutaIcono = row.ToString("RutaIcono");
         }
     }
 }

@@ -20773,6 +20773,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool EstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ExpresionRegularTarjetaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -20789,6 +20792,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoPasarelaCodigoPlataformaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoTarjetaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoVisualizacionTyCField;
@@ -20825,6 +20831,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EstadoField.Equals(value) != true)) {
                     this.EstadoField = value;
                     this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ExpresionRegularTarjeta {
+            get {
+                return this.ExpresionRegularTarjetaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ExpresionRegularTarjetaField, value) != true)) {
+                    this.ExpresionRegularTarjetaField = value;
+                    this.RaisePropertyChanged("ExpresionRegularTarjeta");
                 }
             }
         }
@@ -20903,6 +20922,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.TipoPasarelaCodigoPlataformaField, value) != true)) {
                     this.TipoPasarelaCodigoPlataformaField = value;
                     this.RaisePropertyChanged("TipoPasarelaCodigoPlataforma");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoTarjeta {
+            get {
+                return this.TipoTarjetaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoTarjetaField, value) != true)) {
+                    this.TipoTarjetaField = value;
+                    this.RaisePropertyChanged("TipoTarjeta");
                 }
             }
         }
