@@ -126,8 +126,11 @@ namespace Portal.Consultoras.Web.Controllers
                 configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new ConfigModel();
 
                 if (!configEstrategiaSR.CargoEntidadesShowRoom)
+                {
                     _showRoomProvider.CargarEntidadesShowRoom(userData);
-
+                    configEstrategiaSR = sessionManager.GetEstrategiaSR();
+                }
+                    
                 if (Request.IsAjaxRequest())
                 {
                     base.OnActionExecuting(filterContext);
