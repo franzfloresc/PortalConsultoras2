@@ -1,0 +1,87 @@
+﻿
+/* BUSCADOR DE FILTROS PORTAL CONSULTORAS */
+
+.buscador_filtros{
+    position: absolute;
+    margin: auto 0;
+    top: 0;
+    bottom: 0;
+    right: -253px;
+    border: 1px solid #E1E1E1;
+    background-color: #FFF;
+    min-width: 100px;
+    max-width:385px;
+    height: 40px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.buscador_filtros_sin_enlace_menu_socia_empresaria{
+    width: 61%;
+}
+
+.buscador_filtros_con_enlace_menu_socia_empresaria{
+    width:44%;
+}
+
+.buscador_filtros_con_enlace_menu_socia_empresaria_vista_pedido{
+    width:36%;
+    right:-197px;
+}
+
+.buscador_filtros_sin_enlace_menu_socia_empresaria_vista_pedido{
+    width:50%;
+    right:-185px;
+}
+
+.campo_buscador_filtros{
+    width: 88%;
+    height: 100%;
+    border: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-family:'Lato', sans-serif;
+    font-size:14px;
+    color:#000;
+    font-weight:400;
+}
+
+    .campo_buscador_filtros::-webkit-input-placeholder {
+        color:#000;
+        font-weight:600;
+    }
+
+    .campo_buscador_filtros:-moz-placeholder {
+        color:#000;
+        font-weight:600;
+    }
+
+    .campo_buscador_filtros::-moz-placeholder {
+        color:#000;
+        font-weight:600;
+    }
+
+    .campo_buscador_filtros:-ms-input-placeholder {
+        color:#000;
+        font-weight:600;
+    }
+
+.enlace_busqueda_filtros{
+    display: block;
+    width: 40px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+    .enlace_busqueda_filtros img{
+        position:absolute;
+        margin:auto;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+    }
+
+/* FIN - BUSCADOR DE FILTROS PORTAL CONSULTORAS */

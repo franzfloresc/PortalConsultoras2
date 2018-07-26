@@ -12,8 +12,9 @@
             urlProgramaNuevas = item.Url;
         }
     }
-    
+
     var claseSociaEmpresaria = (ViewBag.Lider == 1 && ViewBag.PortalLideres) ? "menu_socia_empresaria" : "";
+
 }
 
 @if (permisoList.Count > 0)
@@ -27,7 +28,7 @@
                 {
                     //Menu padre con hijos
                     <a href="javascript:;" class="new_menu_a" id="lnk-pri-@menuPadre.DescripcionFormateada"
-                       target="@menuPadre.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" >
+                       target="@menuPadre.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion">
                         <span>@menuPadre.Descripcion</span>
                         <div class="flecha_menu"></div>
                         <div class="pestana_esika"></div>
@@ -75,7 +76,7 @@
                                                         @menuNieto.Descripcion
                                                     </a>
                                                 }
-                                                else 
+                                                else
                                                 {
                                                     <a href="javascript:;" class="menu_enlace" onclick="@menuNieto.OnClickFunt"
                                                        target="@menuNieto.PageTarget" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
@@ -97,8 +98,8 @@
                                         if (contadorRe == 0)
                                         {
                                             contadorRe++;
-                                            <a href="javascript:;" class="menu_titulo" 
-                                               onclick="RedirectMenu('Index', 'Pedido', 0, 'Pedido')" 
+                                            <a href="javascript:;" class="menu_titulo"
+                                               onclick="RedirectMenu('Index', 'Pedido', 0, 'Pedido')"
                                                target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="Ingreso Pedido" id="lnk-pri-ingreso-pedidos">
                                                 INGRESA TU PEDIDO
                                             </a>
@@ -155,7 +156,7 @@
                                         }
                                         <a href="javascript:;" class="menu_imagen" onclick="RedirectMenu('Index', 'MisCatalogosRevistas', 0, 'MisCatalogosRevistas')" target="_self" role="menu" region="Principal" parent="MI NEGOCIO" title="@tooltip" id="lnk-pri-miscatalogosrevistas">
                                             <img role="menu" region="Principal" parent="MI NEGOCIO" title="@tooltip" src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/imagen_01.png" />
-                                            
+
 
                                             <div role="menu" region="Principal" parent="MI NEGOCIO" title="@tooltip" class="titulo_imagen">
                                                 @opcion
@@ -194,11 +195,11 @@
                     else
                     {
                         <a href="javascript:;" class="new_menu_a @menuPadre.ClaseMenu"
-                            onclick="@menuPadre.OnClickFunt"
-                            target="@menuPadre.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                           onclick="@menuPadre.OnClickFunt"
+                           target="@menuPadre.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
                             @if (menuPadre.UrlImagen != "")
                             {
-                                <img src="@menuPadre.UrlImagen" alt="@menuPadre.Descripcion" style="margin-top: -5px;" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion"/>
+                                <img src="@menuPadre.UrlImagen" alt="@menuPadre.Descripcion" style="margin-top: -5px;" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" />
                             }
                             else
                             {
@@ -211,4 +212,14 @@
         }
         <li class="clear"></li>
     </ul>
+}
+
+@if (ViewBag.MostrarBuscadorYFiltros)
+{
+    <div class="buscador_filtros">
+        <input type="text" value="" class="campo_buscador_filtros" placeholder="¿Buscas ofertas?" />
+        <a class="enlace_busqueda_filtros" title="Buscar">
+            <img src="@Url.Content("~/Content/Images/icono_lupa.png")" alt="Buscar" />
+        </a>
+    </div>
 }

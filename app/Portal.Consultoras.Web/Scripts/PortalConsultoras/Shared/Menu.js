@@ -97,3 +97,21 @@ function MostrarMensajeConsultoraValidacion() {
     showDialog("DialogMensajeValidacion");
     $("#DialogMensajeValidacion").siblings(".ui-dialog-titlebar").hide();
 }
+
+function modificarAnchoBuscadorFiltros() {
+    if (window.location.href.indexOf("Pedido") > -1) {
+        if ($('.new_menu').first().find('a').attr("title") == "SOCIA EMPRESARIA") {
+            $('.buscador_filtros').addClass('buscador_filtros_con_enlace_menu_socia_empresaria_vista_pedido');
+        } else {
+            $('.buscador_filtros').addClass('buscador_filtros_sin_enlace_menu_socia_empresaria_vista_pedido');
+        }
+    } else {
+        if ($('.new_menu').first().find('a').attr("title") == "SOCIA EMPRESARIA") {
+            $('.buscador_filtros').addClass('buscador_filtros_con_enlace_menu_socia_empresaria');
+        } else {
+            $('.buscador_filtros').addClass('buscador_filtros_sin_enlace_menu_socia_empresaria');
+        }
+    }
+}
+
+modificarAnchoBuscadorFiltros();
