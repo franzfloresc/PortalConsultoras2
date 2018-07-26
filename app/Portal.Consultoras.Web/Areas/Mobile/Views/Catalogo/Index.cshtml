@@ -203,10 +203,10 @@
     }
 </div>
 
-<script id="catalogo-template" type="text/x-handlebars-template">
+<script id="catalogo-template" type="text/x-handlebars-template">  @*PPC*@
     <div class="content_item_catalogo" data-cam="{{campania}}" data-cat="{{tipoCatalogo}}" data-estado="{{estado}}" style="display: none;">
         <div data-tipo="content">
-            <a class="content_catalogo" data-tipo="img" target="_blank" href="javascript:;">
+            <a class="content_catalogo" id="{{campania}}_{{tipoCatalogo}}"  data-tipo="img" target="_blank" href="javascript:;">
                 <img src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" />
             </a>
             <input id="txtUrl{{tipoCatalogo}}" type="hidden" value="" />
@@ -221,7 +221,7 @@
 </script>
 
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo';
         var codigoIso = '@ViewBag.CodigoISO';
@@ -239,7 +239,8 @@
         var urlBuscadorIssu = '@Constantes.CatalogoUrlIssu.Buscador';
         var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
         var mensajeSinConexionIssu = '@Html.Raw(Constantes.MensajesError.SinConexion_CatalogoRevistaIssu)';
-    </script>
+        var MarcaCatalogo = '@ViewBag.MarcaCatalogo' || 0;   //PPC 
+</script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tag-editor.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.caret.min.js")"></script>

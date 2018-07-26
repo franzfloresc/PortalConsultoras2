@@ -15,8 +15,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         private const string TextoMensajeSaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
 
-        public ActionResult Index()
+        public ActionResult Index(string marca = "")
         {
+
+            ViewBag.MarcaCatalogo = marca;
+
             var clienteModel = new MisCatalogosRevistasModel
             {
                 PaisNombre = GetPaisNombreByISO(userData.CodigoISO),

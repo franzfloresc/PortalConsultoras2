@@ -19,11 +19,11 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private const string TextoMensajeSaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
 
-        public ActionResult Index()
+        public ActionResult Index(string marca = "")
         {
             if (EsDispositivoMovil())
             {
-                return RedirectToAction("Index", "Catalogo", new { area = "Mobile" });
+                return RedirectToAction("Index", "Catalogo", new { area = "Mobile", marca = marca });
             }
 
             var clienteModel = new MisCatalogosRevistasModel
