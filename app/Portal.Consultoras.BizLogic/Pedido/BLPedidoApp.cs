@@ -258,6 +258,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             try
             {
+                usuario = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.RevistaDigital);
+
                 //Obtener  Cabecera 
                 pedido = _pedidoWebBusinessLogic.GetPedidoWebByCampaniaConsultora(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
 
@@ -265,16 +267,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 //Obtener Detalle
                 var pedidoID = 0;
-                var pedidoBuscar = new BEPedidoAppBuscar()
-                {
-                    PaisID = usuario.PaisID,
-                    CampaniaID = usuario.CampaniaID,
-                    ConsultoraID = usuario.ConsultoraID,
-                    NombreConsultora = usuario.Nombre,
-                    CodigoPrograma = usuario.CodigoPrograma,
-                    ConsecutivoNueva = usuario.ConsecutivoNueva
-                };
-                var lstDetalle = ObtenerPedidoWebDetalle(pedidoBuscar, out pedidoID);
+                var lstDetalle = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
 
                 if (lstDetalle.Any())
                 {
@@ -361,6 +354,15 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     var result = PedidoInsertar(usuario, detalle, lstDetalle, true);
                     if (result != Constantes.PedidoAppValidacion.Code.SUCCESS) return false;
+
+                    lstDetalle.Add(new BEPedidoWebDetalle()
+                    {
+                        CUV = detalle.Producto.CUV,
+                        Cantidad = 1,
+                        ClienteID = 0
+                    }); 
+
+                    UpdateProl(usuario, lstDetalle);
 
                     return true;
                 }
