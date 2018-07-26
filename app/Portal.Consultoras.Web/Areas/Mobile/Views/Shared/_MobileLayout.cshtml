@@ -6,7 +6,7 @@
 @{
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
     if (ViewBag.MostrarShowRoomBannerLateral == true) { showRoomBannerLateral = ViewBag.ShowRoomBannerLateral; }
-    
+
     bool esIngresoUnico = ViewContext.EsIngresoUnico();
 }
 
@@ -107,6 +107,7 @@
 
     <div id="divAlertaPedidosOnline" class="alert-top alert-success alert-top-conline" style="display: none;">
         <a href="@Url.Action("MisPedidos", "ConsultoraOnline", new { area = "Mobile" })">
+
             <span class="alert-icon"><i class="icon-notificaciones-belcorp"></i></span>
             <span id="spanNumeroPedidoOnline1" class="alert-number"></span>
             <div class="alert-text upper center-min">TIENES <span id="spanNumeroPedidoOnline2">0</span> NUEVOS PEDIDOS DE CONSULTORA ONLINE</div>
@@ -153,11 +154,11 @@
                     @*<img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />*@
                     <img src="@Url.Content("~/Content/Images/mobile/icono-menu-mobile.svg")" id="ic_menu" class="icon-menu" alt="Menú" />
                 </div>
-                <div class="col-xs-4 text-center">
+                <div class="col-xs-3 text-center">
                     <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
                        class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
                 </div>
-                <div class="col-xs-4 text-right">
+                <div class="col-xs-5 text-right">
                     <div class="menu-shop">
                         <div class="contenedor_circulos">
                             <div class="circulo-1 iniciarTransicion"></div>
@@ -173,6 +174,16 @@
                            class="campana_mobile" href="@Url.Action("Index", "Notificaciones", new { area="Mobile" })" style="margin-left: -15px;">
                             <div role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="campana_svg_mobile"><p role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="notificaciones_mobiles">0</p></div>
                         </a>
+                        
+                        @if (ViewBag.MostrarBuscadorYFiltros == true)
+                        {
+                            <a role="link" region="Superior" parent="Buscador" title="Buscador"
+                               class="campana_mobile" href="@Url.Action("Index", "Buscador", new { area = "Mobile" })" style="margin-right: 20px;">
+                                <span role="link" region="Superior" parent="Buscador" title="Buscador" class="icon-menu-shop"><i class="fa fa-search fa-sm"></i></span>
+                            </a>
+                        }
+
+
                     </div>
                 </div>
             </div>
@@ -244,66 +255,66 @@
     </div>
 
     @*<script id="estrategia-template_carrusel" type="text/x-handlebars-template">
-        {{#each this.ListaOfertas  as |oferta|}}
-        <div data-item="">
-            <div style="display:none;" data-item-campos="">
-                <input type="text" class="tipoestrategia-id-odd" value="{{oferta.TipoEstrategiaID}}" />
-                <input type="text" class="estrategia-id-odd" value="{{oferta.EstrategiaID}}" />
-                <input type="text" class="marca-id-odd" value="{{oferta.MarcaID}}" />
-                <input type="text" class="cuv2-odd" value="{{oferta.CUV2}}" />
-                <input type="text" class="limite-venta-odd" value="{{oferta.LimiteVenta}}" />
-                <input type="text" class="flagnueva-odd" value="{{oferta.FlagNueva}}" />
-                <input type="text" class="precio-odd" value="{{oferta.PrecioOferta}}" />
-                <input type="text" class="nombre-odd" value="{{oferta.NombreOferta}}" />
-                <input type="text" class="indmonto-min-odd" value="{{oferta.IndicadorMontoMinimo}}" />
-                <input type="text" class="teimagenmostrar-odd" value="{{oferta.TipoEstrategiaImagenMostrar}}" />
-                <input type="text" Class="imagen-odd" value="{{oferta.ImagenDisplay}}" />
-                <input type="text" class="origenPedidoWeb-odd" value="1" />
-                <input type="hidden" class="DescripcionEstrategia" value="{{oferta.DescripcionEstrategia}}" />
-            </div>
-            <div data-compartir-campos="" style="display:none;">
-                <input type="hidden" class="CUV" value="{{oferta.CUV2}}" />
-                <input type="hidden" class="rsFBMensaje" value="" />
-                <input type="hidden" class="rsWAMensaje" value="" />
-                <input type="hidden" class="rsFBRutaImagen" value="{{oferta.ImagenDisplay}}" />
-                <input type="hidden" class="rsWARutaImagen" value="{{oferta.ImagenDisplay}}" />
-                <input type="hidden" class="MarcaID" value="{{oferta.MarcaID}}" />
-                <input type="hidden" class="MarcaNombre" value="{{oferta.DescripcionMarca}}" />
-                <input type="hidden" class="Nombre" value="{{oferta.NombreOferta}}" />
-                <input type="hidden" class="ProductoDescripcion" value="{{oferta.DescripcionOferta}}" />
-                <input type="hidden" class="Palanca" value="ODD" />
-            </div>
-            <div class="saludo_paginacion">
-                <p>@ViewBag.NombreConsultora</p>, te mostramos <b>{{oferta.Posicion}} de {{../CantidadProductos}}</b>
-                {{#iff ../CantidadProductos '>' 1}}
-                &nbsp;ofertas
-                {{/iff}}
-                {{#iff ../CantidadProductos '<' 2}}
-                &nbsp;oferta
-                {{/iff}}
-            </div>
-            <div class="producto_img_mobile">
-                <img src="{{oferta.ImagenDisplay}}" alt="" id="img-display-odd" />
-            </div>
-            <div class="nombre_set_display">{{oferta.NombreOferta}}</div>
-            <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo {{oferta.PrecioCatalogoFormat}}</span></div>
-            <div class="producto_precio_hoy_mobile">
-                A SOLO <span>@ViewBag.Simbolo {{oferta.PrecioOfertaFormat}}</span>
-            </div>
+            {{#each this.ListaOfertas  as |oferta|}}
+            <div data-item="">
+                <div style="display:none;" data-item-campos="">
+                    <input type="text" class="tipoestrategia-id-odd" value="{{oferta.TipoEstrategiaID}}" />
+                    <input type="text" class="estrategia-id-odd" value="{{oferta.EstrategiaID}}" />
+                    <input type="text" class="marca-id-odd" value="{{oferta.MarcaID}}" />
+                    <input type="text" class="cuv2-odd" value="{{oferta.CUV2}}" />
+                    <input type="text" class="limite-venta-odd" value="{{oferta.LimiteVenta}}" />
+                    <input type="text" class="flagnueva-odd" value="{{oferta.FlagNueva}}" />
+                    <input type="text" class="precio-odd" value="{{oferta.PrecioOferta}}" />
+                    <input type="text" class="nombre-odd" value="{{oferta.NombreOferta}}" />
+                    <input type="text" class="indmonto-min-odd" value="{{oferta.IndicadorMontoMinimo}}" />
+                    <input type="text" class="teimagenmostrar-odd" value="{{oferta.TipoEstrategiaImagenMostrar}}" />
+                    <input type="text" Class="imagen-odd" value="{{oferta.ImagenDisplay}}" />
+                    <input type="text" class="origenPedidoWeb-odd" value="1" />
+                    <input type="hidden" class="DescripcionEstrategia" value="{{oferta.DescripcionEstrategia}}" />
+                </div>
+                <div data-compartir-campos="" style="display:none;">
+                    <input type="hidden" class="CUV" value="{{oferta.CUV2}}" />
+                    <input type="hidden" class="rsFBMensaje" value="" />
+                    <input type="hidden" class="rsWAMensaje" value="" />
+                    <input type="hidden" class="rsFBRutaImagen" value="{{oferta.ImagenDisplay}}" />
+                    <input type="hidden" class="rsWARutaImagen" value="{{oferta.ImagenDisplay}}" />
+                    <input type="hidden" class="MarcaID" value="{{oferta.MarcaID}}" />
+                    <input type="hidden" class="MarcaNombre" value="{{oferta.DescripcionMarca}}" />
+                    <input type="hidden" class="Nombre" value="{{oferta.NombreOferta}}" />
+                    <input type="hidden" class="ProductoDescripcion" value="{{oferta.DescripcionOferta}}" />
+                    <input type="hidden" class="Palanca" value="ODD" />
+                </div>
+                <div class="saludo_paginacion">
+                    <p>@ViewBag.NombreConsultora</p>, te mostramos <b>{{oferta.Posicion}} de {{../CantidadProductos}}</b>
+                    {{#iff ../CantidadProductos '>' 1}}
+                    &nbsp;ofertas
+                    {{/iff}}
+                    {{#iff ../CantidadProductos '<' 2}}
+                    &nbsp;oferta
+                    {{/iff}}
+                </div>
+                <div class="producto_img_mobile">
+                    <img src="{{oferta.ImagenDisplay}}" alt="" id="img-display-odd" />
+                </div>
+                <div class="nombre_set_display">{{oferta.NombreOferta}}</div>
+                <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo {{oferta.PrecioCatalogoFormat}}</span></div>
+                <div class="producto_precio_hoy_mobile">
+                    A SOLO <span>@ViewBag.Simbolo {{oferta.PrecioOfertaFormat}}</span>
+                </div>
 
-            {{#IsNullOrEmpty oferta.DescripcionOferta '!='}}
-            <div class="titulo_contenido">CONTENIDO</div>
-            <div class="nombre_set_producto_hoy">{{{oferta.DescripcionOferta}}}</div>
-            {{/IsNullOrEmpty}}
+                {{#IsNullOrEmpty oferta.DescripcionOferta '!='}}
+                <div class="titulo_contenido">CONTENIDO</div>
+                <div class="nombre_set_producto_hoy">{{{oferta.DescripcionOferta}}}</div>
+                {{/IsNullOrEmpty}}
 
-            <div class="content_redes_ficha" data-item="">
-                <div class="texto_redes">Comparte este producto con tus clientes:</div>
-                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+                <div class="content_redes_ficha" data-item="">
+                    <div class="texto_redes">Comparte este producto con tus clientes:</div>
+                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+                </div>
             </div>
-        </div>
-        {{/each}}
-    </script>*@
+            {{/each}}
+        </script>*@
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
@@ -371,7 +382,7 @@
         var emt_device = ' ';
         var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
 
-        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';        
+        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
