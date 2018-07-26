@@ -193,6 +193,9 @@
             mouseLeaveSelectArea: function () {
                 $(this).hide();
                 $(this).attr("data-visible", "0");
+            },
+            clickVerOpciones: function () {
+
             }
         }
 

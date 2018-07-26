@@ -1,0 +1,16 @@
+﻿
+<script id="opciones-elegidas-template" type="text/x-handlebars-template">
+    <div class="tono_selecionado">
+        {{#each this.Hermanos as |componente|}}
+        <div data-tono="" data-tono-select="{{componente.Cuv}}">
+            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
+            <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
+            <ul class="tono_selecionado_item">
+                <li class="imagen_selecionado"><img src="{{componente.ImagenBulk}}" alt="" /></li>
+                <li class="titulo_selecionado">{{componente.NombreBulk}}</li>
+            </ul>
+        </div>
+        {{/each}}
+        <a class="btn_cambiar_opciones" href="#">Cambiar opciones <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="" /></a>
+    </div>
+</script>
