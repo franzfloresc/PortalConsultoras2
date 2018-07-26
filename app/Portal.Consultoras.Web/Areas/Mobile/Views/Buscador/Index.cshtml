@@ -2,7 +2,7 @@
 @using Portal.Consultoras.Web.Helpers
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Buscador";
     //var layout = ViewContext.MobilePedidoLayout();
     var layout = "_MobileLayoutEmpty";
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
@@ -10,14 +10,23 @@
 }
 
 @section styles{
-    <link href="~/Content/Css/Site/Esika/buscador-filtros.css" rel="stylesheet" />
+
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        <link href="@Url.Content("~/Content/Css/Mobile/esika/buscador-filtros.css")" rel="stylesheet">
+    }
+    else
+    {
+        <link href="@Url.Content("~/Content/Css/Mobile/lbel/buscador-filtros.css")" rel="stylesheet">
+    }
+
 }
 
 <div class="buscador_filtros_mobile">
     <a class="enlace_regresar_filtros" title="Buscar">
         <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Buscar" />
     </a>
-    <input type="search" value="" id="CampoBuscadorProductos" class="campo_buscador_filtros_mobile" placeholder="¿Buscas ofertas?" />
+    <input type="search" value="" id="CampoBuscadorProductosMobile" class="campo_buscador_filtros_mobile" placeholder="¿Buscas ofertas?" />
     <a class="enlace_busqueda_filtros" title="Buscar">
         <img src="@Url.Content("~/Content/Images/icono_lupa.png")" alt="Buscar" />
     </a>
@@ -26,9 +35,3 @@
     </a>
     <i class="fa fa-chevron-left"></i>
 </div>
-
-
-
-@section scripts{
-    <script src="~/Scripts/PortalConsultoras/Shared/Menu.js"></script>
-}
