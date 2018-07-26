@@ -13,3 +13,16 @@
     @Html.Partial("~/Views/Shared/_Menu2.cshtml", listaMenu2)
    
 }
+
+@if (ViewBag.MostrarBuscadorYFiltros)
+{
+    <div class="buscador_filtros">
+        <input type="text" value="" id="CampoBuscadorProductos" class="campo_buscador_filtros" placeholder="¿Buscas ofertas?" />
+        <a class="enlace_busqueda_filtros" title="Buscar">
+            <img src="@Url.Content("~/Content/Images/icono_lupa.png")" alt="Buscar" />
+        </a>
+        <a class="opcion_limpiar_campo_busqueda_productos" title="Cerrar" style="display:none;">
+            <img src="@Url.Content("~/Content/Images/btn_cerrar_popup_color_negro.svg")" alt="Cerrar" />
+        </a>
+    </div>
+}
