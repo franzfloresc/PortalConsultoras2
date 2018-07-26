@@ -35,39 +35,80 @@ namespace Portal.Consultoras.Web.Providers
 
                 foreach (var item in list)
                 {
-
-                    ServiceOferta.BEEstrategia estrategia = new ServiceOferta.BEEstrategia
+                    try
                     {
-                        CampaniaID= item.codigoCampania,
-                        CodigoEstrategia = item.codigoEstrategia,
-                        CodigoProducto = item.codigoProducto,
-                        CUV2 = item.cuV2,
-                        DescripcionCUV2 = item.descripcionCUV2,
-                        DescripcionEstrategia = item.descripcionTipoEstrategia,
-                        DescripcionMarca = item.marcaDescripcion,
-                        EstrategiaID = Convert.ToInt32(item.estrategiaId),
-                        FlagNueva = 0,
-                        FotoProducto01 = item.imagenURL,
-                        ImagenURL = item.imagenEstrategia,
-                        IndicadorMontoMinimo = Convert.ToInt32(item.indicadorMontoMinimo),
-                        LimiteVenta = Convert.ToInt32(item.limiteVenta),
-                        MarcaID = Convert.ToInt32(item.marcaId),
-                        Orden = Convert.ToInt32(item.orden),
-                        Precio = Convert.ToDecimal(item.precio),
-                        Precio2 = Convert.ToDecimal(item.precio2),
-                        PrecioString = item.precio2,
-                        PrecioTachado = item.precio,
-                        TextoLibre = item.textoLibre,
-                        TieneVariedad = Convert.ToBoolean(item.tieneVariedad) ? 1 : 0,
-                        TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId),
-                        TipoEstrategiaImagenMostrar = 6,
-                    };
-                    estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
-                    estrategias.Add(estrategia);
+                        ServiceOferta.BEEstrategia estrategia = new ServiceOferta.BEEstrategia
+                        {
+                            CampaniaID = item.codigoCampania,
+                            CodigoEstrategia = item.codigoEstrategia,
+                            CodigoProducto = item.codigoProducto,
+                            CUV2 = item.cuV2,
+                            DescripcionCUV2 = item.descripcionCUV2,
+                            DescripcionEstrategia = item.descripcionTipoEstrategia,
+                            DescripcionMarca = item.marcaDescripcion,
+                            EstrategiaID = Convert.ToInt32(item.estrategiaId),
+                            FlagNueva = 0,
+                            FotoProducto01 = item.imagenURL,
+                            ImagenURL = item.imagenEstrategia,
+                            IndicadorMontoMinimo = Convert.ToInt32(item.indicadorMontoMinimo),
+                            LimiteVenta = Convert.ToInt32(item.limiteVenta),
+                            MarcaID = Convert.ToInt32(item.marcaId),
+                            Orden = Convert.ToInt32(item.orden),
+                            Precio = Convert.ToDecimal(item.precio),
+                            Precio2 = Convert.ToDecimal(item.precio2),
+                            PrecioString = item.precio2,
+                            PrecioTachado = item.precio,
+                            GananciaString = item.ganancia,
+                            Ganancia = Convert.ToDecimal(item.ganancia),
+                            TextoLibre = item.textoLibre,
+                            TieneVariedad = Convert.ToBoolean(item.tieneVariedad) ? 1 : 0,
+                            TipoEstrategiaID = Convert.ToInt32(item.tipoEstrategiaId),
+                            TipoEstrategiaImagenMostrar = 6,
+                        };
+
+                        estrategia.TipoEstrategia = new ServiceOferta.BETipoEstrategia { Codigo = item.codigoTipoEstrategia };
+                        estrategias.Add(estrategia);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
                 }
             }
             return estrategias;
         }
+
+        public async Task<List<BEEstrategiaProducto>> ObtenerComponenteDesdeApi(string path)
+        {
+            var estrategias = new List<BEEstrategiaProducto>();
+            var httpResponse = await httpClient.GetAsync(path);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                var jsonString = await httpResponse.Content.ReadAsStringAsync();
+
+                var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
+
+                foreach (var item in list)
+                {
+                    BEEstrategiaProducto estrategiaProducto = new BEEstrategiaProducto
+                    {
+                        Grupo = item.grupo,
+                        CUV = item.cuv,
+                        SAP = item.codigoSap,
+                        Orden = item.orden,
+                        Precio = item.precioUnitario,
+                        Digitable = Convert.ToBoolean(item.indicadorDigitable) ? 1 : 0,
+                        Cantidad = item.cantidad,
+                        FactorCuadre = item.factorCuadre,
+                        IdMarca= item.marcaId
+                    };
+                    estrategias.Add(estrategiaProducto);
+                }
+            }
+            return estrategias;
+        }
+
 
         public string ObtenerDescripcionOferta(string descripcionCuv2)
         {
