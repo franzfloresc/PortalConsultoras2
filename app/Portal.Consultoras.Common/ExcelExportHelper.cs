@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Common
                                              )
         {
             List<string> columna = new List<string>();
-            StringBuilder formatoDeNumero = new StringBuilder();
+            //StringBuilder formatoDeNumero = new StringBuilder();
 
             Workbook wbToStream = new Workbook();
             Worksheet sheet = wbToStream.Worksheets[0];

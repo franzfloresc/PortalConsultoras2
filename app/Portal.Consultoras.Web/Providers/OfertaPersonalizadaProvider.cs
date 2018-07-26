@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
             {
-                var revistaDigital = sessionManager.GetRevistaDigital();
+                //var revistaDigital = sessionManager.GetRevistaDigital();
                 var userData = sessionManager.GetUserData();
                 if (revistaDigital.ActivoMdo)
                 {
@@ -104,7 +104,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public List<EstrategiaPedidoModel> ConsultarOfertasFiltrar(BusquedaProductoModel model, List<EstrategiaPedidoModel> listaFinal1, int tipo)
         {
-            var revistaDigital = sessionManager.GetRevistaDigital();
+            //var revistaDigital = sessionManager.GetRevistaDigital();
             var userData = sessionManager.GetUserData();
 
             var listModel1 = new List<EstrategiaPedidoModel>();
@@ -199,7 +199,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public bool TieneProductosPerdio(int campaniaId)
         {
-            var revistaDigital = sessionManager.GetRevistaDigital();
+            //var revistaDigital = sessionManager.GetRevistaDigital();
             var userData = sessionManager.GetUserData();
 
             if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&
@@ -211,7 +211,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public bool ConsultarOfertasValidarPermiso(BusquedaProductoModel model, int tipo)
         {
-            var revistaDigital = sessionManager.GetRevistaDigital();
+            //var revistaDigital = sessionManager.GetRevistaDigital();
             var _guiaNegocioProvider = new GuiaNegocioProvider();
 
             if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
@@ -333,7 +333,7 @@ namespace Portal.Consultoras.Web.Providers
                 if (listEstrategia != null && campaniaId == userData.CampaniaID && listEstrategia.Any())
                 {
                     //listEstrategia = (List<ServiceOferta.BEEstrategia>)Session[varSession];
-                   
+
                     if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas)
                     {
                         listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(listEstrategia);
@@ -890,14 +890,14 @@ namespace Portal.Consultoras.Web.Providers
                     }
 
                     prodModel.ListaPrecioNiveles = new List<string>();
-                    if (estrategia.Niveles != "" )
+                    if (estrategia.Niveles != "")
                     {
                         prodModel.ListaPrecioNiveles = estrategia.Niveles.Split('|').ToList();
                     }
-                    
+
                 }
 
-                if (estrategia.Hermanos!=null)
+                if (estrategia.Hermanos != null)
                 {
                     prodModel.Hermanos = new List<EstrategiaComponenteModel>();
                     if (estrategia.Hermanos.Any())
@@ -1017,7 +1017,7 @@ namespace Portal.Consultoras.Web.Providers
                 listaOfertas = listaProductoModel.Where(x => !x.EsSubCampania).ToList();
             else
                 listaOfertas = listaProductoModel.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-            
+
             //subcampania
             if (revistaDigital.EsActiva && revistaDigital.ActivoMdo)
                 listaSubCampania = listaProductoModel.Where(x => x.EsSubCampania && flagRevistaTodos.Contains(x.FlagRevista)).ToList();
@@ -1039,50 +1039,51 @@ namespace Portal.Consultoras.Web.Providers
         private List<EstrategiaPedidoModel> obtenerListaHermanos(List<EstrategiaPedidoModel> listaSubCampania)
         {
             var userData = sessionManager.GetUserData();
-            if (listaSubCampania != null)
+
+            if (listaSubCampania == null || !listaSubCampania.Any())
             {
-                if (listaSubCampania.Any())
+                listaSubCampania = new List<EstrategiaPedidoModel>();
+                return listaSubCampania;
+            }
+            
+            var listaEstrategiaProductos = new List<ServicePedido.BEEstrategiaProducto>();
+            var strJoinIds = string.Join(",", listaSubCampania.Select(x => x.EstrategiaID).ToList());
+            using (var svc = new PedidoServiceClient())
+            {
+                listaEstrategiaProductos = svc.GetEstrategiaProductoList(userData.PaisID, strJoinIds).ToList();
+            }
+
+            listaEstrategiaProductos = listaEstrategiaProductos ?? new List<ServicePedido.BEEstrategiaProducto>();
+
+            if (listaEstrategiaProductos.Any())
+            {
+                listaSubCampania.ForEach(item =>
                 {
-                    var listaEstrategiaProductos = new List<ServicePedido.BEEstrategiaProducto>();
-                    var strJoinIds = string.Join(",", listaSubCampania.Select(x => x.EstrategiaID).ToList());
-                    using (var svc = new PedidoServiceClient())
-                    {
-                        listaEstrategiaProductos = svc.GetEstrategiaProductoList(userData.PaisID, strJoinIds).ToList();
-                        listaEstrategiaProductos = (listaEstrategiaProductos == null ? new List<ServicePedido.BEEstrategiaProducto>() : listaEstrategiaProductos);
-                    }
+                    var lineasPorCaja = 3;
 
-                    if (listaEstrategiaProductos.Any())
+                    var componentesRelacinados = listaEstrategiaProductos.Where(x => x.EstrategiaID == item.EstrategiaID).ToList();
+
+                    if (componentesRelacinados != null)
                     {
-                        listaSubCampania.ForEach(item =>
+                        item.Hermanos = new List<EstrategiaComponenteModel>();
+                        componentesRelacinados.ForEach(componente =>
                         {
-                            var lineasPorCaja = 3;
-
-                            var componentesRelacinados = listaEstrategiaProductos.Where(x => x.EstrategiaID == item.EstrategiaID).ToList();
-
-                            if (componentesRelacinados != null)
+                            if (componente.CUV != item.CUV2 && lineasPorCaja > 0 && !string.IsNullOrEmpty(componente.NombreProducto))
                             {
-                                item.Hermanos = new List<EstrategiaComponenteModel>();
-                                componentesRelacinados.ForEach(componente =>
+                                item.Hermanos.Add(new EstrategiaComponenteModel()
                                 {
-                                    if (componente.CUV != item.CUV2 && lineasPorCaja > 0 && !string.IsNullOrEmpty(componente.NombreProducto))
-                                    {
-                                        item.Hermanos.Add(new EstrategiaComponenteModel()
-                                        {
-                                            NombreComercial = string.Format("{0}{1}", componente.NombreProducto, item.Hermanos.Count == 1 ? "..." : string.Empty)
-                                        });
-                                    }
-                                    lineasPorCaja--;
+                                    NombreComercial = string.Format("{0}{1}", componente.NombreProducto, item.Hermanos.Count == 1 ? "..." : string.Empty)
                                 });
                             }
+                            lineasPorCaja--;
                         });
                     }
-                }
+                });
             }
-            else
-                listaSubCampania = new List<EstrategiaPedidoModel>();
 
-                return listaSubCampania;
+            return listaSubCampania;
         }
+
         public bool EnviaronParametrosValidos(string palanca, int campaniaId, string cuv)
         {
             return !string.IsNullOrEmpty(palanca) &&
@@ -1147,7 +1148,7 @@ namespace Portal.Consultoras.Web.Providers
                         {
                             x.ImagenURL = "";// no mostrar en el carrusel de la ficha
                         }
-                       
+
                     });
                 }
             }
