@@ -2025,6 +2025,8 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_ELIMINAR_TODO = "2108";
                 public const string ERROR_CANTIDAD_LIMITE = "2111";
                 public const string ERROR_ELIMINAR_TODO_SET = "2112";
+                public const string ERROR_ELIMINAR_SET = "2113";
+                public const string ERROR_ACTUALIZAR_SET = "2114";
 
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
@@ -2069,9 +2071,11 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_GRABAR, "Ocurrió un error al insertar el pedido."},
                         {Code.ERROR_VALIDA_DATOS , string.Empty },
                         {Code.ERROR_ACTUALIZAR, "Ocurrió un error al actualizar el pedido." },
+                        {Code.ERROR_ACTUALIZAR_SET, "Ocurrió un error al actualizar el set." },
                         {Code.ERROR_ELIMINAR, "Ocurrió un error al eliminar el detalle de pedido." },
+                        {Code.ERROR_ELIMINAR_SET, "Ocurrió un error al eliminar el detalle del set."},
                         {Code.ERROR_ELIMINAR_TODO, "Ocurrió un error al eliminar el pedido." },
-                        {Code.ERROR_ELIMINAR_TODO_SET, "Ocurrió un error al eliminar el set del pedido." },
+                        {Code.ERROR_ELIMINAR_TODO_SET, "Ocurrió un error al eliminar el set." },
                         {Code.ERROR_CANTIDAD_LIMITE, "La cantidad no debe ser mayor que la cantidad limite ( {0} )." },
 
                         {Code.ERROR_RESERVA_NINGUNO, "El pedido no se reservó." },

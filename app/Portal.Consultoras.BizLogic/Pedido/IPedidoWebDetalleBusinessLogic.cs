@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
-using Portal.Consultoras.Entities;
 using System.Threading.Tasks;
+
+using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Pedido;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -30,5 +32,6 @@ namespace Portal.Consultoras.BizLogic
         void UpdPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
         short UpdPedidoWebDetalleMasivo(List<BEPedidoWebDetalle> pedidowebdetalle);
         bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId);
+        List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId);
     }
 }
