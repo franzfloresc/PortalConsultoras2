@@ -661,7 +661,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Ficha/Ficha.css",
                 "~/Content/Css/Site/Ficha/Carrusel.css",
                 "~/Content/Css/Site/Ficha/RedesSociales.css",
-                "~/Content/Css/Site/Ficha/PopoverTooltip.css"
+                "~/Content/Css/Site/Ficha/PopoverTooltip.css",
+                "~/Content/Css/Site/Ficha/SeleccionarTipo.css"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/mobile/css/ficha").Include(
