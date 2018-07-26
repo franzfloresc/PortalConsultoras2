@@ -4104,9 +4104,9 @@ namespace Portal.Consultoras.Web.Controllers
                 estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
                 var PedidosAgregados = ObtenerPedidoWebSetDetalleAgrupado();
 
-                if (PedidosAgregados.Any(x => x.CUV == estrategia.CUV2 && x.SetID != 0))
+                if (PedidosAgregados.Any(x => x.CUV == estrategia.CUV2))
                 {
-                    int CantidadActual = PedidosAgregados.Where(x => x.CUV == estrategia.CUV2 && x.SetID != 0).Sum(x => x.Cantidad);
+                    int CantidadActual = PedidosAgregados.Where(x => x.CUV == estrategia.CUV2).Sum(x => x.Cantidad);
 
                     if (CantidadActual + estrategia.Cantidad > estrategia.LimiteVenta)
                     {
