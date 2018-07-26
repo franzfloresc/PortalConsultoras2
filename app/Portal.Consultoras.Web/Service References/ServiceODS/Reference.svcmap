@@ -26,7 +26,6 @@
     <MetadataFile FileName="ODSService31.xsd" MetadataType="Schema" ID="acf989e0-32b4-4f02-ac56-ecdbc738e3b8" SourceId="1" SourceUrl="http://localhost:41615/ODSService.svc?xsd=xsd3" />
     <MetadataFile FileName="ODSService2.xsd" MetadataType="Schema" ID="9736ad51-3b1e-4c6d-b26a-822e56229e0e" SourceId="1" SourceUrl="http://localhost:41615/ODSService.svc?xsd=xsd0" />
     <MetadataFile FileName="ODSService.xsd" MetadataType="Schema" ID="0a3f6a30-8197-4914-96ab-87a940e65806" SourceId="1" SourceUrl="http://localhost:41615/ODSService.svc?xsd=xsd1" />
-    <MetadataFile FileName="ODSService310.xsd" MetadataType="Schema" ID="d5f1cbfb-e842-4659-a3f2-537ce45e10ba" SourceId="1" SourceUrl="http://localhost:41615/ODSService.svc?xsd=xsd4" />
     <MetadataFile FileName="ODSService.wsdl" MetadataType="Wsdl" ID="c13ecf7f-6505-470d-81d1-c7a7efa67392" SourceId="1" SourceUrl="http://localhost:41615/ODSService.svc?wsdl" />
   </Metadata>
   <Extensions>

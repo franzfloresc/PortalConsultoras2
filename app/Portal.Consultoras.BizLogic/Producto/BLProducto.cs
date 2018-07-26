@@ -394,19 +394,38 @@ namespace Portal.Consultoras.BizLogic
             return 0;
         }
 
-        public bool ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido)
+        //public bool ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido)
+        //{
+        //    List<BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
+        //    if (lstProdcutos == null || lstProdcutos.Count == 0) return false;
+        //    lstProdcutos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
+        //    if (lstProdcutos.Count == 0) return false;
+        //    var oCuv = lstProdcutos.FirstOrDefault(a => a.CodigoCupon == cuvIngresado);
+        //    if (oCuv.IndicadorCuponIndependiente) return false;
+        //    List<BEProductoProgramaNuevas> lstElectivas = lstProdcutos.Where(a => !a.IndicadorCuponIndependiente && a.CodigoCupon != cuvIngresado).ToList();
+        //    if (lstElectivas.Count == 0) return false;
+        //    var existe = (from a in lstElectivas where lstCuvPedido.Contains(a.CodigoCupon) select a.CodigoCupon).ToList();
+        //    if (existe.Count > 0) return true;
+        //    return false;
+        //}
+
+        public Enumeradores.ValidarCuponesElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, /*List<string> lstCuvPedido*/ int CantidadElectivosPedido)
         {
+            int limiteCuponesElectivos = 2;
             List<BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
-            if (lstProdcutos == null || lstProdcutos.Count == 0) return false;
+            if (lstProdcutos == null || lstProdcutos.Count == 0) return Enumeradores.ValidarCuponesElectivos.AgregarCupon;
             lstProdcutos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
-            if (lstProdcutos.Count == 0) return false;
+            if (lstProdcutos.Count == 0) return Enumeradores.ValidarCuponesElectivos.AgregarCupon;
             var oCuv = lstProdcutos.FirstOrDefault(a => a.CodigoCupon == cuvIngresado);
-            if (oCuv.IndicadorCuponIndependiente) return false;
+            if (oCuv == null) return Enumeradores.ValidarCuponesElectivos.AgregarCupon;
+            if (oCuv.IndicadorCuponIndependiente) return Enumeradores.ValidarCuponesElectivos.AgregarCupon;
             List<BEProductoProgramaNuevas> lstElectivas = lstProdcutos.Where(a => !a.IndicadorCuponIndependiente && a.CodigoCupon != cuvIngresado).ToList();
-            if (lstElectivas.Count == 0) return false;
-            var existe = (from a in lstElectivas where lstCuvPedido.Contains(a.CodigoCupon) select a.CodigoCupon).ToList();
-            if (existe.Count > 0) return true;
-            return false;
+            if (lstElectivas.Count == 0) return Enumeradores.ValidarCuponesElectivos.AgregarCupon;
+            if (CantidadElectivosPedido == 1 && limiteCuponesElectivos == 1) return Enumeradores.ValidarCuponesElectivos.ReemplazarCupon;
+            if (CantidadElectivosPedido >= limiteCuponesElectivos) return Enumeradores.ValidarCuponesElectivos.NoAgregarCuponExcedioLimite;
+            //var existe = (from a in lstElectivas where lstCuvPedido.Contains(a.CodigoCupon) select a.CodigoCupon).ToList();
+            //if (existe.Count > 0) return true;
+            return Enumeradores.ValidarCuponesElectivos.AgregarCupon;
         }
 
         #region Metodos de Programa Nuevas

@@ -3542,10 +3542,10 @@ namespace Portal.Consultoras.Web.ServiceODS {
         System.Threading.Tasks.Task<int> ValidarCantidadMaximaProgramaNuevasAsync(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidaCuvElectivo", ReplyAction="http://tempuri.org/IODSService/ValidaCuvElectivoResponse")]
-        bool ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido);
+        Portal.Consultoras.Common.Enumeradores.ValidarCuponesElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, int CantidadElectivosPedido);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidaCuvElectivo", ReplyAction="http://tempuri.org/IODSService/ValidaCuvElectivoResponse")]
-        System.Threading.Tasks.Task<bool> ValidaCuvElectivoAsync(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido);
+        System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidarCuponesElectivos> ValidaCuvElectivoAsync(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, int CantidadElectivosPedido);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/ValidarVentaExclusiva", ReplyAction="http://tempuri.org/IODSService/ValidarVentaExclusivaResponse")]
         Portal.Consultoras.Common.Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv);
@@ -3901,12 +3901,12 @@ namespace Portal.Consultoras.Web.ServiceODS {
             return base.Channel.ValidarCantidadMaximaProgramaNuevasAsync(paisID, campaniaID, consecutivoNueva, codigoPrograma, cantidadEnPedido, cuvIngresado, cantidadIngresada);
         }
         
-        public bool ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido) {
-            return base.Channel.ValidaCuvElectivo(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, lstCuvPedido);
+        public Portal.Consultoras.Common.Enumeradores.ValidarCuponesElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, int CantidadElectivosPedido) {
+            return base.Channel.ValidaCuvElectivo(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, CantidadElectivosPedido);
         }
         
-        public System.Threading.Tasks.Task<bool> ValidaCuvElectivoAsync(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, string[] lstCuvPedido) {
-            return base.Channel.ValidaCuvElectivoAsync(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, lstCuvPedido);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Common.Enumeradores.ValidarCuponesElectivos> ValidaCuvElectivoAsync(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, int CantidadElectivosPedido) {
+            return base.Channel.ValidaCuvElectivoAsync(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, CantidadElectivosPedido);
         }
         
         public Portal.Consultoras.Common.Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv) {
