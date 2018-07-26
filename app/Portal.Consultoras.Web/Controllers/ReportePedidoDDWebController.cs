@@ -404,7 +404,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int maxItems = int.Parse(GetConfiguracionManager(Constantes.ConstSession.DescargaExcelMaxItems));
+                int maxItems = int.Parse(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConstSession.DescargaExcelMaxItems));
                 int count = GetPedidoWebDDDetalle(model).Count;
 
                 if (maxItems < count) return ErrorJson(string.Format(Constantes.MensajesError.LimiteDescargaSobrepasado, maxItems), true);
@@ -421,7 +421,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int maxItems = int.Parse(GetConfiguracionManager(Constantes.ConstSession.DescargaExcelMaxItems));
+                int maxItems = int.Parse(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConstSession.DescargaExcelMaxItems));
                 int count = GetPedidoWebDD(model).Count;
 
                 if (maxItems < count) return ErrorJson(string.Format(Constantes.MensajesError.LimiteDescargaSobrepasado, maxItems), true);
@@ -821,8 +821,8 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenterCampaniasyZonasPorPais(int PaisID)
         {
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
-            IEnumerable<ZonaModel> lstZonas = DropDownListZonas(PaisID);
-            IEnumerable<RegionModel> lstRegiones = DropDownListRegiones(PaisID);
+            IEnumerable<ZonaModel> lstZonas = _baseProvider.DropDownListZonas(PaisID);
+            IEnumerable<RegionModel> lstRegiones = _baseProvider.DropDownListRegiones(PaisID);
 
             return Json(new
             {

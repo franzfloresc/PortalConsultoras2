@@ -214,9 +214,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = sv.GetCrossSellingProductosAdministracion(PaisID, CampaniaID).ToList();
                 }
-                var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                if (lst.Count > 0)
-                    lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO));
+                
+                if (lst != null && lst.Count > 0)
+                {
+                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                    lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                }                                            
 
                 string iso = Util.GetPaisISO(PaisID);
 

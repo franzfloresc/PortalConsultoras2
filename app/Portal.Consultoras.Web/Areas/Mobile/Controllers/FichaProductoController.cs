@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -8,6 +9,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class FichaProductoController : BaseMobileController
     {
+        private readonly VCFichaProductoProvider _vcFichaProductoProvider;
+
+        public FichaProductoController()
+        {
+            _vcFichaProductoProvider = new VCFichaProductoProvider(userData.PaisID, userData.CodigoISO);
+        }
 
         public ActionResult Index()
         {
@@ -23,11 +30,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var producto = (FichaProductoDetalleModel)null;
                 if (userData.CampaniaID == campanaId)
                 {
-                    var lst = ConsultarFichaProductoPorCuv(cuv, campanaId);
+                    var listaPedido = ObtenerPedidoWebDetalle();
+                    var lst = _vcFichaProductoProvider.ConsultarFichaProductoPorCuv(listaPedido, cuv, campanaId);
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    producto = FichaProductoFormatearModelo(lst).SingleOrDefault();
-                    producto = FichaProductoHermanos(producto);
-                    producto.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, producto.FotoProducto01);
+                    producto = _vcFichaProductoProvider.FichaProductoFormatearModelo(lst, listaPedido).SingleOrDefault();
+                    producto = _vcFichaProductoProvider.FichaProductoHermanos(producto, listaPedido, userData.CampaniaID);
+                    producto.FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, producto.FotoProducto01);
                     sessionManager.SetFichaProductoTemporal(producto);
                 }
                 if (producto == null)

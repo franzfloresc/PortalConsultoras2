@@ -51,27 +51,16 @@ namespace Portal.Consultoras.Entities
 
         public BECronograma(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "ZonaID"))
-                ZonaID = Convert.ToInt32(row["ZonaID"]);
-            if (DataRecord.HasColumn(row, "PaisID"))
-                PaisID = Convert.ToInt16(row["PaisID"]);
-            if (DataRecord.HasColumn(row, "TipoCronogramaID"))
-                TipoCronogramaID = Convert.ToInt16(row["TipoCronogramaID"]);
-            if (DataRecord.HasColumn(row, "FechaInicioWeb"))
-                FechaInicioWeb = Convert.ToDateTime(row["FechaInicioWeb"]);
-            if (DataRecord.HasColumn(row, "FechaFinWeb"))
-                FechaFinWeb = Convert.ToDateTime(row["FechaFinWeb"]);
-            if (DataRecord.HasColumn(row, "FechaInicioDD"))
-                FechaInicioDD = Convert.ToDateTime(row["FechaInicioDD"]);
-            if (DataRecord.HasColumn(row, "FechaFinDD"))
-                FechaFinDD = Convert.ToDateTime(row["FechaFinDD"]);
-            if (DataRecord.HasColumn(row, "ZonaNombre"))
-                ZonaNombre = Convert.ToString(row["ZonaNombre"]);
-            if (DataRecord.HasColumn(row, "CodigoZona"))
-                CodigoZona = Convert.ToString(row["CodigoZona"]);
-
+            CampaniaID = row.ToInt32("CampaniaID");
+            ZonaID = row.ToInt32("ZonaID");
+            PaisID = row.ToInt16("PaisID");
+            TipoCronogramaID = row.ToInt16("TipoCronogramaID");
+            FechaInicioWeb = row.ToDateTime("FechaInicioWeb");
+            FechaFinWeb = row.ToDateTime("FechaFinWeb");
+            FechaInicioDD = row.ToDateTime("FechaInicioDD");
+            FechaFinDD = row.ToDateTime("FechaFinDD");
+            ZonaNombre = row.ToString("ZonaNombre");
+            CodigoZona = row.ToString("CodigoZona");
         }
     }
 

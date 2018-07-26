@@ -148,7 +148,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string tipoDistribucion = String.Format("_{0}", modelSolicitudCliente.TipoDistribucion >= 1 ? modelSolicitudCliente.TipoDistribucion : 1);
             string desConfig = Constantes.ConfiguracionManager.DES_UBIGEO + UserData().CodigoISO + tipoDistribucion;
-            string descripcionUnidad = GetConfiguracionManager(desConfig);
+            string descripcionUnidad = _configuracionManagerProvider.GetConfiguracionManager(desConfig);
             string[] arrayUnidades = descripcionUnidad.Split(',');
             ViewBag.UnidadGeografica1 = arrayUnidades[0] + ":";
             ViewBag.UnidadGeografica2 = arrayUnidades[1] + ":";
@@ -452,7 +452,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string tipoDistribucion = String.Format("_{0}", entidadSolicitud.TipoDistribucion >= 1 ? entidadSolicitud.TipoDistribucion : 1);
             string desConfig = Constantes.ConfiguracionManager.DES_UBIGEO + UserData().CodigoISO + tipoDistribucion;
-            string descripcionUnidad = GetConfiguracionManager(desConfig);
+            string descripcionUnidad = _configuracionManagerProvider.GetConfiguracionManager(desConfig);
             string[] arrayUnidades = descripcionUnidad.Split(',');
 
             if (arrayUnidades[0] != "")

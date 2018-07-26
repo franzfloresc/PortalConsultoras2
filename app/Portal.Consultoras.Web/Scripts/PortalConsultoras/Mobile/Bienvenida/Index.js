@@ -44,6 +44,12 @@ $(document).ready(function () {
         stopVideo();
         $('#VideoIntroductorio').hide();
     });
+
+    $('#btnCerrarPopupCorreo').click(function () {
+        $('#popupVerificacionCorreoElectronicoPendiente').fadeOut();
+        $('.contenedor_fondo_popup').fadeOut();
+    });
+
     $("#imgProductoMobile").click(function () {
 
     });
@@ -52,7 +58,7 @@ $(document).ready(function () {
         $("#fondoPopup_aceptacionTerminosYCondicionesContrato").hide();
     }
 
-    CargarCarouselEstrategias("");
+    CargarCarouselEstrategias();
 
     if (tieneMasVendidos === 1) {
         masVendidosModule.readVariables({
@@ -102,9 +108,10 @@ $(document).ready(function () {
         });
     });
 
-    if (consultoraNuevaBannerAppMostrar == "False") ObtenerComunicadosPopup();
+    ObtenerComunicadosPopup();
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
     bannerFunc.showExpoOferta();
+    ConsultarEmailPendiente();
 });
 
 $(window).load(function () {
@@ -380,10 +387,16 @@ function CargarPopupsConsultora() {
     else if (TipoPopUpMostrar == popupRevistaDigitalSuscripcion) {
         rdPopup.Mostrar();
     }
-    else if (TipoPopUpMostrar == popupAceptacionContrato)
-    {
+    else if (TipoPopUpMostrar == popupAceptacionContrato) {
         MostrarPopupAceptacionContratoGet();
     }
+    else if (TipoPopUpMostrar == popupActualizarCorreo) {
+        MostrarPopupActualizarCorreo();
+    }
+}
+
+function MostrarPopupActualizarCorreo() {
+    $("#popupVerificacionCorreoElectronicoPendiente").show();
 }
 
 function MostrarPopupAceptacionContratoGet()
@@ -391,6 +404,8 @@ function MostrarPopupAceptacionContratoGet()
     if (TipoPopUpMostrar == popupAceptacionContrato)
     {
         $("#fondoPopup_aceptacionTerminosYCondicionesContrato").show();
+    } else if (TipoPopUpMostrar == popupActualizarCorreo) {
+            MostrarPopupActualizarCorreo();
     }
 }
 
@@ -477,33 +492,6 @@ function TagManagerCatalogosPersonalizados() {
                         'id': '1',
                         'name': 'Favoritos',
                         'position': 'Home-inferior-1'
-                    }]
-                }
-            }
-        });
-    }
-}
-
-$("#content_oferta_dia_mobile").click(function () {
-    $('#PopOfertaDia').slideDown();
-    odd_mobile_google_analytics_promotion_click();
-});
-
-function odd_mobile_google_analytics_promotion_click() {
-    if ($('#BloqueMobileOfertaDia').length > 0) {
-        var id = $('#BloqueMobileOfertaDia').find("#estrategia-id-odd").val();
-        var name = "Oferta del día - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
-        var creative = $('#BloqueMobileOfertaDia').find("#nombre-odd").val() + " - " + $('#BloqueMobileOfertaDia').find("#cuv2-odd").val()
-        dataLayer.push({
-            'event': 'promotionClick',
-            'ecommerce': {
-                'promoClick': {
-                    'promotions': [
-                    {
-                        'id': id,
-                        'name': name,
-                        'position': 'Banner Superior Home - 1',
-                        'creative': creative
                     }]
                 }
             }
@@ -733,6 +721,26 @@ function VerTutorialMobile() {
     setTimeout(function () { $(window).resize(); }, 50);
 }
 
+function ConsultarEmailPendiente() {
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/ObtenerActualizacionEmail',
+        dataType: 'Text',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.split('|')[0] == '1') {
+                    document.getElementById('spnEmail').innerHTML = data.split('|')[1];
+                    document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
+                }
+            }
+        },
+        error: function (data, error) {
+            alert(error);
+        }
+    });
+}
+
 var bannerFunc = (function () {
     return {
         getBanners: getBanners,
@@ -806,9 +814,10 @@ var bannerFunc = (function () {
     }
 })();
 
-function AceptarContrato() {
+function AceptarContrato() { 
+    appVersion = appVersion == undefined ? "" : appVersion;
 
-    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato };
+    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato, AppVersion: appVersion };
     ShowLoading({});
 
     $.ajax({
@@ -825,9 +834,6 @@ function AceptarContrato() {
                 }
 
                 $("#fondoPopup_aceptacionTerminosYCondicionesContrato").hide();
-                if (viewBagCambioClave == 0) {
-                    console.log("VERIFICAR SI ABRE ESTA PANTALLA popupActualizarMisDatos")
-                }
             }
         },
         error: function (data, error) {

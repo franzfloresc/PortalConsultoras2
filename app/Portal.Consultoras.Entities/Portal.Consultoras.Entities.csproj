@@ -59,11 +59,13 @@
   <ItemGroup>
     <Compile Include="AsesoraOnline\BEAsesoraOnline.cs" />
     <Compile Include="Auditoria.cs" />
+    <Compile Include="BERespuestaServicio.cs" />
     <Compile Include="BaseEntidad.cs" />
     <Compile Include="BEActivarPremioNuevas.cs" />
     <Compile Include="BEAdministracionOfertaProducto.cs" />
     <Compile Include="BEAfiliaClienteConsultora.cs" />
     <Compile Include="BEAPISB2Response.cs" />
+    <Compile Include="BEEnviarSms.cs" />
     <Compile Include="BECategoria.cs" />
     <Compile Include="BEHorario.cs" />
     <Compile Include="BEConfiguracionPaisDatos.cs" />
@@ -72,7 +74,7 @@
     <Compile Include="BEGPRBanner.cs" />
     <Compile Include="BEGPRUsuario.cs" />
     <Compile Include="BEParametrosLider.cs" />
-    <Compile Include="BEPinAutenticacion.cs" />
+    <Compile Include="BEValidacionDatos.cs" />
     <Compile Include="BEPremiosProgramaNuevas.cs" />
     <Compile Include="CargaMasiva\BECargaMasivaImagenes.cs" />
     <Compile Include="BEMiCertificado.cs" />
@@ -81,6 +83,9 @@
     <Compile Include="Comunicado\BEComunicadoSegmentacion.cs" />
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
     <Compile Include="DENativeType.cs" />
+    <Compile Include="OpcionesVerificacion\BEFiltrosOpcionesVerificacion.cs" />
+    <Compile Include="OpcionesVerificacion\BEOpcionesVerificacion.cs" />
+    <Compile Include="OpcionesVerificacion\BEZonasOpcionesVerificacion.cs" />
     <Compile Include="Externos\ReservaSicc\BEIncentivoSicc.cs" />
     <Compile Include="Oferta\BEGuiaNegocio.cs" />
     <Compile Include="Oferta\BEOfertaDelDia.cs" />
@@ -289,7 +294,6 @@
     <Compile Include="ShowRoom\BEShowRoomCategoria.cs" />
     <Compile Include="ShowRoom\BEShowRoomCompraPorCompra.cs" />
     <Compile Include="ShowRoom\BEShowRoomNivel.cs" />
-    <Compile Include="ShowRoom\BEShowRoomOferta2.cs" />
     <Compile Include="ShowRoom\BEShowRoomOfertaDetalle.cs" />
     <Compile Include="ShowRoom\BEShowRoomOferta.cs" />
     <Compile Include="BEOfertaWeb.cs" />
@@ -353,6 +357,7 @@
     <Compile Include="BEUnidadGeografica.cs" />
     <Compile Include="ShowRoom\BEShowRoomTono.cs" />
     <Compile Include="RevistaDigital\BERevistaDigital.cs" />
+    <Compile Include="Usuario\BERespuestaActivarEmail.cs" />
     <Compile Include="Usuario\BEUsuario.cs" />
     <Compile Include="BEUsuarioCorreo.cs" />
     <Compile Include="BEUsuarioRol.cs" />

@@ -42,6 +42,7 @@ Thumbs.db
 *.cache
 *.ilk
 *.log
+*.orig
 [Bb]in
 [Dd]ebug*/
 *.lib
@@ -56,12 +57,16 @@ packages/
 app/Portal.Consultoras.ServiceHost/bin
 app/Portal.Consultoras.Web/bin
 app/Portal.Consultoras.Web/obj
-/app/Portal.Consultoras.Web/node_modules
+
+# Sonar
+.sonarqube/
+.scannerwork/
+app/.axoCover
+
+# Npm
+node_modules/
+**/node_modules/**
 
 # Cakebuild
 /app/tools/**
 !/app/tools/packages.config
-
-.sonarqube/
-.scannerwork/
-app/.axoCover

@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
             CronogramaFICModel model = new CronogramaFICModel
             {
                 listaPaises = DropDowListPaises(),
-                listaZonas = DropDownListZonas(UserData().PaisID),
+                listaZonas = _baseProvider.DropDownListZonas(userData.PaisID),
                 DropDownListCampania = CargarCampania()
             };
             return View(model);
@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
                                {
                                    a.Campania,
                                    a.Zona,
-                                   a.FechaFin == null ? "" : Convert.ToDateTime(a.FechaFin.ToString()).Day.ToString() + " de " + NombreMes(Convert.ToDateTime(a.FechaFin.ToString()).Month),
+                                   a.FechaFin == null ? "" : Convert.ToDateTime(a.FechaFin.ToString()).Day.ToString() + " de " + Util.NombreMes(Convert.ToDateTime(a.FechaFin.ToString()).Month),
                                    a.ZonaID.ToString(),
                                    a.CampaniaID.ToString()
                                 }

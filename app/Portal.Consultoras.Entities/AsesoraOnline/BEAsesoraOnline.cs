@@ -29,21 +29,11 @@ namespace Portal.Consultoras.Entities.AsesoraOnline
 
         public BEAsesoraOnline(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-
-            if (DataRecord.HasColumn(row, "Respuesta1"))
-                Respuesta1 = Convert.ToInt32(row["Respuesta1"]);
-
-            if (DataRecord.HasColumn(row, "Respuesta2"))
-                Respuesta2 = Convert.ToInt32(row["Respuesta2"]);
-
-            if (DataRecord.HasColumn(row, "Respuesta3"))
-                Respuesta3 = Convert.ToInt32(row["Respuesta3"]);
-
-            if (DataRecord.HasColumn(row, "Respuesta4"))
-                Respuesta4 = Convert.ToInt32(row["Respuesta4"]);
-
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            Respuesta1 = row.ToInt32("Respuesta1");
+            Respuesta2 = row.ToInt32("Respuesta2");
+            Respuesta3 = row.ToInt32("Respuesta3");
+            Respuesta4 = row.ToInt32("Respuesta4");
         }
     }
 }

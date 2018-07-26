@@ -1,11 +1,15 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.Models
+
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
 
 @{
     var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var codigo = ViewBag.Codigo ?? "";
+    var revistaDigital = ViewBag.revistaDigital ?? new RevistaDigitalShortModel();
+    var campaniaActual = ViewBag.CampaniaCodigo ?? 0;
 }
 
 @section styles
@@ -32,7 +36,6 @@
             position: relative;
             top: -2px;
         }
-
     </style>
     @Styles.Render("~/bundles/Css/Mobile/Site/OfertaParaTi-Detalle")
 }
@@ -82,7 +85,7 @@
                     }
                 </div>
             }
-            
+
             <div class="content_imagen_ficha">
                 <img id="fav_imagen_prod" src="@fotoMedium" alt="PRODUCTO" class="imagen_producto">
             </div>
@@ -107,9 +110,9 @@
                     var PrecioNiveles = Model.PrecioNiveles.Split('|').ToList();
                     foreach (var item in PrecioNiveles)
                     {
-                        
+
                         <div class="precio_para_ti_portantos"><div class="precio_para_ti_048"><b>@item</b></div></div>
-                        
+
                     }
                 }
             }
@@ -150,10 +153,10 @@
                                         <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
                                         <hr class="clear" />
                                     </div>
-                                    <div class="content_tonos_select" style="display:none;">
+                                    <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
                                         @foreach (var Hermano in Model.Hermanos)
                                         {
-                                            <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Hermano.CUV" data-tono-nombre="@Hermano.NombreBulk" data-tono-descripcion="@Hermano.NombreComercial">
+                                            <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Hermano.Cuv" data-tono-nombre="@Hermano.NombreBulk" data-tono-descripcion="@Hermano.NombreComercial">
                                                 <div class="tono_seleccionado"><img src="@Hermano.ImagenBulk" alt=""></div>
                                                 <div class="texto_tono_seleccionado">@Hermano.NombreBulk</div>
                                                 <hr class="clear" />
@@ -166,10 +169,10 @@
                                     @foreach (var Hermano in Model.Hermanos)
                                     {
                                         <div style="display: none;">
-                                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
+                                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.IdMarca" />
                                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
                                         </div>
-                                        <div class="content_tono_detalle" data-tono-cuv="@Hermano.CUV" data-tono-change="2" data-tono-nombre="@Hermano.NombreBulk">
+                                        <div class="content_tono_detalle" data-tono-cuv="@Hermano.Cuv" data-tono-change="2" data-tono-nombre="@Hermano.NombreBulk">
                                             <img src="@Hermano.ImagenBulk" alt="">
                                         </div>
                                     }
@@ -177,7 +180,8 @@
                                 <hr class="clear">
                             </div>
                         }
-                    }                    else if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                    }
+                    else if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
                     {
                         var claseItem = Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija ? "content_producto_individual" : "";
                         var claseItem3 = Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
@@ -194,7 +198,7 @@
                                     <div>
                                         <div class="@claseItem3" data-tono="" data-tono-select="" data-tono-digitable="@Hermano.Digitable">
                                             <div style="display: none;">
-                                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
+                                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.IdMarca" />
                                                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
                                             </div>
                                             <div class="nombre_producto_opt" data-tono-select-nombrecomercial="">
@@ -213,11 +217,11 @@
                                                             <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
                                                             <hr class="clear" />
                                                         </div>
-                                                        <div class="content_tonos_select" style="display:none;">
+                                                        <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
                                                             @foreach (var Tono in Hermano.Hermanos)
                                                             {
                                                                 btnDesabled = 1;
-                                                                <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Tono.CUV" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
+                                                                <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Tono.Cuv" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
                                                                     <div class="tono_seleccionado"><img src="@Tono.ImagenBulk" alt=""></div>
                                                                     <div class="texto_tono_seleccionado">@Tono.NombreBulk</div>
                                                                     <hr class="clear" />
@@ -258,33 +262,33 @@
 
     </div>
 
-    @if ((Model.ClaseBloqueada ?? "") == "")
+    @if ((Model.ClaseBloqueada ?? "") == "" || (revistaDigital.EsActiva && Model.CampaniaID == campaniaActual))
     {
         if (Model.TipoAccionAgregar > 0)
         {
-        <div class="row">
-            <div class="content_btn_agregar">
-                <div class="content_320">
-                    @if (btnDesabled == 1)
-                    {
-                        btnDesabledClass = "btn_desactivado_general";
-                    }
-                    <div class="content_cantidad_ficha_producto">
-                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+            <div class="row">
+                <div class="content_btn_agregar">
+                    <div class="content_320">
+                        @if (btnDesabled == 1)
+                        {
+                            btnDesabledClass = "btn_desactivado_general";
+                        }
+                        <div class="content_cantidad_ficha_producto">
+                            <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                            <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        </div>
+                        <a class="@btnDesabledClass btn_agregar_ficha_producto" id="tbnAgregarProducto"
+                           onclick="javascript:EstrategiaAgregar(event, true); ">AGRÉGALO</a>
+                        <hr class="clear">
                     </div>
-                    <a class="@btnDesabledClass btn_agregar_ficha_producto" id="tbnAgregarProducto"
-                       onclick="javascript:EstrategiaAgregar(event, true); ">AGRÉGALO</a>
-                    <hr class="clear">
                 </div>
             </div>
-        </div>
         }
     }
 </div>
 
-@if ((Model.ClaseBloqueada ?? "") != "")
+@if ((Model.ClaseBloqueada ?? "") != "" && !(revistaDigital.EsActiva && Model.CampaniaID == campaniaActual))
 {
     if (Model.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.HerramientasVenta)
     {

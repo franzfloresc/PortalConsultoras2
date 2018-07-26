@@ -16,7 +16,11 @@ namespace Portal.Consultoras.BizLogic.Reserva
         public async Task<BEResultadoReservaProl> ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             RespuestaProl respuestaProl = await ConsumirServicioProl(input, listPedidoWebDetalle);
-            if (respuestaProl == null) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_Error, false);
+            if (respuestaProl == null)
+            {
+                LogManager.SaveLog(new CustomTraceException(Constantes.MensajesError.Reserva_Prol2, ""), input.CodigoConsultora, input.PaisISO);
+                return new BEResultadoReservaProl(Constantes.MensajesError.Pedido_Reserva, false);
+            }
 
             var resultado = new BEResultadoReservaProl
             {
@@ -77,7 +81,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             using (var sv = new ServiceStockSsic())
             {
                 sv.Url = ConfigurationManager.AppSettings["Prol_" + input.PaisISO];
-                                
+                
                 if (!input.FechaHoraReserva) respuestaProl = await Task.Run(() => sv.wsValidacionEstrategia(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, input.MontoMinimo, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos));
                 else respuestaProl = await Task.Run(() => sv.wsValidacionInteractiva(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, input.MontoMinimo, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos, input.SegmentoInternoID.ToString()));
             }

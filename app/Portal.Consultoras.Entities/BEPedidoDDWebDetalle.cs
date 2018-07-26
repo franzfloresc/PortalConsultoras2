@@ -45,35 +45,20 @@ namespace Portal.Consultoras.Entities
 
         public BEPedidoDDWebDetalle(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt32(row["Cantidad"]);
-            if (DataRecord.HasColumn(row, "PrecioUnitario"))
-                PrecioUnitario = Convert.ToDecimal(row["PrecioUnitario"]);
-            if (DataRecord.HasColumn(row, "PrecioTotal"))
-                PrecioTotal = Convert.ToDecimal(row["PrecioTotal"]);
-            if (DataRecord.HasColumn(row, "IndicadorDigitable"))
-                IndicadorDigitable = Convert.ToBoolean(row["IndicadorDigitable"]);
-            if (DataRecord.HasColumn(row, "IndicadorMontoMinimo"))
-                IndicadorMontoMinimo = Convert.ToBoolean(row["IndicadorMontoMinimo"]);
-            if (DataRecord.HasColumn(row, "IndicadorFaltanteAnunciado"))
-                IndicadorFaltanteAnunciado = Convert.ToBoolean(row["IndicadorFaltanteAnunciado"]);
-            if (DataRecord.HasColumn(row, "IndicadorPromocion"))
-                IndicadorPromocion = Convert.ToBoolean(row["IndicadorPromocion"]);
-            if (DataRecord.HasColumn(row, "UsuarioResponsable"))
-                UsuarioResponsable = Convert.ToString(row["UsuarioResponsable"]);
-            if (DataRecord.HasColumn(row, "PedidoDetalleID"))
-                PedidoDetalleID = Convert.ToInt32(row["PedidoDetalleID"]);
-            if (DataRecord.HasColumn(row, "IndicadorEnviado"))
-                IndicadorEnviado = Convert.ToBoolean(row["IndicadorEnviado"]);
-            if (DataRecord.HasColumn(row, "FechaEnvio"))
-                FechaEnvio = Convert.ToDateTime(row["FechaEnvio"]);
-            if (DataRecord.HasColumn(row, "MotivoRechazo"))
-                MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
-
+            CUV = row.ToString("CUV");
+            Descripcion = row.ToString("Descripcion");
+            Cantidad = row.ToInt32("Cantidad");
+            PrecioUnitario = row.ToDecimal("PrecioUnitario");
+            PrecioTotal = row.ToDecimal("PrecioTotal");
+            IndicadorDigitable = row.ToBoolean("IndicadorDigitable");
+            IndicadorMontoMinimo = row.ToBoolean("IndicadorMontoMinimo");
+            IndicadorFaltanteAnunciado = row.ToBoolean("IndicadorFaltanteAnunciado");
+            IndicadorPromocion = row.ToBoolean("IndicadorPromocion");
+            UsuarioResponsable = row.ToString("UsuarioResponsable");
+            PedidoDetalleID = row.ToInt32("PedidoDetalleID");
+            IndicadorEnviado = row.ToBoolean("IndicadorEnviado");
+            FechaEnvio = row.ToDateTime("FechaEnvio");
+            MotivoRechazo = row.ToString("MotivoRechazo");
             if (row.HasColumn("ClienteID"))
                 ClienteID = row.GetValue<short>("ClienteID");
         }

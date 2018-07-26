@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string[] parametros = new string[] { userData.PaisID.ToString() + "|" + strCodigoUsuario };
             string str = Util.EncriptarQueryString(parametros);
-            string url = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_LIDER) + "?p=" + str;
+            string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_LIDER) + "?p=" + str;
 
             if (sessionManager.GetIngresoPortalLideres() == null)
             {

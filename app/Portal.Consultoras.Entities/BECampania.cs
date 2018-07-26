@@ -24,14 +24,14 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public bool Activo { get; set; }
-        
+
         public BECampania() { }
         public BECampania(IDataRecord row)
         {
             CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            Codigo = row["Codigo"].ToString();
+            Codigo = Convert.ToString(row["Codigo"]);
             Anio = Convert.ToInt32(row["Anio"]);
-            NombreCorto = row["NombreCorto"].ToString();
+            NombreCorto = Convert.ToString(row["NombreCorto"]);
             PaisID = Convert.ToInt32(row["PaisID"]);
             Activo = Convert.ToBoolean(row["Activo"]);
         }

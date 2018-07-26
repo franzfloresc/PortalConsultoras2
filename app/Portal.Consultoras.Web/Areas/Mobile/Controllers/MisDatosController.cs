@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.VerCambiarClave = opcionCambiaClave;
 
             int limiteMinimoTelef, limiteMaximoTelef;
-            GetLimitNumberPhone(out limiteMinimoTelef, out limiteMaximoTelef);
+            Util.GetLimitNumberPhone(userData.PaisID, out limiteMinimoTelef, out limiteMaximoTelef);
             ViewBag.limiteMinimoTelef = limiteMinimoTelef;
             ViewBag.limiteMaximoTelef = limiteMaximoTelef;
 
@@ -48,7 +48,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.AceptoContrato = beusuario.AceptoContrato;
                 model.UsuarioPrueba = userData.UsuarioPrueba;
                 model.CodigoUsuarioReal = userData.CodigoUsuario;
-                model.NombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
+                model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
+                model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
 
                 BEZona[] bezona;
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
@@ -68,7 +69,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
                 model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
-                string paisesDigitoControl = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
+                string paisesDigitoControl = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
                 model.DigitoVerificador = string.Empty;
 
                 if (paisesDigitoControl.Contains(model.PaisISO) && !String.IsNullOrEmpty(beusuario.DigitoVerificador))

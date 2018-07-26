@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCatalogosIssuu;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -18,6 +19,12 @@ namespace Portal.Consultoras.Web.Controllers
     public class MisCatalogosRevistasController : BaseController
     {
         private const string TextoMensajeSaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
+        private readonly IssuuProvider _issuuProvider;
+
+        public MisCatalogosRevistasController()
+        {
+            _issuuProvider = new IssuuProvider();
+        }
 
         public ActionResult Index()
         {
@@ -28,19 +35,19 @@ namespace Portal.Consultoras.Web.Controllers
 
             var clienteModel = new MisCatalogosRevistasModel
             {
-                PaisNombre = GetPaisNombreByISO(userData.CodigoISO),
+                PaisNombre = Util.GetPaisNombreByISO(userData.CodigoISO),
                 CampaniaActual = userData.CampaniaID.ToString(),
-                CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString(),
-                CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString(),
+                CampaniaAnterior = Util.AddCampaniaAndNumero(userData.CampaniaID, -1, userData.NroCampanias).ToString(),
+                CampaniaSiguiente = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias).ToString(),
                 TieneSeccionRD = (revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI,
                 TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva,
                 TieneGND = userData.TieneGND
             };
             clienteModel.Titulo = clienteModel.TieneSeccionRD || clienteModel.TieneSeccionRevista ? "Catálogos y Revistas" : "Catálogos";
 
-            clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
-            clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
-            clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
+            clienteModel.CodigoRevistaActual = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaActual, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+            clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
+            clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
 
             clienteModel.PartialSectionBpt = GetPartialSectionBptModel();
 
@@ -89,14 +96,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<Catalogo> catalogos = new List<Catalogo>();
             string urlIssuuSearch = "http:" + Constantes.CatalogoUrlIssu.Buscador;
-            string urlIssuuVisor = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
+            string urlIssuuVisor = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
 
             try
             {
-                string catalogoLbel = GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.LBel);
-                string catalogoEsika = GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Esika);
-                string catalogoCyzone = GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Cyzone);
-                string catalogoFinart = GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Finart);
+                string catalogoLbel = _issuuProvider.GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.LBel, userData.CodigoISO, userData.CodigoZona);
+                string catalogoEsika = _issuuProvider.GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Esika, userData.CodigoISO, userData.CodigoZona);
+                string catalogoCyzone = _issuuProvider.GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Cyzone, userData.CodigoISO, userData.CodigoZona);
+                string catalogoFinart = _issuuProvider.GetCatalogoCodigoIssuu(campaniaId, Constantes.Marca.Finart, userData.CodigoISO, userData.CodigoZona);
 
                 var url = urlIssuuSearch +
                     "docname:" + catalogoLbel + "+OR+" +
@@ -242,15 +249,15 @@ namespace Portal.Consultoras.Web.Controllers
                 string ffechaFact = fdf + " de " + char.ToUpper(fmf[0]) + fmf.Substring(1);
                 string urlIssuCatalogo = string.Empty;
 
-                string urlImagenLogo = "http://www.genesis-peru.com/mailing-belcorp/logo.png";
-                string urlIconEmail = "http://www.genesis-peru.com/mailing-belcorp/mensaje_mail.png";
-                string urlIconTelefono = "http://www.genesis-peru.com/mailing-belcorp/celu_mail.png";
+                string urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png";
+                string urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail.png";
+                string urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail.png";
 
-                if (!GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
+                if (!_configuracionManagerProvider.GetPaisesEsikaFromConfig().Contains(userData.CodigoISO))
                 {
-                    urlImagenLogo = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png";
-                    urlIconEmail = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/SWR2zWZftNbE4mn/mensaje_mail.png";
-                    urlIconTelefono = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1YI6wJJKvX90WZk/celu_mail.png";
+                    urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png";
+                    urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail_lbel.png";
+                    urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail_lbel.png";
                 }
 
                 var txtBuil = new StringBuilder();
@@ -396,21 +403,21 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<tbody>";
                     mailBody += "<tr>";
                     mailBody += "<td style=\"width:11%; text-align:left; vertical-align:top;\">";
-                    mailBody += "<img src=\"http://www.genesis-peru.com/mailing-belcorp/logo-belcorp.png\" alt=\"Logo Belcorp\" />";
+                    mailBody += "<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-belcorp.png\" alt=\"Logo Belcorp\" />";
                     mailBody += "</td>";
                     mailBody += "<td style=\"width:8%; text-align:left;\">";
                     mailBody += "<a href=\"http://www.esika.biz\" style=\"width:100%; display:block;\">";
-                    mailBody += "<img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/G9GQryrWRTreo75/logo-esika.png\" alt=\"Logo Esika\" />";
+                    mailBody += "<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-esika.png\" alt=\"Logo Esika\" />";
                     mailBody += "</a>";
                     mailBody += "</td>";
                     mailBody += "<td style=\"width:8%; text-align:left;\">";
                     mailBody += "<a href=\"http://www.lbel.com\" style=\"width:100%; display:block;\">";
-                    mailBody += "<img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/T3o8rSPUKtKpe4g/logo-lbel.png\" alt=\"Logo L'bel\" />";
+                    mailBody += "<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-lbel.png\" alt=\"Logo L'bel\" />";
                     mailBody += "</a>";
                     mailBody += "</td>";
                     mailBody += "<td style=\"width:15%; text-align:left;border-right:1px solid #FFF;\">";
                     mailBody += "<a href=\"http://www.cyzone.com\" style=\"width:100%; display:block;\">";
-                    mailBody += "<img src=\"https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Correo/logo-cyzone.png\" alt=\"Logo Cyzone\" />";
+                    mailBody += "<img src=\"" + Globals.RutaCdn + "/Correo/logo-cyzone.png\" alt=\"Logo Cyzone\" />";
                     mailBody += "</a>";
                     mailBody += "</td>";
                     mailBody += "<td style=\"width:15%; font-family:'Calibri'; font-weight:400; font-size:13px; color:#FFF; vertical-align:middle;\">";
@@ -420,7 +427,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<td style=\"text-align: right; font-family:'Calibri'; font-weight:400; font-size:13px; vertical-align: middle; width: 69%; color:white;\">S&Iacute;GUENOS</td>";
                     mailBody += "<td style=\"text-align: right; position: relative; top: 2px; left: 10px; width: 20%; vertical-align: top;\">";
                     mailBody += "<a href=\"https://es-la.facebook.com/SomosBelcorpOficial\" style=\"width:100%; display:block;\">";
-                    mailBody += "<img src=\"http://www.genesis-peru.com/mailing-belcorp/logo-facebook.png\" alt=\"Logo Facebook\" /></td>";
+                    mailBody += "<img src=\"" + Globals.RutaCdn + "/ImagenesPortal/Iconos/logo-facebook.png\" alt=\"Logo Facebook\" /></td>";
                     mailBody += "</a>";
                     mailBody += "</tr>";
                     mailBody += "</tbody>";
@@ -548,10 +555,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (string.IsNullOrEmpty(campania)) return Json(new { success = false }, JsonRequestBehavior.AllowGet);
 
-                string codigo = GetRevistaCodigoIssuu(campania);
+                string codigo = _issuuProvider.GetRevistaCodigoIssuu(campania, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
                 if (string.IsNullOrEmpty(codigo)) return Json(new { success = false }, JsonRequestBehavior.AllowGet);
                 
-                string url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
+                string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
                 url = string.Format(url, codigo);
                 return Json(new { success = true, urlRevista = url }, JsonRequestBehavior.AllowGet);
             }
@@ -564,7 +571,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool EsCatalogoUnificado(int campania)
         {
-            string paisesCatalogoUnificado = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoUnificado);
+            string paisesCatalogoUnificado = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoUnificado);
             if (!paisesCatalogoUnificado.Contains(userData.CodigoISO)) return false;
 
             string paisUnificado = paisesCatalogoUnificado.Split(';').FirstOrDefault(pais => pais.Contains(userData.CodigoISO));

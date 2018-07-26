@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceSAC;
 using System;
@@ -17,11 +18,19 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class MisPagosController : BaseController
     {
+        protected EstadoCuentaProvider _estadoCuentaProvider;
+
+        public MisPagosController()
+        {
+            _estadoCuentaProvider = new EstadoCuentaProvider();
+        }
+
         #region Acciones
 
         public ActionResult Index(string pestanhaInicial)
         {
             sessionManager.SetListadoEstadoCuenta(null);
+            //Session["ListadoEstadoCuenta"] = null;
 
             string fechaVencimiento;
             string montoPagar;
@@ -35,7 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
                 CodigoISO = userData.CodigoISO,
                 UrlChileEncriptada = Util.EncriptarQueryString(parametroAEncriptar),
                 RutaChile = userData.CodigoISO == Constantes.CodigosISOPais.Chile
-                    ? GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile)
+                    ? _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile)
                     : string.Empty,
                 MostrarFE = userData.CodigoISO == Constantes.CodigosISOPais.Ecuador || userData.CodigoISO == Constantes.CodigosISOPais.Peru ? " " : "display: none;",
                 Simbolo = string.Format("{0} ", userData.Simbolo),
@@ -93,7 +102,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             });
 
-            var ultimoMovimiento = ObtenerUltimoMovimientoEstadoCuenta();
+            var ultimoMovimiento = _estadoCuentaProvider.ObtenerUltimoMovimientoEstadoCuenta(userData.PaisID, userData.TienePagoEnLinea, userData.ConsultoraID, userData.ZonaHoraria, userData.Simbolo, userData.CodigoISO);
 
             items = items.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
@@ -632,9 +641,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             string iso = userData.CodigoISO;
-            var carpetaPais = Globals.UrlLugaresPago + "/" + iso;
+            
             if (lst.Any())
-                lst.Update(x => x.ArchivoLogo = ConfigS3.GetUrlFileS3(carpetaPais, x.ArchivoLogo, Globals.RutaImagenesLugaresPago + "/" + iso));
+            {
+                var carpetaPais = Globals.UrlLugaresPago + "/" + iso;
+                lst.Update(x => x.ArchivoLogo = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ArchivoLogo));
+            }                
 
             var lugaresPagoModel = new LugaresPagoModel()
             {

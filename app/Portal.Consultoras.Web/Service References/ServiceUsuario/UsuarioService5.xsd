@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="ArrayOfint">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.OpcionesVerificacion" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.OpcionesVerificacion" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="BEUsuarioDatos">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="int" type="xs:int" />
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CelularEnmascarado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoIso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CorreoEnmascarado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionHorario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsMobile" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HoraRestanteCorreo" type="xs:int" />
+      <xs:element minOccurs="0" name="HoraRestanteSms" type="xs:int" />
+      <xs:element minOccurs="0" name="IdEstadoActividad" type="xs:int" />
+      <xs:element minOccurs="0" name="MensajeSaludo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MostrarOpcion" type="xs:int" />
+      <xs:element minOccurs="0" name="OpcionChat" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OpcionCorreoActiva" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OpcionCorreoDesabilitado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OpcionDesabilitado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OpcionSmsActiva" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OpcionSmsDesabilitado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrigenDescripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrigenID" type="xs:int" />
+      <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegionID" type="xs:int" />
+      <xs:element minOccurs="0" name="TelefonoCentral" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
+      <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="opcionHabilitar" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfint" nillable="true" type="tns:ArrayOfint" />
+  <xs:element name="BEUsuarioDatos" nillable="true" type="tns:BEUsuarioDatos" />
 </xs:schema>

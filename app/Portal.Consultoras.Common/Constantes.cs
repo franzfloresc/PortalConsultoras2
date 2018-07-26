@@ -142,7 +142,7 @@ namespace Portal.Consultoras.Common
             public const int BusquedaNemotecnicoProductoSugerido = 9853;
             public const int BusquedaNemotecnicoZonaEstrategia = 9854;
             public const int Tonos = 9802;
-            
+
             public const int ValoresImagenesResizeWitdhMaxSmall = 12101;
             public const int ValoresImagenesResizeHeightSmall = 12102;
             public const int ValoresImagenesResizeWitdhMaxMedium = 12103;
@@ -161,7 +161,13 @@ namespace Portal.Consultoras.Common
             public const int MensajeInformacionPagoExitoso = 12211;
 
             public const int CantidadCuvMasivo_NuevoMasivo = 13701;
+            public const int ActualizaDatosEnabled = 14301;
 
+            public static class PersonalizacionOdd
+            {
+                public static readonly int ColorFondoBanner = 9301;
+                public static readonly int ColorFondoDisplay = 9302;
+            }
         }
 
         public static class ParametrosNames
@@ -231,6 +237,26 @@ namespace Portal.Consultoras.Common
             public const string NotParticipaProgramaNuevas = "0";
         }
 
+        public static class NombrePalanca
+        {
+            public const string OfertaParaTi = "OfertaParaTi";
+            public const string PackNuevas = "PackNuevas"; // Oferta Nueva Esika
+            public const string OfertaWeb = "OfertaWeb";
+            public const string Lanzamiento = "LoNuevoNuevo";
+            public const string OfertasParaMi = "OfertasParaMi";
+            public const string PackAltoDesembolso = "PackAltoDesembolso";
+            public const string RevistaDigital = "RevistaDigital"; // No tiene referecia con BD, es un grupo de estrategias
+            public const string LosMasVendidos = "LosMasVendidos";
+            public const string IncentivosProgramaNuevas = "IncentivosProgramaNuevas";
+            public const string OfertaDelDia = "SoloHoy";
+            public const string GuiaDeNegocioDigitalizada = "GuiadeNegocio";
+            public const string Incentivos = "Incentivos";
+            public const string ShowRoom = "Especiales";
+            public const string HerramientasVenta = "Demostradores";
+            public const string ProgramaNuevasRegalo = "ProgramaNuevasRegalo";
+            public const string ParticipaProgramaNuevas = "ParticipaProgramaNuevas";
+            public const string NotParticipaProgramaNuevas = "NotParticipaProgramaNuevas";
+        }
         public static class ConstSession
         {
             public const string IngresoPortalLideres = "IngresoPortalLideres";
@@ -260,8 +286,11 @@ namespace Portal.Consultoras.Common
             public const string TablaLogicaDatos = "TablaLogicaDatos";
 
             //ShowRoom
-            public const string ListaProductoShowRoom = "ListaProductoShowRoom";
-            public const string ListaProductoShowRoomCpc = "ListaProductoShowRoomCpc";
+            public const string CargoShowRoomOfertas = "CargoShowRoomOfertas";
+            public const string ListaShowRoomOfertas = "ListaShowRoomOfertas";
+            public const string ListaShowRoomSubCampania = "ListaShowRoomSubCampania";
+            public const string ListaShowRoomOfertasPerdio = "ListaShowRoomOfertasPerdio";
+            public const string ListaShowRoomOfertasCpc = "ListaShowRoomOfertasCpc";
 
             //FIC
             public const string PedidoFIC = "PedidoFIC";
@@ -431,7 +460,7 @@ namespace Portal.Consultoras.Common
             public const string Catalogo_Piloto_Grupos = "Catalogo_Piloto_Grupos_";
             public const string Catalogo_Marca_Piloto = "Catalogo_Marca_Piloto_";
             public const string SubGuion = "_";
-            
+
             public const string EnabledRemoveCache = "EnabledRemoveCache";
             public const string UrlServiceSicc = "UrlServiceSicc";
             public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
@@ -571,32 +600,41 @@ namespace Portal.Consultoras.Common
             public const int MobilePedidoOfertaFinal = 2261;
 
             #region ShowRoom
-            public const int DesktopShowRoomLandingIntriga = 1511;
-            public const int DesktopShowRoomLandingCompra = 1521;
-            public const int DesktopShowRoomLandingCompraTactica = 1522;
-            public const int DesktopShowRoomProductPage = 1531;
-            public const int DesktopShowRoomProductPageCarrusel = 1532;
-            public const int DesktopShowRoomProductPageTactica = 1533;
-            public const int DesktopShowRoomBienvenida = 1541;
-            public const int DesktopShowRoomSubCampanias = 1524;
-            public const int DesktopShowRoomContenedor = 1871;
-            public const int MobileShowRoomSubCampanias = 2524;
-            public const int MobileShowRoomLandingIntriga = 2511;
-            public const int MobileShowRoomLandingCompraTactica = 2522;
-            public const int MobileShowRoomProductPage = 2531;
-            public const int MobileShowRoomProductPageCarrusel = 2532;
-            public const int MobileShowRoomProductPageTactica = 2533;
-            public const int MobileShowRoom = 2571;
+            public const int ShowRoomDesktopLandingIntriga = 1511;
+            public const int ShowRoomDesktopLandingCompra = 1521;
+            public const int ShowRoomDesktopLandingCompraTactica = 1522;
+            public const int ShowRoomDesktopProductPage = 1531;
+            //public const int ShowRoomDesktopProductPageCarrusel = 1532;
+            //public const int ShowRoomDesktopProductPageTactica = 1533;
+            public const int ShowRoomDesktopHome = 1541;
+            public const int ShowRoomDesktopSubCampania = 1524;
+            public const int ShowRoomDesktopContenedor = 1871;
+
+            public const int ShowRoomMobileLandingIntriga = 2511;
+            public const int ShowRoomMobileLandingCompra = 2521;
+            //public const int ShowRoomMobileLandingCompraTactica = 2522;   // revisar
+            public const int ShowRoomMobileProductPage = 2531;
+            //public const int ShowRoomMobileProductPageCarrusel = 2532;
+            //public const int ShowRoomMobileProductPageTactica = 2533;
+            public const int ShowRoomMobileSubCampania = 2524;
+            public const int ShowRoomMobileContenedor = 2871;
+            //public const int MobileShowRoom = 2571;
             #endregion
 
             #region OfertaDelDia 
             // no tulizan estas variables, todos estos estan en la logica en ofertaDelDia.js
             public const int OfertaDelDiaDesktopHomeBanner = 1191;
-            public const int OfertaDelDiaDesktopHomeDisplay = 1192;
+            //public const int DesktopOfertaDelDiaHomeDisplay = 1192;
             public const int OfertaDelDiaDesktopPedidoBanner = 1291;
-            public const int OfertaDelDiaDesktopPedidoDisplay = 1292;
+            //public const int DesktopOfertaDelDiaPedidoDisplay = 1292;
             public const int OfertaDelDiaDesktopGeneralBanner = 1991;
-            public const int OfertaDelDiaDesktopGeneralDisplay = 1992;
+            //public const int DesktopOfertaDelDiaGeneralDisplay = 1992;
+            public const int OfertaDelDiaDesktopContenedor = 1891;
+            public const int OfertaDelDiaDesktopFicha = 1491;
+
+            public const int OfertaDelDiaMobileHomeBanner = 2191;
+            public const int OfertaDelDiaMobileContenedor = 2891;
+            public const int OfertaDelDiaMobileFicha = 2491;
             #endregion
 
             #region RevistaDigital
@@ -849,6 +887,8 @@ namespace Portal.Consultoras.Common
             public const int Cupon = 10;
             public const int CuponForzado = 11;
             public const int AsesoraOnline = 12;
+            public const int ActualizarCorreo = 13; // OMGC
+
         }
 
         public static class GPRMotivoRechazo
@@ -1128,16 +1168,37 @@ namespace Portal.Consultoras.Common
             public const string RecuperarContrasenia = "Error en la respuesta del servicio de Recuperar Contraseña.";
             public const string SinConexion_LoginChatbot = "Necesitas internet para acceder a esta opción.";
             public const string SinConexion_CatalogoRevistaIssu = "Necesitas internet para acceder a esta opción.";
+            public const string SinConexion_Reserva = "Necesita tener conexion a internet para poder reservar.";
             public const string ReportePedidoDDWeb_DescargaCabecera = "Ocurrió un error al intentar descargar sus pedidos. Inténtelo más tarde.";
             public const string ReportePedidoDDWeb_DescargaDetalle = "Ocurrió un error al intentar descargar los detalles de sus pedidos. Inténtelo más tarde.";
             public const string LimiteDescargaSobrepasado = "El archivo no se puede descargar debido a que se sobrepaso el máximo de items ({0}).";
             public const string PaqueteDocumentario_ConsumirServicio = "Ocurrió un error al intentar obtener la información. Por favor, vuelva a intentar dentro de unos minutos.";
             public const string Cache_Eliminar = "Ocurrió un error al eliminar la caché. Inténtelo más tarde";
-            public const string Reserva_Error = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo.";
+            public const string Pedido_Reserva = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo.";
             public const string Reserva_SinDetalle = "No tiene productos que reservar esta campaña.";
+            public const string Pedido_DeleteAll = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
+            public const string UpdCorreoConsultora = "Ocurrió un error al intentar actualizar su correo. Inténtelo más tarde.";
+            public const string UpdCorreoConsultora_NoAutorizado = "Su país no permite la actualización de datos.";
+            public const string UpdCorreoConsultora_CorreoVacio = "Debe ingresar un correo nuevo.";
+            public const string UpdCorreoConsultora_CorreoNoCambia = "Debe ingresar un correo diferente a su correo actual.";
+            public const string UpdCorreoConsultora_CorreoYaExiste = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.";
+            public const string ActivacionCorreo = "Ha ocurrido un error con la activación de su correo electrónico.";
+            public const string ActivacionCorreo_NoExiste = "No existe una activación de correo pendiente para su correo.";
+            public const string ActivacionCorreo_EstaActivo = "Esta dirección de correo electrónico ya ha sido activada.";
+            public const string ValorVacio = "El valor no puede estar vacío.";
+            public const string CodigoIncorrecto = "El código ingresado no es el correcto.";
+            public const string CelularActivacion = "No se pudo confirmar el número registrado.";
+            public const string CelularEnUso = "El número ya esta en uso.";
             public const string DeleteAllPedido_Error = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
             public const string Reserva_ObsHuerfanas = "Reserva_ObsHuerfanas: Se obtuvieron observaciones al reservar que no se encuentran en el detalle.";
+            public const string Reserva_Prol2 = "Reserva_Prol2: El servicio externo de reserva de Prol2 retornó vacio.";
+            public const string Reserva_Prol3 = "Reserva_Prol3: El servicio externo de reserva de Sicc retornó vacio o error.";
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
+        }
+
+        public static class MensajesExito
+        {
+            public const string UpdCorreoConsultora_Reenvio = "Email reenviado satisfactoriamente.";
         }
 
         public static class ConfiguracionPais
@@ -1145,6 +1206,7 @@ namespace Portal.Consultoras.Common
             public const string InicioRD = "INICIORD";
             public const string Inicio = "INICIO";
             public const string OfertasParaTi = "OPT";
+            public const string OfertasParaMi = "OPM";
             public const string RevistaDigitalIntriga = "RDI";
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
@@ -1164,6 +1226,7 @@ namespace Portal.Consultoras.Common
             public const string PagoEnLinea = "PAYONLINE";
         }
 
+        
         public static class ConfiguracionPaisComponente
         {
             public static class RD
@@ -1450,7 +1513,9 @@ namespace Portal.Consultoras.Common
             public const int ValoresPagoEnLinea = 122;
             public const int CantidadCuvMasivo = 137;
             public const short ProlObsCod = 5;
+            public const int ActualizaDatosEnabled = 143;
             public const short HabilitarChatEmtelco = 144;
+            public const short OrdenamientoShowRoom = 99;
         }
 
         public struct MensajesCDRExpress
@@ -1671,11 +1736,6 @@ namespace Portal.Consultoras.Common
             public const string CalculoPuntos = "X;K";
             public const string CalculoProgramaNuevas = "P";
         }
-        public struct CodigoHorario
-        {
-            public const string ChatEmtelco = "ChatEmtelco";
-            public const string BelcorpResponde = "BelcorpResponde";
-        }
 
         public static class ComunicadoTipoDispositivo
         {
@@ -1759,6 +1819,15 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVentaIndex = "/herramientasventa/index";
             public const string HerramientasVentaRevisar = "/herramientasventa/revisar";
             public const string HerramientasVentaComprar = "/herramientasventa/comprar";
+
+            public const string DetalleHerramientasVenta = "/detalle/demostradores";
+            public const string DetalleLanzamiento = "/detalle/lonuevonuevo";
+            public const string DetalleOfertaParaTi = "/detalle/ofertaparati";
+            public const string DetalleOfertasParaMi = "/detalle/ofertasparami";
+            public const string DetalleGuiaDeNegocioDigitalizada = "/detalle/guiadenegocio";
+            public const string DetalleShowRoom = "/detalle/especiales";
+            public const string DetalleOfertaDelDia = "/detalle/solohoy";
+            public const string DetallePackNuevas = "/detalle/packnuevas";
         }
 
         public static class TipoVistaEstrategia
@@ -1827,7 +1896,7 @@ namespace Portal.Consultoras.Common
             public class EncenderValidacion
             {
                 public const short TablaLogicaID = 7;
-                public const string Activo = "Activo"; 
+                public const string Activo = "Activo";
             }
 
             public class Rango
@@ -1949,6 +2018,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_PRODUCTO_OFERTAREVISTA_ESIKA = "1106";
                 public const string ERROR_PRODUCTO_OFERTAREVISTA_LBEL = "1107";
                 public const string ERROR_PRODUCTO_ESTRATEGIA = "1108";
+                public const string ERROR_PRODUCTO_SUGERIDO = "1109";
 
                 public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                 public const string ERROR_STOCK_ESTRATEGIA = "2102";
@@ -1994,6 +2064,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_ESIKA, "Este producto está de oferta en la Guía de Negocio Ésika."},
                         {Code.ERROR_PRODUCTO_OFERTAREVISTA_LBEL, "Este producto está de oferta en Mi Negocio L’Bel."},
                         {Code.ERROR_PRODUCTO_ESTRATEGIA, string.Empty},
+                        {Code.ERROR_PRODUCTO_SUGERIDO,"Este producto tiene reemplazos sugeridos." },
 
                         {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
                         {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
@@ -2051,7 +2122,7 @@ namespace Portal.Consultoras.Common
             public const int Valor2 = 2;
             public const int Valor3 = 3;
         }
-        
+
         public class ProlCodigoRechazo
         {
             public const string MontoMinimo = "XXXXX";
@@ -2065,7 +2136,7 @@ namespace Portal.Consultoras.Common
             public const string MontoMinFact = "MontoMinFact";
             public const string MontoMinVentaDesc = "MontoMinVentaDesc";
             public const string MontoMinFactDesc = "MontoMinFactDesc";
-            public const string MontoMaximo  = "MontoMaximo";
+            public const string MontoMaximo = "MontoMaximo";
             public const string LimiteVenta0 = "LimiteVenta0";
             public const string LimiteVenta = "LimiteVenta";
             public const string Promocion2003 = "Promocion2003";
@@ -2093,17 +2164,164 @@ namespace Portal.Consultoras.Common
             public const string Stock = "{stock}";
         }
 
-        #region Pin Autenticidad
+        public class OpcionesDeVerificacion
+        {
+            public const int OrigenOlvideContrasenia = 1;
+            public const int OrigenVericacionAutenticidad = 2;
+            public const int OrigenActulizarDatos = 3;            
+        }
+
+        public class CambioCorreoResult
+        {
+            public const string Valido = "Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.";
+            public const string Invalido = "Esta dirección de correo electrónico ya ha sido activada. ";
+        }
+        
         public class EnviarCorreoYSms
         {
             public const string Activo = "Activo";
             public const string IdEstadoActividad = "IdEstadoActividad";
 
-            public const int RecuperarClave = 1;
-            public const int Autenticacion = 2;
-            public const int EnviarPorEmail = 1;
-            public const int EnviarPorSms = 2;
+            public const int Origen_RecuperarClave = 1;
+            public const int Origen_Autenticacion = 2;
+            public const int Origen_ActualizarCorreo = 3;
+            public const int OrigenActualizarCelular = 3;
+
+            public const string OrigenDescripcion = "actualizar datos";
+
+            public const int TipoEnvio_Email = 1;
+        }
+
+        #region Olvide Contrasenia
+        public class OlvideContrasenia
+        {
+            public const int Origen = 1;
+            public const string OrigenDescripcion = "Olvide Contraseña";
+
+            public class TablaLogica
+            {
+                public const short TablaLogicaID = 8;
+                public const string MostarTodasOpciones = "MostarTodasOpciones";
+                public const string OpcionEmail = "OpcionEmail";
+                public const string OpcionSms = "OpcionSms";
+                public const string OpcionChat = "OpcionChat";
+                public const string OpcionBelcorpResponde = "OpcionBelcorpResponde";
+            }
+
+            public class CodigoOpciones
+            {
+                public const string ChatEmtelco = "ChatEmtelco";
+                public const string BelcorpResponde = "BelcorpResponde";
+            }
+
+            public class NombreOpcion
+            {
+                public const int MostrarEmailyCelular = 1;
+                public const int MostrarEmail = 2;
+                public const int MostrarCelular = 3;
+                public const int MostrarChat = 4;
+                public const int MostrarBelcorpResponde = 5;
+                public const int MostrarMensajeFueraHorario = 6;
+
+            }
+
+            public class Mensajes
+            {
+                public const string ErrorPais = "No se ha encontrado el País.";
+                public const string ErrorValor = "No se ha encontrado el valor ingresado.";
+                //public const string CorreoNoIdentificado = "Correo electrónico no identificado.";
+                //public const string ErrorEnviarCorreo = "Error al realizar el envío del correo, inténtelo mas tarde.";
+                //public const string ErrorEnviarSms = "Error al realizar el envío del mensaje de texto, inténtelo mas tarde.";
+                //public const string ExcedeCantidad = "Ha excedido la cantidad de envios.";
+                //public const string OrigenEnvioDesconocido = "Origen de envío desconocido.";
+                //public const string EnvioCorreoExitoso = "Te hemos enviado un enlace a tu correo, para restaurar tu clave.";
+                //public const string EnvioSmsExitoso = "Mensaje de texto enviado correctamente";
+            }            
+        }
+        #endregion
+
+        #region Verificar Pin Autenticidad
+        public class VerificacionAutenticidad
+        {
+            public const string OrigenDescripcion = "Verificacion de Autenticidad";
+
+            public class TablaLogica
+            {
+                public const short TablaLogicaID = 139;
+                public const string Activar = "Activar";
+                public const string TieneZona = "TieneZona";
+                public const string OpcionEmail = "OpcionEmail";
+                public const string OpcionSms = "OpcionSms";
+                public const string IdEstadoActividad = "IdEstadoActividad";
+            }
+
+            public class NombreOpcion
+            {
+                public const int MostrarEmailyCelular = 1;
+                public const int MostrarEmail = 2;
+                public const int MostrarCelular = 3;
+                public const int MostrarChat = 4;
+
+                public const int SinOpcion = 5;
+            }           
+            
+            public const int Origen = 2;
+        }
+
+        public class EnviarSMS
+        {
+            public class CredencialesProvedoresSMS
+            {
+                public const short TablaLogicaID = 133;
+                public class Bolivia
+                {
+                    public const string USUARIO = "USUARIO";
+                    public const string CLAVE = "CLAVE";
+                    public const string URL = "URL";
+                    public const string RECURSO = "RECURSO";
+                    public const string MENSAJE = "MENSAJE";
+                    public const string MENSAJE_OPTIN = "MENSAJE_OPTIN";
+                }
+            }
+
+            public class SmsConsultoraWs
+            {
+                public const string urlKey = "SmsConsultorasWS";
+                public const string RecursoApi = "Api/EnviarSms";
+            }
+
+            public class Mensaje
+            {
+                public const string NoEnviaSMS = "Mensaje de texto no enviado, inténtelo mas tarde.";
+            }
+        }
+
+        public class EnviarEmail
+        {
+            public const string NoEnvioEmail = "Email no se ha enviado, inténtelo mas tarde.";
+        }
+
+        public class TipoEnvioEmailSms
+        {
+            public const string EnviarPorEmail = "Email";
+            public const string EnviarPorSms = "SMS";
         }
         #endregion  
+
+        public static class ValidacionDatosEstado
+        {
+            public const string Pendiente = "P";
+            public const string Activo = "A";
+        }
+        
+        public class TipoConsultaOfertaPersonalizadas
+        {
+            public const int RDObtenerProductos = 1;
+            public const int RDObtenerProductosLan = 2;
+            public const int GNDObtenerProductos = 3;
+            public const int HVObtenerProductos = 4;
+            public const int OPTObtenerProductos = 5;
+        };
+
     }
 }

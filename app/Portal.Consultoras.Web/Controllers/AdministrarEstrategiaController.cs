@@ -1,8 +1,8 @@
 using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
@@ -27,6 +27,13 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarEstrategiaController : BaseController
     {
+        protected RenderImgProvider _renderImgProvider;
+
+        public AdministrarEstrategiaController()
+        {
+            _renderImgProvider = new RenderImgProvider();
+        }
+
         public ActionResult Index(int TipoVistaEstrategia = 0)
         {
             EstrategiaModel estrategiaModel;
@@ -38,9 +45,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var paisIso = Util.GetPaisISO(userData.PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
-                var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+                var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
 
-                var habilitarNemotecnico = ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
+                var habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
                     Constantes.TablaLogicaDato.BusquedaNemotecnicoZonaEstrategia);
 
                 estrategiaModel = new EstrategiaModel()
@@ -51,7 +58,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ListaEtiquetas = DropDowListEtiqueta(),
                     UrlS3 = urlS3,
                     habilitarNemotecnico = habilitarNemotecnico == "1",
-                    ExpValidacionNemotecnico = GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico),
+                    ExpValidacionNemotecnico = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico),
                     TipoVistaEstrategia = TipoVistaEstrategia,
                     PaisID = userData.PaisID
                 };
@@ -133,9 +140,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst != null && lst.Count > 0)
             {
-                var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenEstrategia,
-                    Globals.RutaImagenesMatriz + "/" + userData.CodigoISO));
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                lst.Update(x => x.ImagenEstrategia = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenEstrategia));
 
                 var lista = (from a in lst
                              where a.FlagActivo == 1
@@ -229,7 +235,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
                     if (lst.Count > 0)
-                        lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
+                        lst.Update(x => x.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenURL));
 
                     var grid = new BEGrid
                     {
@@ -613,7 +619,7 @@ namespace Portal.Consultoras.Web.Controllers
             var respuestaServiceCdr = new List<RptProductoEstrategia>();
             try
             {
-                var codigo = ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
+                var codigo = _tablaLogicaProvider.ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20,
                     Constantes.TablaLogicaDato.Tonos, true);
 
                 if (Convert.ToInt32(codigo) <= entidad.CampaniaID)
@@ -756,7 +762,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         #region Imagen Resize  
 
-                        mensajeErrorImagenResize = ImagenesResizeProceso(model.RutaImagenCompleta);
+                        mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(model.RutaImagenCompleta, userData.CodigoISO);
 
                         #endregion
 
@@ -880,7 +886,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 entidad = lst[0];
                 string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                entidad.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3(carpetapais, entidad.ImagenMiniaturaURL, carpetapais);
+                entidad.ImagenMiniaturaURL = ConfigCdn.GetUrlFileCdn(carpetapais, entidad.ImagenMiniaturaURL);
 
                 return Json(entidad, JsonRequestBehavior.AllowGet);
             }
@@ -940,7 +946,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var paisIso = Util.GetPaisISO(paisID);
             var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
-            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+            var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
 
             var data = lst.Select(p => new MatrizComercialImagen
             {
@@ -974,8 +980,8 @@ namespace Portal.Consultoras.Web.Controllers
             var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
             if (lst.Count > 0)
-            {
-                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
+            {                
+                lst.Update(x => x.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenURL));
                 lst.Update(x => x.Simbolo = userData.Simbolo);
             }
             ViewBag.ProductoDestacadoDetalle = lst[0];
@@ -1362,7 +1368,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var carpetapais = string.Format("{0}/{1}", Globals.UrlMatriz, userData.CodigoISO);
-                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
+                lst.Update(x => x.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenURL));
 
                 var grid = new BEGrid()
                 {
@@ -1537,7 +1543,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = result,
-                    extra = result ? ConfigS3.GetUrlFileS3(carpetaPais, newfilename) : "Ocurrió un problema al intentar registrar los datos"
+                    extra = result ? ConfigCdn.GetUrlFileCdn(carpetaPais, newfilename) : "Ocurrió un problema al intentar registrar los datos"
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1582,8 +1588,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var data = new
                 {
-                    ImgBannerCupon = ConfigS3.GetUrlFileS3(carpetaPais, filenameCupon),
-                    ImgBannerPremio = ConfigS3.GetUrlFileS3(carpetaPais, filenamePremio)
+                    ImgBannerCupon = ConfigCdn.GetUrlFileCdn(carpetaPais, filenameCupon),
+                    ImgBannerPremio = ConfigCdn.GetUrlFileCdn(carpetaPais, filenamePremio)
                 };
 
                 return Json(new
@@ -1657,7 +1663,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var carpetapais = string.Format("{0}/{1}", Globals.UrlMatriz, userData.CodigoISO);
-                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
+                lst.Update(x => x.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenURL));
 
                 var grid = new BEGrid()
                 {
@@ -1799,6 +1805,7 @@ namespace Portal.Consultoras.Web.Controllers
             return nombreImagenFinal;
         }
 
+        #region Metodos ShowRoom
         [HttpPost]
         public ActionResult UploadFileSetStrategyShowroom(DescripcionMasivoModel model)
         {
@@ -2086,6 +2093,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
             }
         }
+
+        #endregion
 
         private string ObtenerTextoNiveles(NivelEstrategia[] listaNivelEstrategias)
         {

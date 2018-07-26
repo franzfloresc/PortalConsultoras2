@@ -23,11 +23,11 @@ namespace Portal.Consultoras.Entities.CDR
 
         public BECDRWebDescripcion(IDataRecord row)
         {
-            if (row.HasColumn("CDRWebDescripcionID")) CDRWebDescripcionID = Convert.ToInt32(row["CDRWebDescripcionID"]);
-            if (row.HasColumn("CodigoSSIC")) CodigoSSIC = Convert.ToString(row["CodigoSSIC"]);
-            if (row.HasColumn("EntidadSSIC")) EntidadSSIC = Convert.ToString(row["EntidadSSIC"]);
-            if (row.HasColumn("Tipo")) Tipo = Convert.ToString(row["Tipo"]);
-            if (row.HasColumn("Descripcion")) Descripcion = Convert.ToString(row["Descripcion"]);
+            CDRWebDescripcionID = row.ToInt32("CDRWebDescripcionID");
+            CodigoSSIC = row.ToString("CodigoSSIC");
+            EntidadSSIC = row.ToString("EntidadSSIC");
+            Tipo = row.ToString("Tipo");
+            Descripcion = row.ToString("Descripcion");
         }
     }
 }
