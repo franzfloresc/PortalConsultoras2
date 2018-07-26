@@ -321,11 +321,6 @@
 		</div>
 	</div>
 }
-else
-{
-	<div class="share"></div>
-}
-
 
 <!--compartir-->
 @if (!mobileConfiguracion.EsAppMobile)
@@ -362,6 +357,11 @@ else
 		</div>
 	}
 }
+else
+{
+	<div class="share"></div>
+}
+
 
 	@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
 	@Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")
