@@ -265,7 +265,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/slick.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js",
-                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js"
+                "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
+                "~/Scripts/PortalConsultoras/Buscador/Index.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Bienvenida").Include(

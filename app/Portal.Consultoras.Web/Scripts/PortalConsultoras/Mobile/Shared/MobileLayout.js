@@ -1092,28 +1092,3 @@ function getMobileOperatingSystem() {
 
     return "unknown";
 }
-
-function accionesCampoBusquedaMobileAlDigitar() {
-    $('body').on('keyup', '#CampoBuscadorProductosMobile', function () {
-        var cantidadCaracteresParaMostrarSugerenciasBusquedaMobile = $('#CampoBuscadorProductosMobile').val().length;
-        if (cantidadCaracteresParaMostrarSugerenciasBusquedaMobile >= 3) {
-            $('.enlace_busqueda_filtros').fadeOut(250);
-            $('.opcion_limpiar_campo_busqueda_productos').delay(150);
-            $('.opcion_limpiar_campo_busqueda_productos').fadeIn(250);
-        } else {
-            $('.opcion_limpiar_campo_busqueda_productos').fadeOut(250);
-            $('.enlace_busqueda_filtros').delay(150);
-            $('.enlace_busqueda_filtros').fadeIn(250);
-        }
-    });
-
-    $('body').on('click', '.opcion_limpiar_campo_busqueda_productos', function (e) {
-        e.preventDefault();
-        $('.opcion_limpiar_campo_busqueda_productos').fadeOut(250);
-        $('.enlace_busqueda_filtros').delay(150);
-        $('.enlace_busqueda_filtros').fadeIn(250);
-        $('#CampoBuscadorProductosMobile').val('');
-    });
-}
-
-accionesCampoBusquedaMobileAlDigitar();
