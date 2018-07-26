@@ -13,8 +13,16 @@ namespace Portal.Consultoras.Web.Models
             ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
         }
 
-        public int ConfiguracionPaisID { get; set; }
-        public int CampaniaID { get; set; }
         public IList<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
+        public string CUV { get; set; }
+        public string SAP { get; set; }
+        public string Imagen { get; set; }
+        public string Descripcion { get; set; }
+        public double Valorizado { get; set; }
+        public double Precio { get; set; }
+        public string Catalogo { get; set; }
+        public string CodigoEstrategia { get; set; }
+        public string CodigoPalanca { get; set; }
+        public int LimiteVenta { get; set; }
     }
 }

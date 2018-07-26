@@ -291,6 +291,7 @@
     <Compile Include="Controllers\AdministrarShowRoomController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\AppController.cs" />
+    <Compile Include="Controllers\BuscadorController.cs" />
     <Compile Include="Controllers\MiPerfilController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
@@ -5519,6 +5520,7 @@
     <Folder Include="Views\BaseHerramientasVenta\" />
     <Folder Include="Views\BaseLanzamientos\" />
     <Folder Include="Views\BaseShowRoom\" />
+    <Folder Include="Views\Buscador\" />
     <Folder Include="Views\Campania\" />
     <Folder Include="Views\Cupon\" />
     <Folder Include="Views\EstrategiaProductoComentario\" />
