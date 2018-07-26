@@ -123,7 +123,7 @@ function modificarAnchoBuscadorFiltros() {
 function accionesCampoBusquedaAlDigitar() {
     $('body').on('keyup', '#CampoBuscadorProductos', function () {
         var cantidadCaracteresParaMostrarSugerenciasBusqueda = $('#CampoBuscadorProductos').val().length;
-        if (cantidadCaracteresParaMostrarSugerenciasBusqueda > 3) {
+        if (cantidadCaracteresParaMostrarSugerenciasBusqueda >= 3) {
             $('.enlace_busqueda_filtros').fadeOut(250);
             $('.opcion_limpiar_campo_busqueda_productos').delay(150);
             $('.opcion_limpiar_campo_busqueda_productos').fadeIn(250);
