@@ -438,7 +438,7 @@ else
     <script>
         window.videoKey = '@Model.CodigoVideo';
         var fichaModule;
-        //var carruselModule;
+        var carruselModule;
 
         var tieneCarrusel = '@Model.TieneCarrusel';
         var urlGetCantidadProductos = '@Url.Action("GetResumenCampaniaAgrupado", "GestionContenido", new { area = "" })';
@@ -474,7 +474,7 @@ else
                 slidesToShow: 5,
                 slidesToScroll: 1,
                 autoplaySpeed: 2000,
-                fade: false,
+                fade: false
             });
 
            
