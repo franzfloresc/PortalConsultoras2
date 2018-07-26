@@ -356,7 +356,7 @@ namespace Portal.Consultoras.Web
                "~/Scripts/PortalConsultoras/Login/FormsSignIn.js"
             ));
             bundles.Add(new ScriptBundle("~/bundles/JS-Login-Header").Include(
-               "~/Scripts/PortalConsultoras/Login/Analytics.js"
+               "~/Scripts/PortalConsultoras/Login/Analytics.js"                
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JS-Login-VerificaAutenticidad").Include(

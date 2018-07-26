@@ -1,66 +1,34 @@
-﻿
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Helpers
+
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutBuscador.cshtml";
+    //var layout = ViewContext.MobilePedidoLayout();
+    var layout = "_MobileLayoutEmpty";
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
 @section styles{
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" />
-    <style type="text/css">
-        #search-wrapper {
-            -webkit-box-align: center;
-            -webkit-align-items: center;
-            -ms-flex-align: center;
-            align-items: center;
-            display: -webkit-inline-box;
-            display: -webkit-inline-flex;
-            display: -ms-inline-flexbox;
-            display: inline-flex;
-            -webkit-flex-flow: row-reverse nowrap;
-            -ms-flex-flow: row-reverse nowrap;
-            flex-flow: row-reverse nowrap;
-            width: 100%;
-        }
-
-            #search-wrapper #search {
-                width: 100%;
-                height: 45px;
-                background: #fff;
-                border: 1px solid #000;
-                border-left: 0;
-                color: #000;
-                padding-left: 17px;
-                line-height: 45px;
-                font-size: 13px;
-                font-weight: bold;
-            }
-
-                #search-wrapper #search + i {
-                    background-color: #fff;
-                    border: 1px solid #000;
-                    /*border-radius: 25px 0 0 25px;*/
-                    border-right: 0;
-                    /*color: #777;*/
-                    padding-left: 17px;
-                    line-height: 43px;
-                   
-                }
-
-                #search-wrapper #search:focus {
-                    border-color: #999;
-                    outline: none;
-                }
-
-                    #search-wrapper #search:focus + i {
-                        border-color: #999;
-                    }
-    </style>
+    <link href="~/Content/Css/Site/Esika/buscador-filtros.css" rel="stylesheet" />
 }
 
-<div id="search-wrapper">
-    <input type="search"
-           id="search"
-           placeholder="¿Buscar Ofertas?" />
-    <i class="fa fa-search"></i>
+<div class="buscador_filtros_mobile">
+    <a class="enlace_regresar_filtros" title="Buscar">
+        <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Buscar" />
+    </a>
+    <input type="search" value="" id="CampoBuscadorProductos" class="campo_buscador_filtros_mobile" placeholder="¿Buscas ofertas?" />
+    <a class="enlace_busqueda_filtros" title="Buscar">
+        <img src="@Url.Content("~/Content/Images/icono_lupa.png")" alt="Buscar" />
+    </a>
+    <a class="opcion_limpiar_campo_busqueda_productos" title="Cerrar" style="display:none;">
+        <img src="@Url.Content("~/Content/Images/btn_cerrar_popup_color_negro.svg")" alt="Cerrar" />
+    </a>
+    <i class="fa fa-chevron-left"></i>
 </div>
 
+
+
+@section scripts{
+    <script src="~/Scripts/PortalConsultoras/Shared/Menu.js"></script>
+}
