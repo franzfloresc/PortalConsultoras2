@@ -105,6 +105,12 @@ function modificarAnchoBuscadorFiltros() {
         } else {
             $('.buscador_filtros').addClass('buscador_filtros_sin_enlace_menu_socia_empresaria_vista_pedido');
         }
+    } else if (window.location.href.indexOf("Ofertas") > -1) {
+        if ($('.new_menu').first().find('a').attr("title") == "SOCIA EMPRESARIA") {
+            $('.buscador_filtros').addClass('buscador_filtros_con_enlace_menu_socia_empresaria_vista_ofertas');
+        } else {
+            $('.buscador_filtros').addClass('buscador_filtros_sin_enlace_menu_socia_empresaria_vista_ofertas');
+        }    
     } else {
         if ($('.new_menu').first().find('a').attr("title") == "SOCIA EMPRESARIA") {
             $('.buscador_filtros').addClass('buscador_filtros_con_enlace_menu_socia_empresaria');
