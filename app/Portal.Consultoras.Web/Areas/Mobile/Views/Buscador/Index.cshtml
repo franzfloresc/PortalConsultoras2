@@ -1,5 +1,43 @@
-﻿
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Helpers
+
 @{
-    Layout = null;
+    ViewBag.Title = "Buscador";
+    //var layout = ViewContext.MobilePedidoLayout();
+    var layout = "_MobileLayoutEmpty";
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
+@section styles{
+
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        <link href="@Url.Content("~/Content/Css/Mobile/esika/buscador-filtros.css")" rel="stylesheet">
+    }
+    else
+    {
+        <link href="@Url.Content("~/Content/Css/Mobile/lbel/buscador-filtros.css")" rel="stylesheet">
+    }
+
+}
+
+<div class="buscador_filtros_mobile">
+    <a class="enlace_regresar_filtros" title="Buscar">
+        <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Buscar" />
+    </a>
+    <input type="search" value="" id="CampoBuscadorProductosMobile" class="campo_buscador_filtros_mobile" placeholder="¿Buscas ofertas?" />
+    <a class="enlace_busqueda_filtros" title="Buscar">
+        <img src="@Url.Content("~/Content/Images/icono_lupa.png")" alt="Buscar" />
+    </a>
+    <a class="opcion_limpiar_campo_busqueda_productos" title="Cerrar" style="display:none;">
+        <img src="@Url.Content("~/Content/Images/btn_cerrar_popup_color_negro.svg")" alt="Cerrar" />
+    </a>
+    <i class="fa fa-chevron-left"></i>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Buscador/Index.js")"></script>    
+
+}
