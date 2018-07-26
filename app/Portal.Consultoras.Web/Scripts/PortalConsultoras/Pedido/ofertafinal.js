@@ -163,6 +163,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
             return a.Orden - b.Orden;
         });
 
+        $('#of-regalo-total').text(oUpselling.Regalos.length);
         var upSellingGanadoPromise = GetUpSellingGanadoPromise();
         resolvePromiseUpSellingGanado(upSellingGanadoPromise);
     }
@@ -498,7 +499,7 @@ function MostrarOfertaFinalRegalo(totalPedido) {
             $('#div-count-ofertas').show();
         }
 
-        $('#of-regalo-total').text(oUpselling.Regalos.length);
+        //$('#of-regalo-total').text(oUpselling.Regalos.length);
 
         //url terminos y condiciones
         if (oUpselling.Meta.TipoRango != "") {
@@ -833,7 +834,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simboloParam, 
 
         if (oRegaloPN.UrlImagenRegalo != null && oRegaloPN.UrlImagenRegalo != "") {
             $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
-            ('div.content_imagen_alternativo').show();
+            $('div.content_imagen_alternativo').show();
         }
 
         if (tipoMeta == 'MM') {
