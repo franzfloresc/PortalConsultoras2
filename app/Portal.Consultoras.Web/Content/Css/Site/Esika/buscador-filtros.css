@@ -34,6 +34,16 @@
     right:-185px;
 }
 
+.buscador_filtros_con_enlace_menu_socia_empresaria_vista_ofertas{
+    width: 30%;
+    right: -88px;
+}
+
+.buscador_filtros_sin_enlace_menu_socia_empresaria_vista_ofertas{
+    width: 44%;
+    right: -85px;
+}
+
 .campo_buscador_filtros{
     width: 88%;
     height: 100%;
@@ -66,16 +76,18 @@
         font-weight:600;
     }
 
-.enlace_busqueda_filtros{
+.enlace_busqueda_filtros,
+.opcion_limpiar_campo_busqueda_productos
+{
     display: block;
-    width: 40px;
     height: 100%;
     position: absolute;
     top: 0;
-    right: 0;
 }
 
-    .enlace_busqueda_filtros img{
+    .enlace_busqueda_filtros img,
+    .opcion_limpiar_campo_busqueda_productos img
+    {
         position:absolute;
         margin:auto;
         top:0;
@@ -83,5 +95,15 @@
         right:0;
         bottom:0;
     }
+
+.enlace_busqueda_filtros{
+    width:40px;
+    right:0;
+}
+
+.opcion_limpiar_campo_busqueda_productos{
+    width:17px;
+    right:10px;
+}
 
 /* FIN - BUSCADOR DE FILTROS PORTAL CONSULTORAS */
