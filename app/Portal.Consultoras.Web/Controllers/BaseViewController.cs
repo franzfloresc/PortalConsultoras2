@@ -338,8 +338,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        var actionPalanca = productoPerteneceACampaniaActual ? "" : "";
-                        breadCrumbs.Palanca.Url = Url.Action(actionPalanca, new { controller = "Ofertas", area }) + "#OPT";
+                        //var actionPalanca = productoPerteneceACampaniaActual ? "" : "";
+                        breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "Ofertas", area }) + "#OPT";
                     }
                 }
                 if (palanca == Constantes.NombrePalanca.OfertaDelDia)
