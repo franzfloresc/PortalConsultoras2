@@ -164,8 +164,10 @@
                 <div class="liquidacion_rango_home liquidacion_rango_home_fix" data-cantidad-contenedor="">
                     <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{ClaseBloqueada}}" data-input="cantidad" data-cantidad-input="-" {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
                     <div class="liquidacion_rango_right_pedido">
-                        <a class="mas" data-cantidad-agregar="+" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos" data-cantidad-agregar="-" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        <a class="mas" data-cantidad-agregar="+" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
+                        <img data-bloqueada="{{ClaseBloqueada}}" src="/Content/Images/Esika/mas.png"  /></a>
+                        <a class="menos" data-cantidad-agregar="-" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
+                        <img data-bloqueada="{{ClaseBloqueada}}" src="/Content/Images/Esika/menos.png" /></a>
                     </div>
                 </div>
                 <a class="boton_Agregalo_home boton_Agregalo_home_fix ficha_btn_agregar {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" id="tbnAgregarProducto"

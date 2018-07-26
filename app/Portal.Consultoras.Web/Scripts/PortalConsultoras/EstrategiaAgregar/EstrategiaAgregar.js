@@ -200,6 +200,7 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var estrategiaAgregar = function (event, popup, limite, esFicha) {
+        console.log('estrategiaAgregar');
         popup = popup || false;
         limite = limite || 0;
 
@@ -287,7 +288,7 @@ var EstrategiaAgregarModule = (function () {
             FlagNueva: $.trim(estrategia.FlagNueva)
             // ClienteID_:
         };
-
+        console.log('estrategiaAgregar', params);
         EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function(data) {
             if (!checkTimeout(data)) {
                 CerrarLoad();
@@ -327,7 +328,7 @@ var EstrategiaAgregarModule = (function () {
             }
 
             if (isMobile()) {
-                //ActualizarGanancia(data.DataBarra);
+                ActualizarGanancia(data.DataBarra);
                 //if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.ShowRoom)
                 CargarCantidadProductosPedidos(true);
                 microefectoPedidoGuardado();
@@ -337,8 +338,12 @@ var EstrategiaAgregarModule = (function () {
 
             var cuv = estrategia.CUV2;
 
-            var tipoOrigenEstrategia = tipoOrigenEstrategia || 0;
-            if (tipoOrigenEstrategia == 1) {
+            var tipoOrigenEstrategiaAux = 0;
+            if (typeof tipoOrigenEstrategia != "undefined") {
+                tipoOrigenEstrategiaAux = tipoOrigenEstrategia || 0;
+            }
+
+            if (tipoOrigenEstrategiaAux == 1) {
                 if (typeof MostrarBarra != constantes.undefined())
                     MostrarBarra(data, "1");
 
@@ -354,7 +359,7 @@ var EstrategiaAgregarModule = (function () {
                             CargarCarouselMasVendidos("desktop");
                     }
                 }
-            } else if (tipoOrigenEstrategia == 11) {
+            } else if (tipoOrigenEstrategiaAux == 11) {
 
                 $(elementosDiv.hdErrorInsertarProducto).val(data.errorInsertarProducto);
 
@@ -363,27 +368,27 @@ var EstrategiaAgregarModule = (function () {
                 CargarCarouselEstrategias();
                 HideDialog(elementosDiv.divVistaPrevia.substring(1));
 
-                tieneMicroefecto = true;
+                //tieneMicroefecto = true;
 
                 CargarDetallePedido();
                 MostrarBarra(data);
-            } else if (tipoOrigenEstrategia == 2 ||
-                tipoOrigenEstrategia == 21 ||
-                tipoOrigenEstrategia == 27 ||
-                tipoOrigenEstrategia == 262 ||
-                tipoOrigenEstrategia == 272) {
+            } else if (tipoOrigenEstrategiaAux == 2 ||
+                tipoOrigenEstrategiaAux == 21 ||
+                tipoOrigenEstrategiaAux == 27 ||
+                tipoOrigenEstrategiaAux == 262 ||
+                tipoOrigenEstrategiaAux == 272) {
 
-                if (tipoOrigenEstrategia == 262) {
+                if (tipoOrigenEstrategiaAux == 262) {
 
-                    origenRetorno = $.trim(origenRetorno);
-                    if (origenRetorno != "") {
+                    var origenRetornoAux = $.trim(origenRetorno);
+                    if (origenRetornoAux != "") {
                         setTimeout(function() {
-                                window.location = origenRetorno;
+                                window.location = origenRetornoAux;
                             },
                             3700);
 
                     }
-                } else if (tipoOrigenEstrategia != 272) {
+                } else if (tipoOrigenEstrategiaAux != 272) {
                     CargarCarouselEstrategias();
 
                     if (tieneMasVendidos === 1) {
@@ -457,8 +462,13 @@ var EstrategiaAgregarModule = (function () {
         e.stopPropagation();
 
         var $this = $(e.target);
-        if ($this.data("bloqueada"))
-            if ($this.data("bloqueada") !== "") return false;
+        if ($this.data("bloqueada")) {
+            var desactivado = $this.find("[data-bloqueada='contenedor_rangos_desactivado']");
+            desactivado = desactivado.length;
+            //if ($this.data("bloqueada") !== "") return false;
+            if (desactivado !== 0) return false;
+        }    
+            
         var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
         var cantidad = parseInt($inputCantidad.val());
 
@@ -472,10 +482,14 @@ var EstrategiaAgregarModule = (function () {
 
     var disminuirCantidad = function (e) {
         e.stopPropagation();
-
         var $this = $(e.target);
-        if ($this.data("bloqueada"))
-            if ($this.data("bloqueada") !== "") return false;
+        if ($this.data("bloqueada")) {
+            //if ($this.data("bloqueada") !== "") return false;
+            var desactivado = $this.find("[data-bloqueada='contenedor_rangos_desactivado']");
+            desactivado = desactivado.length;
+            if (desactivado !== 0) return false;
+        }
+             
         var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
         var cantidad = parseInt($inputCantidad.val());
 

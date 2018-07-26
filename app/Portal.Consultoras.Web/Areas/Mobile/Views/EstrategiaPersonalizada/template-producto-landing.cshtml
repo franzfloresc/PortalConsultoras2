@@ -37,10 +37,10 @@
     {{else}}
     <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}} content_item_home_palanca" >
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <div class="content_item_home_bpt box_producto_mobile_fix"  {{#iff esSubcampania '==' true}}style="padding-bottom: 30px; height:320px!important;" {{/iff}}>
+        <div class="content_item_home_bpt box_producto_mobile_fix"  {{#iff EsSubcampania '==' true}}style="padding-bottom: 30px; height:320px!important;" {{/iff}}>
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
             <div data-item-tag="verdetalle"
-                 {{#iff esSubcampania '==' false}}
+                 {{#iff EsSubcampania '==' false}}
                      {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
                      onclick="javascript:VerPopupExpGanaMas();"
                      {{else}}
@@ -65,11 +65,11 @@
                         <h6>&ensp;&nbsp;</h6>
                         {{/IsNullOrEmpty}}
                         
-                        <p class="nombre_producto" style=" {{#iff esSubcampania '==' 'false'}}cursor: pointer;{{/iff}} height: 36px;">
+                        <p class="nombre_producto" style=" {{#iff EsSubcampania '==' 'false'}}cursor: pointer;{{/iff}} height: 36px;">
                             <b class="text_descrition_prd_bpt" {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>{{DescripcionCortada}}</b>
                         </p>
                         
-                        {{#iff esSubcampania '==' true}}
+                        {{#iff EsSubcampania '==' true}}
                         <div class="sub_campania_info_adicional" style="min-height: 60px;  max-height: 60px;">
                             {{#each item.Hermanos as |itemHermano|}}
                             <label style="margin-left:20px; cursor:initial">{{itemHermano.NombreComercial}}</label><br />
