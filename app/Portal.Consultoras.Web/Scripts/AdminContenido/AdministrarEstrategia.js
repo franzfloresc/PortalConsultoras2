@@ -2523,7 +2523,7 @@
                     var _idVal = $("#_id").val();
 
                     var CodigoEstrategiaVal = $('#CodigoEstrategia').val();
-                    var ImagenVal = $('#flagImagenUrl').val();
+                    var ImagenVal = 1;
                     var DescripcionEstrategiaVal = $('#spanTipoEstrategia').val();
                     var MarcaIDVal = $('#MarcaID').val();
                     var DescripcionMarcaVal = $('#MarcaDescripcion').val();
