@@ -59,6 +59,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpGet]
         public ActionResult PasarelaPago(string cardType)
         {
+            if (string.IsNullOrEmpty(cardType))
+            {
+                return RedirectToAction("MetodoPago");
+            }
+
             var pago = sessionManager.GetDatosPagoVisa();
             var selected = pago.ListaMetodoPago.FirstOrDefault(m => m.TipoPasarelaCodigoPlataforma  == Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU && m.TipoTarjeta == cardType);
 
@@ -70,9 +75,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             sessionManager.SetDatosPagoVisa(pago);
 
             //Logica para Obtener Valores de la PasarelaBelcorp
-            ViewBag.PagoLineaCampos = _pagoEnLineaProvider.ObtenerPagoEnLineaPasarelaCampos()
-                                            .Select(p => p.Codigo)
-                                            .ToArray();
+            ViewBag.PagoLineaCampos = _pagoEnLineaProvider.ObtenerCamposRequeridos();
             var model = new PaymentInfo
             {
                 Phone = userData.Celular,
@@ -86,9 +89,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult PasarelaPago(PaymentInfo info)
         {
-            var requiredFields = _pagoEnLineaProvider.ObtenerPagoEnLineaPasarelaCampos()
-                .Select(p => p.Codigo)
-                .ToArray();
+            var requiredFields = _pagoEnLineaProvider.ObtenerCamposRequeridos();
 
             if (ModelState.IsValid)
             {

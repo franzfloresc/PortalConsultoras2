@@ -543,6 +543,13 @@ namespace Portal.Consultoras.Web.Providers
             return resultado;
         }
 
+        public string[] ObtenerCamposRequeridos()
+        {
+            return ObtenerPagoEnLineaPasarelaCampos()
+                .Select(p => p.Codigo)
+                .ToArray();
+        }
+        
         public List<PagoEnLineaPasarelaCamposModel> ObtenerPagoEnLineaPasarelaCampos()
         {
             List<PagoEnLineaPasarelaCamposModel> result;
