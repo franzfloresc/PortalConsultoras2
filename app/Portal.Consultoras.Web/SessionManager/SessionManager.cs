@@ -783,18 +783,6 @@ namespace Portal.Consultoras.Web.SessionManager
             return (dynamic)val;
         }
 
-        void ISessionManager.SetCDRWebDetalle(dynamic val)
-        {
-            HttpContext.Current.Session["CDRWebDetalle"] = val;
-        }
-
-        dynamic ISessionManager.GetCDRWebDetalle()
-        {
-            var val = HttpContext.Current.Session["CDRWebDetalle"];
-
-            return (dynamic)val;
-        }
-
         void ISessionManager.SetfechaGetNotificacionesSinLeer(dynamic val)
         {
             HttpContext.Current.Session["fechaGetNotificacionesSinLeer"] = val;
@@ -889,18 +877,6 @@ namespace Portal.Consultoras.Web.SessionManager
             var val = HttpContext.Current.Session["carpetaPais"];
             if (val == null) { return ""; }
             return (string)val;
-        }
-
-        void ISessionManager.SetListadoEstadoCuenta(List<EstadoCuentaModel> val)
-        {
-            HttpContext.Current.Session["ListadoEstadoCuenta"] = val;
-        }
-
-        List<EstadoCuentaModel> ISessionManager.GetListadoEstadoCuenta()
-        {
-            var val = HttpContext.Current.Session["ListadoEstadoCuenta"];
-
-            return (List<EstadoCuentaModel>)val;
         }
 
         void ISessionManager.SetCDRPedidosFacturado(List<BEPedidoWeb> val)

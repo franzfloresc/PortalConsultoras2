@@ -301,10 +301,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         dynamic GetListaCDRDetalle();
 
-        void SetCDRWebDetalle(dynamic val);
-
-        dynamic GetCDRWebDetalle();
-
         void SetfechaGetNotificacionesSinLeer(dynamic val);
 
         dynamic GetfechaGetNotificacionesSinLeer();
@@ -335,11 +331,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetcarpetaPais(string val);
 
-        string GetcarpetaPais();
-
-        void SetListadoEstadoCuenta(List<EstadoCuentaModel> val);
-
-        List<EstadoCuentaModel> GetListadoEstadoCuenta();
+        string GetcarpetaPais();       
 
         void SetCDRPedidosFacturado(List<BEPedidoWeb> val);
 
