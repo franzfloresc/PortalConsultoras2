@@ -94,7 +94,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CampaniaActual"))
                 CampaniaActual = Convert.ToInt32((row["CampaniaActual"]).ToString());
             if (DataRecord.HasColumn(row, "HoraCierre"))
-                HoraCierre = Convert.ToDateTime(row["HoraCierre"]).ToShortTimeString();
+                HoraCierre = Convert.ToDateTime(row["HoraCierre"].ToString()).ToShortTimeString();
             if (DataRecord.HasColumn(row, "EstadoActividad"))
                 Estado = Convert.ToInt32((row["EstadoActividad"]).ToString());
             CodigoUsuario = row.ToString("CodigoUsuario");
