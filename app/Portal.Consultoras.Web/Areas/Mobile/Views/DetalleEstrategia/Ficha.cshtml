@@ -15,7 +15,7 @@
 }
 
 @Html.Partial("_BreadCrumb", Model.BreadCrumbs)
-@Html.Partial("ElegirOpcionesTemplate")
+@Html.Partial("_ElegirOpciones")
 
 <script id="detalle_ficha_template" type="text/x-handlebars-template">
     {{#if TieneReloj}}
@@ -224,7 +224,7 @@
                                 </div>
                                 {{/each}}
                             </div>
-                            <div id="opciones-elegidas"></div>
+                            <div class="tono_selecionado" id="opciones-elegidas" style="display:none;"></div>
                         </div>
                         <hr class="clear">
                     </div>

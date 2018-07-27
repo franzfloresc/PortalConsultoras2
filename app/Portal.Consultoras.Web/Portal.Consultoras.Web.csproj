@@ -4234,7 +4234,8 @@
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\_ElegirOpciones.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\OpcionesElegidasTemplate.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\OpcionesSeleccionadasTemplate.cshtml" />
-    <Content Include="Areas\Mobile\Views\DetalleEstrategia\ListarOpcionesTemplate.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\ListaOpcionesTemplate.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\TituloOpcionesSeleccionadasTemplate.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
