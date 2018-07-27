@@ -699,7 +699,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var mensajeErrorImagenResize = "";
+                var mensajeErrorImagenResize = " Antes de Crear la Imagenes Renderizadas";
                 var nroPedido = Util.Trim(model.NumeroPedido);
 
                 if (nroPedido.Contains(",")) model.NumeroPedido = "0";
@@ -774,8 +774,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             entidad.ImagenMiniaturaURL = GuardarImagenMiniAmazon(model.ImagenMiniaturaURL, model.ImagenMiniaturaURLAnterior, userData.PaisID);
                         }
-
-
+                        
                         entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
                     }
                 }
