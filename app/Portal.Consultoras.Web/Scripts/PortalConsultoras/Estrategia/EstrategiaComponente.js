@@ -195,12 +195,26 @@
                 $(this).attr("data-visible", "0");
             },
             clickVerOpciones: function () {
+                var cuv = $(this).attr("data-tono-change-cuv");
+                var estrategiaData = EstrategiaAgregarModule.EstrategiaObtenerObj($(this));
+                var listaOpciones = [];
+
+                $.each(estrategiaData.Hermanos, function (index, item) {
+                    if (item.Cuv == cuv) {
+                        listaOpciones = item.Hermanos;
+                    }
+                });
+
+                SetHandlebars("#lista-opciones-template", listaOpciones, "#lista-opciones");
+                SetHandlebars("#titulo-opciones-seleccionadas-template", listaOpciones, "#titulo-opciones-seleccionadas");
+
+                $("#elegir-opciones-modal").modal("show");
 
             }
         }
 
     var _bindingEvents = function () {
-        $("body").on("click", "[data-tono-change]", _eventos.clickChangeTono);
+        $("body").on("click", "[data-tono-change]", _eventos.clickVerOpciones);
 
         if (!isMobile()) {
             $(document).on("mousemove", "[data-tono-change]", _eventos.mouseMoveTono);

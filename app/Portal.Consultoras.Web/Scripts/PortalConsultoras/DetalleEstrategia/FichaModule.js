@@ -261,7 +261,6 @@
         }
         else {
             estrategia = localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
-            $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
         }
 
         if (estrategia == null) {
@@ -290,6 +289,7 @@
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
         _validarDesactivadoGeneral(estrategia);
+        $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
 
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
         SetHandlebars("#opciones-template", estrategia, "#divOpciones");
