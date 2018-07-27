@@ -292,7 +292,7 @@
         $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
 
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
-        SetHandlebars("#opciones-template", estrategia, "#divOpciones");
+        SetHandlebars("#opciones-template", estrategia, "#opciones");
 
         var imgFondo = "";
         if (isMobile()) {
