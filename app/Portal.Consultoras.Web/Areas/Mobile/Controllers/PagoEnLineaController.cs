@@ -76,6 +76,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             //Logica para Obtener Valores de la PasarelaBelcorp
             ViewBag.PagoLineaCampos = _pagoEnLineaProvider.ObtenerCamposRequeridos();
+            CargarListsPasarela();
             var model = new PaymentInfo
             {
                 Phone = userData.Celular,
@@ -114,6 +115,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             ViewBag.PagoLineaCampos = requiredFields;
+            CargarListsPasarela();
 
             return View(info);
         }
@@ -161,6 +163,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             return View("PagoRechazado", model);
+        }
+
+        private void CargarListsPasarela()
+        {
+            Func<string, SelectListItem> fnSelect = m => new SelectListItem {Value = m, Text = m};
+            ViewBag.MonthList = _pagoEnLineaProvider.ObtenerMeses().Select(fnSelect);
+            ViewBag.YearList = _pagoEnLineaProvider.ObtenerAnios().Select(fnSelect);
         }
     }
 }

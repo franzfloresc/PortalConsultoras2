@@ -17,6 +17,7 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class PagoEnLineaProvider
     {
+        private const int MaxYearCard = 20;
         protected ISessionManager sessionManager;
         protected TablaLogicaProvider _tablaLogica;
 
@@ -380,7 +381,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return resultado;
         }
-
+        
         private string GenerarAutorizacionBotonPagos(int paisId, string sessionToken, string merchantId, string transactionToken, string accessKeyId, string secretAccessKey)
         {
             var tipoPasarelaVisa = Constantes.PagoEnLineaMetodoPago.PasarelaVisa;
@@ -577,6 +578,16 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return result;
+        }
+
+        public IEnumerable<string> ObtenerMeses()
+        {
+            return Enumerable.Range(1, 12).Select(i => i.ToString("00"));
+        }
+
+        public IEnumerable<string> ObtenerAnios()
+        {
+            return Enumerable.Range(DateTime.Now.Year, MaxYearCard).Select(i => i.ToString());
         }
     }
 }

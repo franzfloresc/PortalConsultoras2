@@ -3826,6 +3826,7 @@
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\Index.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\MetodoPago.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PagoVisa.js" />
+    <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PasarelaPago.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />

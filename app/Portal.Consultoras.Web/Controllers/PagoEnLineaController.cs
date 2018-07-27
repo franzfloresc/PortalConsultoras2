@@ -82,6 +82,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             //Logica para Obtener Valores de la PasarelaBelcorp
             ViewBag.PagoLineaCampos = _pagoEnLineaProvider.ObtenerCamposRequeridos();
+            CargarListsPasarela();
             var model = new PaymentInfo
             {
                 Phone = userData.Celular,
@@ -120,6 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ViewBag.PagoLineaCampos = requiredFields;
+            CargarListsPasarela();
 
             return View(info);
         }
@@ -564,6 +566,13 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.SelectAllZonas(paisId);
             }
             return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
+        }
+
+        private void CargarListsPasarela()
+        {
+            Func<string, SelectListItem> fnSelect = m => new SelectListItem {Value = m, Text = m};
+            ViewBag.MonthList = _pagoEnLineaProvider.ObtenerMeses().Select(fnSelect);
+            ViewBag.YearList = _pagoEnLineaProvider.ObtenerAnios().Select(fnSelect);
         }
     }
 }
