@@ -433,7 +433,39 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     ConsecutivoNueva = usuario.ConsecutivoNueva
                 };
                 var pedidoID = 0;
-                var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+                List<BEPedidoWebDetalle> lstDetalle = new List<BEPedidoWebDetalle>();
+
+                if (pedidoDetalle.SetID > 0)
+                {
+                    var detallePedido = _pedidoWebDetalleBusinessLogic.GetPedidoWebSetDetalle(pedidoDetalle.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
+                    detallePedido.Where(p => p.SetId == pedidoDetalle.SetID).ToList().ForEach(p => p.Cantidad = pedidoDetalle.Cantidad * p.FactorRepeticion);
+
+                    var set = _pedidoWebSetBusinessLogic.Obtener(pedidoDetalle.PaisID, pedidoDetalle.SetID);
+                    foreach (var detalleSet in set.Detalles)
+                    {
+                        BEPedidoWebDetalle obePedidoWebDetalle = new BEPedidoWebDetalle
+                        {
+                            PaisID = pedidoDetalle.PaisID,
+                            CampaniaID = usuario.CampaniaID,
+                            PedidoID = pedidoDetalle.PedidoID,
+                            PedidoDetalleID = Convert.ToInt16(detalleSet.PedidoDetalleId),
+                            Cantidad = detallePedido.Where(p => p.PedidoDetalleId == detalleSet.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion),
+                            PrecioUnidad = set.PrecioUnidad,
+                            ClienteID = string.IsNullOrEmpty(usuario.Nombre) ? (short)0 : Convert.ToInt16(pedidoDetalle.ClienteID),
+                            CUV = detalleSet.CuvProducto,
+                            TipoOfertaSisID = detalleSet.TipoOfertaSisId,
+                            //Stock = model.Stock,
+                            Flag = 2,
+                            //DescripcionProd = pedidoDetalle.DescripcionProd,
+                            ImporteTotal = detallePedido.Where(p => p.PedidoDetalleId == detalleSet.PedidoDetalleId).Sum(p => p.Cantidad * p.FactorRepeticion) * detalleSet.FactorRepeticion * detalleSet.PrecioUnidad
+                        };
+                        lstDetalle.Add(obePedidoWebDetalle);
+                    }
+                }
+                else
+                {
+                    lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+                }
                 pedidoDetalle.PedidoID = pedidoID;
 
                 //Validar stock
@@ -445,6 +477,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var accionActualizar = PedidoActualizar(usuario, pedidoDetalle, lstDetalle);
 
                 if (accionActualizar != Constantes.PedidoAppValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(accionActualizar);
+
+                if (pedidoDetalle.SetID > 0)
+                {
+                   var SetResult = _pedidoWebDetalleBusinessLogic.UpdCantidadPedidoWebSet(pedidoDetalle.PaisID, pedidoDetalle.SetID,pedidoDetalle.Cantidad);
+                }
 
                 //actualizar PROL
                 var item = lstDetalle.FirstOrDefault(x => x.PedidoDetalleID == pedidoDetalle.PedidoDetalleID);
@@ -1800,7 +1837,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 CampaniaId = usuario.CampaniaID,
                 ConsultoraId = usuario.ConsultoraID,
                 Consultora = usuario.Nombre,
-                EsBpt = usuario.RevistaDigital.EsOpt() == 1,
+                EsBpt =  usuario.RevistaDigital.EsOpt() == 1,
                 CodigoPrograma = usuario.CodigoPrograma,
                 NumeroPedido = usuario.ConsecutivoNueva,
                 AgruparSet = true
