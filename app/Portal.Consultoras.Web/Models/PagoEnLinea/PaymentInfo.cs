@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         [Display(Name = "CVV")]
         public string Cvv { get; set; }
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        [StringLength(15)]
+        [StringLength(16)]
         [RegularExpression("^[A-Za-z]+$", ErrorMessage = "Solo se permite ingreso de caracteres del alfabeto, sin acentos.")]
         public string Titular { get; set; }
         [Display(Name = "Fecha de nacimiento")]

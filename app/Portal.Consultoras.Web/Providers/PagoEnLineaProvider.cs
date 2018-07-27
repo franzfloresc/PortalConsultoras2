@@ -59,9 +59,18 @@ namespace Portal.Consultoras.Web.Providers
                 var metodoPagoPasarelaVisa = model.ListaMetodoPago.FirstOrDefault(p => p.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaVisa);
 
                 if (metodoPagoPasarelaVisa != null)
+                {
                     model.PagoVisaModel = ObtenerValoresPagoVisa(model);
+                }
                 else
-                    model.PagoVisaModel = new PagoVisaModel();
+                {
+                    metodoPagoPasarelaVisa = model.ListaMetodoPago.FirstOrDefault(p => p.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU);
+                    if (metodoPagoPasarelaVisa != null)
+                        model.PagoVisaModel = ObtenerValoresPagoPayu(model);
+                    else
+                        model.PagoVisaModel = new PagoVisaModel();
+                }
+                   
             }
 
             return model;
@@ -278,6 +287,23 @@ namespace Portal.Consultoras.Web.Providers
             return pagoVisaModel;
         }
 
+        public PagoVisaModel ObtenerValoresPagoPayu(PagoEnLineaModel model)
+        {
+            var pagoModel = new PagoVisaModel();
+            var tipoPasarelaVisa = Constantes.PagoEnLineaMetodoPago.PasarelaVisa;
+            var listaPasarelaVisa = ObtenerPagoEnLineaTipoPasarela(tipoPasarelaVisa);
+            if (listaPasarelaVisa.Count > 0)
+            {
+                pagoModel.MerchantId = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.MerchantId);
+                pagoModel.AccessKeyId = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.ApiLogin);
+                pagoModel.SecretAccessKey = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.ApiKey);
+                pagoModel.AccountId = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.AccountId);
+                pagoModel.UrlSessionBotonPagos = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.Endpoint);
+                pagoModel.IsTest = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.Test) == "1";
+            }
+
+            return pagoModel;
+        }
         public bool ProcesarPagoVisa(ref PagoEnLineaModel model, string transactionToken)
         {
             var resultado = false;
