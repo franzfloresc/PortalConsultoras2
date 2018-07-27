@@ -1,4 +1,65 @@
-﻿var FichaModule = (function (config) {
+﻿/// <reference path="../../../Scripts/General.js" />
+
+var opcionesEvents = opcionesEvents || {};
+registerEvent.call(opcionesEvents, "onOptionSelected");
+var OpcionesModule = (function () {
+    var _inicializar = function(model) {
+        alert('OpcionesModule' + model.message);
+    };
+    return {
+        Inicializar: _inicializar
+    };
+}());
+opcionesEvents.subscribe("onOptionSelected", function (e) {
+    OpcionesModule.Inicializar(e);
+});
+
+var opcionesEvents = opcionesEvents || {};
+registerEvent.call(opcionesEvents, "onOptionSelected");
+var ListaOpcionesModule = (function () {
+    var _inicializar = function (model) {
+        alert('ListaOpcionesModule' + model.message);
+    };
+    return {
+        Inicializar: _inicializar
+    };
+}());
+opcionesEvents.subscribe("onOptionSelected", function (e) {
+    ListaOpcionesModule.Inicializar(e);
+});
+
+var opcionesEvents = opcionesEvents || {};
+registerEvent.call(opcionesEvents, "onOptionSelected");
+var OpcionesSeleccionadasModule = (function () {
+    var _inicializar = function (model) {
+        alert('OpcionesSeleccionadasModule' + model.message);
+    };
+    return {
+        Inicializar: _inicializar
+    };
+}());
+opcionesEvents.subscribe("onOptionSelected", function (e) {
+    OpcionesSeleccionadasModule.Inicializar(e);
+});
+
+var opcionesEvents = opcionesEvents || {};
+registerEvent.call(opcionesEvents, "onOptionSelected");
+var TituloOpcionesSeleccionadasModule = (function () {
+    var _inicializar = function (model) {
+        alert('TituloOpcionesSeleccionadasModule' + model.message);
+    };
+    return {
+        Inicializar: _inicializar
+    };
+}());
+opcionesEvents.subscribe("onOptionSelected", function (e) {
+    TituloOpcionesSeleccionadasModule.Inicializar(e);
+});
+
+/****/
+var opcionesEvents = opcionesEvents || {};
+registerEvent.call(opcionesEvents, "onOptionSelected");
+var FichaModule = (function (config) {
     "use strict";
     var localStorageModule;
     var _primeraMarca = "";
@@ -230,7 +291,7 @@
 
     var _validarDesactivadoGeneral = function (estrategia) {
         $.each(estrategia.Hermanos, function (index, hermano) {
-            
+
             if (hermano.Hermanos) {
                 if (hermano.Hermanos.length > 0) {
                     estrategia.ClaseBloqueada = "btn_desactivado_general";
@@ -241,12 +302,12 @@
                     //$(".contenedor_rangos").addClass("contenedor_rangos_desactivado");
                     $(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
                     $(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
-                    
+
                     $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
                     $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
-                    
-                    
-                    
+
+
+
                 }
             }
         });
@@ -268,7 +329,7 @@
             return false;
         }
 
-        if (typeof estrategia.DescripcionCompleta !== "undefined" && 
+        if (typeof estrategia.DescripcionCompleta !== "undefined" &&
             estrategia.DescripcionCompleta != null) {
             estrategia.DescripcionCompleta = $.trim(estrategia.DescripcionCompleta);
             var palabrasEstrategiaDescripcion = estrategia.DescripcionCompleta.split(" ");
@@ -583,12 +644,14 @@
         _fijarFooterCampaniaSiguiente();
         //_marcarCambiaColorCombo();
         //_marcarCambiaColorCuadro();
+        opcionesEvents.applyChanges("onOptionSelected", { message: "demo:P" });
     }
 
     return {
         Inicializar: Inicializar
     };
 });
+/****/
 
 //Funcion temporal hasta estandarizar RevistaDigital.js
 function RDPageInformativa() {

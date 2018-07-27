@@ -1908,40 +1908,40 @@ Object.defineProperty(Object.prototype, "in", {
 });
 
 var registerEvent = function (eventName) {
+    debugger;
     var self = this;
     self[eventName] = self[eventName] || {};
-    self[eventName].callBacks = [];
-    self[eventName].subscribe = function (cb) {
+    self[eventName].callBacks = self[eventName].callBacks || [];
+    self[eventName].subscribe = self[eventName].subscribe || function(cb) {
         if (!!cb && typeof cb == "function") {
             self[eventName].callBacks.push(cb);
             return;
         }
+    };
 
-    }
-
-    self[eventName].emit = function (args) {
-        self[eventName].callBacks.forEach(function (cb) {
+    self[eventName].emit = self[eventName].emit || function(args) {
+        self[eventName].callBacks.forEach(function(cb) {
             cb.call(undefined, args);
         });
-    }
+    };
 
-    self.subscribe = function (event, cb) {
+    self.subscribe = self.subscribe || function (event, cb) {
         if (!!event) {
             if (self[event]) {
                 self[event].subscribe(cb);
                 return;
             }
         }
-    }
+    };
 
-    self.applyChanges = function (event, args) {
+    self.applyChanges = self.applyChanges || function (event, args) {
         if (self[event]) {
-            self[event].callBacks.forEach(function (cb) {
+            self[event].callBacks.forEach(function(cb) {
                 cb.call(undefined, args);
             });
         }
-    }
-}
+    };
+};
 
 function EstablecerLazyCarrusel(elementoHtml) {
     if (!$(elementoHtml).length) {
