@@ -97,7 +97,7 @@ namespace Portal.Consultoras.Entities
 
         public BEUsuario()
         {
-            RevistaDigital = new BERevistaDigital();
+ 
         }
 
         [Obsolete("Use MapUtil.MapToCollection")]
