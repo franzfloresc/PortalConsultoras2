@@ -999,16 +999,16 @@ namespace Portal.Consultoras.Web.SessionManager
             return (dynamic)val;
         }
 
-        void ISessionManager.SetListaEstrategia(dynamic val)
+        void ISessionManager.SetListaEstrategia(List<ServiceOferta.BEEstrategia> val)
         {
             HttpContext.Current.Session["ListaEstrategia"] = val;
         }
 
-        dynamic ISessionManager.GetListaEstrategia()
+        List<ServiceOferta.BEEstrategia> ISessionManager.GetListaEstrategia()
         {
             var val = HttpContext.Current.Session["ListaEstrategia"];
 
-            return (dynamic)val;
+            return (List<ServiceOferta.BEEstrategia>)val;
         }
 
         void ISessionManager.SetListaProductoShowRoomCpc(List<BEShowRoomOferta> val)
