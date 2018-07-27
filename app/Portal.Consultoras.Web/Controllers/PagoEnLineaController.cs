@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Infraestructure.Validator.PagoEnLinea;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -61,13 +62,66 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        public ActionResult PasarelaPago()
+        [HttpGet]
+        public ActionResult PasarelaPago(string cardType)
         {
-            var model = sessionManager.GetDatosPagoVisa();
+            if (string.IsNullOrEmpty(cardType))
+            {
+                return RedirectToAction("MetodoPago");
+            }
+
+            var pago = sessionManager.GetDatosPagoVisa();
+            var selected = pago.ListaMetodoPago.FirstOrDefault(m => m.TipoPasarelaCodigoPlataforma  == Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU && m.TipoTarjeta == cardType);
+
+            if (selected == null)
+            {
+                return RedirectToAction("MetodoPago");
+            }
+            pago.MetodoPagoSeleccionado = selected;
+            sessionManager.SetDatosPagoVisa(pago);
 
             //Logica para Obtener Valores de la PasarelaBelcorp
+            ViewBag.PagoLineaCampos = _pagoEnLineaProvider.ObtenerCamposRequeridos();
+            var model = new PaymentInfo
+            {
+                Phone = userData.Celular,
+                Email = userData.EMail
+            };
 
             return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PasarelaPago(PaymentInfo info)
+        {
+            var requiredFields = _pagoEnLineaProvider.ObtenerCamposRequeridos();
+
+            if (ModelState.IsValid)
+            {
+                var model = sessionManager.GetDatosPagoVisa();
+                var expRegular = model.MetodoPagoSeleccionado.ExpresionRegularTarjeta;
+                var validator = new PasarelaValidator
+                {
+                    RequiredFields = requiredFields,
+                    PatternCard = expRegular
+                };
+
+                if (validator.IsValid(info))
+                {
+                    // Make Pay
+                    return View("PagoExitoso", model);
+                }
+
+                foreach (var error in validator.Errors)
+                {
+                    ModelState.AddModelError(error.Key, error.Value);
+                }
+            }
+
+            ViewBag.PagoLineaCampos = requiredFields;
+
+            return View(info);
         }
 
         public JsonResult GuardarDatosPago(PagoEnLineaModel model)
