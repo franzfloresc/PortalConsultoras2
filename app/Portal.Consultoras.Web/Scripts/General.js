@@ -1908,7 +1908,6 @@ Object.defineProperty(Object.prototype, "in", {
 });
 
 var registerEvent = function (eventName) {
-    debugger;
     var self = this;
     self[eventName] = self[eventName] || {};
     self[eventName].callBacks = self[eventName].callBacks || [];

@@ -1,4 +1,18 @@
-﻿/// <reference path="../../../Scripts/General.js" />
+﻿/// <reference path="../../../Scripts/jquery-1.11.2.js" />
+/// <reference path="../../../Scripts/General.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/Shared/MainLayout.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/Bienvenida/Estrategia.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/Pedido/barra.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/TagManager/Home-Pedido.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
+
 
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
@@ -61,7 +75,7 @@ var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
 var FichaModule = (function (config) {
     "use strict";
-    var localStorageModule;
+    var _localStorageModule;
     var _primeraMarca = "";
     var _ultimaMarca = "";
     var _esMultimarca = false;
@@ -313,22 +327,19 @@ var FichaModule = (function (config) {
         });
     };
 
-    var _construirSeccionEstrategia = function () {
-
+    var _getEstrategia = function() {
         var estrategia;
         if (_config.tieneSession === "True") {
             //revisar si se realiza con razor o handlebar para SR y ODD
             estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
         }
         else {
-            estrategia = localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+            estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
         }
+        return estrategia;
+    };
 
-        if (estrategia == null) {
-            window.location = baseUrl + (isMobile() ? "/Mobile/" : "") + "Ofertas";
-            return false;
-        }
-
+    var _setEstrategiaBreadcrumb = function (estrategia) {
         if (typeof estrategia.DescripcionCompleta !== "undefined" &&
             estrategia.DescripcionCompleta != null) {
             estrategia.DescripcionCompleta = $.trim(estrategia.DescripcionCompleta);
@@ -346,6 +357,17 @@ var FichaModule = (function (config) {
 
             $(_elementos.estrategiaBreadcrumb).text(estrategiaBreadcrumb);
         }
+    };
+
+    var _construirSeccionEstrategia = function () {
+        var estrategia = _getEstrategia();
+
+        if (estrategia == null) {
+            window.location = baseUrl + (isMobile() ? "/Mobile/" : "") + "Ofertas";
+            return false;
+        }
+
+        _setEstrategiaBreadcrumb(estrategia);
 
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
@@ -546,7 +568,7 @@ var FichaModule = (function (config) {
     };
 
     var _ocultarTabs = function () {
-        var estrategia = localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+        var estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
 
         $(_tabsFichaProducto.detalleProducto).hide();
         $(_tabsFichaProducto.detallePack).hide();
@@ -634,16 +656,13 @@ var FichaModule = (function (config) {
     //}
 
     function Inicializar() {
-
-        localStorageModule = LocalStorageModule();
+        _localStorageModule = LocalStorageModule();
         _construirSeccionEstrategia();
         _ocultarSecciones();
         _bindingEvents();
         _crearTabs();
         _ocultarTabs();
         _fijarFooterCampaniaSiguiente();
-        //_marcarCambiaColorCombo();
-        //_marcarCambiaColorCuadro();
         opcionesEvents.applyChanges("onOptionSelected", { message: "demo:P" });
     }
 
