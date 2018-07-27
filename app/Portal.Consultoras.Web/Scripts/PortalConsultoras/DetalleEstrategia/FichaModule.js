@@ -4,7 +4,7 @@ var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
 var OpcionesModule = (function () {
     var _inicializar = function(model) {
-        alert('OpcionesModule' + model.message);
+        console.log("OpcionesModule" + model.message);
     };
     return {
         Inicializar: _inicializar
@@ -18,7 +18,7 @@ var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
 var ListaOpcionesModule = (function () {
     var _inicializar = function (model) {
-        alert('ListaOpcionesModule' + model.message);
+        console.log("ListaOpcionesModule" + model.message);
     };
     return {
         Inicializar: _inicializar
@@ -32,7 +32,7 @@ var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
 var OpcionesSeleccionadasModule = (function () {
     var _inicializar = function (model) {
-        alert('OpcionesSeleccionadasModule' + model.message);
+        console.log("OpcionesSeleccionadasModule" + model.message);
     };
     return {
         Inicializar: _inicializar
@@ -46,7 +46,7 @@ var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
 var TituloOpcionesSeleccionadasModule = (function () {
     var _inicializar = function (model) {
-        alert('TituloOpcionesSeleccionadasModule' + model.message);
+        console.log("TituloOpcionesSeleccionadasModule" + model.message);
     };
     return {
         Inicializar: _inicializar
@@ -654,6 +654,7 @@ var FichaModule = (function (config) {
 /****/
 
 //Funcion temporal hasta estandarizar RevistaDigital.js
+var baseUrl = baseUrl || "";
 function RDPageInformativa() {
-    window.location = (isMobile() ? "/Mobile/" : "") + baseUrl + 'revistadigital/Informacion';
+    window.location = (isMobile() ? "/Mobile/" : "") + baseUrl + "revistadigital/Informacion";
 }
