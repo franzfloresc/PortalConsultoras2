@@ -292,6 +292,7 @@
         _validarDesactivadoGeneral(estrategia);
 
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
+        SetHandlebars("#opciones-template", estrategia, "#divOpciones");
 
         var imgFondo = "";
         if (isMobile()) {
