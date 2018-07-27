@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
+using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
 using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
@@ -115,12 +116,12 @@ namespace Portal.Consultoras.Web.SessionManager
             HttpContext.Current.Session[Constantes.ConstSession.CDRWebDatos] = datos;
         }
         
-        public List<BEPedidoWeb> GetCdrPedidosFacturado()
+        public List<ServicePedido.BEPedidoWeb> GetCdrPedidosFacturado()
         {
-            return (List<BEPedidoWeb>)HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado];
+            return (List<ServicePedido.BEPedidoWeb>)HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado];
         }
 
-        public void SetCdrPedidosFacturado(List<BEPedidoWeb> datos)
+        public void SetCdrPedidosFacturado(List<ServicePedido.BEPedidoWeb> datos)
         {
             HttpContext.Current.Session[Constantes.ConstSession.CDRPedidosFacturado] = datos;
         }
@@ -611,14 +612,14 @@ namespace Portal.Consultoras.Web.SessionManager
             return Convert.ToBoolean(HttpContext.Current.Session["OcultarBannerApp"]);
         }
 
-        void ISessionManager.SetBannerApp(dynamic val)
+        void ISessionManager.SetBannerApp(BEComunicado val)
         {
             HttpContext.Current.Session["BannerApp"] = val;
         }
 
-        dynamic ISessionManager.GetBannerApp()
+        BEComunicado ISessionManager.GetBannerApp()
         {
-            return Convert.ToBoolean(HttpContext.Current.Session["BannerApp"]);
+            return (BEComunicado)(HttpContext.Current.Session["BannerApp"]);
         }
 
         void ISessionManager.SetPrimeraVezSessionMobile(int val)
@@ -665,14 +666,14 @@ namespace Portal.Consultoras.Web.SessionManager
             return (int)val;
         }
         
-        void ISessionManager.SetClientesByConsultora(dynamic val)
+        void ISessionManager.SetClientesByConsultora(List<ServiceCliente.BECliente> val)
         {
             HttpContext.Current.Session[Constantes.ConstSession.ClientesByConsultora] = val;
         }
 
-        dynamic ISessionManager.GetClientesByConsultora()
+        List<ServiceCliente.BECliente> ISessionManager.GetClientesByConsultora()
         {
-            var val = HttpContext.Current.Session[Constantes.ConstSession.ClientesByConsultora];
+            var val = (List<ServiceCliente.BECliente>)HttpContext.Current.Session[Constantes.ConstSession.ClientesByConsultora];
             return val;
         }
 
@@ -688,40 +689,40 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<ProductoModel>)val;
         }
 
-        void ISessionManager.SetobjMisPedidos(dynamic val)
+        void ISessionManager.SetobjMisPedidos(MisPedidosModel val)
         {
             HttpContext.Current.Session["objMisPedidos"] = val;
         }
 
-        dynamic ISessionManager.GetobjMisPedidos()
+        MisPedidosModel ISessionManager.GetobjMisPedidos()
         {
             var val = HttpContext.Current.Session["objMisPedidos"];
 
-            return (dynamic)val;
+            return (MisPedidosModel)val;
         }
 
-        void ISessionManager.SetobjMisPedidosDetalle(dynamic val)
+        void ISessionManager.SetobjMisPedidosDetalle(List<BEMisPedidosDetalle> val)
         {
             HttpContext.Current.Session["objMisPedidosDetalle"] = val;
         }
 
-        dynamic ISessionManager.GetobjMisPedidosDetalle()
+        List<BEMisPedidosDetalle> ISessionManager.GetobjMisPedidosDetalle()
         {
             var val = HttpContext.Current.Session["objMisPedidosDetalle"];
 
-            return (dynamic)val;
+            return (List<BEMisPedidosDetalle>)val;
         }
 
-        void ISessionManager.SetobjMisPedidosDetalleVal(dynamic val)
+        void ISessionManager.SetobjMisPedidosDetalleVal(List<ServiceODS.BEProducto> val)
         {
             HttpContext.Current.Session["objMisPedidosDetalleVal"] = val;
         }
 
-        dynamic ISessionManager.GetobjMisPedidosDetalleVal()
+        List<ServiceODS.BEProducto> ISessionManager.GetobjMisPedidosDetalleVal()
         {
             var val = HttpContext.Current.Session["objMisPedidosDetalleVal"];
 
-            return (dynamic)val;
+            return (List<ServiceODS.BEProducto>)val;
         }
 
         void ISessionManager.SetkeyFechaGetCantidadPedidos(dynamic val)
@@ -771,16 +772,16 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<CampaniaModel>)val;
         }
 
-        void ISessionManager.SetListaCDRDetalle(dynamic val)
+        void ISessionManager.SetListaCDRDetalle(CDRWebModel val)
         {
             HttpContext.Current.Session["ListaCDRDetalle"] = val;
         }
 
-        dynamic ISessionManager.GetListaCDRDetalle()
+        CDRWebModel ISessionManager.GetListaCDRDetalle()
         {
             var val = HttpContext.Current.Session["ListaCDRDetalle"];
 
-            return (dynamic)val;
+            return (CDRWebModel)val;
         }
 
         void ISessionManager.SetfechaGetNotificacionesSinLeer(dynamic val)
@@ -807,16 +808,16 @@ namespace Portal.Consultoras.Web.SessionManager
             return (dynamic)val;
         }
 
-        void ISessionManager.SetPedidoFIC(dynamic val)
+        void ISessionManager.SetPedidoFIC(List<BEPedidoFICDetalle> val)
         {
             HttpContext.Current.Session["PedidoFIC"] = val;
         }
 
-        dynamic ISessionManager.GetPedidoFIC()
+        List<BEPedidoFICDetalle> ISessionManager.GetPedidoFIC()
         {
             var val = HttpContext.Current.Session["PedidoFIC"];
 
-            return (dynamic)val;
+            return (List<BEPedidoFICDetalle>)val;
         }
 
         void ISessionManager.SetListaProductoFaltantes(List<BEProductoFaltante> val)
@@ -879,18 +880,6 @@ namespace Portal.Consultoras.Web.SessionManager
             return (string)val;
         }
 
-        void ISessionManager.SetCDRPedidosFacturado(List<BEPedidoWeb> val)
-        {
-            HttpContext.Current.Session["CDRPedidosFacturado"] = val;
-        }
-
-        List<BEPedidoWeb> ISessionManager.GetCDRPedidosFacturado()
-        {
-            var val = HttpContext.Current.Session["CDRPedidosFacturado"];
-
-            return (List<BEPedidoWeb>)val;
-        }
-
         void ISessionManager.SetCDRMotivoOperacion(List<BECDRWebMotivoOperacion> val)
         {
             HttpContext.Current.Session["CDRMotivoOperacion"] = val;
@@ -925,18 +914,6 @@ namespace Portal.Consultoras.Web.SessionManager
             var val = HttpContext.Current.Session["CDRDescripcion"];
 
             return (List<BECDRWebDescripcion>)val;
-        }
-
-        void ISessionManager.SetCDRWeb(dynamic val)
-        {
-            HttpContext.Current.Session["CDRWeb"] = val;
-        }
-
-        dynamic ISessionManager.GetCDRWeb()
-        {
-            var val = HttpContext.Current.Session["CDRWeb"];
-
-            return (dynamic)val;
         }
 
         void ISessionManager.SetCDRParametria(List<BECDRParametria> val)
@@ -1023,28 +1000,28 @@ namespace Portal.Consultoras.Web.SessionManager
             return (int)val;
         }
 
-        void ISessionManager.SetUserFiltersFAV(dynamic val)
+        void ISessionManager.SetUserFiltersFAV(List<FiltroResultadoModel> val)
         {
             HttpContext.Current.Session["UserFiltersFAV"] = val;
         }
 
-        dynamic ISessionManager.GetUserFiltersFAV()
+        List<FiltroResultadoModel> ISessionManager.GetUserFiltersFAV()
         {
             var val = HttpContext.Current.Session["UserFiltersFAV"];
 
-            return (dynamic)val;
+            return (List<FiltroResultadoModel>)val;
         }
 
-        void ISessionManager.SetProductosCatalogoPersonalizadoFilter(dynamic val)
+        void ISessionManager.SetProductosCatalogoPersonalizadoFilter(List<ProductoModel> val)
         {
             HttpContext.Current.Session["ProductosCatalogoPersonalizadoFilter"] = val;
         }
 
-        dynamic ISessionManager.GetProductosCatalogoPersonalizadoFilter()
+        List<ProductoModel> ISessionManager.GetProductosCatalogoPersonalizadoFilter()
         {
             var val = HttpContext.Current.Session["ProductosCatalogoPersonalizadoFilter"];
 
-            return (dynamic)val;
+            return (List<ProductoModel>)val;
         }
 
         void ISessionManager.SetPaisID(int val)
@@ -1119,16 +1096,15 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<MatrizCampaniaModel>)val;
         }
 
-        void ISessionManager.SetMisPedidosDetallePorCampania(dynamic val)
+        void ISessionManager.SetMisPedidosDetallePorCampania(List<BEPedidoWebDetalle> val)
         {
             HttpContext.Current.Session["MisPedidosDetallePorCampania"] = val;
         }
 
-        dynamic ISessionManager.GetMisPedidosDetallePorCampania()
+        List<BEPedidoWebDetalle> ISessionManager.GetMisPedidosDetallePorCampania()
         {
             var val = HttpContext.Current.Session["MisPedidosDetallePorCampania"];
-            if (val == null) { return ""; }
-            return (string)val;
+            return (List<BEPedidoWebDetalle>)val;
         }
 
         void ISessionManager.SetMisPedidosDetallePorCampaniaCampania(string val)

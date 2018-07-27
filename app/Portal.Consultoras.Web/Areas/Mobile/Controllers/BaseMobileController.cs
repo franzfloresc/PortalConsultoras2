@@ -270,7 +270,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 sessionManager.SetBannerApp(lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora));
             }
 
-            var oComunicados = (BEComunicado)sessionManager.GetBannerApp();
+            var oComunicados = sessionManager.GetBannerApp();
             if (oComunicados != null)
             {
                 ViewBag.MostrarBannerApp = true;

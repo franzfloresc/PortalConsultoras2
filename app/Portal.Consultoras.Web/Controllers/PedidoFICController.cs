@@ -524,7 +524,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<BEPedidoFICDetalle> ObtenerPedidoFICDetalle()
         {
-            if (sessionManager.GetPedidoFIC() != null) return (List<BEPedidoFICDetalle>)sessionManager.GetPedidoFIC();
+            if (sessionManager.GetPedidoFIC() != null) return sessionManager.GetPedidoFIC();
 
             List<BEPedidoFICDetalle> list;
             using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -550,7 +550,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     sessionManager.SetPedidoFIC(olstTempListado);
                 }
-                else olstTempListado = (List<BEPedidoFICDetalle>)sessionManager.GetPedidoFIC();
+                else olstTempListado = sessionManager.GetPedidoFIC();
 
                 if (tipoAdm == "I")
                 {
@@ -679,7 +679,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch
             {
-                if (sessionManager.GetPedidoFIC() != null) olstTempListado = (List<BEPedidoFICDetalle>)sessionManager.GetPedidoFIC();
+                if (sessionManager.GetPedidoFIC() != null) olstTempListado = sessionManager.GetPedidoFIC();
                 errorServer = true;
             }
 

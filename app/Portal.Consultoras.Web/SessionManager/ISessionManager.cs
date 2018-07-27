@@ -4,10 +4,10 @@ using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServiceCDR;
-//using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
+using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
 using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
@@ -48,10 +48,6 @@ namespace Portal.Consultoras.Web.SessionManager
         List<BECDRWebDatos> GetCdrWebDatos();
 
         void SetCdrWebDatos(List<BECDRWebDatos> datos);
-        
-        List<BEPedidoWeb> GetCdrPedidosFacturado();
-
-        void SetCdrPedidosFacturado(List<BEPedidoWeb> datos);
         
         List<BECDRWebDescripcion> GetCdrDescripcion();
 
@@ -240,9 +236,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetOcultarBannerApp();
 
-        void SetBannerApp(dynamic val);
+        void SetBannerApp(BEComunicado val);
 
-        dynamic GetBannerApp();
+        BEComunicado GetBannerApp();
 
         void SetPrimeraVezSessionMobile(int val);
 
@@ -259,26 +255,26 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetTipoPopUpMostrar(int val);
 
         int GetTipoPopUpMostrar();
-        
-        void SetClientesByConsultora(dynamic val);
 
-        dynamic GetClientesByConsultora();
+        void SetClientesByConsultora(List<ServiceCliente.BECliente> val);
+
+        List<ServiceCliente.BECliente> GetClientesByConsultora();
 
         void SetProductosCatalogoPersonalizado(List<ProductoModel> val);
 
         List<ProductoModel> GetProductosCatalogoPersonalizado();
 
-        void SetobjMisPedidos(dynamic val);
+        void SetobjMisPedidos(MisPedidosModel val);
 
-        dynamic GetobjMisPedidos();
+        MisPedidosModel GetobjMisPedidos();
 
-        void SetobjMisPedidosDetalle(dynamic val);
+        void SetobjMisPedidosDetalle(List<BEMisPedidosDetalle> val);
 
-        dynamic GetobjMisPedidosDetalle();
+        List<BEMisPedidosDetalle> GetobjMisPedidosDetalle();
 
-        void SetobjMisPedidosDetalleVal(dynamic val);
+        void SetobjMisPedidosDetalleVal(List<ServiceODS.BEProducto> val);
 
-        dynamic GetobjMisPedidosDetalleVal();
+        List<ServiceODS.BEProducto> GetobjMisPedidosDetalleVal();
 
 
         void SetkeyFechaGetCantidadPedidos(dynamic val);
@@ -297,9 +293,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<CampaniaModel> GetCDRCampanias();
 
-        void SetListaCDRDetalle(dynamic val);
+        void SetListaCDRDetalle(CDRWebModel val);
 
-        dynamic GetListaCDRDetalle();
+        CDRWebModel GetListaCDRDetalle();
 
         void SetfechaGetNotificacionesSinLeer(dynamic val);
 
@@ -309,9 +305,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
         dynamic GetcantidadGetNotificacionesSinLeer();
 
-        void SetPedidoFIC(dynamic val);
+        void SetPedidoFIC(List<BEPedidoFICDetalle> val);
 
-        dynamic GetPedidoFIC();
+        List<BEPedidoFICDetalle> GetPedidoFIC();
 
         void SetListaProductoFaltantes(List<BEProductoFaltante> val);
 
@@ -331,11 +327,11 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetcarpetaPais(string val);
 
-        string GetcarpetaPais();       
+        string GetcarpetaPais();
 
-        void SetCDRPedidosFacturado(List<BEPedidoWeb> val);
+        void SetCdrPedidosFacturado(List<ServicePedido.BEPedidoWeb> datos);
 
-        List<BEPedidoWeb> GetCDRPedidosFacturado();
+        List<ServicePedido.BEPedidoWeb> GetCdrPedidosFacturado();
 
         void SetCDRMotivoOperacion(List<BECDRWebMotivoOperacion> val);
 
@@ -348,10 +344,6 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetCDRDescripcion(List<BECDRWebDescripcion> val);
 
         List<BECDRWebDescripcion> GetCDRDescripcion();
-
-        void SetCDRWeb(dynamic val);
-
-        dynamic GetCDRWeb();
 
         void SetCDRParametria(List<BECDRParametria> val);
 
@@ -381,13 +373,13 @@ namespace Portal.Consultoras.Web.SessionManager
 
         int GetSuenioNavidad();
 
-        void SetUserFiltersFAV(dynamic val);
+        void SetUserFiltersFAV(List<FiltroResultadoModel> val);
 
-        dynamic GetUserFiltersFAV();
+        List<FiltroResultadoModel> GetUserFiltersFAV();
 
-        void SetProductosCatalogoPersonalizadoFilter(dynamic val);
+        void SetProductosCatalogoPersonalizadoFilter(List<ProductoModel> val);
 
-        dynamic GetProductosCatalogoPersonalizadoFilter();
+        List<ProductoModel> GetProductosCatalogoPersonalizadoFilter();
 
         void SetPaisID(int val);
 
@@ -413,9 +405,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<MatrizCampaniaModel> Geterrores();
 
-        void SetMisPedidosDetallePorCampania(dynamic val);
+        void SetMisPedidosDetallePorCampania(List<BEPedidoWebDetalle> val);
 
-        dynamic GetMisPedidosDetallePorCampania();
+        List<BEPedidoWebDetalle> GetMisPedidosDetallePorCampania();
 
         void SetMisPedidosDetallePorCampaniaCampania(string val);
 

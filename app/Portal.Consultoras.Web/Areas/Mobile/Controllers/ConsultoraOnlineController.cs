@@ -406,7 +406,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                var consultoraOnlineMisPedidos = (MisPedidosModel)sessionManager.GetobjMisPedidos();
+                var consultoraOnlineMisPedidos = sessionManager.GetobjMisPedidos();
 
                 return Json(new
                 {
@@ -440,7 +440,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 sessionManager.SetobjMisPedidos(model);
             }
 
-            var consultoraOnlineMisPedidos = (MisPedidosModel)sessionManager.GetobjMisPedidos();
+            var consultoraOnlineMisPedidos = sessionManager.GetobjMisPedidos();
 
             var pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedidoId);
             ViewBag.NombreCompleto = userData.NombreConsultora;
@@ -470,7 +470,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 using (var sc = new SACServiceClient())
                 {
-                    var consultoraOnlineMisPedidos = (MisPedidosModel) sessionManager.GetobjMisPedidos();
+                    var consultoraOnlineMisPedidos = sessionManager.GetobjMisPedidos();
 
                     sc.CancelarSolicitudCliente(userData.PaisID, SolicitudId, OpcionCancelado, RazonMotivoCancelado);
 
@@ -950,7 +950,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel)sessionManager.GetobjMisPedidos();
+                MisPedidosModel consultoraOnlineMisPedidos = sessionManager.GetobjMisPedidos();
                 long _pedidoId = Convert.ToInt64(pedidoId);
                 BEMisPedidos pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == _pedidoId && p.Estado.Trim().Length == 0);
 

@@ -263,7 +263,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (lstFilters == null && tipoOrigen == 1 && sessionManager.GetUserFiltersFAV() != null)
                 {
-                    lstFilters = (List<FiltroResultadoModel>)sessionManager.GetUserFiltersFAV() ?? new List<FiltroResultadoModel>();
+                    lstFilters = sessionManager.GetUserFiltersFAV() ?? new List<FiltroResultadoModel>();
                 }
 
                 if (lstFilters != null)
@@ -288,7 +288,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (sessionManager.GetUserFiltersFAV() != null)
                     {
-                        var userFilters = (List<FiltroResultadoModel>)sessionManager.GetUserFiltersFAV() ?? new List<FiltroResultadoModel>();
+                        var userFilters = sessionManager.GetUserFiltersFAV() ?? new List<FiltroResultadoModel>();
                         foreach (var filter in lstFilters)
                         {
                             var userFilter = userFilters.FirstOrDefault(x => x.Id == filter.Id);
@@ -372,7 +372,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        lstProductoModelFilter = (List<ProductoModel>)sessionManager.GetProductosCatalogoPersonalizadoFilter() ?? new List<ProductoModel>();
+                        lstProductoModelFilter = sessionManager.GetProductosCatalogoPersonalizadoFilter() ?? new List<ProductoModel>();
                     }
 
                     listaProductoModel = lstProductoModelFilter;
@@ -707,7 +707,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var lstProductoModelFilter = new List<FiltroResultadoModel>();
                 if (sessionManager.GetUserFiltersFAV() != null)
                 {
-                    lstProductoModelFilter = (List<FiltroResultadoModel>)sessionManager.GetUserFiltersFAV() ?? new List<FiltroResultadoModel>();
+                    lstProductoModelFilter = sessionManager.GetUserFiltersFAV() ?? new List<FiltroResultadoModel>();
                 }
 
                 return Json(new

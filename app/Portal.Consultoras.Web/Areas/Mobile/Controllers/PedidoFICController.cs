@@ -739,7 +739,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                     sessionManager.SetPedidoFIC(olstTempListado);
                 }
-                else olstTempListado = (List<BEPedidoFICDetalle>)sessionManager.GetPedidoFIC();
+                else olstTempListado = sessionManager.GetPedidoFIC();
 
                 if (tipoAdm == "I")
                 {
@@ -868,7 +868,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch
             {
-                if (sessionManager.GetPedidoFIC() != null) olstTempListado = (List<BEPedidoFICDetalle>)sessionManager.GetPedidoFIC();
+                if (sessionManager.GetPedidoFIC() != null) olstTempListado = sessionManager.GetPedidoFIC();
                 errorServer = true;
             }
 

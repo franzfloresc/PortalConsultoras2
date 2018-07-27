@@ -767,7 +767,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!(listx == null || campSes == null || campSes != campaniaId || estadoCombo == null || estadoCombo != estado || pedidoIdSesion != pedidoId))
             {
-                lst = (List<BEPedidoWebDetalle>)listx;
+                lst = listx;
                 return lst;
             }
             estado = (estado ?? "").Trim().ToLower();

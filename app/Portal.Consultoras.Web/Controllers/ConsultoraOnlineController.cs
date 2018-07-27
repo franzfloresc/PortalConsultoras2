@@ -734,7 +734,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else
             {
-                objMisPedidos = (MisPedidosModel) sessionManager.GetobjMisPedidos();
+                objMisPedidos = sessionManager.GetobjMisPedidos();
                 indiceActualPagina = (int)TempData["indiceActualPagina"];
                 indiceUltimaPagina = (int)TempData["indiceUltimaPagina"];
                 if (Pagina.Equals("<<")) indiceActualPagina = 0;
@@ -880,7 +880,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (olstMisPedidosDet.Count > 0)
                 {
-                    MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel) sessionManager.GetobjMisPedidos();
+                    MisPedidosModel consultoraOnlineMisPedidos = sessionManager.GetobjMisPedidos();
                     long pedidoIdAux = Convert.ToInt64(pedidoId);
                     var pedido =
                         consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedidoIdAux) ??
@@ -987,7 +987,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ObtenerPagina(string Pagina)
         {
-            objMisPedidos = (MisPedidosModel)sessionManager.GetobjMisPedidos();
+            objMisPedidos = sessionManager.GetobjMisPedidos();
             ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Count(p => string.IsNullOrEmpty(p.Estado));
             indiceActualPagina = (int)TempData["indiceActualPagina"];
             indiceUltimaPagina = (int)TempData["indiceUltimaPagina"];
@@ -1070,12 +1070,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-            MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel) sessionManager.GetobjMisPedidos();
+            MisPedidosModel consultoraOnlineMisPedidos = sessionManager.GetobjMisPedidos();
             var pedidoAux =
                 consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedido.PedidoId) ??
                 new BEMisPedidos();
 
-            List<BEMisPedidosDetalle> olstMisPedidosDet = (List<BEMisPedidosDetalle>) sessionManager.GetobjMisPedidosDetalle();
+            List<BEMisPedidosDetalle> olstMisPedidosDet = sessionManager.GetobjMisPedidosDetalle();
             pedidoAux.DetallePedido = olstMisPedidosDet.Where(x => x.PedidoId == pedidoAux.PedidoId).ToArray();
 
             int tipo;
@@ -1170,7 +1170,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (tipo == 1) // solo para App Catalogos
                 {
-                    List<ServiceODS.BEProducto> olstMisProductos = (List<ServiceODS.BEProducto>) sessionManager.GetobjMisPedidosDetalleVal();
+                    List<ServiceODS.BEProducto> olstMisProductos = sessionManager.GetobjMisPedidosDetalleVal();
 
 
                     foreach (var item in pedido.ListaDetalleModel)
@@ -1737,7 +1737,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
             {
-                MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel) sessionManager.GetobjMisPedidos();
+                MisPedidosModel consultoraOnlineMisPedidos = sessionManager.GetobjMisPedidos();
 
                 ServiceSAC.BETablaLogicaDatos[] tablalogicaDatos = sv.GetTablaLogicaDatos(paisId, 56);
                 var numIteracionMaximo =
@@ -2030,7 +2030,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
                 {
-                    MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel) sessionManager.GetobjMisPedidos();
+                    MisPedidosModel consultoraOnlineMisPedidos = sessionManager.GetobjMisPedidos();
 
                     sc.CancelarSolicitudCliente(paisId, SolicitudId, OpcionCancelado, RazonMotivoCancelado);
                     ServiceSAC.BESolicitudCliente beSolicitudCliente = sc.GetSolicitudCliente(paisId, SolicitudId);

@@ -170,7 +170,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Detalle()
         {
-            var objCdr = sessionManager.GetListaCDRDetalle() as CDRWebModel;
+            var objCdr = sessionManager.GetListaCDRDetalle();
 
             if (objCdr != null)
             {
