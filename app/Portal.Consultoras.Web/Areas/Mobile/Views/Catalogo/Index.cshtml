@@ -42,7 +42,7 @@
 <span id="spNroCampania" style="display:none;">@Model.CampaniaActual</span>
 
 @{
-    if (HttpContext.Current.Request.Browser.IsMobileDevice && ViewBag.ActivacionAppCatalogoWhastUp == 1)
+    @*if (HttpContext.Current.Request.Browser.IsMobileDevice && ViewBag.ActivacionAppCatalogoWhastUp == 1)
     {
         <div class="wrapper_resumen_mobile" style="margin-top:126px;">
             <div class="content_320">
@@ -55,7 +55,7 @@
                 <hr class="clear" />
             </div>
         </div>
-    }
+    }*@
 }
 <div class="titulo_mobile">
     @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
@@ -211,7 +211,7 @@
             </a>
             <input id="txtUrl{{tipoCatalogo}}" type="hidden" value="" />
             <div style="max-width:440px; margin:0 auto;">
-                <a class="btn_ws" onclick="TagManagerWS('{{comp}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws2.png")" alt="-" /></a>
+                <a class="btn_ws"  onclick="TagManagerWS('{{comp}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws2.png")" alt="-" /></a>
                 <a class="btn_facebook" href="javascript:;" data-accion="face" onclick="CompartirFacebook('{{comp}}','{{campania}}', this); return false;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-"  /></a>
                 <a class="btn_mensaje" onclick="javascript: AbrirCompartirCorreo('{{tipoCatalogo}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
             </div>
