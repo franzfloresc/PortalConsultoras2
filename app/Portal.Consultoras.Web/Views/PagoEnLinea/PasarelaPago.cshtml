@@ -97,7 +97,7 @@
                     {
                         <div class="grupo_campo_formulario_pasarela_pago">
                             <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de nacimiento :</label>
-                            @Html.TextBoxFor(m => m.Birthdate, new { @class = "campo_formulario_pasarela_pago w-100" , id = "CampoFechaNacimiento", placeholder = "00/00/0000" })
+                            @Html.TextBoxFor(m => m.Birthdate, new { @class = "campo_formulario_pasarela_pago w-100" , id = "CampoFechaNacimiento", placeholder = "00/00/0000", required = "true" })
                             @Html.PagoValidationMessageFor(m => m.Birthdate)
                         </div>
                     }
@@ -105,7 +105,7 @@
                     {
                         <div class="grupo_campo_formulario_pasarela_pago">
                             <label class="nom_campo_formulario_pasarela_pago w-100">*Correo Electrónico :</label>
-                            @Html.TextBoxFor(m => m.Email, new { @class = "campo_formulario_pasarela_pago w-100", placeholder = "tucorreo@belcorp.biz", type = "email" })
+                            @Html.TextBoxFor(m => m.Email, new { @class = "campo_formulario_pasarela_pago w-100", placeholder = "tucorreo@belcorp.biz", type = "email", required = "true" })
                             @Html.PagoValidationMessageFor(m => m.Email)
                         </div>
                     }
@@ -113,7 +113,7 @@
                     {
                         <div class="grupo_campo_formulario_pasarela_pago">
                             <label class="nom_campo_formulario_pasarela_pago w-100">*Número de celular :</label>
-                            @Html.TextBoxFor(m => m.Phone, new { @class = "campo_formulario_pasarela_pago w-100", placeholder = "000000000", type = "tel" })
+                            @Html.TextBoxFor(m => m.Phone, new { @class = "campo_formulario_pasarela_pago w-100", placeholder = "000000000", type = "tel", required = "true" })
                             @Html.PagoValidationMessageFor(m => m.Phone)
                         </div>
                     }
