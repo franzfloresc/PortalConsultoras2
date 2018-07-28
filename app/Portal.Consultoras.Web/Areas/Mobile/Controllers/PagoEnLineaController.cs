@@ -59,20 +59,22 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpGet]
         public ActionResult PasarelaPago(string cardType)
         {
-            if (string.IsNullOrEmpty(cardType))
-            {
-                return RedirectToAction("MetodoPago");
-            }
-
             var pago = sessionManager.GetDatosPagoVisa();
-            var selected = pago.ListaMetodoPago.FirstOrDefault(m => m.TipoPasarelaCodigoPlataforma  == Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU && m.TipoTarjeta == cardType);
-
-            if (selected == null)
+            if (!string.IsNullOrEmpty(cardType))
+            {
+                var selected = pago.ListaMetodoPago.FirstOrDefault(m => m.TipoPasarelaCodigoPlataforma  == Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU && m.TipoTarjeta == cardType);
+                if (selected == null)
+                {
+                    return RedirectToAction("MetodoPago");
+                }
+                pago.MetodoPagoSeleccionado = selected;
+                sessionManager.SetDatosPagoVisa(pago);
+            }
+            
+            if (pago.MetodoPagoSeleccionado == null)
             {
                 return RedirectToAction("MetodoPago");
             }
-            pago.MetodoPagoSeleccionado = selected;
-            sessionManager.SetDatosPagoVisa(pago);
 
             //Logica para Obtener Valores de la PasarelaBelcorp
             ViewBag.PagoLineaCampos = _pagoEnLineaProvider.ObtenerCamposRequeridos();
