@@ -20,6 +20,56 @@
         <link href="@Url.Content("~/Content/Css/Mobile/lbel/buscador-filtros.css")" rel="stylesheet">
     }
 
+    <style type="text/css">
+        @@media (max-width: 767px) {
+            .section-container {
+                padding: 20px 0;
+            }
+
+            .policy-info {
+                width: 160px;
+            }
+        }
+
+        @@media (max-width: 480px) {
+            #policy .row > div + div {
+                border-top: 1px solid #ddd;
+                padding-top: 30px;
+                margin-top: 30px;
+            }
+
+            .policy-info {
+                width: 130px;
+            }
+        }
+
+        .policy .policy-icon {
+            float: left;
+            width: 50px;
+            font-size: 38px;
+            line-height: 50px;
+            color: #999;
+            text-align: center;
+        }
+
+            .policy .policy-icon + .policy-info {
+                margin-left: 65px;
+            }
+
+        .policy .policy-info h4 {
+            margin: 0;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 600;
+        }
+
+        .policy .policy-info p {
+            font-size: 12px;
+            color: #777;
+            margin: 0;
+        }
+    </style>
+
 }
 
 <div class="buscador_filtros_mobile">
@@ -36,8 +86,20 @@
     <i class="fa fa-chevron-left"></i>
 </div>
 
+<br />
+
+@*<div id="div-contenido-buscador">
+        @Html.Partial("_BuscadorPartialView")
+    </div>*@
+
+<div id="policy" class="section-container p-t-30 p-b-30">
+    @Html.Partial("_BuscadorPartialView")
+</div>
+
+
+
 @section scripts{
 
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Buscador/Index.js")"></script>    
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Buscador/Index.js")"></script>
 
 }

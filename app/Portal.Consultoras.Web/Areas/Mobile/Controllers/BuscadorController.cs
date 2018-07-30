@@ -14,5 +14,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Buscador()
+        {
+            return PartialView("_BuscadorPartialView");
+        }
     }
 }
