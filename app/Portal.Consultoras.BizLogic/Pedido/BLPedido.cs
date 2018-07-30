@@ -34,8 +34,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private readonly IEstrategiaProductoBusinessLogic _estrategiaProductoBusinessLogic;
         private readonly IPedidoWebSetBusinessLogic _pedidoWebSetBusinessLogic;
 
-        private string nombreServicio = string.Empty;
-
         public BLPedido() : this(new BLProducto(),
                                     new BLPedidoWeb(),
                                     new BLPedidoWebDetalle(),
@@ -152,8 +150,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
         }
 
-        private void LogPerformance(string mensaje)
-        {
+        //private void LogPerformance(string mensaje)
+        //{
             //var pathFile = AppDomain.CurrentDomain.BaseDirectory + "Log\\";
             //if (!System.IO.Directory.Exists(pathFile)) System.IO.Directory.CreateDirectory(pathFile);
             //string path = string.Format("{0}LogPerformance_{1}_{2}.portal", pathFile, DateTime.Now.ToString("yyyy-MM-dd"), nombreServicio);
@@ -171,7 +169,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             //            stream.WriteLine(string.Format("{0} => {1} => {2}", DateTime.Now.ToString("HH:mm:ss.fff"), cuvBuscar, mensaje));
             //    }
             //}
-        }
+        //}
 
         public BEPedidoDetalleResult Insert(BEPedidoDetalle pedidoDetalle)
         {
@@ -509,10 +507,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             try
             {
-                nombreServicio = "GetConfiguracion";
-                LogPerformance("Inicio");
                 config.Barra = GetDataBarra(paisID);
-                LogPerformance("Fin");
             }
             catch (Exception ex)
             {
@@ -1022,9 +1017,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private BEPedidoProducto ProductoBuscarRespuesta(string codigoRespuesta, string mensajeRespuesta = null, BEProducto producto = null)
         {
-            LogPerformance("Fin");
-            LogPerformance(string.Empty);
-
             return new BEPedidoProducto()
             {
                 CodigoRespuesta = codigoRespuesta,
@@ -1060,9 +1052,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         #region Insert
         private BEPedidoDetalleResult PedidoDetalleRespuesta(string codigoRespuesta, string mensajeRespuesta = null)
         {
-            LogPerformance("Fin");
-            LogPerformance(string.Empty);
-
             return new BEPedidoDetalleResult()
             {
                 CodigoRespuesta = (codigoRespuesta == Constantes.PedidoAppValidacion.Code.SUCCESS_RESERVA ||
@@ -1467,11 +1456,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 ListaMensajeMeta = new List<BEMensajeMetaConsultora>()
             };
             objR.ListaEscalaDescuento = _escalaDescuentoBusinessLogic.GetEscalaDescuento(paisID) ?? new List<BEEscalaDescuento>();
-            LogPerformance("GetEscalaDescuento");
 
             var entity = new BEMensajeMetaConsultora() { TipoMensaje = string.Empty };
             objR.ListaMensajeMeta = _mensajeMetaConsultoraBusinessLogic.GetMensajeMetaConsultora(paisID, entity) ?? new List<BEMensajeMetaConsultora>();
-            LogPerformance("GetMensajeMetaConsultora");
 
             return objR;
         }
@@ -1578,9 +1565,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private BEPedidoReservaAppResult PedidoReservaRespuesta(string codigoRespuesta, string mensajeRespuesta = null,
             BEResultadoReservaProl resultadoReserva = null)
         {
-            LogPerformance("Fin");
-            LogPerformance(string.Empty);
-
             return new BEPedidoReservaAppResult()
             {
                 CodigoRespuesta = (codigoRespuesta == Constantes.PedidoAppValidacion.Code.SUCCESS_RESERVA ||
