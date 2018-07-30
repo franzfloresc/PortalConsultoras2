@@ -8,7 +8,6 @@ var belcorp = belcorp || {};
 belcorp.estrategia = belcorp.estrategia || {};
 registerEvent.call(belcorp.estrategia, "onProductoAgregado");
 belcorp.estrategia.subscribe("onProductoAgregado", function (data) {
-    //debugger;
     if (data.data.TipoEstrategiaCodigo === ConstantesModule.ConstantesPalanca.OfertaDelDia) {
         //alert(data.data.DescripcionProd);
         //window.OfertaDelDia.CargarODD();

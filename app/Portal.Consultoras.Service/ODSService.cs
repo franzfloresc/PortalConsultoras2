@@ -267,7 +267,7 @@ namespace Portal.Consultoras.Service
             return BLProducto.ValidarCantidadMaximaProgramaNuevas(paisID, campaniaID, consecutivoNueva, codigoPrograma, cantidadEnPedido, cuvIngresado, cantidadIngresada);
         }
 
-        public Enumeradores.ValidarCuponesElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, /*List<string> lstCuvPedido*/ int CantidadElectivosPedido)
+        public Enumeradores.ValidarCuponesElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, int CantidadElectivosPedido)
         {
             return BLProducto.ValidaCuvElectivo(paisID, campaniaID, cuvIngresado, consecutivoNueva, codigoPrograma, CantidadElectivosPedido);
         }

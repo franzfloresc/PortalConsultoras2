@@ -1424,7 +1424,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             string mensajeOsb = ValidarAgregarEnProgramaNuevas(model.CUV, Convert.ToInt32(model.Cantidad), model.EsOfertaIndependiente, model.TipoEstrategiaImagen);
             if (mensajeOsb != "") return Json(new { success = false, message = mensajeOsb }, JsonRequestBehavior.AllowGet);
-            //EliminarDetallePackNueva(model.EsOfertaIndependiente, model.TipoEstrategiaImagen);
             Session[Constantes.ConstSession.ListaEstrategia] = null;
             return PedidoInsertar(model);
         }
@@ -4471,19 +4470,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //if (!Convert.ToBoolean(Session["CuvEsProgramaNuevas"])) return "";
-                //int valor = 0;
-                //int cantidadPedido = ObtnerCantidadCuvPedidoWeb(cuvingresado);
-                //using (var svc = new ODSServiceClient())
-                //    valor = svc.ValidarCantidadMaximaProgramaNuevas(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cantidadPedido, cuvingresado, cantidadIngresada);
-                //if (valor != 0) return Constantes.ProgramaNuevas.MensajeValidacionCantidadMaxima.ExcedeCantidad.Replace("#n#", valor.ToString());
-
                 var electivo = Enumeradores.ValidarCuponesElectivos.ReemplazarCupon;
                 using (var svc = new ODSServiceClient())
                     electivo = svc.ValidaCuvElectivo(userData.PaisID, userData.CampaniaID, cuvingresado, userData.ConsecutivoNueva, userData.CodigoPrograma, ObtenerCantidadCuponesElectivos());
                 if (electivo == Enumeradores.ValidarCuponesElectivos.ReemplazarCupon) EliminarDetallePackNueva(esOfertaIndependiente, tipoEstrategiaImagen);
-                if (electivo == Enumeradores.ValidarCuponesElectivos.NoAgregarCuponExcedioLimite) return Constantes.ProgramaNuevas.MensajeValidacionElectividadProductos.ExisteElectivoEnSuPedido;               
-
+                if (electivo == Enumeradores.ValidarCuponesElectivos.NoAgregarCuponExcedioLimite) return Constantes.ProgramaNuevas.MensajeValidacionElectividadProductos.ExisteElectivoEnSuPedido;
                 return "";
             }
             catch (Exception ex)
@@ -4503,7 +4494,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<BEPedidoWebDetalle> lstPedidoDetalle = ObtenerPedidoWebDetalle();
             return lstPedidoDetalle.Where(x => x.FlagNueva && !x.EsOfertaIndependiente).Count();
-            //return lstPedidoDetalle.Select(x => x.CUV).ToList();
         }
 
         private Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(string cuv)

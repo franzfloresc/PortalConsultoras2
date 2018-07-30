@@ -163,7 +163,7 @@ namespace Portal.Consultoras.ServiceContracts
         int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada);
 
         [OperationContract]
-        Enumeradores.ValidarCuponesElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, /*List<string> lstCuvPedido*/ int CantidadElectivosPedido);
+        Enumeradores.ValidarCuponesElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, int CantidadElectivosPedido);
         #endregion
 
         #region ValidarVentaExclusiva
