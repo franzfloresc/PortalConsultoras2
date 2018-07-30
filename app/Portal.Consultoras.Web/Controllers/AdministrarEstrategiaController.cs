@@ -826,11 +826,11 @@ namespace Portal.Consultoras.Web.Controllers
                             entidad.ImagenMiniaturaURL = GuardarImagenMiniAmazon(model.ImagenMiniaturaURL, model.ImagenMiniaturaURLAnterior, userData.PaisID);
                         }
 
-                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO,entidad.CodigoTipoEstrategia))
+                        if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, entidad.CodigoTipoEstrategia))
                         {
                             if (entidad.EstrategiaID != 0)
                             {
-                                administrarEstrategiaProvider.EditarEstrategia(entidad, _id, userData.CodigoISO,_flagRecoProduc, _flagRecoPerfil);
+                                administrarEstrategiaProvider.EditarEstrategia(entidad, _id, userData.CodigoISO, _flagRecoProduc, _flagRecoPerfil);
                             }
                             else
                             {
@@ -843,8 +843,8 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
-                if (!_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, entidad.CodigoTipoEstrategia))
-                    EstrategiaProductoInsertar(respuestaServiceCdr, entidad);
+
+                EstrategiaProductoInsertar(respuestaServiceCdr, entidad);
 
                 if (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi &&
                     !string.IsNullOrEmpty(model.PrecioAnt) &&
