@@ -76,7 +76,7 @@
                 <!--fin compartir-->
             </div>
             <div class="ficha_detalle">
-                <div id="contenedor_ficha_etiquetas" class="contenedor_ficha_etiquetas">
+                <div id="contenedor_ficha_etiquetas" class="contenedor_ficha_etiquetas contenedor_ficha_etiquetas_Confondo">
                     {{#if TieneReloj}}
                     <div id="EtiquetaOdd" class="contenedor_etiqueta_odd">
                         <div id="clock" class="clock_odd"></div>
@@ -258,7 +258,7 @@
                     </div>
 
                 </div>
-                <div class="contenedor_agregar">
+                <div id="dvContenedorAgregar" class="contenedor_agregar">
                     <div class="contenedor_rangos {{ClaseBloqueadaRangos}}" id="idcontenedor_rangos" data-cantidad-contenedor="">
                         <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" {{RangoInputEnabled}} type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
                         <div>

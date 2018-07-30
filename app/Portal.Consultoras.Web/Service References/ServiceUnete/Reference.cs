@@ -9786,6 +9786,15 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string CorreoElectronicoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DetalleDiasEsperaAFFVVField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DetalleDiasEsperaASACField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DetalleDiasEsperaGSACField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DiasEnEsperaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9810,13 +9819,13 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string EstadoPostulanteInicialField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<System.DateTime> FechaCreacionField;
+        private string FechaCreacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaCreacionCodigoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<System.DateTime> FechaEnvioField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FechaIngresoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FuenteIngresoField;
@@ -9867,6 +9876,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private int SolicitudPostulanteIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> SubEstadoPostulanteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TelefonoCelularField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9883,15 +9895,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoSolicitudField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TotalEnAprobacionFFVVField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TotalEnAprobacionSACField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TotalEnGestionSACField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string VieneDeField;
@@ -10027,6 +10030,45 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DetalleDiasEsperaAFFVV {
+            get {
+                return this.DetalleDiasEsperaAFFVVField;
+            }
+            set {
+                if ((this.DetalleDiasEsperaAFFVVField.Equals(value) != true)) {
+                    this.DetalleDiasEsperaAFFVVField = value;
+                    this.RaisePropertyChanged("DetalleDiasEsperaAFFVV");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DetalleDiasEsperaASAC {
+            get {
+                return this.DetalleDiasEsperaASACField;
+            }
+            set {
+                if ((this.DetalleDiasEsperaASACField.Equals(value) != true)) {
+                    this.DetalleDiasEsperaASACField = value;
+                    this.RaisePropertyChanged("DetalleDiasEsperaASAC");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DetalleDiasEsperaGSAC {
+            get {
+                return this.DetalleDiasEsperaGSACField;
+            }
+            set {
+                if ((this.DetalleDiasEsperaGSACField.Equals(value) != true)) {
+                    this.DetalleDiasEsperaGSACField = value;
+                    this.RaisePropertyChanged("DetalleDiasEsperaGSAC");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string DiasEnEspera {
             get {
                 return this.DiasEnEsperaField;
@@ -10131,14 +10173,27 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<System.DateTime> FechaCreacion {
+        public string FechaCreacion {
             get {
                 return this.FechaCreacionField;
             }
             set {
-                if ((this.FechaCreacionField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.FechaCreacionField, value) != true)) {
                     this.FechaCreacionField = value;
                     this.RaisePropertyChanged("FechaCreacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaCreacionCodigo {
+            get {
+                return this.FechaCreacionCodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaCreacionCodigoField, value) != true)) {
+                    this.FechaCreacionCodigoField = value;
+                    this.RaisePropertyChanged("FechaCreacionCodigo");
                 }
             }
         }
@@ -10152,19 +10207,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((this.FechaEnvioField.Equals(value) != true)) {
                     this.FechaEnvioField = value;
                     this.RaisePropertyChanged("FechaEnvio");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FechaIngreso {
-            get {
-                return this.FechaIngresoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FechaIngresoField, value) != true)) {
-                    this.FechaIngresoField = value;
-                    this.RaisePropertyChanged("FechaIngreso");
                 }
             }
         }
@@ -10378,6 +10420,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> SubEstadoPostulante {
+            get {
+                return this.SubEstadoPostulanteField;
+            }
+            set {
+                if ((this.SubEstadoPostulanteField.Equals(value) != true)) {
+                    this.SubEstadoPostulanteField = value;
+                    this.RaisePropertyChanged("SubEstadoPostulante");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string TelefonoCelular {
             get {
                 return this.TelefonoCelularField;
@@ -10451,45 +10506,6 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.TipoSolicitudField, value) != true)) {
                     this.TipoSolicitudField = value;
                     this.RaisePropertyChanged("TipoSolicitud");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TotalEnAprobacionFFVV {
-            get {
-                return this.TotalEnAprobacionFFVVField;
-            }
-            set {
-                if ((this.TotalEnAprobacionFFVVField.Equals(value) != true)) {
-                    this.TotalEnAprobacionFFVVField = value;
-                    this.RaisePropertyChanged("TotalEnAprobacionFFVV");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TotalEnAprobacionSAC {
-            get {
-                return this.TotalEnAprobacionSACField;
-            }
-            set {
-                if ((this.TotalEnAprobacionSACField.Equals(value) != true)) {
-                    this.TotalEnAprobacionSACField = value;
-                    this.RaisePropertyChanged("TotalEnAprobacionSAC");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TotalEnGestionSAC {
-            get {
-                return this.TotalEnGestionSACField;
-            }
-            set {
-                if ((this.TotalEnGestionSACField.Equals(value) != true)) {
-                    this.TotalEnGestionSACField = value;
-                    this.RaisePropertyChanged("TotalEnGestionSAC");
                 }
             }
         }
@@ -12308,10 +12324,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.paginacionGrid> ConsultarSolicitudesPostulanteV2Async(Portal.Consultoras.Web.ServiceUnete.GestionaPostulanteModelSAC model);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulante", ReplyAction="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulanteResponse")]
-        Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteXLS[] ObtenerReporteGestionPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int MostrarPaso1y2SE, int PaginaActual);
+        Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteXLS[] ObtenerReporteGestionPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int PaginaActual, string CodigoConsultora, System.Nullable<int> PDigital, System.Nullable<int> PTradicional, int MostrarPaso1y2SE);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulante", ReplyAction="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulanteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteXLS[]> ObtenerReporteGestionPostulanteAsync(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int MostrarPaso1y2SE, int PaginaActual);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteXLS[]> ObtenerReporteGestionPostulanteAsync(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int PaginaActual, string CodigoConsultora, System.Nullable<int> PDigital, System.Nullable<int> PTradicional, int MostrarPaso1y2SE);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetDictionaryReporteFuenteIngreso", ReplyAction="http://tempuri.org/IPortalService/GetDictionaryReporteFuenteIngresoResponse")]
         System.Collections.Generic.Dictionary<string, string> GetDictionaryReporteFuenteIngreso();
@@ -12849,12 +12865,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             return base.Channel.ConsultarSolicitudesPostulanteV2Async(model);
         }
         
-        public Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteXLS[] ObtenerReporteGestionPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int MostrarPaso1y2SE, int PaginaActual) {
-            return base.Channel.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO, MostrarPaso1y2SE, PaginaActual);
+        public Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteXLS[] ObtenerReporteGestionPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int PaginaActual, string CodigoConsultora, System.Nullable<int> PDigital, System.Nullable<int> PTradicional, int MostrarPaso1y2SE) {
+            return base.Channel.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO, PaginaActual, CodigoConsultora, PDigital, PTradicional, MostrarPaso1y2SE);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteXLS[]> ObtenerReporteGestionPostulanteAsync(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int MostrarPaso1y2SE, int PaginaActual) {
-            return base.Channel.ObtenerReporteGestionPostulanteAsync(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO, MostrarPaso1y2SE, PaginaActual);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteXLS[]> ObtenerReporteGestionPostulanteAsync(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int PaginaActual, string CodigoConsultora, System.Nullable<int> PDigital, System.Nullable<int> PTradicional, int MostrarPaso1y2SE) {
+            return base.Channel.ObtenerReporteGestionPostulanteAsync(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO, PaginaActual, CodigoConsultora, PDigital, PTradicional, MostrarPaso1y2SE);
         }
         
         public System.Collections.Generic.Dictionary<string, string> GetDictionaryReporteFuenteIngreso() {
