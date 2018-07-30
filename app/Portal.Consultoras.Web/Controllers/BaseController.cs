@@ -2578,6 +2578,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             var MostrarBuscador = false;
             var CaracteresBuscador = 0;
+            var TotalListadorBuscador = 20;
+            var CaracteresBuscadorMostrar = 15;
 
             if (buscadorYFiltro.ConfiguracionPaisDatos.Any())
             {
@@ -2591,12 +2593,20 @@ namespace Portal.Consultoras.Web.Controllers
                         case Constantes.TipoConfiguracionBuscador.CaracteresBuscador:
                             CaracteresBuscador = item.Valor1.ToInt();
                             break;
+                        case Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar:
+                            CaracteresBuscadorMostrar = item.Valor1.ToInt();
+                            break;
+                        case Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador:
+                            TotalListadorBuscador = item.Valor1.ToInt();
+                            break;
                     }
                 }
             }
 
             ViewBag.MostrarBuscadorYFiltros = MostrarBuscador;
             ViewBag.CaracteresBuscador = CaracteresBuscador;
+            ViewBag.TotalListadorBuscador = TotalListadorBuscador;
+            ViewBag.CaracteresBuscadorMostrar = CaracteresBuscadorMostrar;
         }
 
         private string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes)
