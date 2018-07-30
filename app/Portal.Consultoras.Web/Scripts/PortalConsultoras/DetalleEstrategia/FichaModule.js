@@ -409,8 +409,6 @@ var FichaModule = (function (config) {
             _actualizarCodigoVariante(estrategia);
         }
 
-        opcionesEvents.applyChanges("onEstrategiaLoaded", estrategia);
-
         return estrategia;
     };
 
@@ -556,7 +554,7 @@ var FichaModule = (function (config) {
         _setEstrategiaBreadcrumb(estrategia);
         $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
-        SetHandlebars("#componentes-template", estrategia, "#componentes");
+        opcionesEvents.applyChanges("onEstrategiaLoaded", estrategia);
         _validarDesactivadoGeneral(estrategia);
 
         var imgFondo = "";

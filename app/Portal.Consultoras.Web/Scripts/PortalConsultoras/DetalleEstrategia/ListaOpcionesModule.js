@@ -14,16 +14,16 @@
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 
 var opcionesEvents = opcionesEvents || {};
-registerEvent.call(opcionesEvents, "onOptionSelected");
+registerEvent.call(opcionesEvents, "onComponentSelected");
 var ListaOpcionesModule = (function () {
     var _estrategia = {};
-    var _mostrarOpciones = function (componente) {
+    var _cargarOpciones = function (componente) {
         SetHandlebars("#lista-opciones-template", componente, "#lista-opciones");
     }
     return {
-        MostrarOpciones: _mostrarOpciones
+        CargarOpciones: _cargarOpciones
     };
 }());
-opcionesEvents.subscribe("onOptionSelected", function (componente) {
-    ListaOpcionesModule.MostrarOpciones(componente);
+opcionesEvents.subscribe("onComponentSelected", function (componente) {
+    ListaOpcionesModule.CargarOpciones(componente);
 });

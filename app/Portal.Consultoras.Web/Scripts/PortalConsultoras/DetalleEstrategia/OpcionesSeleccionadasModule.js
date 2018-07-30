@@ -14,25 +14,17 @@
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 
 var opcionesEvents = opcionesEvents || {};
-//registerEvent.call(opcionesEvents, "onEstrategiaLoaded");
-registerEvent.call(opcionesEvents, "onOptionSelected");
+registerEvent.call(opcionesEvents, "onComponentSelected");
 var OpcionesSeleccionadasModule = (function () {
     var _estrategia = {};
-    //var _inicializar = function (model) {
-    //    _estrategia = model || _estrategia;
-    //    console.log("OpcionesSeleccionadasModule");
-    //    console.log(_estrategia);
-    //};
-    var _mostrarOpciones = function (componente) {
-        
+    var _cargarOpcionesSeleccionadas = function (componente) {
+        //SetHandlebars("#lista-opciones-template", componente, "#lista-opciones");
     }
     return {
-        MostrarOpciones: _mostrarOpciones
+        CargarOpcionesSeleccionadas: _cargarOpcionesSeleccionadas
     };
+
 }());
-//opcionesEvents.subscribe("onEstrategiaLoaded", function (e) {
-//    OpcionesSeleccionadasModule.Inicializar(e);
-//});
-opcionesEvents.subscribe("onOptionSelected", function (componente) {
-    OpcionesSeleccionadasModule.MostrarOpciones(componente);
+opcionesEvents.subscribe("onComponentSelected", function (componente) {
+    OpcionesSeleccionadasModule.CargarOpcionesSeleccionadas(componente);
 });

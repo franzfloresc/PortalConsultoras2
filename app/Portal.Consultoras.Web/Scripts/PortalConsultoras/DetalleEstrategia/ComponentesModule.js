@@ -15,15 +15,16 @@
 
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onEstrategiaLoaded");
-registerEvent.call(opcionesEvents, "onOptionSelected");
+registerEvent.call(opcionesEvents, "onComponentSelected");
 var ComponentesModule = (function () {
     var _estrategia = {};
 
-    var _inicializar = function (model) {
-        _estrategia = model || _estrategia;
+    var _cargarComponentesEstrategia = function (estrategia) {
+        _estrategia = estrategia || _estrategia;
+        SetHandlebars("#componentes-template", _estrategia, "#componentes");
     };
 
-    var _mostrarOpciones = function (cuv) {
+    var _seleccionarComponente = function (cuv) {
         var componente;
         $.each(_estrategia.Hermanos, function (index, hermano) {
             cuv = $.trim(cuv);
@@ -33,17 +34,17 @@ var ComponentesModule = (function () {
             }
         });
         //
-        opcionesEvents.applyChanges("onOptionSelected", componente);
+        opcionesEvents.applyChanges("onComponentSelected", componente);
         //
         $("#elegir-opciones-modal").modal("show");
 
     }
 
     return {
-        Inicializar: _inicializar,
-        MostrarOpciones: _mostrarOpciones
+        CargarComponentesEstrategia: _cargarComponentesEstrategia,
+        SeleccionarComponente: _seleccionarComponente
     };
 }());
-opcionesEvents.subscribe("onEstrategiaLoaded", function (e) {
-    ComponentesModule.Inicializar(e);
+opcionesEvents.subscribe("onEstrategiaLoaded", function (estrategia) {
+    ComponentesModule.CargarComponentesEstrategia(estrategia);
 });
