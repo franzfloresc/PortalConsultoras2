@@ -121,6 +121,8 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
             {
                 return Util.DecimalToStringFormat(SaldoPendiente, CodigoIso);
             }
-        }        
+        }
+
+        public string DeviceSessionId { get; set; }
     }
 }

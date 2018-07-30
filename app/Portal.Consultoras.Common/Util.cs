@@ -3447,6 +3447,24 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
+        public static class Security
+        {
+            public static string ToMd5(string input)
+            {
+                using (MD5 md5 = MD5.Create())
+                {
+                    byte[] inputBytes = Encoding.ASCII.GetBytes(input);
+                    byte[] hashBytes = md5.ComputeHash(inputBytes);
+                
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var item in hashBytes)
+                    {
+                        sb.Append(item.ToString("x2"));
+                    }
+                    return sb.ToString();
+                }
+            }
+        }
     }
 
     public static class DataRecord

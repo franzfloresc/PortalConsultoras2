@@ -2375,6 +2375,18 @@ namespace Portal.Consultoras.Common
             public const string Celular = "CELULAR";
         }
 
+        public static class PagoEnLineaPayuGenerales
+        {
+            public const string Language = "es";
+            public const string Command = "SUBMIT_TRANSACTION";
+            public const string OrderCodePrefix = "Pago_SB_";
+            public const string OrderDescription = "Pago_SB";
+            public const string OrderLanguage = "es";
+            public const string Country = "MX";
+            public const string Currency = "MXN";
+            public const string TransactionType = "AUTHORIZATION_AND_CAPTURE";
+        }
+
         #endregion        
     }
 }

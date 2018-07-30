@@ -139,5 +139,8 @@
 </div>
 
 @section scripts{
+    @{
+        Html.RenderPartial("PagoEnLinea/_PayuDeviceScript", (string)ViewBag.DeviceSessionId);
+    }
     <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/PasarelaPago.js")"></script>
 }

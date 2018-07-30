@@ -299,12 +299,13 @@ namespace Portal.Consultoras.Web.Providers
                 pagoModel.AccessKeyId = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.ApiLogin);
                 pagoModel.SecretAccessKey = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.ApiKey);
                 pagoModel.AccountId = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.AccountId);
-                pagoModel.UrlSessionBotonPagos = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.Endpoint);
+                pagoModel.UrlPagoPayu = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.Endpoint);
                 pagoModel.IsTest = ObtenerValoresTipoPasarela(listaPasarelaVisa, tipoPasarelaVisa, Constantes.PagoEnLineaPasarelaPayu.Test) == "1";
             }
 
             return pagoModel;
         }
+
         public bool ProcesarPagoVisa(ref PagoEnLineaModel model, string transactionToken)
         {
             var resultado = false;

@@ -57,12 +57,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
         [HttpGet]
-        public ActionResult PasarelaPago(string cardType)
+        public ActionResult PasarelaPago(string cardType, int medio)
         {
             var pago = sessionManager.GetDatosPagoVisa();
             if (!string.IsNullOrEmpty(cardType))
             {
-                var selected = pago.ListaMetodoPago.FirstOrDefault(m => m.TipoPasarelaCodigoPlataforma  == Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU && m.TipoTarjeta == cardType);
+                var selected = pago.ListaMetodoPago
+                    .FirstOrDefault(m =>
+                        m.TipoPasarelaCodigoPlataforma  == Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU &&
+                        m.PagoEnLineaMedioPagoId == medio &&
+                        m.TipoTarjeta == cardType);
+
                 if (selected == null)
                 {
                     return RedirectToAction("MetodoPago");
@@ -76,6 +81,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("MetodoPago");
             }
 
+            SetDeviceSessionId();
             //Logica para Obtener Valores de la PasarelaBelcorp
             ViewBag.PagoLineaCampos = _pagoEnLineaProvider.ObtenerCamposRequeridos();
             CargarListsPasarela();
@@ -116,6 +122,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
+            SetDeviceSessionId();
             ViewBag.PagoLineaCampos = requiredFields;
             CargarListsPasarela();
 
@@ -172,6 +179,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             Func<string, SelectListItem> fnSelect = m => new SelectListItem {Value = m, Text = m};
             ViewBag.MonthList = _pagoEnLineaProvider.ObtenerMeses().Select(fnSelect);
             ViewBag.YearList = _pagoEnLineaProvider.ObtenerAnios().Select(fnSelect);
+        }
+
+        private void SetDeviceSessionId()
+        {
+            var pago = sessionManager.GetDatosPagoVisa();
+
+            var provider = new PagoPayuProvider
+            {
+                SessionId = Session.SessionID
+            };
+            pago.DeviceSessionId = provider.GetDeviceSessionId();
+            sessionManager.SetDatosPagoVisa(pago);
+            ViewBag.DeviceSessionId = pago.DeviceSessionId;
         }
     }
 }
