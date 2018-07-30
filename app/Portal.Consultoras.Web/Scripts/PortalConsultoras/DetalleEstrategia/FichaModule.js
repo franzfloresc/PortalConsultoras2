@@ -22,6 +22,7 @@ var variablesPortal = variablesPortal || {};
 
 var FichaModule = (function (config) {
     "use strict";
+
     var _localStorageModule;
     var _primeraMarca = "";
     var _ultimaMarca = "";
@@ -85,14 +86,6 @@ var FichaModule = (function (config) {
         video: "#div_ficha_tab5"
     };
 
-    var _seccionesFichaTabProducto = {
-        ContenidoProductoDetalleProducto: "#contenido_1",
-        ContenidoProductoDetallePack: "#contenido_2",
-        ContenidoProductoTipsVenta: "#contenido_3",
-        ContenidoProductoBeneficios: "#contenido_4",
-        ContenidoProductoVideo: "#contenido_5"
-    }
-
     var _getParamValueFromQueryString = function (queryStringName) {
         queryStringName = queryStringName || "";
         queryStringName = queryStringName.toLowerCase();
@@ -114,36 +107,105 @@ var FichaModule = (function (config) {
         return queryStringValue;
     };
 
-    var _eventos = {
-        clickChange: function() {
+    Handlebars.registerHelper("ifVerificarMarca", function (marca, options) {
+        if (_primeraMarca !== marca && _esMultimarca) {
+            _primeraMarca = marca;
+            return options.fn(this);
+        }
+    });
 
-        },
-        mouseMove: function() {
+    Handlebars.registerHelper("ifVerificarMarcaLast", function (marca, options) {
+        if (_esMultimarca) {
+            if (_ultimaMarca === "" || _ultimaMarca === marca) {
+                _ultimaMarca = marca;
+                return options.inverse(this);
+            }
+            else {
+                _ultimaMarca = marca;
+                return options.fn(this);
+            }
+        }
+        else {
+            if (_ultimaMarca === "") {
+                _ultimaMarca = marca;
+                return options.inverse(this);
+            }
+            else return options.fn(this);
+        }
+    });
 
-        },
-        mouseLeaveSelectArea: function() {
+    //// Método que realiza la marcación en analytics de tonos en el combo de seleccion de tonos.
+    //var _marcarCambiaColorCombo = function () {
+    //    var producto = _descripcionProducto;
+    //    var contenedorTonos = $(".content_tonos_select").children(".content_tono_elegido");
+    //    $(contenedorTonos).each(function (index, element) {
+    //        $(this).click(function () {
+    //            var tono = $(this).attr("data-tono-nombre");
+    //            AnalyticsPortalModule.MarcarCambiaColorCombo(producto, tono);
+    //        });
+    //    });
+    //}
 
+    //// Método que realiza la marcación en analytics de tonos en el cuadrado de seleccion de tonos.
+    //var _marcarCambiaColorCuadro = function () {
+    //    var producto = _descripcionProducto;
+    //    var contenedorTonos = $(".content_tonos_maquillaje").children(".content_tono_detalle");
+    //    $(contenedorTonos).each(function (index, element) {
+    //        $(this).click(function () {
+    //            var tono = $(this).attr("data-tono-nombre");
+    //            AnalyticsPortalModule.MarcarCambiaColorCuadro(producto, tono);
+    //        });
+    //    });
+    //}
+
+    var _seccionesFichaTabProducto = {
+        ContenidoProductoDetalleProducto: "#contenido_1",
+        ContenidoProductoDetallePack: "#contenido_2",
+        ContenidoProductoTipsVenta: "#contenido_3",
+        ContenidoProductoBeneficios: "#contenido_4",
+        ContenidoProductoVideo: "#contenido_5"
+    }
+
+    var _fijarFooterCampaniaSiguiente = function() {
+        if (isMobile()) {
+            var $elemento = $(".content_inscribirte");
+            if ($elemento.length !== 0) {
+                var $redesSociales = $((_seccionesFichaProducto.Contenedor_redes_sociales));
+                $redesSociales.find(".share").css("margin-bottom", "200px");
+            }
         }
     };
 
-    var _bindingEvents = function () {
-        $("body").on("click", _elementos.dataClicked, _eventos.clickChange);
+    var _ocultarTabs = function () {
+        var estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
 
-        if (!isMobile()) {
-            $(document).on("mousemove", _elementos.dataChange, _eventos.mouseMove);
-            $(document).on("mouseleave", _elementos.dataSelected, _eventos.mouseLeaveSelectArea);
+        $(_tabsFichaProducto.detalleProducto).hide();
+        $(_tabsFichaProducto.detallePack).hide();
+        $(_tabsFichaProducto.tipsVenta).hide();
+        $(_tabsFichaProducto.beneficios).hide();
+        $(_tabsFichaProducto.video).hide();
+        $(_seccionesFichaTabProducto.ContenidoProductoDetalleProducto).hide();
+        $(_seccionesFichaTabProducto.ContenidoProductoDetallePack).hide();
+        $(_seccionesFichaTabProducto.ContenidoProductoTipsVenta).hide();
+        $(_seccionesFichaTabProducto.ContenidoProductoBeneficios).hide();
+        $(_seccionesFichaTabProducto.ContenidoProductoVideo).hide();
+
+
+        if (_codigoPalanca.ShowRoom === _config.palanca ||
+            ConstantesModule.ConstantesPalanca.Lanzamiento === _config.palanca) {
+            $(_tabsFichaProducto.tipsVenta).show();
         }
-    };
 
-    var _crearReloj = function (estrategia) {
-        $("#clock").each(function (index, elem) {
-            $(elem).FlipClock(estrategia.TeQuedan,
-                {
-                    countdown: true,
-                    clockFace: "HourlyCounter",
-                    language: "es-es"
-                });
-        });
+        if (_codigoPalanca.Lanzamiento === _config.palanca) {
+            if (estrategia.TipoEstrategiaDetalle.UrlVideoDesktop && !isMobile()) {
+                $(_tabsFichaProducto.video).show();
+                $(_seccionesFichaTabProducto.ContenidoProductoVideo).show();
+            }
+            if (estrategia.TipoEstrategiaDetalle.UrlVideoMobile && isMobile()) {
+                $(_tabsFichaProducto.video).show();
+                $(_seccionesFichaTabProducto.ContenidoProductoVideo).show();
+            }
+        }
     };
 
     var _crearTabs = function () {
@@ -182,6 +244,120 @@ var FichaModule = (function (config) {
                 $this.attr("class", "active");
             }
         });
+    };
+
+    var _eventos = {
+        clickChange: function () {
+
+        },
+        mouseMove: function () {
+
+        },
+        mouseLeaveSelectArea: function () {
+
+        }
+    };
+
+    var _bindingEvents = function () {
+        $("body").on("click", _elementos.dataClicked, _eventos.clickChange);
+
+        if (!isMobile()) {
+            $(document).on("mousemove", _elementos.dataChange, _eventos.mouseMove);
+            $(document).on("mouseleave", _elementos.dataSelected, _eventos.mouseLeaveSelectArea);
+        }
+    };
+
+    var _ocultarSecciones = function () {
+        if (isMobile()) {
+            $(_elementos.footerPage).hide();
+            $(_elementos.marca).hide();
+        }
+        //$(_seccionesFichaProducto.SloganLanzamientos).hide();
+        //$(_seccionesFichaProducto.EtiquetaOdd).hide();
+        //$(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
+        //$(_seccionesFichaProducto.EtiquetaPackNuevas).hide();
+        //$(_seccionesFichaProducto.SloganPackNuevas).hide();
+
+        if (_codigoPalanca.HerramientasVenta === _config.palanca ||
+            _codigoPalanca.OfertasParaMi === _config.palanca ||
+            _codigoPalanca.OfertaParaTi === _config.palanca ||
+            _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
+            //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
+            //$(_seccionesFichaProducto.DescripcionAdicional).hide();
+            $(_seccionesFichaProducto.ContenidoProducto).hide();
+            //$(_seccionesFichaProducto.CarruselProducto).hide();
+            //if (_codigoPalanca.HerramientasVenta === _config.palanca) {
+            //    $(_seccionesFichaProducto.Contenedor_redes_sociales).hide();
+            //}
+        }
+        else if (_codigoPalanca.Lanzamiento === _config.palanca) {
+            //$(_seccionesFichaProducto.EtiquetaLanzamientos).show();
+            //$(_seccionesFichaProducto.ImagenDeFondo).show();
+            //$(_seccionesFichaProducto.DescripcionAdicional).show();
+            $(_seccionesFichaProducto.ContenidoProducto).show();
+            //$(_seccionesFichaProducto.CarruselProducto).show();
+            //$(_seccionesFichaProducto.SloganLanzamientos).show();
+        }
+        else if (_codigoPalanca.ShowRoom === _config.palanca) {
+            //$(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
+            //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
+            //$(_seccionesFichaProducto.DescripcionAdicional).hide();
+            $(_seccionesFichaProducto.ContenidoProducto).hide();
+            //$(_seccionesFichaProducto.CarruselProducto).show();
+        }
+        else if (_codigoPalanca.OfertaDelDia === _config.palanca) {
+            //$(_seccionesFichaProducto.EtiquetaOdd).show();
+        }
+        else if (_codigoPalanca.PackNuevas === _config.palanca) {
+            //$(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
+            //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
+            //$(_seccionesFichaProducto.DescripcionAdicional).hide();
+            $(_seccionesFichaProducto.ContenidoProducto).hide();
+            //$(_seccionesFichaProducto.CarruselProducto).hide();
+            //$(_seccionesFichaProducto.SloganLanzamientos).hide();
+            //$(_seccionesFichaProducto.EtiquetaPackNuevas).show();
+            //$(_seccionesFichaProducto.Contenedor_redes_sociales).hide();
+            //$(_seccionesFichaProducto.SloganPackNuevas).show();
+        }
+
+        //var etiquetaOddEstaOculta = $(_seccionesFichaProducto.EtiquetaOdd).is(":hidden");
+        //var etiquetaLanzamientosEstaOculta = $(_seccionesFichaProducto.EtiquetaLanzamientos).is(":hidden");
+        //if (etiquetaOddEstaOculta && etiquetaLanzamientosEstaOculta)
+        //$(_seccionesFichaProducto.ContenedoFichaEtiquetas).show();
+        //else
+        //$(_seccionesFichaProducto.ContenedoFichaEtiquetas).show();
+    };
+
+    var _getEstrategia = function () {
+        var estrategia;
+        if (_config.tieneSession === "True") {
+            //revisar si se realiza con razor o handlebar para SR y ODD
+            estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
+        }
+        else {
+            estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
+        }
+        return estrategia;
+    };
+
+    var _setEstrategiaBreadcrumb = function (estrategia) {
+        if (typeof estrategia.DescripcionCompleta !== "undefined" &&
+            estrategia.DescripcionCompleta != null) {
+            estrategia.DescripcionCompleta = $.trim(estrategia.DescripcionCompleta);
+            var palabrasEstrategiaDescripcion = estrategia.DescripcionCompleta.split(" ");
+            var estrategiaBreadcrumb = palabrasEstrategiaDescripcion[0];
+            if (!isMobile()) {
+                if (palabrasEstrategiaDescripcion.length > 1)
+                    estrategiaBreadcrumb += " " + palabrasEstrategiaDescripcion[1];
+                if (palabrasEstrategiaDescripcion.length > 2)
+                    estrategiaBreadcrumb += " " + palabrasEstrategiaDescripcion[2];
+                if (palabrasEstrategiaDescripcion.length > 3) estrategiaBreadcrumb += "...";
+            } else {
+                if (palabrasEstrategiaDescripcion.length > 1) estrategiaBreadcrumb += "...";
+            }
+
+            $(_elementos.estrategiaBreadcrumb).text(estrategiaBreadcrumb);
+        }
     };
 
     var _promiseObternerComponentes = function (params) {
@@ -274,44 +450,9 @@ var FichaModule = (function (config) {
 
                     $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
                     $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
-
-
-
                 }
             }
         });
-    };
-
-    var _getEstrategia = function() {
-        var estrategia;
-        if (_config.tieneSession === "True") {
-            //revisar si se realiza con razor o handlebar para SR y ODD
-            estrategia = JSON.parse($(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia));
-        }
-        else {
-            estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
-        }
-        return estrategia;
-    };
-
-    var _setEstrategiaBreadcrumb = function (estrategia) {
-        if (typeof estrategia.DescripcionCompleta !== "undefined" &&
-            estrategia.DescripcionCompleta != null) {
-            estrategia.DescripcionCompleta = $.trim(estrategia.DescripcionCompleta);
-            var palabrasEstrategiaDescripcion = estrategia.DescripcionCompleta.split(" ");
-            var estrategiaBreadcrumb = palabrasEstrategiaDescripcion[0];
-            if (!isMobile()) {
-                if (palabrasEstrategiaDescripcion.length > 1)
-                    estrategiaBreadcrumb += " " + palabrasEstrategiaDescripcion[1];
-                if (palabrasEstrategiaDescripcion.length > 2)
-                    estrategiaBreadcrumb += " " + palabrasEstrategiaDescripcion[2];
-                if (palabrasEstrategiaDescripcion.length > 3) estrategiaBreadcrumb += "...";
-            } else {
-                if (palabrasEstrategiaDescripcion.length > 1) estrategiaBreadcrumb += "...";
-            }
-
-            $(_elementos.estrategiaBreadcrumb).text(estrategiaBreadcrumb);
-        }
     };
 
     var _RenderImg = function () {
@@ -360,6 +501,17 @@ var FichaModule = (function (config) {
             }
         }
     }
+
+    var _crearReloj = function (estrategia) {
+        $("#clock").each(function (index, elem) {
+            $(elem).FlipClock(estrategia.TeQuedan,
+                {
+                    countdown: true,
+                    clockFace: "HourlyCounter",
+                    language: "es-es"
+                });
+        });
+    };
 
     var _validarSiEsAgregado = function (estrategia) {
         if (estrategia.IsAgregado) {
@@ -455,164 +607,6 @@ var FichaModule = (function (config) {
         _descripcionProducto = estrategia.DescripcionCompleta;
         return true;
     };
-
-
-
-    Handlebars.registerHelper("ifVerificarMarca", function (marca, options) {
-        if (_primeraMarca !== marca && _esMultimarca) {
-            _primeraMarca = marca;
-            return options.fn(this);
-        }
-    });
-
-    Handlebars.registerHelper("ifVerificarMarcaLast", function (marca, options) {
-        if (_esMultimarca) {
-            if (_ultimaMarca === "" || _ultimaMarca === marca) {
-                _ultimaMarca = marca;
-                return options.inverse(this);
-            }
-            else {
-                _ultimaMarca = marca;
-                return options.fn(this);
-            }
-        }
-        else {
-            if (_ultimaMarca === "") {
-                _ultimaMarca = marca;
-                return options.inverse(this);
-            }
-            else return options.fn(this);
-        }
-    });
-
-    var _ocultarSecciones = function () {
-        if (isMobile()) {
-            $(_elementos.footerPage).hide();
-            $(_elementos.marca).hide();
-        }
-        //$(_seccionesFichaProducto.SloganLanzamientos).hide();
-        //$(_seccionesFichaProducto.EtiquetaOdd).hide();
-        //$(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
-        //$(_seccionesFichaProducto.EtiquetaPackNuevas).hide();
-        //$(_seccionesFichaProducto.SloganPackNuevas).hide();
-
-        if (_codigoPalanca.HerramientasVenta === _config.palanca ||
-            _codigoPalanca.OfertasParaMi === _config.palanca ||
-            _codigoPalanca.OfertaParaTi === _config.palanca ||
-            _codigoPalanca.GuiaDeNegocioDigitalizada === _config.palanca) {
-            //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
-            //$(_seccionesFichaProducto.DescripcionAdicional).hide();
-            $(_seccionesFichaProducto.ContenidoProducto).hide();
-            //$(_seccionesFichaProducto.CarruselProducto).hide();
-            //if (_codigoPalanca.HerramientasVenta === _config.palanca) {
-            //    $(_seccionesFichaProducto.Contenedor_redes_sociales).hide();
-            //}
-        }
-        else if (_codigoPalanca.Lanzamiento === _config.palanca) {
-            //$(_seccionesFichaProducto.EtiquetaLanzamientos).show();
-            //$(_seccionesFichaProducto.ImagenDeFondo).show();
-            //$(_seccionesFichaProducto.DescripcionAdicional).show();
-            $(_seccionesFichaProducto.ContenidoProducto).show();
-            //$(_seccionesFichaProducto.CarruselProducto).show();
-            //$(_seccionesFichaProducto.SloganLanzamientos).show();
-        }
-        else if (_codigoPalanca.ShowRoom === _config.palanca) {
-            //$(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
-            //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
-            //$(_seccionesFichaProducto.DescripcionAdicional).hide();
-            $(_seccionesFichaProducto.ContenidoProducto).hide();
-            //$(_seccionesFichaProducto.CarruselProducto).show();
-        }
-        else if (_codigoPalanca.OfertaDelDia === _config.palanca) {
-            //$(_seccionesFichaProducto.EtiquetaOdd).show();
-        }
-        else if (_codigoPalanca.PackNuevas === _config.palanca) {
-            //$(_seccionesFichaProducto.EtiquetaLanzamientos).hide();
-            //$(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "");
-            //$(_seccionesFichaProducto.DescripcionAdicional).hide();
-            $(_seccionesFichaProducto.ContenidoProducto).hide();
-            //$(_seccionesFichaProducto.CarruselProducto).hide();
-            //$(_seccionesFichaProducto.SloganLanzamientos).hide();
-            //$(_seccionesFichaProducto.EtiquetaPackNuevas).show();
-            //$(_seccionesFichaProducto.Contenedor_redes_sociales).hide();
-            //$(_seccionesFichaProducto.SloganPackNuevas).show();
-        }
-
-        //var etiquetaOddEstaOculta = $(_seccionesFichaProducto.EtiquetaOdd).is(":hidden");
-        //var etiquetaLanzamientosEstaOculta = $(_seccionesFichaProducto.EtiquetaLanzamientos).is(":hidden");
-        //if (etiquetaOddEstaOculta && etiquetaLanzamientosEstaOculta)
-        //$(_seccionesFichaProducto.ContenedoFichaEtiquetas).show();
-        //else
-        //$(_seccionesFichaProducto.ContenedoFichaEtiquetas).show();
-    };
-
-    var _ocultarTabs = function () {
-        var estrategia = _localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
-
-        $(_tabsFichaProducto.detalleProducto).hide();
-        $(_tabsFichaProducto.detallePack).hide();
-        $(_tabsFichaProducto.tipsVenta).hide();
-        $(_tabsFichaProducto.beneficios).hide();
-        $(_tabsFichaProducto.video).hide();
-        $(_seccionesFichaTabProducto.ContenidoProductoDetalleProducto).hide();
-        $(_seccionesFichaTabProducto.ContenidoProductoDetallePack).hide();
-        $(_seccionesFichaTabProducto.ContenidoProductoTipsVenta).hide();
-        $(_seccionesFichaTabProducto.ContenidoProductoBeneficios).hide();
-        $(_seccionesFichaTabProducto.ContenidoProductoVideo).hide();
-
-
-        if (_codigoPalanca.ShowRoom === _config.palanca ||
-            ConstantesModule.ConstantesPalanca.Lanzamiento === _config.palanca) {
-            $(_tabsFichaProducto.tipsVenta).show();
-        }
-
-        if (_codigoPalanca.Lanzamiento === _config.palanca) {
-            if (estrategia.TipoEstrategiaDetalle.UrlVideoDesktop && !isMobile()) {
-                $(_tabsFichaProducto.video).show();
-                $(_seccionesFichaTabProducto.ContenidoProductoVideo).show();
-            }
-            if (estrategia.TipoEstrategiaDetalle.UrlVideoMobile && isMobile()) {
-                $(_tabsFichaProducto.video).show();
-                $(_seccionesFichaTabProducto.ContenidoProductoVideo).show();
-            }
-        }
-    };
-
-
-    var _fijarFooterCampaniaSiguiente = function () {
-        if (isMobile()) {
-            var $elemento = $(".content_inscribirte");
-            if ($elemento.length !== 0) {
-                var $redesSociales = $((_seccionesFichaProducto.Contenedor_redes_sociales));
-                $redesSociales.find(".share").css("margin-bottom", "200px");
-            }
-        }
-    }
-
-
-    //// Método que realiza la marcación en analytics de tonos en el combo de seleccion de tonos.
-    //var _marcarCambiaColorCombo = function () {
-    //    var producto = _descripcionProducto;
-    //    var contenedorTonos = $(".content_tonos_select").children(".content_tono_elegido");
-    //    $(contenedorTonos).each(function (index, element) {
-    //        $(this).click(function () {
-    //            var tono = $(this).attr("data-tono-nombre");
-    //            AnalyticsPortalModule.MarcarCambiaColorCombo(producto, tono);
-    //        });
-    //    });
-    //}
-
-    //// Método que realiza la marcación en analytics de tonos en el cuadrado de seleccion de tonos.
-    //var _marcarCambiaColorCuadro = function () {
-    //    var producto = _descripcionProducto;
-    //    var contenedorTonos = $(".content_tonos_maquillaje").children(".content_tono_detalle");
-    //    $(contenedorTonos).each(function (index, element) {
-    //        $(this).click(function () {
-    //            var tono = $(this).attr("data-tono-nombre");
-    //            AnalyticsPortalModule.MarcarCambiaColorCuadro(producto, tono);
-    //        });
-    //    });
-    //}
 
     function Inicializar() {
         _localStorageModule = LocalStorageModule();
