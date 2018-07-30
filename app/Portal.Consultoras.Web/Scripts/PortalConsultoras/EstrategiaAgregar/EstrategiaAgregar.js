@@ -51,7 +51,7 @@ var EstrategiaAgregarModule = (function () {
 
     var elementosDiv = {
         divMensajeBloqueada: "#divMensajeBloqueada",
-        divHVMensajeBloqueada: "#divHVMensajeBloqueada",
+        //divHVMensajeBloqueada: "#divHVMensajeBloqueada",
         divVistaPrevia: "#divVistaPrevia",
         hdErrorInsertarProducto: "#hdErrorInsertarProducto",
         hdCampaniaCodigo: "#hdCampaniaCodigo",
