@@ -434,8 +434,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     ConsecutivoNueva = usuario.ConsecutivoNueva
                 };
                 var pedidoID = 0;
-                List<BEPedidoDetalleApp> lstDetalleApp = new List<BEPedidoDetalleApp>();
-                List<BEPedidoWebDetalle> lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
+                var lstDetalleApp = new List<BEPedidoDetalle>();
+                var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
                 pedidoDetalle.PedidoID = pedidoID;
 
                 if (pedidoDetalle.SetID > 0)
@@ -447,7 +447,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     foreach (var detalleSet in set.Detalles)
                     {
 
-                        BEPedidoDetalleApp oBePedidoWebSetDetalle = new BEPedidoDetalleApp
+                        var oBePedidoWebSetDetalle = new BEPedidoDetalle
                         {
                             PaisID = pedidoDetalle.PaisID,
                             PedidoID = pedidoDetalle.PedidoID,
@@ -480,7 +480,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (!result) return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
 
                 //accion actualizar
-                foreach (BEPedidoDetalleApp detalle in lstDetalleApp)
+                foreach (BEPedidoDetalle detalle in lstDetalleApp)
                 {
                     var accionActualizar = PedidoActualizar(usuario, detalle, lstDetalle);
                     if (accionActualizar != Constantes.PedidoAppValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(accionActualizar);
