@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (pagoOk)
                 {
-                    ViewBag.UrlCondiciones = GetMenuLinkByDescription(Constantes.ConfiguracionManager.MenuCondicionesDescripcion);
+                    ViewBag.UrlCondiciones = _menuProvider.GetMenuLinkByDescription(Constantes.ConfiguracionManager.MenuCondicionesDescripcion);
 
                     return View("PagoExitoso", model);
                 }

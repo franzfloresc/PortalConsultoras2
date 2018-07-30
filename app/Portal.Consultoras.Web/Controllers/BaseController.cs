@@ -63,6 +63,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly TipoEstrategiaProvider _tipoEstrategiaProvider;
         protected readonly ConfiguracionPaisProvider _configuracionPaisProvider;
         protected readonly MenuContenedorProvider _menuContenedorProvider;
+        protected readonly MenuProvider _menuProvider;
         #endregion
 
         #region Constructor
@@ -86,6 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
             _tipoEstrategiaProvider = new TipoEstrategiaProvider();
             _configuracionPaisProvider = new ConfiguracionPaisProvider();
             _menuContenedorProvider = new MenuContenedorProvider();
+            _menuProvider = new MenuProvider(_configuracionManagerProvider, _eventoFestivoProvider);
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -389,10 +391,10 @@ namespace Portal.Consultoras.Web.Controllers
             if (userData.Menu != null)
             {
                 ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
-                return SepararItemsMenu(userData.Menu);
+                return _menuProvider.SepararItemsMenu(userData.Menu);
             }
 
-            var permisos = GetPermisosByRol(userData.PaisID, userData.RolID);
+            var permisos = _menuProvider.GetPermisosByRol(userData.PaisID, userData.RolID);
 
             if (!_configuracionManagerProvider.GetMostrarOpcionClienteOnline(userData.CodigoISO) &&
                 permisos.Any(p => p.UrlItem.ToLower() == "consultoraonline/index"))
@@ -435,7 +437,7 @@ namespace Portal.Consultoras.Web.Controllers
                         userData.ClaseLogoSB = "negro";
                     }
                     permiso.EsSoloImagen = true;
-                    permiso.UrlImagen = GetUrlImagenMenuOfertas(userData, revistaDigital);
+                    permiso.UrlImagen = _menuProvider.GetUrlImagenMenuOfertas(userData, revistaDigital);
                 }
 
                 if (permiso.Codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower() &&
@@ -520,75 +522,75 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
 
-            return SepararItemsMenu(lstMenuModel);
+            return _menuProvider.SepararItemsMenu(lstMenuModel);
         }
 
-        protected virtual IList<PermisoModel> GetPermisosByRol(int paisId, int rolId)
-        {
-            IList<BEPermiso> permisos;
+        //protected virtual IList<PermisoModel> GetPermisosByRol(int paisId, int rolId)
+        //{
+        //    IList<BEPermiso> permisos;
 
-            using (var sv = new SeguridadServiceClient())
-            {
+        //    using (var sv = new SeguridadServiceClient())
+        //    {
 
-                permisos = sv.GetPermisosByRol(paisId, rolId).ToList();
-            }
+        //        permisos = sv.GetPermisosByRol(paisId, rolId).ToList();
+        //    }
 
-            return Mapper.Map<List<PermisoModel>>(permisos);
-        }
+        //    return Mapper.Map<List<PermisoModel>>(permisos);
+        //}
 
-        public virtual string GetUrlImagenMenuOfertas(UsuarioModel userData, RevistaDigitalModel revistaDigital)
-        {
-            var urlImagen = string.Empty;
-            var tieneRevistaDigital = revistaDigital.TieneRevistaDigital();
-            var smEventoFestivo = sessionManager.GetEventoFestivoDataModel();
-            var tieneEventoFestivoData = smEventoFestivo != null &&
-                smEventoFestivo.ListaGifMenuContenedorOfertas != null &&
-                smEventoFestivo.ListaGifMenuContenedorOfertas.Any();
+        //public virtual string GetUrlImagenMenuOfertas(UsuarioModel userData, RevistaDigitalModel revistaDigital)
+        //{
+        //    var urlImagen = string.Empty;
+        //    var tieneRevistaDigital = revistaDigital.TieneRevistaDigital();
+        //    var smEventoFestivo = sessionManager.GetEventoFestivoDataModel();
+        //    var tieneEventoFestivoData = smEventoFestivo != null &&
+        //        smEventoFestivo.ListaGifMenuContenedorOfertas != null &&
+        //        smEventoFestivo.ListaGifMenuContenedorOfertas.Any();
 
-            if (!tieneRevistaDigital)
-            {
-                urlImagen = _configuracionManagerProvider.GetDefaultGifMenuOfertas();
-                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
-                if (tieneEventoFestivoData)
-                {
-                    urlImagen = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS, urlImagen);
-                }
-            }
+        //    if (!tieneRevistaDigital)
+        //    {
+        //        urlImagen = _configuracionManagerProvider.GetDefaultGifMenuOfertas();
+        //        urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
+        //        if (tieneEventoFestivoData)
+        //        {
+        //            urlImagen = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS, urlImagen);
+        //        }
+        //    }
 
-            if (tieneRevistaDigital && !revistaDigital.EsSuscrita)
-            {
-                urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
-                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
-                if (tieneEventoFestivoData)
-                {
-                    urlImagen = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
-                }
+        //    if (tieneRevistaDigital && !revistaDigital.EsSuscrita)
+        //    {
+        //        urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
+        //        urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
+        //        if (tieneEventoFestivoData)
+        //        {
+        //            urlImagen = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
+        //        }
 
-            }
+        //    }
 
-            if (tieneRevistaDigital && revistaDigital.EsSuscrita)
-            {
-                urlImagen = revistaDigital.LogoMenuOfertasActiva;
-                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
-                if (tieneEventoFestivoData)
-                {
-                    urlImagen = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS, urlImagen);
-                }
-            }
+        //    if (tieneRevistaDigital && revistaDigital.EsSuscrita)
+        //    {
+        //        urlImagen = revistaDigital.LogoMenuOfertasActiva;
+        //        urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
+        //        if (tieneEventoFestivoData)
+        //        {
+        //            urlImagen = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS, urlImagen);
+        //        }
+        //    }
 
-            if (revistaDigital.TieneRDI)
-            {
-                urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
-                urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
-                if (tieneEventoFestivoData)
-                {
-                    urlImagen = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
-                }
+        //    if (revistaDigital.TieneRDI)
+        //    {
+        //        urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
+        //        urlImagen = ConfigCdn.GetUrlFileCdn(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
+        //        if (tieneEventoFestivoData)
+        //        {
+        //            urlImagen = _eventoFestivoProvider.EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
+        //        }
 
-            }
+        //    }
 
-            return urlImagen;
-        }
+        //    return urlImagen;
+        //}
 
         public List<MenuMobileModel> BuildMenuMobile(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
@@ -607,7 +609,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             userData.ConsultoraOnlineMenuResumen = new ConsultoraOnlineMenuResumenModel();
 
-            var lstMenuMobileModel = GetMenuMobileModel(userData.PaisID);
+            var lstMenuMobileModel = _menuProvider.GetMenuMobileModel(userData.PaisID);
 
             if ((userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) &&
                 lstMenuMobileModel.Any(p => p.UrlItem.ToLower() == "mobile/catalogopersonalizado/index"))
@@ -701,7 +703,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (menu.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
                 {
-                    menu.UrlImagen = GetUrlImagenMenuOfertas(userData, revistaDigital);
+                    menu.UrlImagen = _menuProvider.GetUrlImagenMenuOfertas(userData, revistaDigital);
                 }
 
                 listadoMenuFinal.Add(menu);
@@ -756,55 +758,55 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.MenuPadreIDConsultoraOnline = userData.ConsultoraOnlineMenuResumen.MenuPadreIDConsultoraOnline;
         }
 
-        protected virtual List<MenuMobileModel> GetMenuMobileModel(int paisId)
-        {
-            List<BEMenuMobile> lstMenuMobile = null;
+        //protected virtual List<MenuMobileModel> GetMenuMobileModel(int paisId)
+        //{
+        //    List<BEMenuMobile> lstMenuMobile = null;
 
-            try
-            {
-                using (var sv = new SeguridadServiceClient())
-                {
-                    lstMenuMobile = sv.GetItemsMenuMobile(paisId).ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, paisId.ToString(), "BaseController.GetMenuMobileModel");
-            }
-            finally
-            {
-                lstMenuMobile = lstMenuMobile ?? new List<BEMenuMobile>();
-            }
+        //    try
+        //    {
+        //        using (var sv = new SeguridadServiceClient())
+        //        {
+        //            lstMenuMobile = sv.GetItemsMenuMobile(paisId).ToList();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logManager.LogErrorWebServicesBusWrap(ex, string.Empty, paisId.ToString(), "BaseController.GetMenuMobileModel");
+        //    }
+        //    finally
+        //    {
+        //        lstMenuMobile = lstMenuMobile ?? new List<BEMenuMobile>();
+        //    }
 
 
-            return Mapper.Map<List<MenuMobileModel>>(lstMenuMobile);
-        }
+        //    return Mapper.Map<List<MenuMobileModel>>(lstMenuMobile);
+        //}
 
-        private List<PermisoModel> SepararItemsMenu(List<PermisoModel> menuOriginal)
-        {
-            var menu = new List<PermisoModel>();
+        //private List<PermisoModel> SepararItemsMenu(List<PermisoModel> menuOriginal)
+        //{
+        //    var menu = new List<PermisoModel>();
 
-            SepararItemsMenu(ref menu, menuOriginal, 0);
+        //    SepararItemsMenu(ref menu, menuOriginal, 0);
 
-            return menu;
-        }
+        //    return menu;
+        //}
 
-        private void SepararItemsMenu(ref List<PermisoModel> menu, List<PermisoModel> menuOriginal, int idPadre)
-        {
-            menu = menuOriginal.Where(x => x.IdPadre == idPadre && (x.Descripcion != "" || x.UrlItem != "" || x.UrlImagen != ""))
-                .OrderBy(x => x.Posicion)
-                .ToList();
+        //private void SepararItemsMenu(ref List<PermisoModel> menu, List<PermisoModel> menuOriginal, int idPadre)
+        //{
+        //    menu = menuOriginal.Where(x => x.IdPadre == idPadre && (x.Descripcion != "" || x.UrlItem != "" || x.UrlImagen != ""))
+        //        .OrderBy(x => x.Posicion)
+        //        .ToList();
 
-            foreach (var itemMenu in menu)
-            {
-                var temp = new List<PermisoModel>();
+        //    foreach (var itemMenu in menu)
+        //    {
+        //        var temp = new List<PermisoModel>();
 
-                SepararItemsMenu(ref temp, menuOriginal, itemMenu.PermisoID);
+        //        SepararItemsMenu(ref temp, menuOriginal, itemMenu.PermisoID);
 
-                itemMenu.SubMenus = temp;
-                itemMenu.SubMenus = itemMenu.SubMenus.OrderBy(p => p.OrdenItem).ToList();
-            }
-        }
+        //        itemMenu.SubMenus = temp;
+        //        itemMenu.SubMenus = itemMenu.SubMenus.OrderBy(p => p.OrdenItem).ToList();
+        //    }
+        //}
 
         private List<ServicioCampaniaModel> BuildMenuService()
         {
@@ -853,12 +855,12 @@ namespace Portal.Consultoras.Web.Controllers
             return userData.MenuService;
         }
 
-        protected string GetMenuLinkByDescription(string description)
-        {
-            var menuItem = userData.Menu.FirstOrDefault(item => item.Descripcion == description);
+        //protected string GetMenuLinkByDescription(string description)
+        //{
+        //    var menuItem = userData.Menu.FirstOrDefault(item => item.Descripcion == description);
 
-            return menuItem == null ? string.Empty : menuItem.UrlItem;
-        }
+        //    return menuItem == null ? string.Empty : menuItem.UrlItem;
+        //}
         #endregion
 
         #region UserData
