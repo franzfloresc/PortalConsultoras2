@@ -112,7 +112,7 @@ namespace Portal.Consultoras.Web.Providers
             return detallesPedidoWeb;
         }
 
-        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(int esOpt)
+        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(int esOpt, bool noSession = false)
         {
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
             var userData = sessionManager.GetUserData();
@@ -121,7 +121,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 detallesPedidoWeb = sessionManager.GetDetallesPedidoSetAgrupado();
 
-                if (detallesPedidoWeb == null)
+                if (detallesPedidoWeb == null || noSession)
                 {
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
