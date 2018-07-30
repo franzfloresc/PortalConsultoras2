@@ -143,12 +143,7 @@ $(document).ready(function () {
                 MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
 
                 $("#txtCantidad").val("1");
-                var overflowY = "auto";
-                $("body").css({
-                    get "overflow-y"() { return overflowY; }, set "overflow-y"(value) {
-                        overflowY = value;
-                    }
-                });
+                $("body").css({ 'overflow-y': 'auto' });
                 return false;
             })
             .fail(function (data, error) {
