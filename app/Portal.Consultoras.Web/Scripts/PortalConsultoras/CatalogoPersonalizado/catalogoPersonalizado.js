@@ -549,7 +549,7 @@ function AgregarProducto(item, otraFunct) {
 
     DialogLoadingAbrir();
     tieneMicroefecto = true;
-
+    console.log('CatalogoPersonalizado.js - AgregarProducto - ajax ante CargarCantidadProductosPedidos', 'Pedido/PedidoInsertar', item);
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/PedidoInsertar',
@@ -568,6 +568,7 @@ function AgregarProducto(item, otraFunct) {
                     }
 
                     if (tipoOrigen == '2') {
+                        console.log('CatalogoPersonalizado.js - AgregarProducto - ante CargarCantidadProductosPedidos');
                         CargarCantidadProductosPedidos();
                     }
                     else {
