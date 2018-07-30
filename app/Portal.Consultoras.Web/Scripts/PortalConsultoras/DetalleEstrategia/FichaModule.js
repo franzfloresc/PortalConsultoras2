@@ -556,7 +556,7 @@ var FichaModule = (function (config) {
         _setEstrategiaBreadcrumb(estrategia);
         $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
         SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
-        SetHandlebars("#opciones-template", estrategia, "#opciones");
+        SetHandlebars("#componentes-template", estrategia, "#componentes");
         _validarDesactivadoGeneral(estrategia);
 
         var imgFondo = "";

@@ -16,7 +16,7 @@
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onEstrategiaLoaded");
 registerEvent.call(opcionesEvents, "onOptionSelected");
-var OpcionesModule = (function () {
+var ComponentesModule = (function () {
     var _estrategia = {};
 
     var _inicializar = function (model) {
@@ -45,5 +45,5 @@ var OpcionesModule = (function () {
     };
 }());
 opcionesEvents.subscribe("onEstrategiaLoaded", function (e) {
-    OpcionesModule.Inicializar(e);
+    ComponentesModule.Inicializar(e);
 });
