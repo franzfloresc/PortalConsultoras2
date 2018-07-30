@@ -2298,6 +2298,8 @@
       <xs:element minOccurs="0" name="DesTipoRegistro" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
       <xs:element minOccurs="0" name="GAP" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoInicial" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MuestraPopup" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="OfertaFinalConsultoraID" type="xs:long" />
       <xs:element minOccurs="0" name="TipoOfertaFinal" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoRegistro" type="xs:int" />

@@ -3666,7 +3666,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log, int tipoRegistro, string desTipoRegistro)
+        public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log, int tipoRegistro, string desTipoRegistro,bool? MuestraPopup, decimal? MontoInicial)
         {
             try
             {
@@ -3683,6 +3683,12 @@ namespace Portal.Consultoras.Web.Controllers
                         TipoRegistro = tipoRegistro,
                         DesTipoRegistro = desTipoRegistro
                     };
+
+                    if (tipoRegistro == 2)
+                    {
+                        entidad.MuestraPopup = MuestraPopup;
+                        entidad.MontoInicial = MontoInicial;
+                    }
 
                     svp.InsLogOfertaFinal(userData.PaisID, entidad);
                 }

@@ -142,6 +142,7 @@ function PopupOfertaFinalCerrar() {
 }
 
 function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
+    
     cumpleOferta.productosMostrar = cumpleOferta.productosMostrar || new Array();
     if (cumpleOferta.productosMostrar.length == 0) return false;
 
@@ -162,6 +163,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
             return a.Orden - b.Orden;
         });
 
+        $('#of-regalo-total').text(oUpselling.Regalos.length);
         var upSellingGanadoPromise = GetUpSellingGanadoPromise();
         resolvePromiseUpSellingGanado(upSellingGanadoPromise);
     }
@@ -400,7 +402,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
     of_google_analytics_producto_impresion(tipoOrigen, objOf.TipoMeta, objOf.Detalle);
 
-    AgregarOfertaFinalLog("", 0, cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, 2, 'Popup Mostrado');
+    AgregarOfertaFinalLog("", 0, cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, 2, 'Popup Mostrado', (cumpleOferta.upselling!=null), objOf.TotalPedido);
     AgregarOfertaFinalLogBulk(cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, cumpleOferta.productosMostrar);
 
     if (cuvOfertaProl != "") {
@@ -497,7 +499,7 @@ function MostrarOfertaFinalRegalo(totalPedido) {
             $('#div-count-ofertas').show();
         }
 
-        $('#of-regalo-total').text(oUpselling.Regalos.length);
+        //$('#of-regalo-total').text(oUpselling.Regalos.length);
 
         //url terminos y condiciones
         if (oUpselling.Meta.TipoRango != "") {
@@ -832,7 +834,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simboloParam, 
 
         if (oRegaloPN.UrlImagenRegalo != null && oRegaloPN.UrlImagenRegalo != "") {
             $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
-            ('div.content_imagen_alternativo').show();
+            $('div.content_imagen_alternativo').show();
         }
 
         if (tipoMeta == 'MM') {
@@ -998,6 +1000,7 @@ function CargandoValoresPopupOfertaFinal(tipoPopupMostrar, mostrarGanaMas, monto
 }
 
 function CumpleOfertaFinalMostrar(response) {
+    
     var tipoPopupMostrar = (response.data.Reserva || response.data.CodigoMensajeProl == "00") ? 1 : 2;
     reservaResponse = response;
     agregoOfertaFinal = false;
@@ -1258,14 +1261,16 @@ function InsertUpSellingRegalo(id, cuv) {
     return ok;
 }
 
-function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log, tipoRegistro, desTipoRegistro) {
+function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log, tipoRegistro, desTipoRegistro, muestraPopup, montoInicial) {
     var param = {
         CUV: cuv,
         cantidad: cantidad,
         tipoOfertaFinal_Log: tipoOfertaFinal_log,
         gap_Log: gap_Log,
         tipoRegistro: tipoRegistro,
-        desTipoRegistro: desTipoRegistro
+        desTipoRegistro: desTipoRegistro,
+        muestraPopup: muestraPopup,
+        montoInicial: montoInicial
     };
 
     jQuery.ajax({
