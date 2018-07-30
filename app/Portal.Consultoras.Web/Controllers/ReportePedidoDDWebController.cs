@@ -893,7 +893,7 @@ namespace Portal.Consultoras.Web.Controllers
         private List<BEPedidoDDWeb> GetPedidoWebDDDetalle(FiltroReportePedidoDDWebModel model)
         {
             AjustarModel(model);
-            if ((string) sessionManager.GetPedidosWebDDConf() == model.UniqueId) return sessionManager.GetPedidoWebDDDetalle();
+            if (sessionManager.GetPedidoWebDDDetalleConf() == model.UniqueId) return sessionManager.GetPedidoWebDDDetalle();
 
             sessionManager.SetPedidoWebDDDetalleConf(model.UniqueId);
             List<BEPedidoDDWeb> list;
