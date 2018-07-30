@@ -99,11 +99,16 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var abrirMensajeEstrategia = function (txt) {
-        if (tipoOrigenEstrategia == 1) {
+        var tipoOrigenEstrategiaAux = 0;
+        if (typeof tipoOrigenEstrategia != "undefined") {
+            tipoOrigenEstrategiaAux = tipoOrigenEstrategia;
+        }
+
+        if (tipoOrigenEstrategiaAux == 1) {
             alert_msg_pedido(txt);
-        } else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) {
+        } else if (tipoOrigenEstrategiaAux == 11 || tipoOrigenEstrategiaAux == 17 || tipoOrigenEstrategiaAux == 172) {
             alert_msg(txt);
-        } else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 262) {
+        } else if (tipoOrigenEstrategiaAux == 2 || tipoOrigenEstrategiaAux == 21 || tipoOrigenEstrategiaAux == 262) {
             messageInfo(txt);
         } else if (isMobile()) {
             messageInfo(txt);
@@ -200,6 +205,7 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var estrategiaAgregar = function (event, popup, limite, esFicha) {
+        console.log('estrategiaAgregar');
         popup = popup || false;
         limite = limite || 0;
 
@@ -287,7 +293,7 @@ var EstrategiaAgregarModule = (function () {
             FlagNueva: $.trim(estrategia.FlagNueva)
             // ClienteID_:
         };
-
+        console.log('estrategiaAgregar', params);
         EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function(data) {
             if (!checkTimeout(data)) {
                 CerrarLoad();
@@ -327,7 +333,7 @@ var EstrategiaAgregarModule = (function () {
             }
 
             if (isMobile()) {
-                //ActualizarGanancia(data.DataBarra);
+                ActualizarGanancia(data.DataBarra);
                 //if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.ShowRoom)
                 CargarCantidadProductosPedidos(true);
                 microefectoPedidoGuardado();

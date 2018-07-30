@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Web.Providers
         private readonly ConfiguracionManagerProvider _configuracionManagerProvider;
         private readonly int _paisId;
         private readonly string _paisISO;
-        
+
         public EstrategiaComponenteProvider(int paisId, string paisIso)
         {
             _configuracionManagerProvider = new ConfiguracionManagerProvider();
@@ -66,7 +66,7 @@ namespace Portal.Consultoras.Web.Providers
                 }
             }
 
-            
+
             return listaProducto;
         }
 
@@ -111,7 +111,7 @@ namespace Portal.Consultoras.Web.Providers
                 listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(_paisISO, estrategiaModelo.CampaniaID, joinSap, numeroCampanias).ToList();
             }
             listaAppCatalogo = listaAppCatalogo.Any() ? listaAppCatalogo : new List<Producto>();
-            listaAppCatalogo.ForEach(x=> x.NombreComercial = string.IsNullOrWhiteSpace(x.NombreBulk) ? x.NombreComercial : x.NombreComercial.Replace(x.NombreBulk , ""));
+            //listaAppCatalogo.ForEach(x=> x.NombreComercial = string.IsNullOrWhiteSpace(x.NombreBulk) ? x.NombreComercial : x.NombreComercial.Replace(x.NombreBulk , ""));
             return listaAppCatalogo;
         }
 
@@ -177,7 +177,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     componenteModel.NombreComercial = beEstrategiaProducto.NombreProducto;
                 }
-                
+
                 listaComponentesTemporal.Add(componenteModel);
                 idPk = componenteModel.Id;
             }
@@ -187,7 +187,11 @@ namespace Portal.Consultoras.Web.Providers
             switch (estrategiaModelo.CodigoVariante)
             {
                 case Constantes.TipoEstrategiaSet.CompuestaFija:
-                    listaEstrategiaComponenteProductos.ForEach(h => { h.Digitable = 0; });
+                    listaEstrategiaComponenteProductos.ForEach(h =>
+                    {
+                        h.Digitable = 0;
+                        //h.NombreComercial = string.IsNullOrWhiteSpace(h.NombreBulk) ? h.NombreComercial : h.NombreComercial.Replace(h.NombreBulk, "");
+                    });
                     listaEstrategiaComponenteProductos = listaEstrategiaComponenteProductos.Where(h => h.NombreComercial != "").ToList();
                     break;
                 case Constantes.TipoEstrategiaSet.IndividualConTonos:
@@ -219,6 +223,11 @@ namespace Portal.Consultoras.Web.Providers
                             if (existe) continue;
 
                             hermano.Hermanos = listaEstrategiaComponenteProductos.Where(p => p.Grupo == hermano.Grupo).OrderBy(p => p.Orden).ToList();
+                        }
+
+                        if (hermano.Hermanos.Any())
+                        {
+                            hermano.NombreComercial = string.IsNullOrWhiteSpace(hermano.NombreBulk) ? hermano.NombreComercial : hermano.NombreComercial.Replace(hermano.NombreBulk, "");
                         }
 
                         listaComponentes.Add(hermano);

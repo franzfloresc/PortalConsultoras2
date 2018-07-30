@@ -21,11 +21,14 @@ namespace Portal.Consultoras.Web.Providers
         
         public string ImagenesResizeProceso(string urlImagen, string codigoIso, bool esAppCalatogo = false)
         {
-            string mensajeErrorImagenResize = "";
+            string mensajeErrorImagenResize;
             bool actualizar = true;
             var listaImagenesResize = ObtenerListaImagenesResize(urlImagen, codigoIso, esAppCalatogo, actualizar);
             if (listaImagenesResize != null && listaImagenesResize.Count > 0)
                 mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize, actualizar);
+            else
+                mensajeErrorImagenResize = "No se genero imagenes small y medium, lista vacia de render";
+
             return mensajeErrorImagenResize;
         }
 

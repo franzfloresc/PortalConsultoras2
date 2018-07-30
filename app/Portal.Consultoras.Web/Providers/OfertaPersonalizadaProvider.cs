@@ -386,6 +386,7 @@ namespace Portal.Consultoras.Web.Providers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                listEstrategia = new List<ServiceOferta.BEEstrategia>();
             }
             return listEstrategia;
         }
