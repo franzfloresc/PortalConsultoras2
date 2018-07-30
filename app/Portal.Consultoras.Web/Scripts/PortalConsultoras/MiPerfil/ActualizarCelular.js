@@ -87,6 +87,7 @@
             body.on('keydown', '.campo_ingreso_codigo_sms', me.Eventos.OnlyNumberCodeSms);
             body.on('keydown', '#NuevoCelular', me.Eventos.OnlyNumberCodeSms);
             body.on('cut copy paste', '#NuevoCelular', function (e) { e.preventDefault(); });
+            body.on('click', '#hrefTerminosMD', me.Eventos.EnlaceTerminosCondiciones);
         };
 
         function getLengthPais(iso) {
@@ -127,16 +128,16 @@
                 Success: true
             };
 
-            var equalsNumber = function (numero) {
-                if (localData.CelularActual === numero) {
-                    return {
-                        Success: false,
-                        Message: 'El número no puede ser el mismo.'
-                    };
-                }
+            //var equalsNumber = function (numero) {
+            //    if (localData.CelularActual === numero) {
+            //        return {
+            //            Success: false,
+            //            Message: 'El número no puede ser el mismo.'
+            //        };
+            //    }
 
-                return success;
-            }
+            //    return success;
+            //}
 
             var onlyNumbers = function (numero) {
                 var pattern = /^\d+$/;
@@ -176,7 +177,7 @@
             }
 
             return [
-                equalsNumber,
+                //equalsNumber,
                 onlyNumbers,
                 byCountryLength,
                 byCountryFormat
@@ -372,6 +373,11 @@
                 return;
             }
 
+            if (document.getElementById('chkAceptoContratoMD').checked ==false) {
+                alert('Debe aceptar los terminos y condiciones para poder actualizar sus datos');
+                return false;
+            }
+            
             localData.CelularNuevo = nuevoCelular;
             me.Funciones.ResetSmsCode();
             AbrirLoad();
@@ -394,6 +400,11 @@
                         CerrarLoad();
                         me.Funciones.HandleError(er);
                     });
+        }
+
+        function enlaceTerminosCondiciones() {
+            var enlace = $('#hdn_enlaceTerminosCondiciones').val();
+            $('#hrefTerminosMD').attr('href', enlace);
         }
 
         function backEdiNumber() {
@@ -454,7 +465,8 @@
             BackEdiNumber: backEdiNumber,
             SendSmsCode: sendSmsCode,
             ChangeCodeSms: changeCodeSms,
-            OnlyNumberCodeSms: onlyNumberCodeSms
+            OnlyNumberCodeSms: onlyNumberCodeSms,
+            EnlaceTerminosCondiciones: enlaceTerminosCondiciones
         };
     })();
     me.Inicializar = function() {

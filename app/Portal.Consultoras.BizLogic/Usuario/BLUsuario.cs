@@ -1788,10 +1788,14 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (!usuario.PuedeActualizar) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_NoAutorizado };
                 if (string.IsNullOrEmpty(correoNuevo)) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoVacio };
-                if (usuario.EMail == correoNuevo) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoNoCambia };
+                //if (usuario.EMail == correoNuevo) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoNoCambia };
 
-                var dAUsuario = new DAUsuario(usuario.PaisID);
-                if (dAUsuario.ExistsUsuarioEmail(correoNuevo)) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
+                if (usuario.EMail != correoNuevo)
+                {
+                    var dAUsuario = new DAUsuario(usuario.PaisID);
+                    if (dAUsuario.ExistsUsuarioEmail(correoNuevo)) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
+                }
+               
 
                 var dAValidacionDatos = new DAValidacionDatos(usuario.PaisID);
                 TransactionOptions transOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };

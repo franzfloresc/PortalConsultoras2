@@ -55,10 +55,17 @@ var MiPerfil_ActualizarCorreo = function (_config) {
             showArrayError(arrayError);
             return;
         }
+        if (document.getElementById('chkAceptoContratoMD').checked == false) {
+            alert('Debe aceptar los terminos y condiciones para poder actualizar sus datos');
+            return false;
+        }
 
         postActualizarEnviarCorreo(data, fnSuccess);
     };
-
+    var enlaceTerminosCondiciones = function () {
+        var enlace = $('#hdn_enlaceTerminosCondiciones').val();
+        $('#hrefTerminosMD').attr('href', enlace);
+    }
     var irPaginaPrevia = function () { window.location.href = config.UrlPaginaPrevia; }
     var irVista = function (vistaId) {
         $('#tabVistas div[vista-id]').hide();
@@ -80,6 +87,7 @@ var MiPerfil_ActualizarCorreo = function (_config) {
 
         $('#btnReenviameInstruciones').on('click', function () { actualizarEnviarCorreo(function () { showSuccess(config.MensajeReenvioExitoso); }); });
         $('#btnActualizarCorreo').on('click', function () { actualizarEnviarCorreo(function (data) { irVista2(data.correoNuevo); }); });
+        $('#hrefTerminosMD').on('click', function () { enlaceTerminosCondiciones(); });
 
         FuncionesGenerales.AvoidingCopyingAndPasting('NuevoCorreo');
     };

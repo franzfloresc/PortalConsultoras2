@@ -55,6 +55,19 @@ else
                     <label for="NuevoCorreo" class="w-100">Ingresa tu nuevo correo electrónico</label>
                 </div>
             </fieldset>
+            <div class="grupo_input_actualizarMisDatos campos_actualizarDatos mt-27" >
+                <div class="checkbox_condiciones">
+                    <input type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />
+                    <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
+                        <span>
+                            Estoy de acuerdo con los <span><a href="javascript:;" id="hrefTerminosMD" target="_blank">términos y condiciones</a></span> sobre Protección de datos personales
+
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+
             <fieldset class="grupo_form_cambio_datos text-uppercase">
                 <div class="w-50 text-left v-alignMiddle">
                     <a id="btnCancelar" title="Cancelar" class="enlace_cancelar">Cancelar</a>
@@ -88,6 +101,8 @@ else
         </div>
     </div>
 </section>
+
+<input type="hidden" id="hdn_enlaceTerminosCondiciones" value="@ViewBag.UrlPdfTerminosyCondiciones" />
 
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Base.js")"></script>

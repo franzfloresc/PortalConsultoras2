@@ -106,6 +106,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ActualizarCorreo()
         {
             ViewBag.CorreoActual = userData.EMail;
+            ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
         }
 
@@ -184,7 +185,7 @@ namespace Portal.Consultoras.Web.Controllers
             var valida = false;
             Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
             ViewBag.IniciaNumeroCelular = valida ? numero : -1;
-
+            ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
         }
 
@@ -564,10 +565,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     PaisId = userData.PaisID
                 },
-                new NotSamePhoneValidator
-                {
-                    OriginalPhone = userData.Celular
-                },
+                //new NotSamePhoneValidator
+                //{
+                //    OriginalPhone = userData.Celular
+                //},
                 new NotExistingPhone
                 {
                     PaisId = userData.PaisID,
