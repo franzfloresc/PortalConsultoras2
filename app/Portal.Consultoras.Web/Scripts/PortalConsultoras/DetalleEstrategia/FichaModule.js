@@ -17,7 +17,9 @@
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
 var OpcionesModule = (function () {
-    var _inicializar = function(model) {
+    var _opciones = [];
+    var _inicializar = function (model) {
+        _opciones = model || _opciones;
         console.log("OpcionesModule" + model.message);
     };
     return {
@@ -31,7 +33,9 @@ opcionesEvents.subscribe("onOptionSelected", function (e) {
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
 var ListaOpcionesModule = (function () {
+    var _opciones = [];
     var _inicializar = function (model) {
+        _opciones = model || _opciones;
         console.log("ListaOpcionesModule" + model.message);
     };
     return {
@@ -45,7 +49,9 @@ opcionesEvents.subscribe("onOptionSelected", function (e) {
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
 var OpcionesSeleccionadasModule = (function () {
+    var _opciones = [];
     var _inicializar = function (model) {
+        _opciones = model || _opciones;
         console.log("OpcionesSeleccionadasModule" + model.message);
     };
     return {
@@ -59,7 +65,9 @@ opcionesEvents.subscribe("onOptionSelected", function (e) {
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
 var TituloOpcionesSeleccionadasModule = (function () {
+    var _opciones = [];
     var _inicializar = function (model) {
+        _opciones = model || _opciones;
         console.log("TituloOpcionesSeleccionadasModule" + model.message);
     };
     return {
