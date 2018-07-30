@@ -202,6 +202,7 @@ var FichaModule = (function (config) {
 
     var _verificarVariedad = function (estrategia) {
         var result = false;
+
         if (!IsNullOrEmpty(estrategia.CodigoVariante)) {// && estrategia.CodigoVariante !== ConstantesModule.CodigoVariedad.IndividualVariable
             var param = {
                 estrategiaId: estrategia.EstrategiaID,
@@ -226,13 +227,13 @@ var FichaModule = (function (config) {
             result = false;
         }
 
-        opcionesEvents.applyChanges("onOptionSelected", estrategia.Hermanos);
         return result;
     };
 
     var _actualizarVariedad = function (estrategia) {
         estrategia.Hermanos = estrategia.Hermanos || [];
-        if (estrategia.Hermanos.length == 1) {
+
+        if (estrategia.Hermanos.length === 1) {
             if (estrategia.Hermanos[0].Hermanos) {
                 if (estrategia.Hermanos[0].Hermanos.length > 0) {
                     estrategia.CodigoVariante = _codigoVariedad.IndividualVariable;
@@ -240,13 +241,15 @@ var FichaModule = (function (config) {
             }
         }
         else if (estrategia.Hermanos.length > 1) {
-            if (estrategia.CodigoVariante == _codigoVariedad.IndividualVariable) {
+            if (estrategia.CodigoVariante === _codigoVariedad.IndividualVariable) {
                 estrategia.CodigoVariante = _codigoVariedad.ComuestaFija;
             }
         }
-        else if (estrategia.Hermanos.length == 0) {
+        else if (estrategia.Hermanos.length === 0) {
             estrategia.CodigoVariante = "";
         }
+
+        opcionesEvents.applyChanges("onOptionSelected", estrategia.Hermanos);
     };
 
     var _validarDesactivadoGeneral = function (estrategia) {
