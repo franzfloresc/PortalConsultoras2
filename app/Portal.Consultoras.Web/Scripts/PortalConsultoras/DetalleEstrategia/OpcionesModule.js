@@ -17,13 +17,28 @@ var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
 var OpcionesModule = (function () {
     var _estrategia = {};
+
     var _inicializar = function (model) {
         _estrategia = model || _estrategia;
-        console.log("OpcionesModule");
-        console.log(_estrategia);
+        SetHandlebars("#opciones-template", _estrategia, "#opciones");
     };
+
+    var _mostrarOpciones = function (cuv) {
+        $.each(_estrategia.Hermanos, function (index, hermano) {
+            cuv = $.trim(cuv);
+            if (cuv === hermano.Cuv) {
+                _estrategia.Hermanos[index].MostrarOpciones = true;
+            }
+            return false;
+        });
+        $("#elegir-opciones-modal").modal("show");
+        //
+        opcionesEvents.applyChanges("onOptionSelected", _estrategia);
+    }
+
     return {
-        Inicializar: _inicializar
+        Inicializar: _inicializar,
+        MostrarOpciones: _mostrarOpciones
     };
 }());
 opcionesEvents.subscribe("onOptionSelected", function (e) {

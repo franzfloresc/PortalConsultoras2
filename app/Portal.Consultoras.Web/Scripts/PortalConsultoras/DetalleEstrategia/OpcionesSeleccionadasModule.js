@@ -22,6 +22,7 @@ var OpcionesSeleccionadasModule = (function () {
         console.log("OpcionesSeleccionadasModule");
         console.log(_estrategia);
     };
+
     return {
         Inicializar: _inicializar
     };

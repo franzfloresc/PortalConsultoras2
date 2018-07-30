@@ -554,14 +554,12 @@ var FichaModule = (function (config) {
         }
 
         _setEstrategiaBreadcrumb(estrategia);
-
+        $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
+        SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
+        
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
         _validarDesactivadoGeneral(estrategia);
-        $(_elementos.idDataEstrategia).attr(_atributos.dataEstrategia, JSON.stringify(estrategia));
-
-        SetHandlebars("#detalle_ficha_template", estrategia, "#seccion_ficha_handlebars");
-        SetHandlebars("#opciones-template", estrategia, "#opciones");
 
         var imgFondo = "";
         if (isMobile()) {

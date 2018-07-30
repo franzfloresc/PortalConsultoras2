@@ -193,7 +193,7 @@
             mouseLeaveSelectArea: function () {
                 $(this).hide();
                 $(this).attr("data-visible", "0");
-            },
+            }/*,
             clickVerOpciones: function () {
                 var cuv = $(this).attr("data-tono-change-cuv");
                 var estrategiaData = EstrategiaAgregarModule.EstrategiaObtenerObj($(this));
@@ -211,11 +211,11 @@
 
                 $("#elegir-opciones-modal").modal("show");
 
-            }
+            }*/
         }
 
     var _bindingEvents = function () {
-        $("body").on("click", "[data-tono-change]", _eventos.clickVerOpciones);
+        //$("body").on("click", "[data-tono-change]", _eventos.clickVerOpciones);
 
         if (!isMobile()) {
             $(document).on("mousemove", "[data-tono-change]", _eventos.mouseMoveTono);
