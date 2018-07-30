@@ -24,16 +24,19 @@ var OpcionesModule = (function () {
     };
 
     var _mostrarOpciones = function (cuv) {
+        var componente;
         $.each(_estrategia.Hermanos, function (index, hermano) {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {
-                _estrategia.Hermanos[index].MostrarOpciones = true;
+                componente = _estrategia.Hermanos[index];
+                return false;
             }
-            return false;
         });
-        $("#elegir-opciones-modal").modal("show");
         //
-        opcionesEvents.applyChanges("onOptionSelected", _estrategia);
+        opcionesEvents.applyChanges("onOptionSelected", componente);
+        //
+        $("#elegir-opciones-modal").modal("show");
+
     }
 
     return {
