@@ -14,13 +14,13 @@
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 
 var opcionesEvents = opcionesEvents || {};
+registerEvent.call(opcionesEvents, "onEstrategiaLoaded");
 registerEvent.call(opcionesEvents, "onOptionSelected");
 var OpcionesModule = (function () {
     var _estrategia = {};
 
     var _inicializar = function (model) {
         _estrategia = model || _estrategia;
-        SetHandlebars("#opciones-template", _estrategia, "#opciones");
     };
 
     var _mostrarOpciones = function (cuv) {
@@ -41,6 +41,6 @@ var OpcionesModule = (function () {
         MostrarOpciones: _mostrarOpciones
     };
 }());
-opcionesEvents.subscribe("onOptionSelected", function (e) {
+opcionesEvents.subscribe("onEstrategiaLoaded", function (e) {
     OpcionesModule.Inicializar(e);
 });

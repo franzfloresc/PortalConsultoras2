@@ -14,18 +14,20 @@
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 
 var opcionesEvents = opcionesEvents || {};
+registerEvent.call(opcionesEvents, "onEstrategiaLoaded");
 registerEvent.call(opcionesEvents, "onOptionSelected");
 var ListaOpcionesModule = (function () {
     var _estrategia = {};
     var _inicializar = function (model) {
         _estrategia = model || _estrategia;
-        console.log("ListaOpcionesModule");
-        console.log(_estrategia);
     };
     return {
         Inicializar: _inicializar
     };
 }());
-opcionesEvents.subscribe("onOptionSelected", function (e) {
+opcionesEvents.subscribe("onEstrategiaLoaded", function (e) {
     ListaOpcionesModule.Inicializar(e);
+});
+opcionesEvents.subscribe("onOptionSelected", function (e) {
+    console.log('ListaOpcionesModule');
 });

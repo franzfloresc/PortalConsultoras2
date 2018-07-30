@@ -14,6 +14,7 @@
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 
 var opcionesEvents = opcionesEvents || {};
+registerEvent.call(opcionesEvents, "onEstrategiaLoaded");
 registerEvent.call(opcionesEvents, "onOptionSelected");
 var TituloOpcionesSeleccionadasModule = (function () {
     var _estrategia = {};
@@ -26,6 +27,6 @@ var TituloOpcionesSeleccionadasModule = (function () {
         Inicializar: _inicializar
     };
 }());
-opcionesEvents.subscribe("onOptionSelected", function (e) {
+opcionesEvents.subscribe("onEstrategiaLoaded", function (e) {
     TituloOpcionesSeleccionadasModule.Inicializar(e);
 });
