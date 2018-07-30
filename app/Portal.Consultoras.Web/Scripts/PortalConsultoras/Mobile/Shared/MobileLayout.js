@@ -835,6 +835,7 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
                         montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
                 }
 
+                console.log('MobileLayout.js - CargarCantidadProductosPedidos', data);
                 $(".num-menu-shop").html(data.cantidadProductos);
                 $(".js-span-pedidoingresado").html(montoWebAcumulado);
                 if (!noMostrarEfecto) {

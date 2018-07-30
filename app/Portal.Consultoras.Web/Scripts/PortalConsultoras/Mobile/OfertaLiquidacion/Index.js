@@ -298,6 +298,7 @@ function ActualizarCantidadTotalPedido() {
             if (checkTimeout(response)) {
                 if (response.success) {
                     var data = response.data;
+                    console.log('OfertaLiquidacion - Index.js - ActualizarCantidadTotalPedido', data);
                     $(".num-menu-shop").html(data.CantidadProductos);
                 } else {
                     window.messageInfo(response.message);
