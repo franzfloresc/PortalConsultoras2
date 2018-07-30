@@ -1,11 +1,11 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Portal.Consultoras.Entities.Pedido.App
+namespace Portal.Consultoras.Entities.Pedido
 {
     [DataContract]
-    public class BEPedidoDetalleApp
+    public class BEPedidoDetalle
     {
-        public BEPedidoDetalleApp()
+        public BEPedidoDetalle()
         {
             Producto = new BEProducto();
             Usuario = new BEUsuario();
