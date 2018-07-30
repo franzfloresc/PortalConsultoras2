@@ -35,15 +35,17 @@
         </div>
     </div>
     {{else}}
-    <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}} content_item_home_palanca">
+    <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}} content_item_home_palanca" >
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <div class="content_item_home_bpt box_producto_mobile_fix">
+        <div class="content_item_home_bpt box_producto_mobile_fix"  {{#iff EsSubcampania '==' true}}style="padding-bottom: 30px; height:320px!important;" {{/iff}}>
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
             <div data-item-tag="verdetalle"
-                {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
-                onclick="javascript:VerPopupExpGanaMas();"
-                {{else}}
-                onclick="javascript:VerDetalleEstrategia(event);"
+                 {{#iff EsSubcampania '==' false}}
+                     {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
+                     onclick="javascript:VerPopupExpGanaMas();"
+                     {{else}}
+                     onclick="javascript:OnClickFichaDetalle(this);"
+                     {{/iff}}
                 {{/iff}}>
                 <div>
                     <div class="producto_img_mobile_bpt">
@@ -62,12 +64,18 @@
                         {{else}}
                         <h6>&ensp;&nbsp;</h6>
                         {{/IsNullOrEmpty}}
-                        {{#iff DescripcionCortada '!=' ''}}
-                        <p class="nombre_producto" style="cursor: pointer; height: 36px;">
+                        
+                        <p class="nombre_producto" style=" {{#iff EsSubcampania '==' 'false'}}cursor: pointer;{{/iff}} height: 36px;">
                             <b class="text_descrition_prd_bpt" {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>{{DescripcionCortada}}</b>
                         </p>
+                        
+                        {{#iff EsSubcampania '==' true}}
+                        <div class="sub_campania_info_adicional" style="min-height: 60px;  max-height: 60px;">
+                            {{#each item.Hermanos as |itemHermano|}}
+                            <label style="margin-left:20px; cursor:initial">{{itemHermano.NombreComercial}}</label><br />
+                            {{/each}}
+                        </div>
                         {{/iff}}
-
                         <div class="producto_precio" {{#iff TipoAccionAgregar '==' '4'}} style="color:gray;" {{/iff}}>
                             {{#iff Precio '>' 0}}
                             <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioTachado}}</span>
@@ -94,7 +102,7 @@
                                    {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
                         </div>
                         <div class="clear"></div>
-                        <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregar(event); ">
+                        <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
                             AGR&Eacute;GALO
                         </a>
                     </div>
@@ -102,16 +110,16 @@
                     {{#iff TipoAccionAgregar '==' '2'}}
                     <div class="texto_elige_tono">&nbsp;</div>
                     <div class="producto_nombre_descripcion">
-                        <div class="liquidacion_rango_home">
-                            <a class="cantidad_menos_home" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                            <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                             <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' 
                                    class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{ClaseBloqueada}}" 
                                    onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" 
                                    {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
-                            <a class="cantidad_mas_home" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                            <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                         </div>
                         <div class="clear"></div>
-                        <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregar(event); ">
+                        <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
                             AGR&Eacute;GALO
                         </a>
                     </div>
@@ -122,7 +130,7 @@
                     <div class="texto_elige_tono" style="height: 55px;padding-top: 16px;">¡AHORA ELIGE TU TONO!</div>
                     <div class="clear"></div>
                     <div class="producto_nombre_descripcion">
-                        <a class="btn_elige_tono" data-item-tag="eligetuopcion" onclick="javascript:VerDetalleEstrategia(event);" href="javascript:;">
+                        <a class="btn_elige_tono" data-item-tag="eligetuopcion" onclick="javascript:OnClickFichaDetalle(this);" href="javascript:;">
                             ELIGE TU OPCIÓN
                         </a>
                     </div>

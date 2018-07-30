@@ -258,7 +258,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, input.CodigoConsultora, input.PaisISO);
-                return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_Error, false);
+                return new BEResultadoReservaProl(Constantes.MensajesError.Pedido_Reserva, false);
             }
         }
 
@@ -329,11 +329,11 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
         #region Private Functions
 
-        private void UpdateDiaPROL(BEUsuario usuario)
-        {
-            DateTime fechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
-            usuario.DiaPROL = EsDiaProl(usuario, fechaHoraActual);
-        }
+        //private void UpdateDiaPROL(BEUsuario usuario)
+        //{
+        //    DateTime fechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
+        //    usuario.DiaPROL = EsDiaProl(usuario, fechaHoraActual);
+        //}
 
         private void UpdateDiaPROLAndEsHoraReserva(BEUsuario usuario)
         {

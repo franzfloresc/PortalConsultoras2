@@ -47,42 +47,18 @@ namespace Portal.Consultoras.Entities
 
         public BEPedidoDescarga(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "FechaHoraInicio"))
-                FechaHoraInicio = Convert.ToDateTime(row["FechaHoraInicio"]);
-
-            if (DataRecord.HasColumn(row, "FechaHoraFin"))
-                FechaHoraFin = Convert.ToDateTime(row["FechaHoraFin"]);
-
-            if (DataRecord.HasColumn(row, "Estado"))
-                Estado = row["Estado"].ToString();
-
-            if (DataRecord.HasColumn(row, "Mensaje"))
-                Mensaje = row["Mensaje"].ToString();
-
-            if (DataRecord.HasColumn(row, "NumeroPedidosWeb"))
-                NumeroPedidosWeb = Convert.ToInt32(row["NumeroPedidosWeb"]);
-
-            if (DataRecord.HasColumn(row, "NumeroPedidosDD"))
-                NumeroPedidosDD = Convert.ToInt32(row["NumeroPedidosDD"]);
-
-            if (DataRecord.HasColumn(row, "TipoProceso"))
-                TipoProceso = row["TipoProceso"].ToString();
-
-            if (DataRecord.HasColumn(row, "FechaFacturacion"))
-                FechaFacturacion = Convert.ToDateTime(row["FechaFacturacion"].ToString());
-
-            if (DataRecord.HasColumn(row, "NroLote"))
-                NroLote = Convert.ToInt32(row["NroLote"]);
-
-            if (DataRecord.HasColumn(row, "Desmarcado"))
-                Desmarcado = Convert.ToBoolean(row["Desmarcado"]);
-
-            if (DataRecord.HasColumn(row, "FechaProceso"))
-                FechaProceso = Convert.ToDateTime(row["FechaProceso"]);
-
-            if (DataRecord.HasColumn(row, "FechaEnvio"))
-                FechaEnvio = Convert.ToDateTime(row["FechaEnvio"]);
-
+            FechaHoraInicio = row.ToDateTime("FechaHoraInicio");
+            FechaHoraFin = row.ToDateTime("FechaHoraFin");
+            Estado = row.ToString("Estado");
+            Mensaje = row.ToString("Mensaje");
+            NumeroPedidosWeb = row.ToInt32("NumeroPedidosWeb");
+            NumeroPedidosDD = row.ToInt32("NumeroPedidosDD");
+            TipoProceso = row.ToString("TipoProceso");
+            FechaFacturacion = row.ToDateTime("FechaFacturacion");
+            NroLote = row.ToInt32("NroLote");
+            Desmarcado = row.ToBoolean("Desmarcado");
+            FechaProceso = row.ToDateTime("FechaProceso");
+            FechaEnvio = row.ToDateTime("FechaEnvio");
         }
     }
 }

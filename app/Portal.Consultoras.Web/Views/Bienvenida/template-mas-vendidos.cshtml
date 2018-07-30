@@ -44,11 +44,11 @@
                     AGR&Eacute;GALO
                 </a>
                 {{else}}
-                <div class="liquidacion_rango_home js-no-popup">
+                <div class="liquidacion_rango_home js-no-popup" data-cantidad-contenedor="">
                     <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input="cantidad" tabindex="0">
                     <div class="liquidacion_rango_right_pedido js-no-popup">
-                        <a href="javascript:;" class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a href="javascript:;" class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                        <a href="javascript:;" class="mas js-no-popup" tabindex="0" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a href="javascript:;" class="menos js-no-popup" tabindex="0" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
                 <a href="javascript:;" class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">

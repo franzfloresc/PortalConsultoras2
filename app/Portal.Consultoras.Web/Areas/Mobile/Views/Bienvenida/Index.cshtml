@@ -85,11 +85,26 @@
         <div class="content_foto">
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
+                <a href="@Url.Action("Index", "MiPerfil")"  id="hrefActualizarDatos" title="Actualizar datos" class="subir_foto_mobile default-background"></a>
+                <div class="tooltip_info_revision_correo" style="display:none;">
+                    <div class="icono_info_alerta"></div>
+                    <div class="tooltip_texto">
+                        <p>
+                            Ingresa y actualiza tu correo y/o celular para poder contactarnos contigo.
+                        </p>
+                    </div>
+                </div>
                 <div class="foto_usuaria_mobile">
-                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+                    @if (ViewBag.FotoPerfilAncha)
+                    {
+                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:auto; height:100%;" />
+                    }
+                    else
+                    {
+                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto;" />
+                    }
                 </div>
             }
-
         </div>
         <div class="content_resumen_dato_mobile" style="text-align:left">
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
@@ -383,84 +398,84 @@
     </div>
 }
 
-    <div class="wrapper_resumen_mobile">
-        <div id="div-linea-OPT" class="linea_separadora_mobile" style="display: none;"></div>
-        @if (Model.ShowRoomMostrarLista == 0)
-        {
-            <div class="nueva_seccion_fav" onclick="mostrarCatalogoPersonalizado();" style="cursor: pointer;">
-                <div class="content_banner_fav">
-                    <div class="content_imagen_banner_fav">
-                        <img data-src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" data-lazy-seccion-banner-home="" />
-                    </div>
-                    <div class="texto_fav_banner">
-                        @ViewBag.NombreConsultoraFAV, estos son los
-                        <span class="favoritos_txt">FAVORITOS</span>
-                        <span class="texto_2_fav">DE TUS CLIENTES</span>
-                        <a class="btn_compralos_banner_fav" href="javascript:">CÓMPRALOS</a>
-                    </div>
+<div class="wrapper_resumen_mobile">
+    <div id="div-linea-OPT" class="linea_separadora_mobile" style="display: none;"></div>
+    @if (Model.ShowRoomMostrarLista == 0)
+    {
+        <div class="nueva_seccion_fav" onclick="mostrarCatalogoPersonalizado();" style="cursor: pointer;">
+            <div class="content_banner_fav">
+                <div class="content_imagen_banner_fav">
+                    <img data-src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" data-lazy-seccion-banner-home="" />
+                </div>
+                <div class="texto_fav_banner">
+                    @ViewBag.NombreConsultoraFAV, estos son los
+                    <span class="favoritos_txt">FAVORITOS</span>
+                    <span class="texto_2_fav">DE TUS CLIENTES</span>
+                    <a class="btn_compralos_banner_fav" href="javascript:">CÓMPRALOS</a>
                 </div>
             </div>
-        }
-
-
-        <div class="linea_separadora_mobile" style="margin-top:-1px;"></div>
-        <div class="comartir_home_mobile">
-            APRENDE A VENDER MÁS
-            @if (tipoUsuaio == 2)
-            {
-                <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia"
-                   class="btn_compartelos" href="#" onclick="return messageInfoPostulante();">ENTRA A “MI ACADEMIA”</a>
-            }
-            else
-            {
-                <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia"
-                   class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">ENTRA A “MI ACADEMIA”</a>
-            }
         </div>
-        <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">
-            <div class="imagen_catalogo video_esika">
-                <img data-src="@Model.UrlImagenMiAcademia" alt="-" data-lazy-seccion-banner-home="" />
-            </div>
-        </a>
-        <hr class="clear" />
-        <div class="linea_separadora_mobile"></div>
-        @if (Model.CodigoISO != Constantes.CodigosISOPais.Venezuela)
+    }
+
+
+    <div class="linea_separadora_mobile" style="margin-top:-1px;"></div>
+    <div class="comartir_home_mobile">
+        APRENDE A VENDER MÁS
+        @if (tipoUsuaio == 2)
         {
-            <div class="comartir_home_mobile">
-                LIQUIDACIÓN WEB
-                <a role="link" region="Central" parent="Oferta Liquidacion" title="Compártelos"
-                   class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
-            </div>
-            <div class="imagen_catalogo liquidacion_esika">
-                <a href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">
-                    <img data-src="@Model.UrlImagenLiquidaciones" alt="-" data-lazy-seccion-banner-home="" />
-                </a>
-            </div>
-            <hr class="clear" />
-            <div class="linea_separadora_mobile mg_bottom"></div>
+            <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia"
+               class="btn_compartelos" href="#" onclick="return messageInfoPostulante();">ENTRA A “MI ACADEMIA”</a>
         }
-        
-        <div id="dvExpoOferta" style="display: none;">
-            <div class="comartir_home_mobile">
-                EXPOFERTAS
-                <a role="link"
-                   region="Central"
-                   title="EXPOFERTAS"
-                   target="_blank"
-                   class="btn_compartelos" href="#"></a>
-            </div>
-            <div class="imagen_catalogo liquidacion_esika">
-                <a href="#" target="_blank">
-                    <img alt="Expo Oferta"
-                         data-lazy-seccion-banner-home=""
-                         style="margin-top:20px" />
-                </a>
-            </div>
-            <hr class="clear" />
-            <div class="linea_separadora_mobile mg_bottom"></div>
-        </div>
-
+        else
+        {
+            <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia"
+               class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">ENTRA A “MI ACADEMIA”</a>
+        }
     </div>
+    <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">
+        <div class="imagen_catalogo video_esika">
+            <img data-src="@Model.UrlImagenMiAcademia" alt="-" data-lazy-seccion-banner-home="" />
+        </div>
+    </a>
+    <hr class="clear" />
+    <div class="linea_separadora_mobile"></div>
+    @if (Model.CodigoISO != Constantes.CodigosISOPais.Venezuela)
+    {
+        <div class="comartir_home_mobile">
+            LIQUIDACIÓN WEB
+            <a role="link" region="Central" parent="Oferta Liquidacion" title="Compártelos"
+               class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
+        </div>
+        <div class="imagen_catalogo liquidacion_esika">
+            <a href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">
+                <img data-src="@Model.UrlImagenLiquidaciones" alt="-" data-lazy-seccion-banner-home="" />
+            </a>
+        </div>
+        <hr class="clear" />
+        <div class="linea_separadora_mobile mg_bottom"></div>
+    }
+
+    <div id="dvExpoOferta" style="display: none;">
+        <div class="comartir_home_mobile">
+            EXPOFERTAS
+            <a role="link"
+               region="Central"
+               title="EXPOFERTAS"
+               target="_blank"
+               class="btn_compartelos" href="#"></a>
+        </div>
+        <div class="imagen_catalogo liquidacion_esika">
+            <a href="#" target="_blank">
+                <img alt="Expo Oferta"
+                     data-lazy-seccion-banner-home=""
+                     style="margin-top:20px" />
+            </a>
+        </div>
+        <hr class="clear" />
+        <div class="linea_separadora_mobile mg_bottom"></div>
+    </div>
+
+</div>
 </div>
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
 <input type="hidden" id="hdPosicion" value="0" />
@@ -488,11 +503,11 @@
             <tr>
                 <td style="vertical-align: middle;"> Unidades: &nbsp;&nbsp;</td>
                 <td>
-                    <div class="liquidacion_rango_home">
-                        <input type="tel" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" name="txtCantidadZE" id="txtCantidadZE" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                    <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                        <input type="tel" value="1" size="2" maxlength="2" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" name="txtCantidadZE" id="txtCantidadZE" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
                         <div class="liquidacion_rango_right_pedido">
-                            <a class="mas"><img src="" alt="" /></a>
-                            <a class="menos"><img src="" alt="" /></a>
+                            <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="" alt="" /></a>
+                            <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="" alt="" /></a>
                         </div>
                     </div>
                 </td>
@@ -554,21 +569,8 @@
     </div>
 </div>
 
-<div id="PopUpFotoCargada" class="CompartirCorreoPop contenedor_fondo_popup" style="display:none;">
-    <div class="content_foto_cargada">
-        <div class="btn_cerrar_actualizarMisDatos">
-            <a href="javascript;" onclick="return $('#PopUpFotoCargada').hide();" title="Cerrar" class="cerrar_tutorial">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-        <div class="titulo_pop_foto">MI<b> FOTO</b></div>
-        <div class="content_foto_usuario">
-            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
-        </div>
-        <a class="btn_tomar_foto">TOMAR FOTO</a>
-    </div>
-</div>
+<!--FIN-->
+<!-- POPUP IMAGEN PERFIL PROCESO RECORTE -->
 
 <div class="contenedor_fondo_popup" id="popup_imagenPerfilCorte" style="display: none;">
     <div class="popup_img_perfil">
@@ -592,24 +594,6 @@
         </div>
     </div>
 </div>
-
-<div id="PopUpFotoActualizada" class="CompartirCorreoPop contenedor_fondo_popup" style="display:none;">
-    <div class="content_foto_cargada">
-        <div class="btn_cerrar_actualizarMisDatos">
-            <a href="javascript;" onclick="return $('PopUpFotoActualizada').hide();" title="Cerrar" class="cerrar_tutorial">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-        <div class="titulo_pop_foto">MI<b> FOTO</b></div>
-        <div class="content_foto_usuario">
-            <div class="foto_usuaria_desktop"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
-        </div>
-        <div class="text_actualizada">¡FELICITACIONES!</div>
-        <div class="sub_text_actualizada">Tu foto se ha actualizado</div>
-    </div>
-</div>
-
 <!-- POPUP ACEPTACIÓN DE CONTRATO (COLOMBIA) -->
 <div id="fondoPopup_aceptacionTerminosYCondicionesContrato" class="contenedor_fondo_popup" style="display:none;">
     <div id="popupAceptacionContrato" class="popup_aceptacionTerminosYCondicionesContrato">
@@ -805,8 +789,47 @@
     </div>
 </div>
 
+<!--FIN-->
+<!-- POPUP VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE  -->
+
+<div class="contenedor_fondo_popup" id="popupVerificacionCorreoElectronicoPendiente" style="display:none;">
+    <div class="popup_correo_pendiente_de_confirmar w-100 text-center">
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a id="btnCerrarPopupCorreo" title="Cerrar" class="cerrar_tutorial">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp">
+            <div class="mb-40">
+                <h1 class="titulo_correo_pendiente_confirmacion text-uppercase">
+                    Tienes pendiente<br /><span class="text-bold">confirmar tu correo para<br />actualizarlo</span>
+                </h1>
+                <div class="icono_correo_sobre"></div>
+                <p class="w-100 envio_instrucciones_info">
+                    <span class="w-100">Te hemos enviado las instrucciones a:</span>
+                    <span class="w-100 text-bold" id="spnEmail">valeria.tarazona@gmail.com</span>
+                </p>
+                <p class="w-100 envio_instrucciones_info">
+                    @*<span class="w-100">¿Aún no recibes nuestro correo?</span>*@
+                    <a href="@Url.Action("Index", "MiPerfil", new { area = "Mobile" })" title="Ir A Mis Datos" class="enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
+                        Ir a mis datos
+                    </a>
+                </p>
+                @*<p class="w-100 cambiar_correo_info">
+                        <span>¿Este no es tu correo?</span>
+                        <a href="#" title="Cambia tu correo" class="enlace_cambiar_correo text-bold">Cambia tu correo</a>
+                    </p>*@
+            </div>
+            @*<a href="#" class="enlace_no_cambiar_correo" title="Ya no deseo actualizar mi correo">Ya no deseo actualizar mi correo</a>*@
+        </div>
+    </div>
+</div>
+
+<!-- FIN - POPUP VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE -->
+
 @section scripts{
-<script type="text/javascript">
+    <script type="text/javascript">
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
@@ -822,6 +845,7 @@
 
         var popupAceptacionContrato = '@Constantes.TipoPopUp.AceptacionContrato';
         var OrigenAceptacionContrato = '@Constantes.ClienteOrigen.OrigeMobile';
+        var popupActualizarCorreo = '@Constantes.TipoPopUp.ActualizarCorreo';
 
         var urlContratoCOpdf = '@Url.Content("~/Content/FAQ/41577-BELCORP-SolCre-CO-400073315-300916.pdf")';
         var viewBagCambioClave = '@Model.CambioClave';
@@ -832,7 +856,7 @@
         var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
         var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })';
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
-        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
 
         var tipoOrigenEstrategia = 2;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome';
@@ -862,8 +886,10 @@
         var mostrarPopupCuponGanaste = (@Model.TipoPopUpMostrar == 11) ? 'true' : 'false';
         var nombreAlias = '@Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!")';
         var numeroCampania = '@Model.NumeroCampania';
+        var urlActionMiPerfil = '@Url.Action("ObtenerActualizacionEmail", "Bienvenida", new { area = "" })';
+        var urlLocationMiPerfil = '@Url.Action("Index", "MiPerfil", new { area = "Mobile" })';
         var appVersion = navigator.appVersion;
-</script>
+    </script>
     @Scripts.Render("~/bundles/JsMobile/Bienvenida")
 
 }

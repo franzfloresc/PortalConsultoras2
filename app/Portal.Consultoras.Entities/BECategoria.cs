@@ -21,19 +21,16 @@ namespace Portal.Consultoras.Entities
 
         public BECategoria()
         {
-            this.CodigoCategoria = string.Empty;
-            this.DescripcionCategoria = string.Empty;
-            this.Eliminado = string.Empty;
+            CodigoCategoria = string.Empty;
+            DescripcionCategoria = string.Empty;
+            Eliminado = string.Empty;
         }
 
         public BECategoria(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoCategoria"))
-                CodigoCategoria = Convert.ToString(row["CodigoCategoria"]);
-            if (DataRecord.HasColumn(row, "DescripcionCategoria"))
-                DescripcionCategoria = Convert.ToString(row["DescripcionCategoria"]);
-            if (DataRecord.HasColumn(row, "Eliminado"))
-                Eliminado = Convert.ToString(row["Eliminado"]);
+            CodigoCategoria = row.ToString("CodigoCategoria");
+            DescripcionCategoria = row.ToString("DescripcionCategoria");
+            Eliminado = row.ToString("Eliminado");
         }
     }
 }

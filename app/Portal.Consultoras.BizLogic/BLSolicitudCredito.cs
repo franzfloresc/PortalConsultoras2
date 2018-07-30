@@ -506,6 +506,7 @@
 
                 txtBuil.Append(item.PadRight(field.Size));
             }
+
             return txtBuil.ToString();
         }
 

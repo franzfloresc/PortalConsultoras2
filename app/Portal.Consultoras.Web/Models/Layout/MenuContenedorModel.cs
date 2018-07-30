@@ -10,6 +10,7 @@ namespace Portal.Consultoras.Web.Models.Layout
         public int CampaniaId { get; set; }
         public int CampaniaX0 { get; set; }
         public int CampaniaX1 { get; set; }
+        public bool MostrarMenuFlotante { get; set; }
         public string OrigenPantalla { get; set; }
         public string CampaniaX0ConFormato
         {

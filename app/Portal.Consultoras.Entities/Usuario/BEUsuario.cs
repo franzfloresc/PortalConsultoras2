@@ -102,25 +102,26 @@ namespace Portal.Consultoras.Entities
         [Obsolete("Use MapUtil.MapToCollection")]
         public BEUsuario(IDataRecord row)
         {
-            msCodigoConsultora = row["CodigoConsultora"].ToString();
-            msCodigoUsuario = row["CodigoUsuario"].ToString();
+            msCodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
+            msCodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
             miPaisID = Convert.ToInt32(row["PaisID"]);
-            msNombre = row["Nombre"].ToString();
-            msClaveSecreta = row["ClaveSecreta"].ToString();
-            msEMail = row["EMail"].ToString();
+            msNombre = Convert.ToString(row["Nombre"]);
+            msClaveSecreta = Convert.ToString(row["ClaveSecreta"]);
+            msEMail = Convert.ToString(row["EMail"]);
             mbEMailActivo = Convert.ToBoolean(row["EMailActivo"]);
-            msTelefono = row["Telefono"].ToString();
-            msCelular = row["Celular"].ToString();
-            msSobrenombre = row["Sobrenombre"].ToString();
+            msTelefono = Convert.ToString(row["Telefono"]);
+            msCelular = Convert.ToString(row["Celular"]);
+            msSobrenombre = Convert.ToString(row["Sobrenombre"]);
             mbCompartirDatos = Convert.ToBoolean(row["CompartirDatos"]);
             mbActivo = Convert.ToBoolean(row["Activo"]);
             miTipoUsuario = Convert.ToInt16(row["TipoUsuario"]);
             mbCambioClave = Convert.ToBoolean(row["CambioClave"]);
 
+
             if (DataRecord.HasColumn(row, "TelefonoTrabajo"))
                 msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);
             if (DataRecord.HasColumn(row, "AceptoContrato"))
-                this.AceptoContrato = Convert.ToBoolean(row["AceptoContrato"]);
+                AceptoContrato = Convert.ToBoolean(row["AceptoContrato"]);
             if (DataRecord.HasColumn(row, "MostrarAyudaWebTraking"))
                 MostrarAyudaWebTraking = Convert.ToBoolean(row["MostrarAyudaWebTraking"]);
             if (DataRecord.HasColumn(row, "CodigoISO"))
@@ -139,7 +140,7 @@ namespace Portal.Consultoras.Entities
                 Rol = Convert.ToString(row["Rol"]);
 
             if (DataRecord.HasColumn(row, "ZonaID"))
-                ZonaID = Convert.ToInt32(row["ZonaID"].ToString());
+                ZonaID = Convert.ToInt32(row["ZonaID"]);
 
             if (DataRecord.HasColumn(row, "SegmentoConstancia"))
                 SegmentoConstancia = Convert.ToString(row["SegmentoConstancia"]);
@@ -160,7 +161,7 @@ namespace Portal.Consultoras.Entities
                 bEsquemaDAConsultora = Convert.ToBoolean(row["EsquemaDAConsultora"]);
 
             if (DataRecord.HasColumn(row, "DigitoVerificador"))
-                digitoVerificador = (row["DigitoVerificador"]).ToString();
+                digitoVerificador = Convert.ToString(row["DigitoVerificador"]);
 
             if (DataRecord.HasColumn(row, "TieneCDRExpress"))
                 TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
@@ -185,9 +186,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CodigoZona")) msCodigoZona = Convert.ToString(row["CodigoZona"]);
             else msCodigoZona = "";
             if (DataRecord.HasColumn(row, "ConsultoraID")) miConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora")) msCodigoConsultora = row["CodigoConsultora"].ToString();
+            if (DataRecord.HasColumn(row, "CodigoConsultora")) msCodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
             else msCodigoConsultora = "";
-            if (DataRecord.HasColumn(row, "CodigoUsuario")) msCodigoUsuario = row["CodigoUsuario"].ToString();
+            if (DataRecord.HasColumn(row, "CodigoUsuario")) msCodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
             else msCodigoUsuario = "";
             if (DataRecord.HasColumn(row, "NombreCompleto")) msNombre = Convert.ToString(row["NombreCompleto"]);
             else msNombre = "";
@@ -209,7 +210,7 @@ namespace Portal.Consultoras.Entities
             else mNombrePais = "";
             if (DataRecord.HasColumn(row, "CambioClave")) mbCambioClave = Convert.ToBoolean(row["CambioClave"]);
             if (DataRecord.HasColumn(row, "ConsultoraNueva")) mConsultoraNueva = Convert.ToInt32(row["ConsultoraNueva"]);
-            if (DataRecord.HasColumn(row, "CodigoUsuario")) msCodigoUsuario = row["CodigoUsuario"].ToString();
+            if (DataRecord.HasColumn(row, "CodigoUsuario")) msCodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
             else msCodigoUsuario = "";
             if (DataRecord.HasColumn(row, "Telefono")) msTelefono = Convert.ToString(row["Telefono"]);
             else msTelefono = "";
@@ -407,7 +408,7 @@ namespace Portal.Consultoras.Entities
                 NombreGerenteZona = Convert.ToString(row["GerenteZona"]);
 
             if (DataRecord.HasColumn(row, "DigitoVerificador"))
-                digitoVerificador = (row["DigitoVerificador"]).ToString();
+                digitoVerificador = Convert.ToString(row["DigitoVerificador"]);
 
             if (DataRecord.HasColumn(row, "TieneODD"))
                 OfertaDelDia = Convert.ToBoolean(row["TieneODD"]);
@@ -518,6 +519,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "IndicadorConsultoraOficina"))
                 EsConsultoraOficina = Convert.ToInt32(row["IndicadorConsultoraOficina"]) == 1;
+
+            if (DataRecord.HasColumn(row, "PromedioVenta"))
+                PromedioVenta = Convert.ToDouble(row["PromedioVenta"]);
         }
 
         [Column("ConsultoraAsociadoID")]
@@ -1144,7 +1148,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("OfertaFinal")]
         public int OfertaFinal { get; set; }
-        
+
         [DataMember]
         [Column("EsOfertaFinalZonaValida")]
         public bool EsOfertaFinalZonaValida { get; set; }
@@ -1286,7 +1290,7 @@ namespace Portal.Consultoras.Entities
                 bEsquemaDAConsultora = Convert.ToBoolean(row["EsquemaDAConsultora"]);
 
             if (DataRecord.HasColumn(row, "DigitoVerificador"))
-                digitoVerificador = (row["DigitoVerificador"]).ToString();
+                digitoVerificador = Convert.ToString(row["DigitoVerificador"]);
 
             if (DataRecord.HasColumn(row, "TieneCDRExpress"))
                 TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
@@ -1467,11 +1471,24 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool MostrarBotonValidar { get; set; }
         [DataMember]
-        public BEOfertaFinal _OfertaFinal { get; set; }
+        public BEOfertaFinal beOfertaFinal { get; set; }
         [DataMember]
+        public string FotoOriginalSinModificar { get; set; }
+        [DataMember]
+        public bool PuedeActualizar { get; set; }
+        [DataMember]
+        public bool PuedeEnviarSMS { get; set; }
+        [DataMember]
+        public bool FotoPerfilAncha { get; set; }
+        [DataMember]
+        [Column("IndicadorConsultoraOficina")]
         public bool EsConsultoraOficina { get; set; }
         [DataMember]
         public int IndicadorConsultoraDigital { get; set; }
+        [DataMember]
+        public string NivelProyectado { get; set; }
+        [DataMember]
+        public double PromedioVenta { get; set; }
 
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
@@ -1486,7 +1503,5 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "HoraCierreZonaDemAnti")) HoraCierreZonaDemAnti = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAnti"]);
             if (DataRecord.HasColumn(row, "HoraCierreZonaNormal")) HoraCierreZonaNormal = DbConvert.ToTimeSpan(row["HoraCierreZonaNormal"]);
         }
-        [DataMember]
-        public string NivelProyectado { get; set; }
     }
 }

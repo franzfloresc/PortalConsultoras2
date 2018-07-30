@@ -156,6 +156,67 @@
 
     }
 
+    // catalogo compartir por Facebook
+    var CompartirFacebook = function (catalogo, campaniaCatalogo, btn) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Compartir FB',
+            'label': catalogo,
+            'value': 0
+        });
+        InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
+
+        var u = $(btn).parents("[data-cat='" + catalogo + "']").find("#txtUrl" + catalogo).val();
+
+        var popWwidth = 570;
+        var popHeight = 420;
+        var left = (screen.width / 2) - (popWwidth / 2);
+        var top = (screen.height / 2) - (popHeight / 2);
+        var url = "http://www.facebook.com/sharer/sharer.php?u=" + u;
+        window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+    }
+
+    // catalogo email
+    var AbrirCompartirCorreo = function (tipoCatalogo, campania) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Compartir email – clic botón',
+            'label': tipoCatalogo,
+            'value': 0
+        });
+
+        $("#comentarios").val(valContenidoCorreoDefecto);
+        // remover todos los tag
+        $('#tagCorreo').removeTagAll();
+        // asignar el check al catalogo correspondiente mediante tipoCatalogo
+        campaniaEmail = campania;
+        $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
+        $("#divCheckbox").find("[data-cat='" + tipoCatalogo + "']").find("[type='checkbox']").attr('checked', "checked");
+        
+        $('#CompartirCorreo').show();
+        $('#CompartirCorreoMobile').show();
+
+        var cata = $("#divCatalogo [data-cam='" + campania + "'][data-estado='1']");
+        $("#divCheckbox [data-cat]").hide();
+        for (var i = 0; i < cata.length; i++) {
+            var cat = $(cata[i]).attr("data-cat");
+            $("#divCheckbox [data-cat='" + cat + "']").show();
+        }
+    }
+
+    var TagManagerWS = function (catalogo, campaniaCatalogo) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Compartir WhatsApp',
+            'label': catalogo,
+            'value': 0
+        });
+        InsertarLogCatalogoDynamo('Whatsapp', campaniaCatalogo, catalogo, 1);
+    }
+
     var _bindingEvents = function () {
         $("body").on("click", "[data-compartir]", function (e) {
             e.preventDefault();
@@ -169,7 +230,10 @@
 
     return {
         init: Inicializar,
-        CompartirTexto: CompartirRedesSocialesTexto
+        CompartirTexto: CompartirRedesSocialesTexto,
+        CompartirFacebook: CompartirFacebook,
+        AbrirCompartirCorreo: AbrirCompartirCorreo,
+        TagManagerWS: TagManagerWS
     }
 })();
 

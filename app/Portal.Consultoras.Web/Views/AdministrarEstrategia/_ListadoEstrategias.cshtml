@@ -241,11 +241,11 @@
                     @if (item.FlagNueva == 1)
                     {
                         <div style=" margin-left: 20px;">
-                            <div class="liquidacion_rango_home">
-                                <input type="text" value="@item.LimiteVenta" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral txtCantidad" />
+                            <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                                <input type="text" value="@item.LimiteVenta" size="2" maxlength="2" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral txtCantidad" />
                                 <div class="liquidacion_rango_right_pedido">
-                                    <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                                    <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                                    <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                                    <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
                                 </div>
                             </div>
                         </div>
@@ -256,11 +256,11 @@
                     else
                     {
                         <div style=" margin-left: 20px;">
-                            <div class="liquidacion_rango_home" @(item.TipoTallaColor != "" ? "style=visibility:hidden" : "")>
-                                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral txtCantidad" />
+                            <div class="liquidacion_rango_home" @(item.TipoTallaColor != "" ? "style=visibility:hidden" : "") data-cantidad-contenedor="">
+                                <input type="text" value="1" size="2" maxlength="2" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral txtCantidad" />
                                 <div class="liquidacion_rango_right_pedido">
-                                    <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                                    <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                                    <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                                    <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
                                 </div>
                             </div>
                         </div>

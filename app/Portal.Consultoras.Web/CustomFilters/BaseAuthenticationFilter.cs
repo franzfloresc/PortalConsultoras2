@@ -6,7 +6,7 @@ namespace Portal.Consultoras.Web.CustomFilters
 {
     public class BaseAuthenticationFilter : ActionFilterAttribute, IAuthenticationFilter
     {
-        ISessionManager sessionManager;
+        readonly ISessionManager sessionManager;
         public BaseAuthenticationFilter()
         {
             sessionManager = new SessionManager.SessionManager();

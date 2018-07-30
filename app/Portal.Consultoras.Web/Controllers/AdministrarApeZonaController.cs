@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new AdministrarApeZonaModel();
             try
             {
-                model.Regiones = DropDownListRegiones(UserData().PaisID);
+                model.Regiones = _baseProvider.DropDownListRegiones(userData.PaisID);
             }
             catch (FaultException ex)
             {

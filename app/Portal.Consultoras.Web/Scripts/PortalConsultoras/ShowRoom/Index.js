@@ -2,7 +2,7 @@
 var rangoPrecios = 0;
 
 $(document).ready(function () {
-    $("#VerOfertaEspecial").on("click", function () {
+    $("body").on("click", "#VerOfertaEspecial", function () {
         $('#PopupBannerEspecial').css('display', 'block');
         $('div.banner_especial_showroom').css('z-index', 1000);
 
@@ -29,16 +29,16 @@ $(document).ready(function () {
 
         $('#contenedor-showroom-subcampanias').slick('slickGoTo', 1);
     });
-    $("#BajarOfertaEspecial").on("click", function () {
-        $('#PopupBannerEspecial').css('display', 'none');
-        $('div.banner_especial_showroom').css('z-index', 150);
+    $("body").on("click", "#BajarOfertaEspecial", function() {
+            $('#PopupBannerEspecial').css('display', 'none');
+            $('div.banner_especial_showroom').css('z-index', 150);
 
-        $('#content_set_especial_header').show();
-        $('#BajarOfertaEspecial').hide();
+            $('#content_set_especial_header').show();
+            $('#BajarOfertaEspecial').hide();
 
-        $('.content_set_oferta_especial').slideUp();
+            $('.content_set_oferta_especial').slideUp();
 
-    });
+        });
     var stilo;
     $("#CerrarOfertaEspecial").on("click", function () {
         $('.banner_especial_showroom').hide();
@@ -52,8 +52,8 @@ $(document).ready(function () {
         stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
             stilo = stilo.replace("display:none", "display:block");
-            $('.banner_especial_showroom').attr("style", stilo);
-            $('.banner_especial_showroom').show();
+            //$('.banner_especial_showroom').attr("style", stilo);
+            //$('.banner_especial_showroom').show();
         }
     }
 
@@ -61,7 +61,7 @@ $(document).ready(function () {
         $(this).toggleClass("seleccion_click_flitro");
     });
 
-    TagManagerOfertaShowRoom();
+    //TagManagerOfertaShowRoom();
 
     $('#DialogMensajesBanner').dialog({
         autoOpen: false,
@@ -224,9 +224,9 @@ $(document).ready(function () {
     if (localStorage["cerrar_banner_sub_campanias"]) {
         cerrar_banner_sub_campanias = true;
     }
-    if (tieneSubCampania == "True" && itemsSubCampania > 0 && cerrar_banner_sub_campanias == false) {
-        ver_subcamapania = true;
-    }
+    //if (tieneSubCampania == "True" && itemsSubCampania > 0 && cerrar_banner_sub_campanias == false) {
+    //    ver_subcamapania = true;
+    //}
     if (tieneCompraXCompra == "True" && itemsCompraXCompra > 0 && closeBannerCompraPorCompra == "False") {
         ver_compraxcompra = true;
     }
@@ -238,8 +238,8 @@ $(document).ready(function () {
          stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
              stilo = stilo.replace("display:none", "display:block");
-            $('.banner_especial_showroom').attr("style", stilo);
-            $('.banner_especial_showroom').show();
+            //$('.banner_especial_showroom').attr("style", stilo);
+            //$('.banner_especial_showroom').show();
         }
         $(".footer_e").css("margin-bottom", "73px");
     }
@@ -248,8 +248,8 @@ $(document).ready(function () {
          stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
              stilo = stilo.replace("display:none", "display:block");
-            $('.banner_especial_showroom').attr("style", stilo);
-            $('.banner_especial_showroom').show();
+            //$('.banner_especial_showroom').attr("style", stilo);
+            //$('.banner_especial_showroom').show();
         }
     }
     else if (ver_compraxcompra == true) {

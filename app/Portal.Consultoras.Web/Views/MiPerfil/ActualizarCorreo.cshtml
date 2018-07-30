@@ -1,0 +1,110 @@
+﻿@using Portal.Consultoras.Common;
+@{
+    ViewBag.Title = "Actualiza tu correo electronico";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/mi-perfil.css")">
+}
+else
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/mi-perfil.css")">
+}
+
+<div class="fondo_f9f9f9">
+    <div class="content_belcorp">
+        <div class="fondo_negro_lateral"></div>
+        <div class="titulo_interiores"><span>ACTUALIZA</span> TU CORREO ELECTRÓNICO</div>
+    </div>
+    <hr class="clear" />
+    <div class="linea_separadora" style="margin-top:-1px"></div>
+</div>
+<div class="content_belcorp">
+    <div class="pestana_lbel"></div>
+</div>
+<section class="vista_actualizar_correo">
+    <div id="tabVistas" class="wrapper_content_actualizar_correo">
+        <a id="btnVolver" title="Volver" class="enlace_volver_a_mi_perfil text-uppercase text-bold">
+            <span class="icono_back_arrow">
+                <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Volver" />
+            </span>
+            <span class="enlace_texto">Volver</span>
+        </a>
+        <div vista-id="1" class="form_actualizar_correo" style="display:none;">
+            <div class="sin_correo_registrado">
+                @if (!string.IsNullOrEmpty(ViewBag.CorreoActual))
+                {
+                    <div class="correo_electronico_actual">
+                        <span class="w-100 text-uppercase">Tu correo electrónico actual es :</span>
+                        <span class="w-100">@ViewBag.CorreoActual</span>
+                    </div>
+                }
+                else
+                {
+                    <span>
+                        Aún no has registrado un correo electrónico.<br />
+                        Llena el siguiente campo para añadirlo.
+                    </span>
+                }
+            </div>
+            <fieldset class="grupo_form_cambio_datos text-uppercase">
+                <div class="w-100">
+                    <input id="NuevoCorreo" name="NuevoCorreo" class="w-100" type="text" value="" />
+                    <label for="NuevoCorreo" class="w-100">Ingresa tu nuevo correo electrónico</label>
+                </div>
+            </fieldset>
+            <fieldset class="grupo_form_cambio_datos text-uppercase">
+                <div class="w-50 text-left v-alignMiddle">
+                    <a id="btnCancelar" title="Cancelar" class="enlace_cancelar">Cancelar</a>
+                </div>
+                <div class="w-50 text-right v-alignMiddle">
+                    <button id="btnActualizarCorreo" type="button" class="btn_continuar text-uppercase text-bold default-background-color mt-31">
+                        Continuar
+                    </button>
+                </div>
+            </fieldset>
+        </div>
+        <div vista-id="2" class="revisa_tu_correo text-center" style="display:none;">
+            <h1 class="titulo_revisa_tu_correo text-uppercase">
+                Revisa <span class="text-bold">tu correo</span>
+            </h1>
+            <div class="icono_correo_sobre"></div>
+            <p class="w-100 envio_instrucciones_info">
+                <span class="w-100">Te hemos enviado las instrucciones a:</span>
+                <span id="txtCorreoEnviado" class="w-100 text-bold"></span>
+            </p>
+            <p class="w-100 envio_instrucciones_info">
+                <span class="w-100">¿Aún no recibes nuestro correo?</span>
+                <a id="btnReenviameInstruciones" title="Reenvíenme las instrucciones" class="enlace_reenviar_instrucciones w-100 text-uppercase text-bold">
+                    Reenvíenme las instrucciones
+                </a>
+            </p>
+            <p class="w-100 cambiar_correo_info">
+                <span>¿Este no es tu correo?</span>
+                <a id="btnReescribirCorreo" title="Cambia tu correo" class="enlace_cambiar_correo text-bold">Cambia tu correo</a>
+            </p>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Base.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/ActualizarCorreo.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            new MiPerfil_ActualizarCorreo({
+                UrlPaginaPrevia: '@Url.Action("Index")',
+                UrlActualizarEnviarCorreo: '@Url.Action("ActualizarEnviarCorreo")',
+                MensajeError: '@Html.Raw(Constantes.MensajesError.ActivacionCorreo)',
+                MensajeReenvioExitoso: '@Html.Raw(Constantes.MensajesExito.UpdCorreoConsultora_Reenvio)',
+            }).Inicializar();
+        });
+
+        var inputEmail = document.getElementById("NuevoCorreo");
+        FuncionesGenerales.AutoCompletarEmailAPartirDeArroba(inputEmail);
+    </script>
+}
+
+

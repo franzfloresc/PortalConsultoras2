@@ -35,21 +35,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int ZonaID { get; set; }
         [DataMember]
-        public int campaniaID { get; set; }
-
-        [DataMember]
-        public string OpcionCorreoActiva { get; set; }
-        [DataMember]
-        public string OpcionSmsActiva { get; set; }
-        [DataMember]
-        public int HoraRestanteCorreo { get; set; }
-        [DataMember]
-        public int HoraRestanteSms { get; set; }
-        [DataMember]
-        public string CorreoEnmascarado { get; set; }
-        [DataMember]
-        public string CelularEnmascarado { get; set; }
-        [DataMember]
         public int MostrarOpcion { get; set; }
         [DataMember]
         public string DescripcionHorario { get; set; }
@@ -57,51 +42,27 @@ namespace Portal.Consultoras.Entities
         public string TelefonoCentral { get; set; }
         [DataMember]
         public string CodigoISO { get; set; }
-        [DataMember]
-        public int OrigenID { get; set; }
-        [DataMember]
-        public bool opcionHabilitar { get { return true; } set { } }
-        [DataMember]
-        public int CantidadEnvios { get; set; }
-        [DataMember]
-        public bool EsMobile { get; set; }
-        [DataMember]
-        public string MensajeSaludo { get; set; }
-
-        [DataMember]
-        public bool HabilitarChatEmtelco { get; set; }
 
         public BEUsuarioCorreo()
         { }
 
         public BEUsuarioCorreo(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Cantidad") && row["Cantidad"] != DBNull.Value)
-                Cantidad = Convert.ToInt32(row["Cantidad"]);
-            if (DataRecord.HasColumn(row, "CodigoUsuario") && row["CodigoUsuario"] != DBNull.Value)
-                CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-            if (DataRecord.HasColumn(row, "NombreCompleto") && row["NombreCompleto"] != DBNull.Value)
-                NombreCompleto = Convert.ToString(row["NombreCompleto"]);
-            if (DataRecord.HasColumn(row, "PrimerNombre") && row["PrimerNombre"] != DBNull.Value)
-                PrimerNombre = Convert.ToString(row["PrimerNombre"]);
-            if (DataRecord.HasColumn(row, "Correo") && row["Correo"] != DBNull.Value)
-                Correo = Convert.ToString(row["Correo"]);
-            if (DataRecord.HasColumn(row, "Celular") && row["Celular"] != DBNull.Value)
-                Celular = Convert.ToString(row["Celular"]);
-            if (DataRecord.HasColumn(row, "ClaveSecreta") && row["ClaveSecreta"] != DBNull.Value)
-                Clave = Convert.ToString(row["ClaveSecreta"]);
+            Cantidad = row.ToInt32("Cantidad");
+            CodigoUsuario = row.ToString("CodigoUsuario");
+            NombreCompleto = row.ToString("NombreCompleto");
+            PrimerNombre = row.ToString("PrimerNombre");
+            Correo = row.ToString("Correo");
+            Celular = row.ToString("Celular");
+            Clave = row.ToString("ClaveSecreta");
             if (DataRecord.HasColumn(row, "ClaveSecreta") && row["Descripcion"] != DBNull.Value)
                 Descripcion = Convert.ToString(row["Descripcion"]);
             if (DataRecord.HasColumn(row, "CodigoISO") && row["Descripcion"] != DBNull.Value)
                 CodigoISO = Convert.ToString(row["CodigoISO"]);
-            if (DataRecord.HasColumn(row, "TipoUsuario") && row["TipoUsuario"] != DBNull.Value)
-                TipoUsuario = Convert.ToInt32(row["TipoUsuario"]);
-            if (DataRecord.HasColumn(row, "IdEstadoActividad") && row["IdEstadoActividad"] != DBNull.Value)
-                IdEstadoActividad = Convert.ToInt32(row["IdEstadoActividad"]);
-            if (DataRecord.HasColumn(row, "TieneAutenticacion") && row["TieneAutenticacion"] != DBNull.Value)
-                TieneAutenticacion = Convert.ToBoolean(row["TieneAutenticacion"]);
-            if (DataRecord.HasColumn(row, "ZonaID") && row["ZonaID"] != DBNull.Value)
-                ZonaID = Convert.ToInt32(row["ZonaID"]);
+            TipoUsuario = row.ToInt32("TipoUsuario");
+            IdEstadoActividad = row.ToInt32("IdEstadoActividad");
+            TieneAutenticacion = row.ToBoolean("TieneAutenticacion");
+            ZonaID = row.ToInt32("ZonaID");
         }
     }
 }

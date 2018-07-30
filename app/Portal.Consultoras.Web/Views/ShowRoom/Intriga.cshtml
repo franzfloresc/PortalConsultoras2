@@ -1,5 +1,5 @@
 ﻿@using Portal.Consultoras.Common
-@model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
+@model Portal.Consultoras.Web.Models.EstrategiaPedidoModel
 
 @{
     ViewBag.Title = "Intriga";
@@ -9,7 +9,7 @@
 <div class="content_belcorp" style="text-align:center;">
     <div class="content_set_intriga">
 
-        <input type="hidden" id="hdOfertaShowRoomID" value="@Model.OfertaShowRoomID" />
+        @*<input type="hidden" id="hdOfertaShowRoomID" value="@Model.OfertaShowRoomID" />*@
         <input type="hidden" class="valorCuv" value="@Model.CUV" />
         <input type="hidden" class="claseMarcaID" value="@Model.MarcaID" />
         <input type="hidden" class="clasePrecioUnidad" value="@Model.PrecioOferta" />
@@ -42,8 +42,8 @@
             <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                 <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
                 <div class="liquidacion_rango_right_pedido">
-                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                 </div>
             </div>
             <a class="boton_Agregalo_home" style="width:61%;border:1px solid black;" onclick="AgregarOfertaShowRoom()">
@@ -86,7 +86,7 @@
     </div>
     <hr class="clear" />
     <div class="texto_final_intriga">¿Tienes dudas sobre la Venta Exclusiva Web?.
-        <a href="@ViewBag.urlTerminosyCondiciones" style="display:inline-block">Resuélvelas aquí.</a>
+        <a href="@Model.UrlTerminosCondiciones" style="display:inline-block">Resuélvelas aquí.</a>
     </div>
 </div>
 
@@ -113,7 +113,7 @@
     <script type="text/javascript">
         var emailOriginal = $.trim('@Model.EMail').toLowerCase();
         var emailActivo = $.trim('@Model.EMailActivo');
-        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.DesktopShowRoomLandingIntriga';
+        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.ShowRoomDesktopLandingIntriga';
 
         var celularOriginal = $.trim('@Model.Celular').toLowerCase();
         var suscrito = $.trim('@Model.Suscripcion');
@@ -233,4 +233,5 @@
     </script>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/Intriga.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
 }

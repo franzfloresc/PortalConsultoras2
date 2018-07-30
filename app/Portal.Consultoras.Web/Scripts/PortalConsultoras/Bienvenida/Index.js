@@ -34,7 +34,11 @@ $(document).ready(function () {
         $('div.content_datos').css('max-width', '100%');
         $('div.resumen_belcorp_cam').css('margin-left', '1.5%');
         $('div.resumen_belcorp_cam').css('margin-right', '0%');
-        $('div.socia_negocio_home').css('margin-left', '4.8%');
+        if(window.matchMedia('(min-width:1221px)').matches){
+            $('div.socia_negocio_home').css('margin-left', '4.8%');
+        } else {
+            $('div.socia_negocio_home').css('margin-left', '4%');
+        }
         $('div.contenedor_img_perfil').show();
     } else {
         $('div.resumen_belcorp_cam').css('margin-left', '2%');
@@ -46,12 +50,6 @@ $(document).ready(function () {
 
     $(".termino_condiciones_intriga").click(function () {
         $(this).toggleClass('check_intriga');
-    });
-
-    $('.contenedor_img_perfil').on('click', CargarCamara);
-    $('#imgFotoUsuario').error(function () {
-        $('#imgFotoUsuario').hide();
-        $('#imgFotoUsuarioDefault').show();
     });
 
     $('#salvavidaTutorial').show();
@@ -209,7 +207,7 @@ $(document).ready(function () {
     });
 
     CrearDialogs();
-    CargarCarouselEstrategias("");
+    CargarCarouselEstrategias();
     if (_validartieneMasVendidos() === 1) {
         masVendidosModule.readVariables({
             baseUrl: baseUrl,
@@ -229,7 +227,7 @@ $(document).ready(function () {
     CargarCarouselLiquidaciones();
     CargarMisCursos();
     CargarBanners();
-    CargarCatalogoPersonalizado();
+    //CargarCatalogoPersonalizado();
     if (showRoomMostrarLista == 1) {
         CargarProductosShowRoom({ Limite: 6, hidden: true });
     }
@@ -297,6 +295,11 @@ $(document).ready(function () {
         PopupCerrar('popupMisDatos');
         return false;
     });
+    $("#cerrarPopupActualizacionEmail").click(function () {
+        PopupCerrar('popupVerificacionCorreoElectronicoPendiente');
+        return false;
+    });
+
     $('#hrefTerminos').click(function () {
         DownloadAttachPDFTerminos();
     });
@@ -458,7 +461,10 @@ $(document).ready(function () {
     MostrarBarra(null, '1');
 
     LayoutMenu();
+    ConsultarEmailPendiente();
 });
+
+
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
 });
@@ -492,93 +498,6 @@ function limitarMinimo(contenido, caracteres, a) {
     return true;
 }
 
-function CargarCamara() {
-    Webcam.set({
-        width: 300,
-        height: 300,
-        crop_width: 300,
-        crop_height: 300,
-        image_format: 'jpeg',
-        jpeg_quality: 90,
-        flip_horiz: true
-    });
-    Webcam.attach('#my_camera');
-
-    PopupMostrar('CamaraIntroductoria');
-}
-
-function CerrarCamara() {
-    Webcam.reset();
-    $('#imgFotoTomada').attr('src', '');
-    $('#demo').removeClass('croppie-container').html('');
-
-    PopupCerrar('CamaraIntroductoria');
-}
-
-function CortarFoto() {
-    $('#demo').croppie('result', {
-        type: 'canvas',
-        format: 'png'
-    }).then(function (resp) {
-        waitingDialog();
-        $.ajax({
-            type: 'POST',
-            url: baseUrl + 'Bienvenida/SubirImagen',
-            data: JSON.stringify({ data: resp }),
-            dataType: 'Json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                if (checkTimeout(data)) {
-                    alert_msg(data.message);
-                    if (data.success) {
-                        $('#imgFotoUsuario').show();
-                        $('#imgFotoUsuarioDefault').hide();
-                        $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
-                    }
-                }
-            },
-            error: function (data, error) { },
-            complete: closeWaitingDialog
-        });
-    });
-}
-
-function TomarFoto() {
-    Webcam.snap(function (data_uri) {
-        $('#imgFotoTomada').attr('src', data_uri);
-        $('#demo').croppie({
-            viewport: {
-                width: 150,
-                height: 150,
-                type: 'circle'
-            },
-            url: data_uri
-        });
-    });
-}
-function SubirFoto() {
-    waitingDialog();
-    $.ajax({
-        type: 'POST',
-        url: baseUrl + 'Bienvenida/SubirImagen',
-        data: JSON.stringify({ data: $('#imgFotoTomada').attr('src') }),
-        dataType: 'Json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            if (checkTimeout(data)) {
-                alert_msg(data.message);
-                if (data.success) {
-                    $('#imgFotoUsuario').show();
-                    $('#imgFotoUsuarioDefault').hide();
-                    $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
-                }
-            }
-        },
-        error: function (data, error) { },
-        complete: closeWaitingDialog
-    });
-}
-
 function animacionFlechaScroll() {
 
     $(".flecha_scroll").animate({
@@ -589,41 +508,6 @@ function animacionFlechaScroll() {
         }, 400, 'swing');
     });
 
-}
-function agregarProductoAlCarrito(o) {
-    var btnClickeado = $(o);
-    var contenedorItem = btnClickeado.parent().parent();
-    var imagenProducto = $('.imagen_producto', contenedorItem);
-
-    if (imagenProducto.length > 0) {
-        var carrito = $('.campana.cart_compras');
-
-        var urlImgProd = imagenProducto.attr("src") || "";
-        if (urlImgProd != "" && carrito) {
-            
-            $("body").prepend('<img src="' + urlImgProd + '" class="transicion">');
-
-            $(".transicion").css({
-                'height': imagenProducto.css("height"),
-                'width': imagenProducto.css("width"),
-                'top': imagenProducto.offset().top,
-                'left': imagenProducto.offset().left,
-            }).animate({
-                'top': carrito.offset().top,
-                'left': carrito.offset().left,
-                'height': carrito.css("height"),
-                'width': carrito.css("width"),
-                'opacity': 0.5
-            }, 450, 'swing', function () {
-                $(this).animate({
-                    'top': carrito.offset().top,
-                    'opacity': 0
-                }, 150, 'swing', function () {
-                    $(this).remove();
-                });
-            });
-        }
-    }
 }
 
 function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
@@ -3301,6 +3185,9 @@ function MostrarPopupInicial() {
         case popupAsesoraOnline:
             if (popupInicialCerrado == 0) asesoraOnlineObj.mostrar();
             break;
+        case popupActualizarCorreo: 
+            PopupMostrar('popupVerificacionCorreoElectronicoPendiente');       
+            break;
     }
 }
 
@@ -3343,5 +3230,25 @@ function dataLayerVC(action, label) {
         'category': 'Coach Virtual',
         'action': action,
         'label': label
+    });
+}
+
+function ConsultarEmailPendiente() {
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/ObtenerActualizacionEmail',
+        dataType: 'Text',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.split('|')[0] == '1') {
+                    document.getElementById('spnEmail').innerHTML = data.split('|')[1];
+                    document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
+                }
+            }
+        },
+        error: function (data, error) {
+            alert(error);
+        }
     });
 }

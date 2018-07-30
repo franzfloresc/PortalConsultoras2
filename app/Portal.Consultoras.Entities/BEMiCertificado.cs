@@ -57,48 +57,27 @@ namespace Portal.Consultoras.Entities
 
         public BEMiCertificado(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Result"))
-                Result = Convert.ToInt16(row["Result"]);
-            if (DataRecord.HasColumn(row, "Campania"))
-                Campania = Convert.ToInt32(row["Campania"]);
-            if (DataRecord.HasColumn(row, "ConsultoraId"))
-                ConsultoraId = Convert.ToInt64(row["ConsultoraId"]);
-            if (DataRecord.HasColumn(row, "NumeroSecuencia"))
-                NumeroSecuencia = Convert.ToString(row["NumeroSecuencia"]);
-            if (DataRecord.HasColumn(row, "Ciudad"))
-                Ciudad = Convert.ToString(row["Ciudad"]);
-            if (DataRecord.HasColumn(row, "Asunto"))
-                Asunto = Convert.ToString(row["Asunto"]);
-            if (DataRecord.HasColumn(row, "NombreCompleto"))
-                NombreCompleto = Convert.ToString(row["NombreCompleto"]);
-            if (DataRecord.HasColumn(row, "TipoDocumento"))
-                TipoDocumento = Convert.ToString(row["TipoDocumento"]);
-            if (DataRecord.HasColumn(row, "NumeroDocumento"))
-                NumeroDocumento = Convert.ToString(row["NumeroDocumento"]);
-            if (DataRecord.HasColumn(row, "DescripcionEstado"))
-                DescripcionEstado = Convert.ToString(row["DescripcionEstado"]);
-            if (DataRecord.HasColumn(row, "FechaIngresoConsultora"))
-                FechaIngresoConsultora = Convert.ToDateTime(row["FechaIngresoConsultora"]);
-            if (DataRecord.HasColumn(row, "PromedioVentas"))
-                PromedioVentas = Convert.ToDecimal(row["PromedioVentas"]);
-            if (DataRecord.HasColumn(row, "RazonSocial"))
-                RazonSocial = Convert.ToString(row["RazonSocial"]);
-            if (DataRecord.HasColumn(row, "Ruc"))
-                Ruc = Convert.ToString(row["Ruc"]);
-            if (DataRecord.HasColumn(row, "Telefono"))
-                Telefono = Convert.ToString(row["Telefono"]);
-            if (DataRecord.HasColumn(row, "UrlFirma"))
-                UrlFirma = Convert.ToString(row["UrlFirma"]);
-            if (DataRecord.HasColumn(row, "Responsable"))
-                Responsable = Convert.ToString(row["Responsable"]);
-            if (DataRecord.HasColumn(row, "Cargo"))
-                Cargo = Convert.ToString(row["Cargo"]);
-            if (DataRecord.HasColumn(row, "TipoCert"))
-                TipoCert = Convert.ToInt16(row["TipoCert"]);
-            if (DataRecord.HasColumn(row, "NumeroVeces"))
-                NumeroVeces = Convert.ToInt16(row["NumeroVeces"]);
-            if (DataRecord.HasColumn(row, "DocumentoResponsable") && row["DocumentoResponsable"] != DBNull.Value)
-                DocumentoResponsable = row["DocumentoResponsable"].ToString();
+            Result = row.ToInt16("Result");
+            Campania = row.ToInt32("Campania");
+            ConsultoraId = row.ToInt64("ConsultoraId");
+            NumeroSecuencia = row.ToString("NumeroSecuencia");
+            Ciudad = row.ToString("Ciudad");
+            Asunto = row.ToString("Asunto");
+            NombreCompleto = row.ToString("NombreCompleto");
+            TipoDocumento = row.ToString("TipoDocumento");
+            NumeroDocumento = row.ToString("NumeroDocumento");
+            DescripcionEstado = row.ToString("DescripcionEstado");
+            FechaIngresoConsultora = row.ToDateTime("FechaIngresoConsultora");
+            PromedioVentas = row.ToDecimal("PromedioVentas");
+            RazonSocial = row.ToString("RazonSocial");
+            Ruc = row.ToString("Ruc");
+            Telefono = row.ToString("Telefono");
+            UrlFirma = row.ToString("UrlFirma");
+            Responsable = row.ToString("Responsable");
+            Cargo = row.ToString("Cargo");
+            TipoCert = row.ToInt16("TipoCert");
+            NumeroVeces = row.ToInt16("NumeroVeces");
+            DocumentoResponsable = row.ToString("DocumentoResponsable");
         }
     }
 
