@@ -353,7 +353,7 @@
 
     @if (ViewBag.TieneOfertaDelDia == true)
     {
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
+        @System.Web.Optimization.Scripts.Render("~/bundles/js/OfertaDelDia")
         <script type="text/javascript">
             $(document).ready(function () {
                 window.OfertaDelDia.CargarODD();

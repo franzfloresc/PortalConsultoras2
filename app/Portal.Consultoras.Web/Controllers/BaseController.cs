@@ -138,8 +138,11 @@ namespace Portal.Consultoras.Web.Controllers
                 configEstrategiaSR = sessionManager.GetEstrategiaSR() ?? new ConfigModel();
 
                 if (!configEstrategiaSR.CargoEntidadesShowRoom)
+                {
                     _showRoomProvider.CargarEntidadesShowRoom(userData);
-
+                    configEstrategiaSR = sessionManager.GetEstrategiaSR();
+                }
+                    
                 if (Request.IsAjaxRequest())
                 {
                     base.OnActionExecuting(filterContext);
@@ -181,9 +184,9 @@ namespace Portal.Consultoras.Web.Controllers
             return _pedidoWebProvider.ObtenerPedidoWebDetalle(EsOpt());
         }
 
-        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado()
+        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(bool noSession = false)
         {
-            return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt());
+            return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt(), noSession);
         }
 
         protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(bool session = true)
