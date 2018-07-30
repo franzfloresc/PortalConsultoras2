@@ -1,5 +1,5 @@
 ﻿<script id="lista-opciones-template" type="text/x-handlebars-template">
-    {{#each this as |componente|}}
+    {{#each this.Hermanos as |componente|}}
     <ul class="selecion_item list-inline">
         <li class="seleccion_img"><img src="{{componente.ImagenBulk}}" alt=""></li>
         <li class="seleccion_title">{{componente.NombreBulk}}</li>

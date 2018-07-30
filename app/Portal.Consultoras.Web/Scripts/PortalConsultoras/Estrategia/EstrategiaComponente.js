@@ -197,16 +197,17 @@
             clickVerOpciones: function () {
                 var cuv = $(this).attr("data-tono-change-cuv");
                 var estrategiaData = EstrategiaAgregarModule.EstrategiaObtenerObj($(this));
-                var listaOpciones = [];
+                var hermano = {};
+                var NumeroOpciones = estrategiaData.FactorCuadre;
 
                 $.each(estrategiaData.Hermanos, function (index, item) {
                     if (item.Cuv == cuv) {
-                        listaOpciones = item.Hermanos;
+                        hermano = item;
                     }
                 });
 
-                SetHandlebars("#lista-opciones-template", listaOpciones, "#lista-opciones");
-                SetHandlebars("#titulo-opciones-seleccionadas-template", listaOpciones, "#titulo-opciones-seleccionadas");
+                SetHandlebars("#lista-opciones-template", hermano, "#lista-opciones");
+                SetHandlebars("#titulo-opciones-seleccionadas-template", hermano, "#titulo-opciones-seleccionadas");
 
                 $("#elegir-opciones-modal").modal("show");
 
