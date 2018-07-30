@@ -536,7 +536,8 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Landing").Include(
                 "~/Content/Css/Site/ProductoListado/Landing.css",
-                "~/Content/Css/Site/Landing/producto.landing.css"
+                "~/Content/Css/Site/Landing/producto.landing.css",
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/Lanzamientos-Detalle").Include(
@@ -662,7 +663,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Ficha/Carrusel.css",
                 "~/Content/Css/Site/Ficha/RedesSociales.css",
                 "~/Content/Css/Site/Ficha/PopoverTooltip.css",
-                "~/Content/Css/Site/Ficha/SeleccionarTipo.css"
+                "~/Content/Css/Site/Ficha/SeleccionarTipo.css",
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/mobile/css/ficha").Include(
@@ -740,7 +742,9 @@ namespace Portal.Consultoras.Web
             
             bundles.Add(new StyleBundle("~/bundles/css/Site/HerramientasVenta-Landing").Include(
                 "~/Content/Css/Site/ProductoListado/Landing.css",
-                "~/Content/Css/Site/Landing/producto.landing.css"
+                "~/Content/Css/Site/Landing/producto.landing.css",
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
+
             ));
 
             #endregion
