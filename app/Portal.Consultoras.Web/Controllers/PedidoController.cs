@@ -492,7 +492,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult PedidoInsertar(PedidoCrudModel model)
+        public JsonResult PedidoInsertar(PedidoCrudModel model, List<string> listCuvEliminar = null)
         {
             try
             {
@@ -575,6 +575,7 @@ namespace Portal.Consultoras.Web.Controllers
                         : tipo.Length > 1 ? tipo
                         : "Ocurrió un error al ejecutar la operación.",
                     data = pedidoWebDetalleModel,
+                    listCuvEliminar,
                     total,
                     formatoTotal,
                     listaCliente,
@@ -1418,29 +1419,23 @@ namespace Portal.Consultoras.Web.Controllers
             model.TipoOfertaSisID = model.TipoOfertaSisID > 0 ? model.TipoOfertaSisID : model.TipoEstrategiaID;
             model.ConfiguracionOfertaID = model.ConfiguracionOfertaID > 0 ? model.ConfiguracionOfertaID : model.TipoOfertaSisID;
 
-            string mensajeOsb = ValidarAgregarEnProgramaNuevas(model.CUV, Convert.ToInt32(model.Cantidad), model.EsOfertaIndependiente, model.TipoEstrategiaImagen);
+            var mensajeOsb = "";
+            var listCuvEliminar = ValidarAgregarEnProgramaNuevas(model.CUV, Convert.ToInt32(model.Cantidad), out mensajeOsb);
             if (mensajeOsb != "") return Json(new { success = false, message = mensajeOsb }, JsonRequestBehavior.AllowGet);
-            //EliminarDetallePackNueva(model.EsOfertaIndependiente, model.TipoEstrategiaImagen);
+
             Session[Constantes.ConstSession.ListaEstrategia] = null;
-            return PedidoInsertar(model);
+            return PedidoInsertar(model, listCuvEliminar);
         }
 
-        private void EliminarDetallePackNueva(bool esOfertaIndependiente, int tipoEstrategiaImagen)
+        private void EliminarDetallePackNueva(List<string> listCuv)
         {
-            if (esOfertaIndependiente) return;
-
-            if (tipoEstrategiaImagen == Constantes.TipoEstrategia.PackNuevas)
+            var packNuevas = ObtenerPedidoWebDetalle().Where(x => listCuv.Contains(x.CUV)).ToList();
+            foreach (var item in packNuevas)
             {
-                var lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-                var packNuevas = lstPedidoWebDetalle.Where(x => x.FlagNueva && !x.EsOfertaIndependiente).ToList();
-
-                foreach (var item in packNuevas)
-                {
-                    DeletePedido(item);
-                }
-                sessionManager.SetDetallesPedido(null);
-                sessionManager.SetDetallesPedidoSetAgrupado(null);
+                DeletePedido(item);
             }
+            sessionManager.SetDetallesPedido(null);
+            sessionManager.SetDetallesPedidoSetAgrupado(null);
         }
 
         private void DeletePedido(BEPedidoWebDetalle obe)
@@ -4479,29 +4474,31 @@ namespace Portal.Consultoras.Web.Controllers
             return "";
         }
 
-        private string ValidarAgregarEnProgramaNuevas(string cuvingresado, int cantidadIngresada, bool esOfertaIndependiente, int tipoEstrategiaImagen)
+        private List<string> ValidarAgregarEnProgramaNuevas(string cuvingresado, int cantidadIngresada, out string mensajeObs)
         {
+            mensajeObs = "";
             try
             {
-                //if (!Convert.ToBoolean(Session["CuvEsProgramaNuevas"])) return "";
-                //int valor = 0;
-                //int cantidadPedido = ObtnerCantidadCuvPedidoWeb(cuvingresado);
-                //using (var svc = new ODSServiceClient())
-                //    valor = svc.ValidarCantidadMaximaProgramaNuevas(userData.PaisID, userData.CampaniaID, userData.ConsecutivoNueva, userData.CodigoPrograma, cantidadPedido, cuvingresado, cantidadIngresada);
-                //if (valor != 0) return Constantes.ProgramaNuevas.MensajeValidacionCantidadMaxima.ExcedeCantidad.Replace("#n#", valor.ToString());
-
-                var electivo = Enumeradores.ValidarCuponesElectivos.ReemplazarCupon;
+                var listCuv = ObtenerPedidoWebDetalle().Select(x => x.CUV).ToArray();
+                BERespValidarElectivos respElectivos;
                 using (var svc = new ODSServiceClient())
-                    electivo = svc.ValidaCuvElectivo(userData.PaisID, userData.CampaniaID, cuvingresado, userData.ConsecutivoNueva, userData.CodigoPrograma, ObtenerCantidadCuponesElectivos());
-                if (electivo == Enumeradores.ValidarCuponesElectivos.ReemplazarCupon) EliminarDetallePackNueva(esOfertaIndependiente, tipoEstrategiaImagen);
-                if (electivo == Enumeradores.ValidarCuponesElectivos.NoAgregarCuponExcedioLimite) return Constantes.ProgramaNuevas.MensajeValidacionElectividadProductos.ExisteElectivoEnSuPedido;               
+                {
+                    respElectivos = svc.ValidaCuvElectivo(userData.PaisID, userData.CampaniaID, cuvingresado, userData.ConsecutivoNueva, userData.CodigoPrograma, listCuv);
+                }
 
-                return "";
+                if (respElectivos.Resultado == Enumeradores.ValidarCuponesElectivos.ReemplazarCupon)
+                {
+                    EliminarDetallePackNueva(respElectivos.ListCuvEliminar.ToList());
+                    return respElectivos.ListCuvEliminar.ToList();
+                }
+                if (respElectivos.Resultado == Enumeradores.ValidarCuponesElectivos.NoAgregarCuponExcedioLimite) mensajeObs = Constantes.MensajesError.AgregarProgNuevas_MaxElectivos;
+                return new List<string>();
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-                return "Sucedio un error al valdiar la cantidad Maxima";
+                mensajeObs = Constantes.MensajesError.ValidarAgregarProgNuevas;
+                return new List<string>();
             }
         }
 
@@ -4509,13 +4506,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<BEPedidoWebDetalle> lstPedidoDetalle = ObtenerPedidoWebDetalle();
             return lstPedidoDetalle.Where(a => a.CUV == cuvIngresado).Sum(b => b.Cantidad);
-        }
-
-        private int ObtenerCantidadCuponesElectivos()
-        {
-            List<BEPedidoWebDetalle> lstPedidoDetalle = ObtenerPedidoWebDetalle();
-            return lstPedidoDetalle.Where(x => x.FlagNueva && !x.EsOfertaIndependiente).Count();
-            //return lstPedidoDetalle.Select(x => x.CUV).ToList();
         }
 
         private Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(string cuv)

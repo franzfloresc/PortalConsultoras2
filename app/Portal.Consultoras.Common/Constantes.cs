@@ -1194,6 +1194,8 @@ namespace Portal.Consultoras.Common
             public const string Reserva_Prol2 = "Reserva_Prol2: El servicio externo de reserva de Prol2 retornó vacio.";
             public const string Reserva_Prol3 = "Reserva_Prol3: El servicio externo de reserva de Sicc retornó vacio o error.";
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
+            public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas";
+            public const string AgregarProgNuevas_MaxElectivos = "No puedes agregar este producto a tu pedido por haber alcanzado el límite Cuvs electivos del programa nuevas.";
         }
 
         public static class MensajesExito
@@ -1915,11 +1917,6 @@ namespace Portal.Consultoras.Common
             public class MensajeValidacionCantidadMaxima
             {
                 public const string ExcedeCantidad = "Las unidades ingresadas exceden el máximo permitido (#n#) en esta campaña";
-            }
-
-            public class MensajeValidacionElectividadProductos
-            {
-                public const string ExisteElectivoEnSuPedido = "El código ingresado no puede ser agregado al pedido. El pedido contiene un pack del Programa de Nuevas.";
             }
         }
 

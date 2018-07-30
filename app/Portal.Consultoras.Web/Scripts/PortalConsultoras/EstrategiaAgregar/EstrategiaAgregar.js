@@ -415,6 +415,17 @@ var EstrategiaAgregarModule = (function () {
                 console.log(e);
             }
 
+            if (data.listCuvEliminar != null) {
+                $.each(data.listCuvEliminar, function (i, cuv) {
+                    itemClone.parent().find('[data-item-cuv=' + cuv + '] .agregado.product-add').hide();
+
+                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.rd, cuv, false);
+                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.gn, cuv, false);
+                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.hv, cuv, false);
+                    ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.lan, cuv, false);
+                })
+            }
+
             ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.rd, params.CuvTonos || params.CUV, true);
             ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.gn, params.CuvTonos || params.CUV, true);
             ActualizarLocalStorageAgregado(ConstantesModule.TipoEstrategia.hv, params.CuvTonos || params.CUV, true);
