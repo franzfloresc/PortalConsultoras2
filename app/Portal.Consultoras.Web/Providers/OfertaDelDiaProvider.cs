@@ -119,6 +119,14 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
+        public string ObtenerUrlImagenOfertaDelDia(string codigoIso, int cantidadOfertas)
+        {
+            var imgSh = string.Format(_configuracionManager.GetConfiguracionManager("UrlImgSoloHoyODD"), codigoIso);
+            var exte = imgSh.Split('.')[imgSh.Split('.').Length - 1];
+            imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
+            return imgSh;
+        }
+
         public string ObtenerDescripcionOfertaDelDia(string descripcionCuv2)
         {
             var descripcionOdd = string.Empty;
