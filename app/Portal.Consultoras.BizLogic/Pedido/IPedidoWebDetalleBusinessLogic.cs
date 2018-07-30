@@ -33,5 +33,6 @@ namespace Portal.Consultoras.BizLogic
         short UpdPedidoWebDetalleMasivo(List<BEPedidoWebDetalle> pedidowebdetalle);
         bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId);
         List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId);
+        bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad);
     }
 }
