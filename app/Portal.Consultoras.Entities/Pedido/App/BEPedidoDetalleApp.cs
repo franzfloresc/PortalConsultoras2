@@ -39,5 +39,7 @@ namespace Portal.Consultoras.Entities.Pedido.App
         public int OrigenPedidoWeb { get; set; }
         [DataMember]
         public int SetID { get; set; }
+        [DataMember]
+        public decimal ImporteTotal { get; set; }
     }
 }
