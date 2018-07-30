@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Infraestructure.Validator.PagoEnLinea
 
             if (!Regex.Match(info.NumberCard, PatternCard).Success)
             {
-                AddError(nameof(info.NumberCard), NumberCardMessage);
+                AddError("NumberCard", NumberCardMessage);
 
                 return false;
             }
@@ -37,23 +37,23 @@ namespace Portal.Consultoras.Web.Infraestructure.Validator.PagoEnLinea
             {
                 if (info.Birthdate == null)
                 {
-                    AddError(nameof(info.Birthdate), RequiredMessage);
+                    AddError("Birthdate", RequiredMessage);
                 } else if (info.Birthdate.Value > DateTime.Now.Date)
                 {
-                    AddError(nameof(info.Birthdate), DateMaxMessage);
+                    AddError("Birthdate", DateMaxMessage);
                 }
             }
 
             if (RequiredFields.Contains(Constantes.PagoEnLineaCampos.Email)
                 && string.IsNullOrEmpty(info.Email))
             {
-                AddError(nameof(info.Email), RequiredMessage);
+                AddError("Email", RequiredMessage);
             }
 
             if (RequiredFields.Contains(Constantes.PagoEnLineaCampos.Celular)
                 && string.IsNullOrEmpty(info.Phone))
             {
-                AddError(nameof(info.Phone), RequiredMessage);
+                AddError("Phone", RequiredMessage);
             }
 
             return _errors.Count == 0;

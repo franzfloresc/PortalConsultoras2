@@ -81,9 +81,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("MetodoPago");
             }
 
-            SetDeviceSessionId();
+            SetDeviceSessionId(pago);
             //Logica para Obtener Valores de la PasarelaBelcorp
             ViewBag.PagoLineaCampos = _pagoEnLineaProvider.ObtenerCamposRequeridos();
+            ViewBag.UrlIconMedioPago = _pagoEnLineaProvider.GetUrlIconMedioPago(pago);
             CargarListsPasarela();
             var model = new PaymentInfo
             {
@@ -99,11 +100,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult PasarelaPago(PaymentInfo info)
         {
             var requiredFields = _pagoEnLineaProvider.ObtenerCamposRequeridos();
+            var pago = sessionManager.GetDatosPagoVisa();
 
             if (ModelState.IsValid)
             {
-                var model = sessionManager.GetDatosPagoVisa();
-                var expRegular = model.MetodoPagoSeleccionado.ExpresionRegularTarjeta;
+                var expRegular = pago.MetodoPagoSeleccionado.ExpresionRegularTarjeta;
                 var validator = new PasarelaValidator
                 {
                     RequiredFields = requiredFields,
@@ -113,7 +114,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (validator.IsValid(info))
                 {
                     // Make Pay
-                    return View("PagoExitoso", model);
+                    return View("PagoExitoso", pago);
                 }
 
                 foreach (var error in validator.Errors)
@@ -122,8 +123,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
-            SetDeviceSessionId();
+            SetDeviceSessionId(pago);
             ViewBag.PagoLineaCampos = requiredFields;
+            ViewBag.UrlIconMedioPago = _pagoEnLineaProvider.GetUrlIconMedioPago(pago);
             CargarListsPasarela();
 
             return View(info);
@@ -181,10 +183,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.YearList = _pagoEnLineaProvider.ObtenerAnios().Select(fnSelect);
         }
 
-        private void SetDeviceSessionId()
+        private void SetDeviceSessionId(PagoEnLineaModel pago)
         {
-            var pago = sessionManager.GetDatosPagoVisa();
-
             var provider = new PagoPayuProvider
             {
                 SessionId = Session.SessionID

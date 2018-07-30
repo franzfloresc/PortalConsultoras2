@@ -71,7 +71,7 @@
                     @Html.AntiForgeryToken()
                     <div class="grupo_campo_formulario_pasarela_pago">
                         <label class="nom_campo_formulario_pasarela_pago w-100">*Número de tarjeta :</label>
-                        @Html.TextBoxFor(m => m.NumberCard, new { @class = "campo_formulario_pasarela_pago w-100 campo_num_tarjeta_credito_o_debito", autocomplete = "off" })
+                        @Html.TextBoxFor(m => m.NumberCard, new { @class = "campo_formulario_pasarela_pago w-100 campo_num_tarjeta_credito_o_debito", autocomplete = "off", style = "background-image:url(" + ViewBag.UrlIconMedioPago + ")" })
                         @Html.PagoValidationMessageFor(m => m.NumberCard)
                         <div class="mensaje_validacion text-center w-100" style="display: none">
                             <span class="icono_validacion_incorrecta"></span>

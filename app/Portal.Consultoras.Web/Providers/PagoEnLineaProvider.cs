@@ -551,6 +551,21 @@ namespace Portal.Consultoras.Web.Providers
                 .Select(p => p.Codigo)
                 .ToArray();
         }
+
+        public string GetUrlIconMedioPago(PagoEnLineaModel model)
+        {
+            var selected = model.MetodoPagoSeleccionado;
+            if (selected == null)
+            {
+                return string.Empty;
+            }
+
+            var medioPagos = ObtenerListaMedioPago();
+
+            var item = medioPagos.FirstOrDefault(m => m.PagoEnLineaMedioPagoId == selected.PagoEnLineaMedioPagoId);
+
+            return item == null ? string.Empty : item.RutaIcono;
+        }
         
         public List<PagoEnLineaPasarelaCamposModel> ObtenerPagoEnLineaPasarelaCampos()
         {
