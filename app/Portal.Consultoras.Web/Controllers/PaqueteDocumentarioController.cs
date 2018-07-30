@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -8,11 +9,18 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class PaqueteDocumentarioController : BaseController
     {
+        readonly PaqueteDocumentarioProvider _paqueteDocumentarioProvider;
+
+        public PaqueteDocumentarioController()
+        {
+            _paqueteDocumentarioProvider = new PaqueteDocumentarioProvider();
+        }
+
         public ActionResult Index()
         {
             string errorMessage;
             string codigoConsultora = userData.GetCodigoConsultora();
-            var rvDigitalModel = new RVDigitalModel { listaCampania = GetListCampaniaPaqueteDocumentario(codigoConsultora, out errorMessage) };
+            var rvDigitalModel = new RVDigitalModel { listaCampania = _paqueteDocumentarioProvider.GetListCampaniaPaqueteDocumentario(codigoConsultora, userData.CodigoISO, out errorMessage) };
 
             ViewBag.ErrorDescripcion = errorMessage;
             return View(rvDigitalModel);
@@ -21,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string Campania)
         {
             var lst = new List<RVPRFModel>();
-            if (!string.IsNullOrEmpty(Campania)) lst = GetListPaqueteDocumentario(userData.GetCodigoConsultora(), Campania, "");
+            if (!string.IsNullOrEmpty(Campania)) lst = _paqueteDocumentarioProvider.GetListPaqueteDocumentario(userData.GetCodigoConsultora(), Campania, "", userData.CodigoISO);
             IEnumerable<RVPRFModel> items = lst;
 
             #region Sort Section
