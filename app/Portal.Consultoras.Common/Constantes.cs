@@ -2107,6 +2107,8 @@ namespace Portal.Consultoras.Common
         {
             public const string DescripcionKitInicio = "KIT DE INICIO";
             public const string OfertaNiveles = "OFERTA POR NIVELES (*)";
+            public const string OfertaLiquidacion = "OFERTA LIQUIDACIÓN";
+            public const string OfertaFlexiPago =  "OFERTA FLEXIPAGO";
             public const int idHerramientaVenta = 3028;
         }
 
