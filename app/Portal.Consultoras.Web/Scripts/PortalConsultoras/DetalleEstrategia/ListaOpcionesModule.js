@@ -16,11 +16,11 @@
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
 var ListaOpcionesModule = (function () {
-    var _opciones = [];
+    var _estrategia = {};
     var _inicializar = function (model) {
-        _opciones = model || _opciones;
+        _estrategia = model || _estrategia;
         console.log("ListaOpcionesModule");
-        console.log(_opciones);
+        console.log(_estrategia);
     };
     return {
         Inicializar: _inicializar

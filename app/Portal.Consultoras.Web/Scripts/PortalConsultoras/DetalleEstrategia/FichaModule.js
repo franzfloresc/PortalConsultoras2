@@ -431,7 +431,7 @@ var FichaModule = (function (config) {
             estrategia.CodigoVariante = "";
         }
 
-        opcionesEvents.applyChanges("onOptionSelected", estrategia.Hermanos);
+        opcionesEvents.applyChanges("onOptionSelected", estrategia);
     };
 
     var _validarDesactivadoGeneral = function (estrategia) {
