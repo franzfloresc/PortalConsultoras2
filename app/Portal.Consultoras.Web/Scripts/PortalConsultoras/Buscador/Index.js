@@ -35,37 +35,50 @@ $(document).ready(function () {
                 }
             }
         },
-        me.Eventos = {
-            AccionesCampoBusquedaAlDigitar: function () {
-                var cantidadCaracteresParaMostrarSugerenciasBusquedaMobile = $(this).val().length;
-                if (cantidadCaracteresParaMostrarSugerenciasBusquedaMobile > 0) {
-                    $('.enlace_busqueda_filtros').fadeOut(100);
-                    $('.opcion_limpiar_campo_busqueda_productos').delay(50);
-                    $('.opcion_limpiar_campo_busqueda_productos').fadeIn(100);
-                } else {
-                    $('.opcion_limpiar_campo_busqueda_productos').fadeOut(100);
+            me.Eventos = {
+                AccionesCampoBusquedaAlDigitar: function () {
+                    var cantidadCaracteresParaMostrarSugerenciasBusquedaMobile = $(this).val().length;
+                    if (cantidadCaracteresParaMostrarSugerenciasBusquedaMobile > 0) {
+                        $('.enlace_busqueda_filtros').fadeOut(100);
+                        $('.opcion_limpiar_campo_busqueda_productos').delay(50);
+                        $('.opcion_limpiar_campo_busqueda_productos').fadeIn(100);
+
+                        if (cantidadCaracteresParaMostrarSugerenciasBusquedaMobile >= CaracteresBuscador) {
+                            var service = $.ajax({
+                                url: baseUrl + "Buscador/BusquedaProductos",
+                                method: 'POST',
+                                data: {
+                                    busqueda: $(this).val()
+                                }
+                            });
+
+                            var successBusqueda = function (r) {
+                                console.log(r);
+                            }
+
+                            service.then(successBusqueda, function (e) {
+                                console.log(e);
+                            });
+                        }
+                    } else {
+                        $('.opcion_limpiar_campo_busqueda_productos').fadeOut(100);
+                        $('.enlace_busqueda_filtros').delay(50);
+                        $('.enlace_busqueda_filtros').fadeIn(100);
+                    }
+
+                },
+                LimpiarCampoBusqueda: function (e) {
+                    e.preventDefault();
+                    $(this).fadeOut(100);
                     $('.enlace_busqueda_filtros').delay(50);
                     $('.enlace_busqueda_filtros').fadeIn(100);
-                }
-
-
-                if (cantidadCaracteresParaMostrarSugerenciasBusquedaMobile >= CaracteresBuscador) {
-                    console.log($(this).val());
-                    //Aqui va el metodo que invoca al controlador
+                    $('#CampoBuscadorProductos').val('');
                 }
             },
-            LimpiarCampoBusqueda: function (e) {
-                e.preventDefault();
-                $(this).fadeOut(100);
-                $('.enlace_busqueda_filtros').delay(50);
-                $('.enlace_busqueda_filtros').fadeIn(100);
-                $('#CampoBuscadorProductos').val('');
+            me.Inicializar = function () {
+                me.Funciones.InicializarEventos();
+                me.Funciones.ModificarAnchoBuscadorFiltros();
             }
-        },
-        me.Inicializar = function () {
-            me.Funciones.InicializarEventos();
-            me.Funciones.ModificarAnchoBuscadorFiltros();
-        }
     }
 
     BuscadorPortalConsultoras = new BuscadorSB();
