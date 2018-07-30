@@ -811,7 +811,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteNonQuery(command);
         }
-        
+
         public IDataReader GetRestaurarClaveUsuario(string CampoRestablecer, int PaisID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarValorRestauracionClave");
@@ -839,7 +839,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, OrigenID);
 
             return (Context.ExecuteReader(command));
-        }        
+        }
 
         public bool VerificarIgualdadCodigoIngresado(BEUsuarioDatos oUsu, string codigoIngresado)
         {
@@ -915,6 +915,18 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("CancelarAtualizacionEmail");
             Context.Database.AddInParameter(command, "@codConsultora", DbType.String, codigoUsuario);
             return Context.ExecuteScalar(command).ToString();
+        }
+        public IDataReader ListaProductos(int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("TraerCuvsParaPruebas");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+            Context.Database.AddInParameter(command, "@RowCount", DbType.Int32, filas);
+            Context.Database.AddInParameter(command, "@CodigoDescripcion", DbType.String, CodigoDescripcion);
+            Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, regionId);
+            Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, zonaId);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.String, codigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, codigoZona);
+            return Context.ExecuteReader(command);
         }
     }
 }

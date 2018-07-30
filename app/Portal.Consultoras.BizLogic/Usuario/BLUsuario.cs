@@ -293,7 +293,7 @@ namespace Portal.Consultoras.BizLogic
                     imagenS3 = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
                 }
-                    
+
 
                 if (Common.Util.IsUrl(usuario.FotoPerfil))
                 {
@@ -3240,6 +3240,20 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return nivelProyectado;
+        }
+
+        public List<BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona)
+        {
+            List<BEBuscadorYFiltros> BuscadorYFiltro = new List<BEBuscadorYFiltros>();
+            var DAUsuario = new DAUsuario(paisID);
+            using (IDataReader reader = DAUsuario.ListaProductos(CampaniaID, filas, CodigoDescripcion, regionId, zonaId, codigoRegion, codigoZona))
+            {
+                while (reader.Read())
+                {
+                    BuscadorYFiltro.Add(new BEBuscadorYFiltros(reader));
+                }
+            }
+            return BuscadorYFiltro;
         }
     }
 }
