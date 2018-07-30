@@ -389,6 +389,7 @@ namespace Portal.Consultoras.Web.Providers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                listEstrategia = new List<ServiceOferta.BEEstrategia>();
             }
             return listEstrategia;
         }
@@ -962,7 +963,7 @@ namespace Portal.Consultoras.Web.Providers
                         break;
                     case 2:
                         listaProductoRetorno = sessionManager.ShowRoom.OfertasSubCampania ?? new List<EstrategiaPersonalizadaProductoModel>();
-                        listaProductoRetorno.ForEach(producto => { producto.esSubcampania = true; });
+                        listaProductoRetorno.ForEach(producto => { producto.EsSubcampania = true; });
                         break;
                     case 3:
                         listaProductoRetorno = sessionManager.ShowRoom.OfertasPerdio ?? new List<EstrategiaPersonalizadaProductoModel>();

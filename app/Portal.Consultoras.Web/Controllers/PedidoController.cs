@@ -468,11 +468,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (respuesta.Data.ToString().Contains("success = True"))
                 {
-                    using (var pedidoServiceClient = new PedidoServiceClient())
-                    {
-                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
-                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
-                    }
+                    PedidoAgregarProductoAgrupado(model.Cantidad.ToInt(), model.CUV, model.CUV, 0);
                 }
 
                 return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
@@ -4062,9 +4058,9 @@ namespace Portal.Consultoras.Web.Controllers
                 estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
                 var PedidosAgregados = ObtenerPedidoWebSetDetalleAgrupado();
 
-                if (PedidosAgregados.Any(x => x.CUV == estrategia.CUV2 && x.SetID != 0))
+                if (PedidosAgregados.Any(x => x.CUV == estrategia.CUV2))
                 {
-                    int CantidadActual = PedidosAgregados.Where(x => x.CUV == estrategia.CUV2 && x.SetID != 0).Sum(x => x.Cantidad);
+                    int CantidadActual = PedidosAgregados.Where(x => x.CUV == estrategia.CUV2).Sum(x => x.Cantidad);
 
                     if (CantidadActual + estrategia.Cantidad > estrategia.LimiteVenta)
                     {
@@ -4122,11 +4118,8 @@ namespace Portal.Consultoras.Web.Controllers
                         });
                     }
 
-                    using (var pedidoServiceClient = new PedidoServiceClient())
-                    {
-                        pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), CuvSet
-                            , userData.ConsultoraID, "", strCuvs, estrategia.EstrategiaID);
-                    }
+                    PedidoAgregarProductoAgrupado(model.Cantidad.ToInt(), CuvSet, strCuvs, estrategia.EstrategiaID);
+
                 }
 
                 return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
@@ -4361,6 +4354,25 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
                 return ErrorJson(Constantes.MensajesError.ErrorGenerico, true);
             }
+        }
+
+        private void PedidoAgregarProductoAgrupado(int cantidad, string cuv, string cuvlist, int estrategiaId)
+        {
+            var formatoPedidoWebSet = string.Empty;
+
+            if (cuvlist.IndexOf(":") < 0)
+                formatoPedidoWebSet = string.Format("{0}:1", cuvlist);
+            else
+                formatoPedidoWebSet = cuvlist;
+
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, cantidad, cuv
+                    , userData.ConsultoraID, "", formatoPedidoWebSet, estrategiaId);
+            }
+
+            //sessionManager.SetDetallesPedidoSetAgrupado(null);
+            ObtenerPedidoWebSetDetalleAgrupado(true);// para actualizar session de agrupado
         }
 
         #endregion
