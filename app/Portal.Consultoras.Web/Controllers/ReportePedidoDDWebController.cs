@@ -29,8 +29,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "ReportePedidoDDWeb/ReportePedidosDDWeb"))
                     return RedirectToAction("Index", "Bienvenida");
-                sessionManager.SetPedidosWebDDConf(null);
-                sessionManager.SetPedidosWebDD(null);
             }
             catch (FaultException ex)
             {

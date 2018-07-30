@@ -1191,30 +1191,6 @@ namespace Portal.Consultoras.Web.SessionManager
             return (bool)val;
         }
 
-        void ISessionManager.SetPedidosWebDDConf(dynamic val)
-        {
-            HttpContext.Current.Session["PedidosWebDDConf"] = val;
-        }
-
-        dynamic ISessionManager.GetPedidosWebDDConf()
-        {
-            var val = HttpContext.Current.Session["PedidosWebDDConf"];
-
-            return (dynamic)val;
-        }
-
-        void ISessionManager.SetPedidosWebDD(dynamic val)
-        {
-            HttpContext.Current.Session["PedidosWebDD"] = val;
-        }
-
-        dynamic ISessionManager.GetPedidosWebDD()
-        {
-            var val = HttpContext.Current.Session["PedidosWebDD"];
-
-            return (dynamic)val;
-        }
-
         void ISessionManager.SetPedidoWebDDDetalle(List<BEPedidoDDWeb> val)
         {
             HttpContext.Current.Session["PedidoWebDDDetalle"] = val;

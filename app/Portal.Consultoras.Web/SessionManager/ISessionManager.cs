@@ -437,14 +437,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetOcultarBannerTop();
 
-        void SetPedidosWebDDConf(dynamic val);
-
-        dynamic GetPedidosWebDDConf();
-
-        void SetPedidosWebDD(dynamic val);
-
-        dynamic GetPedidosWebDD();
-
         void SetPedidoWebDDDetalle(List<BEPedidoDDWeb> val);
 
         List<BEPedidoDDWeb> GetPedidoWebDDDetalle();
