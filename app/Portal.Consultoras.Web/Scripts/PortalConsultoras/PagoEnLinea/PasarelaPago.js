@@ -1,7 +1,28 @@
-﻿        $(document).ready(function () {
-            $("#CampoFechaNacimiento").datepicker({
-                dateFormat: 'dd/mm/yy'
-            });
+﻿var pasarelaModule = (function() {
+    var me = {};
+    me.Funciones = (function() {
+        function showPanel() {
+            var div = $(this).closest('div.mensaje_validacion');
+            div.show();
+        }
+
+        function hidePanel() {
+            var div = $(this).closest('div.mensaje_validacion');
+            div.hide();
+        }
+
+        function registerEvents() {
+            $('#NumberCard').on('keydown', FuncionesGenerales.ValidarSoloNumeros);
+            $('#Cvv').on('keydown', FuncionesGenerales.ValidarSoloNumeros);
+            $('#Titular').on('keydown', FuncionesGenerales.ValidarSoloLetras);
+            $('#Phone').on('keydown', FuncionesGenerales.ValidarSoloNumeros);
+            $(".field-validation-valid").bind("DOMNodeInserted", showPanel);
+            $(".field-validation-error").bind("DOMNodeInserted", showPanel);
+            $(".field-validation-valid").bind("DOMNodeRemoved", hidePanel);
+            $(".field-validation-error").bind("DOMNodeRemoved", hidePanel);
+        }
+
+        function configureValidator() {
             $("form#frmPay :input").each(function () {
                 var input = $(this);
                 var value = input.attr('data-val-length-max');
@@ -27,28 +48,29 @@
                 email: "Por favor ingresa un email válido",
                 date: "Por favor ingresa un fecha válida",
                 required: "Este campo es obligatorio"
-        });
+            });
+        }
+
+        function initWidgets() {
+            $("#CampoFechaNacimiento").datepicker({
+                dateFormat: 'dd/mm/yy'
+            });
+        }
+
+        function init() {
+            initWidgets();
+            configureValidator();
+            registerEvents();
             $('div.mensaje_validacion').not(':has(span.field-validation-error)').hide();
+        }
 
-            $(".field-validation-valid").bind("DOMNodeInserted", function () {
-                var div = $(this).closest('div.mensaje_validacion');
-                div.show();
-            });
-            $(".field-validation-error").bind("DOMNodeInserted", function () {
-                var div = $(this).closest('div.mensaje_validacion');
-                div.show();
-            });
-            $(".field-validation-valid").bind("DOMNodeRemoved", function () {
-                var div = $(this).closest('div.mensaje_validacion');
-                div.hide();
-            });
-            $(".field-validation-error").bind("DOMNodeRemoved", function () {
-                var div = $(this).closest('div.mensaje_validacion');
-                div.hide();
-            });
+        return {
+            init: init 
+        };
+    })();
+    return me;
+})();
 
-            $('#NumberCard').on('keydown', FuncionesGenerales.ValidarSoloNumeros);
-            $('#Cvv').on('keydown', FuncionesGenerales.ValidarSoloNumeros);
-            $('#Titular').on('keydown', FuncionesGenerales.ValidarSoloLetras);
-            $('#Phone').on('keydown', FuncionesGenerales.ValidarSoloNumeros);
-        });
+$(document).ready(function () {
+    pasarelaModule.Funciones.init();
+});
