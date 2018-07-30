@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         [Required(ErrorMessage = "Este campo es obligatorio")]
         [StringLength(2)]
         [Display(Name = "Mes")]
-        [DateCard("ExpireYear", ErrorMessage = "La fecha no es válida")]
+        [DateCard("ExpireYear", ErrorMessage = "La fecha es inválida")]
         public string ExpireMonth { get; set; }
         [Required(ErrorMessage = "Este campo es obligatorio")]
         [StringLength(4)]

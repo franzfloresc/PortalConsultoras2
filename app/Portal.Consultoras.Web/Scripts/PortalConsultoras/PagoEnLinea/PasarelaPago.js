@@ -24,9 +24,9 @@
                     return valid;
                 });
             jQuery.extend(jQuery.validator.messages, {
-                email: "Por favor ingresa un email válido.",
-                date: "Por favor ingresa un fecha válida.",
-                required: "Este campo es requrerido."
+                email: "Por favor ingresa un email válido",
+                date: "Por favor ingresa un fecha válida",
+                required: "Este campo es obligatorio"
         });
             $('div.mensaje_validacion').not(':has(span.field-validation-error)').hide();
 
