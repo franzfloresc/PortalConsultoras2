@@ -293,7 +293,7 @@ namespace Portal.Consultoras.BizLogic
                     imagenS3 = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
                 }
-                    
+
 
                 if (Common.Util.IsUrl(usuario.FotoPerfil))
                 {
@@ -322,14 +322,12 @@ namespace Portal.Consultoras.BizLogic
 
                 var tabla = new BLTablaLogicaDatos();
 
-                var valores = new List<BETablaLogicaDatos>();
-                valores = tabla.GetTablaLogicaDatosCache(usuario.PaisID, Convert.ToInt16(Constantes.TablaLogica.ActualizaDatosEnabled));
+                var valores = tabla.GetTablaLogicaDatosCache(usuario.PaisID, Convert.ToInt16(Constantes.TablaLogica.ActualizaDatosEnabled));
                 var listado = valores.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));
                 usuario.PuedeActualizar = Convert.ToBoolean(listado.Valor.ToInt());
 
                 var verificacion = new BLOpcionesVerificacion();
-                var verificacionResult = new BEOpcionesVerificacion();
-                verificacionResult = verificacion.GetOpcionesVerificacionCache(usuario.PaisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos);
+                var verificacionResult = verificacion.GetOpcionesVerificacionCache(usuario.PaisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos);
                 usuario.PuedeEnviarSMS = (verificacionResult != null && verificacionResult.OpcionSms);
 
                 return usuario;
@@ -343,39 +341,48 @@ namespace Portal.Consultoras.BizLogic
 
         public BEUsuario GetBasicSesionUsuario(int paisID, string codigoUsuario)
         {
-            var daUsuario = new DAUsuario(paisID);
             BEUsuario usuario = null;
-            using (IDataReader reader = daUsuario.GetSesionUsuario(codigoUsuario))
+            try
             {
-                if (reader.Read()) usuario = new BEUsuario(reader, true);
-            }
-            if (usuario == null) return null;
+                var daUsuario = new DAUsuario(paisID);
+                using (IDataReader reader = daUsuario.GetSesionUsuario(codigoUsuario))
+                {
+                    if (reader.Read()) usuario = new BEUsuario(reader, true);
+                }
+                if (usuario == null) return null;
 
-            var daConfiguracionCampania = new DAConfiguracionCampania(paisID);
-            BEConfiguracionCampania configuracion = null;
-            if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
-            {
-                BEUsuarioPostulante postulante = null;
-                using (IDataReader reader = daUsuario.GetUsuarioPostulante(usuario.CodigoUsuario))
+                var daConfiguracionCampania = new DAConfiguracionCampania(paisID);
+                BEConfiguracionCampania configuracion = null;
+                if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 {
-                    if (reader.Read()) postulante = new BEUsuarioPostulante(reader);
-                }
-                if (postulante == null) return usuario;
+                    BEUsuarioPostulante postulante = null;
+                    using (IDataReader reader = daUsuario.GetUsuarioPostulante(usuario.CodigoUsuario))
+                    {
+                        if (reader.Read()) postulante = new BEUsuarioPostulante(reader);
+                    }
+                    if (postulante == null) return usuario;
 
-                UpdateUsuarioFromUsuarioPostulante(usuario, postulante);
-                using (IDataReader reader = daConfiguracionCampania.GetConfiguracionCampaniaNoConsultora(paisID, usuario.ZonaID, usuario.RegionID))
-                {
-                    if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+                    UpdateUsuarioFromUsuarioPostulante(usuario, postulante);
+                    using (IDataReader reader = daConfiguracionCampania.GetConfiguracionCampaniaNoConsultora(paisID, usuario.ZonaID, usuario.RegionID))
+                    {
+                        if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+                    }
+                    UpdateUsuarioFromConfiguracionCampania(usuario, configuracion);
                 }
-                UpdateUsuarioFromConfiguracionCampania(usuario, configuracion);
+                else if (usuario.ConsultoraID != 0)
+                {
+                    using (IDataReader reader = daConfiguracionCampania.GetConfiguracionCampania(paisID, usuario.ZonaID, usuario.RegionID, usuario.ConsultoraID))
+                    {
+                        if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+                    }
+                    UpdateUsuarioFromConfiguracionCampania(usuario, configuracion);
+                }
+
             }
-            else if (usuario.ConsultoraID != 0)
+            catch (Exception ex)
             {
-                using (IDataReader reader = daConfiguracionCampania.GetConfiguracionCampania(paisID, usuario.ZonaID, usuario.RegionID, usuario.ConsultoraID))
-                {
-                    if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
-                }
-                UpdateUsuarioFromConfiguracionCampania(usuario, configuracion);
+                LogManager.SaveLog(ex, codigoUsuario, paisID);
+                usuario = null;
             }
             return usuario;
         }
@@ -725,7 +732,7 @@ namespace Portal.Consultoras.BizLogic
                     int campaniaActual = int.Parse(usuario.CampaniaDescripcion);
                     int campaniaIngreso = int.Parse(usuario.AnoCampaniaIngreso);
                     int diferencia = campaniaActual - campaniaIngreso;
-                    if (diferencia >= 12 
+                    if (diferencia >= 12
                         && usuario.AnoCampaniaIngreso.Trim().EndsWith(usuario.CampaniaDescripcion.Trim().Substring(4)))
                     {
                         esAniversario = true;
