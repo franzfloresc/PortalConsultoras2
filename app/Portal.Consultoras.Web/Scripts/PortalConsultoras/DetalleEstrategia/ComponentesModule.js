@@ -38,20 +38,19 @@ var ComponentesModule = (function () {
             if (cuv === hermano.Cuv) {
                 var componente = _estrategia.Hermanos[index];
                 opcionesEvents.applyChanges("onComponentSelected", componente);
-                $("#elegir-opciones-modal").modal("show");
+                if (isMobile()) {
+                    $("#elegir-opciones-modal").modal("show");
+                } else {
+                    $('body').addClass("modal_activado");
+                    $('.modal-fondo').css('opacity', '.7');
+                    $('.modal-fondo').show();
+                    $('.contenedor_seleccion').show();
+                    $('.contenedor_seleccion').css('margin-right', '0');
+                    $('.contenedor_seleccion').css('opacity', '1');
+                }
                 return false;
             }
         });
-        if (isMobile()) {
-            $("#elegir-opciones-modal").modal("show");
-        } else {
-            $('body').addClass("modal_activado");
-            $('.modal-fondo').css('opacity', '.7');
-            $('.modal-fondo').show();
-            $('.contenedor_seleccion').show();
-            $('.contenedor_seleccion').css('margin-right', '0');
-            $('.contenedor_seleccion').css('opacity', '1');
-        }
     }
 
     return {
