@@ -385,7 +385,7 @@ namespace Portal.Consultoras.Entities
             TipoEstrategiaImagenMostrar = row.ToInt32("TipoEstrategiaImagenMostrar");
             TieneStockProl = row.ToBoolean("TieneStockProl");
             FlagMostrarImg = row.ToInt32("FlagMostrarImg");
-            FlagMostrarImg = row.ToInt32("OfertaUltimoMinuto");
+            FlagMostrarImg = row.ToInt32("OfertaUltimoMinuto", FlagMostrarImg);
             CodigoSAP = row.ToString("CodigoSAP");
             EnMatrizComercial = row.ToInt32("EnMatrizComercial");
             CodigoEstrategia = row.ToString("CodigoEstrategia");
