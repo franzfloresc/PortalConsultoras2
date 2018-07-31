@@ -43,6 +43,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(string query)
         {
+            if (EsDispositivoMovil())
+            {
+                return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query });
+            }
+
             ViewBag.TerminoMostrar = 1;
 
             try
