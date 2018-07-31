@@ -567,19 +567,6 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<ServiceUsuario.BEUsuario>)HttpContext.Current.Session["BEUsuarioModel"];
         }
 
-        EstrategiaPersonalizadaProductoModel ISessionManager.ProductoTemporal
-        {
-            get
-            {
-                return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
-            }
-
-            set
-            {
-                HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = value;
-            }
-        }
-
         void ISessionManager.SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
         {
             HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = modelo;
@@ -599,6 +586,22 @@ namespace Portal.Consultoras.Web.SessionManager
         public bool GetPedidoValidado()
         {
             return Convert.ToBoolean(HttpContext.Current.Session["PedidoValidado"]);
+        }
+        
+        BEConfiguracionProgramaNuevas ISessionManager.ConfiguracionProgramaNuevas
+        {
+            get { return (BEConfiguracionProgramaNuevas)HttpContext.Current.Session["ConfiguracionProgramaNuevas"]; }
+            set { HttpContext.Current.Session["ConfiguracionProgramaNuevas"] = value; }
+        }
+        bool ISessionManager.ProcesoKitNuevas
+        {
+            get { return (bool)(HttpContext.Current.Session["ProcesoKitNuevas"] ?? false); }
+            set { HttpContext.Current.Session["ProcesoKitNuevas"] = value; }
+        }
+        string ISessionManager.CuvKitNuevas
+        {
+            get { return (string)HttpContext.Current.Session["CuvKitNuevas"]; }
+            set { HttpContext.Current.Session["CuvKitNuevas"] = value; }
         }
     }
 }

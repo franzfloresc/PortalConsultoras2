@@ -1264,15 +1264,10 @@
   <xs:complexType name="BEConfiguracionProgramaNuevas">
     <xs:sequence>
       <xs:element minOccurs="0" name="CUVKit" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaFin" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaInicio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CuponKit" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndExigVent" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndProgObli" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MontoVentaExigido" type="xs:decimal" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEConfiguracionProgramaNuevas" nillable="true" type="tns:BEConfiguracionProgramaNuevas" />
