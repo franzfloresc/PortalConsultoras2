@@ -335,10 +335,13 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (listEstrategia != null && campaniaId == userData.CampaniaID && listEstrategia.Any())
                 {
+                    //listEstrategia = (List<ServiceOferta.BEEstrategia>)Session[varSession];
+                   
                     if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas)
                     {
                         listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(listEstrategia);
                     }
+
                     return listEstrategia;
                 }
 
@@ -388,6 +391,7 @@ namespace Portal.Consultoras.Web.Providers
                         || tipo == Constantes.TipoEstrategiaCodigo.OfertaWeb)
                     {
                         sessionManager.SetBEEstrategia(varSession, listEstrategia);
+                        //Session[varSession] = listEstrategia;
                     }
                     if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas && listEstrategia.Any())
                     {
@@ -425,6 +429,7 @@ namespace Portal.Consultoras.Web.Providers
                 if (!listModel.Any())
                 {
                     sessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, listModel);
+                    //Session[Constantes.ConstSession.ListaEstrategia] = listModel;
                     return new List<EstrategiaPedidoModel>();
                 }
 
@@ -438,6 +443,7 @@ namespace Portal.Consultoras.Web.Providers
                     if (!listModel.Any() && estrategiaLanzamiento.EstrategiaID <= 0)
                     {
                         sessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, listModel);
+                        //Session[Constantes.ConstSession.ListaEstrategia] = listModel;
                         return new List<EstrategiaPedidoModel>();
                     }
 
@@ -470,6 +476,7 @@ namespace Portal.Consultoras.Web.Providers
                 #endregion
 
                 sessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, listModel);
+                //Session[Constantes.ConstSession.ListaEstrategia] = listModel;
             }
 
             var listaProductoModel = ConsultarEstrategiasFormatoEstrategiaToModel1(listModel, codigoIso, campaniaId);
@@ -572,6 +579,16 @@ namespace Portal.Consultoras.Web.Providers
                 estrategiaPersonalizada.Hermanos = new List<EstrategiaComponenteModel>();
                 estrategiaPersonalizada.TextoLibre = Util.Trim(estrategiaPersonalizada.TextoLibre);
                 estrategiaPersonalizada.CodigoVariante = Util.Trim(estrategiaPersonalizada.CodigoVariante);
+
+                //var listaPedido = ObtenerPedidoWebDetalle();
+                //estrategiaPersonalizada.IsAgregado = listaPedido.Any(p => p.CUV == estrategiaPersonalizada.CUV2);
+
+                //if (string.IsNullOrWhiteSpace(estrategiaPersonalizada.CodigoVariante))
+                //    return estrategiaPersonalizada;
+
+                //estrategiaPersonalizada.CampaniaID = estrategiaPersonalizada.CampaniaID > 0 ? estrategiaPersonalizada.CampaniaID : userData.CampaniaID;
+                //bool esMultimarca = false;
+                //estrategiaPersonalizada.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaPersonalizada, string.Empty, out esMultimarca);
                 return estrategiaPersonalizada;
             }
             catch (Exception ex)
@@ -592,6 +609,7 @@ namespace Portal.Consultoras.Web.Providers
                 PaisID = usuarioModel.PaisID,
                 CampaniaID = usuarioModel.CampaniaID,
                 ConsultoraID = usuarioModel.GetCodigoConsultora(),
+                //Zona = usuarioModel.ZonaID.ToString(),
                 ZonaHoraria = usuarioModel.ZonaHoraria,
                 FechaInicioFacturacion = usuarioModel.FechaInicioCampania,
                 ValidarPeriodoFacturacion = true,
@@ -601,7 +619,13 @@ namespace Portal.Consultoras.Web.Providers
 
             using (var osc = new OfertaServiceClient())
             {
+                //var listaShowRoomOferta = ofertaService.GetShowRoomOfertasConsultora(usuarioModel.PaisID, usuarioModel.CampaniaID, 
+                //    usuarioModel.CodigoConsultora).ToList();
+                //return Mapper.Map<List<ServiceOferta.BEShowRoomOferta>, List<EstrategiaPedidoModel>>(listaShowRoomOferta);
+
                 var listaProducto = osc.GetEstrategiasPedido(entidad).ToList();
+                //var listaProductoModel = Mapper.Map<List<ServiceOferta.BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
+                //listaProductoModel = ConsultarEstrategiasModelFormato(listaProductoModel);
                 return listaProducto;
             }
         }
@@ -767,6 +791,7 @@ namespace Portal.Consultoras.Web.Providers
             if (!listaProductoModel.Any())
                 return listaRetorno;
 
+            //var listaPedido = ObtenerPedidoWebDetalle();
             var carpetaPais = Globals.UrlMatriz + "/" + codigoISO;
 
             var claseBloqueada = "btn_desactivado_general";
@@ -957,7 +982,7 @@ namespace Portal.Consultoras.Web.Providers
                         break;
                     case 2:
                         listaProductoRetorno = sessionManager.ShowRoom.OfertasSubCampania ?? new List<EstrategiaPersonalizadaProductoModel>();
-                        listaProductoRetorno.ForEach(producto => { producto.esSubcampania = true; });
+                        listaProductoRetorno.ForEach(producto => { producto.EsSubcampania = true; });
                         break;
                     case 3:
                         listaProductoRetorno = sessionManager.ShowRoom.OfertasPerdio ?? new List<EstrategiaPersonalizadaProductoModel>();
@@ -1024,6 +1049,7 @@ namespace Portal.Consultoras.Web.Providers
             listaSubCampania = obtenerListaHermanos(listaSubCampania);
 
             var listaPedido = _pedidoWeb.ObtenerPedidoWebDetalle(0);
+            //configEstrategiaSR.ListaCategoria = new List<ShowRoomCategoriaModel>();
             sessionManager.ShowRoom.CargoOfertas = "1";
             sessionManager.ShowRoom.Ofertas = FormatearModelo1ToPersonalizado(listaOfertas, listaPedido, userData.CodigoISO, userData.CampaniaID, 2, userData.esConsultoraLider, userData.Simbolo);
             sessionManager.ShowRoom.OfertasSubCampania = FormatearModelo1ToPersonalizado(listaSubCampania, listaPedido, userData.CodigoISO, userData.CampaniaID, 2, userData.esConsultoraLider, userData.Simbolo);
