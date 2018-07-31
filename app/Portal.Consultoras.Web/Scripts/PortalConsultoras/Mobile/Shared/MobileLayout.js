@@ -344,7 +344,14 @@ function OcultarChatEmtelco() {
     }
 
     if (habilitarChatEmtelco == 'False') {
-        $(".CMXD-help").hide();
+        // Ocultando todo el panel de chat y container de boton
+        var $CMXDhelp = $(".CMXD-help")
+            , $parent = $CMXDhelp.parents(".CMXD-btn-help")
+        ;
+
+        // ocultando hijo y padre
+        $CMXDhelp.hide();
+        $parent.hide();
     }
 }
 
