@@ -3,7 +3,7 @@
     <ul class="selecion_item list-inline">
         <li class="seleccion_img"><img src="{{componente.ImagenBulk}}" alt=""></li>
         <li class="seleccion_title">{{componente.NombreBulk}}</li>
-        <li class="seleccion_btn"><button>Elígelo</button></li>
+        <li class="seleccion_btn"><button onclick="javascript: ListaOpcionesModule.SeleccionarOpcion('{{componente.Cuv}}')">Elígelo</button></li>
         <li class="seleccion_btn seleccion_cantidad" style="display:none;">
             <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
                 <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">

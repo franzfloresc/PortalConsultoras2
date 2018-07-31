@@ -2,9 +2,11 @@
 <script id="opciones-seleccionadas-template" type="text/x-handlebars-template">
     {{#each this.Hermanos as |componente|}}
     <div class="item_selecionado">
-        <button class="item_selecionado_close"><img src="/Content/Images/mobile/Esika/close-button-white.svg" alt=""></button>
+        <button class="item_selecionado_close" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+            <img src="/Content/Images/mobile/Esika/close-button-white.svg" alt="">
+        </button>
         <img class="item_selecionado_img" src="{{componente.ImagenBulk}}" alt="">
-        <span>Black</span>
+        <span>{{componente.NombreBulk}}</span>
     </div>
     {{/each}}
 </script>

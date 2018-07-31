@@ -16,15 +16,32 @@
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onComponentSelected");
 var ListaOpcionesModule = (function () {
-    var _estrategia = {};
+    var _componente = {};
     var _cargarOpciones = function (componente) {
-        _estrategia = componente || _estrategia;
-        SetHandlebars("#lista-opciones-template", _estrategia, "#lista-opciones");
+        _componente = componente || _componente;
+        SetHandlebars("#lista-opciones-template", _componente, "#lista-opciones");
+    }
+
+    var _seleccionarOpcion = function (cuv) {
+        var opcion;
+        $.each(_componente.Hermanos, function (index, hermano) {
+            cuv = $.trim(cuv);
+            if (cuv === hermano.Cuv) {
+                opcion = _componente.Hermanos[index];
+                return false;
+            }
+        });
+        //
+        opcionesEvents.applyChanges("onOptionSelected", opcion);
+        //
+        $("#elegir-opciones-modal").modal("show");
     }
     return {
-        CargarOpciones: _cargarOpciones
+        CargarOpciones: _cargarOpciones,
+        SeleccionarOpcion : _seleccionarOpcion
     };
 }());
 opcionesEvents.subscribe("onComponentSelected", function (componente) {
+    console.log(componente);
     ListaOpcionesModule.CargarOpciones(componente);
 });
