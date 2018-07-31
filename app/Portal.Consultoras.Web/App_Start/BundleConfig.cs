@@ -318,6 +318,10 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
             ));
 
+            bundles.Add(new ScriptBundle("~/bundles/js/OfertaDelDia").Include(
+                "~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js"
+            ));
+
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/Bienvenida").Include(
                 "~/Scripts/implements/youtube.js",
                 "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js",

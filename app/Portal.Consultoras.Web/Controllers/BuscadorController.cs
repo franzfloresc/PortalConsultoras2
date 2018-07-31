@@ -1,4 +1,6 @@
-﻿using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,19 +17,29 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        public JsonResult BusquedaProdcutos(string busqueda)
+        [HttpPost]
+        public JsonResult BusquedaProductos(string busqueda)
         {
             try
             {
                 // Método para motor con los siguientes parametros: CodigoPais, CodigoCampaña, CodigoConsultora, TextoBusqueda, CantidadProductos
 
-                var resultBuscador = new List<BuscadorYFiltrosModel>();
-                var buscador = new BuscadorYFiltrosModel();
+                var resultBuscador = new List<BEBuscadorYFiltros>();
 
-                buscador.CUV = "";
-                resultBuscador.Add(buscador);
+                using (var usuario = new UsuarioServiceClient())
+                {
+                    resultBuscador = usuario.listaProductos(userData.PaisID, userData.CampaniaID, 20, busqueda, userData.RegionID, userData.ZonaID, Convert.ToInt32(userData.CodigorRegion), Convert.ToInt32(userData.CodigoZona)).ToList();
+                }
 
+                if (resultBuscador.Any())
+                {
+                    var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
+                    foreach (var item in resultBuscador)
+                    {
+                        item.Imagen = ConfigCdn.GetUrlFileCdn(carpetapais, item.Imagen);
+                    }
+                }
 
                 return Json(new { Success = true, Productos = resultBuscador, Message = ""});
             }

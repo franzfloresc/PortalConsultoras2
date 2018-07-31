@@ -46,6 +46,25 @@ $(document).ready(function () {
                     $('.enlace_busqueda_productos').fadeOut(100);
                     $('.opcion_limpiar_campo_busqueda_productos').delay(50);
                     $('.opcion_limpiar_campo_busqueda_productos').fadeIn(100);
+
+                    if (cantidadCaracteresParaMostrarSugerenciasBusquedaMobile >= CaracteresBuscador) {
+                        var service = $.ajax({
+                            url: baseUrl + "Buscador/BusquedaProductos",
+                            method: 'POST',
+                            data: {
+                                busqueda: $(this).val()
+                            }
+                        });
+
+                        var successBusqueda = function (r) {
+                            console.log(r);
+                        }
+
+                        service.then(successBusqueda, function (e) {
+                            console.log(e);
+                        });
+                    }
+
                 } else {
                     $('.lista_resultados_busqueda_productos').fadeOut(100);
                     $('.campo_busqueda_fondo_on_focus').delay(50);
@@ -54,12 +73,6 @@ $(document).ready(function () {
                     $('.opcion_limpiar_campo_busqueda_productos').fadeOut(100);
                     $('.enlace_busqueda_productos').delay(50);
                     $('.enlace_busqueda_productos').fadeIn(100);
-                }
-
-
-                if (cantidadCaracteresParaMostrarSugerenciasBusquedaMobile >= CaracteresBuscador) {
-                    console.log($(this).val());
-                    //Aqui va el metodo que invoca al controlador
                 }
             },
             LimpiarCampoBusqueda: function (e) {
