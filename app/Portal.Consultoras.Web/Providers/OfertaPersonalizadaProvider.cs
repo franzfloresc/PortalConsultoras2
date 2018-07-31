@@ -1004,26 +1004,38 @@ namespace Portal.Consultoras.Web.Providers
             List<EstrategiaPedidoModel> listaSubCampania;
             var listaOfertasPerdio = new List<EstrategiaPedidoModel>();
 
-            if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
+            //if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
+            //{
+            //    listaOfertas = listaProductoModel.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+            //    listaOfertasPerdio = listaProductoModel.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
+            //}
+            //else if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
+            //    listaOfertas = listaProductoModel.Where(x => !x.EsSubCampania && flagRevistaTodos.Contains(x.FlagRevista)).ToList();
+            //else if (!revistaDigital.ActivoMdo)
+            //    listaOfertas = listaProductoModel.Where(x => !x.EsSubCampania).ToList();
+            //else
+            //    listaOfertas = listaProductoModel.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+
+            ////subcampania
+            //if (revistaDigital.EsActiva && revistaDigital.ActivoMdo)
+            //    listaSubCampania = listaProductoModel.Where(x => x.EsSubCampania && flagRevistaTodos.Contains(x.FlagRevista)).ToList();
+            //else if (!revistaDigital.ActivoMdo)
+            //    listaSubCampania = listaProductoModel.Where(x => x.EsSubCampania).ToList();
+            //else
+            //    listaSubCampania = listaProductoModel.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
+
+            if (revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
             {
                 listaOfertas = listaProductoModel.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
                 listaOfertasPerdio = listaProductoModel.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
-            }
-            else if (revistaDigital.TieneRDC && revistaDigital.ActivoMdo && revistaDigital.EsActiva)
-                listaOfertas = listaProductoModel.Where(x => !x.EsSubCampania && flagRevistaTodos.Contains(x.FlagRevista)).ToList();
-            else if (!revistaDigital.ActivoMdo)
-                listaOfertas = listaProductoModel.Where(x => !x.EsSubCampania).ToList();
-            else
-                listaOfertas = listaProductoModel.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-
-            //subcampania
-            if (revistaDigital.EsActiva && revistaDigital.ActivoMdo)
-                listaSubCampania = listaProductoModel.Where(x => x.EsSubCampania && flagRevistaTodos.Contains(x.FlagRevista)).ToList();
-            else if (!revistaDigital.ActivoMdo)
-                listaSubCampania = listaProductoModel.Where(x => x.EsSubCampania).ToList();
-            else
                 listaSubCampania = listaProductoModel.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-
+            }
+            else // if (revistaDigital.ActivoMdo && revistaDigital.EsActiva || !revistaDigital.ActivoMdo)
+            {
+                listaOfertas = listaProductoModel.Where(x => !x.EsSubCampania).ToList();
+                listaSubCampania = listaProductoModel.Where(x => x.EsSubCampania).ToList();
+            }
+            
             listaSubCampania = obtenerListaHermanos(listaSubCampania);
 
             var listaPedido = _pedidoWeb.ObtenerPedidoWebDetalle(0);
