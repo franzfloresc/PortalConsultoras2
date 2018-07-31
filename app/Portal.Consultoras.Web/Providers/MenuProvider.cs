@@ -276,7 +276,8 @@ namespace Portal.Consultoras.Web.Providers
         public UsuarioModel GetMenuMobileModel(UsuarioModel userSession, RevistaDigitalModel revistaDigital, HttpRequestBase request, bool tieneTituloCatalogo)
         {
             var lstMenuMobileModel = GetMenuMobileModelService(userSession.PaisID);
-            
+            //
+
             userSession.ConsultoraOnlineMenuResumen = new ConsultoraOnlineMenuResumenModel();
 
             if ((userSession.CatalogoPersonalizado == 0 || !userSession.EsCatalogoPersonalizadoZonaValida) &&
@@ -313,7 +314,6 @@ namespace Portal.Consultoras.Web.Providers
                         userSession.ConsultoraOnlineMenuResumen.MenuHijoIDConsultoraOnline = menuConsultoraOnlineHijo != null ? menuConsultoraOnlineHijo.MenuMobileID : 0;
                         lstMenuMobileModel.Remove(menuConsultoraOnlinePadre);
                     }
-
                 }
 
                 if (menuConsultoraOnlineHijo != null)
@@ -379,7 +379,6 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             var lstModel = listadoMenuFinal.Where(item => item.MenuPadreID == 0).OrderBy(item => item.OrdenItem).ToList();
-
             foreach (var item in lstModel)
             {
                 var subItems = listadoMenuFinal.Where(p => p.MenuPadreID == item.MenuMobileID).OrderBy(p => p.OrdenItem);
@@ -411,7 +410,7 @@ namespace Portal.Consultoras.Web.Providers
                     lstModel = lstModel.OrderBy(p => p.OrdenItem).ToList();
                 }
             }
-
+            //
             userSession.MenuMobile = lstModel;
             sessionManager.SetUserData(userSession);
             return userSession;

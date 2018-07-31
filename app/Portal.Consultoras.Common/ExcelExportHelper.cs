@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Common
             foreach (KeyValuePair<string, string> keyvalue in definicionDeColumna)
             {
 
-                listHeader.Add(new ExcelCellHeader(keyvalue.Value, 10, Color.Purple, Color.White, true));
+                listHeader.Add(new ExcelCellHeader(keyvalue.Key, 10, Color.Purple, Color.White, true));
                 columna.Add(keyvalue.Value);
             }
 

@@ -832,7 +832,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simboloParam, 
 
         if (oRegaloPN.UrlImagenRegalo != null && oRegaloPN.UrlImagenRegalo != "") {
             $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
-            ('div.content_imagen_alternativo').show();
+            $('div.content_imagen_alternativo').show();
         }
 
         if (tipoMeta == 'MM') {
