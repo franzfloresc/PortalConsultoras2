@@ -34,7 +34,7 @@ $(document).ready(function () {
                     }
                 }
             },
-            CampoBusquedaConCaracteres: function (campoBuscador) {
+            CampoDeBusquedaConCaracteres: function (campoBuscador) {
                 $(campoBuscador).addClass('campo_buscador_productos_activo');
                 $('.campo_busqueda_fondo_on_focus').fadeIn(100);
                 $('.lista_resultados_busqueda_productos').delay(50);
@@ -43,7 +43,7 @@ $(document).ready(function () {
                 $('.opcion_limpiar_campo_busqueda_productos').delay(50);
                 $('.opcion_limpiar_campo_busqueda_productos').fadeIn(100);
             },
-            CampoBusquedaSinCaracteres: function (element) {
+            CampoDeBusquedaSinCaracteres: function (element) {
                 $('.lista_resultados_busqueda_productos').fadeOut(100);
                 $('.campo_busqueda_fondo_on_focus').delay(50);
                 $('.campo_busqueda_fondo_on_focus').fadeOut(100);
@@ -57,7 +57,7 @@ $(document).ready(function () {
             AccionesCampoBusquedaAlDigitar: function () {
                 var cantidadCaracteresParaMostrarSugerenciasBusqueda = $(this).val().length;
                 if (cantidadCaracteresParaMostrarSugerenciasBusqueda > 0) {
-                    me.Funciones.CampoBusquedaConCaracteres($('#CampoBuscadorProductos'));
+                    me.Funciones.CampoDeBusquedaConCaracteres($('#CampoBuscadorProductos'));
                     if (cantidadCaracteresParaMostrarSugerenciasBusqueda >= CaracteresBuscador) {
                         var service = $.ajax({
                             url: baseUrl + "Buscador/BusquedaProductos",
@@ -77,12 +77,12 @@ $(document).ready(function () {
                     }
 
                 } else {
-                    me.Funciones.CampoBusquedaSinCaracteres($(this));
+                    me.Funciones.CampoDeBusquedaSinCaracteres($(this));
                 }
             },
             LimpiarCampoBusqueda: function (e) {
                 e.preventDefault();
-                me.Funciones.CampoBusquedaSinCaracteres($('#CampoBuscadorProductos'));
+                me.Funciones.CampoDeBusquedaSinCaracteres($('#CampoBuscadorProductos'));
                 $('#CampoBuscadorProductos').val('');
                 $('#CampoBuscadorProductos').trigger('focus');
             }
