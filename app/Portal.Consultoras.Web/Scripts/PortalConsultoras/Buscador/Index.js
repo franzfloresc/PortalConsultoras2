@@ -51,6 +51,7 @@ $(document).ready(function () {
                 $('.opcion_limpiar_campo_busqueda_productos').fadeOut(100);
                 $('.enlace_busqueda_productos').delay(50);
                 $('.enlace_busqueda_productos').fadeIn(100);
+                $('#ResultadoBuscador').html('');
             }
         },
         me.Eventos = {
@@ -67,7 +68,7 @@ $(document).ready(function () {
                                 busqueda: $(this).val()
                             }
                         });
-
+                        
                         var successBusqueda = function (r) {
                             var resultados = "";
                             if (r.Productos.length > 0) {
@@ -77,7 +78,13 @@ $(document).ready(function () {
                                     resultados += '     <img src="' + r.Productos[i].Imagen + '" alt="Imagen no disponible" class="imagen_no_disponible" onerror="this.onerror=null;this.src="' + baseUrl + 'Content/Images/imagen_prod_no_disponible.png' + '""/>';
                                     resultados += ' </div>';
                                     resultados += ' <div class="resultado_busqueda_descrip_prod displayInlineBlock">';
-                                    resultados += '     <div class="resultado_busqueda_nom_producto">' + r.Productos[i].Descripcion + '</div>';
+
+                                    var texto = r.Productos[i].Descripcion;
+                                    if (texto.length > TotalCaracteresEnListaBuscador) {
+                                        texto = texto.substring(0, TotalCaracteresEnListaBuscador) + '...';
+                                    }
+
+                                    resultados += '     <div class="resultado_busqueda_nom_producto">' + texto + '</div>';
                                     resultados += '     <div class="resultado_busqueda_precio_prod">';
                                     resultados += '         <span class="resultado_busqueda_precio_normal displayInlineBlock">' + r.Productos[i].Valorizado + '</span>';
                                     resultados += '         <span class="resultado_busqueda_precio_oferta displayInlineBlock">' + r.Productos[i].Precio + '</span>';
@@ -120,6 +127,7 @@ $(document).ready(function () {
                 me.Funciones.CampoDeBusquedaSinCaracteres($('#CampoBuscadorProductos'));
                 $('#CampoBuscadorProductos').val('');
                 $('#CampoBuscadorProductos').focus();
+                $('#ResultadoBuscador').html('');
             }
         },
         me.Inicializar = function () {
