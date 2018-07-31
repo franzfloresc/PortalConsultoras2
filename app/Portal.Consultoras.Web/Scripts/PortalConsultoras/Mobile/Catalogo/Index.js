@@ -399,31 +399,30 @@ function SeleccionarCatalogo() {
     var Marcas = MarcaCatalogo.split('&');
     var campania = $("#hdCampaniaActual").val();
     var Marca = '#';
-    $(".titulo_mobile").hide();    
-    $(".texto_catalogos_mobile").hide();
+
 
     if (Marcas[0] == 'esika') {
-        flagMarca = 1;
         Marca = '#' + campania + '_Esika' 
-        $(Marca).focus();
-        $(Marca).select();
-        $(Marca).show();
+        //$(Marca).focus();
+        //$(Marca).select();
+        //$(Marca).show();
        // $(Marca).focus();
+        $(window).scrollTop(600);
     } 
     if (Marcas[0] == 'lbel') {
-        flagMarca = 2;
         Marca = '#' + campania + '_Lbel' 
-        $(Marca).focus();
-        $(Marca).select();
-        $(Marca).show();
-       // $(Marca).focus();
+        Marca2 = '#' + campania + '_Lbel' + '_WS' 
+        //$(Marca2).focus();
+        //$(Marca2).select();
+        //$(Marca2).show();
+        $(window).scrollTop(200);
     } 
     if (Marcas[0] == 'cyzone') {
-        flagMarca = 3;
         Marca = '#' + campania + '_Cyzone' 
-        $(Marca).focus();
-        $(Marca).select();
-        $(Marca).show();
+        //$(Marca).focus();
+        //$(Marca).select();
+        //$(Marca).show();
+        $(window).scrollTop(1000);
     } 
 }
 
