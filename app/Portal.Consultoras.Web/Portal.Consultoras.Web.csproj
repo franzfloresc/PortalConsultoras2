@@ -1368,6 +1368,7 @@
     <Content Include="Content\Css\Site\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
+    <Content Include="Content\Images\Buscador\product-iphone.png" />
     <Content Include="Content\Images\cincuenta_anios_belcorp_cabecera.svg" />
     <Content Include="Content\Images\carrusel_n_blanco.png" />
     <Content Include="Content\Images\carrusel_p_blanco.png" />
@@ -4233,6 +4234,7 @@
     <Content Include="Areas\Mobile\Views\MiPerfil\ActualizarCelular.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutBuscador.cshtml" />
     <Content Include="Areas\Mobile\Views\Buscador\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\Buscador\_BuscadorPartialView.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
