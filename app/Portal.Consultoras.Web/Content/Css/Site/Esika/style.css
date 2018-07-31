@@ -19839,7 +19839,7 @@ label.checkpop.c_on {
     font-size: 11px;
     font-family: 'lato';
     color: black;
-    width: 33%;
+    width: 32.5%;
     padding-top: 9px;
 }
 
@@ -36733,7 +36733,9 @@ h1#penmostreo .campana {
 
 .cincuenta_anios_belcorp img{
     width: auto;
-    height: 111%;
+    height: 103.28%;
+    position: relative;
+    top: -1px;
 }
 
 .cincuenta_anios_belcorp + .logo_esika{
