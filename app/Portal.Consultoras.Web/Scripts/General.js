@@ -854,6 +854,7 @@ function paginadorAccionGenerico(obj) {
 }
 
 function ActualizarGanancia(data) {
+    console.log('General.js - ActualizarGanancia - ante num-menu-shop', data);
     data = data || new Object();
     data.CantidadProductos = data.CantidadProductos || "";
     data.TotalPedidoStr = data.TotalPedidoStr || "";

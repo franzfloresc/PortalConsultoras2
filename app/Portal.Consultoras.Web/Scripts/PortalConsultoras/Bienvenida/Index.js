@@ -943,6 +943,7 @@ function AgregarProductoLiquidacion(contenedor) {
                     return false;
                 }
                 else {
+                    console.log('Bienvenida - index.js - AgregarProductoLiquidacion - ajax ante ActualizarGanancia', 'OfertaLiquidacion/InsertOfertaWebPortal');
                     jQuery.ajax({
                         type: 'POST',
                         url: baseUrl + 'OfertaLiquidacion/InsertOfertaWebPortal',
@@ -962,6 +963,7 @@ function AgregarProductoLiquidacion(contenedor) {
                                 return false;
                             }
                             MostrarBarra(data, '1');
+                            console.log('Bienvenida - index.js - AgregarProductoLiquidacion - ante ActualizarGanancia', data.DataBarra);
                             ActualizarGanancia(data.DataBarra);
                             CargarResumenCampaniaHeader(true);
                             TrackingJetloreAdd(item.Cantidad, $("#hdCampaniaCodigo").val(), item.CUV);
@@ -1240,6 +1242,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
     };
     var categoriacad = "";
     var variantcad = "";
+    console.log('Bienvenida - index.js - InsertarPedidoCuvBanner - ante ActualizarGanancia', 'Pedido/InsertarPedidoCuvBanner');
     waitingDialog({});
     jQuery.ajax({
         type: 'POST',
@@ -1262,6 +1265,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
             }
 
             MostrarBarra(result, '1');
+            console.log('Bienvenida - index.js - InsertarPedidoCuvBanner - ante ActualizarGanancia', result.DataBarra);
             ActualizarGanancia(result.DataBarra);
 
             CargarResumenCampaniaHeader(true);

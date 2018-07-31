@@ -2797,7 +2797,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var model = new MensajeProductoBloqueadoModel();
 
-            model.divId = "divHVMensajeBloqueada";
+            model.divId = "divMensajeBloqueada";
             model.IsMobile = IsMobile();
             model.MensajeIconoSuperior = true;
             model.BtnInscribirse = false;

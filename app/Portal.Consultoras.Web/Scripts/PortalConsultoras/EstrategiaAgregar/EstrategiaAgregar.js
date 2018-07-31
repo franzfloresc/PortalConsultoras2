@@ -51,7 +51,7 @@ var EstrategiaAgregarModule = (function () {
 
     var elementosDiv = {
         divMensajeBloqueada: "#divMensajeBloqueada",
-        divHVMensajeBloqueada: "#divHVMensajeBloqueada",
+        //divHVMensajeBloqueada: "#divHVMensajeBloqueada",
         divVistaPrevia: "#divVistaPrevia",
         hdErrorInsertarProducto: "#hdErrorInsertarProducto",
         hdCampaniaCodigo: "#hdCampaniaCodigo",
@@ -294,6 +294,7 @@ var EstrategiaAgregarModule = (function () {
             // ClienteID_:
         };
         console.log('estrategiaAgregar', params);
+        console.log('EstrategiaAgregar.js - estrategiaAgregar - ajax ante ActualizarGanancia - EstrategiaAgregarProvider', params);
         EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function(data) {
             if (!checkTimeout(data)) {
                 CerrarLoad();
@@ -333,8 +334,10 @@ var EstrategiaAgregarModule = (function () {
             }
 
             if (isMobile()) {
+                console.log('EstrategiaAgregar.js - estrategiaAgregar - ante ActualizarGanancia', data.DataBarra);
                 ActualizarGanancia(data.DataBarra);
                 //if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.ShowRoom)
+                console.log('EstrategiaAgregar.js - EstrategiaAgregarProvider - ante CargarCantidadProductosPedidos');
                 CargarCantidadProductosPedidos(true);
                 microefectoPedidoGuardado();
             } else {
