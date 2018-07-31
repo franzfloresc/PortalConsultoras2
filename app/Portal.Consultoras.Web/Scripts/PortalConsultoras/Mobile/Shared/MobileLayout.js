@@ -815,7 +815,7 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
     noMostrarEfecto = noMostrarEfecto || false;
     var montoWebAcumulado = "";
 
-    console.log('MobileLayout.js - ajax ante num-menu-shop', urlGetCantidadProductos, { soloCantidad: true );
+    console.log('MobileLayout.js - ajax ante num-menu-shop', urlGetCantidadProductos, { soloCantidad: true });
 
     jQuery.ajax({
         type: 'POST',
