@@ -285,14 +285,5 @@ namespace Portal.Consultoras.Web.Providers
             var t2 = (d2 - hoy);
             return t2;
         }
-
-        private static string ObtenerUrlImagenOfertaDelDia(string codigoIso, int cantidadOfertas)
-        {
-            var imgSh = string.Format(ConfigurationManager.AppSettings.Get("UrlImgSoloHoyODD"), codigoIso);
-            var exte = imgSh.Split('.')[imgSh.Split('.').Length - 1];
-            imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
-            return imgSh;
-        }
-
     }
 }
