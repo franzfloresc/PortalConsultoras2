@@ -195,11 +195,6 @@ namespace Portal.Consultoras.Common
             public const int Reactivada = 8;
         }
 
-        public static class ConsecutivoNuevaConsultora
-        {
-            public const int Consecutivo3 = 2;
-        }
-
         public static class TipoEstrategia
         {
             public const int CrossSelling = 1;
@@ -232,8 +227,6 @@ namespace Portal.Consultoras.Common
             public const string Incentivos = "022";
             public const string ShowRoom = "030";
             public const string HerramientasVenta = "011";
-            public const string ProgramaNuevasRegalo = "044";
-            public const string ParticipaProgramaNuevas = "1";
             public const string NotParticipaProgramaNuevas = "0";
         }
 
@@ -263,7 +256,6 @@ namespace Portal.Consultoras.Common
             public const string IngresoPortalConsultoras = "IngresoPortalConsultoras";
             public const string ListaEscalaDescuento = "ListaEscalaDescuento";
             public const string ClientesByConsultora = "ClientesByConsultora";
-            public const string TippingPoint = "TippingPoint";
             public const string TippingPoint_MontoVentaExigido = "TippingPoint_MontoVentaExigido";
             public const string MensajeMetaConsultora = "MensajeMetaConsultora";
             public const string ActualizarDatosConsultora = "ActualizarDatosConsultora";
@@ -1195,6 +1187,7 @@ namespace Portal.Consultoras.Common
             public const string Reserva_Prol2 = "Reserva_Prol2: El servicio externo de reserva de Prol2 retornó vacio.";
             public const string Reserva_Prol3 = "Reserva_Prol3: El servicio externo de reserva de Sicc retornó vacio o error.";
             public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
+            public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";            
         }
 
         public static class MensajesExito
@@ -2073,7 +2066,7 @@ namespace Portal.Consultoras.Common
 
                         {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, string.Empty},
                         {Code.ERROR_STOCK_ESTRATEGIA, string.Empty},
-                        {Code.ERROR_KIT_INICIO, "Ocurrió un error al ejecutar la operación."},
+                        {Code.ERROR_KIT_INICIO, Constantes.MensajesError.InsertarValidarKitInicio },
                         {Code.ERROR_GRABAR, "Ocurrió un error al insertar el pedido."},
                         {Code.ERROR_VALIDA_DATOS , string.Empty },
                         {Code.ERROR_ACTUALIZAR, "Ocurrió un error al actualizar el pedido." },

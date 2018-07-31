@@ -705,6 +705,7 @@
       <xs:element minOccurs="0" name="EsExpoOferta" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstaEnRevista" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="FlagNueva" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenOferta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
@@ -1163,15 +1164,10 @@
   <xs:complexType name="BEConfiguracionProgramaNuevas">
     <xs:sequence>
       <xs:element minOccurs="0" name="CUVKit" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaFin" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaInicio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CuponKit" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndExigVent" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndProgObli" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MontoVentaExigido" type="xs:decimal" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEConfiguracionProgramaNuevas" nillable="true" type="tns:BEConfiguracionProgramaNuevas" />
