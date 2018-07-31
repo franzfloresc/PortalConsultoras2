@@ -1,0 +1,9 @@
+﻿<script id="opciones-elegidas-template" type="text/x-handlebars-template">
+    {{#each this.Hermanos as |componente|}}
+    <ul class="tonos_seleccionados_item" data-tono="" data-tono-select="{{componente.Cuv}}" data-tono-marca-id="{{componente.MarcaID}}" data-tono-precio-catalogo="{{componente.PrecioCatalogo}}">
+        <li class="imagen_seleccionado"><img src="{{componente.ImagenBulk}}" alt="" /></li>
+        <li class="titulo_selecionado">{{componente.NombreBulk}}</li>
+    </ul>
+    {{/each}}
+    <a class="btn_cambiar_opciones" href="#">Cambiar opciones <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="" /></a>
+</script>

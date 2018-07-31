@@ -1,0 +1,10 @@
+﻿<script id="titulo-opciones-seleccionadas-template" type="text/x-handlebars-template">
+    {{#iff this.FactorCuadre '==' '1'}}
+    <div>Elige 1 opción</div>
+    {{else}}
+    <div>Elige {{this.FactorCuadre}} opción</div>
+    {{/iff}}
+    <div>¡listo! <span>ya tienes tu</span> opción</div>
+    <p>0 seleccionados</p>
+    <button class="button_cerrar"><img src="/Content/Images/mobile/Esika/close-button.svg" alt=""></button>
+</script>

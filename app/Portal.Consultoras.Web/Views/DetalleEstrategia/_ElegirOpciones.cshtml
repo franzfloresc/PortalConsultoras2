@@ -1,0 +1,25 @@
+﻿
+<section id="elegir-opciones-modal" style="display: none; margin-right: -320px; opacity: 0;" class="contenedor_seleccion">
+    <div>
+        <div class="header_fixed">
+            <div class="seleccion_header">
+                <div id="titulo-opciones-seleccionadas"></div>
+            </div>
+            <div class="contenedor_selecionados">
+                <div class="selecionados_carrosel" id="opciones-seleccionadas">
+                </div>
+            </div>
+        </div>
+        <div class="seleccion_main list_style_none" id="lista-opciones">
+
+        </div>
+        <div class="aplicar_seleccion">
+            <button class="disabled">APLICAR SELECCIÓN</button>
+        </div>
+    </div>
+</section>
+<div style="display: none" class="modal-fondo"></div>
+
+@Html.Partial("ListaOpcionesTemplate")
+@Html.Partial("OpcionesSeleccionadasTemplate")
+@Html.Partial("TituloOpcionesSeleccionadasTemplate")

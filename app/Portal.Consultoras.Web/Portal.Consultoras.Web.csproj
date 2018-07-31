@@ -5220,6 +5220,12 @@
     <Content Include="Views\MisCertificados\PR_PazYSalvoPdf.cshtml" />
     <Content Include="Views\MisCertificados\PR_ComercialPdf.cshtml" />
     <Content Include="Views\DetalleEstrategia\SeleccionarTipos.cshtml" />
+    <Content Include="Views\DetalleEstrategia\_ElegirOpciones.cshtml" />
+    <Content Include="Views\DetalleEstrategia\ComponentesTemplate.cshtml" />
+    <Content Include="Views\DetalleEstrategia\ListaOpcionesTemplate.cshtml" />
+    <Content Include="Views\DetalleEstrategia\OpcionesElegidasTemplate.cshtml" />
+    <Content Include="Views\DetalleEstrategia\OpcionesSeleccionadasTemplate.cshtml" />
+    <Content Include="Views\DetalleEstrategia\TituloOpcionesSeleccionadasTemplate.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
