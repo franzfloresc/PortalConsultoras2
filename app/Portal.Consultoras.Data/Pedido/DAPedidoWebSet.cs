@@ -56,6 +56,8 @@ namespace Portal.Consultoras.Data.Pedido
                 var reader = Context.ExecuteReader(command);
 
                 var data = reader.RecordsAffected;
+
+                reader.Close();
                 return data;
             }
         }
