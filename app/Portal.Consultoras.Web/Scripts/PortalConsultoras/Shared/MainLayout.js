@@ -1021,27 +1021,34 @@ function agregarProductoAlCarrito(o) {
             }
         });
 
-        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+        var urlSrc = $.trim(imagenProducto.attr("src"));
 
-        $(".transicion").css({
-            'height': imagenProducto.css("height"),
-            'width': imagenProducto.css("width"),
-            'top': imagenProducto.offset().top,
-            'left': imagenProducto.offset().left
-        }).animate({
-            'top': carrito.offset().top,
-            'left': carrito.offset().left,
-            'height': carrito.css("height"),
-            'width': carrito.css("width"),
-            'opacity': 0.5
-        }, 450, 'swing', function () {
-            $(this).animate({
+        if (urlSrc != "") {
+
+            $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+            $(".transicion").css({
+                'height': imagenProducto.css("height"),
+                'width': imagenProducto.css("width"),
+                'top': imagenProducto.offset().top,
+                'left': imagenProducto.offset().left
+            }).animate({
                 'top': carrito.offset().top,
-                'opacity': 0
-            }, 150, 'swing', function () {
-                $(this).remove();
+                'left': carrito.offset().left,
+                'height': carrito.css("height"),
+                'width': carrito.css("width"),
+                'opacity': 0.5
+            }, 450, 'swing', function () {
+                $(this).animate({
+                    'top': carrito.offset().top,
+                    'opacity': 0
+                }, 150, 'swing', function () {
+                    $(this).remove();
+                });
             });
-        });
+
+        }
+
     }
 }
 
