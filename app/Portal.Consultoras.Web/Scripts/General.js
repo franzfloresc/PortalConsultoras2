@@ -312,6 +312,19 @@ jQuery(document).ready(function () {
                 return new Handlebars.SafeString(cadena);
             });
 
+            Handlebars.registerHelper('Substr', function (length, cadena) {
+                cadena = cadena || "";
+                cadena = $.trim(cadena);
+
+                if (cadena.length > length) {
+                    cadena = cadena.substring(0, length) + "...";
+                } else {
+                    cadena = cadena;
+                }
+
+                return new Handlebars.SafeString(cadena);
+            });
+
             Handlebars.registerHelper('JSON2string', function (context) {
                 return JSON.stringify(context);
             });
