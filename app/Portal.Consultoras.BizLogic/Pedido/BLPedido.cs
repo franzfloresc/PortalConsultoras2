@@ -443,10 +443,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     lstDetalleApp.Add(pedidoDetalle);
                 }
 
-
                 //Validar stock
                 var result = ValidarStockEstrategia(usuario, pedidoDetalle, lstDetalle, out mensaje);
-
                 if (!result) return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_STOCK_ESTRATEGIA, mensaje);
 
                 //accion actualizar
@@ -455,7 +453,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var accionActualizar = PedidoActualizar(usuario, detalle, lstDetalle);
                     if (accionActualizar != Constantes.PedidoAppValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(accionActualizar);
                 }
-
 
                 if (pedidoDetalle.SetID > 0)
                 {
@@ -471,7 +468,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
 
                 UpdateProl(usuario, lstDetalle);
-
 
                 return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.SUCCESS);
             }
@@ -538,9 +534,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
                 else
                 {
+                    var pedidoExiste = lstDetalle.Where(x => x.ClienteID == pedidoDetalle.ClienteID && x.CUV == pedidoDetalle.Producto.CUV).FirstOrDefault();
+                    pedidoDetalle.PedidoDetalleID = pedidoExiste == null ? (short)0 : pedidoExiste.PedidoDetalleID;
+
                     if (pedidoDetalle.SetID > 0)
                     {
                         var set = _pedidoWebSetBusinessLogic.Obtener(usuario.PaisID, pedidoDetalle.SetID);
+                        if(set == null) return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_SET_NOENCONTRADO);
+
                         var detallePedido = _pedidoWebDetalleBusinessLogic.GetPedidoWebSetDetalle(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
 
                         foreach (var detalle in set.Detalles)
@@ -594,7 +595,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Actualizar Prol
                 if (pedidoDetalle.Producto != null)
                 {
-                    var item = lstDetalle.FirstOrDefault(x => x.PedidoDetalleID == pedidoDetalle.PedidoDetalleID);
+                    var item = lstDetalle.FirstOrDefault(x => x.ClienteID == pedidoDetalle.ClienteID && x.CUV == pedidoDetalle.Producto.CUV);
                     if (item != null) lstDetalle.Remove(item);
                 }
                 else
