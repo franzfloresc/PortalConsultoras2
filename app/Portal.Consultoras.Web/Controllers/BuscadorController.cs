@@ -37,16 +37,25 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in resultBuscador)
                     {
-                        item.Imagen = ConfigCdn.GetUrlFileCdn(carpetapais, item.Imagen);
+                        if (string.IsNullOrWhiteSpace(item.Imagen))
+                        {
+                            item.Imagen = "../../Content/Images/imagen_prod_no_disponible.png";
+                        }
+                        else
+                        {
+                            item.Imagen = ConfigCdn.GetUrlFileCdn(carpetapais, item.Imagen);
+                        }
+                        item.Valorizado = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo);
+                        item.Precio = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo);
                     }
                 }
 
-                return Json(new { Success = true, Productos = resultBuscador, Message = ""});
+                return Json(new { Success = true, Productos = resultBuscador, Message = "" });
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new { Error = true, Message = "Hubo un error al obtener los productos."});
+                return Json(new { Error = true, Message = "Hubo un error al obtener los productos." });
             }
         }
 

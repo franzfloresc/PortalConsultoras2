@@ -7210,13 +7210,13 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int LimiteVentaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private double PrecioField;
+        private string PrecioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SAPField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private double ValorizadoField;
+        private string ValorizadoField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -7320,12 +7320,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public double Precio {
+        public string Precio {
             get {
                 return this.PrecioField;
             }
             set {
-                if ((this.PrecioField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.PrecioField, value) != true)) {
                     this.PrecioField = value;
                     this.RaisePropertyChanged("Precio");
                 }
@@ -7346,12 +7346,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public double Valorizado {
+        public string Valorizado {
             get {
                 return this.ValorizadoField;
             }
             set {
-                if ((this.ValorizadoField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.ValorizadoField, value) != true)) {
                     this.ValorizadoField = value;
                     this.RaisePropertyChanged("Valorizado");
                 }
