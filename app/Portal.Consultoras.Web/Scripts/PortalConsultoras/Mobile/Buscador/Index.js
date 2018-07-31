@@ -45,7 +45,7 @@ $(document).ready(function () {
                 e.preventDefault();
                 me.Funciones.CampoDeBusquedaMobileSinCaracteres($('.opcion_limpiar_campo_busqueda_productos'));
                 $('#CampoBuscadorProductosMobile').val('');
-                $('#CampoBuscadorProductosMobile').trigger('focus');
+                $('#CampoBuscadorProductosMobile').focus();
             }
 
 

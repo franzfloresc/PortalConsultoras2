@@ -170,7 +170,7 @@
 .resultados_wrapper{
     margin-top: 17px;
     width: 99%;
-    height: 408px;
+    max-height: 408px;
     overflow: auto;
 }
 
@@ -202,16 +202,17 @@
 .resultado_busqueda_producto{
     padding: 11px 12px 15px 5px;
     border-bottom:1px solid #b0b0b0;
+    cursor:pointer;
 }
 
-.resultado_busqueda_producto:first-child{
-    padding-top:0;
-}
+    .resultado_busqueda_producto:first-child{
+        padding-top:0;
+    }
 
-.resultado_busqueda_producto:last-child{
-    padding-bottom:18px;
-    border-bottom:none;
-}
+    .resultado_busqueda_producto:last-child{
+        padding-bottom:18px;
+        border-bottom:none;
+    }
 
 .resultado_busqueda_img_prod{
     width: 177.78px;

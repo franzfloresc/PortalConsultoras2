@@ -84,7 +84,7 @@ $(document).ready(function () {
                 e.preventDefault();
                 me.Funciones.CampoDeBusquedaSinCaracteres($('#CampoBuscadorProductos'));
                 $('#CampoBuscadorProductos').val('');
-                $('#CampoBuscadorProductos').trigger('focus');
+                $('#CampoBuscadorProductos').focus();
             }
         },
         me.Inicializar = function () {
