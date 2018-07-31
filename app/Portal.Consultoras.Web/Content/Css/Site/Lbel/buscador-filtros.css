@@ -167,6 +167,18 @@
     right: 13px;
 }
 
+.resultados_wrapper{
+    margin-top: 17px;
+    width: 99%;
+    height: 400px;
+    overflow: auto;
+}
+
+    .resultados_wrapper::-webkit-scrollbar-track {
+        background-color:rgb(226,226,226);
+        border-radius: 4px;
+    }
+
 .lista_resultados_busqueda_productos {
     display:none;
     position: absolute;
@@ -174,6 +186,8 @@
     right: -2px;
     width: 737px;
     height:auto;
+    padding-bottom:14px;
+    overflow:hidden;
     background-color: #FFF;
     border: 1px solid #E1E1E1;
     border-top-left-radius: 4px;
@@ -186,8 +200,12 @@
 }
 
 .resultado_busqueda_producto{
-    padding: 11px 12px 11px 5px;
+    padding: 11px 12px 15px 5px;
     border-bottom:1px solid #b0b0b0;
+}
+
+.resultado_busqueda_producto:first-child{
+    padding-top:0;
 }
 
 .resultado_busqueda_producto:last-child{
