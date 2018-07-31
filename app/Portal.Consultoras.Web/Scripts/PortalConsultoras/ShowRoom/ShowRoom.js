@@ -520,7 +520,8 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
 
 function AgregarProductoAlCarrito(padre) {
     
-    
+    console.log('ShowRoom.js - agregarProductoAlCarrito', padre);
+
     if ($.trim(tipoOrigenPantalla)[0] == '1') {
         var contenedorImagen = $(padre).find("[data-img]");
         var imagenProducto = $('.imagen_producto', contenedorImagen);

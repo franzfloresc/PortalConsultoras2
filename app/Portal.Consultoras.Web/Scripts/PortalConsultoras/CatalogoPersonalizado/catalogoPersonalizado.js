@@ -862,6 +862,7 @@ function AgregarProductoOfertaRevista(btn) {
 }
 
 function agregarProductoAlCarrito(o) {
+    console.log('CatalogoPersonalizado.js - agregarProductoAlCarrito', o);
     var btnClickeado = $(o);
     var contenedorItem = btnClickeado.parent().parent();
     var imagenProducto = $('.imagen_producto', contenedorItem);

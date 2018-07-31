@@ -1005,6 +1005,7 @@ function animacionFlechaScroll() {
 }
 
 function agregarProductoAlCarrito(o) {
+    console.log('MainLayout.js - agregarProductoAlCarrito', o);
     var btnClickeado = $(o);
     var contenedorItem = btnClickeado.parent().parent();
     var imagenProducto = $('.imagen_producto', contenedorItem);

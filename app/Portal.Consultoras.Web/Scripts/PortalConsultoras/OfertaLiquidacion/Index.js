@@ -647,6 +647,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
 }
 
 function agregarProductoAlCarrito(o) {
+    console.log('OfertaLiquidacion index.js - agregarProductoAlCarrito', o);
     var btnClickeado = $(o);
     var contenedorItem = btnClickeado.parent();
     var imagenProducto = $('.imagen_producto', contenedorItem);
