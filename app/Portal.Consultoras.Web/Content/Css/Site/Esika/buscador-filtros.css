@@ -214,6 +214,10 @@
         margin: auto;
     }
 
+    .resultado_busqueda_img_prod .imagen_no_disponible{
+        left: -11px;
+    }
+
 .resultado_busqueda_descrip_prod,
 .resultado_busqueda_cantidad_prod
 {
