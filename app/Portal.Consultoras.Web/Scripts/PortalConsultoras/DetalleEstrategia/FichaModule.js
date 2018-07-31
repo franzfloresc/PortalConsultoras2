@@ -76,7 +76,8 @@ var FichaModule = (function (config) {
         Contenedor_redes_sociales: "#Contenedor_redes_sociales",
         //EtiquetaPackNuevas: "#EtiquetaPackNuevas"
         //SloganPackNuevas: "#SloganPackNuevas",
-        ImagenProducto: "#FichaImagenProducto"
+        ImagenProducto: "#FichaImagenProducto",
+        dvContenedorAgregar: "#dvContenedorAgregar"
     };
 
     var _tabsFichaProducto = {
@@ -86,6 +87,14 @@ var FichaModule = (function (config) {
         beneficios: "#div_ficha_tab4",
         video: "#div_ficha_tab5"
     };
+
+    var _seccionesFichaTabProducto = {
+        ContenidoProductoDetalleProducto: "#contenido_1",
+        ContenidoProductoDetallePack: "#contenido_2",
+        ContenidoProductoTipsVenta: "#contenido_3",
+        ContenidoProductoBeneficios: "#contenido_4",
+        ContenidoProductoVideo: "#contenido_5"
+    }
 
     var _getParamValueFromQueryString = function (queryStringName) {
         queryStringName = queryStringName || "";
@@ -429,6 +438,9 @@ var FichaModule = (function (config) {
             }
 
             $(_elementos.estrategiaBreadcrumb).text(estrategiaBreadcrumb);
+        }
+        if (estrategia.TipoAccionAgregar <= 0) {
+            $(_seccionesFichaProducto.dvContenedorAgregar).hide();
         }
     };
 

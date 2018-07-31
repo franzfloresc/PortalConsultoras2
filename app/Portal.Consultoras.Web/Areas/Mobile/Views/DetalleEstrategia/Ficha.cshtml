@@ -134,7 +134,7 @@
 
     @if (ViewBag.CampaniaCodigo == Model.Campania)
     {
-        <div class="content_btn_agregar">
+        <div id="dvContenedorAgregar" class="content_btn_agregar">
             <div class="content_320">
                 <div data-selecciontono="tooltip" class="popover top tooltip_agregar_desabilitado" role="tooltip" id="" style="display: none;">
                     <div class="arrow" style="left: 75%;"></div>
@@ -243,11 +243,6 @@
         </div>
     </div>
 }
-else
-{
-    <div class="share"></div>
-}
-
 
 <!--compartir-->
 @if (!mobileConfiguracion.EsAppMobile)
@@ -283,7 +278,16 @@ else
             </div>
         </div>
     }
+    else
+    {
+	    <div class="share"></div>
+    }
 }
+else
+{
+	<div class="share"></div>
+}
+
 
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
 @Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")

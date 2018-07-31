@@ -8,6 +8,8 @@
     @System.Web.Optimization.Styles.Render("~/bundles/desktop/css/ficha")
 }
 
+@Html.Partial("SeleccionarTipos")
+
 <div id="ImagenDeFondo" class="imagen_fondo_detalle" style="display:none;"></div>
 <div class="contenedor_detalle texto_font">
     <div class="contenedor_fichas">
@@ -76,7 +78,7 @@
                 <!--fin compartir-->
             </div>
             <div class="ficha_detalle">
-                <div id="contenedor_ficha_etiquetas" class="contenedor_ficha_etiquetas">
+                <div id="contenedor_ficha_etiquetas" class="contenedor_ficha_etiquetas contenedor_ficha_etiquetas_Confondo">
                     {{#if TieneReloj}}
                     <div id="EtiquetaOdd" class="contenedor_etiqueta_odd">
                         <div id="clock" class="clock_odd"></div>
@@ -128,8 +130,8 @@
                                 </li>
                             </ul>
                             @*<span class="subprecio">x1 s/.32</span>
-                            <span class="subprecio">x2 s/.64</span>
-                            <span class="subprecio">x3 s/.128</span>*@
+                                <span class="subprecio">x2 s/.64</span>
+                                <span class="subprecio">x3 s/.128</span>*@
                             {{#iff Ganancia '>' 0}}
                             <div class="ganancia">GANA <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span></div>
                             {{/iff}}
@@ -158,7 +160,7 @@
                     </div>
 
                 </div>
-                <div class="contenedor_agregar">
+                <div id="dvContenedorAgregar" class="contenedor_agregar">
                     <div class="contenedor_rangos {{ClaseBloqueadaRangos}}" id="idcontenedor_rangos" data-cantidad-contenedor="">
                         <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" {{RangoInputEnabled}} type="text" value="1" size="2" maxlength="2" data-input="cantidad" data-cantidad-input="-">
                         <div>
@@ -508,6 +510,26 @@
         });
     
     
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#call").on("click", function () {
+                $('body').addClass("modal_activado"); 
+                $('.modal-fondo').css('opacity', '.7');
+                $('.modal-fondo').show();
+                $('.contenedor_seleccion').show();
+                $('.contenedor_seleccion').css('margin-right', '0');
+                $('.contenedor_seleccion').css('opacity', '1');
+            });
+
+            $(".button_cerrar").on("click", function () {
+                $('.contenedor_seleccion').css('margin-right', '-320px');
+                $('.contenedor_seleccion').css('opacity', '0');
+                $('.modal-fondo').css('opacity', '0');
+                $('.modal-fondo').hide();
+                $('body').removeClass("modal_activado"); 
+            });
+        });
     </script>
 
 
