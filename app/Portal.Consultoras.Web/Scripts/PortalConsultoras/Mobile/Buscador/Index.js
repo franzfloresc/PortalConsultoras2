@@ -18,10 +18,13 @@ $(document).ready(function () {
             AccionesCampoBusquedaMobileAlDigitar: function () {
                 var cantidadCaracteresParaMostrarSugerenciasBusquedaMobile = $(this).val().length;
                 if (cantidadCaracteresParaMostrarSugerenciasBusquedaMobile > 0) {
+                    $('.vistaResultadosBusquedaMobile').delay(50);
+                    $('.vistaResultadosBusquedaMobile').fadeIn(100);
                     $('.enlace_busqueda_filtros').fadeOut(100);
                     $('.opcion_limpiar_campo_busqueda_productos').delay(50);
                     $('.opcion_limpiar_campo_busqueda_productos').fadeIn(100);
                 } else {
+                    $('.vistaResultadosBusquedaMobile').fadeOut(100);
                     $('.opcion_limpiar_campo_busqueda_productos').fadeOut(100);
                     $('.enlace_busqueda_filtros').delay(50);
                     $('.enlace_busqueda_filtros').fadeIn(100);
