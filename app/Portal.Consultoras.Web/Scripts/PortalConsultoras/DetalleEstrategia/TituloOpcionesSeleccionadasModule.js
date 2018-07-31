@@ -20,8 +20,7 @@ var TituloOpcionesSeleccionadasModule = (function () {
     var _estrategia = {};
     var _inicializar = function (model) {
         _estrategia = model || _estrategia;
-        console.log("TituloOpcionesSeleccionadasModule");
-        console.log(_estrategia);
+        SetHandlebars("#titulo-opciones-seleccionadas-template", _estrategia, "#titulo-opciones-seleccionadas");
     };
     return {
         Inicializar: _inicializar

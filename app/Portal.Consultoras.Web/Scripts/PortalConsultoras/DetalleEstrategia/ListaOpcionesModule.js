@@ -18,7 +18,8 @@ registerEvent.call(opcionesEvents, "onComponentSelected");
 var ListaOpcionesModule = (function () {
     var _estrategia = {};
     var _cargarOpciones = function (componente) {
-        SetHandlebars("#lista-opciones-template", componente, "#lista-opciones");
+        _estrategia = model || _estrategia;
+        SetHandlebars("#lista-opciones-template", _estrategia, "#lista-opciones");
     }
     return {
         CargarOpciones: _cargarOpciones
