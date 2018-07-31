@@ -227,12 +227,13 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetPedidoValidado();
 
-        EstrategiaPersonalizadaProductoModel ProductoTemporal { get; set; }
-
         void setBEUsuarioModel (List<ServiceUsuario.BEUsuario> model);
 
         List<ServiceUsuario.BEUsuario> getBEUsuarioModel();
 
         IOfertaDelDia OfertaDelDia { get; }
+        BEConfiguracionProgramaNuevas ConfiguracionProgramaNuevas { get; set; }
+        bool ProcesoKitNuevas { get; set; }
+        string CuvKitNuevas { get; set; }
     }
 }

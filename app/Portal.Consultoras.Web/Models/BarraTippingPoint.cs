@@ -43,7 +43,5 @@ namespace Portal.Consultoras.Web.Models
             this.ActiveMonto = false;
             this.Active = false;
         }
-
-
     }
 }
