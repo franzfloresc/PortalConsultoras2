@@ -254,6 +254,9 @@
     font-size:14px;
     letter-spacing:0.2px;
     margin-bottom:-3px;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
 }
 
 .resultado_busqueda_precio_normal,
