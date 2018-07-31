@@ -4403,7 +4403,7 @@ namespace Portal.Consultoras.Web.Controllers
             using (var pedidoServiceClient = new PedidoServiceClient())
             {
                 pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, cantidad, cuv
-                    , userData.ConsultoraID, "", formatoPedidoWebSet, estrategiaId);
+                    , userData.ConsultoraID, "", formatoPedidoWebSet, estrategiaId, userData.NombreConsultora, userData.CodigoPrograma, userData.ConsecutivoNueva);
             }
 
             //sessionManager.SetDetallesPedidoSetAgrupado(null);
