@@ -3,7 +3,7 @@
 
     var pedidoAgregarProductoPromise = function (params) {
         var dfd = jQuery.Deferred();
-        console.log('CatalogoPersonalizado.js - pedidoAgregarProductoPromise - ajax ante CargarCantidadProductosPedidos', "Pedido/PedidoAgregarProducto", params);
+        console.log('EstrategiaAgregarProvider.js - pedidoAgregarProductoPromise - ajax ante CargarCantidadProductosPedidos', "Pedido/PedidoAgregarProducto", params);
         jQuery.ajax({
             type: "POST",
             url: baseUrl + "Pedido/PedidoAgregarProducto",

@@ -257,7 +257,9 @@ var EstrategiaAgregarModule = (function () {
         var itemClone = estrategiaObtenerObjHtmlLanding($btnAgregar);
         if (isPagina("ofertas") && !isMobile()) {
             var estratediaId = itemClone.data("item");
-            itemClone = itemClone.parent().find("[data-item=" + estratediaId + "]");
+            if (estratediaId != "") {
+                itemClone = itemClone.parent().find("[data-item=" + estratediaId + "]");
+            }
         }
         var divAgregado = $(itemClone).find(".agregado.product-add");
 
@@ -358,8 +360,10 @@ var EstrategiaAgregarModule = (function () {
                 //if (typeof ActualizarGanancia != constantes.undefined())
                 //    ActualizarGanancia(data.DataBarra);
 
-                if (typeof CargarCarouselEstrategias != constantes.undefined())
-                    CargarCarouselEstrategias();
+                if (estrategia.CodigoEstrategia != ConstantesModule.ConstantesPalanca.PackNuevas) {
+                    if (typeof CargarCarouselEstrategias != constantes.undefined())
+                        CargarCarouselEstrategias();
+                }
 
                 if (typeof tieneMasVendidos != constantes.undefined()) {
                     if (tieneMasVendidos === 1) {
@@ -372,8 +376,10 @@ var EstrategiaAgregarModule = (function () {
                 $(elementosDiv.hdErrorInsertarProducto).val(data.errorInsertarProducto);
 
 
-                cierreCarouselEstrategias();
-                CargarCarouselEstrategias();
+                cierreCarouselEstrategias
+                if (estrategia.CodigoEstrategia != ConstantesModule.ConstantesPalanca.PackNuevas) {
+                    CargarCarouselEstrategias();
+                }
                 HideDialog(elementosDiv.divVistaPrevia.substring(1));
 
                 //tieneMicroefecto = true;
@@ -397,7 +403,9 @@ var EstrategiaAgregarModule = (function () {
 
                     }
                 } else if (tipoOrigenEstrategiaAux != 272) {
-                    CargarCarouselEstrategias();
+                    if (estrategia.CodigoEstrategia != ConstantesModule.ConstantesPalanca.PackNuevas) {
+                        CargarCarouselEstrategias();
+                    }
 
                     if (tieneMasVendidos === 1) {
                         CargarCarouselMasVendidos("mobile");
