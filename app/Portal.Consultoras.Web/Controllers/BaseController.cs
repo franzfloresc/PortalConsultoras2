@@ -609,12 +609,15 @@ namespace Portal.Consultoras.Web.Controllers
                 return userData.MenuMobile;
             }
 
-            //userData.ConsultoraOnlineMenuResumen = new ConsultoraOnlineMenuResumenModel();
 
             bool tieneTituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI)
                 || (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
 
             userData = _menuProvider.GetMenuMobileModel(userData, revistaDigital, Request, tieneTituloCatalogo);
+
+            //userData.ConsultoraOnlineMenuResumen = new ConsultoraOnlineMenuResumenModel();
+
+            //var lstMenuMobileModel = GetMenuMobileModel(userData.PaisID);
 
             //if ((userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) &&
             //    lstMenuMobileModel.Any(p => p.UrlItem.ToLower() == "mobile/catalogopersonalizado/index"))
@@ -708,14 +711,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             //    if (menu.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
             //    {
-            //        menu.UrlImagen = _menuProvider.GetUrlImagenMenuOfertas(userData, revistaDigital);
+            //        menu.UrlImagen = GetUrlImagenMenuOfertas(userData, revistaDigital);
             //    }
 
             //    listadoMenuFinal.Add(menu);
             //}
 
             //var lstModel = listadoMenuFinal.Where(item => item.MenuPadreID == 0).OrderBy(item => item.OrdenItem).ToList();
-
             //foreach (var item in lstModel)
             //{
             //    var subItems = listadoMenuFinal.Where(p => p.MenuPadreID == item.MenuMobileID).OrderBy(p => p.OrdenItem);
@@ -747,8 +749,6 @@ namespace Portal.Consultoras.Web.Controllers
             //        lstModel = lstModel.OrderBy(p => p.OrdenItem).ToList();
             //    }
             //}
-            
-            //userData.MenuMobile = lstModel;
 
             SetConsultoraOnlineViewBag(userData);
             return userData.MenuMobile; // lstModel;
