@@ -999,7 +999,7 @@ namespace Portal.Consultoras.Web.Controllers
             return new Converter<decimal, string>(p => p.ToString("n2", new System.Globalization.CultureInfo("es-PE")));
         }
 
-        private BarraTippingPoint GetTippingPoint(string TippingPointStr)
+        private BarraTippingPoint GetTippingPoint(string TippingPointStr, string codigoPrograma)
         {
             string nivel = Convert.ToString(userData.ConsecutivoNueva + 1).PadLeft(2, '0');
             try
@@ -1009,10 +1009,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var sv = new PedidoServiceClient())
                 {
-                    beActive = sv.GetActivarPremioNuevas(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);
+                    beActive = sv.GetActivarPremioNuevas(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);
                     if (beActive == null || !beActive.ActiveTooltip) return new BarraTippingPoint();
 
-                    estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID, Constantes.TipoEstrategiaCodigo.ProgramaNuevasRegalo, userData.CampaniaID, nivel);                    
+                    estrategia = sv.GetEstrategiaPremiosTippingPoint(userData.PaisID, codigoPrograma, userData.CampaniaID, nivel);                    
                 }
                 if (estrategia == null) return new BarraTippingPoint();
 
@@ -1077,7 +1077,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         objR.TippingPoint = tippingPoint.MontoVentaExigido;
                         objR.TippingPointStr = Util.DecimalToStringFormat(objR.TippingPoint, userData.CodigoISO);
-                        if (objR.TippingPoint > 0) objR.TippingPointBarra = GetTippingPoint(objR.TippingPointStr);
+                        if (objR.TippingPoint > 0) objR.TippingPointBarra = GetTippingPoint(objR.TippingPointStr, tippingPoint.CodigoPrograma);
                     }
                 }
 

@@ -227,7 +227,6 @@ namespace Portal.Consultoras.Common
             public const string Incentivos = "022";
             public const string ShowRoom = "030";
             public const string HerramientasVenta = "011";
-            public const string ProgramaNuevasRegalo = "044";
             public const string NotParticipaProgramaNuevas = "0";
         }
 
