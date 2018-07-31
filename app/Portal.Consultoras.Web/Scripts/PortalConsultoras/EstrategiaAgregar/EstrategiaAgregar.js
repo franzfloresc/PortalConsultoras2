@@ -360,7 +360,7 @@ var EstrategiaAgregarModule = (function () {
                 //if (typeof ActualizarGanancia != constantes.undefined())
                 //    ActualizarGanancia(data.DataBarra);
 
-                if (estrategia.CodigoEstrategia != ConstantesModule.ConstantesPalanca.PackNuevas) {
+                if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
                     if (typeof CargarCarouselEstrategias != constantes.undefined())
                         CargarCarouselEstrategias();
                 }
@@ -377,7 +377,7 @@ var EstrategiaAgregarModule = (function () {
 
 
                 cierreCarouselEstrategias
-                if (estrategia.CodigoEstrategia != ConstantesModule.ConstantesPalanca.PackNuevas) {
+                if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
                     CargarCarouselEstrategias();
                 }
                 HideDialog(elementosDiv.divVistaPrevia.substring(1));
@@ -403,7 +403,7 @@ var EstrategiaAgregarModule = (function () {
 
                     }
                 } else if (tipoOrigenEstrategiaAux != 272) {
-                    if (estrategia.CodigoEstrategia != ConstantesModule.ConstantesPalanca.PackNuevas) {
+                    if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
                         CargarCarouselEstrategias();
                     }
 
