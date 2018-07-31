@@ -144,30 +144,6 @@ var FichaModule = (function (config) {
         }
     });
 
-    //// Método que realiza la marcación en analytics de tonos en el combo de seleccion de tonos.
-    //var _marcarCambiaColorCombo = function () {
-    //    var producto = _descripcionProducto;
-    //    var contenedorTonos = $(".content_tonos_select").children(".content_tono_elegido");
-    //    $(contenedorTonos).each(function (index, element) {
-    //        $(this).click(function () {
-    //            var tono = $(this).attr("data-tono-nombre");
-    //            AnalyticsPortalModule.MarcarCambiaColorCombo(producto, tono);
-    //        });
-    //    });
-    //}
-
-    //// Método que realiza la marcación en analytics de tonos en el cuadrado de seleccion de tonos.
-    //var _marcarCambiaColorCuadro = function () {
-    //    var producto = _descripcionProducto;
-    //    var contenedorTonos = $(".content_tonos_maquillaje").children(".content_tono_detalle");
-    //    $(contenedorTonos).each(function (index, element) {
-    //        $(this).click(function () {
-    //            var tono = $(this).attr("data-tono-nombre");
-    //            AnalyticsPortalModule.MarcarCambiaColorCuadro(producto, tono);
-    //        });
-    //    });
-    //}
-
     var _seccionesFichaTabProducto = {
         ContenidoProductoDetalleProducto: "#contenido_1",
         ContenidoProductoDetallePack: "#contenido_2",
