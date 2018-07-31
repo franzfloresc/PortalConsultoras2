@@ -6,7 +6,11 @@
             <img src="/Content/Images/mobile/Esika/close-button-white.svg" alt="">
         </button>
         <img class="item_selecionado_img" src="{{componente.ImagenBulk}}" alt="">
-        <span>{{componente.NombreBulk}}</span>
+        <span>
+            {{#IsNullOrEmpty componente.NombreBulk '!='}}
+            {{#Substr 7  componente.NombreBulk}}{{/Substr}}
+            {{/IsNullOrEmpty}}
+        </span>
     </div>
     {{/each}}
 </script>

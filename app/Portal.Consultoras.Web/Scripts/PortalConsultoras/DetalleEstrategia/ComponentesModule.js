@@ -16,28 +16,32 @@
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onEstrategiaLoaded");
 registerEvent.call(opcionesEvents, "onComponentSelected");
+
 var ComponentesModule = (function () {
     var _estrategia = {};
 
     var _cargarComponentesEstrategia = function (estrategia) {
-        _estrategia = estrategia || _estrategia;
+        if (typeof estrategia === "undefined" ||
+            estrategia === null) throw "param estrategia is not defined or null";
+
+        _estrategia = estrategia;
         SetHandlebars("#componentes-template", _estrategia, "#componentes");
     };
 
     var _seleccionarComponente = function (cuv) {
-        var componente;
+        if (typeof cuv === "undefined" ||
+            cuv === null ||
+            $.trim(cuv) === "") throw "param cuv is not defined or null";
+
         $.each(_estrategia.Hermanos, function (index, hermano) {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {
-                componente = _estrategia.Hermanos[index];
+                var componente = _estrategia.Hermanos[index];
+                opcionesEvents.applyChanges("onComponentSelected", componente);
+                $("#elegir-opciones-modal").modal("show");
                 return false;
             }
         });
-        //
-        opcionesEvents.applyChanges("onComponentSelected", componente);
-        //
-        $("#elegir-opciones-modal").modal("show");
-
     }
 
     return {
@@ -45,6 +49,7 @@ var ComponentesModule = (function () {
         SeleccionarComponente: _seleccionarComponente
     };
 }());
+
 opcionesEvents.subscribe("onEstrategiaLoaded", function (estrategia) {
     ComponentesModule.CargarComponentesEstrategia(estrategia);
 });
