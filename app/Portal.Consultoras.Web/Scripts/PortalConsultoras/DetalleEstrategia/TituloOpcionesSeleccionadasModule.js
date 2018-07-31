@@ -14,18 +14,17 @@
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 
 var opcionesEvents = opcionesEvents || {};
-registerEvent.call(opcionesEvents, "onEstrategiaLoaded");
-registerEvent.call(opcionesEvents, "onOptionSelected");
+registerEvent.call(opcionesEvents, "onComponentSelected");
 var TituloOpcionesSeleccionadasModule = (function () {
     var _estrategia = {};
-    var _inicializar = function (model) {
-        _estrategia = model || _estrategia;
+    var __cargarTituloOpcionesSeleccionadas = function (componente) {
+        _estrategia = componente || _estrategia;
         SetHandlebars("#titulo-opciones-seleccionadas-template", _estrategia, "#titulo-opciones-seleccionadas");
     };
     return {
-        Inicializar: _inicializar
+        CargarTituloOpcionesSeleccionadas: __cargarTituloOpcionesSeleccionadas
     };
 }());
-opcionesEvents.subscribe("onEstrategiaLoaded", function (e) {
-    TituloOpcionesSeleccionadasModule.Inicializar(e);
+opcionesEvents.subscribe("onComponentSelected", function (e) {
+    TituloOpcionesSeleccionadasModule.CargarTituloOpcionesSeleccionadas(e);
 });
