@@ -170,7 +170,7 @@
 .resultados_wrapper{
     margin-top: 17px;
     width: 99%;
-    height: 400px;
+    height: 408px;
     overflow: auto;
 }
 
@@ -186,7 +186,7 @@
     right: -2px;
     width: 737px;
     height:auto;
-    padding-bottom:14px;
+    padding-bottom:18px;
     overflow:hidden;
     background-color: #FFF;
     border: 1px solid #E1E1E1;
@@ -325,6 +325,10 @@
     color:#000;
 }
 
+.resultado_busqueda_btn_agregar_wrapper{
+    position:relative;
+}
+
 .resultado_busqueda_btn_agregar_wrapper .boton_Agregalo_home {
     margin-top: 0;
     background-color: #000;
@@ -351,6 +355,16 @@
 .btn_elegir_opcion{
     background-color:#FFF;
     color:#000;
+}
+
+.etiqueta_prod_agregado{
+    position:absolute;
+    margin:0 auto;
+    left:0;
+    right:0;
+    margin-top:7px;
+    font-size:11px;
+    color:#848484;
 }
 
 /* FIN - BUSCADOR DE FILTROS PORTAL CONSULTORAS */
