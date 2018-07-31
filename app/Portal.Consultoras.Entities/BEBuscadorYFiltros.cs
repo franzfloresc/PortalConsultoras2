@@ -20,9 +20,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Descripcion { get; set; }
         [DataMember]
-        public double Valorizado { get; set; }
+        public string Valorizado { get; set; }
         [DataMember]
-        public double Precio { get; set; }
+        public string Precio { get; set; }
         [DataMember]
         public string Catalogo { get; set; }
         [DataMember]
@@ -31,6 +31,8 @@ namespace Portal.Consultoras.Entities
         public string CodigoPalanca { get; set; }
         [DataMember]
         public int LimiteVenta { get; set; }
+        [DataMember]
+        public string descripcionEstrategia { get; set; }
 
         public BEBuscadorYFiltros()
         { }
@@ -41,12 +43,13 @@ namespace Portal.Consultoras.Entities
             SAP = Convert.ToString(row["SAP"]);
             Imagen = Convert.ToString(row["FotoProducto"]);
             Descripcion = Convert.ToString(row["Descripcion"]);
-            Valorizado = Convert.ToDouble(row["PrecioValorizado"]);
-            Precio = Convert.ToDouble(row["PrecioCatalogo"]);
+            Valorizado = Convert.ToString(row["PrecioValorizado"]);
+            Precio = Convert.ToString(row["PrecioCatalogo"]);
             Catalogo = Convert.ToString(row["CodigoCatalago"]);
-            CodigoEstrategia = Convert.ToString(row["TipoEstrategiaCodigo"]);
-            CodigoPalanca = Convert.ToString(row["CodigoEstrategia"]);
+            CodigoEstrategia = Convert.ToString(row["CodigoEstrategia"]);
+            CodigoPalanca = Convert.ToString(row["TipoEstrategiaCodigo"]);
             LimiteVenta = Convert.ToInt32(row["limiteventa"]);
+            descripcionEstrategia = Convert.ToString(row["descripcionEstrategia"]);
         }
     }
 }
