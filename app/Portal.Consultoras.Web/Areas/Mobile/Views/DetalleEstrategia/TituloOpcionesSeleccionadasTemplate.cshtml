@@ -1,5 +1,9 @@
 ﻿<script id="titulo-opciones-seleccionadas-template" type="text/x-handlebars-template">
-    <h3>Elige {{this.FactorCuadre}} opción</h3>
+    {{#iff this.FactorCuadre '==' '1'}}}
+    <h3>Elige 1 opción</h3>
+    {{else}}
+    <h3>Elige {{this.FactorCuadre}} opciones</h3>
+    {{/iff}}
     @*titulo cuando se elegio las opciones*@
     @*<h3>¡Listo! <span>ya tienes tu</span> opción</h3>*@
     <p>0 seleccionados</p>
