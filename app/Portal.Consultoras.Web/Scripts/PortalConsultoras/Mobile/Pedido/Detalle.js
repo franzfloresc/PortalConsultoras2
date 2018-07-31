@@ -503,6 +503,7 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
         });
 
         ShowLoading();
+        console.log('Pedido - Detalle.js - EliminarPedido - ajax ante ActualizarGanancia', urlPedidoDelete, param);
         jQuery.ajax({
             type: 'POST',
             url: urlPedidoDelete,
@@ -519,6 +520,7 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
                     return false;
                 }
 
+                console.log('Pedido - Detalle.js - EliminarPedido - ante ActualizarGanancia', data.DataBarra);
                 ActualizarGanancia(data.DataBarra);
                 CargarPedido();
                 TrackingJetloreRemove(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
@@ -576,6 +578,7 @@ function AceptarBackOrder(campaniaId, pedidoId, pedidoDetalleId, clienteId) {
     };
 
     ShowLoading();
+    console.log('Pedido - Detalle.js - AceptarBackOrder - ajax ante ActualizarGanancia', urlPedidoAceptarBackOrder, param);
     jQuery.ajax({
         type: 'POST',
         url: urlPedidoAceptarBackOrder,
@@ -592,6 +595,7 @@ function AceptarBackOrder(campaniaId, pedidoId, pedidoDetalleId, clienteId) {
             }
 
             ShowLoading();
+            console.log('Pedido - Detalle.js - AceptarBackOrder - ajax ante ActualizarGanancia', data.DataBarra);
             ActualizarGanancia(data.DataBarra);
             CargarPedido();
             CloseLoading();
@@ -650,6 +654,7 @@ function PedidoDetalleEliminarTodo() {
     });
 
     var item = {};
+    console.log('Pedido - Detalle.js - PedidoDetalleEliminarTodo - ajax ante ActualizarGanancia', urlPedidoDeleteAll, item);
     jQuery.ajax({
         type: 'POST',
         url: urlPedidoDeleteAll,
@@ -669,6 +674,7 @@ function PedidoDetalleEliminarTodo() {
                 return false;
             }
 
+            console.log('Pedido - Detalle.js - PedidoDetalleEliminarTodo - ante ActualizarGanancia', data.DataBarra);
             ActualizarGanancia(data.DataBarra);
             TrackingJetloreRemoveAll(listaDetallePedido);
             dataLayer.push({
@@ -775,6 +781,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
 
     ShowLoading();
     PROL = PROL || "0";
+    console.log('Pedido - Detalle.js - PedidoUpdate - ajax ante ActualizarGanancia', urlPedidoUpdate, item);
     jQuery.ajax({
         type: 'POST',
         url: urlPedidoUpdate,
@@ -792,6 +799,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
                 return false;
             }
 
+            console.log('Pedido - Detalle.js - PedidoUpdate - ante ActualizarGanancia', data.DataBarra);
             ActualizarGanancia(data.DataBarra);
 
             if (PROL == "0") {
@@ -1160,6 +1168,7 @@ function MostrarDetalleGanancia() {
 function InsertarProducto(model, asyncX) {
     var retorno = new Object();
 
+    console.log('Pedido - Detalle.js - InsertarProducto - ajax ante ActualizarGanancia', urlPedidoInsert, model);
     jQuery.ajax({
         type: 'POST',
         url: urlPedidoInsert,
@@ -1184,6 +1193,7 @@ function InsertarProducto(model, asyncX) {
 
             setTimeout(function () { }, 2000);
 
+            console.log('Pedido - Detalle.js - InsertarProducto - ajax ante ActualizarGanancia', data.DataBarra);
             ActualizarGanancia(data.DataBarra);
 
             TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);

@@ -181,7 +181,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             var model = new MensajeProductoBloqueadoModel
             {
-                divId = "divHVMensajeBloqueada",
+                divId = "divMensajeBloqueada",
                 IsMobile = esMObile,
                 MensajeIconoSuperior = true,
                 BtnInscribirse = false,
