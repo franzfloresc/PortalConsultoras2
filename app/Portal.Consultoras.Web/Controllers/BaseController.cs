@@ -394,135 +394,134 @@ namespace Portal.Consultoras.Web.Controllers
                 return _menuProvider.SepararItemsMenu(userData.Menu);
             }
 
-            var permisos = _menuProvider.GetPermisosByRol(userData.PaisID, userData.RolID);
+            userData = _menuProvider.GetPermisosByRol(userData, revistaDigital);
 
-            if (!_configuracionManagerProvider.GetMostrarOpcionClienteOnline(userData.CodigoISO) &&
-                permisos.Any(p => p.UrlItem.ToLower() == "consultoraonline/index"))
-            {
-                permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
-            }
+            //if (!_configuracionManagerProvider.GetMostrarOpcionClienteOnline(userData.CodigoISO) &&
+            //    permisos.Any(p => p.UrlItem.ToLower() == "consultoraonline/index"))
+            //{
+            //    permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
+            //}
 
-            if (!userData.PedidoFICActivo
-                && permisos.Any(m => m.Codigo == Constantes.MenuCodigo.PedidoFIC))
-            {
-                permisos.Where(m => m.Codigo == Constantes.MenuCodigo.PedidoFIC).ToList().ForEach(m => permisos.Remove(m));
-            }
+            //if (!userData.PedidoFICActivo
+            //    && permisos.Any(m => m.Codigo == Constantes.MenuCodigo.PedidoFIC))
+            //{
+            //    permisos.Where(m => m.Codigo == Constantes.MenuCodigo.PedidoFIC).ToList().ForEach(m => permisos.Remove(m));
+            //}
 
-            if (userData.IndicadorPermisoFIC == 0 &&
-                permisos.Any(p => p.UrlItem.ToLower() == "pedidofic/index"))
-            {
-                permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
-            }
+            //if (userData.IndicadorPermisoFIC == 0 &&
+            //    permisos.Any(p => p.UrlItem.ToLower() == "pedidofic/index"))
+            //{
+            //    permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
+            //}
 
-            if ((userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) &&
-                permisos.Any(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"))
-            {
-                permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
-            }
+            //if ((userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) &&
+            //    permisos.Any(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"))
+            //{
+            //    permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
+            //}
 
-            var lstMenuModel = new List<PermisoModel>();
+            //var lstMenuModel = new List<PermisoModel>();
 
-            foreach (var permiso in permisos)
-            {
-                permiso.Codigo = Util.Trim(permiso.Codigo).ToLower();
-                permiso.Descripcion = Util.Trim(permiso.Descripcion);
-                permiso.UrlItem = Util.Trim(permiso.UrlItem);
-                permiso.UrlImagen = Util.Trim(permiso.UrlImagen);
-                permiso.DescripcionFormateada = Util.RemoveDiacritics(permiso.DescripcionFormateada.ToLower()).Replace(" ", "-");
+            //foreach (var permiso in permisos)
+            //{
+            //    permiso.Codigo = Util.Trim(permiso.Codigo).ToLower();
+            //    permiso.Descripcion = Util.Trim(permiso.Descripcion);
+            //    permiso.UrlItem = Util.Trim(permiso.UrlItem);
+            //    permiso.UrlImagen = Util.Trim(permiso.UrlImagen);
+            //    permiso.DescripcionFormateada = Util.RemoveDiacritics(permiso.DescripcionFormateada.ToLower()).Replace(" ", "-");
 
-                if (permiso.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
-                {
-                    if (revistaDigital.TieneRevistaDigital())
-                    {
-                        userData.ClaseLogoSB = "negro";
-                    }
-                    permiso.EsSoloImagen = true;
-                    permiso.UrlImagen = _menuProvider.GetUrlImagenMenuOfertas(userData, revistaDigital);
-                }
+            //    if (permiso.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
+            //    {
+            //        if (revistaDigital.TieneRevistaDigital())
+            //        {
+            //            userData.ClaseLogoSB = "negro";
+            //        }
+            //        permiso.EsSoloImagen = true;
+            //        permiso.UrlImagen = _menuProvider.GetUrlImagenMenuOfertas(userData, revistaDigital);
+            //    }
 
-                if (permiso.Codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower() &&
-                    (revistaDigital.TieneRevistaDigital()))
-                {
-                    continue;
-                }
+            //    if (permiso.Codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower() &&
+            //        (revistaDigital.TieneRevistaDigital()))
+            //    {
+            //        continue;
+            //    }
 
-                // por ahora esta en header, ponerlo para tambien para el Footer
-                // Objetivo que el Html este limpio, la logica no deberia estar en la vista
-                #region header
-                if (permiso.Posicion.ToLower() == "header")
-                {
-                    if (!permiso.Mostrar)
-                        continue;
+            //    // por ahora esta en header, ponerlo para tambien para el Footer
+            //    // Objetivo que el Html este limpio, la logica no deberia estar en la vista
+            //    #region header
+            //    if (permiso.Posicion.ToLower() == "header")
+            //    {
+            //        if (!permiso.Mostrar)
+            //            continue;
 
-                    if (permiso.Descripcion.ToUpperInvariant() == "SOCIA EMPRESARIA" && permiso.IdPadre == 0
-                        && !(ViewBag.Lider == 1 && ViewBag.PortalLideres))
-                    {
-                        continue;
-                    }
+            //        if (permiso.Descripcion.ToUpperInvariant() == "SOCIA EMPRESARIA" && permiso.IdPadre == 0
+            //            && !(ViewBag.Lider == 1 && ViewBag.PortalLideres))
+            //        {
+            //            continue;
+            //        }
 
-                    permiso.PageTarget = permiso.PaginaNueva ? "_blank" : "_self";
-                    permiso.ClaseSubMenu = permiso.Descripcion == "MI NEGOCIO" ? "sub_menu_home1" : "sub_menu_home2";
+            //        permiso.PageTarget = permiso.PaginaNueva ? "_blank" : "_self";
+            //        permiso.ClaseSubMenu = permiso.Descripcion == "MI NEGOCIO" ? "sub_menu_home1" : "sub_menu_home2";
 
-                    if (permiso.IdPadre == 0)
-                    {
-                        permiso.ClaseMenu = "";
-                        permiso.ClaseMenuItem = "";
-                        var urlSplit = permiso.UrlItem.Split('/');
-                        permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + ", '" + permiso.Descripcion + "')";
+            //        if (permiso.IdPadre == 0)
+            //        {
+            //            permiso.ClaseMenu = "";
+            //            permiso.ClaseMenuItem = "";
+            //            var urlSplit = permiso.UrlItem.Split('/');
+            //            permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + ", '" + permiso.Descripcion + "')";
 
-                        if (permiso.Descripcion.ToUpperInvariant() == "MI COMUNIDAD")
-                        {
-                            if (ViewBag.EsUsuarioComunidad == 0)
-                            {
-                                permiso.OnClickFunt = "AbrirModalRegistroComunidad()";
-                            }
-                            else
-                            {
-                                permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
-                            }
-                        }
+            //            if (permiso.Descripcion.ToUpperInvariant() == "MI COMUNIDAD")
+            //            {
+            //                if (ViewBag.EsUsuarioComunidad == 0)
+            //                {
+            //                    permiso.OnClickFunt = "AbrirModalRegistroComunidad()";
+            //                }
+            //                else
+            //                {
+            //                    permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
+            //                }
+            //            }
 
-                        if (permiso.Descripcion.ToUpperInvariant() == "SOCIA EMPRESARIA")
-                        {
-                            permiso.ClaseMenu = "menu_socia_empresaria";
-                            if (ViewBag.Lider == 1 && ViewBag.PortalLideres)
-                            {
-                                permiso.OnClickFunt = "RedirectMenu('" + permiso.UrlItem + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
-                            }
-                        }
+            //            if (permiso.Descripcion.ToUpperInvariant() == "SOCIA EMPRESARIA")
+            //            {
+            //                permiso.ClaseMenu = "menu_socia_empresaria";
+            //                if (ViewBag.Lider == 1 && ViewBag.PortalLideres)
+            //                {
+            //                    permiso.OnClickFunt = "RedirectMenu('" + permiso.UrlItem + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
+            //                }
+            //            }
 
-                        permiso.UrlImagen = permiso.EsSoloImagen ? permiso.UrlImagen : "";
-                    }
-                    else
-                    {
-                        if (permiso.UrlItem != "")
-                        {
-                            if (permiso.EsDireccionExterior)
-                            {
-                                permiso.OnClickFunt = "RedirectMenu('" + permiso.UrlItem + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
-                            }
-                            else
-                            {
-                                var urlSplit = permiso.UrlItem.Split('/');
-                                permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "', " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
-                            }
-                        }
-                    }
+            //            permiso.UrlImagen = permiso.EsSoloImagen ? permiso.UrlImagen : "";
+            //        }
+            //        else
+            //        {
+            //            if (permiso.UrlItem != "")
+            //            {
+            //                if (permiso.EsDireccionExterior)
+            //                {
+            //                    permiso.OnClickFunt = "RedirectMenu('" + permiso.UrlItem + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
+            //                }
+            //                else
+            //                {
+            //                    var urlSplit = permiso.UrlItem.Split('/');
+            //                    permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "', " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
+            //                }
+            //            }
+            //        }
 
-                    lstMenuModel.Add(permiso);
+            //        lstMenuModel.Add(permiso);
 
-                    continue;
-                }
-                #endregion
+            //        continue;
+            //    }
+            //    #endregion
 
-                lstMenuModel.Add(permiso);
-            }
-
-            userData.Menu = lstMenuModel;
+            //    lstMenuModel.Add(permiso);
+            //}
+            
+            //userData.Menu = lstMenuModel;
 
             ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
-
-            return _menuProvider.SepararItemsMenu(lstMenuModel);
+            return _menuProvider.SepararItemsMenu(userData.Menu);
         }
 
         //protected virtual IList<PermisoModel> GetPermisosByRol(int paisId, int rolId)
@@ -607,145 +606,149 @@ namespace Portal.Consultoras.Web.Controllers
                 return userData.MenuMobile;
             }
 
-            userData.ConsultoraOnlineMenuResumen = new ConsultoraOnlineMenuResumenModel();
+            //userData.ConsultoraOnlineMenuResumen = new ConsultoraOnlineMenuResumenModel();
 
-            var lstMenuMobileModel = _menuProvider.GetMenuMobileModel(userData.PaisID);
+            bool tieneTituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI)
+                || (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
 
-            if ((userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) &&
-                lstMenuMobileModel.Any(p => p.UrlItem.ToLower() == "mobile/catalogopersonalizado/index"))
-            {
-                lstMenuMobileModel.Remove(lstMenuMobileModel.FirstOrDefault(p => p.UrlItem.ToLower() == "mobile/catalogopersonalizado/index"));
-            }
+            userData = _menuProvider.GetMenuMobileModel(userData, revistaDigital, Request, tieneTituloCatalogo);
 
-            var menuConsultoraOnlinePadre = lstMenuMobileModel.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID == 0);
-            var menuConsultoraOnlineHijo = lstMenuMobileModel.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID != 0);
+            //if ((userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) &&
+            //    lstMenuMobileModel.Any(p => p.UrlItem.ToLower() == "mobile/catalogopersonalizado/index"))
+            //{
+            //    lstMenuMobileModel.Remove(lstMenuMobileModel.FirstOrDefault(p => p.UrlItem.ToLower() == "mobile/catalogopersonalizado/index"));
+            //}
 
-
-            if (!_configuracionManagerProvider.GetMostrarOpcionClienteOnline(userData.CodigoISO))
-            {
-                lstMenuMobileModel.Remove(menuConsultoraOnlinePadre);
-                lstMenuMobileModel.Remove(menuConsultoraOnlineHijo);
-            }
-            else if (menuConsultoraOnlinePadre != null || menuConsultoraOnlineHijo != null)
-            {
-                int esConsultoraOnline;
-                using (var svc = new UsuarioServiceClient())
-                {
-                    esConsultoraOnline = svc.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
-                    if (esConsultoraOnline >= 0)
-                    {
-                        userData.ConsultoraOnlineMenuResumen.CantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                        userData.ConsultoraOnlineMenuResumen.TeQuedanConsultoraOnline = svc.GetSaldoHorasSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                        userData.ConsultoraOnlineMenuResumen.TipoMenuConsultoraOnline = 2;
-                        userData.ConsultoraOnlineMenuResumen.MenuPadreIDConsultoraOnline = menuConsultoraOnlinePadre != null ? menuConsultoraOnlinePadre.MenuMobileID : 0;
-                    }
-                    else
-                    {
-                        userData.ConsultoraOnlineMenuResumen.TipoMenuConsultoraOnline = 1;
-                        userData.ConsultoraOnlineMenuResumen.MenuHijoIDConsultoraOnline = menuConsultoraOnlineHijo != null ? menuConsultoraOnlineHijo.MenuMobileID : 0;
-                        lstMenuMobileModel.Remove(menuConsultoraOnlinePadre);
-                    }
-                }
-
-                if (menuConsultoraOnlineHijo != null)
-                {
-                    var arrayUrlConsultoraOnlineHijo = menuConsultoraOnlineHijo.UrlItem.Split(new string[] { "||" }, StringSplitOptions.None);
-                    menuConsultoraOnlineHijo.UrlItem = arrayUrlConsultoraOnlineHijo[esConsultoraOnline == -1 ? 0 : arrayUrlConsultoraOnlineHijo.Length - 1];
-                }
-            }
-
-            var listadoMenuFinal = new List<MenuMobileModel>();
-            foreach (var menu in lstMenuMobileModel)
-            {
-                menu.Codigo = Util.Trim(menu.Codigo).ToLower();
-                menu.UrlItem = Util.Trim(menu.UrlItem);
-                menu.UrlImagen = Util.Trim(menu.UrlImagen);
-                menu.Descripcion = Util.Trim(menu.Descripcion);
-                menu.MenuPadreDescripcion = Util.Trim(menu.MenuPadreDescripcion);
-                menu.Posicion = Util.Trim(menu.Posicion);
-
-                if (menu.MenuMobileID == Constantes.MenuMobileId.NecesitasAyuda)
-                {
-                    menu.EstiloMenu = "background: url(" + menu.UrlImagen.Replace("~", "") + ") no-repeat; background-position: 7px 16px; background-size: 12px 12px;";
-                }
-                else if (menu.MenuMobileID == 1002)
-                {
-                    menu.Descripcion = ViewBag.TituloCatalogo ? menu.Descripcion : "Catálogos";
-                }
-
-                if (menu.Posicion.ToLower() != "menu")
-                {
-                    listadoMenuFinal.Add(menu);
-                    continue;
-                }
-
-                menu.ClaseMenu = "";
-                menu.ClaseMenuItem = "";
-
-                menu.PageTarget = menu.PaginaNueva ? "_blank" : "_self";
-                menu.OnClickFunt = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "mi academia" ? "onclick='return messageInfoPostulante();'" : "";
-                menu.OnClickFunt = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "app de catálogos" ? "onclick='return messageInfoPostulante();'" : menu.OnClickFunt;
-
-                try
-                {
-                    menu.UrlItem = menu.Version == "Completa"
-                    ? menu.UrlItem.StartsWith("http") ? menu.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", Util.GetUrlHost(Request), menu.UrlItem)
-                    : menu.UrlItem.StartsWith("http") ? menu.UrlItem : string.Format("{0}{1}", Util.GetUrlHost(Request), menu.UrlItem);
-                }
-                catch
-                {
-                    // ignored
-                }
+            //var menuConsultoraOnlinePadre = lstMenuMobileModel.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID == 0);
+            //var menuConsultoraOnlineHijo = lstMenuMobileModel.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID != 0);
 
 
-                menu.UrlItem = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "mi academia" ? "javascript:;" : menu.UrlItem;
-                menu.UrlItem = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "app de catálogos" ? "javascript:;" : menu.UrlItem;
+            //if (!_configuracionManagerProvider.GetMostrarOpcionClienteOnline(userData.CodigoISO))
+            //{
+            //    lstMenuMobileModel.Remove(menuConsultoraOnlinePadre);
+            //    lstMenuMobileModel.Remove(menuConsultoraOnlineHijo);
+            //}
+            //else if (menuConsultoraOnlinePadre != null || menuConsultoraOnlineHijo != null)
+            //{
+            //    int esConsultoraOnline;
+            //    using (var svc = new UsuarioServiceClient())
+            //    {
+            //        esConsultoraOnline = svc.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
+            //        if (esConsultoraOnline >= 0)
+            //        {
+            //            userData.ConsultoraOnlineMenuResumen.CantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+            //            userData.ConsultoraOnlineMenuResumen.TeQuedanConsultoraOnline = svc.GetSaldoHorasSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+            //            userData.ConsultoraOnlineMenuResumen.TipoMenuConsultoraOnline = 2;
+            //            userData.ConsultoraOnlineMenuResumen.MenuPadreIDConsultoraOnline = menuConsultoraOnlinePadre != null ? menuConsultoraOnlinePadre.MenuMobileID : 0;
+            //        }
+            //        else
+            //        {
+            //            userData.ConsultoraOnlineMenuResumen.TipoMenuConsultoraOnline = 1;
+            //            userData.ConsultoraOnlineMenuResumen.MenuHijoIDConsultoraOnline = menuConsultoraOnlineHijo != null ? menuConsultoraOnlineHijo.MenuMobileID : 0;
+            //            lstMenuMobileModel.Remove(menuConsultoraOnlinePadre);
+            //        }
+            //    }
 
-                if (menu.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
-                {
-                    menu.UrlImagen = _menuProvider.GetUrlImagenMenuOfertas(userData, revistaDigital);
-                }
+            //    if (menuConsultoraOnlineHijo != null)
+            //    {
+            //        var arrayUrlConsultoraOnlineHijo = menuConsultoraOnlineHijo.UrlItem.Split(new string[] { "||" }, StringSplitOptions.None);
+            //        menuConsultoraOnlineHijo.UrlItem = arrayUrlConsultoraOnlineHijo[esConsultoraOnline == -1 ? 0 : arrayUrlConsultoraOnlineHijo.Length - 1];
+            //    }
+            //}
 
-                listadoMenuFinal.Add(menu);
-            }
+            //var listadoMenuFinal = new List<MenuMobileModel>();
+            //foreach (var menu in lstMenuMobileModel)
+            //{
+            //    menu.Codigo = Util.Trim(menu.Codigo).ToLower();
+            //    menu.UrlItem = Util.Trim(menu.UrlItem);
+            //    menu.UrlImagen = Util.Trim(menu.UrlImagen);
+            //    menu.Descripcion = Util.Trim(menu.Descripcion);
+            //    menu.MenuPadreDescripcion = Util.Trim(menu.MenuPadreDescripcion);
+            //    menu.Posicion = Util.Trim(menu.Posicion);
 
-            var lstModel = listadoMenuFinal.Where(item => item.MenuPadreID == 0).OrderBy(item => item.OrdenItem).ToList();
-            foreach (var item in lstModel)
-            {
-                var subItems = listadoMenuFinal.Where(p => p.MenuPadreID == item.MenuMobileID).OrderBy(p => p.OrdenItem);
-                foreach (var subItem in subItems)
-                {
-                    subItem.Codigo = Util.Trim(subItem.Codigo).ToLower();
-                    if (subItem.Codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower()
-                        && (revistaDigital.TieneRevistaDigital()))
-                    {
-                        continue;
-                    }
+            //    if (menu.MenuMobileID == Constantes.MenuMobileId.NecesitasAyuda)
+            //    {
+            //        menu.EstiloMenu = "background: url(" + menu.UrlImagen.Replace("~", "") + ") no-repeat; background-position: 7px 16px; background-size: 12px 12px;";
+            //    }
+            //    else if (menu.MenuMobileID == 1002)
+            //    {
+            //        menu.Descripcion = ViewBag.TituloCatalogo ? menu.Descripcion : "Catálogos";
+            //    }
 
-                    item.SubMenu.Add(subItem);
-                }
-            }
+            //    if (menu.Posicion.ToLower() != "menu")
+            //    {
+            //        listadoMenuFinal.Add(menu);
+            //        continue;
+            //    }
 
-            if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower()))
-            {
-                var menuNego = lstModel.FirstOrDefault(m => m.Codigo == Constantes.MenuCodigo.MiNegocio.ToLower()) ?? new MenuMobileModel();
+            //    menu.ClaseMenu = "";
+            //    menu.ClaseMenuItem = "";
 
-                if (menuNego.MenuMobileID > 0)
-                {
-                    lstModel.ForEach(m =>
-                    {
-                        m.OrdenItem = m.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower()
-                            ? menuNego.OrdenItem + 1
-                            : m.OrdenItem > menuNego.OrdenItem ? m.OrdenItem + 1 : m.OrdenItem;
-                    });
-                    lstModel = lstModel.OrderBy(p => p.OrdenItem).ToList();
-                }
-            }
+            //    menu.PageTarget = menu.PaginaNueva ? "_blank" : "_self";
+            //    menu.OnClickFunt = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "mi academia" ? "onclick='return messageInfoPostulante();'" : "";
+            //    menu.OnClickFunt = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "app de catálogos" ? "onclick='return messageInfoPostulante();'" : menu.OnClickFunt;
 
-            userData.MenuMobile = lstModel;
+            //    try
+            //    {
+            //        menu.UrlItem = menu.Version == "Completa"
+            //        ? menu.UrlItem.StartsWith("http") ? menu.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", Util.GetUrlHost(Request), menu.UrlItem)
+            //        : menu.UrlItem.StartsWith("http") ? menu.UrlItem : string.Format("{0}{1}", Util.GetUrlHost(Request), menu.UrlItem);
+            //    }
+            //    catch
+            //    {
+            //        // ignored
+            //    }
+
+
+            //    menu.UrlItem = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "mi academia" ? "javascript:;" : menu.UrlItem;
+            //    menu.UrlItem = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "app de catálogos" ? "javascript:;" : menu.UrlItem;
+
+            //    if (menu.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
+            //    {
+            //        menu.UrlImagen = _menuProvider.GetUrlImagenMenuOfertas(userData, revistaDigital);
+            //    }
+
+            //    listadoMenuFinal.Add(menu);
+            //}
+
+            //var lstModel = listadoMenuFinal.Where(item => item.MenuPadreID == 0).OrderBy(item => item.OrdenItem).ToList();
+
+            //foreach (var item in lstModel)
+            //{
+            //    var subItems = listadoMenuFinal.Where(p => p.MenuPadreID == item.MenuMobileID).OrderBy(p => p.OrdenItem);
+            //    foreach (var subItem in subItems)
+            //    {
+            //        subItem.Codigo = Util.Trim(subItem.Codigo).ToLower();
+            //        if (subItem.Codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower()
+            //            && (revistaDigital.TieneRevistaDigital()))
+            //        {
+            //            continue;
+            //        }
+
+            //        item.SubMenu.Add(subItem);
+            //    }
+            //}
+
+            //if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower()))
+            //{
+            //    var menuNego = lstModel.FirstOrDefault(m => m.Codigo == Constantes.MenuCodigo.MiNegocio.ToLower()) ?? new MenuMobileModel();
+
+            //    if (menuNego.MenuMobileID > 0)
+            //    {
+            //        lstModel.ForEach(m =>
+            //        {
+            //            m.OrdenItem = m.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower()
+            //                ? menuNego.OrdenItem + 1
+            //                : m.OrdenItem > menuNego.OrdenItem ? m.OrdenItem + 1 : m.OrdenItem;
+            //        });
+            //        lstModel = lstModel.OrderBy(p => p.OrdenItem).ToList();
+            //    }
+            //}
+            
+            //userData.MenuMobile = lstModel;
+
             SetConsultoraOnlineViewBag(userData);
-
-            return lstModel;
+            return userData.MenuMobile; // lstModel;
         }
 
         private void SetConsultoraOnlineViewBag(UsuarioModel userData)
@@ -810,49 +813,52 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<ServicioCampaniaModel> BuildMenuService()
         {
-            if (userData.MenuService != null)
-            {
-                return userData.MenuService;
-            }
-
-            var lstTemp1 = new List<BEServicioCampania>();
-
-            try
-            {
-                using (var sv = new SACServiceClient())
-                {
-                    lstTemp1 = sv.GetServicioByCampaniaPais(userData.PaisID, userData.CampaniaID).ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-            int segmentoId;
-            if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
-            {
-                segmentoId = 1;
-            }
-            else
-            {
-                if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
-                {
-                    segmentoId = userData.SegmentoID;
-                }
-                else
-                {
-                    segmentoId = userData.SegmentoInternoID ?? userData.SegmentoID;
-                }
-            }
-
-            var segmentoServicio = userData.EsJoven == 1 ? 99 : segmentoId;
-
-            var lstTemp2 = lstTemp1.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(userData.ZonaID.ToString())).ToList();
-            var lst = lstTemp2.Where(p => p.Segmento == "-1" || p.Segmento == segmentoServicio.ToString()).ToList();
-
-            userData.MenuService = Mapper.Map<IList<BEServicioCampania>, List<ServicioCampaniaModel>>(lst);
+            userData = _menuProvider.BuildMenuService(userData);
             return userData.MenuService;
+
+        //    if (userData.MenuService != null)
+        //    {
+        //        return userData.MenuService;
+        //    }
+
+        //    var lstTemp1 = new List<BEServicioCampania>();
+
+        //    try
+        //    {
+        //        using (var sv = new SACServiceClient())
+        //        {
+        //            lstTemp1 = sv.GetServicioByCampaniaPais(userData.PaisID, userData.CampaniaID).ToList();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //    }
+
+        //    int segmentoId;
+        //    if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
+        //    {
+        //        segmentoId = 1;
+        //    }
+        //    else
+        //    {
+        //        if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+        //        {
+        //            segmentoId = userData.SegmentoID;
+        //        }
+        //        else
+        //        {
+        //            segmentoId = userData.SegmentoInternoID ?? userData.SegmentoID;
+        //        }
+        //    }
+
+        //    var segmentoServicio = userData.EsJoven == 1 ? 99 : segmentoId;
+
+        //    var lstTemp2 = lstTemp1.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(userData.ZonaID.ToString())).ToList();
+        //    var lst = lstTemp2.Where(p => p.Segmento == "-1" || p.Segmento == segmentoServicio.ToString()).ToList();
+
+        //    userData.MenuService = Mapper.Map<IList<BEServicioCampania>, List<ServicioCampaniaModel>>(lst);
+        //    return userData.MenuService;
         }
 
         //protected string GetMenuLinkByDescription(string description)
