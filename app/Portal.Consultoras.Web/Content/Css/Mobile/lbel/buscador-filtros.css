@@ -114,15 +114,24 @@
     padding-top:15px;
     padding-bottom:12px;
     border-bottom:1px solid #b0b0b0;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    cursor:pointer;
 }
 
-.resultado_busqueda_mobile_wrapper:first-child{
-    padding-top:0;
-}
+    .resultado_busqueda_mobile_wrapper:hover{
+        background-color: #f5f5f5;
+    }    
 
-.resultado_busqueda_mobile_wrapper:last-child{
-    border-bottom:none;
-}
+    /*.resultado_busqueda_mobile_wrapper:first-child{
+        padding-top:0;
+    }*/
+
+    .resultado_busqueda_mobile_wrapper:last-child{
+        border-bottom:none;
+    }
 
 .resultado_busqueda{
     width:100%;
@@ -146,13 +155,14 @@
 
     .resultado_busqueda_mobile_img_prod img{
         width:100%;
-        height:auto;
+        height:85px;
         margin:auto;
         position:absolute;
         top:0;
         bottom:0;
         left:0;
         right:0;
+        object-fit: contain;
     }
 
 .resultado_busqueda_mobile_descrip_prod{
@@ -291,4 +301,5 @@
 /* FIN - LISTA DE RESULTADOS DE BÚSQUEDA MOBILE */
 
 /* FIN - BUSCADOR DE FILTROS PORTAL CONSULTORAS MOBILE */
+
 

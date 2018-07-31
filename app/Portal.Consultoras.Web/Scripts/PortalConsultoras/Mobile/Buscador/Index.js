@@ -33,7 +33,7 @@ $(document).ready(function () {
                 if (cantidadCaracteresParaMostrarSugerenciasBusquedaMobile > 0) {
                     me.Funciones.CampoDeBusquedaMobileConCaracteres();
                 } else {
-                    me.Funciones.CampoDeBusquedaMobileSinCaracteres();
+                    me.Funciones.CampoDeBusquedaMobileSinCaracteres($('.opcion_limpiar_campo_busqueda_productos'));
                 }
 
                 if (cantidadCaracteresParaMostrarSugerenciasBusquedaMobile >= CaracteresBuscador) {
