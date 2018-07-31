@@ -89,5 +89,206 @@
     right:13px;
 }
 
+/* LISTA DE RESULTADOS DE BÚSQUEDA MOBILE */
+
+.displayBlock{
+    display:block;
+}
+
+.displayInlineBlock{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.text-uppercase{
+    text-transform:uppercase;
+}
+
+.vistaResultadosBusquedaMobile{
+    display:none;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+.resultado_busqueda_mobile_wrapper{
+    padding-top:15px;
+    padding-bottom:12px;
+    border-bottom:1px solid #b0b0b0;
+}
+
+.resultado_busqueda_mobile_wrapper:first-child{
+    padding-top:0;
+}
+
+.resultado_busqueda_mobile_wrapper:last-child{
+    border-bottom:none;
+}
+
+.resultado_busqueda{
+    width:100%;
+    height:auto;
+    color:#000;
+}
+
+.resultado_busqueda_mobile_img_prod,
+.resultado_busqueda_mobile_img_prod a
+{
+    height:85px;
+}
+
+.resultado_busqueda_mobile_img_prod {
+    width: 23%;
+    max-width: 200px;
+    text-align: center;
+    position:relative;
+    background-color:#FFF;
+}
+
+    .resultado_busqueda_mobile_img_prod img{
+        width:100%;
+        height:auto;
+        margin:auto;
+        position:absolute;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+    }
+
+.resultado_busqueda_mobile_descrip_prod{
+    width:38%;
+    margin-left:12px;
+    margin-right:6px;
+}
+
+.resultado_busqueda_nom_producto {
+    font-size: 14px;
+    letter-spacing:0.2px;
+    line-height:18px;
+    margin-bottom:-1px;
+}
+
+.resultado_busqueda_precio_prod{
+    margin: 0;
+}
+
+.resultado_busqueda_precio_normal,
+.resultado_busqueda_precio_oferta
+{
+    vertical-align:bottom;
+}
+
+.resultado_busqueda_precio_normal{
+    font-size:12px;
+    text-decoration:line-through;
+    margin-bottom:1px;
+    margin-right:10px;
+}
+
+.resultado_busqueda_precio_oferta{
+    font-size:15px;
+    font-weight:600;
+}
+
+.resultado_busqueda_tipo_oferta_prod{
+    font-size:12px;
+    color:#848484;
+}
+
+.resultado_busqueda_mobile_cantidad_prod{
+    width:31%;
+}
+
+.resultado_busqueda_mobile_cantidad_prod .cantidad_menos_home,
+.resultado_busqueda_mobile_cantidad_prod .cantidad_mas_home
+{
+    float: left;
+    width: 30%;
+    height: 45px;
+    text-align: center;
+    line-height: 48px;
+    border: 1px solid #b0b0b0;
+    position:relative;
+}
+
+.resultado_busqueda_mobile_cantidad_prod .cantidad_menos_home{
+    border-top-left-radius:4px;
+    border-bottom-left-radius:4px;
+}
+
+.resultado_busqueda_mobile_cantidad_prod .cantidad_mas_home{
+    border-top-right-radius:4px;
+    border-bottom-right-radius:4px;
+}
+
+.resultado_busqueda_mobile_cantidad_prod .cantidad_menos_home img,
+.resultado_busqueda_mobile_cantidad_prod .cantidad_mas_home img
+{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.resultado_busqueda_mobile_cantidad_prod .rango_cantidad_pedido{
+    -webkit-appearance: none;
+    width: 40%;
+    height: 45px;
+    line-height: 48px;
+    background: transparent;
+    float: left;
+    font-family:'Lato', sans-serif;
+    font-weight: 700;
+    border-top: 1px solid #b0b0b0;
+    border-bottom: 1px solid #b0b0b0;
+    border-left: none;
+    border-right: none;
+    color:#000;
+}
+
+.resultado_busqueda_mobile_btn_agregar_wrapper,
+.resultado_busqueda_mobile_btn_elegir_opcion_wrapper
+{
+    width:100%;
+}
+
+.resultado_busqueda_mobile_btn_agregar_wrapper{
+    margin-top:7px;
+}
+
+.resultado_busqueda_mobile_btn_agregar_wrapper .boton_Agregalo_home {
+    margin-top: 0;
+    background-color: #000;
+    color: #FFF;
+}
+
+.resultado_busqueda_mobile_btn_agregar_wrapper .boton_Agregalo_home,
+.btn_elegir_opcion
+{
+    width:100%;
+    height: 45px;
+    line-height: 44px;
+    border: 1px solid #000;
+    font-size: 12px;
+    letter-spacing:0.5px;
+    font-weight: 700;
+    border-radius: 4px;
+}
+
+.btn_elegir_opcion{
+    background-color:#FFF;
+    color:#000;
+}
+
+.etiqueta_prod_agregado{
+    margin-top:7px;
+    font-size:11px;
+    color:#848484;
+}
+
+/* FIN - LISTA DE RESULTADOS DE BÚSQUEDA MOBILE */
+
 /* FIN - BUSCADOR DE FILTROS PORTAL CONSULTORAS MOBILE */
 
