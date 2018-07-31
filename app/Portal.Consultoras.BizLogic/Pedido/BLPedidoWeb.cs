@@ -2211,21 +2211,6 @@ namespace Portal.Consultoras.BizLogic
             return resumen;
         }
 
-        public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
-        {
-            BEConsultoraRegaloProgramaNuevas entidad = null;
-            DAPedidoWeb daPedidoWeb = new DAPedidoWeb(paisID);
-
-            using (IDataReader reader = daPedidoWeb.GetConsultoraRegaloProgramaNuevas(campaniaId, codigoConsultora, codigoRegion, codigoZona))
-            {
-                while (reader.Read())
-                {
-                    entidad = new BEConsultoraRegaloProgramaNuevas(reader);
-                }
-            }
-            return entidad;
-        }
-
         #region MisPedidos
         public List<BEMisPedidosCampania> GetMisPedidosByCampania(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, int Top)
         {
