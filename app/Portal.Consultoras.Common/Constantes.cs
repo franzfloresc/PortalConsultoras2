@@ -2026,6 +2026,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_ELIMINAR_TODO_SET = "2112";
                 public const string ERROR_ELIMINAR_SET = "2113";
                 public const string ERROR_ACTUALIZAR_SET = "2114";
+                public const string ERROR_SET_NOENCONTRADO = "2115";
 
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
@@ -2071,6 +2072,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_VALIDA_DATOS , string.Empty },
                         {Code.ERROR_ACTUALIZAR, "Ocurrió un error al actualizar el pedido." },
                         {Code.ERROR_ACTUALIZAR_SET, "Ocurrió un error al actualizar el set." },
+                        {Code.ERROR_SET_NOENCONTRADO, "Set no encontrado."},
                         {Code.ERROR_ELIMINAR, "Ocurrió un error al eliminar el detalle de pedido." },
                         {Code.ERROR_ELIMINAR_SET, "Ocurrió un error al eliminar el detalle del set."},
                         {Code.ERROR_ELIMINAR_TODO, "Ocurrió un error al eliminar el pedido." },
