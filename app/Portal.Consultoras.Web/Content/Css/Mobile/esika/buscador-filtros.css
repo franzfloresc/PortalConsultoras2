@@ -120,6 +120,10 @@
     padding-top:0;
 }
 
+.resultado_busqueda_mobile_wrapper:last-child{
+    border-bottom:none;
+}
+
 .resultado_busqueda{
     width:100%;
     height:auto;

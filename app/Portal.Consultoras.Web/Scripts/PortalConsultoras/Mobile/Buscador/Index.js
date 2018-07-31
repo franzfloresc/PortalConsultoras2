@@ -37,10 +37,12 @@ $(document).ready(function () {
             },
             LimpiarCampoBusqueda: function (e) {
                 e.preventDefault();
+                $('.vistaResultadosBusquedaMobile').fadeOut(100);
                 $(this).fadeOut(100);
                 $('.enlace_busqueda_filtros').delay(50);
                 $('.enlace_busqueda_filtros').fadeIn(100);
                 $('#CampoBuscadorProductosMobile').val('');
+                $('#CampoBuscadorProductosMobile').trigger('focus');
             }
 
 
