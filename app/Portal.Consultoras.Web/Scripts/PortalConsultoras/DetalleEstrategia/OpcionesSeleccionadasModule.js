@@ -24,12 +24,11 @@ var OpcionesSeleccionadasModule = (function () {
         $("#opciones-seleccionadas").html("");
     };
 
-    var _cargarOpcionesSeleccionadas = function (opcion) {
-        if (typeof opcion === "undefined" ||
-            opcion === null) throw "param opcion is not defined or null";
+    var _cargarOpcionesSeleccionadas = function (componente) {
+        if (typeof componente === "undefined" ||
+            componente === null) throw "param opcion is not defined or null";
 
-        _componente.Hermanos = _componente.Hermanos || [];
-        _componente.Hermanos.push(opcion);
+        _componente = componente || {};
         if (_componente.Hermanos.length > 0) $("#contenedor-opciones-seleccionadas").show();
 
         $("#opciones-seleccionadas").slick("unslick");
@@ -52,15 +51,22 @@ var OpcionesSeleccionadasModule = (function () {
         return _componente.Hermanos.length;
     };
 
+    var _getOpcionesSeleccionadas = function () {
+        var componente = ListaOpcionesModule.GetComponente();
+        componente.Hermanos = _componente.Hermanos || [];
+        return componente;
+    }
+
     return {
         Inicializar : _inicializar,
         CargarOpcionesSeleccionadas: _cargarOpcionesSeleccionadas,
-        GetCantidadOpcionesSeleccionadas: _getCantidadOpcionesSeleccionadas
+        GetCantidadOpcionesSeleccionadas: _getCantidadOpcionesSeleccionadas,
+        GetOpcionesSeleccionadas = _getOpcionesSeleccionadas
     };
 }());
 opcionesEvents.subscribe("onComponentSelected", function (componente) {
     OpcionesSeleccionadasModule.Inicializar();
 });
-opcionesEvents.subscribe("onOptionSelected", function (opcion) {
-    OpcionesSeleccionadasModule.CargarOpcionesSeleccionadas(opcion);
+opcionesEvents.subscribe("onOptionSelected", function (componente) {
+    OpcionesSeleccionadasModule.CargarOpcionesSeleccionadas(componente);
 });

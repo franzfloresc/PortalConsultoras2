@@ -18,7 +18,7 @@ var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onComponentSelected");
 var ListaOpcionesModule = (function () {
     var _componente = {};
-
+    var _componenteSeleccionados = {};
     var _cargarOpciones = function(componente) {
         if (typeof componente === "undefined" ||
             componente === null) throw "param componente is not defined or null";
@@ -36,7 +36,10 @@ var ListaOpcionesModule = (function () {
             cuv === null ||
             $.trim(cuv) === "") throw "param componente is not defined or null";
 
-        if (_componente.FactorCuadre === OpcionesSeleccionadasModule.GetCantidadOpcionesSeleccionadas()) return false;
+        if (_componente.FactorCuadre === OpcionesSeleccionadasModule.GetCantidadOpcionesSeleccionadas()) {
+            $("[data-btn-aplicar-seleccion]").removeClass("disabled");
+            return false;
+        }
 
         var opcion;
         $.each(_componente.Hermanos, function (index, hermano) {
@@ -50,15 +53,49 @@ var ListaOpcionesModule = (function () {
         });
 
         if (typeof opcion !== "undefined" && opcion !== null) {
-            opcionesEvents.applyChanges("onOptionSelected", opcion);
+            _componenteSeleccionados.Hermanos = _componenteSeleccionados.Hermanos || [];
+            _componenteSeleccionados.Hermanos.push(opcion);
+            opcionesEvents.applyChanges("onOptionSelected", _componenteSeleccionados);
         }
 
         return false;
     }
 
+    var _eliminarOpcion = function (cuv) {
+        if (typeof cuv === "undefined" ||
+            cuv === null ||
+            $.trim(cuv) === "") throw "param componente is not defined or null";
+
+        var opcion;
+        var i = 0;
+        $.each(_componenteSeleccionados.Hermanos, function (index, hermano) {
+            cuv = $.trim(cuv);
+            if (cuv === hermano.Cuv) {
+                opcion = _componente.Hermanos[index];
+                i = index;
+                return false;
+            }
+        });
+
+        if (typeof opcion !== "undefined" && opcion !== null) {
+            _componenteSeleccionados.Hermanos = _componenteSeleccionados.Hermanos || [];
+            _componenteSeleccionados.Hermanos.splice(i,1);
+            opcionesEvents.applyChanges("onOptionSelected", _componenteSeleccionados);
+        }
+
+        return false;
+
+    }
+
+    var _getComponente = function () {
+        return _componente;
+    }
+
     return {
         CargarOpciones: _cargarOpciones,
-        SeleccionarOpcion : _seleccionarOpcion
+        SeleccionarOpcion: _seleccionarOpcion,
+        EliminarOpcion: _eliminarOpcion,
+        GetComponente: _getComponente
     };
 }());
 opcionesEvents.subscribe("onComponentSelected", function (componente) {
