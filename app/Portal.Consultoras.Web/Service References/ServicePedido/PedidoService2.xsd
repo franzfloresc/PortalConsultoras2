@@ -1,56 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
-  <xs:complexType name="BEProductoAppBuscar">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfBEIncentivoProgramaNuevasNivel">
     <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoDescripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Criterio" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="RowCount" type="xs:int" />
-      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Usuario" nillable="true" type="q1:BEUsuario" />
-      <xs:element minOccurs="0" name="ValidarOpt" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEIncentivoProgramaNuevasNivel" nillable="true" type="tns:BEIncentivoProgramaNuevasNivel" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BEProductoAppBuscar" nillable="true" type="tns:BEProductoAppBuscar" />
-  <xs:complexType name="BEProductoApp">
+  <xs:element name="ArrayOfBEIncentivoProgramaNuevasNivel" nillable="true" type="tns:ArrayOfBEIncentivoProgramaNuevasNivel" />
+  <xs:complexType name="BEIncentivoProgramaNuevasNivel">
     <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
-      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Producto" nillable="true" type="q2:BEProducto" />
+      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CuponesProgramaNuevas" nillable="true" type="tns:ArrayOfBEIncentivoProgramaNuevasCupon" />
+      <xs:element minOccurs="0" name="MontoExigidoCupon" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoExigidoPremio" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PremiosProgramaNuevas" nillable="true" type="tns:ArrayOfBEIncentivoProgramaNuevasPremio" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BEProductoApp" nillable="true" type="tns:BEProductoApp" />
-  <xs:complexType name="BEPedidoDetalleApp">
+  <xs:element name="BEIncentivoProgramaNuevasNivel" nillable="true" type="tns:BEIncentivoProgramaNuevasNivel" />
+  <xs:complexType name="ArrayOfBEIncentivoProgramaNuevasCupon">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
-      <xs:element minOccurs="0" name="ClienteDescripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ClienteID" type="xs:short" />
-      <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
-      <xs:element minOccurs="0" name="IPUsuario" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Identifier" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ObservacionPROL" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="PedidoDetalleID" type="xs:short" />
-      <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
-      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Producto" nillable="true" type="q3:BEProducto" />
-      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Usuario" nillable="true" type="q4:BEUsuario" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEIncentivoProgramaNuevasCupon" nillable="true" type="tns:BEIncentivoProgramaNuevasCupon" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BEPedidoDetalleApp" nillable="true" type="tns:BEPedidoDetalleApp" />
-  <xs:complexType name="BEPedidoDetalleAppResult">
+  <xs:element name="ArrayOfBEIncentivoProgramaNuevasCupon" nillable="true" type="tns:ArrayOfBEIncentivoProgramaNuevasCupon" />
+  <xs:complexType name="BEIncentivoProgramaNuevasCupon">
     <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoCupon" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoVenta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ganancia" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ImagenURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IndicadorCuponIndependiente" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IndicadorKit" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NumeroCampanasVigentes" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioUnitario" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TextoLibre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnidadesMaximas" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BEPedidoDetalleAppResult" nillable="true" type="tns:BEPedidoDetalleAppResult" />
-  <xs:complexType name="BEPedidoReservaAppResult">
+  <xs:element name="BEIncentivoProgramaNuevasCupon" nillable="true" type="tns:BEIncentivoProgramaNuevasCupon" />
+  <xs:complexType name="ArrayOfBEIncentivoProgramaNuevasPremio">
     <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
-      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" minOccurs="0" name="ResultadoReserva" nillable="true" type="q5:BEResultadoReservaProl" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEIncentivoProgramaNuevasPremio" nillable="true" type="tns:BEIncentivoProgramaNuevasPremio" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BEPedidoReservaAppResult" nillable="true" type="tns:BEPedidoReservaAppResult" />
+  <xs:element name="ArrayOfBEIncentivoProgramaNuevasPremio" nillable="true" type="tns:ArrayOfBEIncentivoProgramaNuevasPremio" />
+  <xs:complexType name="BEIncentivoProgramaNuevasPremio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ganancia" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ImagenURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IndicadorKitNuevas" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PrecioUnitario" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TextoLibre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEIncentivoProgramaNuevasPremio" nillable="true" type="tns:BEIncentivoProgramaNuevasPremio" />
 </xs:schema>
