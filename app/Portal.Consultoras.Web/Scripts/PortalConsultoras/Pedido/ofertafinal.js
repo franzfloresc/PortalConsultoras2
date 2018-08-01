@@ -34,7 +34,11 @@ $(document).ready(function () {
         ValidarAgregarOfertaFinal($(divPadre), objCantidad, fnFinal);
     });
 
-    $("body").on("click", '.btnNoGraciasOfertaFinal', PopupOfertaFinalCerrar);
+    $("body").on("click", '.btnNoGraciasOfertaFinal', function (e) {
+        PopupOfertaFinalCerrar();
+
+        e.stopPropagation(); //Para evitar que se cierre el popup de divObservacionesPROL 
+    });
 
     if (typeof ofertaFinalEstado !== 'undefined' && typeof ofertaFinalAlgoritmo !== 'undefined') {
         if (ofertaFinalEstado == 'True' && ofertaFinalAlgoritmo == 'OFR') {
