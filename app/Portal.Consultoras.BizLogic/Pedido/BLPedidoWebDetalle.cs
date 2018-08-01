@@ -584,19 +584,79 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId)
+        public bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, 
+            string CuvsStringList, int EstrategiaId, string nombreConsultora, string codigoPrograma, int numeroPedido)
         {
             var daPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
 
-            var result = daPedidoWebDetalle.InsertPedidoWebSet(Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList, EstrategiaId);
+            TransactionOptions oTransactionOptions =
+                new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
+
+            try
+            {
+                var result = false;
+                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                {
+                    result = daPedidoWebDetalle.InsertPedidoWebSet(Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList, EstrategiaId);
+
+                    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                    {
+                        PaisId = paisID,
+                        CampaniaId = Campaniaid,
+                        ConsultoraId = ConsultoraId,
+                        Consultora = nombreConsultora,
+                        EsBpt = false,   //no se usa
+                        CodigoPrograma = codigoPrograma,
+                        NumeroPedido = numeroPedido,
+                        AgruparSet = true
+                    };
+
+                    var listaDetalle = GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros);
+                    var importeTotal = listaDetalle.Sum(p => p.ImporteTotal);
+
+                    daPedidoWebDetalle.UpdateImporteTotalPedidoWeb(Campaniaid, ConsultoraId, importeTotal);
+
+                    oTransactionScope.Complete();
+                }                
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
             
-            return result;
         }
 
-        public bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad)
+        public bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
         {
-            DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisId);
-            return daPedidoWebDetalle.UpdCantidadPedidoWebSet(setId, cantidad);
+            TransactionOptions oTransactionOptions =
+                new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
+
+            try
+            {
+                var result = false;
+                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                {
+                    DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisId);
+                    result = daPedidoWebDetalle.UpdCantidadPedidoWebSet(setId, cantidad);
+
+                    var listaDetalle = GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros);
+                    var importeTotal = listaDetalle.Sum(p => p.ImporteTotal);
+
+                    daPedidoWebDetalle.UpdateImporteTotalPedidoWeb(bePedidoWebDetalleParametros.CampaniaId, bePedidoWebDetalleParametros.ConsultoraId, importeTotal);
+
+                    oTransactionScope.Complete();
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisId);
+                return false;
+            }            
         }
 
         public List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId)

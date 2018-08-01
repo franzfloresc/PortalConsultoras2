@@ -141,7 +141,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (lst != null && lst.Count > 0)
             {
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                lst.Update(x => x.ImagenEstrategia = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenEstrategia));
+                lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenEstrategia));
 
                 var lista = (from a in lst
                              where a.FlagActivo == 1
@@ -235,7 +235,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
                     if (lst.Count > 0)
-                        lst.Update(x => x.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenURL));
+                        lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
 
                     var grid = new BEGrid
                     {
@@ -885,7 +885,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 entidad = lst[0];
                 string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                entidad.ImagenMiniaturaURL = ConfigCdn.GetUrlFileCdn(carpetapais, entidad.ImagenMiniaturaURL);
+                entidad.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3(carpetapais, entidad.ImagenMiniaturaURL);
 
                 return Json(entidad, JsonRequestBehavior.AllowGet);
             }
@@ -945,7 +945,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var paisIso = Util.GetPaisISO(paisID);
             var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
-            var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
+            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
 
             var data = lst.Select(p => new MatrizComercialImagen
             {
@@ -980,7 +980,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst.Count > 0)
             {                
-                lst.Update(x => x.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenURL));
+                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
                 lst.Update(x => x.Simbolo = userData.Simbolo);
             }
             ViewBag.ProductoDestacadoDetalle = lst[0];
@@ -1367,7 +1367,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var carpetapais = string.Format("{0}/{1}", Globals.UrlMatriz, userData.CodigoISO);
-                lst.Update(x => x.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenURL));
+                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
 
                 var grid = new BEGrid()
                 {
@@ -1542,7 +1542,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = result,
-                    extra = result ? ConfigCdn.GetUrlFileCdn(carpetaPais, newfilename) : "Ocurrió un problema al intentar registrar los datos"
+                    extra = result ? ConfigS3.GetUrlFileS3(carpetaPais, newfilename) : "Ocurrió un problema al intentar registrar los datos"
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1587,8 +1587,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var data = new
                 {
-                    ImgBannerCupon = ConfigCdn.GetUrlFileCdn(carpetaPais, filenameCupon),
-                    ImgBannerPremio = ConfigCdn.GetUrlFileCdn(carpetaPais, filenamePremio)
+                    ImgBannerCupon = ConfigS3.GetUrlFileS3(carpetaPais, filenameCupon),
+                    ImgBannerPremio = ConfigS3.GetUrlFileS3(carpetaPais, filenamePremio)
                 };
 
                 return Json(new
@@ -1662,7 +1662,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var carpetapais = string.Format("{0}/{1}", Globals.UrlMatriz, userData.CodigoISO);
-                lst.Update(x => x.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenURL));
+                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
 
                 var grid = new BEGrid()
                 {
