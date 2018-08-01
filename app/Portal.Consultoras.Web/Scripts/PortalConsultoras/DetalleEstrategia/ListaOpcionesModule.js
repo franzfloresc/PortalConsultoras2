@@ -48,6 +48,7 @@ var ListaOpcionesModule = (function () {
         if (typeof componente === "undefined" ||
             componente === null) throw "param componente is not defined or null";
         //
+        console.log(componente);
         _componente = componente;
         _componenteSeleccionados.Hermanos = [];
         //
