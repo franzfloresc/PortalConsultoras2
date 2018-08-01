@@ -38,7 +38,9 @@ var ListaOpcionesModule = (function () {
         },
         btnEligelo: {
             id: "#btn-eligelo-",
-            activeClass: "active"
+            activeClass: "active",
+            textElígelo: "Elígelo",
+            textElegido:"Elegido"
         },
         liCantidadOpciones : {
             id: "#li-cantidad-opciones-"
@@ -51,10 +53,10 @@ var ListaOpcionesModule = (function () {
             $(_elements.listaOpciones.id).css("padding-top", "63px");
     };
 
-    var _cargarOpciones = function (componente) {
+    var CargarOpciones = function (componente) {
         if (typeof componente === "undefined" ||
             componente === null) throw "param componente is not defined or null";
-
+        //
         _componente = componente;
         if (_componenteSeleccionados.Hermanos.length > 0) {
             $(_elements.btnAplicarSeleccion.id)
@@ -79,7 +81,7 @@ var ListaOpcionesModule = (function () {
             $(_elements.listaOpciones.id).css("padding-top", "154px");
     };
 
-    var _seleccionarOpcion = function (event, cuv) {
+    var SeleccionarOpcion = function (event, cuv) {
         if (_componente.FactorCuadre === _componenteSeleccionados.Hermanos.length) {
             return false;
         }
@@ -93,7 +95,10 @@ var ListaOpcionesModule = (function () {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {
                 opcion = _componente.Hermanos[index];
+                $(_elements.btnEligelo.id + cuv).text(_elements.btnEligelo.textElegido);
                 $(_elements.btnEligelo.id + cuv).addClass(_elements.btnEligelo.activeClass);
+                //$(_elements.btnEligelo.id + cuv).attr("onclick",
+                //    "javascript: alert();/*ListaOpcionesModule.SeleccionarOpcion(event,'32847')*/");
                 _moverListaOpcionesMostrarSeleccionados();
                 return false;
             }
@@ -116,7 +121,7 @@ var ListaOpcionesModule = (function () {
         return false;
     }
 
-    var _eliminarOpcion = function (cuv) {
+    var EliminarOpcion = function (cuv) {
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param componente is not defined or null";
@@ -153,9 +158,9 @@ var ListaOpcionesModule = (function () {
     }
 
     return {
-        CargarOpciones: _cargarOpciones,
-        SeleccionarOpcion: _seleccionarOpcion,
-        EliminarOpcion: _eliminarOpcion,
+        CargarOpciones: CargarOpciones,
+        SeleccionarOpcion: SeleccionarOpcion,
+        EliminarOpcion: EliminarOpcion,
         GetComponente: _getComponente
     };
 }());
