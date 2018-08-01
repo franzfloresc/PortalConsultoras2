@@ -12,6 +12,7 @@
 /// <reference path="../../../Scripts/PortalConsultoras/TagManager/Home-Pedido.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/ListaOpcionesModule.js" />
 
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
@@ -61,7 +62,7 @@ var OpcionesSeleccionadasModule = (function () {
         Inicializar : _inicializar,
         CargarOpcionesSeleccionadas: _cargarOpcionesSeleccionadas,
         GetCantidadOpcionesSeleccionadas: _getCantidadOpcionesSeleccionadas,
-        GetOpcionesSeleccionadas = _getOpcionesSeleccionadas
+        GetOpcionesSeleccionadas : _getOpcionesSeleccionadas
     };
 }());
 opcionesEvents.subscribe("onComponentSelected", function (componente) {
