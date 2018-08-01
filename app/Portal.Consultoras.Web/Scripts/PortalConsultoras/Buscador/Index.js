@@ -57,12 +57,10 @@ $(document).ready(function () {
         me.Eventos = {
             AccionesCampoBusquedaAlDigitar: function () {
                 var cantidadCaracteresParaMostrarSugerenciasBusqueda = $(this).val().length;
-                if (cantidadCaracteresParaMostrarSugerenciasBusqueda > 2) {
-
-                    me.Funciones.CampoDeBusquedaConCaracteres($('#CampoBuscadorProductos'));
-                    $('.spinner').fadeIn(150);
-
                     if (cantidadCaracteresParaMostrarSugerenciasBusqueda >= CaracteresBuscador) {
+
+                        me.Funciones.CampoDeBusquedaConCaracteres($('#CampoBuscadorProductos'));
+                        $('.spinner').fadeIn(150);
 
                         var service = $.ajax({
                             url: baseUrl + "Buscador/BusquedaProductos",
@@ -113,6 +111,10 @@ $(document).ready(function () {
 
                                     resultados += '</div>';
                                 }
+
+                            } else {
+                                $('#ResultadoBuscador').fadeOut(150);
+                                me.Funciones.CampoDeBusquedaSinCaracteres($(this));
                             }
 
                             $('#ResultadoBuscador').html(resultados);
@@ -125,12 +127,12 @@ $(document).ready(function () {
                         service.then(successBusqueda, function (e) {
                             console.log(e);
                         });
-                    }
 
-                } else {
-                    $('#ResultadoBuscador').fadeOut(150);
-                    me.Funciones.CampoDeBusquedaSinCaracteres($(this));
-                }
+                    } else {
+                        $('#ResultadoBuscador').fadeOut(150);
+                        me.Funciones.CampoDeBusquedaSinCaracteres($(this));
+                    }
+                
             },
             LimpiarCampoBusqueda: function (e) {
                 e.preventDefault();
