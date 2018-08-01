@@ -139,13 +139,15 @@
 
         <div class="clear"></div>
         <div class="wrapper_header wrapper_header_cincuenta_anios_belcorp">
-            <div class="cincuenta_anios_belcorp">
-                <img src="@Url.Content("~/Content/Images/cincuenta_anios_belcorp_cabecera.png")" alt="" />
+            <div data-menu-header="parte1" style="float: left;">
+                <div class="cincuenta_anios_belcorp">
+                    <img src="@Url.Content("~/Content/Images/cincuenta_anios_belcorp_cabecera.png")" alt="" />
+                </div>
+                <div class="logo_esika">
+                    <a class="@ViewBag.ClaseLogoSB" href="@Url.Action("Index", "Bienvenida")"></a>
+                </div>
             </div>
-            <div class="logo_esika">
-                <a class="@ViewBag.ClaseLogoSB" href="@Url.Action("Index", "Bienvenida")"></a>
-            </div>
-            <div class="menu_new_esika">
+            <div data-menu-header="parte2" class="menu_new_esika">
                 @Html.Partial("~/Views/Shared/_Menu.cshtml")
             </div>
             @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpMenuB.cshtml")
