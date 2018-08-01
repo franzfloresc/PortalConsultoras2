@@ -138,10 +138,12 @@
 
         <div class="clear"></div>
         <div class="wrapper_header">
-            <div class="logo_esika">
-                <a class="@ViewBag.ClaseLogoSB" href="@Url.Action("Index", "Bienvenida")"></a>
+            <div data-menu-header="parte1" style="float: left;">
+                <div class="logo_esika">
+                    <a class="@ViewBag.ClaseLogoSB" href="@Url.Action("Index", "Bienvenida")"></a>
+                </div>
             </div>
-            <div class="menu_new_esika">
+            <div data-menu-header="parte2" class="menu_new_esika">
                 @Html.Partial("~/Views/Shared/_Menu.cshtml")
             </div>
             @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpMenuB.cshtml")
