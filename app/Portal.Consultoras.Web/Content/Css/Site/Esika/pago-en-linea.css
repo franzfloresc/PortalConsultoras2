@@ -1526,17 +1526,16 @@
     display:none;
     width: 100%;
     max-width: 726px;
-    max-height: 480px;
     height: auto;
     background-color: #FFF;
-    margin: auto;
-    top: -7px;
-    bottom: 0;
+    margin: 0 auto;
+    top: 25px;
     left: 0;
     right: 0;
-    position: absolute;
+    position: relative;
     z-index: 2;
     padding: 33px 112px;
+    margin-bottom: 51px;
 }
 
 .cerrar_popup_terminos_y_condiciones{
