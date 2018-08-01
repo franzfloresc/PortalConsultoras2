@@ -30,11 +30,18 @@ var ListaOpcionesModule = (function () {
         },
         btnAplicarSeleccion: {
             id: "#btn-aplicar-seleccion",
-            activeClass: "activo",
+            activeClass: "active",
             disabledClass: "disabled"
         },
-        btnEligelo : {
-            activeClass: "activo"
+        liEligelo : {
+            id: "#li-eligelo-"
+        },
+        btnEligelo: {
+            id: "#btn-eligelo-",
+            activeClass: "active"
+        },
+        liCantidadOpciones : {
+            id: "#li-cantidad-opciones-"
         }
     };
 
@@ -86,7 +93,7 @@ var ListaOpcionesModule = (function () {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {
                 opcion = _componente.Hermanos[index];
-                $(event.target).addClass(_elements.btnEligelo.activeClass);
+                $(_elements.btnEligelo.id + cuv).addClass(_elements.btnEligelo.activeClass);
                 _moverListaOpcionesMostrarSeleccionados();
                 return false;
             }
@@ -94,6 +101,10 @@ var ListaOpcionesModule = (function () {
         //
         if (typeof opcion === "undefined" || opcion === null) throw "var opcion is not defined or null";
         _componenteSeleccionados.Hermanos.push(opcion);
+        if (_componente.FactorCuadre > 1) {
+            $(_elements.liEligelo.id + cuv).hide();
+            $(_elements.liCantidadOpciones.id + cuv).show();
+        }
         if (_componente.FactorCuadre === _componenteSeleccionados.Hermanos.length) {
             $(_elements.btnAplicarSeleccion.id)
                 .removeClass(_elements.btnAplicarSeleccion.disabledClass)

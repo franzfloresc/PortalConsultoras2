@@ -30,6 +30,7 @@
         </div>
         <div id="opciones-elegidas{{componente.Cuv}}"></div>
         <hr class="clear">
+        {{#iff FactorCuadre '==' '1'}}
         <div data-tono-div="">
             {{#each this.Hermanos as |variedad|}}
             <div style="display: none;">
@@ -45,6 +46,7 @@
             {{/each}}
         </div>
         <hr class="clear">
+        {{/iff}}
     </div>
     {{/each}}
     {{/iff}}
