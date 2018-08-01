@@ -111,7 +111,9 @@ var ListaOpcionesModule = (function () {
                 .addClass(_elements.btnAplicarSeleccion.activeClass);
         }
         //
-        opcionesEvents.applyChanges("onOptionSelected", _componenteSeleccionados);
+        var componente = _getComponente();
+        componente.Hermanos = _componenteSeleccionados.Hermanos;
+        opcionesEvents.applyChanges("onOptionSelected", componente);
         //
         return false;
     }
@@ -134,8 +136,10 @@ var ListaOpcionesModule = (function () {
 
         if (typeof opcion !== "undefined" && opcion !== null) {
             _componenteSeleccionados.Hermanos = _componenteSeleccionados.Hermanos || [];
-            _componenteSeleccionados.Hermanos.splice(i,1);
-            opcionesEvents.applyChanges("onOptionSelected", _componenteSeleccionados);
+            _componenteSeleccionados.Hermanos.splice(i, 1);
+            var componente = _getComponente();
+            componente.Hermanos = _componenteSeleccionados.Hermanos;
+            opcionesEvents.applyChanges("onOptionSelected", componente);
 
             if (_componente.FactorCuadre != _componenteSeleccionados.Hermanos.length) {
                 $(_elements.btnAplicarSeleccion.id)
@@ -149,7 +153,8 @@ var ListaOpcionesModule = (function () {
     }
 
     var _getComponente = function () {
-        return _componente;
+        var componente = jQuery.extend(true, {}, _componente);
+        return componente;
     }
 
     return {
