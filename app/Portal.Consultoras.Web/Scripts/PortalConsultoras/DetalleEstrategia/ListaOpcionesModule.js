@@ -49,7 +49,7 @@ var ListaOpcionesModule = (function () {
             if (cuv === hermano.Cuv) {
                 opcion = _componente.Hermanos[index];
                 $(event.target).addClass("activo");
-                $("#lista-opciones").css("padding-top", "154px");
+                if (isMobile()) $("#lista-opciones").css("padding-top", "154px");
                 return false;
             }
         });
