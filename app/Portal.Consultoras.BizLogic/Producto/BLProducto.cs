@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using Portal.Consultoras.Data.ProgramaNuevas;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -408,7 +409,10 @@ namespace Portal.Consultoras.BizLogic
             List<BEProductoProgramaNuevas> lstElectivas = lstProdcutos.Where(a => !a.IndicadorCuponIndependiente && a.CodigoCupon != cuvIngresado).ToList();
             if (lstElectivas.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
 
-            var limElectivos = 1;
+            var nivelInput = new BENivelesProgramaNuevas { Campania = campaniaID.ToString(), CodigoPrograma = codigoPrograma, CodigoNivel = "0" + (consecutivoNueva + 1) };
+            var limElectivos = (GetNivelesProgramaNuevas(paisID, nivelInput) ?? new BENivelesProgramaNuevas()).UnidadesNivelElectivo;
+            if (limElectivos <= 0) limElectivos = 1;
+
             var listElecPedido = lstCuvPedido.Where(c => lstElectivas.Any(e => e.CodigoCupon == c)).ToList();
             var cantElecPedido = listElecPedido.Count();
             if (cantElecPedido == 1 && limElectivos == 1) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.ReemplazarCupon, listElecPedido);
@@ -452,6 +456,14 @@ namespace Portal.Consultoras.BizLogic
         {
             return lstProdcutos.Where(a => Convert.ToInt32(a.CodigoNivel) <= (consecutivoNueva + 1) && (consecutivoNueva + 1) <= (Convert.ToInt32(a.CodigoNivel) + a.NumeroCampanasVigentes - 1))
                 .Where(a => a.CodigoPrograma == codigoPrograma).ToList();
+        }
+
+        private BENivelesProgramaNuevas GetNivelesProgramaNuevas(int paisID, BENivelesProgramaNuevas nivel)
+        {
+            using (var reader = new DANivelesProgramaNuevas(paisID).Get(nivel))
+            {
+                return MapUtil.MapToObject<BENivelesProgramaNuevas>(reader, true, true);
+            }
         }
         #endregion
         #endregion
