@@ -816,14 +816,12 @@
 }
 
 .info_requerimiento_tarjeta_habilitada {
-    font-weight:300;
     line-height:15px;
     margin-top:10px;
 }
 
 .texto_pago_seguro{
     font-size:10px;
-    font-weight:300;
     letter-spacing:0.2px;
     text-transform:uppercase;
     margin-bottom:8px;
@@ -833,6 +831,7 @@
 .texto_pago_seguro
 {
     color: #808080;
+    font-weight:700;
 }
 
 .icono_marca_visa{
