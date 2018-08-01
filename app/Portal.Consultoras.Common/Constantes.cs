@@ -1937,7 +1937,7 @@ namespace Portal.Consultoras.Common
             public const string IsSubcampaign = "essubcampania";
             public const string OfferStatus = "estado de oferta";
 
-            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip = 4, IsSubcampaign = 5, OfferStatus = 6 };
+            public enum Position { CUV = 0, AllowedUnits = 1, NameSet = 2, BusinessTip = 3, IsSubcampaign = 4, OfferStatus = 5 };
         }
 
         public static class ColumnsProductStrategyShowroom
