@@ -1,279 +1,263 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
-  <xs:complexType name="ArrayOfBEConsultoraConcurso">
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+  <xs:complexType name="ArrayOfBEPedidoWebDetalle">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConsultoraConcurso" nillable="true" type="tns:BEConsultoraConcurso" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoWebDetalle" nillable="true" type="tns:BEPedidoWebDetalle" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfBEConsultoraConcurso" nillable="true" type="tns:ArrayOfBEConsultoraConcurso" />
-  <xs:complexType name="BEConsultoraConcurso">
+  <xs:element name="ArrayOfBEPedidoWebDetalle" nillable="true" type="tns:ArrayOfBEPedidoWebDetalle" />
+  <xs:complexType name="BEPedidoWebDetalle">
     <xs:sequence>
-      <xs:element minOccurs="0" name="CampaniaFin" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaInicio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionConcurso" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EsCampaniaAnterior" type="xs:boolean" />
-      <xs:element minOccurs="0" name="FechaVentaRetail" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Importante" type="xs:int" />
-      <xs:element minOccurs="0" name="IndicadorPremiacionPedido" type="xs:boolean" />
-      <xs:element minOccurs="0" name="IndicadorPremioAcumulativo" type="xs:boolean" />
-      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MontoPremiacionPedido" type="xs:decimal" />
-      <xs:element minOccurs="0" name="NivelAlcanzado" type="xs:int" />
-      <xs:element minOccurs="0" name="NivelSiguiente" type="xs:int" />
-      <xs:element minOccurs="0" name="NumeroNiveles" type="xs:int" />
-      <xs:element minOccurs="0" name="Participa" type="xs:boolean" />
-      <xs:element minOccurs="0" name="Premios" nillable="true" type="tns:ArrayOfBEPremio" />
-      <xs:element minOccurs="0" name="PuntajeTotal" type="xs:int" />
-      <xs:element minOccurs="0" name="PuntosFaltantesSiguienteNivel" type="xs:int" />
-      <xs:element minOccurs="0" name="PuntosRetail" type="xs:int" />
-      <xs:element minOccurs="0" name="PuntosXVentas" type="xs:int" />
-      <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipoConcurso" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEConsultoraConcurso" nillable="true" type="tns:BEConsultoraConcurso" />
-  <xs:complexType name="ArrayOfBEPremio">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPremio" nillable="true" type="tns:BEPremio" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEPremio" nillable="true" type="tns:ArrayOfBEPremio" />
-  <xs:complexType name="BEPremio">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Importante" type="xs:int" />
-      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NumeroNivel" type="xs:int" />
-      <xs:element minOccurs="0" name="PuntajeMinimo" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEPremio" nillable="true" type="tns:BEPremio" />
-  <xs:complexType name="ArrayOfBEIncentivoConcurso">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEIncentivoConcurso" nillable="true" type="tns:BEIncentivoConcurso" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEIncentivoConcurso" nillable="true" type="tns:ArrayOfBEIncentivoConcurso" />
-  <xs:complexType name="BEIncentivoConcurso">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="ArchivoBannerCupon" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ArchivoBannerPremio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AceptoBackOrder" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUVNuevo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CUVPadre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="CampaniaIDFin" type="xs:int" />
-      <xs:element minOccurs="0" name="CampaniaIDInicio" type="xs:int" />
-      <xs:element minOccurs="0" name="CampaniaIDPremiacion" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoNivelProgramaNuevas" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionConcurso" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EstadoConcurso" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ImportePedido" type="xs:decimal" />
-      <xs:element minOccurs="0" name="IndicadorPremioAcumulativo" type="xs:boolean" />
-      <xs:element minOccurs="0" name="NivelAlcanzado" type="xs:int" />
-      <xs:element minOccurs="0" name="Niveles" nillable="true" type="tns:ArrayOfBEIncentivoNivel" />
-      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" minOccurs="0" name="NivelesProgramaNuevas" nillable="true" type="q1:ArrayOfBEIncentivoProgramaNuevasNivel" />
-      <xs:element minOccurs="0" name="PuntajeExigido" type="xs:int" />
-      <xs:element minOccurs="0" name="PuntosAcumulados" type="xs:int" />
-      <xs:element minOccurs="0" name="PuntosNivel" type="xs:int" />
-      <xs:element minOccurs="0" name="TextoCupon" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TextoCuponIndependiente" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipoConcurso" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UrlBannerCuponesProgramaNuevas" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UrlBannerPremiosProgramaNuevas" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="CantidadAnterior" type="xs:int" />
+      <xs:element minOccurs="0" name="Categoria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClaseFila" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClienteID" type="xs:short" />
+      <xs:element minOccurs="0" name="Clientes" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoCatalago" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoTipoOferta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoUsuarioCreacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoUsuarioModificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
+      <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+      <xs:element minOccurs="0" name="DescripcionCortadaProd" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionEstrategia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionLarga" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionOferta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionProd" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescuentoProl" type="xs:decimal" />
+      <xs:element minOccurs="0" name="EliminadoTemporal" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsBackOrder" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsCompraPorCompra" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsSugerido" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EstadoItem" type="xs:short" />
+      <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Flag" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagConsultoraOnline" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FlagNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IPUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ImporteTotalPedido" type="xs:decimal" />
+      <xs:element minOccurs="0" name="IndicadorMontoMinimo" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorOfertaCUV" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IndicadorPedidoAutentico" nillable="true" type="tns:BEIndicadorPedidoAutentico" />
+      <xs:element minOccurs="0" name="MarcaID" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModificaPedidoReservado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MontoAhorroCatalogo" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoAhorroRevista" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoEscala" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoTotalProl" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreCliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ObservacionPROL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OfertaWeb" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OrdenPedidoWD" type="xs:int" />
+      <xs:element minOccurs="0" name="OrigenPedidoWeb" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoDetalleID" type="xs:short" />
+      <xs:element minOccurs="0" name="PedidoDetalleIDPadre" type="xs:short" />
+      <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioUnidad" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ProgramaNuevoActivado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SetID" type="xs:int" />
+      <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Stock" type="xs:int" />
+      <xs:element minOccurs="0" name="SubTipoOfertaSisID" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoEstrategiaCodigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoObservacion" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoPedido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="eMail" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BEIncentivoConcurso" nillable="true" type="tns:BEIncentivoConcurso" />
-  <xs:complexType name="ArrayOfBEIncentivoNivel">
+  <xs:element name="BEPedidoWebDetalle" nillable="true" type="tns:BEPedidoWebDetalle" />
+  <xs:complexType name="BEIndicadorPedidoAutentico">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEIncentivoNivel" nillable="true" type="tns:BEIncentivoNivel" />
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IndicadorFingerprint" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IndicadorIPUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IndicadorToken" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PedidoDetalleID" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfBEIncentivoNivel" nillable="true" type="tns:ArrayOfBEIncentivoNivel" />
-  <xs:complexType name="BEIncentivoNivel">
+  <xs:element name="BEIndicadorPedidoAutentico" nillable="true" type="tns:BEIndicadorPedidoAutentico" />
+  <xs:complexType name="ArrayOfBEReporteValidacionSROferta">
     <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoNivel" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoPremio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionPremio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FechaVentaRetail" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="IndicadorBelCenter" type="xs:boolean" />
-      <xs:element minOccurs="0" name="IndicadorNivelElectivo" type="xs:boolean" />
-      <xs:element minOccurs="0" name="IndicadorPremiacionPedido" type="xs:boolean" />
-      <xs:element minOccurs="0" name="MontoPremiacionPedido" type="xs:decimal" />
-      <xs:element minOccurs="0" name="NumeroPremio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Premios" nillable="true" type="tns:ArrayOfBEIncentivoPremio" />
-      <xs:element minOccurs="0" name="PuntosExigidos" type="xs:int" />
-      <xs:element minOccurs="0" name="PuntosExigidosFaltantes" type="xs:int" />
-      <xs:element minOccurs="0" name="PuntosFaltantes" type="xs:int" />
-      <xs:element minOccurs="0" name="PuntosNivel" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteValidacionSROferta" nillable="true" type="tns:BEReporteValidacionSROferta" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BEIncentivoNivel" nillable="true" type="tns:BEIncentivoNivel" />
-  <xs:complexType name="ArrayOfBEIncentivoPremio">
+  <xs:element name="ArrayOfBEReporteValidacionSROferta" nillable="true" type="tns:ArrayOfBEReporteValidacionSROferta" />
+  <xs:complexType name="BEReporteValidacionSROferta">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEIncentivoPremio" nillable="true" type="tns:BEIncentivoPremio" />
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodPais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsSubCampania" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagImagenCargada" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagImagenMINI" type="xs:int" />
+      <xs:element minOccurs="0" name="HabilitarOferta" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioOferta" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioValorizado" type="xs:decimal" />
+      <xs:element minOccurs="0" name="UnidadesPermitidas" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfBEIncentivoPremio" nillable="true" type="tns:ArrayOfBEIncentivoPremio" />
-  <xs:complexType name="BEIncentivoPremio">
+  <xs:element name="BEReporteValidacionSROferta" nillable="true" type="tns:BEReporteValidacionSROferta" />
+  <xs:complexType name="ArrayOfBEReporteValidacionSRComponentes">
     <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoNivel" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoPremio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionPremio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ImagenPremio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NumeroPremio" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteValidacionSRComponentes" nillable="true" type="tns:BEReporteValidacionSRComponentes" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BEIncentivoPremio" nillable="true" type="tns:BEIncentivoPremio" />
-  <xs:complexType name="BEProductoComentarioDetalle">
+  <xs:element name="ArrayOfBEReporteValidacionSRComponentes" nillable="true" type="tns:ArrayOfBEReporteValidacionSRComponentes" />
+  <xs:complexType name="BEReporteValidacionSRComponentes">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodPais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FlagImagenCargada" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEReporteValidacionSRComponentes" nillable="true" type="tns:BEReporteValidacionSRComponentes" />
+  <xs:complexType name="BEEstrategia">
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:BEPaging">
+      <xs:extension base="tns:BaseEntidad">
         <xs:sequence>
+          <xs:element minOccurs="0" name="Activo" type="xs:int" />
+          <xs:element minOccurs="0" name="AgregarEnMatriz" type="xs:boolean" />
+          <xs:element minOccurs="0" name="CUV1" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-          <xs:element minOccurs="0" name="CodTipoOrigen" type="xs:int" />
-          <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CampaniaIDFin" type="xs:int" />
+          <xs:element minOccurs="0" name="CantComenAprob" type="xs:int" />
+          <xs:element minOccurs="0" name="CantComenRecom" type="xs:int" />
+          <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+          <xs:element minOccurs="0" name="CodigoAgrupacion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CodigoGenerico" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CodigoSap" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="Comentario" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="Estado" type="xs:short" />
-          <xs:element minOccurs="0" name="FechaAprobacion" type="xs:dateTime" />
-          <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
-          <xs:element minOccurs="0" name="NombreConsultora" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ProdComentarioDetalleId" type="xs:long" />
+          <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CodigoTipoEstrategia" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ColorFondo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ConsultoraID" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DescripcionCUV2" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DescripcionCategoria" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DescripcionCortaCUV2" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DescripcionEstrategia" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DescripcionMarca" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EnMatrizComercial" type="xs:int" />
+          <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
+          <xs:element minOccurs="0" name="EsSubCampania" type="xs:int" />
+          <xs:element minOccurs="0" name="EstrategiaDetalle" nillable="true" type="tns:BEEstrategiaDetalle" />
+          <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
+          <xs:element minOccurs="0" name="EstrategiaProducto" nillable="true" type="tns:ArrayOfBEEstrategiaProducto" />
+          <xs:element minOccurs="0" name="EstrategiaProductoCodigoSAP" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EtiquetaDescripcion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EtiquetaDescripcion2" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EtiquetaID" type="xs:int" />
+          <xs:element minOccurs="0" name="EtiquetaID2" type="xs:int" />
+          <xs:element minOccurs="0" name="FechaInicioFacturacion" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="FlagCEP" type="xs:int" />
+          <xs:element minOccurs="0" name="FlagCEP2" type="xs:int" />
+          <xs:element minOccurs="0" name="FlagCantidad" type="xs:int" />
+          <xs:element minOccurs="0" name="FlagDescripcion" type="xs:int" />
+          <xs:element minOccurs="0" name="FlagEstrella" type="xs:int" />
+          <xs:element minOccurs="0" name="FlagIndividual" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FlagMostrarImg" type="xs:int" />
+          <xs:element minOccurs="0" name="FlagNueva" type="xs:int" />
+          <xs:element minOccurs="0" name="FlagRevista" type="xs:int" />
+          <xs:element minOccurs="0" name="FlagTextoLibre" type="xs:int" />
+          <xs:element minOccurs="0" name="FlagValidarImagen" type="xs:int" />
+          <xs:element minOccurs="0" name="FotoProducto01" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FotoProductoMedium" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FotoProductoSmall" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Ganancia" type="xs:decimal" />
+          <xs:element minOccurs="0" name="GananciaString" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+          <xs:element minOccurs="0" name="IdMatrizComercial" type="xs:int" />
+          <xs:element minOccurs="0" name="Imagen" type="xs:int" />
+          <xs:element minOccurs="0" name="ImagenMiniaturaURL" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImagenOfertaIndependiente" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImagenURL" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImgFichaDesktop" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImgFichaFondoDesktop" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImgFichaFondoMobile" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImgFichaMobile" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImgFondoDesktop" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImgFondoMobile" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImgHomeDesktop" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImgHomeMobile" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IndicadorMontoMinimo" type="xs:int" />
+          <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
+          <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
+          <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MostrarImgOfertaIndependiente" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Niveles" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="NumeroPedido" type="xs:int" />
+          <xs:element minOccurs="0" name="OfertaUltimoMinuto" type="xs:int" />
+          <xs:element minOccurs="0" name="Orden" type="xs:int" />
+          <xs:element minOccurs="0" name="PesoMaximoImagen" type="xs:int" />
+          <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Precio2" type="xs:decimal" />
+          <xs:element minOccurs="0" name="PrecioPublico" type="xs:decimal" />
+          <xs:element minOccurs="0" name="PrecioString" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PrecioTachado" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PrecioUnitario" type="xs:decimal" />
           <xs:element minOccurs="0" name="ProdComentarioId" type="xs:int" />
-          <xs:element minOccurs="0" name="Recomendado" type="xs:boolean" />
-          <xs:element minOccurs="0" name="URLFotoConsultora" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="Valorizado" type="xs:short" />
+          <xs:element minOccurs="0" name="PromValorizado" type="xs:int" />
+          <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Slogan" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TallaColor" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TextoLibre" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TieneStockProl" type="xs:boolean" />
+          <xs:element minOccurs="0" name="TieneVariedad" type="xs:int" />
+          <xs:element minOccurs="0" name="TipoConcurso" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TipoEstrategia" nillable="true" type="tns:BETipoEstrategia" />
+          <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
+          <xs:element minOccurs="0" name="TipoEstrategiaImagenMostrar" type="xs:int" />
+          <xs:element minOccurs="0" name="TipoOferta" type="xs:int" />
+          <xs:element minOccurs="0" name="TipoTallaColor" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UrlVideoDesktop" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UrlVideoMobile" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ValidarPeriodoFacturacion" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ZonaHoraria" type="xs:double" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="BEProductoComentarioDetalle" nillable="true" type="tns:BEProductoComentarioDetalle" />
-  <xs:complexType name="BEPaging">
+  <xs:element name="BEEstrategia" nillable="true" type="tns:BEEstrategia" />
+  <xs:complexType name="BaseEntidad">
     <xs:sequence>
-      <xs:element minOccurs="0" name="PageNumber" type="xs:int" />
-      <xs:element minOccurs="0" name="RowsCount" type="xs:int" />
-      <xs:element minOccurs="0" name="TotalPages" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEPaging" nillable="true" type="tns:BEPaging" />
-  <xs:complexType name="BEProductoComentario">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CantAprobados" type="xs:int" />
-      <xs:element minOccurs="0" name="CantRecomendados" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoGenerico" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoSap" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Estado" type="xs:short" />
-      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="ProdComentarioId" type="xs:int" />
-      <xs:element minOccurs="0" name="PromValorizado" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEProductoComentario" nillable="true" type="tns:BEProductoComentario" />
-  <xs:complexType name="BEProductoComentarioFilter">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
-      <xs:element minOccurs="0" name="Estado" type="xs:short" />
-      <xs:element minOccurs="0" name="Limite" type="xs:int" />
-      <xs:element minOccurs="0" name="Ordenar" type="xs:short" />
-      <xs:element minOccurs="0" name="Tipo" type="xs:short" />
-      <xs:element minOccurs="0" name="Valor" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEProductoComentarioFilter" nillable="true" type="tns:BEProductoComentarioFilter" />
-  <xs:complexType name="ArrayOfBEProductoComentarioDetalle">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEProductoComentarioDetalle" nillable="true" type="tns:BEProductoComentarioDetalle" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEProductoComentarioDetalle" nillable="true" type="tns:ArrayOfBEProductoComentarioDetalle" />
-  <xs:complexType name="BEFichaProducto">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Activo" type="xs:int" />
-      <xs:element minOccurs="0" name="CUV1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="CampaniaIDFin" type="xs:int" />
-      <xs:element minOccurs="0" name="CantComenAprob" type="xs:int" />
-      <xs:element minOccurs="0" name="CantComenRecom" type="xs:int" />
-      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoAgrupacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoTipoEstrategia" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ColorFondo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConsultoraID" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionCUV2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionCategoria" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionEstrategia" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionMarca" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EnMatrizComercial" type="xs:int" />
-      <xs:element minOccurs="0" name="EstrategiaDetalle" nillable="true" type="tns:BEEstrategiaDetalle" />
-      <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
-      <xs:element minOccurs="0" name="EtiquetaDescripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EtiquetaDescripcion2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EtiquetaID" type="xs:int" />
-      <xs:element minOccurs="0" name="EtiquetaID2" type="xs:int" />
-      <xs:element minOccurs="0" name="FechaInicioFacturacion" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FlagCEP" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagCEP2" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagCantidad" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagDescripcion" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagEstrella" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagMostrarImg" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagNueva" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagTextoLibre" type="xs:int" />
-      <xs:element minOccurs="0" name="FotoProducto01" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ID" type="xs:int" />
-      <xs:element minOccurs="0" name="IdMatrizComercial" type="xs:int" />
-      <xs:element minOccurs="0" name="Imagen" type="xs:int" />
-      <xs:element minOccurs="0" name="ImagenURL" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IndicadorMontoMinimo" type="xs:int" />
-      <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
-      <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
-      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NumeroPedido" type="xs:int" />
-      <xs:element minOccurs="0" name="OfertaUltimoMinuto" type="xs:int" />
-      <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
-      <xs:element minOccurs="0" name="Precio2" type="xs:decimal" />
-      <xs:element minOccurs="0" name="PrecioString" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PrecioTachado" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PrecioUnitario" type="xs:decimal" />
-      <xs:element minOccurs="0" name="ProdComentarioId" type="xs:int" />
-      <xs:element minOccurs="0" name="PromValorizado" type="xs:int" />
-      <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TallaColor" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TextoLibre" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TieneStockProl" type="xs:boolean" />
-      <xs:element minOccurs="0" name="TieneVariedad" type="xs:int" />
-      <xs:element minOccurs="0" name="TipoEstrategia" nillable="true" type="tns:BETipoEstrategia" />
-      <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
-      <xs:element minOccurs="0" name="TipoEstrategiaImagenMostrar" type="xs:int" />
-      <xs:element minOccurs="0" name="TipoOferta" type="xs:int" />
-      <xs:element minOccurs="0" name="TipoTallaColor" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ValidarPeriodoFacturacion" type="xs:boolean" />
-      <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ZonaHoraria" type="xs:double" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BEFichaProducto" nillable="true" type="tns:BEFichaProducto" />
+  <xs:element name="BaseEntidad" nillable="true" type="tns:BaseEntidad" />
   <xs:complexType name="BEEstrategiaDetalle">
     <xs:sequence>
       <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
@@ -292,6 +276,42 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEEstrategiaDetalle" nillable="true" type="tns:BEEstrategiaDetalle" />
+  <xs:complexType name="ArrayOfBEEstrategiaProducto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEEstrategiaProducto" nillable="true" type="tns:BEEstrategiaProducto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEEstrategiaProducto" nillable="true" type="tns:ArrayOfBEEstrategiaProducto" />
+  <xs:complexType name="BEEstrategiaProducto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Activo" type="xs:short" />
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Campania" type="xs:int" />
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoError" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoErrorObs" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Digitable" type="xs:int" />
+      <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
+      <xs:element minOccurs="0" name="EstrategiaProductoID" type="xs:int" />
+      <xs:element minOccurs="0" name="FactorCuadre" type="xs:int" />
+      <xs:element minOccurs="0" name="Grupo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdMarca" type="xs:int" />
+      <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreMarca" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioValorizado" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SAP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEEstrategiaProducto" nillable="true" type="tns:BEEstrategiaProducto" />
   <xs:complexType name="BETipoEstrategia">
     <xs:sequence>
       <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
@@ -320,38 +340,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BETipoEstrategia" nillable="true" type="tns:BETipoEstrategia" />
-  <xs:complexType name="ArrayOfBEFichaProducto">
+  <xs:complexType name="BEActivarPremioNuevas">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEFichaProducto" nillable="true" type="tns:BEFichaProducto" />
+      <xs:element minOccurs="0" name="Active" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActiveMontoTooltip" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActiveTooltip" type="xs:boolean" />
+      <xs:element minOccurs="0" name="AnioCampana" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaCreate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Nivel" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfBEFichaProducto" nillable="true" type="tns:ArrayOfBEFichaProducto" />
-  <xs:complexType name="BEMiCertificado">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Asunto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Campania" type="xs:int" />
-      <xs:element minOccurs="0" name="Cargo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Ciudad" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
-      <xs:element minOccurs="0" name="DescripcionEstado" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DocumentoResponsable" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FechaIngresoConsultora" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NumeroSecuencia" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NumeroVeces" type="xs:short" />
-      <xs:element minOccurs="0" name="PromedioVentas" type="xs:decimal" />
-      <xs:element minOccurs="0" name="RazonSocial" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Responsable" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Result" type="xs:short" />
-      <xs:element minOccurs="0" name="Ruc" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipoCert" type="xs:short" />
-      <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UrlFirma" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEMiCertificado" nillable="true" type="tns:BEMiCertificado" />
+  <xs:element name="BEActivarPremioNuevas" nillable="true" type="tns:BEActivarPremioNuevas" />
   <xs:complexType name="BEUsuario">
     <xs:sequence>
       <xs:element minOccurs="0" name="AceptaPoliticaPrivacidad" type="xs:boolean" />
@@ -440,7 +440,7 @@
       <xs:element minOccurs="0" name="FotoPerfilAncha" type="xs:boolean" />
       <xs:element minOccurs="0" name="GPRBannerMensaje" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="GPRBannerTitulo" nillable="true" type="xs:string" />
-      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="GPRBannerUrl" type="q2:Enumeradores.RechazoBannerUrl" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="GPRBannerUrl" type="q1:Enumeradores.RechazoBannerUrl" />
       <xs:element minOccurs="0" name="GPRMostrarBannerRechazo" type="xs:boolean" />
       <xs:element minOccurs="0" name="GPRTextovinculo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="GuiaNegocio" nillable="true" type="tns:BEGuiaNegocio" />
@@ -599,12 +599,6 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="BEConfiguracionPaisDatos" nillable="true" type="tns:BEConfiguracionPaisDatos" />
-  <xs:complexType name="BaseEntidad">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BaseEntidad" nillable="true" type="tns:BaseEntidad" />
   <xs:complexType name="BEConfiguracionPais">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BaseEntidad">
@@ -672,8 +666,8 @@
       <xs:element minOccurs="0" name="EsActiva" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsSuscrita" type="xs:boolean" />
       <xs:element minOccurs="0" name="SociaEmpresariaExperienciaGanaMas" type="xs:boolean" />
-      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="SuscripcionEfectiva" nillable="true" type="q3:BERevistaDigitalSuscripcion" />
-      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="SuscripcionModel" nillable="true" type="q4:BERevistaDigitalSuscripcion" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="SuscripcionEfectiva" nillable="true" type="q2:BERevistaDigitalSuscripcion" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="SuscripcionModel" nillable="true" type="q3:BERevistaDigitalSuscripcion" />
       <xs:element minOccurs="0" name="TieneRDC" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneRDCR" type="xs:boolean" />
     </xs:sequence>
@@ -686,6 +680,408 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEOfertaFinal" nillable="true" type="tns:BEOfertaFinal" />
+  <xs:complexType name="BEConsultoraResumen">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CantidadClientes" type="xs:int" />
+      <xs:element minOccurs="0" name="Deudas" nillable="true" type="tns:BEConsultoraResumen.DeudasResumen" />
+      <xs:element minOccurs="0" name="Pedido" nillable="true" type="tns:BEConsultoraResumen.PedidoResumen" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConsultoraResumen" nillable="true" type="tns:BEConsultoraResumen" />
+  <xs:complexType name="BEConsultoraResumen.DeudasResumen">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CantidadDeudores" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalDeuda" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConsultoraResumen.DeudasResumen" nillable="true" type="tns:BEConsultoraResumen.DeudasResumen" />
+  <xs:complexType name="BEConsultoraResumen.PedidoResumen">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cantidadclientes" type="xs:int" />
+      <xs:element minOccurs="0" name="Cantidadproductos" type="xs:int" />
+      <xs:element minOccurs="0" name="DescuentoProl" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="IndicadorEnviado" type="xs:int" />
+      <xs:element minOccurs="0" name="MontoAhorroCatalogo" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoAhorroRevista" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoEscala" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MotivoCreditoID" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConsultoraResumen.PedidoResumen" nillable="true" type="tns:BEConsultoraResumen.PedidoResumen" />
+  <xs:complexType name="ArrayOfBEReporteValidacionSRCampania">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteValidacionSRCampania" nillable="true" type="tns:BEReporteValidacionSRCampania" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEReporteValidacionSRCampania" nillable="true" type="tns:ArrayOfBEReporteValidacionSRCampania" />
+  <xs:complexType name="BEReporteValidacionSRCampania">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodPais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DiasAntesFacturacion" type="xs:int" />
+      <xs:element minOccurs="0" name="DiasDespuesFacturacion" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagHabilitarCompraXCompra" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagHabilitarEvento" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagHabilitarSubCampania" type="xs:int" />
+      <xs:element minOccurs="0" name="NombreEvento" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEReporteValidacionSRCampania" nillable="true" type="tns:BEReporteValidacionSRCampania" />
+  <xs:complexType name="ArrayOfBEReporteValidacionSRPersonalizacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteValidacionSRPersonalizacion" nillable="true" type="tns:BEReporteValidacionSRPersonalizacion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEReporteValidacionSRPersonalizacion" nillable="true" type="tns:ArrayOfBEReporteValidacionSRPersonalizacion" />
+  <xs:complexType name="BEReporteValidacionSRPersonalizacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MX" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Medio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Personalizacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VE" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEReporteValidacionSRPersonalizacion" nillable="true" type="tns:BEReporteValidacionSRPersonalizacion" />
+  <xs:complexType name="ArrayOfBEReporteValidacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteValidacion" nillable="true" type="tns:BEReporteValidacion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEReporteValidacion" nillable="true" type="tns:ArrayOfBEReporteValidacion" />
+  <xs:complexType name="BEReporteValidacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Activo" type="xs:int" />
+      <xs:element minOccurs="0" name="AnioCampanaVenta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUVPrecioTachado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodPais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionCUV2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionCorta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioNormal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioOfertaDigital" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioTachado" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TipoPersonalizacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEReporteValidacion" nillable="true" type="tns:BEReporteValidacion" />
+  <xs:complexType name="ArrayOfBEIncentivoConcurso">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEIncentivoConcurso" nillable="true" type="tns:BEIncentivoConcurso" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEIncentivoConcurso" nillable="true" type="tns:ArrayOfBEIncentivoConcurso" />
+  <xs:complexType name="BEIncentivoConcurso">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ArchivoBannerCupon" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ArchivoBannerPremio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CampaniaIDFin" type="xs:int" />
+      <xs:element minOccurs="0" name="CampaniaIDInicio" type="xs:int" />
+      <xs:element minOccurs="0" name="CampaniaIDPremiacion" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoNivelProgramaNuevas" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstadoConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImportePedido" type="xs:decimal" />
+      <xs:element minOccurs="0" name="IndicadorPremioAcumulativo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NivelAlcanzado" type="xs:int" />
+      <xs:element minOccurs="0" name="Niveles" nillable="true" type="tns:ArrayOfBEIncentivoNivel" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" minOccurs="0" name="NivelesProgramaNuevas" nillable="true" type="q4:ArrayOfBEIncentivoProgramaNuevasNivel" />
+      <xs:element minOccurs="0" name="PuntajeExigido" type="xs:int" />
+      <xs:element minOccurs="0" name="PuntosAcumulados" type="xs:int" />
+      <xs:element minOccurs="0" name="PuntosNivel" type="xs:int" />
+      <xs:element minOccurs="0" name="TextoCupon" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TextoCuponIndependiente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UrlBannerCuponesProgramaNuevas" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UrlBannerPremiosProgramaNuevas" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEIncentivoConcurso" nillable="true" type="tns:BEIncentivoConcurso" />
+  <xs:complexType name="ArrayOfBEIncentivoNivel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEIncentivoNivel" nillable="true" type="tns:BEIncentivoNivel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEIncentivoNivel" nillable="true" type="tns:ArrayOfBEIncentivoNivel" />
+  <xs:complexType name="BEIncentivoNivel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoNivel" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoPremio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionPremio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaVentaRetail" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IndicadorBelCenter" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IndicadorNivelElectivo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IndicadorPremiacionPedido" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MontoPremiacionPedido" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NumeroPremio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Premios" nillable="true" type="tns:ArrayOfBEIncentivoPremio" />
+      <xs:element minOccurs="0" name="PuntosExigidos" type="xs:int" />
+      <xs:element minOccurs="0" name="PuntosExigidosFaltantes" type="xs:int" />
+      <xs:element minOccurs="0" name="PuntosFaltantes" type="xs:int" />
+      <xs:element minOccurs="0" name="PuntosNivel" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEIncentivoNivel" nillable="true" type="tns:BEIncentivoNivel" />
+  <xs:complexType name="ArrayOfBEIncentivoPremio">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEIncentivoPremio" nillable="true" type="tns:BEIncentivoPremio" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEIncentivoPremio" nillable="true" type="tns:ArrayOfBEIncentivoPremio" />
+  <xs:complexType name="BEIncentivoPremio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoNivel" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoPremio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionPremio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenPremio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroPremio" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEIncentivoPremio" nillable="true" type="tns:BEIncentivoPremio" />
+  <xs:complexType name="ArrayOfBEConsultoraConcurso">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConsultoraConcurso" nillable="true" type="tns:BEConsultoraConcurso" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEConsultoraConcurso" nillable="true" type="tns:ArrayOfBEConsultoraConcurso" />
+  <xs:complexType name="BEConsultoraConcurso">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaFin" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaInicio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsCampaniaAnterior" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FechaVentaRetail" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Importante" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorPremiacionPedido" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IndicadorPremioAcumulativo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MontoPremiacionPedido" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NivelAlcanzado" type="xs:int" />
+      <xs:element minOccurs="0" name="NivelSiguiente" type="xs:int" />
+      <xs:element minOccurs="0" name="NumeroNiveles" type="xs:int" />
+      <xs:element minOccurs="0" name="Participa" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Premios" nillable="true" type="tns:ArrayOfBEPremio" />
+      <xs:element minOccurs="0" name="PuntajeTotal" type="xs:int" />
+      <xs:element minOccurs="0" name="PuntosFaltantesSiguienteNivel" type="xs:int" />
+      <xs:element minOccurs="0" name="PuntosRetail" type="xs:int" />
+      <xs:element minOccurs="0" name="PuntosXVentas" type="xs:int" />
+      <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoConcurso" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConsultoraConcurso" nillable="true" type="tns:BEConsultoraConcurso" />
+  <xs:complexType name="ArrayOfBEPremio">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPremio" nillable="true" type="tns:BEPremio" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPremio" nillable="true" type="tns:ArrayOfBEPremio" />
+  <xs:complexType name="BEPremio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Importante" type="xs:int" />
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroNivel" type="xs:int" />
+      <xs:element minOccurs="0" name="PuntajeMinimo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPremio" nillable="true" type="tns:BEPremio" />
+  <xs:complexType name="BEProductoComentarioDetalle">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BEPaging">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+          <xs:element minOccurs="0" name="CodTipoOrigen" type="xs:int" />
+          <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CodigoGenerico" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CodigoSap" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Comentario" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Estado" type="xs:short" />
+          <xs:element minOccurs="0" name="FechaAprobacion" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="NombreConsultora" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ProdComentarioDetalleId" type="xs:long" />
+          <xs:element minOccurs="0" name="ProdComentarioId" type="xs:int" />
+          <xs:element minOccurs="0" name="Recomendado" type="xs:boolean" />
+          <xs:element minOccurs="0" name="URLFotoConsultora" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Valorizado" type="xs:short" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BEProductoComentarioDetalle" nillable="true" type="tns:BEProductoComentarioDetalle" />
+  <xs:complexType name="BEPaging">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PageNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="RowsCount" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalPages" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPaging" nillable="true" type="tns:BEPaging" />
+  <xs:complexType name="BEProductoComentario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CantAprobados" type="xs:int" />
+      <xs:element minOccurs="0" name="CantRecomendados" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoGenerico" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoSap" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:short" />
+      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ProdComentarioId" type="xs:int" />
+      <xs:element minOccurs="0" name="PromValorizado" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEProductoComentario" nillable="true" type="tns:BEProductoComentario" />
+  <xs:complexType name="BEProductoComentarioFilter">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="Estado" type="xs:short" />
+      <xs:element minOccurs="0" name="Limite" type="xs:int" />
+      <xs:element minOccurs="0" name="Ordenar" type="xs:short" />
+      <xs:element minOccurs="0" name="Tipo" type="xs:short" />
+      <xs:element minOccurs="0" name="Valor" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEProductoComentarioFilter" nillable="true" type="tns:BEProductoComentarioFilter" />
+  <xs:complexType name="ArrayOfBEProductoComentarioDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEProductoComentarioDetalle" nillable="true" type="tns:BEProductoComentarioDetalle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEProductoComentarioDetalle" nillable="true" type="tns:ArrayOfBEProductoComentarioDetalle" />
+  <xs:complexType name="BEFichaProducto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Activo" type="xs:int" />
+      <xs:element minOccurs="0" name="CUV1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CampaniaIDFin" type="xs:int" />
+      <xs:element minOccurs="0" name="CantComenAprob" type="xs:int" />
+      <xs:element minOccurs="0" name="CantComenRecom" type="xs:int" />
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoAgrupacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoTipoEstrategia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ColorFondo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConsultoraID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionCUV2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionCategoria" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionEstrategia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionMarca" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EnMatrizComercial" type="xs:int" />
+      <xs:element minOccurs="0" name="EstrategiaDetalle" nillable="true" type="tns:BEEstrategiaDetalle" />
+      <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
+      <xs:element minOccurs="0" name="EtiquetaDescripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EtiquetaDescripcion2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EtiquetaID" type="xs:int" />
+      <xs:element minOccurs="0" name="EtiquetaID2" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaInicioFacturacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FlagCEP" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagCEP2" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagCantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagDescripcion" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagEstrella" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagMostrarImg" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagNueva" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagTextoLibre" type="xs:int" />
+      <xs:element minOccurs="0" name="FotoProducto01" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="IdMatrizComercial" type="xs:int" />
+      <xs:element minOccurs="0" name="Imagen" type="xs:int" />
+      <xs:element minOccurs="0" name="ImagenURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IndicadorMontoMinimo" type="xs:int" />
+      <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
+      <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroPedido" type="xs:int" />
+      <xs:element minOccurs="0" name="OfertaUltimoMinuto" type="xs:int" />
+      <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Precio2" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioString" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PrecioTachado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PrecioUnitario" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ProdComentarioId" type="xs:int" />
+      <xs:element minOccurs="0" name="PromValorizado" type="xs:int" />
+      <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TallaColor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TextoLibre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TieneStockProl" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TieneVariedad" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoEstrategia" nillable="true" type="tns:BETipoEstrategia" />
+      <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoEstrategiaImagenMostrar" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoOferta" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoTallaColor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ValidarPeriodoFacturacion" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZonaHoraria" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEFichaProducto" nillable="true" type="tns:BEFichaProducto" />
+  <xs:complexType name="ArrayOfBEFichaProducto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEFichaProducto" nillable="true" type="tns:BEFichaProducto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEFichaProducto" nillable="true" type="tns:ArrayOfBEFichaProducto" />
+  <xs:complexType name="BEMiCertificado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Asunto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Campania" type="xs:int" />
+      <xs:element minOccurs="0" name="Cargo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ciudad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
+      <xs:element minOccurs="0" name="DescripcionEstado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DocumentoResponsable" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaIngresoConsultora" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroSecuencia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroVeces" type="xs:short" />
+      <xs:element minOccurs="0" name="PromedioVentas" type="xs:decimal" />
+      <xs:element minOccurs="0" name="RazonSocial" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Responsable" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Result" type="xs:short" />
+      <xs:element minOccurs="0" name="Ruc" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoCert" type="xs:short" />
+      <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UrlFirma" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEMiCertificado" nillable="true" type="tns:BEMiCertificado" />
   <xs:complexType name="BEProducto">
     <xs:sequence>
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
@@ -705,7 +1101,6 @@
       <xs:element minOccurs="0" name="EsExpoOferta" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstaEnRevista" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="FlagNueva" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenOferta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
@@ -782,99 +1177,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoWeb" nillable="true" type="tns:BEPedidoWeb" />
-  <xs:complexType name="ArrayOfBEPedidoWebDetalle">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoWebDetalle" nillable="true" type="tns:BEPedidoWebDetalle" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEPedidoWebDetalle" nillable="true" type="tns:ArrayOfBEPedidoWebDetalle" />
-  <xs:complexType name="BEPedidoWebDetalle">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="AceptoBackOrder" type="xs:boolean" />
-      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CUVNuevo" type="xs:boolean" />
-      <xs:element minOccurs="0" name="CUVPadre" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
-      <xs:element minOccurs="0" name="CantidadAnterior" type="xs:int" />
-      <xs:element minOccurs="0" name="Categoria" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ClaseFila" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ClienteID" type="xs:short" />
-      <xs:element minOccurs="0" name="Clientes" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoCatalago" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoTipoOferta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoUsuarioCreacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoUsuarioModificacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
-      <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
-      <xs:element minOccurs="0" name="DescripcionCortadaProd" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionEstrategia" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionLarga" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionOferta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionProd" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescuentoProl" type="xs:decimal" />
-      <xs:element minOccurs="0" name="EliminadoTemporal" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EsBackOrder" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EsCompraPorCompra" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EsSugerido" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EstadoItem" type="xs:short" />
-      <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Flag" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagConsultoraOnline" type="xs:boolean" />
-      <xs:element minOccurs="0" name="FlagNueva" type="xs:boolean" />
-      <xs:element minOccurs="0" name="IPUsuario" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
-      <xs:element minOccurs="0" name="ImporteTotalPedido" type="xs:decimal" />
-      <xs:element minOccurs="0" name="IndicadorMontoMinimo" type="xs:int" />
-      <xs:element minOccurs="0" name="IndicadorOfertaCUV" type="xs:boolean" />
-      <xs:element minOccurs="0" name="IndicadorPedidoAutentico" nillable="true" type="tns:BEIndicadorPedidoAutentico" />
-      <xs:element minOccurs="0" name="MarcaID" type="xs:unsignedByte" />
-      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ModificaPedidoReservado" type="xs:boolean" />
-      <xs:element minOccurs="0" name="MontoAhorroCatalogo" type="xs:decimal" />
-      <xs:element minOccurs="0" name="MontoAhorroRevista" type="xs:decimal" />
-      <xs:element minOccurs="0" name="MontoEscala" type="xs:decimal" />
-      <xs:element minOccurs="0" name="MontoTotalProl" type="xs:decimal" />
-      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NombreCliente" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ObservacionPROL" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="OfertaWeb" type="xs:boolean" />
-      <xs:element minOccurs="0" name="OrdenPedidoWD" type="xs:int" />
-      <xs:element minOccurs="0" name="OrigenPedidoWeb" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="PedidoDetalleID" type="xs:short" />
-      <xs:element minOccurs="0" name="PedidoDetalleIDPadre" type="xs:short" />
-      <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
-      <xs:element minOccurs="0" name="PrecioUnidad" type="xs:decimal" />
-      <xs:element minOccurs="0" name="ProgramaNuevoActivado" type="xs:boolean" />
-      <xs:element minOccurs="0" name="SetID" type="xs:int" />
-      <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Stock" type="xs:int" />
-      <xs:element minOccurs="0" name="SubTipoOfertaSisID" type="xs:int" />
-      <xs:element minOccurs="0" name="TipoEstrategiaCodigo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
-      <xs:element minOccurs="0" name="TipoObservacion" type="xs:int" />
-      <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
-      <xs:element minOccurs="0" name="TipoPedido" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="eMail" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEPedidoWebDetalle" nillable="true" type="tns:BEPedidoWebDetalle" />
-  <xs:complexType name="BEIndicadorPedidoAutentico">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="IndicadorFingerprint" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IndicadorIPUsuario" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IndicadorToken" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PedidoDetalleID" type="xs:int" />
-      <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEIndicadorPedidoAutentico" nillable="true" type="tns:BEIndicadorPedidoAutentico" />
   <xs:complexType name="ArrayOfBEEscalaDescuento">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEEscalaDescuento" nillable="true" type="tns:BEEscalaDescuento" />
@@ -912,214 +1214,25 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBEEstrategia" nillable="true" type="tns:ArrayOfBEEstrategia" />
-  <xs:complexType name="BEEstrategia">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BaseEntidad">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Activo" type="xs:int" />
-          <xs:element minOccurs="0" name="AgregarEnMatriz" type="xs:boolean" />
-          <xs:element minOccurs="0" name="CUV1" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-          <xs:element minOccurs="0" name="CampaniaIDFin" type="xs:int" />
-          <xs:element minOccurs="0" name="CantComenAprob" type="xs:int" />
-          <xs:element minOccurs="0" name="CantComenRecom" type="xs:int" />
-          <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
-          <xs:element minOccurs="0" name="CodigoAgrupacion" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CodigoGenerico" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CodigoTipoEstrategia" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ColorFondo" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ConsultoraID" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="DescripcionCUV2" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="DescripcionCategoria" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="DescripcionCortaCUV2" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="DescripcionEstrategia" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="DescripcionMarca" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="EnMatrizComercial" type="xs:int" />
-          <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
-          <xs:element minOccurs="0" name="EsSubCampania" type="xs:int" />
-          <xs:element minOccurs="0" name="EstrategiaDetalle" nillable="true" type="tns:BEEstrategiaDetalle" />
-          <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
-          <xs:element minOccurs="0" name="EstrategiaProducto" nillable="true" type="tns:ArrayOfBEEstrategiaProducto" />
-          <xs:element minOccurs="0" name="EstrategiaProductoCodigoSAP" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="EtiquetaDescripcion" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="EtiquetaDescripcion2" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="EtiquetaID" type="xs:int" />
-          <xs:element minOccurs="0" name="EtiquetaID2" type="xs:int" />
-          <xs:element minOccurs="0" name="FechaInicioFacturacion" type="xs:dateTime" />
-          <xs:element minOccurs="0" name="FlagCEP" type="xs:int" />
-          <xs:element minOccurs="0" name="FlagCEP2" type="xs:int" />
-          <xs:element minOccurs="0" name="FlagCantidad" type="xs:int" />
-          <xs:element minOccurs="0" name="FlagDescripcion" type="xs:int" />
-          <xs:element minOccurs="0" name="FlagEstrella" type="xs:int" />
-          <xs:element minOccurs="0" name="FlagIndividual" type="xs:boolean" />
-          <xs:element minOccurs="0" name="FlagMostrarImg" type="xs:int" />
-          <xs:element minOccurs="0" name="FlagNueva" type="xs:int" />
-          <xs:element minOccurs="0" name="FlagRevista" type="xs:int" />
-          <xs:element minOccurs="0" name="FlagTextoLibre" type="xs:int" />
-          <xs:element minOccurs="0" name="FlagValidarImagen" type="xs:int" />
-          <xs:element minOccurs="0" name="FotoProducto01" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="FotoProductoMedium" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="FotoProductoSmall" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="Ganancia" type="xs:decimal" />
-          <xs:element minOccurs="0" name="GananciaString" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ID" type="xs:int" />
-          <xs:element minOccurs="0" name="IdMatrizComercial" type="xs:int" />
-          <xs:element minOccurs="0" name="Imagen" type="xs:int" />
-          <xs:element minOccurs="0" name="ImagenMiniaturaURL" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ImagenOfertaIndependiente" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ImagenURL" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ImgFichaDesktop" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ImgFichaFondoDesktop" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ImgFichaFondoMobile" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ImgFichaMobile" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ImgFondoDesktop" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ImgFondoMobile" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ImgHomeDesktop" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ImgHomeMobile" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="IndicadorMontoMinimo" type="xs:int" />
-          <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
-          <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
-          <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="MostrarImgOfertaIndependiente" type="xs:boolean" />
-          <xs:element minOccurs="0" name="Niveles" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="NumeroPedido" type="xs:int" />
-          <xs:element minOccurs="0" name="OfertaUltimoMinuto" type="xs:int" />
-          <xs:element minOccurs="0" name="Orden" type="xs:int" />
-          <xs:element minOccurs="0" name="PesoMaximoImagen" type="xs:int" />
-          <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
-          <xs:element minOccurs="0" name="Precio2" type="xs:decimal" />
-          <xs:element minOccurs="0" name="PrecioPublico" type="xs:decimal" />
-          <xs:element minOccurs="0" name="PrecioString" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="PrecioTachado" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="PrecioUnitario" type="xs:decimal" />
-          <xs:element minOccurs="0" name="ProdComentarioId" type="xs:int" />
-          <xs:element minOccurs="0" name="PromValorizado" type="xs:int" />
-          <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="Slogan" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="TallaColor" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="TextoLibre" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="TieneStockProl" type="xs:boolean" />
-          <xs:element minOccurs="0" name="TieneVariedad" type="xs:int" />
-          <xs:element minOccurs="0" name="TipoConcurso" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="TipoEstrategia" nillable="true" type="tns:BETipoEstrategia" />
-          <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
-          <xs:element minOccurs="0" name="TipoEstrategiaImagenMostrar" type="xs:int" />
-          <xs:element minOccurs="0" name="TipoOferta" type="xs:int" />
-          <xs:element minOccurs="0" name="TipoTallaColor" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="UrlVideoDesktop" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="UrlVideoMobile" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ValidarPeriodoFacturacion" type="xs:boolean" />
-          <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ZonaHoraria" type="xs:double" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="BEEstrategia" nillable="true" type="tns:BEEstrategia" />
-  <xs:complexType name="ArrayOfBEEstrategiaProducto">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEEstrategiaProducto" nillable="true" type="tns:BEEstrategiaProducto" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEEstrategiaProducto" nillable="true" type="tns:ArrayOfBEEstrategiaProducto" />
-  <xs:complexType name="BEEstrategiaProducto">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Activo" type="xs:short" />
-      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Campania" type="xs:int" />
-      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoError" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoErrorObs" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Digitable" type="xs:int" />
-      <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
-      <xs:element minOccurs="0" name="EstrategiaProductoID" type="xs:int" />
-      <xs:element minOccurs="0" name="FactorCuadre" type="xs:int" />
-      <xs:element minOccurs="0" name="Grupo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IdMarca" type="xs:int" />
-      <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NombreMarca" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NombreProducto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Orden" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
-      <xs:element minOccurs="0" name="PrecioValorizado" type="xs:decimal" />
-      <xs:element minOccurs="0" name="SAP" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEEstrategiaProducto" nillable="true" type="tns:BEEstrategiaProducto" />
   <xs:complexType name="ArrayOfBEProducto">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEProducto" nillable="true" type="tns:BEProducto" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBEProducto" nillable="true" type="tns:ArrayOfBEProducto" />
-  <xs:complexType name="ArrayOfBEReporteValidacionSROferta">
+  <xs:complexType name="BEPedidoWebDetalleParametros">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteValidacionSROferta" nillable="true" type="tns:BEReporteValidacionSROferta" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEReporteValidacionSROferta" nillable="true" type="tns:ArrayOfBEReporteValidacionSROferta" />
-  <xs:complexType name="BEReporteValidacionSROferta">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodPais" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoTO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EsSubCampania" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagImagenCargada" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagImagenMINI" type="xs:int" />
-      <xs:element minOccurs="0" name="HabilitarOferta" type="xs:int" />
-      <xs:element minOccurs="0" name="PrecioOferta" type="xs:decimal" />
-      <xs:element minOccurs="0" name="PrecioValorizado" type="xs:decimal" />
-      <xs:element minOccurs="0" name="UnidadesPermitidas" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEReporteValidacionSROferta" nillable="true" type="tns:BEReporteValidacionSROferta" />
-  <xs:complexType name="ArrayOfBEReporteValidacionSRComponentes">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteValidacionSRComponentes" nillable="true" type="tns:BEReporteValidacionSRComponentes" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEReporteValidacionSRComponentes" nillable="true" type="tns:ArrayOfBEReporteValidacionSRComponentes" />
-  <xs:complexType name="BEReporteValidacionSRComponentes">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodPais" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FlagImagenCargada" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEReporteValidacionSRComponentes" nillable="true" type="tns:BEReporteValidacionSRComponentes" />
-  <xs:complexType name="BEActivarPremioNuevas">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Active" type="xs:boolean" />
-      <xs:element minOccurs="0" name="ActiveMontoTooltip" type="xs:boolean" />
-      <xs:element minOccurs="0" name="ActiveTooltip" type="xs:boolean" />
-      <xs:element minOccurs="0" name="AnioCampana" type="xs:int" />
+      <xs:element minOccurs="0" name="AgruparSet" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CampaniaId" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FechaCreate" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Nivel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Consultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
+      <xs:element minOccurs="0" name="EsBpt" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NumeroPedido" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BEActivarPremioNuevas" nillable="true" type="tns:BEActivarPremioNuevas" />
+  <xs:element name="BEPedidoWebDetalleParametros" nillable="true" type="tns:BEPedidoWebDetalleParametros" />
   <xs:complexType name="ArrayOfBEProductoSugerido">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEProductoSugerido" nillable="true" type="tns:BEProductoSugerido" />
@@ -1256,288 +1369,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEConsultoraRegaloProgramaNuevas" nillable="true" type="tns:BEConsultoraRegaloProgramaNuevas" />
-  <xs:complexType name="BEConsultoraResumen">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CantidadClientes" type="xs:int" />
-      <xs:element minOccurs="0" name="Deudas" nillable="true" type="tns:BEConsultoraResumen.DeudasResumen" />
-      <xs:element minOccurs="0" name="Pedido" nillable="true" type="tns:BEConsultoraResumen.PedidoResumen" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEConsultoraResumen" nillable="true" type="tns:BEConsultoraResumen" />
-  <xs:complexType name="BEConsultoraResumen.DeudasResumen">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CantidadDeudores" type="xs:int" />
-      <xs:element minOccurs="0" name="TotalDeuda" type="xs:decimal" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEConsultoraResumen.DeudasResumen" nillable="true" type="tns:BEConsultoraResumen.DeudasResumen" />
-  <xs:complexType name="BEConsultoraResumen.PedidoResumen">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Cantidadclientes" type="xs:int" />
-      <xs:element minOccurs="0" name="Cantidadproductos" type="xs:int" />
-      <xs:element minOccurs="0" name="DescuentoProl" type="xs:decimal" />
-      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
-      <xs:element minOccurs="0" name="IndicadorEnviado" type="xs:int" />
-      <xs:element minOccurs="0" name="MontoAhorroCatalogo" type="xs:decimal" />
-      <xs:element minOccurs="0" name="MontoAhorroRevista" type="xs:decimal" />
-      <xs:element minOccurs="0" name="MontoEscala" type="xs:decimal" />
-      <xs:element minOccurs="0" name="MotivoCreditoID" type="xs:int" />
-      <xs:element minOccurs="0" name="PedidoId" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEConsultoraResumen.PedidoResumen" nillable="true" type="tns:BEConsultoraResumen.PedidoResumen" />
-  <xs:complexType name="ArrayOfBEReporteValidacionSRCampania">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteValidacionSRCampania" nillable="true" type="tns:BEReporteValidacionSRCampania" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEReporteValidacionSRCampania" nillable="true" type="tns:ArrayOfBEReporteValidacionSRCampania" />
-  <xs:complexType name="BEReporteValidacionSRCampania">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodPais" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DiasAntesFacturacion" type="xs:int" />
-      <xs:element minOccurs="0" name="DiasDespuesFacturacion" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagHabilitarCompraXCompra" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagHabilitarEvento" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagHabilitarSubCampania" type="xs:int" />
-      <xs:element minOccurs="0" name="NombreEvento" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEReporteValidacionSRCampania" nillable="true" type="tns:BEReporteValidacionSRCampania" />
-  <xs:complexType name="ArrayOfBEReporteValidacionSRPersonalizacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteValidacionSRPersonalizacion" nillable="true" type="tns:BEReporteValidacionSRPersonalizacion" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEReporteValidacionSRPersonalizacion" nillable="true" type="tns:ArrayOfBEReporteValidacionSRPersonalizacion" />
-  <xs:complexType name="BEReporteValidacionSRPersonalizacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="BO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CL" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CR" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EC" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="GT" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MX" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Medio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PA" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PE" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PR" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Personalizacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="VE" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEReporteValidacionSRPersonalizacion" nillable="true" type="tns:BEReporteValidacionSRPersonalizacion" />
-  <xs:complexType name="ArrayOfBEReporteValidacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteValidacion" nillable="true" type="tns:BEReporteValidacion" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEReporteValidacion" nillable="true" type="tns:ArrayOfBEReporteValidacion" />
-  <xs:complexType name="BEReporteValidacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Activo" type="xs:int" />
-      <xs:element minOccurs="0" name="AnioCampanaVenta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CUVPrecioTachado" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodPais" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionCUV2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionCorta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ImagenUrl" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
-      <xs:element minOccurs="0" name="PrecioNormal" type="xs:decimal" />
-      <xs:element minOccurs="0" name="PrecioOfertaDigital" type="xs:decimal" />
-      <xs:element minOccurs="0" name="PrecioTachado" type="xs:decimal" />
-      <xs:element minOccurs="0" name="TipoPersonalizacion" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEReporteValidacion" nillable="true" type="tns:BEReporteValidacion" />
-  <xs:complexType name="BEInformacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoInformacion" type="xs:int" />
-      <xs:element minOccurs="0" name="DetalleInformacion" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEInformacion" nillable="true" type="tns:BEInformacion" />
-  <xs:complexType name="ArrayOfBENovedadTracking">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BENovedadTracking" nillable="true" type="tns:BENovedadTracking" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBENovedadTracking" nillable="true" type="tns:ArrayOfBENovedadTracking" />
-  <xs:complexType name="BENovedadTracking">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Boleta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DesNovedad" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DesTipoEntrega" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FechaNovedad" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Foto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Longitud" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MensajeNovedad" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Novedad" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipoEntrega" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BENovedadTracking" nillable="true" type="tns:BENovedadTracking" />
-  <xs:complexType name="BEConfirmacionEntrega">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoPlataforma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Firma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Foto1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Foto2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Foto3" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IdentificadorEntrega" type="xs:int" />
-      <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Longitud" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Novedad" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NumeroPedido" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PaisISO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipoEntrega" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEConfirmacionEntrega" nillable="true" type="tns:BEConfirmacionEntrega" />
-  <xs:complexType name="BEConfirmacionRecojo">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Campania" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoPlataforma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoTipoNovedadRecojo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EstadoRecojo" type="xs:int" />
-      <xs:element minOccurs="0" name="FechaEstimadoRecojo" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaRecojo" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Foto1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Foto2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Longitud" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NumeroPedido" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NumeroRecojo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PaisISO" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEConfirmacionRecojo" nillable="true" type="tns:BEConfirmacionRecojo" />
-  <xs:complexType name="ArrayOfBEPostVenta">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPostVenta" nillable="true" type="tns:BEPostVenta" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEPostVenta" nillable="true" type="tns:ArrayOfBEPostVenta" />
-  <xs:complexType name="BEPostVenta">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoPlataforma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoTipoNovedadRecojo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConfirmacionRecojoID" type="xs:int" />
-      <xs:element minOccurs="0" name="EstadoRecojo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EstadoRecojoID" type="xs:int" />
-      <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaEstimadoRecojo" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaRecojo" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Foto1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Foto2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Longitud" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MensajeTipoNovedad" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Novedad" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NumeroPedido" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NumeroRecojo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisISO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Situacion" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEPostVenta" nillable="true" type="tns:BEPostVenta" />
-  <xs:complexType name="BEEtiqueta">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoGeneral" type="xs:int" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Estado" type="xs:int" />
-      <xs:element minOccurs="0" name="EtiquetaID" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEEtiqueta" nillable="true" type="tns:BEEtiqueta" />
-  <xs:complexType name="ArrayOfBEEtiqueta">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEEtiqueta" nillable="true" type="tns:BEEtiqueta" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEEtiqueta" nillable="true" type="tns:ArrayOfBEEtiqueta" />
-  <xs:complexType name="ArrayOfBEConfiguracionPackNuevas">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConfiguracionPackNuevas" nillable="true" type="tns:BEConfiguracionPackNuevas" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEConfiguracionPackNuevas" nillable="true" type="tns:ArrayOfBEConfiguracionPackNuevas" />
-  <xs:complexType name="BEConfiguracionPackNuevas">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConfiguracionPackID" type="xs:int" />
-      <xs:element minOccurs="0" name="PedidoAsociado" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEConfiguracionPackNuevas" nillable="true" type="tns:BEConfiguracionPackNuevas" />
-  <xs:complexType name="BEOferta">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoOferta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionOferta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="OfertaID" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
-      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEOferta" nillable="true" type="tns:BEOferta" />
-  <xs:complexType name="ArrayOfBEOferta">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEOferta" nillable="true" type="tns:BEOferta" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEOferta" nillable="true" type="tns:ArrayOfBEOferta" />
-  <xs:complexType name="ArrayOfBETipoEstrategia">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BETipoEstrategia" nillable="true" type="tns:BETipoEstrategia" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBETipoEstrategia" nillable="true" type="tns:ArrayOfBETipoEstrategia" />
-  <xs:complexType name="BETallaColor">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="DescripcionCUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionTallaColor" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionTipo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ID" type="xs:int" />
-      <xs:element minOccurs="0" name="IDAux" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="PrecioUnitario" type="xs:decimal" />
-      <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BETallaColor" nillable="true" type="tns:BETallaColor" />
-  <xs:complexType name="ArrayOfBETallaColor">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BETallaColor" nillable="true" type="tns:BETallaColor" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBETallaColor" nillable="true" type="tns:ArrayOfBETallaColor" />
   <xs:complexType name="ArrayOfBEMatrizComercialImagen">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEMatrizComercialImagen" nillable="true" type="tns:BEMatrizComercialImagen" />
@@ -1559,6 +1390,36 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEMatrizComercialImagen" nillable="true" type="tns:BEMatrizComercialImagen" />
+  <xs:complexType name="BETallaColor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="DescripcionCUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionTallaColor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionTipo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="IDAux" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioUnitario" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BETallaColor" nillable="true" type="tns:BETallaColor" />
+  <xs:complexType name="BEOferta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoOferta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionOferta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OfertaID" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
+      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEOferta" nillable="true" type="tns:BEOferta" />
   <xs:complexType name="ArrayOfBEConfiguracionValidacionZE">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConfiguracionValidacionZE" nillable="true" type="tns:BEConfiguracionValidacionZE" />
@@ -1937,153 +1798,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEResultadoPedidoDetalleAppCatalogo" nillable="true" type="tns:BEResultadoPedidoDetalleAppCatalogo" />
-  <xs:complexType name="ArrayOfBECrossSellingAsociacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BECrossSellingAsociacion" nillable="true" type="tns:BECrossSellingAsociacion" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBECrossSellingAsociacion" nillable="true" type="tns:ArrayOfBECrossSellingAsociacion" />
-  <xs:complexType name="BECrossSellingAsociacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CUVAsociado" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CUVAsociado2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoSegmento" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CrossSellingAsociacionID" type="xs:int" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EtiquetaPrecio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NroOrden" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="PrecioOferta" type="xs:decimal" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BECrossSellingAsociacion" nillable="true" type="tns:BECrossSellingAsociacion" />
-  <xs:complexType name="ArrayOfBECrossSellingProducto">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BECrossSellingProducto" nillable="true" type="tns:BECrossSellingProducto" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBECrossSellingProducto" nillable="true" type="tns:ArrayOfBECrossSellingProducto" />
-  <xs:complexType name="BECrossSellingProducto">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoTipoOferta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
-      <xs:element minOccurs="0" name="CrossSellingProductoID" type="xs:int" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EtiquetaPrecio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FlagHabilitarProducto" type="xs:int" />
-      <xs:element minOccurs="0" name="ISOPais" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MarcaID" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MensajeProducto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NroOrden" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="PrecioOferta" type="xs:decimal" />
-      <xs:element minOccurs="0" name="SubTipoOfertaSisID" type="xs:int" />
-      <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BECrossSellingProducto" nillable="true" type="tns:BECrossSellingProducto" />
-  <xs:complexType name="ArrayOfBEOfertaNueva">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEOfertaNueva" nillable="true" type="tns:BEOfertaNueva" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEOfertaNueva" nillable="true" type="tns:ArrayOfBEOfertaNueva" />
-  <xs:complexType name="BEOfertaNueva">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="CampaniaIDFin" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionProd" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FlagHabilitarOferta" type="xs:boolean" />
-      <xs:element minOccurs="0" name="FlagImagenActiva" type="xs:short" />
-      <xs:element minOccurs="0" name="ImagenProducto01" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ImagenProducto02" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ImagenProducto03" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IndicadorMontoMinimo" type="xs:int" />
-      <xs:element minOccurs="0" name="IndicadorPedido" type="xs:int" />
-      <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
-      <xs:element minOccurs="0" name="NumeroPedido" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="OfertaNuevaId" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="PrecioNormal" type="xs:decimal" />
-      <xs:element minOccurs="0" name="PrecioParaTi" type="xs:decimal" />
-      <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
-      <xs:element minOccurs="0" name="UnidadesPermitidas" type="xs:int" />
-      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ganahasta" type="xs:decimal" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEOfertaNueva" nillable="true" type="tns:BEOfertaNueva" />
-  <xs:complexType name="ArrayOfBEOfertaFlexipago">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEOfertaFlexipago" nillable="true" type="tns:BEOfertaFlexipago" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEOfertaFlexipago" nillable="true" type="tns:ArrayOfBEOfertaFlexipago" />
-  <xs:complexType name="BEOfertaFlexipago">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="CategoriaID" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoTipoOferta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
-      <xs:element minOccurs="0" name="CuotaPendCampaniaActual" type="xs:decimal" />
-      <xs:element minOccurs="0" name="CuotaPendCampaniaSiguiente" type="xs:decimal" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionLegal" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Flag" type="xs:int" />
-      <xs:element minOccurs="0" name="FlagHabilitarProducto" type="xs:int" />
-      <xs:element minOccurs="0" name="ISOPais" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="InteresePorCuota" type="xs:decimal" />
-      <xs:element minOccurs="0" name="LineaCredito" type="xs:decimal" />
-      <xs:element minOccurs="0" name="LinksFlexipago" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
-      <xs:element minOccurs="0" name="MontoMinimoFlexipago" type="xs:decimal" />
-      <xs:element minOccurs="0" name="MontoPagado" type="xs:decimal" />
-      <xs:element minOccurs="0" name="MontoPorCuota" type="xs:decimal" />
-      <xs:element minOccurs="0" name="MontoTotal" type="xs:decimal" />
-      <xs:element minOccurs="0" name="NroOrden" type="xs:int" />
-      <xs:element minOccurs="0" name="OfertaProductoID" type="xs:int" />
-      <xs:element minOccurs="0" name="Orden" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="PedidoBase" type="xs:decimal" />
-      <xs:element minOccurs="0" name="PrecioNormal" type="xs:decimal" />
-      <xs:element minOccurs="0" name="PrecioOferta" type="xs:decimal" />
-      <xs:element minOccurs="0" name="Stock" type="xs:int" />
-      <xs:element minOccurs="0" name="StockInicial" type="xs:int" />
-      <xs:element minOccurs="0" name="TipoOferta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
-      <xs:element minOccurs="0" name="UnidadesPermitidas" type="xs:int" />
-      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEOfertaFlexipago" nillable="true" type="tns:BEOfertaFlexipago" />
-  <xs:complexType name="ArrayOfBEPedidoFICDetalle">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoFICDetalle" nillable="true" type="tns:BEPedidoFICDetalle" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEPedidoFICDetalle" nillable="true" type="tns:ArrayOfBEPedidoFICDetalle" />
   <xs:complexType name="BEPedidoFICDetalle">
     <xs:sequence>
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
@@ -2369,6 +2083,336 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEAsistenciaCompartamos" nillable="true" type="tns:BEAsistenciaCompartamos" />
+  <xs:complexType name="BEInformacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoInformacion" type="xs:int" />
+      <xs:element minOccurs="0" name="DetalleInformacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEInformacion" nillable="true" type="tns:BEInformacion" />
+  <xs:complexType name="ArrayOfBENovedadTracking">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BENovedadTracking" nillable="true" type="tns:BENovedadTracking" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBENovedadTracking" nillable="true" type="tns:ArrayOfBENovedadTracking" />
+  <xs:complexType name="BENovedadTracking">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Boleta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DesNovedad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DesTipoEntrega" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaNovedad" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Foto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Longitud" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeNovedad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Novedad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoEntrega" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BENovedadTracking" nillable="true" type="tns:BENovedadTracking" />
+  <xs:complexType name="BEConfirmacionEntrega">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoPlataforma" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Firma" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Foto1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Foto2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Foto3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdentificadorEntrega" type="xs:int" />
+      <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Longitud" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Novedad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroPedido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PaisISO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoEntrega" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConfirmacionEntrega" nillable="true" type="tns:BEConfirmacionEntrega" />
+  <xs:complexType name="BEConfirmacionRecojo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Campania" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoPlataforma" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoTipoNovedadRecojo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstadoRecojo" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaEstimadoRecojo" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaRecojo" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Foto1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Foto2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Longitud" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroPedido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroRecojo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PaisISO" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConfirmacionRecojo" nillable="true" type="tns:BEConfirmacionRecojo" />
+  <xs:complexType name="ArrayOfBEPostVenta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPostVenta" nillable="true" type="tns:BEPostVenta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPostVenta" nillable="true" type="tns:ArrayOfBEPostVenta" />
+  <xs:complexType name="BEPostVenta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoPlataforma" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoTipoNovedadRecojo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfirmacionRecojoID" type="xs:int" />
+      <xs:element minOccurs="0" name="EstadoRecojo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstadoRecojoID" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaEstimadoRecojo" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaRecojo" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Foto1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Foto2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Latitud" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Longitud" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeTipoNovedad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Novedad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroPedido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroRecojo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisISO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Situacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPostVenta" nillable="true" type="tns:BEPostVenta" />
+  <xs:complexType name="BEEtiqueta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoGeneral" type="xs:int" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:int" />
+      <xs:element minOccurs="0" name="EtiquetaID" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEEtiqueta" nillable="true" type="tns:BEEtiqueta" />
+  <xs:complexType name="ArrayOfBEEtiqueta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEEtiqueta" nillable="true" type="tns:BEEtiqueta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEEtiqueta" nillable="true" type="tns:ArrayOfBEEtiqueta" />
+  <xs:complexType name="ArrayOfBEConfiguracionPackNuevas">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConfiguracionPackNuevas" nillable="true" type="tns:BEConfiguracionPackNuevas" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEConfiguracionPackNuevas" nillable="true" type="tns:ArrayOfBEConfiguracionPackNuevas" />
+  <xs:complexType name="BEConfiguracionPackNuevas">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfiguracionPackID" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoAsociado" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConfiguracionPackNuevas" nillable="true" type="tns:BEConfiguracionPackNuevas" />
+  <xs:complexType name="ArrayOfBEOferta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEOferta" nillable="true" type="tns:BEOferta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEOferta" nillable="true" type="tns:ArrayOfBEOferta" />
+  <xs:complexType name="ArrayOfBETipoEstrategia">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BETipoEstrategia" nillable="true" type="tns:BETipoEstrategia" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBETipoEstrategia" nillable="true" type="tns:ArrayOfBETipoEstrategia" />
+  <xs:complexType name="ArrayOfBETallaColor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BETallaColor" nillable="true" type="tns:BETallaColor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBETallaColor" nillable="true" type="tns:ArrayOfBETallaColor" />
+  <xs:complexType name="BEConfiguracionOferta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoOferta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstadoRegistro" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConfiguracionOferta" nillable="true" type="tns:BEConfiguracionOferta" />
+  <xs:complexType name="ArrayOfBEConfiguracionOferta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConfiguracionOferta" nillable="true" type="tns:BEConfiguracionOferta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEConfiguracionOferta" nillable="true" type="tns:ArrayOfBEConfiguracionOferta" />
+  <xs:complexType name="BEConfiguracionCrossSelling">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="HabilitarDiasValidacion" type="xs:int" />
+      <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConfiguracionCrossSelling" nillable="true" type="tns:BEConfiguracionCrossSelling" />
+  <xs:complexType name="ArrayOfBEConfiguracionCrossSelling">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConfiguracionCrossSelling" nillable="true" type="tns:BEConfiguracionCrossSelling" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEConfiguracionCrossSelling" nillable="true" type="tns:ArrayOfBEConfiguracionCrossSelling" />
+  <xs:complexType name="BECrossSellingProducto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoTipoOferta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CrossSellingProductoID" type="xs:int" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EtiquetaPrecio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FlagHabilitarProducto" type="xs:int" />
+      <xs:element minOccurs="0" name="ISOPais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MarcaID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NroOrden" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioOferta" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SubTipoOfertaSisID" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BECrossSellingProducto" nillable="true" type="tns:BECrossSellingProducto" />
+  <xs:complexType name="ArrayOfBECrossSellingProducto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BECrossSellingProducto" nillable="true" type="tns:BECrossSellingProducto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBECrossSellingProducto" nillable="true" type="tns:ArrayOfBECrossSellingProducto" />
+  <xs:complexType name="ArrayOfBECrossSellingAsociacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BECrossSellingAsociacion" nillable="true" type="tns:BECrossSellingAsociacion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBECrossSellingAsociacion" nillable="true" type="tns:ArrayOfBECrossSellingAsociacion" />
+  <xs:complexType name="BECrossSellingAsociacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUVAsociado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUVAsociado2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoSegmento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CrossSellingAsociacionID" type="xs:int" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EtiquetaPrecio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NroOrden" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioOferta" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BECrossSellingAsociacion" nillable="true" type="tns:BECrossSellingAsociacion" />
+  <xs:complexType name="ArrayOfBEOfertaNueva">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEOfertaNueva" nillable="true" type="tns:BEOfertaNueva" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEOfertaNueva" nillable="true" type="tns:ArrayOfBEOfertaNueva" />
+  <xs:complexType name="BEOfertaNueva">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CampaniaIDFin" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionProd" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FlagHabilitarOferta" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FlagImagenActiva" type="xs:short" />
+      <xs:element minOccurs="0" name="ImagenProducto01" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenProducto02" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenProducto03" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IndicadorMontoMinimo" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorPedido" type="xs:int" />
+      <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
+      <xs:element minOccurs="0" name="NumeroPedido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OfertaNuevaId" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioNormal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioParaTi" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+      <xs:element minOccurs="0" name="UnidadesPermitidas" type="xs:int" />
+      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ganahasta" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEOfertaNueva" nillable="true" type="tns:BEOfertaNueva" />
+  <xs:complexType name="ArrayOfBEOfertaFlexipago">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEOfertaFlexipago" nillable="true" type="tns:BEOfertaFlexipago" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEOfertaFlexipago" nillable="true" type="tns:ArrayOfBEOfertaFlexipago" />
+  <xs:complexType name="BEOfertaFlexipago">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CategoriaID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoTipoOferta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CuotaPendCampaniaActual" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CuotaPendCampaniaSiguiente" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionLegal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Flag" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagHabilitarProducto" type="xs:int" />
+      <xs:element minOccurs="0" name="ISOPais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InteresePorCuota" type="xs:decimal" />
+      <xs:element minOccurs="0" name="LineaCredito" type="xs:decimal" />
+      <xs:element minOccurs="0" name="LinksFlexipago" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
+      <xs:element minOccurs="0" name="MontoMinimoFlexipago" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoPagado" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoPorCuota" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NroOrden" type="xs:int" />
+      <xs:element minOccurs="0" name="OfertaProductoID" type="xs:int" />
+      <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoBase" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioNormal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioOferta" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Stock" type="xs:int" />
+      <xs:element minOccurs="0" name="StockInicial" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoOferta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+      <xs:element minOccurs="0" name="UnidadesPermitidas" type="xs:int" />
+      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEOfertaFlexipago" nillable="true" type="tns:BEOfertaFlexipago" />
+  <xs:complexType name="ArrayOfBEPedidoFICDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoFICDetalle" nillable="true" type="tns:BEPedidoFICDetalle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPedidoFICDetalle" nillable="true" type="tns:ArrayOfBEPedidoFICDetalle" />
   <xs:complexType name="BEPedidoReporteLiderIndicador">
     <xs:sequence>
       <xs:element minOccurs="0" name="PedidoWebEnProceso" type="xs:int" />
@@ -2431,19 +2475,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoWebResult" nillable="true" type="tns:BEPedidoWebResult" />
-  <xs:complexType name="BEPedidoWebDetalleParametros">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="AgruparSet" type="xs:boolean" />
-      <xs:element minOccurs="0" name="CampaniaId" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Consultora" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
-      <xs:element minOccurs="0" name="EsBpt" type="xs:boolean" />
-      <xs:element minOccurs="0" name="NumeroPedido" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisId" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEPedidoWebDetalleParametros" nillable="true" type="tns:BEPedidoWebDetalleParametros" />
   <xs:complexType name="BEPedidoDDWeb">
     <xs:sequence>
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
@@ -2549,23 +2580,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoWebService" nillable="true" type="tns:BEPedidoWebService" />
-  <xs:complexType name="ArrayOfBEConfiguracionOferta">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConfiguracionOferta" nillable="true" type="tns:BEConfiguracionOferta" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEConfiguracionOferta" nillable="true" type="tns:ArrayOfBEConfiguracionOferta" />
-  <xs:complexType name="BEConfiguracionOferta">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoOferta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EstadoRegistro" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEConfiguracionOferta" nillable="true" type="tns:BEConfiguracionOferta" />
   <xs:complexType name="BEStockCargaLog">
     <xs:sequence>
       <xs:element minOccurs="0" name="CantidadRegistros" type="xs:int" />
@@ -2582,19 +2596,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBEMatrizComercial" nillable="true" type="tns:ArrayOfBEMatrizComercial" />
-  <xs:complexType name="BEConfiguracionCrossSelling">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="HabilitarDiasValidacion" type="xs:int" />
-      <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEConfiguracionCrossSelling" nillable="true" type="tns:BEConfiguracionCrossSelling" />
-  <xs:complexType name="ArrayOfBEConfiguracionCrossSelling">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConfiguracionCrossSelling" nillable="true" type="tns:BEConfiguracionCrossSelling" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEConfiguracionCrossSelling" nillable="true" type="tns:ArrayOfBEConfiguracionCrossSelling" />
 </xs:schema>

@@ -1204,13 +1204,14 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro);
         #endregion
-        
-        [OperationContract]
-        bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId);
-
 
         [OperationContract]
-        bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad);
+        bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario,
+            string CuvsStringList, int EstrategiaId, string nombreConsultora, string codigoPrograma, int numeroPedido);
+
+
+        [OperationContract]        
+        bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
 
         [OperationContract]
         List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId);
@@ -1219,7 +1220,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoWebSet ObtenerPedidoWebSet(int paisId, int setId);
 
         [OperationContract]
-        bool EliminarPedidoWebSet(int paisId, int setId);
+        bool EliminarPedidoWebSet(int paisId, int setId, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
 
         [OperationContract]
         DateTime? ObtenerFechaInicioSets(int paisId);

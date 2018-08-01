@@ -456,7 +456,18 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 if (pedidoDetalle.SetID > 0)
                 {
-                    var SetResult = _pedidoWebDetalleBusinessLogic.UpdCantidadPedidoWebSet(pedidoDetalle.PaisID, pedidoDetalle.SetID, pedidoDetalle.Cantidad);
+                    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                    {
+                        PaisId = usuario.PaisID,
+                        CampaniaId = usuario.CampaniaID,
+                        ConsultoraId = usuario.ConsultoraID,
+                        Consultora = usuario.Nombre,
+                        EsBpt = false,   //no se usa
+                        CodigoPrograma = usuario.CodigoPrograma,
+                        NumeroPedido = usuario.ConsecutivoNueva,
+                        AgruparSet = true
+                    };
+                    var SetResult = _pedidoWebDetalleBusinessLogic.UpdCantidadPedidoWebSet(pedidoDetalle.PaisID, pedidoDetalle.SetID, pedidoDetalle.Cantidad, bePedidoWebDetalleParametros);
                 }
 
                 //actualizar PROL
@@ -582,7 +593,18 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             }
                         }
 
-                        var result = _pedidoWebSetBusinessLogic.Eliminar(usuario.PaisID, pedidoDetalle.SetID);
+                        var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                        {
+                            PaisId = usuario.PaisID,
+                            CampaniaId = usuario.CampaniaID,
+                            ConsultoraId = usuario.ConsultoraID,
+                            Consultora = usuario.Nombre,
+                            EsBpt = false,   //no se usa
+                            CodigoPrograma = usuario.CodigoPrograma,
+                            NumeroPedido = usuario.ConsecutivoNueva,
+                            AgruparSet = true
+                        };
+                        var result = _pedidoWebSetBusinessLogic.Eliminar(usuario.PaisID, pedidoDetalle.SetID, bePedidoWebDetalleParametros);
                         if (!result) return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_ELIMINAR_SET);
                     }
                     else
@@ -837,7 +859,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         strCuvs = string.Format("{0}{1}:{2},", strCuvs, x, ListaCuvsTemporal.Count(a => a == x));
                     });
                 }
-                _pedidoWebDetalleBusinessLogic.InsertPedidoWebSet(usuario.PaisID, usuario.CampaniaID, pedidoDetalle.PedidoID, pedidoDetalle.Cantidad, estrategia.CUV2, usuario.ConsultoraID, string.Empty, strCuvs, estrategia.EstrategiaID);
+                _pedidoWebDetalleBusinessLogic.InsertPedidoWebSet(usuario.PaisID, usuario.CampaniaID, pedidoDetalle.PedidoID, pedidoDetalle.Cantidad, estrategia.CUV2, usuario.ConsultoraID, string.Empty, strCuvs, estrategia.EstrategiaID, usuario.Nombre, usuario.CodigoPrograma, usuario.ConsecutivoNueva);
 
                 return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.SUCCESS);
             }
@@ -1541,10 +1563,23 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var result = await _pedidoWebDetalleBusinessLogic.DelPedidoWebDetalleMasivo(usuario, pedidoDetalle.PedidoID);
             if (!result) return Constantes.PedidoAppValidacion.Code.ERROR_ELIMINAR_TODO;
 
+            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+            {
+                PaisId = usuario.PaisID,
+                CampaniaId = usuario.CampaniaID,
+                ConsultoraId = usuario.ConsultoraID,
+                Consultora = usuario.Nombre,
+                EsBpt = false,   //no se usa
+                CodigoPrograma = usuario.CodigoPrograma,
+                NumeroPedido = usuario.ConsecutivoNueva,
+                AgruparSet = true
+            };
+
             foreach (var agrupado in lstAgrupados)
             {
                 if (agrupado.SetID == 0) continue;
-                result = _pedidoWebSetBusinessLogic.Eliminar(usuario.PaisID, agrupado.SetID);
+
+                result = _pedidoWebSetBusinessLogic.Eliminar(usuario.PaisID, agrupado.SetID, bePedidoWebDetalleParametros);
                 if (!result) return Constantes.PedidoAppValidacion.Code.ERROR_ELIMINAR_TODO_SET;
             }
 
