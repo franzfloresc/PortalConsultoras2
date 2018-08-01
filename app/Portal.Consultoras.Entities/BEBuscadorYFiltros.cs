@@ -33,6 +33,8 @@ namespace Portal.Consultoras.Entities
         public int LimiteVenta { get; set; }
         [DataMember]
         public string descripcionEstrategia { get; set; }
+        [DataMember]
+        public int MarcaID { get; set; }
 
         public BEBuscadorYFiltros()
         { }
@@ -47,9 +49,10 @@ namespace Portal.Consultoras.Entities
             Precio = Convert.ToString(row["PrecioCatalogo"]);
             Catalogo = Convert.ToString(row["CodigoCatalago"]);
             CodigoEstrategia = Convert.ToString(row["CodigoEstrategia"]);
-            CodigoPalanca = Convert.ToString(row["TipoEstrategiaCodigo"]);
+            CodigoPalanca = Convert.ToString(row["CodigoPalanca"]);
             LimiteVenta = Convert.ToInt32(row["limiteventa"]);
             descripcionEstrategia = Convert.ToString(row["descripcionEstrategia"]);
+            MarcaID = Convert.ToInt32(row["MarcaID"]);
         }
     }
 }

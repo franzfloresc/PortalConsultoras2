@@ -563,9 +563,11 @@
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Imagen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
+      <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
       <xs:element minOccurs="0" name="Precio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SAP" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Valorizado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionEstrategia" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEBuscadorYFiltros" nillable="true" type="tns:BEBuscadorYFiltros" />

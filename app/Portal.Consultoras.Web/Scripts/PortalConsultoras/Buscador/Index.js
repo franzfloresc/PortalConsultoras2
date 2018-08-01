@@ -57,6 +57,7 @@ $(document).ready(function () {
         me.Eventos = {
             AccionesCampoBusquedaAlDigitar: function () {
                 var cantidadCaracteresParaMostrarSugerenciasBusqueda = $(this).val().length;
+
                     if (cantidadCaracteresParaMostrarSugerenciasBusqueda >= CaracteresBuscador) {
 
                         me.Funciones.CampoDeBusquedaConCaracteres($('#CampoBuscadorProductos'));
@@ -72,11 +73,14 @@ $(document).ready(function () {
 
                         var successBusqueda = function (r) {
                             var resultados = "";
-                            if (r.Productos.length > 0) {
+                            if (r.Productos.length > 0) { 
+                                var imageError = baseUrl + 'Content/Images/imagen_prod_no_disponible.png';
+
                                 for (var i = 0; i < r.Productos.length; i++) {
+                                    
                                     resultados += '<div class="resultado_busqueda_producto displayBlock text-left">';
                                     resultados += ' <div class="resultado_busqueda_img_prod displayInlineBlock">';
-                                    resultados += '     <img src="' + r.Productos[i].Imagen + '" alt="Imagen no disponible" class="imagen_no_disponible" onerror="this.onerror=null;this.src="' + baseUrl + 'Content/Images/imagen_prod_no_disponible.png' + '""/>';
+                                    resultados += '     <img src="' + r.Productos[i].Imagen + '" alt="Imagen no disponible" class="imagen_no_disponible" onerror="this.onerror=null;this.src=\'' + imageError + '\'"/>';
                                     resultados += ' </div>';
                                     resultados += ' <div class="resultado_busqueda_descrip_prod displayInlineBlock">';
 
@@ -106,6 +110,9 @@ $(document).ready(function () {
                                         resultados += ' </div>';
                                         resultados += ' <div class="resultado_busqueda_btn_agregar_wrapper displayInlineBlock text-center">';
                                         resultados += '     <a class="boton_Agregalo_home displayBlock text-center text-uppercase">Agrégalo</a>';
+
+                                        //resultados += '     <div class="etiqueta_prod_agregado displayBlock text-uppercase text-bold">Agregado</div >';
+
                                         resultados += ' </div>';
                                     }
 
@@ -123,6 +130,7 @@ $(document).ready(function () {
                                 $('.spinner').fadeOut(150);
                                 $('#ResultadoBuscador').fadeIn(150);
                             }, 400);
+                            console.log(r.Productos);
                         }
                         service.then(successBusqueda, function (e) {
                             console.log(e);

@@ -7210,6 +7210,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int LimiteVentaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MarcaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PrecioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7217,6 +7220,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ValorizadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string descripcionEstrategiaField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -7320,6 +7326,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MarcaID {
+            get {
+                return this.MarcaIDField;
+            }
+            set {
+                if ((this.MarcaIDField.Equals(value) != true)) {
+                    this.MarcaIDField = value;
+                    this.RaisePropertyChanged("MarcaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Precio {
             get {
                 return this.PrecioField;
@@ -7354,6 +7373,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.ValorizadoField, value) != true)) {
                     this.ValorizadoField = value;
                     this.RaisePropertyChanged("Valorizado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string descripcionEstrategia {
+            get {
+                return this.descripcionEstrategiaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.descripcionEstrategiaField, value) != true)) {
+                    this.descripcionEstrategiaField = value;
+                    this.RaisePropertyChanged("descripcionEstrategia");
                 }
             }
         }
