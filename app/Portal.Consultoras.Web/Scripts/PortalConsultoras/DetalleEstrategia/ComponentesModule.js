@@ -36,7 +36,8 @@ var ComponentesModule = (function () {
         $.each(_estrategia.Hermanos, function (index, hermano) {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {
-                var componente = _estrategia.Hermanos[index];
+                var componente = {};
+                componente = jQuery.extend(true, {}, _estrategia.Hermanos[index]);
                 opcionesEvents.applyChanges("onComponentSelected", componente);
                 if (isMobile()) {
                     $("#elegir-opciones-modal").modal("show");

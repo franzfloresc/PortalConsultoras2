@@ -19,7 +19,8 @@ registerEvent.call(opcionesEvents, "onComponentSelected");
 var ListaOpcionesModule = (function () {
     var _componente = {};
     var _componenteSeleccionados = {};
-    var _cargarOpciones = function(componente) {
+    var _cargarOpciones = function (componente) {
+        _componenteSeleccionados = {};
         if (typeof componente === "undefined" ||
             componente === null) throw "param componente is not defined or null";
 
@@ -43,7 +44,7 @@ var ListaOpcionesModule = (function () {
             return false;
         }
 
-        var opcion;
+        var opcion = {};
         $.each(_componente.Hermanos, function (index, hermano) {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {

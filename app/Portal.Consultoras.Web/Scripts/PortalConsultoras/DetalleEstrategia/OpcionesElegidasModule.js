@@ -17,7 +17,10 @@ var OpcionesElegidasModule = (function () {
             typeof _componente.Hermanos.length === "undefined") return false;
 
         var template = "#opciones-elegidas" + _componente.Cuv;
+        var templateSiblings = $(template).siblings(".tono_select_opt").hide();
 
+
+        $("#elegir-opciones-modal").modal("hide");
         SetHandlebars("#opciones-elegidas-template", _componente, template);
         return false;
     };
