@@ -599,15 +599,35 @@
         if (isMobile()) {
             setTimeout(function () {
                 var dvContentMobile = $("#contentmobile");
-                var dvMensajeBloqueado = $("#idMensajeBloqueado");
-                if (dvContentMobile.length && dvMensajeBloqueado.length) {
+                var dvFixed = $("#idMensajeBloqueado > div");
+                if (dvFixed.length == 0) {
+                    dvFixed = $("#dvContenedorAgregar");
+                }
+
+                if (dvContentMobile.length && dvFixed.length) {
                     var dvContentMobileHeight = dvContentMobile.height();
-                    var dvMensajeBloqueadoHeight = dvMensajeBloqueado.height();
-                    var height = dvContentMobileHeight + dvMensajeBloqueadoHeight;
+                    var dvFixedHeight = dvFixed.innerHeight();
+                    var height = dvContentMobileHeight + dvFixedHeight + 20;
                     dvContentMobile.height(height);
-                    var newHeight = dvContentMobile.height();
                 }
             }, 3000);
+        }
+        else {
+
+            var divEtiqueta = $("#contenedor_ficha_etiquetas");
+            var divDetalle = $("#dvSeccionDetalle");
+            var divSeccionFoto = $("#dvSeccionFoto") + 45; // 45 es por el padding del padre
+            // Crear la logica para poner 
+            /*
+            divEtiqueta + divDetalle < divSeccionFoto
+                divSeccionFoto => alto = divSeccionFoto - divEtiqueta
+
+            // probar con LAN con Fondo y sin fondo
+            // ODD con reloj
+            // Pack Nuevas con etiqueta
+            // OPM sin etiqueta
+            // Detalle con poco y arto contenido
+            */
         }
     }
 
