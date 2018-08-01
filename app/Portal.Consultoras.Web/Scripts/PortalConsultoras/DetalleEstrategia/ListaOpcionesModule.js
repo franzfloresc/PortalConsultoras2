@@ -65,7 +65,6 @@ var ListaOpcionesModule = (function () {
     };
 
     var _seleccionarOpcion = function (event, cuv) {
-        debugger;
         if (_componente.FactorCuadre === _componenteSeleccionados.Hermanos.length) {
             return false;
         }
