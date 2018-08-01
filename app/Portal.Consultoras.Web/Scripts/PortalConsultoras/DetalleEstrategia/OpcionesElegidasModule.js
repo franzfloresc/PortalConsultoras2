@@ -25,7 +25,6 @@ var OpcionesElegidasModule = (function () {
         return false;
     };
 
-
     return {
         CargarOpcionesElegidas: _cargarOpcionesElegidas,
         Inicializar: _inicializar
