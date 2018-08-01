@@ -11,9 +11,8 @@
     <title>Belcorp | Portal Consultoras</title>
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
-
-    <link href="@Url.Content("~/Content/Css/Site/flipclock.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
+    
+    @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Contenedor")
 
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900" rel="stylesheet" type="text/css">
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
@@ -28,7 +27,6 @@
         @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/CssSB2")
         @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/Contenedor")
     }
-    <link href="@Url.Content("~/Content/Css/Site/calc.css")" rel="stylesheet" type="text/css" />
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
     <script type="text/javascript">
