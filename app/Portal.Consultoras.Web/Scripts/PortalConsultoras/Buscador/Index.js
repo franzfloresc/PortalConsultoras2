@@ -57,8 +57,11 @@ $(document).ready(function () {
         me.Eventos = {
             AccionesCampoBusquedaAlDigitar: function () {
                 var cantidadCaracteresParaMostrarSugerenciasBusqueda = $(this).val().length;
-                if (cantidadCaracteresParaMostrarSugerenciasBusqueda > 0) {
+                if (cantidadCaracteresParaMostrarSugerenciasBusqueda > 2) {
+
                     me.Funciones.CampoDeBusquedaConCaracteres($('#CampoBuscadorProductos'));
+                    $('.spinner').fadeIn(150);
+
                     if (cantidadCaracteresParaMostrarSugerenciasBusqueda >= CaracteresBuscador) {
 
                         var service = $.ajax({
@@ -68,7 +71,7 @@ $(document).ready(function () {
                                 busqueda: $(this).val()
                             }
                         });
-                        
+
                         var successBusqueda = function (r) {
                             var resultados = "";
                             if (r.Productos.length > 0) {
@@ -111,7 +114,13 @@ $(document).ready(function () {
                                     resultados += '</div>';
                                 }
                             }
+
                             $('#ResultadoBuscador').html(resultados);
+
+                            setTimeout(function () {
+                                $('.spinner').fadeOut(150);
+                                $('#ResultadoBuscador').fadeIn(150);
+                            }, 400);
                         }
                         service.then(successBusqueda, function (e) {
                             console.log(e);
@@ -119,6 +128,7 @@ $(document).ready(function () {
                     }
 
                 } else {
+                    $('#ResultadoBuscador').fadeOut(150);
                     me.Funciones.CampoDeBusquedaSinCaracteres($(this));
                 }
             },
