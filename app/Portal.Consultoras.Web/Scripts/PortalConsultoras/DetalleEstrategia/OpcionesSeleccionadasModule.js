@@ -12,6 +12,7 @@
 /// <reference path="../../../Scripts/PortalConsultoras/TagManager/Home-Pedido.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/ListaOpcionesModule.js" />
 
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
