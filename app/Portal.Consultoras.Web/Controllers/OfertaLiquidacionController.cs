@@ -232,7 +232,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var pedidoServiceClient = new PedidoServiceClient())
                 {
                     pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
-                        , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
+                        , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0, userData.NombreConsultora, userData.CodigoPrograma, userData.ConsecutivoNueva);
                 }
 
                 return Json(new
@@ -653,7 +653,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
                 string iso = Util.GetPaisISO(PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + iso;
-                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto));
                 lst.Update(x => x.ISOPais = iso);
                 var data = new
                 {
@@ -712,7 +712,7 @@ namespace Portal.Consultoras.Web.Controllers
                     #region Imagen Resize 
 
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    var rutaImagenCompleta = ConfigCdn.GetUrlFileCdn(carpetaPais, entidad.ImagenProducto);
+                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
 
                     mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(rutaImagenCompleta, userData.CodigoISO);
                     
@@ -767,7 +767,7 @@ namespace Portal.Consultoras.Web.Controllers
                     #region Imagen Resize 
 
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    var rutaImagenCompleta = ConfigCdn.GetUrlFileCdn(carpetaPais, entidad.ImagenProducto);
+                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
 
                     mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(rutaImagenCompleta, userData.CodigoISO);
 
