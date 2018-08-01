@@ -45,17 +45,24 @@ var ListaOpcionesModule = (function () {
     };
 
     var _cargarOpciones = function (componente) {
-        _componenteSeleccionados = {};
         if (typeof componente === "undefined" ||
             componente === null) throw "param componente is not defined or null";
 
         _componente = componente;
-        _componenteSeleccionados.Hermanos = [];
+        if (_componenteSeleccionados.Hermanos.length > 0) {
+            $(_elements.btnAplicarSeleccion.id)
+                .removeClass(_elements.btnAplicarSeleccion.disabledClass)
+                .addClass(_elements.btnAplicarSeleccion.activeClass);
+            opcionesEvents.applyChanges("onOptionSelected", _componenteSeleccionados);
+        } else {
+            $(_elements.btnAplicarSeleccion.id)
+                .removeClass(_elements.btnAplicarSeleccion.activeClass)
+                .addClass(_elements.btnAplicarSeleccion.disabledClass);
+        }
         //
         _moverListaOpcionesOcultarSeleccionados();
         $(_elements.listaOpciones.id).html("");
         SetHandlebars(_elements.listaOpciones.templateId, _componente, _elements.listaOpciones.id);
-        $(_elements.btnAplicarSeleccion.id).addClass(_elements.btnAplicarSeleccion.disabledClass);
         //
         return false;
     };
@@ -118,6 +125,12 @@ var ListaOpcionesModule = (function () {
             _componenteSeleccionados.Hermanos = _componenteSeleccionados.Hermanos || [];
             _componenteSeleccionados.Hermanos.splice(i,1);
             opcionesEvents.applyChanges("onOptionSelected", _componenteSeleccionados);
+
+            if (_componente.FactorCuadre != _componenteSeleccionados.Hermanos.length) {
+                $(_elements.btnAplicarSeleccion.id)
+                    .removeClass(_elements.btnAplicarSeleccion.activeClass)
+                    .addClass(_elements.btnAplicarSeleccion.disabledClass);
+            }
         }
 
         return false;

@@ -21,8 +21,6 @@ var OpcionesSeleccionadasModule = (function () {
 
     var _inicializar = function () {
         _componente = {};
-        $("#contenedor-opciones-seleccionadas").hide();
-        $("#opciones-seleccionadas").html("");
     };
 
     var _cargarOpcionesSeleccionadas = function (componente) {
