@@ -599,7 +599,7 @@
         if (isMobile()) {
             setTimeout(function () {
                 var dvContentMobile = $("#contentmobile");
-                var dvMensajeBloqueado = $(".content_inscribirte");
+                var dvMensajeBloqueado = $("#idMensajeBloqueado");
                 if (dvContentMobile.length && dvMensajeBloqueado.length) {
                     var dvContentMobileHeight = dvContentMobile.height();
                     var dvMensajeBloqueadoHeight = dvMensajeBloqueado.height();
