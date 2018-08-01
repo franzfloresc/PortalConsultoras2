@@ -24,7 +24,9 @@ var ListaOpcionesModule = (function () {
             componente === null) throw "param componente is not defined or null";
 
         _componente = componente;
-        $("#lista-opciones").css("padding-top","63px");
+        $("#lista-opciones").css("padding-top", "0px");
+        if (isMobile())
+            $("#lista-opciones").css("padding-top", "63px");
         $("#lista-opciones").html();
         SetHandlebars("#lista-opciones-template", _componente, "#lista-opciones");
        
@@ -47,7 +49,7 @@ var ListaOpcionesModule = (function () {
             if (cuv === hermano.Cuv) {
                 opcion = _componente.Hermanos[index];
                 $(event.target).addClass("activo");
-                $("#lista-opciones").css("padding-top", "154px");
+                if (isMobile()) $("#lista-opciones").css("padding-top", "154px");
                 return false;
             }
         });
