@@ -1115,7 +1115,8 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEPedidoWebDetalle> listProducto;
                 if (Agrupado)
                 {
-                    listProducto = ObtenerPedidoWebSetDetalleAgrupado(); ObtenerPedidoWebDetalle();
+                    listProducto = ObtenerPedidoWebSetDetalleAgrupado();
+                    ObtenerPedidoWebDetalle();
                 }
                 else
                 {
