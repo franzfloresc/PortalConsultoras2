@@ -45,7 +45,7 @@
     right: 0;
     margin: 0 auto;
     text-align: center;
-    z-index:10001;
+    z-index:1499;
 }
 
 .lista_enlaces_solicitudes{
@@ -780,7 +780,7 @@ h1, h2, h3, h4, h5, h6 {
 #box-pop-up {
     overflow-y: scroll;
     position: fixed;
-    z-index: 1000;
+    z-index: 1500;
     width: 100%;
     height: 100%;
     background: url('../Images/popup_esika/fondo_pop_up.png');
@@ -2695,6 +2695,55 @@ h1, h2, h3, h4, h5, h6 {
     -o-background-size: cover;
     background-size: cover;
 }
+
+.pb-0{
+    padding-bottom:0;
+}
+
+.enlaces_archivos_arco{
+    display:block;
+    height: 45px;
+    line-height: 37px;
+    background-color:#E1E1E1;
+    padding-left:15px;
+    padding-right:15px;
+}
+
+.texto_solicitudes,
+.grupo_enlaces_archivos_arco,
+.enlace_archivo_arco
+{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.texto_solicitudes{
+    font-weight:700;
+    padding-top:2px;
+}
+
+.texto_solicitudes,
+.enlace_archivo_arco
+{
+    font-size:12px;
+    color:#000;
+    height: 13px;
+    line-height: 13px;
+}
+
+.enlace_archivo_arco{
+    padding-left:10px;
+    padding-right:10px;
+    border-right:1px solid #000;
+}
+
+    .enlace_archivo_arco:hover{
+        text-decoration:underline;
+    }
+
+    .enlace_archivo_arco:last-child{
+        border-right:none;
+    }
 
 /* HD-1254 - OLVIDÉ CONTRASEÑA DESKTOP Y MOBILE */
 
