@@ -29,17 +29,21 @@ var OpcionesSeleccionadasModule = (function () {
             componente === null) throw "param opcion is not defined or null";
 
         _componente = componente || {};
-        if (_componente.Hermanos.length > 0) $("#contenedor-opciones-seleccionadas").show();
-
-        $("#opciones-seleccionadas").slick("unslick");
-        SetHandlebars("#opciones-seleccionadas-template", _componente, "#opciones-seleccionadas");
-        $("#opciones-seleccionadas").slick({
-            slidesToShow: 5,
-            slidesToScroll: 1,
-            autoplaySpeed: 2000,
-            fade: false
-        });
-        $("#opciones-seleccionadas").fadeTo("fast", 0.6).fadeTo("fast", 1);
+        if (_componente.Hermanos.length > 0) {
+            $("#contenedor-opciones-seleccionadas").show();
+            $("#opciones-seleccionadas").slick("unslick");
+            SetHandlebars("#opciones-seleccionadas-template", _componente, "#opciones-seleccionadas");
+            $("#opciones-seleccionadas").slick({
+                slidesToShow: 5,
+                slidesToScroll: 1,
+                autoplaySpeed: 2000,
+                fade: false
+            });
+            $("#opciones-seleccionadas").fadeTo("fast", 0.6).fadeTo("fast", 1);
+        } else {
+            $("#contenedor-opciones-seleccionadas").hide();
+            $("#opciones-seleccionadas").html("");
+        }
 
         return false;
     }
@@ -61,7 +65,7 @@ var OpcionesSeleccionadasModule = (function () {
         Inicializar : _inicializar,
         CargarOpcionesSeleccionadas: _cargarOpcionesSeleccionadas,
         GetCantidadOpcionesSeleccionadas: _getCantidadOpcionesSeleccionadas,
-        GetOpcionesSeleccionadas = _getOpcionesSeleccionadas
+        GetOpcionesSeleccionadas: _getOpcionesSeleccionadas
     };
 }());
 opcionesEvents.subscribe("onComponentSelected", function (componente) {
