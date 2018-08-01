@@ -32,6 +32,6 @@ var OpcionesElegidasModule = (function () {
     };
 }());
 
-opcionesEvents.subscribe("onComponentSelected", function (componente) {
+opcionesEvents.subscribe("onComponentSelected", function(componente) {
     OpcionesElegidasModule.Inicializar();
 });

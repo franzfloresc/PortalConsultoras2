@@ -74,10 +74,6 @@
     transition: all 350ms;
 }
 
-.seleccion_btn button:hover {
-    color: #fff;
-    background-color: #000;
-}
 
 .selecion_item{
     padding: 12px 14px;
@@ -97,7 +93,12 @@
     background-color: #fff;
 }
 
-.aplicar_seleccion{
+.modal_selecionar_tipo {
+    background-color: #fff;
+    padding-right: 0px !important;
+}
+
+.aplicar_seleccion {
     padding: 8px 15px;
     position: fixed;
     width: 100%;

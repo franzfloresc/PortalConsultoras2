@@ -16,51 +16,85 @@
 
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onComponentSelected");
+
 var ListaOpcionesModule = (function () {
     var _componente = {};
-    var _componenteSeleccionados = {};
+    var _componenteSeleccionados = {
+        Hermanos : []
+    };
+    var _elements = {
+        listaOpciones: {
+            id: "#lista-opciones",
+            templateId: "#lista-opciones-template"
+
+        },
+        btnAplicarSeleccion: {
+            id: "#btn-aplicar-seleccion",
+            activeClass: "activo",
+            disabledClass: "disabled"
+        },
+        btnEligelo : {
+            activeClass: "activo"
+        }
+    };
+
+    var _moverListaOpcionesOcultarSeleccionados = function() {
+        $(_elements.listaOpciones.id).css("padding-top", "0px");
+        if (isMobile())
+            $(_elements.listaOpciones.id).css("padding-top", "63px");
+    };
+
     var _cargarOpciones = function (componente) {
         _componenteSeleccionados = {};
         if (typeof componente === "undefined" ||
             componente === null) throw "param componente is not defined or null";
 
         _componente = componente;
-        $("#lista-opciones").css("padding-top", "0px");
-        if (isMobile())
-            $("#lista-opciones").css("padding-top", "63px");
-        $("#lista-opciones").html();
-        SetHandlebars("#lista-opciones-template", _componente, "#lista-opciones");
-       
+        _componenteSeleccionados.Hermanos = [];
+        //
+        _moverListaOpcionesOcultarSeleccionados();
+        $(_elements.listaOpciones.id).html("");
+        SetHandlebars(_elements.listaOpciones.templateId, _componente, _elements.listaOpciones.id);
+        $(_elements.btnAplicarSeleccion.id).addClass(_elements.btnAplicarSeleccion.disabledClass);
+        //
         return false;
     };
 
+    var _moverListaOpcionesMostrarSeleccionados = function () {
+        if (isMobile())
+            $(_elements.listaOpciones.id).css("padding-top", "154px");
+    };
+
     var _seleccionarOpcion = function (event, cuv) {
+        if (_componente.FactorCuadre === _componenteSeleccionados.Hermanos.length) {
+            return false;
+        }
+        //
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param componente is not defined or null";
-
-        if (_componente.FactorCuadre === OpcionesSeleccionadasModule.GetCantidadOpcionesSeleccionadas()) {
-            $("[data-btn-aplicar-seleccion]").removeClass("disabled");
-            return false;
-        }
-
+        //
         var opcion = {};
         $.each(_componente.Hermanos, function (index, hermano) {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {
                 opcion = _componente.Hermanos[index];
-                $(event.target).addClass("activo");
-                if (isMobile()) $("#lista-opciones").css("padding-top", "154px");
+                $(event.target).addClass(_elements.btnEligelo.activeClass);
+                _moverListaOpcionesMostrarSeleccionados();
                 return false;
             }
         });
-
-        if (typeof opcion !== "undefined" && opcion !== null) {
-            _componenteSeleccionados.Hermanos = _componenteSeleccionados.Hermanos || [];
-            _componenteSeleccionados.Hermanos.push(opcion);
-            opcionesEvents.applyChanges("onOptionSelected", _componenteSeleccionados);
+        //
+        if (typeof opcion === "undefined" || opcion === null) throw "var opcion is not defined or null";
+        _componenteSeleccionados.Hermanos.push(opcion);
+        if (_componente.FactorCuadre === _componenteSeleccionados.Hermanos.length) {
+            $(_elements.btnAplicarSeleccion.id)
+                .removeClass(_elements.btnAplicarSeleccion.disabledClass)
+                .addClass(_elements.btnAplicarSeleccion.activeClass);
         }
-
+        //
+        opcionesEvents.applyChanges("onOptionSelected", _componenteSeleccionados);
+        //
         return false;
     }
 
@@ -101,6 +135,7 @@ var ListaOpcionesModule = (function () {
         GetComponente: _getComponente
     };
 }());
+
 opcionesEvents.subscribe("onComponentSelected", function (componente) {
     ListaOpcionesModule.CargarOpciones(componente);
 });
