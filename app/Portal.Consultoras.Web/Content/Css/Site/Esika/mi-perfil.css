@@ -50,7 +50,7 @@
 }
 
 .w-82{
-    width:82%;
+    width:81%;
 }
 
 .w-100{
@@ -207,7 +207,7 @@ input:focus{
 .foto_consultora {
     width: 144px;
     height: 144px;
-    margin-right: 46px;
+    margin-right: 44px;
     position: relative;
     -moz-box-shadow: 0 5px 12px -1px rgba(0,0,0,0.15);
     -webkit-box-shadow: 0 5px 12px -1px rgba(0,0,0,0.15);

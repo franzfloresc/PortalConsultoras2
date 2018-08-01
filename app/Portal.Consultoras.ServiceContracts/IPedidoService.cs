@@ -899,10 +899,10 @@ namespace Portal.Consultoras.ServiceContracts
         #region kit Nuevas
 
         [OperationContract]
-        BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(int paisID, BEConfiguracionProgramaNuevas entidad);
+        BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(BEUsuario usuario);
 
         [OperationContract]
-        BEConfiguracionProgramaNuevas GetConfiguracionProgramaDespuesPrimerPedido(int paisID, BEConfiguracionProgramaNuevas entidad);
+        string GetCuvKitNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas);
 
         #endregion
 
@@ -992,7 +992,7 @@ namespace Portal.Consultoras.ServiceContracts
         int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad);
 
         [OperationContract]
-        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
+        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva);
 
         [OperationContract]
         Task<BEResultadoReservaProl> CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
@@ -1078,7 +1078,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Incentivos
         [OperationContract]
-        List<BEIncentivoConcurso> ObtenerConcursosXConsultora(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoRegion, string CodigoZona);
+        List<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEUsuario usuario);
 
         [OperationContract]
         void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso);
@@ -1202,13 +1202,14 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro);
         #endregion
-        
-        [OperationContract]
-        bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId);
-
 
         [OperationContract]
-        bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad);
+        bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario,
+            string CuvsStringList, int EstrategiaId, string nombreConsultora, string codigoPrograma, int numeroPedido);
+
+
+        [OperationContract]        
+        bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
 
         [OperationContract]
         List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId);
@@ -1217,7 +1218,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoWebSet ObtenerPedidoWebSet(int paisId, int setId);
 
         [OperationContract]
-        bool EliminarPedidoWebSet(int paisId, int setId);
+        bool EliminarPedidoWebSet(int paisId, int setId, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
 
         [OperationContract]
         DateTime? ObtenerFechaInicioSets(int paisId);

@@ -43,6 +43,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(string query)
         {
+            if (EsDispositivoMovil())
+            {
+                return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query });
+            }
+
             ViewBag.TerminoMostrar = 1;
 
             try
@@ -705,7 +710,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
                         pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
-                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
+                            , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0, userData.NombreConsultora, userData.CodigoPrograma, userData.ConsecutivoNueva);
                     }
                 }
 

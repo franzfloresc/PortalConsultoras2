@@ -186,7 +186,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string paisIso = Util.GetPaisISO(paisId);
             var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
-            var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
+            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
 
             var data = lst.Select(p => new MatrizComercialImagen
             {

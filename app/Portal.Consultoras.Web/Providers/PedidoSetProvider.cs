@@ -10,13 +10,13 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class PedidoSetProvider
     {
-        public ResultModel<bool> EliminarSet(int paisId, int setId)
+        public ResultModel<bool> EliminarSet(int paisId, int setId, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
         {
             using (var client = new PedidoServiceClient())
             {
                 try
                 {
-                    var result = client.EliminarPedidoWebSet(paisId, setId);
+                    var result = client.EliminarPedidoWebSet(paisId, setId, bePedidoWebDetalleParametros);
                     if (!result)
                         return ResultModel<bool>.BuildBad("Sucedio un error", false);
 
@@ -29,13 +29,13 @@ namespace Portal.Consultoras.Web.Providers
                 }
             }
         }
-        public ResultModel<bool> ActualizarCantidadSet(int paisId, int setId, int cantidad)
+        public ResultModel<bool> ActualizarCantidadSet(int paisId, int setId, int cantidad, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
         {
             using (var client = new PedidoServiceClient())
             {
                 try
                 {
-                    var result = client.UpdCantidadPedidoWebSet(paisId, setId, cantidad);
+                    var result = client.UpdCantidadPedidoWebSet(paisId, setId, cantidad, bePedidoWebDetalleParametros);
                     if (!result)
                         return ResultModel<bool>.BuildBad("Sucedio un error", false);
 
