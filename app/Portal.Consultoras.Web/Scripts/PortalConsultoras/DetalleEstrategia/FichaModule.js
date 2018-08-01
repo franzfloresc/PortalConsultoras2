@@ -595,6 +595,22 @@
         });
     }
 
+    var _prevenirScrollFixed = function () {
+        if (isMobile()) {
+            setTimeout(function () {
+                var dvContentMobile = $("#contentmobile");
+                var dvMensajeBloqueado = $(".content_inscribirte");
+                if (dvContentMobile.length && dvMensajeBloqueado.length) {
+                    var dvContentMobileHeight = dvContentMobile.height();
+                    var dvMensajeBloqueadoHeight = dvMensajeBloqueado.height();
+                    var height = dvContentMobileHeight + dvMensajeBloqueadoHeight;
+                    dvContentMobile.height(height);
+                    var newHeight = dvContentMobile.height();
+                }
+            }, 3000);
+        }
+    }
+
     function Inicializar() {
 
         localStorageModule = LocalStorageModule();
@@ -606,6 +622,7 @@
         _fijarFooterCampaniaSiguiente();
         _marcarCambiaColorCombo();
         _marcarCambiaColorCuadro();
+        _prevenirScrollFixed();
         _marcarAgregaProductoCarro();
         //_marcarSwipeCarrusel();
         _marcarFichaBreadcrumb();
