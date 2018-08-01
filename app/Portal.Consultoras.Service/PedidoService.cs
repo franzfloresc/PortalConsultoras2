@@ -2216,15 +2216,17 @@ namespace Portal.Consultoras.Service
             return new BLEstrategia().InsertarProductoShowroomMasiva(entidad);
         }
 
-        public bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId)
+        public bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, 
+            string CuvsStringList, int EstrategiaId, string nombreConsultora, string codigoPrograma, int numeroPedido)
         {
-            return BLPedidoWebDetalle.InsertPedidoWebSet(paisID, Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, CuvsStringList, EstrategiaId);
+            return BLPedidoWebDetalle.InsertPedidoWebSet(paisID, Campaniaid, PedidoID, CantidadSet, CuvSet, ConsultoraId, CodigoUsuario, 
+                CuvsStringList, EstrategiaId, nombreConsultora, codigoPrograma, numeroPedido);
 
         }
 
-        public bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad)
+        public bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
         {
-            return BLPedidoWebDetalle.UpdCantidadPedidoWebSet(paisId, setId, cantidad);
+            return BLPedidoWebDetalle.UpdCantidadPedidoWebSet(paisId, setId, cantidad, bePedidoWebDetalleParametros);
         }
 
         public List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId)
@@ -2244,9 +2246,9 @@ namespace Portal.Consultoras.Service
             return _pedidoWebSetBusinessLogic.Obtener(paisId, setId);
         }
 
-        public bool EliminarPedidoWebSet(int paisId, int setId)
+        public bool EliminarPedidoWebSet(int paisId, int setId, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
         {
-            return _pedidoWebSetBusinessLogic.Eliminar(paisId, setId);
+            return _pedidoWebSetBusinessLogic.Eliminar(paisId, setId, bePedidoWebDetalleParametros);
         }
 
         public DateTime? ObtenerFechaInicioSets(int paisId)
