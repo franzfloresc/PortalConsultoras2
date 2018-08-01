@@ -407,8 +407,19 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-       
-       
+        public void UpdateImporteTotalPedidoWeb(int campaniaId, long consultoraId, decimal importe)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdateImporteTotalPedidoWeb");
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
+            Context.Database.AddInParameter(command, "@Importe", DbType.Decimal, importe);
+
+            Context.ExecuteNonQuery(command);
+        }
+
+
+
+
 
     }
 }
