@@ -471,7 +471,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
 
                 //actualizar PROL
-                var item = lstDetalle.FirstOrDefault(x => x.PedidoDetalleID == pedidoDetalle.PedidoDetalleID);
+                var item = lstDetalle.FirstOrDefault(x => x.CUV == pedidoDetalle.Producto.CUV && x.ClienteID == pedidoDetalle.ClienteID);
                 if (item != null)
                 {
                     item.Cantidad = pedidoDetalle.Cantidad;
@@ -1078,7 +1078,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             if (mensaje == string.Empty || resultado) {
                 var item = lstDetalle.Where(x => x.CUV == pedidoDetalle.Producto.CUV && x.ClienteID == pedidoDetalle.ClienteID).FirstOrDefault();
-                var cantidadPedido = (item != null && pedidoDetalle.PedidoDetalleID > 0) ? item.Cantidad : 0;
+                var cantidadPedido = (item != null && (pedidoDetalle.PedidoDetalleID > 0 || pedidoDetalle.SetID > 0)) ? item.Cantidad : 0;
                 var pedidoAuxiliar = new BEPedidoDetalle() {
                     Cantidad = pedidoDetalle.Cantidad - cantidadPedido,
                     PaisID = pedidoDetalle.PaisID,
