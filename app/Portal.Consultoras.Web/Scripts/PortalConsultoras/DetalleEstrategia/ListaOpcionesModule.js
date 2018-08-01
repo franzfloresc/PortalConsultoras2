@@ -24,7 +24,9 @@ var ListaOpcionesModule = (function () {
             componente === null) throw "param componente is not defined or null";
 
         _componente = componente;
-        $("#lista-opciones").css("padding-top","63px");
+        $("#lista-opciones").css("padding-top", "0px");
+        if (isMobile())
+            $("#lista-opciones").css("padding-top", "63px");
         $("#lista-opciones").html();
         SetHandlebars("#lista-opciones-template", _componente, "#lista-opciones");
        
