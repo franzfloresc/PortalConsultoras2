@@ -114,7 +114,7 @@ $(document).ready(function () {
 
                             } else {
                                 $('#ResultadoBuscador').fadeOut(150);
-                                me.Funciones.CampoDeBusquedaSinCaracteres($(this));
+                                me.Funciones.CampoDeBusquedaSinCaracteres($('#CampoBuscadorProductos'));
                             }
 
                             $('#ResultadoBuscador').html(resultados);
