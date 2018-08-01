@@ -559,7 +559,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         {
                             var pedidoWebDetalle = lstDetalle.FirstOrDefault(p => p.CUV == detalle.CuvProducto);
                             if (pedidoWebDetalle == null) continue;
-                            var cantidad = pedidoWebDetalle.Cantidad - detallePedido.Where(p => p.CuvProducto == detalle.CuvProducto).Sum(p => set.Cantidad * p.FactorRepeticion);
+                            var cantidad = pedidoWebDetalle.Cantidad - (set.Cantidad * detalle.FactorRepeticion);
                             if (cantidad > 0)
                             {
                                 var obePedidoWebDetalle = new BEPedidoWebDetalle
