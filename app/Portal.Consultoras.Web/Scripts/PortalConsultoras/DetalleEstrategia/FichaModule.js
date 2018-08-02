@@ -593,21 +593,24 @@
             }, 3000);
         }
         else {
-
-            var divEtiqueta = $("#contenedor_ficha_etiquetas");
-            var divDetalle = $("#dvSeccionDetalle");
-            var divSeccionFoto = $("#dvSeccionFoto") + 45; // 45 es por el padding del padre
-            // Crear la logica para poner 
-            /*
-            divEtiqueta + divDetalle < divSeccionFoto
-                divSeccionFoto => alto = divSeccionFoto - divEtiqueta
-
-            // probar con LAN con Fondo y sin fondo
-            // ODD con reloj
-            // Pack Nuevas con etiqueta
-            // OPM sin etiqueta
-            // Detalle con poco y arto contenido
-            */
+            var dvFoto = $("#dvSeccionFoto");
+            var dvRedesSociales = $("#Contenedor_redes_sociales");
+            var dvFichaEtiqueta = $("#contenedor_ficha_etiquetas");
+            var dvDetalle = $("#dvSeccionDetalle");
+            if (dvFoto.length && dvRedesSociales.length) {
+                var dvFotoHeight = dvFoto.height();
+                var dvRedesSocialesHeight = dvRedesSociales.height();
+                var dvFichaEtiquetaHeight = dvFichaEtiqueta.height();
+                var dvDetalleHeight = dvDetalle.height();
+                var dvIzquierdoHeight = dvFotoHeight + dvRedesSocialesHeight + 45; // 45 es por el padding del padre.
+                var dvDerechoHeight = dvDetalleHeight + dvFichaEtiquetaHeight;
+                if (dvIzquierdoHeight > dvDerechoHeight) {
+                    var diferenciaHeight = dvIzquierdoHeight - dvDerechoHeight;
+                    diferenciaHeight = dvDetalleHeight - diferenciaHeight;
+                    dvDetalle.removeClass("ficha_detalle_cuerpo");
+                    dvDetalle.height(diferenciaHeight);
+                }
+            }
         }
     }
 
