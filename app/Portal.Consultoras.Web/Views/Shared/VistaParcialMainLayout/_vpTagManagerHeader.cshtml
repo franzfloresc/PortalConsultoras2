@@ -1,20 +1,58 @@
-﻿<!-- Variables Globales Google Tag Manager -->
+﻿
+@{
+    var topProd = ViewBag.TipoLayout == 1 ? "TipoEmpty" : ViewBag.TipoLayout == 2 ? "TipoSac" : "";
+}
+
+<!-- Variables Globales Google Tag Manager -->
 <script type="text/javascript">
-    dataLayer = [{
-        'campana': '@ViewBag.CampaniaCodigo',
-        'segmento': '@ViewBag.SegmentoAnalytics',
-        'edad': '@ViewBag.EdadAnalytics',
-        'zona': '@ViewBag.ZonaAnalytics',
-        'pais': '@ViewBag.PaisAnalytics',
-        'rol': '@ViewBag.esConsultoraLiderAnalytics',
-        'region': '@ViewBag.RegionAnalytics',
-        'seccion': '@ViewBag.SeccionAnalytics',
-        'codigoconsultora': '@ViewBag.CodigoConsultoraDL',
-        'periodo': '@ViewBag.PeriodoAnalytics',
-        'segmentoconstancia': '@ViewBag.SegmentoConstancia',
-        'socianivel': '@ViewBag.DescripcionNivelAnalytics',
-        'semana-periodo': '@ViewBag.SemanaAnalytics',
-        'inscripcionEPM': '@ViewBag.EstadoInscripcionEpm'
-    }];
+    console.log('@topProd');
+    if ('@topProd' == 'TipoEmpty') {
+        dataLayer = [{
+            'campana': '@ViewBag.AnalyticsCampania',
+            'segmento': '@ViewBag.AnalyticsSegmento',
+            'edad': '@ViewBag.AnalyticsEdad',
+            'zona': '@ViewBag.AnalyticsZona',
+            'pais': '@ViewBag.AnalyticsPais',
+            'rol': '@ViewBag.AnalyticsRol',
+            'region': '@ViewBag.AnalyticsRegion',
+            'seccion': '@ViewBag.AnalyticsSeccion',
+            'codigoconsultora': '@ViewBag.AnalyticsCodigoConsultora',
+            'periodo': '@ViewBag.AnalyticsPeriodo',
+            'segmentoconstancia': '@ViewBag.AnalyticsSegmentoConstancia',
+            'socianivel': '@ViewBag.AnalyticsSociaNivel',
+            'semana-periodo': '@ViewBag.SemanaAnalytics',
+            'inscripcionEPM': '@ViewBag.EstadoInscripcionEpm'
+        }];
+    }
+    else if ('@topProd' == 'TipoSac')
+    {
+        dataLayer = [{
+            'event': 'userCustomVars',
+            'campana': '@ViewBag.Campania',
+            'segmento': '@ViewBag.SegmentoAnalytics',
+            'edad': '@ViewBag.EdadAnalytics',
+            'zona': '@ViewBag.ZonaAnalytics',
+            'pais': '@ViewBag.PaisAnalytics',
+            'rol': '@ViewBag.RolAnalytics'
+        }];
+    }
+    else {
+        dataLayer = [{
+            'campana': '@ViewBag.CampaniaCodigo',
+            'segmento': '@ViewBag.SegmentoAnalytics',
+            'edad': '@ViewBag.EdadAnalytics',
+            'zona': '@ViewBag.ZonaAnalytics',
+            'pais': '@ViewBag.PaisAnalytics',
+            'rol': '@ViewBag.esConsultoraLiderAnalytics',
+            'region': '@ViewBag.RegionAnalytics',
+            'seccion': '@ViewBag.SeccionAnalytics',
+            'codigoconsultora': '@ViewBag.CodigoConsultoraDL',
+            'periodo': '@ViewBag.PeriodoAnalytics',
+            'segmentoconstancia': '@ViewBag.SegmentoConstancia',
+            'socianivel': '@ViewBag.DescripcionNivelAnalytics',
+            'semana-periodo': '@ViewBag.SemanaAnalytics',
+            'inscripcionEPM': '@ViewBag.EstadoInscripcionEpm'
+        }];
+    }
 </script>
 <!-- End Variables Globales Google Tag Manager -->
