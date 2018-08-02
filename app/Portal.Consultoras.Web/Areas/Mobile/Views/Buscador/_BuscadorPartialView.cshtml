@@ -1,6 +1,9 @@
 ﻿ <!-- LISTA DE RESULTADOS DE BÚSQUEDA MOBILE -->
 <div class="container vistaResultadosBusquedaMobile displayBlock">
-    <div class="row">
+    <div class="spinner">
+        <img src="@Url.Content("~/Content/Images/loading_spinner.gif")" alt="" />
+    </div>
+    <div class="row lista_resultados_busqueda_productos_mobile displayBlock" id="ResultadoBuscadorMobile">
         @for (int i = 0; i < 10; i++)
         {
             <!-- RESULTADO DE BÚSQUEDA -->
