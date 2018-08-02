@@ -49,6 +49,7 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros)
         }
         else
         {
+
         }
         return false;
     }
@@ -107,4 +108,9 @@ function MostrarMensajeConsultora() {
 function MostrarMensajeConsultoraValidacion() {
     showDialog("DialogMensajeValidacion");
     $("#DialogMensajeValidacion").siblings(".ui-dialog-titlebar").hide();
+}
+
+function CloseDialog(pop) {
+    pop = pop || "box-pop-up";
+    $("#" + pop).hide();
 }
