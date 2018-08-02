@@ -1,10 +1,10 @@
-﻿using Portal.Consultoras.Web.Models.Common;
-using System.ServiceModel;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.Models.Pedido;
 using Portal.Consultoras.Web.ServicePedido;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 
 namespace Portal.Consultoras.Web.Providers
 {

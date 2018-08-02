@@ -554,7 +554,6 @@ namespace Portal.Consultoras.BizLogic
                 var incentivosConcursosTask = Task.Run(() => GetIncentivosConcursos(usuario));
                 var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
                 var cuponTask = Task.Run(() => GetCupon(usuario));
-                var nivelProyectado = Task.Run(() => GetNivelProyectado(paisID, usuario.ConsultoraID, usuario.CampaniaID));
 
                 Task.WaitAll(
                                 terminosCondicionesTask,
@@ -566,8 +565,7 @@ namespace Portal.Consultoras.BizLogic
                                 consultoraCumpleanioTask,
                                 incentivosConcursosTask,
                                 revistaDigitalSuscripcionTask,
-                                cuponTask,
-                                nivelProyectado);
+                                cuponTask);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -601,7 +599,7 @@ namespace Portal.Consultoras.BizLogic
                 usuario.CuponMontoMaxDscto = cuponTask.Result.MontoMaximoDescuento;
                 usuario.CuponTipoCondicion = cuponTask.Result.TipoCondicion;
 
-                usuario.NivelProyectado = nivelProyectado.Result;
+                
 
                 return usuario;
             }
@@ -3225,19 +3223,6 @@ namespace Portal.Consultoras.BizLogic
         public string CancelarAtualizacionEmail(int paisID, string codigoUsuario)
         {
             return new DAUsuario(paisID).CancelarAtualizacionEmail(codigoUsuario);
-        }
-        private string GetNivelProyectado(int paisID, long consultoraId, int campaniaId)
-        {
-            string nivelProyectado = "";
-            BEParametrosLider oBEParametrosLider;
-
-            oBEParametrosLider = _consultoraLiderBusinessLogic.ObtenerParametrosConsultoraLider(paisID, consultoraId, campaniaId);
-            if (oBEParametrosLider != null)
-            {
-                nivelProyectado = oBEParametrosLider.NivelProyectado;
-            }
-
-            return nivelProyectado;
         }
     }
 }

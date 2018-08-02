@@ -1,12 +1,11 @@
 ﻿using System.Runtime.Serialization;
-using System.Collections.Generic;
 
 using Portal.Consultoras.Entities.ReservaProl;
 
-namespace Portal.Consultoras.Entities.Pedido.App
+namespace Portal.Consultoras.Entities.Pedido
 {
     [DataContract]
-    public class BEPedidoDetalleAppResult
+    public class BEPedidoDetalleResult
     {
         [DataMember]
         public string CodigoRespuesta { get; set; }
