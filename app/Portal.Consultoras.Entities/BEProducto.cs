@@ -10,6 +10,8 @@ namespace Portal.Consultoras.Entities
     public class BEProducto
     {
         [DataMember]
+        public int EstrategiaID { get; set; }
+        [DataMember]
         public string CodigoSAP { get; set; }
 
         [DataMember]
