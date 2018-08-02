@@ -62,7 +62,9 @@ var ListaOpcionesModule = (function () {
             $(_elements.btnAplicarSeleccion.id)
                 .removeClass(_elements.btnAplicarSeleccion.disabledClass)
                 .addClass(_elements.btnAplicarSeleccion.activeClass);
-            opcionesEvents.applyChanges("onOptionSelected", _componenteSeleccionados);
+            var componenteClone = _getComponente();
+            componenteClone.Hermanos = _componenteSeleccionados.Hermanos;
+            opcionesEvents.applyChanges("onOptionSelected", componenteClone);
         } else {
             $(_elements.btnAplicarSeleccion.id)
                 .removeClass(_elements.btnAplicarSeleccion.activeClass)
@@ -142,6 +144,8 @@ var ListaOpcionesModule = (function () {
         if (typeof opcion !== "undefined" && opcion !== null) {
             _componenteSeleccionados.Hermanos = _componenteSeleccionados.Hermanos || [];
             _componenteSeleccionados.Hermanos.splice(i, 1);
+            _moverListaOpcionesOcultarSeleccionados();
+
             var componente = _getComponente();
             componente.Hermanos = _componenteSeleccionados.Hermanos;
             opcionesEvents.applyChanges("onOptionSelected", componente);
