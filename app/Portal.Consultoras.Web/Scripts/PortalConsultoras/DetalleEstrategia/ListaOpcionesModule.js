@@ -80,7 +80,7 @@ var ListaOpcionesModule = (function () {
 
     var _moverListaOpcionesMostrarSeleccionados = function () {
         if (isMobile())
-            $(_elements.listaOpciones.id).css("padding-top", "154px");
+            $(_elements.listaOpciones.id).css("padding-top", "159px");
     };
 
     var SeleccionarOpcion = function (event, cuv) {
