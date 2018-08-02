@@ -7213,13 +7213,13 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int MarcaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PrecioField;
+        private double PrecioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SAPField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ValorizadoField;
+        private double ValorizadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string descripcionEstrategiaField;
@@ -7339,12 +7339,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Precio {
+        public double Precio {
             get {
                 return this.PrecioField;
             }
             set {
-                if ((object.ReferenceEquals(this.PrecioField, value) != true)) {
+                if ((this.PrecioField.Equals(value) != true)) {
                     this.PrecioField = value;
                     this.RaisePropertyChanged("Precio");
                 }
@@ -7365,12 +7365,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Valorizado {
+        public double Valorizado {
             get {
                 return this.ValorizadoField;
             }
             set {
-                if ((object.ReferenceEquals(this.ValorizadoField, value) != true)) {
+                if ((this.ValorizadoField.Equals(value) != true)) {
                     this.ValorizadoField = value;
                     this.RaisePropertyChanged("Valorizado");
                 }
