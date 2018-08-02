@@ -204,6 +204,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         var effect = 'slide';
         var options = { direction: 'right' };
         var duration = 500;
+        $('#of-regalo-actual').text("1");
 
         if (oUpsellingGanado != null && montoPedidoFinal >= oUpsellingGanado.MontoMeta) {
             $('#divGanoRegalo').toggle(effect, options, duration, function () {
@@ -238,6 +239,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
             $('#divCarruselOfertaFinal').prepend($(".js-slick-prev-" + aux));
             $('#divCarruselOfertaFinal').prepend($(".js-slick-next-" + aux));
         }
+
+        
     });
 
     $("[data-regresar-of]").click(function () {
