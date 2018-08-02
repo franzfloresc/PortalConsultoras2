@@ -76,6 +76,9 @@ $(document).ready(function () {
 
                             $.each(r, function (index, item) {
                                 item.posicion = index + 1;
+                                if (item.Descripcion.length > TotalCaracteresEnListaBuscador) {
+                                    item.Descripcion = item.Descripcion.substring(0, TotalCaracteresEnListaBuscador) + '...';
+                                }
                             });
 
                             var lista = r;
@@ -85,30 +88,8 @@ $(document).ready(function () {
                                 $('#ResultadoBuscador').fadeOut(150);
                             } else {
                                 $('#ResultadoBuscador').html('');
-                                console.log(r);
-                                SetHandlebars('#js-ResultadoBuscador', lista, '#ResultadoBuscador');
 
-                                $.each($('#ResultadoBuscador .resultado_busqueda_producto'), function (index, obj) {
-                                    var h = $(obj).find('.resultado_busqueda_nom_producto').height();
-                                    if (h > TotalCaracteresEnListaBuscador) {
-                                        var txt = $(obj).find('.resultado_busqueda_nom_producto').html();
-                                        var splits = txt.split(" ");
-                                        var lent = splits.length;
-                                        var cont = false;
-                                        for (var i = lent; i < 0; i++) {
-                                            if (cont) continue;
-                                            splits.splice(i - 1, 1);
-                                            $(obj).find(".resultado_busqueda_nom_producto").html(splits.join(" "));
-                                            var hx = $(obj).find(".resultado_busqueda_nom_producto").height();
-                                            if (hx <= TotalCaracteresEnListaBuscador) {
-                                                var txtF = splits.join(" ");
-                                                txtF = txtF.substr(0, txtF.length - 3);
-                                                $(obj).find(".resultado_busqueda_nom_producto").html(txtF + "...");
-                                                cont = true;
-                                            }
-                                        }
-                                    }
-                                });
+                                SetHandlebars('#js-ResultadoBuscador', lista, '#ResultadoBuscador');
                             }
 
                             setTimeout(function () {
@@ -116,7 +97,6 @@ $(document).ready(function () {
                                 $('#ResultadoBuscador').fadeIn(150);
                                 $('.lista_resultados_busqueda_productos').addClass('animarAlturaListaResultadosBusqueda');
                             }, 400);
-                            console.log(r);
                         }
                         service.then(successBusqueda, function (e) {
                             console.log(e);
