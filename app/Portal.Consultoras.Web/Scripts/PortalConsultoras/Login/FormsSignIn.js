@@ -405,19 +405,9 @@ $(document).ready(function () {
         if (PaisID != 0 && telefonoCentral != "")
             RecuperarContrasenia();
     }); 
-    
-    $('#btnAccesoUrl').click(function () { EnlaceUrlsDocumentos('btnAccesoUrl', urlAcceso); });
 
-    $('#btnCancelacionUrl').click(function () { EnlaceUrlsDocumentos('btnCancelacionUrl', urlCancelacion); });
-
-    $('#btnOposicionUrl').click(function () { EnlaceUrlsDocumentos('btnOposicionUrl', urlOposicion); });
-
-    $('#btnRectificacionUrl').click(function () { EnlaceUrlsDocumentos('btnRectificacionUrl', urlRectificacion); });
 });
 
-function EnlaceUrlsDocumentos(id, enlace) {
-    $('#' + id).attr('href', enlace);
-}
 
 function Inicializar() {
     $(".cboPaisCambioClave").trigger('change');
