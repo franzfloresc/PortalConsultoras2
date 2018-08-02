@@ -69,16 +69,17 @@ var ListaOpcionesModule = (function () {
                 .removeClass(_elements.btnAplicarSeleccion.disabledClass)
                 .addClass(_elements.btnAplicarSeleccion.activeClass);
         } else {
+            _moverListaOpcionesOcultarSeleccionados();
             $(_elements.btnAplicarSeleccion.id)
                 .removeClass(_elements.btnAplicarSeleccion.activeClass)
                 .addClass(_elements.btnAplicarSeleccion.disabledClass);
         }
-        opcionesEvents.applyChanges("onOptionSelected", _componente);
-        //
-        _moverListaOpcionesOcultarSeleccionados();
+
         $(_elements.listaOpciones.id).html("");
         SetHandlebars(_elements.listaOpciones.templateId, _componente, _elements.listaOpciones.id);
-        //
+
+        opcionesEvents.applyChanges("onOptionSelected", _componente);
+
         return false;
     };
 
@@ -101,16 +102,11 @@ var ListaOpcionesModule = (function () {
             function(index, hermano) {
                 cuv = $.trim(cuv);
                 if (cuv === hermano.Cuv) {
-                    //_componente.Hermanos[index].cantidadSeleccionada = _componente.Hermanos[index].cantidadSeleccionada || 0;
-                    //_componente.Hermanos[index].cantidadSeleccionada++;
                     opcion = _componente.Hermanos[index];
                     opcion.cantidadSeleccionada = opcion.cantidadSeleccionada || 0;
                     opcion.cantidadSeleccionada++;
-                    //
                     $(_elements.btnEligelo.id + cuv).text(_elements.btnEligelo.textElegido);
                     $(_elements.btnEligelo.id + cuv).addClass(_elements.btnEligelo.activeClass);
-                    //$(_elements.btnEligelo.id + cuv).attr("onclick",
-                    //    "javascript: alert();/*ListaOpcionesModule.SeleccionarOpcion(event,'32847')*/");
                     _moverListaOpcionesMostrarSeleccionados();
                     return false;
                 }
@@ -143,6 +139,12 @@ var ListaOpcionesModule = (function () {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {
                 hermanoSeleccionadoIndex = index;
+                $.each(_componente.Hermanos, function (index, item) {
+                    if (hermano.Cuv === item.Cuv) {
+                        item.cantidadSeleccionada = item.cantidadSeleccionada > 0? (item.cantidadSeleccionada - 1) : 0;
+                        return false;
+                    }
+                });
                 return false;
             }
         });
