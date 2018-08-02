@@ -3,16 +3,12 @@ registerEvent.call(opcionesEvents, "onComponentSelected");
 
 var ResumenOpcionesModule = (function () {
     "use strict";
-    var _componente;
-    var template;
 
-    var _inicializar = function() {
-        _componente = {};
-        template = "";
-    };
+    var _componente = {};
+    var template = "";
 
     var _cargarOpcionesElegidas = function() {
-        _componente = OpcionesSeleccionadasModule.GetOpcionesSeleccionadas() || _componente;
+        _componente = ListaOpcionesModule.GetComponente() || _componente;
         if (typeof _componente.Cuv === "undefined" ||
             typeof _componente.Hermanos.length === "undefined") return false;
 
@@ -26,11 +22,10 @@ var ResumenOpcionesModule = (function () {
     };
 
     return {
-        CargarOpcionesElegidas: _cargarOpcionesElegidas,
-        Inicializar: _inicializar
+        CargarOpcionesElegidas: _cargarOpcionesElegidas
     };
 }());
 
 opcionesEvents.subscribe("onComponentSelected", function(componente) {
-    ResumenOpcionesModule.Inicializar();
+    //ResumenOpcionesModule.Inicializar();
 });

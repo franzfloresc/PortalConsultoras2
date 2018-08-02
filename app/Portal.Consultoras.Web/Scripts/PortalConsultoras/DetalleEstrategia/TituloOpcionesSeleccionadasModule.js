@@ -17,13 +17,24 @@ var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
 
 var TituloOpcionesSeleccionadasModule = (function () {
-    var _estrategia = {};
-    var __cargarTituloOpcionesSeleccionadas = function (componente) {
-        _estrategia = componente || _estrategia;
-        SetHandlebars("#titulo-opciones-seleccionadas-template", _estrategia, "#titulo-opciones-seleccionadas");
+    "use strict";
+
+    var _componente = {};
+
+    var _elements = {
+        divTituloOpcionesSeleccionadas: {
+            templateId: "#titulo-opciones-seleccionadas-template",
+            id: "#titulo-opciones-seleccionadas"
+        }
     };
+
+    var CargarTituloOpcionesSeleccionadas = function (componente) {
+        _componente = componente || _componente;
+        SetHandlebars(_elements.divTituloOpcionesSeleccionadas.templateId, _componente, _elements.divTituloOpcionesSeleccionadas.id);
+    };
+
     return {
-        CargarTituloOpcionesSeleccionadas: __cargarTituloOpcionesSeleccionadas
+        CargarTituloOpcionesSeleccionadas: CargarTituloOpcionesSeleccionadas
     };
 }());
 

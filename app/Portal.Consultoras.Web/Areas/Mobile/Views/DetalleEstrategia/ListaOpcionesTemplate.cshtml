@@ -4,7 +4,13 @@
         <li class="seleccion_img"><img src="{{componente.ImagenBulk}}" alt=""></li>
         <li class="seleccion_title">{{componente.NombreBulk}}</li>
         <li class="seleccion_btn" id="li-eligelo-{{componente.Cuv}}">
-            <button id="btn-eligelo-{{componente.Cuv}}" onclick="javascript: ListaOpcionesModule.SeleccionarOpcion(event,'{{componente.Cuv}}')">Elígelo</button>
+            <button id="btn-eligelo-{{componente.Cuv}}" 
+                    {{#iff componente.cantidadSeleccionada '>' '0'}}
+                    class="active"
+                    {{/iff }}
+                    onclick="javascript: ListaOpcionesModule.SeleccionarOpcion(event,'{{componente.Cuv}}')">
+                Elígelo
+            </button>
         </li>
         <li class="seleccion_btn seleccion_cantidad" id="li-cantidad-opciones-{{componente.Cuv}}" style="display:none">
             <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">

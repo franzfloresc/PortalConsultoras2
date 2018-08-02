@@ -21,9 +21,7 @@ var ListaOpcionesModule = (function () {
     "use strict";
 
     var _componente = {};
-    var _componenteSeleccionados = {
-        Hermanos : []
-    };
+    
     var _elements = {
         listaOpciones: {
             id: "#lista-opciones",
@@ -49,23 +47,24 @@ var ListaOpcionesModule = (function () {
         }
     };
 
-    var _getComponente = function () {
-        var componente = jQuery.extend(true, {}, _componente);
-        return componente;
-    }
-
     var _moverListaOpcionesOcultarSeleccionados = function() {
         $(_elements.listaOpciones.id).css("padding-top", "0px");
         if (isMobile())
             $(_elements.listaOpciones.id).css("padding-top", "63px");
     };
 
-    var CargarOpciones = function (componente) {
+    var ListarOpciones = function (componente) {
         if (typeof componente === "undefined" ||
             componente === null) throw "param componente is not defined or null";
         //
         _componente = componente;
-        if (_componenteSeleccionados.Hermanos.length > 0) {
+        _componente.Hermanos = componente.Hermanos || [];
+        $.each(_componente.Hermanos,function(index, hermano) {
+            hermano.cantidadSeleccionada = hermano.cantidadSeleccionada || 0;
+        });
+        _componente.HermanosSeleccionados = componente.HermanosSeleccionados ||[];
+        if (_componente.HermanosSeleccionados.length > 0) {
+            // TODO : Mejorar validacion
             $(_elements.btnAplicarSeleccion.id)
                 .removeClass(_elements.btnAplicarSeleccion.disabledClass)
                 .addClass(_elements.btnAplicarSeleccion.activeClass);
@@ -74,9 +73,7 @@ var ListaOpcionesModule = (function () {
                 .removeClass(_elements.btnAplicarSeleccion.activeClass)
                 .addClass(_elements.btnAplicarSeleccion.disabledClass);
         }
-        var componenteClone = _getComponente();
-        componenteClone.Hermanos = _componenteSeleccionados.Hermanos;
-        opcionesEvents.applyChanges("onOptionSelected", componenteClone);
+        opcionesEvents.applyChanges("onOptionSelected", _componente);
         //
         _moverListaOpcionesOcultarSeleccionados();
         $(_elements.listaOpciones.id).html("");
@@ -90,8 +87,8 @@ var ListaOpcionesModule = (function () {
             $(_elements.listaOpciones.id).css("padding-top", "159px");
     };
 
-    var SeleccionarOpcion = function (event, cuv) {
-        if (_componente.FactorCuadre === _componenteSeleccionados.Hermanos.length) {
+    var SeleccionarOpcion = function(event, cuv) {
+        if (_componente.FactorCuadre === _componente.HermanosSeleccionados.length) {
             return false;
         }
         //
@@ -100,84 +97,87 @@ var ListaOpcionesModule = (function () {
             $.trim(cuv) === "") throw "param componente is not defined or null";
         //
         var opcion = {};
-        $.each(_componente.Hermanos, function (index, hermano) {
-            cuv = $.trim(cuv);
-            if (cuv === hermano.Cuv) {
-                opcion = _componente.Hermanos[index];
-                $(_elements.btnEligelo.id + cuv).text(_elements.btnEligelo.textElegido);
-                $(_elements.btnEligelo.id + cuv).addClass(_elements.btnEligelo.activeClass);
-                //$(_elements.btnEligelo.id + cuv).attr("onclick",
-                //    "javascript: alert();/*ListaOpcionesModule.SeleccionarOpcion(event,'32847')*/");
-                _moverListaOpcionesMostrarSeleccionados();
-                return false;
-            }
-        });
+        $.each(_componente.Hermanos,
+            function(index, hermano) {
+                cuv = $.trim(cuv);
+                if (cuv === hermano.Cuv) {
+                    //_componente.Hermanos[index].cantidadSeleccionada = _componente.Hermanos[index].cantidadSeleccionada || 0;
+                    //_componente.Hermanos[index].cantidadSeleccionada++;
+                    opcion = _componente.Hermanos[index];
+                    opcion.cantidadSeleccionada = opcion.cantidadSeleccionada || 0;
+                    opcion.cantidadSeleccionada++;
+                    //
+                    $(_elements.btnEligelo.id + cuv).text(_elements.btnEligelo.textElegido);
+                    $(_elements.btnEligelo.id + cuv).addClass(_elements.btnEligelo.activeClass);
+                    //$(_elements.btnEligelo.id + cuv).attr("onclick",
+                    //    "javascript: alert();/*ListaOpcionesModule.SeleccionarOpcion(event,'32847')*/");
+                    _moverListaOpcionesMostrarSeleccionados();
+                    return false;
+                }
+            });
         //
         if (typeof opcion === "undefined" || opcion === null) throw "var opcion is not defined or null";
-        _componenteSeleccionados.Hermanos.push(opcion);
+        _componente.HermanosSeleccionados.push(opcion);
         if (_componente.FactorCuadre > 1) {
             $(_elements.liEligelo.id + cuv).hide();
             $(_elements.liCantidadOpciones.id + cuv).show();
         }
-        if (_componente.FactorCuadre === _componenteSeleccionados.Hermanos.length) {
+        if (_componente.FactorCuadre === _componente.HermanosSeleccionados.length) {
             $(_elements.btnAplicarSeleccion.id)
                 .removeClass(_elements.btnAplicarSeleccion.disabledClass)
                 .addClass(_elements.btnAplicarSeleccion.activeClass);
         }
         //
-        var componente = _getComponente();
-        componente.Hermanos = _componenteSeleccionados.Hermanos;
-        opcionesEvents.applyChanges("onOptionSelected", componente);
+        opcionesEvents.applyChanges("onOptionSelected", _componente);
         //
         return false;
-    }
+    };
 
     var EliminarOpcion = function (cuv) {
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param componente is not defined or null";
 
-        var opcion;
-        var i = 0;
-        $.each(_componenteSeleccionados.Hermanos, function (index, hermano) {
+        var hermanoSeleccionadoIndex;
+        $.each(_componente.HermanosSeleccionados, function (index, hermano) {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {
-                opcion = _componente.Hermanos[index];
-                i = index;
+                hermanoSeleccionadoIndex = index;
                 return false;
             }
         });
 
-        if (typeof opcion !== "undefined" && opcion !== null) {
-            _componenteSeleccionados.Hermanos = _componenteSeleccionados.Hermanos || [];
-            _componenteSeleccionados.Hermanos.splice(i, 1);
+        if (typeof hermanoSeleccionadoIndex !== "undefined") {
+            _componente.HermanosSeleccionados.splice(hermanoSeleccionadoIndex, 1);
             _moverListaOpcionesOcultarSeleccionados();
 
-            var componente = _getComponente();
-            componente.Hermanos = _componenteSeleccionados.Hermanos;
-            opcionesEvents.applyChanges("onOptionSelected", componente);
+            opcionesEvents.applyChanges("onOptionSelected", _componente);
 
-            if (_componente.FactorCuadre !== _componenteSeleccionados.Hermanos.length) {
+            if (_componente.FactorCuadre !== _componente.HermanosSeleccionados.length) {
                 $(_elements.btnAplicarSeleccion.id)
                     .removeClass(_elements.btnAplicarSeleccion.activeClass)
                     .addClass(_elements.btnAplicarSeleccion.disabledClass);
             }
         }
 
-        $("button[id*=btn-eligelo]").removeClass("active");
+        //TODO : Mejorar
+        $(_elements.btnEligelo.id + cuv).removeClass(_elements.btnEligelo.activeClass);
 
         return false;
+    }
 
+    var GetComponente = function () {
+        return _componente;
     }
 
     return {
-        CargarOpciones: CargarOpciones,
+        ListarOpciones: ListarOpciones,
         SeleccionarOpcion: SeleccionarOpcion,
         EliminarOpcion: EliminarOpcion,
-        GetComponente: _getComponente
+        GetComponente: GetComponente
     };
 }());
 
 opcionesEvents.subscribe("onComponentSelected", function (componente) {
-    ListaOpcionesModule.CargarOpciones(componente);
+    ListaOpcionesModule.ListarOpciones(componente);
 });

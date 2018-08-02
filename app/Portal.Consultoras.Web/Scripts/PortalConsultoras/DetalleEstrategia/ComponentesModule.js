@@ -75,7 +75,7 @@ var ComponentesModule = (function () {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {
                 var componente = {};
-                componente = jQuery.extend(true, componente, _estrategia.Hermanos[index]);
+                componente = _estrategia.Hermanos[index];
                 opcionesEvents.applyChanges("onComponentSelected", componente);
                 _mostrarModalElegirOpciones();
                 return false;

@@ -1,12 +1,14 @@
 ﻿
 <script id="resumen-opciones-template" type="text/x-handlebars-template">
-        {{#each this.Hermanos as |componente|}}
+    {{#each this.Hermanos as |componente|}}
+        {{#iff componente.cantidadSeleccionada '>' 0}}
         <div data-tono="" data-tono-select="{{componente.Cuv}}" data-tono-marca-id="{{componente.MarcaID}}" data-tono-precio-catalogo="{{componente.PrecioCatalogo}}">
             <ul class="tono_selecionado_item">
                 <li class="imagen_selecionado"><img src="{{componente.ImagenBulk}}" alt="" /></li>
-                <li class="titulo_selecionado"><span class="cantidad_producto_opt">x1 </span>{{componente.NombreBulk}}</li>
+                <li class="titulo_selecionado"><span class="cantidad_producto_opt">x{{componente.cantidadSeleccionada}} </span>{{componente.NombreBulk}}</li>
             </ul>
         </div>
-        {{/each}}
-        <a class="btn_cambiar_opciones" href="#" onclick="javascript: ComponentesModule.SeleccionarComponente('{{this.Cuv}}')">Cambiar opciones <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="" /></a>
+        {{/iff}}
+    {{/each}}
+    <a class="btn_cambiar_opciones" href="#" onclick="javascript: ComponentesModule.SeleccionarComponente('{{this.Cuv}}')">Cambiar opciones <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="" /></a>
 </script>

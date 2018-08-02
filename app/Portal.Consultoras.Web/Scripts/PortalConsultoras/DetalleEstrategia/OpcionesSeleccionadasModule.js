@@ -16,60 +16,61 @@
 
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
+
 var OpcionesSeleccionadasModule = (function () {
+    "use strict";
+
     var _componente = {};
 
-    var _inicializar = function () {
-        _componente = {};
+    var _elements = {
+        divContenedorOpcionesSeleccionadas : {
+            id: "#contenedor-opciones-seleccionadas",
+            templateId: "#opciones-seleccionadas-template"
+        },
+        divOpcionesSeleccionadas : {
+            id: "#opciones-seleccionadas",
+            templateId: "#opciones-seleccionadas-template"
+        }
     };
 
-    var _cargarOpcionesSeleccionadas = function (componente) {
+    var CargarOpcionesSeleccionadas = function (componente) {
         if (typeof componente === "undefined" ||
-            componente === null) throw "param opcion is not defined or null";
+            componente === null) throw "param componente is not defined or null";
 
         _componente = componente || {};
-        if (_componente.Hermanos.length > 0) {
-            $("#contenedor-opciones-seleccionadas").show();
-            $("#opciones-seleccionadas").slick("unslick");
-            SetHandlebars("#opciones-seleccionadas-template", _componente, "#opciones-seleccionadas");
-            $("#opciones-seleccionadas").slick({
+        if (_componente.HermanosSeleccionados.length > 0) {
+            $(_elements.divContenedorOpcionesSeleccionadas.id).show();
+            $(_elements.divOpcionesSeleccionadas.id).slick("unslick");
+            SetHandlebars(_elements.divOpcionesSeleccionadas.templateId, _componente, _elements.divOpcionesSeleccionadas.id);
+            $(_elements.divOpcionesSeleccionadas.id).slick({
                 slidesToShow: 5,
                 slidesToScroll: 1,
                 autoplaySpeed: 2000,
                 fade: false
             });
-            $("#opciones-seleccionadas").fadeTo("fast", 0.6).fadeTo("fast", 1);
+            $(_elements.divOpcionesSeleccionadas.id).fadeTo("fast", 0.6).fadeTo("fast", 1);
         } else {
-            $("#contenedor-opciones-seleccionadas").hide();
-            $("#opciones-seleccionadas").html("");
+            $(_elements.divContenedorOpcionesSeleccionadas.id).hide();
+            $(_elements.divOpcionesSeleccionadas.id).html("");
         }
 
         return false;
     }
 
-    var _getCantidadOpcionesSeleccionadas = function() {
+    var GetCantidadOpcionesSeleccionadas = function () {
         if (typeof _componente.Hermanos === "undefined" ||
             typeof _componente.Hermanos.length === "undefined") return 0;
 
         return _componente.Hermanos.length;
     };
 
-    var _getOpcionesSeleccionadas = function () {
-        var componente = ListaOpcionesModule.GetComponente();
-        componente.Hermanos = _componente.Hermanos || [];
-        return componente;
-    }
+    
 
     return {
-        Inicializar : _inicializar,
-        CargarOpcionesSeleccionadas: _cargarOpcionesSeleccionadas,
-        GetCantidadOpcionesSeleccionadas: _getCantidadOpcionesSeleccionadas,
-        GetOpcionesSeleccionadas: _getOpcionesSeleccionadas
+        CargarOpcionesSeleccionadas: CargarOpcionesSeleccionadas
     };
 }());
-opcionesEvents.subscribe("onComponentSelected", function (componente) {
-    OpcionesSeleccionadasModule.Inicializar();
-});
+
 opcionesEvents.subscribe("onOptionSelected", function (componente) {
     OpcionesSeleccionadasModule.CargarOpcionesSeleccionadas(componente);
 });
