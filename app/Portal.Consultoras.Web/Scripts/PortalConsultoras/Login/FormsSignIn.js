@@ -390,9 +390,6 @@ $(document).ready(function () {
     }); 
 });
 
-function EnlaceUrlsDocumentos(id, enlace) {
-    $('#' + id).attr('href', enlace);
-}
 
 function Inicializar() {
     $(".cboPaisCambioClave").trigger('change');
