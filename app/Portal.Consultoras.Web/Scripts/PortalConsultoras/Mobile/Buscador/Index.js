@@ -14,11 +14,14 @@ $(document).ready(function () {
                 $(document).on('click', '.opcion_limpiar_campo_busqueda_productos', me.Eventos.LimpiarCampoBusqueda);
             },
             CampoDeBusquedaMobileConCaracteres: function () {
+                $('.vistaResultadosBusquedaMobile').delay(50);
+                $('.vistaResultadosBusquedaMobile').fadeIn(100);
                 $('.enlace_busqueda_filtros').fadeOut(100);
                 $('.opcion_limpiar_campo_busqueda_productos').delay(50);
                 $('.opcion_limpiar_campo_busqueda_productos').fadeIn(100);
             },
             CampoDeBusquedaMobileSinCaracteres: function (element) {
+                $('.vistaResultadosBusquedaMobile').fadeOut(100);
                 $(element).fadeOut(100);
                 $('.enlace_busqueda_filtros').delay(50);
                 $('.enlace_busqueda_filtros').fadeIn(100);
