@@ -157,6 +157,8 @@ var ListaOpcionesModule = (function () {
             }
         }
 
+        $("button[id*=btn-eligelo]").removeClass("active");
+
         return false;
 
     }
