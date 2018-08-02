@@ -1,23 +1,28 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.ServiceModel;
-using System.Text;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarProductoSugeridoController : BaseController
     {
+        protected RenderImgProvider _renderImgProvider;
+
+        public AdministrarProductoSugeridoController()
+        {
+            _renderImgProvider = new RenderImgProvider();
+        }
+
         public ActionResult Index()
         {
             var model = new AdministrarProductoSugeridoModel()
@@ -25,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lstCampania = new List<CampaniaModel>(),
                 lstPais = DropDowListPaises(),
                 PaisIDUser = userData.PaisID,
-                ExpValidacionNemotecnico = GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico),
+                ExpValidacionNemotecnico = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico),
                 MostrarAgotado = MostrarCheckAgotado()
             };
             return View(model);
@@ -34,7 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
         private int MostrarCheckAgotado()
         {
             var result = 0;
-            var TablaLogicaDatos = new List<BETablaLogicaDatos>();
+            List<BETablaLogicaDatos> TablaLogicaDatos;
             short codigoTablaLogica = 141;
 
             using (var tablaLogica = new SACServiceClient())
@@ -87,13 +92,13 @@ namespace Portal.Consultoras.Web.Controllers
                 SortColumn = sidx,
                 SortOrder = sord
             };
-            IEnumerable<BEProductoSugerido> items = lst;
+            IEnumerable<BEProductoSugerido> items = lst;            
 
             items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
             BEPager pag = Util.PaginadorGenerico(grid, lst);
 
-            lst.Update(x => x.ImagenProducto = x.ImagenProducto ?? "");
+            lst.Update(x => x.ImagenProducto = x.ImagenProducto ?? "");            
 
             var data = new
             {
@@ -168,10 +173,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 int nroCampaniasAtras;
-                Int32.TryParse(GetConfiguracionManager(Constantes.ConfiguracionManager.ProductoSugeridoAppCatalogosNroCampaniasAtras), out nroCampaniasAtras);
+                Int32.TryParse(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ProductoSugeridoAppCatalogosNroCampaniasAtras), out nroCampaniasAtras);
                 if (nroCampaniasAtras <= 0) nroCampaniasAtras = 3;
 
-                string paisesCcc = GetPaisesConConsultoraOnlineFromConfig();
+                string paisesCcc = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
                 if (paisesCcc.Contains(pais.CodigoISO)) model.FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, model.CodigoSAP, nroCampaniasAtras);
             }
             return Json(new { success = true, matriz = model, totalImagenes = totalImagenes }, JsonRequestBehavior.AllowGet);
@@ -209,7 +214,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenerCampaniasPorPais(int PaisID)
         {
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
-            string habilitarNemotecnico = ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoProductoSugerido);
+            string habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoProductoSugerido);
 
             return Json(new
             {
@@ -237,7 +242,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
 
-                ImagenesResizeProceso(entidad.ImagenProducto, rutaImagen.ToLower().Contains(valorAppCatalogo));
+                _renderImgProvider.ImagenesResizeProceso(entidad.ImagenProducto, userData.CodigoISO, rutaImagen.ToLower().Contains(valorAppCatalogo));
                 
                 #endregion
 

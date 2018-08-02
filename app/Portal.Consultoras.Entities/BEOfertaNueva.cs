@@ -72,56 +72,30 @@ namespace Portal.Consultoras.Entities
 
         public BEOfertaNueva(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "OfertaNuevaId"))
-                OfertaNuevaId = Convert.ToInt32(row["OfertaNuevaId"]);
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "NumeroPedido"))
-                NumeroPedido = Convert.ToString(row["NumeroPedido"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "PrecioNormal"))
-                PrecioNormal = Convert.ToDecimal(row["PrecioNormal"]);
-            if (DataRecord.HasColumn(row, "PrecioParaTi"))
-                PrecioParaTi = Convert.ToDecimal(row["PrecioParaTi"]);
-            if (DataRecord.HasColumn(row, "UnidadesPermitidas"))
-                UnidadesPermitidas = Convert.ToInt32(row["UnidadesPermitidas"]);
-            if (DataRecord.HasColumn(row, "ImagenProducto01"))
-                ImagenProducto01 = Convert.ToString(row["ImagenProducto01"]);
-            if (DataRecord.HasColumn(row, "ImagenProducto02"))
-                ImagenProducto02 = Convert.ToString(row["ImagenProducto02"]);
-            if (DataRecord.HasColumn(row, "ImagenProducto03"))
-                ImagenProducto03 = Convert.ToString(row["ImagenProducto03"]);
-            if (DataRecord.HasColumn(row, "FlagImagenActiva"))
-                FlagImagenActiva = Convert.ToInt16(row["FlagImagenActiva"]);
-            if (DataRecord.HasColumn(row, "FlagHabilitarOferta"))
-                FlagHabilitarOferta = Convert.ToBoolean(row["FlagHabilitarOferta"]);
-            if (DataRecord.HasColumn(row, "UsuarioRegistro"))
-                UsuarioRegistro = Convert.ToString(row["UsuarioRegistro"]);
-            if (DataRecord.HasColumn(row, "FechaRegistro"))
-                FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (DataRecord.HasColumn(row, "UsuarioModificacion"))
-                UsuarioModificacion = Convert.ToString(row["UsuarioModificacion"]);
-            if (DataRecord.HasColumn(row, "FechaModificacion"))
-                FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-            if (DataRecord.HasColumn(row, "CodigoProducto"))
-                CodigoProducto = Convert.ToString(row["CodigoProducto"]);
-            if (DataRecord.HasColumn(row, "CodigoCampania"))
-                CodigoCampania = Convert.ToString(row["CodigoCampania"]);
-            if (DataRecord.HasColumn(row, "MarcaID"))
-                MarcaID = Convert.ToInt32(row["MarcaID"]);
-            if (DataRecord.HasColumn(row, "IndicadorMontoMinimo"))
-                IndicadorMontoMinimo = Convert.ToInt32(row["IndicadorMontoMinimo"]);
-            if (DataRecord.HasColumn(row, "DescripcionProd"))
-                DescripcionProd = Convert.ToString(row["DescripcionProd"]);
-
-            if (DataRecord.HasColumn(row, "IndicadorPedido"))
-                IndicadorPedido = Convert.ToInt32(row["IndicadorPedido"]);
-
-            if (DataRecord.HasColumn(row, "ganahasta"))
-                ganahasta = Convert.ToDecimal(row["ganahasta"]);
+            OfertaNuevaId = row.ToInt32("OfertaNuevaId");
+            CampaniaID = row.ToInt32("CampaniaID");
+            CUV = row.ToString("CUV");
+            NumeroPedido = row.ToString("NumeroPedido");
+            Descripcion = row.ToString("Descripcion");
+            PrecioNormal = row.ToDecimal("PrecioNormal");
+            PrecioParaTi = row.ToDecimal("PrecioParaTi");
+            UnidadesPermitidas = row.ToInt32("UnidadesPermitidas");
+            ImagenProducto01 = row.ToString("ImagenProducto01");
+            ImagenProducto02 = row.ToString("ImagenProducto02");
+            ImagenProducto03 = row.ToString("ImagenProducto03");
+            FlagImagenActiva = row.ToInt16("FlagImagenActiva");
+            FlagHabilitarOferta = row.ToBoolean("FlagHabilitarOferta");
+            UsuarioRegistro = row.ToString("UsuarioRegistro");
+            FechaRegistro = row.ToDateTime("FechaRegistro");
+            UsuarioModificacion = row.ToString("UsuarioModificacion");
+            FechaModificacion = row.ToDateTime("FechaModificacion");
+            CodigoProducto = row.ToString("CodigoProducto");
+            CodigoCampania = row.ToString("CodigoCampania");
+            MarcaID = row.ToInt32("MarcaID");
+            IndicadorMontoMinimo = row.ToInt32("IndicadorMontoMinimo");
+            DescripcionProd = row.ToString("DescripcionProd");
+            IndicadorPedido = row.ToInt32("IndicadorPedido");
+            ganahasta = row.ToDecimal("ganahasta");
         }
     }
 }

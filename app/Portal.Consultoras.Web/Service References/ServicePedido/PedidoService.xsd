@@ -9,6 +9,20 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Enumeradores.RechazoBannerUrl" nillable="true" type="tns:Enumeradores.RechazoBannerUrl" />
+  <xs:simpleType name="Enumeradores.ResultadoReserva">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ninguno" />
+      <xs:enumeration value="Reservado" />
+      <xs:enumeration value="ReservadoObservaciones" />
+      <xs:enumeration value="NoReservadoObservaciones" />
+      <xs:enumeration value="NoReservadoMontoMinimo" />
+      <xs:enumeration value="NoReservadoMontoMaximo" />
+      <xs:enumeration value="ReservaNoDisponible" />
+      <xs:enumeration value="NoReservadoDeuda" />
+      <xs:enumeration value="NoReservadoMontoPermitido" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Enumeradores.ResultadoReserva" nillable="true" type="tns:Enumeradores.ResultadoReserva" />
   <xs:simpleType name="Enumeradores.MotivoPedidoLock">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Ninguno" />
@@ -43,17 +57,4 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Enumeradores.MotivoPedidoLock" nillable="true" type="tns:Enumeradores.MotivoPedidoLock" />
-  <xs:simpleType name="Enumeradores.ResultadoReserva">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="Ninguno" />
-      <xs:enumeration value="Reservado" />
-      <xs:enumeration value="ReservadoObservaciones" />
-      <xs:enumeration value="NoReservadoObservaciones" />
-      <xs:enumeration value="NoReservadoMontoMinimo" />
-      <xs:enumeration value="NoReservadoMontoMaximo" />
-      <xs:enumeration value="ReservaNoDisponible" />
-      <xs:enumeration value="NoReservadoDeuda" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="Enumeradores.ResultadoReserva" nillable="true" type="tns:Enumeradores.ResultadoReserva" />
 </xs:schema>

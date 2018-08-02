@@ -9,6 +9,11 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
+            if (EsDispositivoMovil())
+            { 
+                return RedirectToAction("Index", "SeguimientoPedido", new { area = "Mobile" });
+            }
+
             BEUsuario usuario;
 
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
@@ -20,9 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string paisId = usuario.PaisID.ToString();
 
-                var codigoConsultora = UserData().UsuarioPrueba == 1
-                    ? UserData().ConsultoraAsociada
-                    : usuario.CodigoConsultora;
+                var codigoConsultora = userData.GetCodigoConsultora();
                 string mostrarAyudaWebTracking = Convert.ToInt32(usuario.MostrarAyudaWebTraking).ToString();
                 string paisIso = userData.CodigoISO.Trim();
                 string campanhaId = userData.CampaniaID.ToString();

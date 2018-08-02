@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string paisIso = Util.GetPaisISO(userData.PaisID);
             var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
-            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+            var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
 
             var reporteValidacionModel = new ReporteValidacionModel()
             {
@@ -138,7 +138,7 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var item in lst)
             {
                 var carpetaPais = Globals.UrlMatriz + "/" + item.CodPais;
-                var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+                var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
                 item.ImagenUrl = urlS3 + item.ImagenUrl;
             }
 
@@ -149,16 +149,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         private ActionResult ExportarExcelShowRoom(string CampaniaID)
         {
-            List<BEReporteValidacionSRPersonalizacion> lstSrPersonalizacion= new List<BEReporteValidacionSRPersonalizacion>();
-            List<BEReporteValidacionSRComponentes> lstSrComponente = new List<BEReporteValidacionSRComponentes>();
-            List<BEReporteValidacionSRCampania> lstSrCampania = new List<BEReporteValidacionSRCampania>();
-            List<Dictionary<string, string>> lstConfiguration = new List<Dictionary<string, string>>();
-            List<BEReporteValidacionSROferta> lstSrOferta = new List<BEReporteValidacionSROferta>();
-            List<List<ReporteValidacionSRModel>> lst = new List<List<ReporteValidacionSRModel>>();
-
-            List<string> nombresHojas = new List<string>();
-            string nombreReporte = NombreReporteValidacionSR;
-
+            List<BEReporteValidacionSRCampania> lstSrCampania;
+            List<BEReporteValidacionSRPersonalizacion> lstSrPersonalizacion;
+            List<BEReporteValidacionSROferta> lstSrOferta;
+            List<BEReporteValidacionSRComponentes> lstSrComponente;
+            
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 lstSrCampania = sv.GetReporteShowRoomCampania(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
@@ -236,21 +231,25 @@ namespace Portal.Consultoras.Web.Controllers
                 FlagImagenCargada = Convert.ToInt32(x.FlagImagenCargada)
             }));
 
+            List<List<ReporteValidacionSRModel>> lst = new List<List<ReporteValidacionSRModel>>();
             lst.Add(listSrCampaniaModel);
             lst.Add(lstSrPersonalizacionModel);
             lst.Add(lstSrOfertaModel);
             lst.Add(lstSrComponenteModel);
 
+            List<Dictionary<string, string>> lstConfiguration = new List<Dictionary<string, string>>();
             lstConfiguration.Add(GetConfiguracionExcelSRCampania());
             lstConfiguration.Add(GetConfiguracionExcelSRPersonalizacion());
             lstConfiguration.Add(GetConfiguracionExcelSROferta());
             lstConfiguration.Add(GetConfiguracionExcelSRComponentes());
 
+            List<string> nombresHojas = new List<string>();
             nombresHojas.Add(NombreSRHoja1);
             nombresHojas.Add(NombreSRHoja2);
             nombresHojas.Add(NombreSRHoja3);
             nombresHojas.Add(NombreSRHoja4);
 
+            string nombreReporte = NombreReporteValidacionSR;
             Util.ExportToExcelManySheets<ReporteValidacionSRModel>(nombreReporte, lst, lstConfiguration, nombresHojas, 30);
 
             return null;
@@ -272,7 +271,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             if (tipoEstrategiaId == 7)
             {
-                //dic.Add("DESCRIPCIÓN DE LA OFERTA", "DescripcionCUV2");
                 dic.Add("DESCRIPCIÓN DE LOS COMPONENTES DEL SET", "DescripcionCorta");
             }
             dic.Add("IMAGEN", "ImagenUrl");

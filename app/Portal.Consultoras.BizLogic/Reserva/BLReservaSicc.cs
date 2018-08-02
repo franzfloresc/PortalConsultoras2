@@ -32,7 +32,11 @@ namespace Portal.Consultoras.BizLogic.Reserva
         public async Task<BEResultadoReservaProl> ReservarPedido(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             BEPedidoSicc respuestaSicc = await ConsumirServExtReservar(input, listPedidoWebDetalle);
-            if (respuestaSicc == null || respuestaSicc.exitCode == 1) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_Error, false);
+            if (respuestaSicc == null || respuestaSicc.exitCode == 1)
+            {
+                LogManager.SaveLog(new CustomTraceException(Constantes.MensajesError.Reserva_Prol3, ""), input.CodigoConsultora, input.PaisISO);
+                return new BEResultadoReservaProl(Constantes.MensajesError.Pedido_Reserva, false);
+            }
                         
             var resultado = new BEResultadoReservaProl
             {

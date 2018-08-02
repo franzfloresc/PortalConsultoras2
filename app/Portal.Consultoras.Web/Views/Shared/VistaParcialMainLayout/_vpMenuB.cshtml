@@ -6,8 +6,21 @@
 
 <div class="menu_esika_b">
     <div style="float:right;">
-        <div class="campana user-profile oculto">
-            <img class="mostrar_perfil" region="Superior" src="/Content/Images/Esika/user.jpg" alt="Esika">
+        <div class="campana user-profile" style="display: none;">
+            <div class="borde_c borde_der_foto_consultora @(controllerAction == "bienvenidaindex" ? "posicion_der" : "")"></div>
+            @if (ViewBag.FotoPerfilSinModificar != "")
+            {
+                <div class="foto_consultora_menu">
+                    @if (ViewBag.FotoPerfilAncha)
+                    {
+                        <img id="imgFotoUsuarioHeader" class="mostrar_perfil" region="Superior" src="@ViewBag.FotoPerfil" alt="Foto de consultora" style="width:auto; height: 100%;">
+                    }
+                    else
+                    {
+                        <img id="imgFotoUsuarioHeader" class="mostrar_perfil" region="Superior" src="@ViewBag.FotoPerfil" alt="Foto de consultora" style="width:100%; height: auto;">
+                    }
+                </div>
+            }            
         </div>
         <div class="campana margenIzquierdoOpcionNotificacion @(controllerAction == "bienvenidaindex" ? "oculto" : "")">
             <a href="javascript:;" onclick="Notificaciones();" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">

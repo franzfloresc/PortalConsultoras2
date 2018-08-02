@@ -1,0 +1,969 @@
+﻿/* HELPERS */
+
+.text-uppercase{
+    text-transform:uppercase;
+}
+
+.text-left{
+    text-align:left;
+}
+
+.text-right{
+    text-align:right;
+}
+
+.text-bold{
+    font-weight:bold;
+}
+
+.mt-13{
+    margin-top:13px;
+}
+
+.mt-20{
+    margin-top:20px;
+}
+
+.mt-23{
+    margin-top:23px;
+}
+
+.mt-31{
+    margin-top:31px;
+}
+
+.mt-50{
+    margin-top:50px;
+}
+
+.mb-61{
+    margin-bottom:61px!important;
+}
+
+.w-18{
+    width:18%;
+}
+
+.w-50{
+    width:50%;
+    margin-right:-2px;
+}
+
+.w-82{
+    width:81%;
+}
+
+.w-100{
+    width:100%!important;
+}
+
+.v-alignMiddle{
+    vertical-align:middle!important;
+}
+
+input:focus{
+    outline:0;
+}
+
+.altoAutomatico{
+    height: calc(100vh - 101px);
+}
+
+/* FIN - HELPERS */
+
+/* MI PERFIL */
+
+.titulo_interiores_mi_perfil{
+    background-position: right top;
+}
+
+.w-100,
+.datos_usuario_iniciales,
+.wrapper_content_mi_perfil,
+.contenedor_foto_consultora,
+.icono_camara,
+.icono_camara_img,
+.consultora_img,
+.nom_consultora,
+.datos_codigo_y_zona,
+.datos_gerente_zona,
+.form_cambio_datos,
+.grupo_form_cambio_datos,
+.grupo_form_cambio_datos label,
+.grupo_form_cambio_datos input,
+.contenedor_campos_num_adicional,
+.tooltip_info_revision_correo,
+.vista_cambiar_contrasenia,
+.wrapper_content_cambiar_contrasenia,
+.enlace_cancelar,
+.icono_actualizacion_contrasenia_exitosa,
+.titulo_contrasenia_actualizada,
+.mensaje_contrasenia_actualizada,
+.btn_acept,
+.correo_electronico_actual,
+.vista_actualizar_correo,
+.wrapper_content_actualizar_correo,
+.titulo_revisa_tu_correo,
+.icono_correo_sobre,
+.correo_actualizado,
+.titulo_correo_actualizado,
+.icono_actualizacion_correo_exitoso,
+.icono_actualizacion_correo_erroneo,
+.mensaje_correo_actualizado,
+.correo_pendiente_de_confirmar,
+.vista_actualizar_celular,
+.wrapper_content_actualizar_celular,
+.celular_actual,
+.titulo_revisa_tu_celular,
+.icono_mensaje_sms,
+.area_ingreso_codigo_sms,
+.texto_ingreso_codigo,
+.campos_ingreso_codigo_sms,
+.envio_instrucciones_info,
+.icono_validacion_codigo_sms,
+.celular_actualizado,
+.icono_actualizacion_celular_exitoso,
+.mensaje_celular_actualizado,
+.vista_cambiar_foto_perfil,
+.wrapper_content_cambiar_foto_perfil,
+.opciones_foto_perfil,
+.opcion_foto_perfil,
+.icono_opcion_foto_perfil img
+{
+    display:block;
+}
+
+.datos_usuario_iniciales,
+.form_cambio_datos,
+.opciones_foto_perfil
+{
+    font-size:12px;
+    color:#000;
+}
+
+.datos_usuario_iniciales{
+    background-color:#F8F8F8;
+    min-height:210px;
+    padding-top:47px;
+    padding-bottom:37px;
+    font-weight:400;
+}
+
+.wrapper_content_mi_perfil,
+.wrapper_content_cambiar_contrasenia,
+.wrapper_content_actualizar_correo,
+.wrapper_content_actualizar_celular,
+.wrapper_content_cambiar_foto_perfil
+{
+    margin:0 auto;
+    height:auto;
+}
+
+.wrapper_content_mi_perfil{
+    width:540px;
+}
+
+.w-18,
+.w-50,
+.w-82,
+.foto_consultora,
+.datos_consultora_mi_perfil,
+.datos_codigo,
+.datos_zona,
+.icono_cambio_password,
+.grupo_form_cambio_datos > div,
+.icono_cambiar_dato,
+.icono_ver_password,
+.enlace_texto,
+.contenedor_campos_num_adicional > div,
+.icono_agregar_num_adicional,
+.icono_eliminar_numero_adicional,
+.enlace_cambiar_contrasenia_consultora,
+.enlace_cambiar_dato,
+.enlace_eliminar_numero_adicional,
+.icono_info_alerta,
+.tooltip_texto,
+.tooltip_texto p,
+.enlace_no_cambiar_correo,
+.icono_back_arrow,
+.cambiar_correo_info span,
+.enlace_cambiar_correo,
+.campo_ingreso_codigo_sms,
+.icono_cerrar,
+.icono_opcion_foto_perfil,
+.descrip_opcion_foto_perfil
+{
+    display:inline-block;
+    vertical-align:top;
+}
+
+.foto_consultora,
+.icono_camara,
+.contenedor_foto_consultora
+{
+    border-radius:100%;
+}
+
+.foto_consultora {
+    width: 144px;
+    height: 144px;
+    margin-right: 44px;
+    position: relative;
+    -moz-box-shadow: 0 5px 12px -1px rgba(0,0,0,0.15);
+    -webkit-box-shadow: 0 5px 12px -1px rgba(0,0,0,0.15);
+    box-shadow: 0 5px 12px -1px rgba(0,0,0,0.15);
+}
+
+.contenedor_foto_consultora{
+    height:100%;
+    overflow:hidden;
+    background-color:#E5E5E5;
+}
+
+.consultora_img{
+    width: 100%;
+    position: relative;
+    margin: 0 auto;
+    top: 0px;
+    left: -1px;
+    height: auto;
+}
+
+.icono_camara,
+.icono_cambio_password,
+.icono_cambiar_dato,
+.icono_agregar_num_adicional,
+.icono_eliminar_numero_adicional,
+.icono_info_alerta,
+.icono_actualizacion_contrasenia_exitosa,
+.icono_validacion_codigo_sms
+{
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+.icono_camara{
+    width:40px;
+    height:40px;
+    position:absolute;
+    top:0;
+    right:0;
+    background-image:url("../../../Images/Esika/icono_camara.svg");
+    z-index:2;
+}
+
+.datos_consultora_mi_perfil{
+    max-width: 347px;
+}
+
+.nom_consultora{
+    font-size:19px;
+    margin-bottom:15px;
+}
+
+.datos_codigo_y_zona{
+    margin-bottom:10px;
+}
+
+.datos_gerente_zona{
+    margin-bottom:16px;
+}
+
+.datos_codigo{
+    margin-right:34px;
+}
+
+.icono_cambio_password{
+    width:13px;
+    height:16px;
+    background-image:url("../../../Images/Esika/icono_candado.svg");
+    background-size:100%;
+    margin-right:7px;
+}
+
+.enlace_texto:hover{
+    text-decoration:underline;
+}
+
+.form_cambio_datos,
+.opciones_foto_perfil
+{
+    background-color:#FFF;
+    margin-bottom:79px;
+}
+
+.form_cambio_datos{
+    padding-top:30px;
+    padding-bottom:30px;
+}
+
+.grupo_form_cambio_datos{
+    margin-bottom:20px;
+    position:relative;
+    height:64px;
+}
+    
+    .grupo_form_cambio_datos label{
+        cursor:default;
+        position:absolute;
+        top:22px;
+        left:0;
+        font-size:15px;
+    }
+
+    .grupo_form_cambio_datos label,
+    .campo_con_datos label,
+    .correo_electronico_actual span:first-child,
+    .celular_actual span:first-child
+    {
+        color:rgba(0,0,0,0.4);
+    }
+
+    .grupo_form_cambio_datos label,
+    .grupo_form_cambio_datos input
+    {
+        padding-left: 5px;
+        font-family:'Lato', sans-serif;
+        -moz-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+    }
+
+    /*.grupo_form_cambio_datos input[disabled]{
+        background-color:#FFF;
+    }*/
+
+    .grupo_form_cambio_datos input {
+        background-color:transparent;
+        margin-top:18px;
+        font-size: 17px;
+        font-weight: 400;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        color: #000;
+        border-bottom: 1px solid rgba(0,0,0,0.4);
+        padding-top: 8px;
+        padding-bottom: 9px;
+        padding-right:40px;
+        position:relative;
+        z-index:2;
+    }
+
+    .grupo_form_cambio_datos input:focus + label,
+    .campo_con_datos + label
+    {
+        top:0;
+        font-size:12px;
+    }
+
+    .grupo_form_cambio_datos input:focus + label{
+        color:rgba(0,0,0,1);
+    }
+
+    .grupo_form_cambio_datos input:focus{
+        border-bottom:1px solid rgba(0,0,0,1);
+    }
+
+.enlace_cambiar_dato,
+.enlace_eliminar_numero_adicional
+{
+    margin-right:-3px;
+    vertical-align:bottom;
+    padding-bottom:12px;
+    position:relative;
+    z-index:3;
+}
+
+.icono_cambiar_dato{
+    width:16px;
+    height:16px;
+    background-image:url("../../../Images/Esika/icono_cambiar_dato.svg");
+    margin-right:5px;
+}
+
+.enlace_agregar_num_adicional{
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+.grupo_form_cambio_datos .label_num_adicional{
+    display:none;
+}
+
+.icono_agregar_num_adicional{
+    width:15px;
+    height:15px;
+    background-image:url("../../../Images/Esika/icono_plus.svg");
+    margin-right:3px;
+    position:relative;
+    top:2px;
+}
+
+.icono_eliminar_numero_adicional{
+    width:13px;
+    height:15px;
+    background-image:url("../../../Images/icono_eliminar.svg");
+    margin-right:3px;
+    position:relative;
+    top:2px;
+}
+
+.linea_separadora{
+    height:2px;
+}
+
+.btn_guardar_datos_nuevos,
+.btn_cambiar_contrasenia,
+.btn_acept,
+.btn_continuar
+{
+    height: 45px;
+    color: #FFF;
+    border: none;
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.9px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.btn_acept{
+    line-height:45px;
+}
+
+    .btn_acept:hover,
+    .btn_acept:active
+    {
+        text-decoration:none;
+        color:#FFF;
+    }
+
+.btn_guardar_datos_nuevos{
+    width:202px;
+}
+
+    .btn_guardar_datos_nuevos:hover,
+    .btn_cambiar_contrasenia:hover,
+    .btn_continuar:hover,
+    .btn_acept:hover
+    {
+        background-color: rgba(232,28,54,0.8);
+    }
+
+.tooltip_info_revision_correo{
+    width: auto;
+    max-width: 320px;
+    min-height: 98px;
+    margin-top: -25px;
+    margin-bottom: 16px;
+    padding: 17px 12px;
+    position: relative;
+    top: 0;
+    left: 0;
+    border:1px solid #dcdcdc;
+    background-color: #FFF;
+    z-index: 4;
+    -moz-box-shadow: 0 1px 8px 1px rgba(150, 150, 150, 0.5);
+    -webkit-box-shadow: 0 1px 8px 1px rgba(150, 150, 150, 0.5);
+    box-shadow: 0 1px 8px 1px rgba(150, 150, 150, 0.5);
+}
+
+.tooltip_info_revision_correo:after, .tooltip_info_revision_correo:before {
+    top:initial;
+	bottom: 100%;
+    left: 23px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.tooltip_info_revision_correo:after {
+	border-color: rgba(136, 183, 213, 0);
+    border-bottom-color: #FFF;
+    border-width: 8px;
+    margin-left: -8px;
+}
+
+.tooltip_info_revision_correo:before {
+	border-color: rgba(204, 204, 204, 0);
+	border-bottom-color: #dcdcdc;
+	border-width: 9px;
+	margin-left: -9px;
+}
+
+.icono_info_alerta{
+    width: 20px;
+    height: 20px;
+    background-image: url(../../../Images/Esika/icono_info_alerta.svg);
+    margin-right: 5px;
+}
+
+.tooltip_texto{
+    width:90.5%;
+    text-transform:initial;
+}
+
+.tooltip_texto p{
+    margin:0;
+    padding:0;
+}
+
+.enlace_no_cambiar_correo{
+    text-decoration: underline;
+    margin-top: 11px;
+}
+
+/*  FIN - MI PERFIL */
+
+/* CAMBIA TU CONTRASEÑA, ACTUALIZA TU CORREO ELECTRÓNICO, ACTUALIZA TU CELULAR, CAMBIAR FOTO DE PERFIL */
+
+.wrapper_content_cambiar_contrasenia,
+.wrapper_content_actualizar_correo,
+.wrapper_content_actualizar_celular,
+.wrapper_content_cambiar_foto_perfil
+{
+    width:520px;
+}
+
+.vista_cambiar_contrasenia,
+.vista_actualizar_correo,
+.vista_actualizar_celular,
+.vista_cambiar_foto_perfil
+{
+    background-color:#EDEDED;
+    padding:37px;
+}
+
+.enlace_volver_a_mi_perfil {
+    margin-bottom: 11px;
+    width: 80px;
+}
+
+.icono_back_arrow,
+.icono_cerrar{
+    width:18px;
+    height:21px;
+    margin-top:1px;
+    margin-right:8.5px;
+}
+
+.icono_back_arrow img,
+.icono_correo_sobre img,
+.icono_mensaje_sms img,
+.icono_cerrar img
+{
+    width:100%;
+    height:auto;
+}
+
+.form_cambiar_contrasenia,
+.contrasenia_actualizada,
+.form_actualizar_correo,
+.revisa_tu_correo,
+.correo_pendiente_de_confirmar,
+.correo_actualizado,
+.form_actualizar_celular,
+.revisa_tu_celular,
+.celular_actualizado
+{
+    background-color:#FFF;
+    min-height:355px;
+    padding:50px 80px;
+}
+
+.enlace_cancelar{
+    text-decoration: underline;
+    padding-top: 27px;
+    width: 72px;
+    font-size:12.5px;
+}
+
+.btn_cambiar_contrasenia,
+.btn_continuar
+{
+    width:153px;
+}
+
+.icono_ver_password{
+    width: 28px;
+    height: 18.16px;
+    position: absolute;
+    top: 25px;
+    right: 8px;
+    cursor:pointer;
+    z-index:3;
+    background-image:url("../../../Images/icono_ver_password.svg");
+    background-position:center 0;
+    background-repeat:no-repeat;
+    overflow:hidden;
+}
+
+.icono_ver_password_activo{
+    background-position:center -27px;
+}
+
+.icono_actualizacion_contrasenia_exitosa,
+.icono_correo_sobre,
+.icono_actualizacion_correo_exitoso,
+.icono_actualizacion_correo_erroneo,
+.titulo_contrasenia_actualizada,
+.titulo_revisa_tu_correo,
+.titulo_correo_pendiente_confirmacion,
+.titulo_correo_actualizado,
+.titulo_revisa_tu_celular,
+.icono_mensaje_sms,
+.btn_acept,
+.campos_ingreso_codigo_sms,
+.icono_actualizacion_celular_exitoso,
+.opcion_foto_perfil,
+.icono_opcion_foto_perfil img
+{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.icono_actualizacion_contrasenia_exitosa,
+.icono_actualizacion_correo_exitoso,
+.icono_actualizacion_celular_exitoso
+{
+    width:50px;
+    height:50px;
+    margin-bottom:15px;
+    background-image:url("../../../Images/Esika/icono_check_esika.svg");
+    background-size:100%;
+}
+
+.icono_actualizacion_correo_erroneo{
+    width:50px;
+    height:50px;
+    margin-bottom:15px;
+    background-image:url("../../../Images/Esika/icono_exclamacion_esika.svg");
+    background-size:100%;
+}
+
+.titulo_contrasenia_actualizada,
+.titulo_correo_actualizado,
+.titulo_revisa_tu_correo,
+.titulo_correo_pendiente_confirmacion,
+.titulo_revisa_tu_celular
+{
+    font-family:'Lato', sans-serif;
+    color:#000;
+    font-weight:300!important;
+}
+
+.titulo_contrasenia_actualizada,
+.titulo_correo_actualizado
+{
+    max-width: 213px;
+    font-size:24px;
+    margin-bottom:30px;
+}
+
+.mensaje_contrasenia_actualizada,
+.envio_instrucciones_info,
+.mensaje_correo_actualizado,
+.mensaje_celular_actualizado
+{
+    font-size:14px;
+    line-height:18px;
+    margin-top:0;
+    margin-left:0;
+    margin-right:0;
+    margin-bottom:35px;
+    padding:0;
+}
+
+.btn_acept{
+    width:119px;
+}
+
+.correo_electronico_actual,
+.celular_actual
+{
+    padding-left:5px;
+    margin-bottom:24px;
+}
+
+.correo_electronico_actual span:first-child,
+.celular_actual span:first-child
+{
+    margin-bottom:5px;
+}
+
+.envio_instrucciones_info span:last-child,
+.correo_electronico_actual span:last-child,
+.celular_actual span:last-child
+{
+    font-size:17px;
+}
+
+.correo_electronico_actual span:last-child,
+.celular_actual span:last-child
+{
+    color:rgba(0,0,0,0.6);
+}
+
+.titulo_revisa_tu_correo,
+.titulo_correo_pendiente_confirmacion,
+.titulo_revisa_tu_celular
+{
+    font-size:21px;
+    margin-bottom:13px;
+}
+
+.icono_correo_sobre,
+.icono_mensaje_sms
+{
+    margin-bottom:13.5px;
+    background-size:100%;
+}
+
+.icono_correo_sobre{
+    width:78px;
+    height:46px;
+    background-image:url('../../../Images/Esika/icono_envelope.svg');
+}
+
+.icono_mensaje_sms{
+    width:71px;
+    height:50px;
+    background-image:url('../../../Images/Esika/icono_sms.svg');
+}
+
+.envio_instrucciones_info{
+    margin-bottom:50px;
+}
+
+.envio_instrucciones_info span:first-child{
+    margin-bottom:7px;
+}
+
+.enlace_reenviar_instrucciones,
+.enlace_cambiar_correo
+{
+    text-decoration:underline;
+}
+
+.enlace_reenviar_instrucciones{
+    font-size:13px;
+}
+
+.titulo_correo_pendiente_confirmacion{
+    margin-top:0;
+}
+
+.cambiar_correo_info{
+    font-size:12px;
+}
+
+.enlace_cambiar_correo{
+    margin-left:5px;
+}
+
+.sin_correo_registrado,
+.sin_numero_celular_registrado
+{
+    font-size: 14px;
+    line-height: 19px;
+    margin-bottom: 34px;
+}
+
+.texto_ingreso_codigo{
+    font-size:14px;
+}
+
+.campos_ingreso_codigo_sms{
+    margin-bottom:15px;
+    position:relative;
+    width: 100%;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.campo_ingreso_codigo_sms{
+    width:35px;
+    height:37px;
+    font-family:'Lato', sans-serif;
+    font-size:24px;
+    font-weight:400;
+    color:#000;
+    border-top:none;
+    border-left:none;
+    border-right:none;
+    border-bottom:2px solid #000;
+}
+
+.wrapper_campo_ingreso_codigo_sms{
+    display:inline-block;
+    position:relative;
+    margin-right:4px;
+}
+
+    .wrapper_campo_ingreso_codigo_sms:last-child{
+        margin-right:0;
+    }
+
+.codigo_sms_caducidad{
+    margin-bottom:35.4px;
+}
+
+.icono_validacion_codigo_sms{
+    display:none;
+    width:24px;
+    height:24px;
+    border-radius:100%;
+    border-width:1.5px;
+    border-style:solid;
+    position:absolute;
+    bottom:1px;
+    right:-30px;
+}
+
+.validacion_erronea{
+    border-color:#e81c36;
+    background-image:url("../../../Images/icono_validacion_codigo_sms_erroneo.svg");
+    background-position-x:4px;
+}
+
+.validacion_exitosa{
+    border-color:#66A231;
+    background-image:url("../../../Images/icono_validacion_codigo_sms_correcto.svg");
+}
+
+.opciones_foto_perfil{
+    padding-top:73px;
+    padding-bottom:73px;
+}
+
+.opcion_foto_perfil {
+    width: 260px;
+    height: 90px;
+    position:relative;
+    padding-left: 38px;
+    padding-right: 38px;
+    padding-bottom: 29px;
+    background-color:#FFF;
+    border: 1px solid #E7E1E1;
+    margin-bottom: 20px;
+    -moz-box-shadow: 0 8px 11px -7px rgba(103, 103, 103, 0.5);
+    -webkit-box-shadow: 0 8px 11px -7px rgba(103, 103, 103, 0.5);
+    box-shadow: 0 8px 11px -7px rgba(103, 103, 103, 0.5);
+    text-decoration: none;
+    color: #000;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+    .opcion_foto_perfil:hover{
+        /*width:280px;*/
+        background-color:#fbfbfb;
+        -moz-box-shadow: 0 4px 11px -7px rgba(103, 103, 103, 0.9);
+        -webkit-box-shadow: 0 4px 11px -7px rgba(103, 103, 103, 0.9);
+        box-shadow: 0 4px 11px -7px rgba(103, 103, 103, 0.9);
+    }
+
+.opcion_tomar_foto,
+.opcion_cargar_foto_desde_galeria
+{
+    padding-top:26px;
+}
+
+.opcion_eliminar_foto{
+    padding-top:23px;
+}
+
+.icono_opcion_foto_perfil{
+    margin-right:20px;
+}
+
+.icono_opcion_foto_perfil img{
+    width:auto;
+    height:100%;
+}
+
+.icono_tomar_foto,
+.icono_cargar_foto_desde_galeria,
+.icono_eliminar_foto
+{
+    width:44px;
+}
+
+.icono_tomar_foto{
+    height:33px;
+}
+
+.icono_cargar_foto_desde_galeria{
+    height:34px;
+}
+
+.icono_eliminar_foto{
+    height:45px;
+}
+
+.text-error {
+    color: red;
+}
+
+.input-file{
+    display:none;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+@media screen and (max-width:991px){
+
+    .w-100-mobile{
+        width:100%;
+    }
+
+    .mt-0-mobile{
+        margin-top:0!important;
+    }
+
+    .vista_actualizar_correo_paddingMobile{
+        padding:37px 0!important;
+    }
+
+    .pl-20-mobile{
+        padding-left:20px;
+    }
+
+    .correo_actualizado_paddingMobile{
+        padding:50px 20px!important;
+    }
+
+    .quitarBackgroundImageMobile{
+        background-image:none;
+    }
+
+    .quitarPaddingDerechoMobile{
+        padding-right:0;
+    }   
+
+    .fondoMobile{
+        background-color:#000;
+    }
+
+    .vista_actualizar_correo{
+        background-color:#FFF;
+    }
+
+}
+
+/* FIN - CAMBIA TU CONTRASEÑA, ACTUALIZA TU CORREO ELECTRÓNICO, ACTUALIZA TU CELULAR, CAMBIAR FOTO DE PERFIL */

@@ -30,10 +30,14 @@
                     <span>Tu Nombre completo:</span>
                     <span id="nombresUsuarioMD">@Model.NombreCompleto</span>
                 </div>
-                <div class="datos_nombre_usuario">
-                    <span>Tu Gerente de zona es:</span>
-                    <span id="nombreGerenteZonal">@Model.NombreGerenteZonal</span>
-                </div>
+
+                @if (Model.IndicadorConsultoraDigital == 0)
+                {
+                    <div class="datos_nombre_usuario">
+                        <span>Tu Gerente de zona es:</span>
+                        <span id="nombreGerenteZonal">@Model.NombreGerenteZonal</span>
+                    </div>
+                }
                 <div class="enlace_cambiarContraseniachkAceptoContratoMD">
                     <a href="javascript:;" class="cambiar_contrasenia misDatosContraseniaEnlace">CAMBIAR CONTRASEÑA</a>
                 </div>
@@ -43,143 +47,143 @@
             <div>
                 <label>@ViewBag.DatosIniciales.TextoSobrenombre</label>
                 @if (ViewBag.PaisID == 4)
-            {
-                <input type="text" disabled="disabled" readonly name="txtSobrenombre" id="txtSobrenombreMD" value="@Model.Sobrenombre" />
+                {
+                    <input type="text" disabled="disabled" readonly name="txtSobrenombre" id="txtSobrenombreMD" value="@Model.Sobrenombre" />
                 }
                 else
                 {
-                <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" value="@Model.Sobrenombre" />
+                    <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" value="@Model.Sobrenombre" />
                 }
             </div>
             <div>
                 <label>
                     @if (ViewBag.PaisID != 4)
-            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@ViewBag.DatosIniciales.TextoCorreoElectronico
-        </label>
-        @if (ViewBag.PaisId == 4)
-        {
-                <input type="text" disabled="disabled" readonly name="txtEMailMD" id="txtEMailMD" value="@Model.EMail" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
-        }
-        else
-        {
-                <input type="text" name="txtEMailMD" id="txtEMailMD" value="@Model.EMail" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
-        }
-    </div>
-</div>
-<div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-    <div>
-        <label>
-            @if (ViewBag.PaisID != 4)
-            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@ViewBag.DatosIniciales.TextoTelefono
-        </label>
-        @if (ViewBag.PaisID == 4)
-        {
-        <input type="text" disabled="disabled" readonly name="txtTelefonoMD" id="txtTelefonoMD" value="@Model.Telefono" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoMD')" />
-        }
-        else
-        {
-        <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" value="@Model.Telefono" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoMD')" />
-        }
+                    {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@ViewBag.DatosIniciales.TextoCorreoElectronico
+                </label>
+                @if (ViewBag.PaisId == 4)
+                {
+                    <input type="text" disabled="disabled" readonly name="txtEMailMD" id="txtEMailMD" value="@Model.EMail" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
+                }
+                else
+                {
+                    <input type="text" name="txtEMailMD" id="txtEMailMD" value="@Model.EMail" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
+                }
+            </div>
+        </div>
+        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+            <div>
+                <label>
+                    @if (ViewBag.PaisID != 4)
+                    {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@ViewBag.DatosIniciales.TextoTelefono
+                </label>
+                @if (ViewBag.PaisID == 4)
+                {
+                    <input type="text" disabled="disabled" readonly name="txtTelefonoMD" id="txtTelefonoMD" value="@Model.Telefono" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoMD')" />
+                }
+                else
+                {
+                    <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" value="@Model.Telefono" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoMD')" />
+                }
 
-    </div>
-    <div>
-        <label>
-            @if (ViewBag.PaisID != 4)
-            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@ViewBag.DatosIniciales.TextoCelular
-        </label>
-        @if (ViewBag.PaisId == 4)
-            {
-        <input type="text" disabled="disabled" readonly name="txtCelularMD" id="txtCelularMD" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtCelularMD')" />
-        }
-        else
-        {
-        <input type="text" name="txtCelularMD" id="txtCelularMD" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtCelularMD')" />
-        }
+            </div>
+            <div>
+                <label>
+                    @if (ViewBag.PaisID != 4)
+                    {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@ViewBag.DatosIniciales.TextoCelular
+                </label>
+                @if (ViewBag.PaisId == 4)
+                {
+                    <input type="text" disabled="disabled" readonly name="txtCelularMD" id="txtCelularMD" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtCelularMD')" />
+                }
+                else
+                {
+                    <input type="text" name="txtCelularMD" id="txtCelularMD" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtCelularMD')" />
+                }
 
-    </div>
-</div>
-<div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-    <div>
-        <label>Otro teléfono:</label>
-        @if (ViewBag.PaisId == 4)
-        {
-        <input type="text" disabled="disabled" readonly name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" value="@Model.TelefonoTrabajo" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
-        }
-        else
-        {
-        <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" value="@Model.TelefonoTrabajo" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
-        }
-    </div>
-</div>
-<div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-    <div class="checkbox_condiciones">
-        <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
-        <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
+            </div>
+        </div>
+        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+            <div>
+                <label>Otro teléfono:</label>
+                @if (ViewBag.PaisId == 4)
+                {
+                    <input type="text" disabled="disabled" readonly name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" value="@Model.TelefonoTrabajo" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+                }
+                else
+                {
+                    <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" value="@Model.TelefonoTrabajo" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+                }
+            </div>
+        </div>
+        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+            <div class="checkbox_condiciones">
+                <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
+                <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
+                    @if (ViewBag.PaisId == 4)
+                    {
+                        <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
+                    }
+                    else
+                    {
+                        <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.</span>
+                    }
+                </label>
+            </div>
+        </div>
+        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
             @if (ViewBag.PaisId == 4)
             {
-            <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
+                <div class="datos_obligatorios">
+                    Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
+                </div>
+                <div class="contenedor_boton_actualizar">
+                    <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
+                        ACEPTAR
+                    </button>
+                </div>
             }
             else
             {
-            <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.</span>
+                <div class="datos_obligatorios">
+                    <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
+                </div>
+                <div class="contenedor_boton_actualizar">
+                    <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
+                        ACTUALIZAR
+                    </button>
+                </div>
             }
-        </label>
-    </div>
-</div>
-<div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-    @if (ViewBag.PaisId == 4)
-            {
-    <div class="datos_obligatorios">
-        Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
-    </div>
-    <div class="contenedor_boton_actualizar">
-        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
-            ACEPTAR
-        </button>
-    </div>
-    }
-    else
-    {
-    <div class="datos_obligatorios">
-        <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
-    </div>
-    <div class="contenedor_boton_actualizar">
-        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
-            ACTUALIZAR
-        </button>
-    </div>
-    }
 
-</div>
-<div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-    <div>
-        <label>Tu contraseña</label>
-        <input type="password" name="txtContraseniaAnterior" id="txtContraseniaAnterior" />
-    </div>
-</div>
-<div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-    <div>
-        <label>Nueva contraseña</label>
-        <input type="password" name="txtNuevaContrasenia01" id="txtNuevaContrasenia01" />
-    </div>
-    <div>
-        <label>Repite la nueva contraseña</label>
-        <input type="password" name="txtNuevaContrasenia02" id="txtNuevaContrasenia02" />
-    </div>
-</div>
-<div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-    <div class="contenedor_boton_actualizar misDatos">
-        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnCambiarContrasenaMD">
-            GUARDAR
-        </button>
-    </div>
-    <div class="contenedor_boton_cancelar misDatos">
-        <button type="button" name="btn_cancelar" class="btn_cancelar" id="btnCancelarMD">
-            CANCELAR
-        </button>
-    </div>
-</div>
-</form>
+        </div>
+        <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+            <div>
+                <label>Tu contraseña</label>
+                <input type="password" name="txtContraseniaAnterior" id="txtContraseniaAnterior" />
+            </div>
+        </div>
+        <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+            <div>
+                <label>Nueva contraseña</label>
+                <input type="password" name="txtNuevaContrasenia01" id="txtNuevaContrasenia01" />
+            </div>
+            <div>
+                <label>Repite la nueva contraseña</label>
+                <input type="password" name="txtNuevaContrasenia02" id="txtNuevaContrasenia02" />
+            </div>
+        </div>
+        <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+            <div class="contenedor_boton_actualizar misDatos">
+                <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnCambiarContrasenaMD">
+                    GUARDAR
+                </button>
+            </div>
+            <div class="contenedor_boton_cancelar misDatos">
+                <button type="button" name="btn_cancelar" class="btn_cancelar" id="btnCancelarMD">
+                    CANCELAR
+                </button>
+            </div>
+        </div>
+    </form>
 
 </div>
 
@@ -278,7 +282,7 @@
                 CompartirDatos: false,
                 AceptoContrato: $('#chkAceptoContratoMD').is(':checked')
             };
-            
+
             if (VC_Datos) {
                 dataLayer.push({
                     'event': 'virtualEvent',

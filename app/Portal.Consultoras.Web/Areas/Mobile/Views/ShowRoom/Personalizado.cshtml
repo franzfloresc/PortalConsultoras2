@@ -20,7 +20,7 @@
     <link href="@Url.Content("~/Content/Css/Mobile/esika/slick.css")" rel="stylesheet" />
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
 }
-@{  var mobileConfiguracion = Html.MobileAppConfiguracion();
+@{ var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 <div class="wrapper_resumen_mobile">
     <div id="orderby-filter">
@@ -89,8 +89,8 @@
                                     </div>
                                 </div>
                             </div>
-                                                    }
-                                                }
+                        }
+                    }
 
                     <div class="content_panel">
                         <div class="titulo_filtro">
@@ -185,8 +185,8 @@
                 </div>
             </div>
         </div>
-                                        }
-                                    }
+    }
+}
 <div id="divMensajeProductoAgregado" class="modal fade" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-alert ">
         <div class="modal-content">
@@ -233,10 +233,10 @@
             <div id="contenedor-showroom-subcampanias-mobile" class="content_info_set_especial" style="height: 100%;"></div>
             <div class="content_btn_agregar" style="display:none;" id="agregarSetEspecial">
                 <div class="content_320">
-                    <div class="content_cantidad_ficha_producto">
-                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
+                        <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                        <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        <a class=" cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
                     <a class="btn_agregar_ficha_producto" data-odd-accion="agregar">AGRÉGALO</a>
                     <hr class="clear">
@@ -269,9 +269,9 @@ else
                             {
                                 descripcion = descripcion.Substring(0, 40) + " ...";
                             }
-                            <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
+                            <div data-posicion="@posicionCpc" data-item="@item.EstrategiaID">
                                 <div data-campos="">
-                                    <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
+                                    <input type="hidden" class="hdOfertaShowRoomID" value="@item.EstrategiaID" />
                                     <input type="hidden" class="valorCuv" value="@item.CUV" />
                                     <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
                                     <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta" />
@@ -299,10 +299,10 @@ else
                                     <div class="precio_producto_compra">@item.DescripcionLegal</div>
                                 </div>
                                 <div>
-                                    <div class="content_cantidad_ficha_producto">
-                                        <a class="cantidad_menos_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                                    <div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
+                                        <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                                        <a class=" cantidad_mas_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                                        <a class=" cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                                     </div>
                                     <a class="btn_agregar_ficha_producto" data-btn-agregar-cpc="" style="background:black;" href="javascript: void(0);">AGRÉGALO</a>
                                     <hr class="clear">
@@ -313,14 +313,14 @@ else
                             }
                         }
                     </div>
-                                }
-                            }
+                }
+            }
             <div class="legal_footer_compra">
                 @Model.TextoDescripcionLegalCpc
             </div>
         </div>
     </div>
-                            }
+}
 
 <script id="template-showroom" type="text/x-handlebars-template">
     {{#each this as |item|}}
@@ -425,6 +425,8 @@ else
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ShowRoom/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
     <script type="text/javascript">
         var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';

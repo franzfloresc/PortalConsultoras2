@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
 
 namespace Portal.Consultoras.Data
 {
@@ -319,6 +318,16 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        public IDataReader GetEstrategiaShowRoom(BEEstrategia entidad)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("ListarEstrategiasShowRoom"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
+                return Context.ExecuteReader(command);
+            }
+        }
+
         public IDataReader GetEstrategiaMasVendidos(BEEstrategia entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarOfertasMasVendidos"))
@@ -373,7 +382,7 @@ namespace Portal.Consultoras.Data
         
         public IDataReader GetEstrategiaODD(int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasODD"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasODD2"))
             {
                 Context.Database.AddInParameter(command, "@CodCampania", DbType.Int32, codCampania);
                 Context.Database.AddInParameter(command, "@CodConsultora", DbType.String, codConsultora);

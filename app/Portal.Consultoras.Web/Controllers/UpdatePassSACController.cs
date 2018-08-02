@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in items)
                 {
-                    RegistrarLogDynamoCambioClave("CONSULTA", item.CodigoConsultora, "", "");
+                    RegistrarLogDynamoCambioClave("CONSULTA", item.CodigoConsultora, "", "", "SAC/ACTUALIZAR CONTRASEÑA", "Mantenimiento de contraseña");
                 }
 
                 BEPager pag = Paginador(grid, lst);
@@ -219,7 +219,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "UpdatePassSAC/MantenimientoUsuarioGZ"))
                 return RedirectToAction("Index", "Bienvenida");
-            string url = GetConfiguracionManager(Constantes.ConfiguracionManager.GZURL) + "?PAIS=" + UserData().CodigoISO + "&USUARIO=" + UserData().CodigoUsuario;
+            string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.GZURL) + "?PAIS=" + UserData().CodigoISO + "&USUARIO=" + UserData().CodigoUsuario;
             return Redirect(url);
         }
 
@@ -247,7 +247,7 @@ namespace Portal.Consultoras.Web.Controllers
                 contraseñaCambiada = item.ClaveSecreta;
             }
 
-            RegistrarLogDynamoCambioClave("MODIFICACION", model.CodigoConsultora, contraseñaCambiada, extraeContraseñaAnterior);
+            RegistrarLogDynamoCambioClave("MODIFICACION", model.CodigoConsultora, contraseñaCambiada, extraeContraseñaAnterior, "SAC/ACTUALIZAR CONTRASEÑA", "Mantenimiento de contraseña");
         }
     }
 }

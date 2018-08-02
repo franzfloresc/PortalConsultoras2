@@ -45,11 +45,20 @@ $(document).ready(function () {
         $('#VideoIntroductorio').hide();
     });
 
+    $('#btnCerrarPopupCorreo').click(function () {
+        $('#popupVerificacionCorreoElectronicoPendiente').fadeOut();
+        $('.contenedor_fondo_popup').fadeOut();
+    });
+
     $("#imgProductoMobile").click(function () {
 
     });
-    
-    CargarCarouselEstrategias("");
+
+    if ($('#fondoPopup_aceptacionTerminosYCondicionesContrato').is(':visible')) {
+        $("#fondoPopup_aceptacionTerminosYCondicionesContrato").hide();
+    }
+
+    CargarCarouselEstrategias();
 
     if (tieneMasVendidos === 1) {
         masVendidosModule.readVariables({
@@ -80,6 +89,8 @@ $(document).ready(function () {
     }
     
     if (consultoraNuevaBannerAppMostrar == "False") CargarPopupsConsultora();
+    else MostrarPopupAceptacionContratoGet();
+
     TagManagerCatalogosPersonalizados();
     $(document).on('click', '.banner_inferior_mobile', function () {
         dataLayer.push({
@@ -97,13 +108,16 @@ $(document).ready(function () {
         });
     });
 
-    if (consultoraNuevaBannerAppMostrar == "False") ObtenerComunicadosPopup();
+    ObtenerComunicadosPopup();
     EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
     bannerFunc.showExpoOferta();
+    ConsultarEmailPendiente();
 });
+
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
 });
+
 function CrearPopShow() {
 
     $("#btnCerrarPopShowroom").click(function () {
@@ -362,6 +376,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 function CargarPopupsConsultora() {
 
     MostrarDemandaAnticipada();
+
     if (viewBagVioTutorial != '0' && noMostrarPopUpRevistaDig == 'False') {
         rdAnalyticsModule.MostrarPopup();
     }
@@ -371,6 +386,26 @@ function CargarPopupsConsultora() {
     }
     else if (TipoPopUpMostrar == popupRevistaDigitalSuscripcion) {
         rdPopup.Mostrar();
+    }
+    else if (TipoPopUpMostrar == popupAceptacionContrato) {
+        MostrarPopupAceptacionContratoGet();
+    }
+    else if (TipoPopUpMostrar == popupActualizarCorreo) {
+        MostrarPopupActualizarCorreo();
+    }
+}
+
+function MostrarPopupActualizarCorreo() {
+    $("#popupVerificacionCorreoElectronicoPendiente").show();
+}
+
+function MostrarPopupAceptacionContratoGet()
+{
+    if (TipoPopUpMostrar == popupAceptacionContrato)
+    {
+        $("#fondoPopup_aceptacionTerminosYCondicionesContrato").show();
+    } else if (TipoPopUpMostrar == popupActualizarCorreo) {
+            MostrarPopupActualizarCorreo();
     }
 }
 
@@ -464,38 +499,12 @@ function TagManagerCatalogosPersonalizados() {
     }
 }
 
-$("#content_oferta_dia_mobile").click(function () {
-    $('#PopOfertaDia').slideDown();
-    odd_mobile_google_analytics_promotion_click();
-});
-
-function odd_mobile_google_analytics_promotion_click() {
-    if ($('#BloqueMobileOfertaDia').length > 0) {
-        var id = $('#BloqueMobileOfertaDia').find("#estrategia-id-odd").val();
-        var name = "Oferta del día - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
-        var creative = $('#BloqueMobileOfertaDia').find("#nombre-odd").val() + " - " + $('#BloqueMobileOfertaDia').find("#cuv2-odd").val()
-        dataLayer.push({
-            'event': 'promotionClick',
-            'ecommerce': {
-                'promoClick': {
-                    'promotions': [
-                    {
-                        'id': id,
-                        'name': name,
-                        'position': 'Banner Superior Home - 1',
-                        'creative': creative
-                    }]
-                }
-            }
-        });
-    }
-}
-
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
 }
 
 var ComunicadoId = 0;
+
 function ObtenerComunicadosPopup() {
     if (primeraVezSession == 0) return;
 
@@ -712,6 +721,26 @@ function VerTutorialMobile() {
     setTimeout(function () { $(window).resize(); }, 50);
 }
 
+function ConsultarEmailPendiente() {
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/ObtenerActualizacionEmail',
+        dataType: 'Text',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.split('|')[0] == '1') {
+                    document.getElementById('spnEmail').innerHTML = data.split('|')[1];
+                    document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
+                }
+            }
+        },
+        error: function (data, error) {
+            alert(error);
+        }
+    });
+}
+
 var bannerFunc = (function () {
     return {
         getBanners: getBanners,
@@ -784,3 +813,66 @@ var bannerFunc = (function () {
         });
     }
 })();
+
+function AceptarContrato() { 
+    appVersion = appVersion == undefined ? "" : appVersion;
+
+    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato, AppVersion: appVersion };
+    ShowLoading({});
+
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "Bienvenida/AceptarContrato",
+        data: JSON.stringify(parameter),
+        contentType: 'application/json',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                if (!data.success) {
+                    alert(data.message);
+                    if (data.extra != "nocorreo") return;
+                }
+
+                $("#fondoPopup_aceptacionTerminosYCondicionesContrato").hide();
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                alert("Ocurrió un error inesperado al momento de registrar los datos. Consulte con su administrador del sistema para obtener mayor información");
+            }
+        }
+    });
+}
+
+function DownloadAttachPDF() {
+    var iframe_ = document.createElement("iframe");
+    iframe_.style.display = "none";
+    var requestedFile = urlContratoCOpdf;
+    iframe_.setAttribute("src", baseUrl + 'WebPages/DownloadPDF.aspx?file=' + requestedFile);
+
+    if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+        iframe_.onreadystatechange = function () {
+            switch (this.readyState) {
+                case "loading":
+                    ShowLoading({});
+                    break;
+                case "complete":
+                case "interactive":
+                case "uninitialized":
+                    CloseLoading();
+                    break;
+                default:
+                    CloseLoading();
+                    break;
+            }
+        };
+    }
+    else {
+        // Si es Firefox o Chrome
+        $(iframe_).ready(function () {
+            CloseLoading();
+        });
+    }
+    document.body.appendChild(iframe_);
+}

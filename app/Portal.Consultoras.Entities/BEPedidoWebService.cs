@@ -79,83 +79,41 @@ namespace Portal.Consultoras.Entities
 
         public BEPedidoWebService(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "NroRegistro"))
-                NroRegistro = Convert.ToInt32(row["NroRegistro"]);
-            if (DataRecord.HasColumn(row, "FechaRegistro"))
-                FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (DataRecord.HasColumn(row, "Campania"))
-                Campania = Convert.ToInt32(row["Campania"]);
-            if (DataRecord.HasColumn(row, "PedidoID"))
-                PedidoWebID = Convert.ToInt32(row["PedidoID"]);
-            if (DataRecord.HasColumn(row, "PedidoWebDetalleID"))
-                PedidoWebDetalleID = Convert.ToInt32(row["PedidoWebDetalleID"]);
-            if (DataRecord.HasColumn(row, "Seccion"))
-                Seccion = Convert.ToString(row["Seccion"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (DataRecord.HasColumn(row, "ConsultoraNombre"))
-                ConsultoraNombre = Convert.ToString(row["ConsultoraNombre"]);
-            if (DataRecord.HasColumn(row, "ImporteTotal"))
-                ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-            if (DataRecord.HasColumn(row, "UsuarioResponsable"))
-                UsuarioResponsable = Convert.ToString(row["UsuarioResponsable"]);
-            if (DataRecord.HasColumn(row, "ConsultoraSaldo"))
-                ConsultoraSaldo = Convert.ToDecimal(row["ConsultoraSaldo"]);
-            if (DataRecord.HasColumn(row, "EstadoValidacion"))
-                EstadoValidacion = Convert.ToString(row["EstadoValidacion"]);
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt32(row["Cantidad"]);
-            if (DataRecord.HasColumn(row, "PrecioUnitario"))
-                PrecioUnitario = Convert.ToDecimal(row["PrecioUnitario"]);
-            if (DataRecord.HasColumn(row, "PrecioTotal"))
-                PrecioTotal = Convert.ToDecimal(row["PrecioTotal"]);
-
-            if (DataRecord.HasColumn(row, "ZonaCodigo"))
-                ZonaCodigo = Convert.ToString(row["ZonaCodigo"]);
-
-            if (DataRecord.HasColumn(row, "ImporteTotalMM"))
-                ImporteTotalMM = Convert.ToDecimal(row["ImporteTotalMM"]);
-            if (DataRecord.HasColumn(row, "DigitoVerificador"))
-                DigitoVerificador = Convert.ToInt32(row["DigitoVerificador"]);
-            if (DataRecord.HasColumn(row, "EstadoConsultora"))
-                EstadoConsultora = Convert.ToString(row["EstadoConsultora"]);
-            if (DataRecord.HasColumn(row, "AutorizaPedido"))
-                AutorizaPedido = Convert.ToString(row["AutorizaPedido"]);
-
-            if (DataRecord.HasColumn(row, "FechaModificacion"))
-                FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-            if (DataRecord.HasColumn(row, "Bloqueado"))
-                Bloqueado = Convert.ToBoolean(row["Bloqueado"]);
-            if (DataRecord.HasColumn(row, "DescripcionBloqueo"))
-                DescripcionBloqueo = Convert.ToString(row["DescripcionBloqueo"]);
-            if (DataRecord.HasColumn(row, "Territorio"))
-                Territorio = Convert.ToString(row["Territorio"]);
-
-            if (DataRecord.HasColumn(row, "Direccion"))
-                Direccion = Convert.ToString(row["Direccion"]);
-            if (DataRecord.HasColumn(row, "Telefono"))
-                Telefono = Convert.ToString(row["Telefono"]);
-            if (DataRecord.HasColumn(row, "Segmento"))
-                Segmento = Convert.ToString(row["Segmento"]);
-
-            if (DataRecord.HasColumn(row, "FechaInicioFacturacion"))
-                FechaInicioFacturacion = Convert.ToDateTime(row["FechaInicioFacturacion"]);
-            if (DataRecord.HasColumn(row, "FechaFinFacturacion"))
-                FechaFinFacturacion = Convert.ToDateTime(row["FechaFinFacturacion"]);
-
-            if (DataRecord.HasColumn(row, "CodigoProducto"))
-                CodigoProducto = Convert.ToString(row["CodigoProducto"]);
-
-            if (DataRecord.HasColumn(row, "CodigoTipoOferta"))
-                CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
-            if (DataRecord.HasColumn(row, "Origen"))
-                Origen = Convert.ToString(row["Origen"]);
+            NroRegistro = row.ToInt32("NroRegistro");
+            FechaRegistro = row.ToDateTime("FechaRegistro");
+            Campania = row.ToInt32("Campania");
+            PedidoWebID = row.ToInt32("PedidoID");
+            PedidoWebDetalleID = row.ToInt32("PedidoWebDetalleID");
+            Seccion = row.ToString("Seccion");
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            ConsultoraNombre = row.ToString("ConsultoraNombre");
+            ImporteTotal = row.ToDecimal("ImporteTotal");
+            UsuarioResponsable = row.ToString("UsuarioResponsable");
+            ConsultoraSaldo = row.ToDecimal("ConsultoraSaldo");
+            EstadoValidacion = row.ToString("EstadoValidacion");
+            CUV = row.ToString("CUV");
+            Descripcion = row.ToString("Descripcion");
+            Descripcion = row.ToString("Descripcion");
+            Cantidad = row.ToInt32("Cantidad");
+            PrecioUnitario = row.ToDecimal("PrecioUnitario");
+            PrecioTotal = row.ToDecimal("PrecioTotal");
+            ZonaCodigo = row.ToString("ZonaCodigo");
+            ImporteTotalMM = row.ToDecimal("ImporteTotalMM");
+            DigitoVerificador = row.ToInt32("DigitoVerificador");
+            EstadoConsultora = row.ToString("EstadoConsultora");
+            AutorizaPedido = row.ToString("AutorizaPedido");
+            FechaModificacion = row.ToDateTime("FechaModificacion");
+            Bloqueado = row.ToBoolean("Bloqueado");
+            DescripcionBloqueo = row.ToString("DescripcionBloqueo");
+            Territorio = row.ToString("Territorio");
+            Direccion = row.ToString("Direccion");
+            Telefono = row.ToString("Telefono");
+            Segmento = row.ToString("Segmento");
+            FechaInicioFacturacion = row.ToDateTime("FechaInicioFacturacion");
+            FechaFinFacturacion = row.ToDateTime("FechaFinFacturacion");
+            CodigoProducto = row.ToString("CodigoProducto");
+            CodigoTipoOferta = row.ToString("CodigoTipoOferta");
+            Origen = row.ToString("Origen");
         }
     }
 }

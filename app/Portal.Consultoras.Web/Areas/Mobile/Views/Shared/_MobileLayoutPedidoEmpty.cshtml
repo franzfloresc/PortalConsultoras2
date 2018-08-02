@@ -31,6 +31,8 @@
     <script type="text/javascript">
         var isEsika = '@ViewContext.EsPaisEsika().ToString().ToLower()';
         window.urlLogDynamo = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.UrlLogDynamo';
+        window.urlLogElastic = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.UrlLogElastic';
+        window.patternElastic = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.PatternElastic';
 
         // Seteando Controlador y Accion
         @{
@@ -221,11 +223,12 @@
     var EstadoActivo = '@ViewBag.EstadoActivo';
     var ocultarBannerTop = '@Session["OcultarBannerTop"]';
 
+    var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
     var sesionEsShowRoom = '@Session["EsShowRoom"]';
 
     var fingerprintOk = '@ViewBag.FingerprintOk';
     var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
-        
+
     var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
     var userData = {
         'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
@@ -236,7 +239,8 @@
         'seccion': '@ViewBag.AnalyticsSeccion',
         'pais': '@ViewBag.AnalyticsPais',
         'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
-    };
+        };
+    var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
     var OrigenDesktopODD = 0;
 
     //BANNER APP
@@ -288,26 +292,6 @@
 					$input.val(previousVal);
 					e.preventDefault();
 				};
-			});
-
-			$(document).on("click", ".cantidad_menos_home", function () {
-				var $txtcantidad = $(this).siblings('input');
-				var cantidad = parseInt($txtcantidad.val());
-
-				cantidad = isNaN(cantidad) ? 0 : cantidad;
-				cantidad = cantidad > 1 ? (cantidad - 1) : 1;
-
-				$txtcantidad.val(cantidad);
-			});
-
-			$(document).on("click", ".cantidad_mas_home", function () {
-				var $txtcantidad = $(this).siblings('input');
-				var cantidad = parseInt($txtcantidad.val());
-
-				cantidad = isNaN(cantidad) ? 0 : cantidad;
-				cantidad = cantidad < 99 ? (cantidad + 1) : 99;
-
-				$txtcantidad.val(cantidad);
 			});
 
 			$("body").on("click", "[data-popup-main]", function (e) {

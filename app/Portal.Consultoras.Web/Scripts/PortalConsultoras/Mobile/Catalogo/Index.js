@@ -74,9 +74,12 @@ $(document).ready(function () {
     
 
     //soluciona error en producción : Uncaught ReferenceError: CatalogoMostrar is not defined
-    $("#divCatalogo a > img").click(function (e) {
-       
+    
+    $("#divCatalogo a[data-button_carrusel='carrusel'] > img").click(function (e) {
+    //$("#divCatalogo a > img").click(function (e) {
+   
         var img = $(this).attr("id") || "";
+        //if (img == "") return false;
         if (img === "cata_img_prev") CatalogoMostrar(-1, this);
         else CatalogoMostrar(1, this);
 
@@ -412,25 +415,7 @@ function CatalogoMostrar(accion, btn) {
         });
     }
 }
-function CompartirFacebook(catalogo, campaniaCatalogo, btn) {
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Catálogos y revistas',
-        'action': 'Compartir FB',
-        'label': catalogo,
-        'value': 0
-    });
-    InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
 
-    var u = $(btn).parents("[data-cat='" + catalogo + "']").find("#txtUrl" + catalogo).val();
-
-    var popWwidth = 570;
-    var popHeight = 420;
-    var left = (screen.width / 2) - (popWwidth / 2);
-    var top = (screen.height / 2) - (popHeight / 2);
-    var url = "http://www.facebook.com/sharer/sharer.php?u=" + u;
-    window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
-}
 function renderItemCliente(event, ui) {
     var htmlTag = ''
         + '<a>'
@@ -562,30 +547,6 @@ function CatalogoEnviarEmail() {
 
 }
 
-function AbrirCompartirCorreo(tipoCatalogo, campania) {
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Catálogos y revistas',
-        'action': 'Compartir email – clic botón',
-        'label': tipoCatalogo,
-        'value': 0
-    });
-
-    $("#comentarios").val(valContenidoCorreoDefecto);
-    $('#tagCorreo').removeTagAll();
-    campaniaEmail = campania;
-    $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
-    $("#divCheckbox").find("[data-cat='" + tipoCatalogo + "']").find("[type='checkbox']").prop("checked", true);
-    $('#CompartirCorreoMobile').show();
-    // Mostrar las marcas adecuadas.
-    var cata = $("#divCatalogo [data-cam='" + campania + "'][data-estado='1']");
-    $("#divCheckbox [data-cat]").hide();
-    for (var i = 0; i < cata.length; i++) {
-        var cat = $(cata[i]).attr("data-cat");
-        $("#divCheckbox [data-cat='" + cat + "']").show();
-    }
-}
-
 function MostrarRevistaCorrecta(campania) {
     var urlImagen = "";
     var defered = jQuery.Deferred();
@@ -667,14 +628,3 @@ function TagManagerPaginasVirtuales() {
         'pageName': 'Catálogo – Revistas | Somos Belcorp'
     });
 }
-function TagManagerWS(catalogo, campaniaCatalogo) {
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Catálogos y revistas',
-        'action': 'Compartir WhatsApp',
-        'label': catalogo,
-        'value': 0
-    });
-    InsertarLogCatalogoDynamo('Whatsapp', campaniaCatalogo, catalogo, 1);
-}
-

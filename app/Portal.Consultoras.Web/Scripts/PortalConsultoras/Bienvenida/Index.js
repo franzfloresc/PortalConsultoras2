@@ -14,6 +14,7 @@ var popupCantidadInicial = popupCantidadInicial || 1;
 var popupListaPrioridad = popupListaPrioridad || new Array();
 var showRoomMostrarLista = showRoomMostrarLista || 0;
 var dataBarra = dataBarra || {};
+var AceptoContrato = false;
 
 //youtube
 var tag = null;
@@ -34,7 +35,11 @@ $(document).ready(function () {
         $('div.content_datos').css('max-width', '100%');
         $('div.resumen_belcorp_cam').css('margin-left', '1.5%');
         $('div.resumen_belcorp_cam').css('margin-right', '0%');
-        $('div.socia_negocio_home').css('margin-left', '4.8%');
+        if(window.matchMedia('(min-width:1221px)').matches){
+            $('div.socia_negocio_home').css('margin-left', '4.8%');
+        } else {
+            $('div.socia_negocio_home').css('margin-left', '4%');
+        }
         $('div.contenedor_img_perfil').show();
     } else {
         $('div.resumen_belcorp_cam').css('margin-left', '2%');
@@ -46,12 +51,6 @@ $(document).ready(function () {
 
     $(".termino_condiciones_intriga").click(function () {
         $(this).toggleClass('check_intriga');
-    });
-
-    $('.contenedor_img_perfil').on('click', CargarCamara);
-    $('#imgFotoUsuario').error(function () {
-        $('#imgFotoUsuario').hide();
-        $('#imgFotoUsuarioDefault').show();
     });
 
     $('#salvavidaTutorial').show();
@@ -67,6 +66,8 @@ $(document).ready(function () {
 
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
+        if (VerContrato == 1 && !AceptoContrato)
+            PopupMostrar('popupAceptacionContrato');
     });
 
     $(".ver_video_introductorio").click(function () {
@@ -78,7 +79,7 @@ $(document).ready(function () {
                 var player = oYTPlayers['ytBienvenidaIndex'].instance;
                 playVideo();
 
-                setTimeout(function () { if (player.playVideo) { player.playVideo(); }   }, 2000);
+                setTimeout(function () { if (player.playVideo) { player.playVideo(); } }, 2000);
             });
         });
     });
@@ -115,6 +116,8 @@ $(document).ready(function () {
         if (evt.keyCode == 27) {
             if ($('#popup_tutorial_home').is(':visible')) {
                 cerrar_popup_tutorial();
+                if (VerContrato == 1 && !AceptoContrato)
+                    PopupMostrar('popupAceptacionContrato');
             }
             if ($('#videoIntroductorio').is(':visible')) {
                 if (primeraVezVideo) {
@@ -150,9 +153,6 @@ $(document).ready(function () {
             }
             if ($('#popupInvitaionFlexipago').is(':visible')) {
                 PopupCerrar('popupInvitaionFlexipago');
-            }
-            if ($('#popupAceptacionContrato').is(':visible')) {
-                PopupCerrar('popupAceptacionContrato');
             }
             if ($('#popupDemandaAnticipada').is(':visible')) {
                 PopupCerrar('popupDemandaAnticipada');
@@ -212,7 +212,7 @@ $(document).ready(function () {
     });
 
     CrearDialogs();
-    CargarCarouselEstrategias("");
+    CargarCarouselEstrategias();
     if (_validartieneMasVendidos() === 1) {
         masVendidosModule.readVariables({
             baseUrl: baseUrl,
@@ -232,7 +232,7 @@ $(document).ready(function () {
     CargarCarouselLiquidaciones();
     CargarMisCursos();
     CargarBanners();
-    CargarCatalogoPersonalizado();
+    //CargarCatalogoPersonalizado();
     if (showRoomMostrarLista == 1) {
         CargarProductosShowRoom({ Limite: 6, hidden: true });
     }
@@ -300,6 +300,11 @@ $(document).ready(function () {
         PopupCerrar('popupMisDatos');
         return false;
     });
+    $("#cerrarPopupActualizacionEmail").click(function () {
+        PopupCerrar('popupVerificacionCorreoElectronicoPendiente');
+        return false;
+    });
+
     $('#hrefTerminos').click(function () {
         DownloadAttachPDFTerminos();
     });
@@ -459,9 +464,12 @@ $(document).ready(function () {
     });
 
     MostrarBarra(null, '1');
-    
+
     LayoutMenu();
+    ConsultarEmailPendiente();
 });
+
+
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
 });
@@ -495,93 +503,6 @@ function limitarMinimo(contenido, caracteres, a) {
     return true;
 }
 
-function CargarCamara() {
-    Webcam.set({
-        width: 300,
-        height: 300,
-        crop_width: 300,
-        crop_height: 300,
-        image_format: 'jpeg',
-        jpeg_quality: 90,
-        flip_horiz: true
-    });
-    Webcam.attach('#my_camera');
-
-    PopupMostrar('CamaraIntroductoria');
-}
-
-function CerrarCamara() {
-    Webcam.reset();
-    $('#imgFotoTomada').attr('src', '');
-    $('#demo').removeClass('croppie-container').html('');
-
-    PopupCerrar('CamaraIntroductoria');
-}
-
-function CortarFoto() {
-    $('#demo').croppie('result', {
-        type: 'canvas',
-        format: 'png'
-    }).then(function (resp) {
-        waitingDialog();
-        $.ajax({
-            type: 'POST',
-            url: baseUrl + 'Bienvenida/SubirImagen',
-            data: JSON.stringify({ data: resp }),
-            dataType: 'Json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                if (checkTimeout(data)) {
-                    alert_msg(data.message);
-                    if (data.success) {
-                        $('#imgFotoUsuario').show();
-                        $('#imgFotoUsuarioDefault').hide();
-                        $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
-                    }
-                }
-            },
-            error: function (data, error) { },
-            complete: closeWaitingDialog
-        });
-    });
-}
-
-function TomarFoto() {
-    Webcam.snap(function (data_uri) {
-        $('#imgFotoTomada').attr('src', data_uri);
-        $('#demo').croppie({
-            viewport: {
-                width: 150,
-                height: 150,
-                type: 'circle'
-            },
-            url: data_uri
-        });
-    });
-}
-function SubirFoto() {
-    waitingDialog();
-    $.ajax({
-        type: 'POST',
-        url: baseUrl + 'Bienvenida/SubirImagen',
-        data: JSON.stringify({ data: $('#imgFotoTomada').attr('src') }),
-        dataType: 'Json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            if (checkTimeout(data)) {
-                alert_msg(data.message);
-                if (data.success) {
-                    $('#imgFotoUsuario').show();
-                    $('#imgFotoUsuarioDefault').hide();
-                    $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
-                }
-            }
-        },
-        error: function (data, error) { },
-        complete: closeWaitingDialog
-    });
-}
-
 function animacionFlechaScroll() {
 
     $(".flecha_scroll").animate({
@@ -593,40 +514,8 @@ function animacionFlechaScroll() {
     });
 
 }
-function agregarProductoAlCarrito(o) {
-    var btnClickeado = $(o);
-    var contenedorItem = btnClickeado.parent().parent();
-    var imagenProducto = $('.imagen_producto', contenedorItem);
-
-    if (imagenProducto.length > 0) {
-        var carrito = $('.campana.cart_compras');
-
-        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
-
-        $(".transicion").css({
-            'height': imagenProducto.css("height"),
-            'width': imagenProducto.css("width"),
-            'top': imagenProducto.offset().top,
-            'left': imagenProducto.offset().left,
-        }).animate({
-            'top': carrito.offset().top,
-            'left': carrito.offset().left,
-            'height': carrito.css("height"),
-            'width': carrito.css("width"),
-            'opacity': 0.5
-        }, 450, 'swing', function () {
-            $(this).animate({
-                'top': carrito.offset().top,
-                'opacity': 0
-            }, 150, 'swing', function () {
-                $(this).remove();
-            });
-        });
-    }
-}
 
 function mostrarUbicacionTutorial(tieneFondoNegro, mostrarPopupTutorial) {
-
     tieneFondoNegro = tieneFondoNegro == undefined ? false : tieneFondoNegro;
     mostrarPopupTutorial = mostrarPopupTutorial == undefined ? false : mostrarPopupTutorial;
 
@@ -871,7 +760,7 @@ function ArmarCarouselLiquidaciones(data) {
         prevArrow: '<a class="previous_ofertas js-slick-prev-liq"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
         nextArrow: '<a class="previous_ofertas js-slick-next-liq" style="right: 0;display: block;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
     }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-        
+
         var accion = nextSlide > currentSlide ? 'next' : 'prev';
         var itemsLength = $('#divCarruselLiquidaciones').find('.slick-slide').length;
         var indexActive = $($('#divCarruselLiquidaciones').find('.slick-active')).attr('data-slick-index');
@@ -884,9 +773,9 @@ function ArmarCarouselLiquidaciones(data) {
                 $('.js-slick-next-liq').show();
             }
 
-             posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val() - 2;
-             recomendado = arrayLiquidaciones[posicionEstrategia] || {};
-             arrayEstrategia = new Array();
+            posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val() - 2;
+            recomendado = arrayLiquidaciones[posicionEstrategia] || {};
+            arrayEstrategia = new Array();
 
             if (recomendado.PrecioOferta != null || recomendado.PrecioOferta != undefined) {
                 var impresionRecomendado = {
@@ -912,7 +801,7 @@ function ArmarCarouselLiquidaciones(data) {
                     'action': 'Liquidacion Web',
                     'label': 'Ver anterior'
                 });
-            }            
+            }
 
         } else if (accion == 'next') {
             if (Number(indexActive) + 1 == Number(itemsLength) - 1) {
@@ -922,11 +811,11 @@ function ArmarCarouselLiquidaciones(data) {
                 $('.js-slick-prev-liq').show();
             }
 
-             posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val();
+            posicionEstrategia = $($('#divCarruselLiquidaciones').find(".slick-active")).find('#Posicion').val();
 
             if (posicionEstrategia != arrayLiquidaciones.length) {
-                 recomendado = arrayLiquidaciones[posicionEstrategia] || {};
-                 arrayEstrategia = new Array();
+                recomendado = arrayLiquidaciones[posicionEstrategia] || {};
+                arrayEstrategia = new Array();
 
                 if (recomendado.PrecioOferta != null || recomendado.PrecioOferta != undefined) {
                     var impresionRecomendado = {
@@ -954,7 +843,7 @@ function ArmarCarouselLiquidaciones(data) {
                         'action': 'Liquidacion Web',
                         'label': 'Ver siguiente'
                     });
-                }                
+                }
             } else {
                 dataLayer.push({
                     'event': 'virtualEvent',
@@ -1209,7 +1098,7 @@ function CargarBanners() {
                             var attibutes = '';
                             if (objData.URL.length > 0) {
                                 if (viewBagTieneHV && objData.GrupoBannerID == -5) {
-                                    attibutes += "onclick=\"SetGoogleAnalyticsBannerInferiores('" + 'Ofertas#HV' + "','" + trackingText + "','1','" + objData.BannerID + "','" + countBajos + "','" + objData.Titulo + "',false);\"";
+                                    attibutes += "onclick=\"SetGoogleAnalyticsBannerInferiores('" + 'HerramientasVenta/Comprar' + "','" + trackingText + "','1','" + objData.BannerID + "','" + countBajos + "','" + objData.Titulo + "',false);\"";
                                 } else {
                                     attibutes += "onclick=\"return SetGoogleAnalyticsBannerInferiores('" + objData.URL + "','" + trackingText + "','0','" + objData.BannerID + "','" + countBajos + "','" + objData.Titulo + "');\"";
                                 }
@@ -1497,7 +1386,7 @@ function SetGoogleAnalyticsBannerInferiores(URL, TrackText, Tipo, Id, Posicion, 
         if (!OpenTab) return false;
     }
     else
-         id = URL;
+        id = URL;
 
     if (URL > 0) {
         var url = baseUrl + "MiAcademia/Cursos?idcurso=" + id;
@@ -1543,6 +1432,11 @@ function CargarMisDatos() {
                 $('#codigoUsurioMD').html(temp.CodigoUsuario);
                 $('#nombresUsuarioMD').html(temp.NombreCompleto);
                 $('#nombreGerenteZonal').html($.trim(temp.NombreGerenteZonal));
+                if ($.trim(temp.IndicadorConsultoraDigital) == "0") {
+                    $('#GerenteZona').show();
+                } else {
+                    $('#GerenteZona').hide();
+                }
                 $('#txtSobrenombreMD').val(temp.Sobrenombre);
                 $('#txtEMailMD').val(temp.EMail);
                 $('#txtTelefonoMD').val(temp.Telefono);
@@ -1557,6 +1451,22 @@ function CargarMisDatos() {
         error: function (data, error) { }
     });
 }
+///
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+///
 function CambiarContrasenia() {
     var oldPassword = $("#txtContraseniaAnterior").val();
     var newPassword01 = $("#txtNuevaContrasenia01").val();
@@ -1621,6 +1531,12 @@ function CambiarContrasenia() {
                             $(".campos_actualizarDatos").delay(200);
                             $(".campos_actualizarDatos").fadeIn(200);
                             alert("Se cambió satisfactoriamente la contraseña.");
+                            //var reqRedirect = getUrlParameter('verCambioClave');
+                            //if (reqRedirect != null) {
+                            //    setTimeout(function () { CerrarSesion(); }, 2000);
+                            //} else {
+                            //    setTimeout(function () { CerrarSesion(); }, 2000);
+                            //}
                         }
                         return false;
                     }
@@ -1640,13 +1556,14 @@ function ActualizarMD() {
 
     if (viewBagPaisID != 4) {
 
-        if (jQuery.trim($('#txtEMailMD').val()) == "") {
+        if (jQuery.trim($('#txtEMail').val()) == ""  ) {
+                      
             $('#txtEMailMD').focus();
             alert("Debe ingresar EMail.\n");
             return false;
         }
 
-        if (!validateEmail(jQuery.trim($('#txtEMailMD').val()))) {
+        if (!validateEmail(jQuery.trim($('#txtEMail').val()))) {
             $('#txtEMailMD').focus();
             alert("El formato del correo electrónico ingresado no es correcto.\n");
             return false;
@@ -2173,12 +2090,16 @@ function AbrirAceptacionContrato() {
         }
     }
 }
+
 function AceptarContrato() {
+   
+    var parameter = { checkAceptar: 1, origenAceptacion: OrigenAceptacionContrato, AppVersion: "" };
     waitingDialog({});
+
     $.ajax({
         type: "POST",
         url: baseUrl + "Bienvenida/AceptarContrato",
-        data: JSON.stringify({ checkAceptar: 1 }),
+        data: JSON.stringify(parameter),
         contentType: 'application/json',
         success: function (data) {
             if (checkTimeout(data)) {
@@ -2187,11 +2108,8 @@ function AceptarContrato() {
                     alert(data.message);
                     if (data.extra != "nocorreo") return;
                 }
-
+                AceptoContrato = true;
                 PopupCerrar('popupAceptacionContrato');
-                if (viewBagCambioClave == 0) {
-                    PopupMostrar('popupActualizarMisDatos');
-                }
             }
         },
         error: function (data, error) {
@@ -2202,6 +2120,7 @@ function AceptarContrato() {
         }
     });
 }
+
 function DownloadAttachPDF() {
     var iframe_ = document.createElement("iframe");
     iframe_.style.display = "none";
@@ -2505,14 +2424,14 @@ function stopVideo() {
     try {
         if (player) {
 
-                if (player.stopVideo) {
-                    player.stopVideo();
-                }
-                else {
-                    var urlVideo = $divPlayer.attr("src");
-                    $divPlayer.attr("src", "");
-                    $divPlayer.attr("src", urlVideo);
-                }
+            if (player.stopVideo) {
+                player.stopVideo();
+            }
+            else {
+                var urlVideo = $divPlayer.attr("src");
+                $divPlayer.attr("src", "");
+                $divPlayer.attr("src", urlVideo);
+            }
 
         }
     } catch (e) { }
@@ -2576,7 +2495,7 @@ function CrearPopShow() {
     });
 }
 function MostrarShowRoom() {
-    
+
     if (viewBagRol == 1) {
         if (!sesionEsShowRoom) {
             return;
@@ -2626,9 +2545,9 @@ function MostrarShowRoom() {
                             $("#spnShowRoomEventoDescripcionVenta").val(evento.Tema);
                             AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "1");
                             $("#hdEventoIDShowRoomVenta").val(eventoID);
-                             container = $('#PopShowroomVenta');
+                            container = $('#PopShowroomVenta');
 
-                             txtSaludoIntriga = '<b>' + response.nombre + '</b>, YA COMENZÓ';
+                            txtSaludoIntriga = '<b>' + response.nombre + '</b>, YA COMENZÓ';
                             $(container).find('.saludo_consultora_showroom').html(txtSaludoIntriga);
                             $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupVenta);
                             $(container).show();
@@ -2642,10 +2561,10 @@ function MostrarShowRoom() {
                             AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "2")
                             $('#hdEventoIDShowRoom').val(eventoID);
                             if (parseInt(response.diasFaltan) > 0) {
-                                 container = $('#PopShowroomIntriga');
+                                container = $('#PopShowroomIntriga');
                                 var txtDiasIntriga = 'FALTAN ' + response.diasFaltan + ' DÍAS';
                                 if (response.diasFaltan == 1) txtDiasIntriga = 'FALTA 1 DÍA';
-                                 txtSaludoIntriga = '<b>' + response.nombre + '</b>, prepárate para';
+                                txtSaludoIntriga = '<b>' + response.nombre + '</b>, prepárate para';
                                 $(container).find('.saludo_consultora_showroom').html(txtSaludoIntriga);
                                 $(container).find('.dias_intriga_home').text(txtDiasIntriga);
                                 $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupIntriga);
@@ -2746,19 +2665,19 @@ function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
 }
 
 function AgregarTagManagerShowRoomPopupClick(tipo) {
-  
-    var name = "",nombre="",id="",tema;
+
+    var name = "", nombre = "", id = "", tema;
 
     if (tipo == 1) {
-         nombre = $("#spnShowRoomEventoVenta").val();
-         tema = $("#spnShowRoomEventoDescripcionVenta").val();
+        nombre = $("#spnShowRoomEventoVenta").val();
+        tema = $("#spnShowRoomEventoDescripcionVenta").val();
         name = nombre + ' ' + tema + ' - Compra Ya';
         id = $("#hdEventoIDShowRoomVenta").val();
     }
 
     if (tipo == 2) {
-         nombre = $("#spnShowRoomEvento").val();
-         tema = $("#spnShowRoomEventoDescripcion").val();
+        nombre = $("#spnShowRoomEvento").val();
+        tema = $("#spnShowRoomEventoDescripcion").val();
         name = nombre + ' ' + tema + ' - Entérate';
         id = $("#hdEventoIDShowRoom").val();
     }
@@ -2852,17 +2771,17 @@ function cerrar_popup_tutorial() {
 
 function ObtenerComunicadosPopup() {
     waitingDialog();
-   
+
     $.ajax({
         type: "GET",
         url: baseUrl + 'Bienvenida/ObtenerComunicadosPopUps',
         contentType: 'application/json',
         success: function (response) {
-            if (checkTimeout(response)) {               
+            if (checkTimeout(response)) {
                 armarComunicadosPopup(response);
                 var images = $("#popupComunicados img.img-comunicado");
                 var loadedImgNum = 0;
-                
+
                 if (images.length == 0) {
                     closeWaitingDialog();
                 } else {
@@ -2886,14 +2805,14 @@ function ObtenerComunicadosPopup() {
 
 function armarComunicadosPopup(response) {
     viewBagVerComunicado = response.comunicadoVisualizado;
-   
+
     var item = response.data;
     if (item.CodigoConsultora != null) {
-        
+
         var dialogComunicadoID = item.CodigoConsultora + '_' + item.ComunicadoId;
         var nombreEvento = encodeURI(item.Descripcion);
-        
-       
+
+
         if (item.Accion == "URL") {
             urlAccion = item.DescripcionAccion;
             if (urlAccion > 0) {
@@ -2927,7 +2846,7 @@ function mostrarComunicadosPopup(data) {
     if (lista.length == 0) {
         PopupCerrar('popupComunicados');
         return true;
-    }    
+    }
     ActualizarVisualizoComunicado(data.ComunicadoId);
 
     PopupMostrar('popupComunicados');
@@ -3270,6 +3189,9 @@ function MostrarPopupInicial() {
         case popupAsesoraOnline:
             if (popupInicialCerrado == 0) asesoraOnlineObj.mostrar();
             break;
+        case popupActualizarCorreo: 
+            PopupMostrar('popupVerificacionCorreoElectronicoPendiente');       
+            break;
     }
 }
 
@@ -3312,5 +3234,25 @@ function dataLayerVC(action, label) {
         'category': 'Coach Virtual',
         'action': action,
         'label': label
+    });
+}
+
+function ConsultarEmailPendiente() {
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/ObtenerActualizacionEmail',
+        dataType: 'Text',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.split('|')[0] == '1') {
+                    document.getElementById('spnEmail').innerHTML = data.split('|')[1];
+                    document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
+                }
+            }
+        },
+        error: function (data, error) {
+            alert(error);
+        }
     });
 }

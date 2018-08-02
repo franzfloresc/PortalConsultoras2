@@ -1,5 +1,5 @@
 ﻿
-var lsListaRD = lsListaRD || "ListaRD";
+var lsListaRD = lsListaRD || "RDLista";
 
 $(document).ready(function () {
     "use strict";
@@ -90,16 +90,18 @@ function RDSuscripcion() {
                 return false;
             }
 
-            if (data.revistaDigital) {
+            if (data.Inmediata) {
+                LimpiarLocalStorage();
+            }
+            else if (data.revistaDigital) {
                 var key = lsListaRD + data.CampaniaID;
                 RDActualizarTipoAccionAgregar(data.revistaDigital, key);
             }
 
-            $("#PopRDSuscripcion").css("display", "block");
-
+            $("#PopRDSuscripcion").css("display", "block"); // Confirmar datos
             $(".popup_confirmacion_datos .form-datos input").keyup(); //to update button style
 
-            return false;
+           return false;
         },
         function (xhr, status, error) {
             CerrarLoad();
@@ -144,8 +146,10 @@ function RDDesuscripcion() {
                 AbrirMensaje(data.message);
                 return false;
             }
-
-            if (data.revistaDigital) {
+            if (data.Inmediata) {
+                LimpiarLocalStorage();
+            }
+            else if (data.revistaDigital) {
                 var key = lsListaRD + data.CampaniaID;
                 RDActualizarTipoAccionAgregar(data.revistaDigital, key);
             }
@@ -185,3 +189,30 @@ function RedireccionarContenedorInformativa(origenWeb) {
 
     window.location = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
 }
+
+function LimpiarLocalStorage() {
+    if (typeof (Storage) !== 'undefined') {
+        var itemSBTokenPais = localStorage.getItem('SBTokenPais');
+        var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
+        var itemChatEConnected = localStorage.getItem('connected');
+        var itemChatEConfigParams = localStorage.getItem('ConfigParams');
+
+        localStorage.clear();
+
+        if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
+            localStorage.setItem('SBTokenPais', itemSBTokenPais);
+        }
+
+        if (typeof (itemSBTokenPedido) !== 'undefined' && itemSBTokenPedido !== null) {
+            localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
+        }
+
+        if (typeof (itemChatEConnected) !== 'undefined' && itemChatEConnected !== null) {
+            localStorage.setItem('connected', itemChatEConnected);
+        }
+
+        if (typeof (itemChatEConfigParams) !== 'undefined' && itemChatEConfigParams !== null) {
+            localStorage.setItem('ConfigParams', itemChatEConfigParams);
+        }
+    }
+};

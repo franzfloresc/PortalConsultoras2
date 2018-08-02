@@ -8,20 +8,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
     [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
-    public class LanzamientosController : BaseLanzamientosController
+    public class LanzamientosController : BaseViewController
     {
-        public override ActionResult Detalle(string cuv, int campaniaId)
-        {
-            try
-            {
-                return base.Detalle(cuv, campaniaId);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
+        //public override ActionResult LANDetalle(string cuv, int campaniaId)
+        //{
+        //    try
+        //    {
+        //        return base.LANDetalle(cuv, campaniaId);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //    }
 
-            return RedirectToAction("Index", "Ofertas");
-        }
+        //    return RedirectToAction("Index", "Ofertas");
+        //}
     }
 }

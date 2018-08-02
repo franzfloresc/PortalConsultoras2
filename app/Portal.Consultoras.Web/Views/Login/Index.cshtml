@@ -178,20 +178,7 @@
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function (response) {
-
                     if (response.success) {
-
-                        var resul = "";
-                        if (response.data != null) {
-                            resul = response.data.resultado;
-                        }
-
-                        if (resul.length > 1) {
-                            var datos = response.data;
-                            MostrarPopupPin(datos);
-                            closeWaitingDialog();
-                        }
-
                         if (response.redirectTo !== "") {
                             analytics.invocarEventoPixel("FacebookLoginValidExternalUser");
                             document.location.href = response.redirectTo;
@@ -413,7 +400,7 @@
                             <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente correo_electronico_consult" style="display: none;" id="spsincorreo">No existe correo registrado</span>
                         </div>
                     </div>
-                    
+
                     @if (ViewBag.PaisID == 11)
                     {
                         <a id="lk_telefono">
@@ -467,7 +454,7 @@
         <div></div>
     </script>
 
-    @{
+    @*@{
         if (HttpContext.Current.Request.Browser.IsMobileDevice)
         {
             <a href="#" class="lk_chat" ismovildevice="1" target="_blank"></a>
@@ -476,7 +463,7 @@
         {
             <a href="#" class="lk_chat" ismovildevice="0"></a>
         }
-    }
+    }*@
     <div id="popupRestaurarClave" style="display:none;">
         <div id="popup_opciones_recuperacion_contrasenia">
             <div class="content_bg_opciones_recuperacion_contrasenia">
@@ -499,8 +486,10 @@
                     <b class="menPrioridad3" style="display:none;">Puedes comunicarte con nosotros llamando a nuestra central telefónica en el siguiente horario:</b>
                     <span id="menAutenticacionNueva" class="texto_disculpa" style="display:none;">por ser la primera vez que ingresas, 
                     para verificar la autenticidad te enviaremos un PIN a tu celular o a tu e-mail según la opción que elijas:</span>
+                    @*<!-- INICIO - MENSAJE PARA PIN DE AUTENTICACION CONSULTORA REACTIVADA -->
                     <span id="menAutenticacionReactivada" class="texto_disculpa" style="display:none;">ya que has vuelto después de tiempo, 
                     para verificar la autenticidad te enviaremos un PIN a tu celular o a tu e-mail según la opción que elijas:</span>
+                    <!-- FIN - MENSAJE PARA PIN DE AUTENTICACION CONSULTORA REACTIVADA -->*@
                 </div>
 
                 <div class="opciones_recuperacion_contrasenia">
@@ -555,6 +544,7 @@
                                 <div id="divHoraiosAtencion" class="horarios_atencion">L-V: 8:00 a 20:00 y S: 08:00 a 18:00</div>
                             </div>
                         </div>
+                        <input type="hidden" id="hddHabilitarChatEmtelco" name="hddHabilitarChatEmtelco" value="" />
                         <button class="btn_ingresar_chat" id="divChatearConNosotros">Ingresar al chat</button>
                     </div>
 
@@ -601,7 +591,7 @@
                         Ver más opciones
                     </a>
                     <a id="linkvolverInicio" class="accion_alternativa_posterior_envio_password aVolverInicio" title="Reenviar mensaje a mi correo" style="cursor:pointer;display:none;">Volver al inicio</a>
-                    <a id="MenInferiorPin" style="display:none;color:black; cursor:pointer; text-decoration:none;"><b>Si necesitas actualizar alguno de tus datos de contacto, comunícate con el Call Center.</b></a>
+                    <div id="MenInferiorAutenticidad" style="display:none;color:black;">Si no reconoces tu correo o celular, comunícate con nuestro <a id="BelcorpRespondeVerificacion" style="color:black;cursor:pointer;">Call Center</a></div>
                 </div>
             </div>
         </div>
@@ -621,7 +611,8 @@
                     <br />
                     <br />
                     <div class="icono_correo">
-                        @if (ViewBag.PaisID == 2 || ViewBag.PaisID == 3 || ViewBag.PaisID == 4 || ViewBag.PaisID == 6 || ViewBag.PaisID == 7 || ViewBag.PaisID == 8 || ViewBag.PaisID == 11 || ViewBag.PaisID == 13 || ViewBag.PaisID == 14) {
+                        @if (ViewBag.PaisID == 2 || ViewBag.PaisID == 3 || ViewBag.PaisID == 4 || ViewBag.PaisID == 6 || ViewBag.PaisID == 7 || ViewBag.PaisID == 8 || ViewBag.PaisID == 11 || ViewBag.PaisID == 13 || ViewBag.PaisID == 14)
+                        {
                             <img src="~/Content/Images/Login2/Icons/icono-envelope-esika.png" alt="Nuevo Correo" />
                         }
                         else if (ViewBag.PaisID == 5 || ViewBag.PaisID == 9 || ViewBag.PaisID == 10 || ViewBag.PaisID == 12)
@@ -681,12 +672,12 @@
                         Una vez recibido, ingrésalo aquí
                     </p>
                     <div class="ingreso_codigo">
-                        <input type="text" maxlength="1" id="1cDigito" class="codigoSms" >
-                        <input type="text" maxlength="1" id="2cDigito" class="codigoSms" >
-                        <input type="text" maxlength="1" id="3cDigito" class="codigoSms" >
-                        <input type="text" maxlength="1" id="4cDigito" class="codigoSms" >
-                        <input type="text" maxlength="1" id="5cDigito" class="codigoSms" >
-                        <input type="text" maxlength="1" id="6cDigito" class="codigoSms" >
+                        <input type="text" maxlength="1" id="1cDigito" class="codigoSms">
+                        <input type="text" maxlength="1" id="2cDigito" class="codigoSms">
+                        <input type="text" maxlength="1" id="3cDigito" class="codigoSms">
+                        <input type="text" maxlength="1" id="4cDigito" class="codigoSms">
+                        <input type="text" maxlength="1" id="5cDigito" class="codigoSms">
+                        <input type="text" maxlength="1" id="6cDigito" class="codigoSms">
                         <div class="tiempo_validez_codigoSms">
                             <span class="spnMin">03</span>:<span class="spnSeg">00</span>
                         </div>
@@ -819,6 +810,29 @@
             </div>
         </div>
     </div>
+
+    <div id="popupChatDisabled" style="display: none;">
+        <div id="popup_chatDisabled">
+            <div class="content_bg_chatdisabled">
+                <a id="btnCerrarChatDisabledPopup" href="#" class="cerrar" onclick="$('#popupChatDisabled').hide();"></a>
+
+                <div id="header-chatdisabled">
+                    <div class="fondo_sesgado"></div>
+                    <span id="tituloPopup-ChatDisabled">
+                       AVISO
+                    </span>
+                    <div class="indicador_lbel"></div>
+                </div>
+                <div class="mensaje_pop_up2">
+                    <div class="contenedor_info_datos">
+                        <div class="titulo_opcion_chatea_con_nosotros">Por el momento el chat en movil no esta disponible, favor de ingresar a través de un computador</div>
+                       
+                    </div>
+                    @*<p>Por el momento el chat en mobil no esta disponible, favor de ingresar a través de un computador</p>*@
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="webForm">
@@ -877,7 +891,7 @@
         <hr class="clear" />
     </div>
 
-    @using (@Html.BeginForm("", "", FormMethod.Post, new { id = "frmLogin" }))
+    @using (@Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "frmLogin" }))
     {
     <div id="loginanterior" class="formCont">
         <input type="hidden" id="hdfContrasenia" />
@@ -970,14 +984,15 @@
             </div>
         </div>
 
-        <div class="boxform float_r">
-            <div class="formbtn">
-                <label for="">
-                    <a href="javascript:void(0);" onclick="olvidasteContrasenia();" rel="formulario-login" title="Recupérala aquí" role="menu" region="Lateral" parent="Recupérala aquí">¿Olvidaste tu contraseña?</a>
-                </label>
-                <br />
+            <div class="boxform float_r">
+                <div class="formbtn">
+                    <label for="">
+                        <a href="javascript:void(0);" onclick="olvidasteContrasenia()" rel="formulario-login" title="Recupérala aquí" role="menu" region="Lateral" parent="Recupérala aquí">¿Olvidaste tu contraseña?</a>
+                    </label>
+                    <br />
+                </div>
             </div>
-        </div>
+       
 
         <div class="clear"></div>
 
@@ -996,12 +1011,14 @@
             </div>
         </div>
         <p>&nbsp;</p>
-        <div class="boxform" id="VinculoTarjetaHelm">
-            <div class="admin" style="margin-top:14px !important">
+        <div class="boxform" id="VinculoTarjetaHelm" style="display: none;">>
+            <div class="admin" style="margin-top:14px !important" >
                 <label for="">
                     <a href="@System.Configuration.ConfigurationManager.AppSettings["UrlRetiroFondosTarjetaHelm"]" download target="_blank" title="" style="text-decoration:underline">RETIRO TARJETA PAY CARD CON SALDO</a>
                 </label>
+
             </div>
+            
         </div>
     </div>
     }
@@ -1098,17 +1115,14 @@
     var isoPais = '@ViewBag.IsoPais';
     var banderaOk = '@ViewBag.BanderaOk';
     var avisoASP = '@ViewBag.AvisoASP';
-    var urlObtenerDatosUsuario = '@Url.Action("ObtenerDatosUsuario", "Login")';
+    var urlGetRestaurarClave = '@Url.Action("GetRestaurarClaveByValor", "Login")';
     var urlProcesaEnvioCorreo = '@Url.Action("ProcesaEnvioCorreo", "Login")';
     var urlProcesaEnvioSms = '@Url.Action("ProcesaEnvioSms", "Login")';
     var urlLoginAcceder = '@Url.Action("Login", "Login")';
     var urlChatBelCorp = '@Url.Action("ChatBelcorp", "Login")';
-    var urlObtenerCodigoGenerado = '@Url.Action("ObtenerCodigoGenerado", "Login")';
+    @*var urlVerificarCodigoGenerado = '@Url.Action("VerificarCodigoGenerado", "Login")';*@
     var urlIniciarLogin = '@Url.Action("Login", "Login")';
-    var urlAcceso =  '@System.Configuration.ConfigurationManager.AppSettings.Get("URLSolicitudAcceso")';
-    var urlCancelacion = '@System.Configuration.ConfigurationManager.AppSettings.Get("URLSolicitudCancelacion")';
-    var urlOposicion = '@System.Configuration.ConfigurationManager.AppSettings.Get("URLSolicitudOposicion")';
-    var urlRectificacion = '@System.Configuration.ConfigurationManager.AppSettings.Get("URLSolicitudRectificacion")';
+    var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
 </script>
 
 @if (TempData["errorLogin"] != null)

@@ -1,7 +1,7 @@
 ﻿@using Portal.Consultoras.Common
 <script id="producto-landing-template" type="text/x-handlebars-template">
     {{#each this.lista as |item|}}
-
+    
     {{#if EsBanner}}
     <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
@@ -31,39 +31,53 @@
     {{else}}
     <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <div data-item-tag="body" class="content_item_carrusel" {{#iff TipoAccionAgregar '!=' '4' }} style="cursor:pointer;" {{/iff}}>
+        <div data-item-tag="body" class="content_item_carrusel"  {{#iff EsSubcampania '==' false}}{{#iff TipoAccionAgregar '!=' '4' }} style="cursor:pointer;" {{/iff}}  {{/iff}}>
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
             <div data-item-tag="contenido"
+                 {{#iff EsSubcampania '==' false}}
                  {{#iff TipoAccionAgregar 'ContainsArray' '[4,5]'}}
-                    onclick="javascript:VerPopupExpGanaMas();"
+                 onclick="javascript:VerPopupExpGanaMas();"
                  {{else}}
-                    onclick="javascript:VerDetalleEstrategia(event);"
-                 {{/iff}}>
+                 onclick="javascript:OnClickFichaDetalle(event.target);"
+                 {{/iff}}
+                {{/iff}}>
                 <div class="producto_img_home" data-item-tag="foto">
                     <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{ImgUrl FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
+                    {{#iff EsSubcampania '==' false}}
                     {{#iff TipoAccionAgregar 'ContainsArray' '[1,2,3]'}}
                     <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
                     {{/iff}}
+                    {{/iff}}
+
                 </div>
                 {{#iff ImagenURL '!=' ''}}
-                    <div class="etiqueta_producto" data-item-tag="etiqueta">
-                        <img alt="Etiqueta Producto" data-src="{{ImagenURL}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
-                    </div>
+                <div class="etiqueta_producto" data-item-tag="etiqueta">
+                    <img alt="Etiqueta Producto" data-src="{{ImagenURL}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
+                </div>
                 {{/iff}}
                 <div class="producto_nombre_descripcion" data-item-tag="descripcion">
                     {{#IsNullOrEmpty DescripcionMarca '!='}}
-                        <h6>{{DescripcionMarca}}</h6>
+                    <h6>{{DescripcionMarca}}</h6>
                     {{else}}
-                        <h6>&ensp;&nbsp;</h6>
+                    <h6>&ensp;&nbsp;</h6>
                     {{/IsNullOrEmpty}}
-                    {{#iff DescripcionCortada '!=' ''}}
-                        <p class="nombre_producto"><b>{{DescripcionCortada}}</b></p>
-                    {{/iff}}
+                    
+                    <p class="nombre_producto"><b>{{DescripcionCortada}}</b></p>
+                    
                 </div>
+
+                {{#iff EsSubcampania '==' true}}
+                        <div class="sub_campania_info_adicional" style="min-height: 60px;  max-height: 60px;">
+                            {{#each item.Hermanos as |itemHermano|}}
+                                   <label style="margin-left:20px; cursor:initial">{{itemHermano.NombreComercial}}</label><br />
+                            {{/each}}
+                        </div>
+                 {{/iff}}
+              
                 <div class="producto_nombre_descripcion" data-item-tag="precio">
                     <div>
                         {{#iff Precio '>' 0}}
-                            <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioTachado}}</span>
+                        <span class="producto_precio_normal">{{SimboloMoneda}} {{PrecioTachado}}</span>
                         {{/iff}}
                         <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioVenta}}</b></span>
                     </div>
@@ -83,32 +97,32 @@
                                    style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" />
                         </div>
                         <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
-                           onclick="javascript:EstrategiaAgregar(event, true, 1); ">
+                           onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true, 1); ">
                             AGR&Eacute;GALO
                         </a>
                     {{/iff}}
                     {{#iff TipoAccionAgregar '==' '2'}}
                         <div class="texto_elige_tono"></div>
                         <div class="clear"></div>
-                        <div class="liquidacion_rango_home js-no-popup">
+                        <div class="liquidacion_rango_home js-no-popup"  data-cantidad-contenedor="">
                             <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad'
                                    class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup {{ClaseBloqueada}}" 
                                    {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}} />
                             <div class="liquidacion_rango_right_pedido js-no-popup">
-                                <a href="javascript:;" class="mas js-no-popup" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" /></a>
-                                <a href="javascript:;" class="menos js-no-popup" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" /></a>
+                                <a href="javascript:;" class="mas js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" /></a>
+                                <a href="javascript:;" class="menos js-no-popup"  onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" /></a>
                             </div>
                         </div>
                         <a href="javascript:;" class="boton_Agregalo_home js-no-popup {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}"
-                           onclick="javascript:EstrategiaAgregar(event); ">
+                           onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
                             AGR&Eacute;GALO
                         </a>
                     {{/iff}}
                     {{#iff TipoAccionAgregar '==' '3'}}
-                        <div onclick="javascript: VerDetalleEstrategia(event);">
+                        <div onclick="javascript:OnClickFichaDetalle(event.target);">
                             <div class="texto_elige_tono">¡AHORA ELIGE TU TONO!</div>
                             <div class="clear"></div>
-                            <a href="javascript:;" class="btn_elige_tono js-no-popup" data-item-tag="eligetuopcion">
+                            <a class="btn_elige_tono js-no-popup" data-item-tag="eligetuopcion">
                                 <div>ELIGE TU OPCIÓN</div>
                             </a>
                         </div>

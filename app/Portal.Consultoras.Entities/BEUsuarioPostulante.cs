@@ -68,59 +68,24 @@ namespace Portal.Consultoras.Entities
 
         public BEUsuarioPostulante(IDataRecord row)
         {
-            IdPostulante = Convert.ToInt32(row["IdPostulante"]);
-
-            if (DataRecord.HasColumn(row, "CodigoUsuario"))
-                CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-
-            if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
-
-            if (DataRecord.HasColumn(row, "NumeroDocumento"))
-                NombreCompleto = Convert.ToString(row["NombreCompleto"]);
-
-            if (DataRecord.HasColumn(row, "NumeroDocumento"))
-                NumeroDocumento = Convert.ToString(row["NumeroDocumento"]);
-
-            if (DataRecord.HasColumn(row, "Zona"))
-                Zona = Convert.ToString(row["Zona"]);
-
-            if (DataRecord.HasColumn(row, "Seccion"))
-                Seccion = Convert.ToString(row["Seccion"]);
-
-            if (DataRecord.HasColumn(row, "Correo"))
-                Correo = Convert.ToString(row["Correo"]);
-
-            if (DataRecord.HasColumn(row, "EnvioCorreo"))
-                EnvioCorreo = Convert.ToString(row["EnvioCorreo"]);
-
-            if (DataRecord.HasColumn(row, "UsuarioReal"))
-                UsuarioReal = Convert.ToString(row["UsuarioReal"]);
-
-            if (DataRecord.HasColumn(row, "FechaRegistro"))
-                FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-
-            if (DataRecord.HasColumn(row, "Estado"))
-                Estado = Convert.ToInt16(row["Estado"]);
-
-            if (DataRecord.HasColumn(row, "ZonaID"))
-                ZonaID = Convert.ToInt32(row["ZonaID"]);
-
-            if (DataRecord.HasColumn(row, "CodigoZona"))
-                CodigoZona = Convert.ToString(row["CodigoZona"]);
-
-            if (DataRecord.HasColumn(row, "RegionID"))
-                RegionID = Convert.ToInt32(row["RegionID"]);
-
-            if (DataRecord.HasColumn(row, "CodigoRegion"))
-                Region = Convert.ToString(row["CodigoRegion"]);
-
-            if (DataRecord.HasColumn(row, "MensajeDesktop"))
-                MensajeDesktop = Convert.ToInt32(row["MensajeDesktop"]);
-
-            if (DataRecord.HasColumn(row, "MensajeMobile"))
-                MensajeMobile = Convert.ToInt32(row["MensajeMobile"]);
-
+            IdPostulante = row.ToInt32("IdPostulante");
+            CodigoUsuario = row.ToString("CodigoUsuario");
+            ConsultoraID = row.ToInt64("ConsultoraID");
+            NombreCompleto = row.ToString("NombreCompleto");
+            NumeroDocumento = row.ToString("NumeroDocumento");
+            Zona = row.ToString("Zona");
+            Seccion = row.ToString("Seccion");
+            Correo = row.ToString("Correo");
+            EnvioCorreo = row.ToString("EnvioCorreo");
+            UsuarioReal = row.ToString("UsuarioReal");
+            FechaRegistro = row.ToDateTime("FechaRegistro");
+            Estado = row.ToInt16("Estado");
+            ZonaID = row.ToInt32("ZonaID");
+            CodigoZona = row.ToString("CodigoZona");
+            RegionID = row.ToInt32("RegionID");
+            Region = row.ToString("CodigoRegion");
+            MensajeDesktop = row.ToInt32("MensajeDesktop");
+            MensajeMobile = row.ToInt32("MensajeMobile");
         }
     }
 }

@@ -2,7 +2,7 @@
 var rangoPrecios = 0;
 
 $(document).ready(function () {
-    $("#VerOfertaEspecial").on("click", function () {
+    $("body").on("click", "#VerOfertaEspecial", function () {
         $('#PopupBannerEspecial').css('display', 'block');
         $('div.banner_especial_showroom').css('z-index', 1000);
 
@@ -29,16 +29,16 @@ $(document).ready(function () {
 
         $('#contenedor-showroom-subcampanias').slick('slickGoTo', 1);
     });
-    $("#BajarOfertaEspecial").on("click", function () {
-        $('#PopupBannerEspecial').css('display', 'none');
-        $('div.banner_especial_showroom').css('z-index', 150);
+    $("body").on("click", "#BajarOfertaEspecial", function() {
+            $('#PopupBannerEspecial').css('display', 'none');
+            $('div.banner_especial_showroom').css('z-index', 150);
 
-        $('#content_set_especial_header').show();
-        $('#BajarOfertaEspecial').hide();
+            $('#content_set_especial_header').show();
+            $('#BajarOfertaEspecial').hide();
 
-        $('.content_set_oferta_especial').slideUp();
+            $('.content_set_oferta_especial').slideUp();
 
-    });
+        });
     var stilo;
     $("#CerrarOfertaEspecial").on("click", function () {
         $('.banner_especial_showroom').hide();
@@ -52,8 +52,8 @@ $(document).ready(function () {
         stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
             stilo = stilo.replace("display:none", "display:block");
-            $('.banner_especial_showroom').attr("style", stilo);
-            $('.banner_especial_showroom').show();
+            //$('.banner_especial_showroom').attr("style", stilo);
+            //$('.banner_especial_showroom').show();
         }
     }
 
@@ -61,7 +61,7 @@ $(document).ready(function () {
         $(this).toggleClass("seleccion_click_flitro");
     });
 
-    TagManagerOfertaShowRoom();
+    //TagManagerOfertaShowRoom();
 
     $('#DialogMensajesBanner').dialog({
         autoOpen: false,
@@ -175,7 +175,7 @@ $(document).ready(function () {
 
     $("#divBorrarFiltros").click(function () {
         $(".content_filtro_range").html("");
-        $(".content_filtro_range").html('<input class="range-slider" value="" style="width: 100%; display: none;" />');
+        $(".content_filtro_range").html('<input class="range-slider" type="text" value="" />');
         CargarFiltroRangoPrecio();
 
         $.each($("[data-filtro-categoria]"), function (index, value) {
@@ -224,9 +224,9 @@ $(document).ready(function () {
     if (localStorage["cerrar_banner_sub_campanias"]) {
         cerrar_banner_sub_campanias = true;
     }
-    if (tieneSubCampania == "True" && itemsSubCampania > 0 && cerrar_banner_sub_campanias == false) {
-        ver_subcamapania = true;
-    }
+    //if (tieneSubCampania == "True" && itemsSubCampania > 0 && cerrar_banner_sub_campanias == false) {
+    //    ver_subcamapania = true;
+    //}
     if (tieneCompraXCompra == "True" && itemsCompraXCompra > 0 && closeBannerCompraPorCompra == "False") {
         ver_compraxcompra = true;
     }
@@ -238,8 +238,8 @@ $(document).ready(function () {
          stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
              stilo = stilo.replace("display:none", "display:block");
-            $('.banner_especial_showroom').attr("style", stilo);
-            $('.banner_especial_showroom').show();
+            //$('.banner_especial_showroom').attr("style", stilo);
+            //$('.banner_especial_showroom').show();
         }
         $(".footer_e").css("margin-bottom", "73px");
     }
@@ -248,8 +248,8 @@ $(document).ready(function () {
          stilo = $('.banner_especial_showroom').attr("style");
         if (stilo != null) {
              stilo = stilo.replace("display:none", "display:block");
-            $('.banner_especial_showroom').attr("style", stilo);
-            $('.banner_especial_showroom').show();
+            //$('.banner_especial_showroom').attr("style", stilo);
+            //$('.banner_especial_showroom').show();
         }
     }
     else if (ver_compraxcompra == true) {
@@ -267,7 +267,6 @@ $(document).ready(function () {
     $(".swproddetcompra").on("click", function () {
 
     });
-
 
     $('#filtro_categoria').on('click', function () {
         $('#detalle_filtro_categoria').toggle();
@@ -292,44 +291,41 @@ function CargarFiltroRangoPrecio() {
     var precioMinFormat = DecimalToStringFormat(min);
     var precioMaxFormat = DecimalToStringFormat(max);
 
-    var myformat = variablesPortal.SimboloMoneda + '%s';
+    var myformat = variablesPortal.SimboloMoneda;
     var scala1 = variablesPortal.SimboloMoneda + precioMinFormat;
     var scala2 = variablesPortal.SimboloMoneda + precioMaxFormat;
 
     $('.range-slider').val(min + ',' + max);
-    var h = $("#filtro_precio").width() - 50;
 
-    $('.range-slider').show();
-    $('.range-slider').jRange({
+    $('.range-slider').ionRangeSlider({
+        hide_min_max: true,
+        keyboard: true,
+        min: min,
+        max: max,
         from: min,
         to: max,
+        type: 'double',
         step: 1,
-        scale: [scala1, scala2],
-        format: myformat,
-        width: h,
-        showLabels: true,
-        isRange: true,
-        ondragend: function (myvalue) {
-            rangoPrecios = myvalue;
+        prefix: myformat,
+        grid: true,
+        grid_num: 1,
+        onFinish: function (data) {
+            rangoPrecios = data.from + "," + data.to;
             $(".slider-container").addClass("disabledbutton");
             ObtenerProductosShowRoom();
-        },
-        onbarclicked: function (myvalue) {
-            rangoPrecios = myvalue;
-            $(".slider-container").addClass("disabledbutton");
-            ObtenerProductosShowRoom();
-
-            var arr = myvalue.toString().split(',');
 
             dataLayer.push({
                 'event': 'virtualEvent',
                 'category': 'Ofertas ShowRoom',
                 'action': "Filtrar por Precios",
-                'label': arr[0] + " - " + arr[1]
+                'label': data.from + " - " + data.to
             });
         }
     });
 
+    $(".js-grid-text-0").text(scala1);
+    $(".js-grid-text-1").text(scala2);
+    $("#detalle_filtro_precio").css("display", "none");
 }
 
 function filterShowRoomDesktop() {

@@ -672,7 +672,12 @@
         .contenido_zona_dorada_contenedor_desktop .xblock-cont-uno p b {
             font-weight: 900;
         }
-
+.contenido_zona_dorada_contenedor_desktop .off_boton_uno{
+    width:40% !important;
+}
+.contenido_zona_dorada_contenedor_desktop .off_boton_dos {
+    width: 60% !important;
+}
 .contenido_zona_dorada_contenedor_desktop .xblock-cont-dos {
     float: left;
     width: 20%;
@@ -692,6 +697,27 @@
         padding: 11.5px;
         width: 100%;
     }
+
+    .contenido_zona_dorada_contenedor_desktop .xblock-cont-dos p {
+        font-size: 13px;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 0.5px;
+        text-align: left;
+        color: #ffffff;
+        margin-bottom: 0;
+        display: block;
+        /* display: inline-block; */
+        padding: 13px 0px;
+        text-align: right;
+        margin-right: 5px;
+    }
+
+        .contenido_zona_dorada_contenedor_desktop .xblock-cont-dos p b {
+            font-weight: 900;
+        }
+
 .fixed_contenedor_head {
     position: fixed;
     top: 61px;
@@ -714,4 +740,8 @@
 
 .fixed_productos {
     top: 28px !important;
+}
+
+#divOfertaProductosPerdio{
+    text-align: center;
 }

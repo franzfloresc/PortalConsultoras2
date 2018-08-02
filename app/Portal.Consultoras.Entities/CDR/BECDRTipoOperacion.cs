@@ -19,9 +19,9 @@ namespace Portal.Consultoras.Entities.CDR
 
         public BECDRTipoOperacion(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CodigoOperacion")) CodigoOperacion = Convert.ToString(row["CodigoOperacion"]);
-            if (DataRecord.HasColumn(row, "DescripcionOperacion")) DescripcionOperacion = Convert.ToString(row["DescripcionOperacion"]);
-            if (DataRecord.HasColumn(row, "NumeroDiasAtrasOperacion")) NumeroDiasAtrasOperacion = Convert.ToDecimal(row["NumeroDiasAtrasOperacion"]);
+            CodigoOperacion = row.ToString("CodigoOperacion");
+            DescripcionOperacion = row.ToString("DescripcionOperacion");
+            NumeroDiasAtrasOperacion = row.ToDecimal("NumeroDiasAtrasOperacion");
         }
     }
 }

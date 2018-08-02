@@ -662,9 +662,6 @@ namespace Portal.Consultoras.ServiceContracts
         int ValidarCUVsRecomendados(BEEstrategia entidad);
 
         [OperationContract]
-        List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad);
-
-        [OperationContract]
         List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad);
 
         [OperationContract]
@@ -793,15 +790,6 @@ namespace Portal.Consultoras.ServiceContracts
         int CargarMasivaConsultora(int paisID, List<BEShowRoomEventoConsultora> listaConsultora);
 
         [OperationContract]
-        int ValidadStockOfertaShowRoom(int paisID, BEShowRoomOferta entity);
-
-        [OperationContract]
-        int UpdOfertaShowRoomStockMasivo(int paisID, List<BEShowRoomOferta> stockProductos);
-
-        [OperationContract]
-        int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado);
-
-        [OperationContract]
         int CargarProductoCpc(int paisId, int eventoId, string usuarioCreacion, List<BEShowRoomCompraPorCompra> listaShowRoomCompraPorCompra);
 
         [OperationContract]
@@ -809,30 +797,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpdateShowRoomConsultoraMostrarPopup(int paisID, int campaniaID, string codigoConsultora, bool mostrarPopup);
-
-        [OperationContract]
-        IList<BEShowRoomOferta> GetProductosShowRoom(int paisID, int campaniaID);
-
-        [OperationContract]
-        int GetOrdenPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID);
-
-        [OperationContract]
-        int ValidarPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID, int Orden);
-
-        [OperationContract]
-        int InsOfertaShowRoom(int paisID, BEShowRoomOferta entity);
-
-        [OperationContract]
-        int UpdOfertaShowRoom(int paisID, BEShowRoomOferta entity);
-
-        [OperationContract]
-        int DelOfertaShowRoom(int paisID, BEShowRoomOferta entity);
-
-        [OperationContract]
-        int InsOrUpdOfertaShowRoom(int paisID, BEShowRoomOferta entity);
-
-        [OperationContract]
-        int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity);
 
         [OperationContract]
         int GetUnidadesPermitidasByCuvShowRoom(int paisID, int CampaniaID, string CUV);
@@ -859,31 +823,13 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEShowRoomOfertaDetalle> GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv);
 
         [OperationContract]
-        int InsOfertaShowRoomDetalle(int paisID, BEShowRoomOfertaDetalle entity);
-
-        [OperationContract]
-        int UpdOfertaShowRoomDetalle(int paisID, BEShowRoomOfertaDetalle entity);
-
-        [OperationContract]
-        int EliminarOfertaShowRoomDetalle(int paisID, BEShowRoomOfertaDetalle beShowRoomOfertaDetalle);
-
-        [OperationContract]
-        int EliminarOfertaShowRoomDetalleAll(int paisID, int campaniaID, string cuv);
-
-        [OperationContract]
         int EliminarEstrategiaProductoAll(int paisID, int estrategiaID, string usuario);
 
         [OperationContract]
         IList<BEShowRoomPerfil> GetShowRoomPerfiles(int paisId, int eventoId);
 
         [OperationContract]
-        IList<BEShowRoomPerfilOferta> GetShowRoomPerfilOfertaCuvs(int paisId, BEShowRoomPerfilOferta beShowRoomPerfilOferta);
-
-        [OperationContract]
         void GuardarPerfilOfertaShowRoom(int paisId, int perfilId, int eventoId, int campaniaId, string cadenaCuv);
-
-        [OperationContract]
-        IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora);
 
         [OperationContract]
         BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID);
@@ -914,9 +860,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void DeleteInsertShowRoomCategoriaByEvento(int paisId, int eventoId, List<BEShowRoomCategoria> listaCategoria);
-
-        [OperationContract]
-        List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID);
 
         [OperationContract]
         IList<BEShowRoomTipoOferta> GetShowRoomTipoOferta(int paisID);
@@ -956,10 +899,10 @@ namespace Portal.Consultoras.ServiceContracts
         #region kit Nuevas
 
         [OperationContract]
-        BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(int paisID, BEConfiguracionProgramaNuevas entidad);
+        BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(BEUsuario usuario);
 
         [OperationContract]
-        BEConfiguracionProgramaNuevas GetConfiguracionProgramaDespuesPrimerPedido(int paisID, BEConfiguracionProgramaNuevas entidad);
+        string GetCuvKitNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas);
 
         #endregion
 
@@ -1010,9 +953,6 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID);
 
         [OperationContract]
-        List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
-
-        [OperationContract]
         int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas);
 
         [OperationContract]
@@ -1052,7 +992,7 @@ namespace Portal.Consultoras.ServiceContracts
         int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad);
 
         [OperationContract]
-        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
+        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva);
 
         [OperationContract]
         Task<BEResultadoReservaProl> CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
@@ -1124,13 +1064,7 @@ namespace Portal.Consultoras.ServiceContracts
         void CrearCuponConsultora(int paisId, BECuponConsultora cuponConsultora);
 
         [OperationContract]
-        List<BEReporteValidacionSROferta> GetReporteShowRoomOferta(int paisID, int campaniaID);
-
-        [OperationContract]
         void ActualizarCuponConsultora(int paisId, BECuponConsultora cuponConsultora);
-
-        [OperationContract]
-        List<BEReporteValidacionSRComponentes> GetReporteShowRoomComponentes(int paisID, int campaniaID);
 
         [OperationContract]
         List<BECuponConsultora> ListarCuponConsultorasPorCupon(int paisId, int cuponId);
@@ -1144,7 +1078,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Incentivos
         [OperationContract]
-        List<BEIncentivoConcurso> ObtenerConcursosXConsultora(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoRegion, string CodigoZona);
+        List<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEUsuario usuario);
 
         [OperationContract]
         void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso);
@@ -1243,6 +1177,10 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario);
         [OperationContract]
         List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario);
+        [OperationContract]
+        BEUsuario GetConfiguracionOfertaFinal(BEUsuario usuario);
+        [OperationContract]
+        List<BEProducto> GetProductoSugerido(BEProductoAppBuscar productoBuscar);
         #endregion
 
         #region Pago en Linea
@@ -1264,13 +1202,14 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro);
         #endregion
-        
-        [OperationContract]
-        bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId);
-
 
         [OperationContract]
-        bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad);
+        bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario,
+            string CuvsStringList, int EstrategiaId, string nombreConsultora, string codigoPrograma, int numeroPedido);
+
+
+        [OperationContract]        
+        bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
 
         [OperationContract]
         List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId);
@@ -1279,21 +1218,34 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoWebSet ObtenerPedidoWebSet(int paisId, int setId);
 
         [OperationContract]
-        bool EliminarPedidoWebSet(int paisId, int setId);
+        bool EliminarPedidoWebSet(int paisId, int setId, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
 
         [OperationContract]
         DateTime? ObtenerFechaInicioSets(int paisId);
 
         [OperationContract]
         void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario);
-
+        
         [OperationContract]
-        BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
+        bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID);
         
         [OperationContract]
         List<BEPedidoWebDetalle> ObtenerCuvSetDetalle(int paisID,int campaniaID, long consultoraID, int pedidoID, string ListaSet);
 
         [OperationContract]
+        List<BEReporteValidacionSROferta> GetReporteShowRoomOferta(int paisID, int campaniaID);
+
+        [OperationContract]
+        List<BEReporteValidacionSRComponentes> GetReporteShowRoomComponentes(int paisID, int campaniaID);
+        
+        [OperationContract]
+        BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
+        
+        [OperationContract]
         BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel);
+
+        [OperationContract]
+        List<BEEstrategiaProducto> GetEstrategiaProductoList(int PaisID, string idList);
+
     }
 }

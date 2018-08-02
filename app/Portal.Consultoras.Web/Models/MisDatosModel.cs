@@ -28,5 +28,13 @@
 
         }
         public string VerCambiarClave { get; set; }
+        public string Zona { get; set; }
+        public int limiteMinimoTelef { get; set; }
+        public int limiteMaximoTelef { get; set; }
+        public bool ServiceSMS { get; set; }
+        public bool ActualizaDatos { get; set; }
+        public int PaisID { get; set; }
+        public int IniciaNumeroCelular { get; set; }
+        public int IndicadorConsultoraDigital { get; set; }
     }
 }

@@ -10,6 +10,7 @@ function noback() {
 
 $(document).ready(function () {
 
+    // sirve para limpiar LocalStorage
     LocalStorageLimpiar();
     /*
     if (esPaisEsika == 'True') {

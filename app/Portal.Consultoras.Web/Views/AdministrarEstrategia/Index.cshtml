@@ -343,17 +343,17 @@
             </div>
             <div class="container" style="width: 70%;">
                 <div class="border-wrapper">
-                    <input type="file" id="fileBloqueoCuv" name="fileBloqueoCuv"/>
+                    <input type="file" id="fileBloqueoCuv" name="fileBloqueoCuv" />
                 </div>
             </div>
             <div class="div-3" style="margin: 15px auto; width: 200px;">
-                Formato de archivo (*.csv):<br/>
-                - CUV<br/>
+                Formato de archivo (*.csv):<br />
+                - CUV<br />
             </div>
             <div class="div-3">
                 <div class="input_horizontal" style="text-align: center;">
-                    <input type="button" name="btnAceptarBloqueoCuv1" id="btnAceptarBloqueoCuv1" value="Continuar" style="float: none;"/>
-                    <input type="button" name="btnCancelarBloqueoCuv1" id="btnCancelarBloqueoCuv1" value="Cancelar" style="float: none;" onclick="HideDialog('DialogBloqueoCuv')"/>
+                    <input type="button" name="btnAceptarBloqueoCuv1" id="btnAceptarBloqueoCuv1" value="Continuar" style="float: none;" />
+                    <input type="button" name="btnCancelarBloqueoCuv1" id="btnCancelarBloqueoCuv1" value="Cancelar" style="float: none;" onclick="HideDialog('DialogBloqueoCuv')" />
                 </div>
             </div>
         </div>
@@ -370,7 +370,7 @@
             </div>
             <div class="div-3">
                 <div class="input_horizontal" style="text-align: center;">
-                    <input type="button" name="btnCancelarMasivo2" onclick="HideDialog('DialogBloqueoCuv')" value="Cerrar" style="float: none;"/>
+                    <input type="button" name="btnCancelarMasivo2" onclick="HideDialog('DialogBloqueoCuv')" value="Cerrar" style="float: none;" />
                 </div>
             </div>
         </div>
@@ -600,6 +600,7 @@
     var _toastHelper = ToastHelper();
 
     jQuery(document).ready(function () {
+
         adminEstrategiaModule = AdministrarEstrategia({
             actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
             getImagesBySapCodeAction: '@Url.Action("GetImagesBySapCode", "AdministrarEstrategia")',
@@ -628,19 +629,19 @@
             urlUploadBloqueoCuv: '@Url.Action("UploadBloqueoCuvs","AdministrarEstrategia")',
 
             // SHOWROOM-INICIO
-            urlConsultarShowRoom: baseUrl + 'ShowRoom/ConsultarShowRoom',
-            urlGetShowRoomNiveles: baseUrl + 'ShowRoom/GetShowRoomNiveles',
-            urlGetShowRoomPersonalizacionNivel: baseUrl + 'ShowRoom/GetShowRoomPersonalizacionNivel',
-            urlGuardarPersonalizacionNivelShowRoom: baseUrl + 'ShowRoom/GuardarPersonalizacionNivelShowRoom',
+            urlConsultarShowRoom: baseUrl + 'AdministrarShowRoom/ConsultarShowRoom',
+            urlGetShowRoomNiveles: baseUrl + 'AdministrarShowRoom/GetShowRoomNiveles',
+            urlGetShowRoomPersonalizacionNivel: baseUrl + 'AdministrarShowRoom/GetShowRoomPersonalizacionNivel',
+            urlGuardarPersonalizacionNivelShowRoom: baseUrl + 'AdministrarShowRoom/GuardarPersonalizacionNivelShowRoom',
             urlImageMatrizUpload: '@Url.Action("ImageMatrizUpload", "FileUpload")',
-            urlDeshabilitarShowRoomEvento: baseUrl + 'ShowRoom/DeshabilitarShowRoomEvento',
-            urlEliminarShowRoomEvento: baseUrl + 'ShowRoom/EliminarShowRoomEvento',
-            urlGuardarShowRoom: baseUrl + 'ShowRoom/GuardarShowRoom',
-            urlConsultarOfertaShowRoomDetalle: baseUrl + "ShowRoom/ConsultarOfertaShowRoomDetalleNew",
-            urlEliminarOfertaShowRoomDetalleAll: baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalleAllNew',
-            urlEliminarOfertaShowRoomDetalle: baseUrl + 'ShowRoom/EliminarOfertaShowRoomDetalleNew',
-            urlInsertOfertaShowRoomDetalle: baseUrl + 'ShowRoom/InsertOfertaShowRoomDetalleNew',
-            urlUpdateOfertaShowRoomDetalle: baseUrl + 'ShowRoom/UpdateOfertaShowRoomDetalleNew',
+            urlDeshabilitarShowRoomEvento: baseUrl + 'AdministrarShowRoom/DeshabilitarShowRoomEvento',
+            urlEliminarShowRoomEvento: baseUrl + 'AdministrarShowRoom/EliminarShowRoomEvento',
+            urlGuardarShowRoom: baseUrl + 'AdministrarShowRoom/GuardarShowRoom',
+            urlConsultarOfertaShowRoomDetalle: baseUrl + "AdministrarShowRoom/ConsultarOfertaShowRoomDetalleNew",
+            urlEliminarOfertaShowRoomDetalleAll: baseUrl + 'AdministrarShowRoom/EliminarOfertaShowRoomDetalleAllNew',
+            urlEliminarOfertaShowRoomDetalle: baseUrl + 'AdministrarShowRoom/EliminarOfertaShowRoomDetalleNew',
+            urlInsertOfertaShowRoomDetalle: baseUrl + 'AdministrarShowRoom/InsertOfertaShowRoomDetalleNew',
+            urlUpdateOfertaShowRoomDetalle: baseUrl + 'AdministrarShowRoom/UpdateOfertaShowRoomDetalleNew',
             rutaImagenTemporal: '@Url.Content("~/Content/Temporales/")',
             imagenEdit: '@Url.Content("~/Content/Images/Edit.png")',
             imagenDeshabilitar: '@Url.Content("~/Content/Images/NotAllowed.png")',
@@ -652,6 +653,7 @@
             rutastylejstree: '@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")'
             // SHOWROOM-FIN
         });
+
         adminEstrategiaModule.Inicializar();
 
         $.jgrid.extend({
@@ -677,6 +679,7 @@
             urlEstrategiaOfertasPersonalizadasInsert: baseUrl + "AdministrarEstrategiaMasivo/EstrategiaOfertasPersonalizadasInsert",
             MensajeErrorGeneral: "Lo sentimos, vuelva a intentarlo"
         });
+
         admNuevoMasivoModulo.Inicializar();
 
     });
@@ -686,5 +689,5 @@
             e.preventDefault();
         }
     });
-    
+
 </script>

@@ -19,5 +19,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         Task<BEPedidoReservaAppResult> Reserva(BEUsuario usuario);
         BEPedidoDetalleAppResult DeshacerReserva(BEUsuario usuario);
         List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario);
+        BEUsuario GetConfiguracionOfertaFinal(BEUsuario usuario);
+        List<BEProducto> GetProductoSugerido(BEProductoAppBuscar productoBuscar);
     }
 }

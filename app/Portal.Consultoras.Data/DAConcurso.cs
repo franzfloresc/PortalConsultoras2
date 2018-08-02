@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using Portal.Consultoras.Entities;
+using System.Data;
 using System.Data.Common;
 
 namespace Portal.Consultoras.Data
@@ -23,7 +24,7 @@ namespace Portal.Consultoras.Data
 
         public void ActualizarInsertarPuntosConcurso(string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcurso, string PuntosExigidosConcurso)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ActualizarInsertarPuntosConcurso_Prol3");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ActualizarInsertarPuntosConcurso");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
             Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, CodigoCampania);
             Context.Database.AddInParameter(command, "@CodigoConcurso", DbType.String, CodigoConcursos);
@@ -73,14 +74,27 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.String, CodigoZona);
             return Context.ExecuteReader(command);
         }
+        public void DelInsProgramaNuevasXConsultora(string codigoConsultora, BEIncentivoConcurso incentivosNuevas)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelInsProgramaNuevasXConsultora");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            Context.Database.AddInParameter(command, "@CodigoCampania", DbType.Int32, incentivosNuevas.CampaniaID);
+            Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, incentivosNuevas.CodigoConcurso);
+            Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, incentivosNuevas.CodigoNivelProgramaNuevas);
+            Context.Database.AddInParameter(command, "@TipoConcurso", DbType.String, incentivosNuevas.TipoConcurso);
+
+            Context.ExecuteNonQuery(command);
+        }
 
         public IDataReader ObtenerIncentivosProgramaNuevasConsultora(string CodigoConsultora, int CodigoCampania, long ConsultoraID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerIncentivosProgramaNuevasConsultora");
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
-            Context.Database.AddInParameter(command, "@CodigoCampania", DbType.Int32, CodigoCampania);
-            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
-            return Context.ExecuteReader(command);
+            using (var command = Context.Database.GetStoredProcCommand("dbo.ObtenerIncentivosProgramaNuevasConsultora"))
+            {
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
+                Context.Database.AddInParameter(command, "@CodigoCampania", DbType.Int32, CodigoCampania);
+                Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+                return Context.ExecuteReader(command);
+            }
         }
 
         public IDataReader ObtenerIncentivosConsultoraEstrategia(string CodigoConsultora, int CodigoCampania)

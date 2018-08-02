@@ -1,0 +1,17 @@
+﻿
+.ficha_redes_sociales {
+    margin-top: 7px;
+}
+
+.texto_redes_sociales {
+    float: left;
+    line-height: 24px;
+    margin-right: 2%;
+    text-align: right;
+    width: 67%;
+}
+
+.btn_compartir_facebook {
+    float: left;
+    width: 24px;
+}

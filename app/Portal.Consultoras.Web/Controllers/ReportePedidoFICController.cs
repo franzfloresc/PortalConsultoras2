@@ -200,8 +200,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (PaisID != 0)
             {
                 lst = DropDowListCampanias(PaisID);
-                lstRegiones = DropDownListRegiones(PaisID).OrderBy(x => x.Codigo);
-                lstZonas = DropDownListZonas(PaisID).OrderBy(x => x.Codigo);
+                lstRegiones = _baseProvider.DropDownListRegiones(PaisID).OrderBy(x => x.Codigo);
+                lstZonas = _baseProvider.DropDownListZonas(PaisID).OrderBy(x => x.Codigo);
             }
 
             return Json(new

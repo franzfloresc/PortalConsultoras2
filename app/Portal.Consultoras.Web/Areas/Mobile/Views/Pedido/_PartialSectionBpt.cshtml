@@ -17,8 +17,8 @@
         {
             <div class="wrapper_resumen_mobile_clubganamas">
                 <div class="zonadecolor dorado">
-                    <img src="~/Content/Images/etiqueta-club-ganamas-blanco-independiente.svg" class="logo-club-etiqueta" />
-                    <span>
+                    <img src="~/Content/Images/etiqueta-club-ganamas-blanco-independiente.svg" class="logo-club-etiqueta"/>
+                    <span style="color:white">
                         <p class="primero">@Html.Raw(configuracionPaisDatosModel.Valor1)</p>
                         <p class="segundo">@Html.Raw(configuracionPaisDatosModel.Valor2)</p>
                     </span>
@@ -32,7 +32,7 @@
                 {
                     <div id="divContenedorListaEstrategia" style="top: -50px; background: transparent; position: relative;" >
                         <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
-                             data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion" style="width: 100%;">
+                             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion" style="width: 100%;">
                             <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                     <span class="margin_top">
                         @Html.Raw(configuracionPaisDatosModel.Valor1) 
                     </span>
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')" class="boton-ver-mas">
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion)" class="boton-ver-mas" style="background:black">
                         VER MÁS OFERTAS
                     </a>
                 </div>
@@ -72,7 +72,7 @@
                     {
                         <div style="padding-top:20px" id="divContenedorListaEstrategia">
                             <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
-                                 data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion" style="width: 100%;">
+                                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion" style="width: 100%;">
                                 <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
                             </div>
                         </div>

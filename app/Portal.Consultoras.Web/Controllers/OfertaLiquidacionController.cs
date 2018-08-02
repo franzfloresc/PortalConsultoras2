@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
@@ -18,11 +18,22 @@ namespace Portal.Consultoras.Web.Controllers
     public class OfertaLiquidacionController : BaseController
     {
         static List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
+        protected RenderImgProvider _renderImgProvider;
 
+        public OfertaLiquidacionController()
+        {
+            _renderImgProvider = new RenderImgProvider();
+        }
+        
         #region Visualización de Pedidos Liquidación
 
         public ActionResult OfertasLiquidacion()
         {
+            if (EsDispositivoMovil())
+            {
+                return RedirectToAction("Index", "OfertaLiquidacion", new { area = "Mobile" });
+            }
+
             if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                 return RedirectToAction("Index", "Bienvenida");
             try
@@ -97,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
                 usuario.FechaFacturacion = obeConfiguracionCampania.FechaFinFacturacion;
                 usuario.HoraFacturacion = obeConfiguracionCampania.HoraFin;
             }
-            SetUserData(usuario);
+            sessionManager.SetUserData(usuario);
         }
 
         [HttpGet]
@@ -127,7 +138,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in lst)
                     {
-                        item.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, item.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO);
+                        item.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, item.ImagenProducto);
                         item.ImagenProductoSmall = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenSmall);
                         item.ImagenProductoMedium = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenMedium);
                         item.PrecioString = Util.DecimalToStringFormat(item.PrecioOferta, userData.CodigoISO);
@@ -158,7 +169,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (lst.Count > 0)
             {
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
+                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
             }
 
             return Mapper.Map<IList<BEOfertaProducto>, List<OfertaProductoModel>>(lst);
@@ -221,7 +232,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var pedidoServiceClient = new PedidoServiceClient())
                 {
                     pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, model.Cantidad.ToInt(), model.CUV
-                        , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0);
+                        , userData.ConsultoraID, "", string.Format("{0}:1", model.CUV), 0, userData.NombreConsultora, userData.CodigoPrograma, userData.ConsecutivoNueva);
                 }
 
                 return Json(new
@@ -432,7 +443,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lstCampania = new List<CampaniaModel>(),
                 lstConfiguracionOferta = new List<ConfiguracionOfertaModel>(),
                 lstPais = DropDowListPaises(),
-                ExpValidacionNemotecnico = GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico)
+                ExpValidacionNemotecnico = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico)
             };
             return View(cronogramaModel);
         }
@@ -496,7 +507,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
             IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
-            string habilitarNemotecnico = ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoOfertaLiquidacion);
+            string habilitarNemotecnico = _tablaLogicaProvider.ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoOfertaLiquidacion);
 
             return Json(new
             {
@@ -642,7 +653,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
                 string iso = Util.GetPaisISO(PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + iso;
-                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + iso));
+                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto));
                 lst.Update(x => x.ISOPais = iso);
                 var data = new
                 {
@@ -703,7 +714,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
 
-                    mensajeErrorImagenResize = ImagenesResizeProceso(rutaImagenCompleta);
+                    mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(rutaImagenCompleta, userData.CodigoISO);
                     
                     #endregion                    
 
@@ -758,7 +769,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
 
-                    mensajeErrorImagenResize = ImagenesResizeProceso(rutaImagenCompleta);
+                    mensajeErrorImagenResize = _renderImgProvider.ImagenesResizeProceso(rutaImagenCompleta, userData.CodigoISO);
 
                     #endregion                    
 

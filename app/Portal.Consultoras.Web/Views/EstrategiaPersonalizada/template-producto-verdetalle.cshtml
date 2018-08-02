@@ -3,9 +3,8 @@
         <a class="cerrar_fichaProducto" href="javascript:;" data-popup-close="popupDetalleCarousel_lanzamiento" title="Cerrar">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
         </a>
-        <div data-item="" data-clone-item="{{EstrategiaID}}" data-clone-content="{{ContentItem}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
+        <div data-item="" data-OrigenPedidoWeb="{{OrigenPedidoWeb}}" data-clone-item="{{EstrategiaID}}" data-clone-content="{{ContentItem}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
             <div style="display:none;"><div data-estrategia="{{JSON2string this}}"></div></div>
-            <input type="hidden" class="OrigenPedidoWeb" value="{{OrigenPedidoWeb}}" />
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{CUV2}}" />
                 <input type="hidden" class="rsFBMensaje" value="" />
@@ -93,7 +92,7 @@
                                     <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
                                     <hr class="clear">
                                 </div>
-                                <div class="content_tonos_select" style="display:none;">
+                                <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
                                     {{#each this.Detalle as |Tono|}}
                                     <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="{{Tono.CUV}}" data-tono-nombre="{{Tono.NombreBulk}}" data-tono-descripcion="{{Tono.NombreComercial}}">
                                         <div class="tono_seleccionado"><img src="{{Tono.ImagenBulk}}" alt=""></div>
@@ -140,7 +139,7 @@
                                         <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
                                         <hr class="clear">
                                     </div>
-                                    <div class="content_tonos_select" style="width:102%;">
+                                    <div class="content_tonos_select" style="width:102%;" data-tono-select-area="1">
                                         {{#each item1.Hermanos as |tono|}}
                                         <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="{{tono.CUV}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-descripcion="{{tono.NombreComercial}}">
                                             <div class="tono_seleccionado"><img src="{{tono.ImagenBulk}}" alt="PRODUCTO"></div>
@@ -162,15 +161,17 @@
                 </div>
                 <hr class="clear" />
                 {{#iff TipoAccionAgregar '>' 0}}
-                <div class="liquidacion_rango_home liquidacion_rango_home_fix">
+                <div class="liquidacion_rango_home liquidacion_rango_home_fix" data-cantidad-contenedor="">
                     <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{ClaseBloqueada}}" data-input="cantidad" data-cantidad-input="-" {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
                     <div class="liquidacion_rango_right_pedido">
-                        <a class="mas" data-cantidad-agregar="+" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos" data-cantidad-agregar="-" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        <a class="mas" data-cantidad-agregar="+" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
+                        <img data-bloqueada="{{ClaseBloqueada}}" src="/Content/Images/Esika/mas.png"  /></a>
+                        <a class="menos" data-cantidad-agregar="-" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="{{ClaseBloqueada}}">
+                        <img data-bloqueada="{{ClaseBloqueada}}" src="/Content/Images/Esika/menos.png" /></a>
                     </div>
                 </div>
                 <a class="boton_Agregalo_home boton_Agregalo_home_fix ficha_btn_agregar {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" id="tbnAgregarProducto"
-                   onclick="javascript:EstrategiaAgregar(event, true);" style="cursor: pointer;">
+                   onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, true);" style="cursor: pointer;">
                     AGRÉGALO
                 </a>
                 {{/iff}}

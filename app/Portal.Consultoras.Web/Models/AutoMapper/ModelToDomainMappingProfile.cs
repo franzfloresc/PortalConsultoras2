@@ -5,6 +5,7 @@ using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using Portal.Consultoras.Web.Models.Estrategia;
+using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -25,10 +26,11 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<EstrategiaPedidoModel, ServicePedido.BEEstrategia>()
                 .ForMember(t => t.EstrategiaDetalle, f => f.MapFrom(c => c.EstrategiaDetalle))
-                .ForMember(t => t.TipoEstrategia, f => f.MapFrom(c => c.TipoEstrategia));
+                .ForMember(t => t.TipoEstrategia, f => f.MapFrom(c => c.TipoEstrategia))
+                .ForMember(t => t.EsSubCampania, f => f.MapFrom(c=>Convert.ToInt32(c.EsSubCampania)));
 
             Mapper.CreateMap<EstrategiaDetalleModelo, ServicePedido.BEEstrategiaDetalle>();
-
+            
             Mapper.CreateMap<TipoEstrategiaModelo, ServicePedido.BETipoEstrategia>()
                 .ForMember(t => t.FlagActivo, f => f.MapFrom(c => c.FlagActivo ? 1 : 0));
 
@@ -82,7 +84,15 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.FechaInicioFacturacion, f => f.MapFrom(c => c.FechaInicioCampania))
                 .ForMember(t => t.FechaFinFacturacion, f => f.MapFrom(c => c.FechaFinCampania))
                 .ForMember(t => t.MontoMinimoFlexipago, f => f.Ignore())
-                .ForMember(t => t.OfertaDelDia, f => f.Ignore());
+                .ForMember(t => t.OfertaDelDia, f => f.Ignore())
+                .ForMember(t => t.beOfertaFinal, f => f.Ignore());
+
+            Mapper.CreateMap<UsuarioModel, ServiceUsuario.BEUsuario>()
+                .ForMember(t => t.FechaInicioFacturacion, f => f.MapFrom(c => c.FechaInicioCampania))
+                .ForMember(t => t.FechaFinFacturacion, f => f.MapFrom(c => c.FechaFinCampania))
+                .ForMember(t => t.MontoMinimoFlexipago, f => f.Ignore())
+                .ForMember(t => t.OfertaDelDia, f => f.Ignore())
+                .ForMember(t => t.beOfertaFinal, f => f.Ignore());
 
             Mapper.CreateMap<AdministrarPalancaModel, ServiceSAC.BEConfiguracionPais>();
             Mapper.CreateMap<ConfiguracionPaisDatosModel, ServiceUsuario.BEConfiguracionPaisDatos>();
@@ -439,7 +449,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
                 .ForMember(t => t.OrigenPedidoWeb, f => f.MapFrom(c => c.OrigenPedidoWeb));
 
-            Mapper.CreateMap<EstrategiaProductoModel, BEEstrategiaProducto>();
+            Mapper.CreateMap<EstrategiaProductoModel, ServicePedido.BEEstrategiaProducto>();
 
             Mapper.CreateMap<UpSellingModel, UpSelling>()
                 .ForMember(t => t.Regalos, f => f.MapFrom(c => c.Regalos));
@@ -451,6 +461,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<OfertaFinalMontoMetaModel, UpSellingMontoMeta>();
 
+            Mapper.CreateMap<ShowRoomEventoConsultoraModel, ServicePedido.BEShowRoomEventoConsultora>();
+            
+            Mapper.CreateMap<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>();
         }
     }
 }

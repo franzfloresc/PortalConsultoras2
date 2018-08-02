@@ -19,14 +19,10 @@ namespace Portal.Consultoras.Entities
 
         public BEEstadoSolicitudCliente(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "EstadoId"))
-                EstadoSolicitudClienteID = Convert.ToInt32(row["EstadoId"]);
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = row["Descripcion"].ToString();
-            if (DataRecord.HasColumn(row, "Estado"))
-                TipoEstado = row["Estado"].ToString();
-            if (DataRecord.HasColumn(row, "Activo"))
-                Activo = Convert.ToBoolean(row["Activo"]);
+            EstadoSolicitudClienteID = row.ToInt32("EstadoId");
+            Descripcion = row.ToString("Descripcion");
+            TipoEstado = row.ToString("Estado");
+            Activo = row.ToBoolean("Activo");
         }
 
     }

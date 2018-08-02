@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using ClosedXML.Excel;
-using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
@@ -19,10 +18,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.ServiceModel;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
@@ -141,6 +137,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.FBAppId = ConfigurationManager.AppSettings["FB_AppId"];
 
+
+
             return View(model);
         }
         [AllowAnonymous]
@@ -158,9 +156,12 @@ namespace Portal.Consultoras.Web.Controllers
             if (url.Length > 1)
             {
                 var MiCurso = url[1].Split('=');
-                if (Util.IsNumeric(MiCurso[1]))
-                {
-                    misCursos = Convert.ToInt32(MiCurso[1]);
+                var MiId = MiCurso[1].Split('&');
+               // if (Util.IsNumeric(MiCurso[1]))
+                 if (Util.IsNumeric(MiId[0]))
+                   {
+                    // misCursos = Convert.ToInt32(MiCurso[1]);
+                    misCursos = Convert.ToInt32(MiId[0]);
                     TempData["MiAcademia"] = misCursos;
                 }
             }
@@ -181,6 +182,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.PaisID = Util.GetPaisID(model.CodigoISO);
 
                 var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);
+
 
                 if (resultadoInicioSesion != null && resultadoInicioSesion.Result == USUARIO_VALIDO)
                 {
@@ -271,12 +273,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 TempData["errorLogin"] = mensaje;
-
-                return Json(new
-                {
-                    success = true,
-                    redirectTo = Url.Action("Index", "Login")
-                });
+                return RedirectToAction("Index", "Login");
             }
             catch (FaultException ex)
             {
@@ -307,13 +304,18 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 TempData["errorLogin"] = "Error al procesar la solicitud";
+                return RedirectToAction("Index", "Login");
             }
 
-            return Json(new
+            if (Request.IsAjaxRequest())
             {
-                success = true,
-                redirectTo = Url.Action("Index", "Login")
-            });
+                return Json(new
+                {
+                    success = true,
+                    redirectTo = Url.Action("Index", "Login")
+                });
+            }
+            return RedirectToAction("Index", "Login");
         }
 
         [AllowAnonymous]
@@ -339,25 +341,23 @@ namespace Portal.Consultoras.Web.Controllers
         public async Task<ActionResult> Redireccionar(int paisId, string codigoUsuario, string returnUrl = null,
             bool hizoLoginExterno = false)
         {
-            BEPinAutenticacion oPin = null;
-            bool flagPin = Convert.ToBoolean(TempData["FlagPin"]);
-
-            if (!flagPin)
+            if (!Convert.ToBoolean(TempData["FlagPin"]) && TieneVerificacionAutenticidad(paisId, codigoUsuario))
             {
-                oPin = PinAutenticacion(paisId, codigoUsuario);
-
-                if (oPin != null)
+                //if (TieneVerificacionAutenticidad(paisId, codigoUsuario))
+                //{
+                if (Request.IsAjaxRequest())
                 {
                     return Json(new
                     {
                         success = true,
-                        data = oPin,
-                        redirectTo = ""
-                    }, JsonRequestBehavior.AllowGet);
+                        redirectTo = Url.Action("VerificaAutenticidad", "Login")
+                    });
                 }
+                return RedirectToAction("VerificaAutenticidad", "Login");
+                //}
             }
 
-            oPin = null;
+            Session["DatosUsuario"] = null;
 
             pasoLog = "Login.Redireccionar";
             var usuario = await GetUserData(paisId, codigoUsuario);
@@ -382,7 +382,6 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        data = oPin,
                         redirectTo = "Error al procesar la solicitud"
                     });
                 }
@@ -418,54 +417,66 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        SetTempDataAnalyticsLogin(usuario, hizoLoginExterno);
-
-                        if (flagPin)
-                        {
-                            return Json(new
-                            {
-                                success = true,
-                                data = oPin,
-                                redirectTo = Url.Action("Index", "MisDatos", new { area = "Mobile" })
-                            });
-                        }
-
                         if (EsAndroid())
                             urlx = Url.Action("Index", "DescargarApp", new { area = "Mobile" });
                         else
                             urlx = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
                     }
 
-                    return Json(new
+                    if (Request.IsAjaxRequest())
                     {
-                        success = true,
-                        data = oPin,
-                        redirectTo = urlx
-                    });
+                        return Json(new
+                        {
+                            success = true,
+                            redirectTo = urlx
+                        });
+                    }
+
+                    SetTempDataAnalyticsLogin(usuario, hizoLoginExterno);
+                    if (Url.IsLocalUrl(decodedUrl))
+                    {
+                        return Redirect(decodedUrl);
+                    }
+                    if (EsAndroid())
+                        return RedirectToAction("Index", "DescargarApp", new { area = "Mobile" });
+                    else
+                        return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
 
                 if (string.IsNullOrEmpty(usuario.EMail) || !usuario.EMailActivo)
                 {
                     Session["PrimeraVezSession"] = 0;
                 }
+                if (Request.IsAjaxRequest())
+                {
+                    var urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");
+                    return Json(new
+                    {
+                        success = true,
+                        redirectTo = urlx
+                    });
+                }
 
                 SetTempDataAnalyticsLogin(usuario, hizoLoginExterno);
-
-                var urlx2 = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");
+                if (Url.IsLocalUrl(decodedUrl))
+                {
+                    return Redirect(decodedUrl);
+                }
+                return RedirectToAction("Index", "Bienvenida");
+            }
+            if (Request.IsAjaxRequest())
+            {
                 return Json(new
                 {
                     success = true,
-                    data = oPin,
-                    redirectTo = urlx2
+                    redirectTo = Url.Action("Index", "Bienvenida")
                 });
             }
-
-            return Json(new
+            if (Url.IsLocalUrl(decodedUrl))
             {
-                success = true,
-                data = oPin,
-                redirectTo = Url.Action("Index", "Bienvenida")
-            });
+                return Redirect(decodedUrl);
+            }
+            return RedirectToAction("Index", "Bienvenida");
         }
 
         [AllowAnonymous]
@@ -552,6 +563,31 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Admin()
         {
             return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult VerificaAutenticidad()
+        {
+            if (Session["DatosUsuario"] == null) return RedirectToAction("Index", "Login");
+            var obj = (BEUsuarioDatos)Session["DatosUsuario"];
+            var model = new BEUsuarioDatos();
+            model.PrimerNombre = obj.PrimerNombre;
+            model.MensajeSaludo = obj.MensajeSaludo;
+            model.CorreoEnmascarado = obj.CorreoEnmascarado;
+            model.CelularEnmascarado = obj.CelularEnmascarado;
+            model.OpcionCorreoDesabilitado = obj.OpcionCorreoDesabilitado;
+            model.OpcionSmsDesabilitado = obj.OpcionSmsDesabilitado;
+            model.HoraRestanteCorreo = obj.HoraRestanteCorreo;
+            model.HoraRestanteSms = obj.HoraRestanteSms;
+            model.IdEstadoActividad = obj.IdEstadoActividad;
+            model.CodigoIso = obj.CodigoIso;
+            model.PrimerNombre = obj.PrimerNombre;
+            model.CodigoUsuario = obj.CodigoUsuario;
+            model.Correo = obj.Correo;
+            model.MostrarOpcion = obj.MostrarOpcion;
+            model.OpcionChat = obj.OpcionChat;
+            model.EsMobile = EsDispositivoMovil();
+            return View(model);
         }
 
         [HttpPost]
@@ -848,10 +884,10 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        private JsonResult ErrorJson(string message, bool allowGet = false)
-        {
-            return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
-        }
+        //private JsonResult ErrorJson(string message, bool allowGet = false)
+        //{
+        //    return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
+        //}
 
         private JsonResult SuccessJson(string message, bool allowGet = false)
         {
@@ -879,7 +915,7 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetIsOfertaPack(1);
 
             var usuarioModel = (UsuarioModel)null;
-            var estrategiaODD = (Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel)null;
+
             try
             {
                 if (paisId == 0)
@@ -946,7 +982,6 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.PedidoFICActivo = usuario.PedidoFICActivo;
                     usuarioModel.HorasDuracionRestriccion = usuario.HorasDuracionRestriccion;
                     usuarioModel.EsJoven = usuario.EsJoven;
-                    usuarioModel.PROLSinStock = usuario.PROLSinStock;
                     usuarioModel.HoraCierreZonaDemAntiCierre = usuario.HoraCierreZonaDemAntiCierre;
                     usuarioModel.ConsultoraAsociadaID = usuario.ConsultoraAsociadaID;
                     usuarioModel.ValidacionAbierta = usuario.ValidacionAbierta;
@@ -982,7 +1017,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     usuarioModel.DiasAntes = usuario.DiasAntes;
                     usuarioModel.DiasDuracionCronograma = usuario.DiasDuracionCronograma;
-                    
+
                     switch (usuario.RolID)
                     {
                         case Constantes.Rol.Administrador:
@@ -1082,6 +1117,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.ConsecutivoNueva = usuario.ConsecutivoNueva;
 
                     usuarioModel.DocumentoIdentidad = usuario.DocumentoIdentidad;
+                    usuarioModel.PromedioVenta = usuario.PromedioVenta;
                     #endregion
 
                     if (usuarioModel.RolID == Constantes.Rol.Consultora)
@@ -1125,7 +1161,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 var montoMinimoFlexipago = ofertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : ofertaFlexipago.MontoMinimoFlexipago;
                                 usuarioModel.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", montoMinimoFlexipago);
-                            }                           
+                            }
                         }
 
                         #endregion
@@ -1133,13 +1169,12 @@ namespace Portal.Consultoras.Web.Controllers
                         #region llamadas asincronas para GPR, ODD, RegaloPN, LoginFB, EventoFestivo, IncentivosConcursos
 
                         var motivoRechazoTask = Task.Run(() => GetMotivoRechazo(usuario, usuarioModel.MontoDeuda, esAppMobile));
-                        var ofertaDelDiaTask = Task.Run(() => GetOfertaDelDiaModel(usuarioModel, usuario));
                         var regaloProgramaNuevas = Task.Run(() => GetConsultoraRegaloProgramaNuevas(usuarioModel));
                         var loginExternoTask = Task.Run(() => GetListaLoginExterno(usuario));
                         var eventoFestivoTask = Task.Run(() => ConfigurarEventoFestivo(usuarioModel));
                         var incentivoConcursoTask = Task.Run(() => ConfigurarIncentivosConcursos(usuarioModel));
 
-                        Task.WaitAll(motivoRechazoTask, ofertaDelDiaTask, regaloProgramaNuevas, loginExternoTask, eventoFestivoTask, incentivoConcursoTask);
+                        Task.WaitAll(motivoRechazoTask, regaloProgramaNuevas, loginExternoTask, eventoFestivoTask, incentivoConcursoTask);
 
                         #region GPR
 
@@ -1154,19 +1189,6 @@ namespace Portal.Consultoras.Web.Controllers
                             usuarioModel.RechazadoXdeuda = gprBanner.RechazadoXdeuda;
                             usuarioModel.MostrarBannerRechazo = gprBanner.MostrarBannerRechazo;
                         }
-
-                        #endregion
-
-                        #region ODD
-                        if (ofertaDelDiaTask.Result != null)
-                        {
-                            estrategiaODD = new Models.Estrategia.OfertaDelDia.DataModel
-                            {
-                                ListaDeOferta = ofertaDelDiaTask.Result
-                            };
-                        }
-                       
-                        usuarioModel.TieneOfertaDelDia = estrategiaODD.ListaDeOferta.Any();
 
                         #endregion
 
@@ -1253,9 +1275,13 @@ namespace Portal.Consultoras.Web.Controllers
                         var lstFiltersFAV = await CargarFiltersFAV(usuarioModel);
                         if (lstFiltersFAV.Any()) sessionManager.SetListFiltersFAV(lstFiltersFAV);
                     }
- 
+
                     usuarioModel.EsLebel = GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO);
                     usuarioModel.MensajeChat = await GetMessageChat(usuarioModel.PaisID);
+
+                    usuarioModel.PuedeActualizar = usuario.PuedeActualizar;
+                    usuarioModel.PuedeEnviarSMS = usuario.PuedeEnviarSMS;
+                    usuarioModel.FotoPerfilAncha = usuario.FotoPerfilAncha;
 
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
@@ -1267,10 +1293,10 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneHvX1(true);
 
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
+                    usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
                 }
 
                 sessionManager.SetUserData(usuarioModel);
-                sessionManager.SetEstrategiaODD(estrategiaODD);
             }
             catch (Exception ex)
             {
@@ -1428,7 +1454,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private async Task<BEOfertaFlexipago> GetLineaCreditoFlexipago(UsuarioModel usuarioModel)
         {
-            if (!(usuarioModel.IndicadorFlexiPago > 0 && usuarioModel.TipoUsuario == Constantes.TipoUsuario.Consultora)) return null;
+            if (!(usuarioModel.IndicadorFlexiPago > 0 && usuarioModel.EsConsultora())) return null;
 
             BEOfertaFlexipago ofertaFlexipago;
 
@@ -1475,125 +1501,6 @@ namespace Portal.Consultoras.Web.Controllers
             return gprBanner;
         }
 
-        private async Task<List<OfertaDelDiaModel>> GetOfertaDelDiaModel(UsuarioModel model, ServiceUsuario.BEUsuario usuario)
-        {
-            if (!(usuario.OfertaDelDia && usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)) return new List<OfertaDelDiaModel>();
-
-            var ofertasDelDiaModel = new List<OfertaDelDiaModel>();
-
-            try
-            {
-                var ofertasDelDia = await ObtenerOfertasDelDia(model);
-
-                if (!ofertasDelDia.Any())
-                    return ofertasDelDiaModel;
-
-                var personalizacionesOfertaDelDia = await ObtenerPersonalizacionesOfertaDelDia(model);
-                if (!personalizacionesOfertaDelDia.Any())
-                    return ofertasDelDiaModel;
-
-                ofertasDelDia = ofertasDelDia.OrderBy(odd => odd.Orden).ToList();
-                var countdown = await CountdownODD(model);
-
-                var tablaLogica9301 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9301) ?? new BETablaLogicaDatos();
-                var tablaLogica9302 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9302) ?? new BETablaLogicaDatos();
-
-                var contOdd = 0;
-                var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
-                foreach (var oferta in ofertasDelDia)
-                {
-                    oferta.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, oferta.ImagenURL, carpetaPais);
-
-                    var oddModel = new OfertaDelDiaModel
-                    {
-                        CodigoIso = model.CodigoISO,
-                        TipoEstrategiaID = oferta.TipoEstrategiaID,
-                        EstrategiaID = oferta.EstrategiaID,
-                        MarcaID = oferta.MarcaID,
-                        CUV2 = oferta.CUV2,
-                        LimiteVenta = oferta.LimiteVenta,
-                        IndicadorMontoMinimo = oferta.IndicadorMontoMinimo,
-                        TipoEstrategiaImagenMostrar = oferta.TipoEstrategiaImagenMostrar,
-                        TeQuedan = countdown,
-                        ImagenFondo1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"),
-                            model.CodigoISO),
-                        ColorFondo1 = tablaLogica9301.Codigo ?? string.Empty,
-                        ImagenBanner = oferta.FotoProducto01,
-                        ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(model.CodigoISO, ofertasDelDia.Count),
-                        ImagenFondo2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"),
-                            model.CodigoISO),
-                        ColorFondo2 = tablaLogica9302.Codigo ?? string.Empty,
-                        ImagenDisplay = oferta.FotoProducto01,
-                        ID = contOdd++,
-                        NombreOferta = ObtenerNombreOfertaDelDia(oferta.DescripcionCUV2),
-                        DescripcionOferta = ObtenerDescripcionOfertaDelDia(oferta.DescripcionCUV2),
-                        PrecioOferta = oferta.Precio2,
-                        PrecioCatalogo = oferta.Precio,
-                        TieneOfertaDelDia = true,
-                        Orden = oferta.Orden
-                    };
-
-                    ofertasDelDiaModel.Add(oddModel);
-                }
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, model.CodigoUsuario, model.PaisID.ToString(),
-                    "LoginController.GetOfertaDelDiaModel");
-            }
-
-            return ofertasDelDiaModel;
-        }
-
-        private async Task<List<ServicePedido.BEEstrategia>> ObtenerOfertasDelDia(UsuarioModel model)
-        {
-            List<ServicePedido.BEEstrategia> ofertasDelDia;
-
-            using (var svc = new PedidoServiceClient())
-            {
-                var lst = await svc.GetEstrategiaODDAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date);
-                ofertasDelDia = lst.ToList();
-            }
-
-            return ofertasDelDia;
-        }
-
-        private async Task<List<BETablaLogicaDatos>> ObtenerPersonalizacionesOfertaDelDia(UsuarioModel model)
-        {
-            List<BETablaLogicaDatos> personalizacionesOfertaDelDia;
-
-            using (var svc = new SACServiceClient())
-            {
-                var lst = await svc.GetTablaLogicaDatosAsync(model.PaisID, Constantes.TablaLogica.PersonalizacionODD);
-                personalizacionesOfertaDelDia = lst.ToList();
-            }
-
-            return personalizacionesOfertaDelDia;
-        }
-
-        private async Task<TimeSpan> CountdownODD(UsuarioModel model)
-        {
-            DateTime hoy;
-            DateTime d2;
-            using (var svc = new SACServiceClient())
-            {
-                hoy = await svc.GetFechaHoraPaisAsync(model.PaisID);
-            }
-            var d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
-
-            if (model.EsDiasFacturacion)
-            {
-                var t1 = model.HoraCierreZonaNormal;
-                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
-            }
-            else
-            {
-                d2 = d1.AddDays(1);
-            }
-            var t2 = (d2 - hoy);
-            return t2;
-        }
-
         private async Task<ConsultoraRegaloProgramaNuevasModel> GetConsultoraRegaloProgramaNuevas(UsuarioModel model)
         {
             ConsultoraRegaloProgramaNuevasModel result = null;
@@ -1610,7 +1517,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEConsultoraRegaloProgramaNuevas entidad;
                 using (var svc = new PedidoServiceClient())
                 {
-                    entidad = await svc.GetConsultoraRegaloProgramaNuevasAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.CodigorRegion, model.CodigoZona);
+                    entidad = await svc.GetConsultoraRegaloProgramaNuevasAsync(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.ConsecutivoNueva);
                 }
 
                 if (entidad != null)
@@ -1750,7 +1657,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (tablaLogicaDatos != null)
             {
-                codigoRevista = tablaLogicaDatos.Codigo;
+                codigoRevista = Util.Trim(tablaLogicaDatos.Codigo);
             }
 
             return codigoRevista;
@@ -1811,9 +1718,10 @@ namespace Portal.Consultoras.Web.Controllers
             var lst = new List<BEIncentivoConcurso>();
             try
             {
+                var usuario = Mapper.Map<ServicePedido.BEUsuario>(usuarioModel);
                 using (var sv = new PedidoServiceClient())
                 {
-                    var result = await sv.ObtenerConcursosXConsultoraAsync(usuarioModel.PaisID, usuarioModel.CampaniaID.ToString(), usuarioModel.CodigoConsultora, usuarioModel.CodigorRegion, usuarioModel.CodigoZona);
+                    var result = await sv.ObtenerConcursosXConsultoraAsync(usuario);
                     lst = result.ToList();
                 }
             }
@@ -1859,9 +1767,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var revistaDigitalModel = new RevistaDigitalModel();
                 var ofertaFinalModel = new OfertaFinalModel();
                 var herramientasVentaModel = new HerramientasVentaModel();
-                var estrategiaODD = new Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia.DataModel();
                 var configuracionesPaisModels = await GetConfiguracionPais(usuarioModel);
                 var listaConfiPaisModel = new List<ConfiguracionPaisModel>();
+
                 if (configuracionesPaisModels.Any())
                 {
                     var configuracionPaisDatosAll = await GetConfiguracionPaisDatos(usuarioModel);
@@ -2089,22 +1997,22 @@ namespace Portal.Consultoras.Web.Controllers
                 var confPaisDatoTmp = listaDatos.FirstOrDefault(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoMenuOfertas);
                 if (confPaisDatoTmp != null)
-                    revistaDigital.LogoMenuOfertasNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor1);
+                    revistaDigital.LogoMenuOfertasNoActiva = ConfigCdn.GetUrlFileRDCdn(paisIso, confPaisDatoTmp.Valor1);
 
                 confPaisDatoTmp =
                     listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoComercial);
                 if (confPaisDatoTmp != null)
                 {
-                    revistaDigital.DLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor1);
-                    revistaDigital.MLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor2);
+                    revistaDigital.DLogoComercialNoActiva = ConfigCdn.GetUrlFileRDCdn(paisIso, confPaisDatoTmp.Valor1);
+                    revistaDigital.MLogoComercialNoActiva = ConfigCdn.GetUrlFileRDCdn(paisIso, confPaisDatoTmp.Valor2);
                 }
 
                 confPaisDatoTmp = listaDatos.FirstOrDefault(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RDI.LogoComercialFondo);
                 if (confPaisDatoTmp != null)
                 {
-                    revistaDigital.DLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor1);
-                    revistaDigital.MLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, confPaisDatoTmp.Valor2);
+                    revistaDigital.DLogoComercialFondoNoActiva = ConfigCdn.GetUrlFileRDCdn(paisIso, confPaisDatoTmp.Valor1);
+                    revistaDigital.MLogoComercialFondoNoActiva = ConfigCdn.GetUrlFileRDCdn(paisIso, confPaisDatoTmp.Valor2);
                 }
 
                 confPaisDatoTmp =
@@ -2149,60 +2057,60 @@ namespace Portal.Consultoras.Web.Controllers
 
             revistaDigitalModel.EstadoSuscripcion = revistaDigitalModel.SuscripcionModel.EstadoRegistro;
             revistaDigitalModel.CampaniaActual = Util.SubStr(usuarioModel.CampaniaID.ToString(), 4, 2);
-            revistaDigitalModel.CampaniaFuturoActiva = Util.SubStr(
-                Util.AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva,
-                    usuarioModel.NroCampanias).ToString(), 4, 2);
 
-            revistaDigitalModel.CampaniaSuscripcion =
-                Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
+            int campaniaFuturoActiva =
+                revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva == 0
+                ? revistaDigitalModel.SuscripcionModel.CampaniaEfectiva == 0
+                    ? Util.AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias)
+                    : revistaDigitalModel.SuscripcionModel.CampaniaEfectiva > usuarioModel.CampaniaID
+                        ? revistaDigitalModel.SuscripcionModel.CampaniaEfectiva
+                        : Util.AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias)
+                : revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva > usuarioModel.CampaniaID
+                    ? revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva
+                    : Util.AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
 
-            if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-            {
-                var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
-                    revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+            revistaDigitalModel.CampaniaFuturoActiva = Util.SubStr(campaniaFuturoActiva.ToString(), 4, 2);
 
-                if (ca >= revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
-                    ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
+            revistaDigitalModel.CampaniaSuscripcion = Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
+            revistaDigitalModel.EsActiva = revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
 
-                revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
-                revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
+            //if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            //{
+            //    var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
+            //        revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+            //    if (ca >= revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
+            //        ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
+            //    revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
+            //    revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
+            //}
+            //else if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
+            //{
+            //    if (revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            //    {
+            //        var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID,
+            //            revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+            //        if (ca >= revistaDigitalModel.SuscripcionModel.CampaniaEfectiva)
+            //            ca = revistaDigitalModel.SuscripcionModel.CampaniaEfectiva;
+            //        revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
+            //        revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
+            //    }
+            //    else
+            //    {
+            //        revistaDigitalModel.CampaniaActiva = "";
+            //        revistaDigitalModel.EsActiva = false;
+            //    }
+            //}
+            //else
+            //{
+            //    var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
+            //        revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+            //    if (ca < revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
+            //        ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
+            //    revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
+            //    revistaDigitalModel.EsActiva = ca > usuarioModel.CampaniaID;
+            //}
 
-            }
-            else if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro ==
-                     Constantes.EstadoRDSuscripcion.SinRegistroDB)
-            {
-                if (revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-                {
-                    var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID,
-                        revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
-                    if (ca >= revistaDigitalModel.SuscripcionModel.CampaniaEfectiva)
-                        ca = revistaDigitalModel.SuscripcionModel.CampaniaEfectiva;
-
-                    revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
-                    revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
-                }
-                else
-                {
-                    revistaDigitalModel.CampaniaActiva = "";
-                    revistaDigitalModel.EsActiva = false;
-                }
-
-            }
-            else
-            {
-                var ca = Util.AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID,
-                    revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
-
-                if (ca < revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
-                    ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
-
-                revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
-
-                revistaDigitalModel.EsActiva = ca > usuarioModel.CampaniaID;
-            }
-
-            revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro ==
-                                             Constantes.EstadoRDSuscripcion.Activo;
+            revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
 
             #endregion
 
@@ -2227,8 +2135,7 @@ namespace Portal.Consultoras.Web.Controllers
                     revistaDigitalModel.NoVolverMostrar = false;
                     break;
                 case Constantes.EstadoRDSuscripcion.NoPopUp:
-                    revistaDigitalModel.NoVolverMostrar =
-                        revistaDigitalModel.SuscripcionModel.CampaniaID == usuarioModel.CampaniaID;
+                    revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.CampaniaID == usuarioModel.CampaniaID;
                     break;
             }
 
@@ -2327,7 +2234,7 @@ namespace Portal.Consultoras.Web.Controllers
             var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
             if (dato != null)
             {
-                result = ConfigS3.GetUrlFileRDS3(codigoIso, dato.Valor1);
+                result = ConfigCdn.GetUrlFileRDCdn(codigoIso, dato.Valor1);
             }
 
             return result;
@@ -2339,7 +2246,7 @@ namespace Portal.Consultoras.Web.Controllers
             var dato = configuracionesPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
             if (dato != null)
             {
-                result = ConfigS3.GetUrlFileRDS3(codigoIso, dato.Valor2);
+                result = ConfigCdn.GetUrlFileRDCdn(codigoIso, dato.Valor2);
                 configuracionesPaisDatos.RemoveAll(d => d.Codigo == codigo);
             }
 
@@ -2519,54 +2426,6 @@ namespace Portal.Consultoras.Web.Controllers
             };
         }
 
-        private string ObtenerNombreOfertaDelDia(string descripcionCuv2)
-        {
-            var nombreOferta = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(descripcionCuv2))
-            {
-                nombreOferta = descripcionCuv2.Split('|').First();
-            }
-
-            return nombreOferta;
-        }
-
-        private string ObtenerDescripcionOfertaDelDia(string descripcionCuv2)
-        {
-            var descripcionOdd = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(descripcionCuv2))
-            {
-                var temp = descripcionCuv2.Split('|').ToList();
-                temp = temp.Skip(1).ToList();
-
-                var txtBuil = new StringBuilder();
-                foreach (var item in temp)
-                {
-                    if (!string.IsNullOrEmpty(item))
-                        txtBuil.Append(item.Trim() + "|");
-                }
-
-                descripcionOdd = txtBuil.ToString();
-                descripcionOdd = descripcionOdd == string.Empty
-                    ? string.Empty
-                    : descripcionOdd.Substring(0, descripcionOdd.Length - 1);
-                descripcionOdd = descripcionOdd.Replace("|", " +<br />");
-                descripcionOdd = descripcionOdd.Replace("\\", "");
-                descripcionOdd = descripcionOdd.Replace("(GRATIS)", "<b>GRATIS</b>");
-            }
-
-            return descripcionOdd;
-        }
-
-        private string ObtenerUrlImagenOfertaDelDia(string codigoIso, int cantidadOfertas)
-        {
-            var imgSh = string.Format(ConfigurationManager.AppSettings.Get("UrlImgSoloHoyODD"), codigoIso);
-            var exte = imgSh.Split('.')[imgSh.Split('.').Length - 1];
-            imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
-            return imgSh;
-        }
-
         private void SetTempDataAnalyticsLogin(UsuarioModel usuario, bool hizoLoginExterno)
         {
             var listAnalytics = GetLoginAnalyticsModel();
@@ -2616,33 +2475,34 @@ namespace Portal.Consultoras.Web.Controllers
             return modelo;
         }
 
-        private OfertaDelDiaModel ConfiguracionPaisDatosOfertaDelDia(OfertaDelDiaModel modelo, List<BEConfiguracionPaisDatos> listaDatos)
-        {
-            try
-            {
-                modelo = modelo ?? new OfertaDelDiaModel();
-                if (listaDatos == null || !listaDatos.Any())
-                    return modelo;
+        //[Obsolete("No se usa")]
+        //private OfertaDelDiaModel ConfiguracionPaisDatosOfertaDelDia(OfertaDelDiaModel modelo, List<BEConfiguracionPaisDatos> listaDatos)
+        //{
+        //    try
+        //    {
+        //        modelo = modelo ?? new OfertaDelDiaModel();
+        //        if (listaDatos == null || !listaDatos.Any())
+        //            return modelo;
 
-                var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
-                if (value1 != null) modelo.BloqueoProductoDigital = value1.Valor1 == "1";
+        //        var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+        //        if (value1 != null) modelo.BloqueoProductoDigital = value1.Valor1 == "1";
 
-                listaDatos.RemoveAll(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
+        //        listaDatos.RemoveAll(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloqueoProductoDigital);
 
-                modelo.ConfiguracionPaisDatos =
-                    Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ??
-                    new List<ConfiguracionPaisDatosModel>();
+        //        modelo.ConfiguracionPaisDatos =
+        //            Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ??
+        //            new List<ConfiguracionPaisDatosModel>();
 
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
-                    "LoginController.ConfiguracionPaisDatosOfertaDelDia");
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty,
+        //            "LoginController.ConfiguracionPaisDatosOfertaDelDia");
+        //    }
 
-            return modelo;
+        //    return modelo;
 
-        }
+        //}
 
         private UsuarioModel ConfiguracionPaisDatosUsuario(UsuarioModel modelo, List<BEConfiguracionPaisDatos> listaDatos)
         {
@@ -2695,21 +2555,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return res;
-        }
-
-        private string MensajesOlvideContrasena(string tipoMensaje)
-        {
-            tipoMensaje = Util.Trim(tipoMensaje);
-            switch (tipoMensaje)
-            {
-                case "1": return "El Número de Cédula ingresado no existe.";
-                case "2": return "No tienes un correo registrado para el envío de tu clave. Por favor comunícate con el Servicio de Atención al Cliente.";
-                case "3": return "Correo electrónico no identificado.";
-                case "4": return "Te hemos enviado una nueva clave a tu correo.";
-                case "5": return "Ocurrió un problema al recuperar tu contraseña.";
-                case "6": return "Error al realizar proceso, inténtelo mas tarde.";
-                default: return "";
-            }
         }
 
         public RevistaDigitalModel FormatTextConfiguracionPaisDatosModel(RevistaDigitalModel revistaDigital,
@@ -2777,7 +2622,7 @@ namespace Portal.Consultoras.Web.Controllers
             var name = string.Empty;
             try
             {
-                var logonUserIdentity = ((System.Web.HttpRequestWrapper) Request).LogonUserIdentity;
+                var logonUserIdentity = ((System.Web.HttpRequestWrapper)Request).LogonUserIdentity;
                 if (logonUserIdentity != null)
                     name = logonUserIdentity.Name;
             }
@@ -2809,36 +2654,36 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToRoute("UniqueRoute", route);
         }
 
-        #region Recuperar Contraseña
+        #region OLVIDE CONTRASEÑA
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult ObtenerDatosUsuario(int paisId, string textoRecuperacion, int nroOpcion)
+        public JsonResult GetRestaurarClaveByValor(int paisID, string valorRestaurar, int prioridad)
         {
-            /// Origen 1: Recuperar Contraseña
-            /// Origen 2: Pin de AutenticaciónAction
-
-            /// nroOpcion 1: Opción enviar Correo y/o enviar SMS
-            /// nroOpcion 2: Obtiene datos de chat
-            /// nroOpcion 3: Obtiene datos de llamadas
-            /// nroOpcion 4: Contiene Horario de llamadas - Última prioridad
-
             try
             {
-                paisId = paisId == 0 ? Convert.ToInt32(TempData["PaisID"]) : paisId;
-                textoRecuperacion = !string.IsNullOrEmpty(textoRecuperacion) ? textoRecuperacion : Convert.ToString(TempData["CodigoUsuario"]);
+                BEUsuarioDatos oDatos = null;
+                TempData["PaisID"] = paisID;
+                using (var sv = new UsuarioServiceClient())
+                {
+                    oDatos = sv.GetRestaurarClaveByValor(paisID, valorRestaurar, prioridad);
+                }
+                if (oDatos != null)
+                {
+                    Session["DatosUsuario"] = oDatos;
+                }
 
-                BEUsuarioCorreo oUsuCorreo = DatosUsuarioCorreo(paisId, textoRecuperacion, nroOpcion);
-
+                var habilitarChatEmtelco = HabilitarChatEmtelco(paisID);
                 return Json(new
                 {
                     success = true,
-                    data = oUsuCorreo,
+                    data = oDatos,
+                    habilitarChatEmtelco,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, textoRecuperacion, Util.GetPaisISO(paisId));
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, valorRestaurar, Util.GetPaisISO(paisID));
                 return Json(new
                 {
                     success = false,
@@ -2847,7 +2692,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                logManager.LogErrorWebServicesBusWrap(ex, textoRecuperacion, Util.GetPaisISO(paisId), string.Empty);
+                logManager.LogErrorWebServicesBusWrap(ex, valorRestaurar, Util.GetPaisISO(paisID), string.Empty);
                 return Json(new
                 {
                     success = false,
@@ -2856,351 +2701,126 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private BEUsuarioCorreo DatosUsuarioCorreo(int paisId, string textoRecuperacion, int nroOpcion)
+        [AllowAnonymous]
+        [HttpPost]
+        public JsonResult ProcesaEnvioCorreo(int CantidadEnvios)
         {
+            var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
+            if (oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
+            int paisID = Convert.ToInt32(TempData["PaisID"]);
             try
             {
-                BEUsuarioCorreo datos = GetTemData();
+                TempData["PaisID"] = paisID;
+                bool EstadoEnvio = false;
+                oUsu.EsMobile = EsDispositivoMovil();
 
-                if (nroOpcion == 1 || datos.Cantidad == 0)
+                using (var svc = new UsuarioServiceClient())
                 {
-                    using (var sv = new UsuarioServiceClient())
-                    {
-                        datos = sv.GetRestaurarClaveByCodUsuario(textoRecuperacion, paisId);
-                    }
-                    if (datos != null) SetTemData(datos, paisId);
+                    EstadoEnvio = svc.ProcesaEnvioEmail(paisID, oUsu, CantidadEnvios);
                 }
-
-                if (datos != null && datos.Cantidad != 0)
+                return Json(new
                 {
-                    datos.resultado = "";
-                    datos.EsMobile = EsDispositivoMovil();
-
-                    if (nroOpcion == 1)
-                    {
-                        if (datos.Correo != "" && datos.Celular != "") datos.resultado = "prioridad1";
-                        else if (datos.Correo != "" && datos.Celular == "") datos.resultado = "prioridad1_correo";
-                        else if (datos.Correo == "" && datos.Celular != "") datos.resultado = "prioridad1_sms";
-
-                        if (datos.resultado == "") nroOpcion = 2;
-                    }
-
-                    if (nroOpcion == 2)
-                    {
-                        BEHorario horarioChat;
-                        using (SACServiceClient sv = new SACServiceClient())
-                        {
-                            horarioChat = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.ChatEmtelco, true);
-                        }
-
-                        bool mostrarChat = false;
-                        bool habilitarChat = false;
-
-                        if (horarioChat != null)
-                        {
-                            string paisISO = Util.GetPaisISO(paisId);
-                            mostrarChat = (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO);
-                            datos.descripcionHorario = horarioChat.Resumen;
-                            habilitarChat = horarioChat.EstaDisponible;
-                        }
-
-                        if (mostrarChat && habilitarChat)
-                            datos.resultado = "prioridad2_chat";
-
-                        if (datos.resultado == "") nroOpcion = 3;
-                    }
-
-                    if (nroOpcion == 3)
-                    {
-                        BEHorario horarioBResponde;
-                        bool habilitarBResponde = false;
-
-                        using (SACServiceClient sv = new SACServiceClient())
-                        {
-                            horarioBResponde = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.BelcorpResponde, true);
-                        }
-
-                        datos.descripcionHorario = horarioBResponde.Resumen;
-                        habilitarBResponde = horarioBResponde.EstaDisponible;
-
-                        if (habilitarBResponde)
-                        {
-                            switch (paisId)
-                            {
-                                case 2:
-                                    {
-                                        //BOLIVIA
-                                        datos.TelefonoCentral = "901-105678"; break;
-                                    };
-                                case 3:
-                                    {
-                                        //CHILE
-                                        datos.TelefonoCentral = "02-28762100"; break;
-                                    };
-                                case 4:
-                                    {
-                                        //COLOMBIA
-                                        datos.TelefonoCentral = "01-8000-9-37452,5948060"; break;
-                                    };
-                                case 5:
-                                    {
-                                        //COSTA RICA
-                                        datos.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
-                                    };
-                                case 6:
-                                    {
-                                        //ECUADOR
-                                        datos.TelefonoCentral = "1800-76667"; break;
-                                    };
-                                case 7:
-                                    {
-                                        //EL SALVADOR
-                                        datos.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
-                                    };
-                                case 8:
-                                    {
-                                        //GUATEMALA
-                                        datos.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
-                                    };
-                                case 9:
-                                    {
-                                        //MEXICO
-                                        datos.TelefonoCentral = "01-800-2352677"; break;
-                                    };
-                                case 10:
-                                    {
-                                        //PANAMA
-                                        datos.TelefonoCentral = "800-5235,377-9399"; break;
-                                    };
-                                case 11:
-                                    {
-                                        //PERU
-                                        datos.TelefonoCentral = "01-2113614,080-11-3030"; break;
-                                    };
-                                case 12:
-                                    {
-                                        //PUERTO RICO
-                                        datos.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
-                                    };
-                                case 13:
-                                    {
-                                        //REPUBLICA DOMINICANA
-                                        datos.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
-                                    };
-                                case 14:
-                                    {
-                                        //VENEZUELA
-                                        datos.TelefonoCentral = "0501-2352677"; break;
-                                    };
-                            }
-                            if (datos.TelefonoCentral.Length > 0) datos.resultado = "prioridad2_llamada";
-                        }
-                        if (datos.resultado == "") nroOpcion = 4;
-                    }
-                    if (nroOpcion == 4) datos.resultado = "prioridad3";
-                }
-                return datos;
+                    success = EstadoEnvio,
+                    menssage = ""
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, textoRecuperacion, Util.GetPaisISO(paisId));
-                return null;
-            }
-            catch (Exception ex)
-            {
-                logManager.LogErrorWebServicesBusWrap(ex, textoRecuperacion, Util.GetPaisISO(paisId), string.Empty);
-                return null;
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsu.CodigoUsuario, Util.GetPaisISO(paisID));
+                return Json(new
+                {
+                    success = false,
+                    menssage = "Sucedio un Error al enviar el SMS. Intentelo mas tarde"
+                }, JsonRequestBehavior.AllowGet);
             }
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult ProcesaEnvioCorreo(int EsMobile, int NroIntetos, int OrigenID)
+        public JsonResult ProcesaEnvioSms(int cantidadEnvios)
         {
-            var oUsuCorreo = new BEUsuarioCorreo();
-            bool envioCorreo = false;
-            int PaisID = Convert.ToInt32(TempData["PaisID"]);
-
+            var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
+            if (oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
+            int paisID = Convert.ToInt32(TempData["PaisID"]);
             try
             {
-                oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
-                oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
-                oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
-                oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
-                oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
-                oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
-                oUsuCorreo.CodigoISO = Util.GetPaisISO(PaisID);
-                oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
+                TempData["PaisID"] = paisID;
+                bool EstadoEnvio = false;
+                oUsu.EsMobile = EsDispositivoMovil();
 
-                if (oUsuCorreo.Correo != "")
+                using (var svc = new UsuarioServiceClient())
                 {
-                    oUsuCorreo.Cantidad = NroIntetos;
-                    oUsuCorreo.OrigenID = OrigenID;
-                    oUsuCorreo.EsMobile = Convert.ToBoolean(EsMobile);
-
-                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                    {
-                        envioCorreo = sv.EnviarEmail(PaisID, oUsuCorreo);
-                    }
-
-                    SetTemData(oUsuCorreo, PaisID);
-                    TempData["TipoEnvio"] = Constantes.EnviarCorreoYSms.EnviarPorEmail;
-
-                    if (envioCorreo)
-                        return SuccessJson("", true);
-                    else
-                        return SuccessJson(MensajesOlvideContrasena("6"), false);
+                    EstadoEnvio = svc.ProcesaEnvioSms(paisID, oUsu, cantidadEnvios);
                 }
-                else
+
+                return Json(new
                 {
-                    return SuccessJson(MensajesOlvideContrasena("3"), true);
-                }
+                    success = EstadoEnvio,
+                    menssage = ""
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsuCorreo.Correo, Util.GetPaisISO(PaisID));
-                return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsu.CodigoUsuario, Util.GetPaisISO(paisID));
+                return Json(new
+                {
+                    success = false,
+                    menssage = "Sucedio un Error al enviar el SMS. Intentelo mas taarde"
+                }, JsonRequestBehavior.AllowGet);
             }
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult ProcesaEnvioSms(int NroIntetos, int OrigenID)
+        public async Task<ActionResult> VerificarCodigoGenerado(string Codigoingresado)
         {
-            var oUsuCorreo = new BEUsuarioCorreo();
-            bool EnvioSms = false;
+            var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
+            int paisID = Convert.ToInt32(TempData["PaisID"]);
 
             try
             {
-                int PaisID = Convert.ToInt32(TempData["PaisID"]);
-                bool EsMobile = EsDispositivoMovil();
-
-                if (PaisID != 0 && Convert.ToString(TempData["Celular"]) != "")
-                {
-
-                    oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
-                    oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
-                    oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
-                    oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
-                    oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
-                    oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
-                    oUsuCorreo.CodigoISO = Util.GetPaisISO(PaisID);
-                    oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
-
-                    var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
-                    string requestUrl = "Api/EnviarSMS";
-
-                    oUsuCorreo.opcionHabilitar = true;
-                    if (NroIntetos >= 2)
-                        oUsuCorreo.opcionHabilitar = false;
-
-                    var data = new
-                    {
-                        CodigoUsuario = oUsuCorreo.CodigoUsuario,
-                        nroCelular = oUsuCorreo.Celular,
-                        OrigenID = OrigenID,
-                        CodigoIso = oUsuCorreo.CodigoISO,
-                        CampaniaID = 0, //Si no requiere campaña solo se envia Cero.
-                        IdEstadoActividad = oUsuCorreo.IdEstadoActividad,
-                        OpcionHabilitada = oUsuCorreo.opcionHabilitar,
-                        EsMobile = EsMobile
-                    };
-
-                    HttpClient httpClient = new HttpClient();
-                    httpClient.BaseAddress = new Uri(urlApi);
-                    httpClient.DefaultRequestHeaders.Accept.Clear();
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    string dataString = JsonConvert.SerializeObject(data);
-                    HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = httpClient.PostAsync(requestUrl, contentPost).GetAwaiter().GetResult();
-                    EnvioSms = response.IsSuccessStatusCode;
-                    httpClient.Dispose();
-
-                    SetTemData(oUsuCorreo, PaisID);
-                    TempData["TipoEnvio"] = Constantes.EnviarCorreoYSms.EnviarPorSms;
-                }
-
-                if (EnvioSms)
-                    return SuccessJson(MensajesOlvideContrasena(""), EnvioSms);
-                else
-                    return SuccessJson(MensajesOlvideContrasena("6"), EnvioSms);
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsuCorreo.CodigoUsuario, oUsuCorreo.CodigoISO);
-                return SuccessJson(MensajesOlvideContrasena("6"), false);
-            }
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<ActionResult> ObtenerCodigoGenerado(int OrigenID, string Codigoingresado)
-        {
-            var oUsuCorreo = new BEUsuarioCorreo();
-            int paisID = 0;
-
-            try
-            {
-                string iguales = "";
+                bool iguales = false;
                 string newUri = "";
-                bool igual = false;
-                
-                oUsuCorreo.OrigenID = OrigenID;
-                paisID = Convert.ToInt32(TempData["PaisID"]);
-
-                oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
-                oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
-                oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
-                oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
-                oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
-                oUsuCorreo.tipoEnvio = Convert.ToInt32(TempData["TipoEnvio"]);
-                oUsuCorreo.CodigoISO = Util.GetPaisISO(paisID);
-                oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
+                TempData["PaisID"] = paisID;
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    iguales = sv.GetCodigoGenerado(paisID, oUsuCorreo, Codigoingresado);
+                    iguales = sv.VerificarIgualdadCodigoIngresado(paisID, oUsu, Codigoingresado);
                 }
 
-                if (iguales == "1")
+                if (iguales)
                 {
-                    igual = true;
-
-                    switch (OrigenID)
+                    switch (oUsu.OrigenID)
                     {
-                        case 1:
+                        case Constantes.OpcionesDeVerificacion.OrigenOlvideContrasenia:
                             {
-                                string urlportal = oUsuCorreo.ContextoBase;
+                                string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
                                 DateTime diasolicitud = DateTime.Now;
                                 string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
-                                string paisiso = oUsuCorreo.CodigoISO;
-                                string codigousuario = oUsuCorreo.CodigoUsuario;
-                                string nombre = oUsuCorreo.NombreCompleto.Trim().Split(' ').First();
-                                newUri = Convert.ToString(Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisID, oUsuCorreo.CodigoUsuario, paisiso, codigousuario, fechasolicitud, nombre));
+                                string CodigoIso = oUsu.CodigoIso;
+                                string codigousuario = oUsu.CodigoUsuario;
+                                string nombre = oUsu.PrimerNombre;
+                                newUri = Convert.ToString(Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisID, oUsu.Correo, CodigoIso, codigousuario, fechasolicitud, nombre));
                             }
                             break;
 
-                        case 2:
+                        case Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad:
                             {
                                 TempData["FlagPin"] = true;
-                                return await Redireccionar(paisID, oUsuCorreo.CodigoUsuario);
-                            };
+                                break;
+                            }
                     }
                 }
 
-                SetTemData(oUsuCorreo, paisID);
-
                 return Json(new
                 {
-                    success = igual,
-                    origen = OrigenID,
+                    success = iguales,
                     redirectTo = newUri,
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsuCorreo.CodigoUsuario, Util.GetPaisISO(paisID));
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, Codigoingresado, Util.GetPaisISO(paisID));
                 return Json(new
                 {
                     success = false,
@@ -3209,74 +2829,64 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private void SetTemData(BEUsuarioCorreo oUsuCorreo, int PaisID)
-        {
-            TempData["PaisID"] = PaisID;
-
-            TempData["CodigoISO"] = oUsuCorreo.CodigoISO;
-            TempData["CodigoUsuario"] = oUsuCorreo.CodigoUsuario;
-            TempData["PrimerNombre"] = oUsuCorreo.PrimerNombre;
-            TempData["NombreCompleto"] = oUsuCorreo.NombreCompleto;
-            TempData["IdEstadoActividad"] = oUsuCorreo.IdEstadoActividad;
-            TempData["Email"] = oUsuCorreo.Correo;
-            TempData["Celular"] = oUsuCorreo.Celular;
-            TempData["OpcionCorreoActiva"] = oUsuCorreo.OpcionCorreoActiva;
-            TempData["OpcionSmsActiva"] = oUsuCorreo.OpcionSmsActiva;
-            TempData["HoraRestanteCorreo"] = oUsuCorreo.HoraRestanteCorreo;
-            TempData["HoraRestanteSms"] = oUsuCorreo.HoraRestanteSms;
-            TempData["Cantidad"] = oUsuCorreo.Cantidad;
-        }
-
-        private BEUsuarioCorreo GetTemData()
-        {
-            var oUsuCorreo = new BEUsuarioCorreo();
-            oUsuCorreo.CodigoUsuario = Convert.ToString(TempData["CodigoUsuario"]);
-            oUsuCorreo.CodigoISO = Convert.ToString(TempData["CodigoISO"]);
-            oUsuCorreo.PrimerNombre = Convert.ToString(TempData["PrimerNombre"]);
-            oUsuCorreo.NombreCompleto = Convert.ToString(TempData["NombreCompleto"]);
-            oUsuCorreo.IdEstadoActividad = Convert.ToInt32(TempData["IdEstadoActividad"]);
-            oUsuCorreo.Correo = Convert.ToString(TempData["Email"]);
-            oUsuCorreo.Celular = Convert.ToString(TempData["Celular"]);
-            oUsuCorreo.OpcionCorreoActiva = Convert.ToString(TempData["OpcionCorreoActiva"]);
-            oUsuCorreo.OpcionSmsActiva = Convert.ToString(TempData["OpcionSmsActiva"]);
-            oUsuCorreo.HoraRestanteCorreo = Convert.ToInt32(TempData["HoraRestanteCorreo"]);
-            oUsuCorreo.HoraRestanteSms = Convert.ToInt32(TempData["HoraRestanteSms"]);
-            oUsuCorreo.Cantidad = Convert.ToInt32(TempData["Cantidad"]);
-
-            return oUsuCorreo;
-        }
-
         #endregion
 
-        #region Pin Autenticacion
-        public BEPinAutenticacion PinAutenticacion(int PaisID, string CodigoUsuario)
+        public bool TieneVerificacionAutenticidad(int paisID, string codigoUsuario)
         {
-            BEPinAutenticacion oPin = null;
-
             try
             {
-                if (PaisID != 0)
+                BEUsuarioDatos oVerificacion;
+                using (var sv = new UsuarioServiceClient())
                 {
-                    using (var sv = new UsuarioServiceClient())
-                    {
-                        oPin = sv.GetPinAutenticidad(PaisID, CodigoUsuario);
-                    }
-
-                    TempData["PaisID"] = PaisID;
-                    TempData["CodigoUsuario"] = oPin.CodigoUsuario;
-                    TempData["PrimerNombre"] = oPin.PrimerNombre;
-                    TempData["Email"] = oPin.Email;
-                    TempData["Celular"] = oPin.Celular;
-                    TempData["IdEstadoActividad"] = oPin.IdEstadoActividad;
+                    oVerificacion = sv.GetVerificacionAutenticidad(paisID, codigoUsuario);
                 }
+
+                if (oVerificacion == null) return false;
+
+                Session["DatosUsuario"] = oVerificacion;
+                TempData["PaisID"] = paisID;
+                return true;
             }
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "LoginController.PinAutenticacion");
+                return false;
             }
-
-            return oPin;
         }
-        #endregion
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<ActionResult> ContinuarLogin()
+        {
+            var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
+            int paisID = Convert.ToInt32(TempData["PaisID"]);
+            return await Redireccionar(paisID, oUsu.CodigoUsuario);
+        }
+
+        public bool HabilitarChatEmtelco(int paisId)
+        {
+            bool Mostrar = false;
+            BETablaLogicaDatos[] DataLogica;
+
+            using (var svc = new SACServiceClient())
+            {
+                DataLogica = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.HabilitarChatEmtelco);
+
+            }
+            if (DataLogica.Any())
+            {
+                if (EsDispositivoMovil())
+                {
+                    if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("02")).Valor == "1")
+                        Mostrar = true;
+                }
+                else
+                {
+                    if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("01")).Valor == "1")
+                        Mostrar = true;
+                }
+            }
+            return Mostrar;
+        }
     }
 }
