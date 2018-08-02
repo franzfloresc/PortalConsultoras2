@@ -30,7 +30,7 @@ $(document).ready(function () {
         me.Eventos = {
             AccionesCampoBusquedaMobileAlDigitar: function () {
                 var cantidadCaracteresParaMostrarSugerenciasBusquedaMobile = $(this).val().length;
-                if (cantidadCaracteresParaMostrarSugerenciasBusquedaMobile > 0) {
+                if (cantidadCaracteresParaMostrarSugerenciasBusquedaMobile >= CaracteresBuscador) {
                     me.Funciones.CampoDeBusquedaMobileConCaracteres();
                 } else {
                     me.Funciones.CampoDeBusquedaMobileSinCaracteres($('.opcion_limpiar_campo_busqueda_productos'));
