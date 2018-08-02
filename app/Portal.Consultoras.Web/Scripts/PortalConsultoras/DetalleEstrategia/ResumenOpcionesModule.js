@@ -18,6 +18,17 @@ var ResumenOpcionesModule = (function () {
 
         $("#elegir-opciones-modal").modal("hide");
         SetHandlebars("#resumen-opciones-template", _componente, template);
+
+        var OpcionPaleta = "[data-tono-cuv='[CUV]']";
+        $.each(_componente.Hermanos, function (index, opcion) {
+            if (opcion.cantidadSeleccionada > 0) {
+                OpcionPaleta = OpcionPaleta.replace('[CUV]', opcion.Cuv);
+            }
+        });
+
+        $("[data-tono-div]").find("[data-tono-cuv]").removeClass("borde_seleccion_tono");
+        $("[data-tono-div]").find(OpcionPaleta).addClass("borde_seleccion_tono");
+
         return false;
     };
 
