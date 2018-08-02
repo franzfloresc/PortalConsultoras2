@@ -18,6 +18,10 @@
     <meta name="description" content="SomosBelcorp Web Mobile" />
     <title>Somos Belcorp</title>
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerHeader.cshtml", new ViewDataDictionary { { "TipoLayout", 1 } })
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
+
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
 
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
@@ -43,24 +47,8 @@
 
 </head>
 <body>
-    <script type="text/javascript"> 
-        dataLayer = [{
-            'campana': '@ViewBag.AnalyticsCampania',
-            'segmento': '@ViewBag.AnalyticsSegmento',
-            'edad': '@ViewBag.AnalyticsEdad',
-            'zona': '@ViewBag.AnalyticsZona',
-            'pais': '@ViewBag.AnalyticsPais',
-            'rol': '@ViewBag.AnalyticsRol',
-            'region': '@ViewBag.AnalyticsRegion',
-            'seccion': '@ViewBag.AnalyticsSeccion',
-            'codigoconsultora': '@ViewBag.AnalyticsCodigoConsultora',
-            'periodo': '@ViewBag.AnalyticsPeriodo',
-            'segmentoconstancia': '@ViewBag.AnalyticsSegmentoConstancia',
-            'socianivel': '@ViewBag.AnalyticsSociaNivel',
-            'semana-periodo': '@ViewBag.SemanaAnalytics'
-        }];
-    </script>
-
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
+    
     <div class="menu">
         <div class="content_close">
             <div class="icon-close">
