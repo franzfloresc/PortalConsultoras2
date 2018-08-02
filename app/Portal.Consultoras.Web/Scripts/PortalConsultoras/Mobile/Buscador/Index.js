@@ -30,15 +30,19 @@ $(document).ready(function () {
         me.Eventos = {
             AccionesCampoBusquedaMobileAlDigitar: function () {
                 var cantidadCaracteresParaMostrarSugerenciasBusquedaMobile = $(this).val().length;
-                if (cantidadCaracteresParaMostrarSugerenciasBusquedaMobile >= CaracteresBuscador) {
+                 if (cantidadCaracteresParaMostrarSugerenciasBusquedaMobile >= CaracteresBuscador) {
                     me.Funciones.CampoDeBusquedaMobileConCaracteres();
-                } else {
-                    me.Funciones.CampoDeBusquedaMobileSinCaracteres($('.opcion_limpiar_campo_busqueda_productos'));
-                }
-
-                if (cantidadCaracteresParaMostrarSugerenciasBusquedaMobile >= CaracteresBuscador) {
+                    $('.spinner').fadeIn(150);
+                    setTimeout(function () {
+                        $('.spinner').delay(400);
+                        $('.spinner').fadeOut(150);
+                        $('#ResultadoBuscadorMobile').fadeIn(150);
+                    }, 400);
                     console.log($(this).val());
                     //aquí va el metodo que llama el api
+                 } else {
+                    $('#ResultadoBuscadorMobile').fadeOut(150);
+                    me.Funciones.CampoDeBusquedaMobileSinCaracteres($('.opcion_limpiar_campo_busqueda_productos'));
                 }
             },
             LimpiarCampoBusqueda: function (e) {

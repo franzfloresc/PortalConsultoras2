@@ -7,12 +7,13 @@
     align-items: center;
     width: 100%;
     height:48px;
+    background-color:#FFF;
     padding-left: 10px;
     padding-right: 10px;
     -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
     -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
     box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
-    position:relative;
+    position:fixed;
 }
 
 .campo_buscador_filtros_mobile {
@@ -105,9 +106,18 @@
 }
 
 .vistaResultadosBusquedaMobile{
-    display:none;
-    padding-left:10px;
-    padding-right:10px;
+    display: none;
+    margin-top: 48px;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+.lista_resultados_busqueda_productos_mobile{
+    overflow: auto;
+    height: calc(100vh - 66px);
 }
 
 .resultado_busqueda_mobile_wrapper {
@@ -115,6 +125,7 @@
     padding-bottom: 12px;
     border-bottom: 1px solid #b0b0b0;
     cursor:pointer;
+    position:relative;
 }
 
     .resultado_busqueda_mobile_wrapper:first-child{
@@ -125,7 +136,31 @@
         border-bottom:none;
     }
 
-.resultado_busqueda{
+.spinner{
+    display:none;
+    position: absolute;
+    margin: 0 auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #FFF;
+    z-index: 5;
+}
+
+    .spinner img{
+        width:46px;
+        height:auto;
+        position:absolute;
+        margin:auto;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+    }
+
+.resultado_busqueda_mobile{
     width:100%;
     height:auto;
     color:#000;
