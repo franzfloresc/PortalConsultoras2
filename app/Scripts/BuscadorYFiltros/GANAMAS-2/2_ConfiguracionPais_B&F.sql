@@ -18,7 +18,7 @@ BEGIN
 	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 15, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
+	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 25, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
 	VALUES (@id, 'TotalResultadosBuscador', 0, 20, NULL, NULL, 'Cantidad de productos que se mostrara en la lista', 1, NULL)
@@ -44,7 +44,7 @@ BEGIN
 	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 15, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
+	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 25, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
 	VALUES (@id, 'TotalResultadosBuscador', 0, 20, NULL, NULL, 'Cantidad de productos que se mostrara en la lista', 1, NULL)
@@ -70,7 +70,7 @@ BEGIN
 	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 15, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
+	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 25, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
 	VALUES (@id, 'TotalResultadosBuscador', 0, 20, NULL, NULL, 'Cantidad de productos que se mostrara en la lista', 1, NULL)
@@ -96,7 +96,7 @@ BEGIN
 	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 15, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
+	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 25, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
 	VALUES (@id, 'TotalResultadosBuscador', 0, 20, NULL, NULL, 'Cantidad de productos que se mostrara en la lista', 1, NULL)
@@ -122,7 +122,7 @@ BEGIN
 	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 15, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
+	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 25, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
 	VALUES (@id, 'TotalResultadosBuscador', 0, 20, NULL, NULL, 'Cantidad de productos que se mostrara en la lista', 1, NULL)
@@ -148,7 +148,7 @@ BEGIN
 	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 15, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
+	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 25, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
 	VALUES (@id, 'TotalResultadosBuscador', 0, 20, NULL, NULL, 'Cantidad de productos que se mostrara en la lista', 1, NULL)
@@ -174,7 +174,7 @@ BEGIN
 	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 15, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
+	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 25, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
 	VALUES (@id, 'TotalResultadosBuscador', 0, 20, NULL, NULL, 'Cantidad de productos que se mostrara en la lista', 1, NULL)
@@ -200,7 +200,7 @@ BEGIN
 	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 15, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
+	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 25, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
 	VALUES (@id, 'TotalResultadosBuscador', 0, 20, NULL, NULL, 'Cantidad de productos que se mostrara en la lista', 1, NULL)
@@ -226,7 +226,7 @@ BEGIN
 	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 15, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
+	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 25, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
 	VALUES (@id, 'TotalResultadosBuscador', 0, 20, NULL, NULL, 'Cantidad de productos que se mostrara en la lista', 1, NULL)
@@ -252,7 +252,7 @@ BEGIN
 	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 15, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
+	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 25, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
 	VALUES (@id, 'TotalResultadosBuscador', 0, 20, NULL, NULL, 'Cantidad de productos que se mostrara en la lista', 1, NULL)
@@ -278,7 +278,7 @@ BEGIN
 	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 15, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
+	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 25, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
 	VALUES (@id, 'TotalResultadosBuscador', 0, 20, NULL, NULL, 'Cantidad de productos que se mostrara en la lista', 1, NULL)
@@ -304,7 +304,7 @@ BEGIN
 	VALUES (@id, 'CaracteresBuscador', 0, 3, NULL, NULL, 'Cantidad de caracteres para empezar la busqueda de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
-	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 15, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
+	VALUES (@id, 'CaracteresBuscadorMostrar', 0, 25, NULL, NULL, 'Cantidad de caracteres que determina lo que se mostrara en la lista de productos', 1, NULL)
 
 	INSERT INTO ConfiguracionPaisDatos (ConfiguracionPaisID, Codigo, CampaniaID, Valor1, Valor2, Valor3, Descripcion, Estado, Componente)
 	VALUES (@id, 'TotalResultadosBuscador', 0, 20, NULL, NULL, 'Cantidad de productos que se mostrara en la lista', 1, NULL)

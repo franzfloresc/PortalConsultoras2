@@ -59,12 +59,12 @@
                 Liquidaciones
             </div>
         </div>
-        <div class="resultado_busqueda_cantidad_prod displayInlineBlock">
-            <a class="cantidad_menos_home">
+        <div class="resultado_busqueda_cantidad_prod displayInlineBlock js-no-popup" data-cantidad-contenedor="">
+            <a class="cantidad_menos_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
                 <img src="/Content/Images/Mobile/Esika/menos.png" alt="">
             </a>
-            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido text-center ValidaNumeral ValidaPasteNumeral" />
-            <a class="cantidad_mas_home">
+            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="rango_cantidad_pedido text-center ValidaNumeral ValidaPasteNumeral" />
+            <a class="cantidad_mas_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
                 <img src="/Content/Images/Mobile/Esika/mas.png" alt="">
             </a>
             <div class="clear"></div>
@@ -73,9 +73,9 @@
             <a class="boton_Agregalo_home displayBlock text-center text-uppercase">
                 Agrégalo
             </a>
-            <div class="etiqueta_prod_agregado displayBlock text-uppercase text-bold">
+            @*<div class="etiqueta_prod_agregado displayBlock text-uppercase text-bold">
                 Agregado
-            </div>
+            </div>*@
         </div>
     </div>
     {{/each}}
