@@ -57,6 +57,7 @@ $(document).ready(function () {
         me.Eventos = {
             AccionesCampoBusquedaAlDigitar: function () {
                 var cantidadCaracteresParaMostrarSugerenciasBusqueda = $(this).val().length;
+
                     if (cantidadCaracteresParaMostrarSugerenciasBusqueda >= CaracteresBuscador) {
 
                         me.Funciones.CampoDeBusquedaConCaracteres($('#CampoBuscadorProductos'));
@@ -71,58 +72,49 @@ $(document).ready(function () {
                         });
 
                         var successBusqueda = function (r) {
-                            var resultados = "";
-                            if (r.Productos.length > 0) {
-                                for (var i = 0; i < r.Productos.length; i++) {
-                                    resultados += '<div class="resultado_busqueda_producto displayBlock text-left">';
-                                    resultados += ' <div class="resultado_busqueda_img_prod displayInlineBlock">';
-                                    resultados += '     <img src="' + r.Productos[i].Imagen + '" alt="Imagen no disponible" class="imagen_no_disponible" onerror="this.onerror=null;this.src="' + baseUrl + 'Content/Images/imagen_prod_no_disponible.png' + '""/>';
-                                    resultados += ' </div>';
-                                    resultados += ' <div class="resultado_busqueda_descrip_prod displayInlineBlock">';
 
-                                    var texto = r.Productos[i].Descripcion;
-                                    if (texto.length > TotalCaracteresEnListaBuscador) {
-                                        texto = texto.substring(0, TotalCaracteresEnListaBuscador) + '...';
-                                    }
+                            $.each(r, function (index, item) {
+                                item.posicion = index + 1;
+                            });
 
-                                    resultados += '     <div class="resultado_busqueda_nom_producto">' + texto + '</div>';
-                                    resultados += '     <div class="resultado_busqueda_precio_prod">';
-                                    resultados += '         <span class="resultado_busqueda_precio_normal displayInlineBlock">' + r.Productos[i].Valorizado + '</span>';
-                                    resultados += '         <span class="resultado_busqueda_precio_oferta displayInlineBlock">' + r.Productos[i].Precio + '</span>';
-                                    resultados += '     </div>';
-                                    resultados += '     <div class="resultado_busqueda_tipo_oferta_prod displayBlock text-uppercase">CATALOGO</div>';
-                                    resultados += ' </div>';
-                                    //condicion
-                                    if (r.Productos[i].CodigoEstrategia == "2003") {
-                                        resultados += '<div class="resultado_busqueda_btn_elegir_opcion_wrapper displayInlineBlock text-center">';
-                                        resultados += ' <a class="btn_elegir_opcion displayBlock text-center text-uppercase">Elige tu opción</a>';
-                                        resultados += '</div>';
-                                    } else {
-                                        resultados += ' <div class="resultado_busqueda_cantidad_prod displayInlineBlock js-no-popup" data-cantidad-contenedor="">';
-                                        resultados += '     <a class="cantidad_menos_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src = "' + baseUrl + 'Content/Images/Mobile/Esika/menos.png' + '" alt = "" ></a>';
-                                        resultados += '     <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="rango_cantidad_pedido text-center ValidaNumeral ValidaPasteNumeral js-no-popup" />';
-                                        resultados += '     <a class="cantidad_mas_home js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src = "' + baseUrl + 'Content/Images/Mobile/Esika/mas.png' + '" alt = "" ></a>';
-                                        resultados += '     <div class="clear"></div>';
-                                        resultados += ' </div>';
-                                        resultados += ' <div class="resultado_busqueda_btn_agregar_wrapper displayInlineBlock text-center">';
-                                        resultados += '     <a class="boton_Agregalo_home displayBlock text-center text-uppercase">Agrégalo</a>';
-                                        resultados += ' </div>';
-                                    }
+                            var lista = r;
 
-                                    resultados += '</div>';
-                                }
-
-                            } else {
+                            if (lista.length <= 0) {
                                 $('#ResultadoBuscador').fadeOut(150);
                                 me.Funciones.CampoDeBusquedaSinCaracteres($('#CampoBuscadorProductos'));
-                            }
+                            } else {
+                                $('#ResultadoBuscador').html('');
+                                console.log(r);
+                                SetHandlebars('#js-ResultadoBuscador', lista, '#ResultadoBuscador');
 
-                            $('#ResultadoBuscador').html(resultados);
+                                $.each($('#ResultadoBuscador .resultado_busqueda_producto'), function (index, obj) {
+                                    var h = $(obj).find('.resultado_busqueda_nom_producto').height();
+                                    if (h > TotalCaracteresEnListaBuscador) {
+                                        var txt = $(obj).find('.resultado_busqueda_nom_producto').html();
+                                        var splits = txt.split(" ");
+                                        var lent = splits.length;
+                                        var cont = false;
+                                        for (var i = lent; i < 0; i++) {
+                                            if (cont) continue;
+                                            splits.splice(i - 1, 1);
+                                            $(obj).find(".resultado_busqueda_nom_producto").html(splits.join(" "));
+                                            var hx = $(obj).find(".resultado_busqueda_nom_producto").height();
+                                            if (hx <= TotalCaracteresEnListaBuscador) {
+                                                var txtF = splits.join(" ");
+                                                txtF = txtF.substr(0, txtF.length - 3);
+                                                $(obj).find(".resultado_busqueda_nom_producto").html(txtF + "...");
+                                                cont = true;
+                                            }
+                                        }
+                                    }
+                                });
+                            }
 
                             setTimeout(function () {
                                 $('.spinner').fadeOut(150);
                                 $('#ResultadoBuscador').fadeIn(150);
                             }, 400);
+                            console.log(r);
                         }
                         service.then(successBusqueda, function (e) {
                             console.log(e);
@@ -140,6 +132,10 @@ $(document).ready(function () {
                 $('#CampoBuscadorProductos').val('');
                 $('#CampoBuscadorProductos').focus();
                 $('#ResultadoBuscador').html('');
+            },
+            AgregarProducto: function (e) {
+                e.preventDefault();
+
             }
         },
         me.Inicializar = function () {

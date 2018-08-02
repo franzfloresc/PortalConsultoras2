@@ -784,7 +784,12 @@ namespace Portal.Consultoras.Common
 
             #region Programa de Nuevas
             public const string Mensaje1 = "El código solicitado es exclusivo del Programa de Nuevas.";
-            #endregion  
+            #endregion
+
+            #region Busqueda y filtros
+            public const int DesktopBuscador = 19;
+            public const int MobileBuscador = 29;
+            #endregion
         }
 
         public static class TipoTutorial

@@ -20,11 +20,11 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult BusquedaProductos(string busqueda)
         {
+            var ListaProductosModel = new List<BuscadorYFiltrosModel>();
+
             try
             {
-                // Método para motor con los siguientes parametros: CodigoPais, CodigoCampaña, CodigoConsultora, TextoBusqueda, CantidadProductos
-
-                var resultBuscador = new List<BEBuscadorYFiltros>();
+                List<BEBuscadorYFiltros> resultBuscador;
 
                 using (var usuario = new UsuarioServiceClient())
                 {
@@ -33,30 +33,35 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (resultBuscador.Any())
                 {
+                    // Se validara Stock o lo hara el API?
                     var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
                     foreach (var item in resultBuscador)
                     {
-                        if (string.IsNullOrWhiteSpace(item.Imagen))
+                        ListaProductosModel.Add(new BuscadorYFiltrosModel()
                         {
-                            item.Imagen = "../../Content/Images/imagen_prod_no_disponible.png";
-                        }
-                        else
-                        {
-                            item.Imagen = ConfigCdn.GetUrlFileCdn(carpetapais, item.Imagen);
-                        }
-                        item.Valorizado = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo);
-                        item.Precio = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo);
+                            CUV = item.CUV.Trim(),
+                            SAP = item.SAP.Trim(),
+                            Imagen = string.IsNullOrWhiteSpace(item.Imagen) ? "../../Content/Images/imagen_prod_no_disponible.png" : ConfigCdn.GetUrlFileCdn(carpetapais, item.Imagen),
+                            Descripcion = item.Descripcion,
+                            Valorizado = item.Valorizado,
+                            Precio = item.Precio,
+                            Catalogo = item.Catalogo,
+                            CodigoEstrategia = item.CodigoEstrategia,
+                            CodigoPalanca = item.CodigoPalanca,
+                            LimiteVenta = item.LimiteVenta,
+                            PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo),
+                            ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo)
+                        });
                     }
                 }
-
-                return Json(new { Success = true, Productos = resultBuscador, Message = "" });
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new { Error = true, Message = "Hubo un error al obtener los productos." });
+                ListaProductosModel = new List<BuscadorYFiltrosModel>();
             }
+            return Json(ListaProductosModel, JsonRequestBehavior.AllowGet);
         }
 
         private List<BuscadorYFiltrosModel> Data()

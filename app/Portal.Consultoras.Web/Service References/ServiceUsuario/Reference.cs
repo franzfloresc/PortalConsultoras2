@@ -7210,13 +7210,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int LimiteVentaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PrecioField;
+        private int MarcaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double PrecioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SAPField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ValorizadoField;
+        private double ValorizadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string descripcionEstrategiaField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -7320,12 +7326,25 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Precio {
+        public int MarcaID {
+            get {
+                return this.MarcaIDField;
+            }
+            set {
+                if ((this.MarcaIDField.Equals(value) != true)) {
+                    this.MarcaIDField = value;
+                    this.RaisePropertyChanged("MarcaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Precio {
             get {
                 return this.PrecioField;
             }
             set {
-                if ((object.ReferenceEquals(this.PrecioField, value) != true)) {
+                if ((this.PrecioField.Equals(value) != true)) {
                     this.PrecioField = value;
                     this.RaisePropertyChanged("Precio");
                 }
@@ -7346,14 +7365,27 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Valorizado {
+        public double Valorizado {
             get {
                 return this.ValorizadoField;
             }
             set {
-                if ((object.ReferenceEquals(this.ValorizadoField, value) != true)) {
+                if ((this.ValorizadoField.Equals(value) != true)) {
                     this.ValorizadoField = value;
                     this.RaisePropertyChanged("Valorizado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string descripcionEstrategia {
+            get {
+                return this.descripcionEstrategiaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.descripcionEstrategiaField, value) != true)) {
+                    this.descripcionEstrategiaField = value;
+                    this.RaisePropertyChanged("descripcionEstrategia");
                 }
             }
         }
