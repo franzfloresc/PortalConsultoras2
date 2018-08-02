@@ -1,7 +1,7 @@
 ﻿var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onComponentSelected");
 
-var OpcionesElegidasModule = (function () {
+var ResumenOpcionesModule = (function () {
     "use strict";
     var _componente;
     var template;
@@ -16,12 +16,12 @@ var OpcionesElegidasModule = (function () {
         if (typeof _componente.Cuv === "undefined" ||
             typeof _componente.Hermanos.length === "undefined") return false;
 
-        var template = "#opciones-elegidas" + _componente.Cuv;
+        var template = "#resumen-opciones-" + _componente.Cuv;
         var templateSiblings = $(template).siblings(".tono_select_opt").hide();
         $(template).show();
 
         $("#elegir-opciones-modal").modal("hide");
-        SetHandlebars("#opciones-elegidas-template", _componente, template);
+        SetHandlebars("#resumen-opciones-template", _componente, template);
         return false;
     };
 
@@ -32,5 +32,5 @@ var OpcionesElegidasModule = (function () {
 }());
 
 opcionesEvents.subscribe("onComponentSelected", function(componente) {
-    OpcionesElegidasModule.Inicializar();
+    ResumenOpcionesModule.Inicializar();
 });

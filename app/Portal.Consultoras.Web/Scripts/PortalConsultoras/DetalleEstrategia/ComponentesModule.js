@@ -1,4 +1,4 @@
-﻿/// <reference path="opcioneselegidasmodule.js" />
+﻿/// <reference path="ResumenOpcionesModule.js" />
 /// <reference path="../../../Scripts/jquery-1.11.2.js" />
 /// <reference path="../../../Scripts/General.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/MainLayout.js" />
