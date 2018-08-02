@@ -18,7 +18,7 @@ var OpcionesElegidasModule = (function () {
 
         var template = "#opciones-elegidas" + _componente.Cuv;
         var templateSiblings = $(template).siblings(".tono_select_opt").hide();
-
+        $(template).show();
 
         $("#elegir-opciones-modal").modal("hide");
         SetHandlebars("#opciones-elegidas-template", _componente, template);
