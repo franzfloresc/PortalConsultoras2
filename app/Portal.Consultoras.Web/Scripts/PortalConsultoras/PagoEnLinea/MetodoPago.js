@@ -98,6 +98,9 @@ $(document).ready(function () {
                     var htmlTerminosCondiciones = $(contenedorPadre).find('input[data-terminos]').val();                    
                     $('#divContenidoTerminosCondiciones').html(htmlTerminosCondiciones);
                     $('.proceso_de_pago_en_linea').fadeOut(200);
+                    $('body,html').animate({
+                        scrollTop: 47
+                    }, 200);
                     $('.popup_terminos_y_condiciones').fadeIn(200);
                 },
                 CerrarPopupTerminosYCondiciones: function (e) {
