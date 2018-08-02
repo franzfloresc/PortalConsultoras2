@@ -18,6 +18,8 @@ var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onComponentSelected");
 
 var ListaOpcionesModule = (function () {
+    "use strict";
+
     var _componente = {};
     var _componenteSeleccionados = {
         Hermanos : []
@@ -47,6 +49,11 @@ var ListaOpcionesModule = (function () {
         }
     };
 
+    var _getComponente = function () {
+        var componente = jQuery.extend(true, {}, _componente);
+        return componente;
+    }
+
     var _moverListaOpcionesOcultarSeleccionados = function() {
         $(_elements.listaOpciones.id).css("padding-top", "0px");
         if (isMobile())
@@ -62,14 +69,14 @@ var ListaOpcionesModule = (function () {
             $(_elements.btnAplicarSeleccion.id)
                 .removeClass(_elements.btnAplicarSeleccion.disabledClass)
                 .addClass(_elements.btnAplicarSeleccion.activeClass);
-            var componenteClone = _getComponente();
-            componenteClone.Hermanos = _componenteSeleccionados.Hermanos;
-            opcionesEvents.applyChanges("onOptionSelected", componenteClone);
         } else {
             $(_elements.btnAplicarSeleccion.id)
                 .removeClass(_elements.btnAplicarSeleccion.activeClass)
                 .addClass(_elements.btnAplicarSeleccion.disabledClass);
         }
+        var componenteClone = _getComponente();
+        componenteClone.Hermanos = _componenteSeleccionados.Hermanos;
+        opcionesEvents.applyChanges("onOptionSelected", componenteClone);
         //
         _moverListaOpcionesOcultarSeleccionados();
         $(_elements.listaOpciones.id).html("");
@@ -150,7 +157,7 @@ var ListaOpcionesModule = (function () {
             componente.Hermanos = _componenteSeleccionados.Hermanos;
             opcionesEvents.applyChanges("onOptionSelected", componente);
 
-            if (_componente.FactorCuadre != _componenteSeleccionados.Hermanos.length) {
+            if (_componente.FactorCuadre !== _componenteSeleccionados.Hermanos.length) {
                 $(_elements.btnAplicarSeleccion.id)
                     .removeClass(_elements.btnAplicarSeleccion.activeClass)
                     .addClass(_elements.btnAplicarSeleccion.disabledClass);
@@ -161,11 +168,6 @@ var ListaOpcionesModule = (function () {
 
         return false;
 
-    }
-
-    var _getComponente = function () {
-        var componente = jQuery.extend(true, {}, _componente);
-        return componente;
     }
 
     return {

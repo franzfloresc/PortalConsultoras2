@@ -1,4 +1,5 @@
-﻿/// <reference path="../../../Scripts/jquery-1.11.2.js" />
+﻿/// <reference path="ResumenOpcionesModule.js" />
+/// <reference path="../../../Scripts/jquery-1.11.2.js" />
 /// <reference path="../../../Scripts/General.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/MainLayout.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Bienvenida/Estrategia.js" />
@@ -18,17 +19,54 @@ registerEvent.call(opcionesEvents, "onEstrategiaLoaded");
 registerEvent.call(opcionesEvents, "onComponentSelected");
 
 var ComponentesModule = (function () {
+    "use strict";
+
     var _estrategia = {};
 
-    var _cargarComponentesEstrategia = function (estrategia) {
+    var _elements = {
+        body: {
+            modalActivadoClass: "modal_activado"
+        },
+        componentes : {
+            id: "#componentes",
+            templateId: "#componentes-template"
+        },
+        divElegirOpciones: {
+            id: "#elegir-opciones-modal",
+            marginRight :"0",
+            opacity: "1",
+            modalFondo: {
+                id: ".modal-fondo",
+                opacity: ".7"
+            }
+
+        }
+    };
+
+    var ListarComponentes = function (estrategia) {
         if (typeof estrategia === "undefined" ||
             estrategia === null) throw "param estrategia is not defined or null";
 
         _estrategia = estrategia;
-        SetHandlebars("#componentes-template", _estrategia, "#componentes");
+        SetHandlebars(_elements.componentes.templateId, _estrategia, _elements.componentes.id);
     };
 
-    var _seleccionarComponente = function (cuv) {
+    var _mostrarModalElegirOpciones = function() {
+        if (isMobile()) {
+            $(_elements.divElegirOpciones.id).modal("show");
+        } else {
+            $("body").addClass(_elements.body.modalActivadoClass);
+            $(_elements.divElegirOpciones.modalFondo.id)
+                .css("opacity", _elements.divElegirOpciones.modalFondo.opacity)
+                .show();
+            $(_elements.divElegirOpciones.id)
+                .show()
+                .css("margin-right", _elements.divElegirOpciones.marginRight)
+                .css("opacity", _elements.divElegirOpciones.opacity);
+        }
+    };
+
+    var SeleccionarComponente = function (cuv) {
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param cuv is not defined or null";
@@ -37,29 +75,20 @@ var ComponentesModule = (function () {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {
                 var componente = {};
-                componente = jQuery.extend(true, {}, _estrategia.Hermanos[index]);
+                componente = jQuery.extend(true, componente, _estrategia.Hermanos[index]);
                 opcionesEvents.applyChanges("onComponentSelected", componente);
-                if (isMobile()) {
-                    $("#elegir-opciones-modal").modal("show");
-                } else {
-                    $('body').addClass("modal_activado");
-                    $('.modal-fondo').css('opacity', '.7');
-                    $('.modal-fondo').show();
-                    $('.contenedor_seleccion').show();
-                    $('.contenedor_seleccion').css('margin-right', '0');
-                    $('.contenedor_seleccion').css('opacity', '1');
-                }
+                _mostrarModalElegirOpciones();
                 return false;
             }
         });
     }
 
     return {
-        CargarComponentesEstrategia: _cargarComponentesEstrategia,
-        SeleccionarComponente: _seleccionarComponente
+        ListarComponentes: ListarComponentes,
+        SeleccionarComponente: SeleccionarComponente
     };
 }());
 
 opcionesEvents.subscribe("onEstrategiaLoaded", function (estrategia) {
-    ComponentesModule.CargarComponentesEstrategia(estrategia);
+    ComponentesModule.ListarComponentes(estrategia);
 });

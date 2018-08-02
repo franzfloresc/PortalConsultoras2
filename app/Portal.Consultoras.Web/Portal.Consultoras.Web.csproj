@@ -3789,7 +3789,7 @@
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\ListaOpcionesModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\ComponentesModule.js" />
-    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\OpcionesElegidasModule.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\ResumenOpcionesModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\OpcionesSeleccionadasModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\TituloOpcionesSeleccionadasModule.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaAgregar\EstrategiaAgregar.js" />
@@ -4238,7 +4238,7 @@
     <Content Include="Areas\Mobile\Views\MiPerfil\ActualizarCorreo.cshtml" />
     <Content Include="Areas\Mobile\Views\MiPerfil\ActualizarCelular.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\_ElegirOpciones.cshtml" />
-    <Content Include="Areas\Mobile\Views\DetalleEstrategia\OpcionesElegidasTemplate.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\ResumenOpcionesTemplate.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\OpcionesSeleccionadasTemplate.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\ListaOpcionesTemplate.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\TituloOpcionesSeleccionadasTemplate.cshtml" />
@@ -5224,7 +5224,7 @@
     <Content Include="Views\DetalleEstrategia\_ElegirOpciones.cshtml" />
     <Content Include="Views\DetalleEstrategia\ComponentesTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\ListaOpcionesTemplate.cshtml" />
-    <Content Include="Views\DetalleEstrategia\OpcionesElegidasTemplate.cshtml" />
+    <Content Include="Views\DetalleEstrategia\ResumenOpcionesTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\OpcionesSeleccionadasTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\TituloOpcionesSeleccionadasTemplate.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
