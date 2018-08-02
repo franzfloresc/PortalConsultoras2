@@ -38,14 +38,17 @@
 
 <br />
 
-<div id="ResultadoBuscadorMobile" class="section-container p-t-30 p-b-30">
+<div id="divResultadoBuscadorMobile" class="section-container p-t-30 p-b-30">
     
 </div>
 
 
 <script id="js-ResultadoBuscadorMobile" type="text/x-handlebars-template">
     <div class="container vistaResultadosBusquedaMobile displayBlock">
-        <div class="row">
+        <div class="spinner">
+            <img src="@Url.Content("~/Content/Images/loading_spinner.gif")" alt="" />
+        </div>
+        <div class="row lista_resultados_busqueda_productos_mobile displayBlock" id="ResultadoBuscadorMobile">
             {{#each this}}
             <!-- RESULTADO DE BÚSQUEDA -->
             <div class="col-xs-12 col-sm-12 resultado_busqueda_mobile_wrapper displayBlock">
