@@ -429,12 +429,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         }
     }
 
-    if (tipoOrigen === "1") {
-        if ($("#btnNoGraciasOfertaFinal").length > 0) {
-            $("#btnNoGraciasOfertaFinal").css({ 'margin': "auto", "line-height": "49px" });
-            $("#btnNoGraciasOfertaFinal").hide();
-            $("#btnNoGraciasOfertaFinal").show();
-        }
+    if (tipoOrigen === "1" && objOf.TipoMeta !== "MM") {
+        $("#btnNoGraciasOfertaFinal").css({ 'margin': "auto", "line-height": "49px" });
     }
 
     return resultado;
@@ -672,6 +668,9 @@ function ActualizarValoresPopupOfertaFinal(data, popup) {
                 $("#ofIconoSuperior").addClass("check_icono_mobile");
             }
             $("#btnNoGraciasOfertaFinal").show();
+            if (tipoOrigen === "1") {
+                $("#btnNoGraciasOfertaFinal").css({ 'margin': "auto", "line-height": "49px" });
+            }
         }
         else {
             $("#msjOfertaFinal").parent().find("span[data-monto]").html(DecimalToStringFormat(montolimite - parseFloat(data.total)));
