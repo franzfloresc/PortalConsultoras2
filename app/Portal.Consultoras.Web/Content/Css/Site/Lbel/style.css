@@ -296,6 +296,7 @@ header {
     -webkit-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
     -moz-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
     box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
+    z-index:3;
 }
 
 .sub_menu_home2 {
