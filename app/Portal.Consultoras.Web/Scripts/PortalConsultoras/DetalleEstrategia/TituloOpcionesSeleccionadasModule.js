@@ -27,11 +27,11 @@ var TituloOpcionesSeleccionadasModule = (function () {
         CargarTituloOpcionesSeleccionadas: __cargarTituloOpcionesSeleccionadas
     };
 }());
-opcionesEvents.subscribe("onComponentSelected", function (componente) {
-    var _componente = jQuery.extend(true, {}, componente);
-    _componente.Hermanos = [];
-    TituloOpcionesSeleccionadasModule.CargarTituloOpcionesSeleccionadas(_componente);
-});
+//opcionesEvents.subscribe("onComponentSelected", function (componente) {
+//    var _componente = jQuery.extend(true, {}, componente);
+//    _componente.Hermanos = [];
+//    TituloOpcionesSeleccionadasModule.CargarTituloOpcionesSeleccionadas(_componente);
+//});
 opcionesEvents.subscribe("onOptionSelected", function (componente) {
     TituloOpcionesSeleccionadasModule.CargarTituloOpcionesSeleccionadas(componente);
 });

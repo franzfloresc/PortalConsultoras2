@@ -62,14 +62,14 @@ var ListaOpcionesModule = (function () {
             $(_elements.btnAplicarSeleccion.id)
                 .removeClass(_elements.btnAplicarSeleccion.disabledClass)
                 .addClass(_elements.btnAplicarSeleccion.activeClass);
-            var componenteClone = _getComponente();
-            componenteClone.Hermanos = _componenteSeleccionados.Hermanos;
-            opcionesEvents.applyChanges("onOptionSelected", componenteClone);
         } else {
             $(_elements.btnAplicarSeleccion.id)
                 .removeClass(_elements.btnAplicarSeleccion.activeClass)
                 .addClass(_elements.btnAplicarSeleccion.disabledClass);
         }
+        var componenteClone = _getComponente();
+        componenteClone.Hermanos = _componenteSeleccionados.Hermanos;
+        opcionesEvents.applyChanges("onOptionSelected", componenteClone);
         //
         _moverListaOpcionesOcultarSeleccionados();
         $(_elements.listaOpciones.id).html("");
