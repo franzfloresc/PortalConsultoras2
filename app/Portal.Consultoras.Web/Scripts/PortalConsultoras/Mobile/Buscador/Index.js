@@ -14,18 +14,15 @@ $(document).ready(function () {
                 $(document).on('click', '.opcion_limpiar_campo_busqueda_productos', me.Eventos.LimpiarCampoBusqueda);
             },
             CampoDeBusquedaMobileConCaracteres: function () {
-                $('.vistaResultadosBusquedaMobile').delay(50);
-                $('.vistaResultadosBusquedaMobile').fadeIn(100);
                 $('.enlace_busqueda_filtros').fadeOut(100);
                 $('.opcion_limpiar_campo_busqueda_productos').delay(50);
                 $('.opcion_limpiar_campo_busqueda_productos').fadeIn(100);
             },
             CampoDeBusquedaMobileSinCaracteres: function (element) {
-                $('.vistaResultadosBusquedaMobile').fadeOut(100);
                 $(element).fadeOut(100);
                 $('.enlace_busqueda_filtros').delay(50);
                 $('.enlace_busqueda_filtros').fadeIn(100);
-                $('#divResultadoBuscadorMobile').html('');
+                $('#ResultadoBuscadorMobile').html('');
             }
         },
         me.Eventos = {
@@ -56,16 +53,15 @@ $(document).ready(function () {
                          var lista = r;
 
                          if (lista.length <= 0) {
-                             $('#divResultadoBuscadorMobile').fadeOut(150);
-                             me.Funciones.CampoDeBusquedaMobileSinCaracteres($('#CampoBuscadorProductosMobile'));
+                             $('#ResultadoBuscadorMobile').fadeOut(150);
+                             me.Funciones.CampoDeBusquedaMobileSinCaracteres($('.opcion_limpiar_campo_busqueda_productos'));
                          } else {
-                             $('#divResultadoBuscadorMobile').html('');
-
-                             SetHandlebars('#js-ResultadoBuscadorMobile', lista, '#divResultadoBuscadorMobile');
+                             $('#ResultadoBuscadorMobile').html('');
+                             SetHandlebars('#js-ResultadoBuscadorMobile', lista, '#ResultadoBuscadorMobile');
                          }
 
                          setTimeout(function () {
-                             $('.spinner').delay(400);
+                             $('.spinner').delay(50);
                              $('.spinner').fadeOut(150);
                              $('#ResultadoBuscadorMobile').fadeIn(150);
                          }, 400);
