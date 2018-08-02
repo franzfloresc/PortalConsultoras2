@@ -23,7 +23,7 @@
 }
 
 <div class="buscador_filtros_mobile">
-    <a class="enlace_regresar_filtros" title="Buscar">
+    <a href="@Url.Action("Index","Bienvenida",new { Area = "Mobile" })" class="enlace_regresar_filtros" title="Buscar">
         <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Buscar" />
     </a>
     <input type="search" value="" id="CampoBuscadorProductosMobile" class="campo_buscador_filtros_mobile" placeholder="¿Buscas ofertas?" />
@@ -38,68 +38,83 @@
 
 <br />
 
-<div id="divResultadoBuscadorMobile" class="section-container p-t-30 p-b-30">
-    
-</div>
-
-
-<script id="js-ResultadoBuscadorMobile" type="text/x-handlebars-template">
+<div class="section-container p-t-30 p-b-30">
+    <!-- LISTA DE RESULTADOS DE BÚSQUEDA MOBILE -->
     <div class="container vistaResultadosBusquedaMobile displayBlock">
         <div class="spinner">
             <img src="@Url.Content("~/Content/Images/loading_spinner.gif")" alt="" />
         </div>
         <div class="row lista_resultados_busqueda_productos_mobile displayBlock" id="ResultadoBuscadorMobile">
-            {{#each this}}
-            <!-- RESULTADO DE BÚSQUEDA -->
-            <div class="col-xs-12 col-sm-12 resultado_busqueda_mobile_wrapper displayBlock">
-                <div class="resultado_busqueda_mobile displayBlock">
-                    <div class="resultado_busqueda_mobile_img_prod displayInlineBlock">
-                        <a href="#" class="displayBlock">
-                            <img src="{{Imagen}}" alt="Imagen no disponible" class="imagen_no_disponible" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.png")'" />
-                        </a>
-                    </div>
-                    <div class="resultado_busqueda_mobile_descrip_prod displayInlineBlock">
-                        <div class="resultado_busqueda_nom_producto displayBlock">
-                            {{Descripcion}}
-                        </div>
-                        <div class="resultado_busqueda_precio_prod displayBlock">
-                            <span class="resultado_busqueda_precio_normal displayInlineBlock">
-                                S/ 175.00
-                            </span>
-                            <span class="resultado_busqueda_precio_oferta displayInlineBlock">
-                                S/ 75.00
-                            </span>
-                        </div>
-                        <div class="resultado_busqueda_tipo_oferta_prod displayBlock text-uppercase">
-                            Liquidaciones
-                        </div>
-                    </div>
-                    <div class="resultado_busqueda_mobile_cantidad_prod displayInlineBlock" data-cantidad-contenedor="">
-                        <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                            <img src="/Content/Images/Mobile/Esika/menos.png" alt="">
-                        </a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="rango_cantidad_pedido text-center ValidaNumeral ValidaPasteNumeral" />
-                        <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                            <img src="/Content/Images/Mobile/Esika/mas.png" alt="">
-                        </a>
-                        <div class="clear"></div>
-                        <div class="resultado_busqueda_mobile_btn_agregar_wrapper displayBlock text-center">
-                            <a class="boton_Agregalo_home displayBlock text-center text-uppercase">
-                                Agrégalo
-                            </a>
-                            @*<div class="etiqueta_prod_agregado displayBlock text-uppercase text-bold">
-                                Agregado
-                            </div>*@
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- FIN - RESULTADO DE BÚSQUEDA -->
-            {{/each}}
         </div>
     </div>
-</script>
+    <!-- FIN - LISTA DE RESULTADOS DE BÚSQUEDA MOBILE -->
+</div>
 
+<script id="js-ResultadoBuscadorMobile" type="text/x-handlebars-template">
+    {{#each this}}
+    <!-- RESULTADO DE BÚSQUEDA -->
+    <div class="col-xs-12 col-sm-12 resultado_busqueda_mobile_wrapper displayBlock" data-item="ProductoBuscador">
+        <input type="hidden" class="hdBuscadorCUV" value="{{CUV}}" />
+        <input type="hidden" class="hdBuscadorSAP" value="{{SAP}}" />
+        <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
+        <input type="hidden" class="hdBuscadorCodigoPalanca" value="{{CodigoPalanca}}" />
+        <input type="hidden" class="hdBuscadorMarcaId" value="{{MarcaId}}" />
+        <input type="hidden" class="hdBuscadorDescripcion" value="{{Descripcion}}" />
+        <input type="hidden" class="hdBuscadorDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+        <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
+        <input type="hidden" class="hdBuscadorValorizado" value="{{Valorizado}}" />
+        <input type="hidden" class="hdBuscadorPosicion" value="{{posicion}}" />
+
+        <div class="resultado_busqueda_mobile displayBlock">
+            <div class="resultado_busqueda_mobile_img_prod displayInlineBlock">
+                <a href="#" class="displayBlock">
+                    <img src="{{Imagen}}" alt="Imagen no disponible" class="imagen_no_disponible" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.png")'" />
+                </a>
+            </div>
+            <div class="resultado_busqueda_mobile_descrip_prod displayInlineBlock">
+                <div class="resultado_busqueda_nom_producto displayBlock">
+                    {{Descripcion}}
+                </div>
+                <div class="resultado_busqueda_precio_prod displayBlock">
+                    <span class="resultado_busqueda_precio_normal displayInlineBlock">
+                        {{ValorizadoString}}
+                    </span>
+                    <span class="resultado_busqueda_precio_oferta displayInlineBlock">
+                        {{PrecioString}}
+                    </span>
+                </div>
+                <div class="resultado_busqueda_tipo_oferta_prod displayBlock text-uppercase">
+                    {{DescripcionEstrategia}}
+                </div>
+            </div>
+            <div class="resultado_busqueda_mobile_cantidad_prod displayInlineBlock" data-cantidad-contenedor="">
+                {{#if_eq CodigoEstrategia '2003'}}
+                <div class="resultado_busqueda_mobile_btn_agregar_wrapper displayBlock text-center">
+                    <a class="boton_Elige_home displayBlock text-center text-uppercase">
+                        Elige tu opción
+                    </a>
+                </div>
+                {{else}}
+                <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                    <img src="/Content/Images/Mobile/Esika/menos.png" alt="">
+                </a>
+                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="rango_cantidad_pedido text-center ValidaNumeral ValidaPasteNumeral" />
+                <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                    <img src="/Content/Images/Mobile/Esika/mas.png" alt="">
+                </a>
+                <div class="clear"></div>
+                <div class="resultado_busqueda_mobile_btn_agregar_wrapper displayBlock text-center">
+                    <a class="boton_Agregalo_home displayBlock text-center text-uppercase agregarProductoBuscador">
+                        Agrégalo
+                    </a>
+                </div>
+                {{/if_eq}}
+            </div>
+        </div>
+    </div>
+    <!-- FIN - RESULTADO DE BÚSQUEDA -->
+    {{/each}}
+</script>
 
 @section scripts{
 

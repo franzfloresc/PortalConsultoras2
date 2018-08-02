@@ -51,7 +51,9 @@ namespace Portal.Consultoras.Web.Controllers
                             CodigoPalanca = item.CodigoPalanca,
                             LimiteVenta = item.LimiteVenta,
                             PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo),
-                            ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo)
+                            ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo),
+                            DescripcionEstrategia = item.descripcionEstrategia,
+                            MarcaId = item.MarcaID
                         });
                     }
                 }
