@@ -1823,6 +1823,7 @@ function CerrarAvisoEliminarRegalo() {
 
 
 function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId) {
+    console.log('DeletePedido - inicio');
     var param = {
         CampaniaID: campaniaId,
         PedidoID: pedidoId,
@@ -1840,9 +1841,11 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
 
     if (HorarioRestringido()) {
         CerrarSplash();
+        console.log('DeletePedido - HorarioRestringido', param);
         return;
     }
 
+    console.log('DeletePedido - Antes Ajax', param);
     jQuery.ajax({
         type: "POST",
         url: baseUrl + "Pedido/Delete",
@@ -1851,6 +1854,8 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         data: JSON.stringify(param),
         async: true,
         success: function (data) {
+
+            console.log('DeletePedido - Ajax - success ', data);
             CerrarSplash();
             if (!checkTimeout(data)) return false;
             if (data.success != true) {
@@ -1898,6 +1903,8 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             CerrarAvisoEliminarRegalo();
         },
         error: function (data, error) {
+
+            console.log('DeletePedido - Ajax - error ', data, error);
             if (checkTimeout(data)) {
                 HideDialog("divVistaPrevia");
                 CerrarSplash();
