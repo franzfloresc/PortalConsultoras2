@@ -170,6 +170,32 @@ $(document).ready(function () {
                         Posicion: posicion
                     }
 
+                    /*$.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: model.CUV, PrecioUnidad: model.PrecioUnidad, Cantidad: model.Cantidad }, function (data) {
+                        if (data.message != '') {
+                            AbrirMensaje(data.message);
+                            return false;
+                        }
+                        if (parseInt(data.Saldo) < parseInt(cantidad)) {
+                            var Saldo = data.Saldo;
+                            var UnidadesPermitidas = data.UnidadesPermitidas;
+
+                            CerrarLoad();
+
+                            if (Saldo == UnidadesPermitidas)
+                                AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
+                            else {
+                                if (Saldo == "0")
+                                    AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
+                                else
+                                    AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
+                            }
+                        } else {
+                            $.getJSON(baseUrl + 'ShowRoom/ObtenerStockActualProducto', { CUV: model.CUV }, function (data) {
+                                console.log(data);
+                                if (parseInt(data.Stock) < model.Cantidad) {
+                                    AbrirMensaje("Lamentablemente, no puede agregar el Producto, ya que sobrepasa el stock actual (" + data.Stock + "), verifique");
+                                    return false;
+                                } else {*/
                     jQuery.ajax({
                         type: 'POST',
                         url: baseUrl + 'Pedido/PedidoInsertar',
@@ -215,6 +241,10 @@ $(document).ready(function () {
                             return false;
                         }
                     });
+                    /*               }
+                               });
+                           }
+                       });*/
                 }
             },
             me.Inicializar = function () {
