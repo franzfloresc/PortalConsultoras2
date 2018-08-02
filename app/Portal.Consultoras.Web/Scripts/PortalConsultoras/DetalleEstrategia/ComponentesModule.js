@@ -21,7 +21,7 @@ registerEvent.call(opcionesEvents, "onComponentSelected");
 var ComponentesModule = (function () {
     var _estrategia = {};
 
-    var _cargarComponentesEstrategia = function (estrategia) {
+    var _listarComponentes = function (estrategia) {
         if (typeof estrategia === "undefined" ||
             estrategia === null) throw "param estrategia is not defined or null";
 
@@ -56,11 +56,11 @@ var ComponentesModule = (function () {
     }
 
     return {
-        CargarComponentesEstrategia: _cargarComponentesEstrategia,
+        ListarComponentes: _listarComponentes,
         SeleccionarComponente: _seleccionarComponente
     };
 }());
 
 opcionesEvents.subscribe("onEstrategiaLoaded", function (estrategia) {
-    ComponentesModule.CargarComponentesEstrategia(estrategia);
+    ComponentesModule.ListarComponentes(estrategia);
 });
