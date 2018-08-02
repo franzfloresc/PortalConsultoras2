@@ -125,10 +125,10 @@ namespace Portal.Consultoras.Web.Controllers
                 AsignarViewBagPorIso(iso);
                 AsignarUrlRetorno(returnUrl);
                 model.ListPaisAnalytics = GetLoginAnalyticsModel();
-                ViewBag.UrlAcceso = Constantes.CatalogoUrlParameters.UrlAccesoPDF;
-                ViewBag.UrlCancelacion = Constantes.CatalogoUrlParameters.UrlCancelacionPDF;
-                ViewBag.UrlOposicion = Constantes.CatalogoUrlParameters.UrlOposicionPDF;
-                ViewBag.UrlRectificacion = Constantes.CatalogoUrlParameters.UrlRectificacionPDF;
+                //ViewBag.UrlAcceso = Constantes.CatalogoUrlParameters.UrlAccesoPDF;
+                //ViewBag.UrlCancelacion = Constantes.CatalogoUrlParameters.UrlCancelacionPDF;
+                //ViewBag.UrlOposicion = Constantes.CatalogoUrlParameters.UrlOposicionPDF;
+                //ViewBag.UrlRectificacion = Constantes.CatalogoUrlParameters.UrlRectificacionPDF;
             }
             catch (FaultException ex)
             {

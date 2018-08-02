@@ -269,10 +269,10 @@
             <div class="enlaces_archivos_arco">
                 <div class="texto_solicitudes">Solicitudes :</div>
                 <div class="grupo_enlaces_archivos_arco">
-                    <a href="https://somosbelcorpqa.s3.amazonaws.com/Unete/Solicitud_de_Acceso.doc" title="Acceso" class="enlace_archivo_arco" target="_blank">Acceso</a>
-                    <a href="https://somosbelcorpqa.s3.amazonaws.com/Unete/Solicitud_de_Cancelacion.doc" title="Cancelación" class="enlace_archivo_arco" target="_blank">Cancelación</a>
-                    <a href="https://somosbelcorpqa.s3.amazonaws.com/Unete/Solicitud_de_Oposicion.doc" title="Oposición" class="enlace_archivo_arco" target="_blank">Oposición</a>
-                    <a href="https://somosbelcorpqa.s3.amazonaws.com/Unete/Solicitud_de_Rectificacion.doc" title="Rectificación" class="enlace_archivo_arco" target="_blank">Rectificación</a>
+                    <a href="'@System.Configuration.ConfigurationManager.AppSettings.Get("URLSolicitudAcceso")'" id="btnAccesoUrl" title="Acceso" class="enlace_archivo_arco" >Acceso</a>
+                    <a href="'@System.Configuration.ConfigurationManager.AppSettings.Get("URLSolicitudCancelacion")'" id="btnCancelacionUrl"  title="Cancelación" class="enlace_archivo_arco" >Cancelación</a>
+                    <a href="'@System.Configuration.ConfigurationManager.AppSettings.Get("URLSolicitudOposicion")'" id="btnOposicionUrl"  title="Oposición" class="enlace_archivo_arco" target="_blank">Oposición</a>
+                    <a href="'@System.Configuration.ConfigurationManager.AppSettings.Get("URLSolicitudRectificacion")'" id="btnRectificacionUrl"  title="Rectificación" class="enlace_archivo_arco">Rectificación</a>
                 </div>
             </div>
         </div>
