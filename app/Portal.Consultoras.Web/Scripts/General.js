@@ -1958,7 +1958,36 @@ function EstablecerLazyCarrusel(elementoHtml) {
 
 }
 
+/*
+Detectando IE 6 - 11
+*/
+function isMSIE() {
+    return (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0);
+}
+
+
+(function () {
+
+    /*
+    Cuando es: IE 6 - 11
+    hacks para : EstablecerAccionLazyImagen & EstablecerAccionLazyImagenAll
+    bug: Error inesperado para elemento si padre en lazy load para el metodo getBoundingClientRect()
+    */
+    if (isMSIE()) HTMLElement.prototype.getBoundingClientRect = (function () {
+        var oldGetBoundingClientRect = HTMLElement.prototype.getBoundingClientRect;
+        return function () {
+            try {
+                return oldGetBoundingClientRect.apply(this, arguments);
+            } catch (e) {
+                return { left: 0.0, right: 0.0, top: 0.0, bottom: 0.0 };
+            }
+        };
+    })();
+
+})();
+
 function EstablecerAccionLazyImagen(nombreAtributo, withTimeout) {
+
     //Si se requiere esperar un momento, withTimeout = true
     if (withTimeout == undefined || withTimeout == null)
         withTimeout = true;
