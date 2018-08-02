@@ -24,6 +24,8 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoEstrategia { get; set; }
         public string CodigoPalanca { get; set; }
         public int LimiteVenta { get; set; }
+        public string DescripcionEstrategia { get; set; }
+        public int MarcaId { get; set; }
 
         public string PrecioString { get; set; }
         public string ValorizadoString { get; set; }
