@@ -14,7 +14,7 @@
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 
 var opcionesEvents = opcionesEvents || {};
-registerEvent.call(opcionesEvents, "onComponentSelected");
+//registerEvent.call(opcionesEvents, "onComponentSelected");
 registerEvent.call(opcionesEvents, "onOptionSelected");
 var TituloOpcionesSeleccionadasModule = (function () {
     var _estrategia = {};
