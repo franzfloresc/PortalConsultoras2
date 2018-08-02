@@ -102,6 +102,13 @@
 <body>
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
 
+    @if (ViewBag.codigoISOMenu == "MX")
+    {
+        <div id="box-pop-up" style="display: none;">
+            @Html.Partial("_PopupPrivacidadDatos")
+        </div>
+    }
+
     @if (ViewBag.PaisesConTrackingJetlore == "1")
     {
         <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
@@ -161,12 +168,12 @@
     }
     <div id="contentmain" class="content" data-content="" style="margin-top: 61px;">
         @if (!(controllerAction == "bienvenidaindex"
-                            || controllerAction == "showroomindex"
-                            || controllerAction == "showroomintriga"
-                            || controllerAction == "revistadigitalindex"
-                            || controllerAction == "revistadigitaldetalle"
-                            || controllerAction == "revistadigitalinformacion")
-                            && (@ViewBag.Title != "" && @ViewBag.Title != null))
+                    || controllerAction == "showroomindex"
+                    || controllerAction == "showroomintriga"
+                    || controllerAction == "revistadigitalindex"
+                    || controllerAction == "revistadigitaldetalle"
+                    || controllerAction == "revistadigitalinformacion")
+                    && (@ViewBag.Title != "" && @ViewBag.Title != null))
         {
             <div class="SubHeader">
                 <div class="ubicacion_web">
@@ -280,5 +287,6 @@
         </script>
         TempData.Remove("PixelCodigoIso");
     }
+
 </body>
 </html>

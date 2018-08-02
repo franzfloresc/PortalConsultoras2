@@ -60,10 +60,6 @@ $(document).ready(function () {
 
     if (avisoASP == 1) {
         $('#AvisoASP').hide();
-        $('#btnAccesoUrl').hide();        
-        $('#btnCancelacionUrl').hide();        
-        $('#btnOposicionUrl').hide();        
-        $('#btnRectificacionUrl').hide();        
     }
     else {
         $('#AvisoASP').css({
@@ -75,11 +71,6 @@ $(document).ready(function () {
             'text-alig': 'right',
             'text-decoration': 'none'
         });
-
-        $('#btnAccesoUrl').css({ 'display': 'block'});  
-        $('#btnCancelacionUrl').css({ 'display': 'block' });
-        $('#btnOposicionUrl').css({ 'display': 'block' });
-        $('#btnRectificacionUrl').css({ 'display': 'block' });  
     }
 
     if (banderaOk == 'True') {
@@ -99,16 +90,8 @@ $(document).ready(function () {
 
         if ($("#ddlPais").val() == "MX") {
             $("#AvisoASP").show();
-            $("#btnAccesoUrl").show();
-            $("#btnCancelacionUrl").show();
-            $("#btnOposicionUrl").show();
-            $("#btnRectificacionUrl").show();
         } else {
             $("#AvisoASP").hide();
-            $("#btnAccesoUrl").hide();
-            $("#btnCancelacionUrl").hide();
-            $("#btnOposicionUrl").hide();
-            $("#btnRectificacionUrl").hide();
         };
 
         if (imgISO == "PA") $("#footer_esika").hide();
@@ -405,14 +388,6 @@ $(document).ready(function () {
         if (PaisID != 0 && telefonoCentral != "")
             RecuperarContrasenia();
     }); 
-    
-    $('#btnAccesoUrl').click(function () { EnlaceUrlsDocumentos('btnAccesoUrl', urlAcceso); });
-
-    $('#btnCancelacionUrl').click(function () { EnlaceUrlsDocumentos('btnCancelacionUrl', urlCancelacion); });
-
-    $('#btnOposicionUrl').click(function () { EnlaceUrlsDocumentos('btnOposicionUrl', urlOposicion); });
-
-    $('#btnRectificacionUrl').click(function () { EnlaceUrlsDocumentos('btnRectificacionUrl', urlRectificacion); });
 });
 
 function EnlaceUrlsDocumentos(id, enlace) {

@@ -893,96 +893,96 @@
 
     @using (@Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "frmLogin" }))
     {
-    <div id="loginanterior" class="formCont">
-        <input type="hidden" id="hdfContrasenia" />
-        <input type="hidden" id="returnUrl" name="returnUrl" value="@ViewBag.ReturnURL" />
+        <div id="loginanterior" class="formCont">
+            <input type="hidden" id="hdfContrasenia" />
+            <input type="hidden" id="returnUrl" name="returnUrl" value="@ViewBag.ReturnURL" />
 
-        <div class="info-userext">
-            <input type="hidden" id="hdeProveedor" name="UsuarioExterno.Proveedor" />
-            <input type="hidden" id="hdeIdApp" name="UsuarioExterno.IdAplicacion" />
-            <input type="hidden" id="hdeLogin" name="UsuarioExterno.Login" />
-            <input type="hidden" id="hdeNombres" name="UsuarioExterno.Nombres" />
-            <input type="hidden" id="hdeApellidos" name="UsuarioExterno.Apellidos" />
-            <input type="hidden" id="hdeFechaNacimiento" name="UsuarioExterno.FechaNacimiento" />
-            <input type="hidden" id="hdeCorreo" name="UsuarioExterno.Correo" />
-            <input type="hidden" id="hdeGenero" name="UsuarioExterno.Genero" />
-            <input type="hidden" id="hdeUbicacion" name="UsuarioExterno.Ubicacion" />
-            <input type="hidden" id="hdeLinkPerfil" name="UsuarioExterno.LinkPerfil" />
-            <input type="hidden" id="hdeFotoPerfil" name="UsuarioExterno.FotoPerfil" />
-            <input type="hidden" name="UsuarioExterno.Redireccionar" value="true" />
-        </div>
+            <div class="info-userext">
+                <input type="hidden" id="hdeProveedor" name="UsuarioExterno.Proveedor" />
+                <input type="hidden" id="hdeIdApp" name="UsuarioExterno.IdAplicacion" />
+                <input type="hidden" id="hdeLogin" name="UsuarioExterno.Login" />
+                <input type="hidden" id="hdeNombres" name="UsuarioExterno.Nombres" />
+                <input type="hidden" id="hdeApellidos" name="UsuarioExterno.Apellidos" />
+                <input type="hidden" id="hdeFechaNacimiento" name="UsuarioExterno.FechaNacimiento" />
+                <input type="hidden" id="hdeCorreo" name="UsuarioExterno.Correo" />
+                <input type="hidden" id="hdeGenero" name="UsuarioExterno.Genero" />
+                <input type="hidden" id="hdeUbicacion" name="UsuarioExterno.Ubicacion" />
+                <input type="hidden" id="hdeLinkPerfil" name="UsuarioExterno.LinkPerfil" />
+                <input type="hidden" id="hdeFotoPerfil" name="UsuarioExterno.FotoPerfil" />
+                <input type="hidden" name="UsuarioExterno.Redireccionar" value="true" />
+            </div>
 
-        <div class="boxform">
-            <div class="flecha_select">
-                <div class="formcontrol pais" id="cargarBandera">
+            <div class="boxform">
+                <div class="flecha_select">
+                    <div class="formcontrol pais" id="cargarBandera">
 
-                    <input type="hidden" id="hdfPaisSelect" value="00" />
-                    <input type="hidden" id="hdfPaises" value="PE;BO;CL;SV;CR;PA;GT;EC;AR;MX;DO;PR;VE;CO" />
-                    <input type="hidden" id="hdfURL" value="https://www2.somosbelcorp.com" />
-                    <input type="hidden" id="hdf_BO" value="LoginLoveBomb.jpg" />
-                    <input type="hidden" id="hdf_CL" value="LoginLoveBomb.jpg" />
-                    <input type="hidden" id="hdf_CO" value="LoginLoveBomb.jpg" />
-                    <input type="hidden" id="hdf_CR" value="fondo_default.jpg" />
-                    <input type="hidden" id="hdf_EC" value="LoginLoveBomb.jpg" />
-                    <input type="hidden" id="hdf_SV" value="LoginLoveBomb.jpg" />
-                    <input type="hidden" id="hdf_GT" value="LoginLoveBomb.jpg" />
-                    <input type="hidden" id="hdf_MX" value="LoginLoveBomb.jpg" />
-                    <input type="hidden" id="hdf_PA" value="fondo_default.jpg" />
-                    <input type="hidden" id="hdf_PE" value="LoginLoveBomb.jpg" />
-                    <input type="hidden" id="hdf_PR" value="LoginLoveBomb.jpg" />
-                    <input type="hidden" id="hdf_DO" value="fondo_default.jpg" />
-                    <input type="hidden" id="hdf_VE" value="fondo_default.jpg" />
-                    <input type="hidden" id="hdeCodigoISO" name="hdeCodigoISO" />
+                        <input type="hidden" id="hdfPaisSelect" value="00" />
+                        <input type="hidden" id="hdfPaises" value="PE;BO;CL;SV;CR;PA;GT;EC;AR;MX;DO;PR;VE;CO" />
+                        <input type="hidden" id="hdfURL" value="https://www2.somosbelcorp.com" />
+                        <input type="hidden" id="hdf_BO" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_CL" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_CO" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_CR" value="fondo_default.jpg" />
+                        <input type="hidden" id="hdf_EC" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_SV" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_GT" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_MX" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_PA" value="fondo_default.jpg" />
+                        <input type="hidden" id="hdf_PE" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_PR" value="LoginLoveBomb.jpg" />
+                        <input type="hidden" id="hdf_DO" value="fondo_default.jpg" />
+                        <input type="hidden" id="hdf_VE" value="fondo_default.jpg" />
+                        <input type="hidden" id="hdeCodigoISO" name="hdeCodigoISO" />
 
-                    <input type="hidden" id="HdePaisID" name="PaisID" />
+                        <input type="hidden" id="HdePaisID" name="PaisID" />
 
 
-                    <select id="ddlPais" name="CodigoISO" class="DropDown" tabindex="1">
-                        <option value="00" data-id="99">Elige tu País</option>
-                        @if (Model.ListaPaises != null)
-                        {
-                            foreach (var item in Model.ListaPaises)
+                        <select id="ddlPais" name="CodigoISO" class="DropDown" tabindex="1">
+                            <option value="00" data-id="99">Elige tu País</option>
+                            @if (Model.ListaPaises != null)
                             {
-                                if (item.PaisID > 0)
+                                foreach (var item in Model.ListaPaises)
                                 {
-                                    <option value="@item.CodigoISO" data-id="@item.PaisID">@item.Nombre</option>
-                                }
-                                else
-                                {
-                                    mensajeError = item.Nombre;
+                                    if (item.PaisID > 0)
+                                    {
+                                        <option value="@item.CodigoISO" data-id="@item.PaisID">@item.Nombre</option>
+                                    }
+                                    else
+                                    {
+                                        mensajeError = item.Nombre;
+                                    }
                                 }
                             }
-                        }
-                    </select>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="boxform" data-error="@mensajeError">
-            <div class="formcontrol user">
-                <input id="txtUsuario" name="CodigoUsuario" type="text" class="inputForm" value="" onfocus="" onblur="" placeholder="Usuario o Correo Electrónico" />
-            </div>
-            <div id="Div3" class="btn">
-                <a href="javascript:void(0);" id="abrirMSJ01" onclick="AbrirMensajeLogin(1)" class="helper huno"></a>
-            </div>
-        </div>
-
-        <div class="boxform">
-            <div class="formcontrol pass">
-                <input type="password" name="ClaveSecreta" id="txtContrasenia" class="inputForm" placeholder="Contraseña" value="" />
-            </div>
-            <div id="Div5" class="btn">
-                <a href="javascript:void(0);" id="abrirMSJ02" onclick="AbrirMensajeLogin(2)" class="helper hdos"></a>
-            </div>
-        </div>
-
-        <div class="boxform">
-            <div class="formbtn">
-                <div style="color: #ABEAE3; text-align: left; padding-left: 4px; margin-bottom: 5px; font-family: 'lato'; font-size: 12px; font-weight: bold;">
-                    <label id="ErrorTextLabel" class="img_error_login"></label>
+            <div class="boxform" data-error="@mensajeError">
+                <div class="formcontrol user">
+                    <input id="txtUsuario" name="CodigoUsuario" type="text" class="inputForm" value="" onfocus="" onblur="" placeholder="Usuario o Correo Electrónico" />
+                </div>
+                <div id="Div3" class="btn">
+                    <a href="javascript:void(0);" id="abrirMSJ01" onclick="AbrirMensajeLogin(1)" class="helper huno"></a>
                 </div>
             </div>
-        </div>
+
+            <div class="boxform">
+                <div class="formcontrol pass">
+                    <input type="password" name="ClaveSecreta" id="txtContrasenia" class="inputForm" placeholder="Contraseña" value="" />
+                </div>
+                <div id="Div5" class="btn">
+                    <a href="javascript:void(0);" id="abrirMSJ02" onclick="AbrirMensajeLogin(2)" class="helper hdos"></a>
+                </div>
+            </div>
+
+            <div class="boxform">
+                <div class="formbtn">
+                    <div style="color: #ABEAE3; text-align: left; padding-left: 4px; margin-bottom: 5px; font-family: 'lato'; font-size: 12px; font-weight: bold;">
+                        <label id="ErrorTextLabel" class="img_error_login"></label>
+                    </div>
+                </div>
+            </div>
 
             <div class="boxform float_r">
                 <div class="formbtn">
@@ -992,43 +992,44 @@
                     <br />
                 </div>
             </div>
-       
 
-        <div class="clear"></div>
 
-        <div class="boxform">
-            <div class="formbtn">
-                <input type="submit" id="btnLogin" class="btnCrear" value="INGRESA A TU CUENTA" />
+            <div class="clear"></div>
+
+            <div class="boxform">
+                <div class="formbtn">
+                    <input type="submit" id="btnLogin" class="btnCrear" value="INGRESA A TU CUENTA" />
+                </div>
+                <div style="display: none;">
+                    <input type="submit" id="SubmitButton" />
+                </div>
             </div>
-            <div style="display: none;">
-                <input type="submit" id="SubmitButton" />
+
+            <div class="boxform">
+                <div class="admin">
+                    <a href="@Url.Action("Admin", "Login")" onclick="return RedirectAdministrador();" rel="menu-superior" title="Administrador">INGRESA COMO <strong>ADMINISTRADOR</strong></a>
+                </div>
+            </div>
+            <p>&nbsp;</p>
+            <div class="boxform" id="VinculoTarjetaHelm" style="display: none;">
+                >
+                <div class="admin" style="margin-top:14px !important">
+                    <label for="">
+                        <a href="@System.Configuration.ConfigurationManager.AppSettings["UrlRetiroFondosTarjetaHelm"]" download target="_blank" title="" style="text-decoration:underline">RETIRO TARJETA PAY CARD CON SALDO</a>
+                    </label>
+
+                </div>
+
             </div>
         </div>
-
-        <div class="boxform">
-            <div class="admin">
-                <a href="@Url.Action("Admin", "Login")" onclick="return RedirectAdministrador();" rel="menu-superior" title="Administrador">INGRESA COMO <strong>ADMINISTRADOR</strong></a>
-            </div>
-        </div>
-        <p>&nbsp;</p>
-        <div class="boxform" id="VinculoTarjetaHelm" style="display: none;">>
-            <div class="admin" style="margin-top:14px !important" >
-                <label for="">
-                    <a href="@System.Configuration.ConfigurationManager.AppSettings["UrlRetiroFondosTarjetaHelm"]" download target="_blank" title="" style="text-decoration:underline">RETIRO TARJETA PAY CARD CON SALDO</a>
-                </label>
-
-            </div>
-            
-        </div>
-    </div>
     }
-    <div class="wrapper_lista_enlaces_solicitudes">
-        <ul class="lista_enlaces_solicitudes">
-            <li class="enlace_solicitud">
-                <a id="AvisoASP" href="javascript:void(0)">Privacidad de Datos</a> 
-            </li>  
-        </ul>
+
+    <div id="AvisoASP"  class="wrapper_enlace_AP">
+        <div class="enlace_AP">
+            <a href="javascript:void(0)" rel="menu-superior" title="Privacidad de Datos"><strong>PRIVACIDAD DE DATOS</strong></a>
+        </div>
     </div>
+
 </div>
 
 <div id="popupAsociarUsuarioExt" class="content_pop_login" style="display: none;">

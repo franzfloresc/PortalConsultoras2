@@ -296,6 +296,11 @@ span {
     height: 100%;
 }
 
+.wrapper_enlace_AP {
+    display: block;
+    height: 100%;
+}
+
 .formcontrol {
     display: block;
     border-bottom: 1px solid #959595;
@@ -516,6 +521,21 @@ span {
         padding-top: 2px;
     }
 
+.wrapper_enlace_AP .enlace_AP {
+    margin-top: 18px;
+    text-align: center;
+}
+
+    .wrapper_enlace_AP .enlace_AP a {
+        text-decoration: none;
+        color: #959595;
+        padding-left: 15px;
+        font-size: 12px;
+        font-weight: 300;
+        padding-top: 2px;
+    }
+
+
 .detalle, .detalle2 {
     background: url('../images/tooltip.png') top left no-repeat;
     width: 242px;
@@ -527,6 +547,11 @@ span {
 .boxform .admin a:hover {
     text-decoration: underline;
 }
+
+.wrapper_enlace_AP .enlace_AP a:hover {
+    text-decoration: underline;
+}
+
 
 #det1, #det2, .detalle2, .fondo_form {
     position: absolute;
