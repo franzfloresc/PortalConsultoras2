@@ -18,7 +18,9 @@ var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onEstrategiaLoaded");
 registerEvent.call(opcionesEvents, "onComponentSelected");
 
-var ComponentesModule = (function() {
+var ComponentesModule = (function () {
+    "use strict";
+
     var _estrategia = {};
 
     var _elements = {
@@ -41,7 +43,7 @@ var ComponentesModule = (function() {
         }
     };
 
-    var _listarComponentes = function (estrategia) {
+    var ListarComponentes = function (estrategia) {
         if (typeof estrategia === "undefined" ||
             estrategia === null) throw "param estrategia is not defined or null";
 
@@ -49,7 +51,22 @@ var ComponentesModule = (function() {
         SetHandlebars(_elements.componentes.templateId, _estrategia, _elements.componentes.id);
     };
 
-    var _seleccionarComponente = function (cuv) {
+    var _mostrarModalElegirOpciones = function() {
+        if (isMobile()) {
+            $(_elements.divElegirOpciones.id).modal("show");
+        } else {
+            $("body").addClass(_elements.body.modalActivadoClass);
+            $(_elements.divElegirOpciones.modalFondo.id)
+                .css("opacity", _elements.divElegirOpciones.modalFondo.opacity)
+                .show();
+            $(_elements.divElegirOpciones.id)
+                .show()
+                .css("margin-right", _elements.divElegirOpciones.marginRight)
+                .css("opacity", _elements.divElegirOpciones.opacity);
+        }
+    };
+
+    var SeleccionarComponente = function (cuv) {
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param cuv is not defined or null";
@@ -58,28 +75,17 @@ var ComponentesModule = (function() {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {
                 var componente = {};
-                componente = jQuery.extend(true, {}, _estrategia.Hermanos[index]);
+                componente = jQuery.extend(true, componente, _estrategia.Hermanos[index]);
                 opcionesEvents.applyChanges("onComponentSelected", componente);
-                if (isMobile()) {
-                    $(_elements.divElegirOpciones.id).modal("show");
-                } else {
-                    $("body").addClass(_elements.body.modalActivadoClass);
-                    $(_elements.divElegirOpciones.modalFondo.id)
-                        .css("opacity", _elements.divElegirOpciones.modalFondo.opacity)
-                        .show();
-                    $(_elements.divElegirOpciones.id)
-                        .show()
-                        .css("margin-right", _elements.divElegirOpciones.marginRight)
-                        .css("opacity", _elements.divElegirOpciones.opacity);
-                }
+                _mostrarModalElegirOpciones();
                 return false;
             }
         });
     }
 
     return {
-        ListarComponentes: _listarComponentes,
-        SeleccionarComponente: _seleccionarComponente
+        ListarComponentes: ListarComponentes,
+        SeleccionarComponente: SeleccionarComponente
     };
 }());
 
