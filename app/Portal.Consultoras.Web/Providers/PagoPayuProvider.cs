@@ -26,6 +26,7 @@ namespace Portal.Consultoras.Web.Providers
             try
             {
                 pago.OrdenId = (await GetOrderId()).ToString();
+                pago.TipoPago = GetPaymentMethod(pago);
 
                 var data = GetData(info, pago);
 
@@ -70,7 +71,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             if (!info.Birthdate.HasValue)
             {
-                throw new Exception("Fecha de Nacimiento en Payu es Requerido");
+                throw new Exception("Fecha de Nacimiento en Payu es requerido");
             }
 
             PagoVisaModel config = pago.PagoVisaModel;
@@ -121,16 +122,16 @@ namespace Portal.Consultoras.Web.Providers
                             emailAddress = info.Email,
                             contactPhone = info.Phone,
                             dniNumber = User.DocumentoIdentidad,
-                            //shippingAddress = new
-                            //{
-                            //    street1 = User.Direccion,
-                            //    //street2 = "8 int 103",
-                            //    city = "Guadalajara",
-                            //    //state = "Jalisco", // obligatorio brasil
-                            //    country = Constantes.PagoEnLineaPayuGenerales.Country,
-                            //    //postalCode = "000000", // obligatorio brasil
-                            //    //phone = "7563126" // obligatorio brasil
-                            //}
+                            shippingAddress = new
+                            {
+                                //street1 = User.Direccion,
+                                //-street2 = "8 int 103",
+                                //city = "Guadalajara",
+                                //-state = "Jalisco", // obligatorio brasil
+                                country = Constantes.PagoEnLineaPayuGenerales.Country,
+                                //-postalCode = "000000", // obligatorio brasil
+                                //-phone = "7563126" // obligatorio brasil
+                            }
                         }
                     },
                     payer = new
@@ -141,16 +142,16 @@ namespace Portal.Consultoras.Web.Providers
                         birthdate = info.Birthdate.Value.ToString("yyyy-MM-dd"), //MX
                         contactPhone = info.Phone,
                         dniNumber = User.DocumentoIdentidad,
-                        //billingAddress = new
-                        //{
-                        //    street1 = User.Direccion,
-                        //    //street2 = "calle 5 de Mayo",
-                        //    city = "Monterrey",
-                        //    //state = "Nuevo Leon",
-                        //    country = Constantes.PagoEnLineaPayuGenerales.Country,
-                        //    //postalCode = "000000", //MX 
-                        //    //phone = "7563126"
-                        //}
+                        billingAddress = new
+                        {
+                            //street1 = User.Direccion,
+                            //-street2 = "calle 5 de Mayo",
+                            //city = "Monterrey",
+                            //-state = "Nuevo Leon",
+                            country = Constantes.PagoEnLineaPayuGenerales.Country,
+                            //-postalCode = "000000", //MX 
+                            //-phone = "7563126"
+                        }
                     },
                     creditCard = isCredit ? card : null,
                     debitCard = !isCredit ? card : null,
@@ -158,7 +159,7 @@ namespace Portal.Consultoras.Web.Providers
                     //   INSTALLMENTS_NUMBER = 1 // cuotas
                     //},
                     type = Constantes.PagoEnLineaPayuGenerales.TransactionType,
-                    paymentMethod = GetPaymentMethod(pago),
+                    paymentMethod = pago.TipoPago,
                     paymentCountry = Constantes.PagoEnLineaPayuGenerales.Country,
                     deviceSessionId = pago.DeviceSessionId,
                     ipAddress = IpClient,
@@ -257,7 +258,7 @@ namespace Portal.Consultoras.Web.Providers
             bePagoEnLinea.NumeroDocumento = usuario.DocumentoIdentidad;
             bePagoEnLinea.CampaniaId = usuario.CampaniaID;
             bePagoEnLinea.FechaVencimiento = usuario.FechaLimPago;
-            bePagoEnLinea.TipoTarjeta = GetPaymentMethod(pago);
+            bePagoEnLinea.TipoTarjeta = pago.TipoPago;
             bePagoEnLinea.CodigoError = respuesta.errorCode;
             bePagoEnLinea.MensajeError = respuesta.responseMessage;
             bePagoEnLinea.IdGuidTransaccion = respuesta.transactionId;
