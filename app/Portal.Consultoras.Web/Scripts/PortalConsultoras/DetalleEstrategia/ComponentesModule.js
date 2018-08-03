@@ -76,8 +76,8 @@ var ComponentesModule = (function () {
             if (cuv === hermano.Cuv) {
                 var componente = {};
                 componente = _estrategia.Hermanos[index];
-                opcionesEvents.applyChanges("onComponentSelected", componente);
                 _mostrarModalElegirOpciones();
+                opcionesEvents.applyChanges("onComponentSelected", componente);
                 return false;
             }
         });

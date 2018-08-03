@@ -13,6 +13,7 @@
 /// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/ListaOpcionesModule.js" />
+/// <reference path="../../../Scripts/slick.js" />
 
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
@@ -36,7 +37,7 @@ var OpcionesSeleccionadasModule = (function () {
     var CargarOpcionesSeleccionadas = function (componente) {
         if (typeof componente === "undefined" ||
             componente === null) throw "param componente is not defined or null";
-
+        
         _componente = componente || {};
         if (_componente.HermanosSeleccionados.length > 0) {
             $(_elements.divContenedorOpcionesSeleccionadas.id).show();
