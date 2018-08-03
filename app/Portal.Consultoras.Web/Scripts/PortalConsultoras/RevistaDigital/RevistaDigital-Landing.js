@@ -20,7 +20,8 @@ var filtroIni = {
     IsLoad: false,
     Completo: 0,
     UrlCargarProductos: "",
-    Palanca: ""
+    Palanca: "",
+    guardaEnLocalStorage: true
 };
 
 $(document).ready(function () {

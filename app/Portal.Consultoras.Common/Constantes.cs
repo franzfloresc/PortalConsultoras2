@@ -230,6 +230,10 @@ namespace Portal.Consultoras.Common
             public const string NotParticipaProgramaNuevas = "0";
         }
 
+        public static class EstadoRespuestaServicio {
+            public const string Success = "OK";
+            public const string Error = "ERROR";
+        }
         public static class NombrePalanca
         {
             public const string OfertaParaTi = "OfertaParaTi";
@@ -452,7 +456,8 @@ namespace Portal.Consultoras.Common
             public const string Catalogo_Piloto_Grupos = "Catalogo_Piloto_Grupos_";
             public const string Catalogo_Marca_Piloto = "Catalogo_Marca_Piloto_";
             public const string SubGuion = "_";
-
+            public const string estrategiaWebApiDisponibilidadTipo = "EstrategiaDisponibleMicroservicioPersonalizacion";
+            public const string paisesMicroservicioPersonalizacion = "PaisesMicroservicioPersonalizacion";
             public const string EnabledRemoveCache = "EnabledRemoveCache";
             public const string UrlServiceSicc = "UrlServiceSicc";
             public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
@@ -2329,6 +2334,67 @@ namespace Portal.Consultoras.Common
             public const int HVObtenerProductos = 4;
             public const int OPTObtenerProductos = 5;
         };
+
+        public class PersonalizacionOfertasService
+        {
+            #region Administrar Estrategia
+            //api/Estrategia/listar/{pais}/{tipo}/{campania}
+            public const string UrlListarWebApi = "api/estrategia/listar/{0}/{1}/{2}";
+
+            //api/Estrategia/contar/{pais}/{tipo}/{campania}
+            public const string UrlCantidadOfertas = "api/estrategia/contar/{0}/{1}/{2}";
+
+            //api/Estrategia/precargar/{pais}/{tipo}/{campania}
+            public const string UrlPreCargarWebApi = "api/estrategia/precargar/{0}/{1}/{2}";
+
+            //api/Estrategia/cargar/{pais}
+            public const string UrlCargarWebApi = "api/estrategia/cargar/{0}?usuario={1}";
+
+            //api/Estrategia/{pais}/{id} --REVISAR
+            public const string UrlFiltrarEstrategia = "api/estrategia/{0}/{1}";
+
+            //api/Estrategia/editar/{pais}
+            public const string UrlEditarWebApi = "api/estrategia/editar/{0}?prod={1}&perfil={2}";
+
+            //api/Estrategia/deshabilitar/{pais}/{id}?Usuario=           
+            public const string UrlDesactivarWebApi = "api/estrategia/deshabilitar/{0}/{1}?Usuario={2}";
+
+            //api/Estrategia/desactivar/{pais}/{tipo}
+            public const string UrlActivarDesactivarEstrategias = "api/estrategia/activardesactivar/{0}/{1}";
+
+            //api/Estrategia/descripcion/{pais}/{tipo}/{campania}
+            public const string UrlUploadCsv = "api/estrategia/descripcion/{0}/{1}/{2}";
+                                                
+            //api/Estrategia/cuv/{pais}/{tipo}/{campania}/{cuv}
+            public const string UrlEstrategiaCuv = "api/estrategia/cuv/{0}/{1}/{2}/{3}";
+
+            //api/Estrategia/registrar/{pais}
+            public const string UrlRegistrarWebApi = "api/estrategia/registrar/{0}";
+
+            //api/TipoEstrategia/editar/{pais}
+            public const string UrlEditarTipoEstrategiaWebApi = "api/tipo/editar/{0}";
+
+            //api/TipoEstrategia/registrar/{pais}
+            public const string UrlRegistrarTipoEstrategiaWebApi = "api/tipo/registrar/{0}";
+
+            //api/Estrategia/multiple/{pais}
+            public const string UrlListarEstrategiaPorConfigurarWebApi = "api/Estrategia/multiple/{0}";
+            #endregion
+
+            #region Oferta
+            //api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{diaInicio}
+            public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
+
+            ///api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}
+            public const string UrlObtenerRevistaDigital = "api/Oferta/{0}/{1}/{2}/{3}/{4}/{5}";
+
+            //api/Componente/{pais}/{codigoCampania}/{cuv}
+            public const string UrlObtenerComponente = "api/Componente/{0}/{1}/{2}";
+
+            #endregion
+        }
+
+
 
     }
 }
