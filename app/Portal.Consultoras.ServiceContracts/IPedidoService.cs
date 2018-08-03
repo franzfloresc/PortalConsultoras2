@@ -1,14 +1,12 @@
 ﻿using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.PagoEnLinea;
 using Portal.Consultoras.Entities.Pedido;
-using Portal.Consultoras.Entities.Pedido.App;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
-using Portal.Consultoras.Entities.PagoEnLinea;
 
 using System;
 using System.Collections.Generic;
@@ -1156,31 +1154,35 @@ namespace Portal.Consultoras.ServiceContracts
 
         #endregion
 
-        #region PedidoApp
+        #region Pedido
         [OperationContract]
-        BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar);
+        BEPedidoProducto GetCUV(BEPedidoProductoBuscar productoBuscar);
         [OperationContract]
-        BEPedidoDetalleAppResult InsertPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        BEPedidoDetalleResult InsertPedidoDetalle(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
-        BEPedidoWeb GetPedidoApp(BEUsuario usuario);
+        BEPedidoWeb GetPedido(BEUsuario usuario);
         [OperationContract]
         bool InsertKitInicio(BEUsuario usuario);
         [OperationContract]
-        BEPedidoDetalleAppResult UpdatePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        BEPedidoDetalleResult UpdatePedidoDetalle(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
-        BEConfiguracionPedido GetConfiguracionPedidoApp(int paisID, string codigoUsuario);
+        BEConfiguracionPedido GetConfiguracionPedido(int paisID, string codigoUsuario);
         [OperationContract]
-        Task<BEPedidoDetalleAppResult> DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        Task<BEPedidoDetalleResult> DeletePedido(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
-        Task<BEPedidoReservaAppResult> ReservaPedidoDetalleApp(BEUsuario usuario);
+        Task<BEPedidoReservaAppResult> ReservaPedido(BEUsuario usuario);
         [OperationContract]
-        BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario);
+        BEPedidoDetalleResult ModificarReservaPedido(BEUsuario usuario);
         [OperationContract]
         List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario);
         [OperationContract]
-        BEUsuario GetConfiguracionOfertaFinal(BEUsuario usuario);
+        BEPedidoDetalleResult InsertEstrategiaCarrusel(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
-        List<BEProducto> GetProductoSugerido(BEProductoAppBuscar productoBuscar);
+        BEUsuario GetConfiguracionOfertaFinalCarrusel(BEUsuario usuario);
+        [OperationContract]
+        BEPedidoDetalleResult InsertOfertaFinalCarrusel(BEPedidoDetalle pedidoDetalle);
+        [OperationContract]
+        List<Entities.BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar);
         #endregion
 
         #region Pago en Linea

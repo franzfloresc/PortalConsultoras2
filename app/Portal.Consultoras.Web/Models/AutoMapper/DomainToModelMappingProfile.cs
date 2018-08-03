@@ -642,7 +642,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.TieneOfertaDelDia, f => f.MapFrom(c => true))
                 .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden));
 
-
+            
             Mapper.CreateMap<ServiceUsuario.BEUsuario, MisDatosModel>();
             Mapper.CreateMap<BEPagoEnLineaTipoPago, PagoEnLineaTipoPagoModel>();
             Mapper.CreateMap<BEPagoEnLineaMedioPago, PagoEnLineaMedioPagoModel>();
