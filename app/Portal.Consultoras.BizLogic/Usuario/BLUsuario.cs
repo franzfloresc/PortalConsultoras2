@@ -599,7 +599,7 @@ namespace Portal.Consultoras.BizLogic
                 usuario.CuponMontoMaxDscto = cuponTask.Result.MontoMaximoDescuento;
                 usuario.CuponTipoCondicion = cuponTask.Result.TipoCondicion;
 
-                
+
 
                 return usuario;
             }
@@ -3224,7 +3224,6 @@ namespace Portal.Consultoras.BizLogic
         {
             return new DAUsuario(paisID).CancelarAtualizacionEmail(codigoUsuario);
         }
-        }
 
         public List<BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona)
         {
@@ -3238,5 +3237,6 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             return BuscadorYFiltro;
+        }
     }
 }

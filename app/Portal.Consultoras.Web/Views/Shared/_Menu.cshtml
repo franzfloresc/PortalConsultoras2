@@ -1,5 +1,6 @@
 ﻿@{
     // Asignar permisosList con los elementos solo de la cabecera
+    var origenPedidoWeb = Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopBuscador;
     var permisoList = (List<Portal.Consultoras.Web.Models.PermisoModel>)ViewBag.Permiso;
     permisoList = permisoList != null
         ? permisoList.Where(x => x.Posicion.ToLower().Equals("header") && x.Mostrar).OrderBy(p => p.OrdenItem).ToList()
@@ -50,6 +51,7 @@
         <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
         <input type="hidden" class="hdBuscadorValorizado" value="{{Valorizado}}" />
         <input type="hidden" class="hdBuscadorPosicion" value="{{posicion}}" />
+        <input type="hidden" class="hdBuscadorEstrategiaCodigo" value="{{EstrategiaCodigo}}" />
 
         <div class="resultado_busqueda_img_prod displayInlineBlock">
             <img src="{{Imagen}}" alt="Imagen no disponible" class="imagen_no_disponible" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.png")'" />
@@ -66,8 +68,8 @@
         </div>
 
         {{#if_eq CodigoEstrategia '2003'}}
-        <div class="resultado_busqueda_btn_elegir_opcion_wrapper displayInlineBlock text-center">
-            <a class="btn_elegir_opcion displayBlock text-center text-uppercase">
+        <div class="resultado_busqueda_btn_elegir_opcion_wrapper displayInlineBlock text-center" data-OrigenPedidoWeb="@origenPedidoWeb">
+            <a class="btn_elegir_opcion displayBlock text-center text-uppercase" href="javascript:;" onclick="BuscadorFichaDetalle('{{CampaniaID}}', '{{CUV}}', '@origenPedidoWeb', '{{EstrategiaCodigo}}');">
                 Elige tu opción
             </a>
         </div>
@@ -86,11 +88,11 @@
             <a class="boton_Agregalo_home displayBlock text-center text-uppercase agregarProductoBuscador">
                 Agrégalo
             </a>
-            @*<div class="etiqueta_prod_agregado displayBlock text-uppercase text-bold">
-                    Agregado
-                </div>*@
+            <div class="etiqueta_prod_agregado displayBlock text-uppercase text-bold etiqueta_buscador_producto">
+                {{Agregado}}
+            </div>
         </div>
         {{/if_eq}}
-    </div>
+            </div>
     {{/each}}
 </script>

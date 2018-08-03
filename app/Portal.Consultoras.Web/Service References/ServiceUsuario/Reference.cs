@@ -7204,6 +7204,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string DescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EstrategiaCodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7295,6 +7298,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
                     this.DescripcionField = value;
                     this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EstrategiaCodigo {
+            get {
+                return this.EstrategiaCodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EstrategiaCodigoField, value) != true)) {
+                    this.EstrategiaCodigoField = value;
+                    this.RaisePropertyChanged("EstrategiaCodigo");
                 }
             }
         }
