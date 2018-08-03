@@ -49,7 +49,8 @@
     }
 
 .enlace_busqueda_filtros,
-.opcion_limpiar_campo_busqueda_productos {
+.opcion_limpiar_campo_busqueda_productos
+{
     display: block;
     height: 100%;
     position: absolute;
@@ -58,7 +59,8 @@
 
     .enlace_busqueda_filtros img,
     .opcion_limpiar_campo_busqueda_productos img,
-    .enlace_regresar_filtros img {
+    .enlace_regresar_filtros img
+    {
         position: absolute;
         margin: auto;
         top: 0;
@@ -68,11 +70,13 @@
     }
 
 .enlace_busqueda_filtros,
-.enlace_regresar_filtros {
+.enlace_regresar_filtros
+{
     width: 40px;
 }
 
-.enlace_regresar_filtros {
+.enlace_regresar_filtros
+{
     display: inline-block;
     vertical-align: middle;
     position: relative;
