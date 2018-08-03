@@ -187,6 +187,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar(model);
                 model.TieneContratoPopup = ValidarContratoPopup() ? 1 : 0;
+                model.TieneFacturacionElectronica = GetDatosFacturacionElectronica(userData.PaisID, Constantes.FacturacionElectronica.TablaLogicaID, Constantes.FacturacionElectronica.FlagActivacion) == "1" ? true : false;
 
                 #endregion
 
@@ -2382,7 +2383,5 @@ namespace Portal.Consultoras.Web.Controllers
                 return "";
             }
         }
-
-
     }
 }

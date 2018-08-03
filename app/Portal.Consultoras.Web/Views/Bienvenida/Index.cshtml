@@ -181,47 +181,40 @@
         </div>
 
         <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Ver mis Últimos Pagos" class="boton_ultimos_movimientos" style="@(ultPg)" href="@Url.Action("Index", "MisPagos")"> VER MIS ÚLTIMOS MOVIMIENTOS</a>
-
-        @if (Model.TienePagoEnLinea)
-        {
-            <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea"
-               href="@Url.Action("Index","PagoEnLinea")" class="btn_paga_online btn_100_paga"
-               style="margin-top: 10px;">PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
-            if (Model.PaisID == Constantes.PaisID.Ecuador || Model.PaisID == Constantes.PaisID.Peru)
+        @{  
+            var marginTopFacturaE = "";
+            var marginTopPagoLinea = Model.TieneFacturacionElectronica == true ? "margin-top: 10px;" : "";
+            if (Model.TienePagoEnLinea)
             {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion"
-                   href="@Url.Action("Index", "FacturaElectronica")" target="_blank"
-                   style="margin-top: 10px;">FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> <!-- AGREGAR LA CLASES="btn_100_facturacion"-->
+                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea"
+                                   href="@Url.Action("Index", "PagoEnLinea")" class="btn_paga_online btn_100_paga"
+                   style="margin-top: 10px;">PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
+                marginTopFacturaE = "margin-top: 10px";
+            }
+            else
+            {
+                if (Model.PaisID == Constantes.PaisID.Chile)
+                {
+                    <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="javascript:;"  style="@marginTopPagoLinea" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a>
+                    marginTopFacturaE = "margin-top: 10px";
+                }
+                else if (Model.PaisID == Constantes.PaisID.Colombia)
+                {
+                    <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="https://www.zonapagos.com/t_belstar/pagos.asp" style="@marginTopPagoLinea"> PAGA EN L&Iacute;NEA</a>
+                    marginTopFacturaE = "margin-top: 10px";
+                }
+                else if (Model.PaisID == Constantes.PaisID.PuertoRico)
+                {
+                    <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")" style="@marginTopPagoLinea"> PAGA EN L&Iacute;NEA</a>
+                    marginTopFacturaE = "margin-top: 10px";
+                }
+            }
+
+            if (Model.TieneFacturacionElectronica)
+            {
+                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank" style="@marginTopFacturaE"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a>
             }
         }
-        else
-        {
-            if (Model.PaisID == Constantes.PaisID.Chile)
-            {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a>
-            }
-            else if (Model.PaisID == Constantes.PaisID.Colombia)
-            {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="https://www.zonapagos.com/t_belstar/pagos.asp"> PAGA EN L&Iacute;NEA</a>
-            }
-            else if (Model.PaisID == Constantes.PaisID.PuertoRico)
-            {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")"> PAGA EN L&Iacute;NEA</a>
-            }
-            else if (Model.PaisID == Constantes.PaisID.Ecuador || Model.PaisID == Constantes.PaisID.Peru)
-            {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a>
-            }
-            else if (Model.PaisID == Constantes.PaisID.Venezuela)
-            {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta"
-                   title="Paga en línea" class="btn_paga_online btn_100_paga"
-                   href="@Url.Action("Index", "MisPagos", new { pestanhaInicial = "LugaresPago"})"
-                   style="@clasePagoOnlineVZ">PAGA EN L&Iacute;NEA</a>
-            }
-        }
-
-
         <hr class="clear" />
 
     </div>
