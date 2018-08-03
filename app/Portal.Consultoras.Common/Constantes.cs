@@ -2336,6 +2336,12 @@ namespace Portal.Consultoras.Common
             public const string PasarelaBelcorpPayU = "B";
         }
 
+        public static class PagoEnLineaTipoTarjeta
+        {
+            public const string Credito = "CRED";
+            public const string Debito = "DEB";
+        }
+
         public static class PagoEnLineaPasarelaVisa
         {
             public const string MerchantId = "01";

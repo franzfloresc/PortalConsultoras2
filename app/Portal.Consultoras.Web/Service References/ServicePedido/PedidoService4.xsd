@@ -1,43 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-  <xs:complexType name="BEConfiguracionProgramaNuevasApp">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="ArchivoBannerCupon" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ArchivoBannerPremio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConfiguracionProgramaNuevasAppID" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="TextoCupon" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TextoCuponIndependiente" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEConfiguracionProgramaNuevasApp" nillable="true" type="tns:BEConfiguracionProgramaNuevasApp" />
-  <xs:complexType name="ArrayOfBEConfiguracionProgramaNuevasApp">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConfiguracionProgramaNuevasApp" nillable="true" type="tns:BEConfiguracionProgramaNuevasApp" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEConfiguracionProgramaNuevasApp" nillable="true" type="tns:ArrayOfBEConfiguracionProgramaNuevasApp" />
-  <xs:complexType name="BEEstrategiaMasiva">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
+  <xs:complexType name="BERevistaDigitalSuscripcion">
     <xs:complexContent mixed="false">
       <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" base="q1:BaseEntidad">
         <xs:sequence>
+          <xs:element minOccurs="0" name="CampaniaEfectiva" type="xs:int" />
           <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-          <xs:element minOccurs="0" name="EstrategiaXML" nillable="true">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:any minOccurs="0" processContents="lax" />
-              </xs:sequence>
-            </xs:complexType>
-          </xs:element>
-          <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
-          <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EMail" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EstadoEnvio" type="xs:int" />
+          <xs:element minOccurs="0" name="EstadoRegistro" type="xs:int" />
+          <xs:element minOccurs="0" name="FechaDesuscripcion" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="FechaSuscripcion" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="IsoPais" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="RevistaDigitalSuscripcionID" type="xs:int" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="BEEstrategiaMasiva" nillable="true" type="tns:BEEstrategiaMasiva" />
+  <xs:element name="BERevistaDigitalSuscripcion" nillable="true" type="tns:BERevistaDigitalSuscripcion" />
 </xs:schema>

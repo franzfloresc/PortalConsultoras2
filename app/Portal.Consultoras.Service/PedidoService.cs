@@ -2203,6 +2203,11 @@ namespace Portal.Consultoras.Service
             return BLPagoEnLinea.ObtenerPagoEnLineaPasarelaCampos(paisId);
         }
 
+        public int ObtenerPagoEnLineaNumeroOrden(int paisId)
+        {
+            return BLPagoEnLinea.ObtenerNumeroOrden(paisId);
+        }
+
         #endregion
 
 

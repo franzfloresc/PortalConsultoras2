@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Entities.PagoEnLinea;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data.PagoEnLinea
 {
@@ -152,7 +148,6 @@ namespace Portal.Consultoras.Data.PagoEnLinea
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerPagoEnLineaMedioPagoDetalle");
 
             return Context.ExecuteReader(command);
-
         }
 
         public IDataReader ObtenerPagoEnLineaTipoPasarelaByCodigoPlataforma(string codigoPlataforma)
@@ -161,7 +156,16 @@ namespace Portal.Consultoras.Data.PagoEnLinea
             Context.Database.AddInParameter(command, "@CodigoPlataforma", DbType.String, codigoPlataforma);
 
             return Context.ExecuteReader(command);
+        }
 
-        }        
+        public int ObtenerNumeroOrden()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerNumeroOrdenPagoEnLinea");
+
+            using (command)
+            {
+                return (int)Context.ExecuteScalar(command);
+            }
+        }
     }
 }

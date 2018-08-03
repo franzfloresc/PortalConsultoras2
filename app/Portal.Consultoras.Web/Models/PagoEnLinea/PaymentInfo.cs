@@ -14,14 +14,17 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         public string NumberCard { get; set; }
         [Required(ErrorMessage = "Este campo es obligatorio")]
         [StringLength(2)]
-        [Display(Name = "Mes")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "No es un número válido")]
         [DateCard("ExpireYear", ErrorMessage = "La fecha es inválida")]
+        [Display(Name = "Mes")]
         public string ExpireMonth { get; set; }
         [Required(ErrorMessage = "Este campo es obligatorio")]
         [StringLength(4)]
+        [RegularExpression(@"^\d+$", ErrorMessage = "No es un número válido")]
         [Display(Name = "Año")]
         public string ExpireYear { get; set; }
         [Required(ErrorMessage = "Este campo es obligatorio")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "No es un número válido")]
         [StringLength(3)]
         [Display(Name = "CVV")]
         public string Cvv { get; set; }

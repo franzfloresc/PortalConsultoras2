@@ -3408,7 +3408,25 @@ namespace Portal.Consultoras.Common
             string caracter = "*".PadLeft(longitudOcultar, '*');
             return celular.Replace(strOcultar, caracter);
         }
+        
+        public static string EnmascararTarjeta(string numero)
+        {
+            if (string.IsNullOrWhiteSpace(numero)) return string.Empty;
+            const byte initLen = 6;
+            const byte lastLen = 4;
+            const byte totalLen = initLen + lastLen;
 
+            var longitud = numero.Length;
+            if (longitud <= totalLen)
+            {
+                return string.Empty;
+            }
+
+            var init = numero.Substring(0, initLen);
+            var last = numero.Substring(longitud - lastLen);
+            
+            return init + new string('*', longitud - totalLen) + last;
+        }
         public static string GetDescripcionMarca(int marcaId)
         {
             string result;

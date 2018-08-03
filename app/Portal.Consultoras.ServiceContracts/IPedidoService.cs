@@ -1216,6 +1216,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEPagoEnLineaPasarelaCampos> ObtenerPagoEnLineaPasarelaCampos(int paisId);
+
+        [OperationContract]
+        int ObtenerPagoEnLineaNumeroOrden(int paisId);
         #endregion
 
         [OperationContract]

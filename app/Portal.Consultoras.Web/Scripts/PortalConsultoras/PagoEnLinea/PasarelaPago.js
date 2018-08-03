@@ -1,6 +1,8 @@
-﻿var pasarelaModule = (function() {
+﻿var pasarelaModule = (function($) {
     var me = {};
+
     me.Funciones = (function() {
+
         function showPanel() {
             var div = $(this).closest('div.mensaje_validacion');
             div.show();
@@ -68,8 +70,9 @@
             init: init 
         };
     })();
+
     return me;
-})();
+})(jQuery);
 
 $(document).ready(function () {
     pasarelaModule.Funciones.init();

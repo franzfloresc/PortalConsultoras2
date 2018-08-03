@@ -291,7 +291,7 @@ namespace Portal.Consultoras.Web.Providers
         public PagoVisaModel ObtenerValoresPagoPayu(PagoEnLineaModel model)
         {
             var pagoModel = new PagoVisaModel();
-            var tipoPasarelaVisa = Constantes.PagoEnLineaMetodoPago.PasarelaVisa;
+            var tipoPasarelaVisa = Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU;
             var listaPasarelaVisa = ObtenerPagoEnLineaTipoPasarela(tipoPasarelaVisa);
             if (listaPasarelaVisa.Count > 0)
             {
@@ -596,6 +596,15 @@ namespace Portal.Consultoras.Web.Providers
             return result;
         }
 
+        public PagoEnLineaMedioPagoDetalleModel ObtenerMetodoPagoSelecccionado(PagoEnLineaModel pago, string card, int medio)
+        {
+            return pago.ListaMetodoPago
+                .FirstOrDefault(m =>
+                    m.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU &&
+                    m.PagoEnLineaMedioPagoId == medio &&
+                    m.TipoTarjeta == card);
+        }
+        
         public IEnumerable<string> ObtenerMeses()
         {
             return Enumerable.Range(1, 12).Select(i => i.ToString("00"));

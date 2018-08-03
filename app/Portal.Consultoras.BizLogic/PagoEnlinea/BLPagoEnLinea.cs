@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Data.PagoEnLinea;
 using Portal.Consultoras.Entities.PagoEnLinea;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.BizLogic.PagoEnlinea
 {
@@ -156,6 +152,11 @@ namespace Portal.Consultoras.BizLogic.PagoEnlinea
             }
 
             return lista;
+        }
+
+        public int ObtenerNumeroOrden(int paisId)
+        {
+            return new DAPagoEnLinea(paisId).ObtenerNumeroOrden();
         }
     }
 }

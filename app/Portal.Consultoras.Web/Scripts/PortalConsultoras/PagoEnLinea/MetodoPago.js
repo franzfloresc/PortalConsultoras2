@@ -107,10 +107,10 @@ $(document).ready(function () {
                     e.preventDefault();
 
                     var metodoPago = $(this).data("metodopago");
-                    var medioPago = $(this).data("mediopago");
-                    var cardType = $(this).data("tipotarjeta");
 
                     if (metodoPago == metodoPagoPasarelaBelcorpPayU) {
+                        var medioPago = $(this).data("mediopago");
+                        var cardType = $(this).data("tipotarjeta");
                         window.location.href = urlPasarelaPago + "?cardType=" + cardType + "&medio=" + medioPago;
                     }
 

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.Infraestructure.Validator.PagoEnLinea;
 
@@ -68,20 +69,21 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult PasarelaPago(string cardType, int medio)
+        public ActionResult PasarelaPago(string cardType, int medio = 0)
         {
             var pago = sessionManager.GetDatosPagoVisa();
+            if (pago == null || pago.ListaMetodoPago == null)
+            {
+                return RedirectToAction("Index");
+            }
+
             if (!string.IsNullOrEmpty(cardType))
             {
-                var selected = pago.ListaMetodoPago
-                    .FirstOrDefault(m =>
-                        m.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaBelcorpPayU &&
-                        m.PagoEnLineaMedioPagoId == medio &&
-                        m.TipoTarjeta == cardType);
+                var selected = _pagoEnLineaProvider.ObtenerMetodoPagoSelecccionado(pago, cardType, medio);
 
                 if (selected == null)
                 {
-                    return RedirectToAction("MetodoPago");
+                    return RedirectToAction("Index");
                 }
                 pago.MetodoPagoSeleccionado = selected;
                 sessionManager.SetDatosPagoVisa(pago);
@@ -89,7 +91,7 @@ namespace Portal.Consultoras.Web.Controllers
             
             if (pago.MetodoPagoSeleccionado == null)
             {
-                return RedirectToAction("MetodoPago");
+                return RedirectToAction("Index");
             }
 
             SetDeviceSessionId(pago);
@@ -108,7 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult PasarelaPago(PaymentInfo info)
+        public async Task<ActionResult> PasarelaPago(PaymentInfo info)
         {
             var requiredFields = _pagoEnLineaProvider.ObtenerCamposRequeridos();
             var pago = sessionManager.GetDatosPagoVisa();
@@ -124,16 +126,20 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (validator.IsValid(info))
                 {
-                    //var provider = new PagoPayuProvider
-                    //{
-                    //    User = userData,
-                    //    SessionId = Session.SessionID,
-                    //    IpClient = GetIPCliente(),
-                    //    Agent = Request.UserAgent
-                    //};
-                    //provider.Pay(info, model);
-                    // Make Pay
-                    return View("PagoExitoso", pago);
+                    pago.ListaMedioPago = _pagoEnLineaProvider.ObtenerListaMedioPago();
+                    var provider = new PagoPayuProvider
+                    {
+                        User = userData,
+                        SessionId = Session.SessionID,
+                        IpClient = GetIPCliente(),
+                        Agent = Request.UserAgent
+                    };
+
+                    var success = await provider.Pay(info, pago);
+                    if (success)
+                        return View("PagoExitoso", pago);
+                    
+                    return View("PagoRechazado", pago);
                 }
 
                 foreach (var error in validator.Errors)
