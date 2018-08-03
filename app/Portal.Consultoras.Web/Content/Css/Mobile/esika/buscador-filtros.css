@@ -281,12 +281,9 @@
 .resultado_busqueda_mobile_btn_agregar_wrapper,
 .resultado_busqueda_mobile_btn_elegir_opcion_wrapper {
     width: 100%;
+    margin-top:7px;
 }
-
-.resultado_busqueda_mobile_btn_agregar_wrapper {
-    margin-top: 7px;
-}
-    
+   
     .resultado_busqueda_mobile_btn_agregar_wrapper .boton_Agregalo_home {
         margin-top: 0;
         background-color: #000;
@@ -294,15 +291,18 @@
     }
 
     .resultado_busqueda_mobile_btn_agregar_wrapper .boton_Agregalo_home,
-    .btn_elegir_opcion {
+    .btn_elegir_opcion
+    {
         width: 100%;
         height: 45px;
-        line-height: 20px;
+        line-height:42px;
         border: 1px solid #000;
         font-size: 12px;
         letter-spacing: 0.5px;
         font-weight: 700;
         border-radius: 4px;
+        padding-left:5px;
+        padding-right:5px;
     }
 
 .btn_elegir_opcion {
@@ -314,6 +314,15 @@
     margin-top: 7px;
     font-size: 11px;
     color: #848484;
+}
+
+@media screen and (max-width:408px){
+
+    .btn_elegir_opcion{
+        padding-top:6px;
+        line-height:15px;
+    }
+
 }
 
 /* FIN - LISTA DE RESULTADOS DE BÚSQUEDA MOBILE */

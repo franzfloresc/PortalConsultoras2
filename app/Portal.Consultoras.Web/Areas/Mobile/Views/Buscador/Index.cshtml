@@ -89,8 +89,8 @@
             </div>
             <div class="resultado_busqueda_mobile_cantidad_prod displayInlineBlock" data-cantidad-contenedor="">
                 {{#if_eq CodigoEstrategia '2003'}}
-                <div class="resultado_busqueda_mobile_btn_agregar_wrapper displayBlock text-center">
-                    <a class="boton_Agregalo_home displayBlock text-center text-uppercase">
+                <div class="resultado_busqueda_mobile_btn_elegir_opcion_wrapper displayBlock text-center">
+                    <a class="btn_elegir_opcion displayBlock text-center text-uppercase">
                         Elige tu opción
                     </a>
                 </div>
@@ -107,6 +107,11 @@
                     <a class="boton_Agregalo_home displayBlock text-center text-uppercase agregarProductoBuscador">
                         Agrégalo
                     </a>
+                    <!-- ESTA ETIQUETA DEBE SALIR CUANDO SE AGREGA UN PRODUCTO -->
+                    <div class="etiqueta_prod_agregado displayBlock text-uppercase text-bold" style="display:none;">
+                        Agregado
+                    </div>
+                    <!-- FIN - ESTA ETIQUETA DEBE SALIR CUANDO SE AGREGA UN PRODUCTO -->
                 </div>
                 {{/if_eq}}
             </div>
