@@ -5416,9 +5416,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEProductoAppBuscar", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoProductoBuscar", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido")]
     [System.SerializableAttribute()]
-    public partial class BEProductoAppBuscar : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class BEPedidoProductoBuscar : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -12585,9 +12585,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEProductoApp", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoProducto", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido")]
     [System.SerializableAttribute()]
-    public partial class BEProductoApp : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class BEPedidoProducto : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -12719,6 +12719,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EstaEnRevistaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstrategiaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FlagNuevaField;
@@ -13019,6 +13022,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EstaEnRevistaField.Equals(value) != true)) {
                     this.EstaEnRevistaField = value;
                     this.RaisePropertyChanged("EstaEnRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstrategiaID {
+            get {
+                return this.EstrategiaIDField;
+            }
+            set {
+                if ((this.EstrategiaIDField.Equals(value) != true)) {
+                    this.EstrategiaIDField = value;
+                    this.RaisePropertyChanged("EstrategiaID");
                 }
             }
         }
@@ -13347,9 +13363,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoDetalleApp", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoDetalle", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido")]
     [System.SerializableAttribute()]
-    public partial class BEPedidoDetalleApp : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class BEPedidoDetalle : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -13373,7 +13389,13 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string IdentifierField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal ImporteTotalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ObservacionPROLField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrigenPedidoWebField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaisIDField;
@@ -13386,6 +13408,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServicePedido.BEProducto ProductoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SetIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServicePedido.BEUsuario UsuarioField;
@@ -13479,6 +13504,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal ImporteTotal {
+            get {
+                return this.ImporteTotalField;
+            }
+            set {
+                if ((this.ImporteTotalField.Equals(value) != true)) {
+                    this.ImporteTotalField = value;
+                    this.RaisePropertyChanged("ImporteTotal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string ObservacionPROL {
             get {
                 return this.ObservacionPROLField;
@@ -13487,6 +13525,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.ObservacionPROLField, value) != true)) {
                     this.ObservacionPROLField = value;
                     this.RaisePropertyChanged("ObservacionPROL");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OrigenPedidoWeb {
+            get {
+                return this.OrigenPedidoWebField;
+            }
+            set {
+                if ((this.OrigenPedidoWebField.Equals(value) != true)) {
+                    this.OrigenPedidoWebField = value;
+                    this.RaisePropertyChanged("OrigenPedidoWeb");
                 }
             }
         }
@@ -13544,6 +13595,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SetID {
+            get {
+                return this.SetIDField;
+            }
+            set {
+                if ((this.SetIDField.Equals(value) != true)) {
+                    this.SetIDField = value;
+                    this.RaisePropertyChanged("SetID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public Portal.Consultoras.Web.ServicePedido.BEUsuario Usuario {
             get {
                 return this.UsuarioField;
@@ -13568,9 +13632,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoDetalleAppResult", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoDetalleResult", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido")]
     [System.SerializableAttribute()]
-    public partial class BEPedidoDetalleAppResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class BEPedidoDetalleResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -15960,7 +16024,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoReservaAppResult", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoReservaAppResult", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido")]
     [System.SerializableAttribute()]
     public partial class BEPedidoReservaAppResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -38641,23 +38705,23 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerCertificadoDigital", ReplyAction="http://tempuri.org/IPedidoService/ObtenerCertificadoDigitalResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMiCertificado> ObtenerCertificadoDigitalAsync(int paisId, int campaniaId, long consultoraId, short tipoCert);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCUVApp", ReplyAction="http://tempuri.org/IPedidoService/GetCUVAppResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEProductoApp GetCUVApp(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCUV", ReplyAction="http://tempuri.org/IPedidoService/GetCUVResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoProducto GetCUV(Portal.Consultoras.Web.ServicePedido.BEPedidoProductoBuscar productoBuscar);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCUVApp", ReplyAction="http://tempuri.org/IPedidoService/GetCUVAppResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoApp> GetCUVAppAsync(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCUV", ReplyAction="http://tempuri.org/IPedidoService/GetCUVResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoProducto> GetCUVAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoProductoBuscar productoBuscar);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertPedidoDetalleApp", ReplyAction="http://tempuri.org/IPedidoService/InsertPedidoDetalleAppResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult InsertPedidoDetalleApp(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleApp pedidoDetalle);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertPedidoDetalle", ReplyAction="http://tempuri.org/IPedidoService/InsertPedidoDetalleResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult InsertPedidoDetalle(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertPedidoDetalleApp", ReplyAction="http://tempuri.org/IPedidoService/InsertPedidoDetalleAppResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult> InsertPedidoDetalleAppAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleApp pedidoDetalle);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertPedidoDetalle", ReplyAction="http://tempuri.org/IPedidoService/InsertPedidoDetalleResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult> InsertPedidoDetalleAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidoApp", ReplyAction="http://tempuri.org/IPedidoService/GetPedidoAppResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPedidoWeb GetPedidoApp(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedido", ReplyAction="http://tempuri.org/IPedidoService/GetPedidoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoWeb GetPedido(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidoApp", ReplyAction="http://tempuri.org/IPedidoService/GetPedidoAppResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> GetPedidoAppAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedido", ReplyAction="http://tempuri.org/IPedidoService/GetPedidoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> GetPedidoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertKitInicio", ReplyAction="http://tempuri.org/IPedidoService/InsertKitInicioResponse")]
         bool InsertKitInicio(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
@@ -38665,35 +38729,35 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertKitInicio", ReplyAction="http://tempuri.org/IPedidoService/InsertKitInicioResponse")]
         System.Threading.Tasks.Task<bool> InsertKitInicioAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdatePedidoDetalleApp", ReplyAction="http://tempuri.org/IPedidoService/UpdatePedidoDetalleAppResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult UpdatePedidoDetalleApp(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleApp pedidoDetalle);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdatePedidoDetalle", ReplyAction="http://tempuri.org/IPedidoService/UpdatePedidoDetalleResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult UpdatePedidoDetalle(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdatePedidoDetalleApp", ReplyAction="http://tempuri.org/IPedidoService/UpdatePedidoDetalleAppResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult> UpdatePedidoDetalleAppAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleApp pedidoDetalle);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdatePedidoDetalle", ReplyAction="http://tempuri.org/IPedidoService/UpdatePedidoDetalleResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult> UpdatePedidoDetalleAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionPedidoApp", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionPedidoAppResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEConfiguracionPedido GetConfiguracionPedidoApp(int paisID, string codigoUsuario);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionPedido", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionPedidoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEConfiguracionPedido GetConfiguracionPedido(int paisID, string codigoUsuario);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionPedidoApp", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionPedidoAppResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionPedido> GetConfiguracionPedidoAppAsync(int paisID, string codigoUsuario);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionPedido", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionPedidoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionPedido> GetConfiguracionPedidoAsync(int paisID, string codigoUsuario);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeletePedidoDetalleApp", ReplyAction="http://tempuri.org/IPedidoService/DeletePedidoDetalleAppResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult DeletePedidoDetalleApp(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleApp pedidoDetalle);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeletePedido", ReplyAction="http://tempuri.org/IPedidoService/DeletePedidoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult DeletePedido(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeletePedidoDetalleApp", ReplyAction="http://tempuri.org/IPedidoService/DeletePedidoDetalleAppResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult> DeletePedidoDetalleAppAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleApp pedidoDetalle);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeletePedido", ReplyAction="http://tempuri.org/IPedidoService/DeletePedidoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult> DeletePedidoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ReservaPedidoDetalleApp", ReplyAction="http://tempuri.org/IPedidoService/ReservaPedidoDetalleAppResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPedidoReservaAppResult ReservaPedidoDetalleApp(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ReservaPedido", ReplyAction="http://tempuri.org/IPedidoService/ReservaPedidoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoReservaAppResult ReservaPedido(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ReservaPedidoDetalleApp", ReplyAction="http://tempuri.org/IPedidoService/ReservaPedidoDetalleAppResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoReservaAppResult> ReservaPedidoDetalleAppAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ReservaPedido", ReplyAction="http://tempuri.org/IPedidoService/ReservaPedidoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoReservaAppResult> ReservaPedidoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeshacerReservaPedidoApp", ReplyAction="http://tempuri.org/IPedidoService/DeshacerReservaPedidoAppResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult DeshacerReservaPedidoApp(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ModificarReservaPedido", ReplyAction="http://tempuri.org/IPedidoService/ModificarReservaPedidoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult ModificarReservaPedido(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeshacerReservaPedidoApp", ReplyAction="http://tempuri.org/IPedidoService/DeshacerReservaPedidoAppResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult> DeshacerReservaPedidoAppAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ModificarReservaPedido", ReplyAction="http://tempuri.org/IPedidoService/ModificarReservaPedidoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult> ModificarReservaPedidoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaCarrusel", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaCarruselResponse")]
         Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategiaCarrusel(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
@@ -38701,17 +38765,29 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiaCarrusel", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiaCarruselResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetEstrategiaCarruselAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinal", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEUsuario GetConfiguracionOfertaFinal(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertEstrategiaCarrusel", ReplyAction="http://tempuri.org/IPedidoService/InsertEstrategiaCarruselResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult InsertEstrategiaCarrusel(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinal", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEUsuario> GetConfiguracionOfertaFinalAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertEstrategiaCarrusel", ReplyAction="http://tempuri.org/IPedidoService/InsertEstrategiaCarruselResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult> InsertEstrategiaCarruselAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalCarrusel", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalCarruselResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEUsuario GetConfiguracionOfertaFinalCarrusel(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalCarrusel", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalCarruselResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEUsuario> GetConfiguracionOfertaFinalCarruselAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertOfertaFinalCarrusel", ReplyAction="http://tempuri.org/IPedidoService/InsertOfertaFinalCarruselResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult InsertOfertaFinalCarrusel(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertOfertaFinalCarrusel", ReplyAction="http://tempuri.org/IPedidoService/InsertOfertaFinalCarruselResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult> InsertOfertaFinalCarruselAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/GetProductoSugeridoResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEProducto[] GetProductoSugerido(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar);
+        Portal.Consultoras.Web.ServicePedido.BEProducto[] GetProductoSugerido(Portal.Consultoras.Web.ServicePedido.BEPedidoProductoBuscar productoBuscar);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/GetProductoSugeridoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProducto[]> GetProductoSugeridoAsync(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProducto[]> GetProductoSugeridoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoProductoBuscar productoBuscar);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLog", ReplyAction="http://tempuri.org/IPedidoService/InsertPagoEnLineaResultadoLogResponse")]
         int InsertPagoEnLineaResultadoLog(int paisId, Portal.Consultoras.Web.ServicePedido.BEPagoEnLineaResultadoLog entidad);
@@ -41095,28 +41171,28 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.ObtenerCertificadoDigitalAsync(paisId, campaniaId, consultoraId, tipoCert);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEProductoApp GetCUVApp(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar) {
-            return base.Channel.GetCUVApp(productoBuscar);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoProducto GetCUV(Portal.Consultoras.Web.ServicePedido.BEPedidoProductoBuscar productoBuscar) {
+            return base.Channel.GetCUV(productoBuscar);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoApp> GetCUVAppAsync(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar) {
-            return base.Channel.GetCUVAppAsync(productoBuscar);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoProducto> GetCUVAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoProductoBuscar productoBuscar) {
+            return base.Channel.GetCUVAsync(productoBuscar);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult InsertPedidoDetalleApp(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleApp pedidoDetalle) {
-            return base.Channel.InsertPedidoDetalleApp(pedidoDetalle);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult InsertPedidoDetalle(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle) {
+            return base.Channel.InsertPedidoDetalle(pedidoDetalle);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult> InsertPedidoDetalleAppAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleApp pedidoDetalle) {
-            return base.Channel.InsertPedidoDetalleAppAsync(pedidoDetalle);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult> InsertPedidoDetalleAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle) {
+            return base.Channel.InsertPedidoDetalleAsync(pedidoDetalle);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPedidoWeb GetPedidoApp(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
-            return base.Channel.GetPedidoApp(usuario);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWeb GetPedido(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
+            return base.Channel.GetPedido(usuario);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> GetPedidoAppAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
-            return base.Channel.GetPedidoAppAsync(usuario);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> GetPedidoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
+            return base.Channel.GetPedidoAsync(usuario);
         }
         
         public bool InsertKitInicio(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
@@ -41127,44 +41203,44 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.InsertKitInicioAsync(usuario);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult UpdatePedidoDetalleApp(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleApp pedidoDetalle) {
-            return base.Channel.UpdatePedidoDetalleApp(pedidoDetalle);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult UpdatePedidoDetalle(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle) {
+            return base.Channel.UpdatePedidoDetalle(pedidoDetalle);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult> UpdatePedidoDetalleAppAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleApp pedidoDetalle) {
-            return base.Channel.UpdatePedidoDetalleAppAsync(pedidoDetalle);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult> UpdatePedidoDetalleAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle) {
+            return base.Channel.UpdatePedidoDetalleAsync(pedidoDetalle);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEConfiguracionPedido GetConfiguracionPedidoApp(int paisID, string codigoUsuario) {
-            return base.Channel.GetConfiguracionPedidoApp(paisID, codigoUsuario);
+        public Portal.Consultoras.Web.ServicePedido.BEConfiguracionPedido GetConfiguracionPedido(int paisID, string codigoUsuario) {
+            return base.Channel.GetConfiguracionPedido(paisID, codigoUsuario);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionPedido> GetConfiguracionPedidoAppAsync(int paisID, string codigoUsuario) {
-            return base.Channel.GetConfiguracionPedidoAppAsync(paisID, codigoUsuario);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConfiguracionPedido> GetConfiguracionPedidoAsync(int paisID, string codigoUsuario) {
+            return base.Channel.GetConfiguracionPedidoAsync(paisID, codigoUsuario);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult DeletePedidoDetalleApp(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleApp pedidoDetalle) {
-            return base.Channel.DeletePedidoDetalleApp(pedidoDetalle);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult DeletePedido(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle) {
+            return base.Channel.DeletePedido(pedidoDetalle);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult> DeletePedidoDetalleAppAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleApp pedidoDetalle) {
-            return base.Channel.DeletePedidoDetalleAppAsync(pedidoDetalle);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult> DeletePedidoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle) {
+            return base.Channel.DeletePedidoAsync(pedidoDetalle);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPedidoReservaAppResult ReservaPedidoDetalleApp(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
-            return base.Channel.ReservaPedidoDetalleApp(usuario);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoReservaAppResult ReservaPedido(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
+            return base.Channel.ReservaPedido(usuario);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoReservaAppResult> ReservaPedidoDetalleAppAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
-            return base.Channel.ReservaPedidoDetalleAppAsync(usuario);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoReservaAppResult> ReservaPedidoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
+            return base.Channel.ReservaPedidoAsync(usuario);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult DeshacerReservaPedidoApp(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
-            return base.Channel.DeshacerReservaPedidoApp(usuario);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult ModificarReservaPedido(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
+            return base.Channel.ModificarReservaPedido(usuario);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleAppResult> DeshacerReservaPedidoAppAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
-            return base.Channel.DeshacerReservaPedidoAppAsync(usuario);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult> ModificarReservaPedidoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
+            return base.Channel.ModificarReservaPedidoAsync(usuario);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategiaCarrusel(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
@@ -41175,19 +41251,35 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetEstrategiaCarruselAsync(usuario);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEUsuario GetConfiguracionOfertaFinal(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
-            return base.Channel.GetConfiguracionOfertaFinal(usuario);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult InsertEstrategiaCarrusel(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle) {
+            return base.Channel.InsertEstrategiaCarrusel(pedidoDetalle);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEUsuario> GetConfiguracionOfertaFinalAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
-            return base.Channel.GetConfiguracionOfertaFinalAsync(usuario);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult> InsertEstrategiaCarruselAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle) {
+            return base.Channel.InsertEstrategiaCarruselAsync(pedidoDetalle);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEProducto[] GetProductoSugerido(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar) {
+        public Portal.Consultoras.Web.ServicePedido.BEUsuario GetConfiguracionOfertaFinalCarrusel(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
+            return base.Channel.GetConfiguracionOfertaFinalCarrusel(usuario);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEUsuario> GetConfiguracionOfertaFinalCarruselAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {
+            return base.Channel.GetConfiguracionOfertaFinalCarruselAsync(usuario);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult InsertOfertaFinalCarrusel(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle) {
+            return base.Channel.InsertOfertaFinalCarrusel(pedidoDetalle);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDetalleResult> InsertOfertaFinalCarruselAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoDetalle pedidoDetalle) {
+            return base.Channel.InsertOfertaFinalCarruselAsync(pedidoDetalle);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEProducto[] GetProductoSugerido(Portal.Consultoras.Web.ServicePedido.BEPedidoProductoBuscar productoBuscar) {
             return base.Channel.GetProductoSugerido(productoBuscar);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProducto[]> GetProductoSugeridoAsync(Portal.Consultoras.Web.ServicePedido.BEProductoAppBuscar productoBuscar) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProducto[]> GetProductoSugeridoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoProductoBuscar productoBuscar) {
             return base.Channel.GetProductoSugeridoAsync(productoBuscar);
         }
         
