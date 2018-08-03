@@ -31,7 +31,7 @@
         <div id="resumen-opciones-{{componente.Cuv}}" class="tono_selecionado" style="display:none"></div>
         <hr class="clear">
         {{#iff FactorCuadre '==' '1'}}
-        <div data-tono-div="">
+        <div data-tono-div="{{componente.Cuv}}">
             {{#each this.Hermanos as |variedad|}}
             <div style="display: none;">
                 <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
@@ -40,7 +40,8 @@
             <div class="content_tono_detalle"
                  data-tono-cuv="{{variedad.Cuv}}"
                  data-tono-change="2"
-                 data-tono-nombre="{{variedad.NombreBulk}}">
+                 data-tono-nombre="{{variedad.NombreBulk}}"
+                 onclick="javascript: ComponentesModule.SeleccionarPaletaOpcion(event,{{variedad.Cuv}})">
                 <img src="{{variedad.ImagenBulk}}" alt="">
             </div>
             {{/each}}
