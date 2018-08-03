@@ -332,7 +332,7 @@
 
         //Handlers bars para el detalle de los tabs de fichas
         _construirSeccionDetalleFichas(estrategia);
-        
+
         // Se realiza la marcación en analytics de la información de la ficha de un producto.
         var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
         AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, null, estrategia.CodigoVariante, _config.palanca);
@@ -595,6 +595,32 @@
         });
     }
 
+    var _resizeBotonAgregar = function () {
+        var dvFoto = $("#dvSeccionFoto");
+        var dvRedesSociales = $("#Contenedor_redes_sociales");
+        var dvFichaEtiqueta = $("#contenedor_ficha_etiquetas");
+        var dvDetalle = $("#dvSeccionDetalle");
+
+        if (dvFoto.length && dvRedesSociales.length) {
+
+            dvDetalle.removeClass("ficha_detalle_cuerpo");
+            var dvFotoHeight = dvFoto.innerHeight();
+            var dvFichaEtiquetaHeight = dvFichaEtiqueta.innerHeight();
+            var dvDetalleHeight = dvDetalle.innerHeight();
+            var dvIzquierdoHeight = dvFotoHeight + 45; // 45 es por el padding del padre.
+            var dvDerechoHeight = dvDetalleHeight + dvFichaEtiquetaHeight;
+            if (dvIzquierdoHeight > dvDerechoHeight) {
+                var dvRedesSocialesHeight = dvRedesSociales.innerHeight();
+                var diferenciaHeight = dvIzquierdoHeight - dvFichaEtiquetaHeight;
+                dvDetalle.removeClass("ficha_detalle_cuerpo");
+                dvDetalle.height(diferenciaHeight);
+            }
+            else {
+                dvDetalle.addClass("ficha_detalle_cuerpo");
+            }
+        }
+    }
+
     var _prevenirScrollFixed = function () {
         if (isMobile()) {
             setTimeout(function () {
@@ -613,29 +639,26 @@
             }, 3000);
         }
         else {
-            var dvFoto = $("#dvSeccionFoto");
-            var dvRedesSociales = $("#Contenedor_redes_sociales");
-            var dvFichaEtiqueta = $("#contenedor_ficha_etiquetas");
-            var dvDetalle = $("#dvSeccionDetalle");
+            _resizeBotonAgregar();
 
-            if (dvFoto.length && dvRedesSociales.length) {
-
-                dvDetalle.removeClass("ficha_detalle_cuerpo");
-                var dvFotoHeight = dvFoto.innerHeight();
-                var dvFichaEtiquetaHeight = dvFichaEtiqueta.innerHeight();
-                var dvDetalleHeight = dvDetalle.innerHeight();
-                var dvIzquierdoHeight = dvFotoHeight + 45; // 45 es por el padding del padre.
-                var dvDerechoHeight = dvDetalleHeight + dvFichaEtiquetaHeight;
-                if (dvIzquierdoHeight > dvDerechoHeight) {
-                    var dvRedesSocialesHeight = dvRedesSociales.innerHeight();
-                    var diferenciaHeight = dvIzquierdoHeight - dvFichaEtiquetaHeight;
-                    dvDetalle.removeClass("ficha_detalle_cuerpo");
-                    dvDetalle.height(diferenciaHeight);
-                }
-                else {
-                    dvDetalle.addClass("ficha_detalle_cuerpo");
-                }
-            }
+            //var dvFoto = $("#dvSeccionFoto");
+            //var dvRedesSociales = $("#Contenedor_redes_sociales");
+            //var dvFichaEtiqueta = $("#contenedor_ficha_etiquetas");
+            //var dvDetalle = $("#dvSeccionDetalle");
+            //if (dvFoto.length && dvRedesSociales.length) {
+            //    var dvFotoHeight = dvFoto.height();
+            //    var dvRedesSocialesHeight = dvRedesSociales.height();
+            //    var dvFichaEtiquetaHeight = dvFichaEtiqueta.height();
+            //    var dvDetalleHeight = dvDetalle.height();
+            //    var dvIzquierdoHeight = dvFotoHeight + dvRedesSocialesHeight + 45; // 45 es por el padding del padre.
+            //    var dvDerechoHeight = dvDetalleHeight + dvFichaEtiquetaHeight;
+            //    if (dvIzquierdoHeight > dvDerechoHeight) {
+            //        var diferenciaHeight = dvIzquierdoHeight - dvDerechoHeight;
+            //        diferenciaHeight = dvDetalleHeight - diferenciaHeight;
+            //        dvDetalle.removeClass("ficha_detalle_cuerpo");
+            //        dvDetalle.height(diferenciaHeight);
+            //    }
+            //}
         }
     }
 
