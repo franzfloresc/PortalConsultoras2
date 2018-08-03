@@ -1937,18 +1937,13 @@ namespace Portal.Consultoras.Web.Controllers
                     string[] arrayHeader = readLine.Split('|');
                     string columnObservation = string.Empty;
                     bool errorColumn = false;
-                    if (arrayHeader.Length != 7)
+                    if (arrayHeader.Length != 6)
                     {
                         throw new ArgumentException("Los títulos de las columnas no son los correctos.");
                     }
                     if (!arrayHeader[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToLower().Equals(Constantes.ColumnsSetStrategyShowroom.CUV))
                     {
                         columnObservation = Constantes.ColumnsSetStrategyShowroom.CUV;
-                        errorColumn = true;
-                    }
-                    else if (!arrayHeader[(int)Constantes.ColumnsSetStrategyShowroom.Position.NormalPrice].ToLower().Equals(Constantes.ColumnsSetStrategyShowroom.NormalPrice))
-                    {
-                        columnObservation = Constantes.ColumnsSetStrategyShowroom.NormalPrice;
                         errorColumn = true;
                     }
                     else if (!arrayHeader[(int)Constantes.ColumnsSetStrategyShowroom.Position.AllowedUnits].ToLower().Equals(Constantes.ColumnsSetStrategyShowroom.AllowedUnits))
@@ -1987,7 +1982,7 @@ namespace Portal.Consultoras.Web.Controllers
                         string[] arrayRows = readLine.Split('|');
                         if (arrayRows[0] != "CUV")
                         {
-                            if (arrayRows.Length != 7)
+                            if (arrayRows.Length != 6)
                             {
                                 throw new ArgumentException(string.Format("Verificar la información del archivo (datos incompletos). <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
@@ -1995,7 +1990,6 @@ namespace Portal.Consultoras.Web.Controllers
                             strategyEntityList.Add(new ServicePedido.BEEstrategia
                             {
                                 CUV2 = arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd(),
-                                Precio = decimal.Parse(arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.NormalPrice]),
                                 LimiteVenta = int.Parse(arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.AllowedUnits]),
                                 DescripcionCUV2 = arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.NameSet].ToString().TrimEnd(),
                                 TextoLibre = arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.BusinessTip].ToString().TrimEnd(),
@@ -2028,13 +2022,13 @@ namespace Portal.Consultoras.Web.Controllers
                         LogManager.LogManager.LogErrorWebServicesPortal(new FaultException(), "ERROR: CARGA PRODUCTO SHOWROOM", string.Format("CUV: {0} con precio CERO", productPriceOfferZero.CUV2));
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, messageErrorPriceZero);
                     }
+                 
+                   
                     XElement strategyXML = new XElement("strategy",
                     from strategy in strategyEntityList
                     select new XElement("row",
                                  new XElement("CUV2", strategy.CUV2),
                                  new XElement("DescripcionCUV2", strategy.DescripcionCUV2),
-                                 new XElement("Precio", strategy.Precio),
-                                 new XElement("Precio2", strategy.Precio2),
                                  new XElement("LimiteVenta", strategy.LimiteVenta),
                                  new XElement("TextoLibre", strategy.TextoLibre),
                                  new XElement("EsSubCampania", strategy.EsSubCampania),
