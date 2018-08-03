@@ -135,11 +135,11 @@ var ListaOpcionesModule = (function () {
             $.trim(cuv) === "") throw "param componente is not defined or null";
 
         var hermanoSeleccionadoIndex;
-        $.each(_componente.HermanosSeleccionados, function (index, hermano) {
+        $.each(_componente.HermanosSeleccionados, function (index1, hermano) {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {
-                hermanoSeleccionadoIndex = index;
-                $.each(_componente.Hermanos, function (index, item) {
+                hermanoSeleccionadoIndex = index1;
+                $.each(_componente.Hermanos, function (index2, item) {
                     if (hermano.Cuv === item.Cuv) {
                         item.cantidadSeleccionada = item.cantidadSeleccionada > 0? (item.cantidadSeleccionada - 1) : 0;
                         return false;
