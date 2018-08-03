@@ -54,6 +54,17 @@
 </head>
 <body>
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
+     
+    @*Popup para mexico privacidad de datos*@
+    @if (ViewBag.codigoISOMenu == "MX")
+    {
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/jquery.custom-scrollbar.css")">
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Login2/style_lbel.css")">
+        
+        <div id="box-pop-up" style="display: none;">
+            @Html.Partial("~/Views/Shared/_PopupPrivacidadDatos.cshtml")
+        </div>
+    }
 
     @if (ViewBag.PaisesConTrackingJetlore == "1")
     {
