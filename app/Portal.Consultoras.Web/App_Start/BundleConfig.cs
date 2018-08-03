@@ -339,7 +339,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js",
-                "~/Scripts/jquery.rateyo.js"
+                "~/Scripts/jquery.rateyo.js",
+                "~/Scripts/jquery.custom-scrollbar.js"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/Css/Site/CcsBienvenida").Include(
