@@ -231,7 +231,7 @@
 
     var _validarDesactivadoGeneral = function (estrategia) {
         $.each(estrategia.Hermanos, function (index, hermano) {
-            
+
             if (hermano.Hermanos) {
                 if (hermano.Hermanos.length > 0) {
                     estrategia.ClaseBloqueada = "btn_desactivado_general";
@@ -242,12 +242,12 @@
                     //$(".contenedor_rangos").addClass("contenedor_rangos_desactivado");
                     $(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
                     $(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
-                    
+
                     $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
                     $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
-                    
-                    
-                    
+
+
+
                 }
             }
         });
@@ -270,7 +270,7 @@
             return false;
         }
 
-        if (typeof estrategia.DescripcionCompleta !== "undefined" && 
+        if (typeof estrategia.DescripcionCompleta !== "undefined" &&
             estrategia.DescripcionCompleta != null) {
             estrategia.DescripcionCompleta = $.trim(estrategia.DescripcionCompleta);
             var palabrasEstrategiaDescripcion = estrategia.DescripcionCompleta.split(" ");
@@ -617,18 +617,23 @@
             var dvRedesSociales = $("#Contenedor_redes_sociales");
             var dvFichaEtiqueta = $("#contenedor_ficha_etiquetas");
             var dvDetalle = $("#dvSeccionDetalle");
+
             if (dvFoto.length && dvRedesSociales.length) {
-                var dvFotoHeight = dvFoto.height();
-                var dvRedesSocialesHeight = dvRedesSociales.height();
-                var dvFichaEtiquetaHeight = dvFichaEtiqueta.height();
-                var dvDetalleHeight = dvDetalle.height();
-                var dvIzquierdoHeight = dvFotoHeight + dvRedesSocialesHeight + 45; // 45 es por el padding del padre.
+
+                dvDetalle.removeClass("ficha_detalle_cuerpo");
+                var dvFotoHeight = dvFoto.innerHeight();
+                var dvFichaEtiquetaHeight = dvFichaEtiqueta.innerHeight();
+                var dvDetalleHeight = dvDetalle.innerHeight();
+                var dvIzquierdoHeight = dvFotoHeight + 45; // 45 es por el padding del padre.
                 var dvDerechoHeight = dvDetalleHeight + dvFichaEtiquetaHeight;
                 if (dvIzquierdoHeight > dvDerechoHeight) {
-                    var diferenciaHeight = dvIzquierdoHeight - dvDerechoHeight;
-                    diferenciaHeight = dvDetalleHeight - diferenciaHeight;
+                    var dvRedesSocialesHeight = dvRedesSociales.innerHeight();
+                    var diferenciaHeight = dvIzquierdoHeight - dvFichaEtiquetaHeight;
                     dvDetalle.removeClass("ficha_detalle_cuerpo");
                     dvDetalle.height(diferenciaHeight);
+                }
+                else {
+                    dvDetalle.addClass("ficha_detalle_cuerpo");
                 }
             }
         }
