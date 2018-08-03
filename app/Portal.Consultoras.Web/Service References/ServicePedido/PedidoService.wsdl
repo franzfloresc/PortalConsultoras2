@@ -33,15 +33,14 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd13" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd14" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd13" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IPedidoService_ListConcursosVigentes_InputMessage">
@@ -164,23 +163,23 @@
   <wsdl:message name="IPedidoService_ObtenerCertificadoDigital_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerCertificadoDigitalResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetCUVApp_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetCUVApp" />
+  <wsdl:message name="IPedidoService_GetCUV_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCUV" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetCUVApp_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetCUVAppResponse" />
+  <wsdl:message name="IPedidoService_GetCUV_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCUVResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_InsertPedidoDetalleApp_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertPedidoDetalleApp" />
+  <wsdl:message name="IPedidoService_InsertPedidoDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPedidoDetalle" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_InsertPedidoDetalleApp_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertPedidoDetalleAppResponse" />
+  <wsdl:message name="IPedidoService_InsertPedidoDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPedidoDetalleResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetPedidoApp_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPedidoApp" />
+  <wsdl:message name="IPedidoService_GetPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedido" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetPedidoApp_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPedidoAppResponse" />
+  <wsdl:message name="IPedidoService_GetPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidoResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_InsertKitInicio_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertKitInicio" />
@@ -188,35 +187,35 @@
   <wsdl:message name="IPedidoService_InsertKitInicio_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertKitInicioResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_UpdatePedidoDetalleApp_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdatePedidoDetalleApp" />
+  <wsdl:message name="IPedidoService_UpdatePedidoDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePedidoDetalle" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_UpdatePedidoDetalleApp_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdatePedidoDetalleAppResponse" />
+  <wsdl:message name="IPedidoService_UpdatePedidoDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePedidoDetalleResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetConfiguracionPedidoApp_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetConfiguracionPedidoApp" />
+  <wsdl:message name="IPedidoService_GetConfiguracionPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPedido" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetConfiguracionPedidoApp_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetConfiguracionPedidoAppResponse" />
+  <wsdl:message name="IPedidoService_GetConfiguracionPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPedidoResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_DeletePedidoDetalleApp_InputMessage">
-    <wsdl:part name="parameters" element="tns:DeletePedidoDetalleApp" />
+  <wsdl:message name="IPedidoService_DeletePedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePedido" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_DeletePedidoDetalleApp_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DeletePedidoDetalleAppResponse" />
+  <wsdl:message name="IPedidoService_DeletePedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePedidoResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_ReservaPedidoDetalleApp_InputMessage">
-    <wsdl:part name="parameters" element="tns:ReservaPedidoDetalleApp" />
+  <wsdl:message name="IPedidoService_ReservaPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReservaPedido" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_ReservaPedidoDetalleApp_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ReservaPedidoDetalleAppResponse" />
+  <wsdl:message name="IPedidoService_ReservaPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReservaPedidoResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_DeshacerReservaPedidoApp_InputMessage">
-    <wsdl:part name="parameters" element="tns:DeshacerReservaPedidoApp" />
+  <wsdl:message name="IPedidoService_ModificarReservaPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModificarReservaPedido" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_DeshacerReservaPedidoApp_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DeshacerReservaPedidoAppResponse" />
+  <wsdl:message name="IPedidoService_ModificarReservaPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ModificarReservaPedidoResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetEstrategiaCarrusel_InputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategiaCarrusel" />
@@ -224,11 +223,23 @@
   <wsdl:message name="IPedidoService_GetEstrategiaCarrusel_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategiaCarruselResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetConfiguracionOfertaFinal_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetConfiguracionOfertaFinal" />
+  <wsdl:message name="IPedidoService_InsertEstrategiaCarrusel_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertEstrategiaCarrusel" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetConfiguracionOfertaFinal_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetConfiguracionOfertaFinalResponse" />
+  <wsdl:message name="IPedidoService_InsertEstrategiaCarrusel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertEstrategiaCarruselResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetConfiguracionOfertaFinalCarrusel_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionOfertaFinalCarrusel" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetConfiguracionOfertaFinalCarrusel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionOfertaFinalCarruselResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertOfertaFinalCarrusel_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertOfertaFinalCarrusel" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertOfertaFinalCarrusel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertOfertaFinalCarruselResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetProductoSugerido_InputMessage">
     <wsdl:part name="parameters" element="tns:GetProductoSugerido" />
@@ -2513,49 +2524,57 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerCertificadoDigital" message="tns:IPedidoService_ObtenerCertificadoDigital_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerCertificadoDigitalResponse" message="tns:IPedidoService_ObtenerCertificadoDigital_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetCUVApp">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCUVApp" message="tns:IPedidoService_GetCUVApp_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCUVAppResponse" message="tns:IPedidoService_GetCUVApp_OutputMessage" />
+    <wsdl:operation name="GetCUV">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCUV" message="tns:IPedidoService_GetCUV_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCUVResponse" message="tns:IPedidoService_GetCUV_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="InsertPedidoDetalleApp">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoDetalleApp" message="tns:IPedidoService_InsertPedidoDetalleApp_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoDetalleAppResponse" message="tns:IPedidoService_InsertPedidoDetalleApp_OutputMessage" />
+    <wsdl:operation name="InsertPedidoDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoDetalle" message="tns:IPedidoService_InsertPedidoDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoDetalleResponse" message="tns:IPedidoService_InsertPedidoDetalle_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetPedidoApp">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoApp" message="tns:IPedidoService_GetPedidoApp_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoAppResponse" message="tns:IPedidoService_GetPedidoApp_OutputMessage" />
+    <wsdl:operation name="GetPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedido" message="tns:IPedidoService_GetPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidoResponse" message="tns:IPedidoService_GetPedido_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="InsertKitInicio">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertKitInicio" message="tns:IPedidoService_InsertKitInicio_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertKitInicioResponse" message="tns:IPedidoService_InsertKitInicio_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="UpdatePedidoDetalleApp">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdatePedidoDetalleApp" message="tns:IPedidoService_UpdatePedidoDetalleApp_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdatePedidoDetalleAppResponse" message="tns:IPedidoService_UpdatePedidoDetalleApp_OutputMessage" />
+    <wsdl:operation name="UpdatePedidoDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdatePedidoDetalle" message="tns:IPedidoService_UpdatePedidoDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdatePedidoDetalleResponse" message="tns:IPedidoService_UpdatePedidoDetalle_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionPedidoApp">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionPedidoApp" message="tns:IPedidoService_GetConfiguracionPedidoApp_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionPedidoAppResponse" message="tns:IPedidoService_GetConfiguracionPedidoApp_OutputMessage" />
+    <wsdl:operation name="GetConfiguracionPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionPedido" message="tns:IPedidoService_GetConfiguracionPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionPedidoResponse" message="tns:IPedidoService_GetConfiguracionPedido_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="DeletePedidoDetalleApp">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeletePedidoDetalleApp" message="tns:IPedidoService_DeletePedidoDetalleApp_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeletePedidoDetalleAppResponse" message="tns:IPedidoService_DeletePedidoDetalleApp_OutputMessage" />
+    <wsdl:operation name="DeletePedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeletePedido" message="tns:IPedidoService_DeletePedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeletePedidoResponse" message="tns:IPedidoService_DeletePedido_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ReservaPedidoDetalleApp">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ReservaPedidoDetalleApp" message="tns:IPedidoService_ReservaPedidoDetalleApp_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ReservaPedidoDetalleAppResponse" message="tns:IPedidoService_ReservaPedidoDetalleApp_OutputMessage" />
+    <wsdl:operation name="ReservaPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ReservaPedido" message="tns:IPedidoService_ReservaPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ReservaPedidoResponse" message="tns:IPedidoService_ReservaPedido_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="DeshacerReservaPedidoApp">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeshacerReservaPedidoApp" message="tns:IPedidoService_DeshacerReservaPedidoApp_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeshacerReservaPedidoAppResponse" message="tns:IPedidoService_DeshacerReservaPedidoApp_OutputMessage" />
+    <wsdl:operation name="ModificarReservaPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ModificarReservaPedido" message="tns:IPedidoService_ModificarReservaPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ModificarReservaPedidoResponse" message="tns:IPedidoService_ModificarReservaPedido_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetEstrategiaCarrusel">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaCarrusel" message="tns:IPedidoService_GetEstrategiaCarrusel_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiaCarruselResponse" message="tns:IPedidoService_GetEstrategiaCarrusel_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionOfertaFinal">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinal" message="tns:IPedidoService_GetConfiguracionOfertaFinal_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalResponse" message="tns:IPedidoService_GetConfiguracionOfertaFinal_OutputMessage" />
+    <wsdl:operation name="InsertEstrategiaCarrusel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertEstrategiaCarrusel" message="tns:IPedidoService_InsertEstrategiaCarrusel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertEstrategiaCarruselResponse" message="tns:IPedidoService_InsertEstrategiaCarrusel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionOfertaFinalCarrusel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalCarrusel" message="tns:IPedidoService_GetConfiguracionOfertaFinalCarrusel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalCarruselResponse" message="tns:IPedidoService_GetConfiguracionOfertaFinalCarrusel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertOfertaFinalCarrusel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertOfertaFinalCarrusel" message="tns:IPedidoService_InsertOfertaFinalCarrusel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertOfertaFinalCarruselResponse" message="tns:IPedidoService_InsertOfertaFinalCarrusel_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetProductoSugerido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetProductoSugerido" message="tns:IPedidoService_GetProductoSugerido_InputMessage" />
@@ -4208,8 +4227,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCUVApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCUVApp" style="document" />
+    <wsdl:operation name="GetCUV">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCUV" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4217,8 +4236,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsertPedidoDetalleApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoDetalleApp" style="document" />
+    <wsdl:operation name="InsertPedidoDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4226,8 +4245,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetPedidoApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoApp" style="document" />
+    <wsdl:operation name="GetPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4244,8 +4263,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpdatePedidoDetalleApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdatePedidoDetalleApp" style="document" />
+    <wsdl:operation name="UpdatePedidoDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdatePedidoDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4253,8 +4272,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionPedidoApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionPedidoApp" style="document" />
+    <wsdl:operation name="GetConfiguracionPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionPedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4262,8 +4281,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="DeletePedidoDetalleApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeletePedidoDetalleApp" style="document" />
+    <wsdl:operation name="DeletePedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeletePedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4271,8 +4290,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ReservaPedidoDetalleApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ReservaPedidoDetalleApp" style="document" />
+    <wsdl:operation name="ReservaPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ReservaPedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4280,8 +4299,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="DeshacerReservaPedidoApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerReservaPedidoApp" style="document" />
+    <wsdl:operation name="ModificarReservaPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ModificarReservaPedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4298,8 +4317,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionOfertaFinal">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinal" style="document" />
+    <wsdl:operation name="InsertEstrategiaCarrusel">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertEstrategiaCarrusel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionOfertaFinalCarrusel">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalCarrusel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertOfertaFinalCarrusel">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertOfertaFinalCarrusel" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7794,8 +7831,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetCUVApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCUVApp" style="document" />
+    <wsdl:operation name="GetCUV">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCUV" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7803,8 +7840,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsertPedidoDetalleApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoDetalleApp" style="document" />
+    <wsdl:operation name="InsertPedidoDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedidoDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7812,8 +7849,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetPedidoApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidoApp" style="document" />
+    <wsdl:operation name="GetPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7830,8 +7867,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpdatePedidoDetalleApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdatePedidoDetalleApp" style="document" />
+    <wsdl:operation name="UpdatePedidoDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdatePedidoDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7839,8 +7876,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionPedidoApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionPedidoApp" style="document" />
+    <wsdl:operation name="GetConfiguracionPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionPedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7848,8 +7885,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="DeletePedidoDetalleApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeletePedidoDetalleApp" style="document" />
+    <wsdl:operation name="DeletePedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeletePedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7857,8 +7894,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ReservaPedidoDetalleApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ReservaPedidoDetalleApp" style="document" />
+    <wsdl:operation name="ReservaPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ReservaPedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7866,8 +7903,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="DeshacerReservaPedidoApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerReservaPedidoApp" style="document" />
+    <wsdl:operation name="ModificarReservaPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ModificarReservaPedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7884,8 +7921,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionOfertaFinal">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinal" style="document" />
+    <wsdl:operation name="InsertEstrategiaCarrusel">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertEstrategiaCarrusel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionOfertaFinalCarrusel">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionOfertaFinalCarrusel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertOfertaFinalCarrusel">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertOfertaFinalCarrusel" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

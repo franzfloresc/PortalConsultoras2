@@ -4910,7 +4910,9 @@ table > thead > tr > th {
 
 .btn_paga_online_mobile {
     display: block;
+    margin:0 auto;
     width: 100%;
+    max-width: 185px;
     height: 45px;
     margin-top:22px;
     padding: 5.5px 0;
@@ -4920,8 +4922,8 @@ table > thead > tr > th {
     font-size: 13px;
     font-weight:bold;
     background: url("../../../Images/mobile/Esika/tarjeta.png") no-repeat;
-    background-position:28% 10px;
-    padding-left:10%;
+    background-position: 13% 10px;
+    padding-left: 8%;
 }
 
     .btn_paga_online_mobile:hover {
@@ -4947,10 +4949,11 @@ table > thead > tr > th {
 
 .texto_btn_pago_en_linea span{
     display:block;
-    line-height:16px;
+    line-height:31px;
+    font-weight:900;
 }
 
-.texto_btn_pago_en_linea span:first-child{
+/*.texto_btn_pago_en_linea span:first-child{
     font-size:13px;
     font-weight:bold;
 }
@@ -4958,7 +4961,7 @@ table > thead > tr > th {
 .texto_btn_pago_en_linea span:last-child{
     font-size:11px;
     font-weight:normal;
-}
+}*/
 
 .logo_visa{
     width:35px;

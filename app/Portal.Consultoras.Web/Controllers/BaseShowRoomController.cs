@@ -1,4 +1,6 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.CustomFilters;
+using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
@@ -7,10 +9,17 @@ using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 
+
 namespace Portal.Consultoras.Web.Controllers
 {
+    [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
+    [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
+
     public class BaseShowRoomController: BaseController // BaseEstrategiaController
     {
+
+        public BaseShowRoomController():base() { }
+
         protected string CodigoProceso
         {
             get { return ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.EmailCodigoProceso]; }

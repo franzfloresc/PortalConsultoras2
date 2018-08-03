@@ -97,11 +97,16 @@ $(document).ready(function () {
 
                     var htmlTerminosCondiciones = $(contenedorPadre).find('input[data-terminos]').val();                    
                     $('#divContenidoTerminosCondiciones').html(htmlTerminosCondiciones);
-                    $('.popup_terminos_y_condiciones').fadeIn(300);
+                    $('.proceso_de_pago_en_linea').fadeOut(200);
+                    $('body,html').animate({
+                        scrollTop: 47
+                    }, 200);
+                    $('.popup_terminos_y_condiciones').fadeIn(200);
                 },
                 CerrarPopupTerminosYCondiciones: function (e) {
                     e.preventDefault();
-                    $(this).parents('.popup_terminos_y_condiciones').fadeOut();
+                    $(this).parents('.popup_terminos_y_condiciones').fadeOut(200);
+                    $('.proceso_de_pago_en_linea').fadeIn(200);
                 },
                 ContinuarPasarelaPago: function (e) {
                     e.preventDefault();
