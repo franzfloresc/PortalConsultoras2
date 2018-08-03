@@ -2778,6 +2778,10 @@ h1, h2, h3, h4, h5, h6 {
     padding-bottom:0;
 }
 
+.popup_privacidad_de_datos .indicador_lbel{
+    margin-left:15%;
+}
+
 .enlaces_archivos_arco{
     display:block;
     height: 45px;
@@ -2813,6 +2817,7 @@ h1, h2, h3, h4, h5, h6 {
     padding-left:10px;
     padding-right:10px;
     border-right:1px solid #000;
+    text-align: center;
 }
 
     .enlace_archivo_arco:hover{
@@ -2822,6 +2827,74 @@ h1, h2, h3, h4, h5, h6 {
     .enlace_archivo_arco:last-child{
         border-right:none;
     }
+
+@media screen and (max-width:1093px){
+
+    .popup_privacidad_de_datos{
+        width:53%;
+        top:4.5%;
+    }
+
+}
+
+@media screen and (max-width:781px){
+
+    .popup_privacidad_de_datos{
+        width: 75%;
+    }
+
+}
+
+@media screen and (max-width:555px){
+
+    .popup_privacidad_de_datos{
+        width: 93%;
+        left:4.5px;
+    }
+
+    .enlaces_archivos_arco{
+        padding-left:10px;
+        padding-right:10px;
+    }
+
+}
+
+@media screen and (max-width:437px){
+
+    .enlaces_archivos_arco{
+        padding-left: 7px;
+        padding-right: 0;
+    }
+
+    .enlace_archivo_arco{
+        padding-left:6px;
+        padding-right:6px;
+    }
+
+}
+
+@media screen and (max-width:389px){
+
+    .enlace_archivo_arco{
+        padding-left:3px;
+        padding-right:3px;
+    }
+
+}
+
+@media screen and (max-width:363px){
+
+    .popup_privacidad_de_datos{
+        top:3.6%;
+    }
+
+    .enlaces_archivos_arco{
+        padding-top:4px;
+        height: 56px;
+        line-height: 22px;
+    }
+
+}
 
 /* HD-1254 - OLVIDÉ CONTRASEÑA DESKTOP Y MOBILE */
 
