@@ -288,7 +288,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js",
                 "~/Scripts/jquery.flexslider.js",
                 "~/Scripts/jquery.rateyo.js",
-                "~/Scripts/jquery.easy-pie-chart.js"
+                "~/Scripts/jquery.easy-pie-chart.js",
+                "~/Scripts/jquery.custom-scrollbar.js"
             ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssPedido").Include(

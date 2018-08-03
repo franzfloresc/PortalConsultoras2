@@ -52,6 +52,7 @@ namespace Portal.Consultoras.Common
             public const string UrlPart02 = "/jpg/page_1_thumb_small.jpg";
             public const string UrlPart03 = "/jpg/page_1_thumb_medium.jpg";
             public const string UrlPart02Alternativo = "/jpg/page_1.jpg";
+           
         }
 
         public static class EstadoPedido
