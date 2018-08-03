@@ -228,7 +228,7 @@
 }
 
 .resultado_busqueda_mobile_cantidad_prod {
-    width: 31%;
+    width: 33.2%;
 }
 
     .resultado_busqueda_mobile_cantidad_prod .cantidad_menos_home,
@@ -314,6 +314,14 @@
     margin-top: 7px;
     font-size: 11px;
     color: #848484;
+}
+
+@media screen and (max-width:447px) {
+
+    .resultado_busqueda_mobile_cantidad_prod {
+        width: 31%;
+    }
+
 }
 
 @media screen and (max-width:408px){
