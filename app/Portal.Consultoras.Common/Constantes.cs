@@ -1057,6 +1057,7 @@ namespace Portal.Consultoras.Common
             public const string CatalogoPersonalizado = "FDTC";
             public const string PedidoFIC = "PedidoFIC";
             public const string ContenedorOfertas = "ContenedorOfertas";
+            public const string LiquidacionWeb = "LiquidacionWeb";
         }
 
         public static class MenuMobileId

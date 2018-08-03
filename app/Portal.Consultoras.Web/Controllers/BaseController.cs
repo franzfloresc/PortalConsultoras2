@@ -324,7 +324,6 @@ namespace Portal.Consultoras.Web.Controllers
             BEConfiguracionCampania obeConfiguracionCampania;
             using (var sv = new PedidoServiceClient())
             {
-
                 obeConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, consultoraId, userData.ZonaID, userData.RegionID);
             }
 
@@ -373,7 +372,6 @@ namespace Portal.Consultoras.Web.Controllers
                     mensaje = "Haz superado el límite de tu línea de crédito de " + userData.Simbolo + userData.MontoMaximo.ToString()
                             + ". Por favor modifica tu pedido para que sea " + strmen + " con éxito.";
                 }
-
             }
             catch (Exception ex)
             {
@@ -528,13 +526,10 @@ namespace Portal.Consultoras.Web.Controllers
         protected virtual IList<PermisoModel> GetPermisosByRol(int paisId, int rolId)
         {
             IList<BEPermiso> permisos;
-
             using (var sv = new SeguridadServiceClient())
             {
-
                 permisos = sv.GetPermisosByRol(paisId, rolId).ToList();
             }
-
             return Mapper.Map<List<PermisoModel>>(permisos);
         }
 
@@ -2454,8 +2449,15 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.MenuContenedorActivo = menuActivo;
             ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, sessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, esMobile);
 
-            ViewBag.MenuMobile = BuildMenuMobile(userData, revistaDigital);
-            ViewBag.Permiso = BuildMenu(userData, revistaDigital);
+            var menuMobile = BuildMenuMobile(userData, revistaDigital);
+            var menuWeb = BuildMenu(userData, revistaDigital);
+            var descLiqWeb = "";
+            var existItemLiqWeb = esMobile ? FindInMenu(menuMobile, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb) :
+                FindInMenu(menuWeb, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb);
+
+            ViewBag.MenuMobile = menuMobile;
+            ViewBag.Permiso = menuWeb;
+            ViewBag.TituloLiqWeb = existItemLiqWeb ? descLiqWeb : "Liquidación Web";
 
             ViewBag.ProgramaBelcorpMenu = BuildMenuService();
             ViewBag.codigoISOMenu = userData.CodigoISO;
@@ -2504,6 +2506,35 @@ namespace Portal.Consultoras.Web.Controllers
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
             ViewBag.HabilitarChatEmtelco = HabilitarChatEmtelco(userData.PaisID);
+        }
+        
+        private bool FindInMenu<T>(List<PermisoModel> menuWeb, Predicate<PermisoModel> predicate, Converter<PermisoModel, T> select, out T result)
+        {
+            result = default(T);
+            foreach (var item in menuWeb)
+            {
+                if (predicate(item))
+                {
+                    result = select(item);
+                    return true;
+                }
+                if (FindInMenu(item.SubMenus, predicate, select, out result)) return true;
+            }
+            return false;
+        }
+        private bool FindInMenu<T>(List<MenuMobileModel> menuWeb, Predicate<MenuMobileModel> predicate, Converter<MenuMobileModel, T> select, out T result)
+        {
+            result = default(T);
+            foreach (var item in menuWeb)
+            {
+                if (predicate(item))
+                {
+                    result = select(item);
+                    return true;
+                }
+                if (FindInMenu(item.SubMenu.ToList(), predicate, select, out result)) return true;
+            }
+            return false;
         }
 
         private string GetFechaPromesa(TimeSpan horaCierre, int diasFaltantes)
