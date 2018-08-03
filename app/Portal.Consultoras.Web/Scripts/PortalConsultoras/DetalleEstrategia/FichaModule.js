@@ -391,6 +391,8 @@
                 proM = proObjM / proM;
                 $(proImg).css("width", proObjM + "px");
             }
+
+            _resizeBotonAgregar();
         });
 
         //$("header").resize(function () {
@@ -640,25 +642,6 @@
         }
         else {
             _resizeBotonAgregar();
-
-            //var dvFoto = $("#dvSeccionFoto");
-            //var dvRedesSociales = $("#Contenedor_redes_sociales");
-            //var dvFichaEtiqueta = $("#contenedor_ficha_etiquetas");
-            //var dvDetalle = $("#dvSeccionDetalle");
-            //if (dvFoto.length && dvRedesSociales.length) {
-            //    var dvFotoHeight = dvFoto.height();
-            //    var dvRedesSocialesHeight = dvRedesSociales.height();
-            //    var dvFichaEtiquetaHeight = dvFichaEtiqueta.height();
-            //    var dvDetalleHeight = dvDetalle.height();
-            //    var dvIzquierdoHeight = dvFotoHeight + dvRedesSocialesHeight + 45; // 45 es por el padding del padre.
-            //    var dvDerechoHeight = dvDetalleHeight + dvFichaEtiquetaHeight;
-            //    if (dvIzquierdoHeight > dvDerechoHeight) {
-            //        var diferenciaHeight = dvIzquierdoHeight - dvDerechoHeight;
-            //        diferenciaHeight = dvDetalleHeight - diferenciaHeight;
-            //        dvDetalle.removeClass("ficha_detalle_cuerpo");
-            //        dvDetalle.height(diferenciaHeight);
-            //    }
-            //}
         }
     }
 
