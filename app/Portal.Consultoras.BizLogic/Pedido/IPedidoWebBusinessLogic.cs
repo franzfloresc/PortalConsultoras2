@@ -14,7 +14,6 @@ namespace Portal.Consultoras.BizLogic
         string[] DescargaPedidosFIC(int paisID, DateTime fechaFacturacion, int tipoCronograma, string usuario);
         string[] DescargaPedidosWeb(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario, string descripcionProceso);
         void DeshacerUltimaDescargaPedido(int PaisID);
-        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
         BEConsultoraWS GetConsultoraWebService(int paisID, string CodigoConsultora);
         IList<BECuvProgramaNueva> GetCuvProgramaNueva(int paisID);
         BEConfiguracionCampania GetEstadoPedido(int PaisID, int CampaniaID, long ConsultoraID, int ZonaID, int RegionID);

@@ -50,8 +50,8 @@ namespace Portal.Consultoras.Web.WebPages
                 var email = arrayParam[2];
                 var paisISO = Util.GetPaisISO(paisId);
 
-                SetStyle(paisISO, codigoUsuario);
-                SetLinks(paisISO, codigoUsuario);
+                SetStyle(paisISO);
+                SetLinks();
 
                 BERespuestaActivarEmail respuesta;
                 using (UsuarioServiceClient srv = new UsuarioServiceClient())
@@ -69,14 +69,14 @@ namespace Portal.Consultoras.Web.WebPages
             }
         }
 
-        private void SetLinks(string paisISO, string codigoUsuario)
+        private void SetLinks()
         {
             var urlPortal = ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteSE];
             var area = EsDispositivoMovil() ? "/Mobile" : "";
             linkMainPage.NavigateUrl = urlPortal + area + "/MiPerfil/Index";
         }
 
-        private void SetStyle(string paisISO, string codigoUsuario)
+        private void SetStyle(string paisISO)
         {
             var marca = WebConfig.PaisesEsika.Contains(paisISO) ? "Esika" : "Lbel";
             foreach (var urlCss in listUrlCss)

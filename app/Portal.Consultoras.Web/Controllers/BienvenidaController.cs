@@ -186,6 +186,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Lógica de Popups
 
                 model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar(model);
+                model.TieneContratoPopup = ValidarContratoPopup() ? 1 : 0;
 
                 #endregion
 
@@ -312,6 +313,9 @@ namespace Portal.Consultoras.Web.Controllers
                 if (tipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
                     tipoPopUpMostrar = 0;
 
+                if (tipoPopUpMostrar == Constantes.TipoPopUp.AceptacionContrato)
+                    tipoPopUpMostrar = 0;
+
                 if (resultPopupEmailSplited == "0" && tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
 
                 if (tipoPopUpMostrar == Constantes.TipoPopUp.ActualizarCorreo) tipoPopUpMostrar = 0;
@@ -387,10 +391,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
 
                     case Constantes.TipoPopUp.AceptacionContrato:
-                        if (userData.EsConsultora()
-                            && userData.CambioClave == 0 && userData.IndicadorContrato == 0
-                            && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia)
-                            && sessionManager.GetIsContrato() == 1)
+                        if (ValidarContratoPopup())
                         {
                             tipoPopUpMostrar = Constantes.TipoPopUp.AceptacionContrato;
                         }
@@ -498,6 +499,18 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return tipoPopUpMostrar;
+        }
+
+        private bool ValidarContratoPopup()
+        {
+            if (userData.EsConsultora()
+                && userData.CambioClave == 0 && userData.IndicadorContrato == 0
+                && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia)
+                && sessionManager.GetIsContrato() == 1 && !Convert.ToBoolean(Session["AceptoContrato"]))
+            {
+                return true;
+            }
+            return false;
         }
 
         private List<BEComunicado> ValidarComunicadoPopup()
@@ -775,6 +788,8 @@ namespace Portal.Consultoras.Web.Controllers
                         });
                     }
                 }
+
+                Session["AceptoContrato"] = true;
 
                 return Json(new
                 {
@@ -2189,6 +2204,31 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return RedirectToAction(accion, controlador, new { area = area });
+        }
+
+        private string AccionControlador(string tipo, bool onlyAction = false, bool mobile = false)
+        {
+            string controlador = "", accion = "";
+            try
+            {
+                tipo = Util.Trim(tipo).ToLower();
+                switch (tipo)
+                {
+                    case "sr":
+                        controlador = "ShowRoom";
+                        var esVenta = (sessionManager.GetMostrarShowRoomProductos());
+                        accion = esVenta ? "Index" : "Intriga";
+                        break;
+                }
+
+                if (onlyAction) return accion;
+                return (mobile ? "/Mobile/" : "") + controlador + (controlador == "" ? "" : "/") + accion;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return accion;
+            }
         }
 
         private List<BEComunicado> ObtenerComunicadoPorConsultora()

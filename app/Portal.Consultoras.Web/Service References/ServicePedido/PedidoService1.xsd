@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
   <xs:complexType name="ArrayOfBEMisPedidosCampania">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEMisPedidosCampania" nillable="true" type="tns:BEMisPedidosCampania" />
@@ -83,6 +84,52 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEMisPedidosFacturadosDetalle" nillable="true" type="tns:BEMisPedidosFacturadosDetalle" />
+  <xs:complexType name="BEPedidoProductoBuscar">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoDescripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Criterio" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="RowCount" type="xs:int" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Usuario" nillable="true" type="q1:BEUsuario" />
+      <xs:element minOccurs="0" name="ValidarOpt" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPedidoProductoBuscar" nillable="true" type="tns:BEPedidoProductoBuscar" />
+  <xs:complexType name="BEPedidoProducto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Producto" nillable="true" type="q2:BEProducto" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPedidoProducto" nillable="true" type="tns:BEPedidoProducto" />
+  <xs:complexType name="BEPedidoDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="ClienteDescripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClienteID" type="xs:short" />
+      <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IPUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Identifier" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ObservacionPROL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrigenPedidoWeb" type="xs:int" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoDetalleID" type="xs:short" />
+      <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Producto" nillable="true" type="q3:BEProducto" />
+      <xs:element minOccurs="0" name="SetID" type="xs:int" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Usuario" nillable="true" type="q4:BEUsuario" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPedidoDetalle" nillable="true" type="tns:BEPedidoDetalle" />
+  <xs:complexType name="BEPedidoDetalleResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPedidoDetalleResult" nillable="true" type="tns:BEPedidoDetalleResult" />
   <xs:complexType name="BEConfiguracionPedido">
     <xs:sequence>
       <xs:element minOccurs="0" name="Barra" nillable="true" type="tns:BEPedidoBarra" />
@@ -91,11 +138,19 @@
   <xs:element name="BEConfiguracionPedido" nillable="true" type="tns:BEConfiguracionPedido" />
   <xs:complexType name="BEPedidoBarra">
     <xs:sequence>
-      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ListaEscalaDescuento" nillable="true" type="q1:ArrayOfBEEscalaDescuento" />
-      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ListaMensajeMeta" nillable="true" type="q2:ArrayOfBEMensajeMetaConsultora" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ListaEscalaDescuento" nillable="true" type="q5:ArrayOfBEEscalaDescuento" />
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ListaMensajeMeta" nillable="true" type="q6:ArrayOfBEMensajeMetaConsultora" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoBarra" nillable="true" type="tns:BEPedidoBarra" />
+  <xs:complexType name="BEPedidoReservaAppResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" minOccurs="0" name="ResultadoReserva" nillable="true" type="q7:BEResultadoReservaProl" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPedidoReservaAppResult" nillable="true" type="tns:BEPedidoReservaAppResult" />
   <xs:complexType name="ArrayOfBEPedidoWebSetDetalle">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoWebSetDetalle" nillable="true" type="tns:BEPedidoWebSetDetalle" />

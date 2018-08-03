@@ -385,7 +385,7 @@ namespace Portal.Consultoras.Entities
             TipoEstrategiaImagenMostrar = row.ToInt32("TipoEstrategiaImagenMostrar");
             TieneStockProl = row.ToBoolean("TieneStockProl");
             FlagMostrarImg = row.ToInt32("FlagMostrarImg");
-            FlagMostrarImg = row.ToInt32("OfertaUltimoMinuto");
+            FlagMostrarImg = row.ToInt32("OfertaUltimoMinuto", FlagMostrarImg);
             CodigoSAP = row.ToString("CodigoSAP");
             EnMatrizComercial = row.ToInt32("EnMatrizComercial");
             CodigoEstrategia = row.ToString("CodigoEstrategia");
@@ -437,20 +437,20 @@ namespace Portal.Consultoras.Entities
 
         public BEConfiguracionValidacionZE(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "RegionID"))
-                RegionID = Convert.ToInt32(row["RegionID"]);
-            if (DataRecord.HasColumn(row, "RegionNombre"))
-                RegionNombre = Convert.ToString(row["RegionNombre"]);
-            if (DataRecord.HasColumn(row, "ZonaID"))
-                ZonaID = Convert.ToInt32(row["ZonaID"]);
-            if (DataRecord.HasColumn(row, "ZonaNombre"))
-                ZonaNombre = Convert.ToString(row["ZonaNombre"]);
-            if (DataRecord.HasColumn(row, "ValidacionActiva"))
-                ValidacionActiva = Convert.ToInt16(row["ValidacionActiva"]);
-            if (DataRecord.HasColumn(row, "DiasDuracionCronograma"))
-                DiasDuracionCronograma = Convert.ToInt16(Convert.IsDBNull(row["DiasDuracionCronograma"]) ? 1 : row["DiasDuracionCronograma"]);
+            
+                CampaniaID = row.ToInt32("CampaniaID");
+            
+                RegionID = row.ToInt32("RegionID");
+            
+                RegionNombre = row.ToString("RegionNombre");
+            
+                ZonaID = row.ToInt32("ZonaID");
+            
+                ZonaNombre = row.ToString("ZonaNombre");
+            
+                ValidacionActiva = row.ToInt16("ValidacionActiva");
+
+                DiasDuracionCronograma = row.ToInt16("DiasDuracionCronograma", 1);
         }
     }
 

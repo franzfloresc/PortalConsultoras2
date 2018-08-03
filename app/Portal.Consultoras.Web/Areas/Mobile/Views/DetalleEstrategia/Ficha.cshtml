@@ -139,7 +139,7 @@
 							</div>
 						</div>
 						<hr class="clear">
-						<div data-tono-div="">
+						<div class="content_tonos_maquillaje" data-tono-div="">
 							{{#each this.Hermanos as |variedad|}}
 							<div style="display: none;">
 								<input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
@@ -233,7 +233,7 @@
 
 	@if (ViewBag.CampaniaCodigo == Model.Campania)
 	{
-		<div class="content_btn_agregar">
+		<div id="dvContenedorAgregar" class="content_btn_agregar">
 			<div class="content_320">
 				<div class="content_cantidad_ficha_producto" data-cantidad-contenedor="">
 					<a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
@@ -321,15 +321,6 @@
 		</div>
 	</div>
 }
-else
-{
-	<div class="share"></div>
-}
-else
-{
-    <div class="share"></div>
-}
-
 
 <!--compartir-->
 @if (!mobileConfiguracion.EsAppMobile)
@@ -365,7 +356,16 @@ else
 			</div>
 		</div>
 	}
+    @*else
+    {
+	    <div class="share"></div>
+    }*@
 }
+@*else
+{
+	<div class="share"></div>
+}*@
+
 
 	@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml", new ViewDataDictionary { { "TieneBotones", false } })
 	@Html.Partial("~/Views/DetalleEstrategia/template-ficha-detalle-video.cshtml")

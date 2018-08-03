@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var lst = Consulta == "1" ? GetTipoEstrategias() : new List<BETipoEstrategia>();
+                var lst = Consulta == "1" ? _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID) : new List<BETipoEstrategia>();
                 lst = lst ?? new List<BETipoEstrategia>();
 
                 if (lst != null && lst.Count > 0)
@@ -423,11 +423,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var failImage = false;
                 var image = Image.FromFile(path);
-                if (image.Width > 62)
+                if (image.Width > 144)
                 {
                     failImage = true;
                 }
-                if (image.Height > 62)
+                if (image.Height > 32)
                 {
                     failImage = true;
                 }

@@ -745,10 +745,13 @@
     <Compile Include="Providers\BaseProvider.cs" />
     <Compile Include="Providers\IssuuProvider.cs" />
     <Compile Include="Providers\MenuContenedorProvider.cs" />
+    <Compile Include="Providers\MenuProvider.cs" />
+    <Compile Include="Providers\NotificacionProvider.cs" />
     <Compile Include="Providers\OfertaDelDiaProvider.cs" />
     <Compile Include="Providers\OfertaPersonalizadaProvider.cs" />
     <Compile Include="Providers\OfertaViewProvider.cs" />
     <Compile Include="Providers\PagoEnLineaProvider.cs" />
+    <Compile Include="Providers\PaqueteDocumentarioProvider.cs" />
     <Compile Include="Providers\PedidoSetProvider.cs" />
     <Compile Include="Providers\PedidoWebProvider.cs" />
     <Compile Include="Providers\RenderImgProvider.cs" />
@@ -1361,7 +1364,7 @@
     <Content Include="Content\Css\Site\RevistaDigital\index.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
     <Content Include="Content\Css\Site\ShowRoom.css" />
-    <Content Include="Content\Images\cincuenta_anios_belcorp_cabecera.svg" />
+    <Content Include="Content\Images\cincuenta_anios_belcorp_cabecera.png" />
     <Content Include="Content\Images\carrusel_n_blanco.png" />
     <Content Include="Content\Images\carrusel_p_blanco.png" />
     <Content Include="Content\Images\colorpicker\blank.gif" />
@@ -1509,6 +1512,7 @@
     <Content Include="Content\Images\Lbel\icono_info_alerta.svg" />
     <Content Include="Content\Images\Lbel\icono_plus.svg" />
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
+    <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.png" />
     <Content Include="Content\Images\mobile\icono_editar_foto_perfil.svg" />
     <Content Include="Content\Images\icono_eliminar.svg" />
     <Content Include="Content\Images\Esika\icono_envelope.svg" />
@@ -3012,7 +3016,6 @@
     <Content Include="Content\Images\mobile\cdr_paso2_activo.png" />
     <Content Include="Content\Images\mobile\cdr_paso3.png" />
     <Content Include="Content\Images\mobile\cdr_paso3_activo.png" />
-    <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.svg" />
     <Content Include="Content\Images\mobile\dropdown-arrow.png" />
     <Content Include="Content\Images\mobile\Esika\app.png" />
     <Content Include="Content\Images\mobile\Esika\bandera.png" />
@@ -3857,6 +3860,7 @@
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Suscripcion.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-DataLayer.js" />
+    <Content Include="Scripts\PortalConsultoras\Shared\AnalyticsPortal.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\ConstantesModule.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\General\RedesSociales.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
@@ -4414,9 +4418,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService115.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedido\PedidoService116.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService12.xsd">
@@ -5199,6 +5200,8 @@
     <Content Include="Views\MisCertificados\DO_ComercialPdf.cshtml" />
     <Content Include="Views\MisCertificados\PR_PazYSalvoPdf.cshtml" />
     <Content Include="Views\MisCertificados\PR_ComercialPdf.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerHeader.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerBody.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

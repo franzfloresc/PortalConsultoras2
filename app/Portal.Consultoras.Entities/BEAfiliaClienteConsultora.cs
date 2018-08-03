@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -29,16 +30,16 @@ namespace Portal.Consultoras.Entities
         {
         }
 
-        public BEAfiliaClienteConsultora(IDataRecord datarec)
+        public BEAfiliaClienteConsultora(IDataRecord row)
         {
-            ConsultoraID = Convert.ToInt64(datarec["ConsultoraID"]);
-            EsConsultoraLider = Convert.ToInt32(datarec["EsConsultoraLider"]) > 0;
-            EsAfiliado = Convert.ToInt32(datarec["EsAfiliado"]);
-            NombreCompleto = Convert.ToString(datarec["NombreCompleto"]);
-            Email = Convert.ToString(datarec["Email"]);
-            Celular = Convert.ToString(datarec["Celular"]);
-            Telefono = Convert.ToString(datarec["Telefono"]);
-            EmailActivo = Convert.ToBoolean(datarec["EmailActivo"]);
+            ConsultoraID = row.ToInt64("ConsultoraID");
+            EsConsultoraLider = row.ToInt32("EsConsultoraLider") > 0;
+            EsAfiliado = row.ToInt32("EsAfiliado");
+            NombreCompleto = row.ToString("NombreCompleto");
+            Email = row.ToString("Email");
+            Celular = row.ToString("Celular");
+            Telefono = row.ToString("Telefono");
+            EmailActivo = row.ToBoolean("EmailActivo");
         }
 
     }

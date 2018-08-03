@@ -4,7 +4,7 @@
     var _primeraMarca = "";
     var _ultimaMarca = "";
     var _esMultimarca = false;
-    var _descripcionProducto = "";
+    var _estrategia;
 
     var _config = {
         palanca: config.palanca || "",
@@ -52,7 +52,8 @@
         Contenedor_redes_sociales: "#Contenedor_redes_sociales",
         //EtiquetaPackNuevas: "#EtiquetaPackNuevas"
         //SloganPackNuevas: "#SloganPackNuevas",
-        ImagenProducto: "#FichaImagenProducto"
+        ImagenProducto: "#FichaImagenProducto",
+        dvContenedorAgregar: "#dvContenedorAgregar"
     };
 
     var _tabsFichaProducto = {
@@ -230,7 +231,7 @@
 
     var _validarDesactivadoGeneral = function (estrategia) {
         $.each(estrategia.Hermanos, function (index, hermano) {
-            
+
             if (hermano.Hermanos) {
                 if (hermano.Hermanos.length > 0) {
                     estrategia.ClaseBloqueada = "btn_desactivado_general";
@@ -241,12 +242,12 @@
                     //$(".contenedor_rangos").addClass("contenedor_rangos_desactivado");
                     $(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
                     $(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
-                    
+
                     $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
                     $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
-                    
-                    
-                    
+
+
+
                 }
             }
         });
@@ -269,7 +270,7 @@
             return false;
         }
 
-        if (typeof estrategia.DescripcionCompleta !== "undefined" && 
+        if (typeof estrategia.DescripcionCompleta !== "undefined" &&
             estrategia.DescripcionCompleta != null) {
             estrategia.DescripcionCompleta = $.trim(estrategia.DescripcionCompleta);
             var palabrasEstrategiaDescripcion = estrategia.DescripcionCompleta.split(" ");
@@ -287,6 +288,7 @@
             $(_elementos.estrategiaBreadcrumb).text(estrategiaBreadcrumb);
         }
 
+        $(_elementos.estrategiaBreadcrumb).parent("li").attr("data-opcion", estrategia.DescripcionCompleta.trim());
         _verificarVariedad(estrategia);
         _actualizarVariedad(estrategia);
         _validarDesactivadoGeneral(estrategia);
@@ -332,9 +334,12 @@
         _construirSeccionDetalleFichas(estrategia);
 
         // Se realiza la marcación en analytics de la información de la ficha de un producto.
-        //var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
-        //AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, null, estrategia.CodigoVariante, _config.palanca);
-        _descripcionProducto = estrategia.DescripcionCompleta;
+        var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
+        AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, null, estrategia.CodigoVariante, _config.palanca);
+        _estrategia = estrategia;
+        if (estrategia.TipoAccionAgregar <= 0) {
+            $(_seccionesFichaProducto.dvContenedorAgregar).hide();
+        }
         return true;
     };
 
@@ -386,6 +391,8 @@
                 proM = proObjM / proM;
                 $(proImg).css("width", proObjM + "px");
             }
+
+            _resizeBotonAgregar();
         });
 
         //$("header").resize(function () {
@@ -547,29 +554,96 @@
         }
     }
 
-    //// Método que realiza la marcación en analytics de tonos en el combo de seleccion de tonos.
-    //var _marcarCambiaColorCombo = function () {
-    //    var producto = _descripcionProducto;
-    //    var contenedorTonos = $(".content_tonos_select").children(".content_tono_elegido");
-    //    $(contenedorTonos).each(function (index, element) {
-    //        $(this).click(function () {
-    //            var tono = $(this).attr("data-tono-nombre");
-    //            AnalyticsPortalModule.MarcarCambiaColorCombo(producto, tono);
-    //        });
-    //    });
-    //}
+    // Método que realiza la marcación en analytics de tonos en el combo de seleccion de tonos.
+    var _marcarCambiaColorCombo = function () {
+        var producto = _estrategia.DescripcionCompleta;
+        var contenedorTonos = $(".content_tonos_select").children(".content_tono_elegido");
+        $(contenedorTonos).each(function (index, element) {
+            $(this).click(function () {
+                var tono = $(this).attr("data-tono-nombre");
+                AnalyticsPortalModule.MarcarCambiaColorCombo(producto, tono);
+            });
+        });
+    }
 
-    //// Método que realiza la marcación en analytics de tonos en el cuadrado de seleccion de tonos.
-    //var _marcarCambiaColorCuadro = function () {
-    //    var producto = _descripcionProducto;
-    //    var contenedorTonos = $(".content_tonos_maquillaje").children(".content_tono_detalle");
-    //    $(contenedorTonos).each(function (index, element) {
-    //        $(this).click(function () {
-    //            var tono = $(this).attr("data-tono-nombre");
-    //            AnalyticsPortalModule.MarcarCambiaColorCuadro(producto, tono);
-    //        });
-    //    });
-    //}
+    // Método que realiza la marcación en analytics de tonos en el cuadrado de seleccion de tonos.
+    var _marcarCambiaColorCuadro = function () {
+        var producto = _estrategia.DescripcionCompleta;
+        var contenedorTonos = $(".content_tonos_maquillaje").children(".content_tono_detalle");
+        $(contenedorTonos).each(function (index, element) {
+            $(this).click(function () {
+                var tono = $(this).attr("data-tono-nombre");
+                AnalyticsPortalModule.MarcarCambiaColorCuadro(producto, tono);
+            });
+        });
+    }
+
+    // Método que realiza la marcación en analytics de un producto al presionar el boton agregar.
+    var _marcarAgregaProductoCarro = function () {
+        $("#btnAgregalo").click(function () {
+            var cantidad = $(".txt_cantidad_pedido").val() || "";
+            cantidad = cantidad == "" ? 0 : parseInt(cantidad);
+            var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
+            AnalyticsPortalModule.MarcarAgregaProductoCarro(tipoMoneda, _estrategia.DescripcionCompleta.trim(), _estrategia.PrecioVenta, _estrategia.DescripcionMarca, _estrategia.CUV2.trim(), null, _estrategia.CodigoVariante, cantidad, _config.palanca);
+        });
+    }
+
+    var _marcarFichaBreadcrumb = function () {
+        $(".breadcumbs").children("li").each(function (index, element) {
+            $(this).click(function () {
+                var opcion = $(this).attr("data-opcion");
+                AnalyticsPortalModule.MarcarFichaBreadcrumb(opcion);
+            });
+        });
+    }
+
+    var _resizeBotonAgregar = function () {
+        var dvFoto = $("#dvSeccionFoto");
+        var dvRedesSociales = $("#Contenedor_redes_sociales");
+        var dvFichaEtiqueta = $("#contenedor_ficha_etiquetas");
+        var dvDetalle = $("#dvSeccionDetalle");
+
+        if (dvFoto.length && dvRedesSociales.length) {
+
+            dvDetalle.removeClass("ficha_detalle_cuerpo");
+            var dvFotoHeight = dvFoto.innerHeight();
+            var dvFichaEtiquetaHeight = dvFichaEtiqueta.innerHeight();
+            var dvDetalleHeight = dvDetalle.innerHeight();
+            var dvIzquierdoHeight = dvFotoHeight + 45; // 45 es por el padding del padre.
+            var dvDerechoHeight = dvDetalleHeight + dvFichaEtiquetaHeight;
+            if (dvIzquierdoHeight > dvDerechoHeight) {
+                var dvRedesSocialesHeight = dvRedesSociales.innerHeight();
+                var diferenciaHeight = dvIzquierdoHeight - dvFichaEtiquetaHeight;
+                dvDetalle.removeClass("ficha_detalle_cuerpo");
+                dvDetalle.height(diferenciaHeight);
+            }
+            else {
+                dvDetalle.addClass("ficha_detalle_cuerpo");
+            }
+        }
+    }
+
+    var _prevenirScrollFixed = function () {
+        if (isMobile()) {
+            setTimeout(function () {
+                var dvContentMobile = $("#contentmobile");
+                var dvFixed = $("#idMensajeBloqueado > div");
+                if (dvFixed.length == 0) {
+                    dvFixed = $("#dvContenedorAgregar");
+                }
+
+                if (dvContentMobile.length && dvFixed.length) {
+                    var dvContentMobileHeight = dvContentMobile.height();
+                    var dvFixedHeight = dvFixed.innerHeight();
+                    var height = dvContentMobileHeight + dvFixedHeight + 20;
+                    dvContentMobile.height(height);
+                }
+            }, 3000);
+        }
+        else {
+            _resizeBotonAgregar();
+        }
+    }
 
     function Inicializar() {
 
@@ -580,8 +654,12 @@
         _crearTabs();
         _ocultarTabs();
         _fijarFooterCampaniaSiguiente();
-        //_marcarCambiaColorCombo();
-        //_marcarCambiaColorCuadro();
+        _marcarCambiaColorCombo();
+        _marcarCambiaColorCuadro();
+        _prevenirScrollFixed();
+        _marcarAgregaProductoCarro();
+        //_marcarSwipeCarrusel();
+        _marcarFichaBreadcrumb();
     }
 
     return {

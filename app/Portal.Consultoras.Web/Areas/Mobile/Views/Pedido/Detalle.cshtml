@@ -319,7 +319,7 @@
                         {{#iff detalle.IndicadorMontoMinimo '==' 0}}
                         <span class="texto_rojo">*</span>
                         {{/iff}}
-                        <span">{{Split detalle.DescripcionProd '|' 0}}</span>
+                        <span>{{Split detalle.DescripcionProd '|' 0}}</span>
                     </span>
                     {{#iff detalle.EsKitNueva '==' false}}
                     <span class="nom_cliente">Cliente: {{detalle.Nombre}}</span>
@@ -700,7 +700,7 @@
                             <input class="boton_quiero_este_premio" type="button" data-agregar-regalo="" value="QUIERO ESTE PREMIO" onclick="InsertUpSellingRegalo('{{UpSellingRegaloId}}','{{CUV}}')" />
                         </div>
 
-                        {{#iff StockActual '==' '0'}}
+                        {{#iff StockActual '<=' '0'}}
                         <div class="content_regalo_sinstock" data-regalo-sinstock="">
                             <div class="txt_agotado">AGOTADO</div>
                         </div>

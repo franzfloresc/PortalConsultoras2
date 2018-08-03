@@ -51,7 +51,7 @@ var EstrategiaAgregarModule = (function () {
 
     var elementosDiv = {
         divMensajeBloqueada: "#divMensajeBloqueada",
-        divHVMensajeBloqueada: "#divHVMensajeBloqueada",
+        //divHVMensajeBloqueada: "#divHVMensajeBloqueada",
         divVistaPrevia: "#divVistaPrevia",
         hdErrorInsertarProducto: "#hdErrorInsertarProducto",
         hdCampaniaCodigo: "#hdCampaniaCodigo",
@@ -99,11 +99,16 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var abrirMensajeEstrategia = function (txt) {
-        if (tipoOrigenEstrategia == 1) {
+        var tipoOrigenEstrategiaAux = 0;
+        if (typeof tipoOrigenEstrategia != "undefined") {
+            tipoOrigenEstrategiaAux = tipoOrigenEstrategia;
+        }
+
+        if (tipoOrigenEstrategiaAux == 1) {
             alert_msg_pedido(txt);
-        } else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) {
+        } else if (tipoOrigenEstrategiaAux == 11 || tipoOrigenEstrategiaAux == 17 || tipoOrigenEstrategiaAux == 172) {
             alert_msg(txt);
-        } else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 262) {
+        } else if (tipoOrigenEstrategiaAux == 2 || tipoOrigenEstrategiaAux == 21 || tipoOrigenEstrategiaAux == 262) {
             messageInfo(txt);
         } else if (isMobile()) {
             messageInfo(txt);
@@ -200,6 +205,7 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var estrategiaAgregar = function (event, popup, limite, esFicha) {
+        console.log('estrategiaAgregar');
         popup = popup || false;
         limite = limite || 0;
 
@@ -251,7 +257,9 @@ var EstrategiaAgregarModule = (function () {
         var itemClone = estrategiaObtenerObjHtmlLanding($btnAgregar);
         if (isPagina("ofertas") && !isMobile()) {
             var estratediaId = itemClone.data("item");
-            itemClone = itemClone.parent().find("[data-item=" + estratediaId + "]");
+            if (estratediaId != "") {
+                itemClone = itemClone.parent().find("[data-item=" + estratediaId + "]");
+            }
         }
         var divAgregado = $(itemClone).find(".agregado.product-add");
 
@@ -287,7 +295,8 @@ var EstrategiaAgregarModule = (function () {
             FlagNueva: $.trim(estrategia.FlagNueva)
             // ClienteID_:
         };
-
+        console.log('estrategiaAgregar', params);
+        console.log('EstrategiaAgregar.js - estrategiaAgregar - ajax ante ActualizarGanancia - EstrategiaAgregarProvider', params);
         EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function(data) {
             if (!checkTimeout(data)) {
                 CerrarLoad();
@@ -327,8 +336,10 @@ var EstrategiaAgregarModule = (function () {
             }
 
             if (isMobile()) {
-                //ActualizarGanancia(data.DataBarra);
+                console.log('EstrategiaAgregar.js - estrategiaAgregar - ante ActualizarGanancia', data.DataBarra);
+                ActualizarGanancia(data.DataBarra);
                 //if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.ShowRoom)
+                console.log('EstrategiaAgregar.js - EstrategiaAgregarProvider - ante CargarCantidadProductosPedidos');
                 CargarCantidadProductosPedidos(true);
                 microefectoPedidoGuardado();
             } else {
@@ -337,16 +348,22 @@ var EstrategiaAgregarModule = (function () {
 
             var cuv = estrategia.CUV2;
 
-            var tipoOrigenEstrategia = tipoOrigenEstrategia || 0;
-            if (tipoOrigenEstrategia == 1) {
+            var tipoOrigenEstrategiaAux = 0;
+            if (typeof tipoOrigenEstrategia != "undefined") {
+                tipoOrigenEstrategiaAux = tipoOrigenEstrategia || 0;
+            }
+
+            if (tipoOrigenEstrategiaAux == 1) {
                 if (typeof MostrarBarra != constantes.undefined())
                     MostrarBarra(data, "1");
 
                 //if (typeof ActualizarGanancia != constantes.undefined())
                 //    ActualizarGanancia(data.DataBarra);
 
-                if (typeof CargarCarouselEstrategias != constantes.undefined())
-                    CargarCarouselEstrategias();
+                if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                    if (typeof CargarCarouselEstrategias != constantes.undefined())
+                        CargarCarouselEstrategias();
+                }
 
                 if (typeof tieneMasVendidos != constantes.undefined()) {
                     if (tieneMasVendidos === 1) {
@@ -354,37 +371,41 @@ var EstrategiaAgregarModule = (function () {
                             CargarCarouselMasVendidos("desktop");
                     }
                 }
-            } else if (tipoOrigenEstrategia == 11) {
+            } else if (tipoOrigenEstrategiaAux == 11) {
 
                 $(elementosDiv.hdErrorInsertarProducto).val(data.errorInsertarProducto);
 
 
-                cierreCarouselEstrategias();
-                CargarCarouselEstrategias();
+                cierreCarouselEstrategias
+                if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                    CargarCarouselEstrategias();
+                }
                 HideDialog(elementosDiv.divVistaPrevia.substring(1));
 
-                tieneMicroefecto = true;
+                //tieneMicroefecto = true;
 
                 CargarDetallePedido();
                 MostrarBarra(data);
-            } else if (tipoOrigenEstrategia == 2 ||
-                tipoOrigenEstrategia == 21 ||
-                tipoOrigenEstrategia == 27 ||
-                tipoOrigenEstrategia == 262 ||
-                tipoOrigenEstrategia == 272) {
+            } else if (tipoOrigenEstrategiaAux == 2 ||
+                tipoOrigenEstrategiaAux == 21 ||
+                tipoOrigenEstrategiaAux == 27 ||
+                tipoOrigenEstrategiaAux == 262 ||
+                tipoOrigenEstrategiaAux == 272) {
 
-                if (tipoOrigenEstrategia == 262) {
+                if (tipoOrigenEstrategiaAux == 262) {
 
-                    origenRetorno = $.trim(origenRetorno);
-                    if (origenRetorno != "") {
+                    var origenRetornoAux = $.trim(origenRetorno);
+                    if (origenRetornoAux != "") {
                         setTimeout(function() {
-                                window.location = origenRetorno;
+                                window.location = origenRetornoAux;
                             },
                             3700);
 
                     }
-                } else if (tipoOrigenEstrategia != 272) {
-                    CargarCarouselEstrategias();
+                } else if (tipoOrigenEstrategiaAux != 272) {
+                    if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                        CargarCarouselEstrategias();
+                    }
 
                     if (tieneMasVendidos === 1) {
                         CargarCarouselMasVendidos("mobile");
@@ -457,8 +478,13 @@ var EstrategiaAgregarModule = (function () {
         e.stopPropagation();
 
         var $this = $(e.target);
-        if ($this.data("bloqueada"))
-            if ($this.data("bloqueada") !== "") return false;
+        if ($this.data("bloqueada")) {
+            var desactivado = $this.find("[data-bloqueada='contenedor_rangos_desactivado']");
+            desactivado = desactivado.length;
+            //if ($this.data("bloqueada") !== "") return false;
+            if (desactivado !== 0) return false;
+        }    
+            
         var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
         var cantidad = parseInt($inputCantidad.val());
 
@@ -472,10 +498,14 @@ var EstrategiaAgregarModule = (function () {
 
     var disminuirCantidad = function (e) {
         e.stopPropagation();
-
         var $this = $(e.target);
-        if ($this.data("bloqueada"))
-            if ($this.data("bloqueada") !== "") return false;
+        if ($this.data("bloqueada")) {
+            //if ($this.data("bloqueada") !== "") return false;
+            var desactivado = $this.find("[data-bloqueada='contenedor_rangos_desactivado']");
+            desactivado = desactivado.length;
+            if (desactivado !== 0) return false;
+        }
+             
         var $inputCantidad = $this.parents(dataProperties.dataContenedorCantidad).find(dataProperties.dataInputCantidad);
         var cantidad = parseInt($inputCantidad.val());
 

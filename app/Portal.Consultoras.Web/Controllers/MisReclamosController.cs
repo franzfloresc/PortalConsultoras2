@@ -29,6 +29,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index()
         {
+            if (EsDispositivoMovil())
+            {
+                return RedirectToAction("Index", "MisReclamos", new { area = "Mobile" });
+            }
+
+
             if (userData.TieneCDR == 0) return RedirectToAction("Index", "Bienvenida");
 
             MisReclamosModel model = new MisReclamosModel();
@@ -727,7 +733,7 @@ namespace Portal.Consultoras.Web.Controllers
                     siNoEmail = us.UpdateUsuarioEmailTelefono(userData.PaisID, userData.ConsultoraID, model.Email, model.Telefono);
                 }
 
-                registraLogDynamoCDR(model);
+                RegistraLogDynamoCDR(model);
 
                 userData.EMail = model.Email;
                 userData.Celular = model.Telefono;

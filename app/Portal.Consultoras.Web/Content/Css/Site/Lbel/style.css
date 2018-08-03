@@ -3242,7 +3242,8 @@ a.subir_carousel, a.bajar_carousel {
 
 .background_carousel {
     width: 240px;
-    height: 98px;
+    /*height: 98px;*/
+    height: 89px;
     position: absolute;
     bottom: -26px;
     left: 50%;
@@ -3284,7 +3285,7 @@ a.subir_carousel, a.bajar_carousel {
     min-width: 62px;
     height: 62px;
     top: 3%;
-    right: 4.8%;
+    /*right: 4.8%;*/
     z-index: 10;
 }
 
@@ -6130,7 +6131,7 @@ a.subir_carousel, a.bajar_carousel {
 .logo_esika {
     margin-top: 8px;
     float: left;
-    width: 10%;
+    width: 100px;
     padding-right: 2px;
 }
 
@@ -19951,7 +19952,7 @@ label.checkpop.c_on {
     font-size: 11px;
     font-family: 'lato';
     color: black;
-    width: 33%;
+    width: 32.5%;
     padding-top:9px;
 }
 
@@ -32422,7 +32423,7 @@ h1#penmostreo .campana {
     float: left;
     font-family: 'Lato';
     font-size: 13px;
-    padding-top: 6px;
+    padding-top: 20px;
 }
 
 .filtros_derecha {
@@ -36661,7 +36662,9 @@ height:30px;
 
 .cincuenta_anios_belcorp img{
     width: auto;
-    height: 111%;
+    height: 103.28%;
+    position: relative;
+    top: -1px;
 }
 
 .cincuenta_anios_belcorp + .logo_esika{
