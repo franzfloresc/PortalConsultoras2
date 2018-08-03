@@ -392,7 +392,7 @@
                 $(proImg).css("width", proObjM + "px");
             }
 
-            _resizeBotonAgregar();
+            setTimeout(_resizeBotonAgregar(), 1000);
         });
 
         //$("header").resize(function () {
@@ -606,6 +606,7 @@
         if (dvFoto.length && dvRedesSociales.length) {
 
             dvDetalle.removeClass("ficha_detalle_cuerpo");
+            dvDetalle.css("height", "");
             var dvFotoHeight = dvFoto.innerHeight();
             var dvFichaEtiquetaHeight = dvFichaEtiqueta.innerHeight();
             var dvDetalleHeight = dvDetalle.innerHeight();
@@ -638,10 +639,7 @@
                     var height = dvContentMobileHeight + dvFixedHeight + 20;
                     dvContentMobile.height(height);
                 }
-            }, 3000);
-        }
-        else {
-            _resizeBotonAgregar();
+            }, 1000);
         }
     }
 
