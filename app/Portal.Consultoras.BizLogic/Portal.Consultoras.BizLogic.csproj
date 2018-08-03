@@ -96,7 +96,6 @@
     <Compile Include="App\IMenuAppBusinessLogic.cs" />
     <Compile Include="BLCategoria.cs" />
     <Compile Include="BLActivarPremioNuevas.cs" />
-    <Compile Include="BLCuponesProgramaNuevas.cs" />
     <Compile Include="BLHorario.cs" />
     <Compile Include="BLAdministrarEstrategia.cs" />
     <Compile Include="BLConfiguracionOfertasHome.cs" />

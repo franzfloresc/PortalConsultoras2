@@ -642,8 +642,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<int> InsertarProductoShowroomMasiva(BEEstrategiaMasiva entidad);
-        [OperationContract]
-        List<string> ObtenerListadoCuvCupon(int paisId, int campaniaId);
 
         [OperationContract]
         List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad);
