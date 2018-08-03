@@ -303,7 +303,6 @@ div#caja-back-header {
     padding-left: 22px;
     border-bottom: 1px solid #e5e5e5;
     color: black;
-    text-align:left;
 }
 
 .btn_cerrar_sesion {
@@ -341,7 +340,6 @@ div#caja-back-header {
     font-family: 'Lato';
     color: black;
     font-size: 14px;
-    text-align:left;
 }
 
 .content_close {

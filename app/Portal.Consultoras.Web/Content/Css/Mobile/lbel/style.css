@@ -5009,7 +5009,6 @@ table > thead > tr > th {
     letter-spacing: .2px;
     margin-top: 32px;
     line-height: 20px;
-    text-align:left;
 }
 
 .btn_compartelos {
@@ -5254,12 +5253,6 @@ table > thead > tr > th {
     border: 1px solid #b0b0b0;
 }
 
-    .cantidad_menos_home img,
-    .cantidad_mas_home img
-    {
-        vertical-align:middle;
-    }
-
 .rango_cantidad_pedido {
     -webkit-appearance: none;
     border-radius: 0;
@@ -5272,8 +5265,6 @@ table > thead > tr > th {
     font-weight: 700;
     border-top: 1px solid #b0b0b0;
     border-bottom: 1px solid #b0b0b0;
-    font-family:'Lato', sans-serif;
-    color:#000;
 }
 
 .cantidad_mas_home {
@@ -5297,7 +5288,6 @@ table > thead > tr > th {
     padding-bottom: 8px;
     display: block;
     background: url('../../../Images/mobile/Esika/mas_footer.png') no-repeat right center;
-    text-align:left;
 }
 
 .menu_footer_menos {
@@ -5312,7 +5302,6 @@ table > thead > tr > th {
     padding-bottom: 8px;
     display: block;
     background: url('../../../Images/mobile/Esika/menos_footer.png') no-repeat right center;
-    text-align:left;
 }
 
 .menu_footer:hover {
@@ -7062,7 +7051,6 @@ input[type='checkbox']:checked + span:after {
     padding-bottom: 8px;
     display: block;
     background: #e2e1e7;
-    text-align:left;
 }
 
 .content_datos_c {
@@ -14988,10 +14976,6 @@ span.icon-advertencia {
     background-image:url('../../../Images/mobile/cincuenta_anios_belcorp_cabecera_mobile.png');
     background-repeat:no-repeat;
     background-position:-23px top;
-}
-
-.icono_menuMobile_cincuenta_anios_belcorp{
-    text-align:left;
 }
 
 .icono_menuMobile_cincuenta_anios_belcorp img{
