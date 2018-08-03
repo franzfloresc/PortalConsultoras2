@@ -9,18 +9,18 @@ using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.PagoEnLinea;
 using Portal.Consultoras.Entities.Pedido;
-using Portal.Consultoras.Entities.Pedido.App;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using System.Threading.Tasks;
-using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 namespace Portal.Consultoras.Service
 {
@@ -57,12 +57,12 @@ namespace Portal.Consultoras.Service
         private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
         private readonly ITrackingBusinessLogic _trackingBusinessLogic;
-        private readonly IPedidoAppBusinessLogic _pedidoAppBusinessLogic;
+        private readonly IPedidoBusinessLogic _pedidoAppBusinessLogic;
         private readonly BLCuponesProgramaNuevas BLCuponesProgramaNuevas;
         private readonly IPedidoWebSetBusinessLogic _pedidoWebSetBusinessLogic;
 
         public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking(), 
-            new BLPedidoApp(), new BLPedidoWebSet())
+            new BLPedido(), new BLPedidoWebSet())
         {
             BLPedidoWebDetalle = new BLPedidoWebDetalle();
             BLPedidoWeb = new BLPedidoWeb();
@@ -97,7 +97,7 @@ namespace Portal.Consultoras.Service
             IPedidoWebBusinessLogic pedidoWebBusinessLogic,
             IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic, 
             ITrackingBusinessLogic trackingBusinessLogic,
-            IPedidoAppBusinessLogic pedidoAppBusinessLogic,           
+            IPedidoBusinessLogic pedidoAppBusinessLogic,           
             IPedidoWebSetBusinessLogic pedidoWebSetBusinessLogic)
         {
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
@@ -2235,18 +2235,18 @@ namespace Portal.Consultoras.Service
             return BLCuponesProgramaNuevas.ObtenerListadoCuvCupon(paisId, campaniaId);
         }
 
-        #region PedidoApp
-        public BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar)
+        #region Pedido
+        public BEPedidoProducto GetCUV(BEPedidoProductoBuscar productoBuscar)
         {
             return _pedidoAppBusinessLogic.GetCUV(productoBuscar);
         }
 
-        public BEPedidoDetalleAppResult InsertPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        public BEPedidoDetalleResult InsertPedidoDetalle(BEPedidoDetalle pedidoDetalle)
         {
             return _pedidoAppBusinessLogic.Insert(pedidoDetalle);
         }
 
-        public BEPedidoWeb GetPedidoApp(BEUsuario usuario)
+        public BEPedidoWeb GetPedido(BEUsuario usuario)
         {
             return _pedidoAppBusinessLogic.Get(usuario);
         }
@@ -2256,29 +2256,29 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.InsertKitInicio(usuario);
         }
 
-        public BEPedidoDetalleAppResult UpdatePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        public BEPedidoDetalleResult UpdatePedidoDetalle(BEPedidoDetalle pedidoDetalle)
         {
             return _pedidoAppBusinessLogic.Update(pedidoDetalle);
         }
 
-        public BEConfiguracionPedido GetConfiguracionPedidoApp(int paisID, string codigoUsuario)
+        public BEConfiguracionPedido GetConfiguracionPedido(int paisID, string codigoUsuario)
         {
             return _pedidoAppBusinessLogic.GetConfiguracion(paisID, codigoUsuario);
         }
 
-        public async Task<BEPedidoDetalleAppResult> DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle)
+        public async Task<BEPedidoDetalleResult> DeletePedido(BEPedidoDetalle pedidoDetalle)
         {
             return await _pedidoAppBusinessLogic.Delete(pedidoDetalle);
         }
 
-        public async Task<BEPedidoReservaAppResult> ReservaPedidoDetalleApp(BEUsuario usuario)
+        public async Task<BEPedidoReservaAppResult> ReservaPedido(BEUsuario usuario)
         {
             return await _pedidoAppBusinessLogic.Reserva(usuario);
         }
 
-        public BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario)
+        public BEPedidoDetalleResult ModificarReservaPedido(BEUsuario usuario)
         {
-            return _pedidoAppBusinessLogic.DeshacerReserva(usuario);
+            return _pedidoAppBusinessLogic.ModificarReserva(usuario);
         }
 
         public List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario)
@@ -2286,11 +2286,22 @@ namespace Portal.Consultoras.Service
             return _pedidoAppBusinessLogic.GetEstrategiaCarrusel(usuario);
         }
 
-        public BEUsuario GetConfiguracionOfertaFinal(BEUsuario usuario)
+        public BEPedidoDetalleResult InsertEstrategiaCarrusel(BEPedidoDetalle pedidoDetalle)
         {
-            return _pedidoAppBusinessLogic.GetConfiguracionOfertaFinal(usuario);
+            return _pedidoAppBusinessLogic.InsertEstrategiaCarrusel(pedidoDetalle);
         }
-        public List<BEProducto> GetProductoSugerido(BEProductoAppBuscar productoBuscar)
+
+        public BEUsuario GetConfiguracionOfertaFinalCarrusel(BEUsuario usuario)
+        {
+            return _pedidoAppBusinessLogic.GetConfiguracionOfertaFinalCarrusel(usuario);
+        }
+
+        public BEPedidoDetalleResult InsertOfertaFinalCarrusel(BEPedidoDetalle pedidoDetalle)
+        {
+            return _pedidoAppBusinessLogic.InsertOfertaFinalCarrusel(pedidoDetalle);
+        }
+
+        public List<Entities.BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar)
         {
             return _pedidoAppBusinessLogic.GetProductoSugerido(productoBuscar);
         }
