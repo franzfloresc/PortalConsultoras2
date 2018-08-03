@@ -66,7 +66,7 @@ $(document).ready(function () {
         else mostrar.fadeOut(200);
     });
 
-    ValidarKitNuevas();
+    ValidarKitNuevas(function () { CargarPedido(true); });
 
     $("#suma, #resta").click(function (event) {
         if (!ValidarPermiso(this)) {
@@ -80,24 +80,6 @@ $(document).ready(function () {
         $("#txtCantidad").val(numactual);
     });
 });
-
-
-function ValidarKitNuevas() {
-    jQuery.ajax({
-        type: 'POST',
-        url: urlValidarKitNuevas,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            if (!checkTimeout(data)) return false;
-            if (!data.success) messageInfo('Ocurrió un error de conexion al intentar cargar el pedido. Por favor inténtelo mas tarde.');
-            else CargarPedido(true);
-        },
-        error: function (error) {
-            messageInfo('Ocurrió un error de conexion al intentar cargar el pedido. Por favor inténtelo mas tarde.');
-        }
-    });
-}
 
 function CargarPedido(firstLoad) {
     var obj = {
