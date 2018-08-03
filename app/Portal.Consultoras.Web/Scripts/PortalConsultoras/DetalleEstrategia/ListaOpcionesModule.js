@@ -77,9 +77,9 @@ var ListaOpcionesModule = (function () {
 
         $(_elements.listaOpciones.id).html("");
         SetHandlebars(_elements.listaOpciones.templateId, _componente, _elements.listaOpciones.id);
-
-        opcionesEvents.applyChanges("onOptionSelected", _componente);
-
+        setTimeout(function() {
+            opcionesEvents.applyChanges("onOptionSelected", _componente);
+        }, 200);
         return false;
     };
 

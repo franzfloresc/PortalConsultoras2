@@ -76,16 +76,59 @@ var ComponentesModule = (function () {
             if (cuv === hermano.Cuv) {
                 var componente = {};
                 componente = _estrategia.Hermanos[index];
-                opcionesEvents.applyChanges("onComponentSelected", componente);
                 _mostrarModalElegirOpciones();
+                opcionesEvents.applyChanges("onComponentSelected", componente);
                 return false;
             }
         });
     }
 
+    var SeleccionarPaletaOpcion = function (event, cuv) {
+        var $PaletaOpcion = $(event.target);
+        var CuvPadre = $PaletaOpcion.length > 0 ? $PaletaOpcion.parents("[data-tono-div]").data("tono-div") : "";
+
+        if (typeof cuv === "undefined" ||
+            cuv === null ||
+            $.trim(cuv) === "") throw "param cuv is not defined or null";
+        cuv = $.trim(cuv);
+
+        if (typeof CuvPadre === "undefined" ||
+            CuvPadre === null ||
+            $.trim(CuvPadre) === "") throw "param CuvPadre is not defined or null";
+        CuvPadre = $.trim(CuvPadre);
+
+        $.each(_estrategia.Hermanos, function (index, hermano) {
+            CuvPadre = $.trim(CuvPadre);
+            if (CuvPadre === hermano.Cuv) {
+                var componente = {};
+                componente = _estrategia.Hermanos[index];
+
+                componente.HermanosSeleccionados = [];
+
+                $.each(componente.Hermanos, function (index, item) {
+                    item.cantidadSeleccionada = 0;
+                    if (cuv === item.Cuv) {
+                        var opcion = item;
+                        componente.HermanosSeleccionados.push(opcion);
+                        item.cantidadSeleccionada = 1;
+                    }
+                });
+
+                opcionesEvents.applyChanges("onComponentSelected", componente);
+
+                ResumenOpcionesModule.CargarOpcionesElegidas();
+
+                return false;
+            }
+        });
+
+        return false;
+    }
+
     return {
         ListarComponentes: ListarComponentes,
-        SeleccionarComponente: SeleccionarComponente
+        SeleccionarComponente: SeleccionarComponente,
+        SeleccionarPaletaOpcion: SeleccionarPaletaOpcion
     };
 }());
 
