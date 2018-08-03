@@ -1,11 +1,11 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Portal.Consultoras.Entities.Pedido.App
+namespace Portal.Consultoras.Entities.Pedido
 {
     [DataContract]
-    public class BEPedidoDetalleApp
+    public class BEPedidoDetalle
     {
-        public BEPedidoDetalleApp()
+        public BEPedidoDetalle()
         {
             Producto = new BEProducto();
             Usuario = new BEUsuario();
@@ -35,5 +35,11 @@ namespace Portal.Consultoras.Entities.Pedido.App
         public short PedidoDetalleID { get; set; }
         [DataMember]
         public string ObservacionPROL { get; set; }
+        [DataMember]
+        public int OrigenPedidoWeb { get; set; }
+        [DataMember]
+        public int SetID { get; set; }
+        [DataMember]
+        public decimal ImporteTotal { get; set; }
     }
 }
