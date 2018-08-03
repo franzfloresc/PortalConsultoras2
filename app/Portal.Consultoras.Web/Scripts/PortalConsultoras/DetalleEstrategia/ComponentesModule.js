@@ -108,7 +108,7 @@ var ComponentesModule = (function () {
                 $.each(componente.Hermanos, function (index, item) {
                     item.cantidadSeleccionada = 0;
                     if (cuv === item.Cuv) {
-                        var opcion = jQuery.extend(true, {}, item);
+                        var opcion = item;
                         componente.HermanosSeleccionados.push(opcion);
                         item.cantidadSeleccionada = 1;
                     }
