@@ -98,7 +98,7 @@
     <Compile Include="Pedido\BEConfiguracionPedido.cs" />
     <Compile Include="Pedido\BEDescargaPedidoCliente.cs" />
     <Compile Include="Pedido\BEPedidoBarra.cs" />
-    <Compile Include="Pedido\App\BEPedidoAppBuscar.cs" />
+    <Compile Include="Pedido\BEPedidoBuscar.cs" />
     <Compile Include="ReservaProl\BEPedidoWebDetalleExplotado.cs" />
     <Compile Include="Estrategia\BEConfiguracionProgramaNuevasApp.cs" />
     <Compile Include="Estrategia\BEEstrategiaMasiva.cs" />
@@ -155,8 +155,8 @@
     <Compile Include="Incentivo\BEIncentivoProgramaNuevasNivel.cs" />
     <Compile Include="Incentivo\BEIncentivoProgramaNuevasPremio.cs" />
     <Compile Include="Mobile\BEApp.cs" />
-    <Compile Include="Pedido\App\BEPedidoDetalleApp.cs" />
-    <Compile Include="Pedido\App\BEPedidoDetalleAppResult.cs" />
+    <Compile Include="Pedido\BEPedidoDetalle.cs" />
+    <Compile Include="Pedido\BEPedidoDetalleResult.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaFiltro.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaResultadoLog.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaResultadoLogReporte.cs" />
@@ -170,8 +170,8 @@
     <Compile Include="Pedido\BETrackinDetalle.cs" />
     <Compile Include="Pedido\BETracking.cs" />
     <Compile Include="Pedido\DEWrapperPDF.cs" />
-    <Compile Include="Pedido\App\BEProductoApp.cs" />
-    <Compile Include="Pedido\App\BEProductoAppBuscar.cs" />
+    <Compile Include="Pedido\BEPedidoProducto.cs" />
+    <Compile Include="Pedido\BEPedidoProductoBuscar.cs" />
     <Compile Include="ReservaProl\BECuponNueva.cs" />
     <Compile Include="ReservaProl\BEPedidoObservacion.cs" />
     <Compile Include="ReservaProl\BEInputReservaProl.cs" />

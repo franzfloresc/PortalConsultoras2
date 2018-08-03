@@ -207,11 +207,11 @@
     <Compile Include="BLPedidoFacturado.cs" />
     <Compile Include="BLPedidoFICDetalle.cs" />
     <Compile Include="Incentivo\IConsultoraConcursoBusinessLogic.cs" />
-    <Compile Include="Pedido\BLPedidoApp.cs" />
+    <Compile Include="Pedido\BLPedido.cs" />
     <Compile Include="PagoEnlinea\BLPagoEnLinea.cs" />
     <Compile Include="Pedido\BLPedidoWebSet.cs" />
     <Compile Include="Pedido\BLTracking.cs" />
-    <Compile Include="Pedido\IPedidoAppBusinessLogic.cs" />
+    <Compile Include="Pedido\IPedidoBusinessLogic.cs" />
     <Compile Include="Pedido\IPedidoWebBusinessLogic.cs" />
     <Compile Include="Pedido\ITrackingBusinessLogic.cs" />
     <Compile Include="Producto\IProductoBusinessLogic.cs" />

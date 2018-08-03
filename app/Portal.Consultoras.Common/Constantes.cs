@@ -554,7 +554,6 @@ namespace Portal.Consultoras.Common
             public const int BannerDesktopHome = 1111;
             public const int DesktopPedido = 12;
             public const int MobilePedido = 22;
-            public const int AppPedido = 42;
 
             #region OfertasParaTi
             public const int OfertasParaTiDesktopHome = 1121;
@@ -567,6 +566,7 @@ namespace Portal.Consultoras.Common
             public const int OfertasParaTiMobileHome = 2121;
             public const int OfertasParaTiMobileHomePopUp = 2122;
             public const int OfertasParaTiMobilePedido = 2221;
+            public const int OfertasParaTiAppPedido = 4221;
             public const int OfertasParaTiMobilePedidoPopUp = 2222;
             public const int OfertasParaTiMobileContenedor = 2821;
             public const int OfertasParaTiMobileContenedorPopup = 2822;
@@ -640,6 +640,7 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalDesktopPedidoPopUp = 1202;
             public const int RevistaDigitalMobilePedidoSeccion = 2201;
             public const int RevistaDigitalMobilePedidoPopUp = 2202;
+            public const int RevistaDigitalAppPedidoSeccion = 4201;
 
             public const int RevistaDigitalDesktopLanding = 1711;
             public const int RevistaDigitalDesktopLandingPopUp = 1712;
@@ -1934,7 +1935,7 @@ namespace Portal.Consultoras.Common
             public const string IsSubcampaign = "essubcampania";
             public const string OfferStatus = "estado de oferta";
 
-            public enum Position { CUV = 0, NormalPrice = 1, AllowedUnits = 2, NameSet = 3, BusinessTip = 4, IsSubcampaign = 5, OfferStatus = 6 };
+            public enum Position { CUV = 0, AllowedUnits = 1, NameSet = 2, BusinessTip = 3, IsSubcampaign = 4, OfferStatus = 5 };
         }
 
         public static class ColumnsProductStrategyShowroom
@@ -2018,6 +2019,11 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_ACTUALIZAR = "2106";
                 public const string ERROR_ELIMINAR = "2107";
                 public const string ERROR_ELIMINAR_TODO = "2108";
+                public const string ERROR_CANTIDAD_LIMITE = "2111";
+                public const string ERROR_ELIMINAR_TODO_SET = "2112";
+                public const string ERROR_ELIMINAR_SET = "2113";
+                public const string ERROR_ACTUALIZAR_SET = "2114";
+                public const string ERROR_SET_NOENCONTRADO = "2115";
 
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
@@ -2062,8 +2068,13 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_GRABAR, "Ocurrió un error al insertar el pedido."},
                         {Code.ERROR_VALIDA_DATOS , string.Empty },
                         {Code.ERROR_ACTUALIZAR, "Ocurrió un error al actualizar el pedido." },
+                        {Code.ERROR_ACTUALIZAR_SET, "Ocurrió un error al actualizar el set." },
+                        {Code.ERROR_SET_NOENCONTRADO, "Set no encontrado."},
                         {Code.ERROR_ELIMINAR, "Ocurrió un error al eliminar el detalle de pedido." },
+                        {Code.ERROR_ELIMINAR_SET, "Ocurrió un error al eliminar el detalle del set."},
                         {Code.ERROR_ELIMINAR_TODO, "Ocurrió un error al eliminar el pedido." },
+                        {Code.ERROR_ELIMINAR_TODO_SET, "Ocurrió un error al eliminar el set." },
+                        {Code.ERROR_CANTIDAD_LIMITE, "La cantidad no debe ser mayor que la cantidad limite ( {0} )." },
 
                         {Code.ERROR_RESERVA_NINGUNO, "El pedido no se reservó." },
                         {Code.SUCCESS_RESERVA, "Pedido reservado." },
@@ -2094,6 +2105,8 @@ namespace Portal.Consultoras.Common
         {
             public const string DescripcionKitInicio = "KIT DE INICIO";
             public const string OfertaNiveles = "OFERTA POR NIVELES (*)";
+            public const string OfertaLiquidacion = "OFERTA LIQUIDACIÓN";
+            public const string OfertaFlexiPago =  "OFERTA FLEXIPAGO";
             public const int idHerramientaVenta = 3028;
         }
 
