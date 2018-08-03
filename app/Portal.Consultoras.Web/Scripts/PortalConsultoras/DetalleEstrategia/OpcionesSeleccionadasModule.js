@@ -64,8 +64,6 @@ var OpcionesSeleccionadasModule = (function () {
         return _componente.Hermanos.length;
     };
 
-    
-
     return {
         CargarOpcionesSeleccionadas: CargarOpcionesSeleccionadas
     };
