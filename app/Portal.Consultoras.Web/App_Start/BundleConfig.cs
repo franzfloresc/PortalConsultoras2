@@ -240,7 +240,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/jquery.rateyo.css",
                 "~/Content/Css/Site/flexslider.css",
                 "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
-                "~/Content/Css/Site/RevistaDigital/PopupSuscripcion.css"
+                "~/Content/Css/Site/RevistaDigital/PopupSuscripcion.css",
+                 "~/Content/Css/Site/jquery.custom-scrollbar.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2").Include(
@@ -346,7 +347,8 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/bundles/Css/Site/CcsBienvenida").Include(
                 "~/Content/Css/Site/jquery.rateyo.css",
                 "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
-                "~/Content/Css/Mobile/RevistaDigital/PopupSuscripcion.css"
+                "~/Content/Css/Mobile/RevistaDigital/PopupSuscripcion.css",
+                 "~/Content/Css/Site/jquery.custom-scrollbar.css"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/Css/Site/MisCatalogoRevista").Include(

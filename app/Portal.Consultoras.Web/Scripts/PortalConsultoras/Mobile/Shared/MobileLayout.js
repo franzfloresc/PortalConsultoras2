@@ -1104,7 +1104,6 @@ function getMobileOperatingSystem() {
 
 function PopUpPrivacidadDatos()
 {
-    alert("popup PopUpPrivacidadDatos");
     $("#box-pop-up").show();
     $("#pop-up-body").customScrollbar();
 }
