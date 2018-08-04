@@ -410,6 +410,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 if (pedidoDetalle.SetID > 0)
                 {
+                    var pedidoExiste = lstDetalle.Where(x => x.CUV == pedidoDetalle.Producto.CUV).FirstOrDefault();
+                    pedidoDetalle.PedidoDetalleID = pedidoExiste == null ? (short)0 : pedidoExiste.PedidoDetalleID;
+
                     var detallePedido = _pedidoWebDetalleBusinessLogic.GetPedidoWebSetDetalle(pedidoDetalle.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
                     detallePedido.Where(p => p.SetId == pedidoDetalle.SetID).ToList().ForEach(p => p.Cantidad = pedidoDetalle.Cantidad * p.FactorRepeticion);
 
@@ -442,6 +445,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     pedidoDetalle.ImporteTotal = pedidoDetalle.Cantidad * pedidoDetalle.Producto.PrecioCatalogo;
                     lstDetalleApp.Add(pedidoDetalle);
                 }
+
+                // lista auxiliar para validar stock y cliente
+                var lstDetalleAux = lstDetalle;
+                lstDetalleAux.Where(x => x.PedidoDetalleID == pedidoDetalle.PedidoDetalleID).Update(x => x.ClienteID = pedidoDetalle.ClienteID);
 
                 //Validar stock
                 var result = ValidarStockEstrategia(usuario, pedidoDetalle, lstDetalle, out mensaje);
