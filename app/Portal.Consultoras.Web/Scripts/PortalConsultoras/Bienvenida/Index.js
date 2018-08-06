@@ -1097,15 +1097,22 @@ function CargarBanners() {
 
                             var attibutes = '';
                             if (objData.URL.length > 0) {
+                                var tipoBanner = '0'
+                                if ($.inArray(objData.GrupoBannerID, [-6, -7]) > -1) {
+                                    var codigoCampania = 'C' + viewBagCampaniaActual.substr(4, 2);
+                                    if ($.inArray(objData.Titulo.toUpperCase(), [codigoCampania + '_EXPOFERTAS_' + paisISO, codigoCampania + '_EXPOFERTA_' + paisISO]) > -1) {
+                                        attibutes += "target=\"_self\"";
+                                        tipoBanner = '1'
+                                    }
+                                    else attibutes += "target=\"_blank\"";
+                                }
+
                                 if (viewBagTieneHV && objData.GrupoBannerID == -5) {
-                                    attibutes += "onclick=\"SetGoogleAnalyticsBannerInferiores('" + 'HerramientasVenta/Comprar' + "','" + trackingText + "','1','" + objData.BannerID + "','" + countBajos + "','" + objData.Titulo + "',false);\"";
+                                    attibutes += " onclick=\"SetGoogleAnalyticsBannerInferiores('" + 'HerramientasVenta/Comprar' + "','" + trackingText + "','1','" + objData.BannerID + "','" + countBajos + "','" + objData.Titulo + "',false);\"";
                                 } else {
-                                    attibutes += "onclick=\"return SetGoogleAnalyticsBannerInferiores('" + objData.URL + "','" + trackingText + "','0','" + objData.BannerID + "','" + countBajos + "','" + objData.Titulo + "');\"";
+                                    attibutes += " onclick=\"return SetGoogleAnalyticsBannerInferiores('" + objData.URL + "','" + trackingText + "','" + tipoBanner + "','" + objData.BannerID + "','" + countBajos + "','" + objData.Titulo + "');\"";
                                 }
-                                if (objData.GrupoBannerID == -6 ||
-                                    objData.GrupoBannerID == -7) {
-                                    attibutes += " target=\"_blank=\"";
-                                }
+
                                 attibutes += " rel=\"banner-inferior=\"";
                             }
 
