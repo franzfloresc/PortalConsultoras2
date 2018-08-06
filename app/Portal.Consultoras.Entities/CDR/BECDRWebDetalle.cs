@@ -167,31 +167,31 @@ namespace Portal.Consultoras.Entities.CDR
         { }
         public BECDRWebDetalleReporte(IDataRecord row)
         {
-            if (row.HasColumn("NroCDR")) NroCDR = Convert.ToString(row["NroCDR"]);
-            if (row.HasColumn("ConsultoraCodigo")) ConsultoraCodigo = Convert.ToString(row["ConsultoraCodigo"]);
-            if (row.HasColumn("ZonaCodigo")) ZonaCodigo = Convert.ToString(row["ZonaCodigo"]);
-            if (row.HasColumn("RegionCodigo")) RegionCodigo = Convert.ToString(row["RegionCodigo"]);
-            if (row.HasColumn("SeccionCodigo")) SeccionCodigo = Convert.ToString(row["SeccionCodigo"]);
-            if (row.HasColumn("CampaniaOrigenPedido")) CampaniaOrigenPedido = Convert.ToString(row["CampaniaOrigenPedido"]);
-            if (row.HasColumn("FechaHoraSolicitud")) FechaHoraSolicitud = Convert.ToString(row["FechaHoraSolicitud"]);
-            if (row.HasColumn("FechaAtencion")) FechaAtencion = Convert.ToString(row["FechaAtencion"]);
-            if (row.HasColumn("EstadoDescripcion")) EstadoDescripcion = Convert.ToString(row["EstadoDescripcion"]);
-            if (row.HasColumn("CUV")) CUV = Convert.ToString(row["CUV"]);
-            if (row.HasColumn("UnidadesFacturadas")) UnidadesFacturadas = Convert.ToInt32(row["UnidadesFacturadas"]);
-            if (row.HasColumn("MontoFacturado")) MontoFacturado = Convert.ToDecimal(row["MontoFacturado"]);
-            if (row.HasColumn("UnidadesDevueltas")) UnidadesDevueltas = Convert.ToInt32(row["UnidadesDevueltas"]);
-            if (row.HasColumn("MontoDevuelto")) MontoDevuelto = Convert.ToDecimal(row["MontoDevuelto"]);
-            if (row.HasColumn("CodigoProductoEnviar")) CUV2 = Convert.ToString(row["CodigoProductoEnviar"]);
-            if (row.HasColumn("UnidadesEnviar")) UnidadesEnviar = Convert.ToInt32(row["UnidadesEnviar"]);
-            if (row.HasColumn("MontoProductoEnviar")) MontoProductoEnviar = Convert.ToDecimal(row["MontoProductoEnviar"]);
-            if (row.HasColumn("Operacion")) Operacion = Convert.ToString(row["Operacion"]);
-            if (row.HasColumn("Reclamo")) Reclamo = Convert.ToString(row["Reclamo"]);
-            if (row.HasColumn("EstadoDetalle")) EstadoDetalle = Convert.ToString(row["EstadoDetalle"]);
-            if (row.HasColumn("MotivoRechazo")) MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
-            if (row.HasColumn("OrigenCDRWeb")) OrigenCDRWeb = Convert.ToString(row["OrigenCDRWeb"]);
-            if (row.HasColumn("TipoDespacho")) TipoDespacho = (row["TipoDespacho"] ?? string.Empty).ToString();
-            if (row.HasColumn("FleteDespacho")) FleteDespacho = Convert.ToDecimal(row["FleteDespacho"] ?? 0);
-            if (row.HasColumn("TipoConsultora")) TipoConsultora = (row["TipoConsultora"] ?? string.Empty).ToString();
+            NroCDR = row.ToString("NroCDR");
+            ConsultoraCodigo = row.ToString("ConsultoraCodigo");
+            ZonaCodigo = row.ToString("ZonaCodigo");
+            RegionCodigo = row.ToString("RegionCodigo");
+            SeccionCodigo = row.ToString("SeccionCodigo");
+            CampaniaOrigenPedido = row.ToString("CampaniaOrigenPedido");
+            FechaHoraSolicitud = row.ToString("FechaHoraSolicitud");
+            FechaAtencion = row.ToString("FechaAtencion");
+            EstadoDescripcion = row.ToString("EstadoDescripcion");
+            CUV = row.ToString("CUV");
+            UnidadesFacturadas = row.ToInt32("UnidadesFacturadas");
+            MontoFacturado = row.ToDecimal("MontoFacturado");
+            UnidadesDevueltas = row.ToInt32("UnidadesDevueltas");
+            MontoDevuelto = row.ToDecimal("MontoDevuelto");
+            CUV2 = row.ToString("CodigoProductoEnviar");
+            UnidadesEnviar = row.ToInt32("UnidadesEnviar");
+            MontoProductoEnviar = row.ToDecimal("MontoProductoEnviar");
+            Operacion = row.ToString("Operacion");
+            Reclamo = row.ToString("Reclamo");
+            EstadoDetalle = row.ToString("EstadoDetalle");
+            MotivoRechazo = row.ToString("MotivoRechazo");
+            OrigenCDRWeb = row.ToString("OrigenCDRWeb");
+            TipoDespacho = row.ToString("TipoDespacho", string.Empty);
+            FleteDespacho = row.ToDecimal("FleteDespacho");
+            TipoConsultora = row.ToString("TipoConsultora", string.Empty);
         }
     }
 }

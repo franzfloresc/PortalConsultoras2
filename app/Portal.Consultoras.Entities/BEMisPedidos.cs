@@ -68,15 +68,15 @@ namespace Portal.Consultoras.Entities
 
         public BEMisPedidos(IDataRecord row)
         {
-            PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
-            MarcaID = Convert.ToInt32(row["MarcaID"]);
-            Cliente = Convert.ToString(row["NombreCompleto"]);
-            Direccion = Convert.ToString(row["Direccion"]);
-            Telefono = Convert.ToString(row["Telefono"]);
-            Email = Convert.ToString(row["Email"]);
-            MensajeDelCliente = Convert.ToString(row["Mensaje"]);
-            Estado = Convert.ToString(row["Estado"]);
-            FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
+            PedidoId = row.ToInt64("SolicitudClienteID");
+            MarcaID = row.ToInt32("MarcaID");
+            Cliente = row.ToString("NombreCompleto");
+            Direccion = row.ToString("Direccion");
+            Telefono = row.ToString("Telefono");
+            Email = row.ToString("Email");
+            MensajeDelCliente = row.ToString("Mensaje");
+            Estado = row.ToString("Estado");
+            FechaSolicitud = row.ToDateTime("FechaSolicitud");
             Campania = row.ToString("Campania");
             Leido = row.ToInt16("Leido");
             NumIteracion = row.ToInt32("NumIteracion");
@@ -142,30 +142,30 @@ namespace Portal.Consultoras.Entities
 
         public BEMisPedidosDetalle(IDataRecord row)
         {
-            PedidoDetalleId = Convert.ToInt64(row["SolicitudClienteDetalleID"]);
-            PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
-            Producto = Convert.ToString(row["Producto"]);
-            Tono = Convert.ToString(row["Tono"]);
-            Marca = Convert.ToString(row["Marca"]);
-            CUV = Convert.ToString(row["CUV"]);
-            PrecioUnitario = Convert.ToDouble(row["Precio"]);
-            Cantidad = Convert.ToInt32(row["Cantidad"]);
+            PedidoDetalleId = row.ToInt64("SolicitudClienteDetalleID");
+            PedidoId = row.ToInt64("SolicitudClienteID");
+            Producto = row.ToString("Producto");
+            Tono = row.ToString("Tono");
+            Marca = row.ToString("Marca");
+            CUV = row.ToString("CUV");
+            PrecioUnitario = row.ToDouble("Precio");
+            Cantidad = row.ToInt32("Cantidad");
             PrecioTotal = PrecioUnitario * Cantidad;
 
-            if (DataRecord.HasColumn(row, "MarcaID"))
-                MarcaID = Convert.ToInt32(row["MarcaID"]);
 
-            if (DataRecord.HasColumn(row, "MContacto"))
-                MedioContacto = Convert.ToString(row["MContacto"]);
+                MarcaID = row.ToInt32("MarcaID");
 
-            if (DataRecord.HasColumn(row, "TipoAtencion"))
-                TipoAtencion = Convert.ToInt32(row["TipoAtencion"]);
 
-            if (DataRecord.HasColumn(row, "PedidoWebID"))
-                PedidoWebID = Convert.ToInt32(row["PedidoWebID"]);
+                MedioContacto = row.ToString("MContacto");
 
-            if (DataRecord.HasColumn(row, "PedidoWebDetalleID"))
-                PedidoWebDetalleID = Convert.ToInt32(row["PedidoWebDetalleID"]);
+
+                TipoAtencion = row.ToInt32("TipoAtencion");
+
+
+                PedidoWebID = row.ToInt32("PedidoWebID");
+
+
+                PedidoWebDetalleID = row.ToInt32("PedidoWebDetalleID");
         }
     }
 }

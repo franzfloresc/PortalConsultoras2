@@ -11,6 +11,8 @@ belcorp.pedido.initialize = function () {
 }
 
 $(document).ready(function () {
+    ValidarKitNuevas();
+
     $('#txtClienteNombre').click(function (e) {
         if ($(this).prop('disabled')) return;
 
@@ -23,7 +25,6 @@ $(document).ready(function () {
             $(this).autocomplete('close');
         }
     });
-
     $('#txtClienteNombre').keyup(function (e) {
         if (e.keyCode == 8) {
             if ($.trim($(this).val()) == "") $("#txtClienteId").val("0");
@@ -615,6 +616,7 @@ function InsertarProductoSugerido(model) {
         return false;
     }
 
+    console.log('Pedido - Index.js - InsertarProductoSugerido - ajax ante ActualizarGanancia', urlPedidoInsert, model);
     jQuery.ajax({
         type: 'POST',
         url: urlPedidoInsert,
@@ -634,6 +636,7 @@ function InsertarProductoSugerido(model) {
                 return false;
             }
 
+            console.log('Pedido - Index.js - InsertarProductoSugerido - ante ActualizarGanancia', data.DataBarra);
             ActualizarGanancia(data.DataBarra);
             var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
             if (existeError == "1") {

@@ -120,8 +120,7 @@ namespace Portal.Consultoras.Entities
             DescripcionOferta = row.ToString("DescripcionOferta");
             Orden = row.ToInt32("Orden");
             FlagActivo = row.ToInt32("FlagActivo");
-            if (DataRecord.HasColumn(row, "OfertaID") )
-                OfertaID = Convert.ToString(row["OfertaID"]);
+            OfertaID = row.ToString("OfertaID");
             ImagenEstrategia = row.ToString("ImagenEstrategia");
             FlagNueva = row.ToInt32("FlagNueva");
             FlagRecoPerfil = row.ToInt32("FlagRecoPerfil");

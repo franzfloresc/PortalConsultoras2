@@ -240,8 +240,7 @@ namespace Portal.Consultoras.Entities
             Simbolo = row.ToString("Simbolo");
             ConfiguracionOfertaID = row.ToInt32("ConfiguracionOfertaID");
             TipoOfertaSisID = row.ToInt32("TipoOfertaSisID");
-            if (DataRecord.HasColumn(row, "IndicadorMontoMinimo")) IndicadorMontoMinimo = Convert.ToInt32(row["IndicadorMontoMinimo"]);
-            else IndicadorMontoMinimo = 1;
+            row.ToInt32("IndicadorMontoMinimo", 1);
             SubTipoOfertaSisID = row.ToInt32("SubTipoOfertaSisID");
             TipoPedido = row.ToString("TipoPedido");
             DescripcionOferta = row.ToString("DescripcionOferta");

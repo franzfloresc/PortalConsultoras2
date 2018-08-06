@@ -32,6 +32,7 @@
         $(this).parent(".alert-top").slideUp();
     });
 
+    console.log('MobileLayout.js -  - ante CargarCantidadProductosPedidos');
     CargarCantidadProductosPedidos(true);
     CargarCantidadNotificacionesSinLeer();
 
@@ -820,6 +821,9 @@ function messageConfirmacion(message, fnAceptar) {
 function CargarCantidadProductosPedidos(noMostrarEfecto) {
     noMostrarEfecto = noMostrarEfecto || false;
     var montoWebAcumulado = "";
+
+    console.log('MobileLayout.js - ajax ante num-menu-shop', urlGetCantidadProductos, { soloCantidad: true });
+
     jQuery.ajax({
         type: 'POST',
         url: urlGetCantidadProductos,
@@ -842,6 +846,7 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
                         montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
                 }
 
+                console.log('MobileLayout.js - CargarCantidadProductosPedidos', data);
                 $(".num-menu-shop").html(data.cantidadProductos);
                 $(".js-span-pedidoingresado").html(montoWebAcumulado);
                 if (!noMostrarEfecto) {
@@ -1018,6 +1023,7 @@ function odd_get_item_impresion(item) {
 }
 
 var comunicadoBannerApp;
+
 function BannerApp() {
     if (oBannerApp == null || getMobileOperatingSystem() != "Android" || !VerificarVistaBannerApp()) {
         $('.banner_app').hide();
@@ -1085,6 +1091,7 @@ function OcultarBannerApp() {
         error: function (err) { }
     });
 }
+
 function getMobileOperatingSystem() {
     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
     if (/windows phone/i.test(userAgent)) {
@@ -1099,3 +1106,30 @@ function getMobileOperatingSystem() {
 
     return "unknown";
 }
+
+function ValidarKitNuevas(fnSuccess) {
+    jQuery.ajax({
+        type: 'POST',
+        url: urlValidarKitNuevas,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (!checkTimeout(data)) return false;
+
+            if (!data.success) messageInfo('Ocurrió un error al intentar cargar el Kit de Nuevas.');
+            else if ($.isFunction(fnSuccess)) fnSuccess();
+        },
+        error: function() { messageInfo('Ocurrió un error de conexion al intentar cargar el Kit de Nuevas.'); }
+    });
+}
+
+function PopUpPrivacidadDatos()
+{
+    $("#box-pop-up").show();
+    $("#pop-up-body").customScrollbar();
+}
+
+function CloseDialog(pop) {
+    pop = pop || "box-pop-up";
+    $("#" + pop).hide();
+} 

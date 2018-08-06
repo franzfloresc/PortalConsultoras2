@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -31,12 +32,12 @@ namespace Portal.Consultoras.Entities
 
         public BEProductoCompartido(IDataRecord row)
         {
-            PcID = Convert.ToInt32(row["ProductoCompID"]);
-            PcCampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            PcCuv = Convert.ToString(row["CUV"]);
-            PcPalanca = Convert.ToString(row["Palanca"]);
-            PcDetalle = Convert.ToString(row["Detalle"]);
-            PcApp = Convert.ToString(row["Applicacion"]);
+            PcID = row.ToInt32("ProductoCompID");
+            PcCampaniaID = row.ToInt32("CampaniaID");
+            PcCuv = row.ToString("CUV");
+            PcPalanca = row.ToString("Palanca");
+            PcDetalle = row.ToString("Detalle");
+            PcApp = row.ToString("Applicacion");
         }
     }
 }

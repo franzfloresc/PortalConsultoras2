@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -11,8 +12,8 @@ namespace Portal.Consultoras.Entities
 
         public BEGrupoConsultora(IDataRecord row)
         {
-            PaisID = Convert.ToInt32(row["PaisID"]);
-            ConsultoraCodigo = Convert.ToString(row["ConsultoraCodigo"]);
+            PaisID = row.ToInt32("PaisID");
+            ConsultoraCodigo = row.ToString("ConsultoraCodigo");
         }
 
         [DataMember]

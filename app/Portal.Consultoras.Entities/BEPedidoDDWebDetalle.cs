@@ -59,8 +59,7 @@ namespace Portal.Consultoras.Entities
             IndicadorEnviado = row.ToBoolean("IndicadorEnviado");
             FechaEnvio = row.ToDateTime("FechaEnvio");
             MotivoRechazo = row.ToString("MotivoRechazo");
-            if (row.HasColumn("ClienteID"))
-                ClienteID = row.GetValue<short>("ClienteID");
+            ClienteID = row.GetColumn<short>("ClienteID");
         }
     }
 }
