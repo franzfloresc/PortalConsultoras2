@@ -1023,6 +1023,7 @@ function odd_get_item_impresion(item) {
 }
 
 var comunicadoBannerApp;
+
 function BannerApp() {
     if (oBannerApp == null || getMobileOperatingSystem() != "Android" || !VerificarVistaBannerApp()) {
         $('.banner_app').hide();
@@ -1090,6 +1091,7 @@ function OcultarBannerApp() {
         error: function (err) { }
     });
 }
+
 function getMobileOperatingSystem() {
     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
     if (/windows phone/i.test(userAgent)) {
@@ -1120,3 +1122,14 @@ function ValidarKitNuevas(fnSuccess) {
         error: function() { messageInfo('Ocurrió un error de conexion al intentar cargar el Kit de Nuevas.'); }
     });
 }
+
+function PopUpPrivacidadDatos()
+{
+    $("#box-pop-up").show();
+    $("#pop-up-body").customScrollbar();
+}
+
+function CloseDialog(pop) {
+    pop = pop || "box-pop-up";
+    $("#" + pop).hide();
+} 
