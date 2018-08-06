@@ -74,6 +74,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private bool EstaEnRevistaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstrategiaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FlagNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -372,6 +375,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((this.EstaEnRevistaField.Equals(value) != true)) {
                     this.EstaEnRevistaField = value;
                     this.RaisePropertyChanged("EstaEnRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstrategiaID {
+            get {
+                return this.EstrategiaIDField;
+            }
+            set {
+                if ((this.EstrategiaIDField.Equals(value) != true)) {
+                    this.EstrategiaIDField = value;
+                    this.RaisePropertyChanged("EstrategiaID");
                 }
             }
         }
@@ -3300,6 +3316,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int LimNumElectivosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string[] ListCuvEliminarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3312,6 +3331,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int LimNumElectivos {
+            get {
+                return this.LimNumElectivosField;
+            }
+            set {
+                if ((this.LimNumElectivosField.Equals(value) != true)) {
+                    this.LimNumElectivosField = value;
+                    this.RaisePropertyChanged("LimNumElectivos");
+                }
             }
         }
         

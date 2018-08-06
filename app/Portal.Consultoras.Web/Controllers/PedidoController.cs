@@ -3312,7 +3312,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(new
             {
-
                 success = true,
                 data = (List<BEBannerPedido>)null
             });
@@ -3352,42 +3351,29 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     sv.UpdVisualizacionPopupProRecom(Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID, userData.PaisID);
                 }
-
-                return Json(new
-                {
-                    success = true
-                });
             }
-
-            return Json(new
-            {
-                success = true
-            });
+            return Json(new { success = true });
         }
 
         [HttpPost]
         public JsonResult ValidarKitNuevas()
         {
-            try { ValidarAgregarKitNuevas(); }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new { success = false });
-            }
-            return Json(new { success = true });
+            return Json(new { success = ValidarAgregarKitNuevas() });
         }
 
-        private void ValidarAgregarKitNuevas()
+        private bool ValidarAgregarKitNuevas()
         {
             try
             {
-                if (sessionManager.ProcesoKitNuevas) return;
+                if (sessionManager.ProcesoKitNuevas) return true;
                 AgregarKitNuevas();
                 sessionManager.ProcesoKitNuevas = true;
+                return true;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return false;
             }
         }
 
@@ -4432,7 +4418,10 @@ namespace Portal.Consultoras.Web.Controllers
                     EliminarDetallePackNueva(respElectivos.ListCuvEliminar.ToList());
                     return respElectivos.ListCuvEliminar.ToList();
                 }
-                if (respElectivos.Resultado == Enumeradores.ValidarCuponesElectivos.NoAgregarCuponExcedioLimite) mensajeObs = Constantes.MensajesError.AgregarProgNuevas_MaxElectivos;
+                if (respElectivos.Resultado == Enumeradores.ValidarCuponesElectivos.NoAgregarCuponExcedioLimite)
+                {
+                    mensajeObs = string.Format(Constantes.MensajesError.AgregarProgNuevas_MaxElectivos, respElectivos.LimNumElectivos);
+                }
                 return new List<string>();
             }
             catch (Exception ex)

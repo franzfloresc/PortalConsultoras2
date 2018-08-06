@@ -410,13 +410,13 @@ namespace Portal.Consultoras.BizLogic
             if (lstElectivas.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
 
             var nivelInput = new BENivelesProgramaNuevas { Campania = campaniaID.ToString(), CodigoPrograma = codigoPrograma, CodigoNivel = "0" + (consecutivoNueva + 1) };
-            var limElectivos = (GetNivelesProgramaNuevas(paisID, nivelInput) ?? new BENivelesProgramaNuevas()).UnidadesNivelElectivo;
+            var limElectivos = (GetNivelesProgramaNuevas(paisID, nivelInput) ?? new BENivelesProgramaNuevas()).UnidadesNivel;
             if (limElectivos <= 0) limElectivos = 1;
 
             var listElecPedido = lstCuvPedido.Where(c => lstElectivas.Any(e => e.CodigoCupon == c)).ToList();
             var cantElecPedido = listElecPedido.Count();
             if (cantElecPedido == 1 && limElectivos == 1) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.ReemplazarCupon, listElecPedido);
-            if (cantElecPedido >= limElectivos) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.NoAgregarCuponExcedioLimite);
+            if (cantElecPedido >= limElectivos) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.NoAgregarCuponExcedioLimite, limElectivos);
 
             return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
         }
