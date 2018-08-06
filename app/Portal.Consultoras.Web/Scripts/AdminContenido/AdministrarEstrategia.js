@@ -2601,6 +2601,7 @@
                         async: true,
                         success: function (data) {
                             closeWaitingDialog();
+                            console.log(data);
                             if (data.success) {
                                 _toastHelper.success(data.message);
                                 $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());

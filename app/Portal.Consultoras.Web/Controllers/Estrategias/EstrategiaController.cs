@@ -186,7 +186,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, ((int)tipoConsulta).ToString());
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, tipoConsulta.ToString());
                 return Json(new
                 {
                     success = false,

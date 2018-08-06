@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 
 namespace Portal.Consultoras.Entities
@@ -18,14 +19,14 @@ namespace Portal.Consultoras.Entities
 
         public BEConsultoraEmail(IDataRecord row)
         {
-            CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-            Codigo = Convert.ToString(row["CodigoConsultora"]);
-            NombreCompleto = Convert.ToString(row["Nombre"]);
-            Email = Convert.ToString(row["Email"]);
-            CodigoZona = Convert.ToString(row["CodigoZona"]);
-            GerenteZonaEmail = Convert.ToString(row["GZEmail"]);
-            GerenteZonaNombre = Convert.ToString(row["GerenteZona"]);
-            Clave = Convert.ToString(row["ClaveSecreta"]);
+            CodigoUsuario = row.ToString("CodigoUsuario");
+            Codigo = row.ToString("CodigoConsultora");
+            NombreCompleto = row.ToString("Nombre");
+            Email = row.ToString("Email");
+            CodigoZona = row.ToString("CodigoZona");
+            GerenteZonaEmail = row.ToString("GZEmail");
+            GerenteZonaNombre = row.ToString("GerenteZona");
+            Clave = row.ToString("ClaveSecreta");
             EsPostulante = true;
         }
     }

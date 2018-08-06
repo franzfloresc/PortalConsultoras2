@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -19,10 +20,10 @@ namespace Portal.Consultoras.Entities
         public BERegion() { }
         public BERegion(IDataRecord row)
         {
-            RegionID = Convert.ToInt32(row["RegionID"]);
-            PaisID = Convert.ToInt32(row["PaisID"]);
-            Codigo = Convert.ToString(row["Codigo"]);
-            Nombre = Convert.ToString(row["Nombre"]);
+            RegionID = row.ToInt32("RegionID");
+            PaisID = row.ToInt32("PaisID");
+            Codigo = row.ToString("Codigo");
+            Nombre = row.ToString("Nombre");
         }
     }
 }

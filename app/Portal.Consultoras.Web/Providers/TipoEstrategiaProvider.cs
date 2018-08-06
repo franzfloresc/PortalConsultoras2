@@ -6,13 +6,13 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class TipoEstrategiaProvider
     {
-        public List<ServicePedido.BETipoEstrategia> GetTipoEstrategias(int paisID, int TipoEstrategiaID)
+        public List<ServicePedido.BETipoEstrategia> GetTipoEstrategias(int paisID)
         {
             List<ServicePedido.BETipoEstrategia> tiposEstrategia;
             var entidad = new ServicePedido.BETipoEstrategia
             {
                 PaisID = paisID,
-                TipoEstrategiaID = TipoEstrategiaID
+                TipoEstrategiaID = 0
             };
             using (var pedidoServiceClient = new PedidoServiceClient())
             {
