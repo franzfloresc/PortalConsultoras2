@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Entities.ProgramaNuevas;
-using System.Data;
+﻿using System.Data;
 using System.Data.Common;
 
 namespace Portal.Consultoras.Data.ProgramaNuevas
@@ -11,12 +10,10 @@ namespace Portal.Consultoras.Data.ProgramaNuevas
         {
         }
 
-        public IDataReader Get(BENivelesProgramaNuevas nivel)
+        public IDataReader GetByCampania(string campania)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetNivelesProgramaNuevas");
-            Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, nivel.CodigoPrograma);
-            Context.Database.AddInParameter(command, "@Campania", DbType.String, nivel.Campania);
-            Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, nivel.CodigoNivel);
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetNivelesProgramaNuevasByCampania");
+            Context.Database.AddInParameter(command, "@Campania", DbType.String, campania);
             return Context.ExecuteReader(command);
         }
     }

@@ -446,7 +446,6 @@ namespace Portal.Consultoras.BizLogic
             }
             return productos;
         }
-
         private List<BEProductoProgramaNuevas> GetProductosProgramaNuevasByCampaniaCache(int paisID, int campaniaID)
         {
             return CacheManager<List<BEProductoProgramaNuevas>>.ValidateDataElement(paisID, ECacheItem.ProductoProgramaNuevas, campaniaID.ToString(), () => GetProductosProgramaNuevasByCampania(paisID, campaniaID));
@@ -458,13 +457,23 @@ namespace Portal.Consultoras.BizLogic
                 .Where(a => a.CodigoPrograma == codigoPrograma).ToList();
         }
 
-        private BENivelesProgramaNuevas GetNivelesProgramaNuevas(int paisID, BENivelesProgramaNuevas nivel)
+        private List<BENivelesProgramaNuevas> GetNivelesProgramaNuevasByCampania(int paisID, string campania)
         {
-            using (var reader = new DANivelesProgramaNuevas(paisID).Get(nivel))
+            using (var reader = new DANivelesProgramaNuevas(paisID).GetByCampania(campania))
             {
-                return MapUtil.MapToObject<BENivelesProgramaNuevas>(reader, true, true);
+                return MapUtil.MapToCollection<BENivelesProgramaNuevas>(reader, true, true);
             }
         }
+        private List<BENivelesProgramaNuevas> GetNivelesProgramaNuevasByCampaniaCache(int paisID, string campania)
+        {
+            return CacheManager<List<BENivelesProgramaNuevas>>.ValidateDataElement(paisID, ECacheItem.NivelesProgramaNuevas, campania, () => GetNivelesProgramaNuevasByCampania(paisID, campania));
+        }
+        private BENivelesProgramaNuevas GetNivelesProgramaNuevas(int paisID, BENivelesProgramaNuevas nivel)
+        {
+            return GetNivelesProgramaNuevasByCampaniaCache(paisID, nivel.Campania)
+                .FirstOrDefault(n => n.CodigoPrograma == nivel.CodigoPrograma && n.CodigoNivel == nivel.CodigoNivel);
+        }
+
         #endregion
         #endregion
 

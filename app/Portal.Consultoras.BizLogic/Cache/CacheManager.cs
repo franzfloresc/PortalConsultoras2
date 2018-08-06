@@ -47,7 +47,8 @@ namespace Portal.Consultoras.BizLogic
         DatosPinAutenticacion,
         HorarioChat,
         HorarioBelcorpResponde,
-        CredencialesSMS
+        CredencialesSMS,
+        NivelesProgramaNuevas
     }
 
     internal class CacheManager<T>
