@@ -103,6 +103,7 @@ $(document).ready(function () {
                 var OrigenPedidoWeb = OrigenPedidoMobileBuscador;
                 var posicion = $(divPadre).find(".hdBuscadorPosicion").val();
                 var tipoEstrategiaId = tipoOfertaSisID;//$(divPadre).find(".hdBuscadorCodigoPalanca").val();
+                var agregado = $(divPadre).find(".etiqueta_buscador_producto");
 
                 if (!isInt(cantidad)) {
                     AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
@@ -167,6 +168,7 @@ $(document).ready(function () {
                         //microefectoPedidoGuardado();
                         CerrarLoad();                        
                         //TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
+                        agregado.html("Agregado");
 
                         return true;
                     },
