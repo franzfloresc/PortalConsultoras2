@@ -566,6 +566,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             if (pedidoWebDetalle == null) continue;
 
                             lstPedidoDetalleIds.Add(pedidoWebDetalle.PedidoDetalleID);
+                            pedidoDetalle.PedidoDetalleID = pedidoWebDetalle.PedidoDetalleID;
 
                             var cantidad = pedidoWebDetalle.Cantidad - (set.Cantidad * detalle.FactorRepeticion);
                             if (cantidad > 0)
