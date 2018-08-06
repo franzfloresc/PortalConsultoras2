@@ -1,14 +1,12 @@
 ﻿using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.CargaMasiva;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.PagoEnLinea;
 using Portal.Consultoras.Entities.Pedido;
-using Portal.Consultoras.Entities.Pedido.App;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
-using Portal.Consultoras.Entities.PagoEnLinea;
 
 using System;
 using System.Collections.Generic;
@@ -899,10 +897,10 @@ namespace Portal.Consultoras.ServiceContracts
         #region kit Nuevas
 
         [OperationContract]
-        BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(int paisID, BEConfiguracionProgramaNuevas entidad);
+        BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(BEUsuario usuario);
 
         [OperationContract]
-        BEConfiguracionProgramaNuevas GetConfiguracionProgramaDespuesPrimerPedido(int paisID, BEConfiguracionProgramaNuevas entidad);
+        string GetCuvKitNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas);
 
         #endregion
 
@@ -992,7 +990,7 @@ namespace Portal.Consultoras.ServiceContracts
         int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad);
 
         [OperationContract]
-        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
+        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva);
 
         [OperationContract]
         Task<BEResultadoReservaProl> CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
@@ -1078,7 +1076,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Incentivos
         [OperationContract]
-        List<BEIncentivoConcurso> ObtenerConcursosXConsultora(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoRegion, string CodigoZona);
+        List<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEUsuario usuario);
 
         [OperationContract]
         void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso);
@@ -1156,31 +1154,35 @@ namespace Portal.Consultoras.ServiceContracts
 
         #endregion
 
-        #region PedidoApp
+        #region Pedido
         [OperationContract]
-        BEProductoApp GetCUVApp(BEProductoAppBuscar productoBuscar);
+        BEPedidoProducto GetCUV(BEPedidoProductoBuscar productoBuscar);
         [OperationContract]
-        BEPedidoDetalleAppResult InsertPedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        BEPedidoDetalleResult InsertPedidoDetalle(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
-        BEPedidoWeb GetPedidoApp(BEUsuario usuario);
+        BEPedidoWeb GetPedido(BEUsuario usuario);
         [OperationContract]
         bool InsertKitInicio(BEUsuario usuario);
         [OperationContract]
-        BEPedidoDetalleAppResult UpdatePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        BEPedidoDetalleResult UpdatePedidoDetalle(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
-        BEConfiguracionPedido GetConfiguracionPedidoApp(int paisID, string codigoUsuario);
+        BEConfiguracionPedido GetConfiguracionPedido(int paisID, string codigoUsuario);
         [OperationContract]
-        Task<BEPedidoDetalleAppResult> DeletePedidoDetalleApp(BEPedidoDetalleApp pedidoDetalle);
+        Task<BEPedidoDetalleResult> DeletePedido(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
-        Task<BEPedidoReservaAppResult> ReservaPedidoDetalleApp(BEUsuario usuario);
+        Task<BEPedidoReservaAppResult> ReservaPedido(BEUsuario usuario);
         [OperationContract]
-        BEPedidoDetalleAppResult DeshacerReservaPedidoApp(BEUsuario usuario);
+        BEPedidoDetalleResult ModificarReservaPedido(BEUsuario usuario);
         [OperationContract]
         List<BEEstrategia> GetEstrategiaCarrusel(BEUsuario usuario);
         [OperationContract]
-        BEUsuario GetConfiguracionOfertaFinal(BEUsuario usuario);
+        BEPedidoDetalleResult InsertEstrategiaCarrusel(BEPedidoDetalle pedidoDetalle);
         [OperationContract]
-        List<BEProducto> GetProductoSugerido(BEProductoAppBuscar productoBuscar);
+        BEUsuario GetConfiguracionOfertaFinalCarrusel(BEUsuario usuario);
+        [OperationContract]
+        BEPedidoDetalleResult InsertOfertaFinalCarrusel(BEPedidoDetalle pedidoDetalle);
+        [OperationContract]
+        List<Entities.BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar);
         #endregion
 
         #region Pago en Linea
@@ -1202,13 +1204,14 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEPagoEnLineaResultadoLogReporte> ObtenerPagoEnLineaByFiltro(int paisId, BEPagoEnLineaFiltro filtro);
         #endregion
-        
-        [OperationContract]
-        bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario, string CuvsStringList, int EstrategiaId);
-
 
         [OperationContract]
-        bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad);
+        bool InsertPedidoWebSet(int paisID, int Campaniaid, int PedidoID, int CantidadSet, string CuvSet, long ConsultoraId, string CodigoUsuario,
+            string CuvsStringList, int EstrategiaId, string nombreConsultora, string codigoPrograma, int numeroPedido);
+
+
+        [OperationContract]        
+        bool UpdCantidadPedidoWebSet(int paisId, int setId, int cantidad, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
 
         [OperationContract]
         List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId);
@@ -1217,7 +1220,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoWebSet ObtenerPedidoWebSet(int paisId, int setId);
 
         [OperationContract]
-        bool EliminarPedidoWebSet(int paisId, int setId);
+        bool EliminarPedidoWebSet(int paisId, int setId, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
 
         [OperationContract]
         DateTime? ObtenerFechaInicioSets(int paisId);

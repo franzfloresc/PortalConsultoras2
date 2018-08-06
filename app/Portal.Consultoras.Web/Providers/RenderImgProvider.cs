@@ -48,8 +48,8 @@ namespace Portal.Consultoras.Web.Providers
                     var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
                     var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
 
-                    rutaImagenSmall = ConfigCdn.GetUrlFileCdn(carpetaPais, soloImagen + extensionNombreImagenSmall + soloExtension);
-                    rutaImagenMedium = ConfigCdn.GetUrlFileCdn(carpetaPais, soloImagen + extensionNombreImagenMedium + soloExtension);
+                    rutaImagenSmall = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenSmall + soloExtension);
+                    rutaImagenMedium = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenMedium + soloExtension);
                 }
                 else
                 {

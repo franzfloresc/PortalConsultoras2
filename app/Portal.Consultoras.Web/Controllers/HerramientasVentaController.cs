@@ -24,6 +24,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Comprar()
         {
+
+            if (EsDispositivoMovil())
+            {
+                return RedirectToAction("Comprar", "HerramientasVenta", new { area = "Mobile" });
+            }
+
+
             try
             {
                 return HVViewLanding(1);
