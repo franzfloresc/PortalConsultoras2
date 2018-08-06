@@ -374,7 +374,7 @@
             }
 
             if (document.getElementById('chkAceptoContratoMD').checked ==false) {
-                alert('Debe aceptar los terminos y condiciones para poder actualizar sus datos');
+                alert('Debe aceptar los términos y condiciones para poder actualizar sus datos');
                 return false;
             }
             
