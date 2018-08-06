@@ -515,6 +515,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         public async Task<BEPedidoDetalleResult> Delete(BEPedidoDetalle pedidoDetalle)
         {
+            var lstPedidoDetalleIds = new List<short>();
+
             try
             {
                 //Informacion de usuario
@@ -546,6 +548,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 //Eliminar Detalle
                 var responseCode = Constantes.PedidoAppValidacion.Code.SUCCESS;
+
                 if (pedidoDetalle.Producto == null)
                 {
                     responseCode = await DeleteAll(usuario, pedidoDetalle);
@@ -554,18 +557,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     if (pedidoDetalle.SetID > 0)
                     {
-                        var pedidoExiste = lstDetalle.Where(x => x.CUV == pedidoDetalle.Producto.CUV).FirstOrDefault();
-                        pedidoDetalle.PedidoDetalleID = pedidoExiste == null ? (short)0 : pedidoExiste.PedidoDetalleID;
-
                         var set = _pedidoWebSetBusinessLogic.Obtener(usuario.PaisID, pedidoDetalle.SetID);
                         if(set == null) return PedidoDetalleRespuesta(Constantes.PedidoAppValidacion.Code.ERROR_SET_NOENCONTRADO);
-
-                        var detallePedido = _pedidoWebDetalleBusinessLogic.GetPedidoWebSetDetalle(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
 
                         foreach (var detalle in set.Detalles)
                         {
                             var pedidoWebDetalle = lstDetalle.FirstOrDefault(p => p.CUV == detalle.CuvProducto);
                             if (pedidoWebDetalle == null) continue;
+
+                            lstPedidoDetalleIds.Add(pedidoWebDetalle.PedidoDetalleID);
+
                             var cantidad = pedidoWebDetalle.Cantidad - (set.Cantidad * detalle.FactorRepeticion);
                             if (cantidad > 0)
                             {
@@ -616,6 +617,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     }
                     else
                     {
+                        lstPedidoDetalleIds.Add(pedidoDetalle.PedidoDetalleID);
+
                         responseCode = DeletePedidoWeb(usuario, pedidoDetalle, lstDetalle);
                         if (responseCode != Constantes.PedidoAppValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(responseCode);
                     }
@@ -624,7 +627,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 //Actualizar Prol
                 if (pedidoDetalle.Producto != null)
                 {
-                    var item = lstDetalle.FirstOrDefault(x => x.PedidoDetalleID == pedidoDetalle.PedidoDetalleID);
+                    var item = lstDetalle.FirstOrDefault(x => lstPedidoDetalleIds.Any(y => y == x.PedidoDetalleID));
                     if (item != null) lstDetalle.Remove(item);
                 }
                 else
