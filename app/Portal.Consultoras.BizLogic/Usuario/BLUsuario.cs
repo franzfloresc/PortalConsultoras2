@@ -224,7 +224,7 @@ namespace Portal.Consultoras.BizLogic
                         return new BERespuestaActivarEmail { Message = Constantes.MensajesError.ActivacionCorreo_EstaActivo };
                     }
 
-                    if (daUsuario.ExistsUsuarioEmail(email)) return new BERespuestaActivarEmail { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
+                    if (daUsuario.ExistsUsuarioEmail(email , codigoUsuario)) return new BERespuestaActivarEmail { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
 
                     usuario = GetBasicSesionUsuario(paisID, codigoUsuario);
                     daUsuario.UpdUsuarioEmail(codigoUsuario, validacionDato.DatoNuevo, usuario.CampaniaID);
@@ -1793,7 +1793,7 @@ namespace Portal.Consultoras.BizLogic
                 if (usuario.EMail != correoNuevo)
                 {
                     var dAUsuario = new DAUsuario(usuario.PaisID);
-                    if (dAUsuario.ExistsUsuarioEmail(correoNuevo)) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
+                    if (dAUsuario.ExistsUsuarioEmail(correoNuevo , usuario.CodigoConsultora)) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
                 }
                
 

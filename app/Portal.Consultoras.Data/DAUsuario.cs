@@ -301,11 +301,11 @@ namespace Portal.Consultoras.Data
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
-        public bool ExistsUsuarioEmail(string email)
+        public bool ExistsUsuarioEmail(string email , string codigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ExistsUsuarioEmail");
             Context.Database.AddInParameter(command, "@Email", DbType.AnsiString, email);
-
+            Context.Database.AddInParameter(command, "@codigoUsuario", DbType.AnsiString, codigoUsuario);
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
 
