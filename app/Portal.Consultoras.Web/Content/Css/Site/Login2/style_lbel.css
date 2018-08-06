@@ -405,7 +405,7 @@ span {
         letter-spacing: .5px;
         font-size: 13px;
         font-weight: 700;
-        margin-top: 7px;
+        margin-top: 0;
         border-radius: 2px;
     }
 
@@ -507,7 +507,7 @@ span {
 }
 
 .boxform .admin {
-    margin-top: 18px;
+    margin-top: 9px;
     text-align: left;
 }
 
@@ -522,7 +522,7 @@ span {
     }
 
 .wrapper_enlace_AP .enlace_AP {
-    margin-top: 23px;
+    margin-top: 17px;
     text-align: center;
 }
 
@@ -1915,6 +1915,12 @@ h1, h2, h3, h4, h5, h6 {
         #divMant img {
             width: 100%;
         }
+
+    .wrapper_enlace_AP .enlace_AP{
+        position:relative;
+        top:10px;
+    }
+
 }
 
 @media only screen and (min-width : 769px) {
