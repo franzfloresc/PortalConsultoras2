@@ -28,7 +28,6 @@ var FichaModule = (function (config) {
     var _primeraMarca = "";
     var _ultimaMarca = "";
     var _esMultimarca = false;
-    var _descripcionProducto = "";
 
     var _config = {
         palanca: config.palanca || "",
@@ -96,27 +95,6 @@ var FichaModule = (function (config) {
         ContenidoProductoVideo: "#contenido_5"
     }
 
-    var _getParamValueFromQueryString = function (queryStringName) {
-        queryStringName = queryStringName || "";
-        queryStringName = queryStringName.toLowerCase();
-        var queryStringValue = "";
-        var stringUrlParameters = location.href.toLowerCase().split("?");
-        if (stringUrlParameters.length > 1 && queryStringName !== "") {
-            var arrParameterString = stringUrlParameters[1].split("&");
-            $.each(arrParameterString, function (index, stringParameter) {
-                var items = stringParameter.split("=");
-                var parameterName = $.trim(items[0]);
-                var parameterValue = $.trim(items[1]);
-                if (parameterName === queryStringName) {
-                    queryStringValue = parameterValue;
-                    return false;
-                }
-                return false;
-            });
-        }
-        return queryStringValue;
-    };
-
     Handlebars.registerHelper("ifVerificarMarca", function (marca, options) {
         if (_primeraMarca !== marca && _esMultimarca) {
             _primeraMarca = marca;
@@ -143,14 +121,6 @@ var FichaModule = (function (config) {
             else return options.fn(this);
         }
     });
-
-    var _seccionesFichaTabProducto = {
-        ContenidoProductoDetalleProducto: "#contenido_1",
-        ContenidoProductoDetallePack: "#contenido_2",
-        ContenidoProductoTipsVenta: "#contenido_3",
-        ContenidoProductoBeneficios: "#contenido_4",
-        ContenidoProductoVideo: "#contenido_5"
-    }
 
     var _fijarFooterCampaniaSiguiente = function() {
         if (isMobile()) {
@@ -244,11 +214,11 @@ var FichaModule = (function (config) {
         },
         closeComponentsSection: function () {
             if(!isMobile()){
-                $('.contenedor_seleccion').css('margin-right', '-320px');
-                $('.contenedor_seleccion').css('opacity', '0');
-                $('.modal-fondo').css('opacity', '0');
-                $('.modal-fondo').hide();
-                $('body').removeClass("modal_activado");
+                $(".contenedor_seleccion").css("margin-right", "-320px");
+                $(".contenedor_seleccion").css("opacity", "0");
+                $(".modal-fondo").css("opacity", "0");
+                $(".modal-fondo").hide();
+                $("body").removeClass("modal_activado");
             }
         }
     };
@@ -450,7 +420,7 @@ var FichaModule = (function (config) {
         });
     };
 
-    var _RenderImg = function () {
+    var _renderImg = function () {
 
         $(document).ajaxStop(function () {
             var proObj = $(_seccionesFichaProducto.ImagenProducto);
@@ -469,15 +439,9 @@ var FichaModule = (function (config) {
             proM = proImg.innerWidth();
             proObjM = proObj.innerWidth();
             if (proM > proObjM) {
-                proM = proObjM / proM;
                 $(proImg).css("width", proObjM + "px");
             }
         });
-
-        //$("header").resize(function () {
-
-        //});
-
 
     };
 
@@ -565,7 +529,7 @@ var FichaModule = (function (config) {
                 $(_seccionesFichaProducto.ContenedoFichaEtiquetas).addClass("contenedor_ficha_etiquetas_Confondo");
             }
 
-            setTimeout(_RenderImg(), 1000);
+            setTimeout(_renderImg(), 1000);
         }
 
         if (imgFondo !== "") {
@@ -595,7 +559,6 @@ var FichaModule = (function (config) {
         // Se realiza la marcación en analytics de la información de la ficha de un producto.
         //var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
         //AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, null, estrategia.CodigoVariante, _config.palanca);
-        _descripcionProducto = estrategia.DescripcionCompleta;
         return true;
     };
 
