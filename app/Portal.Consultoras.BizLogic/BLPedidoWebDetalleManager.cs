@@ -325,7 +325,7 @@ namespace Portal.Consultoras.BizLogic
 
             if (listProducto.Any())
             {
-                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario.PaisID, usuario.CampaniaID.ToString(), usuario.CodigoConsultora, usuario.CodigorRegion, usuario.CodigoZona);
+                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario);
                 var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
                 var concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso)).ToList();
                 if (concursos.Any()) codigosConcursos = string.Join("|", concursos.Select(c => c.CodigoConcurso));

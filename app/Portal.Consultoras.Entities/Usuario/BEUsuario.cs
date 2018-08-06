@@ -97,6 +97,7 @@ namespace Portal.Consultoras.Entities
 
         public BEUsuario()
         {
+ 
         }
 
         [Obsolete("Use MapUtil.MapToCollection")]
@@ -171,6 +172,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "indicadorconsultoradigital"))
                 IndicadorConsultoraDigital = Convert.ToInt32(row["IndicadorConsultoraDigital"]);
+
         }
 
         [Obsolete("Use MapUtil.MapToCollection")]
@@ -522,6 +524,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "PromedioVenta"))
                 PromedioVenta = Convert.ToDouble(row["PromedioVenta"]);
+
         }
 
         [Column("ConsultoraAsociadoID")]
@@ -1058,6 +1061,7 @@ namespace Portal.Consultoras.Entities
             set { mdRol = value; }
         }
 
+        [Column("SegmentoConstancia")]
         [DataMember]
         public string SegmentoConstancia
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
 
 namespace Portal.Consultoras.BizLogic.Pedido
@@ -23,7 +24,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         /// <param name="paisId">Pais Id</param>
         /// <param name="id">Set Id</param>
         /// <returns>True si elimino, false caso contrario</returns>
-        bool Eliminar(int paisId, int id);
+        bool Eliminar(int paisId, int id, BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
 
         DateTime? ObtenerFechaInicioSets(int paisId);
     }
