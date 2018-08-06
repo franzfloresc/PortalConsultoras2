@@ -228,4 +228,7 @@
   <data name="ERROR_FIXING_INCOMPLETE_DATA" xml:space="preserve">
     <value>Clínica de transacciones: Código de manejo interno.</value>
   </data>
+  <data name="DECLINED_TEST_MODE_NOT_ALLOWED" xml:space="preserve">
+    <value>Modo de prueba no permitido.</value>
+  </data>
 </root>

@@ -20,12 +20,14 @@ namespace Portal.Consultoras.Web.Providers
         public string Agent { get; set; }
         public string IpClient { get; set; }
         public UsuarioModel User { get; set; }
+        public PagoEnLineaProvider PagoProvider { get; set; }
 
         public async Task<bool> Pay(PaymentInfo info, PagoEnLineaModel pago)
         {
             try
             {
-                pago.OrdenId = (await GetOrderId()).ToString();
+                pago.ListaMedioPago = PagoProvider.ObtenerListaMedioPago();
+                pago.OrdenId = (await GetNewOrderId()).ToString();
                 pago.TipoPago = GetPaymentMethod(pago);
 
                 var data = GetData(info, pago);
@@ -77,7 +79,7 @@ namespace Portal.Consultoras.Web.Providers
             PagoVisaModel config = pago.PagoVisaModel;
             var total = pago.MontoDeudaConGastos;
             var referenceCode = Constantes.PagoEnLineaPayuGenerales.OrderCodePrefix + pago.OrdenId;
-            var fullName = User.NombreConsultora + " " + User.PrimerApellido;
+            var fullName = User.NombreConsultora;
 
             var isCredit = pago.MetodoPagoSeleccionado.TipoTarjeta == Constantes.PagoEnLineaTipoTarjeta.Credito;
             var card = new
@@ -118,15 +120,15 @@ namespace Portal.Consultoras.Web.Providers
                         buyer = new
                         {
                             merchantBuyerId = User.ConsultoraID.ToString(),
-                            fullName = User.NombreConsultora + " " + User.PrimerApellido,
+                            fullName = fullName,
                             emailAddress = info.Email,
                             contactPhone = info.Phone,
                             dniNumber = User.DocumentoIdentidad,
                             shippingAddress = new
                             {
-                                //street1 = User.Direccion,
+                                street1 = User.Direccion ?? string.Empty,
                                 //-street2 = "8 int 103",
-                                //city = "Guadalajara",
+                                city = string.Empty,
                                 //-state = "Jalisco", // obligatorio brasil
                                 country = Constantes.PagoEnLineaPayuGenerales.Country,
                                 //-postalCode = "000000", // obligatorio brasil
@@ -144,9 +146,9 @@ namespace Portal.Consultoras.Web.Providers
                         dniNumber = User.DocumentoIdentidad,
                         billingAddress = new
                         {
-                            //street1 = User.Direccion,
+                            street1 = User.Direccion ?? string.Empty,
                             //-street2 = "calle 5 de Mayo",
-                            //city = "Monterrey",
+                            city = string.Empty,
                             //-state = "Nuevo Leon",
                             country = Constantes.PagoEnLineaPayuGenerales.Country,
                             //-postalCode = "000000", //MX 
@@ -208,6 +210,11 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             await CompleteTransaction(pago);
+
+            if (!string.IsNullOrEmpty(User.EMail))
+            {
+                PagoProvider.NotificarViaEmail(pago, User);
+            }
 
             return true;
         }
@@ -312,7 +319,7 @@ namespace Portal.Consultoras.Web.Providers
             return message ?? code;
         }
 
-        private async Task<int> GetOrderId()
+        private async Task<int> GetNewOrderId()
         {
             using (var service = new PedidoServiceClient())
             {

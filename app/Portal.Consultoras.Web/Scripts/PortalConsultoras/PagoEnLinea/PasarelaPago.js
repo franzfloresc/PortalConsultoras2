@@ -13,11 +13,15 @@
             div.hide();
         }
 
+        function onlyNumbers() {
+            this.value = this.value.replace(/\D/g,'');
+        }
+
         function registerEvents() {
-            $('#NumberCard').on('keydown', FuncionesGenerales.ValidarSoloNumeros);
-            $('#Cvv').on('keydown', FuncionesGenerales.ValidarSoloNumeros);
+            $('#NumberCard').on('input', onlyNumbers);
+            $('#Cvv').on('input', onlyNumbers);
             $('#Titular').on('keydown', FuncionesGenerales.ValidarSoloLetras);
-            $('#Phone').on('keydown', FuncionesGenerales.ValidarSoloNumeros);
+            $('#Phone').on('input', onlyNumbers);
             $(".field-validation-valid").bind("DOMNodeInserted", showPanel);
             $(".field-validation-error").bind("DOMNodeInserted", showPanel);
             $(".field-validation-valid").bind("DOMNodeRemoved", hidePanel);
@@ -39,13 +43,16 @@
                     }
                     var valid = true;
                     try {
-                        $.datepicker.parseDate('dd/mm/yy', value);
+                        var date = $.datepicker.parseDate('dd/mm/yy', value);
+
+                        valid = new Date() > date;
                     }
                     catch (err) {
                         valid = false;
                     }
                     return valid;
                 });
+
             jQuery.extend(jQuery.validator.messages, {
                 email: "Por favor ingresa un email válido",
                 date: "Por favor ingresa un fecha válida",
@@ -54,8 +61,9 @@
         }
 
         function initWidgets() {
-            $("#CampoFechaNacimiento").datepicker({
-                dateFormat: 'dd/mm/yy'
+            $("#Birthdate").datepicker({
+                dateFormat: 'dd/mm/yy',
+                maxDate: '0'
             });
         }
 

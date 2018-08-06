@@ -133,6 +133,15 @@ namespace Portal.Consultoras.Web.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Modo de prueba no permitido..
+        /// </summary>
+        internal static string DECLINED_TEST_MODE_NOT_ALLOWED {
+            get {
+                return ResourceManager.GetString("DECLINED_TEST_MODE_NOT_ALLOWED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a La red financiera reportó un error en la autenticación..
         /// </summary>
         internal static string DIGITAL_CERTIFICATE_NOT_FOUND {

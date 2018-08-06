@@ -360,8 +360,7 @@ namespace Portal.Consultoras.Web.Providers
 
                     if (!string.IsNullOrEmpty(userData.EMail))
                     {
-                        string template = ObtenerTemplatePagoEnLinea(model);
-                        Util.EnviarMail("no-responder@somosbelcorp.com", userData.EMail, "PAGO EN LINEA", template, true, userData.NombreConsultora);
+                        NotificarViaEmail(model, userData);
                     }
 
                     resultado = true;
@@ -382,7 +381,17 @@ namespace Portal.Consultoras.Web.Providers
 
             return resultado;
         }
-        
+
+        public void NotificarViaEmail(PagoEnLineaModel model, UsuarioModel userData)
+        {
+            string template = ObtenerTemplatePagoEnLinea(model);
+            Util.EnviarMail("no-responder@somosbelcorp.com",
+                userData.EMail,
+                "PAGO EN LINEA",
+                template, true,
+                userData.NombreConsultora);
+        }
+
         private string GenerarAutorizacionBotonPagos(int paisId, string sessionToken, string merchantId, string transactionToken, string accessKeyId, string secretAccessKey)
         {
             var tipoPasarelaVisa = Constantes.PagoEnLineaMetodoPago.PasarelaVisa;

@@ -52,25 +52,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             model = _pagoEnLineaProvider.ObtenerValoresMetodoPago(model);
 
-            //model.ListaMetodoPago = ObtenerListaMetodoPago();
-            //model.PagoVisaModel = new PagoVisaModel();
-            //if (model.ListaMetodoPago.Count > 0)
-            //{
-            //    var metodoPagoPasarelaVisa = model.ListaMetodoPago.FirstOrDefault(p => p.TipoPasarelaCodigoPlataforma == Constantes.PagoEnLineaMetodoPago.PasarelaVisa);
-
-            //    if (metodoPagoPasarelaVisa != null)
-            //        model.PagoVisaModel = ObtenerValoresPagoVisa(model);
-            //    else
-            //        model.PagoVisaModel = new PagoVisaModel();
-            //}
-
-
             return View(model);
         }
 
         [HttpGet]
         public ActionResult PasarelaPago(string cardType, int medio = 0)
         {
+            if (!userData.TienePagoEnLinea || userData.MontoDeuda <= 0)
+                return RedirectToAction("Index", "Bienvenida");
+
             var pago = sessionManager.GetDatosPagoVisa();
             if (pago == null || pago.ListaMetodoPago == null)
             {
@@ -126,20 +116,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (validator.IsValid(info))
                 {
-                    pago.ListaMedioPago = _pagoEnLineaProvider.ObtenerListaMedioPago();
                     var provider = new PagoPayuProvider
                     {
                         User = userData,
                         SessionId = Session.SessionID,
                         IpClient = GetIPCliente(),
-                        Agent = Request.UserAgent
+                        Agent = Request.UserAgent,
+                        PagoProvider = _pagoEnLineaProvider
                     };
 
                     var success = await provider.Pay(info, pago);
-                    if (success)
-                        return View("PagoExitoso", pago);
-                    
-                    return View("PagoRechazado", pago);
+                    if (!success) 
+                        return View("PagoRechazado", pago);
+
+                    ViewBag.UrlCondiciones = GetMenuLinkByDescription(Constantes.ConfiguracionManager.MenuCondicionesDescripcionMx);
+                    return View("PagoExitoso", pago);
                 }
 
                 foreach (var error in validator.Errors)

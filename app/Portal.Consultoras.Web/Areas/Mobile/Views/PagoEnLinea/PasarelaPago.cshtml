@@ -107,11 +107,11 @@
                     </div>
                     if (visibleFields.Contains(Constantes.PagoEnLineaCampos.FechaNacimiento))
                     {
-                        <div class="grupo_campo_formulario_pasarela_pago">
-                            <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de nacimiento :</label>
-                            @Html.TextBoxFor(m => m.Birthdate, new { @class = "campo_formulario_pasarela_pago w-100", id = "CampoFechaNacimiento", placeholder = "00/00/0000", required = "true" })
-                            @Html.PagoValidationMessageFor(m => m.Birthdate)
-                        </div>
+                    <div class="grupo_campo_formulario_pasarela_pago">
+                        <label class="nom_campo_formulario_pasarela_pago w-100">*Fecha de nacimiento :</label>
+                        @Html.TextBoxFor(m => m.Birthdate, new { @class = "campo_formulario_pasarela_pago w-100", placeholder = "00/00/0000", required = "true", data_val_date = Constantes.MvcErrorMessages.DateErrorMessage })
+                        @Html.PagoValidationMessageFor(m => m.Birthdate)
+                    </div>
                     }
                     if (visibleFields.Contains(Constantes.PagoEnLineaCampos.Email))
                     {
@@ -142,5 +142,5 @@
     @{
         Html.RenderPartial("PagoEnLinea/_PayuDeviceScript", (string)ViewBag.DeviceSessionId);
     }
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/PasarelaPago.js")?v=1"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/PasarelaPago.js")?v=2"></script>
 }

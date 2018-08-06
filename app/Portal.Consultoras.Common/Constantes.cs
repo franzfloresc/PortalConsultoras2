@@ -456,6 +456,7 @@ namespace Portal.Consultoras.Common
             public const string EnabledRemoveCache = "EnabledRemoveCache";
             public const string UrlServiceSicc = "UrlServiceSicc";
             public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
+            public const string MenuCondicionesDescripcionMx = "TÉRMINOS Y CONDICIONES";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -1654,6 +1655,14 @@ namespace Portal.Consultoras.Common
                     });
                 }
             }
+        }
+
+        public static class MvcErrorMessages
+        {
+            public const string RequiredMessage = "Este campo es obligatorio";
+            public const string RangeErrorMessage = "El campo {0} debe ser una cadena con una longitud mínima de {1} y una longitud máxima de {2}";
+            public const string MaxErrorMessage = "El campo {0} debe ser una cadena con una longitud máxima de {1}";
+            public const string DateErrorMessage = "No es una fecha válida";
         }
 
         public static class ClienteEstado
