@@ -7,6 +7,8 @@
     var layout = "_MobileLayoutEmpty";
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var mobileConfiguracion = Html.MobileAppConfiguracion();
+
+    var origenPedidoWeb = Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.MobileBuscador;
 }
 
 @section styles{
@@ -89,8 +91,8 @@
             </div>
             <div class="resultado_busqueda_mobile_cantidad_prod displayInlineBlock" data-cantidad-contenedor="">
                 {{#if_eq CodigoEstrategia '2003'}}
-                <div class="resultado_busqueda_mobile_btn_agregar_wrapper displayBlock text-center">
-                    <a class="boton_Agregalo_home displayBlock text-center text-uppercase">
+                <div class="resultado_busqueda_mobile_btn_agregar_wrapper displayBlock text-center" data-OrigenPedidoWeb="@origenPedidoWeb">
+                    <a class="boton_Agregalo_home displayBlock text-center text-uppercase" href="javascript:;" onclick="BuscadorFichaDetalle('{{CampaniaID}}', '{{CUV}}', '@origenPedidoWeb, '{{EstrategiaCodigo}}');">
                         Elige tu opción
                     </a>
                 </div>
@@ -107,6 +109,10 @@
                     <a class="boton_Agregalo_home displayBlock text-center text-uppercase agregarProductoBuscador">
                         Agrégalo
                     </a>
+                    
+                    <div class="etiqueta_prod_agregado displayBlock text-uppercase text-bold etiqueta_buscador_producto">
+                        {{Agregado}}
+                    </div>
                 </div>
                 {{/if_eq}}
             </div>
