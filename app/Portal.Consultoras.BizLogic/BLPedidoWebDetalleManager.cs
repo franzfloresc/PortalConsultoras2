@@ -2,6 +2,7 @@
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.ServiceCalculoPROL;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -325,7 +326,19 @@ namespace Portal.Consultoras.BizLogic
 
             if (listProducto.Any())
             {
-                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario);
+                var oProgramaNueva = new BEProgramaNuevas
+                {
+                    PaisID = usuario.PaisID,
+                    CampaniaID = usuario.CampaniaID,
+                    CodigoConsultora = usuario.CodigoConsultora,
+                    EsConsultoraNueva = usuario.EsConsultoraNueva,
+                    ConsecutivoNueva = usuario.ConsecutivoNueva,
+                    CodigoISO = usuario.CodigoISO,
+                    CodigorRegion = usuario.CodigorRegion,
+                    CodigoZona = usuario.CodigoZona,
+                    CodigoPrograma = usuario.CodigoPrograma
+                };
+                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(oProgramaNueva);
                 var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
                 var concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso)).ToList();
                 if (concursos.Any()) codigosConcursos = string.Join("|", concursos.Select(c => c.CodigoConcurso));

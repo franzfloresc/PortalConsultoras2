@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.PagoEnLinea;
@@ -897,10 +898,10 @@ namespace Portal.Consultoras.ServiceContracts
         #region kit Nuevas
 
         [OperationContract]
-        BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(BEUsuario usuario);
+        BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(BEProgramaNuevas usuario);
 
         [OperationContract]
-        string GetCuvKitNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas);
+        string GetCuvKitNuevas(BEProgramaNuevas usuario, BEConfiguracionProgramaNuevas confProgNuevas);
 
         #endregion
 
@@ -1076,7 +1077,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Incentivos
         [OperationContract]
-        List<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEUsuario usuario);
+        List<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEProgramaNuevas usuario);
 
         [OperationContract]
         void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso);

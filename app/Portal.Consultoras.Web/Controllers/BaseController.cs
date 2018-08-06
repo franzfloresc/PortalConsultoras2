@@ -959,7 +959,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (sessionManager.ConfiguracionProgramaNuevas != null) return sessionManager.ConfiguracionProgramaNuevas;
             try
             {
-                var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
+                var usuario = Mapper.Map<ServicePedido.BEProgramaNuevas>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
                     sessionManager.ConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(usuario) ?? new BEConfiguracionProgramaNuevas();
@@ -978,7 +978,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (sessionManager.CuvKitNuevas != null) return sessionManager.CuvKitNuevas;
             try
             {
-                var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
+                var usuario = Mapper.Map<BEProgramaNuevas>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
                     sessionManager.CuvKitNuevas = sv.GetCuvKitNuevas(usuario, GetConfiguracionProgramaNuevas()) ?? "";

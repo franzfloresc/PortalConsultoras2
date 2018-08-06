@@ -2,6 +2,7 @@
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.ServicePROL;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.ReservaProl;
 
 using System;

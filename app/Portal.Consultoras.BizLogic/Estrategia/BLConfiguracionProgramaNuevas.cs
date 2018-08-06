@@ -3,13 +3,14 @@ using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.BizLogic
 {
     public class BLConfiguracionProgramaNuevas : IConfiguracionProgramaNuevasBusinessLogic
     {
-        public BEConfiguracionProgramaNuevas Get(BEUsuario usuario)
+        public BEConfiguracionProgramaNuevas Get(BEProgramaNuevas usuario)
         {
             var configuracion = new BEConfiguracionProgramaNuevas()
             {
@@ -32,7 +33,7 @@ namespace Portal.Consultoras.BizLogic
             return configuracion ?? new BEConfiguracionProgramaNuevas();
         }
 
-        public string GetCuvKitNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas)
+        public string GetCuvKitNuevas(BEProgramaNuevas usuario, BEConfiguracionProgramaNuevas confProgNuevas)
         {
             if (usuario.EsConsultoraNueva) return confProgNuevas.CUVKit;
             if (new List<int> { 1, 2 }.Contains(usuario.ConsecutivoNueva) && WebConfig.PaisesFraccionKitNuevas.Contains(usuario.CodigoISO))
@@ -44,7 +45,7 @@ namespace Portal.Consultoras.BizLogic
             return "";
         }
 
-        public BEConsultoraRegaloProgramaNuevas GetRegaloProgramaNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas)
+        public BEConsultoraRegaloProgramaNuevas GetRegaloProgramaNuevas(BEProgramaNuevas usuario, BEConfiguracionProgramaNuevas confProgNuevas)
         {
             confProgNuevas.Campania = usuario.CampaniaID.ToString();
             confProgNuevas.CodigoNivel = GetCodigoNivel(usuario);
@@ -57,7 +58,7 @@ namespace Portal.Consultoras.BizLogic
 
         public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva)
         {
-            var usuario = new BEUsuario { PaisID = paisID, CampaniaID = campaniaId, CodigoConsultora = codigoConsultora, ConsecutivoNueva = consecutivoNueva };
+            var usuario = new BEProgramaNuevas { PaisID = paisID, CampaniaID = campaniaId, CodigoConsultora = codigoConsultora, ConsecutivoNueva = consecutivoNueva };
             var configuracion = Get(usuario);
             if (configuracion.IndExigVent != "1") return null;
 
@@ -69,7 +70,7 @@ namespace Portal.Consultoras.BizLogic
             return regalo;
         }
 
-        public string GetCodigoNivel(BEUsuario usuario)
+        public string GetCodigoNivel(BEProgramaNuevas usuario)
         {
             return "0" + (usuario.ConsecutivoNueva + 1);
         }

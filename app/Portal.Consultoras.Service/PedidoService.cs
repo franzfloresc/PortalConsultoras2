@@ -21,6 +21,7 @@ using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using System.Threading.Tasks;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 
 namespace Portal.Consultoras.Service
 {
@@ -1686,12 +1687,12 @@ namespace Portal.Consultoras.Service
 
         #region Configuracion Programa Nuevas
 
-        public BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(BEUsuario usuario)
+        public BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(BEProgramaNuevas usuario)
         {
             return BLConfiguracionProgramaNuevas.Get(usuario);
         }
 
-        public string GetCuvKitNuevas(BEUsuario usuario, BEConfiguracionProgramaNuevas confProgNuevas)
+        public string GetCuvKitNuevas(BEProgramaNuevas usuario, BEConfiguracionProgramaNuevas confProgNuevas)
         {
             return BLConfiguracionProgramaNuevas.GetCuvKitNuevas(usuario, confProgNuevas);
         }        
@@ -2021,7 +2022,7 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Incentivos
-        public List<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEUsuario usuario)
+        public List<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEProgramaNuevas usuario)
         {
             return _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario).ToList();
         }

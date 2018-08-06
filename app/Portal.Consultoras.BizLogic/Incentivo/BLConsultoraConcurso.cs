@@ -2,6 +2,7 @@
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Incentivo;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -24,7 +25,7 @@ namespace Portal.Consultoras.BizLogic
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public IList<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEUsuario usuario)
+        public IList<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEProgramaNuevas usuario)
         {
             List<BEIncentivoConcurso> Concursos = new List<BEIncentivoConcurso>();
 
@@ -39,7 +40,7 @@ namespace Portal.Consultoras.BizLogic
                 var incentivoNuevas = new BEIncentivoConcurso
                 {
                     CampaniaID = usuario.CampaniaID,
-                    CodigoConcurso = usuario.CodigoPrograma,
+                    CodigoConcurso = usuario.CodigoPrograma,                    
                     CodigoNivelProgramaNuevas = iBlConfiguracionProgramaNuevas.GetCodigoNivel(usuario),
                     TipoConcurso = Incentivos.CalculoProgramaNuevas
                 };

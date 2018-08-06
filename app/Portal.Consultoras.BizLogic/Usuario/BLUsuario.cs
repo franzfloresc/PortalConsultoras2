@@ -20,6 +20,7 @@ using System.Transactions;
 using Newtonsoft.Json;
 using System.Net.Http;
 using JWT;
+using Portal.Consultoras.Entities.ProgramaNuevas;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -774,7 +775,20 @@ namespace Portal.Consultoras.BizLogic
                 var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
                 var arrCalculoProgramaNuevas = Constantes.Incentivo.CalculoProgramaNuevas.Split(';');
 
-                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario);
+                var oProgramaNueva = new BEProgramaNuevas
+                {
+                    PaisID = usuario.PaisID,
+                    CampaniaID = usuario.CampaniaID,
+                    CodigoConsultora = usuario.CodigoConsultora,
+                    EsConsultoraNueva = usuario.EsConsultoraNueva,
+                    ConsecutivoNueva = usuario.ConsecutivoNueva,
+                    CodigoISO = usuario.CodigoISO,
+                    CodigorRegion = usuario.CodigorRegion,
+                    CodigoZona = usuario.CodigoZona,
+                    CodigoPrograma = usuario.CodigoPrograma
+                };
+
+                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(oProgramaNueva);
 
                 if (result.Any())
                 {

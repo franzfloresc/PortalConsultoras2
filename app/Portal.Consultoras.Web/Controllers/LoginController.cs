@@ -1714,7 +1714,7 @@ namespace Portal.Consultoras.Web.Controllers
             var lst = new List<BEIncentivoConcurso>();
             try
             {
-                var usuario = Mapper.Map<ServicePedido.BEUsuario>(usuarioModel);
+                var usuario = Mapper.Map<ServicePedido.BEProgramaNuevas>(usuarioModel);
                 using (var sv = new PedidoServiceClient())
                 {
                     var result = await sv.ObtenerConcursosXConsultoraAsync(usuario);
