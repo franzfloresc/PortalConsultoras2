@@ -111,6 +111,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult ActualizarCorreo()
         {
             ViewBag.CorreoActual = userData.EMail;
+            ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
         }
 
@@ -127,7 +128,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var valida = false;
             Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
             ViewBag.IniciaNumeroCelular = valida ? numero : -1;
-
+            ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
         }
         
