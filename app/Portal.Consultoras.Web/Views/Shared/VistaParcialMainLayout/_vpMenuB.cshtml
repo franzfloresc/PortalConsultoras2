@@ -7,7 +7,7 @@
 
 <div class="menu_esika_b">
     <div style="float:right;">
-        <div class="campana user-profile" style="display:none;">
+        <div class="campana user-profile visibilidadEnlaceMenu" style="display:none;">
             <div class="borde_c borde_der_foto_consultora @(controllerAction == "bienvenidaindex" ? "posicion_der" : "")"></div>
             @if (ViewBag.FotoPerfilSinModificar != "")
             {
@@ -23,14 +23,14 @@
                 </div>
             }            
         </div>
-        <div class="campana margenIzquierdoOpcionNotificacion @(controllerAction == "bienvenidaindex" ? "oculto" : "")">
+        <div class="campana visibilidadEnlaceMenu margenIzquierdoOpcionNotificacion @(controllerAction == "bienvenidaindex" ? "oculto" : "")">
             <a href="javascript:;" onclick="Notificaciones();" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
                 <div class="campana_svg mensaje_svg"></div>
                 <p class="notificaciones notificaciones_existentes js-notificaciones">0</p>
             </a>
         </div>
         <div class="borde_c @(controllerAction == "bienvenidaindex" ? "invisible" : "")"></div>
-        <div class="campana cart_compras" style="width: auto;">
+        <div class="campana cart_compras visibilidadEnlaceMenu" style="width: auto;">
             <div class="contenedor_circulos">
                 <div class="circulo-1 iniciarTransicion"></div>
                 <div class="circulo-2 iniciarTransicion"></div>
@@ -55,7 +55,7 @@
             </div>
         </div>
         <div class="borde_c"></div>
-        <div class="mensaje_header" id="salvavidaTutorial" style="display: none;">
+        <div class="mensaje_header visibilidadEnlaceMenu" id="salvavidaTutorial" style="display: none;">
             <div class="campana_svg tutoriales_svg">
                 <div class="contenedor_circulosTutorial">
                     <div class="circulo-1 iniciarTransicion"></div>

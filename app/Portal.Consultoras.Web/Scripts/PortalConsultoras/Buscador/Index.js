@@ -15,22 +15,25 @@ $(document).ready(function () {
                 $(document).on('click', '.agregarProductoBuscador', me.Eventos.AgregarProducto);
             },
             ModificarAnchoBuscadorFiltros: function () {
-                if (window.location.href.indexOf("Pedido") > -1) {
-                    if ($('.new_menu').first().find('a').attr("title") == "SOCIA EMPRESARIA") {
+
+                var enlacesVisiblesMenuLateralDerechoSegunVista = $('.visibilidadEnlaceMenu:visible');
+
+                if ($('.new_menu').first().find('a').attr("title") == "SOCIA EMPRESARIA") {
+                    if (enlacesVisiblesMenuLateralDerechoSegunVista.length > 2) {
                         $('.buscador_productos').addClass('buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido');
                     } else {
-                        $('.buscador_productos').addClass('buscador_productos_sin_enlace_menu_socia_empresaria_vista_pedido');
-                    }
-                } else if (window.location.href.indexOf("Ofertas") > -1) {
-                    if ($('.new_menu').first().find('a').attr("title") == "SOCIA EMPRESARIA") {
-                        $('.buscador_productos').addClass('buscador_productos_con_enlace_menu_socia_empresaria_vista_ofertas');
-                    } else {
-                        $('.buscador_productos').addClass('buscador_productos_sin_enlace_menu_socia_empresaria_vista_ofertas');
+                        if (window.location.href.indexOf("Bienvenida") > -1) {
+                            $('.buscador_productos').addClass('buscador_productos_vista_bienvenida');
+                        }
+                        $('.buscador_productos').addClass('buscador_productos_con_enlace_menu_socia_empresaria');
                     }
                 } else {
-                    if ($('.new_menu').first().find('a').attr("title") == "SOCIA EMPRESARIA") {
-                        $('.buscador_productos').addClass('buscador_productos_con_enlace_menu_socia_empresaria');
+                    if (enlacesVisiblesMenuLateralDerechoSegunVista.length > 2) {
+                        $('.buscador_productos').addClass('buscador_productos_sin_enlace_menu_socia_empresaria_vista_pedido');
                     } else {
+                        if (window.location.href.indexOf("Bienvenida") > -1) {
+                            $('.buscador_productos').addClass('buscador_productos_vista_bienvenida');
+                        }
                         $('.buscador_productos').addClass('buscador_productos_sin_enlace_menu_socia_empresaria');
                     }
                 }
@@ -271,7 +274,9 @@ $(document).ready(function () {
             },
             me.Inicializar = function () {
                 me.Funciones.InicializarEventos();
-                me.Funciones.ModificarAnchoBuscadorFiltros();
+                setTimeout(function () {
+                    me.Funciones.ModificarAnchoBuscadorFiltros();
+                }, 1000);
             }
     }
 

@@ -19,7 +19,7 @@
     margin: auto 0;
     top: 0;
     bottom: 0;
-    right: -253px;
+    right: -241px;
     border: 1px solid #E1E1E1;
     background-color: #FFF;
     min-width: 100px;
@@ -46,14 +46,8 @@
     right: -185px;
 }
 
-.buscador_productos_con_enlace_menu_socia_empresaria_vista_ofertas {
-    width: 30%;
-    right: -88px;
-}
-
-.buscador_productos_sin_enlace_menu_socia_empresaria_vista_ofertas {
-    width: 44%;
-    right: -85px;
+.buscador_productos_vista_bienvenida{
+    right:-253px;
 }
 
 .campo_busqueda_fondo_on_focus{  
@@ -260,14 +254,10 @@
         height: 100%;
         position: absolute;
         top: 0;
-        left: 0;
+        left: -11px;
         right: 0;
         bottom: 0;
         margin: auto;
-    }
-
-    .resultado_busqueda_img_prod .imagen_no_disponible{
-        left: -11px;
     }
 
 .resultado_busqueda_descrip_prod,
