@@ -299,13 +299,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     if (Common.Util.ExisteUrlRemota(imagenS3))
                     {
-                        using (var streamImagen = ConsultarImagen(imagenS3))
-                        {
-                            using (var imagenConsultada = System.Drawing.Image.FromStream(streamImagen))
-                            {
-                                usuario.FotoPerfilAncha = imagenConsultada.Width > imagenConsultada.Height;
-                            }
-                        }
+                        usuario.FotoPerfilAncha = Common.Util.EsImagenAncha(imagenS3);
                     }
                     else
                     {
@@ -428,13 +422,6 @@ namespace Portal.Consultoras.BizLogic
             usuario.ConsultoraID = postulante.ConsultoraID;
             usuario.MensajePedidoDesktop = postulante.MensajeDesktop;
             usuario.MensajePedidoMobile = postulante.MensajeMobile;
-        }
-
-        private Stream ConsultarImagen(string URL)
-        {
-            HttpWebRequest request = ((HttpWebRequest)WebRequest.Create(URL));
-            HttpWebResponse response = ((HttpWebResponse)request.GetResponse());
-            return response.GetResponseStream();
         }
 
         public bool EsConsultoraNueva(BEUsuario usuario)

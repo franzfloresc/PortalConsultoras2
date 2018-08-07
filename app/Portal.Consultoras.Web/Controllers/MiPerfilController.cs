@@ -263,14 +263,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (Util.IsUrl(userData.FotoPerfil))
                     {
-                        using (var streamImagen = ConsultarImagen(imagenS3))
-                        {
-                            using (var imagenConsultada = System.Drawing.Image.FromStream(streamImagen))
-                            {
-                                userData.FotoPerfilAncha = (imagenConsultada.Width > imagenConsultada.Height);
-                                ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
-                            }
-                        }
+                        userData.FotoPerfilAncha = Util.EsImagenAncha(imagenS3);
+                        ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
                     }
 
                     userData.FotoOriginalSinModificar = nameImage;
@@ -578,13 +572,6 @@ namespace Portal.Consultoras.Web.Controllers
             var validator = new MultiPhoneValidator(validators);
 
             return validator;
-        }
-
-        private Stream ConsultarImagen(string URL)
-        {
-            HttpWebRequest request = ((HttpWebRequest)WebRequest.Create(URL));
-            HttpWebResponse response = ((HttpWebResponse)request.GetResponse());
-            return response.GetResponseStream();
         }
 
         private static byte[] ReadFully(Stream input)
