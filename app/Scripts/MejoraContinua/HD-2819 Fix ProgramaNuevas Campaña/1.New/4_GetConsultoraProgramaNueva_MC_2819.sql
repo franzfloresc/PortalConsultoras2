@@ -2,7 +2,7 @@
 GO
 ALTER PROCEDURE dbo.GetConsultoraProgramaNueva
 	@ConsultoraID BIGINT,
-	@Campania VARCHAR(6)
+	@Campania VARCHAR(6) = NULL
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -22,7 +22,7 @@ USE BelcorpChile
 GO
 ALTER PROCEDURE dbo.GetConsultoraProgramaNueva
 	@ConsultoraID BIGINT,
-	@Campania VARCHAR(6)
+	@Campania VARCHAR(6) = NULL
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -42,7 +42,7 @@ USE BelcorpColombia
 GO
 ALTER PROCEDURE dbo.GetConsultoraProgramaNueva
 	@ConsultoraID BIGINT,
-	@Campania VARCHAR(6)
+	@Campania VARCHAR(6) = NULL
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -62,7 +62,7 @@ USE BelcorpCostaRica
 GO
 ALTER PROCEDURE dbo.GetConsultoraProgramaNueva
 	@ConsultoraID BIGINT,
-	@Campania VARCHAR(6)
+	@Campania VARCHAR(6) = NULL
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -82,7 +82,7 @@ USE BelcorpDominicana
 GO
 ALTER PROCEDURE dbo.GetConsultoraProgramaNueva
 	@ConsultoraID BIGINT,
-	@Campania VARCHAR(6)
+	@Campania VARCHAR(6) = NULL
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -102,7 +102,7 @@ USE BelcorpEcuador
 GO
 ALTER PROCEDURE dbo.GetConsultoraProgramaNueva
 	@ConsultoraID BIGINT,
-	@Campania VARCHAR(6)
+	@Campania VARCHAR(6) = NULL
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -122,7 +122,7 @@ USE BelcorpGuatemala
 GO
 ALTER PROCEDURE dbo.GetConsultoraProgramaNueva
 	@ConsultoraID BIGINT,
-	@Campania VARCHAR(6)
+	@Campania VARCHAR(6) = NULL
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -142,7 +142,7 @@ USE BelcorpMexico
 GO
 ALTER PROCEDURE dbo.GetConsultoraProgramaNueva
 	@ConsultoraID BIGINT,
-	@Campania VARCHAR(6)
+	@Campania VARCHAR(6) = NULL
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -162,7 +162,7 @@ USE BelcorpPanama
 GO
 ALTER PROCEDURE dbo.GetConsultoraProgramaNueva
 	@ConsultoraID BIGINT,
-	@Campania VARCHAR(6)
+	@Campania VARCHAR(6) = NULL
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -182,7 +182,7 @@ USE BelcorpPeru
 GO
 ALTER PROCEDURE dbo.GetConsultoraProgramaNueva
 	@ConsultoraID BIGINT,
-	@Campania VARCHAR(6)
+	@Campania VARCHAR(6) = NULL
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -202,7 +202,7 @@ USE BelcorpPuertoRico
 GO
 ALTER PROCEDURE dbo.GetConsultoraProgramaNueva
 	@ConsultoraID BIGINT,
-	@Campania VARCHAR(6)
+	@Campania VARCHAR(6) = NULL
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -222,7 +222,7 @@ USE BelcorpSalvador
 GO
 ALTER PROCEDURE dbo.GetConsultoraProgramaNueva
 	@ConsultoraID BIGINT,
-	@Campania VARCHAR(6)
+	@Campania VARCHAR(6) = NULL
 AS
 BEGIN
 	SET NOCOUNT ON;
