@@ -16,8 +16,8 @@ DELETE FROM TablaLogica Where TablaLogicaID = 9
 GO
 INSERT INTO TablaLogica Values (9, 'Facturacion Electronica') 
 INSERT INTO TablaLogicaDatos Values (900, 9, '01','Mostrar link de facturacion electronica', '1'),
-									(901, 9, '02', 'Direccion url','http://quo25.belcorp.biz/consulta.aspx?'),
-									(902, 9, '03', 'Parametros','countryId={0}&accountCode={1}&accountTaxid=TRA950227PX7')
+									(901, 9, '02', 'Direccion url','http://coappdev01/WS.Documento/Disponibilidad/Index?'),
+									(902, 9, '03', 'Parametros','countryId={0}&accountCode={1}')
 GO
 
 USE BelcorpColombia
@@ -70,8 +70,8 @@ DELETE FROM TablaLogica Where TablaLogicaID = 9
 GO
 INSERT INTO TablaLogica Values (9, 'Facturacion Electronica') 
 INSERT INTO TablaLogicaDatos Values (900, 9, '01','Mostrar link de facturacion electronica', '1'),
-									(901, 9, '02', 'Direccion url','http://quo25.belcorp.biz/consulta.aspx?'),
-									(902, 9, '03', 'Parametros','countryId={0}&accountCode={1}&accountTaxid=26489848')
+									(901, 9, '02', 'Direccion url','http://coappdev01/WS.Documento/Disponibilidad/Index?'),
+									(902, 9, '03', 'Parametros','countryId={0}&accountCode={1}')
 GO
 
 USE BelcorpEcuador
@@ -102,8 +102,8 @@ DELETE FROM TablaLogica Where TablaLogicaID = 9
 GO
 INSERT INTO TablaLogica Values (9, 'Facturacion Electronica') 
 INSERT INTO TablaLogicaDatos Values (900, 9, '01','Mostrar link de facturacion electronica', '1'),
-									(901, 9, '02', 'Direccion url','http://quo25.belcorp.biz/consulta.aspx?'),
-									(902, 9, '03', 'Parametros','countryId={0}&accountCode={1}&accountTaxid=3101338816')
+									(901, 9, '02', 'Direccion url','http://coappdev01/WS.Documento/Disponibilidad/Index?'),
+									(902, 9, '03', 'Parametros','countryId={0}&accountCode={1}')
 							
 GO
 
