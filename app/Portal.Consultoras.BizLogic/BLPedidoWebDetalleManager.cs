@@ -333,12 +333,9 @@ namespace Portal.Consultoras.BizLogic
                     CodigoConsultora = usuario.CodigoConsultora,
                     EsConsultoraNueva = usuario.EsConsultoraNueva,
                     ConsecutivoNueva = usuario.ConsecutivoNueva,
-                    CodigoISO = usuario.CodigoISO,
-                    CodigorRegion = usuario.CodigorRegion,
-                    CodigoZona = usuario.CodigoZona,
                     CodigoPrograma = usuario.CodigoPrograma
                 };
-                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(oProgramaNueva);
+                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(oProgramaNueva, usuario.CodigorRegion, usuario.CodigoZona);
                 var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
                 var concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso)).ToList();
                 if (concursos.Any()) codigosConcursos = string.Join("|", concursos.Select(c => c.CodigoConcurso));

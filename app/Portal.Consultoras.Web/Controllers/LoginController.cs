@@ -1717,7 +1717,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var usuario = Mapper.Map<ServicePedido.BEProgramaNuevas>(usuarioModel);
                 using (var sv = new PedidoServiceClient())
                 {
-                    var result = await sv.ObtenerConcursosXConsultoraAsync(usuario);
+                    var result = await sv.ObtenerConcursosXConsultoraAsync(usuario, usuarioModel.CodigorRegion, usuarioModel.CodigoZona);
                     lst = result.ToList();
                 }
             }

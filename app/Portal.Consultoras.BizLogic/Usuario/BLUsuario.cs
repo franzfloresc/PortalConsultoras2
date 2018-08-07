@@ -782,13 +782,10 @@ namespace Portal.Consultoras.BizLogic
                     CodigoConsultora = usuario.CodigoConsultora,
                     EsConsultoraNueva = usuario.EsConsultoraNueva,
                     ConsecutivoNueva = usuario.ConsecutivoNueva,
-                    CodigoISO = usuario.CodigoISO,
-                    CodigorRegion = usuario.CodigorRegion,
-                    CodigoZona = usuario.CodigoZona,
                     CodigoPrograma = usuario.CodigoPrograma
                 };
 
-                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(oProgramaNueva);
+                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(oProgramaNueva, usuario.CodigorRegion, usuario.CodigoZona);
 
                 if (result.Any())
                 {

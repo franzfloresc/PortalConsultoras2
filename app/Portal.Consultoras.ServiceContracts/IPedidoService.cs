@@ -1076,8 +1076,9 @@ namespace Portal.Consultoras.ServiceContracts
         #endregion
 
         #region Incentivos
+
         [OperationContract]
-        List<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEProgramaNuevas usuario);
+        List<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEProgramaNuevas usuario, string codigoRegion, string codigoZona);
 
         [OperationContract]
         void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso);

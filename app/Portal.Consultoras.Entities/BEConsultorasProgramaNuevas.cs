@@ -1,10 +1,8 @@
-﻿using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Common;
-
+﻿using Portal.Consultoras.Common;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Portal.Consultoras.Entities
 {

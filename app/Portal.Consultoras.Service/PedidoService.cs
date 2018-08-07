@@ -2022,9 +2022,10 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Incentivos
-        public List<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEProgramaNuevas usuario)
+
+        public List<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEProgramaNuevas usuario, string codigoRegion, string codigoZona)
         {
-            return _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario).ToList();
+            return _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario, codigoRegion, codigoZona).ToList();
         }
 
         public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso)

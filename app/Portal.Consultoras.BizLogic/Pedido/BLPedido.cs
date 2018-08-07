@@ -309,7 +309,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (usuario.DiaPROL && !EsHoraReserva(usuario, DateTime.Now.AddHours(usuario.ZonaHoraria))) return false;
 
                 var oProgramaNueva = new BEProgramaNuevas { PaisID = usuario.PaisID, CampaniaID = usuario.CampaniaID, CodigoConsultora = usuario.CodigoConsultora,
-                                                            EsConsultoraNueva = usuario.EsConsultoraNueva, ConsecutivoNueva = usuario.ConsecutivoNueva, CodigoISO = usuario.CodigoISO };
+                                                            EsConsultoraNueva = usuario.EsConsultoraNueva, ConsecutivoNueva = usuario.ConsecutivoNueva };
                 var confProgNuevas = _configuracionProgramaNuevasBusinessLogic.Get(oProgramaNueva);
                 if (confProgNuevas.IndProgObli != "1") return false;
 
@@ -1201,8 +1201,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 CampaniaID = usuario.CampaniaID,
                 CodigoConsultora = usuario.CodigoConsultora,
                 EsConsultoraNueva = usuario.EsConsultoraNueva,
-                ConsecutivoNueva = usuario.ConsecutivoNueva,
-                CodigoISO = usuario.CodigoISO
+                ConsecutivoNueva = usuario.ConsecutivoNueva
             };
 
             var configProgNuevas = _configuracionProgramaNuevasBusinessLogic.Get(oProgramaNueva);

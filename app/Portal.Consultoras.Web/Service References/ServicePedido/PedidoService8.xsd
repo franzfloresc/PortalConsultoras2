@@ -2091,6 +2091,8 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q143="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="usuario" nillable="true" type="q143:BEProgramaNuevas" />
+        <xs:element minOccurs="0" name="codigoRegion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codigoZona" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

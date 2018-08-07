@@ -36,12 +36,15 @@ namespace Portal.Consultoras.BizLogic
         public string GetCuvKitNuevas(BEProgramaNuevas usuario, BEConfiguracionProgramaNuevas confProgNuevas)
         {
             if (usuario.EsConsultoraNueva) return confProgNuevas.CUVKit;
-            if (new List<int> { 1, 2 }.Contains(usuario.ConsecutivoNueva) && WebConfig.PaisesFraccionKitNuevas.Contains(usuario.CodigoISO))
+
+            var codigoISO = Common.Util.GetPaisISO(usuario.PaisID);
+            if (new List<int> { 1, 2 }.Contains(usuario.ConsecutivoNueva) && WebConfig.PaisesFraccionKitNuevas.Contains(codigoISO))
             {
                 confProgNuevas.Campania = usuario.CampaniaID.ToString();
                 confProgNuevas.CodigoNivel = GetCodigoNivel(usuario);
                 return new DAConfiguracionProgramaNuevas(usuario.PaisID).GetCuvPremioKitNuevas(confProgNuevas);
             }
+
             return "";
         }
 

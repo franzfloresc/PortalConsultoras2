@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.ProgramaNuevas
 {
@@ -17,19 +12,10 @@ namespace Portal.Consultoras.Entities.ProgramaNuevas
         [DataMember]
         public string CodigoConsultora { get; set; }
         [DataMember]
-        public string CodigorRegion { get; set; }
-        [DataMember]
-        public string CodigoZona { get; set; }
-        [DataMember]
         public string CodigoPrograma { get; set; } 
         [DataMember]
         public int ConsecutivoNueva { get; set; }
         [DataMember]
-        public string CodigoISO { get; set; }
-        [DataMember]
         public bool EsConsultoraNueva { get; set; }
-
-        public BEProgramaNuevas()
-        { }
     }
 }

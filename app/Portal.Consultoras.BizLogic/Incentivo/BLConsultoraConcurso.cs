@@ -25,12 +25,12 @@ namespace Portal.Consultoras.BizLogic
         /// </summary>
         /// <param name="usuario"></param>
         /// <returns></returns>
-        public IList<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEProgramaNuevas usuario)
+        public IList<BEIncentivoConcurso> ObtenerConcursosXConsultora(BEProgramaNuevas usuario, string codigoRegion, string codigoZona)
         {
             List<BEIncentivoConcurso> Concursos = new List<BEIncentivoConcurso>();
 
             var DAConcurso = new DAConcurso(usuario.PaisID);
-            using (IDataReader reader = DAConcurso.ObtenerConcursosXConsultora(usuario.CampaniaID.ToString(), usuario.CodigoConsultora, usuario.CodigorRegion, usuario.CodigoZona))
+            using (IDataReader reader = DAConcurso.ObtenerConcursosXConsultora(usuario.CampaniaID.ToString(), usuario.CodigoConsultora, codigoRegion, codigoZona))
             {
                 Concursos.AddRange(reader.MapToCollection<BEIncentivoConcurso>());
             }
