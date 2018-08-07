@@ -266,6 +266,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var pedidoID = 0;
                 var lstDetalle = ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoID);
 
+                pedido.ImporteTotal = lstDetalle.Sum(x => x.ImporteTotal);
+
                 if (lstDetalle.Any())
                 {
                     lstDetalle.Where(x => x.ClienteID == 0).Update(x => x.Nombre = usuario.Nombre);
