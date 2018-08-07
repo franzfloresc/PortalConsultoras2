@@ -554,6 +554,22 @@ ul.breadcumbs li:last-child a {
     letter-spacing: -1px;
 }
 
+.icon_alerta {
+    width: 24px;
+    padding-right: 3px;
+}
+.tooltop-emoji {
+    width: 19px;
+    position: relative;
+    top: -2px;
+}
+
 .clear{
     clear:both;
+}
+
+.tooltop-emoji {
+    width: 19px;
+    position: relative;
+    top: -2px;
 }
