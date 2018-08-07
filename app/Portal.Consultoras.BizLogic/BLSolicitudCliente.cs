@@ -285,7 +285,7 @@ namespace Portal.Consultoras.BizLogic
                 BEConsultorasProgramaNuevas beConsultoraProgramaNuevas = null;
                 var daConsultoraProgramaNuevas = new DAConsultorasProgramaNuevas(paisID);
 
-                using (IDataReader reader = daConsultoraProgramaNuevas.GetConsultorasProgramaNuevasByConsultoraId(consultoraID))
+                using (IDataReader reader = daConsultoraProgramaNuevas.GetConsultorasProgramaNuevasByConsultoraIdAndCampania(consultoraID, campaniaID.ToString()))
                 {
                     if (reader.Read())
                         beConsultoraProgramaNuevas = new BEConsultorasProgramaNuevas(reader);
