@@ -25,10 +25,18 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 List<BEBuscadorYFiltros> resultBuscador;
+                var configuracionPais = sessionManager.GetBuscadorYFiltros();
+                var valores = configuracionPais.ConfiguracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador).ToList();
+                var TotalResultadosBuscador = 20;
+
+                if (valores.Any())
+                {
+                    TotalResultadosBuscador = valores[0].Valor1.ToInt();
+                }
 
                 using (var usuario = new UsuarioServiceClient())
                 {
-                    resultBuscador = usuario.listaProductos(userData.PaisID, userData.CampaniaID, 20, busqueda, userData.RegionID, userData.ZonaID, Convert.ToInt32(userData.CodigorRegion), Convert.ToInt32(userData.CodigoZona)).ToList();
+                    resultBuscador = usuario.listaProductos(userData.PaisID, userData.CampaniaID, TotalResultadosBuscador, busqueda, userData.RegionID, userData.ZonaID, Convert.ToInt32(userData.CodigorRegion), Convert.ToInt32(userData.CodigoZona)).ToList();
                 }
 
                 if (resultBuscador.Any())

@@ -60,12 +60,21 @@ $(document).ready(function () {
             }
         },
             me.Eventos = {
-                AccionesCampoBusquedaAlDigitar: function () {
+                AccionesCampoBusquedaAlDigitar: function (event) {
                     var cantidadCaracteresParaMostrarSugerenciasBusqueda = $(this).val().length;
+
+                    if (event.which == 27) {
+                        me.Funciones.CampoDeBusquedaSinCaracteres($('#CampoBuscadorProductos'));
+                        $('#CampoBuscadorProductos').val('');
+                        $('#CampoBuscadorProductos').focus();
+                        $('#ResultadoBuscador').html('');
+                        return false;
+                    }
 
                     if (cantidadCaracteresParaMostrarSugerenciasBusqueda >= CaracteresBuscador) {
 
                         me.Funciones.CampoDeBusquedaConCaracteres($('#CampoBuscadorProductos'));
+
                         $('.spinner').fadeIn(150);
 
                         var service = $.ajax({
@@ -208,6 +217,8 @@ $(document).ready(function () {
                                 CerrarLoad();
                                 TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
                                 agregado.html("Agregado");
+                                var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
+                                $(divPadre).find('.hdBuscadorCantidadesAgregadas').val(totalAgregado);
                                 return true;
                             },
                             error: function (data, error) {
@@ -216,8 +227,8 @@ $(document).ready(function () {
                             }
                         });
                     } else {
-                        var saldo = CantidadesAgregadas + cantidad;
-                        if (saldo <= LimiteVenta) {
+                        var saldo = parseInt(CantidadesAgregadas) + parseInt(cantidad);
+                        if (saldo <= parseInt(LimiteVenta)) {
                             jQuery.ajax({
                                 type: 'POST',
                                 url: baseUrl + 'Pedido/PedidoInsertar',
@@ -249,6 +260,8 @@ $(document).ready(function () {
                                     CerrarLoad();
                                     TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
                                     agregado.html("Agregado");
+                                    var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
+                                    $(divPadre).find('.hdBuscadorCantidadesAgregadas').val(totalAgregado);
                                     return true;
                                 },
                                 error: function (data, error) {
@@ -273,6 +286,29 @@ $(document).ready(function () {
     BuscadorPortalConsultoras = new BuscadorSB();
     BuscadorPortalConsultoras.Inicializar();
 
+});
+
+$(document).keyup(function (e) {
+    if (e.keyCode == 27) { // escape key maps to keycode `27`
+
+        if ($('.lista_resultados_busqueda_productos').length > 0) {
+            $('.lista_resultados_busqueda_productos').fadeOut(100);
+            $('.lista_resultados_busqueda_productos').removeClass('animarAlturaListaResultadosBusqueda');
+            $('.campo_busqueda_fondo_on_focus').delay(50);
+            $('.campo_busqueda_fondo_on_focus').fadeOut(100);
+            $('#CampoBuscadorProductos').removeClass('campo_buscador_productos_activo');
+            $('.opcion_limpiar_campo_busqueda_productos').fadeOut(100);
+            $('.enlace_busqueda_productos').delay(50);
+            $('.enlace_busqueda_productos').fadeIn(100);
+            $('#ResultadoBuscador').html('');
+
+            $('#CampoBuscadorProductos').val('');
+            $('#CampoBuscadorProductos').focus();
+            $('#ResultadoBuscador').html('');
+        } else {
+            console.log('no exite');
+        }
+    }
 });
 
 function AjaxError(data) {
