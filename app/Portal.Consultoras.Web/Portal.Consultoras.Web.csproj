@@ -1516,9 +1516,13 @@
     <Content Include="Content\Images\Lbel\icono_plus.svg" />
     <Content Include="Content\Images\Lbel\icono_sms.svg" />
     <Content Include="Content\Images\mobile\cincuenta_anios_belcorp_cabecera_mobile.png" />
+    <Content Include="Content\Images\mobile\Esika\1f44d.png" />
+    <Content Include="Content\Images\mobile\Esika\1f615.png" />
     <Content Include="Content\Images\mobile\Esika\click-ico.svg" />
     <Content Include="Content\Images\mobile\Esika\close-button-white.svg" />
     <Content Include="Content\Images\mobile\Esika\close-button.svg" />
+    <Content Include="Content\Images\mobile\Esika\emoji-alert.png" />
+    <Content Include="Content\Images\mobile\Esika\icono-alerta.svg" />
     <Content Include="Content\Images\mobile\Esika\left-arrow.svg" />
     <Content Include="Content\Images\mobile\icono_editar_foto_perfil.svg" />
     <Content Include="Content\Images\icono_eliminar.svg" />
