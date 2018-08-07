@@ -454,16 +454,8 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<List<BEEstadoServicio>> GetListaRango();
 
+        void SetAceptoContrato(bool val);
 
-
-
-
-
-
-
-
-
-
-
+        bool GetAceptoContrato();
     }
 }

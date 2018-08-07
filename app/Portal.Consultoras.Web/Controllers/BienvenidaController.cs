@@ -506,7 +506,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (userData.EsConsultora()
                 && userData.CambioClave == 0 && userData.IndicadorContrato == 0
                 && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia)
-                && sessionManager.GetIsContrato() == 1 && !Convert.ToBoolean(Session["AceptoContrato"]))
+                && sessionManager.GetIsContrato() == 1 && !Convert.ToBoolean(sessionManager.GetAceptoContrato()))
             {
                 return true;
             }
@@ -788,8 +788,8 @@ namespace Portal.Consultoras.Web.Controllers
                         });
                     }
                 }
-
-                Session["AceptoContrato"] = true;
+                
+                sessionManager.SetAceptoContrato(true);
 
                 return Json(new
                 {

@@ -1242,17 +1242,16 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<List<BEEstadoServicio>>)val;
         }
 
+        void ISessionManager.SetAceptoContrato(bool val)
+        {
+            HttpContext.Current.Session["AceptoContrato"] = val;
+        }
 
-
-
-
-
-
-
-
-
-
-
-
+        bool ISessionManager.GetAceptoContrato()
+        {
+            var val = HttpContext.Current.Session["AceptoContrato"];
+            if (val == null) { return false; }
+            return (bool)val;
+        }
     }
 }
