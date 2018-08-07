@@ -66,6 +66,9 @@
         <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
         <input type="hidden" class="hdBuscadorValorizado" value="{{Valorizado}}" />
         <input type="hidden" class="hdBuscadorPosicion" value="{{posicion}}" />
+        <input type="hidden" class="hdBuscadorEstrategiaCodigo" value="{{EstrategiaCodigo}}" />
+        <input type="hidden" class="hdBuscadorLimiteVenta" value="{{LimiteVenta}}" />
+        <input type="hidden" class="hdBuscadorCantidadesAgregadas" value="{{CantidadesAgregadas}}" />
 
         <div class="resultado_busqueda_mobile displayBlock">
             <div class="resultado_busqueda_mobile_img_prod displayInlineBlock">
@@ -91,7 +94,7 @@
             </div>
             <div class="resultado_busqueda_mobile_cantidad_prod displayInlineBlock" data-cantidad-contenedor="">
                 {{#if_eq CodigoEstrategia '2003'}}
-                <div class="resultado_busqueda_mobile_btn_agregar_wrapper displayBlock text-center" data-OrigenPedidoWeb="@origenPedidoWeb">                    
+                <div class="resultado_busqueda_mobile_btn_agregar_wrapper displayBlock text-center" data-OrigenPedidoWeb="@origenPedidoWeb">
                     <a class="btn_elegir_opcion displayBlock text-center text-uppercase" href="javascript:;" onclick="BuscadorFichaDetalle('{{CampaniaID}}', '{{CUV}}', '@origenPedidoWeb', '{{EstrategiaCodigo}}');">
                         Elige tu opción
                     </a>
@@ -109,7 +112,7 @@
                     <a class="boton_Agregalo_home displayBlock text-center text-uppercase agregarProductoBuscador">
                         Agrégalo
                     </a>
-                    
+
                     <div class="etiqueta_prod_agregado displayBlock text-uppercase text-bold etiqueta_buscador_producto">
                         {{Agregado}}
                     </div>
