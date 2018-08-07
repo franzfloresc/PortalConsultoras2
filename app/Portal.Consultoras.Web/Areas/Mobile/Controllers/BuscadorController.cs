@@ -37,8 +37,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     // Se validara Stock o lo hara el API?
                     var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
+                    var pedidos = sessionManager.GetDetallesPedido();
+
                     foreach (var item in resultBuscador)
                     {
+                        var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV).ToList();
+                        
                         ListaProductosModel.Add(new BuscadorYFiltrosModel()
                         {
                             CUV = item.CUV.Trim(),
@@ -54,7 +58,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo),
                             ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo),
                             DescripcionEstrategia = item.descripcionEstrategia,
-                            MarcaId = item.MarcaID
+                            MarcaId = item.MarcaID,
+                            CampaniaID = userData.CampaniaID,
+                            EstrategiaCodigo = item.EstrategiaCodigo,
+                            Agregado = pedidoAgregado.Any() ? "Agregado" : ""
                         });
                     }
                 }
