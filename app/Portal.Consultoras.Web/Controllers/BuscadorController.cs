@@ -41,6 +41,16 @@ namespace Portal.Consultoras.Web.Controllers
                     foreach (var item in resultBuscador)
                     {
                         var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV).ToList();
+                        var labelAgregado = "";
+                        var cantidadAgregada = 0;
+
+                        if (pedidoAgregado.Any())
+                        {
+                            labelAgregado = "Agregado";
+
+                            cantidadAgregada = pedidoAgregado[0].Cantidad;
+
+                        }
 
                         ListaProductosModel.Add(new BuscadorYFiltrosModel()
                         {
@@ -60,7 +70,8 @@ namespace Portal.Consultoras.Web.Controllers
                             MarcaId = item.MarcaID,
                             CampaniaID = userData.CampaniaID,
                             EstrategiaCodigo = item.EstrategiaCodigo,
-                            Agregado = pedidoAgregado.Any() ? "Agregado" : ""
+                            Agregado = labelAgregado,
+                            CantidadesAgregadas = cantidadAgregada
                         });
                     }
                 }
