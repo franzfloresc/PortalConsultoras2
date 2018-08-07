@@ -173,7 +173,8 @@ $(document).ready(function () {
                                 CerrarLoad();
                                 //TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
                                 agregado.html("Agregado");
-
+                                var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
+                                $(divPadre).find('.hdBuscadorCantidadesAgregadas').val(totalAgregado);
                                 return true;
                             },
                             error: function (data, error) {
@@ -211,7 +212,8 @@ $(document).ready(function () {
                                     CerrarLoad();
                                     //TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
                                     agregado.html("Agregado");
-
+                                    var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
+                                    $(divPadre).find('.hdBuscadorCantidadesAgregadas').val(totalAgregado);
                                     return true;
                                 },
                                 error: function (data, error) {
