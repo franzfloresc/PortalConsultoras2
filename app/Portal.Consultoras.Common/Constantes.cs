@@ -1999,7 +1999,7 @@ namespace Portal.Consultoras.Common
             public const string Error = "Error";
         }
 
-        public static class PedidoAppValidacion
+        public static class PedidoValidacion
         {
             private static Dictionary<string, string> _Message;
             public static class Code
@@ -2036,6 +2036,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_RESERVA_MONTO_MAX = "2015";
                 public const string ERORR_RESERVA_NO_DISP = "2016";
                 public const string ERROR_RESERVA_DEUDA = "2017";
+                public const string ERROR_RESERVA_BACK_ORDER = "2018";
 
                 public const string ERROR_GUARDAR_NINGUNO = "2020";
                 public const string SUCCESS_GUARDAR = "2021";
@@ -2087,6 +2088,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_RESERVA_MONTO_MAX, "Pedido no reservado, excede monto máximo." },
                         {Code.ERORR_RESERVA_NO_DISP, "Reserva no disponible." },
                         {Code.ERROR_RESERVA_DEUDA, "Pedido no reservado, deuda pendiente." },
+                        {Code.ERROR_RESERVA_BACK_ORDER, "No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?"},
 
                         {Code.ERROR_GUARDAR_NINGUNO, "El pedido no se guardó." },
                         {Code.SUCCESS_GUARDAR, "Pedido guardado." },
