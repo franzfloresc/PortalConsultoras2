@@ -203,6 +203,9 @@
 .selecionados_carrosel .slick-list {
     padding: 0 !important
 }
+.selecionados_carrosel .slick-track {
+    width: 2500px !important;
+}
 
 .seleccion_btn .content_cantidad_ficha_producto {
     width: 100%;
