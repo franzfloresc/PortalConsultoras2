@@ -32,5 +32,6 @@ namespace Portal.Consultoras.Web.Models
         public string ValorizadoString { get; set; }
         public int posicion { get; set; }
         public string Agregado { get; set; }
+        public int CantidadesAgregadas { get; set; }
     }
 }

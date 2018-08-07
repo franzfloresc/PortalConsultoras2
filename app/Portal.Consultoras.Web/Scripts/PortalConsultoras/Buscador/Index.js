@@ -138,6 +138,7 @@ $(document).ready(function () {
                     var tipoEstrategiaId = tipoOfertaSisID;//$(divPadre).find(".hdBuscadorCodigoPalanca").val();
                     var agregado = $(divPadre).find(".etiqueta_buscador_producto");
                     var LimiteVenta = $(divPadre).find('.hdBuscadorLimiteVenta').val();
+                    var CantidadesAgregadas = $(divPadre).find('.hdBuscadorCantidadesAgregadas').val();
 
                     if (!isInt(cantidad)) {
                         AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
@@ -215,60 +216,49 @@ $(document).ready(function () {
                             }
                         });
                     } else {
-                        $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: model.CUV, PrecioUnidad: model.PrecioUnidad, Cantidad: model.Cantidad }, function (data) {
-                            if (parseInt(data.Saldo) < parseInt(cantidad)) {
-                                var Saldo = data.Saldo;
-                                var UnidadesPermitidas = data.UnidadesPermitidas;
-                                CerrarLoad();
-                                if (Saldo == UnidadesPermitidas)
-                                    AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
-                                else {
-                                    if (Saldo == "0")
-                                        AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
-                                    else
-                                        AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
-                                }
-                            } else {
-                                jQuery.ajax({
-                                    type: 'POST',
-                                    url: baseUrl + 'Pedido/PedidoInsertar',
-                                    dataType: 'json',
-                                    contentType: 'application/json; charset=utf-8',
-                                    data: JSON.stringify(model),
-                                    async: true,
-                                    success: function (data) {
-                                        if (!checkTimeout(data)) {
-                                            CerrarLoad();
-                                            return false;
-                                        }
-                                        if (data.success != true) {
-                                            CerrarLoad();
-                                            messageInfoError(data.message);
-                                            return false;
-                                        }
-                                        $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
-                                        if (isPagina('pedido')) {
-                                            if (model != null && model != undefined)
-                                                PedidoOnSuccessSugerido(model);
-
-                                            CargarDetallePedido();
-                                            $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
-                                            MostrarBarra(data);
-                                        }
-                                        microefectoPedidoGuardado();
-                                        CargarResumenCampaniaHeader();
+                        var saldo = CantidadesAgregadas + cantidad;
+                        if (saldo <= LimiteVenta) {
+                            jQuery.ajax({
+                                type: 'POST',
+                                url: baseUrl + 'Pedido/PedidoInsertar',
+                                dataType: 'json',
+                                contentType: 'application/json; charset=utf-8',
+                                data: JSON.stringify(model),
+                                async: true,
+                                success: function (data) {
+                                    if (!checkTimeout(data)) {
                                         CerrarLoad();
-                                        TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
-                                        agregado.html("Agregado");
-                                        return true;
-                                    },
-                                    error: function (data, error) {
-                                        AjaxError(data);
                                         return false;
                                     }
-                                });
-                            }
-                        });
+                                    if (data.success != true) {
+                                        CerrarLoad();
+                                        messageInfoError(data.message);
+                                        return false;
+                                    }
+                                    $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
+                                    if (isPagina('pedido')) {
+                                        if (model != null && model != undefined)
+                                            PedidoOnSuccessSugerido(model);
+
+                                        CargarDetallePedido();
+                                        $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
+                                        MostrarBarra(data);
+                                    }
+                                    microefectoPedidoGuardado();
+                                    CargarResumenCampaniaHeader();
+                                    CerrarLoad();
+                                    TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
+                                    agregado.html("Agregado");
+                                    return true;
+                                },
+                                error: function (data, error) {
+                                    AjaxError(data);
+                                    return false;
+                                }
+                            });
+                        } else {
+                            AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + LimiteVenta + ") del producto.");
+                        }
                     }
                 }
             },
@@ -292,7 +282,7 @@ function AjaxError(data) {
 
 function PedidoOnSuccessSugerido(model) {
 
-    $("#divObservaciones").html("");
+    /*$("#divObservaciones").html("");
     $("#hdnDescripcionEstrategia").val("");
     $("#hdnDescripcionLarga").val("");
     $("#hdnDescripcionProd").val("");
@@ -304,20 +294,20 @@ function PedidoOnSuccessSugerido(model) {
     $("#hdfPrecioUnidad").val("");
     $("#txtPrecioR").val("");
     $("#txtDescripcionProd").val("");
-    $("#txtCantidad").val("");
+    //$("#txtCantidad").val("");
     $("#txtClienteDescripcion").val($("#hdfClienteDescripcion").val());
-    $("#btnAgregar").attr("disabled", "disabled");
+    $("#btnAgregar").attr("disabled", "disabled");*/
 
-    $("#hdnRegistrosPaginar").val($("#hdnRegistros").val());
+    /*$("#hdnRegistrosPaginar").val($("#hdnRegistros").val());
     $("#hdnRegistrosDePaginar").val($("#hdnRegistrosDe").val());
     $("#hdnRegistrosTotalPaginar").val($("#hdnRegistrosTotal").val());
     $("#hdnPaginaPaginar").val($("#hdnPagina").val());
     $("#hdnPaginaDePaginar").val($("#hdnPaginaDe").val());
     $("#ddlClientes").val($("#hdnClienteID2_").val());
-    $("#hdnClienteID_").val($("#hdnClienteID2_").val());
+    $("#hdnClienteID_").val($("#hdnClienteID2_").val());*/
 
     CalcularTotal();
-    $("#txtCUV").focus();
+    //$("#txtCUV").focus();
 }
 
 function HorarioRestringido() {
