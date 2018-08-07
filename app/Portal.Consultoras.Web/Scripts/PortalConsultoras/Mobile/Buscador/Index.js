@@ -171,9 +171,10 @@ $(document).ready(function () {
                                 //$("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
                                 //microefectoPedidoGuardado();
                                 CerrarLoad();
-                                //TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
+                                TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
                                 agregado.html("Agregado");
-
+                                var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
+                                $(divPadre).find('.hdBuscadorCantidadesAgregadas').val(totalAgregado);
                                 return true;
                             },
                             error: function (data, error) {
@@ -183,8 +184,8 @@ $(document).ready(function () {
                         });
                     }
                     else {
-
-                        if (saldo <= LimiteVenta) {
+                        var saldo = parseInt(CantidadesAgregadas) + parseInt(cantidad);
+                        if (saldo <= parseInt(LimiteVenta)) {
                             jQuery.ajax({
                                 type: 'POST',
                                 url: baseUrl + 'Pedido/PedidoInsertar',
@@ -209,9 +210,10 @@ $(document).ready(function () {
                                     //$("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
                                     //microefectoPedidoGuardado();
                                     CerrarLoad();
-                                    //TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
+                                    TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
                                     agregado.html("Agregado");
-
+                                    var totalAgregado = parseInt(cantidad) + parseInt(CantidadesAgregadas);
+                                    $(divPadre).find('.hdBuscadorCantidadesAgregadas').val(totalAgregado);
                                     return true;
                                 },
                                 error: function (data, error) {
