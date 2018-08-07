@@ -11,6 +11,8 @@ belcorp.pedido.initialize = function () {
 }
 
 $(document).ready(function () {
+    ValidarKitNuevas();
+
     $('#txtClienteNombre').click(function (e) {
         if ($(this).prop('disabled')) return;
 
@@ -23,7 +25,6 @@ $(document).ready(function () {
             $(this).autocomplete('close');
         }
     });
-
     $('#txtClienteNombre').keyup(function (e) {
         if (e.keyCode == 8) {
             if ($.trim($(this).val()) == "") $("#txtClienteId").val("0");

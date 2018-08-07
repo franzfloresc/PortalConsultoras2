@@ -191,7 +191,7 @@ namespace Portal.Consultoras.Web.Providers
                 lstMenuModel.Add(permiso);
             }
             
-            userSession.Menu = permisos.ToList();
+            userSession.Menu = lstMenuModel.ToList();
             sessionManager.SetUserData(userSession);
             return userSession;
         }

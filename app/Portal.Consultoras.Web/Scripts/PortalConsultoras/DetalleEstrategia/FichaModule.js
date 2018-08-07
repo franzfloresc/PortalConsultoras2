@@ -231,7 +231,7 @@
 
     var _validarDesactivadoGeneral = function (estrategia) {
         $.each(estrategia.Hermanos, function (index, hermano) {
-            
+
             if (hermano.Hermanos) {
                 if (hermano.Hermanos.length > 0) {
                     estrategia.ClaseBloqueada = "btn_desactivado_general";
@@ -242,12 +242,12 @@
                     //$(".contenedor_rangos").addClass("contenedor_rangos_desactivado");
                     $(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
                     $(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
-                    
+
                     $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
                     $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
-                    
-                    
-                    
+
+
+
                 }
             }
         });
@@ -270,7 +270,7 @@
             return false;
         }
 
-        if (typeof estrategia.DescripcionCompleta !== "undefined" && 
+        if (typeof estrategia.DescripcionCompleta !== "undefined" &&
             estrategia.DescripcionCompleta != null) {
             estrategia.DescripcionCompleta = $.trim(estrategia.DescripcionCompleta);
             var palabrasEstrategiaDescripcion = estrategia.DescripcionCompleta.split(" ");
@@ -332,7 +332,7 @@
 
         //Handlers bars para el detalle de los tabs de fichas
         _construirSeccionDetalleFichas(estrategia);
-        
+
         // Se realiza la marcación en analytics de la información de la ficha de un producto.
         var tipoMoneda = AnalyticsPortalModule.FcVerificarTipoMoneda(variablesPortal.SimboloMoneda);
         AnalyticsPortalModule.MarcarVerFichaProducto(tipoMoneda, estrategia.DescripcionCompleta.trim(), estrategia.CUV2.trim(), estrategia.PrecioVenta, estrategia.DescripcionMarca, null, estrategia.CodigoVariante, _config.palanca);
@@ -391,6 +391,8 @@
                 proM = proObjM / proM;
                 $(proImg).css("width", proObjM + "px");
             }
+
+            setTimeout(_resizeBotonAgregar(), 1000);
         });
 
         //$("header").resize(function () {
@@ -595,6 +597,52 @@
         });
     }
 
+    var _resizeBotonAgregar = function () {
+        var dvFoto = $("#dvSeccionFoto");
+        var dvRedesSociales = $("#Contenedor_redes_sociales");
+        var dvFichaEtiqueta = $("#contenedor_ficha_etiquetas");
+        var dvDetalle = $("#dvSeccionDetalle");
+
+        if (dvFoto.length && dvRedesSociales.length) {
+
+            dvDetalle.removeClass("ficha_detalle_cuerpo");
+            dvDetalle.css("height", "");
+            var dvFotoHeight = dvFoto.innerHeight();
+            var dvFichaEtiquetaHeight = dvFichaEtiqueta.innerHeight();
+            var dvDetalleHeight = dvDetalle.innerHeight();
+            var dvIzquierdoHeight = dvFotoHeight + 45; // 45 es por el padding del padre.
+            var dvDerechoHeight = dvDetalleHeight + dvFichaEtiquetaHeight;
+            if (dvIzquierdoHeight > dvDerechoHeight) {
+                var dvRedesSocialesHeight = dvRedesSociales.innerHeight();
+                var diferenciaHeight = dvIzquierdoHeight - dvFichaEtiquetaHeight;
+                dvDetalle.removeClass("ficha_detalle_cuerpo");
+                dvDetalle.height(diferenciaHeight);
+            }
+            else {
+                dvDetalle.addClass("ficha_detalle_cuerpo");
+            }
+        }
+    }
+
+    var _prevenirScrollFixed = function () {
+        if (isMobile()) {
+            setTimeout(function () {
+                var dvContentMobile = $("#contentmobile");
+                var dvFixed = $("#idMensajeBloqueado > div");
+                if (dvFixed.length == 0) {
+                    dvFixed = $("#dvContenedorAgregar");
+                }
+
+                if (dvContentMobile.length && dvFixed.length) {
+                    var dvContentMobileHeight = dvContentMobile.height();
+                    var dvFixedHeight = dvFixed.innerHeight();
+                    var height = dvContentMobileHeight + dvFixedHeight + 20;
+                    dvContentMobile.height(height);
+                }
+            }, 1000);
+        }
+    }
+
     function Inicializar() {
 
         localStorageModule = LocalStorageModule();
@@ -606,6 +654,7 @@
         _fijarFooterCampaniaSiguiente();
         _marcarCambiaColorCombo();
         _marcarCambiaColorCuadro();
+        _prevenirScrollFixed();
         _marcarAgregaProductoCarro();
         //_marcarSwipeCarrusel();
         _marcarFichaBreadcrumb();

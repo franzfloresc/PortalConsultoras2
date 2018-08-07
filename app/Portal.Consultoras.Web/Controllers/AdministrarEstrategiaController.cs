@@ -141,7 +141,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (lst != null && lst.Count > 0)
             {
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                lst.Update(x => x.ImagenEstrategia = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenEstrategia));
+                lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenEstrategia));
 
                 var lista = (from a in lst
                              where a.FlagActivo == 1
@@ -235,7 +235,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
                     if (lst.Count > 0)
-                        lst.Update(x => x.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenURL));
+                        lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
 
                     var grid = new BEGrid
                     {
@@ -885,7 +885,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 entidad = lst[0];
                 string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                entidad.ImagenMiniaturaURL = ConfigCdn.GetUrlFileCdn(carpetapais, entidad.ImagenMiniaturaURL);
+                entidad.ImagenMiniaturaURL = ConfigS3.GetUrlFileS3(carpetapais, entidad.ImagenMiniaturaURL);
 
                 return Json(entidad, JsonRequestBehavior.AllowGet);
             }
@@ -945,7 +945,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var paisIso = Util.GetPaisISO(paisID);
             var carpetaPais = Globals.UrlMatriz + "/" + paisIso;
-            var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
+            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
 
             var data = lst.Select(p => new MatrizComercialImagen
             {
@@ -980,7 +980,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst.Count > 0)
             {                
-                lst.Update(x => x.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenURL));
+                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
                 lst.Update(x => x.Simbolo = userData.Simbolo);
             }
             ViewBag.ProductoDestacadoDetalle = lst[0];
@@ -1367,7 +1367,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var carpetapais = string.Format("{0}/{1}", Globals.UrlMatriz, userData.CodigoISO);
-                lst.Update(x => x.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenURL));
+                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
 
                 var grid = new BEGrid()
                 {
@@ -1542,7 +1542,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = result,
-                    extra = result ? ConfigCdn.GetUrlFileCdn(carpetaPais, newfilename) : "Ocurrió un problema al intentar registrar los datos"
+                    extra = result ? ConfigS3.GetUrlFileS3(carpetaPais, newfilename) : "Ocurrió un problema al intentar registrar los datos"
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1587,8 +1587,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var data = new
                 {
-                    ImgBannerCupon = ConfigCdn.GetUrlFileCdn(carpetaPais, filenameCupon),
-                    ImgBannerPremio = ConfigCdn.GetUrlFileCdn(carpetaPais, filenamePremio)
+                    ImgBannerCupon = ConfigS3.GetUrlFileS3(carpetaPais, filenameCupon),
+                    ImgBannerPremio = ConfigS3.GetUrlFileS3(carpetaPais, filenamePremio)
                 };
 
                 return Json(new
@@ -1662,7 +1662,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var carpetapais = string.Format("{0}/{1}", Globals.UrlMatriz, userData.CodigoISO);
-                lst.Update(x => x.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenURL));
+                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL));
 
                 var grid = new BEGrid()
                 {
@@ -1823,18 +1823,13 @@ namespace Portal.Consultoras.Web.Controllers
                     string[] arrayHeader = readLine.Split('|');
                     string columnObservation = string.Empty;
                     bool errorColumn = false;
-                    if (arrayHeader.Length != 7)
+                    if (arrayHeader.Length != 6)
                     {
                         throw new ArgumentException("Los títulos de las columnas no son los correctos.");
                     }
                     if (!arrayHeader[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToLower().Equals(Constantes.ColumnsSetStrategyShowroom.CUV))
                     {
                         columnObservation = Constantes.ColumnsSetStrategyShowroom.CUV;
-                        errorColumn = true;
-                    }
-                    else if (!arrayHeader[(int)Constantes.ColumnsSetStrategyShowroom.Position.NormalPrice].ToLower().Equals(Constantes.ColumnsSetStrategyShowroom.NormalPrice))
-                    {
-                        columnObservation = Constantes.ColumnsSetStrategyShowroom.NormalPrice;
                         errorColumn = true;
                     }
                     else if (!arrayHeader[(int)Constantes.ColumnsSetStrategyShowroom.Position.AllowedUnits].ToLower().Equals(Constantes.ColumnsSetStrategyShowroom.AllowedUnits))
@@ -1873,7 +1868,7 @@ namespace Portal.Consultoras.Web.Controllers
                         string[] arrayRows = readLine.Split('|');
                         if (arrayRows[0] != "CUV")
                         {
-                            if (arrayRows.Length != 7)
+                            if (arrayRows.Length != 6)
                             {
                                 throw new ArgumentException(string.Format("Verificar la información del archivo (datos incompletos). <br /> Referencia: La observación se encontró en el CUV '{0}'", arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd()));
                             }
@@ -1881,7 +1876,6 @@ namespace Portal.Consultoras.Web.Controllers
                             strategyEntityList.Add(new ServicePedido.BEEstrategia
                             {
                                 CUV2 = arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.CUV].ToString().TrimEnd(),
-                                Precio = decimal.Parse(arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.NormalPrice]),
                                 LimiteVenta = int.Parse(arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.AllowedUnits]),
                                 DescripcionCUV2 = arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.NameSet].ToString().TrimEnd(),
                                 TextoLibre = arrayRows[(int)Constantes.ColumnsSetStrategyShowroom.Position.BusinessTip].ToString().TrimEnd(),
@@ -1891,36 +1885,13 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                     while (readLine != null);
-                    using (var svc = new WsGestionWeb())
-                    {
-                        List<PrecioProducto> productPriceList = null;
-                        productPriceList = svc.GetPrecioProductosOfertaWeb(userData.CodigoISO, model.CampaniaId, string.Join("|", strategyEntityList.Select(x => x.CUV2))).ToList();
-                        if (productPriceList != null && productPriceList.Count > 0)
-                        {
-                            strategyEntityList.Update(strategy => strategy.Precio2 = productPriceList.FirstOrDefault(prol => prol.cuv == strategy.CUV2).precio_producto);
-                        }
-                    }
-                    var productPriceZero = strategyEntityList.FirstOrDefault(p => p.Precio == 0);
-                    if (productPriceZero != null)
-                    {
-                        string messageErrorPriceZero = string.Format("No se realizó ninguna operación (actualización/inserción) a ningunos de los registros que estaban dentro del archivo (CSV), porque el producto {0} tiene precio cero", productPriceZero.CUV2);
-                        LogManager.LogManager.LogErrorWebServicesPortal(new FaultException(), "ERROR: CARGA PRODUCTO SHOWROOM", string.Format("CUV: {0} con precio CERO", productPriceZero.CUV2));
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, messageErrorPriceZero);
-                    }
-                    var productPriceOfferZero = strategyEntityList.FirstOrDefault(p => p.Precio2 == 0);
-                    if (productPriceOfferZero != null)
-                    {
-                        string messageErrorPriceZero = string.Format("No se actualizó el stock de ninguno de los productos que estaban dentro del archivo (CSV), porque el producto {0} tiene precio oferta Cero", productPriceOfferZero.CUV2);
-                        LogManager.LogManager.LogErrorWebServicesPortal(new FaultException(), "ERROR: CARGA PRODUCTO SHOWROOM", string.Format("CUV: {0} con precio CERO", productPriceOfferZero.CUV2));
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest, messageErrorPriceZero);
-                    }
+                 
+                   
                     XElement strategyXML = new XElement("strategy",
                     from strategy in strategyEntityList
                     select new XElement("row",
                                  new XElement("CUV2", strategy.CUV2),
                                  new XElement("DescripcionCUV2", strategy.DescripcionCUV2),
-                                 new XElement("Precio", strategy.Precio),
-                                 new XElement("Precio2", strategy.Precio2),
                                  new XElement("LimiteVenta", strategy.LimiteVenta),
                                  new XElement("TextoLibre", strategy.TextoLibre),
                                  new XElement("EsSubCampania", strategy.EsSubCampania),

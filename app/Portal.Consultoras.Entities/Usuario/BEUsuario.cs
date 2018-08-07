@@ -97,6 +97,7 @@ namespace Portal.Consultoras.Entities
 
         public BEUsuario()
         {
+ 
         }
 
         [Obsolete("Use MapUtil.MapToCollection")]
@@ -137,6 +138,7 @@ namespace Portal.Consultoras.Entities
             TieneCDRExpress = row.ToBoolean("TieneCDRExpress");
             EsConsecutivoNueva = row.ToBoolean("EsConsecutivoNueva");
             IndicadorConsultoraDigital = row.ToInt32("IndicadorConsultoraDigital");
+
         }
 
         [Obsolete("Use MapUtil.MapToCollection")]
@@ -307,6 +309,7 @@ namespace Portal.Consultoras.Entities
             IvaTotal = row.ToDouble("IvaTotal");
             EsConsultoraOficina = row.ToInt32("IndicadorConsultoraOficina") == 1;
             PromedioVenta = row.ToDouble("PromedioVenta");
+
         }
 
         [Column("ConsultoraAsociadoID")]
@@ -843,6 +846,7 @@ namespace Portal.Consultoras.Entities
             set { mdRol = value; }
         }
 
+        [Column("SegmentoConstancia")]
         [DataMember]
         public string SegmentoConstancia
         {
