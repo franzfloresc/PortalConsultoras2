@@ -316,8 +316,6 @@ $(document).keyup(function (e) {
             $('#CampoBuscadorProductos').val('');
             $('#CampoBuscadorProductos').focus();
             $('#ResultadoBuscador').html('');
-        } else {
-            console.log('no exite');
         }
     }
 });
