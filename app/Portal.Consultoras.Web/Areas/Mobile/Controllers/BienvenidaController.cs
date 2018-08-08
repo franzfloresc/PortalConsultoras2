@@ -223,7 +223,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var resultPopupEmail = ObtenerActualizacionEmail();
             var resultPopupEmailSplited = resultPopupEmail.Split('|')[0];
 
-            if (sessionManager.GetTipoPopUpMostrar() != null)
+            if (sessionManager.GetTipoPopUpMostrar() != -1)
             {
                 tipoPopUpMostrar = Convert.ToInt32(sessionManager.GetTipoPopUpMostrar());
 

@@ -233,23 +233,23 @@ namespace Portal.Consultoras.Web.SessionManager
         bool ProcesoKitNuevas { get; set; }
         string CuvKitNuevas { get; set; }
         
-        void SetOcultarBannerApp(bool val);
+        void SetOcultarBannerApp(dynamic val);
 
-        bool GetOcultarBannerApp();
+        dynamic GetOcultarBannerApp();
 
         void SetBannerApp(BEComunicado val);
 
         BEComunicado GetBannerApp();
 
-        void SetPrimeraVezSessionMobile(int val);
+        void SetPrimeraVezSessionMobile(dynamic val);
 
-        int GetPrimeraVezSessionMobile();
+        dynamic GetPrimeraVezSessionMobile();
 
         void SetIngresoPortalConsultoras(bool val);
 
-        bool GetIngresoPortalConsultoras();
+        dynamic GetIngresoPortalConsultoras();
 
-        void SetConsultoraNuevaBannerAppMostrar(bool val);
+        void SetConsultoraNuevaBannerAppMostrar(dynamic val);
 
         bool GetConsultoraNuevaBannerAppMostrar();
 

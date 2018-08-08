@@ -607,12 +607,12 @@ namespace Portal.Consultoras.Web.SessionManager
 
         // -----------------------------------
 
-        void ISessionManager.SetOcultarBannerApp(bool val) {
+        void ISessionManager.SetOcultarBannerApp(dynamic val) {
             HttpContext.Current.Session["OcultarBannerApp"] = val;
         }
 
-        bool ISessionManager.GetOcultarBannerApp() {
-            return Convert.ToBoolean(HttpContext.Current.Session["OcultarBannerApp"]);
+        dynamic ISessionManager.GetOcultarBannerApp() {
+            return (dynamic)(HttpContext.Current.Session["OcultarBannerApp"]);
         }
 
         void ISessionManager.SetBannerApp(BEComunicado val)
@@ -625,14 +625,14 @@ namespace Portal.Consultoras.Web.SessionManager
             return (BEComunicado)(HttpContext.Current.Session["BannerApp"]);
         }
 
-        void ISessionManager.SetPrimeraVezSessionMobile(int val)
+        void ISessionManager.SetPrimeraVezSessionMobile(dynamic val)
         {
             HttpContext.Current.Session["PrimeraVezSessionMobile"] = val;
         }
 
-        int ISessionManager.GetPrimeraVezSessionMobile()
+        dynamic ISessionManager.GetPrimeraVezSessionMobile()
         {
-            return (int)HttpContext.Current.Session["PrimeraVezSessionMobile"];
+            return (dynamic)HttpContext.Current.Session["PrimeraVezSessionMobile"];
         }
 
         void ISessionManager.SetIngresoPortalConsultoras(bool val)
@@ -640,12 +640,12 @@ namespace Portal.Consultoras.Web.SessionManager
             HttpContext.Current.Session[Constantes.ConstSession.IngresoPortalConsultoras] = val;
         }
 
-        bool ISessionManager.GetIngresoPortalConsultoras()
+        dynamic ISessionManager.GetIngresoPortalConsultoras()
         {
-            return (bool)HttpContext.Current.Session[Constantes.ConstSession.IngresoPortalConsultoras];
+            return (dynamic)HttpContext.Current.Session[Constantes.ConstSession.IngresoPortalConsultoras];
         }
 
-        void ISessionManager.SetConsultoraNuevaBannerAppMostrar(bool val)
+        void ISessionManager.SetConsultoraNuevaBannerAppMostrar(dynamic val)
         {
             HttpContext.Current.Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar] = val;
         }
@@ -665,7 +665,7 @@ namespace Portal.Consultoras.Web.SessionManager
         int ISessionManager.GetTipoPopUpMostrar()
         {
             var val = HttpContext.Current.Session[Constantes.ConstSession.TipoPopUpMostrar];
-            if (val == null) { return 0; }
+            if (val == null) { return -1; }
             return (int)val;
         }
         
@@ -999,7 +999,7 @@ namespace Portal.Consultoras.Web.SessionManager
         int ISessionManager.GetSuenioNavidad()
         {
             var val = HttpContext.Current.Session["SuenioNavidad"];
-            if (val == null) { return 0; }
+            if (val == null) { return -1; }
             return (int)val;
         }
 

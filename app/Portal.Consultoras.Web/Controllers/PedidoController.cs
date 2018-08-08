@@ -310,7 +310,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(_configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.oferta_final_regalo_url_s3), userData.CodigoISO);
 
-            if (sessionManager.GetEsShowRoom() != null && sessionManager.GetEsShowRoom().ToString() == "1")
+            if (!sessionManager.GetEsShowRoom() && sessionManager.GetEsShowRoom().ToString() == "1")
             {
                 ViewBag.ImagenFondoOFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Desktop");
                 ViewBag.Titulo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Desktop");

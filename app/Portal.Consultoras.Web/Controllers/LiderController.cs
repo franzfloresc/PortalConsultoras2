@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
             string str = Util.EncriptarQueryString(parametros);
             string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_LIDER) + "?p=" + str;
 
-            if (sessionManager.GetIngresoPortalLideres() == null)
+            if (!sessionManager.GetIngresoPortalLideres())
             {
                 RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalLideres, Constantes.LogDynamoDB.RolSociaEmpresaria, "HOME", "INGRESAR");
                 sessionManager.SetIngresoPortalLideres(true);

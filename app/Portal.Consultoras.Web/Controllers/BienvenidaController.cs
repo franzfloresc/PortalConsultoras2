@@ -190,7 +190,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                if (sessionManager.GetActualizarDatosConsultora() == null)
+                if (!sessionManager.GetActualizarDatosConsultora())
                 {
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
                     sessionManager.SetActualizarDatosConsultora(true);
@@ -238,7 +238,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (sessionManager.GetTipoPopUpMostrar() != null)
+                if (sessionManager.GetTipoPopUpMostrar() != -1)
                 {
                     var tipoPopup = Convert.ToInt32(sessionManager.GetTipoPopUpMostrar());
                     if (tipoPopup == Constantes.TipoPopUp.AsesoraOnline)
@@ -306,7 +306,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var tipoPopUpMostrar = 0;
-            if (sessionManager.GetTipoPopUpMostrar() != null)
+            if (sessionManager.GetTipoPopUpMostrar() != -1)
             {
                 tipoPopUpMostrar = Convert.ToInt32(sessionManager.GetTipoPopUpMostrar());
 
@@ -1689,7 +1689,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return 1;
 
             int validacion;
-            if (sessionManager.GetSuenioNavidad() == null)
+            if (sessionManager.GetSuenioNavidad() == -1)
             {
                 using (var svc = new PedidoServiceClient())
                 {
