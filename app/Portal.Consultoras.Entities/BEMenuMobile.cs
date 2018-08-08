@@ -41,15 +41,15 @@ namespace Portal.Consultoras.Entities
         public BEMenuMobile() { }
         public BEMenuMobile(IDataRecord row)
         {
-            MenuMobileID = Convert.ToInt32(row["MenuMobileID"]);
-            Descripcion = Convert.ToString(row["Descripcion"]);
-            MenuPadreID = Convert.ToInt32(row["MenuPadreID"]);
-            OrdenItem = Convert.ToInt32(row["OrdenItem"]);
+            MenuMobileID = row.ToInt32("MenuMobileID");
+            Descripcion = row.ToString("Descripcion");
+            MenuPadreID = row.ToInt32("MenuPadreID");
+            OrdenItem = row.ToInt32("OrdenItem");
             UrlItem = row.ToString("UrlItem");
             UrlImagen = row.ToString("UrlImagen");
-            PaginaNueva = Convert.ToBoolean(row["PaginaNueva"]);
-            Posicion = Convert.ToString(row["Posicion"]);
-            Version = Convert.ToString(row["Version"]);
+            PaginaNueva = row.ToBoolean("PaginaNueva");
+            Posicion = row.ToString("Posicion");
+            Version = row.ToString("Version");
             Codigo = row.ToString("Codigo");
         }
     }

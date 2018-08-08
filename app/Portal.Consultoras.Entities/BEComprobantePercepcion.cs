@@ -60,10 +60,9 @@ namespace Portal.Consultoras.Entities
             NumeroComprobanteCorrelativo = row.ToString("NumeroComprobanteCorrelativo");
             PaisID = row.ToInt32("PaisID");
             ConsultoraID = row.ToInt32("ConsultoraID");
+
             if (NumeroComprobanteSerie != null && NumeroComprobanteCorrelativo != null)
-            {
                 NumeroComprobante = NumeroComprobanteSerie + "-" + NumeroComprobanteCorrelativo;
-            }
         }
     }
 }

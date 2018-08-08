@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -26,10 +27,10 @@ namespace Portal.Consultoras.Entities
 
         public BEUsuarioExternoPais(IDataRecord row)
         {
-            Proveedor = Convert.ToString(row["Proveedor"]);
-            IdAplicacion = Convert.ToString(row["IdAplicacion"]);
-            PaisID = Convert.ToInt16(row["PaisID"]);
-            CodigoISO = Convert.ToString(row["CodigoISO"]);
+            Proveedor = row.ToString("Proveedor");
+            IdAplicacion = row.ToString("IdAplicacion");
+            PaisID = row.ToInt16("PaisID");
+            CodigoISO = row.ToString("CodigoISO");
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -26,14 +27,14 @@ namespace Portal.Consultoras.Entities
         public string URL { get; set; }
 
         public BEFormularioDato() { }
-        public BEFormularioDato(IDataRecord datarec)
+        public BEFormularioDato(IDataRecord row)
         {
-            PaisID = Convert.ToInt32(datarec["PaisID"]);
-            TipoFormularioID = (ETipoFormulario)Convert.ToInt32(datarec["TipoFormularioID"]);
-            FormularioDatoID = Convert.ToInt32(datarec["FormularioDatoID"]);
-            Descripcion = (string)datarec["Descripcion"];
-            Archivo = (string)datarec["Archivo"];
-            URL = (string)datarec["URL"];
+            PaisID = row.ToInt32("PaisID");
+            TipoFormularioID = (ETipoFormulario)row.ToInt32("TipoFormularioID");
+            FormularioDatoID = row.ToInt32("FormularioDatoID");
+            Descripcion = row.ToString("Descripcion");
+            Archivo = row.ToString("Archivo");
+            URL = row.ToString("URL");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -26,11 +27,11 @@ namespace Portal.Consultoras.Entities
 
         public BEMensajeCUV(IDataRecord row)
         {
-            ParametroID = Convert.ToInt32(row["ParametroID"]);
-            PaisID = Convert.ToInt32(row["PaisID"]);
-            CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            Cuvs = Convert.ToString(row["CUVs"]);
-            Mensaje = Convert.ToString(row["Mensaje"]);
+            ParametroID = row.ToInt32("ParametroID");
+            PaisID = row.ToInt32("PaisID");
+            CampaniaID = row.ToInt32("CampaniaID");
+            Cuvs = row.ToString("CUVs");
+            Mensaje = row.ToString("Mensaje");
         }
 
     }
