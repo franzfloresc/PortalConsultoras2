@@ -16,7 +16,11 @@
         {{/iff}}
 
         {{#iff this.cantidadFaltantes '==' '0'}}
-        <h3>¡Listo! <span>ya tienes tu</span> opción</h3>
+            {{#iff this.HermanosSeleccionados.length '==' '1'}}
+                 <h3>¡Listo! <span>ya tienes tu</span> opción</h3>
+            {{else}}
+                 <h3>¡Listo! <span>ya tienes tus</span> {{this.HermanosSeleccionados.length}} opciones</h3>
+            {{/iff}}
         {{/iff}}
     {{/iff}}
 
