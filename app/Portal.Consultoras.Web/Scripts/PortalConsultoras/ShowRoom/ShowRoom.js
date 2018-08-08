@@ -717,7 +717,6 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
                 var dataSub = new Object(); 
                 dataSub.CantidadProductos = response.listaSubCampania.length;
                 //dataSub.Lista = response.listaSubCampania;
-                debugger;
                 dataSub.Lista = AsignarPosicionAListaOfertas(response.listaSubCampania);
 
                 SetHandlebars("#template-showroom-subcampanias-mobile", dataSub, "#contenedor-showroom-subcampanias-mobile");
