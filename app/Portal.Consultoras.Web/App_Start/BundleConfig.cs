@@ -240,7 +240,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/jquery.rateyo.css",
                 "~/Content/Css/Site/flexslider.css",
                 "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
-                "~/Content/Css/Site/RevistaDigital/PopupSuscripcion.css"
+                "~/Content/Css/Site/RevistaDigital/PopupSuscripcion.css",
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2").Include(
