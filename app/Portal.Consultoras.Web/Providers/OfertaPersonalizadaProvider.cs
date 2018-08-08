@@ -1065,11 +1065,20 @@ namespace Portal.Consultoras.Web.Providers
                                 item.Hermanos = new List<EstrategiaComponenteModel>();
                                 componentesRelacinados.ForEach(componente =>
                                 {
-                                    if (componente.CUV != item.CUV2 && lineasPorCaja > 0 && !string.IsNullOrEmpty(componente.NombreProducto))
+                                    //if (componente.CUV != item.CUV2 && lineasPorCaja > 0 && !string.IsNullOrEmpty(componente.NombreProducto))
+                                    //{
+                                    //    item.Hermanos.Add(new EstrategiaComponenteModel()
+                                    //    {
+                                    //        NombreComercial = string.Format("{0}{1}", componente.NombreProducto, item.Hermanos.Count == 1 ? "..." : string.Empty)
+                                    //    });
+                                    //}
+                                    if (lineasPorCaja > 0 && !string.IsNullOrEmpty(componente.NombreProducto))
                                     {
+                                        var nombreFormateado = (componente.NombreProducto.Length <= 26) ? componente.NombreProducto : componente.NombreProducto.Substring(0,25) + "...";
                                         item.Hermanos.Add(new EstrategiaComponenteModel()
                                         {
-                                            NombreComercial = string.Format("{0}{1}", componente.NombreProducto, item.Hermanos.Count == 1 ? "..." : string.Empty)
+                                            NombreComercial = string.Format("{0}", componente.NombreProducto),
+                                            Descripcion = string.Format("{0}", nombreFormateado)
                                         });
                                     }
                                     lineasPorCaja--;
