@@ -84,8 +84,15 @@ header {
         margin: auto;
     }
 
+.menu_new_esika,
+.menu_esika_b,
+.logo_esika
+{
+    display:inline-block;
+    vertical-align:middle;
+}
+
 .menu_new_esika {
-    float: left;
     width: 62%;
     min-height: 60px;
     position: relative;
@@ -94,7 +101,7 @@ header {
 .menu_esika_b {
     height: 60px;
     float: right;
-    width:360px!important;
+    min-width:242px!important;
     max-width: 31%;
 }
 
@@ -19492,8 +19499,7 @@ label.checkpop.c_on {
 }
 
 .logo_esika {
-    margin-top: 6px;
-    float: left;
+    /*margin-top: 6px;*/
     width: 10%;
     padding-right: 2px;
 }
@@ -36739,16 +36745,20 @@ h1#penmostreo .campana {
 }
 
 .cincuenta_anios_belcorp + .logo_esika{
-    margin-left:23px;
+    margin-left:11px;
 }
 
 .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
-    width:632px!important;
+    width:627px!important;
 }
 
-.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
-    width:360px!important;
+.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika.anchoMenu_sinEnlaceSociaEmpresaria{
+    width:520px!important;
 }
+
+/*.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
+    width:360px!important;
+}*/
 
 .color_cincuenta_anios_belcorp{
     color:#A06219;
@@ -36772,13 +36782,13 @@ h1#penmostreo .campana {
 
 }
 
-@media screen and (max-width:1212px){
+/*@media screen and (max-width:1212px){
 
     .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
         width:350px!important;
     }
 
-}
+}*/
 
 @media screen and (min-width:1145px) and (max-width:1212px){
 
@@ -36786,9 +36796,9 @@ h1#penmostreo .campana {
         width: 628px!important;
     }
 
-    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
+    /*.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
         width:350px!important;
-    }
+    }*/
 
 }
 
@@ -36817,6 +36827,7 @@ h1#penmostreo .campana {
 }
 
 /* FIN - HD-2513 - 50 AÑOS BELCORP */
+
 /* MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */
 
 .monto_meta_tippingPoint{

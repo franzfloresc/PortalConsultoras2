@@ -24,18 +24,21 @@ $(document).ready(function () {
                         $('.buscador_productos').addClass('buscador_productos_con_enlace_menu_socia_empresaria_vista_pedido');
                     } else {
                         if (window.location.href.indexOf("Bienvenida") > -1) {
-                            $('.buscador_productos').addClass('buscador_productos_vista_bienvenida');
+                            $('.buscador_productos').addClass('buscador_productos_con_enlace_menu_socia_empresaria_vista_bienvenida');
+                        } else {
+                            $('.buscador_productos').addClass('buscador_productos_con_enlace_menu_socia_empresaria');
                         }
-                        $('.buscador_productos').addClass('buscador_productos_con_enlace_menu_socia_empresaria');
                     }
                 } else {
+                    $('.menu_new_esika').addClass('anchoMenu_sinEnlaceSociaEmpresaria');
                     if (enlacesVisiblesMenuLateralDerechoSegunVista.length > 2) {
                         $('.buscador_productos').addClass('buscador_productos_sin_enlace_menu_socia_empresaria_vista_pedido');
                     } else {
                         if (window.location.href.indexOf("Bienvenida") > -1) {
-                            $('.buscador_productos').addClass('buscador_productos_vista_bienvenida');
+                            $('.buscador_productos').addClass('buscador_productos_sin_enlace_menu_socia_empresaria_vista_bienvenida');
+                        } else {
+                            $('.buscador_productos').addClass('buscador_productos_sin_enlace_menu_socia_empresaria');
                         }
-                        $('.buscador_productos').addClass('buscador_productos_sin_enlace_menu_socia_empresaria');
                     }
                 }
             },

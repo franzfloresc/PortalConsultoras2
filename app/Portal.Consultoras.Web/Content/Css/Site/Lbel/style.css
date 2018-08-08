@@ -101,8 +101,15 @@ header {
         margin: auto;
     }
 
+.menu_new_esika,
+.menu_esika_b,
+.logo_esika
+{
+    display:inline-block;
+    vertical-align:middle;
+}
+
 .menu_new_esika {
-    float: left;
     width: 62%;
     min-height: 60px;
     position: relative;
@@ -111,7 +118,7 @@ header {
 .menu_esika_b {
     height: 60px;
     float: right;
-    width:360px!important;
+    min-width:242px!important;
     max-width: 31%;
 }
 
@@ -6129,10 +6136,10 @@ a.subir_carousel, a.bajar_carousel {
 }
 
 .logo_esika {
-    margin-top: 8px;
-    float: left;
+    margin-top: 4px;
     width: 10%;
     padding-right: 2px;
+    margin-right: 11px;
 }
 
 .menu_socia_empresaria .new_menu img {
@@ -19713,9 +19720,6 @@ label.checkpop.c_on {
     margin-bottom: 6px;
 }
 
-.logo_esika {
-    float: left;
-}
 /*ESTILO NOHELY BELCORP 2.0*/
 .content_slider_home {
     width: 100%;
@@ -36668,16 +36672,20 @@ height:30px;
 }
 
 .cincuenta_anios_belcorp + .logo_esika{
-    margin-left:23px;
+    margin-left:15px;
 }
 
 .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
-    width:632px!important;
+    width:627px!important;
 }
 
-.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
-    width:360px!important;
+.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika.anchoMenu_sinEnlaceSociaEmpresaria{
+    width:520px!important;
 }
+
+/*.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
+    width:360px!important;
+}*/
 
 .color_cincuenta_anios_belcorp{
     color:#A06219;
@@ -36701,13 +36709,13 @@ height:30px;
 
 }
 
-@media screen and (max-width:1212px){
+/*@media screen and (max-width:1212px){
 
     .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
         width:350px!important;
     }
 
-}
+}*/
 
 @media screen and (min-width:1145px) and (max-width:1212px){
 
