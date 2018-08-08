@@ -16,5 +16,10 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         public string errorCode { get; set; }
         public string responseMessage { get; set; }
         public long? operationDate { get; set; }
+
+        public bool IsApproved
+        {
+            get { return state == "APPROVED"; }
+        }
     }
 }

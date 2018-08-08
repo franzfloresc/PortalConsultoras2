@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Providers
             try
             {
                 pago.ListaMedioPago = PagoProvider.ObtenerListaMedioPago();
-                pago.OrdenId = (await GetNewOrderId()).ToString();
+                pago.NumeroOperacion = (await GetNewOrderId()).ToString();
                 pago.TipoPago = GetPaymentMethod(pago);
 
                 var data = GetData(info, pago);
@@ -78,7 +78,7 @@ namespace Portal.Consultoras.Web.Providers
 
             PagoVisaModel config = pago.PagoVisaModel;
             var total = pago.MontoDeudaConGastos;
-            var referenceCode = Constantes.PagoEnLineaPayuGenerales.OrderCodePrefix + pago.OrdenId;
+            var referenceCode = Constantes.PagoEnLineaPayuGenerales.OrderCodePrefix + pago.NumeroOperacion;
             var fullName = User.NombreConsultora;
 
             var isCredit = pago.MetodoPagoSeleccionado.TipoTarjeta == Constantes.PagoEnLineaTipoTarjeta.Credito;
@@ -196,11 +196,10 @@ namespace Portal.Consultoras.Web.Providers
 
             var transaction = result.transactionResponse;
             pago.DescripcionCodigoAccion = GetMessage(transaction);
-            pago.NumeroOperacion = transaction.orderId;
             pago.FechaCreacion = GetDateCreation(transaction.operationDate);
             pago.TarjetaEnmascarada = Util.EnmascararTarjeta(info.NumberCard);
 
-            var aproved = result.transactionResponse.state == "APPROVED";
+            var aproved = result.transactionResponse.IsApproved;
 
             await RegisterLog(pago, transaction);
 
@@ -259,6 +258,7 @@ namespace Portal.Consultoras.Web.Providers
             PagoVisaModel config = pago.PagoVisaModel;
 
             var bePagoEnLinea = new BEPagoEnLineaResultadoLog();
+            var isAproved = respuesta.IsApproved;
 
             bePagoEnLinea.ConsultoraId = usuario.ConsultoraID;
             bePagoEnLinea.CodigoConsultora = usuario.CodigoConsultora;
@@ -266,8 +266,8 @@ namespace Portal.Consultoras.Web.Providers
             bePagoEnLinea.CampaniaId = usuario.CampaniaID;
             bePagoEnLinea.FechaVencimiento = usuario.FechaLimPago;
             bePagoEnLinea.TipoTarjeta = pago.TipoPago;
-            bePagoEnLinea.CodigoError = respuesta.errorCode;
-            bePagoEnLinea.MensajeError = respuesta.responseMessage;
+            bePagoEnLinea.CodigoError = isAproved ? "0" : respuesta.errorCode;
+            bePagoEnLinea.MensajeError = respuesta.paymentNetworkResponseErrorMessage;
             bePagoEnLinea.IdGuidTransaccion = respuesta.transactionId;
             bePagoEnLinea.IdGuidExternoTransaccion = "";
             bePagoEnLinea.MerchantId = config.MerchantId;
@@ -294,9 +294,9 @@ namespace Portal.Consultoras.Web.Providers
             //bePagoEnLinea.CsiTipoCobro = "";
             //bePagoEnLinea.NumeroReferencia = "";
             bePagoEnLinea.Respuesta = respuesta.state;
-            bePagoEnLinea.NumeroOrdenTienda = pago.OrdenId;
-            bePagoEnLinea.CodigoAccion = Constantes.PagoEnLineaPayuGenerales.Command;
-            //bePagoEnLinea.ImporteAutorizado = Convert.ToDecimal(respuestaVisa.data.IMP_AUTORIZADO ?? "0");
+            bePagoEnLinea.NumeroOrdenTienda = pago.NumeroOperacion;
+            bePagoEnLinea.CodigoAccion = "000";
+            bePagoEnLinea.ImporteAutorizado = isAproved ? pago.MontoDeudaConGastos : 0;
             bePagoEnLinea.CodigoAutorizacion = respuesta.authorizationCode ?? "";
             //bePagoEnLinea.CodigoTienda = "";
             bePagoEnLinea.NumeroTarjeta = pago.TarjetaEnmascarada;
