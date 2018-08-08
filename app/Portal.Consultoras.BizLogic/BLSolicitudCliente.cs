@@ -279,37 +279,21 @@ namespace Portal.Consultoras.BizLogic
 
                 DAPedidoWeb dAPedidoWeb = new DAPedidoWeb(paisID);
                 DAPedidoWebDetalle dAPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
-
-                #region Consultora Programa Nuevas
-
-                BEConsultorasProgramaNuevas beConsultoraProgramaNuevas = null;
-                var daConsultoraProgramaNuevas = new DAConsultorasProgramaNuevas(paisID);
-
-                using (IDataReader reader = daConsultoraProgramaNuevas.GetConsultorasProgramaNuevasByConsultoraIdAndCampania(consultoraID, campaniaID.ToString()))
-                {
-                    if (reader.Read())
-                        beConsultoraProgramaNuevas = new BEConsultorasProgramaNuevas(reader);
-                }
-
-                int numeroPedido = 0;
-                string codigoPrograma = "";
-                if (beConsultoraProgramaNuevas != null)
-                {
-                    numeroPedido = beConsultoraProgramaNuevas.ConsecutivoNueva;
-                    codigoPrograma = beConsultoraProgramaNuevas.CodigoPrograma ?? "";
-                }
-
-                #endregion
-
+                
                 var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
                 {
                     PaisId = paisID,
                     CampaniaId = campaniaID,
                     ConsultoraId = consultoraID,
-                    Consultora = "",
-                    CodigoPrograma = codigoPrograma,
-                    NumeroPedido = numeroPedido
+                    Consultora = ""
                 };
+
+                var consulProgNuevas = new BLConsultorasProgramaNuevas().GetByConsultoraIdAndCampania(paisID, consultoraID, campaniaID.ToString());
+                if (consulProgNuevas != null)
+                {
+                    bePedidoWebDetalleParametros.NumeroPedido = consulProgNuevas.ConsecutivoNueva;
+                    bePedidoWebDetalleParametros.CodigoPrograma = consulProgNuevas.CodigoPrograma ?? "";
+                }
 
                 List<BEPedidoWebDetalle> olstPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
                 List<BEMisPedidosDetalle> listDetallesClienteOnline = new BLConsultoraOnline().GetMisPedidosDetalle(paisID, solicitudId.ToInt()).ToList();

@@ -37,7 +37,7 @@ namespace Portal.Consultoras.BizLogic
         private readonly IPedidoRechazadoBusinessLogic _pedidoRechazadoBusinessLogic;
         private readonly IResumenCampaniaBusinessLogic _resumenCampaniaBusinessLogic;
         private readonly IConsultoraLiderBusinessLogic _consultoraLiderBusinessLogic;
-
+        private readonly IConsultorasProgramaNuevasBusinessLogic _consultorasProgramaNuevasBusinessLogic;
 
         public BLUsuario() : this(new BLTablaLogicaDatos(),
                                     new BLConsultoraConcurso(),
@@ -47,7 +47,8 @@ namespace Portal.Consultoras.BizLogic
                                     new BLConfiguracionPaisDatos(),
                                     new BLPedidoRechazado(),
                                     new BLResumenCampania(),
-                                    new BLConsultoraLider())
+                                    new BLConsultoraLider(),
+                                    new BLConsultorasProgramaNuevas())
         { }
 
         public BLUsuario(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic,
@@ -58,7 +59,8 @@ namespace Portal.Consultoras.BizLogic
                         IConfiguracionPaisDatosBusinessLogic configuracionPaisDatosBusinessLogic,
                         IPedidoRechazadoBusinessLogic pedidoRechazadoBusinessLogic,
                         IResumenCampaniaBusinessLogic resumenCampaniaBusinessLogic,
-                        IConsultoraLiderBusinessLogic consultoraLiderBusinessLogic)
+                        IConsultoraLiderBusinessLogic consultoraLiderBusinessLogic,
+                        IConsultorasProgramaNuevasBusinessLogic consultorasProgramaNuevasBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
@@ -69,6 +71,7 @@ namespace Portal.Consultoras.BizLogic
             _pedidoRechazadoBusinessLogic = pedidoRechazadoBusinessLogic;
             _resumenCampaniaBusinessLogic = resumenCampaniaBusinessLogic;
             _consultoraLiderBusinessLogic = consultoraLiderBusinessLogic;
+            _consultorasProgramaNuevasBusinessLogic = consultorasProgramaNuevasBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -898,16 +901,11 @@ namespace Portal.Consultoras.BizLogic
         
         public void UpdUsuarioProgramaNuevas(BEUsuario usuario, long consultoraId, int campania)
         {
-            BEConsultorasProgramaNuevas beConsultoraProgramaNuevas = null;            
-            using (IDataReader reader = new DAConsultorasProgramaNuevas(usuario.PaisID).GetConsultorasProgramaNuevasByConsultoraIdAndCampania(usuario.ConsultoraID, usuario.CampaniaID.ToString()))
+            var consulProgNuevas = _consultorasProgramaNuevasBusinessLogic.GetByConsultoraIdAndCampania(usuario.PaisID, usuario.ConsultoraID, usuario.CampaniaID.ToString());
+            if (consulProgNuevas != null)
             {
-                beConsultoraProgramaNuevas = reader.MapToObject<BEConsultorasProgramaNuevas>(true, true);
-            }
-
-            if (beConsultoraProgramaNuevas != null)
-            {
-                usuario.ConsecutivoNueva = beConsultoraProgramaNuevas.ConsecutivoNueva;
-                usuario.CodigoPrograma = beConsultoraProgramaNuevas.CodigoPrograma ?? "";
+                usuario.ConsecutivoNueva = consulProgNuevas.ConsecutivoNueva;
+                usuario.CodigoPrograma = consulProgNuevas.CodigoPrograma ?? "";
             }
         }
         public void UpdUsuarioProgramaNuevas(BEUsuario usuario)
