@@ -7,9 +7,15 @@
         <h3>Elige {{this.FactorCuadre}} opciones</h3>
         {{/iff}}
     {{else}}
-        {{#iff this.cantidadFaltantes '>' '0'}}
-        <h3>Te Falta {{this.cantidadFaltantes}} opciones</h3>
-        {{else}}
+        {{#iff this.cantidadFaltantes '>' '1'}}
+        <h3>Te Faltan {{this.cantidadFaltantes}} opciones</h3>
+        {{/iff}}
+    
+        {{#iff this.cantidadFaltantes '==' '1'}}
+        <h3>Te Falta 1 opción</h3>
+        {{/iff}}
+
+        {{#iff this.cantidadFaltantes '==' '0'}}
         <h3>¡Listo! <span>ya tienes tu</span> opción</h3>
         {{/iff}}
     {{/iff}}
