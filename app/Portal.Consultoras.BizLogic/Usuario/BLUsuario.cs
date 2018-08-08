@@ -37,7 +37,7 @@ namespace Portal.Consultoras.BizLogic
         private readonly IPedidoRechazadoBusinessLogic _pedidoRechazadoBusinessLogic;
         private readonly IResumenCampaniaBusinessLogic _resumenCampaniaBusinessLogic;
         private readonly IConsultoraLiderBusinessLogic _consultoraLiderBusinessLogic;
-
+        private readonly IConsultorasProgramaNuevasBusinessLogic _consultorasProgramaNuevasBusinessLogic;
 
         public BLUsuario() : this(new BLTablaLogicaDatos(),
                                     new BLConsultoraConcurso(),
@@ -47,7 +47,8 @@ namespace Portal.Consultoras.BizLogic
                                     new BLConfiguracionPaisDatos(),
                                     new BLPedidoRechazado(),
                                     new BLResumenCampania(),
-                                    new BLConsultoraLider())
+                                    new BLConsultoraLider(),
+                                    new BLConsultorasProgramaNuevas())
         { }
 
         public BLUsuario(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic,
@@ -58,7 +59,8 @@ namespace Portal.Consultoras.BizLogic
                         IConfiguracionPaisDatosBusinessLogic configuracionPaisDatosBusinessLogic,
                         IPedidoRechazadoBusinessLogic pedidoRechazadoBusinessLogic,
                         IResumenCampaniaBusinessLogic resumenCampaniaBusinessLogic,
-                        IConsultoraLiderBusinessLogic consultoraLiderBusinessLogic)
+                        IConsultoraLiderBusinessLogic consultoraLiderBusinessLogic,
+                        IConsultorasProgramaNuevasBusinessLogic consultorasProgramaNuevasBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
@@ -69,6 +71,7 @@ namespace Portal.Consultoras.BizLogic
             _pedidoRechazadoBusinessLogic = pedidoRechazadoBusinessLogic;
             _resumenCampaniaBusinessLogic = resumenCampaniaBusinessLogic;
             _consultoraLiderBusinessLogic = consultoraLiderBusinessLogic;
+            _consultorasProgramaNuevasBusinessLogic = consultorasProgramaNuevasBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -271,19 +274,7 @@ namespace Portal.Consultoras.BizLogic
                 if (usuario == null) return null;
 
                 usuario.EsConsultoraNueva = EsConsultoraNueva(usuario);
-
-                BEConsultorasProgramaNuevas beConsultoraProgramaNuevas = null;
-                var daConsultoraProgramaNuevas = new DAConsultorasProgramaNuevas(paisID);
-                using (IDataReader reader = daConsultoraProgramaNuevas.GetConsultorasProgramaNuevasByConsultoraId(usuario.ConsultoraID))
-                {
-                    if (reader.Read()) beConsultoraProgramaNuevas = new BEConsultorasProgramaNuevas(reader);
-                }
-                if (beConsultoraProgramaNuevas != null)
-                {
-                    usuario.ConsecutivoNueva = beConsultoraProgramaNuevas.ConsecutivoNueva;
-                    usuario.CodigoPrograma = beConsultoraProgramaNuevas.CodigoPrograma ?? "";
-                }
-
+                new BLUsuario().UpdUsuarioProgramaNuevas(usuario);
                 usuario.FotoOriginalSinModificar = usuario.FotoPerfil;
                 usuario.FotoPerfilAncha = false;
 
@@ -292,8 +283,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     imagenS3 = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
-                }
-                    
+                }                    
 
                 if (Common.Util.IsUrl(usuario.FotoPerfil))
                 {
@@ -537,12 +527,8 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
-                var programaNuevas = GetProgramaNuevas(usuario);
-                if (programaNuevas != null)
-                {
-                    usuario.ConsecutivoNueva = programaNuevas.ConsecutivoNueva;
-                    usuario.CodigoPrograma = programaNuevas.CodigoPrograma ?? string.Empty;
-                }
+                try { UpdUsuarioProgramaNuevas(usuario); }
+                catch (Exception ex) { LogManager.SaveLog(ex, CodigoUsuarioLog, PaisIDLog); }
 
                 var terminosCondicionesTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppTerminosCondiciones));
                 var politicaPrivacidadTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppPoliticaPrivacidad));
@@ -912,24 +898,19 @@ namespace Portal.Consultoras.BizLogic
 
             return oResponse ?? new BECuponConsultora();
         }
-
-        public BEConsultorasProgramaNuevas GetProgramaNuevas(BEUsuario usuario)
+        
+        public void UpdUsuarioProgramaNuevas(BEUsuario usuario, long consultoraId, int campania)
         {
-            BEConsultorasProgramaNuevas beConsultoraProgramaNuevas = null;
-
-            try
+            var consulProgNuevas = _consultorasProgramaNuevasBusinessLogic.GetByConsultoraIdAndCampania(usuario.PaisID, usuario.ConsultoraID, usuario.CampaniaID.ToString());
+            if (consulProgNuevas != null)
             {
-                using (IDataReader reader = new DAConsultorasProgramaNuevas(usuario.PaisID).GetConsultorasProgramaNuevasByConsultoraId(usuario.ConsultoraID))
-                {
-                    beConsultoraProgramaNuevas = reader.MapToObject<BEConsultorasProgramaNuevas>(true);
-                }
+                usuario.ConsecutivoNueva = consulProgNuevas.ConsecutivoNueva;
+                usuario.CodigoPrograma = consulProgNuevas.CodigoPrograma ?? "";
             }
-            catch (Exception ex)
-            {
-                LogManager.SaveLog(ex, CodigoUsuarioLog, PaisIDLog);
-            }
-
-            return beConsultoraProgramaNuevas;
+        }
+        public void UpdUsuarioProgramaNuevas(BEUsuario usuario)
+        {
+            UpdUsuarioProgramaNuevas(usuario, usuario.ConsultoraID, usuario.CampaniaID);
         }
 
         public string GetUsuarioAsociado(int paisID, string codigoConsultora)

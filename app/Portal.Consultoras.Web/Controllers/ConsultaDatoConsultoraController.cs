@@ -623,9 +623,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-
                     olstPedido = sv.SelectByCampania(bePedidoWebDetalleParametros).ToList();
-
                 }
 
                 decimal total = 0;
