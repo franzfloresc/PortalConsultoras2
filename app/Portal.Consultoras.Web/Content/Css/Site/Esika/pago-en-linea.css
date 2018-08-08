@@ -44,6 +44,10 @@
     margin-bottom:16px;
 }
 
+.pt-12{
+    padding-top:12px!important;
+}
+
 .pl-8{
     padding-left:8px;
 }
@@ -1602,4 +1606,12 @@
     height: 30px;
     line-height: 30px;
     padding-left: 20px;
+    position:relative;
+    z-index:2;
+}
+
+.input_global .btn_imprimir{
+    font-family:'Lato', sans-serif;
+    font-size:13px;
+    float:none;
 }
