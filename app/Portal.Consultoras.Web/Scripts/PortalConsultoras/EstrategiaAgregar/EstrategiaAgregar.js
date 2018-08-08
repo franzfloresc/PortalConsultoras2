@@ -313,7 +313,7 @@ var EstrategiaAgregarModule = (function () {
 
             $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
 
-            AbrirLoad();
+            //AbrirLoad();
 
             if (divAgregado != null) {
                 if (typeof divAgregado.length != "undefined" && divAgregado.length > 0) {

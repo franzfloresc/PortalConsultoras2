@@ -7,10 +7,27 @@ var ResumenOpcionesModule = (function () {
     var _componente = {};
     var template = "";
 
+    var _actualizarCantidadSeleccionada = function (_componente) {
+        $.each(_componente.Hermanos, function (index, hermano) {
+            hermano.cantidadSeleccionada = 0;
+            $.each(_componente.ResumenSeleccionados, function (index2, item) {
+                if (hermano.Cuv === item.Cuv) {
+                    hermano.cantidadSeleccionada++;
+                }
+            });
+        });
+        return false;
+    };
+
     var _cargarOpcionesElegidas = function() {
         _componente = ListaOpcionesModule.GetComponente() || _componente;
+        _componente.ResumenSeleccionados = _componente.HermanosSeleccionados;
+        _componente.HermanosSeleccionados = [];
+
         if (typeof _componente.Cuv === "undefined" ||
             typeof _componente.Hermanos.length === "undefined") return false;
+
+        _actualizarCantidadSeleccionada(_componente);
 
         var template = "#resumen-opciones-" + _componente.Cuv;
         var templateSiblings = $(template).siblings(".tono_select_opt").hide();

@@ -44,6 +44,16 @@ var ListaOpcionesModule = (function () {
         },
         liCantidadOpciones : {
             id: "#li-cantidad-opciones-"
+        },
+        divElegirOpciones: {
+            id: "#elegir-opciones-modal",
+            marginRight: "0",
+            opacity: "1",
+            modalFondo: {
+                id: ".modal-fondo",
+                opacity: ".7"
+            }
+
         }
     };
 
@@ -62,9 +72,11 @@ var ListaOpcionesModule = (function () {
         $.each(_componente.Hermanos,function(index, hermano) {
             hermano.cantidadSeleccionada = hermano.cantidadSeleccionada || 0;
         });
-        _componente.HermanosSeleccionados = componente.HermanosSeleccionados ||[];
-        if (_componente.HermanosSeleccionados.length > 0) {
+        _componente.HermanosSeleccionados = componente.HermanosSeleccionados || [];
+        _componente.ResumenSeleccionados = componente.ResumenSeleccionados || [];
+        if (_componente.ResumenSeleccionados.length > 0) {
             // TODO : Mejorar validacion
+            _componente.HermanosSeleccionados = jQuery.extend(true, [], _componente.ResumenSeleccionados);
             $(_elements.btnAplicarSeleccion.id)
                 .removeClass(_elements.btnAplicarSeleccion.disabledClass)
                 .addClass(_elements.btnAplicarSeleccion.activeClass);
@@ -104,7 +116,7 @@ var ListaOpcionesModule = (function () {
                 if (cuv === hermano.Cuv) {
                     opcion = _componente.Hermanos[index];
                     opcion.cantidadSeleccionada = opcion.cantidadSeleccionada || 0;
-                    opcion.cantidadSeleccionada++;
+                    //opcion.cantidadSeleccionada++;
                     $(_elements.btnEligelo.id + cuv).text(_elements.btnEligelo.textElegido);
                     $(_elements.btnEligelo.id + cuv).addClass(_elements.btnEligelo.activeClass);
                     _moverListaOpcionesMostrarSeleccionados();
@@ -139,12 +151,12 @@ var ListaOpcionesModule = (function () {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {
                 hermanoSeleccionadoIndex = index1;
-                $.each(_componente.Hermanos, function (index2, item) {
-                    if (hermano.Cuv === item.Cuv) {
-                        item.cantidadSeleccionada = item.cantidadSeleccionada > 0? (item.cantidadSeleccionada - 1) : 0;
-                        return false;
-                    }
-                });
+                //$.each(_componente.Hermanos, function (index2, item) {
+                //    if (hermano.Cuv === item.Cuv) {
+                //        item.cantidadSeleccionada = item.cantidadSeleccionada > 0 ? (item.cantidadSeleccionada - 1) : 0;
+                //        return false;
+                //    }
+                //});
                 return false;
             }
         });
@@ -166,17 +178,28 @@ var ListaOpcionesModule = (function () {
         $(_elements.btnEligelo.id + cuv).removeClass(_elements.btnEligelo.activeClass);
 
         return false;
-    }
+    };
 
     var GetComponente = function () {
         return _componente;
+    };
+
+    var closeElegirOpcionesModal = function () {
+        _componente.HermanosSeleccionados = [];
+        if (_componente.ResumenSeleccionados.length == 0) {
+            $.each(_componente.Hermanos, function (index, item) {
+                item.cantidadSeleccionada = 0;
+            });
+        }
+        $(_elements.divElegirOpciones.id).modal("hide");
     }
 
     return {
         ListarOpciones: ListarOpciones,
         SeleccionarOpcion: SeleccionarOpcion,
         EliminarOpcion: EliminarOpcion,
-        GetComponente: GetComponente
+        GetComponente: GetComponente,
+        CloseElegirOpcionesModal: closeElegirOpcionesModal
     };
 }());
 

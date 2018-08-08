@@ -103,13 +103,13 @@ var ComponentesModule = (function () {
                 var componente = {};
                 componente = _estrategia.Hermanos[index];
 
-                componente.HermanosSeleccionados = [];
+                componente.ResumenSeleccionados = [];
 
                 $.each(componente.Hermanos, function (index, item) {
                     item.cantidadSeleccionada = 0;
                     if (cuv === item.Cuv) {
                         var opcion = item;
-                        componente.HermanosSeleccionados.push(opcion);
+                        componente.ResumenSeleccionados.push(opcion);
                         item.cantidadSeleccionada = 1;
                     }
                 });
