@@ -56,7 +56,6 @@ $(document).ready(function () {
                 $('.opcion_limpiar_campo_busqueda_productos').fadeOut(100);
                 $('.enlace_busqueda_productos').delay(50);
                 $('.enlace_busqueda_productos').fadeIn(100);
-                $('#ResultadoBuscador').html('');
             }
         },
             me.Eventos = {
@@ -280,6 +279,15 @@ $(document).ready(function () {
                 setTimeout(function () {
                     me.Funciones.ModificarAnchoBuscadorFiltros();
                 }, 1000);
+                $(document).on("click", function (e) {
+                    var buscadorProductos = $(".buscador_productos");
+                    if (!buscadorProductos.is(e.target) && buscadorProductos.has(e.target).length === 0) {
+                        me.Funciones.CampoDeBusquedaSinCaracteres($('#CampoBuscadorProductos'));
+                        $('#CampoBuscadorProductos').val('');
+                        $('#CampoBuscadorProductos').focus();
+                        $('#ResultadoBuscador').html('');
+                    }
+                });
             }
     }
 
