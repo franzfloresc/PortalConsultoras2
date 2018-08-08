@@ -284,7 +284,6 @@ $(document).ready(function () {
                     if (!buscadorProductos.is(e.target) && buscadorProductos.has(e.target).length === 0) {
                         me.Funciones.CampoDeBusquedaSinCaracteres($('#CampoBuscadorProductos'));
                         $('#CampoBuscadorProductos').val('');
-                        $('#CampoBuscadorProductos').focus();
                         $('#ResultadoBuscador').html('');
                     }
                 });
@@ -313,8 +312,6 @@ $(document).keyup(function (e) {
             $('#CampoBuscadorProductos').val('');
             $('#CampoBuscadorProductos').focus();
             $('#ResultadoBuscador').html('');
-        } else {
-            console.log('no exite');
         }
     }
 });
