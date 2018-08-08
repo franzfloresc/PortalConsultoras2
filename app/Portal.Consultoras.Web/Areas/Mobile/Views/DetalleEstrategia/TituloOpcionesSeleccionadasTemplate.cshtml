@@ -1,16 +1,26 @@
 ﻿<script id="titulo-opciones-seleccionadas-template" type="text/x-handlebars-template">
-    @*titulo cuando se elegio las opciones*@
-    @*<h3>¡Listo! <span>ya tienes tu</span> opción</h3>*@
 
-    {{#iff this.HermanosSeleccionados.length '==' this.FactorCuadre}}
-    <h3>¡Listo! <span>ya tienes tu</span> opción</h3>
+    {{#iff this.HermanosSeleccionados.length '==' '0'}}
+        {{#iff this.FactorCuadre '==' '1'}}
+        <h3>Elige 1 opción</h3>
+        {{else}}
+        <h3>Elige {{this.FactorCuadre}} opciones</h3>
+        {{/iff}}
     {{else}}
-    {{#iff this.FactorCuadre '==' '1'}}
-    <h3>Elige 1 opción</h3>
-    {{else}}
-    <h3>Elige {{this.FactorCuadre}} opciones</h3>
+        {{#iff this.cantidadFaltantes '>' '0'}}
+        <h3>Te Falta {{this.cantidadFaltantes}} opciones</h3>
+        {{else}}
+        <h3>¡Listo! <span>ya tienes tu</span> opción</h3>
+        {{/iff}}
     {{/iff}}
-    {{/iff}}
-    <p>{{this.HermanosSeleccionados.length}} seleccionados</p>
+
+    <p>
+        {{#iff this.HermanosSeleccionados.length '==' '1'}}
+            1 seleccionado
+        {{else}}
+            {{this.HermanosSeleccionados.length}} seleccionados
+        {{/iff}}
+    </p>
     <button data-dismiss="modal" aria-label="Close" class="button_cerrar"><img src="/Content/Images/mobile/Esika/close-button.svg" alt=""></button>
+
 </script>

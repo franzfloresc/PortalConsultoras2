@@ -59,8 +59,10 @@ var ListaOpcionesModule = (function () {
         //
         _componente = componente;
         _componente.Hermanos = componente.Hermanos || [];
+        _componente.cantidadFaltantes = _componente.cantidadFaltantes || _componente.FactorCuadre || 0;
         $.each(_componente.Hermanos,function(index, hermano) {
             hermano.cantidadSeleccionada = hermano.cantidadSeleccionada || 0;
+            hermano.cantidadFaltantes = hermano.FactorCuadre || 0;
         });
         _componente.HermanosSeleccionados = componente.HermanosSeleccionados ||[];
         if (_componente.HermanosSeleccionados.length > 0) {
@@ -88,32 +90,42 @@ var ListaOpcionesModule = (function () {
             $(_elements.listaOpciones.id).css("padding-top", "161px");
     };
 
-    var SeleccionarOpcion = function(event, cuv) {
-        if (_componente.FactorCuadre === _componente.HermanosSeleccionados.length) {
-            return false;
-        }
-        //
+    var _actualizarCantidadFaltantes = function() {
+        var cantidadTotal = 0;
+        $.each(_componente.HermanosSeleccionados, function (index, hermanoSeleccionado) {
+            cantidadTotal += hermanoSeleccionado.cantidadSeleccionada;
+        });
+        _componente.cantidadFaltantes = _componente.FactorCuadre - cantidadTotal;
+    };
+    
+    var SeleccionarOpcion = function (cuv) {
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param componente is not defined or null";
         //
+        if (_componente.FactorCuadre === _componente.HermanosSeleccionados.length) {
+            return false;
+        }
+        //
+        cuv = $.trim(cuv);
         var opcion = {};
-        $.each(_componente.Hermanos,
-            function(index, hermano) {
-                cuv = $.trim(cuv);
-                if (cuv === hermano.Cuv) {
-                    opcion = _componente.Hermanos[index];
-                    opcion.cantidadSeleccionada = opcion.cantidadSeleccionada || 0;
-                    opcion.cantidadSeleccionada++;
-                    $(_elements.btnEligelo.id + cuv).text(_elements.btnEligelo.textElegido);
-                    $(_elements.btnEligelo.id + cuv).addClass(_elements.btnEligelo.activeClass);
-                    _moverListaOpcionesMostrarSeleccionados();
-                    return false;
-                }
-            });
+        $.each(_componente.Hermanos, function(index, hermano) {
+            if (cuv === hermano.Cuv) {
+                opcion = _componente.Hermanos[index];
+                opcion.cantidadSeleccionada = opcion.cantidadSeleccionada || 0;
+                opcion.cantidadSeleccionada++;
+                return false;
+            }
+        });
         //
         if (typeof opcion === "undefined" || opcion === null) throw "var opcion is not defined or null";
         _componente.HermanosSeleccionados.push(opcion);
+        _actualizarCantidadFaltantes();
+        _moverListaOpcionesMostrarSeleccionados();
+        if (_componente.FactorCuadre === 1) {
+            $(_elements.btnEligelo.id + cuv).text(_elements.btnEligelo.textElegido);
+            $(_elements.btnEligelo.id + cuv).addClass(_elements.btnEligelo.activeClass);
+        }
         if (_componente.FactorCuadre > 1) {
             $(_elements.liEligelo.id + cuv).hide();
             $(_elements.liCantidadOpciones.id + cuv).show();
@@ -141,7 +153,7 @@ var ListaOpcionesModule = (function () {
                 hermanoSeleccionadoIndex = index1;
                 $.each(_componente.Hermanos, function (index2, item) {
                     if (hermano.Cuv === item.Cuv) {
-                        item.cantidadSeleccionada = item.cantidadSeleccionada > 0? (item.cantidadSeleccionada - 1) : 0;
+                        item.cantidadSeleccionada = item.cantidadSeleccionada > 0 ? (item.cantidadSeleccionada - 1) : 0;
                         return false;
                     }
                 });
@@ -152,6 +164,7 @@ var ListaOpcionesModule = (function () {
         if (typeof hermanoSeleccionadoIndex !== "undefined") {
             _componente.HermanosSeleccionados.splice(hermanoSeleccionadoIndex, 1);
             _moverListaOpcionesOcultarSeleccionados();
+            _actualizarCantidadFaltantes();
 
             opcionesEvents.applyChanges("onOptionSelected", _componente);
 
