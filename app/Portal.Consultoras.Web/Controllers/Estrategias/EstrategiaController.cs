@@ -504,8 +504,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 }
                 else if (palanca == Constantes.NombrePalanca.OfertaDelDia)
                 {
-                    var oddSession = sessionManager.OfertaDelDia.Estrategia;
-                    listaOfertasModel = oddSession.ListaOferta;
+                    var oddSession = _ofertaPersonalizadaProvider.ObtenerListaProductoODD();
                 }
                 else if (palanca == Constantes.NombrePalanca.PackNuevas)
                 {
