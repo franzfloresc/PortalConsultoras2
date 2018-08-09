@@ -115,7 +115,7 @@ var ListaOpcionesModule = (function () {
             $(_elements.listaOpciones.id).css("padding-top", "161px");
     };
     
-    var SeleccionarOpcion = function (cuv) {
+    var SeleccionarOpcion = function (cuv, event) {
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param componente is not defined or null";
@@ -124,6 +124,9 @@ var ListaOpcionesModule = (function () {
             return false;
         }
         //
+        if (!(typeof event === "undefined"))
+        EstrategiaAgregarModule.AdicionarCantidad(event);
+
         cuv = $.trim(cuv);
         var opcion = {};
         $.each(_componente.Hermanos, function(index, hermano) {
@@ -158,10 +161,13 @@ var ListaOpcionesModule = (function () {
         return false;
     };
 
-    var EliminarOpcion = function (cuv) {
+    var EliminarOpcion = function (cuv, event) {
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param componente is not defined or null";
+
+        if (!(typeof event === "undefined"))
+            EstrategiaAgregarModule.DisminuirCantidad(event);   
 
         var hermanoSeleccionadoIndex;
         $.each(_componente.HermanosSeleccionados, function (index1, hermano) {
