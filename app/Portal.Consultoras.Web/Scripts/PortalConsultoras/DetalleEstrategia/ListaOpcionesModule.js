@@ -63,22 +63,37 @@ var ListaOpcionesModule = (function () {
             $(_elements.listaOpciones.id).css("padding-top", "63px");
     };
 
+    var _actualizarCantidadFaltantes = function () {
+        var cantidadTotal = 0;
+        $.each(_componente.HermanosSeleccionados, function (index, hermanoSeleccionado) {
+            cantidadTotal += hermanoSeleccionado.cantidadSeleccionada;
+        });
+        _componente.cantidadFaltantes = _componente.FactorCuadre - cantidadTotal;
+    };
+
     var ListarOpciones = function (componente) {
         if (typeof componente === "undefined" ||
             componente === null) throw "param componente is not defined or null";
         //
         _componente = componente;
         _componente.Hermanos = componente.Hermanos || [];
+        _componente.HermanosSeleccionados = componente.HermanosSeleccionados || [];
+        _componente.resumenAplicados = componente.resumenAplicados || [];
         _componente.cantidadFaltantes = _componente.cantidadFaltantes || _componente.FactorCuadre || 0;
-        $.each(_componente.Hermanos,function(index, hermano) {
+        $.each(_componente.Hermanos, function (index, hermano) {
+            hermano = _componente.Hermanos[index];
             hermano.cantidadSeleccionada = hermano.cantidadSeleccionada || 0;
             hermano.cantidadFaltantes = hermano.FactorCuadre || 0;
+            hermano.cantidadAplicada = hermano.cantidadAplicada || 0;
         });
-        _componente.HermanosSeleccionados = componente.HermanosSeleccionados || [];
-        _componente.ResumenSeleccionados = componente.ResumenSeleccionados || [];
-        if (_componente.ResumenSeleccionados.length > 0) {
+        //
+        $(_elements.listaOpciones.id).html("");
+        SetHandlebars(_elements.listaOpciones.templateId, _componente, _elements.listaOpciones.id);
+        //
+        if (_componente.resumenAplicados.length > 0) {
             // TODO : Mejorar validacion
-            _componente.HermanosSeleccionados = jQuery.extend(true, [], _componente.ResumenSeleccionados);
+            _componente.HermanosSeleccionados = jQuery.extend(true, [], _componente.resumenAplicados);
+            _actualizarCantidadFaltantes();
             $(_elements.btnAplicarSeleccion.id)
                 .removeClass(_elements.btnAplicarSeleccion.disabledClass)
                 .addClass(_elements.btnAplicarSeleccion.activeClass);
@@ -88,26 +103,16 @@ var ListaOpcionesModule = (function () {
                 .removeClass(_elements.btnAplicarSeleccion.activeClass)
                 .addClass(_elements.btnAplicarSeleccion.disabledClass);
         }
-
-        $(_elements.listaOpciones.id).html("");
-        SetHandlebars(_elements.listaOpciones.templateId, _componente, _elements.listaOpciones.id);
         setTimeout(function() {
             opcionesEvents.applyChanges("onOptionSelected", _componente);
         }, 200);
+        //
         return false;
     };
 
     var _moverListaOpcionesMostrarSeleccionados = function () {
         if (isMobile())
             $(_elements.listaOpciones.id).css("padding-top", "161px");
-    };
-
-    var _actualizarCantidadFaltantes = function() {
-        var cantidadTotal = 0;
-        $.each(_componente.HermanosSeleccionados, function (index, hermanoSeleccionado) {
-            cantidadTotal += hermanoSeleccionado.cantidadSeleccionada;
-        });
-        _componente.cantidadFaltantes = _componente.FactorCuadre - cantidadTotal;
     };
     
     var SeleccionarOpcion = function (cuv) {
@@ -125,7 +130,7 @@ var ListaOpcionesModule = (function () {
             if (cuv === hermano.Cuv) {
                 opcion = _componente.Hermanos[index];
                 opcion.cantidadSeleccionada = opcion.cantidadSeleccionada || 0;
-                //opcion.cantidadSeleccionada++;
+                opcion.cantidadSeleccionada++;
                 return false;
             }
         });
@@ -163,12 +168,12 @@ var ListaOpcionesModule = (function () {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {
                 hermanoSeleccionadoIndex = index1;
-                //$.each(_componente.Hermanos, function (index2, item) {
-                //    if (hermano.Cuv === item.Cuv) {
-                //        item.cantidadSeleccionada = item.cantidadSeleccionada > 0 ? (item.cantidadSeleccionada - 1) : 0;
-                //        return false;
-                //    }
-                //});
+                $.each(_componente.Hermanos, function (index2, item) {
+                    if (hermano.Cuv === item.Cuv) {
+                        item.cantidadSeleccionada = item.cantidadSeleccionada > 0 ? (item.cantidadSeleccionada - 1) : 0;
+                        return false;
+                    }
+                });
                 return false;
             }
         });
@@ -197,9 +202,9 @@ var ListaOpcionesModule = (function () {
         return _componente;
     };
 
-    var closeElegirOpcionesModal = function () {
+    var CloseElegirOpcionesModal = function () {
         _componente.HermanosSeleccionados = [];
-        if (_componente.ResumenSeleccionados.length == 0) {
+        if (_componente.resumenAplicados.length == 0) {
             $.each(_componente.Hermanos, function (index, item) {
                 item.cantidadSeleccionada = 0;
             });
@@ -212,7 +217,7 @@ var ListaOpcionesModule = (function () {
         SeleccionarOpcion: SeleccionarOpcion,
         EliminarOpcion: EliminarOpcion,
         GetComponente: GetComponente,
-        CloseElegirOpcionesModal: closeElegirOpcionesModal
+        CloseElegirOpcionesModal: CloseElegirOpcionesModal
     };
 }());
 

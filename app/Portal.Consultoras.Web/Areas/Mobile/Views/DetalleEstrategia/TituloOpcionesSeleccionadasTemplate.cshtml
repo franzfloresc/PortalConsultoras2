@@ -5,7 +5,7 @@
         <h3>Elige 1 opción</h3>
         {{else}}
         <h3>Elige {{this.FactorCuadre}} opciones</h3>
-        {{/iff}}
+        {{/iff}}        
     {{else}}
         {{#iff this.cantidadFaltantes '>' '1'}}
         <h3>Te Faltan {{this.cantidadFaltantes}} opciones</h3>
@@ -16,11 +16,20 @@
         {{/iff}}
 
         {{#iff this.cantidadFaltantes '==' '0'}}
-            {{#iff this.HermanosSeleccionados.length '==' '1'}}
-                 <h3>¡Listo! <span>ya tienes tu</span> opción</h3>
+            {{#iff this.resumenAplicados.length '==' '0'}}
+                {{#iff this.HermanosSeleccionados.length '==' '1'}}
+                     <h3>¡Listo! <span>ya tienes tu</span> opción</h3>
+                {{else}}
+                     <h3>¡Listo! <span>ya tienes tus</span> {{this.HermanosSeleccionados.length}} opciones</h3>
+                {{/iff}}
             {{else}}
-                 <h3>¡Listo! <span>ya tienes tus</span> {{this.HermanosSeleccionados.length}} opciones</h3>
+                {{#iff this.HermanosSeleccionados.length '==' '1'}}
+                     <h3>Cambia tu opción</h3>
+                {{else}}
+                     <h3>Cambia tus {{this.HermanosSeleccionados.length}} opciones</h3>
+                {{/iff}}
             {{/iff}}
+            
         {{/iff}}
     {{/iff}}
 

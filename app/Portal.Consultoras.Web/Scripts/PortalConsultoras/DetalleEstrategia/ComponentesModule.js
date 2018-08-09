@@ -77,6 +77,7 @@ var ComponentesModule = (function () {
                 var componente = {};
                 componente = _estrategia.Hermanos[index];
                 _mostrarModalElegirOpciones();
+                //
                 opcionesEvents.applyChanges("onComponentSelected", componente);
                 return false;
             }
@@ -103,13 +104,13 @@ var ComponentesModule = (function () {
                 var componente = {};
                 componente = _estrategia.Hermanos[index];
 
-                componente.ResumenSeleccionados = [];
+                componente.resumenAplicados = [];
 
                 $.each(componente.Hermanos, function (index, item) {
                     item.cantidadSeleccionada = 0;
                     if (cuv === item.Cuv) {
                         var opcion = item;
-                        componente.ResumenSeleccionados.push(opcion);
+                        componente.resumenAplicados.push(opcion);
                         item.cantidadSeleccionada = 1;
                     }
                 });

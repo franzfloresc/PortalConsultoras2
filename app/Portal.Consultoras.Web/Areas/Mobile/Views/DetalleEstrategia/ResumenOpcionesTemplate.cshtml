@@ -1,7 +1,7 @@
 ﻿
 <script id="resumen-opciones-template" type="text/x-handlebars-template">
     {{#each this.Hermanos as |componente|}}
-        {{#iff componente.cantidadSeleccionada '>' 0}}
+        {{#iff componente.cantidadAplicada '>' 0}}
         <div data-tono="" data-tono-select="{{componente.Cuv}}" data-tono-marca-id="{{componente.MarcaID}}" data-tono-precio-catalogo="{{componente.PrecioCatalogo}}">
             <ul class="tono_selecionado_item">
                 <li class="imagen_selecionado"><img src="{{componente.ImagenBulk}}" alt="" /></li>
@@ -10,5 +10,12 @@
         </div>
         {{/iff}}
     {{/each}}
-    <a class="btn_cambiar_opciones" href="#" onclick="javascript: ComponentesModule.SeleccionarComponente('{{this.Cuv}}')">Cambiar opciones <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="" /></a>
+    <a class="btn_cambiar_opciones" href="#" onclick="javascript: ComponentesModule.SeleccionarComponente('{{this.Cuv}}')">
+        {{#iff this.FactorCuadre '==' '1'}}
+        Cambiar opción
+        {{else}}
+        Cambiar opciones
+        {{/iff}}
+        <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="" />
+    </a>
 </script>
