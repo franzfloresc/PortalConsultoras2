@@ -101,7 +101,8 @@ header {
 .menu_esika_b {
     height: 60px;
     float: right;
-    min-width:242px!important;
+    width:auto!important;
+    min-width:216px!important;
     max-width: 31%;
 }
 
@@ -247,6 +248,27 @@ header {
     height: 40px;
     float: left;
     position: relative;
+}
+
+.new_menu[data-codigo="contenedorofertas"]{
+    margin-top:19px!important;
+}
+
+.new_menu[data-codigo="contenedorofertas"] a{
+    display:block;
+    width: 144px;
+    overflow: hidden;
+}
+
+.new_menu[data-codigo="contenedorofertas"] a img{
+    display:block;
+    position: absolute;
+    margin:auto 0;
+    top: 0;
+    left: 0;
+    bottom:0;
+    width: 192.36px;
+    height: auto;
 }
 
 .flecha_menu {
@@ -17330,7 +17352,9 @@ body, html {
 }
 
 .invisible {
-    visibility: hidden;
+    /*visibility:hidden;*/
+    display:none;
+    margin-left:0;
 }
 
 .div-3 .selectP3 {
@@ -36590,9 +36614,9 @@ h1#penmostreo .campana {
 
 /* HD-2521 - HOMOLOGACIÓN Y FOTO */
 
-.margenIzquierdoOpcionNotificacion{
+/*.margenIzquierdoOpcionNotificacion{
     margin-left:14px;
-}
+}*/
 
 .borde_der_foto_consultora{
     float:none;
@@ -36749,11 +36773,11 @@ h1#penmostreo .campana {
 }
 
 .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
-    width:627px!important;
+    width:582px!important;
 }
 
 .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika.anchoMenu_sinEnlaceSociaEmpresaria{
-    width:520px!important;
+    width:476px!important;
 }
 
 /*.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
