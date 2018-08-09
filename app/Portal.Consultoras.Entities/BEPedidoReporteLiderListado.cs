@@ -79,46 +79,47 @@ namespace Portal.Consultoras.Entities
 
         public BEPedidoReporteLiderListado(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Nombre"))
-                Nombre = Convert.ToString(row["Nombre"]).Trim();
-            if (DataRecord.HasColumn(row, "CodigodeConsultora"))
-                CodigodeConsultora = Convert.ToString(row["CodigodeConsultora"]).Trim();
-            if (DataRecord.HasColumn(row, "Territorio"))
-                Territorio = Convert.ToString(row["Territorio"]).Trim();
-            if (DataRecord.HasColumn(row, "TelefonoCasa"))
-                TelefonoCasa = Convert.ToString(row["TelefonoCasa"]).Trim();
-            if (DataRecord.HasColumn(row, "TelefonoCelular"))
-                TelefonoCelular = Convert.ToString(row["TelefonoCelular"]).Trim();
-            if (DataRecord.HasColumn(row, "Constancia"))
-                Constancia = Convert.ToString(row["Constancia"]).Trim();
-            if (DataRecord.HasColumn(row, "Segmentacion"))
-                Segmentacion = Convert.ToString(row["Segmentacion"]).Trim();
+            
+                Nombre = row.ToStringTrim("Nombre");
+            
+                CodigodeConsultora = row.ToStringTrim("CodigodeConsultora");
+            
+                Territorio = row.ToStringTrim("Territorio");
+            
+                TelefonoCasa = row.ToStringTrim("TelefonoCasa");
+            
+                TelefonoCelular = row.ToStringTrim("TelefonoCelular");
+            
+                Constancia = row.ToStringTrim("Constancia");
+            
+                Segmentacion = row.ToStringTrim("Segmentacion");
+
             SaldoPendienteTotal = row.ToDecimal("SaldoPendienteTotal");
             VentaConsultora = row.ToInt32("VentaConsultora");
             DescuentoConsultora = row.ToInt32("DescuentoConsultora");
             MontoPedidoFacturado = row.ToInt32("MontoPedidoFacturado");
-            if (DataRecord.HasColumn(row, "MotivoRechazo"))
-                MotivoRechazo = Convert.ToString(row["MotivoRechazo"]).Trim();
-            if (DataRecord.HasColumn(row, "DocumentodeIdentidad"))
-                DocumentodeIdentidad = Convert.ToString(row["DocumentodeIdentidad"]).Trim();
-            if (DataRecord.HasColumn(row, "Direccion"))
-                Direccion = Convert.ToString(row["Direccion"]).Trim();
-            if (DataRecord.HasColumn(row, "Email"))
-                Email = Convert.ToString(row["Email"]).Trim();
-            if (DataRecord.HasColumn(row, "FamiliaProtegida"))
-                FamiliaProtegida = Convert.ToString(row["FamiliaProtegida"]).Trim();
-            if (DataRecord.HasColumn(row, "UsaFlexipago"))
-                UsaFlexipago = Convert.ToString(row["UsaFlexipago"]).Trim();
-            if (DataRecord.HasColumn(row, "EsBrillante"))
-                EsBrillante = Convert.ToString(row["EsBrillante"]).Trim();
-            if (DataRecord.HasColumn(row, "CampaniaIngreso"))
-                CampaniaIngreso = Convert.ToString(row["CampaniaIngreso"]).Trim();
-            if (DataRecord.HasColumn(row, "UltimaFacturacion"))
-                UltimaFacturacion = Convert.ToString(row["UltimaFacturacion"]).Trim();
-            if (DataRecord.HasColumn(row, "OrigenPedido"))
-                OrigenPedido = Convert.ToString(row["OrigenPedido"]).Trim();
-            if (DataRecord.HasColumn(row, "Cumpleanios"))
-                Cumpleanios = Convert.ToString(row["Cumpleanios"]).Trim();
+            
+                MotivoRechazo = row.ToStringTrim("MotivoRechazo");
+            
+                DocumentodeIdentidad = row.ToStringTrim("DocumentodeIdentidad");
+            
+                Direccion = row.ToStringTrim("Direccion");
+            
+                Email = row.ToStringTrim("Email");
+            
+                FamiliaProtegida = row.ToStringTrim("FamiliaProtegida");
+            
+                UsaFlexipago = row.ToStringTrim("UsaFlexipago");
+            
+                EsBrillante = row.ToStringTrim("EsBrillante");
+            
+                CampaniaIngreso = row.ToStringTrim("CampaniaIngreso");
+            
+                UltimaFacturacion = row.ToStringTrim("UltimaFacturacion");
+            
+                OrigenPedido = row.ToStringTrim("OrigenPedido");
+            
+                Cumpleanios = row.ToStringTrim("Cumpleanios");
         }
     }
 }

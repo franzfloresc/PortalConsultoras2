@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -28,12 +29,12 @@ namespace Portal.Consultoras.Entities
         public BECampania() { }
         public BECampania(IDataRecord row)
         {
-            CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            Codigo = Convert.ToString(row["Codigo"]);
-            Anio = Convert.ToInt32(row["Anio"]);
-            NombreCorto = Convert.ToString(row["NombreCorto"]);
-            PaisID = Convert.ToInt32(row["PaisID"]);
-            Activo = Convert.ToBoolean(row["Activo"]);
+            CampaniaID = row.ToInt32("CampaniaID");
+            Codigo = row.ToString("Codigo");
+            Anio = row.ToInt32("Anio");
+            NombreCorto = row.ToString("NombreCorto");
+            PaisID = row.ToInt32("PaisID");
+            Activo = row.ToBoolean("Activo");
         }
     }
 }

@@ -460,7 +460,7 @@ namespace Portal.Consultoras.Web.Controllers
                 await Task.Run(() =>
                 {
                     string contenido = "";
-                    StringBuilder sb = new StringBuilder();
+                    //StringBuilder sb = new StringBuilder();
                     string contenidoFila = "";
                     int nRegistros = 0;
                     List<string> hojas = new List<string>();

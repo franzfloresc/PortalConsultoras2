@@ -109,51 +109,51 @@ namespace Portal.Consultoras.Entities
 
         public BEPostVenta(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "ConfirmacionRecojoID"))
-                ConfirmacionRecojoID = Convert.ToInt32(row["ConfirmacionRecojoID"]);
-            if (DataRecord.HasColumn(row, "CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (DataRecord.HasColumn(row, "Campania"))
-                Campania = Convert.ToString(row["Campania"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora"))
-                CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (DataRecord.HasColumn(row, " CodigoPlataforma"))
-                CodigoPlataforma = Convert.ToString(row["CodigoPlataforma"]);
-            if (DataRecord.HasColumn(row, "NumeroRecojo"))
-                NumeroRecojo = Convert.ToString(row["NumeroRecojo"]);
-            if (DataRecord.HasColumn(row, "NumeroPedido"))
-                NumeroPedido = Convert.ToString(row["NumeroPedido"]);
-            if (DataRecord.HasColumn(row, "FechaRecojo"))
-                FechaRecojo = Convert.ToDateTime(row["FechaRecojo"]);
+            
+                ConfirmacionRecojoID = row.ToInt32("ConfirmacionRecojoID");
+            
+                CampaniaID = row.ToInt32("CampaniaID");
+            
+                Campania = row.ToString("Campania");
+            
+                CodigoConsultora = row.ToString("CodigoConsultora");
+            
+                CodigoPlataforma = row.ToString("CodigoPlataforma");
+            
+                NumeroRecojo = row.ToString("NumeroRecojo");
+            
+                NumeroPedido = row.ToString("NumeroPedido");
+            
+                FechaRecojo = row.ToDateTime("FechaRecojo");
 
-            if (DataRecord.HasColumn(row, "FechaEstimadoRecojo"))
-                FechaEstimadoRecojo = Convert.ToDateTime(row["FechaEstimadoRecojo"]);
-            if (DataRecord.HasColumn(row, "EstadoRecojoID"))
-                EstadoRecojoID = Convert.ToInt32(row["EstadoRecojoID"]);
-            if (DataRecord.HasColumn(row, "EstadoRecojo"))
-                EstadoRecojo = Convert.ToString(row["EstadoRecojo"]);
-            if (DataRecord.HasColumn(row, "CodigoTipoNovedadRecojo"))
-                CodigoTipoNovedadRecojo = Convert.ToString(row["CodigoTipoNovedadRecojo"]);
-            if (DataRecord.HasColumn(row, "Novedad"))
-                Novedad = Convert.ToString(row["Novedad"]);
-            if (DataRecord.HasColumn(row, "MensajeTipoNovedad"))
-                MensajeTipoNovedad = Convert.ToString(row["MensajeTipoNovedad"]);
-            if (DataRecord.HasColumn(row, "Situacion"))
-                Situacion = Convert.ToString(row["Situacion"]);
-            if (DataRecord.HasColumn(row, "Latitud"))
-                Latitud = Convert.ToString(row["Latitud"]);
-            if (DataRecord.HasColumn(row, "Longitud"))
-                Longitud = Convert.ToString(row["Longitud"]);
-            if (DataRecord.HasColumn(row, "Foto1"))
-                Foto1 = Convert.ToString(row["Foto1"]);
-            if (DataRecord.HasColumn(row, "Foto2"))
-                Foto2 = Convert.ToString(row["Foto2"]);
-            if (DataRecord.HasColumn(row, "FechaCreacion"))
-                FechaCreacion = Convert.ToDateTime(row["FechaCreacion"]);
-            if (DataRecord.HasColumn(row, "PaisISO"))
-                PaisISO = Convert.ToString(row["PaisISO"]);
-            if (DataRecord.HasColumn(row, "PaisID"))
-                PaisID = Convert.ToInt32(row["PaisID"]);
+            
+                FechaEstimadoRecojo = row.ToDateTime("FechaEstimadoRecojo");
+            
+                EstadoRecojoID = row.ToInt32("EstadoRecojoID");
+            
+                EstadoRecojo = row.ToString("EstadoRecojo");
+            
+                CodigoTipoNovedadRecojo = row.ToString("CodigoTipoNovedadRecojo");
+            
+                Novedad = row.ToString("Novedad");
+            
+                MensajeTipoNovedad = row.ToString("MensajeTipoNovedad");
+            
+                Situacion = row.ToString("Situacion");
+            
+                Latitud = row.ToString("Latitud");
+            
+                Longitud = row.ToString("Longitud");
+            
+                Foto1 = row.ToString("Foto1");
+            
+                Foto2 = row.ToString("Foto2");
+            
+                FechaCreacion = row.ToDateTime("FechaCreacion");
+            
+                PaisISO = row.ToString("PaisISO");
+            
+                PaisID = row.ToInt32("PaisID");
         }
     }
 }

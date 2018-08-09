@@ -55,10 +55,8 @@ namespace Portal.Consultoras.Entities
             Correo = row.ToString("Correo");
             Celular = row.ToString("Celular");
             Clave = row.ToString("ClaveSecreta");
-            if (DataRecord.HasColumn(row, "ClaveSecreta") && row["Descripcion"] != DBNull.Value)
-                Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "CodigoISO") && row["Descripcion"] != DBNull.Value)
-                CodigoISO = Convert.ToString(row["CodigoISO"]);
+            Descripcion = row.ToString("Descripcion");
+            CodigoISO = row.ToString("CodigoISO");
             TipoUsuario = row.ToInt32("TipoUsuario");
             IdEstadoActividad = row.ToInt32("IdEstadoActividad");
             TieneAutenticacion = row.ToBoolean("TieneAutenticacion");

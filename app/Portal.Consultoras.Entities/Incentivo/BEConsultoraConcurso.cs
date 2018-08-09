@@ -84,12 +84,8 @@ namespace Portal.Consultoras.Entities
             IndicadorPremioAcumulativo = row.ToBoolean("IND_PREM_ACUM");
             NumeroNiveles = row.ToInt32("NUMERO_NIVELES");
             Simbolo = row.ToString("Simbolo");
-
-            if (row.HasColumn("CampaniaInicio"))
-                CampaniaInicio = row.GetValue<string>("CampaniaInicio");
-
-            if (row.HasColumn("CampaniaFinal"))
-                CampaniaFin = row.GetValue<string>("CampaniaFinal");
+            CampaniaInicio = row.GetColumn<string>("CampaniaInicio");
+            CampaniaFin = row.GetColumn<string>("CampaniaFinal");
         }
 
         public BEConsultoraConcurso()
