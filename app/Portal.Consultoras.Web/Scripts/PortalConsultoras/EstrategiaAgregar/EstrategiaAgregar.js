@@ -317,7 +317,7 @@ var EstrategiaAgregarModule = (function () {
             }
 
             AbrirLoad();
-
+            
             if (divAgregado != null) {
                 if (typeof divAgregado.length != "undefined" && divAgregado.length > 0) {
                     divAgregado.each(function(index, element) {
@@ -329,6 +329,13 @@ var EstrategiaAgregarModule = (function () {
 
                 if ($btnAgregar[0]) {
                     var contenedorAgregado = $($btnAgregar).parent().find('#ContenedorAgregado')[0];
+
+                    if(!contenedorAgregado)
+                    {
+                        contenedorAgregado = $($btnAgregar).parent().parent().find('.contenedor_agregado');                    
+                    }
+
+
                     if (contenedorAgregado) {
                         $(contenedorAgregado).show();
                     }
