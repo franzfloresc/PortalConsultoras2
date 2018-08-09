@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                ViewBag.TipoLayout = tipo;
+                ViewBag.TipoLayout = (tipo == string.Empty ? null : tipo);
                 return RDIndexModel();
             }
             catch (Exception ex)
