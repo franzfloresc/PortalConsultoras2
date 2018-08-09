@@ -183,7 +183,7 @@
         <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Ver mis Últimos Pagos" class="boton_ultimos_movimientos" style="@(ultPg)" href="@Url.Action("Index", "MisPagos")"> VER MIS ÚLTIMOS MOVIMIENTOS</a>
         @{  
             var marginTopFacturaE = "";
-            marginTopFacturaE = ultPg == "display: block;" ? "margin-top: 0px" : marginTopFacturaE;
+            marginTopFacturaE = verUltmPagos == "1" ? "margin-top: 0px" : marginTopFacturaE;
             var marginTopPagoLinea = Model.TieneFacturacionElectronica == true ? "margin-top: 10px;" : "";
             if (Model.TienePagoEnLinea)
             {
