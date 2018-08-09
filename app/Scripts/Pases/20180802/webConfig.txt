@@ -1,0 +1,23 @@
+Proyecto: WSConsultoras
+
+========
+* Agregar en configSections
+
+<sectionGroup name="applicationSettings" type="System.Configuration.ApplicationSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+  <section name="Portal.Consultoras.WS.Data.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+</sectionGroup>
+
+* Agregar en appSettings
+<!--Mi Academia: INICIO-->
+<add key="UrlLMS" value="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ingresar.php?usuario={0}&amp;token={1}" />
+<add key="secret_key" value="21bd0f96bda37549de67a058115a2f9d" />
+<!--Mi Academia: FIN-->
+
+*Agregar
+<applicationSettings>
+  <Portal.Consultoras.WS.Data.Properties.Settings>
+    <setting name="Portal_Consultoras_WS_Data_ServiceLMS_ws_server" serializeAs="String">
+      <value>http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php</value>
+    </setting>
+  </Portal.Consultoras.WS.Data.Properties.Settings>
+</applicationSettings>

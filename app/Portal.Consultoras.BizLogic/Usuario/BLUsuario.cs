@@ -287,7 +287,7 @@ namespace Portal.Consultoras.BizLogic
                 usuario.FotoOriginalSinModificar = usuario.FotoPerfil;
                 usuario.FotoPerfilAncha = false;
 
-                var imagenS3 = "";
+                var imagenS3 = usuario.FotoPerfil;
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                 {
                     imagenS3 = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -537,6 +537,13 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
+                var programaNuevas = GetProgramaNuevas(usuario);
+                if (programaNuevas != null)
+                {
+                    usuario.ConsecutivoNueva = programaNuevas.ConsecutivoNueva;
+                    usuario.CodigoPrograma = programaNuevas.CodigoPrograma ?? string.Empty;
+                }
+
                 var terminosCondicionesTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppTerminosCondiciones));
                 var politicaPrivacidadTask = Task.Run(() => GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppPoliticaPrivacidad));
                 var destinatariosFeedBack = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.CorreoFeedbackAppConsultora));
@@ -547,8 +554,6 @@ namespace Portal.Consultoras.BizLogic
                 var incentivosConcursosTask = Task.Run(() => GetIncentivosConcursos(usuario));
                 var revistaDigitalSuscripcionTask = Task.Run(() => GetRevistaDigitalSuscripcion(usuario));
                 var cuponTask = Task.Run(() => GetCupon(usuario));
-                var programaNuevasTask = Task.Run(() => GetProgramaNuevas(usuario));
-                var nivelProyectado = Task.Run(() => GetNivelProyectado(paisID, usuario.ConsultoraID, usuario.CampaniaID));
 
                 Task.WaitAll(
                                 terminosCondicionesTask,
@@ -560,9 +565,7 @@ namespace Portal.Consultoras.BizLogic
                                 consultoraCumpleanioTask,
                                 incentivosConcursosTask,
                                 revistaDigitalSuscripcionTask,
-                                cuponTask,
-                                programaNuevasTask,
-                                nivelProyectado);
+                                cuponTask);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
@@ -596,14 +599,7 @@ namespace Portal.Consultoras.BizLogic
                 usuario.CuponMontoMaxDscto = cuponTask.Result.MontoMaximoDescuento;
                 usuario.CuponTipoCondicion = cuponTask.Result.TipoCondicion;
 
-                var programaNuevas = programaNuevasTask.Result;
-                if (programaNuevas != null)
-                {
-                    usuario.ConsecutivoNueva = programaNuevas.ConsecutivoNueva;
-                    usuario.CodigoPrograma = programaNuevas.CodigoPrograma ?? string.Empty;
-                }
-
-                usuario.NivelProyectado = nivelProyectado.Result;
+                
 
                 return usuario;
             }
@@ -778,7 +774,7 @@ namespace Portal.Consultoras.BizLogic
                 var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
                 var arrCalculoProgramaNuevas = Constantes.Incentivo.CalculoProgramaNuevas.Split(';');
 
-                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario.PaisID, usuario.CampaniaDescripcion, usuario.CodigoConsultora, usuario.CodigorRegion, usuario.CodigoZona);
+                var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario);
 
                 if (result.Any())
                 {
@@ -3227,19 +3223,6 @@ namespace Portal.Consultoras.BizLogic
         public string CancelarAtualizacionEmail(int paisID, string codigoUsuario)
         {
             return new DAUsuario(paisID).CancelarAtualizacionEmail(codigoUsuario);
-        }
-        private string GetNivelProyectado(int paisID, long consultoraId, int campaniaId)
-        {
-            string nivelProyectado = "";
-            BEParametrosLider oBEParametrosLider;
-
-            oBEParametrosLider = _consultoraLiderBusinessLogic.ObtenerParametrosConsultoraLider(paisID, consultoraId, campaniaId);
-            if (oBEParametrosLider != null)
-            {
-                nivelProyectado = oBEParametrosLider.NivelProyectado;
-            }
-
-            return nivelProyectado;
         }
     }
 }

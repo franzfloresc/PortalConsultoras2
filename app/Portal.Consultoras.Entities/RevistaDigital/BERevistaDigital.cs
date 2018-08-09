@@ -37,5 +37,10 @@ namespace Portal.Consultoras.Entities
         {
             return TieneRDC;
         }
+
+        public int EsOpt()
+        {
+            return TieneRevistaDigital() && EsActiva ? 1 : 2;
+        }
     }
 }
