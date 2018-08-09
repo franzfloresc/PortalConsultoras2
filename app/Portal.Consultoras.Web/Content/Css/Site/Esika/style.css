@@ -254,22 +254,22 @@ header {
     margin-top:19px!important;
 }
 
-.new_menu[data-codigo="contenedorofertas"] a{
-    display:block;
-    width: 144px;
-    overflow: hidden;
-}
+    .new_menu[data-codigo="contenedorofertas"] a{
+        display:block;
+        width: 144px;
+        overflow: hidden;
+    }
 
-.new_menu[data-codigo="contenedorofertas"] a img{
-    display:block;
-    position: absolute;
-    margin:auto 0;
-    top: 0;
-    left: 0;
-    bottom:0;
-    width: 192.36px;
-    height: auto;
-}
+    .new_menu[data-codigo="contenedorofertas"] a img{
+        display:block;
+        position: absolute;
+        margin:auto 0;
+        top: 0;
+        left: 0;
+        bottom:0;
+        width: 192.36px;
+        height: auto;
+    }
 
 .flecha_menu {
     width: 0;
