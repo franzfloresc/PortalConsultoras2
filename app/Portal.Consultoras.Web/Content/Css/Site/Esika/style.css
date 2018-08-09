@@ -3325,7 +3325,7 @@ a.subir_carousel, a.bajar_carousel {
     min-width: 62px;
     height: 62px;
     top: 3%;
-    right: 4.8%;
+    left: 4.8%;
     z-index: 10;
 }
 
