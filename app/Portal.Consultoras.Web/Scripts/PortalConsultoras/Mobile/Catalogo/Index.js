@@ -91,11 +91,12 @@ $(document).ready(function () {
         'width': '100%',
         'height': '50px',
         minInputWidth: '100%',
-        'defaultText': 'Separa los correos con &#59;',
+        'defaultText': 'Separa los correos con un enter',
         'delimiter': ';',
         'unique': true,
         'validate': /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i,
         classMain: 'tag-editor tag_fijo_scroll',
+        classAddTag: 'full-width',
         autocomplete_url: '',
         'autocomplete': {
             'source': listaCorreo,
