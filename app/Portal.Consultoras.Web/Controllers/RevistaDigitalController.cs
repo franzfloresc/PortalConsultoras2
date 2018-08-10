@@ -68,6 +68,7 @@ namespace Portal.Consultoras.Web.Controllers
             
             try
             {
+                ViewBag.variableEstrategia = GetVariableEstrategia();
                 return RDViewLanding(1);
             }
             catch (Exception ex)

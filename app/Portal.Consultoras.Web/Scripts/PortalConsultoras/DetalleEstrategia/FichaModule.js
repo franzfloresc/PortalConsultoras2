@@ -188,6 +188,7 @@
         if (!IsNullOrEmpty(estrategia.CodigoVariante)) {// && estrategia.CodigoVariante !== ConstantesModule.CodigoVariedad.IndividualVariable
             var param = {
                 estrategiaId: estrategia.EstrategiaID,
+                cuv2: estrategia.CUV2,
                 campania: _config.campania,
                 codigoVariante: estrategia.CodigoVariante,
                 codigoEstrategia: estrategia.CodigoEstrategia

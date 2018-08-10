@@ -264,7 +264,9 @@ namespace Portal.Consultoras.Web.Controllers
                             model.NumeroDocumento = numeroDocumento.Substring(numeroDocumento.Length - 8);
                             break;
                         case Constantes.PaisID.PuertoRico:
-                            model.NumeroDocumento = numeroDocumento.Substring(numeroDocumento.Length - 4);
+                            var num= numeroDocumento.Substring(numeroDocumento.Length - 4);
+                            char pad = 'X';
+                            model.NumeroDocumento = num.PadLeft(9, pad);
                             break;
                     }
 

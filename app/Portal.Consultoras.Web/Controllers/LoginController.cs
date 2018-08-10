@@ -121,6 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
                 AsignarViewBagPorIso(iso);
                 AsignarUrlRetorno(returnUrl);
                 model.ListPaisAnalytics = GetLoginAnalyticsModel();
+      
             }
             catch (FaultException ex)
             {
