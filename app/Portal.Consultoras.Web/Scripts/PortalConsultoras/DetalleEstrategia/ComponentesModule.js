@@ -117,7 +117,7 @@ var ComponentesModule = (function () {
 
                 opcionesEvents.applyChanges("onComponentSelected", componente);
 
-                ResumenOpcionesModule.CargarOpcionesElegidas();
+                ResumenOpcionesModule.AplicarOpciones();
 
                 return false;
             }
