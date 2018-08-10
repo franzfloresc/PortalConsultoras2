@@ -3242,7 +3242,8 @@ a.subir_carousel, a.bajar_carousel {
 
 .background_carousel {
     width: 240px;
-    height: 98px;
+    /*height: 98px;*/
+    height: 89px;
     position: absolute;
     bottom: -26px;
     left: 50%;
@@ -6130,7 +6131,7 @@ a.subir_carousel, a.bajar_carousel {
 .logo_esika {
     margin-top: 8px;
     float: left;
-    width: 10%;
+    width: 100px;
     padding-right: 2px;
 }
 
@@ -32424,7 +32425,7 @@ h1#penmostreo .campana {
     float: left;
     font-family: 'Lato';
     font-size: 13px;
-    padding-top: 6px;
+    padding-top: 20px;
 }
 
 .filtros_derecha {

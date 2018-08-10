@@ -386,9 +386,9 @@
             <div id="divMisCursosV"></div>
         </div>
     </div>
-    <div class="carrusel_liquidacion" style="@(Model.PrefijoPais == "VE" ? "display:none;" : "display:block;")">
+    <div class="carrusel_liquidacion" style="display:block;">
         <div class="titulo_carrusel_liquidacion">
-            LIQUIDACIONES WEB
+            @ViewBag.TituloLiqWeb.ToUpper()
         </div>
         <a role="link" region="Cuerpo" parent="Liquidaciones web" title="Ver más" class="ver_mas_liquidaciones" href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")">VER M&Aacute;S +</a>
         <hr class="clear" />

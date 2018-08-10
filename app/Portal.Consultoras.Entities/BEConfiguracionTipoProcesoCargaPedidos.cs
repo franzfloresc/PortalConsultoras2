@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -21,9 +22,9 @@ namespace Portal.Consultoras.Entities
 
         public BEConfiguracionTipoProcesoCargaPedidos(IDataRecord row)
         {
-            ZonaID = Convert.ToInt32(row["ZonaID"]);
-            CodigoZona = Convert.ToString(row["CodigoZona"]);
-            DiasParametroCarga = Convert.ToInt16(row["DiasParametroCarga"]);
+            ZonaID = row.ToInt32("ZonaID");
+            CodigoZona = row.ToString("CodigoZona");
+            DiasParametroCarga = row.ToInt16("DiasParametroCarga");
         }
     }
 }

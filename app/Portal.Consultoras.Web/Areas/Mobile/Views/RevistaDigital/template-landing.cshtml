@@ -161,6 +161,7 @@
         var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
         var tieneMasVendidos = 0;
         var campaniaId = @Model.CampaniaID;
+        var variableEstrategia = @Html.Raw(Json.Encode(ViewBag.variableEstrategia)) || {};
 </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Landing")
 }

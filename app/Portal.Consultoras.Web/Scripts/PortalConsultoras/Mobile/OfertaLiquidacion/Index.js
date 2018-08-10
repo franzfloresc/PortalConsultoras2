@@ -215,6 +215,7 @@ function AgregarOfertaProducto(article) {
                         messageInfo("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
                     }
                     else {
+                        console.log('OfertaLiquidacion.js - AgregarOfertaProducto - ajax ante CargarCantidadProductosPedidos', urlInsertOfertaWebPortal, Item);
                         jQuery.ajax({
                             type: 'POST',
                             url: urlInsertOfertaWebPortal,
@@ -244,6 +245,7 @@ function AgregarOfertaProducto(article) {
                                         }
 
                                         InfoCommerceGoogle(parseFloat(cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, cantidad, DescripcionMarca, DescripcionEstrategia, posicionEstrategia);
+                                        console.log('OfertaLiquidacion.js - AgregarOfertaProducto - ante CargarCantidadProductosPedidos');
                                         CargarCantidadProductosPedidos();
 
                                         TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
@@ -289,6 +291,7 @@ function HorarioRestringido() {
     return horarioRestringido;
 }
 function ActualizarCantidadTotalPedido() {
+    console.log('OfertaLiquidacion - Index.js - ActualizarCantidadTotalPedido - ajax ante num-menu-shop', urlActualizarCantidadTotalPedido);
     jQuery.ajax({
         type: 'POST',
         url: urlActualizarCantidadTotalPedido,
@@ -298,6 +301,7 @@ function ActualizarCantidadTotalPedido() {
             if (checkTimeout(response)) {
                 if (response.success) {
                     var data = response.data;
+                    console.log('OfertaLiquidacion - Index.js - ActualizarCantidadTotalPedido - ante num-menu-shop', data);
                     $(".num-menu-shop").html(data.CantidadProductos);
                 } else {
                     window.messageInfo(response.message);

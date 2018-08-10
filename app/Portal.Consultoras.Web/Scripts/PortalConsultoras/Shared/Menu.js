@@ -39,9 +39,19 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros)
                 }
             });
         }
+    }
+    else if (ControllerName == "JavaScript")
+    {
+        if (ActionName == "PopUpPrivacidadDatos")
+        {
+            $("#box-pop-up").show();
+            $("#pop-up-body").customScrollbar();
+        }
+        else
+        {
 
-
-
+        }
+        return false;
     }
 
     var URL = '';
@@ -51,7 +61,9 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros)
         $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
         $('#dialog_ErrorMainLayout').show();
         return false;
-    } else {
+    }
+    else
+    {
         if (ControllerName == '') URL = ActionName;
         else {
             if (ActionName == "Index") URL = location.protocol + "//" + location.host + "/" + ControllerName;
@@ -96,4 +108,9 @@ function MostrarMensajeConsultora() {
 function MostrarMensajeConsultoraValidacion() {
     showDialog("DialogMensajeValidacion");
     $("#DialogMensajeValidacion").siblings(".ui-dialog-titlebar").hide();
+}
+
+function CloseDialog(pop) {
+    pop = pop || "box-pop-up";
+    $("#" + pop).hide();
 }
