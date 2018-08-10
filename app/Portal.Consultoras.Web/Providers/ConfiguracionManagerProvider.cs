@@ -53,6 +53,11 @@ namespace Portal.Consultoras.Web.Providers
             return GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika);
         }
 
+        public string GetRutaImagenesAppCatalogo()
+        {
+            return GetConfiguracionManager(Constantes.ConfiguracionManager.RutaImagenesAppCatalogo);
+        }
+
         public string GetRutaImagenesAppCatalogoBulk()
         {
             return GetConfiguracionManager(Constantes.ConfiguracionManager.RutaImagenesAppCatalogoBulk);

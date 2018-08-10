@@ -84,23 +84,29 @@ namespace Portal.Consultoras.Web.Providers
                 x.NombreComercial = x.NombreComercial ?? string.Empty;
                 x.NombreBulk = x.NombreBulk ?? string.Empty;
                 //
-                //if (x.FactorCuadre > 1)
-                //{
+                if (!string.IsNullOrWhiteSpace(x.NombreBulk))
+                {
                     x.NombreComercial = string.IsNullOrWhiteSpace(x.NombreBulk)
                         ? x.NombreComercial
                         : x.NombreComercial.Replace(x.NombreBulk, string.Empty);
-                //}
+                }
+                else
+                {
+                    x.NombreBulk = x.NombreComercial;
+                }
                 //
+                x.ImagenProducto = x.ImagenProducto ?? string.Empty;
                 x.ImagenBulk = x.ImagenBulk ?? string.Empty;
-                if (string.IsNullOrEmpty(x.ImagenBulk)) return;
-                var rutaImagenAppCatalogo = _configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk();
+                if (string.IsNullOrWhiteSpace(x.ImagenProducto) && string.IsNullOrWhiteSpace(x.ImagenBulk)) return;
                 var codigoIsoPais = SessionManager.SessionManager.Instance.GetUserData().CodigoISO;
                 var campaniaId = SessionManager.SessionManager.Instance.GetUserData().CampaniaID;
                 var codigoMarca = string.Empty;
                 if (x.IdMarca == Constantes.Marca.LBel) codigoMarca = "L";
                 if (x.IdMarca == Constantes.Marca.Esika) codigoMarca = "E";
                 if (x.IdMarca == Constantes.Marca.Cyzone) codigoMarca = "C";
-                x.ImagenBulk = string.Format(rutaImagenAppCatalogo, codigoIsoPais, campaniaId, codigoMarca,x.ImagenBulk);
+                x.ImagenBulk = string.IsNullOrWhiteSpace(x.ImagenBulk) ?
+                    string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogo(), codigoIsoPais, campaniaId, codigoMarca, x.ImagenProducto) :
+                    string.Format(_configuracionManagerProvider.GetRutaImagenesAppCatalogoBulk(), codigoIsoPais, campaniaId, codigoMarca,x.ImagenBulk);
             });
 
             return listaProducto;

@@ -457,6 +457,7 @@ namespace Portal.Consultoras.Common
             public const string UrlServiceSicc = "UrlServiceSicc";
             public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
 
+            public const string RutaImagenesAppCatalogo = "RutaImagenesAppCatalogo";
             public const string RutaImagenesAppCatalogoBulk = "RutaImagenesAppCatalogoBulk";
         }
 
