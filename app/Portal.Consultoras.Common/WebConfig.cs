@@ -128,11 +128,21 @@ namespace Portal.Consultoras.Common
                 return ConfigurationManager.AppSettings["RutaServicePROLConsultas"] ?? string.Empty;
             }
         }
+
+        public static string RutaService
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["RutaService"] ?? string.Empty;
+            }
+        }
         #endregion
 
         public static string GetByTagName(string tagName)
         {
             return ConfigurationManager.AppSettings[tagName] ?? string.Empty;
         }
+
+    
     }
 }

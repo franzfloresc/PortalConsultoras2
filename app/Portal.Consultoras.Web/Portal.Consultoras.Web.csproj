@@ -311,6 +311,7 @@
     <Compile Include="Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
+    <Compile Include="Models\Buscador\BuscadorModel.cs" />
     <Compile Include="Models\EstadoProductoComentarioModel.cs" />
     <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Controllers\LanzamientosController.cs" />
@@ -742,6 +743,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Providers\AdministrarEstrategiaProvider.cs" />
+    <Compile Include="Providers\BuscadorProvider.cs" />
     <Compile Include="Providers\OfertaBaseProvider.cs" />
     <Compile Include="Providers\OfertaDelDiaProvider.cs" />
     <Compile Include="Providers\PedidoSetProvider.cs" />
