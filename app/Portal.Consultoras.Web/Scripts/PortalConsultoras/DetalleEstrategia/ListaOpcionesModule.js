@@ -69,10 +69,22 @@ var ListaOpcionesModule = (function () {
             $(_elements.listaOpciones.id).css("padding-top", "161px");
     };
 
+    var _actualizarCantidadSeleccionada = function () {
+        $.each(_componente.Hermanos, function (index, hermano) {
+            hermano.cantidadSeleccionada = 0;
+            $.each(_componente.resumenAplicados, function (index2, item) {
+                if (hermano.Cuv === item.Cuv) {
+                    hermano.cantidadSeleccionada++;
+                }
+            });
+        });
+        return false;
+    };
+
     var _actualizarCantidadFaltantes = function () {
         var cantidadTotal = 0;
-        $.each(_componente.HermanosSeleccionados, function (index, hermanoSeleccionado) {
-            cantidadTotal += hermanoSeleccionado.cantidadSeleccionada;
+        $.each(_componente.Hermanos, function (index, hermano) {
+            cantidadTotal += hermano.cantidadSeleccionada;
         });
         _componente.cantidadFaltantes = _componente.FactorCuadre - cantidadTotal;
     };
@@ -115,6 +127,7 @@ var ListaOpcionesModule = (function () {
         });
         if (_componente.resumenAplicados.length > 0) {
             _componente.HermanosSeleccionados = jQuery.extend(true, [], _componente.resumenAplicados);
+            _actualizarCantidadSeleccionada();
             _actualizarCantidadFaltantes();
         }
         //
@@ -137,7 +150,7 @@ var ListaOpcionesModule = (function () {
         }
         //
         if (!(typeof event === "undefined"))
-        EstrategiaAgregarModule.AdicionarCantidad(event);
+            EstrategiaAgregarModule.AdicionarCantidad(event);
 
         cuv = $.trim(cuv);
         var opcion = {};
@@ -154,19 +167,6 @@ var ListaOpcionesModule = (function () {
         _componente.HermanosSeleccionados.push(opcion);
         _actualizarCantidadFaltantes();
         _moverListaOpcionesMostrarSeleccionados();
-        //if (_componente.FactorCuadre === 1) {
-        //    $(_elements.btnEligelo.id + cuv).text(_elements.btnEligelo.textElegido);
-        //    $(_elements.btnEligelo.id + cuv).addClass(_elements.btnEligelo.activeClass);
-        //}
-        //if (_componente.FactorCuadre > 1) {
-        //    $(_elements.liEligelo.id + cuv).hide();
-        //    $(_elements.liCantidadOpciones.id + cuv).show();
-        //}
-        //if (_componente.FactorCuadre === _componente.HermanosSeleccionados.length) {
-        //    $(_elements.btnAplicarSeleccion.id)
-        //        .removeClass(_elements.btnAplicarSeleccion.disabledClass)
-        //        .addClass(_elements.btnAplicarSeleccion.activeClass);
-        //}
         _renderListaOpciones();
         //
         opcionesEvents.applyChanges("onOptionSelected", _componente);
