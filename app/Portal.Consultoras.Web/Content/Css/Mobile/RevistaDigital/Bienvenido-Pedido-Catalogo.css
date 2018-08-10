@@ -394,7 +394,7 @@ div#tab_revistasdigital_mobile {
 .wrapper_resumen_mobile_clubganamas {
     margin-top: 10px;
     margin-bottom: 10px;
-    height: 580px;
+    height: 600px;
 }
 
     .wrapper_resumen_mobile_clubganamas .zonadecolor {
@@ -427,7 +427,7 @@ div#tab_revistasdigital_mobile {
     }
 
         .wrapper_resumen_mobile_clubganamas .zonadecolor span.margin_top {
-            padding-top: 50px !important;
+            padding-top: 0px !important;
         }
 
         .wrapper_resumen_mobile_clubganamas .zonadecolor span p.primero {
@@ -463,7 +463,7 @@ div#tab_revistasdigital_mobile {
         height: 440px;
         overflow: hidden;
         width: 100%;
-        margin-top: -88px;
+        margin-top: -56px;
     }
 
 .banner_pedido_masofertas {
