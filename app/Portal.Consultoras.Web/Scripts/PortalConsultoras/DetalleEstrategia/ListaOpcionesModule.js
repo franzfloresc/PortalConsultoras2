@@ -69,6 +69,18 @@ var ListaOpcionesModule = (function () {
             $(_elements.listaOpciones.id).css("padding-top", "161px");
     };
 
+    var _actualizarCantidadSeleccionada = function () {
+        $.each(_componente.Hermanos, function (index, hermano) {
+            hermano.cantidadSeleccionada = 0;
+            $.each(_componente.resumenAplicados, function (index2, item) {
+                if (hermano.Cuv === item.Cuv) {
+                    hermano.cantidadSeleccionada++;
+                }
+            });
+        });
+        return false;
+    };
+
     var _actualizarCantidadFaltantes = function () {
         var cantidadTotal = 0;
         $.each(_componente.HermanosSeleccionados, function (index, hermanoSeleccionado) {
@@ -115,6 +127,7 @@ var ListaOpcionesModule = (function () {
         });
         if (_componente.resumenAplicados.length > 0) {
             _componente.HermanosSeleccionados = jQuery.extend(true, [], _componente.resumenAplicados);
+            _actualizarCantidadSeleccionada();
             _actualizarCantidadFaltantes();
         }
         //
