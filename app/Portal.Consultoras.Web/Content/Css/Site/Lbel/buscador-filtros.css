@@ -185,7 +185,7 @@
     position: absolute;
     top: 45px;
     right: -2px;
-    width: 737px;
+    width: 612px;
     height: 95px;
     padding-bottom: 18px;
     overflow: hidden;
@@ -261,7 +261,8 @@
     }
 
 .resultado_busqueda_img_prod{
-    width: 177.78px;
+    margin-left: 7px;
+    width: 125.78px;
     height: 68px;
     position: relative;
     overflow: hidden;
@@ -288,14 +289,14 @@
 }
 
 .resultado_busqueda_descrip_prod{
-    width:232.33px;
-    margin-right:20px;
+    width:168.33px;
+    margin-right:16px;
 }
 
 .resultado_busqueda_nom_producto{
-    font-size:14px;
+    font-size:13px;
     letter-spacing:0.2px;
-    margin-bottom:-3px;
+    /*margin-bottom:-3px;*/
     /*text-overflow:ellipsis;
     white-space:nowrap;
     overflow:hidden;*/
@@ -308,20 +309,23 @@
 }
 
 .resultado_busqueda_precio_normal{
-    font-size:12px;
+    font-size:11px;
     text-decoration:line-through;
-    margin-bottom:1px;
+    margin-bottom:-4px;
     margin-right:10px;
 }
 
 .resultado_busqueda_precio_oferta{
-    font-size:16px;
+    font-size:14px;
     font-weight:600;
+    margin-bottom:3px;
 }
 
 .resultado_busqueda_tipo_oferta_prod{
+    font-size:10px;
     margin-top:-2px;
     color:#848484;
+    text-transform:uppercase;
 }
 
 .resultado_busqueda_cantidad_prod{
@@ -396,7 +400,7 @@
 }
 
 .resultado_busqueda_btn_elegir_opcion_wrapper{
-    width:256px;
+    width:254px;
 }
 
 .btn_elegir_opcion{
