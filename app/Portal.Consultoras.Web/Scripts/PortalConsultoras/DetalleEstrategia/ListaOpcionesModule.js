@@ -26,8 +26,8 @@ var ListaOpcionesModule = (function () {
     var _elements = {
         listaOpciones: {
             id: "#lista-opciones",
-            templateId: "#lista-opciones-template"
-
+            templateId: "#lista-opciones-template",
+            height: 540
         },
         btnAplicarSeleccion: {
             id: "#btn-aplicar-seleccion",
@@ -55,18 +55,27 @@ var ListaOpcionesModule = (function () {
                 opacity: ".7"
             }
 
+        },
+        divContenedorOpcionesSeleccionadas: {
+            id: "#contenedor-opciones-seleccionadas"
         }
     };
 
     var _moverListaOpcionesOcultarSeleccionados = function() {
         $(_elements.listaOpciones.id).css("padding-top", "0px");
-        if (isMobile())
+        if (isMobile()) {
             $(_elements.listaOpciones.id).css("padding-top", "63px");
+        } else {
+            $(_elements.listaOpciones.id).css("height", _elements.listaOpciones.height);
+        }
     };
 
     var _moverListaOpcionesMostrarSeleccionados = function () {
-        if (isMobile())
+        if (isMobile()) {
             $(_elements.listaOpciones.id).css("padding-top", "161px");
+        } else {
+            $(_elements.listaOpciones.id).css("height", (_elements.listaOpciones.height - 96));
+        }
     };
 
     var _actualizarCantidadSeleccionada = function () {
@@ -130,6 +139,7 @@ var ListaOpcionesModule = (function () {
             _actualizarCantidadSeleccionada();
             _actualizarCantidadFaltantes();
         }
+       
         //
         _renderListaOpciones();
         //
@@ -202,6 +212,7 @@ var ListaOpcionesModule = (function () {
             _actualizarCantidadFaltantes();
             _renderListaOpciones();
         }
+
         //
         opcionesEvents.applyChanges("onOptionSelected", _componente);
         //
