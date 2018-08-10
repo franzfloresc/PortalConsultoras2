@@ -2,7 +2,7 @@
 @model Portal.Consultoras.Web.Models.ActualizarDatosModel
 
 @{
-    ViewBag.Title = "Liquidación Web";
+    ViewBag.Title = ViewBag.TituloLiqWeb;
     string ISO = ViewBag.ISO;
     string Simbolo = ViewBag.Simbolo;
 }
@@ -40,7 +40,7 @@
 </div>
 
 <div class="wrapper_home_interiores">
-    <div class="titulo_principal"><h1 class="titulo_principal_interiores">LIQUIDACIÓN WEB</h1></div>
+    <div class="titulo_principal"><h1 class="titulo_principal_interiores">@ViewBag.TituloLiqWeb.ToUpper()</h1></div>
     <p class="liquidacion_info">
         <strong>APROVECHA ESTOS PRODUCTOS SOLO POR WEB. Se atenderá hasta agotar stock.</strong><br />
         Suma al monto mínimo del pedido, suma la escala de comisión, otorga puntaje. No comisiona. Precio neto consultora. Productos vigentes en @ViewBag.CampaniaID.

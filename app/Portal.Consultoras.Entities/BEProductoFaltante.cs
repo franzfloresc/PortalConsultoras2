@@ -72,13 +72,12 @@ namespace Portal.Consultoras.Entities
             TotalPages = row.ToInt32("List_TotalNumeroPagina");
             RowsCount = row.ToInt32("List_TotalRegistros");
             Estado = row.ToInt32("Estado");
-            if (DataRecord.HasColumn(row, "fecha")) Fecha = Convert.IsDBNull(row["fecha"]) ? "" : Convert.ToString(row["fecha"]);
-            else Fecha = "";
+            Fecha = row.ToString("fecha", "");
             Codigo = row.ToString("Codigo");
             FaltanteUltimoMinuto = row.ToBoolean("FaltanteUltimoMinuto");
-            if (DataRecord.HasColumn(row, "Categoria")) Categoria = Convert.IsDBNull(row["Categoria"]) ? "" : Convert.ToString(row["Categoria"]);
-            if (DataRecord.HasColumn(row, "Catalogo")) Catalogo = Convert.IsDBNull(row["Catalogo"]) ? "" : Convert.ToString(row["Catalogo"]);
-            if (DataRecord.HasColumn(row, "NumeroPagina")) NumeroPagina = Convert.IsDBNull(row["NumeroPagina"]) ? 0 : Convert.ToInt32(row["NumeroPagina"]);
+            Categoria = row.ToString("Categoria", "");
+            Catalogo = row.ToString("Catalogo", "");
+            NumeroPagina = row.ToInt32("NumeroPagina", 0);
         }
 
         public BEProductoFaltante()

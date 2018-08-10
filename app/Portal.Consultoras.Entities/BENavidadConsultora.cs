@@ -1,5 +1,6 @@
 ﻿namespace Portal.Consultoras.Entities
 {
+    using Portal.Consultoras.Common;
     using System;
     using System.Data;
     using System.Runtime.Serialization;
@@ -21,12 +22,12 @@
         public string NombreImg { get; set; }
 
 
-        public BENavidadConsultora(IDataRecord iDataRecord)
+        public BENavidadConsultora(IDataRecord row)
         {
-            ImagenId = Convert.ToInt32(iDataRecord["ImagenId"]);
-            PaisId = Convert.ToInt32(iDataRecord["PaisId"]);
-            CampaniaId = Convert.ToInt32(iDataRecord["CampaniaId"]);
-            NombreImg = Convert.ToString(iDataRecord["NombreImg"]);
+            ImagenId = row.ToInt32("ImagenId");
+            PaisId = row.ToInt32("PaisId");
+            CampaniaId = row.ToInt32("CampaniaId");
+            NombreImg = row.ToString("NombreImg");
         }
 
         //static byte[] ObtenerBytes(string str)
