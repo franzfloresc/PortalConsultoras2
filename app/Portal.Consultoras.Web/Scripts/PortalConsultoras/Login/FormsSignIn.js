@@ -88,8 +88,12 @@ $(document).ready(function () {
         imgISO = $("#ddlPais").val();
         analytics.invocarAnalyticsByCodigoIso(imgISO);
 
-        if ($("#ddlPais").val() == "MX") $("#AvisoASP").show();
-        else $("#AvisoASP").hide();
+        if ($("#ddlPais").val() == "MX") {
+            $("#AvisoASP").show();
+        } else {
+            $("#AvisoASP").hide();
+        };
+
         if (imgISO == "PA") $("#footer_esika").hide();
         else $("#footer_esika").show();
         if ($("#ddlPais").val() == "CO") $("#VinculoTarjetaHelm").show();
@@ -385,6 +389,7 @@ $(document).ready(function () {
             RecuperarContrasenia();
     }); 
 });
+
 
 function Inicializar() {
     $(".cboPaisCambioClave").trigger('change');
