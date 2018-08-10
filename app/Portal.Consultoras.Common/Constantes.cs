@@ -1667,8 +1667,9 @@ namespace Portal.Consultoras.Common
         public static class MvcErrorMessages
         {
             public const string RequiredMessage = "Este campo es obligatorio";
-            public const string RangeErrorMessage = "El campo {0} debe ser una cadena con una longitud mínima de {1} y una longitud máxima de {2}";
+            public const string RangeErrorMessage = "El campo {0} debe ser una cadena con una longitud mínima de {2} y una longitud máxima de {1}";
             public const string MaxErrorMessage = "El campo {0} debe ser una cadena con una longitud máxima de {1}";
+            public const string LengthErrorMessage = "El campo {0} debe ser una cadena con una longitud de {1}";
             public const string DateErrorMessage = "No es una fecha válida";
         }
 

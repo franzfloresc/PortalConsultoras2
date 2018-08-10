@@ -25,11 +25,11 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         public string ExpireYear { get; set; }
         [Required(ErrorMessage = Constantes.MvcErrorMessages.RequiredMessage)]
         [RegularExpression(@"^\d+$", ErrorMessage = "No es un número válido")]
-        [StringLength(3, ErrorMessage = Constantes.MvcErrorMessages.MaxErrorMessage)]
+        [StringLength(3, MinimumLength = 3, ErrorMessage = Constantes.MvcErrorMessages.LengthErrorMessage)]
         [Display(Name = "CVV")]
         public string Cvv { get; set; }
         [Required(ErrorMessage = Constantes.MvcErrorMessages.RequiredMessage)]
-        [StringLength(15, ErrorMessage = Constantes.MvcErrorMessages.MaxErrorMessage)]
+        [StringLength(255, ErrorMessage = Constantes.MvcErrorMessages.MaxErrorMessage)]
         [RegularExpression(@"^[A-Za-z\s]+$", ErrorMessage = "Solo se permite ingreso de caracteres del alfabeto, sin acentos.")]
         public string Titular { get; set; }
         [Display(Name = "Número de celular")]
