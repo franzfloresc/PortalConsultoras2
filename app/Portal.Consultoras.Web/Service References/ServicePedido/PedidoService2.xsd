@@ -1,56 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido.App" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
-  <xs:complexType name="BEProductoAppBuscar">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoDescripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Criterio" type="xs:int" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="RowCount" type="xs:int" />
-      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Usuario" nillable="true" type="q1:BEUsuario" />
-      <xs:element minOccurs="0" name="ValidarOpt" type="xs:boolean" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEProductoAppBuscar" nillable="true" type="tns:BEProductoAppBuscar" />
-  <xs:complexType name="BEProductoApp">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
-      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Producto" nillable="true" type="q2:BEProducto" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEProductoApp" nillable="true" type="tns:BEProductoApp" />
-  <xs:complexType name="BEPedidoDetalleApp">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
-      <xs:element minOccurs="0" name="ClienteDescripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ClienteID" type="xs:short" />
-      <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
-      <xs:element minOccurs="0" name="IPUsuario" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Identifier" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ObservacionPROL" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      <xs:element minOccurs="0" name="PedidoDetalleID" type="xs:short" />
-      <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
-      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Producto" nillable="true" type="q3:BEProducto" />
-      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Usuario" nillable="true" type="q4:BEUsuario" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEPedidoDetalleApp" nillable="true" type="tns:BEPedidoDetalleApp" />
-  <xs:complexType name="BEPedidoDetalleAppResult">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEPedidoDetalleAppResult" nillable="true" type="tns:BEPedidoDetalleAppResult" />
-  <xs:complexType name="BEPedidoReservaAppResult">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
-      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" minOccurs="0" name="ResultadoReserva" nillable="true" type="q5:BEResultadoReservaProl" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEPedidoReservaAppResult" nillable="true" type="tns:BEPedidoReservaAppResult" />
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:simpleType name="Enumeradores.RechazoBannerUrl">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ninguna" />
+      <xs:enumeration value="Deuda" />
+      <xs:enumeration value="ModificaPedido" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Enumeradores.RechazoBannerUrl" nillable="true" type="tns:Enumeradores.RechazoBannerUrl" />
+  <xs:simpleType name="Enumeradores.ResultadoReserva">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ninguno" />
+      <xs:enumeration value="Reservado" />
+      <xs:enumeration value="ReservadoObservaciones" />
+      <xs:enumeration value="NoReservadoObservaciones" />
+      <xs:enumeration value="NoReservadoMontoMinimo" />
+      <xs:enumeration value="NoReservadoMontoMaximo" />
+      <xs:enumeration value="ReservaNoDisponible" />
+      <xs:enumeration value="NoReservadoDeuda" />
+      <xs:enumeration value="NoReservadoMontoPermitido" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Enumeradores.ResultadoReserva" nillable="true" type="tns:Enumeradores.ResultadoReserva" />
+  <xs:simpleType name="Enumeradores.MotivoPedidoLock">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ninguno" />
+      <xs:enumeration value="GPR">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Reservado">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="HorarioRestringido">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Facturado">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Enumeradores.MotivoPedidoLock" nillable="true" type="tns:Enumeradores.MotivoPedidoLock" />
 </xs:schema>
