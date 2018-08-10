@@ -34,9 +34,17 @@
                     {
                         url += "?" + ViewBag.QSBR;
                     }
-                    
-                    <a role="link" region="Footer" parent="@item.Descripcion" title="@subitem.Descripcion" 
-                       class="menu_subfooter" target="@target" href="@url">@subitem.Descripcion.ToUpper()</a>
+                    if (subitem.Version == "Click")
+                    {
+                        <a role="button" onclick="@string.Concat("javascript:", @subitem.UrlItem ,"()" )" region="Footer" parent="@item.Descripcion" title="@subitem.Descripcion" 
+                            class="menu_subfooter">@subitem.Descripcion.ToUpper()</a>
+                    }
+                    else
+                    {
+                        <a role="link"  region="Footer" parent="@item.Descripcion" title="@subitem.Descripcion" 
+                            class="menu_subfooter" target="@target" href="@url">@subitem.Descripcion.ToUpper()</a>
+                    }
+
                 }
             }
         </div>

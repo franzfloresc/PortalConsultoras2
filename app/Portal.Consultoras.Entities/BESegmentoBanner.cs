@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -17,10 +18,10 @@ namespace Portal.Consultoras.Entities
 
         }
 
-        public BESegmentoBanner(IDataRecord datarec)
+        public BESegmentoBanner(IDataRecord row)
         {
-            BannerSegmentoId = Convert.ToInt32(datarec["SegmentoID"]);
-            BannerSegmentoDes = Convert.ToString(datarec["Descripcion"]);
+            BannerSegmentoId = row.ToInt32("SegmentoID");
+            BannerSegmentoDes = row.ToString("Descripcion");
         }
     }
 }

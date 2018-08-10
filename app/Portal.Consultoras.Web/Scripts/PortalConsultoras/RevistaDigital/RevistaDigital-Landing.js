@@ -20,7 +20,8 @@ var filtroIni = {
     IsLoad: false,
     Completo: 0,
     UrlCargarProductos: "",
-    Palanca: ""
+    Palanca: "",
+    guardaEnLocalStorage: true
 };
 
 $(document).ready(function () {
@@ -306,6 +307,8 @@ function OfertaObtenerIndLocal(campId) {
 }
 
 function AgregarProductoAlCarrito(padre) {
+
+    console.log('RevistaDigital-Landing.js - agregarProductoAlCarrito', padre);
     if ($.trim(tipoOrigenPantalla)[0] != '1')
         return false;
 

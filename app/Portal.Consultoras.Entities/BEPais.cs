@@ -31,10 +31,10 @@ namespace Portal.Consultoras.Entities
         public BEPais() { }
         public BEPais(IDataRecord row)
         {
-            PaisID = Convert.ToInt32(row["PaisID"]);
-            CodigoISO = Convert.ToString(row["CodigoISO"]);
-            NombreCorto = Convert.ToString(row["NombreSimple"]);
-            Nombre = Convert.ToString(row["NombreComplejo"]);
+            PaisID = row.ToInt32("PaisID");
+            CodigoISO = row.ToString("CodigoISO");
+            NombreCorto = row.ToString("NombreSimple");
+            Nombre = row.ToString("NombreComplejo");
             CodigoISOProd = row.ToString("CodigoISOProd");
             ZonaHoraria = row.ToDouble("ZonaHoraria");
             DiasAntes = row.ToInt32("DiasAntes");
