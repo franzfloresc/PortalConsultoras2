@@ -7036,6 +7036,7 @@ input[type='checkbox']:checked + span:after {
     cursor: pointer;
     display: block;
     width: 200px;
+    text-align:left;
 }
 
 .menu_subfooter {

@@ -1,3 +1,2 @@
-# Portal Consultoras SB 2
+# Portal Consultoras SB2
 
-BPT + PL50 => Sprint 4 - Oferta Final.
