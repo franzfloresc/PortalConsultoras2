@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -43,17 +44,17 @@ namespace Portal.Consultoras.Entities
 
         public BEOfertaWeb(IDataRecord row)
         {
-            CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            CUV = Convert.ToString(row["CUV"]);
-            Descripcion = Convert.ToString(row["Descripcion"]);
-            PrecioCatalogo = Convert.ToDecimal(row["PrecioCatalogo"]);
-            PrecioOferta = Convert.ToDecimal(row["PrecioOferta"]);
-            StockActual = Convert.ToInt32(row["StockActual"]);
-            MarcaID = Convert.ToInt32(row["MarcaID"]);
-            NombreImagen = Convert.ToString(row["NombreImagen"]);
-            URL = Convert.ToString(row["URL"]);
-            Prioridad = Convert.ToInt32(row["Prioridad"]);
-            CantidadPedido = Convert.ToInt32(row["CantidadPedido"]);
+            CampaniaID = row.ToInt32("CampaniaID");
+            CUV = row.ToString("CUV");
+            Descripcion = row.ToString("Descripcion");
+            PrecioCatalogo = row.ToDecimal("PrecioCatalogo");
+            PrecioOferta = row.ToDecimal("PrecioOferta");
+            StockActual = row.ToInt32("StockActual");
+            MarcaID = row.ToInt32("MarcaID");
+            NombreImagen = row.ToString("NombreImagen");
+            URL = row.ToString("URL");
+            Prioridad = row.ToInt32("Prioridad");
+            CantidadPedido = row.ToInt32("CantidadPedido");
         }
 
     }

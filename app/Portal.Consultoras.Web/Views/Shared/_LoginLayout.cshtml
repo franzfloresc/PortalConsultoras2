@@ -18,7 +18,9 @@
 
     <title data-id="titulo" id="tituloPagina">@ViewBag.TituloPagina</title>
 
+    @*@Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerHeader.cshtml")*@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
 
     <link rel="shortcut icon" type="image/x-icon" id="iconoPagina" data-id="iconPagina" href="@ViewBag.IconoPagina" />
 
@@ -150,139 +152,18 @@
 </head>
 <body class="body_login @Model.NombreClase" onload="noback();" onpageshow="if(event.persisted) noback();" onunload="">
 
-    <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display:none;visibility:hidden;"></iframe>
-    </noscript>
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l !== 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
-    </script>
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
+
     <div id="divMant" style="display: none;" class="modal_mantenimiento">
         <a href="#" onclick="closeMant();">
         </a>
     </div>
+
+    @*Popup para mexico privacidad de datos*@ 
     <div id="box-pop-up" style="display: none;">
-        <div class="content-pop-up">
-            <div class="cabecera">
-                AVISO DE PRIVACIDAD
-            </div>
-            <div class="indicador_lbel"></div>
-            <div style="height: 275px; padding-right: 15%; padding-left: 15%; margin-top: 55px;">
-
-                <div style="color: #222;" id="pop-up-body" class="default-skin">
-                    Transbel, S.A. de C.V., con domicilio en Rancho San Javier, Carretera México Querétaro Km. 41.5, Nave 6,
-                    Lotes 2 y 3, Col. Ex hacienda San Miguel, Cuautitlán Izcalli  Mex. C.P. 54715.,
-                    México (en adelante “Belcorp”) pone a su disposición el presente Aviso de Privacidad,
-                    a fin de dar cumplimiento a la Ley Federal de Protección de Datos Personales en
-                    Posesión de los Particulares (en adelante la “Ley”)
-
-                    <br />
-                    <br />
-                    Datos Personales que se recaban.- Nombre, fecha de nacimiento, Registro Federal de Contribuyentes,
-                    domicilio fiscal; domicilio particular, dirección de correo electrónico; número de teléfono fijo y celular;
-                    número de credencial para votar (IFE); número de Registro Federal de Contribuyentes (RFC);
-                    número de Clave única de Registro de Población (CURP); escolaridad; firma autógrafa;
-                    referencias familiares, lo cual incluye: nombre, teléfono. Asimismo, con los datos personales proporcionados,
-                    Belcorp podrá obtener indirectamente datos personales de índole financiera adicionales de usted como
-                    pueden ser su reporte de historial crediticio en cualquiera de las Sociedades de información Crediticia
-                    existentes en el territorio de los Estados Unidos Mexicanos u otros antecedentes o registros financieros.
-
-                    <br />
-                    <br />
-
-                    Finalidades y/o Usos de los datos personales.- Los datos personales que recaba Belcorp son utilizados
-                    para cumplir con las obligaciones derivadas de la relación que con usted se cree, así como para llevar
-                    a cabo la cobranza y procesamiento de pagos; reingresos a venta directa; formar una base de datos de
-                    personas dedicadas a la venta directa; análisis de mercado; realizar llamadas para fines publicitarios
-                    y mercadotécnicos, envío de publicidad y promociones sobre Los Productos o servicios de Belcorp;
-                    análisis a fin de determinar la eficacia de nuestra publicidad y promociones; y para mapearla y
-                    contactarla con posibles compradoras mediante el uso de una aplicación de software a ser instalada
-                    en dispositivos móviles y tabletas electrónicas con dicho fin (la “App”). Los datos de familiares
-                    serán utilizados únicamente para contactarlos e intentar localizar a la consultora.
-
-                    <br />
-                    <br />
-                    Transferencias de datos personales.- Belcorp podrá transferir sus datos personales a cualquier
-                    Sociedad de Información Crediticia para efectos de reporte por falta de pago oportuno y a
-                    través de la App a posibles compradoras a efecto de que ellas puedan contactarla a usted y
-                    usted pueda realizar alguna venta. Asimismo, en caso de que Belcorp decida vender su cartera
-                    de clientes, sus datos personales serán transferidos al tercero adquirente y dicha transferencia
-                    la será notificada a través de una modificación al presente Aviso de Privacidad de conformidad
-                    con los términos aquí establecidos. Excepto por lo anterior, Belcorp no cederá o transferirá sus
-                    datos personales a terceros ajenos a Belcorp sin su conocimiento previo. Sin embargo, Belcorp podrá
-                    transferir sus datos personales cuando dicha transferencia esté prevista en la Ley.
-
-                    <br />
-                    <br />
-                    Derechos que le corresponden  respecto a sus datos personales.- Usted podrá ejercitar ante la Persona
-                    responsable de Datos Personales de Belcorp los derechos de acceso, rectificación cancelación y
-                    oposición (derechos ARCO), establecidos en la Ley. Asimismo, podrá revocar, en todo momento,
-                    el consentimiento que haya otorgado y que fuese  necesario para el tratamiento de sus datos personales,
-                    así como solicitar que se limite el uso o divulgación de sus datos personales. Lo anterior, enviando su
-                    petición al correo electrónico: privacidadbelcorpmx@belcorp.biz o a Rancho San Javier, Carretera México
-                    Querétaro Km. 41.5, Nave 6, Lotes 2 y 3, Col. Ex hacienda San Miguel, Cuautitlán Izcalli  Mex. C.P. 54715.
-                    Belcorp pondrá a su disposición a partir de enero de 2012 los Formatos Sugeridos para llevar a cabo el
-                    ejercicio de derechos ARCO a través de su sitio web: www.somosbelcorp.com - www.uneteabelcorp.com
-                    o en el domicilio antes mencionado.
-
-                    <br />
-                    <br />
-                    Cambios al Aviso de Privacidad.- En caso de existir cambios en el presente se pondrá a su disposición la
-                    versión actualizada del mismo a través de la página web www.somosbelcorp.com - www.uneteabelcorp.com
-                    o se le enviará la versión actualizada al domicilio que nos proporcionó.
-
-                    <br />
-                    <br />
-                    En caso de no estar de acuerdo con los términos del presente, le pedimos que lo informe a la Persona responsable
-                    de Datos Personales de Belcorp dentro de los 5 días hábiles siguientes a haber recibido este Aviso de Privacidad,
-                    de lo contario, se entenderá que está de acuerdo en que sus datos personales sean tratados de conformidad con el presente.
-
-                    <br />
-                    <br />
-                    De haber proporcionado datos de terceros, usted garantiza que ha obtenido las autorizaciones
-                    necesarias para tal efecto y que les ha informado del tratamiento que se les dará a sus datos
-                    personales en los términos de este aviso de Privacidad.
-
-                    <br />
-                    <br />
-                    En término de la Ley y su Reglamento, le informamos que, ante la negativa de respuesta a las
-                    solicitudes de derechos ARCO o inconformidad con la misma, usted puede presentar ante el
-                    Instituto Federal de Acceso a la información y Protección de Datos, la correspondiente Solicitud
-                    de Protección de Derechos en los plazos y términos fijados por la Ley y su Reglamento.
-
-                    <br />
-                    <br />
-                    HAGO CONSTAR BAJO PROTESTA DE DECIR VERDAD QUE TODOS LOS DATOS REGISTRADOS EN ESTA SOLICITUD Y
-                    CONTRATO SON VERDADEROS; POR LO QUE ASUMO MI RESPONSABLIDAD CON TODAS LAS CONSECUENCIAS JURIDICAS
-                    EN LA PARTE CIVIL, PENAL Y COMERCIAL SOBRE DATOS INCLUIDOS EN ESTE DOCUMENTO.
-
-                    <br />
-                    <br />
-                    AL PULSAR EN EL BOTÓN “INGRESA A TU CUENTA” USTED ACEPTA EL TRATAMIENTO DE SUS DATOS PERSONALES DE
-                    CONFORMIDAD CON LOS TÉRMINOS DEL PRESENTE AVISO DE PRIVACIDAD
-                </div>
-            </div>
-            <div style="height: 50px;">
-                <div style="text-align: right; padding-top: 15px; padding-right: 15%; color: #000; font-weight: bold;">
-                    <span style="border-bottom: medium solid #DDD; cursor: pointer;" onclick="CloseDialog()">OK, GRACIAS</span>
-                </div>
-            </div>
-
-            <div class="clear"></div>
-        </div>
+         @Html.Partial("~/Views/Shared/_PopupPrivacidadDatos.cshtml")
     </div>
-
+   
     <div id="bg_1" style="display: none;">
         <div class="content_bg_1">
             <a href="javascript:closeit()" class="cerrar"></a>
