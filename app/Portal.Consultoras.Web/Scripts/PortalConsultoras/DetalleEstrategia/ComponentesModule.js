@@ -39,7 +39,6 @@ var ComponentesModule = (function () {
                 id: ".modal-fondo",
                 opacity: ".7"
             }
-
         }
     };
 
@@ -76,9 +75,11 @@ var ComponentesModule = (function () {
             if (cuv === hermano.Cuv) {
                 var componente = {};
                 componente = _estrategia.Hermanos[index];
-                _mostrarModalElegirOpciones();
-                //
+
                 opcionesEvents.applyChanges("onComponentSelected", componente);
+
+                _mostrarModalElegirOpciones();
+
                 return false;
             }
         });
