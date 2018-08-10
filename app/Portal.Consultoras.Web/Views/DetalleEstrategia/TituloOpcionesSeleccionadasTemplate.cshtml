@@ -1,31 +1,31 @@
 ﻿<script id="titulo-opciones-seleccionadas-template" type="text/x-handlebars-template">
     {{#iff this.HermanosSeleccionados.length '==' '0'}}
         {{#iff this.FactorCuadre '==' '1'}}
-        <h3>Elige 1 opción</h3>
+        <div>Elige 1 opción</div>
         {{else}}
-        <h3>Elige {{this.FactorCuadre}} opciones</h3>
+        <div>Elige {{this.FactorCuadre}} opciones</div>
         {{/iff}}        
     {{else}}
         {{#iff this.cantidadFaltantes '>' '1'}}
-        <h3>Te Faltan {{this.cantidadFaltantes}} opciones</h3>
+        <div>Te Faltan {{this.cantidadFaltantes}} opciones</div>
         {{/iff}}
     
         {{#iff this.cantidadFaltantes '==' '1'}}
-        <h3>Te Falta 1 opción</h3>
+        <div>Te Falta 1 opción</div>
         {{/iff}}
 
         {{#iff this.cantidadFaltantes '==' '0'}}
             {{#iff this.resumenAplicados.length '==' '0'}}
                 {{#iff this.HermanosSeleccionados.length '==' '1'}}
-                     <h3>¡Listo! <span>ya tienes tu</span> opción</h3>
+                     <div>¡Listo! <span>ya tienes tu</span> opción</div>
                 {{else}}
-                     <h3>¡Listo! <span>ya tienes tus</span> {{this.HermanosSeleccionados.length}} opciones</h3>
+                     <div>¡Listo! <span>ya tienes tus</span> {{this.HermanosSeleccionados.length}} opciones</div>
                 {{/iff}}
             {{else}}
                 {{#iff this.HermanosSeleccionados.length '==' '1'}}
-                     <h3>Cambia tu opción</h3>
+                     <div>Cambia tu opción</div>
                 {{else}}
-                     <h3>Cambia tus {{this.HermanosSeleccionados.length}} opciones</h3>
+                     <div>Cambia tus {{this.HermanosSeleccionados.length}} opciones</div>
                 {{/iff}}
             {{/iff}}
             

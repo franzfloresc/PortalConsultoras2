@@ -232,9 +232,9 @@ var EstrategiaAgregarModule = (function () {
             return false;
         }
 
-        if (estrategiaComponenteModule.ValidarSeleccionTono($btnAgregar, _config.esFicha)) {
-            return false;
-        }
+        //if (estrategiaComponenteModule.ValidarSeleccionTono($btnAgregar, _config.esFicha)) {
+        //    return false;
+        //}
 
         var cantidad = (limite > 0) ? limite : ($btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val());
 
