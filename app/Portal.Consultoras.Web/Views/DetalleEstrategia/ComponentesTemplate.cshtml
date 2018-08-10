@@ -6,7 +6,13 @@
         <div class="tono_select_opt">
             <div class="content_tono_elegido texto_sin_tono" data-tono-change="1" onclick="javascript: ComponentesModule.SeleccionarComponente('{{componente.Cuv}}')">
                 <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
-                <div class="texto_tono_seleccionado">ELIGE 1 OPCIÓN</div>
+                <div class="texto_tono_seleccionado">
+                    {{#iff componente.FactorCuadre '==' '1'}}
+                    ELIGE 1 OPCIÓN
+                    {{else}}
+                    ELIGE {{componente.FactorCuadre}} OPCIONES
+                    {{/iff}}
+                </div>
                 <a class="btn_cambiar_opciones una_opcion" href="#">Cambiar opcion</a>
                 <hr class="clear">
             </div>
@@ -22,8 +28,10 @@
                 </div>
                 {{/each}}
             </div>
+            <div id="resumen-opciones-{{componente.Cuv}}" class="tonos_seleccionados" style="display:none"></div>
         </div>
-        <div class="content_tonos_maquillaje" data-tono-div="">
+        {{#iff FactorCuadre '==' '1'}}
+        <div class="content_tonos_maquillaje" data-tono-div="{{componente.Cuv}}">
             {{#each componente.Hermanos as |variedad|}}
             <div style="display: none;">
                 <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
@@ -38,6 +46,7 @@
             </div>
             {{/each}}
         </div>
+        {{/iff}}
     </div>
     {{/each}}
     {{/iff}}
@@ -74,7 +83,8 @@
             {{#iff componente.Digitable '==' '1'}}
             <div class="content_right_ficha" style="width:43%;">
                 <div class="tono_select_opt">
-                    <div class="content_tono_elegido texto_sin_tono" data-tono-change="1" onclick="javascript: ComponentesModule.SeleccionarComponente('{{componente.Cuv}}')">
+                    <div class="content_tono_elegido texto_sin_tono" data-tono-change="1" data-tono-change-cuv="{{componente.Cuv}}"
+                     onclick="javascript: ComponentesModule.SeleccionarComponente('{{componente.Cuv}}')">
                         <div class="tono_seleccionado" style="display:none;"><img src="/Content/Images/showroom/no_disponible.png" alt=""></div>
                         <div class="texto_tono_seleccionado">
                             {{#iff componente.FactorCuadre '==' '1'}}
@@ -97,8 +107,9 @@
                         </div>
                         {{/each}}
                     </div>
+                    <div class="tonos_seleccionados" id="opciones-elegidas{{componente.Cuv}}" style="display:none;"></div>
                 </div>
-                <div class="tono_selecionado" id="resumen-opciones" style="display:none;"></div>
+                <div id="resumen-opciones-{{componente.Cuv}}" class="tonos_seleccionados" style="display:none;"></div>
             </div>
             {{/iff}}
             <hr class="clear">

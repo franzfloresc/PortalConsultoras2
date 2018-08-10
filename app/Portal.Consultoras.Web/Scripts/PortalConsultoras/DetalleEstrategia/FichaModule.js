@@ -211,21 +211,11 @@ var FichaModule = (function (config) {
         },
         mouseLeaveSelectArea: function () {
 
-        },
-        closeComponentsSection: function () {
-            if(!isMobile()){
-                $(".contenedor_seleccion").css("margin-right", "-320px");
-                $(".contenedor_seleccion").css("opacity", "0");
-                $(".modal-fondo").css("opacity", "0");
-                $(".modal-fondo").hide();
-                $("body").removeClass("modal_activado");
-            }
         }
     };
 
     var _bindingEvents = function () {
         $("body").on("click", _elementos.dataClicked, _eventos.clickChange);
-        $("body").on("click", ".button_cerrar", _eventos.closeComponentsSection);
         if (!isMobile()) {
             $(document).on("mousemove", _elementos.dataChange, _eventos.mouseMove);
             $(document).on("mouseleave", _elementos.dataSelected, _eventos.mouseLeaveSelectArea);

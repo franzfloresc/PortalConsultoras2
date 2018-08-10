@@ -19,8 +19,13 @@ var ResumenOpcionesModule = (function () {
         return false;
     };
 
-    var AplicarOpciones = function() {
+    var AplicarOpciones = function () {
+
         _componente = ListaOpcionesModule.GetComponente() || _componente;
+        if (!(_componente.FactorCuadre === _componente.HermanosSeleccionados.length)) {
+            return false;
+        }
+
         _componente.resumenAplicados = _componente.HermanosSeleccionados;
         _componente.HermanosSeleccionados = [];
 
@@ -33,7 +38,8 @@ var ResumenOpcionesModule = (function () {
         var templateSiblings = $(template).siblings(".tono_select_opt").hide();
         $(template).show();
 
-        $("#elegir-opciones-modal").modal("hide");
+        ListaOpcionesModule.CloseElegirOpcionesModal();
+
         SetHandlebars("#resumen-opciones-template", _componente, template);
 
         var OpcionPaleta = "[data-tono-cuv='[CUV]']";

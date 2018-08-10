@@ -1,10 +1,43 @@
 ﻿<script id="titulo-opciones-seleccionadas-template" type="text/x-handlebars-template">
-    {{#iff this.FactorCuadre '==' '1'}}
-    <div>Elige 1 opción</div>
+    {{#iff this.HermanosSeleccionados.length '==' '0'}}
+        {{#iff this.FactorCuadre '==' '1'}}
+        <h3>Elige 1 opción</h3>
+        {{else}}
+        <h3>Elige {{this.FactorCuadre}} opciones</h3>
+        {{/iff}}        
     {{else}}
-    <div>Elige {{this.FactorCuadre}} opción</div>
+        {{#iff this.cantidadFaltantes '>' '1'}}
+        <h3>Te Faltan {{this.cantidadFaltantes}} opciones</h3>
+        {{/iff}}
+    
+        {{#iff this.cantidadFaltantes '==' '1'}}
+        <h3>Te Falta 1 opción</h3>
+        {{/iff}}
+
+        {{#iff this.cantidadFaltantes '==' '0'}}
+            {{#iff this.resumenAplicados.length '==' '0'}}
+                {{#iff this.HermanosSeleccionados.length '==' '1'}}
+                     <h3>¡Listo! <span>ya tienes tu</span> opción</h3>
+                {{else}}
+                     <h3>¡Listo! <span>ya tienes tus</span> {{this.HermanosSeleccionados.length}} opciones</h3>
+                {{/iff}}
+            {{else}}
+                {{#iff this.HermanosSeleccionados.length '==' '1'}}
+                     <h3>Cambia tu opción</h3>
+                {{else}}
+                     <h3>Cambia tus {{this.HermanosSeleccionados.length}} opciones</h3>
+                {{/iff}}
+            {{/iff}}
+            
+        {{/iff}}
     {{/iff}}
-    <div>¡listo! <span>ya tienes tu</span> opción</div>
-    <p>0 seleccionados</p>
-    <button class="button_cerrar"><img src="/Content/Images/mobile/Esika/close-button.svg" alt=""></button>
+
+    <p>
+        {{#iff this.HermanosSeleccionados.length '==' '1'}}
+            1 seleccionado
+        {{else}}
+            {{this.HermanosSeleccionados.length}} seleccionados
+        {{/iff}}
+    </p>
+    <button onclick="javascript: ListaOpcionesModule.CloseElegirOpcionesModal();" class="button_cerrar"><img src="/Content/Images/mobile/Esika/close-button.svg" alt=""></button>
 </script>

@@ -219,7 +219,15 @@ var ListaOpcionesModule = (function () {
                 item.cantidadSeleccionada = 0;
             });
         }
-        $(_elements.divElegirOpciones.id).modal("hide");
+        if (isMobile()) {
+            $(_elements.divElegirOpciones.id).modal("hide");
+        } else {
+            $(".contenedor_seleccion").css("margin-right", "-320px");
+            $(".contenedor_seleccion").css("opacity", "0");
+            $(".modal-fondo").css("opacity", "0");
+            $(".modal-fondo").hide();
+            $("body").removeClass("modal_activado");
+        }
     }
 
     return {
