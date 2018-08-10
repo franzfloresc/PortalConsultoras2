@@ -451,11 +451,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             return Json(new
@@ -465,6 +465,36 @@ namespace Portal.Consultoras.Web.Controllers
                 message = "Ocurrió un error al acceder al servicio, intente nuevamente.",
                 extra = ""
             });
+        }
+
+        private string ActualizarMisDatos(ServiceUsuario.BEUsuario usuario, string correoAnterior)
+        {
+            usuario.ZonaID = userData.ZonaID;
+            usuario.RegionID = userData.RegionID;
+            usuario.ConsultoraID = userData.ConsultoraID;
+            usuario.PaisID = userData.PaisID;
+            usuario.PrimerNombre = userData.PrimerNombre;
+            usuario.CodigoISO = userData.CodigoISO;
+
+            var resultado = string.Empty;
+            using (ServiceUsuario.UsuarioServiceClient svr = new ServiceUsuario.UsuarioServiceClient())
+            {
+                resultado = svr.ActualizarMisDatos(usuario, correoAnterior);
+            }
+
+            resultado = Util.Trim(resultado);
+            if (resultado.Split('|')[0] != "0")
+            {
+                var userDataX = userData;
+                if (usuario.EMail != correoAnterior)
+                {
+                    userDataX.EMail = usuario.EMail;
+                }
+                userDataX.Celular = usuario.Celular;
+                sessionManager.SetUserData(userDataX);
+            }
+
+            return resultado;
         }
 
         private void RevistaDigitalActualizarSuscripcion()

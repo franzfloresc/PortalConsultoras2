@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -21,8 +22,8 @@ namespace Portal.Consultoras.Entities
 
         public BEConfiguracionValidacionNuevoPROL(IDataRecord row)
         {
-            ZonaID = Convert.ToInt32(row["ZonaID"]);
-            CodigoZona = Convert.ToString(row["CodigoZona"]);
+            ZonaID = row.ToInt32("ZonaID");
+            CodigoZona = row.ToString("CodigoZona");
         }
 
     }

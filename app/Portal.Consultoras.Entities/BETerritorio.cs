@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -28,12 +29,12 @@ namespace Portal.Consultoras.Entities
         public BETerritorio() { }
         public BETerritorio(IDataRecord row)
         {
-            RegionID = Convert.ToInt32(row["RegionID"]);
-            ZonaID = Convert.ToInt32(row["ZonaID"]);
-            TerritorioID = Convert.ToInt32(row["TerritorioID"]);
-            Codigo = Convert.ToString(row["Codigo"]);
-            Descripcion = Convert.ToString(row["Descripcion"]);
-            SeccionID = Convert.ToInt32(row["SeccionID"]);
+            RegionID = row.ToInt32("RegionID");
+            ZonaID = row.ToInt32("ZonaID");
+            TerritorioID = row.ToInt32("TerritorioID");
+            Codigo = row.ToString("Codigo");
+            Descripcion = row.ToString("Descripcion");
+            SeccionID = row.ToInt32("SeccionID");
         }
 
     }

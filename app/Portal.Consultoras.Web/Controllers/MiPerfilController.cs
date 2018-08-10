@@ -373,13 +373,13 @@ namespace Portal.Consultoras.Web.Controllers
             BEUsuario entidad = null;
             string resultado = string.Empty;
             string[] lst = null;
-            string v_campomodificacion = string.Empty;
+            //string v_campomodificacion = string.Empty;
 
             string CorreoAnterior = string.Empty;
 
             try
             {
-                var usuario = Mapper.Map<MisDatosModel, BEUsuario>(model);
+                //var usuario = Mapper.Map<MisDatosModel, BEUsuario>(model);
 
                 entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
                 CorreoAnterior = model.CorreoAnterior;

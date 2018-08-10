@@ -27,8 +27,8 @@ namespace Portal.Consultoras.Entities
         public BEPopupPais(IDataRecord row)
         {
             Descripcion = string.Empty;
-            PopupPaisID = Convert.ToInt32(row["PopupPaisID"]);
-            CodigoPopup = Convert.ToInt32(row["CodigoPopup"]);
+            PopupPaisID = row.ToInt32("PopupPaisID");
+            CodigoPopup = row.ToInt32("CodigoPopup");
             Descripcion = row.ToString("Descripcion");
             Orden = row.ToInt32("Orden");
         }
