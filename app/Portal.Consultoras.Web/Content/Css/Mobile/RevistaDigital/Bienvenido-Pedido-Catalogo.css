@@ -423,7 +423,7 @@ div#tab_revistasdigital_mobile {
         color: black;
         font-size: 13px;
         padding: 10px 0 15px 0;
-        text-transform: uppercase;
+        /*text-transform: uppercase;*/
     }
 
         .wrapper_resumen_mobile_clubganamas .zonadecolor span.margin_top {
