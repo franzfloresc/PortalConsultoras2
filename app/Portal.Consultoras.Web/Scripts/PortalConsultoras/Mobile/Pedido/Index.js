@@ -616,6 +616,7 @@ function InsertarProductoSugerido(model) {
         return false;
     }
 
+    console.log('Pedido - Index.js - InsertarProductoSugerido - ajax ante ActualizarGanancia', urlPedidoInsert, model);
     jQuery.ajax({
         type: 'POST',
         url: urlPedidoInsert,
@@ -635,6 +636,7 @@ function InsertarProductoSugerido(model) {
                 return false;
             }
 
+            console.log('Pedido - Index.js - InsertarProductoSugerido - ante ActualizarGanancia', data.DataBarra);
             ActualizarGanancia(data.DataBarra);
             var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
             if (existeError == "1") {

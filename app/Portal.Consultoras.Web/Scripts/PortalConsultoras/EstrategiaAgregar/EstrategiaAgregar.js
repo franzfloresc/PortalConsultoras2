@@ -51,7 +51,7 @@ var EstrategiaAgregarModule = (function () {
 
     var elementosDiv = {
         divMensajeBloqueada: "#divMensajeBloqueada",
-        divHVMensajeBloqueada: "#divHVMensajeBloqueada",
+        //divHVMensajeBloqueada: "#divHVMensajeBloqueada",
         divVistaPrevia: "#divVistaPrevia",
         hdErrorInsertarProducto: "#hdErrorInsertarProducto",
         hdCampaniaCodigo: "#hdCampaniaCodigo",
@@ -205,7 +205,7 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var estrategiaAgregar = function (event, popup, limite, esFicha) {
-        console.log('estrategiaAgregar');
+        console.log('estrategiaAgregar', event, popup, limite, esFicha);
         popup = popup || false;
         limite = limite || 0;
 
@@ -257,7 +257,9 @@ var EstrategiaAgregarModule = (function () {
         var itemClone = estrategiaObtenerObjHtmlLanding($btnAgregar);
         if (isPagina("ofertas") && !isMobile()) {
             var estratediaId = itemClone.data("item");
-            itemClone = itemClone.parent().find("[data-item=" + estratediaId + "]");
+            if (estratediaId != "") {
+                itemClone = itemClone.parent().find("[data-item=" + estratediaId + "]");
+            }
         }
         var divAgregado = $(itemClone).find(".agregado.product-add");
 
@@ -294,6 +296,7 @@ var EstrategiaAgregarModule = (function () {
             // ClienteID_:
         };
         console.log('estrategiaAgregar', params);
+        console.log('EstrategiaAgregar.js - estrategiaAgregar - ajax ante ActualizarGanancia - EstrategiaAgregarProvider', params);
         EstrategiaAgregarProvider.pedidoAgregarProductoPromise(params).done(function(data) {
             if (!checkTimeout(data)) {
                 CerrarLoad();
@@ -314,7 +317,7 @@ var EstrategiaAgregarModule = (function () {
             }
 
             AbrirLoad();
-
+            
             if (divAgregado != null) {
                 if (typeof divAgregado.length != "undefined" && divAgregado.length > 0) {
                     divAgregado.each(function(index, element) {
@@ -326,6 +329,13 @@ var EstrategiaAgregarModule = (function () {
 
                 if ($btnAgregar[0]) {
                     var contenedorAgregado = $($btnAgregar).parent().find('#ContenedorAgregado')[0];
+
+                    if(!contenedorAgregado)
+                    {
+                        contenedorAgregado = $($btnAgregar).parent().parent().find('.contenedor_agregado');                    
+                    }
+
+
                     if (contenedorAgregado) {
                         $(contenedorAgregado).show();
                     }
@@ -333,8 +343,10 @@ var EstrategiaAgregarModule = (function () {
             }
 
             if (isMobile()) {
+                console.log('EstrategiaAgregar.js - estrategiaAgregar - ante ActualizarGanancia', data.DataBarra);
                 ActualizarGanancia(data.DataBarra);
                 //if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.ShowRoom)
+                console.log('EstrategiaAgregar.js - EstrategiaAgregarProvider - ante CargarCantidadProductosPedidos');
                 CargarCantidadProductosPedidos(true);
                 microefectoPedidoGuardado();
             } else {
@@ -355,8 +367,10 @@ var EstrategiaAgregarModule = (function () {
                 //if (typeof ActualizarGanancia != constantes.undefined())
                 //    ActualizarGanancia(data.DataBarra);
 
-                if (typeof CargarCarouselEstrategias != constantes.undefined())
-                    CargarCarouselEstrategias();
+                if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                    if (typeof CargarCarouselEstrategias != constantes.undefined())
+                        CargarCarouselEstrategias();
+                }
 
                 if (typeof tieneMasVendidos != constantes.undefined()) {
                     if (tieneMasVendidos === 1) {
@@ -369,8 +383,10 @@ var EstrategiaAgregarModule = (function () {
                 $(elementosDiv.hdErrorInsertarProducto).val(data.errorInsertarProducto);
 
 
-                cierreCarouselEstrategias();
-                CargarCarouselEstrategias();
+                cierreCarouselEstrategias
+                if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                    CargarCarouselEstrategias();
+                }
                 HideDialog(elementosDiv.divVistaPrevia.substring(1));
 
                 //tieneMicroefecto = true;
@@ -394,7 +410,9 @@ var EstrategiaAgregarModule = (function () {
 
                     }
                 } else if (tipoOrigenEstrategiaAux != 272) {
-                    CargarCarouselEstrategias();
+                    if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                        CargarCarouselEstrategias();
+                    }
 
                     if (tieneMasVendidos === 1) {
                         CargarCarouselMasVendidos("mobile");

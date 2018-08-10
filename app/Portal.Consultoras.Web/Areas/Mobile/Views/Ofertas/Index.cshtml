@@ -62,6 +62,7 @@
         var urlOfertaDetalleProductoLan = '@Url.Action("Ficha", "DetalleEstrategia", new { area = "Mobile" })';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
         var OrigenDesktopODD = 0;
+        var variableEstrategia = @Html.Raw(Json.Encode(ViewBag.variableEstrategia)) || {};
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/JsSB2-Ofertas")
 }

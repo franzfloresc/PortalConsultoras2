@@ -38,10 +38,8 @@ namespace Portal.Consultoras.Entities
             ZonaID = row.ToInt32("ZonaID");
             ZonaNombre = row.ToString("ZonaNombre");
             ValidacionActiva = row.ToInt16("ValidacionActiva");
-            if (DataRecord.HasColumn(row, "DiasParametroCarga"))
-                DiasParametroCarga = Convert.ToInt16(Convert.IsDBNull(row["DiasParametroCarga"]) ? 1 : row["DiasParametroCarga"]);
-            if (DataRecord.HasColumn(row, "DiasDuracionCronograma"))
-                DiasDuracionCronograma = Convert.ToInt16(Convert.IsDBNull(row["DiasDuracionCronograma"]) ? 1 : row["DiasDuracionCronograma"]);
+            DiasParametroCarga = row.ToInt16("DiasParametroCarga", 1);
+            DiasDuracionCronograma = row.ToInt16("DiasDuracionCronograma", 1);
         }
     }
 }

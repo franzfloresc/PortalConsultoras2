@@ -256,12 +256,12 @@ body {
 
 .cantidad_detalle_producto {
     float: left;
-    width: 8%;
+    width: 12%;
 }
 
 .descripcion_detalle_producto {
     float: left;
-    width: 92%;
+    width: 88%;
 }
 
 .dibujar_linea::before, .dibujar_linea::after {

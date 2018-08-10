@@ -878,7 +878,7 @@ namespace Portal.Consultoras.Data
 
         public bool ValidarCodigoIngresado(BEUsuarioDatos oUsu, string tipoEnvio, string codigoSms)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarCodigoIngresado"); ;
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarCodigoIngresado");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, oUsu.CodigoUsuario);
             Context.Database.AddInParameter(command, "@OrigenID", DbType.Int32, oUsu.OrigenID);
             Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, tipoEnvio);

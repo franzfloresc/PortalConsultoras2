@@ -15,7 +15,9 @@
 
     <title>Belcorp | Portal Consultoras</title>
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerHeader.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
 
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900" rel="stylesheet" type="text/css">
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
@@ -104,7 +106,16 @@
     }
 </head>
 <body>
-    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
+
+    @*Popup para mexico privacidad de datos*@
+    @if (ViewBag.codigoISOMenu == "MX")
+    {
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Login2/popup-privacidad-datos.css")">
+        <div id="box-pop-up" style="display: none;">
+            @Html.Partial("~/Views/Shared/_PopupPrivacidadDatos.cshtml")
+        </div>
+    }
 
     @if (ViewBag.PaisesConTrackingJetlore == "1")
     {
@@ -143,13 +154,15 @@
 
         <div class="clear"></div>
         <div class="wrapper_header wrapper_header_cincuenta_anios_belcorp">
-            <div class="cincuenta_anios_belcorp">
-                <img src="@Url.Content("~/Content/Images/cincuenta_anios_belcorp_cabecera.png")" alt="" />
+            <div data-menu-header="parte1" style="float: left;">
+                <div class="cincuenta_anios_belcorp">
+                    <img src="@Url.Content("~/Content/Images/cincuenta_anios_belcorp_cabecera.png")" alt="" />
+                </div>
+                <div class="logo_esika">
+                    <a class="@ViewBag.ClaseLogoSB" href="@Url.Action("Index", "Bienvenida")"></a>
+                </div>
             </div>
-            <div class="logo_esika">
-                <a class="@ViewBag.ClaseLogoSB" href="@Url.Action("Index", "Bienvenida")"></a>
-            </div>
-            <div class="menu_new_esika">
+            <div data-menu-header="parte2" class="menu_new_esika">
                 @Html.Partial("~/Views/Shared/_Menu.cshtml")
             </div>
             @if (ViewBag.MostrarBuscadorYFiltros)
@@ -187,12 +200,12 @@
     }
     <div id="contentmain" class="content" data-content="" style="margin-top: 61px;">
         @if (!(controllerAction == "bienvenidaindex"
-                            || controllerAction == "showroomindex"
-                            || controllerAction == "showroomintriga"
-                            || controllerAction == "revistadigitalindex"
-                            || controllerAction == "revistadigitaldetalle"
-                            || controllerAction == "revistadigitalinformacion")
-                            && (@ViewBag.Title != "" && @ViewBag.Title != null))
+                    || controllerAction == "showroomindex"
+                    || controllerAction == "showroomintriga"
+                    || controllerAction == "revistadigitalindex"
+                    || controllerAction == "revistadigitaldetalle"
+                    || controllerAction == "revistadigitalinformacion")
+                    && (@ViewBag.Title != "" && @ViewBag.Title != null))
         {
             <div class="SubHeader">
                 <div class="ubicacion_web">
@@ -371,5 +384,6 @@
         </script>
         TempData.Remove("PixelCodigoIso");
     }
+
 </body>
 </html>

@@ -318,6 +318,7 @@
                                 CloseLoading();
                                 messageInfo("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
                             } else {
+                                console.log('ListadoProductoShowRoom.cshtml - AgregarOfertaShowRoom - ajax ante CargarCantidadProductosPedidos', urlInsertOfertaWebPortal, Item);
                                 jQuery.ajax({
                                     type: 'POST',
                                     url: urlInsertOfertaWebPortal,
@@ -346,6 +347,7 @@
                                             }
 
                                             AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
+                                            console.log('ListadoProductoShowRoom.cshtml - AgregarOfertaShowRoom - ante CargarCantidadProductosPedidos');
                                             CargarCantidadProductosPedidos();
                                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                         }
@@ -365,6 +367,7 @@
         }
 
         function ActualizarCantidadTotalPedido() {
+            console.log('ListadoProductoShowRoom.cshtml - ActualizarCantidadTotalPedido - ajax ante num-menu-shop', urlActualizarCantidadTotalPedido);
             jQuery.ajax({
                 type: 'POST',
                 url: urlActualizarCantidadTotalPedido,
@@ -374,6 +377,7 @@
                     if (checkTimeout(response)) {
                         if (response.success) {
                             var data = response.data;
+                            console.log('ListadoProductoShowRoom.cshtml - ActualizarCantidadTotalPedido - ante num-menu-shop', data);
                             $(".num-menu-shop").html(data.CantidadProductos);
                         } else {
                             window.messageInfo(response.message);
