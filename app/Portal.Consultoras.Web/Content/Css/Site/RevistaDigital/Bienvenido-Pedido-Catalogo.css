@@ -986,7 +986,6 @@
 /*BOTON ESIKA NO ANIMADO: ROJO*/
 
 .activar_boton_esika_no_animado {
-    color: white !important;
     padding: 15px 0px;
 }
 
@@ -1046,9 +1045,9 @@
 
 
 .club_gana_mas_pedido {
-    height: 289px;
+    height: 319px;
     background: #f5f5f5;
-    padding: 65px 50px;
+    padding: 95px 50px;
 }
 
     .club_gana_mas_pedido .logo_club {
@@ -1090,8 +1089,6 @@
     }
 
     .club_gana_mas_pedido a {
-        color: white;
-        border: 1px solid white;
         width: 100%;
         display: block;
         text-align: center;
@@ -1102,7 +1099,9 @@
         font-stretch: normal;
         line-height: normal;
         letter-spacing: 1px;
-        background: #000000;
+        color: #000;
+        border: 1px solid;
+        border-radius: 4px;
     }
 
 .club_gana_mas_pedido_activo {
