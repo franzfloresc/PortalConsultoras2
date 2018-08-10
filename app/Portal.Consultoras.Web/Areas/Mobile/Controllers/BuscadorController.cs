@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {                
                 var urlClient = buscadorProvider.urlClient(userData, buscadorModel);
-                ListaProductosModel = await RestClient.GetTAsync<List<BuscadorYFiltrosModel>>(urlClient);
+                ListaProductosModel = await RestClientAsync.GetTAsync<List<BuscadorYFiltrosModel>>(urlClient);
             }
             catch (Exception ex)
             {

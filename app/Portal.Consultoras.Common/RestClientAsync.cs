@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Common
 {
-    public class RestClient
+    public class RestClientAsync
     {
         private const string _mediaType = "application/json";
         private readonly string _serviceUrl = ConfigurationManager.AppSettings["RutaService"] ?? "";

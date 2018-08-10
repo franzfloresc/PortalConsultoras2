@@ -20,18 +20,12 @@ namespace Portal.Consultoras.Web.Models
         public string Descripcion { get; set; }
         public double Valorizado { get; set; }
         public double Precio { get; set; }
-        public string Catalogo { get; set; }
+        public string MarcaId { get; set; }
+        public string TipoPersonalizacion { get; set; }
         public string CodigoEstrategia { get; set; }
-        public string CodigoPalanca { get; set; }
-        public int LimiteVenta { get; set; }
-        public string DescripcionEstrategia { get; set; }
-        public int MarcaId { get; set; }
-        public int CampaniaID { get; set; }
-        public string EstrategiaCodigo { get; set; }
-        public string PrecioString { get; set; }
-        public string ValorizadoString { get; set; }
-        public int posicion { get; set; }
-        public string Agregado { get; set; }
-        public int CantidadesAgregadas { get; set; }
+        public int CodigoTipoEstrategia { get; set; }
+        public string LimiteVenta { get; set; }
+        public int Stock { get; set; }
+     
     }
 }
