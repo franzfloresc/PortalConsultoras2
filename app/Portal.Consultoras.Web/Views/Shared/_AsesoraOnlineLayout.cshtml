@@ -9,6 +9,10 @@
 
     <title>Belcorp | Portal Consultoras</title>
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerHeader.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
+
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900" rel="stylesheet" type="text/css">
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
@@ -33,14 +37,8 @@
     <script type="text/javascript" src="https://ok383.infusionsoft.com/app/webTracking/getTrackingCode"></script>
 </head>
 <body>
-    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({ 'gtm. start': new Date().getTime(), event: 'gtm.js' });
-            var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true;
-            j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
-    </script>
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
+
     <div>
         @RenderBody()
     </div>

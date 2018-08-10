@@ -3312,7 +3312,8 @@ a.subir_carousel, a.bajar_carousel {
 
 .background_carousel {
     width: 240px;
-    height: 98px;
+    /*height: 98px;*/
+    height: 89px;
     position: absolute;
     bottom: -26px;
     left: 50%;
@@ -19524,7 +19525,7 @@ label.checkpop.c_on {
 
 .logo_esika {
     /*margin-top: 6px;*/
-    width: 10%;
+    width: 100px;
     padding-right: 2px;
 }
 

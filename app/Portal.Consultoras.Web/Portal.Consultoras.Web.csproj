@@ -311,6 +311,8 @@
     <Compile Include="Controllers\DetalleEstrategiaController.cs" />
     <Compile Include="Controllers\HerramientasVentaController.cs" />
     <Compile Include="Controllers\Estrategias\UpSellingController.cs" />
+    <Compile Include="Models\EstadoProductoComentarioModel.cs" />
+    <Compile Include="Models\Estrategia\EstrategiaMDbAdapterModel.cs" />
     <Compile Include="Controllers\LanzamientosController.cs" />
     <Compile Include="Controllers\OfertaDelDiaController.cs" />
     <Compile Include="Infraestructure\Sms\ISmsConfirm.cs" />
@@ -334,6 +336,8 @@
     <Compile Include="Models\Estrategia\ShowRoom\BannerInferiorConfiguracion.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\ConfigModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\IBannerInferiorConfiguracion.cs" />
+    <Compile Include="Models\Estrategia\VariablesGeneralEstrategiaModel.cs" />
+    <Compile Include="Models\Estrategia\WaEstrategiaModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\ShowRoomEventoConsultoraModel.cs" />
     <Compile Include="Models\Estrategia\ShowRoom\ShowRoomNivelModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingFullModel.cs" />
@@ -489,6 +493,7 @@
     <Compile Include="Models\Estrategia\UpSellingAdminModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingModel.cs" />
     <Compile Include="Models\Estrategia\UpSellingRegaloModel.cs" />
+    <Compile Include="Models\Estrategia\WaTipoEstrategia.cs" />
     <Compile Include="Models\GuiaNegocioModel.cs" />
     <Compile Include="Models\ObservacionModel.cs" />
     <Compile Include="Models\PagoEnLinea\PagoEnLineaReporteModel.cs" />
@@ -531,7 +536,6 @@
     <Compile Include="Models\CuponConsultoraModel.cs" />
     <Compile Include="Models\ConfiguracionPais\ConfiguracionPaisModel.cs" />
     <Compile Include="Models\CuponUsuarioModel.cs" />
-    <Compile Include="Models\EstadoProductoComentarioModel.cs" />
     <Compile Include="Models\ConfirmarPosicionModel.cs" />
     <Compile Include="Models\CuponEnviarCorreoConfirmacion.cs" />
     <Compile Include="Models\EstrategiaDetalleModelo.cs" />
@@ -737,6 +741,10 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Providers\AdministrarEstrategiaProvider.cs" />
+    <Compile Include="Providers\OfertaBaseProvider.cs" />
+    <Compile Include="Providers\OfertaDelDiaProvider.cs" />
+    <Compile Include="Providers\PedidoSetProvider.cs" />
     <Compile Include="Providers\CdrProvider.cs" />
     <Compile Include="Providers\ConfiguracionManagerProvider.cs" />
     <Compile Include="Providers\ConfiguracionOfertasHomeProvider.cs" />
@@ -748,11 +756,12 @@
     <Compile Include="Providers\BaseProvider.cs" />
     <Compile Include="Providers\IssuuProvider.cs" />
     <Compile Include="Providers\MenuContenedorProvider.cs" />
-    <Compile Include="Providers\OfertaDelDiaProvider.cs" />
+    <Compile Include="Providers\MenuProvider.cs" />
+    <Compile Include="Providers\NotificacionProvider.cs" />
     <Compile Include="Providers\OfertaPersonalizadaProvider.cs" />
     <Compile Include="Providers\OfertaViewProvider.cs" />
     <Compile Include="Providers\PagoEnLineaProvider.cs" />
-    <Compile Include="Providers\PedidoSetProvider.cs" />
+    <Compile Include="Providers\PaqueteDocumentarioProvider.cs" />
     <Compile Include="Providers\PedidoWebProvider.cs" />
     <Compile Include="Providers\RenderImgProvider.cs" />
     <Compile Include="Providers\RevistaDigitalProvider.cs" />
@@ -1359,6 +1368,7 @@
     <Content Include="Content\Css\Site\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Site\Lbel\styleDefault.css" />
     <Content Include="Content\Css\Site\Lbel\verificacion-pin.css" />
+    <Content Include="Content\Css\Site\Login2\popup-privacidad-datos.css" />
     <Content Include="Content\Css\Site\ProductoListado\Landing.css" />
     <Content Include="Content\Css\Site\RevistaDigital\Bienvenido-Pedido-Catalogo.css" />
     <Content Include="Content\Css\Site\RevistaDigital\ConfirmarDatos.css" />
@@ -3868,6 +3878,7 @@
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Suscripcion.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-DataLayer.js" />
+    <Content Include="Scripts\PortalConsultoras\Shared\AnalyticsPortal.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\ConstantesModule.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\General\RedesSociales.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
@@ -4428,9 +4439,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService115.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedido\PedidoService116.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService12.xsd">
@@ -5213,6 +5221,9 @@
     <Content Include="Views\MisCertificados\DO_ComercialPdf.cshtml" />
     <Content Include="Views\MisCertificados\PR_PazYSalvoPdf.cshtml" />
     <Content Include="Views\MisCertificados\PR_ComercialPdf.cshtml" />
+    <Content Include="Views\Shared\_PopupPrivacidadDatos.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerHeader.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManagerBody.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

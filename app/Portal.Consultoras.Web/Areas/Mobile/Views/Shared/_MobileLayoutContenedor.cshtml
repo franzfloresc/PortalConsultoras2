@@ -21,7 +21,9 @@
 
     <title>Somos Belcorp</title>
 
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerHeader.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
 
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
 
@@ -53,7 +55,7 @@
     }
 </head>
 <body>
-    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
 
     @if (ViewBag.PaisesConTrackingJetlore == "1")
     {
@@ -87,16 +89,16 @@
             <div class="foto_menu">
                 @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
                 {
-                <div class="foto_usuaria_mobile">
-                    @if (ViewBag.FotoPerfilAncha)
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:auto; height:100%" />
-                    }
-                    else
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
-                    }
-                </div>
+                    <div class="foto_usuaria_mobile">
+                        @if (ViewBag.FotoPerfilAncha)
+                        {
+                            <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:auto; height:100%" />
+                        }
+                        else
+                        {
+                            <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+                        }
+                    </div>
                 }
             </div>
             <br />
@@ -319,7 +321,7 @@
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
-        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';        
+        var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
 
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
         var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl';

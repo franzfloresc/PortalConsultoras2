@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -30,14 +31,14 @@ namespace Portal.Consultoras.Entities
 
         public BEValidacionAutomatica(IDataRecord row)
         {
-            FechaHoraInicio = Convert.ToDateTime(row["FechaHoraInicio"]);
-            FechaHoraFin = Convert.ToDateTime(row["FechaHoraFin"]);
-            Estado = Convert.ToInt32(row["Estado"]);
-            DescripcionEstado = Convert.ToString(row["DescripcionEstado"]);
-            EnvioCorreo = Convert.ToBoolean(row["EnvioCorreo"]);
-            FechaHoraInicioEnvio = Convert.ToDateTime(row["FechaHoraInicioEnvio"]);
-            FechaHoraFinEnvio = Convert.ToDateTime(row["FechaHoraFinEnvio"]);
-            FechaHoraFacturacion = Convert.ToDateTime(row["FechaHoraFacturacion"]);
+            FechaHoraInicio = row.ToDateTime("FechaHoraInicio");
+            FechaHoraFin = row.ToDateTime("FechaHoraFin");
+            Estado = row.ToInt32("Estado");
+            DescripcionEstado = row.ToString("DescripcionEstado");
+            EnvioCorreo = row.ToBoolean("EnvioCorreo");
+            FechaHoraInicioEnvio = row.ToDateTime("FechaHoraInicioEnvio");
+            FechaHoraFinEnvio = row.ToDateTime("FechaHoraFinEnvio");
+            FechaHoraFacturacion = row.ToDateTime("FechaHoraFacturacion");
         }
     }
 
@@ -94,12 +95,12 @@ namespace Portal.Consultoras.Entities
 
         public BEValidacionMovil(IDataRecord row)
         {
-            ValidacionMovilPROLLogId = Convert.ToInt64(row["ValidacionMovilPROLLogId"]);
-            CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            MontoMaximoPedido = Convert.ToDecimal(row["MontoMaximoPedido"]);
-            MontoMinimoPedido = row.IsDBNull(row.GetOrdinal("MontoMinimoPedido")) ? 0 : Convert.ToDecimal(row["MontoMinimoPedido"]);
-            EstadoActividad = Convert.ToInt32(row["EstadoActividad"]);
-            CodigoZona = Convert.ToString(row["CodigoZona"]);
+            ValidacionMovilPROLLogId = row.ToInt64("ValidacionMovilPROLLogId");
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            MontoMaximoPedido = row.ToDecimal("MontoMaximoPedido");
+            MontoMinimoPedido = row.ToDecimal("MontoMinimoPedido");
+            EstadoActividad = row.ToInt32("EstadoActividad");
+            CodigoZona = row.ToString("CodigoZona");
         }
     }
 
