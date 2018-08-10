@@ -23,8 +23,8 @@ namespace Portal.Consultoras.Entities
 
         public BEMotivoSolicitud(IDataRecord row)
         {
-            MotivoSolicitudID = Convert.ToInt32(row["MotivoSolicitudID"]);
-            Motivo = Convert.ToString(row["Motivo"]);
+            MotivoSolicitudID = row.ToInt32("MotivoSolicitudID");
+            Motivo = row.ToString("Motivo");
             Tipo = row.ToInt32("Tipo");
             Estado = row.ToInt16("Estado");
         }

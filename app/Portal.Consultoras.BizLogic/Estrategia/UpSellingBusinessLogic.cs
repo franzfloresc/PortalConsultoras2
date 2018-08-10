@@ -203,8 +203,14 @@ namespace Portal.Consultoras.BizLogic.Estrategia
 
         public int InsertarRegalo(UpSellingRegalo entidad)
         {
-            var result = _upSellingDataAccess.InsertarRegalo(entidad);
-            return result;
+            TransactionOptions transactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
+            using (var transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            {
+                var result = _upSellingDataAccess.InsertarRegalo(entidad);
+                transaction.Complete();
+
+                return result;
+            }
         }
 
         public UpSellingRegalo ObtenerRegaloGanado(int campaniaId, long consultoraId)

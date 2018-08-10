@@ -176,5 +176,23 @@ namespace Portal.Consultoras.Web.Providers
 
             return dato;
         }
+
+        public MensajeProductoBloqueadoModel HVMensajeProductoBloqueado(HerramientasVentaModel herramientasVenta, bool esMObile)
+        {
+            var model = new MensajeProductoBloqueadoModel
+            {
+                divId = "divMensajeBloqueada",
+                IsMobile = esMObile,
+                MensajeIconoSuperior = true,
+                BtnInscribirse = false,
+                MensajeTieneDudas = false
+            };
+
+            string codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.HV.MPopupBloqueado : Constantes.ConfiguracionPaisDatos.HV.DPopupBloqueado;
+            var dato = herramientasVenta.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+            model.MensajeTitulo = dato == null ? "" : Util.Trim(dato.Valor1);
+
+            return model;
+        }
     }
 }
