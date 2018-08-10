@@ -1466,6 +1466,8 @@ namespace Portal.Consultoras.Web.Controllers
                 httpClient.DefaultRequestHeaders.Accept.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Globals.JwtToken }");
+
                 dataString = JsonConvert.SerializeObject(data);
 
                 HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
@@ -1613,6 +1615,7 @@ namespace Portal.Consultoras.Web.Controllers
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 dataString = JsonConvert.SerializeObject(data);
                 HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Globals.JwtToken }");
                 var response = httpClient.PostAsync("Api/LogGestionSacUnete", contentPost).GetAwaiter().GetResult();
                 var noQuitar = response.IsSuccessStatusCode;
 

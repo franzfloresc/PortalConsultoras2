@@ -23,6 +23,8 @@ namespace Portal.Consultoras.Common
         public static string UrlFileConsultoras { get; set; }
         public static string UrlIncentivos { get; set; }
         public static string UrlLugaresPago { get; set; }
+        public static string JwtToken { get; set; }
+        public static string JwtTokenPath { get; set; }
 
         public static string UrlMatriz
         {

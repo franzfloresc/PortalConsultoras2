@@ -525,7 +525,7 @@ namespace Portal.Consultoras.Web.Providers
             var dataString = JsonConvert.SerializeObject(data);
 
             HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-
+            httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Globals.JwtToken }");
             var response = httpClient.PostAsync("Api/LogCargaOfertas", contentPost).GetAwaiter().GetResult();
 
             var noQuitar = response.IsSuccessStatusCode;

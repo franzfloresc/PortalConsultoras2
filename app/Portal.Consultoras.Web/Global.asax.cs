@@ -8,8 +8,11 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
+
+[assembly: PreApplicationStartMethod(typeof(Portal.Consultoras.Web.PreApplicationStart), "Start")]
 namespace Portal.Consultoras.Web
 {
+
     public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
@@ -20,7 +23,9 @@ namespace Portal.Consultoras.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+
             Globals.RutaTemporales = HttpContext.Current.Server.MapPath("~/Content/Temporales");
+            Globals.JwtTokenPath = HttpContext.Current.Server.MapPath("~/SeguridadApi");
             Globals.RutaImagenesTemp = HttpContext.Current.Server.MapPath("~/Content/Images/temp");
             Globals.RutaImagenesTempOfertas = HttpContext.Current.Server.MapPath("~/Content/TemporalesOfertas");
             Globals.RutaImagenesFondoLogin = HttpContext.Current.Server.MapPath("~/Content/Images/login");
@@ -48,6 +53,7 @@ namespace Portal.Consultoras.Web
             Globals.UrlEscalaDescuentos = ConfigurationManager.AppSettings["EscalaDescuentos"];
             Globals.UrlOfertasFic = ConfigurationManager.AppSettings["OfertasFic"];
             Globals.UrlNavidadConsultora = ConfigurationManager.AppSettings["NavidadConsultora"];
+            Globals.JwtToken = JwtAutentication.getWebToken();
 
             AutoMapperConfiguration.Configure();
         }
@@ -77,6 +83,15 @@ namespace Portal.Consultoras.Web
             {
                 LogManager.LogManager.LogErrorWebServicesBus(exception, "", "");
             }
+        }
+    }
+
+    public class PreApplicationStart
+    {
+        public static void Start()
+        {
+         
+            Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(JwtModule));
         }
     }
 }

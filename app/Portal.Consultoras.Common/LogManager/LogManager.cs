@@ -197,7 +197,7 @@ namespace Portal.Consultoras.Common
                     dataString = JsonConvert.SerializeObject(data);
 
                     HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-
+                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Globals.JwtToken }");
                     HttpResponseMessage response = httpClient.PostAsync("Api/LogError", contentPost).GetAwaiter().GetResult();
 
                     var result = response.IsSuccessStatusCode;
