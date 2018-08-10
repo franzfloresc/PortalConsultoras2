@@ -27,7 +27,7 @@ var ListaOpcionesModule = (function () {
         listaOpciones: {
             id: "#lista-opciones",
             templateId: "#lista-opciones-template",
-            height: 540
+            height: (window.outerHeight - 188)
         },
         btnAplicarSeleccion: {
             id: "#btn-aplicar-seleccion",
