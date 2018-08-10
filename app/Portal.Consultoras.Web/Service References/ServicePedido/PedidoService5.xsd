@@ -4,12 +4,14 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="AliasNameTarjeta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampaniaId" type="xs:int" />
+      <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoAccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoAutorizacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoError" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoTienda" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
+      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CsiCodigoPrograma" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CsiImporteComercio" type="xs:decimal" />
       <xs:element minOccurs="0" name="CsiMensaje" nillable="true" type="xs:string" />
@@ -21,6 +23,7 @@
       <xs:element minOccurs="0" name="Etiqueta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaNacimiento" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaTransaccion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaVencimiento" type="xs:dateTime" />
       <xs:element minOccurs="0" name="IdGuidExternoTransaccion" nillable="true" type="xs:string" />

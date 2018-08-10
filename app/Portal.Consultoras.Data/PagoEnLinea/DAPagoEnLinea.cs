@@ -59,6 +59,9 @@ namespace Portal.Consultoras.Data.PagoEnLinea
             Context.Database.AddInParameter(command, "@NumeroTarjeta", DbType.AnsiString, entidad.NumeroTarjeta);
             Context.Database.AddInParameter(command, "@OrigenTarjeta", DbType.AnsiString, entidad.OrigenTarjeta);
             Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.AnsiString, entidad.UsuarioCreacion);
+            Context.Database.AddInParameter(command, "@FechaNacimiento", DbType.DateTime, entidad.FechaNacimiento);
+            Context.Database.AddInParameter(command, "@Correo", DbType.AnsiString, entidad.Correo);
+            Context.Database.AddInParameter(command, "@Celular", DbType.AnsiString, entidad.Celular);
 
             Context.ExecuteNonQuery(command);
 

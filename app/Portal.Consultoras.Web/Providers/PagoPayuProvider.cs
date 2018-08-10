@@ -87,7 +87,7 @@ namespace Portal.Consultoras.Web.Providers
                 number = info.NumberCard,
                 securityCode = info.Cvv,
                 expirationDate = info.ExpireYear + "/" + info.ExpireMonth,
-                name = info.Titular
+                name = info.Titular.ToUpper()
             };
 
             var obj = new
@@ -201,7 +201,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var aproved = result.transactionResponse.IsApproved;
 
-            await RegisterLog(pago, transaction);
+            await RegisterLog(pago, transaction, info);
 
             if (!aproved)
             {
@@ -216,18 +216,6 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return true;
-        }
-
-        private async Task RegisterLog(PagoEnLineaModel pago, PayuTransactionResponse transaction)
-        {
-            BEPagoEnLineaResultadoLog bePagoEnLinea = GenerarEntidadPagoEnLineaLog(pago, transaction, User);
-            bePagoEnLinea.MontoPago = pago.MontoDeuda;
-            bePagoEnLinea.MontoGastosAdministrativos = pago.MontoGastosAdministrativos;
-
-            using (var ps = new PedidoServiceClient())
-            {
-                pago.PagoEnLineaResultadoLogId = await ps.InsertPagoEnLineaResultadoLogAsync(User.PaisID, bePagoEnLinea);
-            }
         }
 
         private async Task CompleteTransaction(PagoEnLineaModel model)
@@ -253,6 +241,19 @@ namespace Portal.Consultoras.Web.Providers
             SessionManager.SessionManager.Instance.SetUserData(User);
         }
 
+        private async Task RegisterLog(PagoEnLineaModel pago, PayuTransactionResponse transaction, PaymentInfo info)
+        {
+            BEPagoEnLineaResultadoLog bePagoEnLinea = GenerarEntidadPagoEnLineaLog(pago, transaction, User);
+            bePagoEnLinea.FechaNacimiento = info.Birthdate ?? default(DateTime);
+            bePagoEnLinea.Correo = info.Email;
+            bePagoEnLinea.Celular = info.Phone;
+
+            using (var ps = new PedidoServiceClient())
+            {
+                pago.PagoEnLineaResultadoLogId = await ps.InsertPagoEnLineaResultadoLogAsync(User.PaisID, bePagoEnLinea);
+            }
+        }
+
         private BEPagoEnLineaResultadoLog GenerarEntidadPagoEnLineaLog(PagoEnLineaModel pago, PayuTransactionResponse respuesta, UsuarioModel usuario)
         {
             PagoVisaModel config = pago.PagoVisaModel;
@@ -269,10 +270,10 @@ namespace Portal.Consultoras.Web.Providers
             bePagoEnLinea.CodigoError = isAproved ? "0" : respuesta.errorCode;
             bePagoEnLinea.MensajeError = respuesta.paymentNetworkResponseErrorMessage;
             bePagoEnLinea.IdGuidTransaccion = respuesta.transactionId;
-            bePagoEnLinea.IdGuidExternoTransaccion = "";
+            //bePagoEnLinea.IdGuidExternoTransaccion = "";
             bePagoEnLinea.MerchantId = config.MerchantId;
-            bePagoEnLinea.IdTokenUsuario = "";
-            bePagoEnLinea.AliasNameTarjeta = "";
+            //bePagoEnLinea.IdTokenUsuario = "";
+            //bePagoEnLinea.AliasNameTarjeta = "";
 
             bePagoEnLinea.FechaTransaccion = GetDateCreation(respuesta.operationDate);
 
@@ -302,6 +303,9 @@ namespace Portal.Consultoras.Web.Providers
             bePagoEnLinea.NumeroTarjeta = pago.TarjetaEnmascarada;
             //bePagoEnLinea.OrigenTarjeta = "";
             bePagoEnLinea.UsuarioCreacion = usuario.CodigoUsuario;
+
+            bePagoEnLinea.MontoPago = pago.MontoDeuda;
+            bePagoEnLinea.MontoGastosAdministrativos = pago.MontoGastosAdministrativos;
 
             return bePagoEnLinea;
         }

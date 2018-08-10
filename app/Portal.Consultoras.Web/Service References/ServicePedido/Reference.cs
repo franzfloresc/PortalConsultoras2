@@ -16669,6 +16669,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int CampaniaIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CelularField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoAccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -16685,6 +16688,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long ConsultoraIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CorreoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CsiCodigoProgramaField;
@@ -16718,6 +16724,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaModificacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaNacimientoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaTransaccionField;
@@ -16843,6 +16852,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Celular {
+            get {
+                return this.CelularField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CelularField, value) != true)) {
+                    this.CelularField = value;
+                    this.RaisePropertyChanged("Celular");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string CodigoAccion {
             get {
                 return this.CodigoAccionField;
@@ -16916,6 +16938,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ConsultoraIdField.Equals(value) != true)) {
                     this.ConsultoraIdField = value;
                     this.RaisePropertyChanged("ConsultoraId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Correo {
+            get {
+                return this.CorreoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CorreoField, value) != true)) {
+                    this.CorreoField = value;
+                    this.RaisePropertyChanged("Correo");
                 }
             }
         }
@@ -17059,6 +17094,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.FechaModificacionField.Equals(value) != true)) {
                     this.FechaModificacionField = value;
                     this.RaisePropertyChanged("FechaModificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaNacimiento {
+            get {
+                return this.FechaNacimientoField;
+            }
+            set {
+                if ((this.FechaNacimientoField.Equals(value) != true)) {
+                    this.FechaNacimientoField = value;
+                    this.RaisePropertyChanged("FechaNacimiento");
                 }
             }
         }
