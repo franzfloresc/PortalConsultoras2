@@ -103,9 +103,15 @@ header {
         margin: auto;
     }
 
+.wrapper_cincuenta_anios_belcorp_y_logo{
+    width:16.5%!important;
+}
+
+.wrapper_cincuenta_anios_belcorp_y_logo,
 .menu_new_esika,
 .menu_esika_b,
-.logo_esika
+.logo_esika,
+.nav_principal
 {
     display:inline-block;
     vertical-align:middle;
@@ -36680,9 +36686,9 @@ height:30px;
 }
 
 .cincuenta_anios_belcorp{
-    display: block;
+    display:inline-block;
+    vertical-align:middle;
     position: relative;
-    float: left;
     left: 0;
     width: 98px;
     height: 61px;
@@ -36697,16 +36703,16 @@ height:30px;
 }
 
 .cincuenta_anios_belcorp + .logo_esika{
-    margin-left:15px;
+    margin-left:12px;
 }
 
-.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
-    width:582px!important;
+.wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika{
+    width:auto!important;
 }
 
-.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika.anchoMenu_sinEnlaceSociaEmpresaria{
+/*.wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika.anchoMenu_sinEnlaceSociaEmpresaria{
     width:476px!important;
-}
+}*/
 
 /*.cincuenta_anios_belcorp + .logo_esika + .menu_new_esika + .menu_esika_b{
     width:360px!important;
@@ -36732,6 +36738,15 @@ height:30px;
         max-width:none!important;
     }
 
+    .wrapper_cincuenta_anios_belcorp_y_logo{
+        width:17%!important;
+    }
+
+    .cincuenta_anios_belcorp + .logo_esika {
+        margin-left: 4px;
+        margin-right:0;
+    }
+
 }
 
 /*@media screen and (max-width:1212px){
@@ -36744,7 +36759,7 @@ height:30px;
 
 @media screen and (min-width:1145px) and (max-width:1212px){
 
-    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
+    .wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika{
         width: 628px!important;
     }
 
@@ -36752,7 +36767,7 @@ height:30px;
 
 @media screen and (min-width:1090px) and (max-width:1144px){
 
-    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika {
+    .wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika {
         width: 626.7px!important;
     }
 
@@ -36760,7 +36775,7 @@ height:30px;
 
 @media screen and (min-width:1063px) and (max-width:1089px){
 
-    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika {
+    .wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika {
         width: 592px!important;
     }
 
@@ -36768,7 +36783,7 @@ height:30px;
 
 @media screen and (max-width:1062px){
 
-    .cincuenta_anios_belcorp + .logo_esika + .menu_new_esika{
+    .wrapper_cincuenta_anios_belcorp_y_logo + .menu_new_esika{
         width: 553px!important;
     }
 
