@@ -4,6 +4,7 @@
 /// <reference path="../../../Scripts/PortalConsultoras/Bienvenida/Estrategia.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
@@ -63,12 +64,38 @@ var ListaOpcionesModule = (function () {
             $(_elements.listaOpciones.id).css("padding-top", "63px");
     };
 
+    var _moverListaOpcionesMostrarSeleccionados = function () {
+        if (isMobile())
+            $(_elements.listaOpciones.id).css("padding-top", "161px");
+    };
+
     var _actualizarCantidadFaltantes = function () {
         var cantidadTotal = 0;
         $.each(_componente.HermanosSeleccionados, function (index, hermanoSeleccionado) {
             cantidadTotal += hermanoSeleccionado.cantidadSeleccionada;
         });
         _componente.cantidadFaltantes = _componente.FactorCuadre - cantidadTotal;
+    };
+
+    var _renderListaOpciones = function() {
+        $(_elements.listaOpciones.id).html("");
+        SetHandlebars(_elements.listaOpciones.templateId, _componente, _elements.listaOpciones.id);
+        //
+        if (_componente.HermanosSeleccionados.length === 0) {
+            _moverListaOpcionesOcultarSeleccionados();
+        } else {
+            _moverListaOpcionesMostrarSeleccionados();
+        }
+        //
+        if (_componente.HermanosSeleccionados.length === _componente.FactorCuadre) {
+            $(_elements.btnAplicarSeleccion.id)
+                .removeClass(_elements.btnAplicarSeleccion.disabledClass)
+                .addClass(_elements.btnAplicarSeleccion.activeClass);
+        } else {
+            $(_elements.btnAplicarSeleccion.id)
+                .removeClass(_elements.btnAplicarSeleccion.activeClass)
+                .addClass(_elements.btnAplicarSeleccion.disabledClass);
+        }
     };
 
     var ListarOpciones = function (componente) {
@@ -86,33 +113,18 @@ var ListaOpcionesModule = (function () {
             hermano.cantidadFaltantes = hermano.FactorCuadre || 0;
             hermano.cantidadAplicada = hermano.cantidadAplicada || 0;
         });
-        //
-        $(_elements.listaOpciones.id).html("");
-        SetHandlebars(_elements.listaOpciones.templateId, _componente, _elements.listaOpciones.id);
-        //
         if (_componente.resumenAplicados.length > 0) {
-            // TODO : Mejorar validacion
             _componente.HermanosSeleccionados = jQuery.extend(true, [], _componente.resumenAplicados);
             _actualizarCantidadFaltantes();
-            $(_elements.btnAplicarSeleccion.id)
-                .removeClass(_elements.btnAplicarSeleccion.disabledClass)
-                .addClass(_elements.btnAplicarSeleccion.activeClass);
-        } else {
-            _moverListaOpcionesOcultarSeleccionados();
-            $(_elements.btnAplicarSeleccion.id)
-                .removeClass(_elements.btnAplicarSeleccion.activeClass)
-                .addClass(_elements.btnAplicarSeleccion.disabledClass);
         }
+        //
+        _renderListaOpciones();
+        //
         setTimeout(function() {
             opcionesEvents.applyChanges("onOptionSelected", _componente);
         }, 200);
         //
         return false;
-    };
-
-    var _moverListaOpcionesMostrarSeleccionados = function () {
-        if (isMobile())
-            $(_elements.listaOpciones.id).css("padding-top", "161px");
     };
     
     var SeleccionarOpcion = function (cuv, event) {
@@ -142,19 +154,20 @@ var ListaOpcionesModule = (function () {
         _componente.HermanosSeleccionados.push(opcion);
         _actualizarCantidadFaltantes();
         _moverListaOpcionesMostrarSeleccionados();
-        if (_componente.FactorCuadre === 1) {
-            $(_elements.btnEligelo.id + cuv).text(_elements.btnEligelo.textElegido);
-            $(_elements.btnEligelo.id + cuv).addClass(_elements.btnEligelo.activeClass);
-        }
-        if (_componente.FactorCuadre > 1) {
-            $(_elements.liEligelo.id + cuv).hide();
-            $(_elements.liCantidadOpciones.id + cuv).show();
-        }
-        if (_componente.FactorCuadre === _componente.HermanosSeleccionados.length) {
-            $(_elements.btnAplicarSeleccion.id)
-                .removeClass(_elements.btnAplicarSeleccion.disabledClass)
-                .addClass(_elements.btnAplicarSeleccion.activeClass);
-        }
+        //if (_componente.FactorCuadre === 1) {
+        //    $(_elements.btnEligelo.id + cuv).text(_elements.btnEligelo.textElegido);
+        //    $(_elements.btnEligelo.id + cuv).addClass(_elements.btnEligelo.activeClass);
+        //}
+        //if (_componente.FactorCuadre > 1) {
+        //    $(_elements.liEligelo.id + cuv).hide();
+        //    $(_elements.liCantidadOpciones.id + cuv).show();
+        //}
+        //if (_componente.FactorCuadre === _componente.HermanosSeleccionados.length) {
+        //    $(_elements.btnAplicarSeleccion.id)
+        //        .removeClass(_elements.btnAplicarSeleccion.disabledClass)
+        //        .addClass(_elements.btnAplicarSeleccion.activeClass);
+        //}
+        _renderListaOpciones();
         //
         opcionesEvents.applyChanges("onOptionSelected", _componente);
         //
@@ -186,21 +199,12 @@ var ListaOpcionesModule = (function () {
 
         if (typeof hermanoSeleccionadoIndex !== "undefined") {
             _componente.HermanosSeleccionados.splice(hermanoSeleccionadoIndex, 1);
-            _moverListaOpcionesOcultarSeleccionados();
             _actualizarCantidadFaltantes();
-
-            opcionesEvents.applyChanges("onOptionSelected", _componente);
-
-            if (_componente.FactorCuadre !== _componente.HermanosSeleccionados.length) {
-                $(_elements.btnAplicarSeleccion.id)
-                    .removeClass(_elements.btnAplicarSeleccion.activeClass)
-                    .addClass(_elements.btnAplicarSeleccion.disabledClass);
-            }
+            _renderListaOpciones();
         }
-
-        //TODO : Mejorar
-        $(_elements.btnEligelo.id + cuv).removeClass(_elements.btnEligelo.activeClass);
-
+        //
+        opcionesEvents.applyChanges("onOptionSelected", _componente);
+        //
         return false;
     };
 
