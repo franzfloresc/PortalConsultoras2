@@ -2,7 +2,7 @@
 <section id="elegir-opciones-modal" class="modal fade modal_selecionar_tipo contenedor_seleccion" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="" role="document">
         <div class="header_fixed">
-            <div class="seleccion_header" id="titulo-opciones-seleccionadas"></div>
+            <div class="seleccion_header" id="titulo-opciones-seleccionadas" id="contendor-titulo-opciones"></div>
             <div class="contenedor_selecionados" id="contenedor-opciones-seleccionadas" style="display:none;">
                 <div class="selecionados_carrosel" id="opciones-seleccionadas">
                 </div>
@@ -10,7 +10,7 @@
         </div>
         <div class="seleccion_main" id="lista-opciones">
         </div>
-        <div class="aplicar_seleccion">
+        <div class="aplicar_seleccion" id="contenedor-aplicar-opciones">
             @*quitar la clase disabled cuando se elija las opciones*@
             <button id="btn-aplicar-seleccion" class="disabled" onclick="javascript: ResumenOpcionesModule.AplicarOpciones();">APLICAR SELECCIÓN</button>
         </div>
