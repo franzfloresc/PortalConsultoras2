@@ -41,7 +41,8 @@
                  data-tono-cuv="{{variedad.Cuv}}"
                  data-tono-change="2"
                  data-tono-nombre="{{variedad.NombreBulk}}"
-                 data-tono-descripcion="{{variedad.NombreComercial}}">
+                 data-tono-descripcion="{{variedad.NombreComercial}}"
+                 onclick="javascript: ComponentesModule.SeleccionarPaletaOpcion(event,{{variedad.Cuv}})">
                 <img src="{{variedad.ImagenBulk}}" alt="">
             </div>
             {{/each}}
