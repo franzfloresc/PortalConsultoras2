@@ -1892,7 +1892,7 @@ namespace Portal.Consultoras.Common
             public class EncenderValidacion
             {
                 public const short TablaLogicaID = 7;
-                public const string Activo = "Activo";
+                public const string FlagActivar = "ProgramaNuevas";
             }
 
             public class Rango
@@ -1917,6 +1917,12 @@ namespace Portal.Consultoras.Common
         public class VentaExclusiva
         {
             public const string CuvNoEsVentaExclusiva = "El código solicitado pertenece a la Venta Exclusiva. Usted no cumple las condiciones para solicitarlo.";
+
+            public class EncenderValidacion
+            {
+                public const short TablaLogicaID = 7;
+                public const string FlagActivar = "VentaExclusiva";
+            }
         }
 
         public class Comunicado

@@ -362,15 +362,6 @@ namespace Portal.Consultoras.BizLogic
             return productos;
         }
         #region Programa de Nuevas
-        public bool GetFlagProgramaNuevas(int paisID)
-        {
-            var blTablaLogicaDatos = new BLTablaLogicaDatos();
-            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgramaNuevas.EncenderValidacion.TablaLogicaID);
-            if (lstTabla.Count == 0) return false;
-            if (lstTabla.Where(a => a.Codigo == Constantes.ProgramaNuevas.EncenderValidacion.Activo).Select(b => b.Descripcion).FirstOrDefault() == "1") return true;
-            return false;
-        }
-
         public Enumeradores.ValidacionProgramaNuevas ValidarBusquedaProgramaNuevas(int paisID, int campaniaID, int ConsultoraID, string codigoPrograma, int consecutivoNueva, string cuv)
         {
             if (!GetFlagProgramaNuevas(paisID)) return Enumeradores.ValidacionProgramaNuevas.ContinuaFlujo;
@@ -386,6 +377,7 @@ namespace Portal.Consultoras.BizLogic
 
         public int ValidarCantidadMaximaProgramaNuevas(int paisID, int campaniaID, int consecutivoNueva, string codigoPrograma, int cantidadEnPedido, string cuvIngresado, int cantidadIngresada)
         {
+            if (!GetFlagProgramaNuevas(paisID)) return 0;
             List<BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
             if (lstProdcutos.Count == 0) return 0;
             lstProdcutos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
@@ -397,6 +389,7 @@ namespace Portal.Consultoras.BizLogic
 
         public BERespValidarElectivos ValidaCuvElectivo(int paisID, int campaniaID, string cuvIngresado, int consecutivoNueva, string codigoPrograma, List<string> lstCuvPedido)
         {
+            if (!GetFlagProgramaNuevas(paisID)) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
             List<BEProductoProgramaNuevas> lstProdcutos = GetProductosProgramaNuevasByCampaniaCache(paisID, campaniaID);
             if (lstProdcutos == null || lstProdcutos.Count == 0) return new BERespValidarElectivos(Enumeradores.ValidarCuponesElectivos.AgregarCupon);
             lstProdcutos = FiltrarProductosNuevasByNivelyCodigoPrograma(lstProdcutos, consecutivoNueva, codigoPrograma);
@@ -422,6 +415,15 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #region Metodos de Programa Nuevas
+        private bool GetFlagProgramaNuevas(int paisID)
+        {
+            var blTablaLogicaDatos = new BLTablaLogicaDatos();
+            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgramaNuevas.EncenderValidacion.TablaLogicaID);
+            if (lstTabla.Count == 0) return false;
+            if (lstTabla.Where(a => a.Codigo == Constantes.ProgramaNuevas.EncenderValidacion.FlagActivar).Select(b => b.Descripcion).FirstOrDefault() == "1") return true;
+            return false;
+        }
+
         private bool GetRagoCuvProgramaNuevas(int paisID, int cuv)
         {
             var blTablaLogicaDatos = new BLTablaLogicaDatos();
@@ -480,11 +482,21 @@ namespace Portal.Consultoras.BizLogic
         #region Venta exclusiva
         public Enumeradores.ValidacionVentaExclusiva ValidarVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv)
         {
+            if (!GetFlagVentaExclusiva(paisID)) return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
             if (!GetFlagProgramaNuevas(paisID)) return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
             if (!EsProductoExclusivo(paisID, campaniaID, cuv)) return Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo;
             return GetConsultoraEnVentaExclusiva(paisID, campaniaID, codigoConsultora, cuv);
         }
         #region Metodos Venta Exclusiva
+        private bool GetFlagVentaExclusiva(int paisID)
+        {
+            var blTablaLogicaDatos = new BLTablaLogicaDatos();
+            var lstTabla = blTablaLogicaDatos.GetTablaLogicaDatosCache(paisID, Constantes.ProgramaNuevas.EncenderValidacion.TablaLogicaID);
+            if (lstTabla.Count == 0) return false;
+            if (lstTabla.Where(a => a.Codigo == Constantes.VentaExclusiva.EncenderValidacion.FlagActivar).Select(b => b.Descripcion).FirstOrDefault() == "1") return true;
+            return false;
+        }
+
         private Enumeradores.ValidacionVentaExclusiva GetConsultoraEnVentaExclusiva(int paisID, int campaniaID, string codigoConsultora, string cuv)
         {
             var daProducto = new DAProducto(paisID);
