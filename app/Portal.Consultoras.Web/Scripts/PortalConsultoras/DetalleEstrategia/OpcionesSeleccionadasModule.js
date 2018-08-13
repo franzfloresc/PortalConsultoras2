@@ -43,13 +43,13 @@ var OpcionesSeleccionadasModule = (function () {
             $(_elements.divContenedorOpcionesSeleccionadas.id).show();
             $(_elements.divOpcionesSeleccionadas.id).slick("unslick");
             SetHandlebars(_elements.divOpcionesSeleccionadas.templateId, _componente, _elements.divOpcionesSeleccionadas.id);
+            $(_elements.divOpcionesSeleccionadas.id).fadeTo("fast", 0.6).fadeTo("fast", 1);
             $(_elements.divOpcionesSeleccionadas.id).slick({
                 slidesToShow: 5,
                 slidesToScroll: 1,
                 autoplaySpeed: 2000,
                 fade: false
             });
-            $(_elements.divOpcionesSeleccionadas.id).fadeTo("fast", 0.6).fadeTo("fast", 1);
         } else {
             $(_elements.divContenedorOpcionesSeleccionadas.id).hide();
             $(_elements.divOpcionesSeleccionadas.id).html("");
