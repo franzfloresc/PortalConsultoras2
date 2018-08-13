@@ -223,12 +223,12 @@ namespace Portal.Consultoras.BizLogic
                     {
                         return new BERespuestaActivarEmail { Message = Constantes.MensajesError.ActivacionCorreo_EstaActivo };
                     }
-
-                    if (daUsuario.ExistsUsuarioEmail(email)) return new BERespuestaActivarEmail { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
-
                     usuario = GetBasicSesionUsuario(paisID, codigoUsuario);
+                    if (!usuario.EMail.Contains(email))
+                    {
+                        if (daUsuario.ExistsUsuarioEmail(email)) return new BERespuestaActivarEmail { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
+                    }
                     daUsuario.UpdUsuarioEmail(codigoUsuario, validacionDato.DatoNuevo, usuario.CampaniaID);
-
                     validacionDato.Estado = Constantes.ValidacionDatosEstado.Activo;
                     validacionDato.UsuarioModificacion = codigoUsuario;
                     validacionDato.CampaniaActivacionEmail = usuario.CampaniaID;
@@ -1785,10 +1785,13 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (!usuario.PuedeActualizar) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_NoAutorizado };
                 if (string.IsNullOrEmpty(correoNuevo)) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoVacio };
-                if (usuario.EMail == correoNuevo) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoNoCambia };
+                //if (usuario.EMail == correoNuevo) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoNoCambia };
 
-                var dAUsuario = new DAUsuario(usuario.PaisID);
-                if (dAUsuario.ExistsUsuarioEmail(correoNuevo)) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
+                if (!usuario.EMail.Contains(correoNuevo))
+                {
+                    var dAUsuario = new DAUsuario(usuario.PaisID);
+                    if (dAUsuario.ExistsUsuarioEmail(correoNuevo)) return new BERespuestaServicio { Message = Constantes.MensajesError.UpdCorreoConsultora_CorreoYaExiste };
+                }
 
                 var dAValidacionDatos = new DAValidacionDatos(usuario.PaisID);
                 TransactionOptions transOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };

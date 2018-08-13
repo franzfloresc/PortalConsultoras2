@@ -305,7 +305,6 @@ namespace Portal.Consultoras.Data
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ExistsUsuarioEmail");
             Context.Database.AddInParameter(command, "@Email", DbType.AnsiString, email);
-
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
 
