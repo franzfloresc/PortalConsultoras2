@@ -263,7 +263,12 @@
             {{#if_eq CodigoEstrategia '2003'}}
             <div class="resultado_busqueda_btn_elegir_opcion_wrapper displayInlineBlock text-center" data-OrigenPedidoWeb="@origenPedidoWeb">
                 <a class="btn_elegir_opcion displayBlock text-center text-uppercase" href="javascript:;" onclick="BuscadorFichaDetalle('{{CampaniaID}}', '{{CUV}}', '@origenPedidoWeb', '{{EstrategiaCodigo}}');">
-                    Elige tu opción
+                    <span class="icono_elige_tu_opcion displayInlineBlock">
+                        <img src="@Url.Content("~/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
+                    </span>
+                    <span class="displayInlineBlock">
+                        Elige tu opción
+                    </span>
                 </a>
             </div>
             {{else}}
