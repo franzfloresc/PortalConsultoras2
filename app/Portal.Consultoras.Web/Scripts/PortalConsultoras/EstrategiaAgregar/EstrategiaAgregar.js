@@ -211,7 +211,7 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var estrategiaAgregar = function (event, popup, limite, esFicha) {
-        console.log('estrategiaAgregar');
+        console.log('estrategiaAgregar', event, popup, limite, esFicha);
         popup = popup || false;
         limite = limite || 0;
 
@@ -262,7 +262,9 @@ var EstrategiaAgregarModule = (function () {
         var itemClone = estrategiaObtenerObjHtmlLanding($btnAgregar);
         if (isPagina("ofertas") && !isMobile()) {
             var estratediaId = itemClone.data("item");
-            itemClone = itemClone.parent().find("[data-item=" + estratediaId + "]");
+            if (estratediaId != "") {
+                itemClone = itemClone.parent().find("[data-item=" + estratediaId + "]");
+            }
         }
         var divAgregado = $(itemClone).find(".agregado.product-add");
 
@@ -326,6 +328,13 @@ var EstrategiaAgregarModule = (function () {
 
                 if ($btnAgregar[0]) {
                     var contenedorAgregado = $($btnAgregar).parent().find('#ContenedorAgregado')[0];
+
+                    if(!contenedorAgregado)
+                    {
+                        contenedorAgregado = $($btnAgregar).parent().parent().find('.contenedor_agregado');                    
+                    }
+
+
                     if (contenedorAgregado) {
                         $(contenedorAgregado).show();
                     }
@@ -355,8 +364,10 @@ var EstrategiaAgregarModule = (function () {
                 if (typeof MostrarBarra != constantes.undefined())
                     MostrarBarra(data, "1");
 
-                if (typeof CargarCarouselEstrategias != constantes.undefined())
-                    CargarCarouselEstrategias();
+                if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                    if (typeof CargarCarouselEstrategias != constantes.undefined())
+                        CargarCarouselEstrategias();
+                }
 
                 if (typeof tieneMasVendidos != constantes.undefined()) {
                     if (tieneMasVendidos === 1) {
@@ -370,7 +381,9 @@ var EstrategiaAgregarModule = (function () {
 
 
                 cierreCarouselEstrategias();
-                CargarCarouselEstrategias();
+                if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                    CargarCarouselEstrategias();
+                }
                 HideDialog(elementosDiv.divVistaPrevia.substring(1));
 
                 //tieneMicroefecto = true;
@@ -394,7 +407,9 @@ var EstrategiaAgregarModule = (function () {
 
                     }
                 } else if (tipoOrigenEstrategiaAux != 272) {
-                    CargarCarouselEstrategias();
+                    if (estrategia.CodigoEstrategia == ConstantesModule.ConstantesPalanca.PackNuevas) {
+                        CargarCarouselEstrategias();
+                    }
 
                     if (tieneMasVendidos === 1) {
                         CargarCarouselMasVendidos("mobile");
@@ -506,12 +521,29 @@ var EstrategiaAgregarModule = (function () {
         return false;
     };
 
+    var deshabilitarBoton = function () {
+        $("#btnAgregalo").addClass("btn_desactivado_general");
+        $(".content_cantidad_ficha_producto").addClass("btn_desactivado_general");
+        //$(".contenedor_rangos").addClass("contenedor_rangos_desactivado");
+        $(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        $(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
+
+        $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
+    };
+    
+    var habilitarBoton = function() {
+        
+    }
+    
     return {
         EstrategiaAgregar: estrategiaAgregar,
         EstrategiaObtenerObj: getEstrategia,
         GetOrigenPedidoWeb: getOrigenPedidoWeb,
         AdicionarCantidad: adicionarCantidad,
         DisminuirCantidad: disminuirCantidad,
-        ElementosDiv: elementosDiv
+        ElementosDiv: elementosDiv,
+        DeshabilitarBoton: deshabilitarBoton,
+        HabilitarBoton: habilitarBoton
     };
 })();

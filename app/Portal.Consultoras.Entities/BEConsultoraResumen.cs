@@ -77,41 +77,33 @@ namespace Portal.Consultoras.Entities
 
         public void Build(IDataRecord row)
         {
-            
+            if (row.HasColumn("CantidadClientes"))
                 CantidadClientes = row.GetColumn<int>("CantidadClientes");
-
-            
+            if (row.HasColumn("CantidadDeudores"))
                 Deudas.CantidadDeudores = row.GetColumn<int>("CantidadDeudores");
-
-            
+            if (row.HasColumn("TotalDeuda"))
                 Deudas.TotalDeuda = row.GetColumn<decimal>("TotalDeuda");
-
-            
+            if (row.HasColumn("MotivoCreditoID"))
                 Pedido.MotivoCreditoID = row.GetColumn<short>("MotivoCreditoID");
-
-            
+            if (row.HasColumn("IndicadorEnviado"))
                 Pedido.IndicadorEnviado = row.GetColumn<int>("IndicadorEnviado");
-
-            
+            if (row.HasColumn("PedidoId"))
                 Pedido.PedidoId = row.GetColumn<int>("PedidoId");
-
-            
+            if (row.HasColumn("FechaRegistro"))
                 Pedido.FechaRegistro = row.GetColumn<DateTime>("FechaRegistro");
-
-            
+            if (row.HasColumn("ImporteTotal"))
                 Pedido.ImporteTotal = row.GetColumn<decimal>("ImporteTotal");
-            
+            if (row.HasColumn("DescuentoProl"))
                 Pedido.DescuentoProl = row.GetColumn<decimal>("DescuentoProl");
-            
+            if (row.HasColumn("MontoEscala"))
                 Pedido.MontoEscala = row.GetColumn<decimal>("MontoEscala");
-            
+            if (row.HasColumn("MontoAhorroCatalogo"))
                 Pedido.MontoAhorroCatalogo = row.GetColumn<decimal>("MontoAhorroCatalogo");
-            
+            if (row.HasColumn("MontoAhorroRevista"))
                 Pedido.MontoAhorroRevista = row.GetColumn<decimal>("MontoAhorroRevista");
-            
+            if (row.HasColumn("CantidadclientesPedido"))
                 Pedido.Cantidadclientes = row.GetColumn<int>("CantidadclientesPedido");
-
-            
+            if (row.HasColumn("CantidadproductosPedido"))
                 Pedido.Cantidadproductos = row.GetColumn<int>("CantidadproductosPedido");
         }
     }

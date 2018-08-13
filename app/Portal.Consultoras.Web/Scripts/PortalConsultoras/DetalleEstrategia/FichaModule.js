@@ -5,6 +5,7 @@
 /// <reference path="../../../Scripts/PortalConsultoras/Bienvenida/Estrategia.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
@@ -309,6 +310,7 @@ var FichaModule = (function (config) {
         if (!IsNullOrEmpty(estrategia.CodigoVariante)) {
             var param = {
                 estrategiaId: estrategia.EstrategiaID,
+                cuv2: estrategia.CUV2,
                 campania: _config.campania,
                 codigoVariante: estrategia.CodigoVariante,
                 codigoEstrategia: estrategia.CodigoEstrategia
@@ -397,14 +399,7 @@ var FichaModule = (function (config) {
                     estrategia.ClaseBloqueada = "btn_desactivado_general";
                     estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
                     estrategia.RangoInputEnabled = "disabled";
-                    $("#btnAgregalo").addClass("btn_desactivado_general");
-                    $(".content_cantidad_ficha_producto").addClass("btn_desactivado_general");
-                    //$(".contenedor_rangos").addClass("contenedor_rangos_desactivado");
-                    $(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
-                    $(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
-
-                    $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
-                    $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
+                    EstrategiaAgregarModule.DeshabilitarBoton();
                 }
             }
         });
@@ -431,8 +426,36 @@ var FichaModule = (function (config) {
             if (proM > proObjM) {
                 $(proImg).css("width", proObjM + "px");
             }
+            setTimeout(_resizeBotonAgregar(), 1000);
         });
 
+    };
+    
+    var _resizeBotonAgregar = function () {
+        var dvFoto = $("#dvSeccionFoto");
+        var dvRedesSociales = $("#Contenedor_redes_sociales");
+        var dvFichaEtiqueta = $("#contenedor_ficha_etiquetas");
+        var dvDetalle = $("#dvSeccionDetalle");
+
+        if (dvFoto.length && dvRedesSociales.length) {
+
+            dvDetalle.removeClass("ficha_detalle_cuerpo");
+            dvDetalle.css("height", "");
+            var dvFotoHeight = dvFoto.innerHeight();
+            var dvFichaEtiquetaHeight = dvFichaEtiqueta.innerHeight();
+            var dvDetalleHeight = dvDetalle.innerHeight();
+            var dvIzquierdoHeight = dvFotoHeight + 45; // 45 es por el padding del padre.
+            var dvDerechoHeight = dvDetalleHeight + dvFichaEtiquetaHeight;
+            if (dvIzquierdoHeight > dvDerechoHeight) {
+                var dvRedesSocialesHeight = dvRedesSociales.innerHeight();
+                var diferenciaHeight = dvIzquierdoHeight - dvFichaEtiquetaHeight;
+                dvDetalle.removeClass("ficha_detalle_cuerpo");
+                dvDetalle.height(diferenciaHeight);
+            }
+            else {
+                dvDetalle.addClass("ficha_detalle_cuerpo");
+            }
+        }
     };
 
     var _cargarDataCompartir = function (estrategia) {
