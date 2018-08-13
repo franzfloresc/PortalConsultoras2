@@ -117,11 +117,18 @@ function SeccionCargarProductos(objConsulta) {
 
     listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaId] = objConsulta;
 
+    var paisHabilitado = variableEstrategia.PaisHabilitado.includes(IsoPais);
+    var guardaEnLS = true;
+
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.RDR
         || objConsulta.Codigo === CONS_CODIGO_SECCION.RD) {
         if (!varContenedor.CargoRevista) {
             varContenedor.CargoRevista = true;
-            OfertaCargarProductos({ VarListaStorage: "RDLista", UrlCargarProductos: urlOfertaCargarProductos }, false, objConsulta);
+            var tipoEstrategiaHabilitado = variableEstrategia.TipoEstrategiaHabilitado.includes("101");
+            if (paisHabilitado && tipoEstrategiaHabilitado) {
+                guardaEnLS = false;
+            }
+            OfertaCargarProductos({ VarListaStorage: "RDLista", UrlCargarProductos: urlOfertaCargarProductos, guardaEnLocalStorage: guardaEnLS  }, false, objConsulta);
         }
         return false;
     }
@@ -129,7 +136,7 @@ function SeccionCargarProductos(objConsulta) {
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.HV) {
         if (!varContenedor.CargoHv) {
             varContenedor.CargoHv = true;
-            OfertaCargarProductos({ VarListaStorage: "HVLista", UrlCargarProductos: urlCargarProductosHv }, false, objConsulta);
+            OfertaCargarProductos({ VarListaStorage: "HVLista", UrlCargarProductos: urlCargarProductosHv, guardaEnLocalStorage: guardaEnLS }, false, objConsulta);
         }
         return false;
     }
@@ -137,7 +144,7 @@ function SeccionCargarProductos(objConsulta) {
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.LAN) {
         if (!varContenedor.CargoLan) {
             varContenedor.CargoLan = true;
-            OfertaCargarProductos({ VarListaStorage: listaLAN , UrlCargarProductos: baseUrl + objConsulta.UrlObtenerProductos }, false, objConsulta);
+            OfertaCargarProductos({ VarListaStorage: listaLAN , UrlCargarProductos: baseUrl + objConsulta.UrlObtenerProductos, guardaEnLocalStorage: guardaEnLS }, false, objConsulta);
         }
         return false;
     }

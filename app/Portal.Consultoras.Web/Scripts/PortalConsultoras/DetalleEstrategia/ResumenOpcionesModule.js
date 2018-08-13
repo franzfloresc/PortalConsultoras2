@@ -35,7 +35,9 @@ var ResumenOpcionesModule = (function () {
         _actualizarCantidadAplicada(_componente);
 
         var template = "#resumen-opciones-" + _componente.Cuv;
-        var templateSiblings = $(template).siblings(".tono_select_opt").hide();
+
+        var templatesiblings = $(template).siblings(".tono_select_opt").hide();
+        
         $(template).show();
 
         ListaOpcionesModule.CloseElegirOpcionesModal();
