@@ -369,7 +369,7 @@ namespace Portal.Consultoras.Web.Providers
                         userData.CodigoConsultora,
                         userData.CodigorRegion,
                         userData.ZonaID);
-                    var taskApi = Task.Run(() => _ofertaBaseProvider.ObtenerOfertasDesdeApi(pathRevistaDigital));
+                    var taskApi = Task.Run(() => _ofertaBaseProvider.ObtenerOfertasDesdeApi(pathRevistaDigital, userData.CodigoISO));
                     Task.WhenAll(taskApi);
                     listEstrategia = taskApi.Result;
                 }
