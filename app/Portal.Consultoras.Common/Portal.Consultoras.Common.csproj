@@ -200,6 +200,7 @@
     <Compile Include="Reader\IReaderTransformer.cs" />
     <Compile Include="Reader\IStreamReader.cs" />
     <Compile Include="RegexUtilities.cs" />
+    <Compile Include="Response\GenericResponse.cs" />
     <Compile Include="Settings\ServiceSettings.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Validator\IPhoneValidator.cs" />

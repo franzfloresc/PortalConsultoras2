@@ -71,7 +71,7 @@
                                    class="btn_agregalo_odd"
                                    @*data-btn-agregar-sr=""*@
                                    href="javascript:;"
-                                   onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, true, 1);">AGRÉGALO</a>
+                                   onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, true);">AGRÉGALO</a>
                             </div>
                             {{/iff}}
 
@@ -81,8 +81,8 @@
                             </div>
                             {{/iff}}
 
-                            {{#if prod.IsAgregado }}
-                            <div class="contenedor_agregado">
+                            
+                            <div class="contenedor_agregado" {{#if prod.IsAgregado }}style="" {{else}} style="display:none" {{/if}}>
                                 <div class="txt_agregado">
                                     <span class="span_agregado">AGREGADO</span>
                                     <div class="check_agregado">
@@ -90,7 +90,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{/if}}
+                           
 
                         </div>
                         <div class="clear"></div>

@@ -73,32 +73,32 @@ namespace Portal.Consultoras.Entities
     {
         public BEReporteValidacionSRCampania(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Pais"))
-                CodPais = Convert.ToString(row["Pais"]);
+            
+                CodPais = row.ToString("Pais");
 
-            if (DataRecord.HasColumn(row, "Campania"))
-                Campania = Convert.ToString(row["Campania"]);
+            
+                Campania = row.ToString("Campania");
 
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
+            
+                CUV = row.ToString("CUV");
 
-            if (DataRecord.HasColumn(row, "NombreEvento"))
-                NombreEvento = Convert.ToString(row["NombreEvento"]);
+            
+                NombreEvento = row.ToString("NombreEvento");
 
-            if (DataRecord.HasColumn(row, "DiasAntes"))
-                DiasAntesFacturacion = Convert.ToInt32(row["DiasAntes"]);
+            
+                DiasAntesFacturacion = row.ToInt32("DiasAntes");
 
-            if (DataRecord.HasColumn(row, "DiasDespues"))
-                DiasDespuesFacturacion = Convert.ToInt32(row["DiasDespues"]);
+            
+                DiasDespuesFacturacion = row.ToInt32("DiasDespues");
 
-            if (DataRecord.HasColumn(row, "FlagHabilitarEvento"))
-                FlagHabilitarEvento = Convert.ToInt32(row["FlagHabilitarEvento"]);
+            
+                FlagHabilitarEvento = row.ToInt32("FlagHabilitarEvento");
 
-            if (DataRecord.HasColumn(row, "FlagHabilitarCompraXCompra"))
-                FlagHabilitarCompraXCompra = Convert.ToInt32(row["FlagHabilitarCompraXCompra"]);
+            
+                FlagHabilitarCompraXCompra = row.ToInt32("FlagHabilitarCompraXCompra");
 
-            if (DataRecord.HasColumn(row, "FlagHabilitarSubCampania"))
-                FlagHabilitarSubCampania = Convert.ToInt32(row["FlagHabilitarSubCampania"]);
+            
+                FlagHabilitarSubCampania = row.ToInt32("FlagHabilitarSubCampania");
         }
 
         #region Reporte Validacion para ShowRoom
@@ -140,36 +140,36 @@ namespace Portal.Consultoras.Entities
         public BEReporteValidacionSRPersonalizacion(IDataRecord row)
         {
             #region Reporte Validacion para ShowRoom Hoja 2
-            if (DataRecord.HasColumn(row, "Personalizacion"))
-                Personalizacion = Convert.ToString(row["Personalizacion"]);
-            if (DataRecord.HasColumn(row, "Medio"))
-                Medio = Convert.ToString(row["Medio"]);
-            if (DataRecord.HasColumn(row, "BO"))
-                BO = Convert.ToString(row["BO"]);
-            if (DataRecord.HasColumn(row, "CL"))
-                CL = Convert.ToString(row["CL"]);
-            if (DataRecord.HasColumn(row, "CO"))
-                CO = Convert.ToString(row["CO"]);
-            if (DataRecord.HasColumn(row, "CR"))
-                CR = Convert.ToString(row["CR"]);
-            if (DataRecord.HasColumn(row, "DO"))
-                DO = Convert.ToString(row["DO"]);
-            if (DataRecord.HasColumn(row, "EC"))
-                EC = Convert.ToString(row["EC"]);
-            if (DataRecord.HasColumn(row, "GT"))
-                GT = Convert.ToString(row["GT"]);
-            if (DataRecord.HasColumn(row, "MX"))
-                MX = Convert.ToString(row["MX"]);
-            if (DataRecord.HasColumn(row, "PA"))
-                PA = Convert.ToString(row["PA"]);
-            if (DataRecord.HasColumn(row, "PE"))
-                PE = Convert.ToString(row["PE"]);
-            if (DataRecord.HasColumn(row, "PR"))
-                PR = Convert.ToString(row["PR"]);
-            if (DataRecord.HasColumn(row, "SV"))
-                SV = Convert.ToString(row["SV"]);
-            if (DataRecord.HasColumn(row, "VE"))
-                VE = Convert.ToString(row["VE"]);
+            
+                Personalizacion = row.ToString("Personalizacion");
+            
+                Medio = row.ToString("Medio");
+            
+                BO = row.ToString("BO");
+            
+                CL = row.ToString("CL");
+            
+                CO = row.ToString("CO");
+            
+                CR = row.ToString("CR");
+            
+                DO = row.ToString("DO");
+            
+                EC = row.ToString("EC");
+            
+                GT = row.ToString("GT");
+            
+                MX = row.ToString("MX");
+            
+                PA = row.ToString("PA");
+            
+                PE = row.ToString("PE");
+            
+                PR = row.ToString("PR");
+            
+                SV = row.ToString("SV");
+            
+                VE = row.ToString("VE");
             #endregion
         }
 
@@ -230,44 +230,44 @@ namespace Portal.Consultoras.Entities
     {
         public BEReporteValidacionSROferta(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Pais"))
-                CodPais = Convert.ToString(row["Pais"]);
+            
+                CodPais = row.ToString("Pais");
 
-            if (DataRecord.HasColumn(row, "Campania"))
-                Campania = Convert.ToString(row["Campania"]);
+            
+                Campania = row.ToString("Campania");
 
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
+            
+                CUV = row.ToString("CUV");
 
-            if (DataRecord.HasColumn(row, "CodigoTO"))
-                CodigoTO = Convert.ToString(row["CodigoTO"]);
+            
+                CodigoTO = row.ToString("CodigoTO");
 
-            if (DataRecord.HasColumn(row, "SAP"))
-                CodigoSAP = Convert.ToString(row["SAP"]);
+            
+                CodigoSAP = row.ToString("SAP");
 
-            if (DataRecord.HasColumn(row, "Descripcion"))
-                Descripcion = Convert.ToString(row["Descripcion"]);
+            
+                Descripcion = row.ToString("Descripcion");
 
-            if (DataRecord.HasColumn(row, "PrecioValorizado"))
-                PrecioValorizado = Convert.ToDecimal(row["PrecioValorizado"]);
+            
+                PrecioValorizado = row.ToDecimal("PrecioValorizado");
 
-            if (DataRecord.HasColumn(row, "PrecioOferta"))
-                PrecioOferta = Convert.ToDecimal(row["PrecioOferta"]);
+            
+                PrecioOferta = row.ToDecimal("PrecioOferta");
 
-            if (DataRecord.HasColumn(row, "UnidadesPermitidas"))
-                UnidadesPermitidas = Convert.ToInt32(row["UnidadesPermitidas"]);
+            
+                UnidadesPermitidas = row.ToInt32("UnidadesPermitidas");
 
-            if (DataRecord.HasColumn(row, "EsSubCampania"))
-                EsSubCampania = Convert.ToInt32(row["EsSubCampania"]);
+            
+                EsSubCampania = row.ToInt32("EsSubCampania");
 
-            if (DataRecord.HasColumn(row, "HabilitarOferta"))
-                HabilitarOferta = Convert.ToInt32(row["HabilitarOferta"]);
+            
+                HabilitarOferta = row.ToInt32("HabilitarOferta");
 
-            if (DataRecord.HasColumn(row, "FlagImagenCargada"))
-                FlagImagenCargada = Convert.ToInt32(row["FlagImagenCargada"]);
+            
+                FlagImagenCargada = row.ToInt32("FlagImagenCargada");
 
-            if (DataRecord.HasColumn(row, "FlagImagenMINI"))
-                FlagImagenMINI = Convert.ToInt32(row["FlagImagenMINI"]);
+            
+                FlagImagenMINI = row.ToInt32("FlagImagenMINI");
         }
 
         #region Reporte Validacion para ShowRoom
@@ -321,23 +321,23 @@ namespace Portal.Consultoras.Entities
         public BEReporteValidacionSRComponentes(IDataRecord row)
         {
 
-            if (DataRecord.HasColumn(row, "Pais"))
-                CodPais = Convert.ToString(row["Pais"]);
+            
+                CodPais = row.ToString("Pais");
 
-            if (DataRecord.HasColumn(row, "Campania"))
-                Campania = Convert.ToString(row["Campania"]);
+            
+                Campania = row.ToString("Campania");
 
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
+            
+                CUV = row.ToString("CUV");
 
-            if (DataRecord.HasColumn(row, "Nombre"))
-                Nombre = Convert.ToString(row["Nombre"]);
+            
+                Nombre = row.ToString("Nombre");
 
-            if (DataRecord.HasColumn(row, "Descripcion1"))
-                Descripcion1 = Convert.ToString(row["Descripcion1"]);
+            
+                Descripcion1 = row.ToString("Descripcion1");
 
-            if (DataRecord.HasColumn(row, "FlagImagenCargada"))
-                FlagImagenCargada = Convert.ToString(row["FlagImagenCargada"]);
+            
+                FlagImagenCargada = row.ToString("FlagImagenCargada");
         }
 
         #region Reporte Validacion para ShowRoom

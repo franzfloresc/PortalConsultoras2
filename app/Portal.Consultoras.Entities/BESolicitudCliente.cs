@@ -153,32 +153,32 @@ namespace Portal.Consultoras.Entities
 
         public BESolicitudClienteDetalle(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "SolicitudClienteID"))
-                SolicitudClienteID = Convert.ToInt64(row["SolicitudClienteID"]);
-            if (DataRecord.HasColumn(row, "SolicitudClienteDetalleID"))
-                SolicitudClienteDetalleID = Convert.ToInt64(row["SolicitudClienteDetalleID"]);
+            
+                SolicitudClienteID = row.ToInt64("SolicitudClienteID");
+            
+                SolicitudClienteDetalleID = row.ToInt64("SolicitudClienteDetalleID");
 
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "Producto"))
-                DescripcionProducto = Convert.ToString(row["Producto"]);
-            if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt32(row["Cantidad"]);
-            if (DataRecord.HasColumn(row, "Precio"))
-                Precio = Convert.ToDecimal(row["Precio"]);
-            if (DataRecord.HasColumn(row, "Tono"))
-                Tono = Convert.ToString(row["Tono"]);
-            if (DataRecord.HasColumn(row, "DescripcionMarca"))
-                DescripcionMarca = Convert.ToString(row["DescripcionMarca"]);
+            
+                CUV = row.ToString("CUV");
+            
+                DescripcionProducto = row.ToString("Producto");
+            
+                Cantidad = row.ToInt32("Cantidad");
+            
+                Precio = row.ToDecimal("Precio");
+            
+                Tono = row.ToString("Tono");
+            
+                DescripcionMarca = row.ToString("DescripcionMarca");
 
-            if (DataRecord.HasColumn(row, "TipoAtencion"))
-                TipoAtencion = Convert.ToInt32(row["TipoAtencion"]);
+            
+                TipoAtencion = row.ToInt32("TipoAtencion");
 
-            if (DataRecord.HasColumn(row, "PedidoWebID"))
-                PedidoWebID = Convert.ToInt32(row["PedidoWebID"]);
+            
+                PedidoWebID = row.ToInt32("PedidoWebID");
 
-            if (DataRecord.HasColumn(row, "PedidoWebDetalleID"))
-                PedidoWebDetalleID = Convert.ToInt32(row["PedidoWebDetalleID"]);
+            
+                PedidoWebDetalleID = row.ToInt32("PedidoWebDetalleID");
 
         }
     }
@@ -210,16 +210,16 @@ namespace Portal.Consultoras.Entities
 
         public BESolicitudClienteDetalleStoreParameter(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "CUV"))
-                CUV = Convert.ToString(row["CUV"]);
-            if (DataRecord.HasColumn(row, "Producto"))
-                DescripcionProducto = Convert.ToString(row["Producto"]);
-            if (DataRecord.HasColumn(row, "Cantidad"))
-                Cantidad = Convert.ToInt32(row["Cantidad"]);
-            if (DataRecord.HasColumn(row, "Precio"))
-                Precio = Convert.ToDecimal(row["Precio"]);
-            if (DataRecord.HasColumn(row, "Tono"))
-                Tono = Convert.ToString(row["Tono"]);
+            
+                CUV = row.ToString("CUV");
+            
+                DescripcionProducto = row.ToString("Producto");
+            
+                Cantidad = row.ToInt32("Cantidad");
+            
+                Precio = row.ToDecimal("Precio");
+            
+                Tono = row.ToString("Tono");
         }
     }
 
@@ -266,10 +266,10 @@ namespace Portal.Consultoras.Entities
 
         public BEResultadoSolicitud(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Resultado"))
-                Resultado = Convert.ToInt32(row["Resultado"]);
-            if (DataRecord.HasColumn(row, "Mensaje"))
-                Mensaje = Convert.ToString(row["Mensaje"]);
+            
+                Resultado = row.ToInt32("Resultado");
+            
+                Mensaje = row.ToString("Mensaje");
         }
 
         public BEResultadoSolicitud(int resultado, string mensaje)
@@ -294,12 +294,12 @@ namespace Portal.Consultoras.Entities
 
         public BESolicitudNuevaConsultora(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "Nombre"))
-                Nombre = Convert.ToString(row["Nombre"]);
-            if (DataRecord.HasColumn(row, "EMail"))
-                Email = Convert.ToString(row["EMail"]);
-            if (DataRecord.HasColumn(row, "MarcaNombre"))
-                MarcaNombre = Convert.ToString(row["MarcaNombre"]);
+            
+                Nombre = row.ToString("Nombre");
+            
+                Email = row.ToString("EMail");
+            
+                MarcaNombre = row.ToString("MarcaNombre");
         }
     }
 }

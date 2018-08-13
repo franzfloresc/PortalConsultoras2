@@ -91,8 +91,7 @@
     var TipoOrigenPantallaODD = 111;
     var tipoOrigenEstrategia = 107;
     var OrigenDesktopODD = 3;
-    </script>
-
+    var variableEstrategia = @Html.Raw(Json.Encode(ViewBag.variableEstrategia)) || {};
+</script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Ofertas")
-
 }
