@@ -35,7 +35,13 @@ var ResumenOpcionesModule = (function () {
         _actualizarCantidadAplicada(_componente);
 
         var template = "#resumen-opciones-" + _componente.Cuv;
-        var templateSiblings = $(template).siblings(".tono_select_opt").hide();
+
+        if (isMobile()) {
+            var templatesiblings = $(template).siblings(".tono_select_opt").hide();
+        } else {
+            var templatesiblings = $(template).siblings('[data-tono-change="1"]').hide();
+        }
+        
         $(template).show();
 
         ListaOpcionesModule.CloseElegirOpcionesModal();
