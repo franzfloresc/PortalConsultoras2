@@ -319,6 +319,8 @@ namespace Portal.Consultoras.Web.Models
             get { return FechaHoy >= FechaInicioCampania.Date && FechaHoy <= FechaFinCampania.Date; }
         }
 
+        
+
         public bool HizoLoginExterno { get; set; }
         public bool TieneLoginExterno { get; set; }
         public List<UsuarioExternoModel> ListaLoginExterno { get; set; }
@@ -389,5 +391,10 @@ namespace Portal.Consultoras.Web.Models
         {
             return TipoUsuario == Constantes.TipoUsuario.Consultora;
         }
+
+        
+
+        public string DiaFacturacion { get; set; }
+
     }
 }
