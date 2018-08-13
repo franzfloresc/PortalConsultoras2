@@ -121,7 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
                 AsignarViewBagPorIso(iso);
                 AsignarUrlRetorno(returnUrl);
                 model.ListPaisAnalytics = GetLoginAnalyticsModel();
-      
+
             }
             catch (FaultException ex)
             {
@@ -154,9 +154,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var MiCurso = url[1].Split('=');
                 var MiId = MiCurso[1].Split('&');
-               // if (Util.IsNumeric(MiCurso[1]))
-                 if (Util.IsNumeric(MiId[0]))
-                   {
+                // if (Util.IsNumeric(MiCurso[1]))
+                if (Util.IsNumeric(MiId[0]))
+                {
                     // misCursos = Convert.ToInt32(MiCurso[1]);
                     misCursos = Convert.ToInt32(MiId[0]);
                     TempData["MiAcademia"] = misCursos;
@@ -1291,6 +1291,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     usuarioModel.FotoPerfil = usuario.FotoPerfil;
                     usuarioModel.FotoOriginalSinModificar = usuario.FotoOriginalSinModificar;
+                    usuarioModel.DiaFacturacion = GetDiaFacturacion(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.ZonaID, usuarioModel.RegionID, usuarioModel.FechaHoy);
                 }
 
                 sessionManager.SetUserData(usuarioModel);
@@ -2897,5 +2898,33 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Mostrar;
         }
+
+        private string GetDiaFacturacion(int PaisID, int CampaniaID, long ConsultoraID, int ZonaID, int RegionID, DateTime FechaHoy)
+        {
+            string diaFacturacion = string.Empty;
+            BEConfiguracionCampania configuracionCampania;
+            using (var sv = new PedidoServiceClient())
+            {
+                configuracionCampania = sv.GetEstadoPedido(PaisID, CampaniaID, ConsultoraID, ZonaID, RegionID);
+            }
+
+            //diaFacturacion = (configuracionCampania.FechaInicioFacturacion - DateTime.Now).Days;        
+
+            if (configuracionCampania.FechaInicioFacturacion > FechaHoy)
+            {
+                diaFacturacion = "1";
+            }
+            else if (configuracionCampania.FechaInicioFacturacion < FechaHoy)
+            {
+                diaFacturacion = "-1";
+            }
+            else
+            {
+                diaFacturacion = "0";
+            }
+
+            return diaFacturacion;
+        }
+
     }
 }
