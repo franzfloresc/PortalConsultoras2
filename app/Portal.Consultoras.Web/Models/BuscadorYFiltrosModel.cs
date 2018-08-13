@@ -26,6 +26,12 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoTipoEstrategia { get; set; }
         public int LimiteVenta { get; set; }
         public bool Stock { get; set; }
-     
+        public string PrecioString { get; set; }
+        public string ValorizadoString { get; set; }
+        public string Agregado { get; set; }
+        public int CantidadesAgregadas { get; set; }
+        public int CampaniaID { get; set; }
+        public int TipoEstrategiaId { get; set; }
+        public string DescripcionEstrategia { get; set; }
     }
 }
