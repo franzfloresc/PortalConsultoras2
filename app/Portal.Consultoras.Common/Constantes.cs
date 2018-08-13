@@ -2397,7 +2397,13 @@ namespace Portal.Consultoras.Common
             #endregion
         }
 
-
-
+        public class FacturacionElectronica
+        {
+            public const short TablaLogicaID = 9;
+            public const string FlagActivacion = "01";
+            public const string Url = "02";
+            public const string Parametros = "03";
+            public const string PaisesConfigurables = "CO;CR;GT;MX";
+        }
     }
 }

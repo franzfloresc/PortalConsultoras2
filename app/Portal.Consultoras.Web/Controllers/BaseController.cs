@@ -973,6 +973,26 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
+        #region Facturacion Electronica
+        public string GetDatosFacturacionElectronica(int paidID, short TablaLogicaID, string codigo)
+        {
+            try
+            {
+                var datos = new List<BETablaLogicaDatos>();
+                using (var sv = new SACServiceClient())
+                    datos = sv.GetTablaLogicaDatos(userData.PaisID, TablaLogicaID).ToList() ?? new List<BETablaLogicaDatos>();
+                if (datos.Count != 0)
+                    return datos.Where(a => a.Codigo == codigo).ToList().Select(b => b.Valor).FirstOrDefault();
+                return "";
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "";
+            }
+        }
+        #endregion  
+
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas()
         {
             if (sessionManager.ConfiguracionProgramaNuevas != null) return sessionManager.ConfiguracionProgramaNuevas;
