@@ -463,6 +463,11 @@ namespace Portal.Consultoras.Common
             public const string UrlServiceSicc = "UrlServiceSicc";
             public const string MenuCondicionesDescripcion = "CONDICIONES DE USO WEB";
             public const string MenuCondicionesDescripcionMx = "TÉRMINOS Y CONDICIONES";
+
+            public const string UrlImagenEsika = "https://s3.amazonaws.com/somosbelcorpprd/Unete/Images/logo-marca.png";
+            public const string UrlImagenLbel = "https://s3.amazonaws.com/somosbelcorpprd/Unete/Images/logo-marca-lbel.png";
+            public const string ColorTemaEsika = "#e81c36";
+            public const string ColorTemaLbel = "#613c87";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado

@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -40,10 +41,10 @@ namespace Portal.Consultoras.Web.Providers
             var listaConfiguracion = _tablaLogica.ObtenerParametrosTablaLogica(userData.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, true);
 
             var porcentajeGastosAdministrativosString = _tablaLogica.ObtenerValorTablaLogica(listaConfiguracion, Constantes.TablaLogicaDato.PorcentajeGastosAdministrativos);
-            int porcentajeGastosAdministrativos;
-            bool esInt = int.TryParse(porcentajeGastosAdministrativosString, out porcentajeGastosAdministrativos);
+            decimal porcentajeGastosAdministrativos;
+            bool esNum = decimal.TryParse(porcentajeGastosAdministrativosString, out porcentajeGastosAdministrativos);
 
-            model.PorcentajeGastosAdministrativos = esInt ? porcentajeGastosAdministrativos : 0;
+            model.PorcentajeGastosAdministrativos = esNum ? porcentajeGastosAdministrativos : 0;
 
             model.ListaTipoPago = ObtenerListaTipoPago();
             model.ListaMedioPago = ObtenerListaMedioPago();
@@ -384,7 +385,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public void NotificarViaEmail(PagoEnLineaModel model, UsuarioModel userData)
         {
-            string template = ObtenerTemplatePagoEnLinea(model);
+            string template = ObtenerTemplatePagoEnLinea(model, userData.EsLebel);
             Util.EnviarMail("no-responder@somosbelcorp.com",
                 userData.EMail,
                 "PAGO EN LINEA",
@@ -492,11 +493,13 @@ namespace Portal.Consultoras.Web.Providers
             return bePagoEnLinea;
         }
 
-        private string ObtenerTemplatePagoEnLinea(PagoEnLineaModel model)
+        private string ObtenerTemplatePagoEnLinea(PagoEnLineaModel model, bool esLbel)
         {
             string templatePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_pago_en_linea.html";
             string htmlTemplate = FileManager.GetContenido(templatePath);
 
+            htmlTemplate = htmlTemplate.Replace("#URL_IMAGEN_MARCA#", esLbel ? Constantes.ConfiguracionManager.UrlImagenLbel : Constantes.ConfiguracionManager.UrlImagenEsika);
+            htmlTemplate = htmlTemplate.Replace("#COLOR_MARCA#", esLbel ? Constantes.ConfiguracionManager.ColorTemaLbel : Constantes.ConfiguracionManager.ColorTemaEsika);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_NOMBRECOMPLETO#", model.NombreConsultora + " " + model.PrimerApellido);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_NUMEROOPERACION#", model.NumeroOperacion);
             htmlTemplate = htmlTemplate.Replace("#FORMATO_FECHAPAGO#", model.FechaCreacionString);
