@@ -73,7 +73,7 @@
         <div class="resultado_busqueda_mobile displayBlock">
             <div class="resultado_busqueda_mobile_img_prod displayInlineBlock">
                 <a href="#" class="displayBlock">
-                    <img src="{{Imagen}}" alt="Imagen no disponible" class="imagen_no_disponible" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.png")'" />
+                    <img src="{{Imagen}}" alt="" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.png")'" />
                 </a>
             </div>
             <div class="resultado_busqueda_mobile_descrip_prod displayInlineBlock">
@@ -81,10 +81,10 @@
                     {{Descripcion}}
                 </div>
                 <div class="resultado_busqueda_precio_prod displayBlock">
-                    <span class="resultado_busqueda_precio_normal displayInlineBlock">
+                    <span class="resultado_busqueda_precio_normal displayBlock">
                         {{ValorizadoString}}
                     </span>
-                    <span class="resultado_busqueda_precio_oferta displayInlineBlock">
+                    <span class="resultado_busqueda_precio_oferta displayBlock">
                         {{PrecioString}}
                     </span>
                 </div>
@@ -96,7 +96,12 @@
                 {{#if_eq CodigoEstrategia '2003'}}
                 <div class="resultado_busqueda_mobile_btn_agregar_wrapper displayBlock text-center" data-OrigenPedidoWeb="@origenPedidoWeb">
                     <a class="btn_elegir_opcion displayBlock text-center text-uppercase" href="javascript:;" onclick="BuscadorFichaDetalle('{{CampaniaID}}', '{{CUV}}', '@origenPedidoWeb', '{{EstrategiaCodigo}}');">
-                        Elige tu opción
+                        <span class="icono_elige_tu_opcion displayInlineBlock">
+                            <img src="@Url.Content("~/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
+                        </span>
+                        <span class="elige_tu_opcion_texto displayInlineBlock">
+                            Elige tu opción
+                        </span>
                     </a>
                 </div>
                 {{else}}

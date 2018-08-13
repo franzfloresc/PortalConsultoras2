@@ -164,7 +164,7 @@
 
 .resultado_busqueda_mobile_img_prod,
 .resultado_busqueda_mobile_img_prod a {
-    height: 85px;
+    height: 56px;
 }
 
 .resultado_busqueda_mobile_img_prod {
@@ -177,7 +177,7 @@
 
     .resultado_busqueda_mobile_img_prod img {
         width: 100%;
-        height: 85px;
+        height: 56px;
         margin: auto;
         position: absolute;
         top: 0;
@@ -194,10 +194,10 @@
 }
 
 .resultado_busqueda_nom_producto {
-    font-size: 14px;
+    font-size: 13px;
     letter-spacing: 0.2px;
     line-height: 18px;
-    margin-bottom: -1px;
+    margin-bottom:2px;
 }
 
 .resultado_busqueda_precio_prod {
@@ -210,19 +210,19 @@
 }
 
 .resultado_busqueda_precio_normal {
-    font-size: 12px;
+    font-size: 11px;
     text-decoration: line-through;
-    margin-bottom: 1px;
+    margin-bottom: -1px;
     margin-right: 10px;
 }
 
 .resultado_busqueda_precio_oferta {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
 }
 
 .resultado_busqueda_tipo_oferta_prod {
-    font-size: 12px;
+    font-size: 10px;
     color: #848484;
 }
 
@@ -287,13 +287,13 @@
         margin-top: 0;
         background-color: #000;
         color: #FFF;
+        line-height: 43px;
     }
 
     .resultado_busqueda_mobile_btn_agregar_wrapper .boton_Agregalo_home,
     .btn_elegir_opcion {
         width: 100%;
         height: 45px;
-        line-height: 42px;
         border: 1px solid #000;
         font-size: 12px;
         letter-spacing: 0.5px;
@@ -306,6 +306,7 @@
 .btn_elegir_opcion {
     background-color: #FFF;
     color: #000;
+    line-height:42px;
 }
 
 .etiqueta_prod_agregado {
@@ -314,19 +315,38 @@
     color: #848484;
 }
 
-@media screen and (max-width:447px) {
+.icono_elige_tu_opcion{
+    margin-right: 4px;
+    width: 17px;
+    height: 31px;
+}
+
+@media screen and (max-width:455px) {
 
     .resultado_busqueda_mobile_cantidad_prod {
         width: 31%;
     }
+
+    .elige_tu_opcion_texto{
+        width:56px;
+        line-height:14px;
+        text-align:left;
+    }
+
 }
 
 @media screen and (max-width:408px) {
 
     .btn_elegir_opcion {
-        padding-top: 6px;
+        padding-top: 8px;
         line-height: 15px;
     }
+
+    .icono_elige_tu_opcion{
+        margin-right:2px;
+        height:20px;
+    }
+
 }
 
 /* FIN - LISTA DE RESULTADOS DE BÚSQUEDA MOBILE */
