@@ -14,7 +14,7 @@
 }
 
 .seleccion_header{
-    padding: 14px;
+    padding: 15px;
     border-bottom: 1px solid #d8d8d8;
     position: relative;
     background-color: #fff;
@@ -44,8 +44,8 @@
     border: none;
     background: none;
     position: absolute;
-    right: 14px;
-    top: 19px;
+    right: 23px;
+    top: 20px;
 }
 
 .button_cerrar img{
@@ -85,6 +85,7 @@
     font-size: 12px;
     line-height: normal;
     font-weight: bold;
+    width: 38%;
 }
 
 .seleccion_main {
@@ -238,6 +239,10 @@
 
 .seleccion_header h3 span{
     font-weight: normal !important;
+}
+
+#elegir-opciones-modal {
+    padding-left: 0 !important; 
 }
 
 

@@ -186,6 +186,11 @@ var ListaOpcionesModule = (function () {
         //
         if (typeof opcion === "undefined" || opcion === null) throw "var opcion is not defined or null";
         _componente.HermanosSeleccionados.push(opcion);
+        //_componente.HermanosSeleccionados.push(opcion);
+        //_componente.HermanosSeleccionados.push(opcion);
+        //_componente.HermanosSeleccionados.push(opcion);
+        //_componente.HermanosSeleccionados.push(opcion);
+        //_componente.HermanosSeleccionados.push(opcion);
         _actualizarCantidadFaltantes();
         _moverListaOpcionesMostrarSeleccionados();
         _renderListaOpciones();

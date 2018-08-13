@@ -44,12 +44,25 @@ var OpcionesSeleccionadasModule = (function () {
             $(_elements.divOpcionesSeleccionadas.id).slick("unslick");
             SetHandlebars(_elements.divOpcionesSeleccionadas.templateId, _componente, _elements.divOpcionesSeleccionadas.id);
             $(_elements.divOpcionesSeleccionadas.id).fadeTo("fast", 0.6).fadeTo("fast", 1);
-            $(_elements.divOpcionesSeleccionadas.id).slick({
+            var slickSettings = {
                 slidesToShow: 5,
                 slidesToScroll: 1,
                 autoplaySpeed: 2000,
-                fade: false
-            });
+                fade: false,
+                arrows: false
+            };
+            if (!isMobile()) {
+                slickSettings.arrows = true;
+                slickSettings.prevArrow = '<a class="previous_ofertas" style="left:-5%; text-align:left;"><img src="' +
+                    baseUrl +
+                    'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>';
+                slickSettings.nextArrow =
+                    '<a class="previous_ofertas" style="display: block; right:-5%; text-align:right;"><img src="' +
+                    baseUrl +
+                    'Content/Images/Esika/next.png")" alt="" /></a>';
+
+            }
+            $(_elements.divOpcionesSeleccionadas.id).slick(slickSettings);
         } else {
             $(_elements.divContenedorOpcionesSeleccionadas.id).hide();
             $(_elements.divOpcionesSeleccionadas.id).html("");
