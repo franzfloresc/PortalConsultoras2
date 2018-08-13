@@ -1,7 +1,7 @@
 ﻿<script id="componentes-template" type="text/x-handlebars-template">
     {{#iff CodigoVariante '==' '2001'}}
     {{#each this.Hermanos as |componente|}}
-    <div class="content_tonos_producto" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
+    <div class="content_tonos_producto" data-tono=""  data-tono-digitable="1">
         <div class="tono_select_opt">
             <div class="content_tono_elegido texto_sin_tono" data-tono-change="1" data-tono-change-cuv="{{componente.Cuv}}"
                  onclick="javascript: ComponentesModule.SeleccionarComponente('{{componente.Cuv}}')">
@@ -66,7 +66,7 @@
                 {{/ifVerificarMarcaLast}}
 
 
-                <div class="" data-tono="" data-tono-select="" data-tono-digitable="{{componente.Digitable}}">
+                <div class="" data-tono="" data-tono-digitable="{{componente.Digitable}}">
                     <div style="display: none;">
                         <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
                         <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />

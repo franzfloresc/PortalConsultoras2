@@ -6,6 +6,16 @@ var ResumenOpcionesModule = (function () {
 
     var _componente = {};
     var template = "";
+    var _elements = {
+        resumenOpciones: {
+            id: "#resumen-opciones",
+            template: "#resumen-opciones-template"
+        },
+        tonosSelectOpt: ".tono_select_opt",
+        dataTonoDiv: "[data-tono-div]",
+        dataTonoCuv: "[data-tono-cuv]",
+        bordeSeleccionTono: "borde_seleccion_tono"
+    };
 
     var _actualizarCantidadAplicada = function () {
         $.each(_componente.Hermanos, function (index, hermano) {
@@ -34,25 +44,28 @@ var ResumenOpcionesModule = (function () {
 
         _actualizarCantidadAplicada(_componente);
 
-        var template = "#resumen-opciones-" + _componente.Cuv;
+        var template = _elements.resumenOpciones.id +"-"+_componente.Cuv;
 
-        var templatesiblings = $(template).siblings(".tono_select_opt").hide();
+        var templatesiblings = $(template).siblings(_elements.tonosSelectOpt).hide();
         
         $(template).show();
 
         ListaOpcionesModule.CloseElegirOpcionesModal();
 
-        SetHandlebars("#resumen-opciones-template", _componente, template);
+        SetHandlebars(_elements.resumenOpciones.template, _componente, template);
 
-        var OpcionPaleta = "[data-tono-cuv='[CUV]']";
-        $.each(_componente.Hermanos, function (index, opcion) {
-            if (opcion.cantidadSeleccionada > 0) {
-                OpcionPaleta = OpcionPaleta.replace('[CUV]', opcion.Cuv);
-            }
-        });
+        var codigoVariante = $("#componentes").data("codigovariante");
+        if (codigoVariante === 2001) {
+            var OpcionPaleta = "[data-tono-cuv='[CUV]']";
+            $.each(_componente.Hermanos, function (index, opcion) {
+                if (opcion.cantidadSeleccionada > 0) {
+                    OpcionPaleta = OpcionPaleta.replace('[CUV]', opcion.Cuv);
+                }
+            });
 
-        $("[data-tono-div]").find("[data-tono-cuv]").removeClass("borde_seleccion_tono");
-        $("[data-tono-div]").find(OpcionPaleta).addClass("borde_seleccion_tono");
+            $(_elements.dataTonoDiv).find(_elements.dataTonoCuv).removeClass(_elements.bordeSeleccionTono);
+            $(_elements.dataTonoDiv).find(OpcionPaleta).addClass(_elements.bordeSeleccionTono);
+        }
 
         return false;
     };
