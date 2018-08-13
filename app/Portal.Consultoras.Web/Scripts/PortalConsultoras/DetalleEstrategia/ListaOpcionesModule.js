@@ -36,7 +36,7 @@ var ListaOpcionesModule = (function () {
             height: function () {
                 //var heightContenedorTituloOpciones = $(_elements.contenedorTituloOpciones.id).innerHeight();
                 //var heightContenedorAplicarSeleccion = $(_elements.contenedorAplicarSeleccion.id).innerHeight();
-                return window.innerHeight - 125; //(heightContenedorTituloOpciones + heightContenedorAplicarSeleccion);
+                return window.innerHeight - 169; //(heightContenedorTituloOpciones + heightContenedorAplicarSeleccion);
             }
         },
         
