@@ -7,12 +7,13 @@
 
     .contenedor_seleccion {
     position: fixed;
-    width: 320px;
+    width: 330px;
     top: 0;
     right: 0;
     overflow-y: hidden;
     transition: all 300ms;
     z-index: 999999;
+    box-shadow: 0 8px 20px 0px rgba(0, 0, 0, 0.5);
     }
 
     .list-inline {
@@ -20,7 +21,7 @@
     }
 
     .seleccion_header {
-    padding: 14px;
+    padding: 55px 20px 15px 20px;
     border-bottom: 1px solid #d8d8d8;
     position: relative;
     background-color: #fff;
@@ -41,6 +42,8 @@
     letter-spacing: 0.5px;
     font-size: 11px;
     margin: 0px;
+    text-transform: capitalize;
+    padding-top: 2px;
     }
 
     .button_cerrar {
@@ -50,7 +53,7 @@
     border: none;
     background: none;
     position: absolute;
-    right: 14px;
+    right: 20px;
     top: 22px;
     }
 
@@ -61,6 +64,7 @@
 
     .seleccion_img img {
     width: 60px;
+    display: block;
     }
 
     .seleccion_btn {
@@ -86,22 +90,24 @@
     }
 
     .selecion_item {
-    padding: 12px 14px;
+    padding: 12px 20px;
     border-bottom: 1px solid #d8d8d8;
     margin-bottom: 0px;
     }
 
     .seleccion_title {
-    font-size: 12px;
-    line-height: normal;
-    font-weight: bold;
-    margin-left: 10px;
+        font-size: 12px;
+        line-height: normal;
+        font-weight: bold;
+        margin-left: 8px;
+        width: 32%;
     }
 
     .seleccion_main {
         background-color: #fff;
         height: 463px;
         overflow: auto;
+        transition: all 250ms;
     }
 
     .aplicar_seleccion {
@@ -135,16 +141,17 @@
     color: #ffffff;
     }
 
-    .contenedor_selecionados {
+.contenedor_selecionados {
     background-color: #f5f5f5;
-    padding: 9px 15px 5px 15px;
+    padding: 9px 15px 7px 15px;
     border-bottom: 1px solid #d8d8d8;
-    }
+}
 
     .item_selecionado {
-    width: 56px;
-    text-align: center;
-    position: relative;
+        width: 56px !important;
+        text-align: center;
+        position: relative;
+        margin: 0px 6px;
     }
 
     .item_selecionado_img {
@@ -156,6 +163,7 @@
     font-size: 10px;
     letter-spacing: 0.5px;
     line-height: normal;
+    display: block;
     }
 
     .item_selecionado_close {
@@ -170,7 +178,7 @@
     align-items: center;
     position: absolute;
     right: -3px;
-    top: -3px;
+    top: -5px;
     transition: all 350ms;
     }
 
@@ -237,4 +245,12 @@
 
 .seleccion_cantidad .txt_mas {
     height: 36px;
+}
+
+.selecionados_carrosel .slick-list {
+    padding-top: 4px;
+}
+
+.selecionados_carrosel .slick-track {
+    width: 2500px !important;
 }
