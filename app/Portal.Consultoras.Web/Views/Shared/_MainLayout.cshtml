@@ -200,12 +200,12 @@
     }
     <div id="contentmain" class="content" data-content="" style="margin-top: 61px;">
         @if (!(controllerAction == "bienvenidaindex"
-                    || controllerAction == "showroomindex"
-                    || controllerAction == "showroomintriga"
-                    || controllerAction == "revistadigitalindex"
-                    || controllerAction == "revistadigitaldetalle"
-                    || controllerAction == "revistadigitalinformacion")
-                    && (@ViewBag.Title != "" && @ViewBag.Title != null))
+            || controllerAction == "showroomindex"
+            || controllerAction == "showroomintriga"
+            || controllerAction == "revistadigitalindex"
+            || controllerAction == "revistadigitaldetalle"
+            || controllerAction == "revistadigitalinformacion")
+            && (@ViewBag.Title != "" && @ViewBag.Title != null))
         {
             <div class="SubHeader">
                 <div class="ubicacion_web">
@@ -269,7 +269,12 @@
             {{#if_eq CodigoEstrategia '2003'}}
             <div class="resultado_busqueda_btn_elegir_opcion_wrapper displayInlineBlock text-center" data-OrigenPedidoWeb="@origenPedidoWeb">
                 <a class="btn_elegir_opcion displayBlock text-center text-uppercase" href="javascript:;" onclick="BuscadorFichaDetalle('{{CampaniaID}}', '{{CUV}}', '@origenPedidoWeb', '{{EstrategiaCodigo}}');">
-                    Elige tu opción
+                    <span class="icono_elige_tu_opcion displayInlineBlock">
+                        <img src="@Url.Content("~/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
+                    </span>
+                    <span class="displayInlineBlock">
+                        Elige tu opción
+                    </span>
                 </a>
             </div>
             {{else}}
@@ -386,4 +391,5 @@
     }
 
 </body>
+
 </html>

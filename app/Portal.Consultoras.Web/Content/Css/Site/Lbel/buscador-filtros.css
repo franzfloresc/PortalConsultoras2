@@ -406,6 +406,7 @@
 .btn_elegir_opcion{
     background-color:#FFF;
     color:#000;
+    line-height:41px;
 }
 
 .etiqueta_prod_agregado{
@@ -416,6 +417,12 @@
     margin-top:7px;
     font-size:11px;
     color:#848484;
+}
+
+.icono_elige_tu_opcion{
+    margin-right: 4px;
+    width: 17px;
+    height: 20px;
 }
 
 @media screen and (max-width:1354px) {
