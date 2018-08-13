@@ -15031,3 +15031,13 @@ span.icon-advertencia {
     color: #ffffff;
 }
 /* FIN STYLE OF AUTOCOMPLETE */
+
+.info_academia{
+    display:block;
+    margin-top:6px;
+    padding:15px;
+}
+
+.info_academia p{
+    margin:0;
+}
