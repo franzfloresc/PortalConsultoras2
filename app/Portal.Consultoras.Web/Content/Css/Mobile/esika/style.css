@@ -5211,6 +5211,10 @@ table > thead > tr > th {
     color: black;
 }
 
+.producto_nombre_descripcion.pb-20 {
+    padding-bottom: 20px;
+}
+
 .producto_nombre_descripcion h6 {
     margin: 0;
     padding: 0;
