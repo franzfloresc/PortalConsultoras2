@@ -5,6 +5,7 @@
 /// <reference path="../../../Scripts/PortalConsultoras/Bienvenida/Estrategia.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js" />
+/// <reference path="../../../Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js" />
 /// <reference path="../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
@@ -397,14 +398,7 @@ var FichaModule = (function (config) {
                     estrategia.ClaseBloqueada = "btn_desactivado_general";
                     estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
                     estrategia.RangoInputEnabled = "disabled";
-                    $("#btnAgregalo").addClass("btn_desactivado_general");
-                    $(".content_cantidad_ficha_producto").addClass("btn_desactivado_general");
-                    //$(".contenedor_rangos").addClass("contenedor_rangos_desactivado");
-                    $(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
-                    $(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
-
-                    $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
-                    $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
+                    EstrategiaAgregarModule.DeshabilitarBoton();
                 }
             }
         });

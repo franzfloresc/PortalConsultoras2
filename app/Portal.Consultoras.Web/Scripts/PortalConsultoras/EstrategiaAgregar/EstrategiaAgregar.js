@@ -506,12 +506,29 @@ var EstrategiaAgregarModule = (function () {
         return false;
     };
 
+    var deshabilitarBoton = function () {
+        $("#btnAgregalo").addClass("btn_desactivado_general");
+        $(".content_cantidad_ficha_producto").addClass("btn_desactivado_general");
+        //$(".contenedor_rangos").addClass("contenedor_rangos_desactivado");
+        $(".cantidad_mas_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        $(".cantidad_menos_home").attr("data-bloqueada", "contenedor_rangos_desactivado");
+
+        $("#imgFichaProduMas").attr("data-bloqueada", "contenedor_rangos_desactivado");
+        $("#imgFichaProduMenos").attr("data-bloqueada", "contenedor_rangos_desactivado");
+    };
+    
+    var habilitarBoton = function() {
+        
+    }
+    
     return {
         EstrategiaAgregar: estrategiaAgregar,
         EstrategiaObtenerObj: getEstrategia,
         GetOrigenPedidoWeb: getOrigenPedidoWeb,
         AdicionarCantidad: adicionarCantidad,
         DisminuirCantidad: disminuirCantidad,
-        ElementosDiv: elementosDiv
+        ElementosDiv: elementosDiv,
+        DeshabilitarBoton: deshabilitarBoton,
+        HabilitarBoton: habilitarBoton
     };
 })();
