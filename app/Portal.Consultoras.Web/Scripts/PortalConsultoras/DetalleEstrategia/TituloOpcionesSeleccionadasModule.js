@@ -30,7 +30,6 @@ var TituloOpcionesSeleccionadasModule = (function () {
 
     var CargarTituloOpcionesSeleccionadas = function (componente) {
         _componente = componente || _componente;
-        console.log(_componente);
         SetHandlebars(_elements.divTituloOpcionesSeleccionadas.templateId, _componente, _elements.divTituloOpcionesSeleccionadas.id);
     };
 
