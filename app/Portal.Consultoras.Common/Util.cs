@@ -3259,6 +3259,32 @@ namespace Portal.Consultoras.Common
             return GenerarRutaImagenResize(rutaImagen, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall);
         }
 
+        public static string ObtenerRutaImagenResize(string rutaImagen, string rutaNombreExtension, string codigoIso)
+        {
+            string ruta = "";
+
+            if (string.IsNullOrEmpty(rutaImagen))
+                return ruta;
+
+            var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
+
+            if (rutaImagen.ToLower().Contains(valorAppCatalogo))
+            {
+                string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
+                string soloExtension = Path.GetExtension(rutaImagen);
+
+                var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
+
+                ruta = ConfigCdn.GetUrlFileCdn(carpetaPais, soloImagen + rutaNombreExtension + soloExtension);
+            }
+            else
+            {
+                ruta = Util.GenerarRutaImagenResize(rutaImagen, rutaNombreExtension);
+            }
+
+            return ruta;
+        }
+
         public static string GenerarRutaImagenResize(string rutaImagen, string rutaNombreExtension)
         {
             if (string.IsNullOrEmpty(rutaImagen))

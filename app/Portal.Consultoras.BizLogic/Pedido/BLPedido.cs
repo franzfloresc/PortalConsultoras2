@@ -938,9 +938,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
         }
 
-        public List<Entities.BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar)
+        public List<BEProducto> GetProductoSugerido(BEPedidoProductoBuscar productoBuscar)
         {
-            var listaProductoSugerido = new List<Entities.BEProducto>();
+            var listaProductoSugerido = new List<BEProducto>();
             try
             {
                 var usuario = productoBuscar.Usuario;
@@ -996,7 +996,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     if (producto.TieneStock && tieneStockProl)
                     {
-                        listaProductoSugerido.Add(new Entities.BEProducto()
+                        listaProductoSugerido.Add(new BEProducto()
                         {
                             CUV = producto.CUV ?? string.Empty,
                             Descripcion = producto.Descripcion.Trim(),
@@ -1016,6 +1016,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             FlagNueva = producto.FlagNueva,
                             TipoEstrategiaID = producto.TipoEstrategiaID,
                             ImagenProductoSugerido = producto.ImagenProductoSugerido ?? string.Empty,
+                            ImagenProductoSugeridoSmall = Util.ObtenerRutaImagenResize(producto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall, productoBuscar.Usuario.CodigoISO),
+                            ImagenProductoSugeridoMedium = Util.ObtenerRutaImagenResize(producto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium, productoBuscar.Usuario.CodigoISO),
                             CodigoProducto = producto.CodigoProducto
                         });
                     }
