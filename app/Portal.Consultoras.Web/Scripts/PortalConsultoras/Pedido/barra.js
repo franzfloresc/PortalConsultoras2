@@ -20,6 +20,7 @@ function MostrarBarra(datax, destino) {
     var data = datax.dataBarra || datax.DataBarra || dataBarra || new Object();
     dataBarra = data;
 
+    console.log('barra.js - MostrarBarra - ante ActualizarGanancia', dataBarra);
     ActualizarGanancia(dataBarra);
 
     dataBarra.ListaEscalaDescuento = dataBarra.ListaEscalaDescuento || new Array();

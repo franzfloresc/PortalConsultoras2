@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -46,22 +47,22 @@ namespace Portal.Consultoras.Entities
 
         public BEParticipantesDemandaAnticipada(IDataRecord row)
         {
-            ConfiguracionConsultoraDAID = Convert.ToInt32(row["ConfiguracionConsultoraDAID"]);
-            ZonaID = Convert.ToInt32(row["ZonaID"]);
-            ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
-            CodigoCampania = Convert.ToString(row["CodigoCampania"]);
-            CodigoZona = Convert.ToString(row["CodigoZona"]);
-            NombreZona = Convert.ToString(row["NombreZona"]);
-            CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            NombreCompleto = Convert.ToString(row["NombreCompleto"]);
-            ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-            TipoConfiguracion = Convert.ToByte(row["TipoConfiguracion"]);
-            Fecha = Convert.ToDateTime(row["Fecha"]);
-            FechaModificada = Convert.ToDateTime(row["FechaModificada"]);
-            CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
-            AceptoParticipar = Convert.ToString(row["AceptoParticipar"]);
-            FechaFormato = Convert.ToString(row["FechaFormato"]);
-            FechaModificadaFormato = Convert.ToString(row["FechaModificadaFormato"]);
+            ConfiguracionConsultoraDAID = row.ToInt32("ConfiguracionConsultoraDAID");
+            ZonaID = row.ToInt32("ZonaID");
+            ConsultoraID = row.ToInt32("ConsultoraID");
+            CodigoCampania = row.ToString("CodigoCampania");
+            CodigoZona = row.ToString("CodigoZona");
+            NombreZona = row.ToString("NombreZona");
+            CodigoConsultora = row.ToString("CodigoConsultora");
+            NombreCompleto = row.ToString("NombreCompleto");
+            ImporteTotal = row.ToDecimal("ImporteTotal");
+            TipoConfiguracion = row.ToByte("TipoConfiguracion");
+            Fecha = row.ToDateTime("Fecha");
+            FechaModificada = row.ToDateTime("FechaModificada");
+            CodigoUsuario = row.ToString("CodigoUsuario");
+            AceptoParticipar = row.ToString("AceptoParticipar");
+            FechaFormato = row.ToString("FechaFormato");
+            FechaModificadaFormato = row.ToString("FechaModificadaFormato");
         }
     }
 }

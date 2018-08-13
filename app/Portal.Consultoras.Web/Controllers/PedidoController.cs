@@ -774,7 +774,7 @@ namespace Portal.Consultoras.Web.Controllers
             string message = string.Empty;
             decimal total = 0;
             string totalFormato = string.Empty;
-            string totalCliente = string.Empty;
+            var txtBuildCliente = new StringBuilder();
 
             var objvalida = InsertarMensajeValidarDatos(model.ClienteID.ToString());
             if (objvalida != null)
@@ -838,7 +838,7 @@ namespace Portal.Consultoras.Web.Controllers
                 total += olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
                 totalFormato = Util.DecimalToStringFormat(total, userData.CodigoISO);
 
-                totalCliente += PedidoWebTotalClienteFormato(model.ClienteID_, olstPedidoWebDetalle);
+                txtBuildCliente.Append(PedidoWebTotalClienteFormato(model.ClienteID_, olstPedidoWebDetalle));
 
                 message = !errorServer ? "El registro ha sido actualizado de manera exitosa."
                    : tipo.Length > 1 ? tipo
@@ -870,7 +870,7 @@ namespace Portal.Consultoras.Web.Controllers
                 message,
                 Total = total,
                 TotalFormato = totalFormato,
-                Total_Cliente = totalCliente,
+                Total_Cliente = txtBuildCliente.ToString(),
                 model.ClienteID_,
                 userData.Simbolo,
                 extra = "",
@@ -928,7 +928,6 @@ namespace Portal.Consultoras.Web.Controllers
                        detalle.CUV,
                        set.Cantidad * detalle.FactorRepeticion,
                        ClienteID,
-                       CUVReco,
                        EsBackOrder);
 
                         if (!lastResult.Item1)
@@ -957,13 +956,13 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 lastResult = DeletePedidoWeb(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad,
-                    ClienteID, CUVReco, EsBackOrder);
+                    ClienteID, EsBackOrder);
             }
 
             return lastResult.Item2;
         }
 
-        private Tuple<bool, JsonResult> DeletePedidoWeb(int campaniaId, int pedidoID, short pedidoDetalleId, int tipoOfertaSisId, string CUV, int cantidad, string clienteId, string CUVReco, bool esBackOrder)
+        private Tuple<bool, JsonResult> DeletePedidoWeb(int campaniaId, int pedidoID, short pedidoDetalleId, int tipoOfertaSisId, string CUV, int cantidad, string clienteId, bool esBackOrder)
         {
             try
             {
@@ -3571,7 +3570,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log, int tipoRegistro, string desTipoRegistro)
+        public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log, int tipoRegistro, string desTipoRegistro,bool? MuestraPopup, decimal? MontoInicial)
         {
             try
             {
@@ -3588,6 +3587,12 @@ namespace Portal.Consultoras.Web.Controllers
                         TipoRegistro = tipoRegistro,
                         DesTipoRegistro = desTipoRegistro
                     };
+
+                    if (tipoRegistro == 2)
+                    {
+                        entidad.MuestraPopup = MuestraPopup;
+                        entidad.MontoInicial = MontoInicial;
+                    }
 
                     svp.InsLogOfertaFinal(userData.PaisID, entidad);
                 }

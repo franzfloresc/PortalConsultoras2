@@ -260,7 +260,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<TipoEstrategiaModel> ListTipoEstrategia()
         {
-            var lst = GetTipoEstrategias();
+            var lst = _tipoEstrategiaProvider.GetTipoEstrategias(userData.PaisID);
 
             if (lst != null && lst.Count > 0)
             {

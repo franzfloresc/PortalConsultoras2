@@ -43,35 +43,35 @@ namespace Portal.Consultoras.Entities.Mobile
 
         public BEApp(IDataRecord row)
         {
-            if (row.HasColumn("Aplicacion"))
-                AplicacionNombre = row.GetValue<string>("Aplicacion");
+            
+                AplicacionNombre = row.GetColumn<string>("Aplicacion");
 
-            if (row.HasColumn("CodigoPais"))
-                PaisISO = row.GetValue<string>("CodigoPais");
+            
+                PaisISO = row.GetColumn<string>("CodigoPais");
 
-            if (row.HasColumn("SistemaOperativo"))
-                SistemaOperativo = row.GetValue<string>("SistemaOperativo");
+            
+                SistemaOperativo = row.GetColumn<string>("SistemaOperativo");
 
-            if (row.HasColumn("Url"))
-                Url = row.GetValue<string>("Url");
+            
+                Url = row.GetColumn<string>("Url");
 
-            if (row.HasColumn("Version"))
-                Version = row.GetValue<string>("Version");
+            
+                Version = row.GetColumn<string>("Version");
 
-            if (row.HasColumn("RequiereActualizacion"))
-                RequiereActualizacion = row.GetValue<bool>("RequiereActualizacion");
+            
+                RequiereActualizacion = row.GetColumn<bool>("RequiereActualizacion");
 
-            if (row.HasColumn("TipoDescarga"))
-                TipoDescarga = row.GetValue<short>("TipoDescarga");
+            
+                TipoDescarga = row.GetColumn<short>("TipoDescarga");
 
-            if (row.HasColumn("FechaLanzamiento"))
-                FechaLanzamiento = row.GetValue<DateTime>("FechaLanzamiento");
+            
+                FechaLanzamiento = row.GetColumn<DateTime>("FechaLanzamiento");
 
-            if (row.HasColumn("FechaActualizacion"))
-                FechaActualizacion = row.GetValue<DateTime>("FechaActualizacion");
+            
+                FechaActualizacion = row.GetColumn<DateTime>("FechaActualizacion");
 
-            if (row.HasColumn("MinimaVersion"))
-                MinimaVersion = row.GetValue<string>("MinimaVersion");
+            
+                MinimaVersion = row.GetColumn<string>("MinimaVersion");
         }
     }
 }

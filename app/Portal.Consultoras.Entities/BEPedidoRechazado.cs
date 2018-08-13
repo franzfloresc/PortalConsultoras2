@@ -36,8 +36,7 @@ namespace Portal.Consultoras.Entities
             IdProcesoPedidoRechazado = row.ToInt32("IdProcesoPedidoRechazado");
             Campania = row.ToString("Campania");
             CodigoConsultora = row.ToString("CodigoConsultora");
-            if (DataRecord.HasColumn(row, "MotivoRechazo"))
-                MotivoRechazo = Convert.ToString(row["MotivoRechazo"]).ToUpper().Trim();
+            MotivoRechazo = row.ToString("MotivoRechazo", "").ToUpper().Trim();
             Valor = row.ToString("Valor");
             RequiereGestion = row.ToBoolean("RequiereGestion");
             Procesado = row.ToBoolean("Procesado");

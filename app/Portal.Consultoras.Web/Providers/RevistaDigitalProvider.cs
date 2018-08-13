@@ -1,21 +1,25 @@
-Ôªøusing AutoMapper;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceAsesoraOnline;
-using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.SessionManager;
 using System;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Linq;
+using System.Collections.Generic;
+using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceAsesoraOnline;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.LogManager;
+using Portal.Consultoras.Common;
+using AutoMapper;
 
 namespace Portal.Consultoras.Web.Providers
 {
-    public class RevistaDigitalProvider
+    public class RevistaDigitalProvider : OfertaBaseProvider
     {
         protected ISessionManager sessionManager;
         protected UsuarioModel userData;
         protected RevistaDigitalModel revistaDigital;
         protected ConfiguracionManagerProvider _configuracionManager;
+        private readonly ILogManager logManager = LogManager.LogManager.Instance;
 
         public RevistaDigitalProvider()
         {
@@ -155,21 +159,21 @@ namespace Portal.Consultoras.Web.Providers
             {
                 case Constantes.EstadoRDSuscripcion.Activo:
                     if (!revistaDigital.TieneRDC)
-                        return "Por el momento no est√° habilitada la suscripci√≥n a " + revistaDigital.NombreComercialActiva + ", gracias.";
+                        return "Por el momento no est· habilitada la suscripciÛn a " + revistaDigital.NombreComercialActiva + ", gracias.";
 
                     if (revistaDigital.EsSuscrita)
-                        return "Usted ya est√° suscrito a " + revistaDigital.NombreComercialActiva + ", gracias.";
+                        return "Usted ya est· suscrito a " + revistaDigital.NombreComercialActiva + ", gracias.";
 
                     if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar && revistaDigital.BloquearDiasAntesFacturar > 0)
                     {
                         return "Lo sentimos no puede suscribirse a " + revistaDigital.NombreComercialActiva + ", porque "
-                            + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "ma√±ana" : "en " + diasFaltanFactura + " d√≠as ")
-                            + " es cierre de campa√±a.";
+                            + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "maÒana" : "en " + diasFaltanFactura + " dÌas ")
+                            + " es cierre de campaÒa.";
                     }
                     break;
                 case Constantes.EstadoRDSuscripcion.Desactivo:
                     if (!revistaDigital.TieneRDC)
-                        return "Por el momento no est√° habilitada la desuscripci√≥n a " + revistaDigital.NombreComercialActiva + ", gracias.";
+                        return "Por el momento no est· habilitada la desuscripciÛn a " + revistaDigital.NombreComercialActiva + ", gracias.";
 
                     if (!revistaDigital.EsSuscrita)
                         return "Lo sentimos no se puede desuscribirse a " + revistaDigital.NombreComercialActiva + ", gracias.";
@@ -177,26 +181,26 @@ namespace Portal.Consultoras.Web.Providers
                     if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar && revistaDigital.BloquearDiasAntesFacturar > 0)
                     {
                         return "Lo sentimos no puede desuscribirse a " + revistaDigital.NombreComercialActiva + ", porque "
-                            + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "ma√±ana" : "en " + diasFaltanFactura + " d√≠as ")
-                            + " es cierre de campa√±a.";
+                            + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "maÒana" : "en " + diasFaltanFactura + " dÌas ")
+                            + " es cierre de campaÒa.";
                     }
                     break;
                 case Constantes.EstadoRDSuscripcion.NoPopUp:
                     if (!revistaDigital.TieneRDC)
-                        return "Por el momento no est√° habilitada esta acci√≥n, gracias.";
+                        return "Por el momento no est· habilitada esta acciÛn, gracias.";
 
                     if (revistaDigital.EsSuscrita)
-                        return "Lo sentimos no se puede ejecutar esta acci√≥n, gracias.";
+                        return "Lo sentimos no se puede ejecutar esta acciÛn, gracias.";
 
                     if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar && revistaDigital.BloquearDiasAntesFacturar > 0)
                     {
-                        return "Lo sentimos no puede ejecutar esta acci√≥n, porque "
-                            + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "ma√±ana" : "en " + diasFaltanFactura + " d√≠as ")
-                            + " es cierre de campa√±a.";
+                        return "Lo sentimos no puede ejecutar esta acciÛn, porque "
+                            + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "maÒana" : "en " + diasFaltanFactura + " dÌas ")
+                            + " es cierre de campaÒa.";
                     }
                     break;
                 default:
-                    return "Lo sentimos no se puede ejecutar esta acci√≥n, gracias.";
+                    return "Lo sentimos no se puede ejecutar esta acciÛn, gracias.";
             }
 
             return "";
