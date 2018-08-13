@@ -1,12 +1,22 @@
 ﻿<script id="resumen-opciones-template" type="text/x-handlebars-template">
     {{#each this.Hermanos as |componente|}}
-        {{#iff componente.cantidadAplicada '>' 0}}
-        <ul class="tonos_seleccionados_item" data-tono="" data-tono-select="{{componente.Cuv}}" data-tono-marca-id="{{componente.MarcaID}}" data-tono-precio-catalogo="{{componente.PrecioCatalogo}}">
-            <li class="imagen_seleccionado"><img src="{{componente.ImagenBulk}}" alt="" /></li>
-            <li class="titulo_selecionado"><span class="cantidad_producto_opt">x{{componente.cantidadAplicada}} </span>{{componente.NombreBulk}}</li>
-        </ul>
-        {{/iff}}
+    {{#iff componente.cantidadAplicada '>' 0}}
+    <ul class="tonos_seleccionados_item" data-tono="">
+        <li class="imagen_seleccionado"><img src="{{componente.ImagenBulk}}" alt="" /></li>
+        <li class="titulo_selecionado"><span class="cantidad_producto_opt">x{{componente.cantidadAplicada}} </span>{{componente.NombreBulk}}</li>
+    </ul>
+    {{/iff}}
     {{/each}}
+
+    {{#iff componente.length '>' 0}}
+    {{#each this.resumenAplicados as |componente|}}
+    <div data-tono="" data-tono-select="{{componente.Cuv}}" style="display: none;">
+        <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.IdMarca}}" />
+        <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
+    </div>
+    {{/each}}
+    {{/iff}}
+
     <a class="btn_cambiar_opciones" href="#" onclick="javascript: ComponentesModule.SeleccionarComponente('{{this.Cuv}}')">
         {{#iff this.FactorCuadre '==' '1'}}
         Cambiar opción
