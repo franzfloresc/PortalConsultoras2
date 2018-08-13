@@ -23,13 +23,13 @@ namespace Portal.Consultoras.Web.Providers
                             userData.CodigoZona,
                             buscadorModel.TextoBusqueda,
                             buscadorModel.CantidadProductos,
-                            buscadorModel.SociaEmpresaria,
+                            userData.Lider,
                             buscadorModel.SuscripcionActiva,
                             buscadorModel.MDO,
                             buscadorModel.RD,
                             buscadorModel.RDI,
                             buscadorModel.RDR,
-                            buscadorModel.DiaFacturacion
+                            userData.FechaInicioCampania
                     );
 
                 //var taskApi = Task.Run(() => ObtenerBuscadorDesdeApi(pathBuscador));
