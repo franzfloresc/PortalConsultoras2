@@ -1039,7 +1039,7 @@ namespace Portal.Consultoras.Web.Providers
 
         private void SetShowRoomOfertasInSession(List<EstrategiaPedidoModel> listaProductoModel, UsuarioModel userData)
         {
-            var flagRevistaTodos = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
+            //var flagRevistaTodos = new List<int>() { Constantes.FlagRevista.Valor0, Constantes.FlagRevista.Valor1, Constantes.FlagRevista.Valor2 };
             List<EstrategiaPedidoModel> listaOfertas;
             List<EstrategiaPedidoModel> listaSubCampania;
             var listaOfertasPerdio = new List<EstrategiaPedidoModel>();

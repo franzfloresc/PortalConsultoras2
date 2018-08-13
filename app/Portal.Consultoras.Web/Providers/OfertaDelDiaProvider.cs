@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.ServiceOferta;
-using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.SessionManager;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -21,7 +19,7 @@ namespace Portal.Consultoras.Web.Providers
         protected ConfiguracionManagerProvider _configuracionManager;
         protected TablaLogicaProvider _tablaLogica;
         protected OfertaPersonalizadaProvider _ofertaPersonalizada;
-        private readonly ILogManager logManager = LogManager.LogManager.Instance;
+        //private readonly ILogManager logManager = LogManager.LogManager.Instance;
 
         public OfertaDelDiaProvider()
         {
@@ -263,27 +261,27 @@ namespace Portal.Consultoras.Web.Providers
         }
 
 
-        private static TimeSpan CountdownODD(int paisId, bool esDiasFacturacion, TimeSpan horaCierreZonaNormal)
-        {
-            DateTime hoy;
-            DateTime d2;
-            using (var svc = new SACServiceClient())
-            {
-                hoy = svc.GetFechaHoraPais(paisId);
-            }
-            var d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
+        //private static TimeSpan CountdownODD(int paisId, bool esDiasFacturacion, TimeSpan horaCierreZonaNormal)
+        //{
+        //    DateTime hoy;
+        //    DateTime d2;
+        //    using (var svc = new SACServiceClient())
+        //    {
+        //        hoy = svc.GetFechaHoraPais(paisId);
+        //    }
+        //    var d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
 
-            if (esDiasFacturacion)
-            {
-                var t1 = horaCierreZonaNormal;
-                d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
-            }
-            else
-            {
-                d2 = d1.AddDays(1);
-            }
-            var t2 = (d2 - hoy);
-            return t2;
-        }
+        //    if (esDiasFacturacion)
+        //    {
+        //        var t1 = horaCierreZonaNormal;
+        //        d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
+        //    }
+        //    else
+        //    {
+        //        d2 = d1.AddDays(1);
+        //    }
+        //    var t2 = (d2 - hoy);
+        //    return t2;
+        //}
     }
 }

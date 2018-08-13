@@ -1202,40 +1202,40 @@ namespace Portal.Consultoras.Web.Controllers
             return listaEscalaDescuento;
         }
 
-        private BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(string constSession, string codigoPrograma)
-        {
-            constSession = constSession ?? "";
-            constSession = constSession.Trim();
-            if (constSession == "")
-                return new BEConsultorasProgramaNuevas();
+        //private BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(string constSession, string codigoPrograma)
+        //{
+        //    constSession = constSession ?? "";
+        //    constSession = constSession.Trim();
+        //    if (constSession == "")
+        //        return new BEConsultorasProgramaNuevas();
 
-            if (Session[constSession] != null)
-                return (BEConsultorasProgramaNuevas)Session[constSession];
+        //    if (Session[constSession] != null)
+        //        return (BEConsultorasProgramaNuevas)Session[constSession];
 
-            try
-            {
-                var obeConsultorasProgramaNuevas =
-                    new BEConsultorasProgramaNuevas
-                    {
-                        CodigoConsultora = userData.CodigoConsultora,
-                        Campania = userData.CampaniaID.ToString(),
-                        CodigoPrograma = codigoPrograma
-                    };
-                using (var sv = new PedidoServiceClient())
-                {
-                    obeConsultorasProgramaNuevas = sv.GetConsultorasProgramaNuevas(userData.PaisID, obeConsultorasProgramaNuevas);
-                }
+        //    try
+        //    {
+        //        var obeConsultorasProgramaNuevas =
+        //            new BEConsultorasProgramaNuevas
+        //            {
+        //                CodigoConsultora = userData.CodigoConsultora,
+        //                Campania = userData.CampaniaID.ToString(),
+        //                CodigoPrograma = codigoPrograma
+        //            };
+        //        using (var sv = new PedidoServiceClient())
+        //        {
+        //            obeConsultorasProgramaNuevas = sv.GetConsultorasProgramaNuevas(userData.PaisID, obeConsultorasProgramaNuevas);
+        //        }
 
-                Session[constSession] = obeConsultorasProgramaNuevas ?? new BEConsultorasProgramaNuevas();
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                Session[constSession] = new BEConsultorasProgramaNuevas();
-            }
+        //        Session[constSession] = obeConsultorasProgramaNuevas ?? new BEConsultorasProgramaNuevas();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        Session[constSession] = new BEConsultorasProgramaNuevas();
+        //    }
 
-            return (BEConsultorasProgramaNuevas)Session[constSession];
-        }
+        //    return (BEConsultorasProgramaNuevas)Session[constSession];
+        //}
 
         private List<BEMensajeMetaConsultora> GetMensajeMetaConsultora(string constSession, string tipoMensaje)
         {
@@ -3181,7 +3181,7 @@ namespace Portal.Consultoras.Web.Controllers
                 PaisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion,
                 TipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion
             };
-            return variableEstrategia; ;
+            return variableEstrategia;
         }
 
     }

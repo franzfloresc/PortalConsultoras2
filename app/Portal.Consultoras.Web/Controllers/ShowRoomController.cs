@@ -355,7 +355,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!ValidarIngresoShowRoom(esIntriga: false))
+                if (!ValidarIngresoShowRoom(false))
                     return ErrorJson(string.Empty);
 
                 var productosShowRoom = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
