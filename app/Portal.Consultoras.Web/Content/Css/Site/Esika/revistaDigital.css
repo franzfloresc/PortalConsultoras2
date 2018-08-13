@@ -96,7 +96,8 @@
 
 /*BOTON NO ANIMADO*/
 .bg_activar_boton_no_animado {
-    background: black;
+    border: 1px solid #000;
+    border-radius: 4px;
 }
 
 .activar_boton_lbel_no_animado {
@@ -109,11 +110,16 @@
 
 .logo_no_suscrita {
     background: url(/Content/Images/Esika/RevistaDigital/logo_esika_diagonal.png) !important;
-    background-size: cover !important;
-    background-repeat: no-repeat;
+    background-size: 147px !important;
+    background-repeat: no-repeat !important;
+    background-position: left center !important;
 }
 
 
 .club_gana_mas_pedido .logo_club {
     background: url(/Content/Images/Esika/RevistaDigital/logo_esika_diagonal.png);
+    background-size: 147px !important;
+    background-position: center center;
+    height: 100px !important;
+    width: 100% !important;
 }
