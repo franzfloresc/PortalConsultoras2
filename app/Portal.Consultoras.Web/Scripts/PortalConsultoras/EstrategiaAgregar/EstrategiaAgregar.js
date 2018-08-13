@@ -341,9 +341,12 @@ var EstrategiaAgregarModule = (function () {
                 }
             }
 
-            var $AgregadoTooltip = $("[data-agregado='tooltip']");
-            $AgregadoTooltip.show();
-            setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+            //Tooltip de agregado
+            if (esFicha) {
+                var $AgregadoTooltip = $("[data-agregado='tooltip']");
+                $AgregadoTooltip.show();
+                setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+            }
 
             if (isMobile()) {
                 ActualizarGanancia(data.DataBarra);
