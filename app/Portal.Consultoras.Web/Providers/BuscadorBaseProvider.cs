@@ -15,54 +15,97 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class BuscadorBaseProvider
     {
-        private readonly static HttpClient httpClient = new HttpClient();
+        //private readonly static HttpClient httpClient = new HttpClient();
 
-        public BuscadorBaseProvider()
-        {
-            httpClient.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        }
+        //public BuscadorBaseProvider()
+        //{
+        //    httpClient.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
+        //    httpClient.DefaultRequestHeaders.Accept.Clear();
+        //    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //}
 
         public async Task<List<BuscadorYFiltrosModel>> ObtenerBuscadorDesdeApi(string path)
         {
             var resultados = new List<BuscadorYFiltrosModel>();
-            var httpResponse = await httpClient.GetAsync(path);
-
-            if (httpResponse.IsSuccessStatusCode)
+            using (var httpClient = new HttpClient())
             {
-                var jsonString = await httpResponse.Content.ReadAsStringAsync();
+                httpClient.BaseAddress = new Uri(WebConfig.RutaServiceBuscadorAPI);
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
+                var httpResponse = await httpClient.GetAsync(path);
 
-                foreach (var item in list)
+                if (httpResponse.IsSuccessStatusCode)
                 {
-                    try
-                    {
-                        BuscadorYFiltrosModel buscador = new BuscadorYFiltrosModel
-                        {
-                            CUV = item.CUV,
-                            SAP = item.SAP,
-                            Imagen = item.Imagen,
-                            Descripcion = item.Descripcion,
-                            Valorizado = item.Valorizado,
-                            Precio = item.Precio,
-                            MarcaId = item.MarcaId,
-                            TipoPersonalizacion = item.TipoPersonalizacion,
-                            CodigoEstrategia = item.CodigoEstrategia,
-                            CodigoTipoEstrategia = item.CodigoTipoEstrategia,
-                            LimiteVenta = item.LimiteVenta,
-                            Stock = item.Stock                            
-                        };
+                    var jsonString = await httpResponse.Content.ReadAsStringAsync();
 
-                        resultados.Add(buscador);
-                    }
-                    catch (Exception ex)
+                    var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
+
+                    foreach (var item in list)
                     {
-                        throw ex;
+                        try
+                        {
+                            BuscadorYFiltrosModel buscador = new BuscadorYFiltrosModel
+                            {
+                                CUV = item.CUV,
+                                SAP = item.SAP,
+                                Imagen = item.Imagen,
+                                Descripcion = item.Descripcion,
+                                Valorizado = item.Valorizado,
+                                Precio = item.Precio,
+                                MarcaId = item.MarcaId,
+                                TipoPersonalizacion = item.TipoPersonalizacion,
+                                CodigoEstrategia = item.CodigoEstrategia,
+                                CodigoTipoEstrategia = item.CodigoTipoEstrategia,
+                                LimiteVenta = item.LimiteVenta,
+                                Stock = item.Stock
+                            };
+
+                            resultados.Add(buscador);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
+                        }
                     }
                 }
             }
+            //var httpResponse = await httpClient.GetAsync(path);
+
+            //if (httpResponse.IsSuccessStatusCode)
+            //{
+            //    var jsonString = await httpResponse.Content.ReadAsStringAsync();
+
+            //    var list = JsonConvert.DeserializeObject<List<dynamic>>(jsonString);
+
+            //    foreach (var item in list)
+            //    {
+            //        try
+            //        {
+            //            BuscadorYFiltrosModel buscador = new BuscadorYFiltrosModel
+            //            {
+            //                CUV = item.CUV,
+            //                SAP = item.SAP,
+            //                Imagen = item.Imagen,
+            //                Descripcion = item.Descripcion,
+            //                Valorizado = item.Valorizado,
+            //                Precio = item.Precio,
+            //                MarcaId = item.MarcaId,
+            //                TipoPersonalizacion = item.TipoPersonalizacion,
+            //                CodigoEstrategia = item.CodigoEstrategia,
+            //                CodigoTipoEstrategia = item.CodigoTipoEstrategia,
+            //                LimiteVenta = item.LimiteVenta,
+            //                Stock = item.Stock                            
+            //            };
+
+            //            resultados.Add(buscador);
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            throw ex;
+            //        }
+            //    }
+            //}
             return resultados;
         }
 

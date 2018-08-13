@@ -14,29 +14,40 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BuscadorController : BaseController
     {
-        BuscadorBaseProvider buscadorProvider = new BuscadorBaseProvider();
+        BuscadorYFiltrosProvider BuscadorYFiltrosProvider = new BuscadorYFiltrosProvider();
         // GET: Buscador
         public ActionResult Index()
         {
             return View();
         }
 
-        [HttpPost]
-        public async Task<JsonResult> BusquedaProductos(BuscadorModel buscadorModel)
+       
+        public async Task<JsonResult> BusquedaProductos(string busqueda)
         {
-            //var ListaProductosModel = new List<BuscadorYFiltrosModel>();
-            //try
-            //{
-            //    var urlClient = buscadorProvider.urlClient(userData, buscadorModel);
-            //    ListaProductosModel = await RestClientBuscador.GetTAsync<List<BuscadorYFiltrosModel>>(urlClient);
-            //}
-            //catch (Exception ex)
-            //{
-            //    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            //    ListaProductosModel = new List<BuscadorYFiltrosModel>();
-            //}
-            //return Json(ListaProductosModel, JsonRequestBehavior.AllowGet);
-            return Json(true, JsonRequestBehavior.AllowGet);
+            var ListaProductosModel = new List<BuscadorYFiltrosModel>();
+            try
+            {
+                var buscadorModel = new BuscadorModel();
+                var configuracionPais = sessionManager.GetBuscadorYFiltros();
+                var valores = configuracionPais.ConfiguracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador).ToList();
+                var TotalResultadosBuscador = 20;
+
+                if (valores.Any())
+                {
+                    TotalResultadosBuscador = valores[0].Valor1.ToInt();
+                }
+
+                buscadorModel.TextoBusqueda = busqueda;
+                buscadorModel.CantidadProductos = TotalResultadosBuscador;
+
+                ListaProductosModel = await BuscadorYFiltrosProvider.GetBuscador(userData, buscadorModel);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                ListaProductosModel = new List<BuscadorYFiltrosModel>();
+            }
+            return Json(ListaProductosModel, JsonRequestBehavior.AllowGet);
         }
 
         private List<BuscadorYFiltrosModel> Data()

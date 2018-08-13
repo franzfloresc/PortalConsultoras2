@@ -4,13 +4,14 @@ using Portal.Consultoras.Web.Models.Buscador;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace Portal.Consultoras.Web.Providers
 {
     public class BuscadorYFiltrosProvider : BuscadorBaseProvider
     {
-        public List<BuscadorYFiltrosModel> GetBuscador(UsuarioModel userData, BuscadorModel buscadorModel)
+        public async Task<List<BuscadorYFiltrosModel>> GetBuscador(UsuarioModel userData, BuscadorModel buscadorModel)
         {
             List<BuscadorYFiltrosModel> resultados = null;
             try
@@ -30,10 +31,18 @@ namespace Portal.Consultoras.Web.Providers
                             buscadorModel.RDR,
                             buscadorModel.DiaFacturacion
                     );
+
+                //var taskApi = Task.Run(() => ObtenerBuscadorDesdeApi(pathBuscador));
+
+                //Task.WhenAll(taskApi);
+
+                //resultados = taskApi.Result;
+
+                resultados = await ObtenerBuscadorDesdeApi(pathBuscador);
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             return resultados;
         }
