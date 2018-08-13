@@ -246,7 +246,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/jquery.rateyo.css",
                 "~/Content/Css/Site/flexslider.css",
                 "~/Content/Css/Site/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
-                "~/Content/Css/Site/RevistaDigital/PopupSuscripcion.css"
+                "~/Content/Css/Site/RevistaDigital/PopupSuscripcion.css",
+                 "~/Content/Css/Site/jquery.custom-scrollbar.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2").Include(
@@ -295,7 +296,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js",
                 "~/Scripts/jquery.flexslider.js",
                 "~/Scripts/jquery.rateyo.js",
-                "~/Scripts/jquery.easy-pie-chart.js"
+                "~/Scripts/jquery.easy-pie-chart.js",
+                "~/Scripts/jquery.custom-scrollbar.js"
             ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssPedido").Include(
@@ -347,13 +349,15 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js",
-                "~/Scripts/jquery.rateyo.js"
+                "~/Scripts/jquery.rateyo.js",
+                "~/Scripts/jquery.custom-scrollbar.js"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/Css/Site/CcsBienvenida").Include(
                 "~/Content/Css/Site/jquery.rateyo.css",
                 "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
-                "~/Content/Css/Mobile/RevistaDigital/PopupSuscripcion.css"
+                "~/Content/Css/Mobile/RevistaDigital/PopupSuscripcion.css",
+                 "~/Content/Css/Site/jquery.custom-scrollbar.css"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/Css/Site/MisCatalogoRevista").Include(

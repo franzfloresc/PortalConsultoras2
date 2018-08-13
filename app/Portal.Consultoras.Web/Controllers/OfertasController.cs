@@ -35,6 +35,8 @@ namespace Portal.Consultoras.Web.Controllers
                 //var listaShowRoom = sessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPedidoModel>();
                 //ViewBag.xlistaProductoSR = listaShowRoom.Count(x => !x.EsSubCampania);
 
+                ViewBag.variableEstrategia = GetVariableEstrategia();
+
                 return View(modelo);
             }
             catch (Exception ex)
@@ -57,6 +59,8 @@ namespace Portal.Consultoras.Web.Controllers
                     MensajeProductoBloqueado2 = _ofertasViewProvider.HVMensajeProductoBloqueado(herramientasVenta, esMobile)
 
                 };
+
+                ViewBag.variableEstrategia = GetVariableEstrategia();
 
                 return View("Index", modelo);
             }
