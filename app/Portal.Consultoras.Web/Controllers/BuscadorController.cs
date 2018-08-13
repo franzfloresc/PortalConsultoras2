@@ -22,23 +22,14 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
        
-        public async Task<JsonResult> BusquedaProductos(string busqueda)
+        public async Task<JsonResult> BusquedaProductos(string busqueda, int totalResultados)
         {
             var ListaProductosModel = new List<BuscadorYFiltrosModel>();
             try
             {
                 var buscadorModel = new BuscadorModel();
-                var configuracionPais = sessionManager.GetBuscadorYFiltros();
-                var valores = configuracionPais.ConfiguracionPaisDatos.Where(x => x.Codigo == Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador).ToList();
-                var TotalResultadosBuscador = 20;
-
-                if (valores.Any())
-                {
-                    TotalResultadosBuscador = valores[0].Valor1.ToInt();
-                }
-
                 buscadorModel.TextoBusqueda = busqueda;
-                buscadorModel.CantidadProductos = TotalResultadosBuscador;
+                buscadorModel.CantidadProductos = totalResultados;
 
                 ListaProductosModel = await BuscadorYFiltrosProvider.GetBuscador(userData, buscadorModel);
             }

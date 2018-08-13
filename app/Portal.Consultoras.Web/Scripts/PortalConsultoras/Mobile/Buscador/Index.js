@@ -40,7 +40,7 @@ $(document).ready(function () {
                         var service = $.ajax({
                             type: "POST",
                             url: baseUrl + "Mobile/Buscador/BusquedaProductos",
-                            data: JSON.stringify({ busqueda: $(this).val() }),
+                            data: JSON.stringify({ busqueda: $(this).val(), totalResultados: TotalResultadosBuscador }),
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
                             async: true,

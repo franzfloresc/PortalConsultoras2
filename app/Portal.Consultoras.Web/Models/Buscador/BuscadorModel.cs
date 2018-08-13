@@ -10,7 +10,6 @@ namespace Portal.Consultoras.Web.Models.Buscador
         public string TextoBusqueda { get; set; }
         public int CantidadProductos { get; set; }
         // Agregar en el UserData
-        public bool SociaEmpresaria { get; set; }
         public bool SuscripcionActiva { get; set; }
         public bool MDO { get; set; }
         public bool RD { get; set; }
