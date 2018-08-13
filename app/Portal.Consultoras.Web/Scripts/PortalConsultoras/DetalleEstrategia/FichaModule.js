@@ -309,6 +309,7 @@ var FichaModule = (function (config) {
         if (!IsNullOrEmpty(estrategia.CodigoVariante)) {
             var param = {
                 estrategiaId: estrategia.EstrategiaID,
+                cuv2: estrategia.CUV2,
                 campania: _config.campania,
                 codigoVariante: estrategia.CodigoVariante,
                 codigoEstrategia: estrategia.CodigoEstrategia
@@ -431,8 +432,36 @@ var FichaModule = (function (config) {
             if (proM > proObjM) {
                 $(proImg).css("width", proObjM + "px");
             }
+            setTimeout(_resizeBotonAgregar(), 1000);
         });
 
+    };
+    
+    var _resizeBotonAgregar = function () {
+        var dvFoto = $("#dvSeccionFoto");
+        var dvRedesSociales = $("#Contenedor_redes_sociales");
+        var dvFichaEtiqueta = $("#contenedor_ficha_etiquetas");
+        var dvDetalle = $("#dvSeccionDetalle");
+
+        if (dvFoto.length && dvRedesSociales.length) {
+
+            dvDetalle.removeClass("ficha_detalle_cuerpo");
+            dvDetalle.css("height", "");
+            var dvFotoHeight = dvFoto.innerHeight();
+            var dvFichaEtiquetaHeight = dvFichaEtiqueta.innerHeight();
+            var dvDetalleHeight = dvDetalle.innerHeight();
+            var dvIzquierdoHeight = dvFotoHeight + 45; // 45 es por el padding del padre.
+            var dvDerechoHeight = dvDetalleHeight + dvFichaEtiquetaHeight;
+            if (dvIzquierdoHeight > dvDerechoHeight) {
+                var dvRedesSocialesHeight = dvRedesSociales.innerHeight();
+                var diferenciaHeight = dvIzquierdoHeight - dvFichaEtiquetaHeight;
+                dvDetalle.removeClass("ficha_detalle_cuerpo");
+                dvDetalle.height(diferenciaHeight);
+            }
+            else {
+                dvDetalle.addClass("ficha_detalle_cuerpo");
+            }
+        }
     };
 
     var _cargarDataCompartir = function (estrategia) {

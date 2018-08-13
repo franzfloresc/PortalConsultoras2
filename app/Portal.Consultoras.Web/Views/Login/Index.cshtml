@@ -986,20 +986,13 @@
 
             <div class="boxform float_r">
                 <div class="formbtn">
-                    <div style="padding-left: 4px;">
-                        <a id="AvisoASP" class="aviso_privacidad" href="javascript:void(0)" style="display: none;">Aviso de Privacidad</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="boxform float_r">
-                <div class="formbtn">
                     <label for="">
                         <a href="javascript:void(0);" onclick="olvidasteContrasenia()" rel="formulario-login" title="Recupérala aquí" role="menu" region="Lateral" parent="Recupérala aquí">¿Olvidaste tu contraseña?</a>
                     </label>
                     <br />
                 </div>
             </div>
+
 
             <div class="clear"></div>
 
@@ -1017,17 +1010,24 @@
                     <a href="@Url.Action("Admin", "Login")" onclick="return RedirectAdministrador();" rel="menu-superior" title="Administrador">INGRESA COMO <strong>ADMINISTRADOR</strong></a>
                 </div>
             </div>
-            
             <div class="boxform" id="VinculoTarjetaHelm" style="display: none;">
+
                 <div class="admin" style="margin-top:14px !important">
                     <label for="">
                         <a href="@System.Configuration.ConfigurationManager.AppSettings["UrlRetiroFondosTarjetaHelm"]" download target="_blank" title="" style="text-decoration:underline">RETIRO TARJETA PAY CARD CON SALDO</a>
                     </label>
+
                 </div>
+
             </div>
-            
         </div>
     }
+
+    <div id="AvisoASP"  class="wrapper_enlace_AP" style="display: none;">
+        <div class="enlace_AP">
+            <a href="javascript:void(0)" rel="menu-superior" title="Privacidad de Datos"><strong>PRIVACIDAD DE DATOS</strong></a>
+        </div>
+    </div>
 
 </div>
 
