@@ -206,14 +206,16 @@
 <script id="catalogo-template" type="text/x-handlebars-template">
     <div class="content_item_catalogo" data-cam="{{campania}}" data-cat="{{tipoCatalogo}}" data-estado="{{estado}}" style="display: none;">
         <div data-tipo="content">
-            <a class="content_catalogo" data-tipo="img" target="_blank" href="javascript:;">
+            <a class="content_catalogo" id="{{campania}}_{{tipoCatalogo}}" data-tipo="img" target="_blank" href="javascript:;">
                 <img src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" />
             </a>
+            <a ><input type="hidden" value=""  target="_blank" href="javascript:;"/></a>
+
             <input id="txtUrl{{tipoCatalogo}}" type="hidden" value="" />
             <div style="max-width:440px; margin:0 auto;">
-                <a class="btn_ws" onclick="RedesSociales.TagManagerWS('{{comp}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws2.png")" alt="-" /></a>
+                <a class="btn_ws" id="{{campania}}_{{tipoCatalogo}}_WS"  onclick="RedesSociales.TagManagerWS('{{comp}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws2.png")" alt="-" /></a>
                 <a class="btn_facebook" href="javascript:;" data-accion="face" onclick="RedesSociales.CompartirFacebook('{{comp}}','{{campania}}', this); return false;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
-                <a class="btn_mensaje" onclick="javascript: RedesSociales.AbrirCompartirCorreo('{{tipoCatalogo}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
+                <a class="btn_mensaje" onclick="RedesSociales.AbrirCompartirCorreo('{{tipoCatalogo}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
             </div>
 
         </div>
@@ -221,7 +223,7 @@
 </script>
 
 @section scripts{
-    <script type="text/javascript">
+<script type="text/javascript">
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo';
         var codigoIso = '@ViewBag.CodigoISO';
@@ -239,7 +241,8 @@
         var urlBuscadorIssu = '@Constantes.CatalogoUrlIssu.Buscador';
         var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
         var mensajeSinConexionIssu = '@Html.Raw(Constantes.MensajesError.SinConexion_CatalogoRevistaIssu)';
-    </script>
+        var MarcaCatalogo = '@ViewBag.MarcaCatalogo' || 0;   //PPC 
+</script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tag-editor.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.caret.min.js")"></script>
