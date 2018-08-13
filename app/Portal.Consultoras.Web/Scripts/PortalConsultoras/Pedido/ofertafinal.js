@@ -296,6 +296,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         var effect = 'slide';
         var options = { direction: 'right' };
         var duration = 500;
+        $('#of-regalo-actual').text("1");
 
         $('#divCarruselOfertaFinal').prepend($(".js-slick-prev-" + aux));
         $('#divCarruselOfertaFinal').prepend($(".js-slick-next-" + aux));
@@ -333,6 +334,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     $("#btnCambiarRegalo1").click(function () {
         $('#container-of-regalo').show();
         $('#divGanoRegalo').hide();
+        $('#of-regalo-actual').text("1");
 
         $('#divCarruselRegalo.slick-initialized').slick('unslick');
 
