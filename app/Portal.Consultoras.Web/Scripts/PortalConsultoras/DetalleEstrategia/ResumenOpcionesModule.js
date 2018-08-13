@@ -36,11 +36,7 @@ var ResumenOpcionesModule = (function () {
 
         var template = "#resumen-opciones-" + _componente.Cuv;
 
-        if (isMobile()) {
-            var templatesiblings = $(template).siblings(".tono_select_opt").hide();
-        } else {
-            var templatesiblings = $(template).siblings('[data-tono-change="1"]').hide();
-        }
+        var templatesiblings = $(template).siblings(".tono_select_opt").hide();
         
         $(template).show();
 
