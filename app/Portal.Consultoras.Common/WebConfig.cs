@@ -129,11 +129,11 @@ namespace Portal.Consultoras.Common
             }
         }
 
-        public static string RutaService
+        public static string RutaServiceBuscadorAPI
         {
             get
             {
-                return ConfigurationManager.AppSettings["RutaService"] ?? string.Empty;
+                return ConfigurationManager.AppSettings["RutaServiceBuscadorAPI"] ?? string.Empty;
             }
         }
         #endregion

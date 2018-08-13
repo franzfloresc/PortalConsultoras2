@@ -743,7 +743,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Providers\AdministrarEstrategiaProvider.cs" />
-    <Compile Include="Providers\BuscadorProvider.cs" />
+    <Compile Include="Providers\BuscadorBaseProvider.cs" />
+    <Compile Include="Providers\BuscadorYFiltrosProvider.cs" />
     <Compile Include="Providers\OfertaBaseProvider.cs" />
     <Compile Include="Providers\OfertaDelDiaProvider.cs" />
     <Compile Include="Providers\PedidoSetProvider.cs" />
