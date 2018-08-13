@@ -1,0 +1,60 @@
+﻿<!-- LISTA DE RESULTADOS DE BÚSQUEDA MOBILE -->
+<div class="container vistaResultadosBusquedaMobile displayBlock">
+    <div class="spinner">
+        <img src="@Url.Content("~/Content/Images/loading_spinner.gif")" alt="" />
+    </div>
+    <div class="row lista_resultados_busqueda_productos_mobile displayBlock" id="ResultadoBuscadorMobile">
+        @for (int i = 0; i < 10; i++)
+        {
+            <!-- RESULTADO DE BÚSQUEDA -->
+            <div class="col-xs-12 col-sm-12 resultado_busqueda_mobile_wrapper displayBlock">
+                <div class="resultado_busqueda_mobile displayBlock">
+                    <div class="resultado_busqueda_mobile_img_prod displayInlineBlock">
+                        <a href="#" class="displayBlock">
+                            <img src="https://d1y60eoca8fkyl.cloudfront.net/Matriz/PE/PE_200040974201874543_liisjwqptw_medium.png" />
+                            <!-- INICIO - USAR ESTA IMAGEN PARA CUANDO NO HAY IMAGEN DE PRODUCTO -->
+                            <img src="@Url.Content("~/Content/Images/imagen_prod_no_disponible.png")" alt="Imagen no disponible" style="display:none;" />
+                            <!-- FIN - USAR ESTA IMAGEN PARA CUANDO NO HAY IMAGEN DE PRODUCTO -->
+                        </a>
+                    </div>
+                    <div class="resultado_busqueda_mobile_descrip_prod displayInlineBlock">
+                        <div class="resultado_busqueda_nom_producto displayBlock">
+                            Desodorante Kalos Sport Edic...
+                        </div>
+                        <div class="resultado_busqueda_precio_prod displayBlock">
+                            <span class="resultado_busqueda_precio_normal displayInlineBlock">
+                                S/ 175.00
+                            </span>
+                            <span class="resultado_busqueda_precio_oferta displayInlineBlock">
+                                S/ 75.00
+                            </span>
+                        </div>
+                        <div class="resultado_busqueda_tipo_oferta_prod displayBlock text-uppercase">
+                            Liquidaciones
+                        </div>
+                    </div>
+                    <div class="resultado_busqueda_mobile_cantidad_prod displayInlineBlock">
+                        <a class="cantidad_menos_home">
+                            <img src="/Content/Images/Mobile/Esika/menos.png" alt="">
+                        </a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido text-center ValidaNumeral ValidaPasteNumeral" />
+                        <a class="cantidad_mas_home">
+                            <img src="/Content/Images/Mobile/Esika/mas.png" alt="">
+                        </a>
+                        <div class="clear"></div>
+                        <div class="resultado_busqueda_mobile_btn_agregar_wrapper displayBlock text-center">
+                            <a class="boton_Agregalo_home displayBlock text-center text-uppercase">
+                                Agrégalo
+                            </a>
+                            <div class="etiqueta_prod_agregado displayBlock text-uppercase text-bold">
+                                Agregado
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN - RESULTADO DE BÚSQUEDA -->
+        }
+    </div>
+</div>
+<!-- FIN - LISTA DE RESULTADOS DE BÚSQUEDA MOBILE -->

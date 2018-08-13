@@ -4,35 +4,33 @@
 <!DOCTYPE html>
 <html lang="es-PE">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="description" content="SomosBelcorp Web Mobile" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="SomosBelcorp Web Mobile" />
 
-	<title>Somos Belcorp</title>
-    
-    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerHeader.cshtml", new ViewDataDictionary { { "TipoLayout", 1 } })
+    <title>Somos Belcorp</title>
+
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
-    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
 
-	<link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
 
-	@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
-	{
-		<link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
-		@Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
-		@Styles.Render("~/Content/Css/Mobile/Esika/Contenedor")
-	}
-	else
-	{
-		<link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-		@Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
-		@Styles.Render("~/Content/Css/Mobile/Lbel/Contenedor")
-	}
-	<link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
+        @Styles.Render("~/Content/Css/Mobile/Esika/Contenedor")
+    }
+    else
+    {
+        <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
+        @Styles.Render("~/Content/Css/Mobile/Lbel/Contenedor")
+    }
+    <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpVariablesGeneralesPortal.cshtml")
-	<script type="text/javascript">
+    <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
         window.urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         window.urlLogElastic = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogElastic"]';
@@ -48,16 +46,14 @@
         window.actionName     = '@acti.ToLower()';
     </script>
 
-	@RenderSection("styles", required: false)
+    @RenderSection("styles", required: false)
 
-	@if (TempData.ContainsKey("PixelCodigoIso"))
-	{
-		<noscript id="noscript-pixel-image"></noscript>
-	}
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        <noscript id="noscript-pixel-image"></noscript>
+    }
 </head>
 <body>
-    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
-
     @if (ViewBag.PaisesConTrackingJetlore == "1")
     {
         <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
@@ -73,119 +69,155 @@
         </script>
     }
 
-	<input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
+    <script type="text/javascript">
+        dataLayer = [{
+            'campana': '@ViewBag.AnalyticsCampania',
+            'segmento': '@ViewBag.AnalyticsSegmento',
+            'edad': '@ViewBag.AnalyticsEdad',
+            'zona': '@ViewBag.AnalyticsZona',
+            'pais': '@ViewBag.AnalyticsPais',
+            'rol': '@ViewBag.AnalyticsRol',
+            'region': '@ViewBag.AnalyticsRegion',
+            'seccion': '@ViewBag.AnalyticsSeccion',
+            'codigoconsultora': '@ViewBag.AnalyticsCodigoConsultora',
+            'periodo': '@ViewBag.AnalyticsPeriodo',
+            'segmentoconstancia': '@ViewBag.AnalyticsSegmentoConstancia',
+            'socianivel': '@ViewBag.AnalyticsSociaNivel',
+            'semana-periodo': '@ViewBag.SemanaAnalytics'
+        }];
+    </script>
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-TTK6KS" height="0" width="0" style="display: none; visibility: hidden"></iframe>
+    </noscript>
+    <script>
+		(function (w, d, s, l, i) {
+			w[l] = w[l] || [];
+			w[l].push({
+				'gtm.start': new Date().getTime(),
+				event: 'gtm.js'
+			});
+			var f = d.getElementsByTagName(s)[0],
+				j = d.createElement(s),
+				dl = l != 'dataLayer' ? '&l=' + l : '';
+			j.async = true;
+			j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+			f.parentNode.insertBefore(j, f);
+		})(window, document, 'script', 'dataLayer', 'GTM-TTK6KS');
+    </script>
 
-	<section style="min-height: 380px;">
-		<div id="content" data-content="" style="margin-top: 0;">
-			@RenderBody()
-		</div>
-		<div class="clear">
-			<br />
-			<br />
-		</div>
-	</section>
+    <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
 
-	<div class="content-spinner2" id="loading-spin">
-		<div class="busy-loader">
-			<div class="w-ball-wrapper ball-1">
-				<div class="w-ball"></div>
-			</div>
-			<div class="w-ball-wrapper ball-2">
-				<div class="w-ball"></div>
-			</div>
-			<div class="w-ball-wrapper ball-3">
-				<div class="w-ball"> </div>
-			</div> <div class="w-ball-wrapper ball-4">
-				<div class="w-ball"> </div>
-			</div>
-			<div class="w-ball-wrapper ball-5">
-				<div class="w-ball"> </div>
-			</div>
-		</div>
-	</div>
+    <section style="min-height: 380px;">
+        <div id="content" data-content="" style="margin-top: 0;">
+            @RenderBody()
+        </div>
+        <div class="clear">
+            <br />
+            <br />
+        </div>
+    </section>
 
-	<div id="popupInformacion" class="MensajeAlertaMobile" style="display:none;">
-		<div class="content_mensajeAlerta">
-			<a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion').hide();">
-				<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-			</a>
-			<hr class="clear">
-			<div class="icono_alerta exclamacion_icono_mobile"></div>
-			<div class="titulo_compartir"><b>IMPORTANTE</b></div>
-			<div id="mensajeInformacion" class="mensaje_alerta"></div>
-			<a href="javascript:;" onclick="$('#popupInformacion').hide();" class="btn_ok_mobile btn-aceptar"><b>OK</b></a>
-		</div>
-	</div>
+    <div class="content-spinner2" id="loading-spin">
+        <div class="busy-loader">
+            <div class="w-ball-wrapper ball-1">
+                <div class="w-ball"></div>
+            </div>
+            <div class="w-ball-wrapper ball-2">
+                <div class="w-ball"></div>
+            </div>
+            <div class="w-ball-wrapper ball-3">
+                <div class="w-ball"> </div>
+            </div> <div class="w-ball-wrapper ball-4">
+                <div class="w-ball"> </div>
+            </div>
+            <div class="w-ball-wrapper ball-5">
+                <div class="w-ball"> </div>
+            </div>
+        </div>
+    </div>
 
-	<div id="popupInformacionValidado" class="MensajeAlertaMobile" style="display:none;">
-		<div class="content_mensajeAlerta">
-			<a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionValidado').hide();">
-				<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-			</a>
-			<hr class="clear">
-			<div class="icono_alerta exclamacion_icono_mobile"></div>
-			<div class="titulo_compartir"><b>LO SENTIMOS</b></div>
-			<div id="mensajeInformacionvalidado" class="mensaje_alerta"></div>
-			<a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
-		</div>
-	</div>
+    <div id="popupInformacion" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+            <div id="mensajeInformacion" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="$('#popupInformacion').hide();" class="btn_ok_mobile btn-aceptar"><b>OK</b></a>
+        </div>
+    </div>
 
-	<div id="popupInformacionSB2Malo" class="MensajeAlertaMobile" style="display:none;">
-		<div class="content_mensajeAlerta">
-			<a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Malo').hide();">
-				<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-			</a>
-			<hr class="clear">
-			<div class="icono_alerta exclamacion_icono_mobile"></div>
-			<div class="titulo_compartir"><b>IMPORTANTE</b></div>
-			<div id="mensajeInformacionSB2_Malo" class="mensaje_alerta"></div>
-			<a href="javascript:;" onclick="$('#popupInformacionSB2Malo').hide();" class="btn_ok_mobile"><b>OK</b></a>
-		</div>
-	</div>
-	<div id="popupInformacionSB2Error" class="MensajeAlertaMobile" style="display:none;">
-		<div class="content_mensajeAlerta">
-			<a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Error').hide();">
-				<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-			</a>
-			<hr class="clear">
-			<div class="icono_alerta exclamacion_icono_mobile"></div>
-			<div class="titulo_compartir"><b>LO SENTIMOS</b></div>
-			<div id="mensajeInformacionSB2_Error" class="mensaje_alerta"></div>
-			<a href="javascript:;" onclick="$('#popupInformacionSB2Error').hide();" class="btn_ok_mobile"><b>OK</b></a>
-		</div>
-	</div>
-	<div id="popupInformacionSB2SesionFinalizada" class="MensajeAlertaMobile" style="display:none;">
-		<div class="content_mensajeAlerta">
-			<a class="cerrar_popMobile" href="javascript:;" onclick="window.location.href='@Url.Action("Index", "Login", new { area = "" })'">
-				<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-			</a>
-			<hr class="clear">
-			<div class="icono_alerta exclamacion_icono_mobile"></div>
-			<div class="titulo_compartir"><b>SESIÓN FINALIZADA</b></div>
-			<div id="mensajeInformacionSB2_SesionFinalizada" class="mensaje_alerta"></div>
-			<a href="javascript:;" onclick="window.location.href='/Login'" class="btn_ok_mobile"><b>OK</b></a>
-		</div>
-	</div>
-	<div id="popupInformacionSB2Bueno" class="MensajeAlertaMobile" style="display:none;">
-		<div class="content_mensajeAlerta">
-			<a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Bueno').hide();">
-				<img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-			</a>
-			<hr class="clear">
-			<div class="icono_alerta check_icono_mobile"></div>
-			<div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
-			<div id="mensajeInformacionSB2Bueno" class="mensaje_alerta"></div>
-			<a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>OK</b></a>
-		</div>
-	</div>
+    <div id="popupInformacionValidado" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionValidado').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>LO SENTIMOS</b></div>
+            <div id="mensajeInformacionvalidado" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
+        </div>
+    </div>
 
-	@Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
+    <div id="popupInformacionSB2Malo" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Malo').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+            <div id="mensajeInformacionSB2_Malo" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="$('#popupInformacionSB2Malo').hide();" class="btn_ok_mobile"><b>OK</b></a>
+        </div>
+    </div>
+    <div id="popupInformacionSB2Error" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Error').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>LO SENTIMOS</b></div>
+            <div id="mensajeInformacionSB2_Error" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="$('#popupInformacionSB2Error').hide();" class="btn_ok_mobile"><b>OK</b></a>
+        </div>
+    </div>
+    <div id="popupInformacionSB2SesionFinalizada" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="window.location.href='@Url.Action("Index", "Login", new { area = "" })'">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>SESIÓN FINALIZADA</b></div>
+            <div id="mensajeInformacionSB2_SesionFinalizada" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="window.location.href='/Login'" class="btn_ok_mobile"><b>OK</b></a>
+        </div>
+    </div>
+    <div id="popupInformacionSB2Bueno" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Bueno').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta check_icono_mobile"></div>
+            <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
+            <div id="mensajeInformacionSB2Bueno" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>OK</b></a>
+        </div>
+    </div>
 
-	<div style="display:none">
-		<a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
-	</div>
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
 
-	@Scripts.Render("~/Scripts/MobileLayout")
+    <div style="display:none">
+        <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
+    </div>
+
+    @Scripts.Render("~/Scripts/MobileLayout")
 
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
@@ -279,12 +311,9 @@
         var actionName = '@ViewContext.RouteData.GetRequiredString("action")';
         var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
         var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
-        var CaracteresBuscador = '@ViewBag.CaracteresBuscador';
-        var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';
-        var OrigenPedidoMobileBuscador = @Constantes.OrigenPedidoWeb.MobileBuscador;
     </script>
 
-	<script type="text/javascript">
+    <script type="text/javascript">
 		$(function () {
 			SetFormatDecimalPais(formatDecimalPaisMain);
 
@@ -472,26 +501,26 @@
 
 			return restringido;
 		};
-	</script>
+    </script>
 
-	<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
-	@RenderSection("scripts", required: false)
-	@if (TempData.ContainsKey("PixelCodigoIso"))
-	{
-		@System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
-		<script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+    @RenderSection("scripts", required: false)
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
+        <script>
             var pixelAnalytics = Analytics();
             pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
-		</script>
-		@TempData.Remove("PixelCodigoIso");
-	}
+        </script>
+        @TempData.Remove("PixelCodigoIso");
+    }
 
-	@{
-		if (TempData.ContainsKey("LimpiarLocalStorage"))
-		{
-			TempData.Remove("LimpiarLocalStorage");
-			<script>limpiar_local_storage();</script>
-		}
-	}
+    @{
+        if (TempData.ContainsKey("LimpiarLocalStorage"))
+        {
+            TempData.Remove("LimpiarLocalStorage");
+            <script>limpiar_local_storage();</script>
+        }
+    }
 </body>
 </html>
