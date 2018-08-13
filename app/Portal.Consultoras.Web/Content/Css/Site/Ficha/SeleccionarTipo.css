@@ -143,7 +143,7 @@
 
 .contenedor_selecionados {
     background-color: #f5f5f5;
-    padding: 9px 15px 7px 15px;
+    padding: 9px 28px 7px 20px;
     border-bottom: 1px solid #d8d8d8;
 }
 
@@ -253,4 +253,14 @@
 
 .selecionados_carrosel .slick-track {
     width: 2500px !important;
+}
+
+.flecha_ofertas-tipo {
+    height: auto !important;
+    top: 26px;
+    padding: 8px 1px;
+}
+
+.flecha_ofertas-tipo img {
+    height: 17px;
 }
