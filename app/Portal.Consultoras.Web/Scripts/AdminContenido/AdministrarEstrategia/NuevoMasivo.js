@@ -135,8 +135,10 @@
             pgtext: "Pág: {0} de {1}",
             altRows: true,
             altclass: "jQGridAltRowClass",
-            loadComplete: function () { },
-            gridComplete: function () {
+            loadComplete: function (data) {
+                $("#precargadosdiv").html(JSON.parse(JSON.stringify(data.rows[2].cell))[4]);
+            },
+            gridComplete: function (data) {
                 console.log('_fnGrillaEstrategias1 gridComplete', new Date());
                 if (_variables.cantidadPrecargar == 0) {
                     $("#divMostrarPreCarga").css("display", "none");
@@ -161,7 +163,9 @@
             hidegrid: false,
             datatype: "json",
             postData: ({
-                nroLote: _variables.NroLote
+                nroLote: _variables.NroLote,
+                campaniaId: $("#ddlCampania").val(),
+                codigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo")
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
@@ -238,7 +242,8 @@
         var parametros = {
             campaniaId: parseInt($("#ddlCampania").val()),
             tipoConfigurado: parseInt(tipo),
-            estrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo")
+            estrategiaCodigo: $("#ddlTipoEstrategia").find(":selected").data("codigo"),
+            estrategiaMIds: $('#precargadosdiv').text()
         };
 
         $("#listGrillaCuv1").setGridParam({ postData: parametros });
@@ -248,7 +253,7 @@
             hidegrid: false,
             datatype: "json",
             postData: (parametros),
-            mtype: "GET",
+            mtype: "POST",
             contentType: "application/json; charset=utf-8",
             colNames: ["CUV", "Descripción"],
             colModel: [
@@ -295,9 +300,20 @@
     var _fnGrillaCuv2 = function (tipo) {
         $("#listGrillaCuv2").jqGrid("clearGridData");
 
+        var estrategiaId;
+        if (tipo == 1) {
+            estrategiaId = $('#precargadosdiv').text();
+        }
+        if (tipo == 2) {
+            estrategiaId = $('#cargadoserrordiv').text();
+        }
+
         var parametros = {
             tipoConfigurado: parseInt(tipo),
-            nroLote: _variables.NroLote
+            nroLote: _variables.NroLote,
+            campaniaId: $("#ddlCampania").val(),
+            codigoEstrategia: $("#ddlTipoEstrategia").find(":selected").data("codigo"),
+            estrategiaMIds: estrategiaId
         };
 
         $("#listGrillaCuv2").setGridParam({ postData: parametros });
@@ -307,7 +323,7 @@
             hidegrid: false,
             datatype: "json",
             postData: (parametros),
-            mtype: "GET",
+            mtype: "POST",
             contentType: "application/json; charset=utf-8",
             colNames: ["CUV", "Descripción"],
             colModel: [
@@ -525,7 +541,9 @@
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 1,
                 estrategiaId: $("#ddlTipoEstrategia").find(":selected").data("id"),
-                nroLote: _variables.NroLote
+                nroLote: _variables.NroLote,
+                codigoEstrategia:$("#ddlTipoEstrategia").find(":selected").data("codigo"),
+                estrategiaMIds: $('#precargadosdiv').text()
             };
             
             waitingDialog();
@@ -541,6 +559,9 @@
                     console.log('respuesta ' + _config.urlEstrategiaOfertasPersonalizadasInsert, new Date());
                     console.log(data); 
                     if (data.success) {
+                        $("#precargadosdiv").html(data.mongoIdsOK);
+                        $("#cargadoserrordiv").html(data.mongoIdsERROR);
+
                         closeWaitingDialog();
                         $("#divMasivoPaso1").hide();
                         $("#divMasivoPaso2").hide();

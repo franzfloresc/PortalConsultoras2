@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -22,6 +23,7 @@ namespace Portal.Consultoras.Web.Providers
         protected ConfiguracionManagerProvider _configuracionManager;
         protected readonly PedidoWebProvider _pedidoWeb;
         protected readonly EstrategiaComponenteProvider _estrategiaComponenteProvider;
+        protected OfertaBaseProvider _ofertaBaseProvider;
 
         public OfertaPersonalizadaProvider()
         {
@@ -29,6 +31,7 @@ namespace Portal.Consultoras.Web.Providers
             revistaDigital = sessionManager.GetRevistaDigital();
             _configuracionManager = new ConfiguracionManagerProvider();
             _pedidoWeb = new PedidoWebProvider();
+            _ofertaBaseProvider = new OfertaBaseProvider();
         }
 
         #region Metodos de Estrategia Controller
@@ -357,9 +360,25 @@ namespace Portal.Consultoras.Web.Providers
                     entidad.ConsultoraID = userData.GetConsultoraId().ToString();
                 }
 
-                using (OfertaServiceClient osc = new OfertaServiceClient())
+                if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipo))
                 {
-                    listEstrategia = osc.GetEstrategiasPedido(entidad).ToList();
+                    string pathRevistaDigital = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerRevistaDigital,
+                        userData.CodigoISO,
+                        Constantes.ConfiguracionPais.RevistaDigital,
+                        campaniaId,
+                        userData.CodigoConsultora,
+                        userData.CodigorRegion,
+                        userData.ZonaID);
+                    var taskApi = Task.Run(() => _ofertaBaseProvider.ObtenerOfertasDesdeApi(pathRevistaDigital));
+                    Task.WhenAll(taskApi);
+                    listEstrategia = taskApi.Result;
+                }
+                else
+                {
+                    using (OfertaServiceClient osc = new OfertaServiceClient())
+                    {
+                        listEstrategia = osc.GetEstrategiasPedido(entidad).ToList();
+                    }
                 }
 
                 if (campaniaId == userData.CampaniaID)
@@ -929,8 +948,7 @@ namespace Portal.Consultoras.Web.Providers
                     return ObtenerListaProductoShowRoom(usuarioModel, campaniaId, codigoConsultora, esDiasFacturacion, 1)
                         .FirstOrDefault(x => x.CUV2 == cuv);
                 case Constantes.NombrePalanca.OfertaDelDia:
-                    return sessionManager.OfertaDelDia.Estrategia.ListaOferta
-                        .FirstOrDefault(x => x.CUV2 == cuv);
+                    return ObtenerListaProductoODD().FirstOrDefault(x => x.CUV2 == cuv);
                 case Constantes.NombrePalanca.PackNuevas:
                     var varSession = Constantes.ConstSession.ListaEstrategia + Constantes.TipoEstrategiaCodigo.PackNuevas;
                     var listaEstrategia = sessionManager.GetBEEstrategia(varSession);
@@ -944,6 +962,28 @@ namespace Portal.Consultoras.Web.Providers
                 default:
                     return null;
             }
+        }
+
+
+        public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoODD()
+        {
+            if (sessionManager.OfertaDelDia.Estrategia != null)
+            {
+                if (sessionManager.OfertaDelDia.Estrategia.ListaOferta != null)
+                {
+
+                    var ListaOfertaSession = sessionManager.OfertaDelDia.Estrategia.ListaOferta;
+
+                    RevisarCamposParaMostrar(ListaOfertaSession);                   
+
+                    return ListaOfertaSession;
+                }
+                else
+                    return new List<EstrategiaPersonalizadaProductoModel>();
+            }
+            else
+                return new List<EstrategiaPersonalizadaProductoModel>();
+
         }
 
         public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoShowRoom(UsuarioModel userData, int campaniaId, string codigoConsultora, bool esFacturacion = false, int tipoOferta = 1)
