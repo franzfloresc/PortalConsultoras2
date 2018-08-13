@@ -105,6 +105,8 @@ $(document).ready(function () {
 
                             var lista = r;
 
+                            console.log(lista);
+
                             if (lista.length <= 0) {
                                 me.Funciones.CampoDeBusquedaSinCaracteres($('#CampoBuscadorProductos'));
                                 $('#ResultadoBuscador').fadeOut(150);

@@ -28,11 +28,53 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var ListaProductosModel = new List<BuscadorYFiltrosModel>();
             try
             {
+                var resultBuscador = new List<BuscadorYFiltrosModel>();
                 var buscadorModel = new BuscadorModel();
                 buscadorModel.TextoBusqueda = busqueda;
                 buscadorModel.CantidadProductos = totalResultados;
 
-                ListaProductosModel = await BuscadorYFiltrosProvider.GetBuscador(userData, buscadorModel);
+                resultBuscador = await BuscadorYFiltrosProvider.GetBuscador(userData, buscadorModel);
+
+                if (resultBuscador.Any())
+                {
+                    var pedidos = sessionManager.GetDetallesPedido();
+
+                    foreach (var item in resultBuscador)
+                    {
+                        var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV).ToList();
+                        var labelAgregado = "";
+                        var cantidadAgregada = 0;
+
+                        if (pedidoAgregado.Any())
+                        {
+                            labelAgregado = "Agregado";
+                            cantidadAgregada = pedidoAgregado[0].Cantidad;
+                        }
+
+                        ListaProductosModel.Add(new BuscadorYFiltrosModel()
+                        {
+                            CUV = item.CUV.Trim(),
+                            SAP = item.SAP.Trim(),
+                            Imagen = item.Imagen,
+                            Descripcion = item.Descripcion,
+                            Valorizado = item.Valorizado,
+                            Precio = item.Precio,
+                            CodigoEstrategia = item.CodigoEstrategia,
+                            CodigoTipoEstrategia = item.CodigoTipoEstrategia,
+                            TipoEstrategiaId = 1,//item.TipoEstrategiaId,
+                            LimiteVenta = item.LimiteVenta,
+                            PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo),
+                            ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo),
+                            DescripcionEstrategia = "En duro",//item.descripcionEstrategia,
+                            MarcaId = item.MarcaId,
+                            CampaniaID = userData.CampaniaID,
+                            Agregado = labelAgregado,
+                            CantidadesAgregadas = cantidadAgregada
+                        });
+                    }
+
+                }
+
             }
             catch (Exception ex)
             {

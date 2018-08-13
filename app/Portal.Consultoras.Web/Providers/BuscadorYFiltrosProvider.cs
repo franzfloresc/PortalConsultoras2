@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Providers
                             buscadorModel.RD,
                             buscadorModel.RDI,
                             buscadorModel.RDR,
-                            userData.FechaInicioCampania
+                            buscadorModel.DiaFacturacion
                     );
 
                 //var taskApi = Task.Run(() => ObtenerBuscadorDesdeApi(pathBuscador));

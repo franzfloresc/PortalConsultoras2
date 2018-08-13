@@ -241,14 +241,13 @@
             <input type="hidden" class="hdBuscadorCUV" value="{{CUV}}" />
             <input type="hidden" class="hdBuscadorSAP" value="{{SAP}}" />
             <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
-            <input type="hidden" class="hdBuscadorCodigoPalanca" value="{{CodigoPalanca}}" />
+            <input type="hidden" class="hdBuscadorCodigoPalanca" value="{{TipoEstrategiaId}}" />
             <input type="hidden" class="hdBuscadorMarcaId" value="{{MarcaId}}" />
             <input type="hidden" class="hdBuscadorDescripcion" value="{{Descripcion}}" />
             <input type="hidden" class="hdBuscadorDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
             <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
             <input type="hidden" class="hdBuscadorValorizado" value="{{Valorizado}}" />
             <input type="hidden" class="hdBuscadorPosicion" value="{{posicion}}" />
-            <input type="hidden" class="hdBuscadorEstrategiaCodigo" value="{{EstrategiaCodigo}}" />
             <input type="hidden" class="hdBuscadorLimiteVenta" value="{{LimiteVenta}}" />
             <input type="hidden" class="hdBuscadorCantidadesAgregadas" value="{{CantidadesAgregadas}}" />
 
@@ -268,7 +267,7 @@
 
             {{#if_eq CodigoEstrategia '2003'}}
             <div class="resultado_busqueda_btn_elegir_opcion_wrapper displayInlineBlock text-center" data-OrigenPedidoWeb="@origenPedidoWeb">
-                <a class="btn_elegir_opcion displayBlock text-center text-uppercase" href="javascript:;" onclick="BuscadorFichaDetalle('{{CampaniaID}}', '{{CUV}}', '@origenPedidoWeb', '{{EstrategiaCodigo}}');">
+                <a class="btn_elegir_opcion displayBlock text-center text-uppercase" href="javascript:;" onclick="BuscadorFichaDetalle('{{CampaniaID}}', '{{CUV}}', '@origenPedidoWeb', '{{CodigoTipoEstrategia}}');">
                     <span class="icono_elige_tu_opcion displayInlineBlock">
                         <img src="@Url.Content("~/Content/Images/icono-elige-tu-opcion.svg")" alt="Elige tu opción" />
                     </span>
