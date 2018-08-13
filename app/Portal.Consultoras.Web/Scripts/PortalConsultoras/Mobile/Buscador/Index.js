@@ -36,13 +36,17 @@ $(document).ready(function () {
                         me.Funciones.CampoDeBusquedaMobileConCaracteres();
                         $('.spinner').fadeIn(150);
 
+
                         var service = $.ajax({
+                            type: "POST",
                             url: baseUrl + "Mobile/Buscador/BusquedaProductos",
-                            method: 'POST',
-                            data: {
-                                busqueda: $(this).val()
-                            }
+                            data: JSON.stringify({ busqueda: $(this).val() }),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            async: true,
+                            cache: false
                         });
+
 
 
                         var successBusqueda = function (r) {
