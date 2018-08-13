@@ -8,7 +8,7 @@
     {{/iff}}
     {{/each}}
 
-    {{#iff componente.length '>' 0}}
+    {{#iff this.resumenAplicados.length '>' 0}}
     {{#each this.resumenAplicados as |componente|}}
     <div data-tono="" data-tono-select="{{componente.Cuv}}" style="display: none;">
         <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.IdMarca}}" />
