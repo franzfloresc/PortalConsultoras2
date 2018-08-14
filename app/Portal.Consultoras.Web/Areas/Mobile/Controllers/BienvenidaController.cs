@@ -173,18 +173,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return urlChile;
         }
 
-        //private BEConfiguracionCampania ObtenerConfiguracionCampania()
-        //{
-        //    BEConfiguracionCampania configuracionCampania;
-
-        //    using (var sv = new PedidoServiceClient())
-        //    {
-        //        configuracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
-        //    }
-
-        //    return configuracionCampania ?? new BEConfiguracionCampania();
-        //}
-
         private string ObtenerFechaVencimiento()
         {
             return userData.FechaLimPago.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : userData.FechaLimPago.ToString("dd/MM/yyyy");

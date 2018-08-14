@@ -4409,9 +4409,8 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoServiceClient.InsertPedidoWebSet(userData.PaisID, userData.CampaniaID, userData.PedidoID, cantidad, cuv
                     , userData.ConsultoraID, "", formatoPedidoWebSet, estrategiaId, userData.NombreConsultora, userData.CodigoPrograma, userData.ConsecutivoNueva);
             }
-
-            //sessionManager.SetDetallesPedidoSetAgrupado(null);
-            ObtenerPedidoWebSetDetalleAgrupado(true);// para actualizar session de agrupado
+            
+            ObtenerPedidoWebSetDetalleAgrupado(true);
         }
 
         #endregion

@@ -10,18 +10,10 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class BaseProvider
     {
-        //protected ISessionManager sessionManager;
-        //protected ILogManager logManager;
-        //protected UsuarioModel userData;
-        //protected RevistaDigitalModel revistaDigital;
         protected ConfiguracionManagerProvider _configuracionManager;
 
         public BaseProvider()
         {
-            //sessionManager = SessionManager.SessionManager.Instance;
-            //logManager = LogManager.LogManager.Instance;
-            //userData = sessionManager.GetUserData();
-            //revistaDigital = sessionManager.GetRevistaDigital();
             _configuracionManager = new ConfiguracionManagerProvider();
         }
         

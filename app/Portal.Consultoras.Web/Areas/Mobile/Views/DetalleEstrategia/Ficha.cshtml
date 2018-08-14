@@ -87,7 +87,7 @@
         {{#iff Precio '>' 0}}
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 precio_producto">
-                <p>Valorizado en <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
+                <p>Precio catálogo <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
             </div>
         </div>
         {{/iff}}
@@ -338,7 +338,7 @@ else
                     CarruselProducto: "#CarruselProducto"
                 });
                 carruselModule.Inicializar();
-            };
+            }
         });
     </script>
 }

@@ -1,19 +1,18 @@
-﻿using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.ReservaProl;
-using Portal.Consultoras.Entities.Pedido;
+﻿using Portal.Consultoras.BizLogic.Reserva;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data.ServiceCalculoPROL;
 using Portal.Consultoras.Data.ServicePROL;
 using Portal.Consultoras.Data.ServicePROLConsultas;
-using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.PublicService.Cryptography;
-using Portal.Consultoras.BizLogic.Reserva;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Text;
 
 namespace Portal.Consultoras.BizLogic.Pedido
 {
@@ -412,7 +411,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 if (pedidoDetalle.SetID > 0)
                 {
-                    var pedidoExiste = lstDetalle.Where(x => x.CUV == pedidoDetalle.Producto.CUV).FirstOrDefault();
+                    var pedidoExiste = lstDetalle.FirstOrDefault(x => x.CUV == pedidoDetalle.Producto.CUV);
                     pedidoDetalle.PedidoDetalleID = pedidoExiste == null ? (short)0 : pedidoExiste.PedidoDetalleID;
 
                     var detallePedido = _pedidoWebDetalleBusinessLogic.GetPedidoWebSetDetalle(pedidoDetalle.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
@@ -856,7 +855,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (codeResult != Constantes.PedidoValidacion.Code.SUCCESS) return PedidoDetalleRespuesta(codeResult);
 
                 //Actualizar Prol
-                var existe = lstDetalle.Where(x => x.ClienteID == pedidoDetalle.ClienteID && x.CUV == pedidoDetalle.Producto.CUV).FirstOrDefault();
+                var existe = lstDetalle.FirstOrDefault(x => x.ClienteID == pedidoDetalle.ClienteID && x.CUV == pedidoDetalle.Producto.CUV);
                 if (existe != null)
                 {
                     existe.Cantidad += pedidoDetalle.Cantidad;
@@ -1101,7 +1100,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             mensaje = ValidarMontoMaximo(usuario, pedidoDetalle, lstDetalle, out resultado);
 
             if (mensaje == string.Empty || resultado) {
-                var item = lstDetalle.Where(x => x.CUV == pedidoDetalle.Producto.CUV && x.ClienteID == pedidoDetalle.ClienteID).FirstOrDefault();
+                var item = lstDetalle.FirstOrDefault(x => x.CUV == pedidoDetalle.Producto.CUV && x.ClienteID == pedidoDetalle.ClienteID);
                 var cantidadPedido = (item != null && (pedidoDetalle.PedidoDetalleID > 0 || pedidoDetalle.SetID > 0)) ? item.Cantidad : 0;
                 var pedidoAuxiliar = new BEPedidoDetalle() {
                     Cantidad = pedidoDetalle.Cantidad - cantidadPedido,
@@ -1174,7 +1173,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             bool result;
             if(!esKitNuevaAuto)
             {
-                result = InsertarValidarKitInicio(usuario, pedidoDetalle, lstDetalle);
+                result = InsertarValidarKitInicio(usuario, pedidoDetalle);
                 if (!result) return Constantes.PedidoValidacion.Code.ERROR_KIT_INICIO;
             }
 
@@ -1213,7 +1212,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return Constantes.PedidoValidacion.Code.SUCCESS;
         }
 
-        private bool InsertarValidarKitInicio(BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle)
+        private bool InsertarValidarKitInicio(BEUsuario usuario, BEPedidoDetalle pedidoDetalle)
         {
             var configProgNuevas = _configuracionProgramaNuevasBusinessLogic.Get(usuario);
             if (configProgNuevas.IndProgObli != "1") return true;
@@ -1378,17 +1377,17 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return detallesPedidoWeb;
         }
 
-        private BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(BEUsuario usuario, string codigoPrograma)
-        {
-            var obeConsultorasProgramaNuevas = new BEConsultorasProgramaNuevas
-            {
-                CodigoConsultora = usuario.CodigoConsultora,
-                Campania = usuario.CampaniaID.ToString(),
-                CodigoPrograma = codigoPrograma
-            };
+        //private BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(BEUsuario usuario, string codigoPrograma)
+        //{
+        //    var obeConsultorasProgramaNuevas = new BEConsultorasProgramaNuevas
+        //    {
+        //        CodigoConsultora = usuario.CodigoConsultora,
+        //        Campania = usuario.CampaniaID.ToString(),
+        //        CodigoPrograma = codigoPrograma
+        //    };
 
-            return _consultorasProgramaNuevasBusinessLogic.GetConsultorasProgramaNuevas(usuario.PaisID, obeConsultorasProgramaNuevas);
-        }
+        //    return _consultorasProgramaNuevasBusinessLogic.GetConsultorasProgramaNuevas(usuario.PaisID, obeConsultorasProgramaNuevas);
+        //}
 
         #endregion
 

@@ -67,9 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
                 DropDownListCampania = ObtenerCampanias(),
                 DropDownListCampaniaMasiva = CargarCampaniaMasiva()
             };
-
-            //var jsonString = JsonConvert.SerializeObject(model);
-
+            
             return Json(model, JsonRequestBehavior.AllowGet);
 
         }
@@ -263,7 +261,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 int cant = 0;
                 List<BEProductoDescripcion> productos2;
-                //JsonResult result = new JsonResult();
 
                 foreach (var producto in productos)
                 {
@@ -331,7 +328,6 @@ namespace Portal.Consultoras.Web.Controllers
             int campaniaId = Convert.ToInt32(model.CampaniaID);
             try
             {
-                //List<MatrizCampaniaModel> listaErrores = Session["errores"] as List<MatrizCampaniaModel> ?? new List<MatrizCampaniaModel>();
                 if (uplArchivo == null)
                 {
                     return "El archivo especificado no existe.";
@@ -460,7 +456,6 @@ namespace Portal.Consultoras.Web.Controllers
                 await Task.Run(() =>
                 {
                     string contenido = "";
-                    //StringBuilder sb = new StringBuilder();
                     string contenidoFila = "";
                     int nRegistros = 0;
                     List<string> hojas = new List<string>();
@@ -596,7 +591,6 @@ namespace Portal.Consultoras.Web.Controllers
                                         }
 
                                         hojas.Add(contenido);
-                                        //sb.AppendLine(contenido);
                                     }
                                     ch++;
                                 }
@@ -638,11 +632,6 @@ namespace Portal.Consultoras.Web.Controllers
             var cantFilas = registros.Length;
             for (int j = 0; j < cantFilas; j++)
             {
-
-                //if (registros[j].Split('¦').Length<=3)
-                //{
-                //    continue;
-                //}
 
                 if (registros[j].Split('¦').Length > 0)
                 {
@@ -789,24 +778,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
         }
-
-
-        //public string grabarBloque()
-        //{
-        //    string rpta = "";
-        //    //long n = Request.InputStream.Length;
-        //    long n = long.Parse(Request.InputStream.ToString().Split('~')[0]);
-        //    int pais= int.Parse(Request.InputStream.ToString().Split('~')[1]);
-        //    if (n > 0)
-        //    {
-        //        byte[] buffer = new byte[n];
-        //        Request.InputStream.Read(buffer, 0, buffer.Length);
-        //        string data = Encoding.UTF8.GetString(buffer);
-        //        rpta=InsertarProductoMasivo(pais, data);
-        //    }
-        //    return rpta;
-        //}
-
 
 
     }

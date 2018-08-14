@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Web.Providers
                     || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.HerramientasVenta).ToList();
                 }
 
-                var isMobile = esMobile; // IsMobile();
+                var isMobile = esMobile;
                 foreach (var beConfiguracionOfertasHome in listaEntidad)
                 {
                     var entConf = beConfiguracionOfertasHome;
@@ -200,7 +200,6 @@ namespace Portal.Consultoras.Web.Providers
                             break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.ShowRoom:
                             seccion.TemplatePresentacion = isMobile ? "seccion-showroom" : "seccion-simple-centrado";
-                            //seccion.TemplateProducto = "#template-showroom";
                             seccion.TemplateProducto = isMobile ? "" : "#producto-landing-template";
                             break;
                         case Constantes.ConfiguracionSeccion.TipoPresentacion.OfertaDelDia:
@@ -306,7 +305,6 @@ namespace Portal.Consultoras.Web.Providers
                 }
 
                 var listaShowRoom = sessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPersonalizadaProductoModel>();
-                //seccion.CantidadProductos = listaShowRoom.Count(x => !x.EsSubCampania);
                 seccion.CantidadProductos = listaShowRoom.Count;
                 seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }

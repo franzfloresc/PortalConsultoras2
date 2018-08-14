@@ -141,9 +141,6 @@ namespace Portal.Consultoras.Web.Providers
 
             try
             {
-
-                //object data = null;
-
                 //Data actual viene del Model       => model
                 //Data anterior viene del userData  => userData 
 
