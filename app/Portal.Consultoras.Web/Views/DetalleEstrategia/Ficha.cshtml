@@ -116,11 +116,11 @@
                         </div>
                         <div class="contenedor_derecho">
                             {{#iff Precio '>' 0}}
-                            <div class="precio_valorizado">Valorizado en <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
+                            <div class="precio_valorizado">Precio catálogo <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
                             {{/iff}}
 
                             <ul class="precio_venta_oferta_list">
-                                <li>Precio catálogo</li>
+                                <li>Precio para ti</li>
                                 <li>
                                     <span data-precio_venta_oferta="">
                                         {{#IsNullOrEmpty this.ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
