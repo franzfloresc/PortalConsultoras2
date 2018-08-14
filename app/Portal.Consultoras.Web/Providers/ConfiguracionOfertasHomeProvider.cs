@@ -72,14 +72,14 @@ namespace Portal.Consultoras.Web.Providers
                         || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
                         || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
                     {
-                        if (!RDObtenerTitulosSeccion(ref titulo, ref subTitulo, entConf.ConfiguracionPais.Codigo, userData.Sobrenombre))
-                            continue;
+                        //if (!RDObtenerTitulosSeccion(ref titulo, ref subTitulo, entConf.ConfiguracionPais.Codigo, userData.Sobrenombre))
+                        //    continue;
 
-                        entConf.DesktopTitulo = titulo;
-                        entConf.DesktopSubTitulo = subTitulo;
+                        //entConf.DesktopTitulo = titulo;
+                        //entConf.DesktopSubTitulo = subTitulo;
 
-                        entConf.MobileTitulo = titulo;
-                        entConf.MobileSubTitulo = subTitulo;
+                        //entConf.MobileTitulo = titulo;
+                        //entConf.MobileSubTitulo = subTitulo;
 
                         if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
                         {
