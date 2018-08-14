@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Web
                     using (HttpClient httpClient = new HttpClient())
                     {
 
-                        httpClient.BaseAddress = new Uri("http://localhost:6777/");
+                        httpClient.BaseAddress = new Uri(urlApi);
                         httpClient.DefaultRequestHeaders.Accept.Clear();
                         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                         var dataString = JsonConvert.SerializeObject(new { Nombre = usuario, Password = password });
@@ -130,7 +130,7 @@ namespace Portal.Consultoras.Web
                         using (HttpClient httpClient = new HttpClient())
                         {
 
-                            httpClient.BaseAddress = new Uri("http://localhost:6777/");
+                            httpClient.BaseAddress = new Uri(urlApi);
                             httpClient.DefaultRequestHeaders.Accept.Clear();
                             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                             var dataString = JsonConvert.SerializeObject(new { Nombre = usuario, Password = password });
