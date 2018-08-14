@@ -299,10 +299,10 @@ function OfertaArmarEstrategias(response, busquedaModel) {
     if (response.Mobile) {
         $.each(modelHtml.lista, function (ind, temh) {
             temh.TipoAccionAgregarBack = Clone(temh.TipoAccionAgregar);
-            temh.TipoAccionAgregar = 0;
+            //temh.TipoAccionAgregar = 0;
         });
     }
-    
+
     var htmlDiv = SetHandlebars("#producto-landing-template", modelHtml);
     divProd.find('#divOfertaProductos').append(htmlDiv);
     if (response.cantidadTotal == 0) {
