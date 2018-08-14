@@ -6,7 +6,7 @@ DELETE FROM TablaLogica where TablaLogicaid = 7
 GO
 INSERT INTO TablaLogica values (7, 'Activar Programa Nuevas')
 INSERT INTO TablaLogicaDatos values (700, 7, 'ProgramaNuevas', 'Activar programa de nuevas', '1'),
-									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '1') 
+									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '0') 
 GO
 
 USE BelcorpMexico
@@ -17,7 +17,7 @@ DELETE FROM TablaLogica where TablaLogicaid = 7
 GO
 INSERT INTO TablaLogica values (7, 'Activar Programa Nuevas')
 INSERT INTO TablaLogicaDatos values (700, 7, 'ProgramaNuevas', 'Activar programa de nuevas', '1'),
-									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '1') 
+									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '0') 
 GO
 
 USE BelcorpColombia
@@ -28,7 +28,7 @@ DELETE FROM TablaLogica where TablaLogicaid = 7
 GO
 INSERT INTO TablaLogica values (7, 'Activar Programa Nuevas')
 INSERT INTO TablaLogicaDatos values (700, 7, 'ProgramaNuevas', 'Activar programa de nuevas', '1'),
-									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '1') 
+									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '0') 
 GO
 
 USE BelcorpSalvador
@@ -39,7 +39,7 @@ DELETE FROM TablaLogica where TablaLogicaid = 7
 GO
 INSERT INTO TablaLogica values (7, 'Activar Programa Nuevas')
 INSERT INTO TablaLogicaDatos values (700, 7, 'ProgramaNuevas', 'Activar programa de nuevas', '1'),
-									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '1') 
+									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '0') 
 GO
 
 USE BelcorpPuertoRico
@@ -50,7 +50,7 @@ DELETE FROM TablaLogica where TablaLogicaid = 7
 GO
 INSERT INTO TablaLogica values (7, 'Activar Programa Nuevas')
 INSERT INTO TablaLogicaDatos values (700, 7, 'ProgramaNuevas', 'Activar programa de nuevas', '1'),
-									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '1') 
+									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '0') 
 GO
 
 USE BelcorpPanama
@@ -61,7 +61,7 @@ DELETE FROM TablaLogica where TablaLogicaid = 7
 GO
 INSERT INTO TablaLogica values (7, 'Activar Programa Nuevas')
 INSERT INTO TablaLogicaDatos values (700, 7, 'ProgramaNuevas', 'Activar programa de nuevas', '1'),
-									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '1') 
+									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '0') 
 GO
 
 USE BelcorpGuatemala
@@ -72,7 +72,7 @@ DELETE FROM TablaLogica where TablaLogicaid = 7
 GO
 INSERT INTO TablaLogica values (7, 'Activar Programa Nuevas')
 INSERT INTO TablaLogicaDatos values (700, 7, 'ProgramaNuevas', 'Activar programa de nuevas', '1'),
-									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '1') 
+									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '0') 
 GO
 
 USE BelcorpEcuador
@@ -83,7 +83,7 @@ DELETE FROM TablaLogica where TablaLogicaid = 7
 GO
 INSERT INTO TablaLogica values (7, 'Activar Programa Nuevas')
 INSERT INTO TablaLogicaDatos values (700, 7, 'ProgramaNuevas', 'Activar programa de nuevas', '1'),
-									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '1') 
+									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '0') 
 GO
 
 USE BelcorpDominicana
@@ -94,7 +94,7 @@ DELETE FROM TablaLogica where TablaLogicaid = 7
 GO
 INSERT INTO TablaLogica values (7, 'Activar Programa Nuevas')
 INSERT INTO TablaLogicaDatos values (700, 7, 'ProgramaNuevas', 'Activar programa de nuevas', '1'),
-									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '1') 
+									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '0') 
 GO
 
 USE BelcorpCostaRica
@@ -105,7 +105,7 @@ DELETE FROM TablaLogica where TablaLogicaid = 7
 GO
 INSERT INTO TablaLogica values (7, 'Activar Programa Nuevas')
 INSERT INTO TablaLogicaDatos values (700, 7, 'ProgramaNuevas', 'Activar programa de nuevas', '1'),
-									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '1') 
+									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '0') 
 GO
 
 USE BelcorpChile
@@ -116,7 +116,7 @@ DELETE FROM TablaLogica where TablaLogicaid = 7
 GO
 INSERT INTO TablaLogica values (7, 'Activar Programa Nuevas')
 INSERT INTO TablaLogicaDatos values (700, 7, 'ProgramaNuevas', 'Activar programa de nuevas', '1'),
-									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '1') 
+									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '0') 
 GO
 
 USE BelcorpBolivia
@@ -127,6 +127,6 @@ DELETE FROM TablaLogica where TablaLogicaid = 7
 GO
 INSERT INTO TablaLogica values (7, 'Activar Programa Nuevas')
 INSERT INTO TablaLogicaDatos values (700, 7, 'ProgramaNuevas', 'Activar programa de nuevas', '1'),
-									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '1') 
+									(701, 7, 'VentaExclusiva', 'Activar venta exclusiva', '0') 
 GO
 
